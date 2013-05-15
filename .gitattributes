@@ -1,0 +1,6 @@
+*.bat  			text ident
+*.java 			text ident
+*.properties	text ident
+*.sh   			text ident
+*.txt  			text ident
+*.xml  			text ident

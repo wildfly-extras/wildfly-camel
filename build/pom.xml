@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!-- JBoss, the OpenSource J2EE webOS                                       -->
+<!--                                                                        -->
+<!-- Distributable under LGPL license.                                      -->
+<!-- See terms of license at http://www.gnu.org.                            -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.wildfly.camel</groupId>
+        <artifactId>wildfly-camel-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <name>Wildfly Camel Build</name>
+
+    <artifactId>wildfly-camel-build</artifactId>
+    <packaging>pom</packaging>
+
+    <!-- Properties -->    
+    <properties>
+        <standalone.subsystems>logging,configadmin,provision,osgi:camel,camel,jmx,deployment-scanner</standalone.subsystems>
+        
+        <modular.config.name>camel</modular.config.name>
+        <modular.wildfly.prefix>wildfly</modular.wildfly.prefix>
+        <modular.wildfly.version>${version.jboss.wildfly}</modular.wildfly.version>
+        <modular.wildfly.build.src>${basedir}/../../wildfly/build/target/wildfly-${version.jboss.wildfly}</modular.wildfly.build.src>
+        <modular.resources.src>${basedir}/src/main/resources</modular.resources.src>
+        <generated.configs.src.dir>${basedir}/src/main/resources</generated.configs.src.dir>
+        <standalone.template>configuration/standalone/template.xml</standalone.template>
+        <console.enabled>true</console.enabled>
+        <domain.enabled>false</domain.enabled>
+    </properties>
+    
+    <!-- Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-build-modular</artifactId>
+        </dependency>
+    </dependencies>
+
+    <!-- Build -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.wildfly</groupId>
+                                    <artifactId>wildfly-build-modular</artifactId>
+                                    <outputDirectory>${project.build.directory}/scripts</outputDirectory>
+                                    <includes>build-modular-config.xml</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>modular-config</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <target>
+                                <ant antfile="target/scripts/build-modular-config.xml" inheritRefs="true">
+                                    <target name="all"/>
+                                </ant>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
