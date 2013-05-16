@@ -41,6 +41,11 @@
     <!-- Dependencies -->
     <dependencies>
         <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-subsystem</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-build-modular</artifactId>
         </dependency>
