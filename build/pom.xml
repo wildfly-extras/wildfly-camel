@@ -25,7 +25,7 @@
 
     <!-- Properties -->    
     <properties>
-        <standalone.subsystems>logging,configadmin,provision,osgi:camel,camel,jmx,deployment-scanner</standalone.subsystems>
+        <standalone.subsystems>logging,provision,camel,jmx,deployment-scanner</standalone.subsystems>
         
         <modular.config.name>camel</modular.config.name>
         <modular.resources.src>${basedir}/src/main/resources</modular.resources.src>
@@ -33,7 +33,7 @@
         <modular.wildfly.modules.src>${basedir}/target/modules-src</modular.wildfly.modules.src>
         <modular.wildfly.prefix>wildfly</modular.wildfly.prefix>
         <modular.wildfly.version>${version.jboss.wildfly}</modular.wildfly.version>
-        <modular.wildfly.target>${basedir}/target/${modular.wildfly.prefix}-${modular.config.name}-${modular.wildfly.version}</modular.wildfly.target>
+        <modular.wildfly.target>${basedir}/target/${modular.wildfly.prefix}-${modular.config.name}-${project.version}</modular.wildfly.target>
         <wildfly.server.target>${modular.wildfly.target}</wildfly.server.target>
         <generated.configs.src.dir>${basedir}/src/main/resources</generated.configs.src.dir>
         <standalone.template>configuration/standalone/template.xml</standalone.template>

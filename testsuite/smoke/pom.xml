@@ -55,7 +55,7 @@
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <systemPropertyVariables>
                         <arquillian.launch>camel</arquillian.launch>
-                        <jboss.home>${basedir}/../../build/target/wildfly-camel-${version.jboss.wildfly}</jboss.home>
+                        <wildfly.camel.home>${basedir}/../../build/target/wildfly-camel-${project.version}</wildfly.camel.home>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

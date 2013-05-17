@@ -4,7 +4,7 @@
     
     <container qualifier="camel" default="true">
         <configuration>
-            <property name="jbossHome">${jboss.home}</property>
+            <property name="jbossHome">${wildfly.camel.home}</property>
             <property name="allowConnectingToRunningServer">true</property>
         </configuration>
     </container>
