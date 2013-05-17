@@ -36,6 +36,8 @@
     <!-- Properties -->
     <properties>
         <version.apache.camel>2.11.0</version.apache.camel>
+        <version.apache.spring>3.1.4.RELEASE</version.apache.spring>
+        <version.codehaus.izpack>4.3.1</version.codehaus.izpack>
         <version.jboss.wildfly>8.0.0.Alpha1-SNAPSHOT</version.jboss.wildfly>
         <version.jboss.arquillian.core>1.0.0.Final</version.jboss.arquillian.core>
         <version.jboss.logging>3.1.3.GA</version.jboss.logging>
@@ -43,6 +45,8 @@
         <version.jboss.logmanager>1.4.1.Final</version.jboss.logmanager>
         <version.junit>4.10</version.junit>
         <version.osgi>5.0.0</version.osgi>
+        
+        <wildfly.home>${basedir}/../../wildfly/build/target/wildfly-${version.jboss.wildfly}</wildfly.home>
     </properties>
 
     <!-- DependencyManagement -->
@@ -71,16 +75,13 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-spring</artifactId>
                 <version>${version.apache.camel}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-aop</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-tx</artifactId>
-                    </exclusion>
-                </exclusions>
+            </dependency>
+            
+            <!-- Spring -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${version.apache.spring}</version>
             </dependency>
             
             <!-- WildFly -->
@@ -137,11 +138,6 @@
             <dependency>
                 <groupId>org.osgi</groupId>
                 <artifactId>org.osgi.core</artifactId>
-                <version>${version.osgi}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.enterprise</artifactId>
                 <version>${version.osgi}</version>
             </dependency>
 

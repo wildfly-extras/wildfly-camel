@@ -47,6 +47,10 @@ import org.jboss.msc.service.ServiceController;
  */
 final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
 
+    public static final int POST_MODULE_CAMEL_CONTEXT_CREATE          = 0x2F00;
+    public static final int INSTALL_CAMEL_CONTEXT_REGISTRATION        = 0x2020;
+    public static final int INSTALL_CAMEL_CONTEXT_ACTIVATION          = 0x2025;
+
     private final SubsystemState subsystemState;
 
     public CamelSubsystemAdd(SubsystemState subsystemState) {
@@ -67,9 +71,9 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
         // Register deployment unit processors
         context.addStep(new AbstractDeploymentChainStep() {
             public void execute(DeploymentProcessorTarget processorTarget) {
-                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, Phase.POST_MODULE_CAMEL_CONTEXT_CREATE, new CamelContextCreateProcessor());
-                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, Phase.INSTALL_CAMEL_CONTEXT_REGISTRATION, new CamelContextRegistrationProcessor());
-                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, Phase.INSTALL_CAMEL_CONTEXT_ACTIVATION, new CamelContextActivationProcessor());
+                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_CAMEL_CONTEXT_CREATE, new CamelContextCreateProcessor());
+                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CAMEL_CONTEXT_REGISTRATION, new CamelContextRegistrationProcessor());
+                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CAMEL_CONTEXT_ACTIVATION, new CamelContextActivationProcessor());
             }
         }, OperationContext.Stage.RUNTIME);
     }

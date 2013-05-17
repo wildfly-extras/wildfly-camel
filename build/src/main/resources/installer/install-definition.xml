@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<installation version="1.0">
+  <!-- 
+    Ant properties in this file can be referenced with @{},
+    otherwise use variables below in installer files with ${} 
+  -->
+  <info>
+    <appname>WildFly Camel</appname>
+    <appversion>@{product.version}</appversion>
+    <uninstaller name="remove.task" write="yes" />
+  </info>
+  <guiprefs width="500" height="250" resizable="yes">
+    <!--
+    <laf name="kunststoff">
+      <os family="unix" />
+    </laf>
+    -->
+  </guiprefs>
+  <locale>
+    <langpack iso3="eng" />
+  </locale>
+  
+  <!-- jars - ->
+  <jar src="@{deploy.artifacts.dir}/lib/ant.jar" stage="both" />
+  <jar src="@{deploy.artifacts.dir}/lib/ant-launcher.jar" stage="both" />
+  -->
+  
+  <!-- Listeners -->
+  <listeners>
+    <listener installer="AntActionInstallerListener" uninstaller="AntActionUninstallerListener" />
+  </listeners>
+
+  <!-- Resources -->
+  <resources>
+    <res id="TargetPanel.dir" src="@{filtered.resources.dir}/target-panel-dir.txt" />
+  </resources>
+
+  <!-- Panels -->
+  <panels>
+    <panel classname="HelloPanel" />
+    <panel classname="TargetPanel" />
+    <panel classname="SummaryPanel" />
+    <panel classname="InstallPanel" />
+    <panel classname="FinishPanel" />
+  </panels>
+
+  <!-- Packs -->
+  <packs>
+
+    <!--
+      ********************************
+      *                              *
+      * JBossOSGi Distribution       *
+      *                              *
+      ********************************
+    -->
+
+    <pack name="WildFly Camel Integration" required="yes">
+
+      <description>Camel Subsystem</description>
+
+      <!-- Copy filtered modules.xml -->
+      <fileset dir="@{deploy.artifacts.resources}/modules" targetdir="$INSTALL_PATH/modules" override="true"/>
+      
+      <!-- Copy camel jars -->
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/apache/camel/core/main" override="true">
+         <include name="camel-core-@{version.apache.camel}.jar" />
+      </fileset>
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/apache/camel/core/xml/main" override="true">
+         <include name="camel-core-xml-@{version.apache.camel}.jar" />
+      </fileset>
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/apache/camel/spring/main" override="true">
+         <include name="camel-spring-@{version.apache.camel}.jar" />
+      </fileset>
+      
+      <!-- Copy wildfly camel jars -->
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/jboss/as/camel/main" override="true">
+         <include name="wildfly-camel-subsystem-@{project.version}.jar" />
+      </fileset>
+      
+      <!-- Copy springsource jars -->
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/beans/main" override="true">
+         <include name="spring-beans-@{version.apache.spring}.jar" />
+      </fileset>
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/context/main" override="true">
+         <include name="spring-context-@{version.apache.spring}.jar" />
+         <include name="spring-aop-@{version.apache.spring}.jar" />
+      </fileset>
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/core/main" override="true">
+         <include name="spring-core-@{version.apache.spring}.jar" />
+         <include name="spring-asm-@{version.apache.spring}.jar" />
+      </fileset>
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/expression/main" override="true">
+         <include name="spring-expression-@{version.apache.spring}.jar" />
+      </fileset>
+      
+    </pack>
+
+  </packs>
+</installation>

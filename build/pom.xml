@@ -28,10 +28,13 @@
         <standalone.subsystems>logging,configadmin,provision,osgi:camel,camel,jmx,deployment-scanner</standalone.subsystems>
         
         <modular.config.name>camel</modular.config.name>
+        <modular.resources.src>${basedir}/src/main/resources</modular.resources.src>
+        <modular.wildfly.build.src>${wildfly.home}</modular.wildfly.build.src>
+        <modular.wildfly.modules.src>${basedir}/target/modules-src</modular.wildfly.modules.src>
         <modular.wildfly.prefix>wildfly</modular.wildfly.prefix>
         <modular.wildfly.version>${version.jboss.wildfly}</modular.wildfly.version>
-        <modular.wildfly.build.src>${basedir}/../../wildfly/build/target/wildfly-${version.jboss.wildfly}</modular.wildfly.build.src>
-        <modular.resources.src>${basedir}/src/main/resources</modular.resources.src>
+        <modular.wildfly.target>${basedir}/target/${modular.wildfly.prefix}-${modular.config.name}-${modular.wildfly.version}</modular.wildfly.target>
+        <wildfly.server.target>${modular.wildfly.target}</wildfly.server.target>
         <generated.configs.src.dir>${basedir}/src/main/resources</generated.configs.src.dir>
         <standalone.template>configuration/standalone/template.xml</standalone.template>
         <console.enabled>true</console.enabled>
@@ -41,13 +44,26 @@
     <!-- Dependencies -->
     <dependencies>
         <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-build-modular</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.izpack</groupId>
+            <artifactId>izpack-standalone-compiler</artifactId>
+            <version>${version.codehaus.izpack}</version>
+        </dependency>
+        
+        <!-- provided -->
+        <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-subsystem</artifactId>
             <version>${project.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.wildfly</groupId>
-            <artifactId>wildfly-build-modular</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -88,10 +104,67 @@
                         <phase>generate-resources</phase>
                         <configuration>
                             <target>
-                                <ant antfile="target/scripts/build-modular-config.xml" inheritRefs="true">
-                                    <target name="all"/>
-                                </ant>
+                                <echo>${modular.wildfly.build.src}/modules -> ${modular.wildfly.modules.src}</echo>
+                                <copy todir="${modular.wildfly.modules.src}" overwrite="true">
+                                    <fileset dir="${modular.wildfly.build.src}/modules"/>
+                                </copy>
+                                <copy todir="${modular.wildfly.modules.src}" overwrite="true">
+                                    <fileset dir="${modular.resources.src}/modules"/>
+                                </copy>
+                                <ant antfile="target/scripts/build-modular-config.xml" target="all"  inheritRefs="true"/>
                             </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>izpack</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <property name="maven.runtime.classpath" refid="maven.runtime.classpath" />
+                                <property name="product.name" value="${project.name}" />
+                                <property name="product.short.name" value="${artifactId}" />
+                                <property name="product.version" value="${project.version}" />
+                                <property name="user.home" value="${user.home}" />
+                                <ant antfile="scripts/antrun-installer.xml" target="build-installer"  inheritRefs="true"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>autoinstall</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <java jar="${basedir}/target/wildfly-camel-installer-${project.version}.jar" fork="true">
+                                    <arg value="${basedir}/target/resources/auto-install.xml"/>
+                                </java>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>directory-single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>deploy-artifacts</finalName>
+                            <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>scripts/assembly-deploy-artifacts.xml</descriptor>
+                            </descriptors>
                         </configuration>
                     </execution>
                 </executions>
