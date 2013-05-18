@@ -17,6 +17,7 @@
 package org.wildfly.camel.test.smoke;
 
 import java.io.InputStream;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -32,25 +33,27 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.smoke.subA.HelloBean;
 
 /**
- * Deploys a module/bundle with dependency on the Camel API;
+ * Deploys a module which contain a {@link HelloBean}.
  *
- * The tests then build a route that uses the Camel API.
- * This verifies basic access to the Camel API.
+ * The tests then build a route that uses the bean through the Camel API.
+ * This verifies access to beans within the same deployemnt that uses the Camel API.
  *
  * @author thomas.diesler@jboss.com
- * @since 21-Apr-2013
+ * @since 24-Apr-2013
  */
 @RunWith(Arquillian.class)
-public class SimpleTransformTestCase {
+public class BeanTransformTestCase {
 
     @ArquillianResource
     Deployer deployer;
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-transform-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "bean-transform-tests");
+        archive.addClasses(HelloBean.class);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -68,7 +71,7 @@ public class SimpleTransformTestCase {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").transform(body().prepend("Hello "));
+                from("direct:start").bean(HelloBean.class);
             }
         });
         camelctx.start();

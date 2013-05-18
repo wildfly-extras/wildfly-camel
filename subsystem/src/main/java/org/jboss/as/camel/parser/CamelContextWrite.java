@@ -24,7 +24,6 @@ package org.jboss.as.camel.parser;
 import org.jboss.as.controller.AbstractWriteAttributeHandler;
 import org.jboss.as.controller.OperationContext;
 import org.jboss.as.controller.OperationFailedException;
-import org.jboss.as.controller.descriptions.ModelDescriptionConstants;
 import org.jboss.dmr.ModelNode;
 
 /**
@@ -54,8 +53,8 @@ final class CamelContextWrite extends AbstractWriteAttributeHandler<Object> {
     }
 
     private boolean doUpdate(OperationContext context, ModelNode operation, ModelNode value) {
-        String propName = operation.get(ModelDescriptionConstants.OP_ADDR).asObject().get(ModelConstants.CONTEXT).asString();
-        String propValue = value.asString();
+        //String propName = operation.get(ModelDescriptionConstants.OP_ADDR).asObject().get(ModelConstants.CONTEXT).asString();
+        //String propValue = value.asString();
         return true;
     }
 }

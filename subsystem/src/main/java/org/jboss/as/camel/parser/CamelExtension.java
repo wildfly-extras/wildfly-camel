@@ -48,10 +48,7 @@ public final class CamelExtension implements Extension {
     @Override
     public void initialize(ExtensionContext context) {
 
-        boolean registerRuntimeOnly = context.isRuntimeOnlyRegistrationValid();
-
-        final SubsystemRegistration subsystem = context.registerSubsystem(SUBSYSTEM_NAME, MANAGEMENT_API_MAJOR_VERSION,
-                MANAGEMENT_API_MINOR_VERSION, MANAGEMENT_API_MICRO_VERSION);
+        final SubsystemRegistration subsystem = context.registerSubsystem(SUBSYSTEM_NAME, MANAGEMENT_API_MAJOR_VERSION, MANAGEMENT_API_MINOR_VERSION, MANAGEMENT_API_MICRO_VERSION);
         subsystem.registerSubsystemModel(new CamelRootResource());
 
         subsystem.registerXMLElementWriter(CamelSubsystemWriter.INSTANCE);

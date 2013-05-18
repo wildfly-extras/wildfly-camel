@@ -19,6 +19,8 @@ package org.wildfly.camel.test.smoke;
 import java.io.InputStream;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -30,36 +32,30 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.smoke.subA.HelloBean;
 
 /**
- * Deploys a module/bundle which contain a {@link HelloBean} referenced from a spring context definition.
+ * Deploys a module with dependency on the Camel API;
  *
- * The tests expect the {@link CamelContext} to be created/started during deployment.
- * The tests then perfom a {@link CamelContext} lookup and do a simple invokation.
+ * The tests then build a route that uses the Camel API.
+ * This verifies basic access to the Camel API.
  *
  * @author thomas.diesler@jboss.com
  * @since 21-Apr-2013
  */
 @RunWith(Arquillian.class)
-public class SpringBeanDeploymentTestCase extends AbstractCamelTestCase {
-
-    static final String SPRING_CONTEXT_XML = "bean-transform-context.xml";
-
-    static final String CAMEL_MODULE = "camel-module.jar";
+public class SimpleTransformTestCase {
 
     @ArquillianResource
     Deployer deployer;
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-deployment-tests");
-        archive.addClasses(AbstractCamelTestCase.class);
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-transform-tests");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = ManifestBuilder.newInstance();
-                builder.addManifestHeader("Dependencies", "org.apache.camel,org.jboss.msc,org.jboss.as.camel");
+                builder.addManifestHeader("Dependencies", "org.apache.camel");
                 return builder.openStream();
             }
         });
@@ -67,23 +63,17 @@ public class SpringBeanDeploymentTestCase extends AbstractCamelTestCase {
     }
 
     @Test
-    public void testBeanTransformFromModule() throws Exception {
-        deployer.deploy(CAMEL_MODULE);
-        try {
-            CamelContext camelctx = getCamelContextRegistry().getCamelContext("spring-context");
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            String result = producer.requestBody("direct:start", "Kermit", String.class);
-            Assert.assertEquals("Hello Kermit", result);
-        } finally {
-            deployer.undeploy(CAMEL_MODULE);
-        }
-    }
-
-    @Deployment(name = CAMEL_MODULE, managed = false, testable = false)
-    public static JavaArchive getModule() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CAMEL_MODULE);
-        archive.addClasses(HelloBean.class);
-        archive.addAsManifestResource("camel/simple/" + SPRING_CONTEXT_XML, SPRING_CONTEXT_XML);
-        return archive;
+    public void testSimpleTransformFromModule() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start").transform(body().prepend("Hello "));
+            }
+        });
+        camelctx.start();
+        ProducerTemplate producer = camelctx.createProducerTemplate();
+        String result = producer.requestBody("direct:start", "Kermit", String.class);
+        Assert.assertEquals("Hello Kermit", result);
     }
 }

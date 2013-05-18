@@ -25,15 +25,13 @@
 
     <!-- Properties -->    
     <properties>
-        <standalone.subsystems>logging,provision,camel,jmx,deployment-scanner</standalone.subsystems>
-        
         <modular.config.name>camel</modular.config.name>
         <modular.resources.src>${basedir}/src/main/resources</modular.resources.src>
         <modular.wildfly.build.src>${wildfly.home}</modular.wildfly.build.src>
-        <modular.wildfly.modules.src>${basedir}/target/modules-src</modular.wildfly.modules.src>
+        <modular.wildfly.modules.src>${project.build.directory}/modules-src</modular.wildfly.modules.src>
         <modular.wildfly.prefix>wildfly</modular.wildfly.prefix>
         <modular.wildfly.version>${version.jboss.wildfly}</modular.wildfly.version>
-        <modular.wildfly.target>${basedir}/target/${modular.wildfly.prefix}-${modular.config.name}-${project.version}</modular.wildfly.target>
+        <modular.wildfly.target>${project.build.directory}/${modular.wildfly.prefix}-${modular.config.name}-${project.version}</modular.wildfly.target>
         <wildfly.server.target>${modular.wildfly.target}</wildfly.server.target>
         <generated.configs.src.dir>${basedir}/src/main/resources</generated.configs.src.dir>
         <standalone.template>configuration/standalone/template.xml</standalone.template>
@@ -55,14 +53,18 @@
         
         <!-- provided -->
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-subsystem</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jms</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-subsystem</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -111,6 +113,7 @@
                                 <copy todir="${modular.wildfly.modules.src}" overwrite="true">
                                     <fileset dir="${modular.resources.src}/modules"/>
                                 </copy>
+                                <property name="standalone.subsystems" value="logging,deployment-scanner,camel,naming,messaging,jmx,remoting,security"/>
                                 <ant antfile="target/scripts/build-modular-config.xml" target="all"  inheritRefs="true"/>
                             </target>
                         </configuration>

@@ -17,14 +17,12 @@
 package org.wildfly.camel.test.smoke;
 
 import java.io.InputStream;
-import java.net.URL;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.as.arquillian.container.ManagementClient;
-import org.jboss.as.controller.client.helpers.standalone.ServerDeploymentHelper;
 import org.jboss.osgi.metadata.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -32,9 +30,11 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.AbstractCamelTest;
+import org.wildfly.camel.test.smoke.subA.HelloBean;
 
 /**
- * Deploys a spring context definition as single XML file.
+ * Deploys a module which contain a {@link HelloBean} referenced from a spring context definition.
  *
  * The tests expect the {@link CamelContext} to be created/started during deployment.
  * The tests then perfom a {@link CamelContext} lookup and do a simple invokation.
@@ -43,23 +43,24 @@ import org.junit.runner.RunWith;
  * @since 21-Apr-2013
  */
 @RunWith(Arquillian.class)
-public class SpringContextDeploymentTestCase extends AbstractCamelTestCase  {
+public class SpringBeanDeploymentTestCase extends AbstractCamelTest {
 
-    static final String SPRING_CONTEXT_XML = "simple-transform-context.xml";
+    static final String SPRING_CONTEXT_XML = "bean-transform-context.xml";
+
+    static final String CAMEL_MODULE = "camel-module.jar";
 
     @ArquillianResource
-    ManagementClient managementClient;
+    Deployer deployer;
 
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-deployment-tests");
-        archive.addClasses(AbstractCamelTestCase.class);
-        archive.addAsResource("camel/simple/" + SPRING_CONTEXT_XML, SPRING_CONTEXT_XML);
+        archive.addClasses(AbstractCamelTest.class);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = ManifestBuilder.newInstance();
-                builder.addManifestHeader("Dependencies", "org.apache.camel,org.jboss.msc,org.jboss.as.camel,org.jboss.as.controller-client");
+                builder.addManifestHeader("Dependencies", "org.apache.camel,org.jboss.msc,org.jboss.as.camel");
                 return builder.openStream();
             }
         });
@@ -67,17 +68,23 @@ public class SpringContextDeploymentTestCase extends AbstractCamelTestCase  {
     }
 
     @Test
-    public void testSimpleTransformFromModule() throws Exception {
-        URL resourceUrl = getClass().getResource("/" + SPRING_CONTEXT_XML);
-        ServerDeploymentHelper server = new ServerDeploymentHelper(managementClient.getControllerClient());
-        String runtimeName = server.deploy(SPRING_CONTEXT_XML, resourceUrl.openStream());
+    public void testBeanTransformFromModule() throws Exception {
+        deployer.deploy(CAMEL_MODULE);
         try {
             CamelContext camelctx = getCamelContextRegistry().getCamelContext("spring-context");
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            server.undeploy(runtimeName);
+            deployer.undeploy(CAMEL_MODULE);
         }
+    }
+
+    @Deployment(name = CAMEL_MODULE, managed = false, testable = false)
+    public static JavaArchive getModule() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CAMEL_MODULE);
+        archive.addClasses(HelloBean.class);
+        archive.addAsManifestResource("camel/simple/" + SPRING_CONTEXT_XML, SPRING_CONTEXT_XML);
+        return archive;
     }
 }

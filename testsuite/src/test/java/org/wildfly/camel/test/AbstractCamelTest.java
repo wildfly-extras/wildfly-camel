@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wildfly.camel.test.smoke;
+package org.wildfly.camel.test;
 
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.camel.CamelConstants;
@@ -28,13 +28,13 @@ import org.jboss.msc.service.ServiceController;
  * @author thomas.diesler@jboss.com
  * @since 16-May-2013
  */
-public abstract class AbstractCamelTestCase {
+public abstract class AbstractCamelTest {
 
     @ArquillianResource
     ServiceContainer serviceContainer;
 
     public CamelContextRegistry getCamelContextRegistry() throws Exception {
-        ServiceController<?> controller = serviceContainer.getService(CamelConstants.CAMEL_CONTEXT_REGISTRY_NAME);
+        ServiceController<?> controller = serviceContainer.getRequiredService(CamelConstants.CAMEL_CONTEXT_REGISTRY_NAME);
         return (CamelContextRegistry) controller.getValue();
     }
 }

@@ -63,6 +63,9 @@
       <fileset dir="@{deploy.artifacts.resources}/modules" targetdir="$INSTALL_PATH/modules" override="true"/>
       
       <!-- Copy camel jars -->
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/apache/camel/component/jms/main" override="true">
+         <include name="camel-jms-@{version.apache.camel}.jar" />
+      </fileset>
       <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/apache/camel/core/main" override="true">
          <include name="camel-core-@{version.apache.camel}.jar" />
       </fileset>
@@ -92,6 +95,12 @@
       </fileset>
       <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/expression/main" override="true">
          <include name="spring-expression-@{version.apache.spring}.jar" />
+      </fileset>
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/jms/main" override="true">
+         <include name="spring-jms-@{version.apache.spring}.jar" />
+      </fileset>
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/transaction/main" override="true">
+         <include name="spring-tx-@{version.apache.spring}.jar" />
       </fileset>
       
     </pack>

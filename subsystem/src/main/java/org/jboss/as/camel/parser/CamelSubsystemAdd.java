@@ -47,9 +47,9 @@ import org.jboss.msc.service.ServiceController;
  */
 final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
 
-    public static final int POST_MODULE_CAMEL_CONTEXT_CREATE          = 0x2F00;
-    public static final int INSTALL_CAMEL_CONTEXT_REGISTRATION        = 0x2020;
-    public static final int INSTALL_CAMEL_CONTEXT_ACTIVATION          = 0x2025;
+    public static final int POST_MODULE_CAMEL_CONTEXT_CREATE          = Phase.POST_MODULE_LOCAL_HOME + 0x07;
+    public static final int INSTALL_CAMEL_CONTEXT_REGISTRATION        = Phase.INSTALL_EJB_MANAGEMENT_RESOURCES + 0x07;
+    public static final int INSTALL_CAMEL_CONTEXT_ACTIVATION          = Phase.INSTALL_EJB_MANAGEMENT_RESOURCES + 0x08;
 
     private final SubsystemState subsystemState;
 

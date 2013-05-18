@@ -27,6 +27,7 @@ import org.jboss.logging.Messages;
 import org.jboss.logging.annotations.Cause;
 import org.jboss.logging.annotations.Message;
 import org.jboss.logging.annotations.MessageBundle;
+import org.jboss.modules.ModuleIdentifier;
 
 /**
  * Logging Id ranges: 20100-20199
@@ -61,5 +62,17 @@ public interface CamelMessages {
 
     @Message(id = 20105, value = "Camel context with that name already registered: %s")
     IllegalStateException camelContextAlreadyRegistered(String contextName);
+
+    @Message(id = 20106, value = "Cannot find component properties in: %s")
+    IllegalStateException cannotFindComponentProperties(ModuleIdentifier moduleId);
+
+    @Message(id = 20107, value = "Cannot load component properties from: %s")
+    IllegalStateException cannotLoadComponentProperties(@Cause Throwable th, ModuleIdentifier moduleId);
+
+    @Message(id = 20108, value = "Cannot load component type for name: %s")
+    IllegalStateException cannotLoadComponentType(@Cause Throwable th, String name);
+
+    @Message(id = 20109, value = "Type is not a Component implementation. Found: %s")
+    IllegalStateException componentTypeException(Class<?> type);
 }
 

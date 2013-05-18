@@ -32,20 +32,21 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.smoke.subA.HelloBean;
 
 /**
- * Deploys a module/bundle that contains a spring context definition.
+ * Deploys a module which contain a {@link HelloBean} referenced from a spring context definition.
  *
- * The tests then build a route through the {@link CamelContextFactory} API and perform a simple invokation.
- * This verifies spring context creation from a deployment.
+ * The tests then build a route through the {@link CamelContextFactory} API.
+ * This verifies access to beans within the same deployemnt.
  *
  * @author thomas.diesler@jboss.com
  * @since 21-Apr-2013
  */
 @RunWith(Arquillian.class)
-public class SpringContextTestCase {
+public class SpringBeanTransformTestCase {
 
-    static final String SPRING_CONTEXT_XML = "simple-transform-context.xml";
+    static final String SPRING_CONTEXT_XML = "bean-transform-context.xml";
     static final String SPRING_CONTEXT_RESOURCE = "/camel/simple/" + SPRING_CONTEXT_XML;
 
     @ArquillianResource
@@ -54,6 +55,7 @@ public class SpringContextTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-spring-tests");
+        archive.addClasses(HelloBean.class);
         archive.addAsResource("camel/simple/" + SPRING_CONTEXT_XML);
         archive.setManifest(new Asset() {
             @Override
@@ -75,5 +77,4 @@ public class SpringContextTestCase {
         String result = producer.requestBody("direct:start", "Kermit", String.class);
         Assert.assertEquals("Hello Kermit", result);
     }
-
 }

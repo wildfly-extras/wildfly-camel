@@ -43,6 +43,8 @@
         <version.jboss.logging>3.1.3.GA</version.jboss.logging>
         <version.jboss.logging.processor>1.1.0.Final</version.jboss.logging.processor>
         <version.jboss.logmanager>1.4.1.Final</version.jboss.logmanager>
+        <version.jboss.spec.javax.annotation>1.0.0.Alpha1</version.jboss.spec.javax.annotation>
+        <version.jboss.spec.javax.jms>1.0.0.Alpha1</version.jboss.spec.javax.jms>
         <version.junit>4.10</version.junit>
         <version.osgi>5.0.0</version.osgi>
         
@@ -73,6 +75,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-jms</artifactId>
+                <version>${version.apache.camel}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-spring</artifactId>
                 <version>${version.apache.camel}</version>
             </dependency>
@@ -81,6 +88,16 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
+                <version>${version.apache.spring}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jms</artifactId>
+                <version>${version.apache.spring}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
                 <version>${version.apache.spring}</version>
             </dependency>
             
@@ -116,6 +133,18 @@
                 <version>${version.jboss.wildfly}</version>
                 <type>pom</type>
             </dependency>
+            <dependency>
+                <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-testsuite-shared</artifactId>
+                <version>${version.jboss.wildfly}</version>
+            </dependency>
+            
+            <!-- WildFly Camel -->
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-subsystem</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             
             <!-- JBoss -->
             <dependency>
@@ -132,6 +161,16 @@
                 <groupId>org.jboss.logmanager</groupId>
                 <artifactId>jboss-logmanager</artifactId>
                 <version>${version.jboss.logmanager}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.spec.javax.annotation</groupId>
+                <artifactId>jboss-annotations-api_1.2_spec</artifactId>
+                <version>${version.jboss.spec.javax.annotation}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.spec.javax.jms</groupId>
+                <artifactId>jboss-jms-api_2.0_spec</artifactId>
+                <version>${version.jboss.spec.javax.jms}</version>
             </dependency>
 
             <!-- org.osgi -->
