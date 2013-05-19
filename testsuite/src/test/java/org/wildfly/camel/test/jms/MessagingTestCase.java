@@ -17,16 +17,24 @@
 package org.wildfly.camel.test.jms;
 
 import java.io.InputStream;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageConsumer;
+import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.naming.InitialContext;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -47,10 +55,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Deploys a module with dependency on the Camel API;
- *
- * The tests then build a route that uses the Camel API.
- * This verifies basic access to the Camel API.
+ * Test routes that use the jms component in routes.
  *
  * @author thomas.diesler@jboss.com
  * @since 18-May-2013
@@ -127,12 +132,65 @@ public class MessagingTestCase {
         camelctx.stop();
     }
 
+    @Test
+    public void testReceiveMessage() throws Exception {
+
+        // Create the CamelContext
+        CamelContext camelctx = CamelContextFactory.createDefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start").
+                transform(body().prepend("Hello ")).
+                to("jms:queue:" + QUEUE_NAME + "?connectionFactory=ConnectionFactory");
+            }
+        });
+        camelctx.start();
+
+        final StringBuffer result = new StringBuffer();
+        final CountDownLatch latch = new CountDownLatch(1);
+
+        // Get the message from the queue
+        ConnectionFactory cfactory = (ConnectionFactory) initialCtx.lookup("java:/ConnectionFactory");
+        Connection connection = cfactory.createConnection();
+        receiveMessage(connection, QUEUE_JNDI_NAME, new MessageListener() {
+            @Override
+            public void onMessage(Message message) {
+                TextMessage text = (TextMessage) message;
+                try {
+                    result.append(text.getText());
+                } catch (JMSException ex) {
+                    result.append(ex.getMessage());
+                }
+                latch.countDown();
+            }
+        });
+
+        ProducerTemplate producer = camelctx.createProducerTemplate();
+        producer.asyncSendBody("direct:start", "Kermit");
+
+        Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
+        Assert.assertEquals("Hello Kermit", result.toString());
+
+        connection.close();
+        camelctx.stop();
+    }
+
     private void sendMessage(Connection connection, String jndiName, String message) throws Exception {
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         Destination destination = (Destination) initialCtx.lookup(jndiName);
         MessageProducer producer = session.createProducer(destination);
         TextMessage msg = session.createTextMessage(message);
         producer.send(msg);
+        connection.start();
+    }
+
+    private void receiveMessage(Connection connection, String jndiName, MessageListener listener) throws Exception {
+        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Destination destination = (Destination) initialCtx.lookup(jndiName);
+        MessageConsumer consumer = session.createConsumer(destination);
+        consumer.setMessageListener(listener);
+        connection.start();
     }
 
     private String consumeRouteMessage(CamelContext camelctx) throws Exception {
