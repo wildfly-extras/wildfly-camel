@@ -24,6 +24,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.container.ManagementClient;
+import org.jboss.as.camel.CamelContextRegistry;
 import org.jboss.as.controller.client.helpers.standalone.ServerDeploymentHelper;
 import org.jboss.osgi.metadata.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -32,7 +33,6 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.AbstractCamelTest;
 
 /**
  * Deploys a spring context definition as single XML file.
@@ -44,17 +44,19 @@ import org.wildfly.camel.test.AbstractCamelTest;
  * @since 21-Apr-2013
  */
 @RunWith(Arquillian.class)
-public class SpringContextDeploymentTestCase extends AbstractCamelTest  {
+public class SpringContextDeploymentTestCase  {
 
     static final String SPRING_CONTEXT_XML = "simple-transform-context.xml";
 
     @ArquillianResource
     ManagementClient managementClient;
 
+    @ArquillianResource
+    CamelContextRegistry camelContextRegistry;
+
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-deployment-tests");
-        archive.addClasses(AbstractCamelTest.class);
         archive.addAsResource("camel/simple/" + SPRING_CONTEXT_XML, SPRING_CONTEXT_XML);
         archive.setManifest(new Asset() {
             @Override
@@ -73,7 +75,7 @@ public class SpringContextDeploymentTestCase extends AbstractCamelTest  {
         ServerDeploymentHelper server = new ServerDeploymentHelper(managementClient.getControllerClient());
         String runtimeName = server.deploy(SPRING_CONTEXT_XML, resourceUrl.openStream());
         try {
-            CamelContext camelctx = getCamelContextRegistry().getCamelContext("spring-context");
+            CamelContext camelctx = camelContextRegistry.getCamelContext("spring-context");
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);

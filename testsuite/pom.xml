@@ -9,6 +9,12 @@
 <!--                                                                        -->
 <!-- ====================================================================== -->
 
+<!-- 
+  Set these VM properties in your IDE debugger 
+
+  -Djava.util.logging.manager=org.jboss.logmanager.LogManager
+  -Dwildfly.camel.home=${workspace_loc:wildfly-camel-build}/target/wildfly-camel-1.0.0-SNAPSHOT
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -39,6 +45,8 @@
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-subsystem</artifactId>
         </dependency>
+        
+        <!-- Test Scope -->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
@@ -47,6 +55,11 @@
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-arquillian-container-managed</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-enricher</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

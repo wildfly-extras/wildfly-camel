@@ -32,7 +32,6 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.AbstractCamelTest;
 
 /**
  * Performs an invocation on a preconfigured system context.
@@ -42,15 +41,17 @@ import org.wildfly.camel.test.AbstractCamelTest;
  * @since 21-Apr-2013
  */
 @RunWith(Arquillian.class)
-public class SystemContextTestCase extends AbstractCamelTest {
+public class SystemContextTestCase {
 
     @ArquillianResource
     Deployer deployer;
 
+    @ArquillianResource
+    CamelContextRegistry camelContextRegistry;
+
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-system-tests");
-        archive.addClasses(AbstractCamelTest.class);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -64,8 +65,7 @@ public class SystemContextTestCase extends AbstractCamelTest {
 
     @Test
     public void testSystemTransformFromModule() throws Exception {
-        CamelContextRegistry registry = getCamelContextRegistry();
-        CamelContext camelctx = registry.getCamelContext("system-context-1");
+        CamelContext camelctx = camelContextRegistry.getCamelContext("system-context-1");
         camelctx.start();
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);
