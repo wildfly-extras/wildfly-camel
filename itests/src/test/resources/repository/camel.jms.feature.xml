@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="PersistentRepository">
+
+  <!-- 
+    camel.jms.feature 
+  -->
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="camel.jms.feature" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="module.identity">
+      <attribute name="module.identity" value="org.apache.camel.component.jms" />
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="org.apache.camel.component.jms" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="maven.identity">
+      <attribute name="maven.identity" value="org.apache.camel:camel-jms:jar:@version.apache.camel@" />
+    </requirement>
+  </resource>
+  
+</repository>

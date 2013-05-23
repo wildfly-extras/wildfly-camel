@@ -17,47 +17,48 @@
 package org.wildfly.camel.arquillian;
 
 import java.lang.annotation.Annotation;
+import org.jboss.arquillian.container.test.impl.enricher.resource.OperatesOnDeploymentAwareProvider;
 import org.jboss.arquillian.core.api.Instance;
 import org.jboss.arquillian.core.api.InstanceProducer;
 import org.jboss.arquillian.core.api.annotation.Inject;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.test.spi.annotation.SuiteScoped;
 import org.jboss.arquillian.test.spi.enricher.resource.ResourceProvider;
-import org.jboss.as.camel.CamelConstants;
-import org.jboss.as.camel.CamelContextRegistry;
+import org.jboss.as.provision.service.EnvironmentService;
 import org.jboss.as.server.CurrentServiceContainer;
 import org.jboss.msc.service.ServiceContainer;
 import org.jboss.msc.service.ServiceController;
+import org.jboss.osgi.resolver.XEnvironment;
 
 /**
  * {@link OperatesOnDeploymentAwareProvider} implementation to
- * provide {@link CamelContextRegistry} injection to {@link ArquillianResource}-
+ * provide {@link XEnvironment} injection to {@link ArquillianResource}-
  * annotated fields.
  *
  * @author Thomas.Diesler@jboss.com
  * @since 19-May-2013
  */
-public class CamelContextRegistryProvider implements ResourceProvider {
+public class EnvironmentProvider implements ResourceProvider {
 
     @Inject
     @SuiteScoped
-    private InstanceProducer<CamelContextRegistry> serviceProducer;
+    private InstanceProducer<XEnvironment> serviceProducer;
 
     @Inject
-    private Instance<CamelContextRegistry> serviceInstance;
+    private Instance<XEnvironment> serviceInstance;
 
     @Override
     public boolean canProvide(final Class<?> type) {
-        return type.isAssignableFrom(CamelContextRegistry.class);
+        return type.isAssignableFrom(XEnvironment.class);
     }
 
     @Override
     public Object lookup(ArquillianResource resource, Annotation... qualifiers) {
         if (serviceInstance.get() == null) {
             ServiceContainer serviceContainer = CurrentServiceContainer.getServiceContainer();
-            ServiceController<?> controller = serviceContainer.getService(CamelConstants.CAMEL_CONTEXT_REGISTRY_NAME);
+            ServiceController<?> controller = serviceContainer.getService(EnvironmentService.SERVICE_NAME);
             if (controller != null) {
-                serviceProducer.set((CamelContextRegistry) controller.getValue());
+                serviceProducer.set((XEnvironment) controller.getValue());
             }
         }
         return serviceInstance.get();

@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spring.SpringCamelContext;
 import org.apache.camel.spring.handler.CamelNamespaceHandler;
 import org.springframework.beans.factory.xml.NamespaceHandler;
@@ -54,8 +55,12 @@ public final class CamelContextFactory {
     private CamelContextFactory() {
     }
 
-    public static CamelContext createDefaultCamelContext() throws Exception {
-        return new WildflyCamelContext();
+    public static DefaultCamelContext createDefaultCamelContext() throws Exception {
+        return new WildflyCamelContext(null);
+    }
+
+    public static DefaultCamelContext createDefaultCamelContext(ClassLoader classsLoader) throws Exception {
+        return new WildflyCamelContext(classsLoader);
     }
 
     /**

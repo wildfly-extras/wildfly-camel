@@ -33,9 +33,15 @@ import org.apache.camel.spi.ComponentResolver;
  */
 public class WildflyCamelContext extends DefaultCamelContext {
 
+    private final ClassLoader classsLoader;
+
+    public WildflyCamelContext(ClassLoader classsLoader) {
+        this.classsLoader = classsLoader;
+    }
+
     @Override
     protected ComponentResolver createComponentResolver() {
-        return new WildflyComponentResolver();
+        return new WildflyComponentResolver(classsLoader);
     }
 
 }

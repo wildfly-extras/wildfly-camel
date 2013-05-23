@@ -49,10 +49,10 @@ public class WildflyComponentResolver implements ComponentResolver {
     private static String[] modulePrefixes = new String[] { "org.apache.camel.component", "org.jboss.as.camel.component" };
 
     private static ComponentResolver defaultResolver = new DefaultComponentResolver();
-    private static ModuleLoader moduleLoader;
-    static {
-        ModuleClassLoader classLoader = (ModuleClassLoader) WildflyComponentResolver.class.getClassLoader();
-        moduleLoader = classLoader.getModule().getModuleLoader();
+    private final ClassLoader classLoader;
+
+    public WildflyComponentResolver(ClassLoader classsLoader) {
+        this.classLoader = classsLoader;
     }
 
     @Override
@@ -62,6 +62,9 @@ public class WildflyComponentResolver implements ComponentResolver {
         Component component = defaultResolver.resolveComponent(name, context);
         if (component != null)
             return component;
+
+        ClassLoader compcl = classLoader != null ? classLoader : WildflyComponentResolver.class.getClassLoader();
+        ModuleLoader moduleLoader = ((ModuleClassLoader)compcl).getModule().getModuleLoader();
 
         Module module = null;
         for (String prefix : modulePrefixes) {

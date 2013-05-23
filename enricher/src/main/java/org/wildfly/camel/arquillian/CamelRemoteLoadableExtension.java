@@ -37,11 +37,15 @@ public class CamelRemoteLoadableExtension implements RemoteLoadableExtension, De
     private static Set<ModuleIdentifier> dependencies = new LinkedHashSet<ModuleIdentifier>();
     static {
         dependencies.add(ModuleIdentifier.create("org.jboss.as.camel"));
+        dependencies.add(ModuleIdentifier.create("org.jboss.as.provision"));
+        dependencies.add(ModuleIdentifier.create("org.jboss.osgi.provision"));
     }
 
     @Override
     public void register(ExtensionBuilder builder) {
         builder.service(ResourceProvider.class, CamelContextRegistryProvider.class);
+        builder.service(ResourceProvider.class, EnvironmentProvider.class);
+        builder.service(ResourceProvider.class, ResourceProvisionerProvider.class);
     }
 
     @Override

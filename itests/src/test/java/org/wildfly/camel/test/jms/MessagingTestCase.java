@@ -17,6 +17,7 @@
 package org.wildfly.camel.test.jms;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -39,20 +40,25 @@ import org.apache.camel.builder.RouteBuilder;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.as.camel.CamelContextFactory;
+import org.jboss.as.controller.client.ModelControllerClient;
 import org.jboss.as.test.integration.common.jms.JMSOperations;
 import org.jboss.as.test.integration.common.jms.JMSOperationsProvider;
 import org.jboss.osgi.metadata.ManifestBuilder;
+import org.jboss.osgi.provision.XResourceProvisioner;
+import org.jboss.osgi.resolver.XEnvironment;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.ProvisionerSupport;
 
 /**
  * Test routes that use the jms component in routes.
@@ -72,6 +78,17 @@ public class MessagingTestCase {
 
     @ArquillianResource
     InitialContext initialCtx;
+
+    @ArquillianResource
+    XResourceProvisioner provisioner;
+
+    @ArquillianResource
+    XEnvironment environment;
+
+    @ArquillianResource
+    ManagementClient managementClient;
+
+    static List<String> runtimeNames;
 
     static class JmsQueueSetup implements ServerSetupTask {
 
@@ -95,11 +112,15 @@ public class MessagingTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-jms-tests");
+        archive.addClasses(ProvisionerSupport.class);
+        archive.addAsResource("repository/camel.jms.feature.xml");
+        archive.addAsResource("repository/org.apache.camel.component.jms/jboss-deployment-structure.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = ManifestBuilder.newInstance();
-                builder.addManifestHeader("Dependencies", "org.apache.camel,org.jboss.as.camel,javax.jms.api");
+                builder.addManifestHeader("Dependencies",
+                        "org.apache.camel,org.jboss.as.camel,org.jboss.as.controller-client,org.jboss.osgi.provision,org.jboss.shrinkwrap.core,javax.jms.api");
                 return builder.openStream();
             }
         });
@@ -107,10 +128,26 @@ public class MessagingTestCase {
     }
 
     @Test
+    @InSequence(Integer.MIN_VALUE)
+    public void installCamelFeatures() throws Exception {
+        ModelControllerClient controllerClient = managementClient.getControllerClient();
+        ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner, controllerClient);
+        runtimeNames = provisionerSupport.installCapabilities(environment, "camel.jms.feature");
+    }
+
+    @Test
+    @InSequence(Integer.MAX_VALUE)
+    public void uninstallCamelFeatures() throws Exception {
+        ModelControllerClient controllerClient = managementClient.getControllerClient();
+        ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner, controllerClient);
+        provisionerSupport.uninstallCapabilities(runtimeNames);
+    }
+
+    @Test
     public void testSendMessage() throws Exception {
 
         // Create the CamelContext
-        CamelContext camelctx = CamelContextFactory.createDefaultCamelContext();
+        CamelContext camelctx = CamelContextFactory.createDefaultCamelContext(getClass().getClassLoader());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -136,7 +173,7 @@ public class MessagingTestCase {
     public void testReceiveMessage() throws Exception {
 
         // Create the CamelContext
-        CamelContext camelctx = CamelContextFactory.createDefaultCamelContext();
+        CamelContext camelctx = CamelContextFactory.createDefaultCamelContext(getClass().getClassLoader());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
