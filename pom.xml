@@ -48,8 +48,6 @@
         <version.jboss.spec.javax.jms>1.0.0.Alpha1</version.jboss.spec.javax.jms>
         <version.junit>4.10</version.junit>
         <version.osgi>5.0.0</version.osgi>
-        
-        <wildfly.home>${basedir}/../../wildfly/build/target/wildfly-${version.jboss.wildfly}</wildfly.home>
     </properties>
 
     <!-- DependencyManagement -->
