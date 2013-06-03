@@ -37,6 +37,7 @@
         <modular.wildfly.target>${project.build.directory}/${modular.wildfly.prefix}-${modular.config.name}-${project.version}</modular.wildfly.target>
         <wildfly.server.target>${modular.wildfly.target}</wildfly.server.target>
         <generated.configs.src.dir>${basedir}/src/main/resources</generated.configs.src.dir>
+        <generated.standalone.configuration>${project.build.directory}/deploy-artifacts/resources/standalone-camel.xml</generated.standalone.configuration>
         <standalone.template>configuration/standalone/template.xml</standalone.template>
         <console.enabled>true</console.enabled>
         <domain.enabled>false</domain.enabled>

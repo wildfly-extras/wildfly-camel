@@ -59,6 +59,11 @@
 
       <description>Camel Subsystem</description>
 
+      <!-- Copy standalone-camel.xml -->
+      <fileset dir="@{deploy.artifacts.resources}" targetdir="$INSTALL_PATH/standalone/configuration" override="true">
+         <include name="standalone-camel.xml" />
+      </fileset>
+      
       <!-- Copy filtered modules.xml -->
       <fileset dir="@{deploy.artifacts.resources}/modules" targetdir="$INSTALL_PATH/modules" override="true"/>
       

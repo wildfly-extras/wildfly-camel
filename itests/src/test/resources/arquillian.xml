@@ -5,6 +5,7 @@
     <container qualifier="camel" default="true">
         <configuration>
             <property name="jbossHome">${wildfly.camel.home}</property>
+            <property name="serverConfig">standalone-camel.xml</property>
             <property name="allowConnectingToRunningServer">true</property>
         </configuration>
     </container>
