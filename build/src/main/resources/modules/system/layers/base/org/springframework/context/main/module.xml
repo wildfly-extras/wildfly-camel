@@ -29,13 +29,13 @@
 
     <resources>
         <resource-root path="spring-context-@version.apache.spring@.jar"/>
-        <resource-root path="spring-aop-@version.apache.spring@.jar"/>
         <!-- Insert resources here -->
     </resources>
 
     <dependencies>
       <module name="javax.api" />
       <module name="org.apache.commons.logging" />
+      <module name="org.springframework.aop" />
       <module name="org.springframework.beans" />
       <module name="org.springframework.core" />
       <module name="org.springframework.expression" />

@@ -27,8 +27,8 @@ import static org.jboss.as.camel.CamelMessages.MESSAGES;
 
 import org.apache.camel.CamelContext;
 import org.jboss.as.camel.CamelConstants;
-import org.jboss.as.camel.CamelContextFactory;
 import org.jboss.as.camel.CamelContextRegistry;
+import org.jboss.as.camel.SpringCamelContextFactory;
 import org.jboss.as.camel.parser.SubsystemState;
 import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.msc.service.AbstractService;
@@ -86,7 +86,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
             try {
                 ClassLoader classLoader = CamelContextRegistry.class.getClassLoader();
                 String beansXML = getBeansXML(name, subsystemState.getContextDefinition(name));
-                camelContext = CamelContextFactory.createSpringCamelContext(beansXML.getBytes(), classLoader);
+                camelContext = SpringCamelContextFactory.createSpringCamelContext(beansXML.getBytes(), classLoader);
             } catch (Exception ex) {
                 throw MESSAGES.cannotCreateCamelContext(ex, name);
             }

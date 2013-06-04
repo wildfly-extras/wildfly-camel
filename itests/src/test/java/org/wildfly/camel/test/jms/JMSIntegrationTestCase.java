@@ -58,6 +58,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.osgi.framework.namespace.IdentityNamespace;
 import org.wildfly.camel.test.ProvisionerSupport;
 
 /**
@@ -67,8 +68,8 @@ import org.wildfly.camel.test.ProvisionerSupport;
  * @since 18-May-2013
  */
 @RunWith(Arquillian.class)
-@ServerSetup({ MessagingTestCase.JmsQueueSetup.class })
-public class MessagingTestCase {
+@ServerSetup({ JMSIntegrationTestCase.JmsQueueSetup.class })
+public class JMSIntegrationTestCase {
 
     static final String QUEUE_NAME = "camel-jms-queue";
     static final String QUEUE_JNDI_NAME = "java:/" + QUEUE_NAME;
@@ -114,7 +115,6 @@ public class MessagingTestCase {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-jms-tests");
         archive.addClasses(ProvisionerSupport.class);
         archive.addAsResource("repository/camel.jms.feature.xml");
-        archive.addAsResource("repository/org.apache.camel.component.jms/jboss-deployment-structure.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -132,7 +132,7 @@ public class MessagingTestCase {
     public void installCamelFeatures() throws Exception {
         ModelControllerClient controllerClient = managementClient.getControllerClient();
         ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner, controllerClient);
-        runtimeNames = provisionerSupport.installCapabilities(environment, "camel.jms.feature");
+        runtimeNames = provisionerSupport.installCapability(environment, IdentityNamespace.IDENTITY_NAMESPACE, "camel.jms.feature");
     }
 
     @Test
@@ -147,7 +147,7 @@ public class MessagingTestCase {
     public void testSendMessage() throws Exception {
 
         // Create the CamelContext
-        CamelContext camelctx = CamelContextFactory.createDefaultCamelContext(getClass().getClassLoader());
+        CamelContext camelctx = new CamelContextFactory().createDefaultCamelContext(getClass().getClassLoader());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -173,7 +173,7 @@ public class MessagingTestCase {
     public void testReceiveMessage() throws Exception {
 
         // Create the CamelContext
-        CamelContext camelctx = CamelContextFactory.createDefaultCamelContext(getClass().getClassLoader());
+        CamelContext camelctx = new CamelContextFactory().createDefaultCamelContext(getClass().getClassLoader());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

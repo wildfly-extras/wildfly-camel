@@ -36,6 +36,7 @@
     <!-- Properties -->
     <properties>
         <version.apache.camel>2.11.0</version.apache.camel>
+        <version.apache.camel.jms>2.11.1-SNAPSHOT</version.apache.camel.jms>
         <version.apache.spring>3.1.4.RELEASE</version.apache.spring>
         <version.codehaus.izpack>4.3.1</version.codehaus.izpack>
         <version.jboss.wildfly>8.0.0.Alpha2-SNAPSHOT</version.jboss.wildfly>
@@ -85,7 +86,7 @@
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-jms</artifactId>
-                <version>${version.apache.camel}</version>
+                <version>${version.apache.camel.jms}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -138,7 +139,7 @@
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-provision</artifactId>
+                <artifactId>wildfly-osgi-service</artifactId>
                 <version>${version.jboss.wildfly}</version>
             </dependency>
             <dependency>

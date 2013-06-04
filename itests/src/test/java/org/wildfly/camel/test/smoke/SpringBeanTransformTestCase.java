@@ -25,6 +25,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.camel.CamelContextFactory;
+import org.jboss.as.camel.SpringCamelContextFactory;
 import org.jboss.osgi.metadata.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -71,7 +72,7 @@ public class SpringBeanTransformTestCase {
     @Test
     public void testSpringContextFromURL() throws Exception {
         URL resourceUrl = getClass().getResource(SPRING_CONTEXT_RESOURCE);
-        CamelContext camelctx = CamelContextFactory.createSpringCamelContext(resourceUrl, null);
+        CamelContext camelctx = SpringCamelContextFactory.createSpringCamelContext(resourceUrl, null);
         camelctx.start();
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);

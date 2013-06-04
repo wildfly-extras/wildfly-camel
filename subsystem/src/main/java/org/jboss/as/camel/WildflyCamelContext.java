@@ -24,6 +24,7 @@ package org.jboss.as.camel;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spi.ComponentResolver;
+import org.apache.camel.spi.Registry;
 
 /**
  * The default Wildfly {@link CamelContext}.
@@ -44,4 +45,8 @@ public class WildflyCamelContext extends DefaultCamelContext {
         return new WildflyComponentResolver(classsLoader);
     }
 
+    @Override
+    protected Registry createRegistry() {
+        return super.createRegistry();
+    }
 }

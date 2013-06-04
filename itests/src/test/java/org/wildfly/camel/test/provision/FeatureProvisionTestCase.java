@@ -35,6 +35,7 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.osgi.framework.namespace.IdentityNamespace;
 import org.wildfly.camel.test.ProvisionerSupport;
 
 /**
@@ -60,7 +61,6 @@ public class FeatureProvisionTestCase {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "resource-provisioner-tests");
         archive.addClasses(ProvisionerSupport.class);
         archive.addAsResource("repository/camel.jms.feature.xml");
-        archive.addAsResource("repository/org.apache.camel.component.jms/jboss-deployment-structure.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -76,10 +76,10 @@ public class FeatureProvisionTestCase {
     public void testFeatureProvisioning() throws Exception {
         ModelControllerClient controllerClient = managementClient.getControllerClient();
         ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner, controllerClient);
-        List<String> rtnames = provisionerSupport.installCapabilities(environment, "camel.jms.feature");
+        List<String> rtnames = provisionerSupport.installCapability(environment, IdentityNamespace.IDENTITY_NAMESPACE, "camel.jms.feature");
         try {
             ModuleLoader moduleLoader = ((ModuleClassLoader)getClass().getClassLoader()).getModule().getModuleLoader();
-            moduleLoader.loadModule(ModuleIdentifier.create("org.apache.camel.component.jms"));
+            moduleLoader.loadModule(ModuleIdentifier.create("deployment.org.apache.camel.camel-jms"));
         } finally {
             provisionerSupport.uninstallCapabilities(rtnames);
         }

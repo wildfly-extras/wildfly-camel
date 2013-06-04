@@ -5,21 +5,21 @@
     camel.jms.feature 
   -->
   <resource>
-    <capability namespace="module.identity">
-      <attribute name="module.identity" value="camel.jms.feature" />
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="camel.jms.feature" />
       <attribute name="type" value="abstract" />
     </capability>
-    <requirement namespace="module.identity">
-      <attribute name="module.identity" value="org.apache.camel.component.jms" />
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.camel.camel-jms" />
     </requirement>
   </resource>
   <resource>
-    <capability namespace="module.identity">
-      <attribute name="module.identity" value="org.apache.camel.component.jms" />
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.camel.camel-jms" />
       <attribute name="type" value="abstract" />
     </capability>
     <requirement namespace="maven.identity">
-      <attribute name="maven.identity" value="org.apache.camel:camel-jms:jar:@version.apache.camel@" />
+      <attribute name="maven.identity" value="org.apache.camel:camel-jms:jar:@version.apache.camel.jms@" />
     </requirement>
   </resource>
   

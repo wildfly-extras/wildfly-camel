@@ -84,16 +84,20 @@
       </fileset>
       
       <!-- Copy springsource jars -->
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/aop/main" override="true">
+         <include name="spring-aop-@{version.apache.spring}.jar" />
+      </fileset>
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/asm/main" override="true">
+         <include name="spring-asm-@{version.apache.spring}.jar" />
+      </fileset>
       <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/beans/main" override="true">
          <include name="spring-beans-@{version.apache.spring}.jar" />
       </fileset>
       <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/context/main" override="true">
          <include name="spring-context-@{version.apache.spring}.jar" />
-         <include name="spring-aop-@{version.apache.spring}.jar" />
       </fileset>
       <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/core/main" override="true">
          <include name="spring-core-@{version.apache.spring}.jar" />
-         <include name="spring-asm-@{version.apache.spring}.jar" />
       </fileset>
       <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/expression/main" override="true">
          <include name="spring-expression-@{version.apache.spring}.jar" />

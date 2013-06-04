@@ -17,6 +17,7 @@
 package org.wildfly.camel.arquillian;
 
 import java.lang.annotation.Annotation;
+
 import org.jboss.arquillian.container.test.impl.enricher.resource.OperatesOnDeploymentAwareProvider;
 import org.jboss.arquillian.core.api.Instance;
 import org.jboss.arquillian.core.api.InstanceProducer;
@@ -24,7 +25,7 @@ import org.jboss.arquillian.core.api.annotation.Inject;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.test.spi.annotation.SuiteScoped;
 import org.jboss.arquillian.test.spi.enricher.resource.ResourceProvider;
-import org.jboss.as.provision.service.EnvironmentService;
+import org.jboss.as.osgi.OSGiConstants;
 import org.jboss.as.server.CurrentServiceContainer;
 import org.jboss.msc.service.ServiceContainer;
 import org.jboss.msc.service.ServiceController;
@@ -56,7 +57,7 @@ public class EnvironmentProvider implements ResourceProvider {
     public Object lookup(ArquillianResource resource, Annotation... qualifiers) {
         if (serviceInstance.get() == null) {
             ServiceContainer serviceContainer = CurrentServiceContainer.getServiceContainer();
-            ServiceController<?> controller = serviceContainer.getService(EnvironmentService.SERVICE_NAME);
+            ServiceController<?> controller = serviceContainer.getService(OSGiConstants.ENVIRONMENT_SERVICE_NAME);
             if (controller != null) {
                 serviceProducer.set((XEnvironment) controller.getValue());
             }

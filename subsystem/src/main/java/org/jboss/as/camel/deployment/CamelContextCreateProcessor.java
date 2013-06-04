@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.net.URL;
 import org.apache.camel.CamelContext;
 import org.jboss.as.camel.CamelConstants;
-import org.jboss.as.camel.CamelContextFactory;
+import org.jboss.as.camel.SpringCamelContextFactory;
 import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
@@ -74,7 +74,7 @@ public class CamelContextCreateProcessor implements DeploymentUnitProcessor {
         CamelContext camelContext;
         try {
             Module module = depUnit.getAttachment(Attachments.MODULE);
-            camelContext = CamelContextFactory.createSpringCamelContext(contextDefinitionURL, module.getClassLoader());
+            camelContext = SpringCamelContextFactory.createSpringCamelContext(contextDefinitionURL, module.getClassLoader());
         } catch (Exception ex) {
             throw MESSAGES.cannotCreateCamelContext(ex, runtimeName);
         }

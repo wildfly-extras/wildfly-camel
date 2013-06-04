@@ -68,12 +68,9 @@ public class ProvisionerSupport {
         this.provision = provision;
     }
 
-    public List<String> installCapabilities(XEnvironment env, String... features) throws Exception {
-        XRequirement[] reqs = new XRequirement[features.length];
-        for (int i = 0; i < features.length; i++) {
-            reqs[i] = XRequirementBuilder.create(XResource.MODULE_IDENTITY_NAMESPACE, features[i]).getRequirement();
-        }
-        return installCapabilities(env, reqs);
+    public List<String> installCapability(XEnvironment env, String namespace, String feature) throws Exception {
+        XRequirement req = XRequirementBuilder.create(namespace, feature).getRequirement();
+        return installCapabilities(env, req);
     }
 
     public List<String> installCapabilities(XEnvironment env, XRequirement... reqs) throws Exception {
@@ -85,13 +82,13 @@ public class ProvisionerSupport {
         List<String> runtimeNames = new ArrayList<String>();
         for (XResource res : result.getResources()) {
             String rtname;
-            String name = res.getIdentityCapability().getName();
-            URL deploymentStructure = getResource(name + "/jboss-deployment-structure.xml");
-            if (deploymentStructure != null) {
+            XIdentityCapability icap = res.getIdentityCapability();
+            if (icap.getNamespace().equals(XResource.MODULE_IDENTITY_NAMESPACE)) {
+                URL deploymentStructure = getResource(icap.getName() + "/jboss-deployment-structure.xml");
                 ConfigurationBuilder config = new ConfigurationBuilder().classLoaders(Collections.singleton(ShrinkWrap.class.getClassLoader()));
                 JavaArchive archive = ShrinkWrap.createDomain(config).getArchiveFactory().create(JavaArchive.class, "wrapped-resource.jar");
                 archive.as(ZipImporter.class).importFrom(((RepositoryContent) res).getContent());
-                JavaArchive wrapper = ShrinkWrap.createDomain(config).getArchiveFactory().create(JavaArchive.class, "wrapped:" + name);
+                JavaArchive wrapper = ShrinkWrap.createDomain(config).getArchiveFactory().create(JavaArchive.class, "wrapped:" + icap.getName());
                 wrapper.addAsManifestResource(new UrlAsset(deploymentStructure), "jboss-deployment-structure.xml");
                 wrapper.add(archive, "/", ZipExporter.class);
                 InputStream input = wrapper.as(ZipExporter.class).exportAsInputStream();

@@ -46,7 +46,7 @@ import org.jboss.modules.ModuleLoader;
 public class WildflyComponentResolver implements ComponentResolver {
 
     // [TODO] make this configurable
-    private static String[] modulePrefixes = new String[] { "org.apache.camel.component", "org.jboss.as.camel.component" };
+    private static String[] modulePrefixes = new String[] { "org.apache.camel.component.", "org.apache.camel.camel-" };
 
     private static ComponentResolver defaultResolver = new DefaultComponentResolver();
     private final ClassLoader classLoader;
@@ -63,12 +63,14 @@ public class WildflyComponentResolver implements ComponentResolver {
         if (component != null)
             return component;
 
-        ClassLoader compcl = classLoader != null ? classLoader : WildflyComponentResolver.class.getClassLoader();
+        ClassLoader compcl = classLoader != null ? classLoader : Module.getCallerModule().getClassLoader();
         ModuleLoader moduleLoader = ((ModuleClassLoader)compcl).getModule().getModuleLoader();
 
         Module module = null;
+
+        // Try to load the component module with the configured prefixes
         for (String prefix : modulePrefixes) {
-            ModuleIdentifier moduleid = ModuleIdentifier.create(prefix + "." + name);
+            ModuleIdentifier moduleid = ModuleIdentifier.create(prefix + name);
             try {
                 module = moduleLoader.loadModule(moduleid);
                 break;
@@ -76,6 +78,20 @@ public class WildflyComponentResolver implements ComponentResolver {
                 // ignore
             }
         }
+
+        // Try to load the component module as a deployment
+        if (module == null) {
+            for (String prefix : modulePrefixes) {
+                ModuleIdentifier moduleid = ModuleIdentifier.create("deployment." + prefix + name);
+                try {
+                    module = moduleLoader.loadModule(moduleid);
+                    break;
+                } catch (ModuleLoadException ex) {
+                    // ignore
+                }
+            }
+        }
+
         if (module != null) {
             ModuleClassLoader classLoader = module.getClassLoader();
             String uri = DefaultComponentResolver.RESOURCE_PATH + name;
