@@ -49,7 +49,7 @@ public interface CamelContextRegistry {
     CamelContext getCamelContext(String name);
 
     /** Register the camel context in this registry */
-    CamelContextRegistration registerCamelContext(CamelContext camelContext);
+    CamelContextRegistration registerCamelContext(CamelContext camelctx);
 
     /** The return handle for camel context registrations */
     interface CamelContextRegistration {

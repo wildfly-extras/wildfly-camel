@@ -17,6 +17,8 @@
 package org.wildfly.camel.test.smoke;
 
 import java.io.InputStream;
+import java.util.Collection;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.jboss.arquillian.container.test.api.Deployer;
@@ -24,17 +26,20 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.ManifestBuilder;
+import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 import org.wildfly.camel.CamelContextRegistry;
 import org.wildfly.camel.test.smoke.subA.HelloBean;
 
 /**
- * Deploys a module which contain a {@link HelloBean} referenced from a spring context definition.
+ * Deploys a module/bundle which contain a {@link HelloBean} referenced from a spring context definition.
  *
  * The tests expect the {@link CamelContext} to be created/started during deployment.
  * The tests then perfom a {@link CamelContext} lookup and do a simple invokation.
@@ -48,9 +53,13 @@ public class SpringBeanDeploymentTestCase {
     static final String SPRING_CONTEXT_XML = "bean-transform-context.xml";
 
     static final String CAMEL_MODULE = "camel-module.jar";
+    static final String CAMEL_BUNDLE = "camel-bundle.jar";
 
     @ArquillianResource
     Deployer deployer;
+
+    @ArquillianResource
+    BundleContext context;
 
     @ArquillianResource
     CamelContextRegistry contextRegistry;
@@ -82,11 +91,43 @@ public class SpringBeanDeploymentTestCase {
         }
     }
 
+    @Test
+    public void testBeanTransformFromBundle() throws Exception {
+        deployer.deploy(CAMEL_BUNDLE);
+        try {
+            String filter = "(name=spring-context)";
+            Collection<ServiceReference<CamelContext>> srefs = context.getServiceReferences(CamelContext.class, filter);
+            CamelContext camelctx = context.getService(srefs.iterator().next());
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", "Kermit", String.class);
+            Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            deployer.undeploy(CAMEL_BUNDLE);
+        }
+    }
+
     @Deployment(name = CAMEL_MODULE, managed = false, testable = false)
     public static JavaArchive getModule() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CAMEL_MODULE);
         archive.addClasses(HelloBean.class);
         archive.addAsManifestResource("camel/simple/" + SPRING_CONTEXT_XML, SPRING_CONTEXT_XML);
+        return archive;
+    }
+
+    @Deployment(name = CAMEL_BUNDLE, managed = false, testable = false)
+    public static JavaArchive getBundle() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CAMEL_BUNDLE);
+        archive.addClasses(HelloBean.class);
+        archive.addAsManifestResource("camel/simple/" + SPRING_CONTEXT_XML, SPRING_CONTEXT_XML);
+        archive.setManifest(new Asset() {
+            @Override
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleManifestVersion(2);
+                return builder.openStream();
+            }
+        });
         return archive;
     }
 }

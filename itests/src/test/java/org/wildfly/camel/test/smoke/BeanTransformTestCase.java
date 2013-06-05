@@ -17,26 +17,35 @@
 package org.wildfly.camel.test.smoke;
 
 import java.io.InputStream;
+import java.util.Collection;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.model.RouteDefinition;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.ManifestBuilder;
+import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 import org.wildfly.camel.CamelContextFactory;
+import org.wildfly.camel.test.smoke.subA.BeanTransformActivator;
 import org.wildfly.camel.test.smoke.subA.HelloBean;
 
 /**
- * Deploys a module which contain a {@link HelloBean}.
+ * Deploys a module/bundle which contain a {@link HelloBean}.
  *
  * The tests then build a route that uses the bean through the Camel API.
  * This verifies access to beans within the same deployemnt that uses the Camel API.
@@ -47,8 +56,13 @@ import org.wildfly.camel.test.smoke.subA.HelloBean;
 @RunWith(Arquillian.class)
 public class BeanTransformTestCase {
 
+    static final String CAMEL_BUNDLE = "camel-bundle.jar";
+
     @ArquillianResource
     Deployer deployer;
+
+    @ArquillianResource
+    BundleContext context;
 
     @ArquillianResource
     CamelContextFactory contextFactory;
@@ -81,5 +95,42 @@ public class BeanTransformTestCase {
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);
         Assert.assertEquals("Hello Kermit", result);
+    }
+
+    @Test
+    public void testSimpleTransformFromBundle() throws Exception {
+        InputStream input = deployer.getDeployment(CAMEL_BUNDLE);
+        Bundle bundle = context.installBundle(CAMEL_BUNDLE, input);
+        try {
+            bundle.start();
+            String filter = "(name=" + CAMEL_BUNDLE + ")";
+            BundleContext context = bundle.getBundleContext();
+            Collection<ServiceReference<CamelContext>> srefs = context.getServiceReferences(CamelContext.class, filter);
+            CamelContext camelctx = context.getService(srefs.iterator().next());
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", "Kermit", String.class);
+            Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            bundle.uninstall();
+        }
+    }
+
+    @Deployment(name = CAMEL_BUNDLE, managed = false, testable = false)
+    public static JavaArchive getBundle() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CAMEL_BUNDLE);
+        archive.addClasses(BeanTransformActivator.class, HelloBean.class);
+        archive.setManifest(new Asset() {
+            @Override
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleManifestVersion(2);
+                builder.addBundleActivator(BeanTransformActivator.class);
+                builder.addImportPackages(CamelContext.class, RouteBuilder.class, DefaultCamelContext.class, RouteDefinition.class);
+                builder.addImportPackages(BundleActivator.class);
+                return builder.openStream();
+            }
+        });
+        return archive;
     }
 }

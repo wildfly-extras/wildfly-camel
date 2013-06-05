@@ -71,16 +71,16 @@ public class CamelContextCreateProcessor implements DeploymentUnitProcessor {
             return;
 
         // Create the camel context
-        CamelContext camelContext;
+        CamelContext camelctx;
         try {
             Module module = depUnit.getAttachment(Attachments.MODULE);
-            camelContext = SpringCamelContextFactory.createSpringCamelContext(contextDefinitionURL, module.getClassLoader());
+            camelctx = SpringCamelContextFactory.createSpringCamelContext(contextDefinitionURL, module.getClassLoader());
         } catch (Exception ex) {
             throw MESSAGES.cannotCreateCamelContext(ex, runtimeName);
         }
 
         // Add the camel context to the deployemnt
-        depUnit.putAttachment(CamelConstants.CAMEL_CONTEXT_KEY, camelContext);
+        depUnit.putAttachment(CamelConstants.CAMEL_CONTEXT_KEY, camelctx);
         // Add a dependency on the {@link CamelContextRegistry} to the next phase
         phaseContext.addDeploymentDependency(CamelConstants.CAMEL_CONTEXT_REGISTRY_NAME, CamelConstants.CAMEL_CONTEXT_REGISTRY_KEY);
     }

@@ -48,6 +48,7 @@
         <module name="org.jboss.msc"/>
         <module name="org.jboss.staxmapper"/>
         <module name="org.jboss.vfs"/>
+        <module name="org.osgi.core"/>
         <module name="org.springframework.beans"/>
         <module name="org.springframework.core"/>
         <module name="org.springframework.context"/>

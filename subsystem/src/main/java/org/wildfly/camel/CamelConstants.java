@@ -46,6 +46,9 @@ public interface CamelConstants {
     /** The deployment name suffix for spring camel context deployments */
     String NAME_SUFFIX_CONTEXT_XML = "-context.xml";
 
+    /** */
+    String CAMEL_CONTEXT_NAME_PROPERTY = "name";
+
     /** The {@link CamelContext} attachment key */
     AttachmentKey<CamelContext> CAMEL_CONTEXT_KEY = AttachmentKey.create(CamelContext.class);
     /** The {@link CamelContextRegistry} attachment key */

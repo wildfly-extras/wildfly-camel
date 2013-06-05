@@ -47,17 +47,17 @@ public class CamelContextRegistrationProcessor implements DeploymentUnitProcesso
     @Override
     public void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
         DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
-        CamelContext camelContext = depUnit.getAttachment(CamelConstants.CAMEL_CONTEXT_KEY);
-        if (camelContext == null)
+        CamelContext camelctx = depUnit.getAttachment(CamelConstants.CAMEL_CONTEXT_KEY);
+        if (camelctx == null)
             return;
 
         // Register the camel context
         CamelContextRegistry registry = depUnit.getAttachment(CamelConstants.CAMEL_CONTEXT_REGISTRY_KEY);
         try {
-            CamelContextRegistration registration = registry.registerCamelContext(camelContext);
+            CamelContextRegistration registration = registry.registerCamelContext(camelctx);
             depUnit.putAttachment(CAMEL_CONTEXT_REGISTRATION_KEY, registration);
         } catch (Exception ex) {
-            throw MESSAGES.cannotStartCamelContext(ex, camelContext);
+            throw MESSAGES.cannotStartCamelContext(ex, camelctx);
         }
     }
 

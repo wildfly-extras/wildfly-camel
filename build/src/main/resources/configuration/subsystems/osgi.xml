@@ -54,6 +54,7 @@
                 <capability name="org.springframework.jms"/>
                 <capability name="org.springframework.transaction"/>
                 <capability name="org.slf4j"/>
+                <capability name="org.wildfly.camel"/>
                 <!-- bundles started in startlevel 1 -->
             </capabilities>
         </replacement>

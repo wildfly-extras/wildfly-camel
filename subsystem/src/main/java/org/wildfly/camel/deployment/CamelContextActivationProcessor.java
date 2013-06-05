@@ -42,27 +42,27 @@ public class CamelContextActivationProcessor implements DeploymentUnitProcessor 
     @Override
     public void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
         DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
-        CamelContext camelContext = depUnit.getAttachment(CamelConstants.CAMEL_CONTEXT_KEY);
-        if (camelContext == null)
+        CamelContext camelctx = depUnit.getAttachment(CamelConstants.CAMEL_CONTEXT_KEY);
+        if (camelctx == null)
             return;
 
         // Start the camel context
         try {
-            camelContext.start();
+            camelctx.start();
         } catch (Exception ex) {
-            throw MESSAGES.cannotStartCamelContext(ex, camelContext);
+            throw MESSAGES.cannotStartCamelContext(ex, camelctx);
         }
     }
 
     @Override
     public void undeploy(final DeploymentUnit depUnit) {
         // Stop the camel context
-        CamelContext camelContext = depUnit.getAttachment(CamelConstants.CAMEL_CONTEXT_KEY);
-        if (camelContext != null) {
+        CamelContext camelctx = depUnit.getAttachment(CamelConstants.CAMEL_CONTEXT_KEY);
+        if (camelctx != null) {
             try {
-                camelContext.stop();
+                camelctx.stop();
             } catch (Exception ex) {
-                throw MESSAGES.cannotStopCamelContext(ex, camelContext);
+                throw MESSAGES.cannotStopCamelContext(ex, camelctx);
             }
         }
     }
