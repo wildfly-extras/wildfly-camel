@@ -52,16 +52,12 @@ public class CamelContextCreateProcessor implements DeploymentUnitProcessor {
 
         URL contextDefinitionURL = null;
         try {
-            if (runtimeName.endsWith(CamelConstants.NAME_SUFFIX_CONTEXT_XML)) {
+            if (runtimeName.endsWith(CamelConstants.CAMEL_CONTEXT_FILE_SUFFIX)) {
                 contextDefinitionURL = depUnit.getAttachment(Attachments.DEPLOYMENT_CONTENTS).asFileURL();
             } else {
                 VirtualFile rootFile = depUnit.getAttachment(Attachments.DEPLOYMENT_ROOT).getRoot();
-                for (VirtualFile child : rootFile.getChild("META-INF").getChildren()) {
-                    if (child.getName().endsWith("-context.xml")) {
-                        contextDefinitionURL = child.asFileURL();
-                        break;
-                    }
-                }
+                VirtualFile child = rootFile.getChild(CamelConstants.CAMEL_CONTEXT_FILE_NAME);
+                contextDefinitionURL = child.isFile() ? child.asFileURL() : null;
             }
         } catch (IOException ex) {
             throw MESSAGES.cannotCreateCamelContext(ex, runtimeName);

@@ -33,13 +33,15 @@ import org.wildfly.camel.SpringCamelContextFactory;
  */
 public class SpringContextActivator implements BundleActivator {
 
+    public static final String SPRING_CAMEL_CONTEXT_XML = "camel/simple/simple-transform-camel-context.xml";
+
     private CamelContext camelctx;
 
     @Override
     public void start(BundleContext context) throws Exception {
         Bundle bundle = context.getBundle();
+        URL resourceUrl = bundle.getResource(SPRING_CAMEL_CONTEXT_XML);
         ClassLoader classLoader = SpringContextActivator.class.getClassLoader();
-        URL resourceUrl = bundle.getResource("camel/simple/simple-transform-context.xml");
         camelctx = SpringCamelContextFactory.createSpringCamelContext(resourceUrl, classLoader);
         camelctx.start();
         Hashtable<String, String> properties = new Hashtable<String, String>();

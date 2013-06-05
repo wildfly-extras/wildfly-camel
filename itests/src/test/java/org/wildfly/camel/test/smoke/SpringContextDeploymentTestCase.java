@@ -46,7 +46,7 @@ import org.wildfly.camel.CamelContextRegistry;
 @RunWith(Arquillian.class)
 public class SpringContextDeploymentTestCase  {
 
-    static final String SPRING_CONTEXT_XML = "simple-transform-context.xml";
+    static final String SPRING_CONTEXT_XML = "simple-transform-camel-context.xml";
 
     @ArquillianResource
     ManagementClient managementClient;

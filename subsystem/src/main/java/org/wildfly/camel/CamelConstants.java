@@ -43,8 +43,9 @@ public interface CamelConstants {
     /** The name for the {@link CamelContextRegistry} service */
     ServiceName CAMEL_CONTEXT_REGISTRY_NAME = CAMEL_BASE_NAME.append("CamelContextRegistry");
 
-    /** The deployment name suffix for spring camel context deployments */
-    String NAME_SUFFIX_CONTEXT_XML = "-context.xml";
+    /** The deployment names for spring camel context deployments */
+    String CAMEL_CONTEXT_FILE_SUFFIX = "-camel-context.xml";
+    String CAMEL_CONTEXT_FILE_NAME = "META-INF/jboss-camel-context.xml";
 
     /** */
     String CAMEL_CONTEXT_NAME_PROPERTY = "name";

@@ -54,8 +54,6 @@ import org.wildfly.camel.test.smoke.subA.SpringContextActivator;
 @RunWith(Arquillian.class)
 public class SpringContextTestCase {
 
-    static final String SPRING_CONTEXT_XML = "simple-transform-context.xml";
-    static final String SPRING_CONTEXT_RESOURCE = "/camel/simple/" + SPRING_CONTEXT_XML;
     static final String CAMEL_BUNDLE = "camel-spring-bundle.jar";
 
     @ArquillianResource
@@ -67,7 +65,7 @@ public class SpringContextTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-spring-tests");
-        archive.addAsResource("camel/simple/" + SPRING_CONTEXT_XML);
+        archive.addAsResource(SpringContextActivator.SPRING_CAMEL_CONTEXT_XML);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -81,7 +79,7 @@ public class SpringContextTestCase {
 
     @Test
     public void testSpringContextFromURL() throws Exception {
-        URL resourceUrl = getClass().getResource(SPRING_CONTEXT_RESOURCE);
+        URL resourceUrl = getClass().getResource("/" + SpringContextActivator.SPRING_CAMEL_CONTEXT_XML);
         CamelContext camelctx = SpringCamelContextFactory.createSpringCamelContext(resourceUrl, null);
         camelctx.start();
         ProducerTemplate producer = camelctx.createProducerTemplate();
@@ -111,7 +109,7 @@ public class SpringContextTestCase {
     public static JavaArchive getBundle() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CAMEL_BUNDLE);
         archive.addClasses(SpringContextActivator.class);
-        archive.addAsResource("camel/simple/" + SPRING_CONTEXT_XML);
+        archive.addAsResource(SpringContextActivator.SPRING_CAMEL_CONTEXT_XML);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {

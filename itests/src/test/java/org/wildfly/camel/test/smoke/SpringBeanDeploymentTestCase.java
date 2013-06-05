@@ -35,6 +35,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
+import org.wildfly.camel.CamelConstants;
 import org.wildfly.camel.CamelContextRegistry;
 import org.wildfly.camel.test.smoke.subA.HelloBean;
 
@@ -50,7 +51,7 @@ import org.wildfly.camel.test.smoke.subA.HelloBean;
 @RunWith(Arquillian.class)
 public class SpringBeanDeploymentTestCase {
 
-    static final String SPRING_CONTEXT_XML = "bean-transform-context.xml";
+    static final String SPRING_CAMEL_CONTEXT_XML = "bean-transform-camel-context.xml";
 
     static final String CAMEL_MODULE = "camel-module.jar";
     static final String CAMEL_BUNDLE = "camel-bundle.jar";
@@ -110,7 +111,7 @@ public class SpringBeanDeploymentTestCase {
     public static JavaArchive getModule() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CAMEL_MODULE);
         archive.addClasses(HelloBean.class);
-        archive.addAsManifestResource("camel/simple/" + SPRING_CONTEXT_XML, SPRING_CONTEXT_XML);
+        archive.addAsResource("camel/simple/" + SPRING_CAMEL_CONTEXT_XML, CamelConstants.CAMEL_CONTEXT_FILE_NAME);
         return archive;
     }
 
@@ -118,7 +119,7 @@ public class SpringBeanDeploymentTestCase {
     public static JavaArchive getBundle() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CAMEL_BUNDLE);
         archive.addClasses(HelloBean.class);
-        archive.addAsManifestResource("camel/simple/" + SPRING_CONTEXT_XML, SPRING_CONTEXT_XML);
+        archive.addAsResource("camel/simple/" + SPRING_CAMEL_CONTEXT_XML, CamelConstants.CAMEL_CONTEXT_FILE_NAME);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
