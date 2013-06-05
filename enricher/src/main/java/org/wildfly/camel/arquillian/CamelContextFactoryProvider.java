@@ -29,37 +29,37 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.test.spi.annotation.SuiteScoped;
 import org.jboss.arquillian.test.spi.enricher.resource.ResourceProvider;
 import org.jboss.as.camel.CamelConstants;
-import org.jboss.as.camel.CamelContextRegistry;
+import org.jboss.as.camel.CamelContextFactory;
 
 /**
  * {@link OperatesOnDeploymentAwareProvider} implementation to
- * provide {@link CamelContextRegistry} injection to {@link ArquillianResource}-
+ * provide {@link CamelContextFactory} injection to {@link ArquillianResource}-
  * annotated fields.
  *
  * @author Thomas.Diesler@jboss.com
  * @since 19-May-2013
  */
-public class CamelContextRegistryProvider implements ResourceProvider {
+public class CamelContextFactoryProvider implements ResourceProvider {
 
     @Inject
     @SuiteScoped
-    private InstanceProducer<CamelContextRegistry> serviceProducer;
+    private InstanceProducer<CamelContextFactory> serviceProducer;
 
     @Inject
-    private Instance<CamelContextRegistry> serviceInstance;
+    private Instance<CamelContextFactory> serviceInstance;
 
     @Override
     public boolean canProvide(final Class<?> type) {
-        return type.isAssignableFrom(CamelContextRegistry.class);
+        return type.isAssignableFrom(CamelContextFactory.class);
     }
 
     @Override
     public Object lookup(ArquillianResource resource, Annotation... qualifiers) {
         if (serviceInstance.get() == null) {
-            CamelContextRegistry service;
+            CamelContextFactory service;
             try {
                 InitialContext initialContext = new InitialContext();
-                service = (CamelContextRegistry) initialContext.lookup(CamelConstants.CAMEL_CONTEXT_REGISTRY_BINDING_NAME);
+                service = (CamelContextFactory) initialContext.lookup(CamelConstants.CAMEL_CONTEXT_FACTORY_BINDING_NAME);
             } catch (NamingException ex) {
                 throw new IllegalStateException(ex);
             }

@@ -78,7 +78,7 @@ public class JMSIntegrationTestCase {
     Deployer deployer;
 
     @ArquillianResource
-    InitialContext initialCtx;
+    InitialContext initialctx;
 
     @ArquillianResource
     XResourceProvisioner provisioner;
@@ -88,6 +88,9 @@ public class JMSIntegrationTestCase {
 
     @ArquillianResource
     ManagementClient managementClient;
+
+    @ArquillianResource
+    CamelContextFactory contextFactory;
 
     static List<String> runtimeNames;
 
@@ -147,7 +150,7 @@ public class JMSIntegrationTestCase {
     public void testSendMessage() throws Exception {
 
         // Create the CamelContext
-        CamelContext camelctx = new CamelContextFactory().createDefaultCamelContext(getClass().getClassLoader());
+        CamelContext camelctx = contextFactory.createDefaultCamelContext(getClass().getClassLoader());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -158,7 +161,7 @@ public class JMSIntegrationTestCase {
         camelctx.start();
 
         // Send a message to the queue
-        ConnectionFactory cfactory = (ConnectionFactory) initialCtx.lookup("java:/ConnectionFactory");
+        ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
         Connection connection = cfactory.createConnection();
         sendMessage(connection, QUEUE_JNDI_NAME, "Kermit");
 
@@ -173,7 +176,7 @@ public class JMSIntegrationTestCase {
     public void testReceiveMessage() throws Exception {
 
         // Create the CamelContext
-        CamelContext camelctx = new CamelContextFactory().createDefaultCamelContext(getClass().getClassLoader());
+        CamelContext camelctx = contextFactory.createDefaultCamelContext(getClass().getClassLoader());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -188,7 +191,7 @@ public class JMSIntegrationTestCase {
         final CountDownLatch latch = new CountDownLatch(1);
 
         // Get the message from the queue
-        ConnectionFactory cfactory = (ConnectionFactory) initialCtx.lookup("java:/ConnectionFactory");
+        ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
         Connection connection = cfactory.createConnection();
         receiveMessage(connection, QUEUE_JNDI_NAME, new MessageListener() {
             @Override
@@ -215,7 +218,7 @@ public class JMSIntegrationTestCase {
 
     private void sendMessage(Connection connection, String jndiName, String message) throws Exception {
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        Destination destination = (Destination) initialCtx.lookup(jndiName);
+        Destination destination = (Destination) initialctx.lookup(jndiName);
         MessageProducer producer = session.createProducer(destination);
         TextMessage msg = session.createTextMessage(message);
         producer.send(msg);
@@ -224,7 +227,7 @@ public class JMSIntegrationTestCase {
 
     private void receiveMessage(Connection connection, String jndiName, MessageListener listener) throws Exception {
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        Destination destination = (Destination) initialCtx.lookup(jndiName);
+        Destination destination = (Destination) initialctx.lookup(jndiName);
         MessageConsumer consumer = session.createConsumer(destination);
         consumer.setMessageListener(listener);
         connection.start();

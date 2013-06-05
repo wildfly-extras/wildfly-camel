@@ -47,7 +47,7 @@ public class SystemContextTestCase {
     Deployer deployer;
 
     @ArquillianResource
-    CamelContextRegistry camelContextRegistry;
+    CamelContextRegistry contextRegistry;
 
     @Deployment
     public static JavaArchive createdeployment() {
@@ -65,7 +65,7 @@ public class SystemContextTestCase {
 
     @Test
     public void testSystemTransformFromModule() throws Exception {
-        CamelContext camelctx = camelContextRegistry.getCamelContext("system-context-1");
+        CamelContext camelctx = contextRegistry.getCamelContext("system-context-1");
         camelctx.start();
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);

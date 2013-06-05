@@ -22,40 +22,59 @@
 
 package org.jboss.as.camel.service;
 
+import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.as.camel.CamelConstants;
-import org.jboss.as.camel.parser.SubsystemState;
+import org.jboss.as.camel.CamelContextFactory;
+import org.jboss.as.camel.WildflyCamelContext;
 import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
-import org.jboss.msc.service.ServiceName;
 import org.jboss.msc.service.ServiceTarget;
+import org.jboss.msc.service.StartContext;
+import org.jboss.msc.service.StartException;
 
 /**
- * The {@link SubsystemState} service
+ * The {@link CamelContextFactory} service
  *
  * @author Thomas.Diesler@jboss.com
- * @since 19-Apr-2013
+ * @since 05-Jun-2013
  */
-public class SubsystemStateService extends AbstractService<SubsystemState> {
+public class CamelContextFactoryService extends AbstractService<CamelContextFactory> {
 
-    static final ServiceName SERVICE_NAME = CamelConstants.CAMEL_BASE_NAME.append("state");
-    private final SubsystemState subsystemState;
+    private CamelContextFactory contextFactory;
 
-    public static ServiceController<SubsystemState> addService(ServiceTarget serviceTarget, SubsystemState subsystemState, ServiceVerificationHandler verificationHandler) {
-        SubsystemStateService service = new SubsystemStateService(subsystemState);
-        ServiceBuilder<SubsystemState> builder = serviceTarget.addService(SERVICE_NAME, service);
+    public static ServiceController<CamelContextFactory> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
+        CamelContextFactoryService service = new CamelContextFactoryService();
+        ServiceBuilder<CamelContextFactory> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_FACTORY_NAME, service);
         builder.addListener(verificationHandler);
         return builder.install();
     }
 
     // Hide ctor
-    private SubsystemStateService(SubsystemState subsystemState) {
-        this.subsystemState = subsystemState;
+    private CamelContextFactoryService() {
     }
 
     @Override
-    public SubsystemState getValue() {
-        return subsystemState;
+    public void start(StartContext startContext) throws StartException {
+        contextFactory = new DefaultCamelContextFactory();
+    }
+
+    @Override
+    public CamelContextFactory getValue() {
+        return contextFactory;
+    }
+
+    static final class DefaultCamelContextFactory implements CamelContextFactory {
+
+        @Override
+        public DefaultCamelContext createDefaultCamelContext() throws Exception {
+            return new WildflyCamelContext(null);
+        }
+
+        @Override
+        public DefaultCamelContext createDefaultCamelContext(ClassLoader classsLoader) throws Exception {
+            return new WildflyCamelContext(classsLoader);
+        }
     }
 }

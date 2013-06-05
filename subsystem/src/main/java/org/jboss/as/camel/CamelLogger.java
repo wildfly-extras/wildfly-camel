@@ -53,4 +53,8 @@ public interface CamelLogger extends BasicLogger {
     @LogMessage(level = INFO)
     @Message(id = 20001, value = "Register camel context: %s")
     void infoRegisterCamelContext(String name);
+
+    @LogMessage(level = INFO)
+    @Message(id = 20002, value = "Bound: %s")
+    void infoBoundNamingService(String jndiName);
 }

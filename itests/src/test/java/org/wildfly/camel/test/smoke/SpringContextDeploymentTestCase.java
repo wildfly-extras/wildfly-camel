@@ -52,7 +52,7 @@ public class SpringContextDeploymentTestCase  {
     ManagementClient managementClient;
 
     @ArquillianResource
-    CamelContextRegistry camelContextRegistry;
+    CamelContextRegistry contextRegistry;
 
     @Deployment
     public static JavaArchive createdeployment() {
@@ -75,7 +75,7 @@ public class SpringContextDeploymentTestCase  {
         ServerDeploymentHelper server = new ServerDeploymentHelper(managementClient.getControllerClient());
         String runtimeName = server.deploy(SPRING_CONTEXT_XML, resourceUrl.openStream());
         try {
-            CamelContext camelctx = camelContextRegistry.getCamelContext("spring-context");
+            CamelContext camelctx = contextRegistry.getCamelContext("spring-context");
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);

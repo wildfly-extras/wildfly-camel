@@ -28,8 +28,10 @@ import org.jboss.as.camel.deployment.CamelContextActivationProcessor;
 import org.jboss.as.camel.deployment.CamelContextCreateProcessor;
 import org.jboss.as.camel.deployment.CamelContextRegistrationProcessor;
 import org.jboss.as.camel.service.CamelBootstrapService;
+import org.jboss.as.camel.service.CamelContextFactoryBindingService;
+import org.jboss.as.camel.service.CamelContextFactoryService;
+import org.jboss.as.camel.service.CamelContextRegistryBindingService;
 import org.jboss.as.camel.service.CamelContextRegistryService;
-import org.jboss.as.camel.service.SubsystemStateService;
 import org.jboss.as.controller.AbstractBoottimeAddStepHandler;
 import org.jboss.as.controller.OperationContext;
 import org.jboss.as.controller.ServiceVerificationHandler;
@@ -65,8 +67,10 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
 
         // Register subsystem services
         newControllers.add(CamelBootstrapService.addService(context.getServiceTarget(), verificationHandler));
-        newControllers.add(CamelContextRegistryService.addService(context.getServiceTarget(), verificationHandler));
-        newControllers.add(SubsystemStateService.addService(context.getServiceTarget(), subsystemState, verificationHandler));
+        newControllers.add(CamelContextFactoryService.addService(context.getServiceTarget(), verificationHandler));
+        newControllers.add(CamelContextFactoryBindingService.addService(context.getServiceTarget(), verificationHandler));
+        newControllers.add(CamelContextRegistryService.addService(context.getServiceTarget(), subsystemState, verificationHandler));
+        newControllers.add(CamelContextRegistryBindingService.addService(context.getServiceTarget(), verificationHandler));
 
         // Register deployment unit processors
         context.addStep(new AbstractDeploymentChainStep() {

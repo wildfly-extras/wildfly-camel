@@ -42,7 +42,6 @@ import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.ValueService;
 import org.jboss.msc.value.ImmediateValue;
-import org.jboss.msc.value.InjectedValue;
 
 /**
  * The {@link CamelContextRegistry} service
@@ -58,19 +57,19 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
             "xsi:schemaLocation='http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd " +
             "http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd'>";
 
-    private final InjectedValue<SubsystemState> injectedSubsystemState = new InjectedValue<SubsystemState>();
+    private final SubsystemState subsystemState;
     private CamelContextRegistry contextRegistry;
 
-    public static ServiceController<CamelContextRegistry> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
-        CamelContextRegistryService service = new CamelContextRegistryService();
+    public static ServiceController<CamelContextRegistry> addService(ServiceTarget serviceTarget, SubsystemState subsystemState, ServiceVerificationHandler verificationHandler) {
+        CamelContextRegistryService service = new CamelContextRegistryService(subsystemState);
         ServiceBuilder<CamelContextRegistry> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_REGISTRY_NAME, service);
-        builder.addDependency(SubsystemStateService.SERVICE_NAME, SubsystemState.class, service.injectedSubsystemState);
         builder.addListener(verificationHandler);
         return builder.install();
     }
 
     // Hide ctor
-    private CamelContextRegistryService() {
+    private CamelContextRegistryService(SubsystemState subsystemState) {
+        this.subsystemState = subsystemState;
     }
 
     @Override
@@ -79,7 +78,6 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         final ServiceTarget serviceTarget = startContext.getChildTarget();
         contextRegistry = new DefaultCamelContextRegistry(serviceContainer, serviceTarget);
 
-        final SubsystemState subsystemState = injectedSubsystemState.getValue();
         for (final String name : subsystemState.getContextDefinitionNames()) {
             LOGGER.infoRegisterCamelContext(name);
             CamelContext camelContext;

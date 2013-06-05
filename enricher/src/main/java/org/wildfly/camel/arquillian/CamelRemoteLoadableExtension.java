@@ -43,6 +43,7 @@ public class CamelRemoteLoadableExtension implements RemoteLoadableExtension, De
 
     @Override
     public void register(ExtensionBuilder builder) {
+        builder.service(ResourceProvider.class, CamelContextFactoryProvider.class);
         builder.service(ResourceProvider.class, CamelContextRegistryProvider.class);
         builder.service(ResourceProvider.class, EnvironmentProvider.class);
         builder.service(ResourceProvider.class, ResourceProvisionerProvider.class);

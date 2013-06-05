@@ -25,18 +25,14 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 
 /**
- * A {@link CamelContext} factory utility.
+ * The WildFly {@link CamelContext} factory.
  *
  * @author Thomas.Diesler@jboss.com
  * @since 19-Apr-2013
  */
-public final class CamelContextFactory {
+public interface CamelContextFactory {
 
-    public DefaultCamelContext createDefaultCamelContext() throws Exception {
-        return new WildflyCamelContext(null);
-    }
+    DefaultCamelContext createDefaultCamelContext() throws Exception;
 
-    public DefaultCamelContext createDefaultCamelContext(ClassLoader classsLoader) throws Exception {
-        return new WildflyCamelContext(classsLoader);
-    }
+    DefaultCamelContext createDefaultCamelContext(ClassLoader classsLoader) throws Exception;
 }

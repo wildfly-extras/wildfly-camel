@@ -139,6 +139,11 @@
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-naming</artifactId>
+                <version>${version.jboss.wildfly}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-osgi-service</artifactId>
                 <version>${version.jboss.wildfly}</version>
             </dependency>

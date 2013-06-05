@@ -53,7 +53,7 @@ public class SpringBeanDeploymentTestCase {
     Deployer deployer;
 
     @ArquillianResource
-    CamelContextRegistry camelContextRegistry;
+    CamelContextRegistry contextRegistry;
 
     @Deployment
     public static JavaArchive createdeployment() {
@@ -73,7 +73,7 @@ public class SpringBeanDeploymentTestCase {
     public void testBeanTransformFromModule() throws Exception {
         deployer.deploy(CAMEL_MODULE);
         try {
-            CamelContext camelctx = camelContextRegistry.getCamelContext("spring-context");
+            CamelContext camelctx = contextRegistry.getCamelContext("spring-context");
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);

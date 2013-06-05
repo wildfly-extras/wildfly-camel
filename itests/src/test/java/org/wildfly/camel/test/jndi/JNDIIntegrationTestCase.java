@@ -22,10 +22,8 @@ import javax.naming.InitialContext;
 import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
 
-import org.apache.camel.CamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.as.camel.CamelContextFactory;
 import org.jboss.osgi.metadata.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -60,7 +58,7 @@ public class JNDIIntegrationTestCase {
 
     @Test
     public void testBeanTransform() throws Exception {
-        CamelContext camelctx = new CamelContextFactory().createDefaultCamelContext(getClass().getClassLoader());
+        //CamelContext camelctx = new CamelContextFactory().createDefaultCamelContext(getClass().getClassLoader());
         InitialContext context = new InitialContext();
         NamingEnumeration<NameClassPair> list = context.list("/");
         while(list.hasMore()) {

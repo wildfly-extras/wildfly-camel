@@ -38,17 +38,21 @@ public interface CamelConstants {
     ServiceName CAMEL_BASE_NAME = ServiceName.JBOSS.append("as", "camel");
     /** The base name for all camel context services */
     ServiceName CAMEL_CONTEXT_BASE_NAME = CAMEL_BASE_NAME.append("context");
+    /** The name for the {@link CamelContextFactory} service */
+    ServiceName CAMEL_CONTEXT_FACTORY_NAME = CAMEL_BASE_NAME.append("CamelContextFactory");
     /** The name for the {@link CamelContextRegistry} service */
-    ServiceName CAMEL_CONTEXT_REGISTRY_NAME = CAMEL_BASE_NAME.append("registry");
+    ServiceName CAMEL_CONTEXT_REGISTRY_NAME = CAMEL_BASE_NAME.append("CamelContextRegistry");
 
     /** The deployment name suffix for spring camel context deployments */
     String NAME_SUFFIX_CONTEXT_XML = "-context.xml";
-
-    /** The key for the camel context name */
-    String CAMEL_CONTEXT_NAME_KEY = "name";
 
     /** The {@link CamelContext} attachment key */
     AttachmentKey<CamelContext> CAMEL_CONTEXT_KEY = AttachmentKey.create(CamelContext.class);
     /** The {@link CamelContextRegistry} attachment key */
     AttachmentKey<CamelContextRegistry> CAMEL_CONTEXT_REGISTRY_KEY = AttachmentKey.create(CamelContextRegistry.class);
+
+    /** The JNDI name for the {@link CamelContextFactory} binding */
+    String CAMEL_CONTEXT_FACTORY_BINDING_NAME = "java:jboss/camel/CamelContextFactory";
+    /** The JNDI name for the {@link CamelContextRegistry} binding */
+    String CAMEL_CONTEXT_REGISTRY_BINDING_NAME = "java:jboss/camel/CamelContextRegistry";
 }
