@@ -28,8 +28,8 @@ import org.jboss.arquillian.core.api.annotation.Inject;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.test.spi.annotation.SuiteScoped;
 import org.jboss.arquillian.test.spi.enricher.resource.ResourceProvider;
-import org.jboss.as.camel.CamelConstants;
-import org.jboss.as.camel.CamelContextFactory;
+import org.wildfly.camel.CamelConstants;
+import org.wildfly.camel.CamelContextFactory;
 
 /**
  * {@link OperatesOnDeploymentAwareProvider} implementation to

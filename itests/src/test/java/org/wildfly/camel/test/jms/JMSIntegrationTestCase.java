@@ -45,7 +45,6 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
-import org.jboss.as.camel.CamelContextFactory;
 import org.jboss.as.controller.client.ModelControllerClient;
 import org.jboss.as.test.integration.common.jms.JMSOperations;
 import org.jboss.as.test.integration.common.jms.JMSOperationsProvider;
@@ -59,6 +58,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.namespace.IdentityNamespace;
+import org.wildfly.camel.CamelContextFactory;
 import org.wildfly.camel.test.ProvisionerSupport;
 
 /**
