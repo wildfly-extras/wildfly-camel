@@ -22,14 +22,38 @@
 
 package org.wildfly.camel.service;
 
-import org.apache.camel.impl.DefaultCamelContext;
+import static org.wildfly.camel.CamelLogger.LOGGER;
+import static org.wildfly.camel.CamelMessages.MESSAGES;
+
+import java.util.Hashtable;
+
+import javax.naming.Binding;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.Name;
+import javax.naming.NameClassPair;
+import javax.naming.NameParser;
+import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
+import javax.naming.OperationNotSupportedException;
+
 import org.jboss.as.controller.ServiceVerificationHandler;
+import org.jboss.as.naming.ManagedReferenceFactory;
+import org.jboss.as.naming.ManagedReferenceInjector;
+import org.jboss.as.naming.ServiceBasedNamingStore;
+import org.jboss.as.naming.deployment.ContextNames;
+import org.jboss.as.naming.service.BinderService;
+import org.jboss.msc.inject.Injector;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
+import org.jboss.msc.service.ServiceContainer;
 import org.jboss.msc.service.ServiceController;
+import org.jboss.msc.service.ServiceController.Mode;
+import org.jboss.msc.service.ServiceRegistry;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
+import org.jboss.msc.service.StopContext;
 import org.wildfly.camel.CamelConstants;
 import org.wildfly.camel.CamelContextFactory;
 import org.wildfly.camel.WildflyCamelContext;
@@ -57,7 +81,8 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
 
     @Override
     public void start(StartContext startContext) throws StartException {
-        contextFactory = new DefaultCamelContextFactory();
+        ServiceContainer serviceContainer = startContext.getController().getServiceContainer();
+        contextFactory = new DefaultCamelContextFactory(serviceContainer, startContext.getChildTarget());
     }
 
     @Override
@@ -67,14 +92,193 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
 
     static final class DefaultCamelContextFactory implements CamelContextFactory {
 
-        @Override
-        public DefaultCamelContext createDefaultCamelContext() throws Exception {
-            return new WildflyCamelContext(null);
+        private final ServiceRegistry serviceRegistry;
+        private final ServiceTarget serviceTarget;
+
+        DefaultCamelContextFactory(ServiceRegistry serviceRegistry, ServiceTarget serviceTarget) {
+            this.serviceRegistry = serviceRegistry;
+            this.serviceTarget = serviceTarget;
         }
 
         @Override
-        public DefaultCamelContext createDefaultCamelContext(ClassLoader classsLoader) throws Exception {
-            return new WildflyCamelContext(classsLoader);
+        public WildflyCamelContext createWilflyCamelContext() throws Exception {
+            return createWildflyCamelContext(null);
+        }
+
+        @Override
+        public WildflyCamelContext createWildflyCamelContext(ClassLoader classsLoader) throws Exception {
+            return setup(new WildflyCamelContext(classsLoader));
+        }
+
+        private WildflyCamelContext setup(WildflyCamelContext context) {
+            try {
+                context.setNamingContext(new NamingContext(serviceRegistry, serviceTarget));
+            } catch (NamingException ex) {
+                throw MESSAGES.cannotInitializeNamingContext(ex);
+            }
+            return context;
+        }
+    }
+
+    static class NamingContext implements Context {
+
+        private final ServiceRegistry serviceRegistry;
+        private final ServiceTarget serviceTarget;
+        private final Context context;
+
+        private NamingContext(ServiceRegistry serviceRegistry, ServiceTarget serviceTarget) throws NamingException {
+            this.serviceRegistry = serviceRegistry;
+            this.serviceTarget = serviceTarget;
+            this.context = new InitialContext();
+        }
+
+        public void bind(Name name, Object obj) throws NamingException {
+            addBinderService(name.toString(), obj);
+        }
+
+        public void bind(String name, Object obj) throws NamingException {
+            addBinderService(name, obj);
+        }
+
+        private ServiceController<?> addBinderService(String name, Object obj) {
+            final ContextNames.BindInfo bindInfo = ContextNames.bindInfoFor(name);
+            BinderService binderService = new BinderService(bindInfo.getBindName()) {
+                @Override
+                public synchronized void start(StartContext context) throws StartException {
+                    super.start(context);
+                    LOGGER.infoBoundCamelNamingObject(bindInfo.getAbsoluteJndiName());
+                }
+
+                @Override
+                public synchronized void stop(StopContext context) {
+                    LOGGER.infoUnbindCamelNamingObject(bindInfo.getAbsoluteJndiName());
+                    super.stop(context);
+                }
+            };
+            Injector<ManagedReferenceFactory> injector = binderService.getManagedObjectInjector();
+            new ManagedReferenceInjector<Object>(injector).inject(obj);
+            ServiceBuilder<?> builder = serviceTarget.addService(bindInfo.getBinderServiceName(), binderService);
+            builder.addDependency(bindInfo.getParentContextServiceName(), ServiceBasedNamingStore.class, binderService.getNamingStoreInjector());
+            return builder.install();
+        }
+
+        public void unbind(Name name) throws NamingException {
+            removeBinderService(name.toString());
+        }
+
+        public void unbind(String name) throws NamingException {
+            removeBinderService(name);
+        }
+
+        private ServiceController<?> removeBinderService(String name) {
+            final ContextNames.BindInfo bindInfo = ContextNames.bindInfoFor(name);
+            ServiceController<?> controller = serviceRegistry.getService(bindInfo.getBinderServiceName());
+            if (controller != null) {
+                controller.setMode(Mode.REMOVE);
+            }
+            return controller;
+        }
+
+        public Name composeName(Name name, Name prefix) throws NamingException {
+            return context.composeName(name, prefix);
+        }
+
+        public String composeName(String name, String prefix) throws NamingException {
+            return context.composeName(name, prefix);
+        }
+
+        public Hashtable<?, ?> getEnvironment() throws NamingException {
+            return context.getEnvironment();
+        }
+
+        public String getNameInNamespace() throws NamingException {
+            return context.getNameInNamespace();
+        }
+
+        public NameParser getNameParser(Name name) throws NamingException {
+            return context.getNameParser(name);
+        }
+
+        public NameParser getNameParser(String name) throws NamingException {
+            return context.getNameParser(name);
+        }
+
+        public NamingEnumeration<NameClassPair> list(Name name) throws NamingException {
+            return context.list(name);
+        }
+
+        public NamingEnumeration<NameClassPair> list(String name) throws NamingException {
+            return context.list(name);
+        }
+
+        public NamingEnumeration<Binding> listBindings(Name name) throws NamingException {
+            return context.listBindings(name);
+        }
+
+        public NamingEnumeration<Binding> listBindings(String name) throws NamingException {
+            return context.listBindings(name);
+        }
+
+        public Object lookup(Name name) throws NamingException {
+            return context.lookup(name);
+        }
+
+        public Object lookup(String name) throws NamingException {
+            return context.lookup(name);
+        }
+
+        public Object lookupLink(Name name) throws NamingException {
+            return context.lookupLink(name);
+        }
+
+        public Object lookupLink(String name) throws NamingException {
+            return context.lookupLink(name);
+        }
+
+        // Not supported opertations
+
+        public Object addToEnvironment(String propName, Object propVal) throws NamingException {
+            throw new OperationNotSupportedException();
+        }
+
+        public Object removeFromEnvironment(String propName) throws NamingException {
+            throw new OperationNotSupportedException();
+        }
+
+        public void close() throws NamingException {
+            throw new OperationNotSupportedException();
+        }
+
+        public Context createSubcontext(Name name) throws NamingException {
+            throw new OperationNotSupportedException();
+        }
+
+        public Context createSubcontext(String name) throws NamingException {
+            throw new OperationNotSupportedException();
+        }
+
+        public void destroySubcontext(Name name) throws NamingException {
+            throw new OperationNotSupportedException();
+        }
+
+        public void destroySubcontext(String name) throws NamingException {
+            throw new OperationNotSupportedException();
+        }
+
+        public void rebind(Name name, Object obj) throws NamingException {
+            throw new OperationNotSupportedException();
+        }
+
+        public void rebind(String name, Object obj) throws NamingException {
+            throw new OperationNotSupportedException();
+        }
+
+        public void rename(Name oldName, Name newName) throws NamingException {
+            throw new OperationNotSupportedException();
+        }
+
+        public void rename(String oldName, String newName) throws NamingException {
+            throw new OperationNotSupportedException();
         }
     }
 }

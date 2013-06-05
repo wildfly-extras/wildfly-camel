@@ -79,7 +79,7 @@
       </fileset>
       
       <!-- Copy wildfly camel jars -->
-      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/jboss/as/camel/main" override="true">
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/wildfly/camel/main" override="true">
          <include name="wildfly-camel-subsystem-@{project.version}.jar" />
       </fileset>
       

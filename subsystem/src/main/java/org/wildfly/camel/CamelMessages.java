@@ -74,5 +74,8 @@ public interface CamelMessages {
 
     @Message(id = 20109, value = "Type is not a Component implementation. Found: %s")
     IllegalStateException componentTypeException(Class<?> type);
+
+    @Message(id = 20110, value = "Cannot initialize naming context")
+    IllegalStateException cannotInitializeNamingContext(@Cause Throwable th);
 }
 

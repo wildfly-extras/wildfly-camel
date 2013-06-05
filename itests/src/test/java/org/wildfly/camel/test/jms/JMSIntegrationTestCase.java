@@ -123,7 +123,7 @@ public class JMSIntegrationTestCase {
             public InputStream openStream() {
                 ManifestBuilder builder = ManifestBuilder.newInstance();
                 builder.addManifestHeader("Dependencies",
-                        "org.apache.camel,org.jboss.as.camel,org.jboss.as.controller-client,org.jboss.osgi.provision,org.jboss.shrinkwrap.core,javax.jms.api");
+                        "org.apache.camel,org.wildfly.camel,org.jboss.as.controller-client,org.jboss.osgi.provision,org.jboss.shrinkwrap.core,javax.jms.api");
                 return builder.openStream();
             }
         });
@@ -150,7 +150,7 @@ public class JMSIntegrationTestCase {
     public void testSendMessage() throws Exception {
 
         // Create the CamelContext
-        CamelContext camelctx = contextFactory.createDefaultCamelContext(getClass().getClassLoader());
+        CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -176,7 +176,7 @@ public class JMSIntegrationTestCase {
     public void testReceiveMessage() throws Exception {
 
         // Create the CamelContext
-        CamelContext camelctx = contextFactory.createDefaultCamelContext(getClass().getClassLoader());
+        CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

@@ -18,18 +18,22 @@ package org.wildfly.camel.test.jndi;
 
 import java.io.InputStream;
 
-import javax.naming.InitialContext;
-import javax.naming.NameClassPair;
-import javax.naming.NamingEnumeration;
+import javax.naming.Context;
 
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.RouteBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.CamelContextFactory;
+import org.wildfly.camel.WildflyCamelContext;
 import org.wildfly.camel.test.smoke.subA.HelloBean;
 
 /**
@@ -41,6 +45,9 @@ import org.wildfly.camel.test.smoke.subA.HelloBean;
 @RunWith(Arquillian.class)
 public class JNDIIntegrationTestCase {
 
+    @ArquillianResource
+    CamelContextFactory contextFactory;
+
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jndi-integration-tests");
@@ -49,7 +56,7 @@ public class JNDIIntegrationTestCase {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = ManifestBuilder.newInstance();
-                builder.addManifestHeader("Dependencies", "org.apache.camel,org.jboss.as.camel");
+                builder.addManifestHeader("Dependencies", "org.apache.camel,org.wildfly.camel");
                 return builder.openStream();
             }
         });
@@ -58,14 +65,26 @@ public class JNDIIntegrationTestCase {
 
     @Test
     public void testBeanTransform() throws Exception {
-        //CamelContext camelctx = new CamelContextFactory().createDefaultCamelContext(getClass().getClassLoader());
-        InitialContext context = new InitialContext();
-        NamingEnumeration<NameClassPair> list = context.list("/");
-        while(list.hasMore()) {
-            NameClassPair pair = list.next();
-            System.out.println(pair);
+        WildflyCamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+
+        // Bind the bean to JNDI
+        Context context = camelctx.getNamingContext();
+        context.bind("helloBean", new HelloBean());
+        try {
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    from("direct:start").beanRef("helloBean");
+                }
+            });
+            camelctx.start();
+
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", "Kermit", String.class);
+            Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            context.unbind("helloBean");
         }
-        //context.bind("helloBean", new HelloBean());
     }
 
 }

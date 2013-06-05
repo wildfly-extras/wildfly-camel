@@ -20,7 +20,6 @@ import java.io.InputStream;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -32,6 +31,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.CamelContextFactory;
 
 /**
  * Deploys a module with dependency on the Camel API;
@@ -47,6 +47,9 @@ public class SimpleTransformTestCase {
 
     @ArquillianResource
     Deployer deployer;
+
+    @ArquillianResource
+    CamelContextFactory contextFactory;
 
     @Deployment
     public static JavaArchive createdeployment() {
@@ -64,7 +67,7 @@ public class SimpleTransformTestCase {
 
     @Test
     public void testSimpleTransformFromModule() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = contextFactory.createWilflyCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

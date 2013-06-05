@@ -22,7 +22,6 @@
 package org.wildfly.camel;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.impl.DefaultCamelContext;
 
 /**
  * The WildFly {@link CamelContext} factory.
@@ -32,7 +31,7 @@ import org.apache.camel.impl.DefaultCamelContext;
  */
 public interface CamelContextFactory {
 
-    DefaultCamelContext createDefaultCamelContext() throws Exception;
+    WildflyCamelContext createWilflyCamelContext() throws Exception;
 
-    DefaultCamelContext createDefaultCamelContext(ClassLoader classsLoader) throws Exception;
+    WildflyCamelContext createWildflyCamelContext(ClassLoader classsLoader) throws Exception;
 }

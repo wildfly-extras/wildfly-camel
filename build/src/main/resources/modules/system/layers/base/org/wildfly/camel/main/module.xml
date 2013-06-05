@@ -22,7 +22,7 @@
   ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 
-<module xmlns="urn:jboss:module:1.1" name="org.jboss.as.camel">
+<module xmlns="urn:jboss:module:1.1" name="org.wildfly.camel">
     <properties>
         <property name="jboss.api" value="private"/>
     </properties>
@@ -33,8 +33,8 @@
     </resources>
 
     <exports>
-        <exclude path="org/jboss/as/camel/deployment"/>
-        <exclude path="org/jboss/as/camel/service"/>
+        <exclude path="org/wildfly/camel/deployment"/>
+        <exclude path="org/wildfly/camel/service"/>
     </exports>
     
     <dependencies>

@@ -62,7 +62,7 @@ public class SpringBeanDeploymentTestCase {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = ManifestBuilder.newInstance();
-                builder.addManifestHeader("Dependencies", "org.apache.camel,org.jboss.msc,org.jboss.as.camel");
+                builder.addManifestHeader("Dependencies", "org.apache.camel,org.jboss.msc,org.wildfly.camel");
                 return builder.openStream();
             }
         });

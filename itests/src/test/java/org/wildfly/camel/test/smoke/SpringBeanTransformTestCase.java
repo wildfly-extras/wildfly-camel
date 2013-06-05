@@ -62,7 +62,7 @@ public class SpringBeanTransformTestCase {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = ManifestBuilder.newInstance();
-                builder.addManifestHeader("Dependencies", "org.jboss.as.camel,org.apache.camel");
+                builder.addManifestHeader("Dependencies", "org.wildfly.camel,org.apache.camel");
                 return builder.openStream();
             }
         });

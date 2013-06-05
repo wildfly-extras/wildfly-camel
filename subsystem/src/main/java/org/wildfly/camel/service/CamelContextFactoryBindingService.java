@@ -32,7 +32,6 @@ import org.jboss.as.naming.service.BinderService;
 import org.jboss.msc.inject.Injector;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
-import org.jboss.msc.service.ServiceName;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
@@ -49,30 +48,25 @@ import org.wildfly.camel.CamelContextFactory;
 public final class CamelContextFactoryBindingService {
 
     public static ServiceController<?> addService(final ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
-        ContextNames.BindInfo bindInfo = ContextNames.bindInfoFor(CamelConstants.CAMEL_CONTEXT_FACTORY_BINDING_NAME);
+        final ContextNames.BindInfo bindInfo = ContextNames.bindInfoFor(CamelConstants.CAMEL_CONTEXT_FACTORY_BINDING_NAME);
         BinderService binderService = new BinderService(bindInfo.getBindName()) {
             @Override
             public synchronized void start(StartContext context) throws StartException {
                 super.start(context);
-                LOGGER.infoBoundNamingService(CamelConstants.CAMEL_CONTEXT_FACTORY_BINDING_NAME);
+                LOGGER.infoBoundCamelNamingObject(bindInfo.getAbsoluteJndiName());
             }
 
             @Override
             public synchronized void stop(StopContext context) {
+                LOGGER.debugf("Unbind camel jndi name: %s", bindInfo.getAbsoluteJndiName());
                 super.stop(context);
-                LOGGER.debug(CamelConstants.CAMEL_CONTEXT_FACTORY_BINDING_NAME);
             }
         };
         Injector<ManagedReferenceFactory> injector = binderService.getManagedObjectInjector();
-        ServiceBuilder<?> builder = serviceTarget.addService(getBinderServiceName(), binderService);
+        ServiceBuilder<?> builder = serviceTarget.addService(bindInfo.getBinderServiceName(), binderService);
         builder.addDependency(bindInfo.getParentContextServiceName(), ServiceBasedNamingStore.class, binderService.getNamingStoreInjector());
         builder.addDependency(CamelConstants.CAMEL_CONTEXT_FACTORY_NAME, CamelContextFactory.class, new ManagedReferenceInjector<CamelContextFactory>(injector));
         builder.addListener(verificationHandler);
         return builder.install();
-    }
-
-    private static ServiceName getBinderServiceName() {
-        ContextNames.BindInfo bindInfo = ContextNames.bindInfoFor(CamelConstants.CAMEL_CONTEXT_FACTORY_BINDING_NAME);
-        return bindInfo.getBinderServiceName();
     }
 }

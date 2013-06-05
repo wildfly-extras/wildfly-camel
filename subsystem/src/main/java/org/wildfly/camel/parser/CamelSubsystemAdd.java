@@ -26,6 +26,8 @@ import java.util.List;
 
 import org.jboss.as.controller.AbstractBoottimeAddStepHandler;
 import org.jboss.as.controller.OperationContext;
+import org.jboss.as.controller.OperationFailedException;
+import org.jboss.as.controller.OperationStepHandler;
 import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.as.server.AbstractDeploymentChainStep;
 import org.jboss.as.server.DeploymentProcessorTarget;
@@ -63,14 +65,20 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
         model.setEmptyObject();
     }
 
-    protected void performBoottime(OperationContext context, ModelNode operation, ModelNode model, ServiceVerificationHandler verificationHandler, List<ServiceController<?>> newControllers) {
+    protected void performBoottime(final OperationContext context, final ModelNode operation, final ModelNode model, final ServiceVerificationHandler verificationHandler, final List<ServiceController<?>> newControllers) {
 
         // Register subsystem services
-        newControllers.add(CamelBootstrapService.addService(context.getServiceTarget(), verificationHandler));
-        newControllers.add(CamelContextFactoryService.addService(context.getServiceTarget(), verificationHandler));
-        newControllers.add(CamelContextFactoryBindingService.addService(context.getServiceTarget(), verificationHandler));
-        newControllers.add(CamelContextRegistryService.addService(context.getServiceTarget(), subsystemState, verificationHandler));
-        newControllers.add(CamelContextRegistryBindingService.addService(context.getServiceTarget(), verificationHandler));
+        context.addStep(new OperationStepHandler() {
+            @Override
+            public void execute(OperationContext context, ModelNode operation) throws OperationFailedException {
+                newControllers.add(CamelBootstrapService.addService(context.getServiceTarget(), verificationHandler));
+                newControllers.add(CamelContextFactoryService.addService(context.getServiceTarget(), verificationHandler));
+                newControllers.add(CamelContextFactoryBindingService.addService(context.getServiceTarget(), verificationHandler));
+                newControllers.add(CamelContextRegistryService.addService(context.getServiceTarget(), subsystemState, verificationHandler));
+                newControllers.add(CamelContextRegistryBindingService.addService(context.getServiceTarget(), verificationHandler));
+                context.completeStep(OperationContext.RollbackHandler.NOOP_ROLLBACK_HANDLER);
+            }
+        }, OperationContext.Stage.RUNTIME);
 
         // Register deployment unit processors
         context.addStep(new AbstractDeploymentChainStep() {

@@ -21,10 +21,11 @@
  */
 package org.wildfly.camel;
 
+import javax.naming.Context;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spi.ComponentResolver;
-import org.apache.camel.spi.Registry;
 
 /**
  * The default Wildfly {@link CamelContext}.
@@ -35,6 +36,7 @@ import org.apache.camel.spi.Registry;
 public class WildflyCamelContext extends DefaultCamelContext {
 
     private final ClassLoader classsLoader;
+    private Context namingContext;
 
     public WildflyCamelContext(ClassLoader classsLoader) {
         this.classsLoader = classsLoader;
@@ -45,8 +47,11 @@ public class WildflyCamelContext extends DefaultCamelContext {
         return new WildflyComponentResolver(classsLoader);
     }
 
-    @Override
-    protected Registry createRegistry() {
-        return super.createRegistry();
+    public Context getNamingContext() {
+        return namingContext;
+    }
+
+    public void setNamingContext(Context namingContext) {
+        setJndiContext(this.namingContext = namingContext);
     }
 }

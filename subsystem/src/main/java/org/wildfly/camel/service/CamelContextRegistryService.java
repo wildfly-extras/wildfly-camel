@@ -77,7 +77,6 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         ServiceContainer serviceContainer = startContext.getController().getServiceContainer();
         final ServiceTarget serviceTarget = startContext.getChildTarget();
         contextRegistry = new DefaultCamelContextRegistry(serviceContainer, serviceTarget);
-
         for (final String name : subsystemState.getContextDefinitionNames()) {
             LOGGER.infoRegisterCamelContext(name);
             CamelContext camelContext;
