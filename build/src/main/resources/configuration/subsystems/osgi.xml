@@ -47,6 +47,7 @@
                 <!-- modules registered with the OSGi layer on startup -->
                 <capability name="javax.jms.api" />
                 <capability name="javax.transaction.api" />
+                <capability name="javax.xml.bind.api" />
                 <capability name="org.apache.camel.core"/>
                 <capability name="org.springframework.beans"/>
                 <capability name="org.springframework.context"/>
