@@ -14,16 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wildfly.camel.test.jmx;
+package org.wildfly.camel.test.cxf;
 
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
-import javax.management.monitor.MonitorNotification;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.ConsumerTemplate;
-import org.apache.camel.builder.RouteBuilder;
+import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -33,9 +34,11 @@ import org.jboss.as.controller.client.ModelControllerClient;
 import org.jboss.osgi.metadata.ManifestBuilder;
 import org.jboss.osgi.provision.XResourceProvisioner;
 import org.jboss.osgi.resolver.XEnvironment;
+import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,15 +46,22 @@ import org.osgi.framework.namespace.IdentityNamespace;
 import org.wildfly.camel.CamelContextFactory;
 import org.wildfly.camel.CamelContextRegistry;
 import org.wildfly.camel.test.ProvisionerSupport;
+import org.wildfly.camel.test.cxf.subA.Endpoint;
+import org.wildfly.camel.test.cxf.subA.EndpointImpl;
 
 /**
- * Deploys a test which monitors an JMX attrbute of a route.
+ * TODO
  *
  * @author thomas.diesler@jboss.com
- * @since 03-Jun-2013
+ * @since 11-Jun-2013
  */
 @RunWith(Arquillian.class)
-public class JMXIntegrationTestCase {
+public class WebServicesIntegrationTestCase {
+
+    static final String SIMPLE_WAR = "simple.war";
+
+    @ArquillianResource
+    Deployer deployer;
 
     @ArquillianResource
     CamelContextFactory contextFactory;
@@ -72,9 +82,9 @@ public class JMXIntegrationTestCase {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jmx-integration-tests");
-        archive.addClasses(ProvisionerSupport.class);
-        archive.addAsResource("repository/camel.jmx.feature.xml");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-integration-tests");
+        archive.addClasses(Endpoint.class, ProvisionerSupport.class);
+        archive.addAsResource("repository/camel.cxf.feature.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -91,7 +101,7 @@ public class JMXIntegrationTestCase {
     public void installCamelFeatures() throws Exception {
         ModelControllerClient controllerClient = managementClient.getControllerClient();
         ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner, controllerClient);
-        runtimeNames = provisionerSupport.installCapability(environment, IdentityNamespace.IDENTITY_NAMESPACE, "camel.jmx.feature");
+        runtimeNames = provisionerSupport.installCapability(environment, IdentityNamespace.IDENTITY_NAMESPACE, "camel.cxf.feature");
     }
 
     @Test
@@ -103,21 +113,26 @@ public class JMXIntegrationTestCase {
     }
 
     @Test
-    public void testMonitorMBeanAttribute() throws Exception {
+    public void testSimpleWar() throws Exception {
+        deployer.deploy(SIMPLE_WAR);
+        try {
+            QName serviceName = new QName("http://wildfly.camel.test.cxf", "EndpointService");
+            Service service = Service.create(getWsdl("/simple"), serviceName);
+            Endpoint port = service.getPort(Endpoint.class);
+            Assert.assertEquals("Foo", port.echo("Foo"));
+        } finally {
+            deployer.undeploy(SIMPLE_WAR);
+        }
+    }
 
-        CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("jmx:platform?format=raw&objectDomain=org.apache.camel&key.context=localhost/system-context-1&key.type=routes&key.name=\"route1\"" +
-                "&monitorType=counter&observedAttribute=ExchangesTotal&granularityPeriod=500").
-                to("direct:end");
-            }
-        });
-        camelctx.start();
+    private URL getWsdl(String contextPath) throws MalformedURLException {
+        return new URL(managementClient.getWebUri() + contextPath + "/EndpointService?wsdl");
+    }
 
-        ConsumerTemplate consumer = camelctx.createConsumerTemplate();
-        MonitorNotification notifcation = consumer.receiveBody("direct:end", MonitorNotification.class);
-        Assert.assertEquals("ExchangesTotal", notifcation.getObservedAttribute());
+    @Deployment(name = SIMPLE_WAR, managed = false, testable = false)
+    public static Archive<?> getSimpleWar() {
+        final WebArchive archive = ShrinkWrap.create(WebArchive.class, SIMPLE_WAR);
+        archive.addClasses(Endpoint.class, EndpointImpl.class);
+        return archive;
     }
 }

@@ -47,12 +47,21 @@
         <replacement placeholder="CAPABILITIES">
             <capabilities>
                 <!-- modules registered with the OSGi layer on startup -->
+                <capability name="javax.activation.api" />
                 <capability name="javax.enterprise.api" />
                 <capability name="javax.interceptor.api" />
                 <capability name="javax.jms.api" />
+                <capability name="javax.jws.api" />
                 <capability name="javax.transaction.api" />
+                <capability name="javax.wsdl4j.api" />
+                <capability name="javax.ws.rs.api" />
                 <capability name="javax.xml.bind.api" />
+                <capability name="javax.xml.soap.api" />
+                <capability name="javax.xml.ws.api" />
                 <capability name="org.apache.camel.core"/>
+                <capability name="org.apache.camel.spring"/>
+                <capability name="org.apache.cxf"/>
+                <capability name="org.apache.cxf.impl"/>
                 <capability name="org.springframework.beans"/>
                 <capability name="org.springframework.context"/>
                 <capability name="org.springframework.core"/>

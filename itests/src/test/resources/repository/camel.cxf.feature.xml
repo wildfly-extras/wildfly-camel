@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="PersistentRepository">
+
+  <!-- 
+    camel.cxf.feature 
+  -->
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="camel.cxf.feature" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.camel.camel-cxf" />
+    </requirement>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.camel.camel-cxf-transport" />
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.camel.camel-cxf" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="maven.identity">
+      <attribute name="maven.identity" value="org.apache.camel:camel-cxf:jar:@version.apache.camel@" />
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.camel.camel-cxf-transport" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="maven.identity">
+      <attribute name="maven.identity" value="org.apache.camel:camel-cxf-transport:jar:@version.apache.camel@" />
+    </requirement>
+  </resource>
+  
+</repository>
