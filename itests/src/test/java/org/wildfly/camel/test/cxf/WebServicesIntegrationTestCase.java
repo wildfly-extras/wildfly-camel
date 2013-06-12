@@ -24,6 +24,9 @@ import java.util.List;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.RouteBuilder;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -119,14 +122,41 @@ public class WebServicesIntegrationTestCase {
             QName serviceName = new QName("http://wildfly.camel.test.cxf", "EndpointService");
             Service service = Service.create(getWsdl("/simple"), serviceName);
             Endpoint port = service.getPort(Endpoint.class);
-            Assert.assertEquals("Foo", port.echo("Foo"));
+            Assert.assertEquals("Hello Foo", port.echo("Foo"));
         } finally {
             deployer.undeploy(SIMPLE_WAR);
         }
     }
 
+    @Test
+    public void testEndpointRoute() throws Exception {
+        deployer.deploy(SIMPLE_WAR);
+        try {
+            // Create the CamelContext
+            CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    from("direct:start").
+                    to("cxf://" + getEndpointAddress("/simple") + "?serviceClass=" + Endpoint.class.getName());
+                }
+            });
+            camelctx.start();
+
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", "Kermit", String.class);
+            Assert.assertEquals("[Hello Kermit]", result);
+        } finally {
+            deployer.undeploy(SIMPLE_WAR);
+        }
+    }
+
+    private String getEndpointAddress(String contextPath) throws MalformedURLException {
+        return managementClient.getWebUri() + contextPath + "/EndpointService";
+    }
+
     private URL getWsdl(String contextPath) throws MalformedURLException {
-        return new URL(managementClient.getWebUri() + contextPath + "/EndpointService?wsdl");
+        return new URL(getEndpointAddress(contextPath) + "?wsdl");
     }
 
     @Deployment(name = SIMPLE_WAR, managed = false, testable = false)

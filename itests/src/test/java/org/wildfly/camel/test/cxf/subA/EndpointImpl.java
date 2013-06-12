@@ -38,6 +38,6 @@ public class EndpointImpl {
 
    public String echo(String input) {
       log.info("echo: " + input);
-      return input;
+      return "Hello " + input;
    }
 }

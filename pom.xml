@@ -84,6 +84,11 @@
                <version>${version.apache.camel}</version>
             </dependency>
             <dependency>
+               <groupId>org.apache.camel</groupId>
+               <artifactId>camel-cxf</artifactId>
+               <version>${version.apache.camel}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-jms</artifactId>
                 <version>${version.apache.camel.jms}</version>

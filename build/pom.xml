@@ -58,6 +58,18 @@
         <!-- provided -->
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-cxf</artifactId>
+            <exclusions>
+                <exclusion>
+                    <!-- breaks the modular build -->
+                    <groupId>org.codehaus.woodstox</groupId>
+                    <artifactId>woodstox-core-asl</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-jms</artifactId>
             <scope>provided</scope>
         </dependency>
