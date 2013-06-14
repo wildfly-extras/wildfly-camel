@@ -57,10 +57,10 @@ public class SpringContextTestCase {
     static final String CAMEL_BUNDLE = "camel-spring-bundle.jar";
 
     @ArquillianResource
-    Deployer deployer;
+    BundleContext context;
 
     @ArquillianResource
-    BundleContext context;
+    Deployer deployer;
 
     @Deployment
     public static JavaArchive createdeployment() {

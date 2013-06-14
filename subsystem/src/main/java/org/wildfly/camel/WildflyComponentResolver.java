@@ -21,21 +21,12 @@
  */
 package org.wildfly.camel;
 
-import static org.wildfly.camel.CamelMessages.MESSAGES;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.Properties;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.impl.DefaultComponentResolver;
 import org.apache.camel.spi.ComponentResolver;
-import org.jboss.modules.Module;
-import org.jboss.modules.ModuleClassLoader;
-import org.jboss.modules.ModuleIdentifier;
-import org.jboss.modules.ModuleLoadException;
-import org.jboss.modules.ModuleLoader;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 
 /**
  * The default Wildfly {@link ComponentResolver}.
@@ -45,14 +36,13 @@ import org.jboss.modules.ModuleLoader;
  */
 public class WildflyComponentResolver implements ComponentResolver {
 
-    // [TODO] make this configurable
-    private static String[] modulePrefixes = new String[] { "org.apache.camel.component.", "org.apache.camel.camel-" };
-
     private static ComponentResolver defaultResolver = new DefaultComponentResolver();
-    private final ClassLoader classLoader;
+    private final BundleContext syscontext;
 
-    public WildflyComponentResolver(ClassLoader classsLoader) {
-        this.classLoader = classsLoader;
+    public WildflyComponentResolver(BundleContext syscontext) {
+        if (syscontext == null)
+            throw CamelMessages.MESSAGES.illegalArgumentNull("syscontext");
+        this.syscontext = syscontext;
     }
 
     @Override
@@ -63,65 +53,13 @@ public class WildflyComponentResolver implements ComponentResolver {
         if (component != null)
             return component;
 
-        ClassLoader compcl = classLoader != null ? classLoader : Module.getCallerModule().getClassLoader();
-        ModuleLoader moduleLoader = ((ModuleClassLoader)compcl).getModule().getModuleLoader();
-
-        Module module = null;
-
-        // Try to load the component module with the configured prefixes
-        for (String prefix : modulePrefixes) {
-            ModuleIdentifier moduleid = ModuleIdentifier.create(prefix + name);
-            try {
-                module = moduleLoader.loadModule(moduleid);
-                break;
-            } catch (ModuleLoadException ex) {
-                // ignore
-            }
+        // Try registered {@link ComponentResolver} services
+        for (ServiceReference<ComponentResolver> sref : syscontext.getServiceReferences(ComponentResolver.class, "(component=" + name + ")")) {
+            ComponentResolver resolver = syscontext.getService(sref);
+            component = resolver.resolveComponent(name, context);
+            break;
         }
 
-        // Try to load the component module as a deployment
-        if (module == null) {
-            for (String prefix : modulePrefixes) {
-                ModuleIdentifier moduleid = ModuleIdentifier.create("deployment." + prefix + name);
-                try {
-                    module = moduleLoader.loadModule(moduleid);
-                    break;
-                } catch (ModuleLoadException ex) {
-                    // ignore
-                }
-            }
-        }
-
-        if (module != null) {
-            ModuleClassLoader classLoader = module.getClassLoader();
-            String uri = DefaultComponentResolver.RESOURCE_PATH + name;
-            URL resource = module.getExportedResource(uri);
-            if (resource == null)
-                throw MESSAGES.cannotFindComponentProperties(module.getIdentifier());
-
-            // Load the component properties
-            Properties props = new Properties();
-            try {
-                props.load(resource.openStream());
-            } catch (IOException ex) {
-                throw MESSAGES.cannotLoadComponentProperties(ex, module.getIdentifier());
-            }
-
-            Class<?> type;
-            String className = props.getProperty("class");
-            try {
-                type = classLoader.loadClass(className);
-            } catch (Exception ex) {
-                throw MESSAGES.cannotLoadComponentType(ex, name);
-            }
-
-            // create the component
-            if (Component.class.isAssignableFrom(type)) {
-                component = (Component) context.getInjector().newInstance(type);
-            } else {
-                throw MESSAGES.componentTypeException(type);
-            }
-        }
         return component;
     }
 

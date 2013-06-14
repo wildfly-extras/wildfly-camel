@@ -59,13 +59,13 @@ public class BeanTransformTestCase {
     static final String CAMEL_BUNDLE = "camel-bundle.jar";
 
     @ArquillianResource
-    Deployer deployer;
-
-    @ArquillianResource
     BundleContext context;
 
     @ArquillianResource
     CamelContextFactory contextFactory;
+
+    @ArquillianResource
+    Deployer deployer;
 
     @Deployment
     public static JavaArchive createdeployment() {

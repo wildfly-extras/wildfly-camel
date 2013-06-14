@@ -28,21 +28,18 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.as.arquillian.container.ManagementClient;
-import org.jboss.as.controller.client.ModelControllerClient;
 import org.jboss.osgi.metadata.ManifestBuilder;
-import org.jboss.osgi.provision.XResourceProvisioner;
-import org.jboss.osgi.resolver.XEnvironment;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.osgi.framework.BundleContext;
 import org.osgi.framework.namespace.IdentityNamespace;
 import org.wildfly.camel.CamelContextFactory;
-import org.wildfly.camel.CamelContextRegistry;
 import org.wildfly.camel.test.ProvisionerSupport;
+import org.wildfly.camel.test.ProvisionerSupport.ResourceHandle;
 
 /**
  * Deploys a test which monitors an JMX attrbute of a route.
@@ -54,21 +51,12 @@ import org.wildfly.camel.test.ProvisionerSupport;
 public class JMXIntegrationTestCase {
 
     @ArquillianResource
+    BundleContext syscontext;
+
+    @ArquillianResource
     CamelContextFactory contextFactory;
 
-    @ArquillianResource
-    CamelContextRegistry contextRegistry;
-
-    @ArquillianResource
-    XResourceProvisioner provisioner;
-
-    @ArquillianResource
-    XEnvironment environment;
-
-    @ArquillianResource
-    ManagementClient managementClient;
-
-    static List<String> runtimeNames;
+    static List<ResourceHandle> reshandles;
 
     @Deployment
     public static JavaArchive deployment() {
@@ -89,17 +77,16 @@ public class JMXIntegrationTestCase {
     @Test
     @InSequence(Integer.MIN_VALUE)
     public void installCamelFeatures() throws Exception {
-        ModelControllerClient controllerClient = managementClient.getControllerClient();
-        ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner, controllerClient);
-        runtimeNames = provisionerSupport.installCapability(environment, IdentityNamespace.IDENTITY_NAMESPACE, "camel.jmx.feature");
+        ProvisionerSupport provisionerSupport = new ProvisionerSupport(syscontext);
+        reshandles = provisionerSupport.installCapability(IdentityNamespace.IDENTITY_NAMESPACE, "camel.jmx.feature");
     }
 
     @Test
     @InSequence(Integer.MAX_VALUE)
     public void uninstallCamelFeatures() throws Exception {
-        ModelControllerClient controllerClient = managementClient.getControllerClient();
-        ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner, controllerClient);
-        provisionerSupport.uninstallCapabilities(runtimeNames);
+        for (ResourceHandle handle : reshandles) {
+            handle.uninstall();
+        }
     }
 
     @Test

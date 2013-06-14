@@ -22,19 +22,17 @@
 
 package org.wildfly.camel.test;
 
+import static org.jboss.osgi.provision.ProvisionLogger.LOGGER;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.jboss.as.controller.client.ModelControllerClient;
-import org.jboss.as.controller.client.helpers.standalone.ServerDeploymentHelper;
-import org.jboss.as.controller.client.helpers.standalone.ServerDeploymentHelper.ServerDeploymentException;
 import org.jboss.osgi.provision.ProvisionResult;
 import org.jboss.osgi.provision.XResourceProvisioner;
 import org.jboss.osgi.repository.RepositoryReader;
@@ -45,13 +43,10 @@ import org.jboss.osgi.resolver.XIdentityCapability;
 import org.jboss.osgi.resolver.XRequirement;
 import org.jboss.osgi.resolver.XRequirementBuilder;
 import org.jboss.osgi.resolver.XResource;
-import org.jboss.shrinkwrap.api.ConfigurationBuilder;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.UrlAsset;
-import org.jboss.shrinkwrap.api.exporter.ZipExporter;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.namespace.IdentityNamespace;
 import org.osgi.service.repository.RepositoryContent;
 
 /**
@@ -60,54 +55,75 @@ import org.osgi.service.repository.RepositoryContent;
  */
 public class ProvisionerSupport {
 
+    private final BundleContext syscontext;
     private final XResourceProvisioner provision;
-    private final ServerDeploymentHelper serverDeployer;
+    private final XEnvironment environment;
 
-    public ProvisionerSupport(XResourceProvisioner provision, ModelControllerClient controllerClient) {
-        this.serverDeployer = new ServerDeploymentHelper(controllerClient);
-        this.provision = provision;
+    public interface ResourceHandle {
+
+        <T> T adapt(Class<T> type);
+
+        void uninstall();
     }
 
-    public List<String> installCapability(XEnvironment env, String namespace, String feature) throws Exception {
-        XRequirement req = XRequirementBuilder.create(namespace, feature).getRequirement();
-        return installCapabilities(env, req);
+    public ProvisionerSupport(BundleContext syscontext) {
+        this.syscontext = syscontext;
+        this.provision = syscontext.getService(syscontext.getServiceReference(XResourceProvisioner.class));
+        this.environment = syscontext.getService(syscontext.getServiceReference(XEnvironment.class));
     }
 
-    public List<String> installCapabilities(XEnvironment env, XRequirement... reqs) throws Exception {
+    public List<ResourceHandle> installCapability(String namespace, String... features) throws Exception {
+        XRequirement[] reqs = new XRequirement[features.length];
+        for (int i=0; i < features.length; i++) {
+            reqs[i] = XRequirementBuilder.create(namespace, features[i]).getRequirement();
+        }
+        return installCapabilities(reqs);
+    }
+
+    public List<ResourceHandle> installCapabilities(XRequirement... reqs) throws Exception {
+
+        // Populate the repository with the feature definitions
         populateRepository(provision.getRepository(), reqs);
-        ProvisionResult result = provision.findResources(env, new HashSet<XRequirement>(Arrays.asList(reqs)));
+
+        // Obtain provisioner result
+        ProvisionResult result = provision.findResources(environment, new HashSet<XRequirement>(Arrays.asList(reqs)));
         Set<XRequirement> unsat = result.getUnsatisfiedRequirements();
         Assert.assertTrue("Nothing unsatisfied: " + unsat, unsat.isEmpty());
 
-        List<String> runtimeNames = new ArrayList<String>();
+        // Install the provision result
+        List<ResourceHandle> reshandles = new ArrayList<ResourceHandle>();
         for (XResource res : result.getResources()) {
-            String rtname;
             XIdentityCapability icap = res.getIdentityCapability();
-            if (icap.getNamespace().equals(XResource.MODULE_IDENTITY_NAMESPACE)) {
-                URL deploymentStructure = getResource(icap.getName() + "/jboss-deployment-structure.xml");
-                ConfigurationBuilder config = new ConfigurationBuilder().classLoaders(Collections.singleton(ShrinkWrap.class.getClassLoader()));
-                JavaArchive archive = ShrinkWrap.createDomain(config).getArchiveFactory().create(JavaArchive.class, "wrapped-resource.jar");
-                archive.as(ZipImporter.class).importFrom(((RepositoryContent) res).getContent());
-                JavaArchive wrapper = ShrinkWrap.createDomain(config).getArchiveFactory().create(JavaArchive.class, "wrapped:" + icap.getName());
-                wrapper.addAsManifestResource(new UrlAsset(deploymentStructure), "jboss-deployment-structure.xml");
-                wrapper.add(archive, "/", ZipExporter.class);
-                InputStream input = wrapper.as(ZipExporter.class).exportAsInputStream();
-                rtname = serverDeployer.deploy(wrapper.getName(), input);
-            } else {
-                List<String> rtnames = provision.installResources(Collections.singletonList(res), String.class);
-                rtname = rtnames.get(0);
-            }
-            runtimeNames.add(rtname);
-        }
-        return runtimeNames;
-    }
+            if (!icap.getNamespace().equals(IdentityNamespace.IDENTITY_NAMESPACE))
+                throw new IllegalArgumentException("Unsupported type: " + icap);
 
-    public void uninstallCapabilities(List<String> runtimeNames) throws ServerDeploymentException {
-        if (runtimeNames != null) {
-            for (String rtname : runtimeNames) {
-                serverDeployer.undeploy(rtname);
-            }
+            final InputStream input = ((RepositoryContent) res).getContent();
+            final Bundle bundle = syscontext.installBundle(icap.getName(), input);
+            ResourceHandle handle = new ResourceHandle() {
+
+                @Override
+                @SuppressWarnings("unchecked")
+                public <T> T adapt(Class<T> type) {
+                    return (T) (type == Bundle.class ? bundle : null);
+                }
+
+                @Override
+                public void uninstall() {
+                    try {
+                        bundle.uninstall();
+                    } catch (Exception ex) {
+                        LOGGER.warnf(ex, "Cannot uninstall bundle: %s", bundle);
+                    }
+                }
+            };
+            reshandles.add(handle);
         }
+        // Start the provisioned bundles
+        for (ResourceHandle handle : reshandles) {
+            Bundle bundle = handle.adapt(Bundle.class);
+            bundle.start();
+        }
+        return reshandles;
     }
 
     private void populateRepository(XPersistentRepository repository, XRequirement[] reqs) throws IOException {

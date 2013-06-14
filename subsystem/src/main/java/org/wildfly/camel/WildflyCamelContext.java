@@ -26,6 +26,7 @@ import javax.naming.Context;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spi.ComponentResolver;
+import org.osgi.framework.BundleContext;
 
 /**
  * The default Wildfly {@link CamelContext}.
@@ -35,16 +36,18 @@ import org.apache.camel.spi.ComponentResolver;
  */
 public class WildflyCamelContext extends DefaultCamelContext {
 
-    private final ClassLoader classsLoader;
+    private final BundleContext syscontext;
     private Context namingContext;
 
-    public WildflyCamelContext(ClassLoader classsLoader) {
-        this.classsLoader = classsLoader;
+    public WildflyCamelContext(BundleContext syscontext) {
+        if (syscontext == null)
+            throw CamelMessages.MESSAGES.illegalArgumentNull("syscontext");
+        this.syscontext = syscontext;
     }
 
     @Override
     protected ComponentResolver createComponentResolver() {
-        return new WildflyComponentResolver(classsLoader);
+        return new WildflyComponentResolver(syscontext);
     }
 
     public Context getNamingContext() {

@@ -54,6 +54,9 @@ import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
+import org.jboss.msc.value.InjectedValue;
+import org.jboss.osgi.framework.Services;
+import org.osgi.framework.BundleContext;
 import org.wildfly.camel.CamelConstants;
 import org.wildfly.camel.CamelContextFactory;
 import org.wildfly.camel.WildflyCamelContext;
@@ -66,11 +69,13 @@ import org.wildfly.camel.WildflyCamelContext;
  */
 public class CamelContextFactoryService extends AbstractService<CamelContextFactory> {
 
+    private final InjectedValue<BundleContext> injectedSystemContext = new InjectedValue<BundleContext>();
     private CamelContextFactory contextFactory;
 
     public static ServiceController<CamelContextFactory> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
         CamelContextFactoryService service = new CamelContextFactoryService();
         ServiceBuilder<CamelContextFactory> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_FACTORY_NAME, service);
+        builder.addDependency(Services.SYSTEM_CONTEXT, BundleContext.class, service.injectedSystemContext);
         builder.addListener(verificationHandler);
         return builder.install();
     }
@@ -81,8 +86,9 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
 
     @Override
     public void start(StartContext startContext) throws StartException {
+        BundleContext syscontext = injectedSystemContext.getValue();
         ServiceContainer serviceContainer = startContext.getController().getServiceContainer();
-        contextFactory = new DefaultCamelContextFactory(serviceContainer, startContext.getChildTarget());
+        contextFactory = new DefaultCamelContextFactory(serviceContainer, startContext.getChildTarget(), syscontext);
     }
 
     @Override
@@ -94,10 +100,12 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
 
         private final ServiceRegistry serviceRegistry;
         private final ServiceTarget serviceTarget;
+        private final BundleContext syscontext;
 
-        DefaultCamelContextFactory(ServiceRegistry serviceRegistry, ServiceTarget serviceTarget) {
+        DefaultCamelContextFactory(ServiceRegistry serviceRegistry, ServiceTarget serviceTarget, BundleContext syscontext) {
             this.serviceRegistry = serviceRegistry;
             this.serviceTarget = serviceTarget;
+            this.syscontext = syscontext;
         }
 
         @Override
@@ -107,7 +115,7 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
 
         @Override
         public WildflyCamelContext createWildflyCamelContext(ClassLoader classsLoader) throws Exception {
-            return setup(new WildflyCamelContext(classsLoader));
+            return setup(new WildflyCamelContext(syscontext));
         }
 
         private WildflyCamelContext setup(WildflyCamelContext context) {

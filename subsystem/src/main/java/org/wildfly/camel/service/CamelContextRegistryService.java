@@ -41,6 +41,7 @@ import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.ValueService;
 import org.jboss.msc.value.ImmediateValue;
 import org.jboss.msc.value.InjectedValue;
+import org.jboss.osgi.framework.Services;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
@@ -67,11 +68,10 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
     private final SubsystemState subsystemState;
     private CamelContextRegistry contextRegistry;
 
-    public static ServiceController<CamelContextRegistry> addService(ServiceTarget serviceTarget, SubsystemState subsystemState,
-            ServiceVerificationHandler verificationHandler) {
+    public static ServiceController<CamelContextRegistry> addService(ServiceTarget serviceTarget, SubsystemState subsystemState, ServiceVerificationHandler verificationHandler) {
         CamelContextRegistryService service = new CamelContextRegistryService(subsystemState);
         ServiceBuilder<CamelContextRegistry> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_REGISTRY_NAME, service);
-        builder.addDependency(ServiceName.parse("jbosgi.framework.ACTIVE"), BundleContext.class, service.injectedSystemContext);
+        builder.addDependency(Services.SYSTEM_CONTEXT, BundleContext.class, service.injectedSystemContext);
         builder.addListener(verificationHandler);
         return builder.install();
     }

@@ -37,7 +37,6 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -45,21 +44,20 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
-import org.jboss.as.controller.client.ModelControllerClient;
 import org.jboss.as.test.integration.common.jms.JMSOperations;
 import org.jboss.as.test.integration.common.jms.JMSOperationsProvider;
 import org.jboss.osgi.metadata.ManifestBuilder;
-import org.jboss.osgi.provision.XResourceProvisioner;
-import org.jboss.osgi.resolver.XEnvironment;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.osgi.framework.BundleContext;
 import org.osgi.framework.namespace.IdentityNamespace;
 import org.wildfly.camel.CamelContextFactory;
 import org.wildfly.camel.test.ProvisionerSupport;
+import org.wildfly.camel.test.ProvisionerSupport.ResourceHandle;
 
 /**
  * Test routes that use the jms component in routes.
@@ -75,24 +73,15 @@ public class JMSIntegrationTestCase {
     static final String QUEUE_JNDI_NAME = "java:/" + QUEUE_NAME;
 
     @ArquillianResource
-    Deployer deployer;
-
-    @ArquillianResource
-    InitialContext initialctx;
-
-    @ArquillianResource
-    XResourceProvisioner provisioner;
-
-    @ArquillianResource
-    XEnvironment environment;
-
-    @ArquillianResource
-    ManagementClient managementClient;
+    BundleContext syscontext;
 
     @ArquillianResource
     CamelContextFactory contextFactory;
 
-    static List<String> runtimeNames;
+    @ArquillianResource
+    InitialContext initialctx;
+
+    static List<ResourceHandle> reshandles;
 
     static class JmsQueueSetup implements ServerSetupTask {
 
@@ -133,17 +122,16 @@ public class JMSIntegrationTestCase {
     @Test
     @InSequence(Integer.MIN_VALUE)
     public void installCamelFeatures() throws Exception {
-        ModelControllerClient controllerClient = managementClient.getControllerClient();
-        ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner, controllerClient);
-        runtimeNames = provisionerSupport.installCapability(environment, IdentityNamespace.IDENTITY_NAMESPACE, "camel.jms.feature");
+        ProvisionerSupport provisionerSupport = new ProvisionerSupport(syscontext);
+        reshandles = provisionerSupport.installCapability(IdentityNamespace.IDENTITY_NAMESPACE, "camel.jms.feature");
     }
 
     @Test
     @InSequence(Integer.MAX_VALUE)
     public void uninstallCamelFeatures() throws Exception {
-        ModelControllerClient controllerClient = managementClient.getControllerClient();
-        ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner, controllerClient);
-        provisionerSupport.uninstallCapabilities(runtimeNames);
+        for (ResourceHandle handle : reshandles) {
+            handle.uninstall();
+        }
     }
 
     @Test

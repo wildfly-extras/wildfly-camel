@@ -22,21 +22,19 @@ import java.util.List;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.as.arquillian.container.ManagementClient;
-import org.jboss.as.controller.client.ModelControllerClient;
 import org.jboss.modules.ModuleClassLoader;
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.modules.ModuleLoader;
 import org.jboss.osgi.metadata.ManifestBuilder;
-import org.jboss.osgi.provision.XResourceProvisioner;
-import org.jboss.osgi.resolver.XEnvironment;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.osgi.framework.BundleContext;
 import org.osgi.framework.namespace.IdentityNamespace;
 import org.wildfly.camel.test.ProvisionerSupport;
+import org.wildfly.camel.test.ProvisionerSupport.ResourceHandle;
 
 /**
  * Test feature provisioning.
@@ -48,19 +46,13 @@ import org.wildfly.camel.test.ProvisionerSupport;
 public class FeatureProvisionTestCase {
 
     @ArquillianResource
-    XResourceProvisioner provisioner;
-
-    @ArquillianResource
-    XEnvironment environment;
-
-    @ArquillianResource
-    ManagementClient managementClient;
+    BundleContext syscontext;
 
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "resource-provisioner-tests");
         archive.addClasses(ProvisionerSupport.class);
-        archive.addAsResource("repository/camel.jms.feature.xml");
+        archive.addAsResource("repository/camel.cxf.feature.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -74,14 +66,15 @@ public class FeatureProvisionTestCase {
 
     @Test
     public void testFeatureProvisioning() throws Exception {
-        ModelControllerClient controllerClient = managementClient.getControllerClient();
-        ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner, controllerClient);
-        List<String> rtnames = provisionerSupport.installCapability(environment, IdentityNamespace.IDENTITY_NAMESPACE, "camel.jms.feature");
+        ProvisionerSupport provisionerSupport = new ProvisionerSupport(syscontext);
+        List<ResourceHandle> reshandles = provisionerSupport.installCapability(IdentityNamespace.IDENTITY_NAMESPACE, "camel.cxf.feature");
         try {
             ModuleLoader moduleLoader = ((ModuleClassLoader)getClass().getClassLoader()).getModule().getModuleLoader();
-            moduleLoader.loadModule(ModuleIdentifier.create("deployment.org.apache.camel.camel-jms"));
+            moduleLoader.loadModule(ModuleIdentifier.create("deployment.org.apache.camel.camel-cxf"));
         } finally {
-            provisionerSupport.uninstallCapabilities(rtnames);
+            for (ResourceHandle handle : reshandles) {
+                handle.uninstall();
+            }
         }
     }
 }

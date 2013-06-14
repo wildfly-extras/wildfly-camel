@@ -44,10 +44,10 @@ import org.wildfly.camel.CamelContextRegistry;
 public class SystemContextTestCase {
 
     @ArquillianResource
-    Deployer deployer;
+    CamelContextRegistry contextRegistry;
 
     @ArquillianResource
-    CamelContextRegistry contextRegistry;
+    Deployer deployer;
 
     @Deployment
     public static JavaArchive createdeployment() {

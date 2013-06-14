@@ -49,10 +49,10 @@ public class SpringContextDeploymentTestCase  {
     static final String SPRING_CONTEXT_XML = "simple-transform-camel-context.xml";
 
     @ArquillianResource
-    ManagementClient managementClient;
+    CamelContextRegistry contextRegistry;
 
     @ArquillianResource
-    CamelContextRegistry contextRegistry;
+    ManagementClient managementClient;
 
     @Deployment
     public static JavaArchive createdeployment() {
