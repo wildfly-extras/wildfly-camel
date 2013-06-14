@@ -47,7 +47,11 @@ public interface CamelConstants {
     String CAMEL_CONTEXT_FILE_SUFFIX = "-camel-context.xml";
     String CAMEL_CONTEXT_FILE_NAME = "META-INF/jboss-camel-context.xml";
 
-    /** */
+    /** The deployment names for repository content deployments */
+    String REPOSITORY_CONTENT_FILE_SUFFIX = "-repository-content.xml";
+    String REPOSITORY_CONTENT_FILE_NAME = "META-INF/jboss-repository-content.xml";
+
+    /** The name property on CamelContext OSGi services */
     String CAMEL_CONTEXT_NAME_PROPERTY = "name";
 
     /** The {@link CamelContext} attachment key */

@@ -48,6 +48,8 @@
         <module name="org.jboss.modules"/>
         <module name="org.jboss.msc"/>
         <module name="org.jboss.osgi.framework"/>
+        <module name="org.jboss.osgi.resolver"/>
+        <module name="org.jboss.osgi.repository"/>
         <module name="org.jboss.staxmapper"/>
         <module name="org.jboss.vfs"/>
         <module name="org.osgi.core"/>

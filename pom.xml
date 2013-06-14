@@ -37,6 +37,7 @@
     <properties>
         <version.apache.camel>2.11.0</version.apache.camel>
         <version.apache.camel.jms>2.11.0-wildfly-01</version.apache.camel.jms>
+        <version.apache.felix.configadmin>1.6.0</version.apache.felix.configadmin>
         <version.apache.spring>3.1.4.RELEASE</version.apache.spring>
         <version.codehaus.izpack>4.3.1</version.codehaus.izpack>
         <version.jboss.wildfly>8.0.0.Alpha2-SNAPSHOT</version.jboss.wildfly>
@@ -102,6 +103,13 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-spring</artifactId>
                 <version>${version.apache.camel}</version>
+            </dependency>
+            
+            <!-- Felix -->
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.configadmin</artifactId>
+                <version>${version.apache.felix.configadmin}</version>
             </dependency>
             
             <!-- Spring -->

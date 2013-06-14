@@ -72,6 +72,18 @@ public class ProvisionerSupport {
         this.environment = syscontext.getService(syscontext.getServiceReference(XEnvironment.class));
     }
 
+    public XEnvironment getEnvironment() {
+        return environment;
+    }
+
+    public XResourceProvisioner getResourceProvisioner() {
+        return provision;
+    }
+
+    public XPersistentRepository getPersistentRepository() {
+        return provision.getRepository();
+    }
+
     public List<ResourceHandle> installCapability(String namespace, String... features) throws Exception {
         XRequirement[] reqs = new XRequirement[features.length];
         for (int i=0; i < features.length; i++) {
