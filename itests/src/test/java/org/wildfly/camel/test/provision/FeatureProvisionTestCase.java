@@ -52,12 +52,11 @@ public class FeatureProvisionTestCase {
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "resource-provisioner-tests");
         archive.addClasses(ProvisionerSupport.class);
-        archive.addAsResource("repository/camel.cxf.feature.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = ManifestBuilder.newInstance();
-                builder.addManifestHeader("Dependencies", "org.jboss.as.controller-client,org.jboss.osgi.provision,org.jboss.shrinkwrap.core");
+                builder.addManifestHeader("Dependencies", "org.jboss.osgi.provision");
                 return builder.openStream();
             }
         });

@@ -94,9 +94,6 @@ public class ProvisionerSupport {
 
     public List<ResourceHandle> installCapabilities(XRequirement... reqs) throws Exception {
 
-        // Populate the repository with the feature definitions
-        populateRepository(provision.getRepository(), reqs);
-
         // Obtain provisioner result
         ProvisionResult result = provision.findResources(environment, new HashSet<XRequirement>(Arrays.asList(reqs)));
         Set<XRequirement> unsat = result.getUnsatisfiedRequirements();
@@ -138,16 +135,15 @@ public class ProvisionerSupport {
         return reshandles;
     }
 
-    private void populateRepository(XPersistentRepository repository, XRequirement[] reqs) throws IOException {
-        for (XRequirement req : reqs) {
-            String nsvalue = (String) req.getAttribute(req.getNamespace());
-            URL resourceURL = getResource(nsvalue + ".xml");
+    public void populateRepository(XPersistentRepository repository, String... features) throws IOException {
+        for (String feature : features) {
+            URL resourceURL = getResource(feature + ".xml");
             if (resourceURL != null) {
                 RepositoryReader reader = RepositoryXMLReader.create(resourceURL.openStream());
                 XResource auxres = reader.nextResource();
                 while (auxres != null) {
                     XIdentityCapability icap = auxres.getIdentityCapability();
-                    nsvalue = (String) icap.getAttribute(icap.getNamespace());
+                    String nsvalue = (String) icap.getAttribute(icap.getNamespace());
                     XRequirement ireq = XRequirementBuilder.create(icap.getNamespace(), nsvalue).getRequirement();
                     if (repository.findProviders(ireq).isEmpty()) {
                         repository.getRepositoryStorage().addResource(auxres);

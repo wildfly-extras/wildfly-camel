@@ -77,5 +77,8 @@ public interface CamelMessages {
 
     @Message(id = 20110, value = "Cannot initialize naming context")
     IllegalStateException cannotInitializeNamingContext(@Cause Throwable th);
+
+    @Message(id = 20111, value = "Cannot install feature to repository: %s")
+    IllegalStateException cannotInstallCamelFeature(String name);
 }
 

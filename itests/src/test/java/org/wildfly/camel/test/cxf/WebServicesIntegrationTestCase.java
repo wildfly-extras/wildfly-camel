@@ -79,7 +79,6 @@ public class WebServicesIntegrationTestCase {
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-integration-tests");
         archive.addClasses(Endpoint.class, ProvisionerSupport.class);
-        archive.addAsResource("repository/camel.cxf.feature.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {

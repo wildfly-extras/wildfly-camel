@@ -23,14 +23,32 @@
 package org.wildfly.camel.service;
 
 import static org.wildfly.camel.CamelLogger.LOGGER;
+import static org.wildfly.camel.CamelMessages.MESSAGES;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
 
 import org.jboss.as.controller.ServiceVerificationHandler;
+import org.jboss.as.osgi.OSGiConstants;
+import org.jboss.modules.Module;
+import org.jboss.modules.ModuleClassLoader;
+import org.jboss.modules.Resource;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
+import org.jboss.msc.value.InjectedValue;
+import org.jboss.osgi.provision.XResourceProvisioner;
+import org.jboss.osgi.repository.RepositoryReader;
+import org.jboss.osgi.repository.RepositoryXMLReader;
+import org.jboss.osgi.repository.XPersistentRepository;
+import org.jboss.osgi.resolver.XIdentityCapability;
+import org.jboss.osgi.resolver.XRequirement;
+import org.jboss.osgi.resolver.XRequirementBuilder;
+import org.jboss.osgi.resolver.XResource;
 import org.wildfly.camel.CamelConstants;
 
 /**
@@ -41,9 +59,12 @@ import org.wildfly.camel.CamelConstants;
  */
 public class CamelBootstrapService extends AbstractService<Void> {
 
+    private final InjectedValue<XResourceProvisioner> injectedResourceProvisioner = new InjectedValue<XResourceProvisioner>();
+
     public static ServiceController<Void> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
         CamelBootstrapService service = new CamelBootstrapService();
         ServiceBuilder<Void> builder = serviceTarget.addService(CamelConstants.CAMEL_BASE_NAME, service);
+        builder.addDependency(OSGiConstants.PROVISIONER_SERVICE_NAME, XResourceProvisioner.class, service.injectedResourceProvisioner);
         builder.addListener(verificationHandler);
         return builder.install();
     }
@@ -55,5 +76,31 @@ public class CamelBootstrapService extends AbstractService<Void> {
     @Override
     public void start(StartContext startContext) throws StartException {
         LOGGER.infoActivatingSubsystem();
+
+        XResourceProvisioner provisioner = injectedResourceProvisioner.getValue();
+        XPersistentRepository repository = provisioner.getRepository();
+
+        // Install camel features to the repository
+        ModuleClassLoader classLoader = Module.getCallerModule().getClassLoader();
+        Iterator<Resource> itres = classLoader.iterateResources("META-INF/repository-content", false);
+        while(itres.hasNext()) {
+            Resource res = itres.next();
+            try {
+                InputStream input = res.openStream();
+                RepositoryReader reader = RepositoryXMLReader.create(input);
+                XResource auxres = reader.nextResource();
+                while (auxres != null) {
+                    XIdentityCapability icap = auxres.getIdentityCapability();
+                    String nsvalue = (String) icap.getAttribute(icap.getNamespace());
+                    XRequirement ireq = XRequirementBuilder.create(icap.getNamespace(), nsvalue).getRequirement();
+                    if (repository.findProviders(ireq).isEmpty()) {
+                        repository.getRepositoryStorage().addResource(auxres);
+                    }
+                    auxres = reader.nextResource();
+                }
+            } catch (IOException e) {
+                throw MESSAGES.cannotInstallCamelFeature(res.getName());
+            }
+        }
     }
 }

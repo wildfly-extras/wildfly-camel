@@ -62,7 +62,6 @@ public class JMXIntegrationTestCase {
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jmx-integration-tests");
         archive.addClasses(ProvisionerSupport.class);
-        archive.addAsResource("repository/camel.jmx.feature.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {

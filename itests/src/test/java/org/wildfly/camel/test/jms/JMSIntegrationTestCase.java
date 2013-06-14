@@ -106,7 +106,6 @@ public class JMSIntegrationTestCase {
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-jms-tests");
         archive.addClasses(ProvisionerSupport.class);
-        archive.addAsResource("repository/camel.jms.feature.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
