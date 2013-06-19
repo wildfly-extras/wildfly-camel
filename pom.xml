@@ -45,7 +45,7 @@
         <version.jboss.logging>3.1.3.GA</version.jboss.logging>
         <version.jboss.logging.processor>1.1.0.Final</version.jboss.logging.processor>
         <version.jboss.logmanager>1.4.1.Final</version.jboss.logmanager>
-        <version.jboss.osgi.provision>1.0.0.CR3</version.jboss.osgi.provision>
+        <version.jboss.osgi.provision>1.0.0.Final</version.jboss.osgi.provision>
         <version.jboss.spec.javax.annotation>1.0.0.Alpha1</version.jboss.spec.javax.annotation>
         <version.jboss.spec.javax.jms>1.0.0.Alpha1</version.jboss.spec.javax.jms>
         <version.junit>4.10</version.junit>
