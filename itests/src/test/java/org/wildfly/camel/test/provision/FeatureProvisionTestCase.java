@@ -29,6 +29,7 @@ import org.jboss.osgi.metadata.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
@@ -43,6 +44,7 @@ import org.wildfly.camel.test.ProvisionerSupport.ResourceHandle;
  * @since 18-May-2013
  */
 @RunWith(Arquillian.class)
+@Ignore
 public class FeatureProvisionTestCase {
 
     @ArquillianResource

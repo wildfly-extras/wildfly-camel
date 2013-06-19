@@ -40,6 +40,7 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
@@ -57,6 +58,7 @@ import org.wildfly.camel.test.cxf.subA.EndpointImpl;
  * @since 11-Jun-2013
  */
 @RunWith(Arquillian.class)
+@Ignore
 public class WebServicesIntegrationTestCase {
 
     static final String SIMPLE_WAR = "simple.war";

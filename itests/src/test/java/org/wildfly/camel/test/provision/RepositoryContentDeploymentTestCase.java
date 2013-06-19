@@ -36,6 +36,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.namespace.IdentityNamespace;
@@ -50,6 +51,7 @@ import org.wildfly.camel.test.ProvisionerSupport;
  * @since 14-Jun-2013
  */
 @RunWith(Arquillian.class)
+@Ignore
 public class RepositoryContentDeploymentTestCase {
 
     static final String REPOSITORY_CONTENT_JAR = "repository-content.jar";
