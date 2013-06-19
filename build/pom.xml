@@ -27,6 +27,7 @@
         <wildfly.home>${basedir}/../../wildfly/build/target/wildfly-${version.jboss.wildfly}</wildfly.home>
         
         <standalone.subsystems>logging,camel,configadmin,deployment-scanner,ee,io,jmx,messaging,naming,osgi:camel,remoting,security,undertow,webservices</standalone.subsystems>
+        <standalone.extra.modules>javaee.api</standalone.extra.modules>
         
         <modular.config.name>camel</modular.config.name>
         <modular.resources.src>${basedir}/src/main/resources</modular.resources.src>

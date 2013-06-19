@@ -15,7 +15,7 @@
     <parent>
         <groupId>org.jboss.osgi</groupId>
         <artifactId>jbosgi-parent</artifactId>
-        <version>1.0.23</version>
+        <version>1.0.24</version>
     </parent>
 
     <name>Wildfly Camel</name>
@@ -269,8 +269,17 @@
         </repository>
     </repositories>
 
-    <!-- Profiles -->
-    <profiles>
-    </profiles>
+    <build>
+        <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <configuration>
+                  <source>1.7</source>
+                  <target>1.7</target>
+              </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
