@@ -29,18 +29,17 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.ManifestBuilder;
+import org.jboss.osgi.provision.ProvisionerSupport;
+import org.jboss.osgi.provision.ProvisionerSupport.ResourceHandle;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.namespace.IdentityNamespace;
 import org.wildfly.camel.CamelContextFactory;
-import org.wildfly.camel.test.ProvisionerSupport;
-import org.wildfly.camel.test.ProvisionerSupport.ResourceHandle;
 
 /**
  * Deploys a test which monitors an JMX attrbute of a route.
@@ -49,7 +48,6 @@ import org.wildfly.camel.test.ProvisionerSupport.ResourceHandle;
  * @since 03-Jun-2013
  */
 @RunWith(Arquillian.class)
-@Ignore
 public class JMXIntegrationTestCase {
 
     @ArquillianResource
@@ -68,7 +66,7 @@ public class JMXIntegrationTestCase {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = ManifestBuilder.newInstance();
-                builder.addManifestHeader("Dependencies", "org.apache.camel,org.wildfly.camel,org.jboss.as.controller-client,org.jboss.osgi.provision");
+                builder.addManifestHeader("Dependencies", "org.apache.camel,org.wildfly.camel,org.jboss.osgi.provision");
                 return builder.openStream();
             }
         });
@@ -79,7 +77,7 @@ public class JMXIntegrationTestCase {
     @InSequence(Integer.MIN_VALUE)
     public void installCamelFeatures() throws Exception {
         ProvisionerSupport provisionerSupport = new ProvisionerSupport(syscontext);
-        reshandles = provisionerSupport.installCapability(IdentityNamespace.IDENTITY_NAMESPACE, "camel.jmx.feature");
+        reshandles = provisionerSupport.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "camel.jmx.feature");
     }
 
     @Test

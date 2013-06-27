@@ -27,8 +27,10 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.as.controller.client.helpers.standalone.ServerDeploymentHelper;
 import org.jboss.osgi.metadata.ManifestBuilder;
+import org.jboss.osgi.provision.ProvisionerSupport;
 import org.jboss.osgi.provision.XResourceProvisioner;
-import org.jboss.osgi.repository.XPersistentRepository;
+import org.jboss.osgi.repository.RepositoryStorage;
+import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.resolver.XCapability;
 import org.jboss.osgi.resolver.XRequirement;
 import org.jboss.osgi.resolver.XRequirementBuilder;
@@ -36,13 +38,11 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.namespace.IdentityNamespace;
 import org.osgi.resource.Capability;
 import org.wildfly.camel.CamelConstants;
-import org.wildfly.camel.test.ProvisionerSupport;
 
 /**
  * Test repository content deployment.
@@ -51,7 +51,6 @@ import org.wildfly.camel.test.ProvisionerSupport;
  * @since 14-Jun-2013
  */
 @RunWith(Arquillian.class)
-@Ignore
 public class RepositoryContentDeploymentTestCase {
 
     static final String REPOSITORY_CONTENT_JAR = "repository-content.jar";
@@ -85,7 +84,7 @@ public class RepositoryContentDeploymentTestCase {
     public void testRepositoryContentXML() throws Exception {
 
         // Verify that we have no providers for the deployed feature
-        XPersistentRepository repository = provsioner.getRepository();
+        XRepository repository = provsioner.getRepository();
         XRequirement req = XRequirementBuilder.create(IdentityNamespace.IDENTITY_NAMESPACE, "felix.configadmin.feature").getRequirement();
         Assert.assertTrue("No providers", repository.findProviders(req).isEmpty());
 
@@ -102,7 +101,7 @@ public class RepositoryContentDeploymentTestCase {
 
         // Remove the resource from the repository
         XCapability cap = (XCapability) caps.iterator().next();
-        repository.getRepositoryStorage().removeResource(cap.getResource());
+        repository.adapt(RepositoryStorage.class).removeResource(cap.getResource());
         Assert.assertTrue("No providers", repository.findProviders(req).isEmpty());
     }
 
@@ -110,7 +109,7 @@ public class RepositoryContentDeploymentTestCase {
     public void testRepositoryContentJar() throws Exception {
 
         // Verify that we have no providers for the deployed feature
-        XPersistentRepository repository = provsioner.getRepository();
+        XRepository repository = provsioner.getRepository();
         XRequirement req = XRequirementBuilder.create(IdentityNamespace.IDENTITY_NAMESPACE, "felix.configadmin.feature").getRequirement();
         Assert.assertTrue("No providers", repository.findProviders(req).isEmpty());
 
@@ -125,7 +124,7 @@ public class RepositoryContentDeploymentTestCase {
 
         // Remove the resource from the repository
         XCapability cap = (XCapability) caps.iterator().next();
-        repository.getRepositoryStorage().removeResource(cap.getResource());
+        repository.adapt(RepositoryStorage.class).removeResource(cap.getResource());
         Assert.assertTrue("No providers", repository.findProviders(req).isEmpty());
     }
 

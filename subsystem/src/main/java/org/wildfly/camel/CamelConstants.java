@@ -42,6 +42,10 @@ public interface CamelConstants {
     ServiceName CAMEL_CONTEXT_FACTORY_NAME = CAMEL_BASE_NAME.append("CamelContextFactory");
     /** The name for the {@link CamelContextRegistry} service */
     ServiceName CAMEL_CONTEXT_REGISTRY_NAME = CAMEL_BASE_NAME.append("CamelContextRegistry");
+    /** The name for the camel subsystem service */
+    ServiceName CAMEL_SUBSYSTEM_NAME = CAMEL_BASE_NAME.append("Subsystem");
+    /** The name for the camel subsystem service */
+    ServiceName REPOSITORY_LOADER_NAME = CAMEL_BASE_NAME.append("RepositoryLoader");
 
     /** The deployment names for spring camel context deployments */
     String CAMEL_CONTEXT_FILE_SUFFIX = "-camel-context.xml";

@@ -45,6 +45,7 @@ import org.wildfly.camel.service.CamelContextFactoryBindingService;
 import org.wildfly.camel.service.CamelContextFactoryService;
 import org.wildfly.camel.service.CamelContextRegistryBindingService;
 import org.wildfly.camel.service.CamelContextRegistryService;
+import org.wildfly.camel.service.RepositoryLoaderService;
 
 /**
  * The Camel subsystem add update handler.
@@ -82,6 +83,7 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
                 newControllers.add(CamelContextFactoryBindingService.addService(context.getServiceTarget(), verificationHandler));
                 newControllers.add(CamelContextRegistryService.addService(context.getServiceTarget(), subsystemState, verificationHandler));
                 newControllers.add(CamelContextRegistryBindingService.addService(context.getServiceTarget(), verificationHandler));
+                newControllers.add(RepositoryLoaderService.addService(context.getServiceTarget(), verificationHandler));
                 context.completeStep(OperationContext.RollbackHandler.NOOP_ROLLBACK_HANDLER);
             }
         }, OperationContext.Stage.RUNTIME);

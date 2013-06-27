@@ -33,6 +33,7 @@ import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
 import org.jboss.as.server.deployment.DeploymentUnitProcessor;
 import org.jboss.osgi.repository.RepositoryReader;
+import org.jboss.osgi.repository.RepositoryStorage;
 import org.jboss.osgi.repository.RepositoryXMLReader;
 import org.jboss.osgi.repository.XPersistentRepository;
 import org.jboss.osgi.repository.XRepository;
@@ -89,8 +90,9 @@ public class RepositoryContentInstallProcessor implements DeploymentUnitProcesso
             XIdentityCapability icap = auxres.getIdentityCapability();
             String nsvalue = (String) icap.getAttribute(icap.getNamespace());
             XRequirement ireq = XRequirementBuilder.create(icap.getNamespace(), nsvalue).getRequirement();
+            RepositoryStorage storage = repository.adapt(RepositoryStorage.class);
             if (repository.findProviders(ireq).isEmpty()) {
-                repository.getRepositoryStorage().addResource(auxres);
+                storage.addResource(auxres);
             }
             auxres = reader.nextResource();
         }

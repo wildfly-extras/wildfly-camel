@@ -26,16 +26,15 @@ import org.jboss.modules.ModuleClassLoader;
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.modules.ModuleLoader;
 import org.jboss.osgi.metadata.ManifestBuilder;
+import org.jboss.osgi.provision.ProvisionerSupport;
+import org.jboss.osgi.provision.ProvisionerSupport.ResourceHandle;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.namespace.IdentityNamespace;
-import org.wildfly.camel.test.ProvisionerSupport;
-import org.wildfly.camel.test.ProvisionerSupport.ResourceHandle;
 
 /**
  * Test feature provisioning.
@@ -44,8 +43,10 @@ import org.wildfly.camel.test.ProvisionerSupport.ResourceHandle;
  * @since 18-May-2013
  */
 @RunWith(Arquillian.class)
-@Ignore
 public class FeatureProvisionTestCase {
+
+    static String CAMEL_FEATURE = "camel.cxf.feature";
+    static String CAMEL_SYMBOLIC_NAME = "org.apache.camel.camel-cxf";
 
     @ArquillianResource
     BundleContext syscontext;
@@ -54,6 +55,7 @@ public class FeatureProvisionTestCase {
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "resource-provisioner-tests");
         archive.addClasses(ProvisionerSupport.class);
+        //archive.addAsResource("repository/" + CAMEL_FEATURE + ".xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -68,10 +70,11 @@ public class FeatureProvisionTestCase {
     @Test
     public void testFeatureProvisioning() throws Exception {
         ProvisionerSupport provisionerSupport = new ProvisionerSupport(syscontext);
-        List<ResourceHandle> reshandles = provisionerSupport.installCapability(IdentityNamespace.IDENTITY_NAMESPACE, "camel.cxf.feature");
+        //provisionerSupport.populateRepository(CAMEL_FEATURE);
+        List<ResourceHandle> reshandles = provisionerSupport.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, CAMEL_FEATURE);
         try {
             ModuleLoader moduleLoader = ((ModuleClassLoader)getClass().getClassLoader()).getModule().getModuleLoader();
-            moduleLoader.loadModule(ModuleIdentifier.create("deployment.org.apache.camel.camel-cxf"));
+            moduleLoader.loadModule(ModuleIdentifier.create("deployment." + CAMEL_SYMBOLIC_NAME));
         } finally {
             for (ResourceHandle handle : reshandles) {
                 handle.uninstall();

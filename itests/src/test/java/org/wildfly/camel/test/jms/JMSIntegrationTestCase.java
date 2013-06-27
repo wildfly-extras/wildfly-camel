@@ -47,18 +47,17 @@ import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.as.test.integration.common.jms.JMSOperations;
 import org.jboss.as.test.integration.common.jms.JMSOperationsProvider;
 import org.jboss.osgi.metadata.ManifestBuilder;
+import org.jboss.osgi.provision.ProvisionerSupport;
+import org.jboss.osgi.provision.ProvisionerSupport.ResourceHandle;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.namespace.IdentityNamespace;
 import org.wildfly.camel.CamelContextFactory;
-import org.wildfly.camel.test.ProvisionerSupport;
-import org.wildfly.camel.test.ProvisionerSupport.ResourceHandle;
 
 /**
  * Test routes that use the jms component in routes.
@@ -68,7 +67,6 @@ import org.wildfly.camel.test.ProvisionerSupport.ResourceHandle;
  */
 @RunWith(Arquillian.class)
 @ServerSetup({ JMSIntegrationTestCase.JmsQueueSetup.class })
-@Ignore
 public class JMSIntegrationTestCase {
 
     static final String QUEUE_NAME = "camel-jms-queue";
@@ -124,7 +122,7 @@ public class JMSIntegrationTestCase {
     @InSequence(Integer.MIN_VALUE)
     public void installCamelFeatures() throws Exception {
         ProvisionerSupport provisionerSupport = new ProvisionerSupport(syscontext);
-        reshandles = provisionerSupport.installCapability(IdentityNamespace.IDENTITY_NAMESPACE, "camel.jms.feature");
+        reshandles = provisionerSupport.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "camel.jms.feature");
     }
 
     @Test

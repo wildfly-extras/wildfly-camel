@@ -30,7 +30,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.CamelContextFactory;
@@ -44,7 +43,6 @@ import org.wildfly.camel.test.smoke.subA.HelloBean;
  * @since 03-Jun-2013
  */
 @RunWith(Arquillian.class)
-@Ignore
 public class JNDIIntegrationTestCase {
 
     @ArquillianResource

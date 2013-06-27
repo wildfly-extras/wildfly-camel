@@ -1,0 +1,103 @@
+<?xml version="1.0" ?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="PersistentRepository">
+
+  <!-- 
+    preloaded modules
+  -->
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="org.apache.commons.logging" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="org.apache.cxf" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="org.apache.cxf.impl" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="org.apache.ws.xmlschema" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="org.springframework.expression" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="org.springframework.jms" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="org.springframework.transaction" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="javax.activation.api" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="javax.enterprise.api" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="javax.mail.api" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="javax.interceptor.api" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="javax.jms.api" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="javax.jws.api" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="javax.transaction.api" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="javax.wsdl4j.api" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="javax.ws.rs.api" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="javax.xml.bind.api" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="javax.xml.soap.api" />
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="module.identity">
+      <attribute name="module.identity" value="javax.xml.ws.api" />
+    </capability>
+  </resource>
+  
+</repository>

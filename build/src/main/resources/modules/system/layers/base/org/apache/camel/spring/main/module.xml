@@ -37,6 +37,7 @@
         <module name="org.apache.camel.core"/>
         <module name="org.springframework.beans"/>
         <module name="org.springframework.context"/>
+        <module name="org.osgi.core"/>
         <module name="org.slf4j"/>
     </dependencies>
 </module>
