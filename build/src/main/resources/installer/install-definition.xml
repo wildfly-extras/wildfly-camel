@@ -74,6 +74,10 @@
       <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/apache/camel/core/xml/main" override="true">
          <include name="camel-core-xml-@{version.apache.camel}.jar" />
       </fileset>
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/apache/camel/component/cxf/main" override="true">
+         <include name="camel-cxf-@{version.apache.camel}.jar" />
+         <include name="camel-cxf-transport-@{version.apache.camel}.jar" />
+      </fileset>
       <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/apache/camel/component/jms/main" override="true">
          <include name="camel-jms-@{version.apache.camel}.jar" />
       </fileset>
