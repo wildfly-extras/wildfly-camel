@@ -44,7 +44,6 @@ public class CamelBootstrapService extends AbstractService<Void> {
     public static ServiceController<Void> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
         CamelBootstrapService service = new CamelBootstrapService();
         ServiceBuilder<Void> builder = serviceTarget.addService(CamelConstants.CAMEL_SUBSYSTEM_NAME, service);
-        builder.addDependency(CamelConstants.REPOSITORY_LOADER_NAME);
         builder.addListener(verificationHandler);
         return builder.install();
     }

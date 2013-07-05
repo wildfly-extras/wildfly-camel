@@ -77,8 +77,6 @@ public class CamelContextCreateProcessor implements DeploymentUnitProcessor {
 
         // Add the camel context to the deployemnt
         depUnit.putAttachment(CamelConstants.CAMEL_CONTEXT_KEY, camelctx);
-        // Add a dependency on the {@link CamelContextRegistry} to the next phase
-        phaseContext.addDeploymentDependency(CamelConstants.CAMEL_CONTEXT_REGISTRY_NAME, CamelConstants.CAMEL_CONTEXT_REGISTRY_KEY);
     }
 
     @Override

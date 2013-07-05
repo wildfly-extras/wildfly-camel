@@ -14,7 +14,7 @@
 
     <parent>
         <groupId>org.wildfly.camel</groupId>
-        <artifactId>wildfly-camel-parent</artifactId>
+        <artifactId>wildfly-camel</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
@@ -26,8 +26,8 @@
     <properties>
         <wildfly.home>${basedir}/../../wildfly/build/target/wildfly-${version.jboss.wildfly}</wildfly.home>
         
-        <standalone.subsystems>logging,camel,configadmin,deployment-scanner,ee,io,jmx,messaging,naming,osgi:camel,remoting,security,undertow,webservices</standalone.subsystems>
-        <standalone.extra.modules>javaee.api</standalone.extra.modules>
+        <standalone.subsystems>logging,camel,deployment-scanner,ee,io,jmx,messaging,naming,remoting,security,undertow,webservices</standalone.subsystems>
+        <standalone.extra.modules>javaee.api,org.osgi.core</standalone.extra.modules>
         
         <modular.config.name>camel</modular.config.name>
         <modular.resources.src>${basedir}/src/main/resources</modular.resources.src>
@@ -77,11 +77,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jmx</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.configadmin</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

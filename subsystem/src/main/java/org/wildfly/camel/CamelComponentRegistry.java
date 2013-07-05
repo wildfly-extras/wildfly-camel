@@ -20,30 +20,34 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wildfly.camel.deployment;
+package org.wildfly.camel;
 
-import org.jboss.as.osgi.OSGiConstants;
-import org.jboss.as.server.deployment.DeploymentPhaseContext;
-import org.jboss.as.server.deployment.DeploymentUnit;
-import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
-import org.jboss.as.server.deployment.DeploymentUnitProcessor;
-import org.jboss.osgi.framework.Services;
+import org.apache.camel.Component;
+import org.apache.camel.spi.ComponentResolver;
 
 /**
- * Allways make the system bundle context available
+ * An abstraction of {@link Component} registration.
+ *
+ * The {@link CamelComponentRegistry} is the entry point for {@link Component} registration and lookup.
+ *
+ * @see {@link org.wildfly.camel.service.CamelComponentRegistryService}
  *
  * @author Thomas.Diesler@jboss.com
- * @since 14-Jun-2013
+ * @since 05-Jul-2013
  */
-public class BundleContextProvideProcessor implements DeploymentUnitProcessor {
+public interface CamelComponentRegistry {
 
-    @Override
-    public void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
-        phaseContext.addDeploymentDependency(Services.FRAMEWORK_CREATE, OSGiConstants.SYSTEM_CONTEXT_KEY);
-        phaseContext.addDeploymentDependency(Services.BUNDLE_MANAGER, OSGiConstants.BUNDLE_MANAGER_KEY);
-    }
+    /** Get the camel component resolver for the given name */
+    ComponentResolver getComponentResolver(String name);
 
-    @Override
-    public void undeploy(final DeploymentUnit depUnit) {
+    /** Register the camel component in this registry */
+    CamelComponentRegistration registerCamelComponent(String name, ComponentResolver resolver);
+
+    /** The return handle for camel context registrations */
+    interface CamelComponentRegistration {
+
+        ComponentResolver getComponentResolver();
+
+        void unregister();
     }
 }

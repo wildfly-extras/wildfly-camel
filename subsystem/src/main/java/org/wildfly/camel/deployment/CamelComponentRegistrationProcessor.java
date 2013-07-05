@@ -25,7 +25,6 @@ package org.wildfly.camel.deployment;
 import static org.wildfly.camel.CamelMessages.MESSAGES;
 
 import java.io.IOException;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Properties;
 
@@ -33,7 +32,6 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.impl.DefaultComponentResolver;
 import org.apache.camel.spi.ComponentResolver;
-import org.jboss.as.osgi.OSGiConstants;
 import org.jboss.as.server.deployment.AttachmentKey;
 import org.jboss.as.server.deployment.AttachmentList;
 import org.jboss.as.server.deployment.Attachments;
@@ -44,8 +42,9 @@ import org.jboss.as.server.deployment.DeploymentUnitProcessor;
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleClassLoader;
 import org.jboss.modules.Resource;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceRegistration;
+import org.wildfly.camel.CamelComponentRegistry;
+import org.wildfly.camel.CamelComponentRegistry.CamelComponentRegistration;
+import org.wildfly.camel.CamelConstants;
 
 /**
  * Register a {@link ComponentResolver} service for each deployed component.
@@ -55,7 +54,7 @@ import org.osgi.framework.ServiceRegistration;
  */
 public class CamelComponentRegistrationProcessor implements DeploymentUnitProcessor {
 
-    static final AttachmentKey<AttachmentList<ServiceRegistration<?>>> COMPONENT_REGISTRATIONS = AttachmentKey.createList(ServiceRegistration.class);
+    static final AttachmentKey<AttachmentList<CamelComponentRegistration>> COMPONENT_REGISTRATIONS = AttachmentKey.createList(CamelComponentRegistration.class);
 
     @Override
     public void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
@@ -89,16 +88,14 @@ public class CamelComponentRegistrationProcessor implements DeploymentUnitProces
                 throw MESSAGES.componentTypeException(type);
 
             // Register the ComponentResolver service
-            ComponentResolver service = new ComponentResolver() {
+            ComponentResolver resolver = new ComponentResolver() {
                 @Override
                 public Component resolveComponent(String name, CamelContext context) throws Exception {
                     return (Component) context.getInjector().newInstance(type);
                 }
             };
-            Hashtable<String, String> properties = new Hashtable<String, String>();
-            properties.put("component", cname);
-            BundleContext syscontext = depUnit.getAttachment(OSGiConstants.SYSTEM_CONTEXT_KEY);
-            ServiceRegistration<ComponentResolver> sreg = syscontext.registerService(ComponentResolver.class, service, properties);
+            CamelComponentRegistry registry = depUnit.getAttachment(CamelConstants.CAMEL_COMPONENT_REGISTRY_KEY);
+            CamelComponentRegistration sreg = registry.registerCamelComponent(cname, resolver);
             depUnit.addToAttachmentList(COMPONENT_REGISTRATIONS, sreg);
         }
     }
@@ -106,7 +103,7 @@ public class CamelComponentRegistrationProcessor implements DeploymentUnitProces
     @Override
     public void undeploy(final DeploymentUnit depUnit) {
         // Unregister the ComponentResolver services
-        for (ServiceRegistration<?> sreg : depUnit.getAttachmentList(COMPONENT_REGISTRATIONS)) {
+        for (CamelComponentRegistration sreg : depUnit.getAttachmentList(COMPONENT_REGISTRATIONS)) {
             sreg.unregister();
         }
     }

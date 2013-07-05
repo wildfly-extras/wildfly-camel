@@ -61,4 +61,8 @@ public interface CamelLogger extends BasicLogger {
     @LogMessage(level = INFO)
     @Message(id = 20003, value = "Unbind camel naming object: %s")
     void infoUnbindCamelNamingObject(String jndiName);
+
+    @LogMessage(level = INFO)
+    @Message(id = 20004, value = "Register camel component: %s")
+    void infoRegisterCamelComponent(String name);
 }

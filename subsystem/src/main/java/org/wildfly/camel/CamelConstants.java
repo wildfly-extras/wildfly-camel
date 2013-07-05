@@ -37,6 +37,10 @@ public interface CamelConstants {
     /** The base name for all camel services */
     ServiceName CAMEL_BASE_NAME = ServiceName.JBOSS.append("as", "camel");
     /** The base name for all camel context services */
+    ServiceName CAMEL_COMPONENT_BASE_NAME = CAMEL_BASE_NAME.append("component");
+    /** The name for the {@link CamelComponentRegistry} service */
+    ServiceName CAMEL_COMPONENT_REGISTRY_NAME = CAMEL_BASE_NAME.append("CamelComponentRegistry");
+    /** The base name for all camel context services */
     ServiceName CAMEL_CONTEXT_BASE_NAME = CAMEL_BASE_NAME.append("context");
     /** The name for the {@link CamelContextFactory} service */
     ServiceName CAMEL_CONTEXT_FACTORY_NAME = CAMEL_BASE_NAME.append("CamelContextFactory");
@@ -44,8 +48,6 @@ public interface CamelConstants {
     ServiceName CAMEL_CONTEXT_REGISTRY_NAME = CAMEL_BASE_NAME.append("CamelContextRegistry");
     /** The name for the camel subsystem service */
     ServiceName CAMEL_SUBSYSTEM_NAME = CAMEL_BASE_NAME.append("Subsystem");
-    /** The name for the camel subsystem service */
-    ServiceName REPOSITORY_LOADER_NAME = CAMEL_BASE_NAME.append("RepositoryLoader");
 
     /** The deployment names for spring camel context deployments */
     String CAMEL_CONTEXT_FILE_SUFFIX = "-camel-context.xml";
@@ -55,11 +57,10 @@ public interface CamelConstants {
     String REPOSITORY_CONTENT_FILE_SUFFIX = "-repository-content.xml";
     String REPOSITORY_CONTENT_FILE_NAME = "META-INF/jboss-repository-content.xml";
 
-    /** The name property on CamelContext OSGi services */
-    String CAMEL_CONTEXT_NAME_PROPERTY = "name";
-
     /** The {@link CamelContext} attachment key */
     AttachmentKey<CamelContext> CAMEL_CONTEXT_KEY = AttachmentKey.create(CamelContext.class);
+    /** The {@link CamelComponentRegistry} attachment key */
+    AttachmentKey<CamelComponentRegistry> CAMEL_COMPONENT_REGISTRY_KEY = AttachmentKey.create(CamelComponentRegistry.class);
     /** The {@link CamelContextRegistry} attachment key */
     AttachmentKey<CamelContextRegistry> CAMEL_CONTEXT_REGISTRY_KEY = AttachmentKey.create(CamelContextRegistry.class);
 

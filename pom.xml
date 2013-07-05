@@ -21,7 +21,7 @@
     <name>Wildfly Camel</name>
 
     <groupId>org.wildfly.camel</groupId>
-    <artifactId>wildfly-camel-parent</artifactId>
+    <artifactId>wildfly-camel</artifactId>
     <packaging>pom</packaging>
 
     <version>1.0.0-SNAPSHOT</version>
@@ -37,7 +37,6 @@
     <properties>
         <version.apache.camel>2.11.0</version.apache.camel>
         <version.apache.camel.jms>2.11.0-wildfly-01</version.apache.camel.jms>
-        <version.apache.felix.configadmin>1.6.0</version.apache.felix.configadmin>
         <version.apache.spring>3.1.4.RELEASE</version.apache.spring>
         <version.codehaus.izpack>4.3.1</version.codehaus.izpack>
         <version.jboss.wildfly>8.0.0.Alpha3-SNAPSHOT</version.jboss.wildfly>
@@ -45,12 +44,9 @@
         <version.jboss.logging>3.1.3.GA</version.jboss.logging>
         <version.jboss.logging.processor>1.1.0.Final</version.jboss.logging.processor>
         <version.jboss.logmanager>1.4.1.Final</version.jboss.logmanager>
-        <version.jboss.osgi.framework>3.0.2.Final</version.jboss.osgi.framework>
-        <version.jboss.osgi.provision>1.1.0.Beta1</version.jboss.osgi.provision>
         <version.jboss.spec.javax.annotation>1.0.0.Alpha1</version.jboss.spec.javax.annotation>
         <version.jboss.spec.javax.jms>1.0.0.Alpha1</version.jboss.spec.javax.jms>
         <version.junit>4.10</version.junit>
-        <version.osgi>5.0.0</version.osgi>
     </properties>
 
     <!-- DependencyManagement -->
@@ -106,13 +102,6 @@
                 <version>${version.apache.camel}</version>
             </dependency>
             
-            <!-- Felix -->
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.configadmin</artifactId>
-                <version>${version.apache.felix.configadmin}</version>
-            </dependency>
-            
             <!-- Spring -->
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -122,11 +111,6 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jms</artifactId>
-                <version>${version.apache.spring}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-osgi-core</artifactId>
                 <version>${version.apache.spring}</version>
             </dependency>
             <dependency>
@@ -164,11 +148,6 @@
             <dependency>
                 <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-naming</artifactId>
-                <version>${version.jboss.wildfly}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-osgi-service</artifactId>
                 <version>${version.jboss.wildfly}</version>
             </dependency>
             <dependency>
@@ -217,16 +196,6 @@
                 <version>${version.jboss.logmanager}</version>
             </dependency>
             <dependency>
-                <groupId>org.jboss.osgi.framework</groupId>
-                <artifactId>jbosgi-framework-core</artifactId>
-                <version>${version.jboss.osgi.framework}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.osgi.provision</groupId>
-                <artifactId>jbosgi-provision-core</artifactId>
-                <version>${version.jboss.osgi.provision}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.jboss.spec.javax.annotation</groupId>
                 <artifactId>jboss-annotations-api_1.2_spec</artifactId>
                 <version>${version.jboss.spec.javax.annotation}</version>
@@ -235,13 +204,6 @@
                 <groupId>org.jboss.spec.javax.jms</groupId>
                 <artifactId>jboss-jms-api_2.0_spec</artifactId>
                 <version>${version.jboss.spec.javax.jms}</version>
-            </dependency>
-
-            <!-- org.osgi -->
-            <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.core</artifactId>
-                <version>${version.osgi}</version>
             </dependency>
 
             <!-- JUnit -->

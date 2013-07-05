@@ -55,8 +55,7 @@ import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
 import org.jboss.msc.value.InjectedValue;
-import org.jboss.osgi.framework.Services;
-import org.osgi.framework.BundleContext;
+import org.wildfly.camel.CamelComponentRegistry;
 import org.wildfly.camel.CamelConstants;
 import org.wildfly.camel.CamelContextFactory;
 import org.wildfly.camel.WildflyCamelContext;
@@ -69,13 +68,13 @@ import org.wildfly.camel.WildflyCamelContext;
  */
 public class CamelContextFactoryService extends AbstractService<CamelContextFactory> {
 
-    private final InjectedValue<BundleContext> injectedSystemContext = new InjectedValue<BundleContext>();
+    private final InjectedValue<CamelComponentRegistry> injectedComponentRegistry = new InjectedValue<CamelComponentRegistry>();
     private CamelContextFactory contextFactory;
 
     public static ServiceController<CamelContextFactory> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
         CamelContextFactoryService service = new CamelContextFactoryService();
         ServiceBuilder<CamelContextFactory> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_FACTORY_NAME, service);
-        builder.addDependency(Services.SYSTEM_CONTEXT, BundleContext.class, service.injectedSystemContext);
+        builder.addDependency(CamelConstants.CAMEL_COMPONENT_REGISTRY_NAME, CamelComponentRegistry.class, service.injectedComponentRegistry);
         builder.addListener(verificationHandler);
         return builder.install();
     }
@@ -86,9 +85,9 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
 
     @Override
     public void start(StartContext startContext) throws StartException {
-        BundleContext syscontext = injectedSystemContext.getValue();
+        CamelComponentRegistry componentRegistry = injectedComponentRegistry.getValue();
         ServiceContainer serviceContainer = startContext.getController().getServiceContainer();
-        contextFactory = new DefaultCamelContextFactory(serviceContainer, startContext.getChildTarget(), syscontext);
+        contextFactory = new DefaultCamelContextFactory(serviceContainer, startContext.getChildTarget(), componentRegistry);
     }
 
     @Override
@@ -100,12 +99,12 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
 
         private final ServiceRegistry serviceRegistry;
         private final ServiceTarget serviceTarget;
-        private final BundleContext syscontext;
+        private final CamelComponentRegistry componentRegistry;
 
-        DefaultCamelContextFactory(ServiceRegistry serviceRegistry, ServiceTarget serviceTarget, BundleContext syscontext) {
+        DefaultCamelContextFactory(ServiceRegistry serviceRegistry, ServiceTarget serviceTarget, CamelComponentRegistry componentRegistry) {
             this.serviceRegistry = serviceRegistry;
             this.serviceTarget = serviceTarget;
-            this.syscontext = syscontext;
+            this.componentRegistry = componentRegistry;
         }
 
         @Override
@@ -115,7 +114,7 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
 
         @Override
         public WildflyCamelContext createWildflyCamelContext(ClassLoader classsLoader) throws Exception {
-            return setup(new WildflyCamelContext(syscontext));
+            return setup(new WildflyCamelContext(componentRegistry));
         }
 
         private WildflyCamelContext setup(WildflyCamelContext context) {
@@ -140,10 +139,12 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
             this.context = new InitialContext();
         }
 
+        @Override
         public void bind(Name name, Object obj) throws NamingException {
             addBinderService(name.toString(), obj);
         }
 
+        @Override
         public void bind(String name, Object obj) throws NamingException {
             addBinderService(name, obj);
         }
@@ -170,10 +171,12 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
             return builder.install();
         }
 
+        @Override
         public void unbind(Name name) throws NamingException {
             removeBinderService(name.toString());
         }
 
+        @Override
         public void unbind(String name) throws NamingException {
             removeBinderService(name);
         }
@@ -187,104 +190,129 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
             return controller;
         }
 
+        @Override
         public Name composeName(Name name, Name prefix) throws NamingException {
             return context.composeName(name, prefix);
         }
 
+        @Override
         public String composeName(String name, String prefix) throws NamingException {
             return context.composeName(name, prefix);
         }
 
+        @Override
         public Hashtable<?, ?> getEnvironment() throws NamingException {
             return context.getEnvironment();
         }
 
+        @Override
         public String getNameInNamespace() throws NamingException {
             return context.getNameInNamespace();
         }
 
+        @Override
         public NameParser getNameParser(Name name) throws NamingException {
             return context.getNameParser(name);
         }
 
+        @Override
         public NameParser getNameParser(String name) throws NamingException {
             return context.getNameParser(name);
         }
 
+        @Override
         public NamingEnumeration<NameClassPair> list(Name name) throws NamingException {
             return context.list(name);
         }
 
+        @Override
         public NamingEnumeration<NameClassPair> list(String name) throws NamingException {
             return context.list(name);
         }
 
+        @Override
         public NamingEnumeration<Binding> listBindings(Name name) throws NamingException {
             return context.listBindings(name);
         }
 
+        @Override
         public NamingEnumeration<Binding> listBindings(String name) throws NamingException {
             return context.listBindings(name);
         }
 
+        @Override
         public Object lookup(Name name) throws NamingException {
             return context.lookup(name);
         }
 
+        @Override
         public Object lookup(String name) throws NamingException {
             return context.lookup(name);
         }
 
+        @Override
         public Object lookupLink(Name name) throws NamingException {
             return context.lookupLink(name);
         }
 
+        @Override
         public Object lookupLink(String name) throws NamingException {
             return context.lookupLink(name);
         }
 
         // Not supported opertations
 
+        @Override
         public Object addToEnvironment(String propName, Object propVal) throws NamingException {
             throw new OperationNotSupportedException();
         }
 
+        @Override
         public Object removeFromEnvironment(String propName) throws NamingException {
             throw new OperationNotSupportedException();
         }
 
+        @Override
         public void close() throws NamingException {
             throw new OperationNotSupportedException();
         }
 
+        @Override
         public Context createSubcontext(Name name) throws NamingException {
             throw new OperationNotSupportedException();
         }
 
+        @Override
         public Context createSubcontext(String name) throws NamingException {
             throw new OperationNotSupportedException();
         }
 
+        @Override
         public void destroySubcontext(Name name) throws NamingException {
             throw new OperationNotSupportedException();
         }
 
+        @Override
         public void destroySubcontext(String name) throws NamingException {
             throw new OperationNotSupportedException();
         }
 
+        @Override
         public void rebind(Name name, Object obj) throws NamingException {
             throw new OperationNotSupportedException();
         }
 
+        @Override
         public void rebind(String name, Object obj) throws NamingException {
             throw new OperationNotSupportedException();
         }
 
+        @Override
         public void rename(Name oldName, Name newName) throws NamingException {
             throw new OperationNotSupportedException();
         }
 
+        @Override
         public void rename(String oldName, String newName) throws NamingException {
             throw new OperationNotSupportedException();
         }

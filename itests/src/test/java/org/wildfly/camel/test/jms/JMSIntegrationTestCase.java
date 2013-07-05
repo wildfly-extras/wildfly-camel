@@ -17,7 +17,6 @@
 package org.wildfly.camel.test.jms;
 
 import java.io.InputStream;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -39,7 +38,6 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.as.arquillian.api.ServerSetupTask;
@@ -47,16 +45,13 @@ import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.as.test.integration.common.jms.JMSOperations;
 import org.jboss.as.test.integration.common.jms.JMSOperationsProvider;
 import org.jboss.osgi.metadata.ManifestBuilder;
-import org.jboss.osgi.provision.ProvisionerSupport;
-import org.jboss.osgi.provision.ProvisionerSupport.ResourceHandle;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.namespace.IdentityNamespace;
 import org.wildfly.camel.CamelContextFactory;
 
 /**
@@ -65,6 +60,7 @@ import org.wildfly.camel.CamelContextFactory;
  * @author thomas.diesler@jboss.com
  * @since 18-May-2013
  */
+@Ignore
 @RunWith(Arquillian.class)
 @ServerSetup({ JMSIntegrationTestCase.JmsQueueSetup.class })
 public class JMSIntegrationTestCase {
@@ -73,15 +69,10 @@ public class JMSIntegrationTestCase {
     static final String QUEUE_JNDI_NAME = "java:/" + QUEUE_NAME;
 
     @ArquillianResource
-    BundleContext syscontext;
-
-    @ArquillianResource
     CamelContextFactory contextFactory;
 
     @ArquillianResource
     InitialContext initialctx;
-
-    static List<ResourceHandle> reshandles;
 
     static class JmsQueueSetup implements ServerSetupTask {
 
@@ -105,32 +96,15 @@ public class JMSIntegrationTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-jms-tests");
-        archive.addClasses(ProvisionerSupport.class);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = ManifestBuilder.newInstance();
-                builder.addManifestHeader("Dependencies",
-                        "org.apache.camel,org.wildfly.camel,org.jboss.as.controller-client,org.jboss.osgi.provision,org.jboss.shrinkwrap.core,javax.jms.api");
+                builder.addManifestHeader("Dependencies", "org.apache.camel,org.wildfly.camel,org.jboss.as.controller-client,org.jboss.shrinkwrap.core,javax.jms.api");
                 return builder.openStream();
             }
         });
         return archive;
-    }
-
-    @Test
-    @InSequence(Integer.MIN_VALUE)
-    public void installCamelFeatures() throws Exception {
-        ProvisionerSupport provisionerSupport = new ProvisionerSupport(syscontext);
-        reshandles = provisionerSupport.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "camel.jms.feature");
-    }
-
-    @Test
-    @InSequence(Integer.MAX_VALUE)
-    public void uninstallCamelFeatures() throws Exception {
-        for (ResourceHandle handle : reshandles) {
-            handle.uninstall();
-        }
     }
 
     @Test

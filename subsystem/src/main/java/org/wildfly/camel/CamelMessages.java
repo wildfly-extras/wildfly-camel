@@ -80,5 +80,8 @@ public interface CamelMessages {
 
     @Message(id = 20111, value = "Cannot install feature to repository: %s")
     IllegalStateException cannotInstallCamelFeature(String name);
+
+    @Message(id = 20112, value = "Camel component with that name already registered: %s")
+    IllegalStateException camelComponentAlreadyRegistered(String contextName);
 }
 

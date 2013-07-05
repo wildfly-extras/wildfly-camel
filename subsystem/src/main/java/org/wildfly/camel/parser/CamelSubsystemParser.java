@@ -79,6 +79,8 @@ final class CamelSubsystemParser implements Namespace10, XMLStreamConstants, XML
                             throw unexpectedElement(reader);
                     }
                 }
+                default:
+                    continue;
             }
         }
     }

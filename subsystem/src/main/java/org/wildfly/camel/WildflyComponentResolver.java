@@ -25,8 +25,6 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.impl.DefaultComponentResolver;
 import org.apache.camel.spi.ComponentResolver;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
 
 /**
  * The default Wildfly {@link ComponentResolver}.
@@ -37,12 +35,12 @@ import org.osgi.framework.ServiceReference;
 public class WildflyComponentResolver implements ComponentResolver {
 
     private static ComponentResolver defaultResolver = new DefaultComponentResolver();
-    private final BundleContext syscontext;
+    private final CamelComponentRegistry componentRegistry;
 
-    public WildflyComponentResolver(BundleContext syscontext) {
-        if (syscontext == null)
-            throw CamelMessages.MESSAGES.illegalArgumentNull("syscontext");
-        this.syscontext = syscontext;
+    public WildflyComponentResolver(CamelComponentRegistry componentRegistry) {
+        if (componentRegistry == null)
+            throw CamelMessages.MESSAGES.illegalArgumentNull("componentRegistry");
+        this.componentRegistry = componentRegistry;
     }
 
     @Override
@@ -54,11 +52,8 @@ public class WildflyComponentResolver implements ComponentResolver {
             return component;
 
         // Try registered {@link ComponentResolver} services
-        for (ServiceReference<ComponentResolver> sref : syscontext.getServiceReferences(ComponentResolver.class, "(component=" + name + ")")) {
-            ComponentResolver resolver = syscontext.getService(sref);
-            component = resolver.resolveComponent(name, context);
-            break;
-        }
+        ComponentResolver resolver = componentRegistry.getComponentResolver(name);
+        component = resolver != null ? resolver.resolveComponent(name, context) : null;
 
         return component;
     }

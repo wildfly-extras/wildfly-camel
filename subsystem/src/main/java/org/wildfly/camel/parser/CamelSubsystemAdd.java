@@ -34,18 +34,17 @@ import org.jboss.as.server.DeploymentProcessorTarget;
 import org.jboss.as.server.deployment.Phase;
 import org.jboss.dmr.ModelNode;
 import org.jboss.msc.service.ServiceController;
-import org.wildfly.camel.deployment.BundleContextProvideProcessor;
+import org.wildfly.camel.deployment.CamelIntegrationProvideProcessor;
 import org.wildfly.camel.deployment.CamelComponentRegistrationProcessor;
 import org.wildfly.camel.deployment.CamelContextActivationProcessor;
 import org.wildfly.camel.deployment.CamelContextCreateProcessor;
 import org.wildfly.camel.deployment.CamelContextRegistrationProcessor;
-import org.wildfly.camel.deployment.RepositoryContentInstallProcessor;
 import org.wildfly.camel.service.CamelBootstrapService;
+import org.wildfly.camel.service.CamelComponentRegistryService;
 import org.wildfly.camel.service.CamelContextFactoryBindingService;
 import org.wildfly.camel.service.CamelContextFactoryService;
 import org.wildfly.camel.service.CamelContextRegistryBindingService;
 import org.wildfly.camel.service.CamelContextRegistryService;
-import org.wildfly.camel.service.RepositoryLoaderService;
 
 /**
  * The Camel subsystem add update handler.
@@ -55,9 +54,8 @@ import org.wildfly.camel.service.RepositoryLoaderService;
  */
 final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
 
-    public static final int PARSE_BUNDLE_CONTEXT_PROVIDER             = Phase.PARSE_OSGI_SUBSYSTEM_ACTIVATOR + 0x01;
+    public static final int PARSE_CAMEL_ITEGRATION_PROVIDER             = Phase.PARSE_OSGI_SUBSYSTEM_ACTIVATOR + 0x01;
     public static final int POST_MODULE_CAMEL_CONTEXT_CREATE          = Phase.POST_MODULE_LOCAL_HOME + 0x01;
-    public static final int INSTALL_REPOSITORY_CONTENT                = Phase.INSTALL_BUNDLE_ACTIVATE + 0x01;
     public static final int INSTALL_CAMEL_COMPONENT_REGISTRATION      = Phase.INSTALL_BUNDLE_ACTIVATE + 0x02;
     public static final int INSTALL_CAMEL_CONTEXT_REGISTRATION        = Phase.INSTALL_BUNDLE_ACTIVATE + 0x03;
     public static final int INSTALL_CAMEL_CONTEXT_ACTIVATION          = Phase.INSTALL_BUNDLE_ACTIVATE + 0x04;
@@ -68,10 +66,12 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
         this.subsystemState = subsystemState;
     }
 
+    @Override
     protected void populateModel(ModelNode operation, ModelNode model) {
         model.setEmptyObject();
     }
 
+    @Override
     protected void performBoottime(final OperationContext context, final ModelNode operation, final ModelNode model, final ServiceVerificationHandler verificationHandler, final List<ServiceController<?>> newControllers) {
 
         // Register subsystem services
@@ -79,28 +79,29 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
             @Override
             public void execute(OperationContext context, ModelNode operation) throws OperationFailedException {
                 newControllers.add(CamelBootstrapService.addService(context.getServiceTarget(), verificationHandler));
+                newControllers.add(CamelComponentRegistryService.addService(context.getServiceTarget(), verificationHandler));
                 newControllers.add(CamelContextFactoryService.addService(context.getServiceTarget(), verificationHandler));
                 newControllers.add(CamelContextFactoryBindingService.addService(context.getServiceTarget(), verificationHandler));
                 newControllers.add(CamelContextRegistryService.addService(context.getServiceTarget(), subsystemState, verificationHandler));
                 newControllers.add(CamelContextRegistryBindingService.addService(context.getServiceTarget(), verificationHandler));
-                newControllers.add(RepositoryLoaderService.addService(context.getServiceTarget(), verificationHandler));
                 context.completeStep(OperationContext.RollbackHandler.NOOP_ROLLBACK_HANDLER);
             }
         }, OperationContext.Stage.RUNTIME);
 
         // Register deployment unit processors
         context.addStep(new AbstractDeploymentChainStep() {
+            @Override
             public void execute(DeploymentProcessorTarget processorTarget) {
-                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_BUNDLE_CONTEXT_PROVIDER, new BundleContextProvideProcessor());
+                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_CAMEL_ITEGRATION_PROVIDER, new CamelIntegrationProvideProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_CAMEL_CONTEXT_CREATE, new CamelContextCreateProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CAMEL_COMPONENT_REGISTRATION, new CamelComponentRegistrationProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CAMEL_CONTEXT_REGISTRATION, new CamelContextRegistrationProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CAMEL_CONTEXT_ACTIVATION, new CamelContextActivationProcessor());
-                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_REPOSITORY_CONTENT, new RepositoryContentInstallProcessor());
             }
         }, OperationContext.Stage.RUNTIME);
     }
 
+    @Override
     protected boolean requiresRuntimeVerification() {
         return false;
     }

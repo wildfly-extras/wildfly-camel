@@ -17,7 +17,6 @@
 package org.wildfly.camel.test.jmx;
 
 import java.io.InputStream;
-import java.util.List;
 
 import javax.management.monitor.MonitorNotification;
 
@@ -26,19 +25,15 @@ import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.ManifestBuilder;
-import org.jboss.osgi.provision.ProvisionerSupport;
-import org.jboss.osgi.provision.ProvisionerSupport.ResourceHandle;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.namespace.IdentityNamespace;
 import org.wildfly.camel.CamelContextFactory;
 
 /**
@@ -47,45 +42,25 @@ import org.wildfly.camel.CamelContextFactory;
  * @author thomas.diesler@jboss.com
  * @since 03-Jun-2013
  */
+@Ignore
 @RunWith(Arquillian.class)
 public class JMXIntegrationTestCase {
 
     @ArquillianResource
-    BundleContext syscontext;
-
-    @ArquillianResource
     CamelContextFactory contextFactory;
-
-    static List<ResourceHandle> reshandles;
 
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jmx-integration-tests");
-        archive.addClasses(ProvisionerSupport.class);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = ManifestBuilder.newInstance();
-                builder.addManifestHeader("Dependencies", "org.apache.camel,org.wildfly.camel,org.jboss.osgi.provision");
+                builder.addManifestHeader("Dependencies", "org.apache.camel,org.wildfly.camel");
                 return builder.openStream();
             }
         });
         return archive;
-    }
-
-    @Test
-    @InSequence(Integer.MIN_VALUE)
-    public void installCamelFeatures() throws Exception {
-        ProvisionerSupport provisionerSupport = new ProvisionerSupport(syscontext);
-        reshandles = provisionerSupport.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "camel.jmx.feature");
-    }
-
-    @Test
-    @InSequence(Integer.MAX_VALUE)
-    public void uninstallCamelFeatures() throws Exception {
-        for (ResourceHandle handle : reshandles) {
-            handle.uninstall();
-        }
     }
 
     @Test
