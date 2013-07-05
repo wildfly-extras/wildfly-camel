@@ -66,6 +66,7 @@ public class CamelBootstrapService extends AbstractService<Void> {
         LOGGER.infoActivatingSubsystem();
 
         // Register the statically configured components
+        // [MODULES-171] Cannot iterate over META-INF contents from imported modules
         for (String comp : new String[] { "cxf", "jms", "jmx" }) {
             Module module;
             try {

@@ -116,12 +116,14 @@ public class CamelComponentRegistryService extends AbstractService<CamelComponen
             Set<CamelComponentRegistration> registrations = new HashSet<CamelComponentRegistration>();
             ModuleClassLoader classLoader = module.getClassLoader();
 
-            // All these approaches don't work
-            //Iterator<Resource> itres = module.iterateResources(PathFilters.getMetaInfFilter());
-            //Iterator<Resource> itres = module.iterateResources(PathFilters.isChildOf("META-INF/services/org/apache/camel/component"));
-            //Iterator<Resource> itres = module.iterateResources(PathFilters.isChildOf(DefaultComponentResolver.RESOURCE_PATH));
-            //Iterator<Resource> itres = classLoader.iterateResources(DefaultComponentResolver.RESOURCE_PATH, true);
+            // All of these approaches don't work
+            // [MODULES-171] Cannot iterate over META-INF contents from imported modules
+            //itres = module.iterateResources(PathFilters.getMetaInfFilter());
+            //itres = module.iterateResources(PathFilters.isChildOf("META-INF/services/org/apache/camel/component"));
+            //itres = module.iterateResources(PathFilters.isChildOf(DefaultComponentResolver.RESOURCE_PATH));
+            //itres = classLoader.iterateResources(DefaultComponentResolver.RESOURCE_PATH, true);
 
+            // Remove the trailing slash from DefaultComponentResolver.RESOURCE_PATH
             Iterator<Resource> itres = classLoader.iterateResources("META-INF/services/org/apache/camel/component", true);
             while (itres.hasNext()) {
                 Resource res = itres.next();

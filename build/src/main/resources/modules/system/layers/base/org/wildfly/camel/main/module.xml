@@ -53,6 +53,8 @@
         <module name="org.springframework.context"/>
         
         <!-- components -->
+        <module name="org.apache.camel.component.cxf" services="import"/>
+        <module name="org.apache.camel.component.jms" services="import"/>
         <module name="org.apache.camel.component.jmx" services="import"/>
     </dependencies>
 
