@@ -25,8 +25,20 @@ package org.wildfly.camel.service;
 import static org.wildfly.camel.CamelLogger.LOGGER;
 import static org.wildfly.camel.CamelMessages.MESSAGES;
 
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.Set;
+
+import org.apache.camel.CamelContext;
+import org.apache.camel.Component;
+import org.apache.camel.impl.DefaultComponentResolver;
 import org.apache.camel.spi.ComponentResolver;
 import org.jboss.as.controller.ServiceVerificationHandler;
+import org.jboss.modules.Module;
+import org.jboss.modules.ModuleClassLoader;
+import org.jboss.modules.Resource;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceContainer;
@@ -94,14 +106,65 @@ public class CamelComponentRegistryService extends AbstractService<CamelComponen
         }
 
         @Override
-        public ComponentResolver getComponentResolver(String name) {
+        public ComponentResolver getComponent(String name) {
             ServiceController<?> controller = serviceContainer.getService(getInternalServiceName(name));
             return controller != null ? (ComponentResolver) controller.getValue() : null;
         }
 
         @Override
-        public CamelComponentRegistration registerCamelComponent(final String name, final ComponentResolver resolver) {
-            if (getComponentResolver(name) != null)
+        public Set<CamelComponentRegistration> registerComponents(Module module) {
+            Set<CamelComponentRegistration> registrations = new HashSet<CamelComponentRegistration>();
+            ModuleClassLoader classLoader = module.getClassLoader();
+
+            // All these approaches don't work
+            //Iterator<Resource> itres = module.iterateResources(PathFilters.getMetaInfFilter());
+            //Iterator<Resource> itres = module.iterateResources(PathFilters.isChildOf("META-INF/services/org/apache/camel/component"));
+            //Iterator<Resource> itres = module.iterateResources(PathFilters.isChildOf(DefaultComponentResolver.RESOURCE_PATH));
+            //Iterator<Resource> itres = classLoader.iterateResources(DefaultComponentResolver.RESOURCE_PATH, true);
+
+            Iterator<Resource> itres = classLoader.iterateResources("META-INF/services/org/apache/camel/component", true);
+            while (itres.hasNext()) {
+                Resource res = itres.next();
+                String fullname = res.getName();
+                if (!fullname.startsWith(DefaultComponentResolver.RESOURCE_PATH))
+                    continue;
+
+                // Load the component properties
+                String cname = fullname.substring(fullname.lastIndexOf("/") + 1);
+                Properties props = new Properties();
+                try {
+                    props.load(res.openStream());
+                } catch (IOException ex) {
+                    throw MESSAGES.cannotLoadComponentProperties(ex, module.getIdentifier());
+                }
+
+                final Class<?> type;
+                String className = props.getProperty("class");
+                try {
+                    type = classLoader.loadClass(className);
+                } catch (Exception ex) {
+                    throw MESSAGES.cannotLoadComponentType(ex, cname);
+                }
+
+                // Check component type
+                if (Component.class.isAssignableFrom(type) == false)
+                    throw MESSAGES.componentTypeException(type);
+
+                // Register the ComponentResolver service
+                ComponentResolver resolver = new ComponentResolver() {
+                    @Override
+                    public Component resolveComponent(String name, CamelContext context) throws Exception {
+                        return (Component) context.getInjector().newInstance(type);
+                    }
+                };
+                registrations.add(registerComponent(cname, resolver));
+            }
+            return registrations;
+        }
+
+        @Override
+        public CamelComponentRegistration registerComponent(final String name, final ComponentResolver resolver) {
+            if (getComponent(name) != null)
                 throw MESSAGES.camelComponentAlreadyRegistered(name);
 
             LOGGER.infoRegisterCamelComponent(name);

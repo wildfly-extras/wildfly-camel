@@ -22,15 +22,6 @@
 
 package org.wildfly.camel.deployment;
 
-import static org.wildfly.camel.CamelMessages.MESSAGES;
-
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.Properties;
-
-import org.apache.camel.CamelContext;
-import org.apache.camel.Component;
-import org.apache.camel.impl.DefaultComponentResolver;
 import org.apache.camel.spi.ComponentResolver;
 import org.jboss.as.server.deployment.AttachmentKey;
 import org.jboss.as.server.deployment.AttachmentList;
@@ -40,8 +31,6 @@ import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
 import org.jboss.as.server.deployment.DeploymentUnitProcessor;
 import org.jboss.modules.Module;
-import org.jboss.modules.ModuleClassLoader;
-import org.jboss.modules.Resource;
 import org.wildfly.camel.CamelComponentRegistry;
 import org.wildfly.camel.CamelComponentRegistry.CamelComponentRegistration;
 import org.wildfly.camel.CamelConstants;
@@ -60,45 +49,12 @@ public class CamelComponentRegistrationProcessor implements DeploymentUnitProces
     public void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
         DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
         Module module = depUnit.getAttachment(Attachments.MODULE);
-        ModuleClassLoader classLoader = module.getClassLoader();
-        Iterator<Resource> itres = classLoader.iterateResources(DefaultComponentResolver.RESOURCE_PATH, true);
-        while (itres.hasNext()) {
-            Resource res = itres.next();
-            String fullname = res.getName();
-            String cname = fullname.substring(fullname.lastIndexOf("/") + 1);
-
-            // Load the component properties
-            Properties props = new Properties();
-            try {
-                props.load(res.openStream());
-            } catch (IOException ex) {
-                throw MESSAGES.cannotLoadComponentProperties(ex, module.getIdentifier());
-            }
-
-            final Class<?> type;
-            String className = props.getProperty("class");
-            try {
-                type = classLoader.loadClass(className);
-            } catch (Exception ex) {
-                throw MESSAGES.cannotLoadComponentType(ex, cname);
-            }
-
-            // Check component type
-            if (Component.class.isAssignableFrom(type) == false)
-                throw MESSAGES.componentTypeException(type);
-
-            // Register the ComponentResolver service
-            ComponentResolver resolver = new ComponentResolver() {
-                @Override
-                public Component resolveComponent(String name, CamelContext context) throws Exception {
-                    return (Component) context.getInjector().newInstance(type);
-                }
-            };
-            CamelComponentRegistry registry = depUnit.getAttachment(CamelConstants.CAMEL_COMPONENT_REGISTRY_KEY);
-            CamelComponentRegistration sreg = registry.registerCamelComponent(cname, resolver);
-            depUnit.addToAttachmentList(COMPONENT_REGISTRATIONS, sreg);
+        CamelComponentRegistry registry = depUnit.getAttachment(CamelConstants.CAMEL_COMPONENT_REGISTRY_KEY);
+        for(CamelComponentRegistration creg : registry.registerComponents(module)) {
+            depUnit.addToAttachmentList(COMPONENT_REGISTRATIONS, creg);
         }
     }
+
 
     @Override
     public void undeploy(final DeploymentUnit depUnit) {

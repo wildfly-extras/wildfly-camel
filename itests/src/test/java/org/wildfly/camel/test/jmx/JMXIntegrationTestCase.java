@@ -31,7 +31,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.CamelContextFactory;
@@ -42,7 +41,6 @@ import org.wildfly.camel.CamelContextFactory;
  * @author thomas.diesler@jboss.com
  * @since 03-Jun-2013
  */
-@Ignore
 @RunWith(Arquillian.class)
 public class JMXIntegrationTestCase {
 

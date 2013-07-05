@@ -52,7 +52,7 @@ public class WildflyComponentResolver implements ComponentResolver {
             return component;
 
         // Try registered {@link ComponentResolver} services
-        ComponentResolver resolver = componentRegistry.getComponentResolver(name);
+        ComponentResolver resolver = componentRegistry.getComponent(name);
         component = resolver != null ? resolver.resolveComponent(name, context) : null;
 
         return component;

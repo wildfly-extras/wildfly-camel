@@ -22,8 +22,11 @@
 
 package org.wildfly.camel;
 
+import java.util.Set;
+
 import org.apache.camel.Component;
 import org.apache.camel.spi.ComponentResolver;
+import org.jboss.modules.Module;
 
 /**
  * An abstraction of {@link Component} registration.
@@ -38,10 +41,13 @@ import org.apache.camel.spi.ComponentResolver;
 public interface CamelComponentRegistry {
 
     /** Get the camel component resolver for the given name */
-    ComponentResolver getComponentResolver(String name);
+    ComponentResolver getComponent(String name);
 
     /** Register the camel component in this registry */
-    CamelComponentRegistration registerCamelComponent(String name, ComponentResolver resolver);
+    CamelComponentRegistration registerComponent(String name, ComponentResolver resolver);
+
+    /** Register the camel components that are found in the given module */
+    Set<CamelComponentRegistration> registerComponents(Module module);
 
     /** The return handle for camel context registrations */
     interface CamelComponentRegistration {

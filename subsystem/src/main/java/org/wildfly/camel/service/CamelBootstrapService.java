@@ -25,12 +25,18 @@ package org.wildfly.camel.service;
 import static org.wildfly.camel.CamelLogger.LOGGER;
 
 import org.jboss.as.controller.ServiceVerificationHandler;
+import org.jboss.modules.Module;
+import org.jboss.modules.ModuleIdentifier;
+import org.jboss.modules.ModuleLoadException;
+import org.jboss.modules.ModuleLoader;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
+import org.jboss.msc.value.InjectedValue;
+import org.wildfly.camel.CamelComponentRegistry;
 import org.wildfly.camel.CamelConstants;
 
 /**
@@ -41,9 +47,12 @@ import org.wildfly.camel.CamelConstants;
  */
 public class CamelBootstrapService extends AbstractService<Void> {
 
+    private final InjectedValue<CamelComponentRegistry> injectedComponentRegistry = new InjectedValue<CamelComponentRegistry>();
+
     public static ServiceController<Void> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
         CamelBootstrapService service = new CamelBootstrapService();
         ServiceBuilder<Void> builder = serviceTarget.addService(CamelConstants.CAMEL_SUBSYSTEM_NAME, service);
+        builder.addDependency(CamelConstants.CAMEL_COMPONENT_REGISTRY_NAME, CamelComponentRegistry.class, service.injectedComponentRegistry);
         builder.addListener(verificationHandler);
         return builder.install();
     }
@@ -55,5 +64,18 @@ public class CamelBootstrapService extends AbstractService<Void> {
     @Override
     public void start(StartContext startContext) throws StartException {
         LOGGER.infoActivatingSubsystem();
+
+        // Register the statically configured components
+        for (String comp : new String[] { "jmx" }) {
+            Module module;
+            try {
+                ModuleLoader moduleLoader = Module.getCallerModuleLoader();
+                module = moduleLoader.loadModule(ModuleIdentifier.fromString("org.apache.camel.component." + comp));
+            } catch (ModuleLoadException ex) {
+                throw new IllegalStateException(ex);
+            }
+            CamelComponentRegistry registry = injectedComponentRegistry.getValue();
+            registry.registerComponents(module);
+        }
     }
 }
