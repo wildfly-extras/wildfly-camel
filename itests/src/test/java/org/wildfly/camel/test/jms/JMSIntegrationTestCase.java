@@ -49,7 +49,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.CamelContextFactory;
@@ -60,7 +59,6 @@ import org.wildfly.camel.CamelContextFactory;
  * @author thomas.diesler@jboss.com
  * @since 18-May-2013
  */
-@Ignore
 @RunWith(Arquillian.class)
 @ServerSetup({ JMSIntegrationTestCase.JmsQueueSetup.class })
 public class JMSIntegrationTestCase {
@@ -100,7 +98,7 @@ public class JMSIntegrationTestCase {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = ManifestBuilder.newInstance();
-                builder.addManifestHeader("Dependencies", "org.apache.camel,org.wildfly.camel,org.jboss.as.controller-client,org.jboss.shrinkwrap.core,javax.jms.api");
+                builder.addManifestHeader("Dependencies", "org.apache.camel,org.wildfly.camel,org.jboss.as.controller-client,javax.jms.api");
                 return builder.openStream();
             }
         });

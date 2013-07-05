@@ -66,7 +66,7 @@ public class CamelBootstrapService extends AbstractService<Void> {
         LOGGER.infoActivatingSubsystem();
 
         // Register the statically configured components
-        for (String comp : new String[] { "jmx" }) {
+        for (String comp : new String[] { "jms", "jmx" }) {
             Module module;
             try {
                 ModuleLoader moduleLoader = Module.getCallerModuleLoader();
