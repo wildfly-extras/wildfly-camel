@@ -66,8 +66,8 @@ public interface CamelMessages {
     @Message(id = 20106, value = "Cannot find component properties in: %s")
     IllegalStateException cannotFindComponentProperties(ModuleIdentifier moduleId);
 
-    @Message(id = 20107, value = "Cannot load component properties from: %s")
-    IllegalStateException cannotLoadComponentProperties(@Cause Throwable th, ModuleIdentifier moduleId);
+    @Message(id = 20107, value = "Cannot load component from module: %s")
+    IllegalStateException cannotLoadComponentFromModule(@Cause Throwable th, ModuleIdentifier moduleId);
 
     @Message(id = 20108, value = "Cannot load component type for name: %s")
     IllegalStateException cannotLoadComponentType(@Cause Throwable th, String name);
