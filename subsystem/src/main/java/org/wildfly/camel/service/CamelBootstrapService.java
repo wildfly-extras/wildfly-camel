@@ -26,9 +26,6 @@ import static org.wildfly.camel.CamelLogger.LOGGER;
 
 import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.modules.Module;
-import org.jboss.modules.ModuleIdentifier;
-import org.jboss.modules.ModuleLoadException;
-import org.jboss.modules.ModuleLoader;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
@@ -66,18 +63,7 @@ public class CamelBootstrapService extends AbstractService<Void> {
         LOGGER.infoActivatingSubsystem();
 
         // Register the statically configured components
-        for (String comp : new String[] { "cxf", "jms", "jmx" }) {
-            Module module;
-            try {
-                ModuleLoader moduleLoader = Module.getCallerModuleLoader();
-                module = moduleLoader.loadModule(ModuleIdentifier.fromString("org.apache.camel.component." + comp));
-            } catch (ModuleLoadException ex) {
-                throw new IllegalStateException(ex);
-            }
-            CamelComponentRegistry registry = injectedComponentRegistry.getValue();
-            registry.registerComponents(module);
-        }
-
-
+        CamelComponentRegistry registry = injectedComponentRegistry.getValue();
+        registry.registerComponents(Module.getCallerModule());
     }
 }

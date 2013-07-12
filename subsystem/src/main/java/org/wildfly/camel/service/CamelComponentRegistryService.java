@@ -38,7 +38,9 @@ import org.apache.camel.spi.ComponentResolver;
 import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleClassLoader;
+import org.jboss.modules.ModuleLoadException;
 import org.jboss.modules.Resource;
+import org.jboss.modules.filter.PathFilters;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceContainer;
@@ -113,11 +115,16 @@ public class CamelComponentRegistryService extends AbstractService<CamelComponen
 
         @Override
         public Set<CamelComponentRegistration> registerComponents(Module module) {
-            Set<CamelComponentRegistration> registrations = new HashSet<CamelComponentRegistration>();
-            ModuleClassLoader classLoader = module.getClassLoader();
 
-            // Remove the trailing slash from DefaultComponentResolver.RESOURCE_PATH
-            Iterator<Resource> itres = classLoader.iterateResources("META-INF/services/org/apache/camel/component", true);
+            Set<CamelComponentRegistration> registrations = new HashSet<CamelComponentRegistration>();
+
+            Iterator<Resource> itres;
+            try {
+                itres = module.iterateResources(PathFilters.getMetaInfServicesFilter());
+            } catch (ModuleLoadException ex) {
+                throw MESSAGES.cannotLoadComponentFromModule(ex, module.getIdentifier());
+            }
+
             while (itres.hasNext()) {
                 Resource res = itres.next();
                 String fullname = res.getName();
@@ -136,6 +143,7 @@ public class CamelComponentRegistryService extends AbstractService<CamelComponen
                 final Class<?> type;
                 String className = props.getProperty("class");
                 try {
+                    ModuleClassLoader classLoader = module.getClassLoader();
                     type = classLoader.loadClass(className);
                 } catch (Exception ex) {
                     throw MESSAGES.cannotLoadComponentType(ex, cname);
