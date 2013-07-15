@@ -38,10 +38,7 @@ import org.apache.camel.spi.ComponentResolver;
 import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleClassLoader;
-import org.jboss.modules.ModuleLoadException;
 import org.jboss.modules.Resource;
-import org.jboss.modules.filter.PathFilter;
-import org.jboss.modules.filter.PathFilters;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceContainer;
@@ -119,23 +116,8 @@ public class CamelComponentRegistryService extends AbstractService<CamelComponen
             Set<CamelComponentRegistration> registrations = new HashSet<CamelComponentRegistration>();
             ModuleClassLoader classLoader = module.getClassLoader();
 
-            // All of these approaches don't work
-            // [MODULES-171] Cannot iterate over META-INF contents from imported modules
-            //itres = module.iterateResources(PathFilters.getMetaInfFilter());
-            //itres = module.iterateResources(PathFilters.isChildOf("META-INF/services/org/apache/camel/component"));
-            //itres = module.iterateResources(PathFilters.isChildOf(DefaultComponentResolver.RESOURCE_PATH));
-            //itres = classLoader.iterateResources(DefaultComponentResolver.RESOURCE_PATH, true);
-
-            Iterator<Resource> itres;
-            try {
-                PathFilter filter = PathFilters.any(PathFilters.is("META-INF/services/org/apache/camel/component"), PathFilters.isChildOf("META-INF/services/org/apache/camel/component"));
-                itres = module.iterateResources(filter);
-            } catch (ModuleLoadException ex) {
-                throw MESSAGES.cannotLoadComponentFromModule(ex, module.getIdentifier());
-            }
-
             // Remove the trailing slash from DefaultComponentResolver.RESOURCE_PATH
-            //Iterator<Resource> itres = classLoader.iterateResources("META-INF/services/org/apache/camel/component", true);
+            Iterator<Resource> itres = classLoader.iterateResources("META-INF/services/org/apache/camel/component", true);
             while (itres.hasNext()) {
                 Resource res = itres.next();
                 String fullname = res.getName();
