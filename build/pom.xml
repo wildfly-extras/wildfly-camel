@@ -24,14 +24,14 @@
 
     <!-- Properties -->    
     <properties>
-        <wildfly.home>${basedir}/../../wildfly/build/target/wildfly-${version.jboss.wildfly}</wildfly.home>
+        <jboss.home>${project.build.directory}/wildfly-${version.jboss.wildfly}</jboss.home>
         
         <standalone.subsystems>logging,camel,deployment-scanner,ee,io,jmx,messaging,naming,remoting,security,undertow,webservices</standalone.subsystems>
         <standalone.extra.modules>javaee.api,org.osgi.core</standalone.extra.modules>
         
         <modular.config.name>camel</modular.config.name>
         <modular.resources.src>${basedir}/src/main/resources</modular.resources.src>
-        <modular.wildfly.build.src>${wildfly.home}</modular.wildfly.build.src>
+        <modular.wildfly.build.src>${jboss.home}</modular.wildfly.build.src>
         <modular.wildfly.modules.src>${project.build.directory}/modules-src</modular.wildfly.modules.src>
         <modular.wildfly.prefix>wildfly</modular.wildfly.prefix>
         <modular.wildfly.version>${version.jboss.wildfly}</modular.wildfly.version>
@@ -109,6 +109,31 @@
                                     <artifactId>wildfly-build-modular</artifactId>
                                     <outputDirectory>${project.build.directory}/scripts</outputDirectory>
                                     <includes>build-modular-config.xml</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-wildfly</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.wildfly</groupId>
+                                    <artifactId>wildfly-dist</artifactId>
+                                    <version>${version.jboss.wildfly}</version>
+                                    <type>zip</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
