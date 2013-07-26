@@ -1,4 +1,26 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  #%L
+  Wildfly Camel Build
+  %%
+  Copyright (C) 2013 JBoss by Red Hat
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as 
+  published by the Free Software Foundation, either version 2.1 of the 
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Lesser Public License for more details.
+  
+  You should have received a copy of the GNU General Lesser Public 
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/lgpl-2.1.html>.
+  #L%
+  -->
+
 <installation version="1.0">
   <!-- 
     Ant properties in this file can be referenced with @{},
@@ -74,23 +96,16 @@
       <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/apache/camel/core/xml/main" override="true">
          <include name="camel-core-xml-@{version.apache.camel}.jar" />
       </fileset>
-      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/apache/camel/component/cxf/main" override="true">
-         <include name="camel-cxf-@{version.apache.camel}.jar" />
-         <include name="camel-cxf-transport-@{version.apache.camel}.jar" />
-      </fileset>
-      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/apache/camel/component/jms/main" override="true">
-         <include name="camel-jms-@{version.apache.camel}.jar" />
-      </fileset>
-      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/apache/camel/component/jmx/main" override="true">
-         <include name="camel-jmx-@{version.apache.camel}.jar" />
-      </fileset>
       <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/apache/camel/spring/main" override="true">
          <include name="camel-spring-@{version.apache.camel}.jar" />
       </fileset>
       
-      <!-- Copy wildfly camel jars -->
-      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/wildfly/camel/main" override="true">
-         <include name="wildfly-camel-subsystem-@{project.version}.jar" />
+      <!-- Copy gravia jars -->
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/jboss/gravia/main" override="true">
+         <include name="gravia-provision-@{version.jboss.gravia}.jar" />
+         <include name="gravia-repository-@{version.jboss.gravia}.jar" />
+         <include name="gravia-resolver-@{version.jboss.gravia}.jar" />
+         <include name="gravia-resource-@{version.jboss.gravia}.jar" />
       </fileset>
       
       <!-- Copy springsource jars -->
@@ -112,11 +127,10 @@
       <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/expression/main" override="true">
          <include name="spring-expression-@{version.apache.spring}.jar" />
       </fileset>
-      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/jms/main" override="true">
-         <include name="spring-jms-@{version.apache.spring}.jar" />
-      </fileset>
-      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/springframework/transaction/main" override="true">
-         <include name="spring-tx-@{version.apache.spring}.jar" />
+      
+      <!-- Copy wildfly camel jars -->
+      <fileset dir="@{deploy.artifacts.lib}" targetdir="$INSTALL_PATH/modules/system/layers/base/org/wildfly/camel/main" override="true">
+         <include name="wildfly-camel-subsystem-@{project.version}.jar" />
       </fileset>
       
     </pack>

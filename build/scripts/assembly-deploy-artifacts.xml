@@ -17,6 +17,7 @@
             <useStrictFiltering>true</useStrictFiltering>
             <includes>
                 <include>*:camel-*:jar</include>
+                <include>*:gravia-*:jar</include>
                 <include>*:spring-*:jar</include>
                 <include>*:wildfly-camel-subsystem:jar</include>
             </includes>

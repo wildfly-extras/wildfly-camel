@@ -48,6 +48,7 @@
         <filter token="project.version" value="${project.version}" />
         <filter token="version.apache.camel" value="${version.apache.camel}" />
         <filter token="version.apache.spring" value="${version.apache.spring}" />
+        <filter token="version.jboss.gravia" value="${version.jboss.gravia}" />
       </filterset>
     </copy>
   	

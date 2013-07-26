@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+<!--
+  #%L
+  Wildfly Camel Subsystem
+  %%
+  Copyright (C) 2013 JBoss by Red Hat
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as 
+  published by the Free Software Foundation, either version 2.1 of the 
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Lesser Public License for more details.
+  
+  You should have received a copy of the GNU General Lesser Public 
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/lgpl-2.1.html>.
+  #L%
+  -->
+
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="PersistentRepository">
+
+  <!-- 
+    camel.jmx.feature 
+  -->
+  <resource>
+    <capability namespace="gravia.identity">
+      <attribute name="gravia.identity" value="camel.jmx.feature" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="gravia.identity">
+      <attribute name="gravia.identity" value="org.apache.camel.camel.jmx" />
+      <attribute name="version" value="[2.11,3.0)" />
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="gravia.identity">
+      <attribute name="gravia.identity" value="org.apache.camel.camel.jmx" />
+      <attribute name="maven.identity" value="org.apache.camel:camel-jmx:jar:@version.apache.camel@" />
+      <attribute name="version" value="@version.apache.camel@" />
+    </capability>
+    <requirement namespace="gravia.identity">
+      <attribute name="gravia.identity" value="javax.api" />
+    </requirement>
+    <requirement namespace="gravia.identity">
+      <attribute name="gravia.identity" value="javax.xml.bind.api" />
+      <attribute name="version" value="[2.2,3.0)" />
+    </requirement>
+    <requirement namespace="gravia.identity">
+      <attribute name="gravia.identity" value="org.apache.camel.core" />
+      <attribute name="version" value="[2.11,2.11]" />
+    </requirement>
+    <requirement namespace="gravia.identity">
+      <attribute name="gravia.identity" value="org.slf4j" />
+      <attribute name="version" value="[1.7,2.0)" />
+    </requirement>
+  </resource>
+</repository>

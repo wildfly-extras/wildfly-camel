@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Wildfly Camel Build
+  %%
+  Copyright (C) 2013 JBoss by Red Hat
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as 
+  published by the Free Software Foundation, either version 2.1 of the 
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Lesser Public License for more details.
+  
+  You should have received a copy of the GNU General Lesser Public 
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/lgpl-2.1.html>.
+  #L%
+  -->
+
+
+
+
+<module xmlns="urn:jboss:module:1.1" name="org.jboss.gravia">
+    <properties>
+        <property name="jboss.api" value="private"/>
+    </properties>
+
+    <resources>
+        <resource-root path="gravia-provision-@version.jboss.gravia@.jar"/>
+        <resource-root path="gravia-repository-@version.jboss.gravia@.jar"/>
+        <resource-root path="gravia-resolver-@version.jboss.gravia@.jar"/>
+        <resource-root path="gravia-resource-@version.jboss.gravia@.jar"/>
+    </resources>
+
+    <exports>
+        <exclude path="org/jboss/gravia/provision/spi"/>
+        <exclude path="org/jboss/gravia/resource/spi"/>
+        <exclude path="org/jboss/gravia/resolver/spi"/>
+        <exclude path="org/jboss/gravia/repository/spi"/>
+    </exports>
+    
+    <dependencies>
+        <module name="javax.api"/>
+        <module name="org.jboss.logging"/>
+    </dependencies>
+
+</module>
