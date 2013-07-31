@@ -15,7 +15,7 @@
     <artifactId>wildfly-camel</artifactId>
     <packaging>pom</packaging>
 
-    <version>1.0.0.Alpha1</version>
+    <version>1.0.0.Beta1-SNAPSHOT</version>
 
     <!-- Source Control -->
     <scm>
