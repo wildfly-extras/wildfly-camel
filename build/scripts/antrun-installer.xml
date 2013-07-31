@@ -39,7 +39,7 @@
       <filterset>
         <filter token="installpath" value="${output.dir}/auto-install-dest" />
         <filter token="wildfly.server.target" value="${wildfly.server.target}" />
-        <filter token="wildfly.home" value="${wildfly.home}" />
+        <filter token="jboss.home" value="${jboss.home}" />
       </filterset>
     </copy>
     <copy todir="${deploy.artifacts.resources}/modules" filtering="true" overwrite="true">

@@ -5,16 +5,16 @@
  * Copyright (C) 2013 JBoss by Red Hat
  * %%
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as 
- * published by the Free Software Foundation, either version 2.1 of the 
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 2.1 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Lesser Public License for more details.
- * 
- * You should have received a copy of the GNU General Lesser Public 
+ *
+ * You should have received a copy of the GNU General Lesser Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/lgpl-2.1.html>.
  * #L%
@@ -87,7 +87,6 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         final ServiceTarget serviceTarget = startContext.getChildTarget();
         contextRegistry = new DefaultCamelContextRegistry(serviceContainer, serviceTarget);
         for (final String name : subsystemState.getContextDefinitionNames()) {
-            LOGGER.infoRegisterCamelContext(name);
             CamelContext camelctx;
             try {
                 ClassLoader classLoader = CamelContextRegistry.class.getClassLoader();
@@ -138,6 +137,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
             // Install the {@link CamelContext} as {@link Service}
             ValueService<CamelContext> service = new ValueService<CamelContext>(new ImmediateValue<CamelContext>(camelctx));
             ServiceBuilder<CamelContext> builder = serviceTarget.addService(getInternalServiceName(name), service);
+            builder.addDependency(CamelContextRegistryBindingService.getBinderServiceName());
             final ServiceController<CamelContext> controller = builder.install();
 
             return new CamelContextRegistration() {

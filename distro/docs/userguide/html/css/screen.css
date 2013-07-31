@@ -1,0 +1,85 @@
+
+body {
+    padding: 10px;
+}
+
+.container {
+    margin: 0 auto 0 0;
+    width: 100%;
+}
+
+.header {
+    /*border: 1px solid white;
+    border-bottom: 1px solid #77AD1A; */
+    /*text-align: right;*/
+    /*background: url('../images/logo_titlepage.png') no-repeat scroll 8px 0 transparent;*/
+}
+
+.header #header-left img {
+    margin: 8px;  /* TODO remove, when class="spacelogo" is available */
+}
+
+.header-right h4 {
+    padding-top: 1.8em;
+    padding-bottom: 0;
+}
+
+.header-right {
+    text-align: right;
+}
+
+.content {
+
+}
+
+.footer {
+    color: silver;
+    font-size: 11px;
+    margin-top: 28px;
+    padding-top: 12px;
+    text-align: right;
+    border-top: 1px solid #77AD1A;
+}
+
+.footer a {
+    color: silver;
+    text-decoration: underline;
+}
+
+/*#header h4 {*/
+    /*margin-top: 1.5em;*/
+/*}*/
+
+.toc li p {
+    margin: 0;
+}
+
+.toc ol, ul {
+    padding-left: 3em;
+}
+
+.toc ul {
+    list-style-type: none;
+}
+
+.toc ul {
+    padding-left: 0;
+}
+
+.toc ul li ul li {
+    padding-left: 6px;
+}
+
+.toc ul li ul li ul li {
+    padding-left: 12px;
+}
+
+.toc ul li ul li ul li ul li {
+    padding-left: 18px;
+}
+
+.toc a:active {
+    text-decoration: none;
+    color: black;
+}
+

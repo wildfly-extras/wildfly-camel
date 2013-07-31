@@ -45,7 +45,7 @@ import org.jboss.msc.service.ServiceName;
  * @author Thomas.Diesler@jboss.com
  * @since 16-May-2013
  */
-public class ResourceProvisionerProvider implements ResourceProvider {
+public class ProvisionerProvider implements ResourceProvider {
 
     private AtomicBoolean initialized = new AtomicBoolean();
     private ServiceContainer serviceContainer;

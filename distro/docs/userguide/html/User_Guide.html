@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>User Guide - WildFly Camel</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta content="Scroll Wiki Publisher" name="generator"/>
+
+    <link type="text/css" rel="stylesheet" href="css/blueprint/liquid.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/blueprint/print.css" media="print"/>
+    <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="css/content-style.css" media="screen, projection, print"/>
+    <link type="text/css" rel="stylesheet" href="css/screen.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/print.css" media="print"/>
+    
+    <link type="text/css" rel="stylesheet" href="css/jbossorg.css"/>
+    <link type="text/css" rel="stylesheet" href="css/docnav.css"/>    
+    
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shCoreDefault.css"/>
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushAppleScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushAS3.js"></script>
+    <script type="text/javascript" src="sh/shBrushBash.js"></script>
+    <script type="text/javascript" src="sh/shBrushCpp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCSharp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCss.js"></script>
+    <script type="text/javascript" src="sh/shBrushDiff.js"></script>
+    <script type="text/javascript" src="sh/shBrushErlang.js"></script>
+    <script type="text/javascript" src="sh/shBrushGroovy.js"></script>
+    <script type="text/javascript" src="sh/shBrushJava.js"></script>
+    <script type="text/javascript" src="sh/shBrushJavaFX.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushPerl.js"></script>
+    <script type="text/javascript" src="sh/shBrushPhp.js"></script>
+    <script type="text/javascript" src="sh/shBrushPlain.js"></script>
+    <script type="text/javascript" src="sh/shBrushPython.js"></script>
+    <script type="text/javascript" src="sh/shBrushRuby.js"></script>
+    <script type="text/javascript" src="sh/shBrushScala.js"></script>
+    <script type="text/javascript" src="sh/shBrushSql.js"></script>
+    <script type="text/javascript" src="sh/shBrushVb.js"></script>
+    <script type="text/javascript" src="sh/shBrushXml.js"></script>
+    
+</head>
+<body>
+    <div class="container" style="min-width: 760px;">
+        <div class="block header">
+          <p id="title">
+            <a class="site_href" href="http://www.jboss.org"><strong>JBoss.org</strong></a>
+            <a class="doc_href" href="http://docs.jboss.org"><strong>Community Documentation</strong></a>
+          </p>
+                  <ul class="docnav">
+                                                </ul>
+                    <div>
+            <h1 class="title"><img src="spacelogo.png" /> WildFly Camel</h1>
+          </div>
+          <div>
+            <h1>User Guide</h1>
+          </div>
+          <div>
+            <div class="authorgroup">
+              <div>
+               <p class="releaseinfo">Exported from <a href="https://docs.jboss.org/author/display/wfcam">JBoss Community Documentation Editor</a> at 2013-07-31 06:04:01 EDT.</p>
+              </div>
+              <div>
+                <p class="copyright">Copyright 2013 JBoss Community contributors.</p>
+              </div>  
+            </div>
+            <hr/>
+          </div>
+          <div class="toc">
+            <ul class="toc">
+                                    </ul>
+          </div>
+          </div>
+
+        <div class="block content">
+    <div class="section-2"  id="69370622_UserGuide-Content"  >
+        <h2>Content</h2>
+    
+    <p>
+This chapter takes you through the first steps of getting WildFly Camel and provides the initial pointers to get up and running.    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="User_Guide.html#69370622_UserGuide-DownloadtheDistribution">Download the Distribution</a>    </p>
+</li><li class=" ">    <p>
+<a href="User_Guide.html#69370622_UserGuide-CamelSubsystemInstaller">Camel Subsystem Installer</a>    </p>
+</li><li class=" ">    <p>
+<a href="User_Guide.html#69370622_UserGuide-CamelContextDefinitions">Camel Context Definitions</a>    </p>
+</li><li class=" ">    <p>
+<a href="User_Guide.html#69370622_UserGuide-CamelContextDeployments">Camel Context Deployments</a>    </p>
+</li><li class=" ">    <p>
+<a href="User_Guide.html#69370622_UserGuide-CamelFeatureProvisioning">Camel Feature Provisioning</a>    </p>
+</li><li class=" ">    <p>
+<a href="User_Guide.html#69370622_UserGuide-IntegrationwithJAXWS">Integration with JAX-WS</a>    </p>
+</li><li class=" ">    <p>
+<a href="User_Guide.html#69370622_UserGuide-IntegrationwithJMS">Integration with JMS</a>    </p>
+</li><li class=" ">    <p>
+<a href="User_Guide.html#69370622_UserGuide-IntegrationwithJNDI">Integration with JNDI</a>    </p>
+</li><li class=" ">    <p>
+<a href="User_Guide.html#69370622_UserGuide-IntegrationwithJMX">Integration with JMX</a>    </p>
+</li><li class=" ">    <p>
+<a href="User_Guide.html#69370622_UserGuide-ArquillianTestSupport">Arquillian Test Support</a>    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="User_Guide.html#69370622_UserGuide-RunningtheTestSuite">Running the Test Suite</a>    </p>
+</li><li class=" ">    <p>
+<a href="User_Guide.html#69370622_UserGuide-Runningindividualtests">Running individual tests</a>    </p>
+</li><li class=" ">    <p>
+<a href="User_Guide.html#69370622_UserGuide-RunningtestsfromtheIDE">Running tests from the IDE</a>    </p>
+</li><li class=" ">    <p>
+<a href="User_Guide.html#69370622_UserGuide-DebuggingtherunningServer">Debugging the running Server</a>    </p>
+</li></ul></li></ul>    </div>
+    
+    <div class="section-2"  id="69370622_UserGuide-DownloadtheDistribution"  >
+        <h2>Download the Distribution</h2>
+    
+    <p>
+Camel support is not part of WildFly. The WildFly-Camel project provides examples, documentation and the subsystem that adds Camel functionality to WildFly.    </p>
+    <p>
+WildFly-Camel is distributed as an <a href="http://izpack.org">IzPack</a> installer archive. The installer is available from the <a href="http://sourceforge.net/projects/jboss/files/WildFly-Camel">WildFly-Camel download area</a>.    </p>
+    <p>
+WildFly can be downloaded from the <a href="http://www.wildfly.org/download">WildFly download area</a>.    </p>
+    </div>
+    
+    <div class="section-2"  id="69370622_UserGuide-CamelSubsystemInstaller"  >
+        <h2>Camel Subsystem Installer</h2>
+    
+    <p>
+To run the WildFly-Camel Installer execute the following command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">java -jar wildfly-camel-installer-1.0.0.Alpha1.jar </pre>
+        </div>
+    </div>
+    <p>
+The installer first shows a welcome screen    </p>
+    <p>
+    <img src="images/author/download/attachments/69370622/wfcam-izpack-welcome.png" alt="images/author/download/attachments/69370622/wfcam-izpack-welcome.png" />
+        </p>
+    <p>
+On the following screens you'll be asked to select the WildFly distribution that is used to install the Camel Subsystem.<br/>If you're curious checkout the <a href="https://github.com/tdiesler/wildfly-camel/blob/master/build/src/main/resources/installer/install-definition.xml">install-definition.xml</a> file to see what is actually being written.    </p>
+    <p>
+    <img src="images/author/download/attachments/69370622/wfcam-izpack-path.png" alt="images/author/download/attachments/69370622/wfcam-izpack-path.png" />
+        </p>
+    <p>
+When you start up WildFly    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[tdiesler@localhost wildfly-8.0.0.Alpha3]$ bin/standalone.sh -c standalone-camel.xml</pre>
+        </div>
+    </div>
+    <p>
+you should see something like this    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">=========================================================================
+
+  JBoss Bootstrap Environment
+
+  JBOSS_HOME: .../wildfly-8.0.0.Alpha3
+
+  JAVA: /Library/Java/JavaVirtualMachines/jdk1.7.0_25.jdk/Contents/Home/bin/java
+
+  JAVA_OPTS: ...
+
+=========================================================================
+
+09:33:06,486 INFO  [org.jboss.modules] (main) JBoss Modules version 1.2.4.Final
+09:33:06,713 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.0.Beta2
+09:33:06,781 INFO  [org.jboss.as] (MSC service thread 1-6) JBAS015899: WildFly 8.0.0.Alpha3 &quot;WildFly&quot; starting
+...
+09:33:07,493 INFO  [org.wildfly.camel] (MSC service thread 1-4) JBAS020000: Activating Camel Subsystem
+09:33:07,499 INFO  [org.wildfly.camel] (MSC service thread 1-6) JBAS020001: Register camel context: system-context-1
+09:33:07,507 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 19) JBAS011800: Activating Naming Subsystem
+09:33:07,510 INFO  [org.jboss.as.webservices] (ServerService Thread Pool -- 23) JBAS015537: Activating WebServices Extension
+...
+09:33:07,623 INFO  [org.wildfly.camel] (MSC service thread 1-7) JBAS020002: Bound camel naming object: java:jboss/camel/CamelContextFactory
+09:33:07,681 INFO  [org.jboss.ws.common.management] (MSC service thread 1-3) JBWS022052: Starting JBoss Web Services - Stack CXF Server 4.2.0.CR1
+...
+09:33:09,457 INFO  [org.apache.camel.spring.SpringCamelContext] (MSC service thread 1-6) Apache Camel 2.11.0 (CamelContext: system-context-1) is starting
+09:33:09,467 INFO  [org.apache.camel.management.ManagementStrategyFactory] (MSC service thread 1-6) JMX enabled.
+09:33:09,553 INFO  [org.apache.camel.impl.converter.DefaultTypeConverter] (MSC service thread 1-6) Loaded 172 type converters
+09:33:09,687 INFO  [org.apache.camel.spring.SpringCamelContext] (MSC service thread 1-6) Route: route1 started and consuming from: Endpoint[direct://start]
+09:33:09,688 INFO  [org.apache.camel.management.DefaultManagementLifecycleStrategy] (MSC service thread 1-6) Load performance statistics enabled.
+09:33:09,699 INFO  [org.apache.camel.spring.SpringCamelContext] (MSC service thread 1-6) Total 1 routes, of which 1 is started.
+09:33:09,700 INFO  [org.apache.camel.spring.SpringCamelContext] (MSC service thread 1-6) Apache Camel 2.11.0 (CamelContext: system-context-1) started in 0.243 seconds
+09:33:09,703 INFO  [org.wildfly.camel] (MSC service thread 1-6) JBAS020001: Register camel context: system-context-1
+09:33:09,704 INFO  [org.wildfly.camel] (MSC service thread 1-6) JBAS020002: Bound camel naming object: java:jboss/camel/CamelContextRegistry
+09:33:09,739 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015961: Http management interface listening on http://127.0.0.1:9990/management
+09:33:09,739 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015951: Admin console listening on http://127.0.0.1:9990
+09:33:09,739 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: WildFly 8.0.0.Alpha3 &quot;WildFly&quot; started in 3559ms</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-2"  id="69370622_UserGuide-CamelContextDefinitions"  >
+        <h2>Camel Context Definitions</h2>
+    
+    <p>
+Camel Contexts can be configured in standalone-camel.xml as part of the subsystem definition like this    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">   &lt;subsystem xmlns=&quot;urn:jboss:domain:camel:1.0&quot;&gt;
+      &lt;camelContext id=&quot;system-context-1&quot;&gt;
+        &lt;![CDATA[
+        &lt;route&gt;
+          &lt;from uri=&quot;direct:start&quot;/&gt;
+          &lt;transform&gt;
+            &lt;simple&gt;Hello #{body}&lt;/simple&gt;
+          &lt;/transform&gt;
+        &lt;/route&gt;
+        ]]&gt;
+      &lt;/camelContext&gt;
+   &lt;/subsystem&gt;</pre>
+        </div>
+    </div>
+    <p>
+On WildFly startup you should see something like this    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">10:01:29,213 INFO  [org.wildfly.camel] (MSC service thread 1-7) JBAS020001: Register camel context: system-context-1
+10:01:29,214 INFO  [org.wildfly.camel] (MSC service thread 1-1) JBAS020002: Bound camel naming object: java:jboss/camel/CamelContextRegistry</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-2"  id="69370622_UserGuide-CamelContextDeployments"  >
+        <h2>Camel Context Deployments</h2>
+    
+    <p>
+There are two ways to deploy a Camel Context to WildFly    </p>
+<ol class=" "><li class=" ">    <p>
+As a single XMl file with a predefined <strong class=" ">-camel-context.xml</strong> file suffix    </p>
+</li><li class=" ">    <p>
+As part of another WildFly supported deployment as <strong class=" ">META-INF/jboss-camel-context.xml</strong> file    </p>
+</li></ol>    <p>
+When deployed as XML file, you should see    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">10:20:01,621 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015876: Starting deployment of &quot;simple-transform-camel-context.xml&quot; 
+...
+10:20:01,893 INFO  [org.apache.camel.spring.SpringCamelContext] (MSC service thread 1-1) Apache Camel 2.11.0 (CamelContext: spring-context) is starting
+...
+10:20:01,945 INFO  [org.apache.camel.spring.SpringCamelContext] (MSC service thread 1-1) Route: route13 started and consuming from: Endpoint[direct://start]
+10:20:01,949 INFO  [org.apache.camel.spring.SpringCamelContext] (MSC service thread 1-1) Apache Camel 2.11.0 (CamelContext: spring-context) started in 0.056 seconds
+10:20:01,955 INFO  [org.wildfly.camel] (MSC service thread 1-1) JBAS020001: Register camel context: spring-context
+...
+10:20:01,963 INFO  [org.jboss.as.server] (management-handler-thread - 7) JBAS018559: Deployed &quot;simple-transform-camel-context.xml&quot; (runtime-name : &quot;simple-transform-camel-context.xml&quot;)</pre>
+        </div>
+    </div>
+    <p>
+When deployed as part of another deployment, you should something similar    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">10:24:02,649 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) JBAS015876: Starting deployment of &quot;camel-module.jar&quot;
+...
+10:24:02,882 INFO  [org.apache.camel.spring.SpringCamelContext] (MSC service thread 1-1) Apache Camel 2.11.0 (CamelContext: spring-context) is starting
+...
+10:24:02,935 INFO  [org.apache.camel.spring.SpringCamelContext] (MSC service thread 1-1) Route: route14 started and consuming from: Endpoint[direct://start]
+10:24:02,940 INFO  [org.apache.camel.spring.SpringCamelContext] (MSC service thread 1-1) Apache Camel 2.11.0 (CamelContext: spring-context) started in 0.058 seconds
+10:24:02,945 INFO  [org.wildfly.camel] (MSC service thread 1-1) JBAS020001: Register camel context: spring-context
+...
+10:24:02,952 INFO  [org.jboss.as.server] (management-handler-thread - 11) JBAS018559: Deployed &quot;camel-module.jar&quot; (runtime-name : &quot;camel-module.jar&quot;)</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-2"  id="69370622_UserGuide-CamelFeatureProvisioning"  >
+        <h2>Camel Feature Provisioning</h2>
+    
+    <p>
+WildFly Camel provides feature provisioning similar to Karaf features. A feature is defined as set of abstract Resources with associated Capabilities/Requirements. All known features are stored in a Repository. At runtime the Provisioner gets a set of Resource candidates from the Repository and uses the Resolver to find a consistent wiring solution for the current state of the Environment. After this no-impact analysis, the Provisioner installs the required set of Resources to the Environment if a consistent wiring solution can be found by the Resolver.    </p>
+    <p>
+The initial set of supported features is part of the WildFly Camel <a href="https://github.com/tdiesler/wildfly-camel/tree/master/subsystem/src/main/resources/META-INF/repository-content">repository content</a> definition. Resources that are already part of the WildFly environment are defined as part of the <a href="https://github.com/tdiesler/wildfly-camel/tree/master/subsystem/src/main/resources/META-INF/environment-content">environment content</a>    </p>
+    <p>
+A good starting point to work with WildFly Camel feature provisioning is <a href="https://github.com/tdiesler/wildfly-camel/blob/master/itests/src/test/java/org/wildfly/camel/test/ProvisionerSupport.java">ProvisionerSupport</a> and references to it.    </p>
+    <p>
+The concepts of <a href="https://github.com/tdiesler/gravia/blob/master/resource/src/main/java/org/jboss/gravia/resource/Resource.java">Resource</a>, <a href="https://github.com/tdiesler/gravia/blob/master/resource/src/main/java/org/jboss/gravia/resource/Capability.java">Capability</a>, <a href="https://github.com/tdiesler/gravia/blob/master/resource/src/main/java/org/jboss/gravia/resource/Requirement.java">Requirement</a>, <a href="https://github.com/tdiesler/gravia/blob/master/resolver/src/main/java/org/jboss/gravia/resolver/Resolver.java">Resolver</a>, <a href="https://github.com/tdiesler/gravia/blob/master/repository/src/main/java/org/jboss/gravia/repository/Repository.java">Repository</a>, <a href="https://github.com/tdiesler/gravia/blob/master/provision/src/main/java/org/jboss/gravia/provision/Provisioner.java">Provisioner</a> are all provided by the <a href="https://github.com/tdiesler/gravia">Gravia</a> project, which is a rewrite of the same functionality that used to be available in WildFly as part of the <a href="https://docs.jboss.org/author/display/JBOSGI/JBoss+OSGi+Home">JBoss OSGi</a> integration.    </p>
+    <p>
+WildFly Camel feature provisioning has no dependency on OSGi.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner);
+provisionerSupport.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, &quot;camel.cxf.feature&quot;);
+...</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-2"  id="69370622_UserGuide-IntegrationwithJAXWS"  >
+        <h2>Integration with JAX-WS</h2>
+    
+    <p>
+WebService support is provided through the <a href="http://camel.apache.org/cxf.html">camel-cxf</a> component which integrates with the WildFly WebServices subsystem that also uses <a href="http://cxf.apache.org">Apache CXF</a>.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner);
+provisionerSupport.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, &quot;camel.cxf.feature&quot;);
+...
+// Create the CamelContext
+CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        from(&quot;direct:start&quot;).
+        to(&quot;cxf://&quot; + getEndpointAddress(&quot;/simple&quot;) + &quot;?serviceClass=&quot; + Endpoint.class.getName());
+    }
+});
+camelctx.start();
+
+ProducerTemplate producer = camelctx.createProducerTemplate();
+String result = producer.requestBody(&quot;direct:start&quot;, &quot;Kermit&quot;, String.class);
+Assert.assertEquals(&quot;[Hello Kermit]&quot;, result);</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-2"  id="69370622_UserGuide-IntegrationwithJMS"  >
+        <h2>Integration with JMS</h2>
+    
+    <p>
+Messaging support is provided through the <a href="http://camel.apache.org/jms.html">camel-jms</a> component which integrates with the WildFly Messaging <a href="http://www.jboss.org/hornetq">(HornetQ)</a> subsystem    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner);
+provisionerSupport.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, &quot;camel.jms.feature&quot;);
+...
+// Create the CamelContext
+CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        from(&quot;jms:queue:&quot; + QUEUE_NAME + &quot;?connectionFactory=ConnectionFactory&quot;).
+        transform(body().prepend(&quot;Hello &quot;)).to(&quot;direct:end&quot;);
+    }
+});
+camelctx.start();
+
+// Send a message to the queue
+ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup(&quot;java:/ConnectionFactory&quot;);
+Connection connection = cfactory.createConnection();
+sendMessage(connection, QUEUE_JNDI_NAME, &quot;Kermit&quot;);
+
+String result = consumeRouteMessage(camelctx);
+Assert.assertEquals(&quot;Hello Kermit&quot;, result);</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-2"  id="69370622_UserGuide-IntegrationwithJNDI"  >
+        <h2>Integration with JNDI</h2>
+    
+    <p>
+The <a href="https://github.com/tdiesler/wildfly-camel/blob/master/subsystem/src/main/java/org/wildfly/camel/WildflyCamelContext.java">WildFlyCamelContext</a> provides integration with the WildFly Naming subsystem.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">WildflyCamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+
+// Bind a bean to JNDI
+Context context = camelctx.getNamingContext();
+context.bind(&quot;helloBean&quot;, new HelloBean());
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        from(&quot;direct:start&quot;).beanRef(&quot;helloBean&quot;);
+    }
+});
+camelctx.start();
+
+ProducerTemplate producer = camelctx.createProducerTemplate();
+String result = producer.requestBody(&quot;direct:start&quot;, &quot;Kermit&quot;, String.class);
+Assert.assertEquals(&quot;Hello Kermit&quot;, result);
+
+context.unbind(&quot;helloBean&quot;);</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-2"  id="69370622_UserGuide-IntegrationwithJMX"  >
+        <h2>Integration with JMX</h2>
+    
+    <p>
+Management support is provided through the <a href="http://camel.apache.org/jmx.html">camel-jmx</a> component which integrates with the WildFly JMX subsystem.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner);
+provisionerSupport.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, &quot;camel.jmx.feature&quot;);
+...
+CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        String host = InetAddress.getLocalHost().getHostName();
+        from(&quot;jmx:platform?format=raw&amp;objectDomain=org.apache.camel&amp;key.context=&quot; + host + &quot;/system-context-1&amp;key.type=routes&amp;key.name=\&quot;route1\&quot;&quot; +
+        &quot;&amp;monitorType=counter&amp;observedAttribute=ExchangesTotal&amp;granularityPeriod=500&quot;).
+        to(&quot;direct:end&quot;);
+    }
+});
+camelctx.start();
+
+ConsumerTemplate consumer = camelctx.createConsumerTemplate();
+MonitorNotification notifcation = consumer.receiveBody(&quot;direct:end&quot;, MonitorNotification.class);
+Assert.assertEquals(&quot;ExchangesTotal&quot;, notifcation.getObservedAttribute());</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-2"  id="69370622_UserGuide-ArquillianTestSupport"  >
+        <h2>Arquillian Test Support</h2>
+    
+    <p>
+The WildFly Camel <a href="https://github.com/tdiesler/wildfly-camel/tree/master/itests/src/test/java/org/wildfly/camel/test">test suite</a> uses the WildFly <a href="http://arquillian.org">Arquillian</a> managed container. This can connect to an already running WildFly instance or alternatively start up a standalone server instance when needed.    </p>
+    <p>
+A number of test enrichers have been implemented that allow you have these WildFly Camel specific types injected into your Arquillian test cases.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">    @ArquillianResource
+    CamelContextFactory contextFactory;
+
+    @ArquillianResource
+    CamelContextRegistry contextRegistry;</pre>
+        </div>
+    </div>
+    <div class="section-3"  id="69370622_UserGuide-RunningtheTestSuite"  >
+        <h3>Running the Test Suite</h3>
+    
+    <p>
+The integration tests are best executed against a <a href="https://docs.jboss.org/author/display/wfcam/Building+the+Server#BuildingtheServer-runningtheserver">running server</a>.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">	[tdiesler@localhost wildfly-camel]$ cd itests
+	[tdiesler@localhost itests]$ mvn clean install
+	
+	-------------------------------------------------------
+	 T E S T S
+	-------------------------------------------------------
+	Running org.wildfly.camel.test.jms.MessagingTestCase
+	Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.11 sec
+	Running org.wildfly.camel.test.provision.FeatureProvisionTestCase
+	Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.291 sec
+	Running org.wildfly.camel.test.smoke.BeanTransformTestCase
+	Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.201 sec
+	Running org.wildfly.camel.test.smoke.SimpleTransformTestCase
+	Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.171 sec
+	Running org.wildfly.camel.test.smoke.SpringBeanDeploymentTestCase
+	Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.713 sec
+	Running org.wildfly.camel.test.smoke.SpringBeanTransformTestCase
+	Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.451 sec
+	Running org.wildfly.camel.test.smoke.SpringContextDeploymentTestCase
+	Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.404 sec
+	Running org.wildfly.camel.test.smoke.SpringContextTestCase
+	Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.327 sec
+	Running org.wildfly.camel.test.smoke.SystemContextTestCase
+	Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.09 sec
+	
+	Results :
+	
+	Tests run: 12, Failures: 0, Errors: 0, Skipped: 0
+	
+	[INFO] ------------------------------------------------------------------------
+	[INFO] BUILD SUCCESS
+	[INFO] ------------------------------------------------------------------------
+	[INFO] Total time: 16.168s
+	[INFO] Finished at: Fri May 24 14:47:16 CEST 2013
+	[INFO] Final Memory: 60M/229M
+	[INFO] ------------------------------------------------------------------------</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="69370622_UserGuide-Runningindividualtests"  >
+        <h3>Running individual tests</h3>
+    
+    <p>
+We support execution of single tests like this    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">    [tdiesler@localhost itests]$ mvn -Dtest=MessagingTestCase test</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="69370622_UserGuide-RunningtestsfromtheIDE"  >
+        <h3>Running tests from the IDE</h3>
+    
+    <p>
+To run the tests from the IDE you need to set these <a href="https://github.com/tdiesler/wildfly-camel/blob/master/itests/pom.xml#L12">system properties</a>    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">      -Djava.util.logging.manager=org.jboss.logmanager.LogManager
+      -Dwildfly.camel.home=${workspace_loc:wildfly-camel-build}/target/wildfly-camel-1.0.0-SNAPSHOT</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="69370622_UserGuide-DebuggingtherunningServer"  >
+        <h3>Debugging the running Server</h3>
+    
+    <p>
+Remote debugging can be enabled in <a href="https://github.com/wildfly/wildfly/blob/master/build/src/main/resources/bin/standalone.conf">bin/standalone.conf</a>    </p>
+    </div>
+    
+    </div>
+    
+        </div>
+              <ul class="docnav">
+                              <li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li>
+          <li class="home"><a accesskey="h" href="User_Guide.html"><strong>Front page</strong></a></li>
+                      </ul>
+          </div>
+    <script type="text/javascript">
+      SyntaxHighlighter.all()
+    </script>
+</body>
+</html>
