@@ -23,7 +23,6 @@
 package org.wildfly.camel.test.jmx;
 
 import java.io.InputStream;
-import java.net.InetAddress;
 import java.util.List;
 
 import javax.management.monitor.MonitorNotification;
@@ -86,8 +85,7 @@ public class JMXIntegrationTestCase {
             camelctx.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
-                    String host = InetAddress.getLocalHost().getHostName();
-                    from("jmx:platform?format=raw&objectDomain=org.apache.camel&key.context=" + host + "/system-context-1&key.type=routes&key.name=\"route1\"" +
+                    from("jmx:platform?format=raw&objectDomain=org.apache.camel&key.context=system-context-1&key.type=routes&key.name=\"route1\"" +
                     "&monitorType=counter&observedAttribute=ExchangesTotal&granularityPeriod=500").
                     to("direct:end");
                 }

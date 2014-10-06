@@ -26,8 +26,8 @@
 
     <!-- Properties -->
     <properties>
-        <version.apache.camel>2.11.0</version.apache.camel>
-        <version.apache.spring>3.1.4.RELEASE</version.apache.spring>
+        <version.apache.camel>2.14.0</version.apache.camel>
+        <version.apache.spring>3.2.11.RELEASE</version.apache.spring>
         <version.jboss.wildfly>8.1.0.Final</version.jboss.wildfly>
         <version.jboss.arquillian.core>1.1.2.Final-wildfly-1</version.jboss.arquillian.core>
         <version.jboss.gravia>1.0.0.Beta1</version.jboss.gravia>

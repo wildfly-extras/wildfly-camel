@@ -37,5 +37,6 @@
         <module name="javax.api"/>
         <module name="javax.xml.bind.api"/>
         <module name="org.slf4j"/>
+      	<module name="sun.jdk" />
     </dependencies>
 </module>
