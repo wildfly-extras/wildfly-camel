@@ -28,9 +28,9 @@ import static java.lang.System.getSecurityManager;
 import static java.lang.System.setProperty;
 import static java.security.AccessController.doPrivileged;
 
-import org.wildfly.security.manager.GetClassLoaderAction;
-import org.wildfly.security.manager.ReadPropertyAction;
-import org.wildfly.security.manager.WritePropertyAction;
+import org.wildfly.security.manager.action.GetClassLoaderAction;
+import org.wildfly.security.manager.action.ReadPropertyAction;
+import org.wildfly.security.manager.action.WritePropertyAction;
 
 /**
  * Privileged actions used by this package.

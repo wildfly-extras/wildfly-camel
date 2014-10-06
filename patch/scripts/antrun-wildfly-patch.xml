@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+     Copyright 2005-2014 Red Hat, Inc.
+
+     Red Hat licenses this file to you under the Apache License, version
+     2.0 (the "License"); you may not use this file except in compliance
+     with the License.  You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+     implied.  See the License for the specific language governing
+     permissions and limitations under the License.
+
+-->
+
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!--  JBoss, the OpenSource J2EE webOS                                      -->
+<!--                                                                        -->
+<!--  Distributable under LGPL license.                                     -->
+<!--  See terms of license at http://www.gnu.org.                           -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
+
+<project default="build">
+
+  <!-- ================================================================== -->
+  <!-- Setup                                                              -->
+  <!-- ================================================================== -->
+  <property name="etc.dir" value="${basedir}/etc" />
+  <property name="output.dir" value="${basedir}/target" />
+  <property name="resources.dir" value="${basedir}/src/main/resources" />
+  <property name="wildfly.patch.dir" value="${output.dir}/wildfly-patch" />
+  <property name="deploy.artifacts.dir" value="${output.dir}/deploy-artifacts" />
+  <property name="deploy.artifacts.lib" value="${deploy.artifacts.dir}/lib" />
+  <property name="deploy.artifacts.resources" value="${deploy.artifacts.dir}/resources" />
+
+  <!-- ================================================================== -->
+  <!-- Initialization                                                     -->
+  <!-- ================================================================== -->
+  <target name="init">
+  </target>
+
+  <!-- ================================================================== -->
+  <!-- Distribution                                                       -->
+  <!-- ================================================================== -->
+  <target name="build" depends="init">
+
+  	<!-- Filter fabric resources -->
+    <copy todir="${wildfly.patch.dir}" overwrite="true">
+        <fileset dir="${etc.dir}/wildfly" />
+		<filterset>
+	        <filter token="project.version" value="${project.version}" />
+	        <filter token="version.apache.camel" value="${version.apache.camel}" />
+	        <filter token="version.apache.spring" value="${version.apache.spring}" />
+	        <filter token="version.jboss.gravia" value="${version.jboss.gravia}" />
+      	</filterset>
+    </copy>
+  	
+    <!-- Copy camel jars -->
+    <copy todir="${wildfly.patch.dir}/modules/org/apache/camel/core/main" overwrite="true">
+    	<fileset dir="${deploy.artifacts.lib}" >
+    		<include name="camel-core-${version.apache.camel}.jar" />
+        </fileset>
+    </copy>
+    <copy todir="${wildfly.patch.dir}/modules/org/apache/camel/core/xml/main" overwrite="true">
+    	<fileset dir="${deploy.artifacts.lib}" >
+    		<include name="camel-core-xml-${version.apache.camel}.jar" />
+        </fileset>
+    </copy>
+    <copy todir="${wildfly.patch.dir}/modules/org/apache/camel/spring/main" overwrite="true">
+    	<fileset dir="${deploy.artifacts.lib}" >
+    		<include name="camel-spring-${version.apache.camel}.jar" />
+        </fileset>
+    </copy>
+    
+    <!-- Copy gravia jars -->
+    <copy todir="${wildfly.patch.dir}/modules/org/jboss/gravia/main" overwrite="true">
+    	<fileset dir="${deploy.artifacts.lib}" >
+			<include name="gravia-provision-${version.jboss.gravia}.jar" />
+			<include name="gravia-repository-${version.jboss.gravia}.jar" />
+			<include name="gravia-resolver-${version.jboss.gravia}.jar" />
+			<include name="gravia-resource-${version.jboss.gravia}.jar" />
+        </fileset>
+    </copy>
+    
+    <!-- Copy springsource jars -->
+    <copy todir="${wildfly.patch.dir}/modules/org/springframework/aop/main" overwrite="true">
+    	<fileset dir="${deploy.artifacts.lib}" >
+    		<include name="spring-aop-${version.apache.spring}.jar" />
+        </fileset>
+    </copy>
+    <copy todir="${wildfly.patch.dir}/modules/org/springframework/asm/main" overwrite="true">
+    	<fileset dir="${deploy.artifacts.lib}" >
+    		<include name="spring-asm-${version.apache.spring}.jar" />
+        </fileset>
+    </copy>
+    <copy todir="${wildfly.patch.dir}/modules/org/springframework/beans/main" overwrite="true">
+    	<fileset dir="${deploy.artifacts.lib}" >
+    		<include name="spring-beans-${version.apache.spring}.jar" />
+        </fileset>
+    </copy>
+    <copy todir="${wildfly.patch.dir}/modules/org/springframework/context/main" overwrite="true">
+    	<fileset dir="${deploy.artifacts.lib}" >
+    		<include name="spring-context-${version.apache.spring}.jar" />
+        </fileset>
+    </copy>
+    <copy todir="${wildfly.patch.dir}/modules/org/springframework/core/main" overwrite="true">
+    	<fileset dir="${deploy.artifacts.lib}" >
+    		<include name="spring-core-${version.apache.spring}.jar" />
+        </fileset>
+    </copy>
+    <copy todir="${wildfly.patch.dir}/modules/org/springframework/expression/main" overwrite="true">
+    	<fileset dir="${deploy.artifacts.lib}" >
+    		<include name="spring-expression-${version.apache.spring}.jar" />
+        </fileset>
+    </copy>
+    
+    <!-- Copy wildfly camel jars -->
+    <copy todir="${wildfly.patch.dir}/modules/org/wildfly/camel/main" overwrite="true">
+    	<fileset dir="${deploy.artifacts.lib}" >
+    		<include name="wildfly-camel-subsystem-${project.version}.jar" />
+        </fileset>
+    </copy>
+	
+  	<!-- Zip the wildfly patch -->
+  	<zip destfile="${output.dir}/${project.artifactId}-${project.version}.zip" basedir="${wildfly.patch.dir}"/>
+  	<tar destfile="${output.dir}/${project.artifactId}-${project.version}.tar.gz" basedir="${wildfly.patch.dir}" compression="gzip"/>
+  	
+  </target>
+</project>

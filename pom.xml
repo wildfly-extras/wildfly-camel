@@ -28,16 +28,15 @@
     <properties>
         <version.apache.camel>2.11.0</version.apache.camel>
         <version.apache.spring>3.1.4.RELEASE</version.apache.spring>
-        <version.codehaus.izpack>4.3.1</version.codehaus.izpack>
-        <version.jboss.wildfly>8.0.0.Alpha3</version.jboss.wildfly>
-        <version.jboss.arquillian.core>1.0.3.Final</version.jboss.arquillian.core>
+        <version.jboss.wildfly>8.1.0.Final</version.jboss.wildfly>
+        <version.jboss.arquillian.core>1.1.2.Final-wildfly-1</version.jboss.arquillian.core>
         <version.jboss.gravia>1.0.0.Beta1</version.jboss.gravia>
-        <version.jboss.logging>3.1.3.GA</version.jboss.logging>
-        <version.jboss.logging.processor>1.1.0.Final</version.jboss.logging.processor>
-        <version.jboss.logmanager>1.4.1.Final</version.jboss.logmanager>
-        <version.jboss.shrinkwrap>1.0.0</version.jboss.shrinkwrap>
-        <version.jboss.spec.javax.annotation>1.0.0.Alpha1</version.jboss.spec.javax.annotation>
-        <version.jboss.spec.javax.jms>1.0.0.Alpha1</version.jboss.spec.javax.jms>
+        <version.jboss.logging>3.1.4.GA</version.jboss.logging>
+        <version.jboss.logging.processor>1.2.0.Final</version.jboss.logging.processor>
+        <version.jboss.logmanager>1.5.2.Final</version.jboss.logmanager>
+        <version.jboss.shrinkwrap>1.1.2</version.jboss.shrinkwrap>
+        <version.jboss.spec.javax.annotation>1.0.0.Final</version.jboss.spec.javax.annotation>
+        <version.jboss.spec.javax.jms>1.0.0.Final</version.jboss.spec.javax.jms>
         <version.junit>4.10</version.junit>
     </properties>
 
@@ -159,18 +158,6 @@
                 <version>${version.jboss.wildfly}</version>
             </dependency>
             
-            <!-- WildFly Camel -->
-            <dependency>
-                <groupId>org.wildfly.camel</groupId>
-                <artifactId>wildfly-camel-enricher</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.camel</groupId>
-                <artifactId>wildfly-camel-subsystem</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            
             <!-- JBoss -->
             <dependency>
                 <groupId>org.jboss.gravia</groupId>
@@ -261,8 +248,8 @@
     
     <!-- Modules -->
     <modules>
-        <module>build</module>
         <module>enricher</module>
+        <module>patch</module>
         <module>subsystem</module>
         <module>itests</module>
     </modules>
