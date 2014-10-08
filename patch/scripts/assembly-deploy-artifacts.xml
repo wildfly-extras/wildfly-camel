@@ -18,6 +18,8 @@
             <includes>
                 <include>*:camel-*:jar</include>
                 <include>*:gravia-*:jar</include>
+                <include>*:org.apache.felix.*:jar</include>
+                <include>*:org.osgi.enterprise:jar</include>
                 <include>*:spring-*:jar</include>
                 <include>*:wildfly-camel-subsystem:jar</include>
             </includes>

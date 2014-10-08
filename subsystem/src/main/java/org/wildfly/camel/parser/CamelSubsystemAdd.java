@@ -47,10 +47,7 @@ import org.wildfly.camel.service.CamelContextFactoryBindingService;
 import org.wildfly.camel.service.CamelContextFactoryService;
 import org.wildfly.camel.service.CamelContextRegistryBindingService;
 import org.wildfly.camel.service.CamelContextRegistryService;
-import org.wildfly.camel.service.EnvironmentService;
-import org.wildfly.camel.service.ProvisionerService;
-import org.wildfly.camel.service.RepositoryService;
-import org.wildfly.camel.service.ResolverService;
+import org.wildfly.extension.gravia.parser.GraviaSubsystemBootstrap;
 
 /**
  * The Camel subsystem add update handler.
@@ -81,20 +78,19 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
     @Override
     protected void performBoottime(final OperationContext context, final ModelNode operation, final ModelNode model, final ServiceVerificationHandler verificationHandler, final List<ServiceController<?>> newControllers) {
 
+        final GraviaSubsystemBootstrap graviaSubsystem = new GraviaSubsystemBootstrap();
+        
         // Register subsystem services
         context.addStep(new OperationStepHandler() {
             @Override
             public void execute(OperationContext context, ModelNode operation) throws OperationFailedException {
+                newControllers.addAll(graviaSubsystem.getSubsystemServices(context, verificationHandler));
                 newControllers.add(CamelBootstrapService.addService(context.getServiceTarget(), verificationHandler));
                 newControllers.add(CamelComponentRegistryService.addService(context.getServiceTarget(), verificationHandler));
                 newControllers.add(CamelContextFactoryService.addService(context.getServiceTarget(), verificationHandler));
                 newControllers.add(CamelContextFactoryBindingService.addService(context.getServiceTarget(), verificationHandler));
                 newControllers.add(CamelContextRegistryService.addService(context.getServiceTarget(), subsystemState, verificationHandler));
                 newControllers.add(CamelContextRegistryBindingService.addService(context.getServiceTarget(), verificationHandler));
-                newControllers.add(EnvironmentService.addService(context.getServiceTarget(), verificationHandler));
-                newControllers.add(ResolverService.addService(context.getServiceTarget(), verificationHandler));
-                newControllers.add(RepositoryService.addService(context.getServiceTarget(), verificationHandler));
-                newControllers.add(ProvisionerService.addService(context.getServiceTarget(), verificationHandler));
                 context.completeStep(OperationContext.RollbackHandler.NOOP_ROLLBACK_HANDLER);
             }
         }, OperationContext.Stage.RUNTIME);
@@ -103,6 +99,7 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
         context.addStep(new AbstractDeploymentChainStep() {
             @Override
             public void execute(DeploymentProcessorTarget processorTarget) {
+                graviaSubsystem.addDeploymentUnitProcessors(processorTarget);
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_CAMEL_ITEGRATION_PROVIDER, new CamelIntegrationProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_CAMEL_CONTEXT_CREATE, new CamelContextCreateProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CAMEL_COMPONENT_REGISTRATION, new CamelComponentRegistrationProcessor());

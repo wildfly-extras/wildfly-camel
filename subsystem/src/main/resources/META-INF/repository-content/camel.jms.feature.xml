@@ -33,7 +33,7 @@
     </capability>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.apache.camel.jms" />
-      <attribute name="version" value="[2.11,3.0)" />
+      <attribute name="version" value="[2.14,3.0)" />
     </requirement>
   </resource>
   <!-- 
@@ -50,91 +50,27 @@
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="javax.jms.api" />
-      <attribute name="version" value="[2.0,3.0)" />
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.apache.camel.core" />
-      <attribute name="version" value="[2.11,2.11]" />
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.springframework.beans" />
-      <attribute name="version" value="[3.1,4.0)" />
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.springframework.context" />
-      <attribute name="version" value="[3.1,4.0)" />
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.springframework.core" />
-      <attribute name="version" value="[3.1,4.0)" />
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.springframework.jms" />
-      <attribute name="version" value="[3.1,4.0)" />
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.springframework.transaction" />
-      <attribute name="version" value="[3.1,4.0)" />
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.slf4j" />
-      <attribute name="version" value="[1.7,2.0)" />
-    </requirement>
-  </resource>
-  <!-- 
-    org.springframework.jms
-  -->
-  <resource>
-    <capability namespace="gravia.identity">
-      <attribute name="gravia.identity" value="org.springframework.jms" />
-      <attribute name="maven.identity" value="org.springframework:spring-jms:jar:@version.apache.spring@" />
-      <attribute name="version" value="@version.apache.spring@" />
-    </capability>
-    <requirement namespace="gravia.identity">
-      <attribute name="gravia.identity" value="javax.jms.api" />
-      <attribute name="version" value="[2.0,3.0)" />
-    </requirement>
-    <requirement namespace="gravia.identity">
-      <attribute name="gravia.identity" value="org.apache.commons.logging" />
-      <attribute name="version" value="[1.1,2.0)" />
-    </requirement>
-    <requirement namespace="gravia.identity">
-      <attribute name="gravia.identity" value="org.springframework.beans" />
-      <attribute name="version" value="[3.1,4.0)" />
-    </requirement>
-    <requirement namespace="gravia.identity">
-      <attribute name="gravia.identity" value="org.springframework.context" />
-      <attribute name="version" value="[3.1,4.0)" />
-    </requirement>
-    <requirement namespace="gravia.identity">
-      <attribute name="gravia.identity" value="org.springframework.core" />
-      <attribute name="version" value="[3.1,4.0)" />
-    </requirement>
-    <requirement namespace="gravia.identity">
-      <attribute name="gravia.identity" value="org.springframework.transaction" />
-      <attribute name="version" value="[3.1,4.0)" />
-    </requirement>
-  </resource>
-  <!-- 
-    org.springframework.transaction
-  -->
-  <resource>
-    <capability namespace="gravia.identity">
-      <attribute name="gravia.identity" value="org.springframework.transaction" />
-      <attribute name="maven.identity" value="org.springframework:spring-tx:jar:@version.apache.spring@" />
-      <attribute name="version" value="@version.apache.spring@" />
-    </capability>
-    <requirement namespace="gravia.identity">
-      <attribute name="gravia.identity" value="javax.transaction.api" />
-      <attribute name="version" value="[1.2,2.0)" />
-    </requirement>
-    <requirement namespace="gravia.identity">
-      <attribute name="gravia.identity" value="org.apache.commons.logging" />
-      <attribute name="version" value="[1.1,2.0)" />
-    </requirement>
-    <requirement namespace="gravia.identity">
-      <attribute name="gravia.identity" value="org.springframework.core" />
-      <attribute name="version" value="[3.1,4.0)" />
     </requirement>
   </resource>
 </repository>

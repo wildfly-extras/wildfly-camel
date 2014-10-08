@@ -28,6 +28,19 @@
         <extension module="org.wildfly.extension.undertow"/>
         <extension module="org.wildfly.camel"/>
     </extensions>
+
+    <system-properties>
+        <property name="ensemble.auto.start" value="true"/>
+        <property name="environment.prefix" value="FABRIC8_"/>
+        <property name="jboss.bind.address.management" value="0.0.0.0"/>
+        <property name="readonlymode.enabled" value="true"/>
+        <property name="runtime.id" value="wildfly"/>
+        <property name="runtime.home" value="${jboss.home.dir}"/>
+        <property name="runtime.conf" value="${jboss.home.dir}/standalone/configuration"/>
+        <property name="runtime.data" value="${jboss.home.dir}/standalone/data"/>
+        <property name="zookeeper.sasl.client" value="false"/>
+    </system-properties>
+    
     <management>
         <security-realms>
             <security-realm name="ManagementRealm">
@@ -91,7 +104,7 @@
                 </formatter>
                 <file relative-to="jboss.server.log.dir" path="server.log"/>
                 <suffix value=".yyyy-MM-dd"/>
-                <append value="true"/>
+                <append value="false"/>
             </periodic-rotating-file-handler>
             <logger category="com.arjuna">
                 <level name="WARN"/>
@@ -112,7 +125,7 @@
                 <level name="ERROR"/>
             </logger>
             <root-logger>
-                <level name="INFO"/>
+                <level name="DEBUG"/>
                 <handlers>
                     <handler name="CONSOLE"/>
                     <handler name="FILE"/>

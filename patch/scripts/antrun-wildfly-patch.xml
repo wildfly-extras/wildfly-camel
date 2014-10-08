@@ -56,12 +56,18 @@
 		<filterset>
 	        <filter token="project.version" value="${project.version}" />
 	        <filter token="version.apache.camel" value="${version.apache.camel}" />
+	        <filter token="version.apache.felix.configadmin" value="${version.apache.felix.configadmin}" />
+	        <filter token="version.apache.felix.http" value="${version.apache.felix.http}" />
+	        <filter token="version.apache.felix.log" value="${version.apache.felix.log}" />
+	        <filter token="version.apache.felix.metatype" value="${version.apache.felix.metatype}" />
+		    <filter token="version.apache.felix.scr" value="${version.apache.felix.scr}" />
 	        <filter token="version.apache.spring" value="${version.apache.spring}" />
 	        <filter token="version.jboss.gravia" value="${version.jboss.gravia}" />
+	        <filter token="version.osgi" value="${version.osgi}" />
       	</filterset>
     </copy>
   	
-    <!-- Copy camel jars -->
+    <!-- Camel jars -->
     <copy todir="${wildfly.patch.dir}/modules/org/apache/camel/core/main" overwrite="true">
     	<fileset dir="${deploy.artifacts.lib}" >
     		<include name="camel-core-${version.apache.camel}.jar" />
@@ -78,17 +84,31 @@
         </fileset>
     </copy>
     
-    <!-- Copy gravia jars -->
+    <!-- Gravia jars -->
     <copy todir="${wildfly.patch.dir}/modules/org/jboss/gravia/main" overwrite="true">
     	<fileset dir="${deploy.artifacts.lib}" >
 			<include name="gravia-provision-${version.jboss.gravia}.jar" />
 			<include name="gravia-repository-${version.jboss.gravia}.jar" />
 			<include name="gravia-resolver-${version.jboss.gravia}.jar" />
 			<include name="gravia-resource-${version.jboss.gravia}.jar" />
+			<include name="gravia-runtime-api-${version.jboss.gravia}.jar" />
+			<include name="gravia-runtime-embedded-${version.jboss.gravia}.jar" />
+			<include name="org.apache.felix.configadmin-*.jar" />
+			<include name="org.apache.felix.http.bridge-*.jar" />
+			<include name="org.apache.felix.log-*.jar" />
+			<include name="org.apache.felix.metatype-*.jar" />
+			<include name="org.apache.felix.scr-*.jar" />
         </fileset>
     </copy>
     
-    <!-- Copy springsource jars -->
+    <!-- OSGi jars -->
+    <copy todir="${wildfly.patch.dir}/modules/org/osgi/enterprise/main" overwrite="true">
+    	<fileset dir="${deploy.artifacts.lib}" >
+			<include name="org.osgi.enterprise-${version.osgi}.jar" />
+        </fileset>
+    </copy>
+    
+    <!-- Springsource jars -->
     <copy todir="${wildfly.patch.dir}/modules/org/springframework/aop/main" overwrite="true">
     	<fileset dir="${deploy.artifacts.lib}" >
     		<include name="spring-aop-${version.apache.spring}.jar" />
@@ -119,11 +139,22 @@
     		<include name="spring-expression-${version.apache.spring}.jar" />
         </fileset>
     </copy>
+    <copy todir="${wildfly.patch.dir}/modules/org/springframework/jms/main" overwrite="true">
+    	<fileset dir="${deploy.artifacts.lib}" >
+    		<include name="spring-jms-${version.apache.spring}.jar" />
+        </fileset>
+    </copy>
+        <copy todir="${wildfly.patch.dir}/modules/org/springframework/transaction/main" overwrite="true">
+        	<fileset dir="${deploy.artifacts.lib}" >
+        		<include name="spring-tx-${version.apache.spring}.jar" />
+            </fileset>
+        </copy>
     
-    <!-- Copy wildfly camel jars -->
+    <!-- Wildfly-Camel jars -->
     <copy todir="${wildfly.patch.dir}/modules/org/wildfly/camel/main" overwrite="true">
     	<fileset dir="${deploy.artifacts.lib}" >
     		<include name="wildfly-camel-subsystem-${project.version}.jar" />
+    		<include name="gravia-container-wildfly-extension-${version.jboss.gravia}.jar" />
         </fileset>
     </copy>
 	

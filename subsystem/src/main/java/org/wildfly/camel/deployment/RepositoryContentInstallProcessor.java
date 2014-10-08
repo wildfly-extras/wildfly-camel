@@ -40,6 +40,7 @@ import org.jboss.gravia.repository.RepositoryStorage;
 import org.jboss.gravia.resource.Resource;
 import org.jboss.vfs.VirtualFile;
 import org.wildfly.camel.CamelConstants;
+import org.wildfly.extension.gravia.GraviaConstants;
 
 /**
  * Processes repository content deployments.
@@ -68,7 +69,7 @@ public class RepositoryContentInstallProcessor implements DeploymentUnitProcesso
         }
 
         if (contentURL != null) {
-            Repository repository = depUnit.getAttachment(CamelConstants.REPOSITORY_KEY);
+            Repository repository = depUnit.getAttachment(GraviaConstants.REPOSITORY_KEY);
             RepositoryReader reader;
             try {
                 reader = new DefaultRepositoryXMLReader(contentURL.openStream());

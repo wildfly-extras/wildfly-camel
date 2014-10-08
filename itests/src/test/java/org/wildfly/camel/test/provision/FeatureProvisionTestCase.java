@@ -29,15 +29,14 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.gravia.provision.Provisioner;
-import org.jboss.gravia.provision.Provisioner.ResourceHandle;
+import org.jboss.gravia.provision.ResourceHandle;
 import org.jboss.gravia.resource.IdentityNamespace;
 import org.jboss.gravia.resource.ManifestBuilder;
-import org.jboss.modules.ModuleClassLoader;
-import org.jboss.modules.ModuleIdentifier;
-import org.jboss.modules.ModuleLoader;
+import org.jboss.gravia.runtime.Module;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.ProvisionerSupport;
@@ -52,7 +51,6 @@ import org.wildfly.camel.test.ProvisionerSupport;
 public class FeatureProvisionTestCase {
 
     static String CAMEL_FEATURE = "camel.jms.feature";
-    static String CAMEL_SYMBOLIC_NAME = "org.apache.camel.jms";
 
     @ArquillianResource
     Provisioner provisioner;
@@ -61,7 +59,6 @@ public class FeatureProvisionTestCase {
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "resource-provisioner-tests");
         archive.addClasses(ProvisionerSupport.class);
-        //archive.addAsResource("repository/" + CAMEL_FEATURE + ".xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -76,11 +73,11 @@ public class FeatureProvisionTestCase {
     @Test
     public void testFeatureProvisioning() throws Exception {
         ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner);
-        //provisionerSupport.populateRepository(CAMEL_FEATURE);
         List<ResourceHandle> reshandles = provisionerSupport.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, CAMEL_FEATURE);
         try {
-            ModuleLoader moduleLoader = ((ModuleClassLoader)getClass().getClassLoader()).getModule().getModuleLoader();
-            moduleLoader.loadModule(ModuleIdentifier.create("deployment." + CAMEL_SYMBOLIC_NAME));
+            Assert.assertEquals(1, reshandles.size());
+            Module module = reshandles.get(0).getModule();
+            Assert.assertEquals("org.apache.camel.jms", module.getIdentity().getSymbolicName());
         } finally {
             for (ResourceHandle handle : reshandles) {
                 handle.uninstall();

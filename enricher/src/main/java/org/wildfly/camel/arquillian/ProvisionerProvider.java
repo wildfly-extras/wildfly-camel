@@ -68,7 +68,7 @@ public class ProvisionerProvider implements ResourceProvider {
         if (initialized.compareAndSet(false, true))
             serviceContainer = CurrentServiceContainer.getServiceContainer();
 
-        ServiceName serviceName = ServiceName.parse("jboss.wildfly.camel.ResourceProvisioner");
+        ServiceName serviceName = ServiceName.parse("jboss.wildfly.gravia.Provisioner");
         ServiceController<?> controller = serviceContainer.getService(serviceName);
         if (controller == null)
             return null;

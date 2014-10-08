@@ -31,11 +31,13 @@
 
     <resources>
         <resource-root path="wildfly-camel-subsystem-@project.version@.jar"/>
+        <resource-root path="gravia-container-wildfly-extension-@version.jboss.gravia@.jar"/>
     </resources>
 
     <exports>
         <exclude path="org/wildfly/camel/deployment"/>
         <exclude path="org/wildfly/camel/service"/>
+        <exclude path="org/wildfly/extension/gravia"/>
     </exports>
     
     <dependencies>
@@ -54,6 +56,7 @@
         <module name="org.springframework.beans"/>
         <module name="org.springframework.core"/>
         <module name="org.springframework.context"/>
+        <module name="org.slf4j"/>
     </dependencies>
 
 </module>

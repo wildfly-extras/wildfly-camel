@@ -38,7 +38,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.gravia.provision.Provisioner;
-import org.jboss.gravia.provision.Provisioner.ResourceHandle;
+import org.jboss.gravia.provision.ResourceHandle;
 import org.jboss.gravia.resource.IdentityNamespace;
 import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.Archive;

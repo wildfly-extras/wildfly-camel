@@ -25,27 +25,31 @@
 
 
 <module xmlns="urn:jboss:module:1.1" name="org.jboss.gravia">
-    <properties>
-        <property name="jboss.api" value="private"/>
-    </properties>
 
     <resources>
         <resource-root path="gravia-provision-@version.jboss.gravia@.jar"/>
         <resource-root path="gravia-repository-@version.jboss.gravia@.jar"/>
         <resource-root path="gravia-resolver-@version.jboss.gravia@.jar"/>
         <resource-root path="gravia-resource-@version.jboss.gravia@.jar"/>
+        <resource-root path="gravia-runtime-api-@version.jboss.gravia@.jar"/>
+        <resource-root path="gravia-runtime-embedded-@version.jboss.gravia@.jar"/>
+        <resource-root path="org.apache.felix.configadmin-@version.apache.felix.configadmin@.jar"/>
+        <resource-root path="org.apache.felix.http.bridge-@version.apache.felix.http@.jar"/>
+        <resource-root path="org.apache.felix.log-@version.apache.felix.log@.jar"/>
+        <resource-root path="org.apache.felix.metatype-@version.apache.felix.metatype@.jar"/>
+        <resource-root path="org.apache.felix.scr-@version.apache.felix.scr@.jar"/>
     </resources>
 
     <exports>
-        <exclude path="org/jboss/gravia/provision/spi"/>
-        <exclude path="org/jboss/gravia/resource/spi"/>
-        <exclude path="org/jboss/gravia/resolver/spi"/>
-        <exclude path="org/jboss/gravia/repository/spi"/>
+        <exclude path="org/jboss/gravia/runtime/embedded"/>
     </exports>
     
     <dependencies>
         <module name="javax.api"/>
-        <module name="org.jboss.logging"/>
+        <module name="javax.servlet.api"/>
+        <module name="org.osgi.core"/>
+        <module name="org.osgi.enterprise"/>
+        <module name="org.slf4j"/>
     </dependencies>
 
 </module>

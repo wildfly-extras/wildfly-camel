@@ -32,9 +32,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.jboss.gravia.provision.ProvisionResult;
 import org.jboss.gravia.provision.Provisioner;
-import org.jboss.gravia.provision.Provisioner.ResourceHandle;
+import org.jboss.gravia.provision.ResourceHandle;
 import org.jboss.gravia.repository.DefaultRepositoryXMLReader;
 import org.jboss.gravia.repository.Repository;
 import org.jboss.gravia.repository.RepositoryReader;
@@ -42,6 +41,7 @@ import org.jboss.gravia.repository.RepositoryStorage;
 import org.jboss.gravia.resource.DefaultRequirementBuilder;
 import org.jboss.gravia.resource.Requirement;
 import org.jboss.gravia.resource.Resource;
+import org.jboss.gravia.utils.IllegalArgumentAssertion;
 
 /**
  * @author Thomas.Diesler@jboss.com
@@ -64,10 +64,8 @@ public class ProvisionerSupport {
     }
 
     public List<ResourceHandle> installCapabilities(String namespace, String... features) throws Exception {
-        if (namespace == null)
-            throw new IllegalArgumentException("Null namespace");
-        if (features == null)
-            throw new IllegalArgumentException("Null features");
+        IllegalArgumentAssertion.assertNotNull(namespace, "namespace");
+        IllegalArgumentAssertion.assertNotNull(features, "features");
 
         Requirement[] reqs = new Requirement[features.length];
         for (int i=0; i < features.length; i++) {
@@ -77,47 +75,16 @@ public class ProvisionerSupport {
     }
 
     public List<ResourceHandle> installCapabilities(Requirement... reqs) throws Exception {
-        if (reqs == null)
-            throw new IllegalArgumentException("Null reqs");
-
-        // Obtain provisioner result
-        ProvisionResult result = provisioner.findResources(new HashSet<Requirement>(Arrays.asList(reqs)));
-        Set<Requirement> unsat = result.getUnsatisfiedRequirements();
-        if (!unsat.isEmpty())
-            throw new IllegalStateException("Unsatisfied requirements: " + unsat);
-
-        Exception installError = null;
-        List<ResourceHandle> reshandles = new ArrayList<ResourceHandle>();
-
-        // Install the provision result
-        for (Resource res : result.getResources()) {
-            try {
-                ResourceHandle handle = provisioner.installResource(res, result.getMapping());
-                reshandles.add(0, handle);
-            } catch (Exception th) {
-                installError = th;
-                break;
-            }
-        }
-
-        // Uninstall in case of error
-        if (installError != null) {
-            for (ResourceHandle handle : reshandles) {
-                try {
-                    handle.uninstall();
-                } catch (Exception ex) {
-                    // ignore
-                }
-            }
-            throw installError;
-        }
-
-        return Collections.unmodifiableList(reshandles);
+        IllegalArgumentAssertion.assertNotNull(reqs, "reqs");
+        
+        Set<Requirement> reqset = new HashSet<>(Arrays.asList(reqs));
+        Set<ResourceHandle> reshandles = provisioner.provisionResources(reqset);
+        
+        return Collections.unmodifiableList(new ArrayList<>(reshandles));
     }
 
     public void populateRepository(ClassLoader classLoader, String... features) throws IOException {
-        if (features == null)
-            throw new IllegalArgumentException("Null features");
+        IllegalArgumentAssertion.assertNotNull(features, "features");
 
         for (String feature : features) {
             InputStream input = getFeatureResource(classLoader, feature);

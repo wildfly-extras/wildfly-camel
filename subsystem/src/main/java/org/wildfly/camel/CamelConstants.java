@@ -25,8 +25,6 @@ package org.wildfly.camel;
 
 import org.apache.camel.CamelContext;
 import org.jboss.as.server.deployment.AttachmentKey;
-import org.jboss.gravia.provision.Provisioner;
-import org.jboss.gravia.repository.Repository;
 import org.jboss.msc.service.ServiceName;
 
 /**
@@ -51,14 +49,6 @@ public interface CamelConstants {
     ServiceName CAMEL_CONTEXT_REGISTRY_SERVICE_NAME = CAMEL_BASE_NAME.append("CamelContextRegistry");
     /** The name for the camel subsystem service */
     ServiceName CAMEL_SUBSYSTEM_SERVICE_NAME = CAMEL_BASE_NAME.append("Subsystem");
-    /** The name for the {@link Environment} service */
-    ServiceName ENVIRONMENT_SERVICE_NAME = CAMEL_BASE_NAME.append("Environment");
-    /** The name for the {@link Provisioner} service */
-    ServiceName PROVISIONER_SERVICE_NAME = CAMEL_BASE_NAME.append("ResourceProvisioner");
-    /** The name for the {@link Repository} service */
-    ServiceName REPOSITORY_SERVICE_NAME = CAMEL_BASE_NAME.append("Repository");
-    /** The name for the {@link Resolver} service */
-    ServiceName RESOLVER_SERVICE_NAME = CAMEL_BASE_NAME.append("Resolver");
 
     /** The deployment names for spring camel context deployments */
     String CAMEL_CONTEXT_FILE_SUFFIX = "-camel-context.xml";
@@ -74,8 +64,6 @@ public interface CamelConstants {
     AttachmentKey<CamelComponentRegistry> CAMEL_COMPONENT_REGISTRY_KEY = AttachmentKey.create(CamelComponentRegistry.class);
     /** The {@link CamelContextRegistry} attachment key */
     AttachmentKey<CamelContextRegistry> CAMEL_CONTEXT_REGISTRY_KEY = AttachmentKey.create(CamelContextRegistry.class);
-    /** The {@link Repository} attachment key */
-    AttachmentKey<Repository> REPOSITORY_KEY = AttachmentKey.create(Repository.class);
 
     /** The JNDI name for the {@link CamelContextFactory} binding */
     String CAMEL_CONTEXT_FACTORY_BINDING_NAME = "java:jboss/camel/CamelContextFactory";

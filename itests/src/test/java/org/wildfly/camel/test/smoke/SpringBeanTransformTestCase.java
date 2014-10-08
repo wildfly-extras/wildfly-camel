@@ -24,6 +24,7 @@ package org.wildfly.camel.test.smoke;
 
 import java.io.InputStream;
 import java.net.URL;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.jboss.arquillian.container.test.api.Deployer;

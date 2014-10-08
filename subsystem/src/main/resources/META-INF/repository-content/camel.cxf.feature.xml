@@ -33,7 +33,7 @@
     </capability>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.apache.camel.cxf" />
-      <attribute name="version" value="[2.11,3.0)" />
+      <attribute name="version" value="[2.14,3.0)" />
     </requirement>
   </resource>
   <resource>
@@ -44,23 +44,19 @@
     </capability>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.apache.camel.cxf.transport" />
-      <attribute name="version" value="[2.11,3.0)" />
+      <attribute name="version" value="[2.14,3.0)" />
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.apache.camel.core" />
-      <attribute name="version" value="[2.11,2.11]" />
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.apache.camel.spring" />
-      <attribute name="version" value="[2.11,2.11]" />
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.apache.cxf" />
-      <attribute name="version" value="[2.7,3.0)" />
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.apache.cxf.impl" />
-      <attribute name="version" value="[2.7,3.0)" />
     </requirement>
   </resource>
   <resource>
@@ -71,11 +67,9 @@
     </capability>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.apache.camel.core" />
-      <attribute name="version" value="[2.11,2.11]" />
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.apache.cxf" />
-      <attribute name="version" value="[2.7,3.0)" />
     </requirement>
   </resource>
   

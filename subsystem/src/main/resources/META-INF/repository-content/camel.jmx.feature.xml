@@ -33,7 +33,7 @@
     </capability>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.apache.camel.camel.jmx" />
-      <attribute name="version" value="[2.11,3.0)" />
+      <attribute name="version" value="[2.14,3.0)" />
     </requirement>
   </resource>
   <resource>
@@ -47,15 +47,12 @@
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="javax.xml.bind.api" />
-      <attribute name="version" value="[2.2,3.0)" />
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.apache.camel.core" />
-      <attribute name="version" value="[2.11,2.11]" />
     </requirement>
     <requirement namespace="gravia.identity">
       <attribute name="gravia.identity" value="org.slf4j" />
-      <attribute name="version" value="[1.7,2.0)" />
     </requirement>
   </resource>
 </repository>
