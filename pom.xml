@@ -30,6 +30,7 @@
         <version.apache.felix.scr>1.6.2</version.apache.felix.scr>
         <version.apache.felix.scr.ds.annotations>1.2.4</version.apache.felix.scr.ds.annotations>
         <version.apache.felix.scr.generator>1.8.0</version.apache.felix.scr.generator>
+        <version.hawtio>1.4.22</version.hawtio>
         <version.jboss.wildfly>8.1.0.Final</version.jboss.wildfly>
         <version.jboss.arquillian.core>1.1.2.Final-wildfly-1</version.jboss.arquillian.core>
         <version.jboss.gravia>1.1.0.Beta42</version.jboss.gravia>
@@ -205,7 +206,15 @@
                 <artifactId>gravia-runtime-embedded</artifactId>
                 <version>${version.jboss.gravia}</version>
             </dependency>
-            
+
+			<!-- Hawt.io -->
+			<dependency>
+				<groupId>io.hawt</groupId>
+				<artifactId>hawtio-default</artifactId>
+				<version>${version.hawtio}</version>
+				<type>war</type>
+			</dependency>
+			
 			<!-- JBoss -->            
             <dependency>
                 <groupId>org.jboss.logging</groupId>

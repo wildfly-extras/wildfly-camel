@@ -18,12 +18,13 @@
             <includes>
                 <include>*:camel-*:jar</include>
                 <include>*:gravia-*:jar</include>
+                <include>*:hawtio-default:war</include>
                 <include>*:org.apache.felix.*:jar</include>
                 <include>*:org.osgi.enterprise:jar</include>
                 <include>*:spring-*:jar</include>
                 <include>*:wildfly-camel-subsystem:jar</include>
             </includes>
-            <scope>compile</scope>
+            <scope>provided</scope>
             <unpack>false</unpack>
         </dependencySet>
     </dependencySets>

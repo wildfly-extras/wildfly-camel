@@ -62,30 +62,31 @@
 	        <filter token="version.apache.felix.metatype" value="${version.apache.felix.metatype}" />
 		    <filter token="version.apache.felix.scr" value="${version.apache.felix.scr}" />
 	        <filter token="version.apache.spring" value="${version.apache.spring}" />
+	        <filter token="version.hawtio" value="${version.hawtio}" />
 	        <filter token="version.jboss.gravia" value="${version.jboss.gravia}" />
 	        <filter token="version.osgi" value="${version.osgi}" />
       	</filterset>
     </copy>
   	
     <!-- Camel jars -->
-    <copy todir="${wildfly.patch.dir}/modules/org/apache/camel/core/main" overwrite="true">
+    <copy todir="${wildfly.patch.dir}/modules/org/apache/camel/core/main">
     	<fileset dir="${deploy.artifacts.lib}" >
     		<include name="camel-core-${version.apache.camel}.jar" />
         </fileset>
     </copy>
-    <copy todir="${wildfly.patch.dir}/modules/org/apache/camel/core/xml/main" overwrite="true">
+    <copy todir="${wildfly.patch.dir}/modules/org/apache/camel/core/xml/main">
     	<fileset dir="${deploy.artifacts.lib}" >
     		<include name="camel-core-xml-${version.apache.camel}.jar" />
         </fileset>
     </copy>
-    <copy todir="${wildfly.patch.dir}/modules/org/apache/camel/spring/main" overwrite="true">
+    <copy todir="${wildfly.patch.dir}/modules/org/apache/camel/spring/main">
     	<fileset dir="${deploy.artifacts.lib}" >
     		<include name="camel-spring-${version.apache.camel}.jar" />
         </fileset>
     </copy>
     
     <!-- Gravia jars -->
-    <copy todir="${wildfly.patch.dir}/modules/org/jboss/gravia/main" overwrite="true">
+    <copy todir="${wildfly.patch.dir}/modules/org/jboss/gravia/main">
     	<fileset dir="${deploy.artifacts.lib}" >
 			<include name="gravia-provision-${version.jboss.gravia}.jar" />
 			<include name="gravia-repository-${version.jboss.gravia}.jar" />
@@ -102,62 +103,65 @@
     </copy>
     
     <!-- OSGi jars -->
-    <copy todir="${wildfly.patch.dir}/modules/org/osgi/enterprise/main" overwrite="true">
+    <copy todir="${wildfly.patch.dir}/modules/org/osgi/enterprise/main">
     	<fileset dir="${deploy.artifacts.lib}" >
 			<include name="org.osgi.enterprise-${version.osgi}.jar" />
         </fileset>
     </copy>
     
     <!-- Springsource jars -->
-    <copy todir="${wildfly.patch.dir}/modules/org/springframework/aop/main" overwrite="true">
+    <copy todir="${wildfly.patch.dir}/modules/org/springframework/aop/main">
     	<fileset dir="${deploy.artifacts.lib}" >
     		<include name="spring-aop-${version.apache.spring}.jar" />
         </fileset>
     </copy>
-    <copy todir="${wildfly.patch.dir}/modules/org/springframework/asm/main" overwrite="true">
+    <copy todir="${wildfly.patch.dir}/modules/org/springframework/asm/main">
     	<fileset dir="${deploy.artifacts.lib}" >
     		<include name="spring-asm-${version.apache.spring}.jar" />
         </fileset>
     </copy>
-    <copy todir="${wildfly.patch.dir}/modules/org/springframework/beans/main" overwrite="true">
+    <copy todir="${wildfly.patch.dir}/modules/org/springframework/beans/main">
     	<fileset dir="${deploy.artifacts.lib}" >
     		<include name="spring-beans-${version.apache.spring}.jar" />
         </fileset>
     </copy>
-    <copy todir="${wildfly.patch.dir}/modules/org/springframework/context/main" overwrite="true">
+    <copy todir="${wildfly.patch.dir}/modules/org/springframework/context/main">
     	<fileset dir="${deploy.artifacts.lib}" >
     		<include name="spring-context-${version.apache.spring}.jar" />
         </fileset>
     </copy>
-    <copy todir="${wildfly.patch.dir}/modules/org/springframework/core/main" overwrite="true">
+    <copy todir="${wildfly.patch.dir}/modules/org/springframework/core/main">
     	<fileset dir="${deploy.artifacts.lib}" >
     		<include name="spring-core-${version.apache.spring}.jar" />
         </fileset>
     </copy>
-    <copy todir="${wildfly.patch.dir}/modules/org/springframework/expression/main" overwrite="true">
+    <copy todir="${wildfly.patch.dir}/modules/org/springframework/expression/main">
     	<fileset dir="${deploy.artifacts.lib}" >
     		<include name="spring-expression-${version.apache.spring}.jar" />
         </fileset>
     </copy>
-    <copy todir="${wildfly.patch.dir}/modules/org/springframework/jms/main" overwrite="true">
+    <copy todir="${wildfly.patch.dir}/modules/org/springframework/jms/main">
     	<fileset dir="${deploy.artifacts.lib}" >
     		<include name="spring-jms-${version.apache.spring}.jar" />
         </fileset>
     </copy>
-        <copy todir="${wildfly.patch.dir}/modules/org/springframework/transaction/main" overwrite="true">
-        	<fileset dir="${deploy.artifacts.lib}" >
-        		<include name="spring-tx-${version.apache.spring}.jar" />
-            </fileset>
-        </copy>
+    <copy todir="${wildfly.patch.dir}/modules/org/springframework/transaction/main">
+    	<fileset dir="${deploy.artifacts.lib}" >
+    		<include name="spring-tx-${version.apache.spring}.jar" />
+        </fileset>
+    </copy>
     
     <!-- Wildfly-Camel jars -->
-    <copy todir="${wildfly.patch.dir}/modules/org/wildfly/camel/main" overwrite="true">
+    <copy todir="${wildfly.patch.dir}/modules/org/wildfly/camel/main">
     	<fileset dir="${deploy.artifacts.lib}" >
     		<include name="wildfly-camel-subsystem-${project.version}.jar" />
     		<include name="gravia-container-wildfly-extension-${version.jboss.gravia}.jar" />
         </fileset>
     </copy>
 	
+    <!-- Hawt.io -->
+    <copy tofile="${wildfly.patch.dir}/standalone/deployments/hawtio.war" file="${deploy.artifacts.lib}/hawtio-default-${version.hawtio}.war"/>
+    
   	<!-- Zip the wildfly patch -->
   	<zip destfile="${output.dir}/${project.artifactId}-${project.version}.zip" basedir="${wildfly.patch.dir}"/>
   	<tar destfile="${output.dir}/${project.artifactId}-${project.version}.tar.gz" basedir="${wildfly.patch.dir}" compression="gzip"/>

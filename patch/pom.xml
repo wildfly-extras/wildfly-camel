@@ -23,6 +23,12 @@
     <dependencies>
         
         <!-- provided -->
+		<dependency>
+			<groupId>io.hawt</groupId>
+			<artifactId>hawtio-default</artifactId>
+            <scope>provided</scope>
+			<type>war</type>
+		</dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cxf</artifactId>
