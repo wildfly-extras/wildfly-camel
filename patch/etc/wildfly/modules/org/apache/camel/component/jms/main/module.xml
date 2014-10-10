@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Wildfly Camel Build
+  %%
+  Copyright (C) 2013 JBoss by Red Hat
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as 
+  published by the Free Software Foundation, either version 2.1 of the 
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Lesser Public License for more details.
+  
+  You should have received a copy of the GNU General Lesser Public 
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/lgpl-2.1.html>.
+  #L%
+  -->
+
+
+
+
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.jms">
+    <properties>
+    </properties>
+
+    <resources>
+        <resource-root path="camel-jms-@version.apache.camel@.jar"/>
+        <!-- Insert resources here -->
+    </resources>
+
+    <dependencies>
+        <module name="javax.api"/>
+        <module name="javax.jms.api"/>
+        <module name="org.apache.camel.core"/>
+        <module name="org.apache.commons.logging"/>
+        <module name="org.springframework.beans"/>
+        <module name="org.springframework.context"/>
+        <module name="org.springframework.core"/>
+        <module name="org.springframework.jms"/>
+        <module name="org.springframework.transaction"/>
+        <module name="org.slf4j"/>
+    </dependencies>
+</module>

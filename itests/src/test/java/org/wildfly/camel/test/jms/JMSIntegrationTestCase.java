@@ -122,86 +122,70 @@ public class JMSIntegrationTestCase {
 
     @Test
     public void testSendMessage() throws Exception {
-        ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner);
-        List<ResourceHandle> reshandles = provisionerSupport.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "camel.jms.feature");
-        try {
-            // Create the CamelContext
-            CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
-            camelctx.addRoutes(new RouteBuilder() {
-                @Override
-                public void configure() throws Exception {
-                    from("jms:queue:" + QUEUE_NAME + "?connectionFactory=ConnectionFactory").
-                    transform(body().prepend("Hello ")).to("direct:end");
-                }
-            });
-            camelctx.start();
-
-            // Send a message to the queue
-            ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
-            Connection connection = cfactory.createConnection();
-            sendMessage(connection, QUEUE_JNDI_NAME, "Kermit");
-
-            String result = consumeRouteMessage(camelctx);
-            Assert.assertEquals("Hello Kermit", result);
-
-            connection.close();
-            camelctx.stop();
-        } finally {
-            for (ResourceHandle handle : reshandles) {
-                handle.uninstall();
+        // Create the CamelContext
+        CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("jms:queue:" + QUEUE_NAME + "?connectionFactory=ConnectionFactory").
+                transform(body().prepend("Hello ")).to("direct:end");
             }
-        }
+        });
+        camelctx.start();
+
+        // Send a message to the queue
+        ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
+        Connection connection = cfactory.createConnection();
+        sendMessage(connection, QUEUE_JNDI_NAME, "Kermit");
+
+        String result = consumeRouteMessage(camelctx);
+        Assert.assertEquals("Hello Kermit", result);
+
+        connection.close();
+        camelctx.stop();
     }
 
     @Test
     public void testReceiveMessage() throws Exception {
-        ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner);
-        List<ResourceHandle> reshandles = provisionerSupport.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "camel.jms.feature");
-        try {
-            // Create the CamelContext
-            CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
-            camelctx.addRoutes(new RouteBuilder() {
-                @Override
-                public void configure() throws Exception {
-                    from("direct:start").
-                    transform(body().prepend("Hello ")).
-                    to("jms:queue:" + QUEUE_NAME + "?connectionFactory=ConnectionFactory");
-                }
-            });
-            camelctx.start();
-
-            final StringBuffer result = new StringBuffer();
-            final CountDownLatch latch = new CountDownLatch(1);
-
-            // Get the message from the queue
-            ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
-            Connection connection = cfactory.createConnection();
-            receiveMessage(connection, QUEUE_JNDI_NAME, new MessageListener() {
-                @Override
-                public void onMessage(Message message) {
-                    TextMessage text = (TextMessage) message;
-                    try {
-                        result.append(text.getText());
-                    } catch (JMSException ex) {
-                        result.append(ex.getMessage());
-                    }
-                    latch.countDown();
-                }
-            });
-
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            producer.asyncSendBody("direct:start", "Kermit");
-
-            Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
-            Assert.assertEquals("Hello Kermit", result.toString());
-
-            connection.close();
-            camelctx.stop();
-        } finally {
-            for (ResourceHandle handle : reshandles) {
-                handle.uninstall();
+        // Create the CamelContext
+        CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start").
+                transform(body().prepend("Hello ")).
+                to("jms:queue:" + QUEUE_NAME + "?connectionFactory=ConnectionFactory");
             }
-        }
+        });
+        camelctx.start();
+
+        final StringBuffer result = new StringBuffer();
+        final CountDownLatch latch = new CountDownLatch(1);
+
+        // Get the message from the queue
+        ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
+        Connection connection = cfactory.createConnection();
+        receiveMessage(connection, QUEUE_JNDI_NAME, new MessageListener() {
+            @Override
+            public void onMessage(Message message) {
+                TextMessage text = (TextMessage) message;
+                try {
+                    result.append(text.getText());
+                } catch (JMSException ex) {
+                    result.append(ex.getMessage());
+                }
+                latch.countDown();
+            }
+        });
+
+        ProducerTemplate producer = camelctx.createProducerTemplate();
+        producer.asyncSendBody("direct:start", "Kermit");
+
+        Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
+        Assert.assertEquals("Hello Kermit", result.toString());
+
+        connection.close();
+        camelctx.stop();
     }
 
     private void sendMessage(Connection connection, String jndiName, String message) throws Exception {
