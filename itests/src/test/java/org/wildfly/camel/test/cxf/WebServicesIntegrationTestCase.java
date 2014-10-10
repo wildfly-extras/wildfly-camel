@@ -24,7 +24,6 @@ package org.wildfly.camel.test.cxf;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
@@ -38,8 +37,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.gravia.provision.Provisioner;
-import org.jboss.gravia.provision.ResourceHandle;
-import org.jboss.gravia.resource.IdentityNamespace;
 import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -109,28 +106,20 @@ public class WebServicesIntegrationTestCase {
     public void testEndpointRoute() throws Exception {
         deployer.deploy(SIMPLE_WAR);
         try {
-            ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner);
-            List<ResourceHandle> reshandles = provisionerSupport.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "camel.cxf.feature");
-            try {
-                // Create the CamelContext
-                CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
-                camelctx.addRoutes(new RouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        from("direct:start").
-                        to("cxf://" + getEndpointAddress("/simple") + "?serviceClass=" + Endpoint.class.getName());
-                    }
-                });
-                camelctx.start();
-
-                ProducerTemplate producer = camelctx.createProducerTemplate();
-                String result = producer.requestBody("direct:start", "Kermit", String.class);
-                Assert.assertEquals("[Hello Kermit]", result);
-            } finally {
-                for (ResourceHandle handle : reshandles) {
-                    handle.uninstall();
+            // Create the CamelContext
+            CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    from("direct:start").
+                    to("cxf://" + getEndpointAddress("/simple") + "?serviceClass=" + Endpoint.class.getName());
                 }
-            }
+            });
+            camelctx.start();
+
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", "Kermit", String.class);
+            Assert.assertEquals("[Hello Kermit]", result);
         } finally {
             deployer.undeploy(SIMPLE_WAR);
         }

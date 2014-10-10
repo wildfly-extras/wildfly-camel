@@ -75,7 +75,7 @@ import org.wildfly.camel.CamelConstants;
  */
 public class CamelComponentRegistryService extends AbstractService<CamelComponentRegistry> {
 
-    static final String[] componentNames = new String[] { "jms", "jmx" };
+    static final String[] componentNames = new String[] { "cxf", "jms", "jmx" };
     
     private CamelComponentRegistry componentRegistry;
 

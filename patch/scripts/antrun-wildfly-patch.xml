@@ -86,6 +86,12 @@
     </copy>
     
     <!-- Camel Component jars -->
+    <copy todir="${wildfly.patch.dir}/modules/org/apache/camel/component/cxf/main">
+    	<fileset dir="${deploy.artifacts.lib}" >
+    		<include name="camel-cxf-transport-${version.apache.camel}.jar" />
+    		<include name="camel-cxf-${version.apache.camel}.jar" />
+        </fileset>
+    </copy>
     <copy todir="${wildfly.patch.dir}/modules/org/apache/camel/component/jms/main">
     	<fileset dir="${deploy.artifacts.lib}" >
     		<include name="camel-jms-${version.apache.camel}.jar" />
