@@ -24,18 +24,19 @@
 
 
 
-<module xmlns="urn:jboss:module:1.1" name="org.apache.camel">
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.jmx">
     <properties>
     </properties>
 
     <resources>
+        <resource-root path="camel-jmx-@version.apache.camel@.jar"/>
         <!-- Insert resources here -->
     </resources>
 
     <dependencies>
-        <module name="org.apache.camel.component.jmx" export="true"/>
-        <module name="org.apache.camel.core" export="true"/>
-        <module name="org.apache.camel.core.xml" export="true"/>
-        <module name="org.apache.camel.spring" export="true"/>
+        <module name="javax.api"/>
+        <module name="javax.xml.bind.api"/>
+        <module name="org.apache.camel.core"/>
+        <module name="org.slf4j"/>
     </dependencies>
 </module>

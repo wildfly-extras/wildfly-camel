@@ -23,7 +23,6 @@
 package org.wildfly.camel.test.jmx;
 
 import java.io.InputStream;
-import java.util.List;
 
 import javax.management.monitor.MonitorNotification;
 
@@ -34,8 +33,6 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.gravia.provision.Provisioner;
-import org.jboss.gravia.provision.ResourceHandle;
-import org.jboss.gravia.resource.IdentityNamespace;
 import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -78,27 +75,19 @@ public class JMXIntegrationTestCase {
 
     @Test
     public void testMonitorMBeanAttribute() throws Exception {
-        ProvisionerSupport provisionerSupport = new ProvisionerSupport(provisioner);
-        List<ResourceHandle> reshandles = provisionerSupport.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "camel.jmx.feature");
-        try {
-            CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
-            camelctx.addRoutes(new RouteBuilder() {
-                @Override
-                public void configure() throws Exception {
-                    from("jmx:platform?format=raw&objectDomain=org.apache.camel&key.context=system-context-1&key.type=routes&key.name=\"route1\"" +
-                    "&monitorType=counter&observedAttribute=ExchangesTotal&granularityPeriod=500").
-                    to("direct:end");
-                }
-            });
-            camelctx.start();
-
-            ConsumerTemplate consumer = camelctx.createConsumerTemplate();
-            MonitorNotification notifcation = consumer.receiveBody("direct:end", MonitorNotification.class);
-            Assert.assertEquals("ExchangesTotal", notifcation.getObservedAttribute());
-        } finally {
-            for (ResourceHandle handle : reshandles) {
-                handle.uninstall();
+        CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("jmx:platform?format=raw&objectDomain=org.apache.camel&key.context=system-context-1&key.type=routes&key.name=\"route1\"" +
+                "&monitorType=counter&observedAttribute=ExchangesTotal&granularityPeriod=500").
+                to("direct:end");
             }
-        }
+        });
+        camelctx.start();
+
+        ConsumerTemplate consumer = camelctx.createConsumerTemplate();
+        MonitorNotification notifcation = consumer.receiveBody("direct:end", MonitorNotification.class);
+        Assert.assertEquals("ExchangesTotal", notifcation.getObservedAttribute());
     }
 }

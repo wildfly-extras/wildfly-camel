@@ -85,6 +85,13 @@
         </fileset>
     </copy>
     
+    <!-- Camel Component jars -->
+    <copy todir="${wildfly.patch.dir}/modules/org/apache/camel/component/jmx/main">
+    	<fileset dir="${deploy.artifacts.lib}" >
+    		<include name="camel-jmx-${version.apache.camel}.jar" />
+        </fileset>
+    </copy>
+  	
     <!-- Gravia jars -->
     <copy todir="${wildfly.patch.dir}/modules/org/jboss/gravia/main">
     	<fileset dir="${deploy.artifacts.lib}" >

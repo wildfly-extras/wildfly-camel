@@ -39,7 +39,9 @@ import org.apache.camel.spi.ComponentResolver;
 import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleClassLoader;
+import org.jboss.modules.ModuleIdentifier;
 import org.jboss.modules.ModuleLoadException;
+import org.jboss.modules.ModuleLoader;
 import org.jboss.modules.Resource;
 import org.jboss.modules.filter.PathFilters;
 import org.jboss.msc.service.AbstractService;
@@ -73,6 +75,8 @@ import org.wildfly.camel.CamelConstants;
  */
 public class CamelComponentRegistryService extends AbstractService<CamelComponentRegistry> {
 
+    static final String[] componentNames = new String[] { "jmx" };
+    
     private CamelComponentRegistry componentRegistry;
 
     public static ServiceController<CamelComponentRegistry> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
@@ -91,6 +95,19 @@ public class CamelComponentRegistryService extends AbstractService<CamelComponen
         final ServiceContainer serviceContainer = startContext.getController().getServiceContainer();
         final ServiceTarget serviceTarget = startContext.getChildTarget();
         componentRegistry = new DefaultCamelComponentRegistry(serviceContainer, serviceTarget);
+
+        // Register system components 
+        ModuleLoader moduleLoader = Module.getBootModuleLoader();
+        for (String compName : componentNames) {
+            Module module;
+            try {
+                ModuleIdentifier cmpid = ModuleIdentifier.create("org.apache.camel.component." + compName);
+                module = moduleLoader.loadModule(cmpid);
+            } catch (ModuleLoadException ex) {
+                throw new StartException(ex);
+            }
+            componentRegistry.registerComponents(module);
+        }
     }
 
     @Override
@@ -98,7 +115,7 @@ public class CamelComponentRegistryService extends AbstractService<CamelComponen
         return componentRegistry;
     }
 
-    class DefaultCamelComponentRegistry implements CamelComponentRegistry {
+    static class DefaultCamelComponentRegistry implements CamelComponentRegistry {
 
         private final ServiceContainer serviceContainer;
         private final ServiceTarget serviceTarget;
