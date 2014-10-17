@@ -183,10 +183,12 @@
                         </goals>
                         <configuration>
                             <artifacts>
+                                <!--
                                 <artifact>
                                     <file>${wildfly.patch}.zip</file>
                                     <type>zip</type>
                                 </artifact>
+                                -->
                                 <artifact>
                                     <file>${wildfly.patch}.tar.gz</file>
                                     <type>tar.gz</type>
