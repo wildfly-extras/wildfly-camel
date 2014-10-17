@@ -39,6 +39,7 @@
                 <include>*:gravia-*:jar</include>
                 <include>*:hawtio-default:war</include>
                 <include>*:org.apache.felix.*:jar</include>
+                <include>*:org.osgi.core:jar</include>
                 <include>*:org.osgi.enterprise:jar</include>
                 <include>*:spring-*:jar</include>
                 <include>*:wildfly-camel-subsystem:jar</include>

@@ -141,6 +141,11 @@
     </copy>
     
     <!-- OSGi jars -->
+    <copy todir="${wildfly.patch.dir}/modules/org/osgi/core/main">
+    	<fileset dir="${deploy.artifacts.lib}" >
+			<include name="org.osgi.core-${version.osgi}.jar" />
+        </fileset>
+    </copy>
     <copy todir="${wildfly.patch.dir}/modules/org/osgi/enterprise/main">
     	<fileset dir="${deploy.artifacts.lib}" >
 			<include name="org.osgi.enterprise-${version.osgi}.jar" />

@@ -63,6 +63,10 @@
                     <artifactId>wildfly-build</artifactId>
                 </exclusion>
                 <exclusion>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-client-all</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>org.apache.directory.jdbm</groupId>
                     <artifactId>apacheds-jdbm1</artifactId>
                 </exclusion>
@@ -81,7 +85,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.wildfly</groupId>
+            <groupId>org.wildfly.arquillian</groupId>
             <artifactId>wildfly-arquillian-container-managed</artifactId>
             <scope>test</scope>
         </dependency>

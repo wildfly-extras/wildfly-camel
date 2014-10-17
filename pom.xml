@@ -55,7 +55,6 @@
         <version.apache.felix.scr.ds.annotations>1.2.4</version.apache.felix.scr.ds.annotations>
         <version.apache.felix.scr.generator>1.8.0</version.apache.felix.scr.generator>
         <version.hawtio>1.4.22</version.hawtio>
-        <version.jboss.wildfly>8.1.0.Final</version.jboss.wildfly>
         <version.jboss.arquillian.core>1.1.2.Final-wildfly-1</version.jboss.arquillian.core>
         <version.jboss.gravia>1.1.0.Beta42</version.jboss.gravia>
         <version.jboss.logging>3.1.4.GA</version.jboss.logging>
@@ -66,6 +65,10 @@
         <version.jboss.spec.javax.jms>1.0.0.Final</version.jboss.spec.javax.jms>
         <version.junit>4.11</version.junit>
         <version.osgi>5.0.0</version.osgi>
+        <version.jboss.wildfly>9.0.0.Alpha1</version.jboss.wildfly>
+        <version.wildfly.build-tools>1.0.0.Alpha4</version.wildfly.build-tools>
+        <version.wildfly.core>1.0.0.Alpha8</version.wildfly.core>
+        <version.wildfly.arquillian>1.0.0.Alpha1</version.wildfly.arquillian>
         
         <!-- Plugin Versions -->
         <version-apache-felix-scr-plugin>1.15.0</version-apache-felix-scr-plugin>
@@ -309,29 +312,30 @@
 
             <!-- WildFly -->
             <dependency>
-                <groupId>org.wildfly</groupId>
+                <groupId>org.wildfly.arquillian</groupId>
                 <artifactId>wildfly-arquillian-container-managed</artifactId>
-                <version>${version.jboss.wildfly}</version>
+                <version>${version.wildfly.arquillian}</version>
             </dependency>
             <dependency>
-                <groupId>org.wildfly</groupId>
+                <groupId>org.wildfly.arquillian</groupId>
                 <artifactId>wildfly-arquillian-protocol-jmx</artifactId>
-                <version>${version.jboss.wildfly}</version>
+                <version>${version.wildfly.arquillian}</version>
             </dependency>
             <dependency>
-                <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-build-modular</artifactId>
-                <version>${version.jboss.wildfly}</version>
+                <groupId>org.wildfly.core</groupId>
+                <artifactId>wildfly-server</artifactId>
+                <version>${version.wildfly.core}</version>
             </dependency>
             <dependency>
-                <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-camel</artifactId>
-                <version>${version.jboss.wildfly}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly</groupId>
+                <groupId>org.wildfly.core</groupId>
                 <artifactId>wildfly-controller-client</artifactId>
-                <version>${version.jboss.wildfly}</version>
+                <version>${version.wildfly.core}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.core</groupId>
+                <artifactId>wildfly-subsystem-test</artifactId>
+                <version>${version.wildfly.core}</version>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
@@ -340,21 +344,9 @@
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-server</artifactId>
-                <version>${version.jboss.wildfly}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-subsystem-test</artifactId>
-                <version>${version.jboss.wildfly}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-testsuite-shared</artifactId>
                 <version>${version.jboss.wildfly}</version>
             </dependency>
-            
         </dependencies>
     </dependencyManagement>
 
