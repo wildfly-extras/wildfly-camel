@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel</artifactId>
-        <version>1.0.0.Beta1-SNAPSHOT</version>
+        <version>1.0.0.CR1</version>
     </parent>
 
     <name>Wildfly Camel Patch</name>
@@ -165,7 +165,7 @@
                         <phase>generate-resources</phase>
                         <configuration>
                             <target>
-                                <ant antfile="${basedir}/scripts/antrun-wildfly-patch.xml"  inheritRefs="true"/>
+                                <ant antfile="${basedir}/scripts/antrun-wildfly-patch.xml" inheritRefs="true" />
                             </target>
                         </configuration>
                     </execution>
