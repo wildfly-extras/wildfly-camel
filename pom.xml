@@ -31,6 +31,9 @@
 
     <version>1.0.0.Beta1-SNAPSHOT</version>
 
+    <description>WildFly Camel Integration</description>
+    <url>https://github.com/tdiesler/tdiesler/wildfly-camel</url>
+    
     <!-- Source Control -->
     <scm>
         <connection>scm:git:git://github.com/tdiesler/wildfly-camel.git</connection>
