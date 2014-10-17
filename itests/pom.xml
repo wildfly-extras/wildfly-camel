@@ -141,7 +141,7 @@
                                     <groupId>org.wildfly.camel</groupId>
                                     <artifactId>wildfly-camel-patch</artifactId>
                                     <version>${project.version}</version>
-                                    <type>zip</type>
+                                    <type>tar.gz</type>
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${jboss.home}</outputDirectory>
                                 </artifactItem>
