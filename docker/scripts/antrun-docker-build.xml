@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   #%L
-  Wildfly Camel Patch
+  Wildfly Camel Docker
   %%
   Copyright (C) 2013 - 2014 RedHat
   %%
@@ -25,7 +25,7 @@
     <!-- Setup                                                              -->
     <!-- ================================================================== -->
     <property name="etc.dir" value="${basedir}/etc" />
-    <property name="context.dir" value="${basedir}/target/context" />
+    <property name="output.dir" value="${basedir}/target" />
 
     <!-- ================================================================== -->
     <!-- Initialization                                                     -->
@@ -39,8 +39,8 @@
     <target name="build" depends="init">
 
       	<!-- Copy filtered resources -->
-        <copy todir="${context.dir}" overwrite="true">
-            <fileset dir="${etc.dir}/context" />
+        <copy todir="${output.dir}" overwrite="true">
+            <fileset dir="${etc.dir}" />
     		<filterset>
     	        <filter token="project.version" value="${project.version}" />
           	</filterset>
