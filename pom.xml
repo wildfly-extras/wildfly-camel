@@ -82,6 +82,7 @@
 
     <!-- Modules -->
     <modules>
+        <module>docker</module>
         <module>enricher</module>
         <module>patch</module>
         <module>subsystem</module>
