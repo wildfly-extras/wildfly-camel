@@ -43,6 +43,7 @@
             <fileset dir="${etc.dir}" />
     		<filterset>
     	        <filter token="project.version" value="${project.version}" />
+    		    <filter token="version.wildfly" value="${version.wildfly}" />
           	</filterset>
         </copy>
         

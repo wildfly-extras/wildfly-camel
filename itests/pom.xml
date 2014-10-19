@@ -41,7 +41,7 @@
 
     <!-- Properties -->    
     <properties>
-        <jboss.home>${project.build.directory}/wildfly-${version.jboss.wildfly}</jboss.home>
+        <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
     </properties>
     
     <!-- Dependencies -->
@@ -125,7 +125,7 @@
                                 <artifactItem>
                                     <groupId>org.wildfly</groupId>
                                     <artifactId>wildfly-dist</artifactId>
-                                    <version>${version.jboss.wildfly}</version>
+                                    <version>${version.wildfly}</version>
                                     <type>zip</type>
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${project.build.directory}</outputDirectory>

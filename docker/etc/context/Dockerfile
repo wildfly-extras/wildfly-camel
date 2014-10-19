@@ -1,5 +1,5 @@
-# Use the wildfly-8.1.0.Final image
-FROM tdiesler/wildfly:8.1.0.Final
+# Use the wildfly-@version.wildfly@ image
+FROM tdiesler/wildfly:@version.wildfly@
 
 MAINTAINER Thomas Diesler <tdiesler@redhat.com>
 

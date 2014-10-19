@@ -65,7 +65,7 @@
         <version.jboss.spec.javax.jms>1.0.0.Final</version.jboss.spec.javax.jms>
         <version.junit>4.11</version.junit>
         <version.osgi>5.0.0</version.osgi>
-        <version.jboss.wildfly>9.0.0.Alpha1</version.jboss.wildfly>
+        <version.wildfly>9.0.0.Alpha1</version.wildfly>
         <version.wildfly.build-tools>1.0.0.Alpha4</version.wildfly.build-tools>
         <version.wildfly.core>1.0.0.Alpha8</version.wildfly.core>
         <version.wildfly.arquillian>1.0.0.Alpha1</version.wildfly.arquillian>
@@ -341,12 +341,12 @@
             <dependency>
                 <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-naming</artifactId>
-                <version>${version.jboss.wildfly}</version>
+                <version>${version.wildfly}</version>
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-testsuite-shared</artifactId>
-                <version>${version.jboss.wildfly}</version>
+                <version>${version.wildfly}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
