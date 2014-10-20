@@ -22,7 +22,6 @@
 package org.wildfly.camel.service;
 
 import static org.wildfly.camel.CamelLogger.LOGGER;
-import static org.wildfly.camel.CamelMessages.MESSAGES;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -35,6 +34,7 @@ import org.apache.camel.Component;
 import org.apache.camel.impl.DefaultComponentResolver;
 import org.apache.camel.spi.ComponentResolver;
 import org.jboss.as.controller.ServiceVerificationHandler;
+import org.jboss.gravia.utils.IllegalStateAssertion;
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleClassLoader;
 import org.jboss.modules.ModuleIdentifier;
@@ -138,7 +138,7 @@ public class CamelComponentRegistryService extends AbstractService<CamelComponen
             try {
                 itres = module.iterateResources(PathFilters.getMetaInfServicesFilter());
             } catch (ModuleLoadException ex) {
-                throw MESSAGES.cannotLoadComponentFromModule(ex, module.getIdentifier());
+                throw new IllegalStateException("Cannot load component from module: " + module.getIdentifier(), ex);
             }
 
             while (itres.hasNext()) {
@@ -153,7 +153,7 @@ public class CamelComponentRegistryService extends AbstractService<CamelComponen
                 try {
                     props.load(res.openStream());
                 } catch (IOException ex) {
-                    throw MESSAGES.cannotLoadComponentFromModule(ex, module.getIdentifier());
+                    throw new IllegalStateException("Cannot load component from module: " + module.getIdentifier(), ex);
                 }
 
                 final Class<?> type;
@@ -162,12 +162,11 @@ public class CamelComponentRegistryService extends AbstractService<CamelComponen
                     ModuleClassLoader classLoader = module.getClassLoader();
                     type = classLoader.loadClass(className);
                 } catch (Exception ex) {
-                    throw MESSAGES.cannotLoadComponentType(ex, cname);
+                    throw new IllegalStateException("Cannot load component type: " + cname, ex);
                 }
 
                 // Check component type
-                if (Component.class.isAssignableFrom(type) == false)
-                    throw MESSAGES.componentTypeException(type);
+                IllegalStateAssertion.assertTrue(Component.class.isAssignableFrom(type), "Type is not a Component implementation. Found: " + type);
 
                 // Register the ComponentResolver service
                 ComponentResolver resolver = new ComponentResolver() {
@@ -183,10 +182,9 @@ public class CamelComponentRegistryService extends AbstractService<CamelComponen
 
         @Override
         public CamelComponentRegistration registerComponent(final String name, final ComponentResolver resolver) {
-            if (getComponent(name) != null)
-                throw MESSAGES.camelComponentAlreadyRegistered(name);
+        	IllegalStateAssertion.assertNull(getComponent(name), "Camel component with that name already registered: " + name);
 
-            LOGGER.infoRegisterCamelComponent(name);
+            LOGGER.info("Register camel component: {}", name);
 
             // Install the {@link ComponentResolver} as {@link Service}
             ValueService<ComponentResolver> service = new ValueService<ComponentResolver>(new ImmediateValue<ComponentResolver>(resolver));

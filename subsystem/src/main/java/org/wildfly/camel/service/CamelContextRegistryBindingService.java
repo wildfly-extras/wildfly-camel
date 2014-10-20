@@ -53,12 +53,12 @@ public final class CamelContextRegistryBindingService {
             @Override
             public synchronized void start(StartContext context) throws StartException {
                 super.start(context);
-                LOGGER.infoBoundCamelNamingObject(bindInfo.getAbsoluteJndiName());
+                LOGGER.info("Bound camel naming object: {}", bindInfo.getAbsoluteJndiName());
             }
 
             @Override
             public synchronized void stop(StopContext context) {
-                LOGGER.debugf("Unbind camel jndi name: %s", bindInfo.getAbsoluteJndiName());
+                LOGGER.debug("Unbind camel naming object: {}", bindInfo.getAbsoluteJndiName());
                 super.stop(context);
             }
         };

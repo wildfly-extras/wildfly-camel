@@ -22,10 +22,10 @@
 package org.wildfly.camel.service;
 
 import static org.wildfly.camel.CamelLogger.LOGGER;
-import static org.wildfly.camel.CamelMessages.MESSAGES;
 
 import org.apache.camel.CamelContext;
 import org.jboss.as.controller.ServiceVerificationHandler;
+import org.jboss.gravia.utils.IllegalStateAssertion;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceContainer;
@@ -91,7 +91,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
                 String beansXML = getBeansXML(name, subsystemState.getContextDefinition(name));
                 camelctx = SpringCamelContextFactory.createSpringCamelContext(beansXML.getBytes(), classLoader);
             } catch (Exception ex) {
-                throw MESSAGES.cannotCreateCamelContext(ex, name);
+                throw new IllegalStateException("Cannot create camel context: " + name, ex); 
             }
             contextRegistry.registerCamelContext(camelctx);
         }
@@ -127,10 +127,9 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         @Override
         public CamelContextRegistration registerCamelContext(final CamelContext camelctx) {
             String name = camelctx.getName();
-            if (getCamelContext(name) != null)
-                throw MESSAGES.camelContextAlreadyRegistered(name);
+            IllegalStateAssertion.assertNull(getCamelContext(name), "Camel context with that name already registered: " + name);
 
-            LOGGER.infoRegisterCamelContext(name);
+            LOGGER.info("Register camel context: {}", name);
 
             // Install the {@link CamelContext} as {@link Service}
             ValueService<CamelContext> service = new ValueService<CamelContext>(new ImmediateValue<CamelContext>(camelctx));

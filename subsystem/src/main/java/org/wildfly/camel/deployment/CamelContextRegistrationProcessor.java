@@ -21,8 +21,6 @@
 
 package org.wildfly.camel.deployment;
 
-import static org.wildfly.camel.CamelMessages.MESSAGES;
-
 import org.apache.camel.CamelContext;
 import org.jboss.as.server.deployment.AttachmentKey;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
@@ -56,7 +54,7 @@ public class CamelContextRegistrationProcessor implements DeploymentUnitProcesso
             CamelContextRegistration registration = registry.registerCamelContext(camelctx);
             depUnit.putAttachment(CAMEL_CONTEXT_REGISTRATION_KEY, registration);
         } catch (Exception ex) {
-            throw MESSAGES.cannotStartCamelContext(ex, camelctx);
+            throw new IllegalStateException("Cannot start camel context: " + camelctx.getName(), ex);
         }
     }
 

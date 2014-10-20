@@ -21,8 +21,6 @@
 
 package org.wildfly.camel.deployment;
 
-import static org.wildfly.camel.CamelMessages.MESSAGES;
-
 import java.io.IOException;
 import java.net.URL;
 
@@ -63,7 +61,7 @@ public class RepositoryContentInstallProcessor implements DeploymentUnitProcesso
                 contentURL = child.isFile() ? child.asFileURL() : null;
             }
         } catch (IOException ex) {
-            throw MESSAGES.cannotCreateCamelContext(ex, runtimeName);
+            throw new IllegalStateException("Cannot create camel context: " + runtimeName, ex); 
         }
 
         if (contentURL != null) {

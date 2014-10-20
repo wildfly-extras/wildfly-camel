@@ -21,7 +21,6 @@
 package org.wildfly.camel.service;
 
 import static org.wildfly.camel.CamelLogger.LOGGER;
-import static org.wildfly.camel.CamelMessages.MESSAGES;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -75,7 +74,7 @@ public final class CamelBootstrapService extends AbstractService<Void> {
 
     @Override
     public void start(StartContext startContext) throws StartException {
-        LOGGER.infoActivatingSubsystem();
+        LOGGER.info("Activating Camel Subsystem");
 
         // Install camel features to the repository
         installRepositoryContent(startContext);
@@ -102,8 +101,8 @@ public final class CamelBootstrapService extends AbstractService<Void> {
                     }
                     auxres = reader.nextResource();
                 }
-            } catch (IOException e) {
-                throw MESSAGES.cannotInstallCamelFeature(res.getName());
+            } catch (IOException ex) {
+                throw new IllegalStateException("Cannot install feature to repository: " + res.getName(), ex);
             }
         }
     }

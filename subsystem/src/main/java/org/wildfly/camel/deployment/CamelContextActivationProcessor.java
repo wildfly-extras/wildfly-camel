@@ -21,8 +21,6 @@
 
 package org.wildfly.camel.deployment;
 
-import static org.wildfly.camel.CamelMessages.MESSAGES;
-
 import org.apache.camel.CamelContext;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
@@ -49,7 +47,7 @@ public class CamelContextActivationProcessor implements DeploymentUnitProcessor 
         try {
             camelctx.start();
         } catch (Exception ex) {
-            throw MESSAGES.cannotStartCamelContext(ex, camelctx);
+            throw new IllegalStateException("Cannot start camel context: " + camelctx.getName(), ex);
         }
     }
 
@@ -61,7 +59,7 @@ public class CamelContextActivationProcessor implements DeploymentUnitProcessor 
             try {
                 camelctx.stop();
             } catch (Exception ex) {
-                throw MESSAGES.cannotStopCamelContext(ex, camelctx);
+                throw new IllegalStateException("Cannot stop camel context: " + camelctx.getName(), ex);
             }
         }
     }

@@ -21,10 +21,9 @@
 
 package org.wildfly.camel.deployment;
 
-import static org.wildfly.camel.CamelMessages.MESSAGES;
-
 import java.io.IOException;
 import java.net.URL;
+
 import org.apache.camel.CamelContext;
 import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
@@ -59,7 +58,7 @@ public class CamelContextCreateProcessor implements DeploymentUnitProcessor {
                 contextDefinitionURL = child.isFile() ? child.asFileURL() : null;
             }
         } catch (IOException ex) {
-            throw MESSAGES.cannotCreateCamelContext(ex, runtimeName);
+            throw new IllegalStateException("Cannot create camel context: " + runtimeName, ex); 
         }
 
         if (contextDefinitionURL == null)
@@ -71,7 +70,7 @@ public class CamelContextCreateProcessor implements DeploymentUnitProcessor {
             Module module = depUnit.getAttachment(Attachments.MODULE);
             camelctx = SpringCamelContextFactory.createSpringCamelContext(contextDefinitionURL, module.getClassLoader());
         } catch (Exception ex) {
-            throw MESSAGES.cannotCreateCamelContext(ex, runtimeName);
+            throw new IllegalStateException("Cannot create camel context: " + runtimeName, ex); 
         }
 
         // Add the camel context to the deployemnt

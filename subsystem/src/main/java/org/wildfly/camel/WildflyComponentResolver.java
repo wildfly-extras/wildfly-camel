@@ -24,6 +24,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.impl.DefaultComponentResolver;
 import org.apache.camel.spi.ComponentResolver;
+import org.jboss.gravia.utils.IllegalArgumentAssertion;
 
 /**
  * The default Wildfly {@link ComponentResolver}.
@@ -37,8 +38,7 @@ public class WildflyComponentResolver implements ComponentResolver {
     private final CamelComponentRegistry componentRegistry;
 
     public WildflyComponentResolver(CamelComponentRegistry componentRegistry) {
-        if (componentRegistry == null)
-            throw CamelMessages.MESSAGES.illegalArgumentNull("componentRegistry");
+    	IllegalArgumentAssertion.assertNotNull(componentRegistry, "componentRegistry");
         this.componentRegistry = componentRegistry;
     }
 

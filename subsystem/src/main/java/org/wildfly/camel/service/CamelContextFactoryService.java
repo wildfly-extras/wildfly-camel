@@ -22,7 +22,6 @@
 package org.wildfly.camel.service;
 
 import static org.wildfly.camel.CamelLogger.LOGGER;
-import static org.wildfly.camel.CamelMessages.MESSAGES;
 
 import java.util.Hashtable;
 
@@ -120,7 +119,7 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
             try {
                 context.setNamingContext(new NamingContext(serviceRegistry, serviceTarget));
             } catch (NamingException ex) {
-                throw MESSAGES.cannotInitializeNamingContext(ex);
+                throw new IllegalStateException("Cannot initialize naming context", ex);
             }
             return context;
         }
@@ -154,12 +153,12 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
                 @Override
                 public synchronized void start(StartContext context) throws StartException {
                     super.start(context);
-                    LOGGER.infoBoundCamelNamingObject(bindInfo.getAbsoluteJndiName());
+                    LOGGER.info("Bound camel naming object: {}", bindInfo.getAbsoluteJndiName());
                 }
 
                 @Override
                 public synchronized void stop(StopContext context) {
-                    LOGGER.infoUnbindCamelNamingObject(bindInfo.getAbsoluteJndiName());
+                    LOGGER.debug("Unbind camel naming object: {}", bindInfo.getAbsoluteJndiName());
                     super.stop(context);
                 }
             };

@@ -17,51 +17,21 @@
  * limitations under the License.
  * #L%
  */
-
-
 package org.wildfly.camel;
 
-import static org.jboss.logging.Logger.Level.INFO;
-
-import org.jboss.logging.BasicLogger;
-import org.jboss.logging.Logger;
-import org.jboss.logging.annotations.LogMessage;
-import org.jboss.logging.annotations.Message;
-import org.jboss.logging.annotations.MessageLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Logging Id ranges: 20000-20099
- *
- * https://community.jboss.org/wiki/LoggingIds
+ * The Subsystem Logger
  *
  * @author Thomas.Diesler@jboss.com
  * @since 22-Apr-2013
  */
-@MessageLogger(projectCode = "JBAS")
-public interface CamelLogger extends BasicLogger {
+public interface CamelLogger {
 
     /**
      * A logger with the category {@code org.wildfly.camel}.
      */
-    CamelLogger LOGGER = Logger.getMessageLogger(CamelLogger.class, "org.wildfly.camel");
-
-    @LogMessage(level = INFO)
-    @Message(id = 20000, value = "Activating Camel Subsystem")
-    void infoActivatingSubsystem();
-
-    @LogMessage(level = INFO)
-    @Message(id = 20001, value = "Register camel context: %s")
-    void infoRegisterCamelContext(String name);
-
-    @LogMessage(level = INFO)
-    @Message(id = 20002, value = "Bound camel naming object: %s")
-    void infoBoundCamelNamingObject(String jndiName);
-
-    @LogMessage(level = INFO)
-    @Message(id = 20003, value = "Unbind camel naming object: %s")
-    void infoUnbindCamelNamingObject(String jndiName);
-
-    @LogMessage(level = INFO)
-    @Message(id = 20004, value = "Register camel component: %s")
-    void infoRegisterCamelComponent(String name);
+    Logger LOGGER = LoggerFactory.getLogger(CamelLogger.class.getPackage().getName());
 }
