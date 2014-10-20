@@ -1,6 +1,6 @@
 # Docker
 
-WildFly Camel also comes as [Docker Image](https://registry.hub.docker.com/u/tdiesler/wildfly-camel/). This allows you to the certified WildFly JavaEE server with Camel Integration in any managed environment taht supports [Docker](https://www.docker.com/).
+WildFly Camel also comes as [docker image](https://registry.hub.docker.com/u/tdiesler/wildfly-camel/). This allows you to run the certified WildFly JavaEE server with Camel Integration in any managed environment that supports [Docker](https://www.docker.com/).
 
 ## Run in AWS Elastic Beanstalk
 
@@ -57,7 +57,7 @@ Launch the the application - this may take few minutes.
 
 Finally, you should be able to access the wildfly-camel application on http://wildfly-camel.elasticbeanstalk.com.
 
-The Hawt.io console should show the camel context from subsystem configuration.
+The [Hawt.io](http://hawt.io/) console should show the camel context from subsystem configuration.
 
 ![hawtio][beanstalk-hawtio-camel]
 
