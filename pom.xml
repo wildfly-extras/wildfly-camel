@@ -29,7 +29,7 @@
     <artifactId>wildfly-camel</artifactId>
     <packaging>pom</packaging>
 
-    <version>2.0.0.Alpha2-SNAPSHOT</version>
+    <version>1.0.0.CR3-SNAPSHOT</version>
 
     <description>WildFly Camel Integration</description>
     <url>https://github.com/tdiesler/tdiesler/wildfly-camel</url>
