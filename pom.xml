@@ -63,10 +63,9 @@
         <version.junit>4.11</version.junit>
         <version.osgi>5.0.0</version.osgi>
         <version.slf4j>1.6.6</version.slf4j>
-        <version.wildfly>9.0.0.Alpha1</version.wildfly>
-        <version.wildfly.build-tools>1.0.0.Alpha4</version.wildfly.build-tools>
-        <version.wildfly.core>1.0.0.Alpha8</version.wildfly.core>
-        <version.wildfly.arquillian>1.0.0.Alpha1</version.wildfly.arquillian>
+        
+        <!-- WildFly Versions -->
+        <version.wildfly>8.1.0.Final</version.wildfly>
         
         <!-- Plugin Versions -->
         <version-apache-felix-scr-plugin>1.15.0</version-apache-felix-scr-plugin>
@@ -318,29 +317,34 @@
 
             <!-- WildFly -->
             <dependency>
-                <groupId>org.wildfly.arquillian</groupId>
+                <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-arquillian-container-managed</artifactId>
-                <version>${version.wildfly.arquillian}</version>
+                <version>${version.wildfly}</version>
             </dependency>
+	        <dependency>
+	            <groupId>org.wildfly</groupId>
+	            <artifactId>wildfly-arquillian-container-remote</artifactId>
+                <version>${version.wildfly}</version>
+	        </dependency>
             <dependency>
-                <groupId>org.wildfly.arquillian</groupId>
+                <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-arquillian-protocol-jmx</artifactId>
-                <version>${version.wildfly.arquillian}</version>
+                <version>${version.wildfly}</version>
             </dependency>
             <dependency>
-                <groupId>org.wildfly.core</groupId>
+                <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-server</artifactId>
-                <version>${version.wildfly.core}</version>
+                <version>${version.wildfly}</version>
             </dependency>
             <dependency>
-                <groupId>org.wildfly.core</groupId>
+                <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-controller-client</artifactId>
-                <version>${version.wildfly.core}</version>
+                <version>${version.wildfly}</version>
             </dependency>
             <dependency>
-                <groupId>org.wildfly.core</groupId>
+                <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-subsystem-test</artifactId>
-                <version>${version.wildfly.core}</version>
+                <version>${version.wildfly}</version>
                 <type>pom</type>
             </dependency>
             <dependency>

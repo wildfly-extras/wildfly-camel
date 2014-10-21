@@ -56,6 +56,7 @@ import org.wildfly.extension.gravia.parser.GraviaSubsystemBootstrap;
 final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
 
     public static final int PARSE_CAMEL_ITEGRATION_PROVIDER           = Phase.PARSE_OSGI_SUBSYSTEM_ACTIVATOR + 0x01;
+    public static final int DEPENDENCIES_CAMEL              	      = Phase.DEPENDENCIES_LOGGING + 0x01;
     public static final int POST_MODULE_CAMEL_CONTEXT_CREATE          = Phase.POST_MODULE_LOCAL_HOME + 0x01;
     public static final int INSTALL_REPOSITORY_CONTENT                = Phase.INSTALL_BUNDLE_ACTIVATE + 0x01;
     public static final int INSTALL_CAMEL_COMPONENT_REGISTRATION      = Phase.INSTALL_BUNDLE_ACTIVATE + 0x02;
