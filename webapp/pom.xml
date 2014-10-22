@@ -48,7 +48,6 @@
          [TODO] Replace these embedded jars with (automatic) references to the respective modules
          https://github.com/tdiesler/wildfly-camel/issues/15
 		
-        -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-cdi</artifactId>
@@ -62,6 +61,13 @@
 	                <artifactId>slf4j-api</artifactId>
             	</exclusion>
             </exclusions>
+		</dependency>
+        -->
+        
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-cdi</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		
 		<!-- Provided -->

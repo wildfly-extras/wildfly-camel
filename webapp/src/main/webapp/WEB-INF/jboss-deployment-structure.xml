@@ -4,10 +4,8 @@
 	<deployment>
 		<dependencies>
 			<module name="org.apache.camel.core" />
-			<!--  
 			<module name="org.apache.camel.component.cdi" meta-inf="import" />
 			<module name="org.apache.deltaspike" meta-inf="import" />
-			-->
 		</dependencies>
 	</deployment>
 	
