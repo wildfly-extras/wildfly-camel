@@ -18,27 +18,28 @@
  * #L%
  */
 
-package org.wildfly.camel;
+package org.wildfly.extension.camel;
 
-import java.io.IOException;
+import javax.naming.Context;
 
-import org.jboss.as.subsystem.test.AbstractSubsystemBaseTest;
-import org.wildfly.extension.camel.parser.CamelExtension;
+import org.apache.camel.CamelContext;
+import org.apache.camel.impl.DefaultCamelContext;
 
 /**
- * A simple camel subsystem test.
+ * The default WildFly {@link CamelContext}.
  *
  * @author Thomas.Diesler@jboss.com
- * @since 19-Apr-2013
+ * @since 18-May-2013
  */
-public class CamelSubsystemTestCase extends AbstractSubsystemBaseTest {
+public class WildFlyCamelContext extends DefaultCamelContext {
 
-        public CamelSubsystemTestCase() {
-            super(CamelExtension.SUBSYSTEM_NAME, new CamelExtension());
-        }
+    private Context namingContext;
 
-        @Override
-        protected String getSubsystemXml() throws IOException {
-            return readResource("subsystem-camel-1.0.xml");
-        }
+    public Context getNamingContext() {
+        return namingContext;
+    }
+
+    public void setNamingContext(Context namingContext) {
+        setJndiContext(this.namingContext = namingContext);
+    }
 }

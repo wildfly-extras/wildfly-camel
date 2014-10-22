@@ -17,28 +17,21 @@
  * limitations under the License.
  * #L%
  */
+package org.wildfly.extension.camel;
 
-package org.wildfly.camel;
-
-import java.io.IOException;
-
-import org.jboss.as.subsystem.test.AbstractSubsystemBaseTest;
-import org.wildfly.extension.camel.parser.CamelExtension;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * A simple camel subsystem test.
+ * The Subsystem Logger
  *
  * @author Thomas.Diesler@jboss.com
- * @since 19-Apr-2013
+ * @since 22-Apr-2013
  */
-public class CamelSubsystemTestCase extends AbstractSubsystemBaseTest {
+public interface CamelLogger {
 
-        public CamelSubsystemTestCase() {
-            super(CamelExtension.SUBSYSTEM_NAME, new CamelExtension());
-        }
-
-        @Override
-        protected String getSubsystemXml() throws IOException {
-            return readResource("subsystem-camel-1.0.xml");
-        }
+    /**
+     * A logger with the category {@code org.wildfly.camel}.
+     */
+    Logger LOGGER = LoggerFactory.getLogger(CamelLogger.class.getPackage().getName());
 }

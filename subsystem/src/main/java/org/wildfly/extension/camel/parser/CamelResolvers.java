@@ -18,27 +18,21 @@
  * #L%
  */
 
-package org.wildfly.camel;
+package org.wildfly.extension.camel.parser;
 
-import java.io.IOException;
-
-import org.jboss.as.subsystem.test.AbstractSubsystemBaseTest;
-import org.wildfly.extension.camel.parser.CamelExtension;
+import org.jboss.as.controller.descriptions.ResourceDescriptionResolver;
+import org.jboss.as.controller.descriptions.StandardResourceDescriptionResolver;
 
 /**
- * A simple camel subsystem test.
- *
  * @author Thomas.Diesler@jboss.com
- * @since 19-Apr-2013
+ * @since 23-Aug-2013
  */
-public class CamelSubsystemTestCase extends AbstractSubsystemBaseTest {
+final class CamelResolvers {
 
-        public CamelSubsystemTestCase() {
-            super(CamelExtension.SUBSYSTEM_NAME, new CamelExtension());
-        }
+    static final String RESOURCE_NAME = CamelResolvers.class.getPackage().getName() + ".LocalDescriptions";
 
-        @Override
-        protected String getSubsystemXml() throws IOException {
-            return readResource("subsystem-camel-1.0.xml");
-        }
+    static ResourceDescriptionResolver getResolver(String keyPrefix) {
+        return new StandardResourceDescriptionResolver(keyPrefix, RESOURCE_NAME, SecurityActions.getClassLoader(CamelResolvers.class), true, true);
+    }
+
 }

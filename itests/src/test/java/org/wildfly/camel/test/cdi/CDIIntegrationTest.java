@@ -19,7 +19,6 @@
  */
 package org.wildfly.camel.test.cdi;
 
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
@@ -28,10 +27,8 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.container.ManagementClient;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -63,14 +60,6 @@ public class CDIIntegrationTest {
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cdi-integration-tests");
         archive.addClasses(HttpRequest.class);
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.apache.camel,org.jboss.gravia,org.wildfly.camel");
-                return builder.openStream();
-            }
-        });
         return archive;
     }
 
@@ -103,6 +92,7 @@ public class CDIIntegrationTest {
          * 	 deltaspike-cdictrl-api
          * 
          *  [TODO] Replace these embedded jars with (automatic) references to the respective modules
+         *  https://github.com/tdiesler/wildfly-camel/issues/15
          */
         JavaArchive[] libs = Maven.resolver().loadPomFromFile("pom.xml").resolve("org.apache.camel:camel-cdi").withTransitivity().as(JavaArchive.class);
         for (JavaArchive lib : libs) {

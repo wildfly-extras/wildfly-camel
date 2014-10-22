@@ -31,7 +31,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.CamelContextRegistry;
+import org.wildfly.extension.camel.CamelContextRegistry;
 
 /**
  * Performs an invocation on a preconfigured system context.

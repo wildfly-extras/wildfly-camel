@@ -18,27 +18,19 @@
  * #L%
  */
 
-package org.wildfly.camel;
+package org.wildfly.extension.camel;
 
-import java.io.IOException;
-
-import org.jboss.as.subsystem.test.AbstractSubsystemBaseTest;
-import org.wildfly.extension.camel.parser.CamelExtension;
+import org.apache.camel.CamelContext;
 
 /**
- * A simple camel subsystem test.
+ * The WildFly {@link CamelContext} factory.
  *
  * @author Thomas.Diesler@jboss.com
  * @since 19-Apr-2013
  */
-public class CamelSubsystemTestCase extends AbstractSubsystemBaseTest {
+public interface CamelContextFactory {
 
-        public CamelSubsystemTestCase() {
-            super(CamelExtension.SUBSYSTEM_NAME, new CamelExtension());
-        }
+    WildFlyCamelContext createCamelContext() throws Exception;
 
-        @Override
-        protected String getSubsystemXml() throws IOException {
-            return readResource("subsystem-camel-1.0.xml");
-        }
+    WildFlyCamelContext createCamelContext(ClassLoader classsLoader) throws Exception;
 }

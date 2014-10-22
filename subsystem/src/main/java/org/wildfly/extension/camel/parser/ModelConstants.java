@@ -18,27 +18,20 @@
  * #L%
  */
 
-package org.wildfly.camel;
 
-import java.io.IOException;
+package org.wildfly.extension.camel.parser;
 
-import org.jboss.as.subsystem.test.AbstractSubsystemBaseTest;
-import org.wildfly.extension.camel.parser.CamelExtension;
 
 /**
- * A simple camel subsystem test.
+ * Camel subsystem model constants.
  *
  * @author Thomas.Diesler@jboss.com
- * @since 19-Apr-2013
+ * @since 23-Aug-2013
  */
-public class CamelSubsystemTestCase extends AbstractSubsystemBaseTest {
+interface ModelConstants {
 
-        public CamelSubsystemTestCase() {
-            super(CamelExtension.SUBSYSTEM_NAME, new CamelExtension());
-        }
+    String NAME = "name";
+    String CONTEXT = "context";
+    String VALUE = "value";
 
-        @Override
-        protected String getSubsystemXml() throws IOException {
-            return readResource("subsystem-camel-1.0.xml");
-        }
 }

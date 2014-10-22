@@ -46,6 +46,7 @@
         	 deltaspike-cdictrl-api
         
          [TODO] Replace these embedded jars with (automatic) references to the respective modules
+         https://github.com/tdiesler/wildfly-camel/issues/15
 		
         -->
 		<dependency>

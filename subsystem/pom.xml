@@ -109,7 +109,6 @@
                 <configuration>
                     <enableAssertions>true</enableAssertions>
                      <systemPropertyVariables>
-                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                          <org.jboss.model.test.cache.root>${org.jboss.model.test.cache.root}</org.jboss.model.test.cache.root>
                          <org.jboss.model.test.classpath.cache>${org.jboss.model.test.classpath.cache}</org.jboss.model.test.classpath.cache>
                      </systemPropertyVariables>

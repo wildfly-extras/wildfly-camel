@@ -46,7 +46,7 @@
         <extension module="org.wildfly.extension.batch"/>
         <extension module="org.wildfly.extension.io"/>
         <extension module="org.wildfly.extension.undertow"/>
-        <extension module="org.wildfly.camel"/>
+        <extension module="org.wildfly.extension.camel"/>
     </extensions>
 
     <system-properties>

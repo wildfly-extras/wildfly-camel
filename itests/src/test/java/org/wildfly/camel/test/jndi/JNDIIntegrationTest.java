@@ -32,9 +32,9 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.CamelContextFactory;
-import org.wildfly.camel.WildFlyCamelContext;
 import org.wildfly.camel.test.smoke.subA.HelloBean;
+import org.wildfly.extension.camel.CamelContextFactory;
+import org.wildfly.extension.camel.WildFlyCamelContext;
 
 /**
  * Deploys a module which registers a {@link HelloBean} in JNDI, which is later used in a route.

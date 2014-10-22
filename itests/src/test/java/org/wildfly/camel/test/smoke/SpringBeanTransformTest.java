@@ -33,9 +33,9 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.CamelContextFactory;
-import org.wildfly.camel.SpringCamelContextFactory;
 import org.wildfly.camel.test.smoke.subA.HelloBean;
+import org.wildfly.extension.camel.CamelContextFactory;
+import org.wildfly.extension.camel.SpringCamelContextFactory;
 
 /**
  * Deploys a module/bundle which contain a {@link HelloBean} referenced from a spring context definition.
