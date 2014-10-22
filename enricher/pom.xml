@@ -29,7 +29,7 @@
         <version>1.0.0.CR3-SNAPSHOT</version>
     </parent>
 
-    <name>Wildfly Camel Enricher</name>
+    <name>Wildfly Camel :: Enricher</name>
     
     <artifactId>wildfly-camel-enricher</artifactId>
 

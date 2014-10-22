@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel Subsystem
+ * Wildfly Camel :: Subsystem
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -37,6 +37,7 @@ import org.wildfly.camel.deployment.CamelComponentRegistrationProcessor;
 import org.wildfly.camel.deployment.CamelContextActivationProcessor;
 import org.wildfly.camel.deployment.CamelContextCreateProcessor;
 import org.wildfly.camel.deployment.CamelContextRegistrationProcessor;
+import org.wildfly.camel.deployment.CamelDependenciesProcessor;
 import org.wildfly.camel.deployment.CamelIntegrationProcessor;
 import org.wildfly.camel.deployment.RepositoryContentInstallProcessor;
 import org.wildfly.camel.service.CamelBootstrapService;
@@ -100,6 +101,7 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
             public void execute(DeploymentProcessorTarget processorTarget) {
                 graviaSubsystem.addDeploymentUnitProcessors(processorTarget);
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_CAMEL_ITEGRATION_PROVIDER, new CamelIntegrationProcessor());
+                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_CAMEL, new CamelDependenciesProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_CAMEL_CONTEXT_CREATE, new CamelContextCreateProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CAMEL_COMPONENT_REGISTRATION, new CamelComponentRegistrationProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CAMEL_CONTEXT_REGISTRATION, new CamelContextRegistrationProcessor());

@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel Testsuite
+ * Wildfly Camel :: Testsuite
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -20,8 +20,6 @@
 
 package org.wildfly.camel.test.jndi;
 
-import java.io.InputStream;
-
 import javax.naming.Context;
 
 import org.apache.camel.ProducerTemplate;
@@ -29,9 +27,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -47,7 +43,7 @@ import org.wildfly.camel.test.smoke.subA.HelloBean;
  * @since 03-Jun-2013
  */
 @RunWith(Arquillian.class)
-public class JNDIIntegrationTestCase {
+public class JNDIIntegrationTest {
 
     @ArquillianResource
     CamelContextFactory contextFactory;
@@ -56,20 +52,12 @@ public class JNDIIntegrationTestCase {
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jndi-integration-tests");
         archive.addClasses(HelloBean.class);
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.apache.camel,org.wildfly.camel");
-                return builder.openStream();
-            }
-        });
         return archive;
     }
 
     @Test
     public void testBeanTransform() throws Exception {
-        WildflyCamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+        WildflyCamelContext camelctx = contextFactory.createCamelContext();
 
         // Bind the bean to JNDI
         Context context = camelctx.getNamingContext();

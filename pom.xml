@@ -45,7 +45,7 @@
     <!-- Properties -->
     <properties>
         <version.apache.camel>2.14.0</version.apache.camel>
-        <version.apache.spring>3.2.11.RELEASE</version.apache.spring>
+    	<version.apache.deltaspike>1.0.2</version.apache.deltaspike>
         <version.apache.felix.configadmin>1.8.0</version.apache.felix.configadmin>
         <version.apache.felix.eventadmin>1.3.0</version.apache.felix.eventadmin>
         <version.apache.felix.log>1.0.1</version.apache.felix.log>
@@ -54,12 +54,17 @@
         <version.apache.felix.scr>1.6.2</version.apache.felix.scr>
         <version.apache.felix.scr.ds.annotations>1.2.4</version.apache.felix.scr.ds.annotations>
         <version.apache.felix.scr.generator>1.8.0</version.apache.felix.scr.generator>
+        <version.apache.spring>3.2.11.RELEASE</version.apache.spring>
         <version.hawtio>1.4.22</version.hawtio>
+        <version.javax.enterprise>1.2</version.javax.enterprise>
         <version.jboss.arquillian.core>1.1.2.Final-wildfly-1</version.jboss.arquillian.core>
         <version.jboss.gravia>1.1.0.Beta42</version.jboss.gravia>
-        <version.jboss.shrinkwrap>1.1.2</version.jboss.shrinkwrap>
+        <version.jboss.shrinkwrap>1.2.1</version.jboss.shrinkwrap>
+        <version.jboss.shrinkwrap.resolver>2.1.1</version.jboss.shrinkwrap.resolver>
         <version.jboss.spec.javax.annotation>1.0.0.Final</version.jboss.spec.javax.annotation>
+        <version.jboss.spec.javax.ejb>1.0.0.Final</version.jboss.spec.javax.ejb>
         <version.jboss.spec.javax.jms>1.0.0.Final</version.jboss.spec.javax.jms>
+        <version.jboss.spec.javax.servlet>1.0.0.Final</version.jboss.spec.javax.servlet>
         <version.junit>4.11</version.junit>
         <version.osgi>5.0.0</version.osgi>
         <version.slf4j>1.6.6</version.slf4j>
@@ -78,6 +83,7 @@
         <version-maven-release-plugin>2.5</version-maven-release-plugin>
         <version-maven-source-plugin>2.3</version-maven-source-plugin>
         <version-maven-surefire-plugin>2.16</version-maven-surefire-plugin>
+        <version-wildfly-maven-plugin>1.0.2.Final</version-wildfly-maven-plugin>
     </properties>
 
     <!-- Modules -->
@@ -86,6 +92,7 @@
         <module>enricher</module>
         <module>patch</module>
         <module>subsystem</module>
+        <module>webapp</module>
         <module>itests</module>
     </modules>
 
@@ -113,6 +120,11 @@
             <!-- Camel -->
             <dependency>
                <groupId>org.apache.camel</groupId>
+               <artifactId>camel-cdi</artifactId>
+               <version>${version.apache.camel}</version>
+            </dependency>
+            <dependency>
+               <groupId>org.apache.camel</groupId>
                <artifactId>camel-core</artifactId>
                <version>${version.apache.camel}</version>
             </dependency>
@@ -134,6 +146,11 @@
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-jmx</artifactId>
+                <version>${version.apache.camel}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-jpa</artifactId>
                 <version>${version.apache.camel}</version>
             </dependency>
             <dependency>
@@ -240,21 +257,33 @@
 				<type>war</type>
 			</dependency>
 			
-			<!-- JBoss -->            
+			<!-- Javax -->
             <dependency>
-                <groupId>org.jboss.shrinkwrap</groupId>
-                <artifactId>shrinkwrap-impl-base</artifactId>
-                <version>${version.jboss.shrinkwrap}</version>
+                <groupId>javax.enterprise</groupId>
+                <artifactId>cdi-api</artifactId>
+                <version>${version.javax.enterprise}</version>
             </dependency>
+            
+			<!-- JBoss -->            
             <dependency>
                 <groupId>org.jboss.spec.javax.annotation</groupId>
                 <artifactId>jboss-annotations-api_1.2_spec</artifactId>
                 <version>${version.jboss.spec.javax.annotation}</version>
             </dependency>
             <dependency>
+                <groupId>org.jboss.spec.javax.ejb</groupId>
+                <artifactId>jboss-ejb-api_3.2_spec</artifactId>
+                <version>${version.jboss.spec.javax.ejb}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.jboss.spec.javax.jms</groupId>
                 <artifactId>jboss-jms-api_2.0_spec</artifactId>
                 <version>${version.jboss.spec.javax.jms}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.spec.javax.servlet</groupId>
+                <artifactId>jboss-servlet-api_3.1_spec</artifactId>
+                <version>${version.jboss.spec.javax.servlet}</version>
             </dependency>
 
             <!-- JUnit -->
@@ -276,25 +305,24 @@
                 <version>${version.osgi}</version>
             </dependency>
 
+			<!-- Shrinkwrap -->
+            <dependency>
+                <groupId>org.jboss.shrinkwrap</groupId>
+                <artifactId>shrinkwrap-impl-base</artifactId>
+                <version>${version.jboss.shrinkwrap}</version>
+            </dependency>
+			<dependency>
+				<groupId>org.jboss.shrinkwrap.resolver</groupId>
+				<artifactId>shrinkwrap-resolver-bom</artifactId>
+                <version>${version.jboss.shrinkwrap.resolver}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			
             <!-- SLF4J -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>${version.slf4j}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-jdk14</artifactId>
-                <version>${version.slf4j}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>${version.slf4j}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-simple</artifactId>
                 <version>${version.slf4j}</version>
             </dependency>
             
@@ -421,6 +449,13 @@
                         <failIfNoTests>false</failIfNoTests>
                     </configuration>
                 </plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<configuration>
+						<failOnMissingWebXml>false</failOnMissingWebXml>
+					</configuration>
+				</plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>license-maven-plugin</artifactId>
@@ -446,6 +481,14 @@
                         -->
                     </configuration>
                 </plugin>
+	            <plugin>
+	                <groupId>org.wildfly.plugins</groupId>
+	                <artifactId>wildfly-maven-plugin</artifactId>
+                    <version>${version-wildfly-maven-plugin}</version>
+                    <configuration>
+                        <version>${version.wildfly}</version>
+                    </configuration>
+	            </plugin>
             </plugins>
         </pluginManagement>
         
@@ -538,4 +581,13 @@
         </repository>
     </repositories>
 
+	<!-- Profiles -->
+	<profiles>
+		<profile>
+			<id>ts.all</id>
+		    <modules>
+		        <module>examples</module>
+		    </modules>
+		</profile>
+	</profiles>
 </project>

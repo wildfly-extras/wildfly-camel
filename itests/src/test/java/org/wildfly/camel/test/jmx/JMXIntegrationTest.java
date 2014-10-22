@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel Testsuite
+ * Wildfly Camel :: Testsuite
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -20,8 +20,6 @@
 
 package org.wildfly.camel.test.jmx;
 
-import java.io.InputStream;
-
 import javax.management.monitor.MonitorNotification;
 
 import org.apache.camel.CamelContext;
@@ -30,10 +28,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.gravia.provision.Provisioner;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -48,32 +43,21 @@ import org.wildfly.camel.test.ProvisionerSupport;
  * @since 03-Jun-2013
  */
 @RunWith(Arquillian.class)
-public class JMXIntegrationTestCase {
+public class JMXIntegrationTest {
 
     @ArquillianResource
     CamelContextFactory contextFactory;
-
-    @ArquillianResource
-    Provisioner provisioner;
 
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jmx-integration-tests");
         archive.addClasses(ProvisionerSupport.class);
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.apache.camel,org.jboss.gravia,org.wildfly.camel");
-                return builder.openStream();
-            }
-        });
         return archive;
     }
 
     @Test
     public void testMonitorMBeanAttribute() throws Exception {
-        CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+        CamelContext camelctx = contextFactory.createCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel Testsuite
+ * Wildfly Camel :: Testsuite
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -20,27 +20,23 @@
 
 package org.wildfly.camel.test.smoke;
 
-import java.io.InputStream;
-import java.net.URL;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.as.arquillian.container.ManagementClient;
-import org.jboss.as.controller.client.helpers.standalone.ServerDeploymentHelper;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.CamelConstants;
 import org.wildfly.camel.CamelContextRegistry;
+import org.wildfly.camel.test.smoke.subA.HelloBean;
 
 /**
- * Deploys a spring context definition as single XML file.
+ * Deploys a module/bundle which contain a {@link HelloBean} referenced from a spring context definition.
  *
  * The tests expect the {@link CamelContext} to be created/started during deployment.
  * The tests then perfom a {@link CamelContext} lookup and do a simple invokation.
@@ -49,43 +45,42 @@ import org.wildfly.camel.CamelContextRegistry;
  * @since 21-Apr-2013
  */
 @RunWith(Arquillian.class)
-public class SpringContextDeploymentTestCase  {
+public class SpringBeanDeploymentTest {
 
-    static final String SPRING_CONTEXT_XML = "simple-transform-camel-context.xml";
+    static final String SPRING_CAMEL_CONTEXT_XML = "bean-transform-camel-context.xml";
+
+    static final String CAMEL_MODULE = "camel-module.jar";
 
     @ArquillianResource
     CamelContextRegistry contextRegistry;
 
     @ArquillianResource
-    ManagementClient managementClient;
+    Deployer deployer;
 
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-deployment-tests");
-        archive.addAsResource("camel/simple/" + SPRING_CONTEXT_XML, SPRING_CONTEXT_XML);
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.apache.camel,org.jboss.msc,org.wildfly.camel,org.jboss.as.controller-client");
-                return builder.openStream();
-            }
-        });
         return archive;
     }
 
     @Test
-    public void testSimpleTransformFromModule() throws Exception {
-        URL resourceUrl = getClass().getResource("/" + SPRING_CONTEXT_XML);
-        ServerDeploymentHelper server = new ServerDeploymentHelper(managementClient.getControllerClient());
-        String runtimeName = server.deploy(SPRING_CONTEXT_XML, resourceUrl.openStream());
+    public void testBeanTransformFromModule() throws Exception {
+        deployer.deploy(CAMEL_MODULE);
         try {
             CamelContext camelctx = contextRegistry.getCamelContext("spring-context");
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            server.undeploy(runtimeName);
+            deployer.undeploy(CAMEL_MODULE);
         }
+    }
+
+    @Deployment(name = CAMEL_MODULE, managed = false, testable = false)
+    public static JavaArchive getModule() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CAMEL_MODULE);
+        archive.addClasses(HelloBean.class);
+        archive.addAsResource("camel/simple/" + SPRING_CAMEL_CONTEXT_XML, CamelConstants.CAMEL_CONTEXT_FILE_NAME);
+        return archive;
     }
 }

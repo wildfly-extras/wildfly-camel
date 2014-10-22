@@ -29,7 +29,7 @@
         <version>1.0.0.CR3-SNAPSHOT</version>
     </parent>
 
-    <name>Wildfly Camel Docker</name>
+    <name>Wildfly Camel :: Docker</name>
 
     <artifactId>wildfly-camel-docker</artifactId>
 	<packaging>pom</packaging>

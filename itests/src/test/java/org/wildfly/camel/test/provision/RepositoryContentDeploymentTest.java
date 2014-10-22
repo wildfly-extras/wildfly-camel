@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel Testsuite
+ * Wildfly Camel :: Testsuite
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -54,7 +54,7 @@ import org.wildfly.camel.test.ProvisionerSupport;
  * @since 14-Jun-2013
  */
 @RunWith(Arquillian.class)
-public class RepositoryContentDeploymentTestCase {
+public class RepositoryContentDeploymentTest {
 
     static final String REPOSITORY_CONTENT_JAR = "repository-content.jar";
 
@@ -76,7 +76,7 @@ public class RepositoryContentDeploymentTestCase {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.jboss.as.controller-client,org.jboss.gravia");
+                builder.addManifestHeader("Dependencies", "org.jboss.as.controller-client");
                 return builder.openStream();
             }
         });

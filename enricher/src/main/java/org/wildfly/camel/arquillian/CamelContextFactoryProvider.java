@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel Enricher
+ * Wildfly Camel :: Enricher
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%

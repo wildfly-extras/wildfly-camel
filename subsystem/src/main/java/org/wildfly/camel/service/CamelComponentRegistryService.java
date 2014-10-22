@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel Subsystem
+ * Wildfly Camel :: Subsystem
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -73,7 +73,7 @@ import org.wildfly.camel.CamelConstants;
  */
 public class CamelComponentRegistryService extends AbstractService<CamelComponentRegistry> {
 
-    static final String[] componentNames = new String[] { "cxf", "jms", "jmx" };
+    public static final String[] DEFAULT_COMPONENT_NAMES = new String[] { "cxf", "jms", "jmx", "jpa" };
     
     private CamelComponentRegistry componentRegistry;
 
@@ -96,7 +96,7 @@ public class CamelComponentRegistryService extends AbstractService<CamelComponen
 
         // Register system components 
         ModuleLoader moduleLoader = Module.getBootModuleLoader();
-        for (String compName : componentNames) {
+        for (String compName : DEFAULT_COMPONENT_NAMES) {
             Module module;
             try {
                 ModuleIdentifier cmpid = ModuleIdentifier.create("org.apache.camel.component." + compName);

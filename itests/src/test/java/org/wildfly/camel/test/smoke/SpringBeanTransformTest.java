@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel Testsuite
+ * Wildfly Camel :: Testsuite
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -20,7 +20,6 @@
 
 package org.wildfly.camel.test.smoke;
 
-import java.io.InputStream;
 import java.net.URL;
 
 import org.apache.camel.CamelContext;
@@ -29,29 +28,28 @@ import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.CamelContextFactory;
 import org.wildfly.camel.SpringCamelContextFactory;
+import org.wildfly.camel.test.smoke.subA.HelloBean;
 
 /**
- * Deploys a module/bundle that contains a spring context definition.
+ * Deploys a module/bundle which contain a {@link HelloBean} referenced from a spring context definition.
  *
- * The tests then build a route through the {@link CamelContextFactory} API and perform a simple invokation.
- * This verifies spring context creation from a deployment.
+ * The tests then build a route through the {@link CamelContextFactory} API.
+ * This verifies access to beans within the same deployemnt.
  *
  * @author thomas.diesler@jboss.com
  * @since 21-Apr-2013
  */
 @RunWith(Arquillian.class)
-public class SpringContextTestCase {
+public class SpringBeanTransformTest {
 
-    static final String SPRING_CAMEL_CONTEXT_XML = "camel/simple/simple-transform-camel-context.xml";
+    static final String SPRING_CAMEL_CONTEXT_XML = "camel/simple/bean-transform-camel-context.xml";
 
     @ArquillianResource
     Deployer deployer;
@@ -59,15 +57,8 @@ public class SpringContextTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-spring-tests");
+        archive.addClasses(HelloBean.class);
         archive.addAsResource(SPRING_CAMEL_CONTEXT_XML);
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.wildfly.camel,org.apache.camel");
-                return builder.openStream();
-            }
-        });
         return archive;
     }
 
@@ -80,5 +71,4 @@ public class SpringContextTestCase {
         String result = producer.requestBody("direct:start", "Kermit", String.class);
         Assert.assertEquals("Hello Kermit", result);
     }
-
 }

@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel Testsuite
+ * Wildfly Camel :: Testsuite
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -48,7 +48,6 @@ import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.as.test.integration.common.jms.JMSOperations;
 import org.jboss.as.test.integration.common.jms.JMSOperationsProvider;
-import org.jboss.gravia.provision.Provisioner;
 import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -66,8 +65,8 @@ import org.wildfly.camel.test.ProvisionerSupport;
  * @since 18-May-2013
  */
 @RunWith(Arquillian.class)
-@ServerSetup({ JMSIntegrationTestCase.JmsQueueSetup.class })
-public class JMSIntegrationTestCase {
+@ServerSetup({ JMSIntegrationTest.JmsQueueSetup.class })
+public class JMSIntegrationTest {
 
     static final String QUEUE_NAME = "camel-jms-queue";
     static final String QUEUE_JNDI_NAME = "java:/" + QUEUE_NAME;
@@ -77,9 +76,6 @@ public class JMSIntegrationTestCase {
 
     @ArquillianResource
     InitialContext initialctx;
-
-    @ArquillianResource
-    Provisioner provisioner;
 
     static class JmsQueueSetup implements ServerSetupTask {
 
@@ -108,7 +104,7 @@ public class JMSIntegrationTestCase {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.apache.camel,org.jboss.as.controller-client,org.jboss.gravia,org.wildfly.camel,javax.jms.api");
+                builder.addManifestHeader("Dependencies", "org.jboss.as.controller-client,javax.jms.api");
                 return builder.openStream();
             }
         });
@@ -118,7 +114,7 @@ public class JMSIntegrationTestCase {
     @Test
     public void testSendMessage() throws Exception {
         // Create the CamelContext
-        CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+        CamelContext camelctx = contextFactory.createCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -143,7 +139,7 @@ public class JMSIntegrationTestCase {
     @Test
     public void testReceiveMessage() throws Exception {
         // Create the CamelContext
-        CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+        CamelContext camelctx = contextFactory.createCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

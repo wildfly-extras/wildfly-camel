@@ -1,6 +1,6 @@
 <!--
   #%L
-  Wildfly Camel Patch
+  Wildfly Camel :: Patch
   %%
   Copyright (C) 2013 - 2014 RedHat
   %%
@@ -36,6 +36,7 @@
             <useStrictFiltering>true</useStrictFiltering>
             <includes>
                 <include>*:camel-*:jar</include>
+                <include>*:deltaspike-*:jar</include>
                 <include>*:gravia-*:jar</include>
                 <include>*:hawtio-default:war</include>
                 <include>*:org.apache.felix.*:jar</include>
@@ -43,6 +44,7 @@
                 <include>*:org.osgi.enterprise:jar</include>
                 <include>*:spring-*:jar</include>
                 <include>*:wildfly-camel-subsystem:jar</include>
+                <include>*:wildfly-camel-webapp:war</include>
             </includes>
             <scope>provided</scope>
             <unpack>false</unpack>

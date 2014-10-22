@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel Testsuite
+ * Wildfly Camel :: Testsuite
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -20,63 +20,44 @@
 
 package org.wildfly.camel.test.smoke;
 
-import java.io.InputStream;
-import java.net.URL;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.CamelContextFactory;
-import org.wildfly.camel.SpringCamelContextFactory;
-import org.wildfly.camel.test.smoke.subA.HelloBean;
+import org.wildfly.camel.CamelContextRegistry;
 
 /**
- * Deploys a module/bundle which contain a {@link HelloBean} referenced from a spring context definition.
- *
- * The tests then build a route through the {@link CamelContextFactory} API.
- * This verifies access to beans within the same deployemnt.
+ * Performs an invocation on a preconfigured system context.
+ * This verifies that the {@link CamelContext} is created/registered at subsystem boot time.
  *
  * @author thomas.diesler@jboss.com
  * @since 21-Apr-2013
  */
 @RunWith(Arquillian.class)
-public class SpringBeanTransformTestCase {
+public class SystemContextTest {
 
-    static final String SPRING_CAMEL_CONTEXT_XML = "camel/simple/bean-transform-camel-context.xml";
+    @ArquillianResource
+    CamelContextRegistry contextRegistry;
 
     @ArquillianResource
     Deployer deployer;
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-spring-tests");
-        archive.addClasses(HelloBean.class);
-        archive.addAsResource(SPRING_CAMEL_CONTEXT_XML);
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.wildfly.camel,org.apache.camel");
-                return builder.openStream();
-            }
-        });
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-system-tests");
         return archive;
     }
 
     @Test
-    public void testSpringContextFromURL() throws Exception {
-        URL resourceUrl = getClass().getResource("/" + SPRING_CAMEL_CONTEXT_XML);
-        CamelContext camelctx = SpringCamelContextFactory.createSpringCamelContext(resourceUrl, null);
+    public void testSystemTransformFromModule() throws Exception {
+        CamelContext camelctx = contextRegistry.getCamelContext("system-context-1");
         camelctx.start();
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);

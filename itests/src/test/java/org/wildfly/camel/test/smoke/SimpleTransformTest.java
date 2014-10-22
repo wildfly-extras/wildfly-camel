@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel Testsuite
+ * Wildfly Camel :: Testsuite
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -20,65 +20,43 @@
 
 package org.wildfly.camel.test.smoke;
 
-import java.io.InputStream;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.jboss.arquillian.container.test.api.Deployer;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.CamelContextFactory;
-import org.wildfly.camel.test.smoke.subA.HelloBean;
 
 /**
- * Deploys a module/bundle which contain a {@link HelloBean}.
+ * Deploys a module/bundle with dependency on the Camel API;
  *
- * The tests then build a route that uses the bean through the Camel API.
- * This verifies access to beans within the same deployemnt that uses the Camel API.
+ * The tests then build a route that uses the Camel API.
+ * This verifies basic access to the Camel API.
  *
  * @author thomas.diesler@jboss.com
- * @since 24-Apr-2013
+ * @since 21-Apr-2013
  */
 @RunWith(Arquillian.class)
-public class BeanTransformTestCase {
-
-    @ArquillianResource
-    CamelContextFactory contextFactory;
-
-    @ArquillianResource
-    Deployer deployer;
+public class SimpleTransformTest {
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "bean-transform-tests");
-        archive.addClasses(HelloBean.class);
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.apache.camel");
-                return builder.openStream();
-            }
-        });
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-transform-tests");
         return archive;
     }
 
     @Test
     public void testSimpleTransformFromModule() throws Exception {
-        CamelContext camelctx = contextFactory.createWilflyCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").bean(HelloBean.class);
+                from("direct:start").transform(body().prepend("Hello "));
             }
         });
         camelctx.start();
@@ -86,4 +64,5 @@ public class BeanTransformTestCase {
         String result = producer.requestBody("direct:start", "Kermit", String.class);
         Assert.assertEquals("Hello Kermit", result);
     }
+
 }

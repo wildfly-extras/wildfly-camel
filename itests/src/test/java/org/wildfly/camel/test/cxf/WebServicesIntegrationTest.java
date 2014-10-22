@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel Testsuite
+ * Wildfly Camel :: Testsuite
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -19,7 +19,6 @@
  */
 package org.wildfly.camel.test.cxf;
 
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -34,11 +33,8 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.container.ManagementClient;
-import org.jboss.gravia.provision.Provisioner;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
@@ -56,7 +52,7 @@ import org.wildfly.camel.test.cxf.subA.EndpointImpl;
  * @since 11-Jun-2013
  */
 @RunWith(Arquillian.class)
-public class WebServicesIntegrationTestCase {
+public class WebServicesIntegrationTest {
 
     static final String SIMPLE_WAR = "simple.war";
 
@@ -69,21 +65,10 @@ public class WebServicesIntegrationTestCase {
     @ArquillianResource
     ManagementClient managementClient;
 
-    @ArquillianResource
-    Provisioner provisioner;
-
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-integration-tests");
         archive.addClasses(ProvisionerSupport.class, Endpoint.class);
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.apache.camel,org.jboss.gravia,org.wildfly.camel");
-                return builder.openStream();
-            }
-        });
         return archive;
     }
 
@@ -105,7 +90,7 @@ public class WebServicesIntegrationTestCase {
         deployer.deploy(SIMPLE_WAR);
         try {
             // Create the CamelContext
-            CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+            CamelContext camelctx = contextFactory.createCamelContext();
             camelctx.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {

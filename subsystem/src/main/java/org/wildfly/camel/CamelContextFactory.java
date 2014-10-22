@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel Subsystem
+ * Wildfly Camel :: Subsystem
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -30,7 +30,7 @@ import org.apache.camel.CamelContext;
  */
 public interface CamelContextFactory {
 
-    WildflyCamelContext createWilflyCamelContext() throws Exception;
+    WildflyCamelContext createCamelContext() throws Exception;
 
-    WildflyCamelContext createWildflyCamelContext(ClassLoader classsLoader) throws Exception;
+    WildflyCamelContext createCamelContext(ClassLoader classsLoader) throws Exception;
 }

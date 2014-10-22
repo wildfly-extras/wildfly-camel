@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel Subsystem
+ * Wildfly Camel :: Subsystem
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -106,12 +106,12 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
         }
 
         @Override
-        public WildflyCamelContext createWilflyCamelContext() throws Exception {
-            return createWildflyCamelContext(null);
+        public WildflyCamelContext createCamelContext() throws Exception {
+            return createCamelContext(null);
         }
 
         @Override
-        public WildflyCamelContext createWildflyCamelContext(ClassLoader classsLoader) throws Exception {
+        public WildflyCamelContext createCamelContext(ClassLoader classLoader) throws Exception {
             return setup(new WildflyCamelContext(componentRegistry));
         }
 

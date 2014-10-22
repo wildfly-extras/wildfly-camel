@@ -29,7 +29,7 @@
         <version>1.0.0.CR3-SNAPSHOT</version>
     </parent>
 
-    <name>Wildfly Camel Patch</name>
+    <name>Wildfly Camel :: Patch</name>
 
     <artifactId>wildfly-camel-patch</artifactId>
 	<packaging>pom</packaging>
@@ -42,13 +42,32 @@
     <!-- Dependencies -->
     <dependencies>
         
-        <!-- provided -->
+        <!-- Provided -->
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-subsystem</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-webapp</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+            <type>war</type>
+        </dependency>
+        
 		<dependency>
 			<groupId>io.hawt</groupId>
 			<artifactId>hawtio-default</artifactId>
             <scope>provided</scope>
 			<type>war</type>
 		</dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-cdi</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cxf</artifactId>
@@ -69,6 +88,11 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jmx</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jpa</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -119,12 +143,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-subsystem</artifactId>
-            <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
