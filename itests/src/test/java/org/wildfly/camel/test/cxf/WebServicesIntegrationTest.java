@@ -28,6 +28,7 @@ import javax.xml.ws.Service;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -40,7 +41,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.CamelContextFactory;
 import org.wildfly.camel.test.ProvisionerSupport;
 import org.wildfly.camel.test.cxf.subA.Endpoint;
 import org.wildfly.camel.test.cxf.subA.EndpointImpl;
@@ -55,9 +55,6 @@ import org.wildfly.camel.test.cxf.subA.EndpointImpl;
 public class WebServicesIntegrationTest {
 
     static final String SIMPLE_WAR = "simple.war";
-
-    @ArquillianResource
-    CamelContextFactory contextFactory;
 
     @ArquillianResource
     Deployer deployer;
@@ -90,7 +87,7 @@ public class WebServicesIntegrationTest {
         deployer.deploy(SIMPLE_WAR);
         try {
             // Create the CamelContext
-            CamelContext camelctx = contextFactory.createCamelContext();
+            CamelContext camelctx = new DefaultCamelContext();
             camelctx.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
@@ -102,7 +99,7 @@ public class WebServicesIntegrationTest {
 
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
-            Assert.assertEquals("[Hello Kermit]", result);
+            Assert.assertEquals("Hello Kermit", result);
         } finally {
             deployer.undeploy(SIMPLE_WAR);
         }

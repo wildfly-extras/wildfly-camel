@@ -40,6 +40,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -55,7 +56,6 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.CamelContextFactory;
 import org.wildfly.camel.test.ProvisionerSupport;
 
 /**
@@ -70,9 +70,6 @@ public class JMSIntegrationTest {
 
     static final String QUEUE_NAME = "camel-jms-queue";
     static final String QUEUE_JNDI_NAME = "java:/" + QUEUE_NAME;
-
-    @ArquillianResource
-    CamelContextFactory contextFactory;
 
     @ArquillianResource
     InitialContext initialctx;
@@ -114,7 +111,7 @@ public class JMSIntegrationTest {
     @Test
     public void testSendMessage() throws Exception {
         // Create the CamelContext
-        CamelContext camelctx = contextFactory.createCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -139,7 +136,7 @@ public class JMSIntegrationTest {
     @Test
     public void testReceiveMessage() throws Exception {
         // Create the CamelContext
-        CamelContext camelctx = contextFactory.createCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

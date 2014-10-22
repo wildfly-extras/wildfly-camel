@@ -28,7 +28,6 @@ import org.jboss.as.server.deployment.module.ModuleDependency;
 import org.jboss.as.server.deployment.module.ModuleSpecification;
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.modules.ModuleLoader;
-import org.wildfly.camel.service.CamelComponentRegistryService;
 
 /**
  * A DUP that sets the dependencies required for using Camel
@@ -38,6 +37,8 @@ import org.wildfly.camel.service.CamelComponentRegistryService;
  */
 public final class CamelDependenciesProcessor implements DeploymentUnitProcessor {
 
+    private static final String[] DEFAULT_COMPONENT_NAMES = new String[] { "cxf", "jms", "jmx" };
+    
     private static final String GRAVIA = "org.jboss.gravia";
     private static final String APACHE_CAMEL = "org.apache.camel";
     private static final String WILDFLY_CAMEL = "org.wildfly.camel";
@@ -49,12 +50,10 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(GRAVIA), false, false, false, false));
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL), false, false, false, false));
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(WILDFLY_CAMEL), false, false, false, false));
-        /*
-        for (String compName : CamelComponentRegistryService.DEFAULT_COMPONENT_NAMES) {
+        for (String compName : DEFAULT_COMPONENT_NAMES) {
             ModuleIdentifier modid = ModuleIdentifier.create(APACHE_CAMEL + ".component." + compName);
-            moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, modid, false, false, false, false));
+            moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, modid, false, false, true, false));
         }
-        */
     }
 
     public void undeploy(final DeploymentUnit context) {

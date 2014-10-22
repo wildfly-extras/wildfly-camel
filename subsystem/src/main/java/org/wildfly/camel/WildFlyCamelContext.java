@@ -24,29 +24,16 @@ import javax.naming.Context;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.spi.ComponentResolver;
-import org.jboss.gravia.utils.IllegalArgumentAssertion;
 
 /**
- * The default Wildfly {@link CamelContext}.
+ * The default WildFly {@link CamelContext}.
  *
  * @author Thomas.Diesler@jboss.com
- * @since 18-Myy-2013
+ * @since 18-May-2013
  */
-public class WildflyCamelContext extends DefaultCamelContext {
+public class WildFlyCamelContext extends DefaultCamelContext {
 
-    private final CamelComponentRegistry componentRegistry;
     private Context namingContext;
-
-    public WildflyCamelContext(CamelComponentRegistry componentRegistry) {
-    	IllegalArgumentAssertion.assertNotNull(componentRegistry, "componentRegistry");
-        this.componentRegistry = componentRegistry;
-    }
-
-    @Override
-    protected ComponentResolver createComponentResolver() {
-        return new WildflyComponentResolver(componentRegistry);
-    }
 
     public Context getNamingContext() {
         return namingContext;

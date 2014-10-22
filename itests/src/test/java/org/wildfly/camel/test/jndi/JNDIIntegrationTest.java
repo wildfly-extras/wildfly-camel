@@ -33,7 +33,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.CamelContextFactory;
-import org.wildfly.camel.WildflyCamelContext;
+import org.wildfly.camel.WildFlyCamelContext;
 import org.wildfly.camel.test.smoke.subA.HelloBean;
 
 /**
@@ -57,11 +57,12 @@ public class JNDIIntegrationTest {
 
     @Test
     public void testBeanTransform() throws Exception {
-        WildflyCamelContext camelctx = contextFactory.createCamelContext();
 
         // Bind the bean to JNDI
+        WildFlyCamelContext camelctx = contextFactory.createCamelContext();
         Context context = camelctx.getNamingContext();
         context.bind("helloBean", new HelloBean());
+        
         try {
             camelctx.addRoutes(new RouteBuilder() {
                 @Override

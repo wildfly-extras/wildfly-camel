@@ -25,15 +25,14 @@ import javax.management.monitor.MonitorNotification;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.CamelContextFactory;
 import org.wildfly.camel.test.ProvisionerSupport;
 
 /**
@@ -45,9 +44,6 @@ import org.wildfly.camel.test.ProvisionerSupport;
 @RunWith(Arquillian.class)
 public class JMXIntegrationTest {
 
-    @ArquillianResource
-    CamelContextFactory contextFactory;
-
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jmx-integration-tests");
@@ -57,7 +53,7 @@ public class JMXIntegrationTest {
 
     @Test
     public void testMonitorMBeanAttribute() throws Exception {
-        CamelContext camelctx = contextFactory.createCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

@@ -41,7 +41,6 @@ import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.value.InjectedValue;
-import org.wildfly.camel.CamelComponentRegistry;
 import org.wildfly.camel.CamelConstants;
 import org.wildfly.extension.gravia.GraviaConstants;
 
@@ -54,14 +53,12 @@ import org.wildfly.extension.gravia.GraviaConstants;
  */
 public final class CamelBootstrapService extends AbstractService<Void> {
 
-    private final InjectedValue<CamelComponentRegistry> injectedComponentRegistry = new InjectedValue<CamelComponentRegistry>();
     private final InjectedValue<Environment> injectedEnvironment = new InjectedValue<Environment>();
     private final InjectedValue<Repository> injectedRepository = new InjectedValue<Repository>();
 
     public static ServiceController<Void> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
         CamelBootstrapService service = new CamelBootstrapService();
         ServiceBuilder<Void> builder = serviceTarget.addService(CamelConstants.CAMEL_SUBSYSTEM_SERVICE_NAME, service);
-        builder.addDependency(CamelConstants.CAMEL_COMPONENT_REGISTRY_SERVICE_NAME, CamelComponentRegistry.class, service.injectedComponentRegistry);
         builder.addDependency(GraviaConstants.ENVIRONMENT_SERVICE_NAME, Environment.class, service.injectedEnvironment);
         builder.addDependency(GraviaConstants.REPOSITORY_SERVICE_NAME, Repository.class, service.injectedRepository);
         builder.addListener(verificationHandler);
@@ -78,10 +75,6 @@ public final class CamelBootstrapService extends AbstractService<Void> {
 
         // Install camel features to the repository
         installRepositoryContent(startContext);
-
-        // Register the statically configured components
-        CamelComponentRegistry registry = injectedComponentRegistry.getValue();
-        registry.registerComponents(Module.getCallerModule());
     }
 
     private void installRepositoryContent(StartContext startContext) throws StartException {

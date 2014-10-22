@@ -30,7 +30,7 @@ import org.apache.camel.CamelContext;
  */
 public interface CamelContextFactory {
 
-    WildflyCamelContext createCamelContext() throws Exception;
+    WildFlyCamelContext createCamelContext() throws Exception;
 
-    WildflyCamelContext createCamelContext(ClassLoader classsLoader) throws Exception;
+    WildFlyCamelContext createCamelContext(ClassLoader classsLoader) throws Exception;
 }

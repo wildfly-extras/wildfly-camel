@@ -52,11 +52,9 @@ import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
-import org.jboss.msc.value.InjectedValue;
-import org.wildfly.camel.CamelComponentRegistry;
 import org.wildfly.camel.CamelConstants;
 import org.wildfly.camel.CamelContextFactory;
-import org.wildfly.camel.WildflyCamelContext;
+import org.wildfly.camel.WildFlyCamelContext;
 
 /**
  * The {@link CamelContextFactory} service
@@ -66,13 +64,11 @@ import org.wildfly.camel.WildflyCamelContext;
  */
 public class CamelContextFactoryService extends AbstractService<CamelContextFactory> {
 
-    private final InjectedValue<CamelComponentRegistry> injectedComponentRegistry = new InjectedValue<CamelComponentRegistry>();
     private CamelContextFactory contextFactory;
 
     public static ServiceController<CamelContextFactory> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
         CamelContextFactoryService service = new CamelContextFactoryService();
         ServiceBuilder<CamelContextFactory> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_FACTORY_SERVICE_NAME, service);
-        builder.addDependency(CamelConstants.CAMEL_COMPONENT_REGISTRY_SERVICE_NAME, CamelComponentRegistry.class, service.injectedComponentRegistry);
         builder.addListener(verificationHandler);
         return builder.install();
     }
@@ -83,9 +79,8 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
 
     @Override
     public void start(StartContext startContext) throws StartException {
-        CamelComponentRegistry componentRegistry = injectedComponentRegistry.getValue();
         ServiceContainer serviceContainer = startContext.getController().getServiceContainer();
-        contextFactory = new DefaultCamelContextFactory(serviceContainer, startContext.getChildTarget(), componentRegistry);
+        contextFactory = new WildflyCamelContextFactory(serviceContainer, startContext.getChildTarget());
     }
 
     @Override
@@ -93,29 +88,27 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
         return contextFactory;
     }
 
-    static final class DefaultCamelContextFactory implements CamelContextFactory {
+    static final class WildflyCamelContextFactory implements CamelContextFactory {
 
         private final ServiceRegistry serviceRegistry;
         private final ServiceTarget serviceTarget;
-        private final CamelComponentRegistry componentRegistry;
 
-        DefaultCamelContextFactory(ServiceRegistry serviceRegistry, ServiceTarget serviceTarget, CamelComponentRegistry componentRegistry) {
+        WildflyCamelContextFactory(ServiceRegistry serviceRegistry, ServiceTarget serviceTarget) {
             this.serviceRegistry = serviceRegistry;
             this.serviceTarget = serviceTarget;
-            this.componentRegistry = componentRegistry;
         }
 
         @Override
-        public WildflyCamelContext createCamelContext() throws Exception {
+        public WildFlyCamelContext createCamelContext() throws Exception {
             return createCamelContext(null);
         }
 
         @Override
-        public WildflyCamelContext createCamelContext(ClassLoader classLoader) throws Exception {
-            return setup(new WildflyCamelContext(componentRegistry));
+        public WildFlyCamelContext createCamelContext(ClassLoader classLoader) throws Exception {
+            return setup(new WildFlyCamelContext());
         }
 
-        private WildflyCamelContext setup(WildflyCamelContext context) {
+        private WildFlyCamelContext setup(WildFlyCamelContext context) {
             try {
                 context.setNamingContext(new NamingContext(serviceRegistry, serviceTarget));
             } catch (NamingException ex) {
