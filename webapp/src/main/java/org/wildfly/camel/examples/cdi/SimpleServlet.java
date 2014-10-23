@@ -20,12 +20,8 @@
 package org.wildfly.camel.examples.cdi;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.ServiceLoader;
 
-import javax.enterprise.inject.spi.Extension;
 import javax.inject.Inject;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -49,18 +45,6 @@ public class SimpleServlet extends HttpServlet
 	@ContextName("webapp-cdi-context")
 	private CamelContext camelctx;
 	
-    @Override
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
-		ServiceLoader<Extension> loaded = ServiceLoader.load(Extension.class);
-		Iterator<Extension> itsrv = loaded.iterator();
-		LOGGER.warn("HAS EXTENSIONS: {}", itsrv.hasNext());
-		while (itsrv.hasNext()) {
-			Extension next = itsrv.next();
-			LOGGER.warn("Extension: {}", next.getClass().getName());
-		}
-	}
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String name = req.getParameter("name");

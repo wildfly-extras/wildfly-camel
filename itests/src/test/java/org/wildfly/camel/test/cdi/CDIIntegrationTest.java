@@ -32,7 +32,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -83,25 +82,6 @@ public class CDIIntegrationTest {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, SIMPLE_WAR);
         archive.addPackage(SimpleServlet.class.getPackage());
         archive.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-        /*
-         * This archive bundles
-         * 
-         * 	 camel-cdi 
-         * 	 deltaspike-core-api 
-         * 	 deltaspike-core-impl 
-         * 	 deltaspike-cdictrl-api
-         * 
-         *  [TODO] Replace these embedded jars with (automatic) references to the respective modules
-         *  https://github.com/tdiesler/wildfly-camel/issues/15
-         */
-        JavaArchive[] libs = Maven.resolver().loadPomFromFile("pom.xml").resolve("org.apache.camel:camel-cdi").withTransitivity().as(JavaArchive.class);
-        for (JavaArchive lib : libs) {
-			String name = lib.getName();
-        	if (name.startsWith("camel-cdi") || name.startsWith("deltaspike")) {
-        		archive.addAsLibrary(lib);
-			}
-        }
-        //System.out.println(archive.toString(true));
         return archive;
     }
 }

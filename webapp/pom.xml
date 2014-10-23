@@ -35,40 +35,6 @@
 	<packaging>war</packaging>
 	
 	<dependencies>
-	
-		<!-- 
-		
-        This archive bundles
-        
-        	 camel-cdi 
-        	 deltaspike-core-api 
-        	 deltaspike-core-impl 
-        	 deltaspike-cdictrl-api
-        
-         [TODO] Replace these embedded jars with (automatic) references to the respective modules
-         https://github.com/tdiesler/wildfly-camel/issues/15
-		
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-cdi</artifactId>
-            <exclusions>
-            	<exclusion>
-            		<groupId>com.sun.xml.bind</groupId>
-            		<artifactId>jaxb-impl</artifactId>
-            	</exclusion>
-            	<exclusion>
-	                <groupId>org.slf4j</groupId>
-	                <artifactId>slf4j-api</artifactId>
-            	</exclusion>
-            </exclusions>
-		</dependency>
-        -->
-        
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-cdi</artifactId>
-			<scope>provided</scope>
-		</dependency>
 		
 		<!-- Provided -->
 		<dependency>
@@ -79,6 +45,11 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-cdi</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

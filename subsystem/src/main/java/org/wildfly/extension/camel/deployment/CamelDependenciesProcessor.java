@@ -28,6 +28,7 @@ import org.jboss.as.server.deployment.module.ModuleDependency;
 import org.jboss.as.server.deployment.module.ModuleSpecification;
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.modules.ModuleLoader;
+import org.jboss.modules.filter.PathFilters;
 
 /**
  * A DUP that sets the dependencies required for using Camel
@@ -54,6 +55,17 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
             ModuleIdentifier modid = ModuleIdentifier.create(APACHE_CAMEL + ".component." + compName);
             moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, modid, false, false, true, false));
         }
+        
+        // Camel-CDI Integration
+        ModuleDependency moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create("org.apache.camel.component.cdi"), false, false, false, false);
+        moddep.addImportFilter(PathFilters.getMetaInfSubdirectoriesFilter(), true);
+        moduleSpec.addUserDependency(moddep);
+        moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create("org.apache.deltaspike.core.api"), false, false, false, false);
+        moddep.addImportFilter(PathFilters.getMetaInfSubdirectoriesFilter(), true);
+        moduleSpec.addUserDependency(moddep);
+        moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create("org.apache.deltaspike.core.impl"), false, false, false, false);
+        moddep.addImportFilter(PathFilters.getMetaInfSubdirectoriesFilter(), true);
+        moduleSpec.addUserDependency(moddep);
     }
 
     public void undeploy(final DeploymentUnit context) {
