@@ -5,7 +5,9 @@
 		<dependencies>
 			<module name="org.apache.camel.core" />
 			<module name="org.apache.camel.component.cdi" meta-inf="import" />
-			<module name="org.apache.deltaspike" meta-inf="import" />
+			<module name="org.apache.deltaspike.core.api" meta-inf="import" />
+			<module name="org.apache.deltaspike.core.impl" meta-inf="import" />
+			<module name="org.apache.deltaspike.cdictrl.api" />
 		</dependencies>
 	</deployment>
 	

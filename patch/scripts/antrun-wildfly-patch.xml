@@ -80,13 +80,9 @@
         <copy file="${deploy.artifacts.lib}/camel-jpa-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/jpa/main" />
 
         <!-- Deltaspike jars -->
-        <copy todir="${wildfly.patch.dir}/modules/org/apache/deltaspike/main">
-            <fileset dir="${deploy.artifacts.lib}">
-                <include name="deltaspike-core-api-${version.apache.deltaspike}.jar" />
-                <include name="deltaspike-core-impl-${version.apache.deltaspike}.jar" />
-                <include name="deltaspike-cdictrl-api-${version.apache.deltaspike}.jar" />
-            </fileset>
-        </copy>
+        <copy file="${deploy.artifacts.lib}/deltaspike-core-api-${version.apache.deltaspike}.jar" todir="${wildfly.patch.dir}/modules/org/apache/deltaspike/core/api/main" />
+        <copy file="${deploy.artifacts.lib}/deltaspike-core-impl-${version.apache.deltaspike}.jar" todir="${wildfly.patch.dir}/modules/org/apache/deltaspike/core/impl/main" />
+        <copy file="${deploy.artifacts.lib}/deltaspike-cdictrl-api-${version.apache.deltaspike}.jar" todir="${wildfly.patch.dir}/modules/org/apache/deltaspike/cdictrl/api/main" />
         
         <!-- Gravia jars -->
         <copy todir="${wildfly.patch.dir}/modules/org/jboss/gravia/main">

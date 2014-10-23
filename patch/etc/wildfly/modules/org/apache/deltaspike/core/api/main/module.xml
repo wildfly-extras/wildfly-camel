@@ -22,19 +22,18 @@
 
 
 
-<module xmlns="urn:jboss:module:1.1" name="org.apache.deltaspike">
+<module xmlns="urn:jboss:module:1.1" name="org.apache.deltaspike.core.api">
     <properties>
     </properties>
 
     <resources>
         <resource-root path="deltaspike-core-api-@version.apache.deltaspike@.jar"/>
-        <resource-root path="deltaspike-core-impl-@version.apache.deltaspike@.jar"/>
-        <resource-root path="deltaspike-cdictrl-api-@version.apache.deltaspike@.jar"/>
         <!-- Insert resources here -->
     </resources>
 
     <dependencies>
         <module name="javax.api"/>
+		<module name="javax.annotation.api"/>
         <module name="javax.enterprise.api"/>
         <module name="javax.xml.bind.api"/>
     </dependencies>

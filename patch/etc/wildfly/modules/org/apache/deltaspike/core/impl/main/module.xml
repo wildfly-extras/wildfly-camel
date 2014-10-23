@@ -22,12 +22,12 @@
 
 
 
-<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.cdi">
+<module xmlns="urn:jboss:module:1.1" name="org.apache.deltaspike.core.impl">
     <properties>
     </properties>
 
     <resources>
-        <resource-root path="camel-cdi-@version.apache.camel@.jar"/>
+        <resource-root path="deltaspike-core-impl-@version.apache.deltaspike@.jar"/>
         <!-- Insert resources here -->
     </resources>
 
@@ -36,12 +36,6 @@
 		<module name="javax.annotation.api"/>
         <module name="javax.enterprise.api"/>
         <module name="javax.xml.bind.api"/>
-        <module name="org.apache.camel.core"/>
-        <module name="org.apache.deltaspike.core.api" export="true"/>
-        <module name="org.apache.deltaspike.core.impl" export="true"/>
-        <module name="org.apache.deltaspike.cdictrl.api"/>
-        <module name="org.jboss.weld.core"/>
-        <module name="org.jboss.weld.spi"/>
-        <module name="org.slf4j"/>
+        <module name="org.apache.deltaspike.core.api"/>
     </dependencies>
 </module>
