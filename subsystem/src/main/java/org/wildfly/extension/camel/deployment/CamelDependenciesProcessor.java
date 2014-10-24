@@ -38,23 +38,21 @@ import org.jboss.modules.filter.PathFilters;
  */
 public final class CamelDependenciesProcessor implements DeploymentUnitProcessor {
 
-    private static final String[] DEFAULT_COMPONENT_NAMES = new String[] { "cxf", "jms", "jmx" };
-    
     private static final String GRAVIA = "org.jboss.gravia";
     private static final String APACHE_CAMEL = "org.apache.camel";
+    private static final String APACHE_CAMEL_COMPONENT = "org.apache.camel.component";
     private static final String WILDFLY_CAMEL = "org.wildfly.extension.camel";
 
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
-        final DeploymentUnit unit = phaseContext.getDeploymentUnit();
-        final ModuleLoader moduleLoader = unit.getAttachment(Attachments.SERVICE_MODULE_LOADER);
-        final ModuleSpecification moduleSpec = unit.getAttachment(Attachments.MODULE_SPECIFICATION);
+        DeploymentUnit unit = phaseContext.getDeploymentUnit();
+        ModuleLoader moduleLoader = unit.getAttachment(Attachments.SERVICE_MODULE_LOADER);
+        ModuleSpecification moduleSpec = unit.getAttachment(Attachments.MODULE_SPECIFICATION);
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(GRAVIA), false, false, false, false));
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL), false, false, false, false));
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(WILDFLY_CAMEL), false, false, false, false));
-        for (String compName : DEFAULT_COMPONENT_NAMES) {
-            ModuleIdentifier modid = ModuleIdentifier.create(APACHE_CAMEL + ".component." + compName);
-            moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, modid, false, false, true, false));
-        }
+
+        // Add all the configured components
+        moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL_COMPONENT), false, false, true, false));
         
         // Camel-CDI Integration
         ModuleDependency moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create("org.apache.camel.component.cdi"), false, false, false, false);
@@ -68,7 +66,7 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
         moduleSpec.addUserDependency(moddep);
     }
 
-    public void undeploy(final DeploymentUnit context) {
+    public void undeploy(DeploymentUnit context) {
     }
 
 }
