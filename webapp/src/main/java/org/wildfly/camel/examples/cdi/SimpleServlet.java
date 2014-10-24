@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel :: Example :: Camel CDI
+ * Wildfly Camel :: Webapp
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%

@@ -65,19 +65,37 @@
 		</dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-atom</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-bindy</artifactId>
+           <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-cdi</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cxf</artifactId>
-            <exclusions>
-                <exclusion>
-                    <!-- breaks the modular build -->
-                    <groupId>org.codehaus.woodstox</groupId>
-                    <artifactId>woodstox-core-asl</artifactId>
-                </exclusion>
-            </exclusions>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-ftp</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-hl7</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-jaxb</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -94,6 +112,66 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jpa</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-mail</artifactId>
+	       <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-mina2</artifactId>
+	       <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-mqtt</artifactId>
+	       <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-mvel</artifactId>
+	       <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-netty</artifactId>
+	       <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-ognl</artifactId>
+	       <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-quartz</artifactId>
+	       <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-rss</artifactId>
+	       <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-saxon</artifactId>
+	       <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-script</artifactId>
+	       <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-soap</artifactId>
+	       <scope>provided</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-sql</artifactId>
+	       <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>

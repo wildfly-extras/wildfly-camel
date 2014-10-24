@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   #%L
-  Wildfly Camel :: Webapp
+  Wildfly Camel :: Patch
   %%
   Copyright (C) 2013 - 2014 RedHat
   %%
@@ -17,6 +18,18 @@
   limitations under the License.
   #L%
   -->
-<!-- Marker file indicating CDI should be enabled -->
-<beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/beans_1_0.xsd"/>
+
+
+<module xmlns="urn:jboss:module:1.0" name="org.apache.camel.component.jaxb">
+
+    <resources>
+        <resource-root path="camel-jaxb-${version.apache.camel}.jar"/>
+    </resources>
+
+    <dependencies>
+        <module name="org.slf4j"/>
+        <module name="javax.api"/>
+        <module name="org.apache.camel.core"/>
+        <module name="org.switchyard.jaxb-impl"/>
+    </dependencies>
+</module>

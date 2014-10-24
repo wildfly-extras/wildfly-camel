@@ -68,6 +68,8 @@
         <copy file="${deploy.artifacts.lib}/camel-spring-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/spring/main" />
 
         <!-- Camel Component jars -->
+        <copy file="${deploy.artifacts.lib}/camel-atom-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/atom/main" />
+        <copy file="${deploy.artifacts.lib}/camel-bindy-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/bindy/main" />
         <copy file="${deploy.artifacts.lib}/camel-cdi-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/cdi/main" />
         <copy todir="${wildfly.patch.dir}/modules/org/apache/camel/component/cxf/main">
             <fileset dir="${deploy.artifacts.lib}">
@@ -75,9 +77,24 @@
                 <include name="camel-cxf-${version.apache.camel}.jar" />
             </fileset>
         </copy>
+        <copy file="${deploy.artifacts.lib}/camel-ftp-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/ftp/main" />
+        <copy file="${deploy.artifacts.lib}/camel-hl7-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/hl7/main" />
+        <copy file="${deploy.artifacts.lib}/camel-jaxb-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/jaxb/main" />
         <copy file="${deploy.artifacts.lib}/camel-jms-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/jms/main" />
         <copy file="${deploy.artifacts.lib}/camel-jmx-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/jmx/main" />
         <copy file="${deploy.artifacts.lib}/camel-jpa-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/jpa/main" />
+        <copy file="${deploy.artifacts.lib}/camel-mail-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/mail/main" />
+        <copy file="${deploy.artifacts.lib}/camel-mina2-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/mina2/main" />
+        <copy file="${deploy.artifacts.lib}/camel-mqtt-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/mqtt/main" />
+        <copy file="${deploy.artifacts.lib}/camel-mvel-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/mvel/main" />
+        <copy file="${deploy.artifacts.lib}/camel-netty-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/netty/main" />
+        <copy file="${deploy.artifacts.lib}/camel-ognl-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/ognl/main" />
+        <copy file="${deploy.artifacts.lib}/camel-quartz-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/quartz/main" />
+        <copy file="${deploy.artifacts.lib}/camel-rss-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/rss/main" />
+        <copy file="${deploy.artifacts.lib}/camel-saxon-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/saxon/main" />
+        <copy file="${deploy.artifacts.lib}/camel-script-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/script/main" />
+        <copy file="${deploy.artifacts.lib}/camel-soap-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/soap/main" />
+        <copy file="${deploy.artifacts.lib}/camel-sql-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/component/sql/main" />
 
         <!-- Deltaspike jars -->
         <copy file="${deploy.artifacts.lib}/deltaspike-core-api-${version.apache.deltaspike}.jar" todir="${wildfly.patch.dir}/modules/org/apache/deltaspike/core/api/main" />
