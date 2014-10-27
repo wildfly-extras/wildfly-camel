@@ -80,7 +80,7 @@ public class SpringContextDeploymentTest  {
         ServerDeploymentHelper server = new ServerDeploymentHelper(managementClient.getControllerClient());
         String runtimeName = server.deploy(SPRING_CONTEXT_XML, resourceUrl.openStream());
         try {
-            CamelContext camelctx = contextRegistry.getCamelContext("spring-context");
+            CamelContext camelctx = contextRegistry.getContext("spring-context");
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);

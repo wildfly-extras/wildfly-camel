@@ -28,24 +28,11 @@ import org.apache.camel.CamelContext;
  *
  * The {@link CamelContextRegistry} is the entry point for {@link CamelContext} registration and lookup.
  *
- * @see {@link CamelContextRegistryService}
- *
  * @author Thomas.Diesler@jboss.com
  * @since 19-Apr-2013
  */
 public interface CamelContextRegistry {
 
     /** Get the camel context for the given name */
-    CamelContext getCamelContext(String name);
-
-    /** Register the camel context in this registry */
-    CamelContextRegistration registerCamelContext(CamelContext camelctx);
-
-    /** The return handle for camel context registrations */
-    interface CamelContextRegistration {
-
-        CamelContext getCamelContext();
-
-        void unregister();
-    }
+    CamelContext getContext(String name);
 }

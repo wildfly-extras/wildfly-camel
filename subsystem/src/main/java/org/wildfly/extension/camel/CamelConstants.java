@@ -37,8 +37,6 @@ public interface CamelConstants {
     ServiceName CAMEL_BASE_NAME = ServiceName.JBOSS.append("wildfly", "camel");
     /** The base name for all camel context services */
     ServiceName CAMEL_COMPONENT_BASE_NAME = CAMEL_BASE_NAME.append("component");
-    /** The base name for all camel context services */
-    ServiceName CAMEL_CONTEXT_BASE_NAME = CAMEL_BASE_NAME.append("context");
     /** The name for the {@link CamelContextFactory} service */
     ServiceName CAMEL_CONTEXT_FACTORY_SERVICE_NAME = CAMEL_BASE_NAME.append("CamelContextFactory");
     /** The name for the {@link CamelContextRegistry} service */

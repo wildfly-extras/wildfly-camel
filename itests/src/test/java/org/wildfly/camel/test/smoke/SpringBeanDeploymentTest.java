@@ -67,7 +67,7 @@ public class SpringBeanDeploymentTest {
     public void testBeanTransformFromModule() throws Exception {
         deployer.deploy(CAMEL_MODULE);
         try {
-            CamelContext camelctx = contextRegistry.getCamelContext("spring-context");
+            CamelContext camelctx = contextRegistry.getContext("spring-context");
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);
