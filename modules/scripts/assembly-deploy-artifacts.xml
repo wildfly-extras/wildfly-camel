@@ -35,10 +35,13 @@
             <outputDirectory>lib</outputDirectory>
             <useStrictFiltering>true</useStrictFiltering>
             <includes>
-                <include>*:gravia-container-*:jar</include>
-                <include>*:hawtio-default:war</include>
-                <include>*:wildfly-camel-subsystem:jar</include>
-                <include>*:wildfly-camel-webapp:war</include>
+                <include>*:camel-*:jar</include>
+                <include>*:deltaspike-*:jar</include>
+                <include>*:gravia-*:jar</include>
+                <include>*:org.apache.felix.*:jar</include>
+                <include>*:org.osgi.core:jar</include>
+                <include>*:org.osgi.enterprise:jar</include>
+                <include>*:spring-*:jar</include>
             </includes>
             <scope>provided</scope>
             <unpack>false</unpack>

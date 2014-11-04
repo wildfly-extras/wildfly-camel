@@ -90,6 +90,7 @@
     <modules>
         <module>docker</module>
         <module>enricher</module>
+        <module>modules</module>
         <module>patch</module>
         <module>subsystem</module>
         <module>webapp</module>
