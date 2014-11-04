@@ -43,6 +43,11 @@
 	
 		<!-- Provided -->
 		<dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-cdi</artifactId>
+	        <scope>provided</scope>
+        </dependency>
+		<dependency>
 		    <groupId>javax.enterprise</groupId>
 		    <artifactId>cdi-api</artifactId>
 		  <scope>provided</scope>
@@ -59,6 +64,12 @@
 	    </dependency>
 	    
         <!-- Test Scope -->
+		<dependency>
+	        <groupId>org.wildfly.camel</groupId>
+    		<artifactId>example-camel-common</artifactId>
+	        <version>${project.version}</version>
+	        <scope>test</scope>
+		</dependency>
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
@@ -124,46 +135,4 @@
 		</plugins>
 	</build>
 
-	<!-- Profiles -->
-	<profiles>
-		<profile>
-			<id>no-camel-subsystem</id>
-			<activation>
-				<property>
-					<name>no-camel-subsystem</name>
-				</property>
-			</activation>
-			<dependencies>
-				<dependency>
-		            <groupId>org.apache.camel</groupId>
-		            <artifactId>camel-cdi</artifactId>
-		            <exclusions>
-		            	<exclusion>
-		            		<groupId>com.sun.xml.bind</groupId>
-		            		<artifactId>jaxb-impl</artifactId>
-		            	</exclusion>
-		            	<exclusion>
-			                <groupId>org.slf4j</groupId>
-			                <artifactId>slf4j-api</artifactId>
-		            	</exclusion>
-		            </exclusions>
-		        </dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>with-camel-subsystem</id>
-			<activation>
-				<property>
-					<name>!no-camel-subsystem</name>
-				</property>
-			</activation>
-			<dependencies>
-				<dependency>
-		            <groupId>org.apache.camel</groupId>
-		            <artifactId>camel-cdi</artifactId>
-			        <scope>provided</scope>
-		        </dependency>
-			</dependencies>
-		</profile>
-	</profiles>
 </project>

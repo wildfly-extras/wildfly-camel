@@ -22,6 +22,7 @@ package org.wildfly.camel.examples.cdi;
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
 import org.junit.Test;
@@ -34,6 +35,7 @@ import org.wildfly.camel.examples.HttpRequest;
  * @author thomas.diesler@jboss.com
  * @since 20-Oct-2014
  */
+@RunAsClient
 @RunWith(Arquillian.class)
 public class CDIIntegrationTest {
 

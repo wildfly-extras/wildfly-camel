@@ -36,6 +36,7 @@
 
 	<!-- Modules -->
 	<modules>
+		<module>common</module>
 		<module>camel-cdi</module>
 	</modules>
 
