@@ -13,6 +13,7 @@ The expected release date is **01-Dec-2014**.
 * Integration of camel-cxf for JAX-WS and JAX-RS
 * Integration of camel-jms with HornetQ
 * Integration of camel-jmx
+* Integration of camel-jaxb
 * Integration of camel-cdi
 * Integration of camel-jpa
 * Integration with JNDI
@@ -24,14 +25,8 @@ These are expected to be shared by an optional SwitchYard installation.
 
 * camel-atom
 * camel-bindy
-* camel-cdi
-* camel-cxf
 * camel-ftp
 * camel-hl7
-* camel-jaxb
-* camel-jms
-* camel-jmx
-* camel-jpa
 * camel-mail
 * camel-mina2
 * camel-mqtt
