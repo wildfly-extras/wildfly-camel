@@ -25,9 +25,6 @@ limitations under the License.
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
     <persistence-unit name="camel">
         <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
-        <properties>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-            <property name="hibernate.show_sql" value="false"/>
-        </properties>
+        <class>org.wildfly.camel.examples.jpa.model.Customer</class>
     </persistence-unit>
 </persistence>

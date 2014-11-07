@@ -19,12 +19,12 @@
  */
 package org.wildfly.camel.examples.jpa;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.wildfly.camel.examples.jpa.model.Customer;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 
@@ -40,8 +40,10 @@ public class CustomerRepository {
     @SuppressWarnings("unchecked")
     public List<Customer> findAllCustomers() {
 
-        Session session = (Session) em.getDelegate();
-        Criteria criteria = session.createCriteria(Customer.class);
-        return (List<Customer>) criteria.list();
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Customer> query = criteriaBuilder.createQuery(Customer.class);
+        query.select(query.from(Customer.class));
+
+        return em.createQuery(query).getResultList();
     }
 }
