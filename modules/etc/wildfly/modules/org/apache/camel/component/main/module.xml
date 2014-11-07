@@ -23,9 +23,12 @@
 <module xmlns="urn:jboss:module:1.3" name="org.apache.camel.component">
 
 	<dependencies>
+        <module name="org.apache.camel.component.cdi" export="true" services="export"/>
 		<module name="org.apache.camel.component.cxf" export="true" services="export"/>
-		<module name="org.apache.camel.component.jms" export="true" services="export"/>
-		<module name="org.apache.camel.component.jmx" export="true" services="export"/>
-	</dependencies>
-	
+        <module name="org.apache.camel.component.jaxb" export="true" services="export"/>
+        <module name="org.apache.camel.component.jms" export="true" services="export"/>
+        <module name="org.apache.camel.component.jmx" export="true" services="export"/>
+        <module name="org.apache.camel.component.jpa" export="true" services="export"/>
+    </dependencies>
+
 </module>

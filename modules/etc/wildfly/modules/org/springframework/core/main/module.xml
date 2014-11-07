@@ -28,12 +28,23 @@
     </properties>
 
     <resources>
-        <resource-root path="spring-core-@version.apache.spring@.jar"/>
+        <resource-root path="spring-core-@version.spring@.jar"/>
         <!-- Insert resources here -->
     </resources>
 
     <dependencies>
-      <module name="javax.api" />
-      <module name="org.apache.commons.logging" />
+      <module name="org.apache.commons.logging" export="true"/>
+      <module name="javax.api" export="true"/>
+        <system export="true">
+            <paths>
+                <path name="org/xml/sax"/>
+                <path name="org/xml/sax/helpers"/>
+            </paths>
+        </system>
+        <system export="true">
+            <paths>
+                <path name="org/w3c/dom"/>
+            </paths>
+        </system>
     </dependencies>
 </module>

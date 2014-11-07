@@ -28,13 +28,11 @@
     </properties>
 
     <resources>
-        <resource-root path="spring-beans-@version.apache.spring@.jar"/>
+        <resource-root path="spring-beans-@version.spring@.jar"/>
         <!-- Insert resources here -->
     </resources>
 
     <dependencies>
-      <module name="javax.api" />
-      <module name="org.apache.commons.logging" />
       <module name="org.springframework.core" />
     </dependencies>
 </module>

@@ -38,6 +38,7 @@
 	<modules>
 		<module>common</module>
 		<module>camel-cdi</module>
+		<module>camel-jpa</module>
 	</modules>
 
 	<!-- Dependencies -->
@@ -53,7 +54,7 @@
                 <executions>
                     <execution>
                         <id>unpack-wildfly</id>
-                        <phase>pre-integration-test</phase>
+                        <phase>generate-sources</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -106,7 +107,7 @@
 		                <executions>
 		                    <execution>
 		                        <id>unpack-wildfly-patch</id>
-		                        <phase>pre-integration-test</phase>
+		                        <phase>generate-test-sources</phase>
 		                        <goals>
 		                            <goal>unpack</goal>
 		                        </goals>

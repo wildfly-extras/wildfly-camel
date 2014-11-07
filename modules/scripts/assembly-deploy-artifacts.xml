@@ -42,6 +42,7 @@
                 <include>*:org.osgi.core:jar</include>
                 <include>*:org.osgi.enterprise:jar</include>
                 <include>*:spring-*:jar</include>
+                <include>*:aopalliance*:jar</include>
             </includes>
             <scope>provided</scope>
             <unpack>false</unpack>

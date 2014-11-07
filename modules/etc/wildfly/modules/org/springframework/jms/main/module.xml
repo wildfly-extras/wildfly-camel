@@ -28,7 +28,7 @@
     </properties>
 
     <resources>
-        <resource-root path="spring-jms-@version.apache.spring@.jar"/>
+        <resource-root path="spring-jms-@version.spring@.jar"/>
         <!-- Insert resources here -->
     </resources>
 

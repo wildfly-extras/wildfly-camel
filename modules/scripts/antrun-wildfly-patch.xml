@@ -55,9 +55,10 @@
                 <filter token="version.apache.felix.log" value="${version.apache.felix.log}" />
                 <filter token="version.apache.felix.metatype" value="${version.apache.felix.metatype}" />
                 <filter token="version.apache.felix.scr" value="${version.apache.felix.scr}" />
-                <filter token="version.apache.spring" value="${version.apache.spring}" />
+                <filter token="version.spring" value="${version.spring}" />
                 <filter token="version.jboss.gravia" value="${version.jboss.gravia}" />
                 <filter token="version.osgi" value="${version.osgi}" />
+                <filter token="version.aopalliance" value="${version.aopalliance}" />
             </filterset>
         </copy>
 
@@ -122,13 +123,18 @@
         <copy file="${deploy.artifacts.lib}/org.osgi.enterprise-${version.osgi}.jar" todir="${wildfly.patch.dir}/modules/org/osgi/enterprise/main" />
 
         <!-- Springsource jars -->
-        <copy file="${deploy.artifacts.lib}/spring-aop-${version.apache.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/aop/main" />
-        <copy file="${deploy.artifacts.lib}/spring-beans-${version.apache.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/beans/main" />
-        <copy file="${deploy.artifacts.lib}/spring-context-${version.apache.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/context/main" />
-        <copy file="${deploy.artifacts.lib}/spring-core-${version.apache.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/core/main" />
-        <copy file="${deploy.artifacts.lib}/spring-expression-${version.apache.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/expression/main" />
-        <copy file="${deploy.artifacts.lib}/spring-jms-${version.apache.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/jms/main" />
-        <copy file="${deploy.artifacts.lib}/spring-tx-${version.apache.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/transaction/main" />
+        <copy file="${deploy.artifacts.lib}/spring-aop-${version.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/aop/main" />
+        <copy file="${deploy.artifacts.lib}/spring-beans-${version.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/beans/main" />
+        <copy file="${deploy.artifacts.lib}/spring-context-${version.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/context/main" />
+        <copy file="${deploy.artifacts.lib}/spring-core-${version.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/core/main" />
+        <copy file="${deploy.artifacts.lib}/spring-expression-${version.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/expression/main" />
+        <copy file="${deploy.artifacts.lib}/spring-jms-${version.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/jms/main" />
+        <copy file="${deploy.artifacts.lib}/spring-tx-${version.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/transaction/main" />
+        <copy file="${deploy.artifacts.lib}/spring-orm-${version.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/orm/main" />
+        <copy file="${deploy.artifacts.lib}/spring-jdbc-${version.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/jdbc/main" />
+
+        <!-- AOP Alliance jars -->
+        <copy file="${deploy.artifacts.lib}/aopalliance-${version.aopalliance}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/aop/main" />
 
         <!-- Zip the wildfly patch -->
         <!-- zip destfile="${output.dir}/${project.artifactId}-${project.version}.zip" basedir="${wildfly.patch.dir}"/-->

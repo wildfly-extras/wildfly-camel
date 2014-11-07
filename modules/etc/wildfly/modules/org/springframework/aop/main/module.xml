@@ -28,11 +28,16 @@
     </properties>
 
     <resources>
-        <resource-root path="spring-aop-@version.apache.spring@.jar"/>
+        <resource-root path="spring-aop-@version.spring@.jar"/>
+        <resource-root path="aopalliance-@version.aopalliance@.jar"/>
         <!-- Insert resources here -->
     </resources>
 
     <dependencies>
-      <module name="org.springframework.core" />
+        <module name="org.apache.commons.logging"/>
+
+        <module name="org.springframework.core" />
+        <module name="org.springframework.beans"/>
+
     </dependencies>
 </module>

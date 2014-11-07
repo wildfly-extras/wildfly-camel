@@ -32,8 +32,11 @@
     </resources>
 
     <dependencies>
-        <module name="javax.api"/>
-        <module name="org.apache.camel.core"/>
         <module name="org.slf4j"/>
+        <module name="javax.api"/>
+        <module name="org.apache.camel"/>
+        <module name="org.springframework.transaction" export="true"/>
+        <module name="org.springframework.orm" export="true"/>
+        <module name="org.hibernate"/>
     </dependencies>
 </module>
