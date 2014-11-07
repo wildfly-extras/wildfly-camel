@@ -35,11 +35,6 @@
     <artifactId>example-camel-jpa</artifactId>
     <packaging>war</packaging>
 
-    <!-- Properties -->
-    <properties>
-        <jboss.home>../target/wildfly-${version.wildfly}</jboss.home>
-    </properties>
-    
     <dependencies>
 
         <!-- Provided -->
@@ -131,4 +126,18 @@
         </plugins>
     </build>
 
+	<!-- Profiles -->
+	<profiles>
+		<profile>
+			<id>ts.all</id>
+			<activation>
+				<property>
+					<name>ts.all</name>
+				</property>
+			</activation>
+		    <properties>
+		        <jboss.home>${basedir}/../target/wildfly-${version.wildfly}</jboss.home>
+		    </properties>
+		</profile>
+	</profiles>
 </project>

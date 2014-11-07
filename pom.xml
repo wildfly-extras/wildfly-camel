@@ -694,6 +694,11 @@
 	<profiles>
 		<profile>
 			<id>ts.all</id>
+			<activation>
+				<property>
+					<name>ts.all</name>
+				</property>
+			</activation>
 		    <modules>
 		        <module>examples</module>
 		    </modules>
