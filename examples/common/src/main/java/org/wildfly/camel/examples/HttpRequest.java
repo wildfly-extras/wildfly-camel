@@ -23,6 +23,7 @@ package org.wildfly.camel.examples;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.Callable;
@@ -45,6 +46,25 @@ public class HttpRequest {
             public String call() throws Exception {
                 final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setDoInput(true);
+                return processResponse(conn);
+            }
+        };
+        return execute(task, timeout, unit);
+    }
+
+    public static String get(final String spec, final String requestTemplate, final long timeout, final TimeUnit unit) throws TimeoutException, IOException {
+        final URL url = new URL(spec);
+        Callable<String> task = new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                final InputStream inputStream = HttpRequest.class.getResourceAsStream(requestTemplate);
+                final OutputStream outputStream = conn.getOutputStream();
+
+                copy(inputStream, outputStream);
                 return processResponse(conn);
             }
         };
@@ -82,6 +102,17 @@ public class HttpRequest {
             out.write(b);
         }
         return out.toString();
+    }
+
+    private static void copy(final InputStream in, OutputStream out) throws IOException {
+        int c = 0;
+        try {
+            while ((c = in.read()) != -1) {
+                out.write(c);
+            }
+        } finally {
+            in.close();
+        }
     }
 
     private static String processResponse(HttpURLConnection conn) throws IOException {
