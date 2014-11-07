@@ -625,11 +625,15 @@
                         <goals>
                             <goal>enforce</goal>
                         </goals>
+                        <inherited>false</inherited>
                         <configuration>
                             <rules>
                                 <requireJavaVersion>
                                     <version>1.7</version>
                                 </requireJavaVersion>
+								<requireMavenVersion>
+									<version>3.2.3</version>
+								</requireMavenVersion>
                             </rules>
                         </configuration>
                     </execution>
