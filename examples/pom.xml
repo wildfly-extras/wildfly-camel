@@ -41,9 +41,12 @@
 		<module>camel-jpa</module>
 	</modules>
 
-	<!-- Dependencies -->
-	<dependencies>
-	</dependencies>
+    <!-- Properties -->
+    <properties>
+        <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
+        <server.config>standalone-camel.xml</server.config>
+    </properties>
+
 	
 	<!-- Build -->
 	<build>
@@ -58,6 +61,7 @@
                         <goals>
                             <goal>unpack</goal>
                         </goals>
+	              		<inherited>false</inherited>
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
@@ -71,64 +75,65 @@
                             </artifactItems>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>unpack-wildfly-patch</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+	              		<inherited>false</inherited>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.wildfly.camel</groupId>
+                                    <artifactId>wildfly-camel-patch</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>tar.gz</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${jboss.home}</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <configuration>
+                    <jbossHome>${jboss.home}</jbossHome>
+                    <serverConfig>${server.config}</serverConfig>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>wildfly-start</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+	              		<inherited>false</inherited>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <skip>false</skip>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 		</plugins>
 	</build>
-	
-	<!-- Profiles -->
-	<profiles>
-		<profile>
-			<id>no-camel-subsystem</id>
-			<activation>
-				<property>
-					<name>no-camel-subsystem</name>
-				</property>
-			</activation>
-		    <properties>
-		        <server.config>standalone.xml</server.config>
-		    </properties>
-		</profile>
-		<profile>
-			<id>with-camel-subsystem</id>
-			<activation>
-				<property>
-					<name>!no-camel-subsystem</name>
-				</property>
-			</activation>
-		    <properties>
-		        <server.config>standalone-camel.xml</server.config>
-		    </properties>
-			<build>
-				<plugins>
-		            <plugin>
-		                <groupId>org.apache.maven.plugins</groupId>
-		                <artifactId>maven-dependency-plugin</artifactId>
-		                <executions>
-		                    <execution>
-		                        <id>unpack-wildfly-patch</id>
-		                        <phase>generate-test-sources</phase>
-		                        <goals>
-		                            <goal>unpack</goal>
-		                        </goals>
-		                        <configuration>
-		                            <artifactItems>
-		                                <artifactItem>
-		                                    <groupId>org.wildfly.camel</groupId>
-		                                    <artifactId>wildfly-camel-patch</artifactId>
-		                                    <version>${project.version}</version>
-		                                    <type>tar.gz</type>
-		                                    <overWrite>false</overWrite>
-		                                    <outputDirectory>${jboss.home}</outputDirectory>
-		                                </artifactItem>
-		                            </artifactItems>
-		                        </configuration>
-		                    </execution>
-		                </executions>
-		            </plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-	
+		
 </project>

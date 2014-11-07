@@ -37,9 +37,9 @@
 
     <!-- Properties -->
     <properties>
-        <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
+        <jboss.home>../target/wildfly-${version.wildfly}</jboss.home>
     </properties>
-
+    
     <dependencies>
 
         <!-- Provided -->
@@ -124,42 +124,13 @@
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
-                <configuration>
-                    <jbossHome>${jboss.home}</jbossHome>
-                    <serverConfig>${server.config}</serverConfig>
-                </configuration>
                 <executions>
-                    <execution>
-                        <id>wildfly-start</id>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>start</goal>
-                        </goals>
-                    </execution>
                     <execution>
                         <id>wildfly-deploy</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>deploy</goal>
                         </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <skip>false</skip>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
