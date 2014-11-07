@@ -1,0 +1,8 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cxf="http://cxf.examples.camel.wildfly.org/">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <cxf:sayGoodbye>
+            <arg0>John Doe</arg0>
+        </cxf:sayGoodbye>
+    </soapenv:Body>
+</soapenv:Envelope>

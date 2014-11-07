@@ -39,6 +39,7 @@
 		<module>common</module>
 		<module>camel-cdi</module>
 		<module>camel-jpa</module>
+                <module>camel-cxf-soap</module>
 	</modules>
 
     <!-- Properties -->
