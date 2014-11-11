@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wildfly.camel.examples.HttpRequest;
 
+import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 
@@ -55,8 +56,8 @@ public class CxfIntegrationTest extends CamelTestSupport {
     @Test
     public void testSayHelloCxfSoapRoute() throws Exception {
         // Send HTTP request to greeting service sayHello webservice method
-        String result = HttpRequest.get(ENDPOINT_ADDRESS, "/org/wildfly/camel/examples/cxf/hello-request.xml",
-                10, TimeUnit.SECONDS);
+        InputStream input = HttpRequest.class.getResourceAsStream("/org/wildfly/camel/examples/cxf/hello-request.xml");
+        String result = HttpRequest.get(ENDPOINT_ADDRESS, input, 10, TimeUnit.SECONDS);
 
         // Log SOAP response
         LOG.info("*******************************");
@@ -70,8 +71,8 @@ public class CxfIntegrationTest extends CamelTestSupport {
     @Test
     public void testSayGoodbyeCxfSoapRoute() throws Exception {
         // Send HTTP request to greeting service sayGoodbye webservice method
-        String result = HttpRequest.get(ENDPOINT_ADDRESS, "/org/wildfly/camel/examples/cxf/goodbye-request.xml",
-                10, TimeUnit.SECONDS);
+        InputStream input = HttpRequest.class.getResourceAsStream("/org/wildfly/camel/examples/cxf/goodbye-request.xml");
+        String result = HttpRequest.get(ENDPOINT_ADDRESS, input, 10, TimeUnit.SECONDS);
 
         // Log SOAP response
         LOG.info("*******************************");

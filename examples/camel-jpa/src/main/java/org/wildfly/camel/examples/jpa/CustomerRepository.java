@@ -19,16 +19,18 @@
  */
 package org.wildfly.camel.examples.jpa;
 
-import org.wildfly.camel.examples.jpa.model.Customer;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import java.util.List;
+
+import org.wildfly.camel.examples.jpa.model.Customer;
 
 
 public class CustomerRepository {
+    
     @Inject
     private EntityManager em;
 
@@ -37,7 +39,6 @@ public class CustomerRepository {
      *
      * @return A list of customers
      */
-    @SuppressWarnings("unchecked")
     public List<Customer> findAllCustomers() {
 
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();

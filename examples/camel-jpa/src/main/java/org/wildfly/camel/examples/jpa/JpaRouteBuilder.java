@@ -19,30 +19,30 @@
  */
 package org.wildfly.camel.examples.jpa;
 
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
-import org.apache.camel.component.jpa.JpaEndpoint;
-import org.apache.camel.model.dataformat.JaxbDataFormat;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.transaction.jta.JtaTransactionManager;
-import org.wildfly.camel.examples.jpa.model.Customer;
-
 import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
+
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.cdi.ContextName;
+import org.apache.camel.component.jpa.JpaEndpoint;
+import org.apache.camel.model.dataformat.JaxbDataFormat;
+import org.springframework.transaction.jta.JtaTransactionManager;
+import org.wildfly.camel.examples.jpa.model.Customer;
 
 @Startup
 @ApplicationScoped
-@ContextName("cdi-context")
+@ContextName("jpa-cdi-context")
 public class JpaRouteBuilder extends RouteBuilder {
+    
     @Inject
     private EntityManager em;
 
     @Override
     public void configure() throws Exception {
+        
         // Configure our JaxbDataFormat to point at our 'model' package
         JaxbDataFormat jaxbDataFormat = new JaxbDataFormat();
         jaxbDataFormat.setContextPath(Customer.class.getPackage().getName());
@@ -68,7 +68,7 @@ public class JpaRouteBuilder extends RouteBuilder {
          *  unmarshall XML file content to a Customer entity and then use the JPA endpoint
          *  to persist the it to the 'ExampleDS' datasource (see standalone.camel.xml for datasource config).
          */
-        from("file://input/customers")
+        from("file://{{jboss.server.data.dir}}/customers")
                 .unmarshal(jaxbDataFormat)
                 .to(jpaEndpoint)
                 .to("log:input?showAll=true");

@@ -19,32 +19,50 @@
  */
 package org.wildfly.camel.examples.jpa;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.ProducerTemplate;
-import org.apache.camel.cdi.ContextName;
-import org.wildfly.camel.examples.jpa.CustomerRepository;
 import org.wildfly.camel.examples.jpa.model.Customer;
 
 @SuppressWarnings("serial")
 @WebServlet(name = "HttpServiceServlet", urlPatterns = { "/customers/*" }, loadOnStartup = 1)
-public class SimpleServlet extends HttpServlet
-{
-	@Inject
-	private CustomerRepository customerRepository;
+public class SimpleServlet extends HttpServlet {
+
+    static Path CUSTOMERS_PATH = new File(System.getProperty("jboss.server.data.dir")).toPath().resolve("customers");
+    
+    @Inject
+    private CustomerRepository customerRepository;
 
     @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+
+        // Copy WEB-INF/customer.xml to the data dir 
+        ServletContext servletContext = config.getServletContext();
+        try {
+            InputStream input = servletContext.getResourceAsStream("/WEB-INF/customer.xml");
+            Path xmlPath = CUSTOMERS_PATH.resolve("customer.xml");
+            Files.copy(input, xmlPath);
+        } catch (IOException ex) {
+            throw new ServletException(ex);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /*
          * Simple servlet to retrieve all customers from the in memory database for
          * output and display on customers.jsp

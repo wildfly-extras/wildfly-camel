@@ -19,79 +19,28 @@
  */
 package org.wildfly.camel.examples.jpa;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.converter.jaxb.JaxbDataFormat;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.jboss.arquillian.container.test.api.Deployment;
+import java.net.MalformedURLException;
+import java.util.concurrent.TimeUnit;
+
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.examples.jpa.model.Customer;
-
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import org.wildfly.camel.examples.HttpRequest;
 
 
+@RunAsClient
 @RunWith(Arquillian.class)
-public class JPAIntegrationTest extends CamelTestSupport {
-
-    @Deployment
-    public static Archive<?> createDeployment() {
-        StringAsset jaxbIndex = new StringAsset("Customer");
-
-        return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addPackage(Customer.class.getPackage())
-                .addPackage(CamelTestSupport.class.getPackage())
-                .addPackage(JpaRouteBuilder.class.getPackage())
-                .addPackage(JaxbDataFormat.class.getPackage())
-                .addAsResource(jaxbIndex, "org/wildfly/camel/examples/jpa/model/jaxb.index")
-                .addAsResource("customer.xml", "org/wildfly/camel/examples/jpa/customer.xml")
-                .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-    }
-
-    @Inject
-    EntityManager em;
+public class JPAIntegrationTest {
 
     @Test
     public void testFileToJpaRoute() throws Exception {
-        // Send a test customer XML file to our file endpoint
-        template.sendBodyAndHeader("file://input/customers", readResourceFromClasspath("customer.xml"),
-                Exchange.FILE_NAME, "customer.xml");
-
-        // Wait for the file to be consumed
-        Thread.sleep(2000);
-
-        // Query the in memory database customer table to verify that a record was saved
-        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
-        query.select(criteriaBuilder.count(query.from(Customer.class)));
-
-        long recordCount = em.createQuery(query).getSingleResult();
-
-        Assert.assertEquals(1L, recordCount);
+        String res = HttpRequest.get(getEndpointAddress("/example-camel-jpa/customers"), 10, TimeUnit.SECONDS);
+        Assert.assertEquals("John Doe", res.trim());
     }
 
-    private String readResourceFromClasspath(String resourcePath) throws IOException {
-        StringBuilder builder = new StringBuilder();
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(resourcePath), "UTF-8"));
-        for (int c = br.read(); c != -1; c = br.read()) {
-            builder.append((char) c);
-        }
-
-        return builder.toString();
+    private String getEndpointAddress(String contextPath) throws MalformedURLException {
+        return "http://localhost:8080" + contextPath;
     }
-
 }

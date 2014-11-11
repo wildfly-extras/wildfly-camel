@@ -52,7 +52,7 @@ public class HttpRequest {
         return execute(task, timeout, unit);
     }
 
-    public static String get(final String spec, final String requestTemplate, final long timeout, final TimeUnit unit) throws TimeoutException, IOException {
+    public static String get(final String spec, final InputStream inputStream, final long timeout, final TimeUnit unit) throws TimeoutException, IOException {
         final URL url = new URL(spec);
         Callable<String> task = new Callable<String>() {
             @Override
@@ -60,11 +60,7 @@ public class HttpRequest {
                 final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
-
-                final InputStream inputStream = HttpRequest.class.getResourceAsStream(requestTemplate);
-                final OutputStream outputStream = conn.getOutputStream();
-
-                copy(inputStream, outputStream);
+                copy(inputStream, conn.getOutputStream());
                 return processResponse(conn);
             }
         };
