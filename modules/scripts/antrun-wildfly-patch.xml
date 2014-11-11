@@ -62,6 +62,9 @@
             </filterset>
         </copy>
 
+        <!-- AOP Alliance jars -->
+        <copy file="${deploy.artifacts.lib}/aopalliance-${version.aopalliance}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/aop/main" />
+
         <!-- Camel jars -->
         <copy file="${deploy.artifacts.lib}/camel-core-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/core/main" />
         <copy file="${deploy.artifacts.lib}/camel-core-xml-${version.apache.camel}.jar" todir="${wildfly.patch.dir}/modules/org/apache/camel/core/xml/main" />
@@ -132,9 +135,6 @@
         <copy file="${deploy.artifacts.lib}/spring-tx-${version.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/transaction/main" />
         <copy file="${deploy.artifacts.lib}/spring-orm-${version.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/orm/main" />
         <copy file="${deploy.artifacts.lib}/spring-jdbc-${version.spring}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/jdbc/main" />
-
-        <!-- AOP Alliance jars -->
-        <copy file="${deploy.artifacts.lib}/aopalliance-${version.aopalliance}.jar" todir="${wildfly.patch.dir}/modules/org/springframework/aop/main" />
 
         <!-- Zip the wildfly patch -->
         <!-- zip destfile="${output.dir}/${project.artifactId}-${project.version}.zip" basedir="${wildfly.patch.dir}"/-->
