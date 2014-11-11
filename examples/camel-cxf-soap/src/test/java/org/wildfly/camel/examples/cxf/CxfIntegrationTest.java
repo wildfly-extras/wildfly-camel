@@ -19,13 +19,11 @@
  */
 package org.wildfly.camel.examples.cxf;
 
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.jboss.arquillian.container.test.api.Deployment;
+import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
+
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,30 +31,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wildfly.camel.examples.HttpRequest;
 
-import java.io.InputStream;
-import java.util.concurrent.TimeUnit;
 
-
+@RunAsClient
 @RunWith(Arquillian.class)
-public class CxfIntegrationTest extends CamelTestSupport {
+public class CxfIntegrationTest {
 
     private static final String ENDPOINT_ADDRESS = "http://localhost:8080/example-camel-cxf-soap/greeting";
     private static final Logger LOG = LoggerFactory.getLogger(CxfIntegrationTest.class);
 
-    @Deployment
-    public static Archive<?> createDeployment() {
-        return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addPackage(CamelTestSupport.class.getPackage())
-                .addPackage(HttpRequest.class.getPackage())
-                .addAsResource("hello-request.xml", "org/wildfly/camel/examples/cxf/hello-request.xml")
-                .addAsResource("goodbye-request.xml", "org/wildfly/camel/examples/cxf/goodbye-request.xml")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-    }
-
     @Test
     public void testSayHelloCxfSoapRoute() throws Exception {
         // Send HTTP request to greeting service sayHello webservice method
-        InputStream input = HttpRequest.class.getResourceAsStream("/org/wildfly/camel/examples/cxf/hello-request.xml");
+        InputStream input = HttpRequest.class.getResourceAsStream("/hello-request.xml");
         String result = HttpRequest.get(ENDPOINT_ADDRESS, input, 10, TimeUnit.SECONDS);
 
         // Log SOAP response
@@ -71,7 +57,7 @@ public class CxfIntegrationTest extends CamelTestSupport {
     @Test
     public void testSayGoodbyeCxfSoapRoute() throws Exception {
         // Send HTTP request to greeting service sayGoodbye webservice method
-        InputStream input = HttpRequest.class.getResourceAsStream("/org/wildfly/camel/examples/cxf/goodbye-request.xml");
+        InputStream input = HttpRequest.class.getResourceAsStream("/goodbye-request.xml");
         String result = HttpRequest.get(ENDPOINT_ADDRESS, input, 10, TimeUnit.SECONDS);
 
         // Log SOAP response

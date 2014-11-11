@@ -19,7 +19,6 @@
  */
 package org.wildfly.camel.examples.cxf;
 
-import javax.ejb.Stateless;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
