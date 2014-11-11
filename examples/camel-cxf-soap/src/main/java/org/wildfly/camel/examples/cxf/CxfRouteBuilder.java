@@ -27,7 +27,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Startup
 @ApplicationScoped
-@ContextName("cdi-context")
+@ContextName("cxf-cdi-context")
 public class CxfRouteBuilder extends RouteBuilder {
 
     @Override
