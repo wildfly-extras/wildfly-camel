@@ -1,0 +1,204 @@
+<modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/1">
+
+  <module name="org.apache.camel.core">
+    <match>
+      <includes>
+        <include>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-core</artifactId>
+        </include>
+      </includes>
+    </match>
+  </module>
+
+  <module name="org.apache.camel.core.xml">
+    <match>
+      <includes>
+        <include>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-core-xml</artifactId>
+        </include>
+      </includes>
+    </match>
+  </module>
+
+  <module name="org.apache.camel.spring">
+    <match>
+      <includes>
+        <include>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-spring</artifactId>
+        </include>
+      </includes>
+    </match>
+  </module>
+
+  <module name="org.apache.camel.component.bindy">
+    <match>
+      <includes>
+        <include>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-bindy</artifactId>
+        </include>
+      </includes>
+    </match>
+    <apply-to-module>
+      <dependencies>
+        <module name="org.slf4j"/>
+        <module name="javax.enterprise.api"/>
+        <module name="javax.inject.api"/>
+        <module name="javax.interceptor.api"/>
+      </dependencies>
+    </apply-to-module>
+  </module>
+
+  <module name="org.apache.camel.component.cdi">
+    <match>
+      <includes>
+        <include>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-cdi</artifactId>
+        </include>
+      </includes>
+    </match>
+    <apply-to-module>
+      <dependencies>
+        <module name="javax.api"/>
+        <module name="javax.annotation.api"/>
+        <module name="javax.enterprise.api"/>
+        <module name="javax.xml.bind.api"/>
+        <module name="org.apache.deltaspike.core.api" export="true"/>
+        <module name="org.apache.deltaspike.core.impl" export="true"/>
+        <module name="org.apache.deltaspike.cdictrl.api"/>
+        <module name="org.jboss.weld.core"/>
+        <module name="org.jboss.weld.spi"/>
+        <module name="org.slf4j"/>
+     </dependencies>
+    </apply-to-module>
+  </module>
+
+
+  <module name="org.apache.camel.component.cxf">
+    <match>
+      <includes>
+        <include>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-cxf</artifactId>
+        </include>
+        <include>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-cxf-transport</artifactId>
+        </include>
+      </includes>
+    </match>
+    <apply-to-dependencies>
+      <dependencies>
+        <match>
+          <includes>
+            <include>org.springframework.*</include>
+          </includes>
+        </match>
+        <apply>
+          <skip>true</skip>
+        </apply>
+      </dependencies>
+    </apply-to-dependencies>      
+    <apply-to-module>
+      <dependencies>
+         <module name="javax.api"/>
+         <module name="javax.jws.api"/>
+         <module name="javax.ws.rs.api"/>
+         <module name="javax.xml.ws.api"/>
+         <module name="org.apache.cxf.impl"/>
+         <module name="org.apache.cxf"/>
+         <module name="org.slf4j"/>
+     </dependencies>
+    </apply-to-module>
+  </module>
+
+  <module name="org.apache.commons.net">
+    <match>
+      <includes>
+        <include>
+          <groupId>commons.net</groupId>
+          <artifactId>commons.net</artifactId>
+        </include>
+      </includes>
+    </match>
+  </module>
+
+  <module name="org.apache.camel.component.ftp">
+    <match>
+      <includes>
+        <include>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-cdi</artifactId>
+        </include>
+      </includes>
+    </match>
+    <apply-to-module>
+      <dependencies>
+        <module name="javax.api"/>
+        <module name="org.slf4j"/>
+     </dependencies>
+    </apply-to-module>
+  </module>
+  
+  <module name="org.apache.camel.component.hl7">
+    <match>
+      <includes>
+        <include>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-hl7</artifactId>
+        </include>
+      </includes>
+    </match>
+    
+    <apply-to-dependencies>
+      <dependencies>
+        <match>
+          <includes>
+            <include>org.apache.mina.mina-core</include>
+          </includes>
+        </match>
+        <apply>
+          <skip>true</skip>
+        </apply>
+      </dependencies>
+    </apply-to-dependencies>   
+        
+    <apply-to-module>
+      <dependencies>
+        <module name="org.slf4j"/>
+        <module name="org.apache.mina"/>
+        <module name="javax.enterprise.api"/>
+        <module name="javax.inject.api"/>
+        <module name="javax.interceptor.api"/>
+     </dependencies>
+    </apply-to-module>
+  </module>
+    
+  
+  <module name="org.apache.camel.component.$1">
+    <match>
+      <includes>
+        <include>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-(.*)</artifactId>
+        </include>
+      </includes>
+    </match>
+  </module>
+  
+  <module name="org.springframework.$1">
+    <match>
+      <includes>
+        <include>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-(.*)</artifactId>
+        </include>
+      </includes>
+    </match>
+  </module>
+
+</modules>
