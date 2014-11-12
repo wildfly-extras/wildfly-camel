@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Wildfly Camel Patch
+  %%
+  Copyright (C) 2013 - 2014 RedHat
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+<modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
+  
+  <module name="org.springframework.core">
+    <include artifact="org.springframework:spring-core"/>
+    <dependencies>
+      <module name="org.apache.commons.logging" export="true"/>
+      <module name="javax.api" export="true"/>
+      <system export="true">
+          <paths>
+              <path name="org/xml/sax"/>
+              <path name="org/xml/sax/helpers"/>
+          </paths>
+      </system>
+      <system export="true">
+          <paths>
+              <path name="org/w3c/dom"/>
+          </paths>
+      </system>
+    </dependencies>
+  </module>
+  
+  <module name="org.springframework.aop">
+    <include artifact="org.springframework:spring-aop"/>
+    <!-- TODO: Do we really need to include it? -->
+    <include artifact=":aopalliance"/>
+  </module>
+  
+  <!-- TODO: do we really need to change tx=>transaction ?? -->
+  <module name="org.springframework.transaction">
+    <include artifact="org.springframework:spring-tx"/>
+    <!-- kinda weird that the spring-tx module does not have a dep on core. It needs it -->
+    <dependencies>
+      <module name="org.springframework.core" export="true"/>
+    </dependencies>
+  </module>
+
+  <module name="org.springframework.$1">
+    <include artifact="org.springframework:spring-(.*)"/>
+    <apply-to-dependencies export="true">
+      <include module="org.springframework.core"/>
+      <include module="org.springframework.beans"/>
+    </apply-to-dependencies>    
+  </module>
+</modules>

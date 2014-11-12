@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Wildfly Camel Patch
+  %%
+  Copyright (C) 2013 - 2014 RedHat
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+<modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
+
+  <module name="org.apache.camel.core">
+    <include artifact="org.apache.camel:camel-core"/>
+    
+    <apply-to-dependencies skip="true">
+      <include module=".*"/>
+    </apply-to-dependencies>
+
+    <dependencies>
+      <module name="org.slf4j" export="true"/>
+      <module name="javax.api" export="true"/>
+      <module name="javax.xml.bind.api"/>
+    	<module name="sun.jdk" />
+    </dependencies>
+  </module>
+
+  <module name="org.apache.camel.core.xml">
+    <include artifact="org.apache.camel:camel-core-xml"/>
+  </module>
+
+  <module name="org.apache.camel.spring">
+    <include artifact="org.apache.camel:camel-spring"/>
+    <apply-to-dependencies skip="true">
+      <include module=".*"/>
+    </apply-to-dependencies>
+
+    <dependencies>
+      <module name="javax.api"/>
+      <module name="javax.xml.bind.api"/>
+      <module name="org.apache.camel.core"/>
+      <module name="org.springframework.beans"/>
+      <module name="org.springframework.context"/>
+      <module name="org.slf4j"/>
+    </dependencies>
+  </module>
+
+  <module name="org.apache.camel.component.bindy">
+    <include artifact="org.apache.camel:camel-bindy"/>
+    <dependencies>
+      <module name="javax.enterprise.api"/>
+      <module name="javax.inject.api"/>
+      <module name="javax.interceptor.api"/>
+    </dependencies>
+  </module>
+  
+  <module name="org.apache.camel.component.cdi">
+    <include artifact="org.apache.camel:camel-cdi"/>
+    <dependencies>
+      <module name="javax.annotation.api"/>
+      <module name="javax.enterprise.api"/>
+      <module name="javax.xml.bind.api"/>
+      <module name="org.apache.deltaspike.core.api" export="true"/>
+      <module name="org.apache.deltaspike.core.impl" export="true"/>
+      <module name="org.apache.deltaspike.cdictrl.api"/>
+      <module name="org.jboss.weld.core"/>
+      <module name="org.jboss.weld.spi"/>
+   </dependencies>
+  </module>
+
+  <module name="org.apache.camel.component.cxf">
+    <include artifact="org.apache.camel:camel-cxf"/>
+    <include artifact="org.apache.camel:camel-cxf-transport"/>
+    <apply-to-dependencies skip="true">
+      <include module="org.springframework.*"/>
+    </apply-to-dependencies>
+    <dependencies>
+     <module name="javax.jws.api"/>
+     <module name="javax.ws.rs.api"/>
+     <module name="javax.xml.ws.api"/>
+     <module name="org.apache.cxf.impl"/>
+     <module name="org.apache.cxf"/>
+   </dependencies>
+  </module>  
+  
+  <module name="org.apache.camel.component.hl7">
+    <include artifact="org.apache.camel:camel-hl7"/>
+    <apply-to-dependencies skip="true">
+      <include module="org.apache.mina.mina-core"/>
+    </apply-to-dependencies>
+    <dependencies>
+      <module name="org.apache.mina"/>
+      <module name="javax.enterprise.api"/>
+      <module name="javax.inject.api"/>
+      <module name="javax.interceptor.api"/>
+    </dependencies>
+  </module>
+
+  <!-- rule to rename the remaining camel artifacts ids to better module names -->
+  <module name="org.apache.camel.component.$1">
+    <include artifact="org.apache.camel:camel-(.*)"/>
+  </module>
+  
+</modules>

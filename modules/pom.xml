@@ -8,9 +8,9 @@
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
-  
+
        http://www.apache.org/licenses/LICENSE-2.0
-  
+
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,15 +33,15 @@
 
     <artifactId>wildfly-camel-modules</artifactId>
 	<packaging>pom</packaging>
-	
+
     <!-- Properties -->
     <properties>
         <wildfly.patch>${project.build.directory}/${project.artifactId}-${project.version}</wildfly.patch>
     </properties>
-    
+
     <!-- Dependencies -->
     <dependencies>
-        
+
         <!-- Provided -->
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -209,44 +209,139 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>deploy-artifacts</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>directory-single</goal>
-                        </goals>
-                        <configuration>
-                            <finalName>deploy-artifacts</finalName>
-                            <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-                            <appendAssemblyId>false</appendAssemblyId>
-                            <descriptors>
-                                <descriptor>scripts/assembly-deploy-artifacts.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
+              <groupId>org.fusesource.mvnplugins</groupId>
+              <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
+              <version>1.35-SNAPSHOT</version>
+              <executions>
+                <execution>
+                  <id>create-modules-archive</id>
+                  <goals>
+                    <goal>create-modules-archive</goal>
+                  </goals>
+                  <phase>generate-resources</phase>
+                </execution>
+              </executions>
+              <dependencies>
+                <dependency>
+                  <groupId>de.smartics.config</groupId>
+                  <artifactId>config-smartics-jboss-modules</artifactId>
+                  <version>2.0.1</version>
+                </dependency>
+              </dependencies>              
+              <configuration>
+                <excludeDependencyManagementDependenciesInPomProject>true</excludeDependencyManagementDependenciesInPomProject>
+                <attach>false</attach>
+                <targetFolder>${project.build.directory}/wildfly-patch/modules</targetFolder>
+                
+                <!-- These are dependencies we don't want to create/associate modules with -->
+                <dependencyExcludes>
+                   <exclude>
+                     <groupId>com.sun</groupId>
+                     <artifactId>tools</artifactId>
+                   </exclude>
+                   <exclude>
+                     <groupId>org.apache.camel</groupId>
+                     <artifactId>apt</artifactId>
+                   </exclude>
+                   <exclude>
+                     <groupId>org.apache.abdera</groupId>
+                     <artifactId>abdera-parser</artifactId>
+                   </exclude>
+                   <exclude>
+                     <groupId>org.apache.ws.commons.axiom</groupId>
+                     <artifactId>axiom-api</artifactId>
+                   </exclude>
+                   <exclude>
+                     <groupId>org.apache.ws.commons.axiom</groupId>
+                     <artifactId>axiom-impl</artifactId>
+                   </exclude>
+                   
+                   <exclude>
+                     <groupId>org.apache.cxf</groupId>
+                     <artifactId>cxf-rt-bindings-soap</artifactId>
+                   </exclude>
+                   <exclude>
+                     <groupId>org.apache.cxf</groupId>
+                     <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+                   </exclude>
+                   <exclude>
+                     <groupId>org.apache.cxf</groupId>
+                     <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                   </exclude>
+                   <exclude>
+                     <groupId>org.apache.cxf</groupId>
+                     <artifactId>cxf-rt-rs-security-oauth</artifactId>
+                   </exclude>
+                   <exclude>
+                     <groupId>org.apache.cxf</groupId>
+                     <artifactId>cxf-rt-features-clustering</artifactId>
+                   </exclude>
+
+                   <exclude>
+                     <groupId>org.osgi</groupId>
+                     <artifactId>org.osgi.compendium</artifactId>
+                   </exclude>
+                   <exclude>
+                     <groupId>biz.aQute</groupId>
+                     <artifactId>bndlib</artifactId>
+                   </exclude>
+
+                   <exclude>
+                     <groupId>org.apache.aries.blueprint</groupId>
+                     <artifactId>org.apache.aries.blueprint</artifactId>
+                   </exclude>
+                   <exclude>
+                     <groupId>org.apache.aries.blueprint</groupId>
+                     <artifactId>org.apache.aries.blueprint.core</artifactId>
+                   </exclude>
+                   <exclude>
+                     <groupId>org.apache.camel</groupId>
+                     <artifactId>camel-blueprint</artifactId>
+                   </exclude>
+                   
+                   <exclude>
+                     <groupId>net.sf.kxml</groupId>
+                     <artifactId>kxml2</artifactId>
+                   </exclude>
+                   
+                   <exclude>
+                     <groupId>org.apache.ant</groupId>
+                     <artifactId>ant</artifactId>
+                   </exclude>
+                   <exclude>
+                     <groupId>org.apache.ant</groupId>
+                     <artifactId>ant-launcher</artifactId>
+                   </exclude>
+                   
+                   <exclude>
+                     <groupId>org.apache.deltaspike.test</groupId>
+                     <artifactId>test-utils</artifactId>
+                   </exclude>
+                 
+                 </dependencyExcludes>
+              </configuration>
             </plugin>
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <inherited>false</inherited>
                 <executions>
                     <execution>
+                        <id>create-tgz</id>
                         <goals>
                             <goal>run</goal>
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
                             <target>
-                                <ant antfile="${basedir}/scripts/antrun-wildfly-patch.xml" inheritRefs="true" />
+                                <ant antfile="${basedir}/src/scripts/antrun-wildfly-patch.xml" inheritRefs="true" />
                             </target>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+            
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -259,12 +354,6 @@
                         </goals>
                         <configuration>
                             <artifacts>
-                                <!--
-                                <artifact>
-                                    <file>${wildfly.patch}.zip</file>
-                                    <type>zip</type>
-                                </artifact>
-                                -->
                                 <artifact>
                                     <file>${wildfly.patch}.tar.gz</file>
                                     <type>tar.gz</type>
@@ -276,4 +365,17 @@
             </plugin>
         </plugins>
     </build>
+
+    <pluginRepositories>
+      <pluginRepository>
+        <id>Fusesource Snapshots</id>
+        <url>https://repository.jboss.org/nexus/content/repositories/fs-snapshots/</url>
+        <releases>
+          <enabled>false</enabled>
+        </releases>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+      </pluginRepository>
+    </pluginRepositories>
 </project>
