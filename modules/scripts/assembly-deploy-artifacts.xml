@@ -47,6 +47,27 @@
             <scope>provided</scope>
             <unpack>false</unpack>
         </dependencySet>
+
+        <!-- ActiveMQ RAR -->
+        <dependencySet>
+            <outputDirectory>activemq/lib</outputDirectory>
+            <useStrictFiltering>true</useStrictFiltering>
+            <includes>
+                <include>org.apache.activemq:activemq-rar:rar</include>
+            </includes>
+            <scope>provided</scope>
+            <unpack>true</unpack>
+        </dependencySet>
+
+        <!-- ActiveMQ Camel Jar -->
+        <dependencySet>
+            <outputDirectory>activemq/lib</outputDirectory>
+            <useStrictFiltering>true</useStrictFiltering>
+            <includes>
+                <include>org.apache.activemq:activemq-camel:jar</include>
+            </includes>
+            <scope>provided</scope>
+        </dependencySet>
     </dependencySets>
 
 </assembly>

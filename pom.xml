@@ -45,6 +45,8 @@
     <!-- Properties -->
     <properties>
         <version.aopalliance>1.0</version.aopalliance>
+        <version.apache.activemq>5.10.0</version.apache.activemq>
+        <version.apache.activemq.protobuf>1.1</version.apache.activemq.protobuf>
         <version.apache.camel>2.14.0</version.apache.camel>
     	<version.apache.deltaspike>1.0.2</version.apache.deltaspike>
         <version.apache.felix.configadmin>1.8.0</version.apache.felix.configadmin>
@@ -55,6 +57,9 @@
         <version.apache.felix.scr>1.6.2</version.apache.felix.scr>
         <version.apache.felix.scr.ds.annotations>1.2.4</version.apache.felix.scr.ds.annotations>
         <version.apache.felix.scr.generator>1.8.0</version.apache.felix.scr.generator>
+        <version.apache.xbean.spring>3.16</version.apache.xbean.spring>
+        <version.geronimo.j2ee.management.spec>1.0.1</version.geronimo.j2ee.management.spec>
+        <version.hawtbuf>1.10</version.hawtbuf>
         <version.hawtio>1.4.22</version.hawtio>
         <version.hibernate.jpa21.api>1.0.0.Final</version.hibernate.jpa21.api>
         <version.javax.enterprise>1.2</version.javax.enterprise>
@@ -102,6 +107,19 @@
     <!-- DependencyManagement -->
     <dependencyManagement>
         <dependencies>
+
+            <!-- ActiveMQ -->
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-rar</artifactId>
+                <version>${version.apache.activemq}</version>
+                <type>rar</type>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-camel</artifactId>
+                <version>${version.apache.activemq}</version>
+            </dependency>
 
             <!-- Arquillian -->
             <dependency>
@@ -304,7 +322,7 @@
                 <artifactId>org.apache.felix.scr.generator</artifactId>
                 <version>${version.apache.felix.scr.generator}</version>
             </dependency>
-            
+
             <!-- Gravia -->
             <dependency>
                 <groupId>org.jboss.gravia</groupId>
@@ -445,11 +463,6 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
                 <version>${version.spring}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-jdbc</artifactId>
-                <version>${version.apache.spring}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
