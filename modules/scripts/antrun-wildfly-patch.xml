@@ -30,6 +30,7 @@
     <property name="wildfly.patch.dir" value="${output.dir}/wildfly-patch" />
     <property name="deploy.artifacts.dir" value="${output.dir}/deploy-artifacts" />
     <property name="deploy.artifacts.lib" value="${deploy.artifacts.dir}/lib" />
+    <property name="deploy.artifacts.org.wildfly.example.camel.activemq.lib" value="${deploy.artifacts.dir}/activemq/lib" />
     <property name="deploy.artifacts.resources" value="${deploy.artifacts.dir}/resources" />
 
     <!-- ================================================================== -->
@@ -48,6 +49,8 @@
             <fileset dir="${etc.dir}/wildfly" />
             <filterset>
                 <filter token="project.version" value="${project.version}" />
+                <filter token="version.apache.activemq" value="${version.apache.activemq}" />
+                <filter token="version.apache.activemq.protobuf" value="${version.apache.activemq.protobuf}" />
                 <filter token="version.apache.camel" value="${version.apache.camel}" />
                 <filter token="version.apache.deltaspike" value="${version.apache.deltaspike}" />
                 <filter token="version.apache.felix.configadmin" value="${version.apache.felix.configadmin}" />
@@ -55,11 +58,23 @@
                 <filter token="version.apache.felix.log" value="${version.apache.felix.log}" />
                 <filter token="version.apache.felix.metatype" value="${version.apache.felix.metatype}" />
                 <filter token="version.apache.felix.scr" value="${version.apache.felix.scr}" />
+                <filter token="version.apache.xbean.spring" value="${version.apache.xbean.spring}" />
+                <filter token="version.geronimo.j2ee.management.spec" value="${version.geronimo.j2ee.management.spec}" />
+                <filter token="version.hawtbuf" value="${version.hawtbuf}" />
                 <filter token="version.spring" value="${version.spring}" />
                 <filter token="version.jboss.gravia" value="${version.jboss.gravia}" />
                 <filter token="version.osgi" value="${version.osgi}" />
                 <filter token="version.aopalliance" value="${version.aopalliance}" />
             </filterset>
+        </copy>
+
+        <!-- ActiveMQ jars -->
+        <copy todir="${wildfly.patch.dir}/modules/org/apache/activemq/main">
+            <fileset dir="${deploy.artifacts.org.wildfly.example.camel.activemq.lib}">
+                <include name="**/*"/>
+                <exclude name="broker-config.xml"/>
+                <exclude name="META-INF/**"/>
+            </fileset>
         </copy>
 
         <!-- AOP Alliance jars -->

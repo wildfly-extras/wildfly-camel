@@ -29,6 +29,7 @@
         <module name="org.apache.camel.component.jms" export="true" services="export"/>
         <module name="org.apache.camel.component.jmx" export="true" services="export"/>
         <module name="org.apache.camel.component.jpa" export="true" services="export"/>
+        <module name="org.apache.activemq" export="true" services="export"/>
     </dependencies>
 
 </module>

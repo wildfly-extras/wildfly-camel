@@ -1,0 +1,37 @@
+<module xmlns="urn:jboss:module:1.1" name="org.apache.activemq">
+    <resources>
+        <resource-root path="."/>
+        <resource-root path="activemq-camel-@version.apache.activemq@.jar"/>
+        <resource-root path="activemq-broker-@version.apache.activemq@.jar"/>
+        <resource-root path="activemq-client-@version.apache.activemq@.jar"/>
+        <resource-root path="activemq-jms-pool-@version.apache.activemq@.jar"/>
+        <resource-root path="activemq-kahadb-store-@version.apache.activemq@.jar"/>
+        <resource-root path="activemq-openwire-legacy-@version.apache.activemq@.jar"/>
+        <resource-root path="activemq-pool-@version.apache.activemq@.jar"/>
+        <resource-root path="activemq-protobuf-@version.apache.activemq.protobuf@.jar"/>
+        <resource-root path="activemq-ra-@version.apache.activemq@.jar"/>
+        <resource-root path="activemq-spring-@version.apache.activemq@.jar"/>
+        <resource-root path="geronimo-j2ee-management_1.1_spec-@version.geronimo.j2ee.management.spec@.jar"/>
+        <resource-root path="hawtbuf-@version.hawtbuf@.jar"/>
+        <resource-root path="xbean-spring-@version.apache.xbean.spring@.jar"/>
+    </resources>
+
+    <dependencies>
+        <module name="javax.api"/>
+        <module name="org.slf4j"/>
+        <module name="javax.resource.api"/>
+        <module name="javax.jms.api"/>
+        <module name="javax.management.j2ee.api"/>
+        <module name="org.apache.commons.logging"/>
+        <module name="org.apache.commons.pool"/>
+        <module name="org.apache.camel.core"/>
+        <module name="org.apache.camel.component.jms"/>
+        <module name="org.springframework.core"/>
+        <module name="org.springframework.aop"/>
+        <module name="org.springframework.beans"/>
+        <module name="org.springframework.context"/>
+        <module name="org.springframework.expression"/>
+        <module name="org.springframework.jms"/>
+        <module name="org.springframework.transaction"/>
+    </dependencies>
+</module>

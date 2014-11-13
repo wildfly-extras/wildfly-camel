@@ -56,7 +56,6 @@
         <module name="org.springframework.core"/>
         <module name="org.springframework.context"/>
         <module name="org.springframework.transaction"/>
-
         <module name="org.slf4j"/>
     </dependencies>
 
