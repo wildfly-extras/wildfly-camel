@@ -50,7 +50,9 @@
     </extensions>
 
     <system-properties>
-		<property name="hawtio.authenticationEnabled" value="false" />
+		<property name="hawtio.authenticationEnabled" value="true" />
+		<property name="hawtio.realm" value="jboss-web-policy" />
+		<property name="hawtio.role" value="admin" />
     </system-properties>
 
     <management>
