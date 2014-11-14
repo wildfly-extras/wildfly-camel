@@ -85,6 +85,7 @@
         <version-maven-release-plugin>2.5</version-maven-release-plugin>
         <version-maven-source-plugin>2.3</version-maven-source-plugin>
         <version-maven-surefire-plugin>2.16</version-maven-surefire-plugin>
+        <version-smartics-jboss-modules-maven-plugin>1.35</version-smartics-jboss-modules-maven-plugin>
         <version-wildfly-maven-plugin>1.0.2.Final</version-wildfly-maven-plugin>
     </properties>
 
@@ -532,6 +533,11 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                  <groupId>org.fusesource.mvnplugins</groupId>
+                  <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
+                  <version>${version-smartics-jboss-modules-maven-plugin}</version>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
                     <version>${version-maven-bundle-plugin}</version>
@@ -718,6 +724,28 @@
             </snapshots>
         </repository>
     </repositories>
+    <pluginRepositories>
+      <pluginRepository>
+        <id>Fusesource</id>
+        <url>http://repository.jboss.org/nexus/content/groups/fs-public</url>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+      </pluginRepository>
+      <pluginRepository>
+        <id>smartics</id>
+        <url>http://www.smartics.eu/nexus/content/groups/public-group</url>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+      </pluginRepository>
+    </pluginRepositories>
 
 	<!-- Profiles -->
 	<profiles>

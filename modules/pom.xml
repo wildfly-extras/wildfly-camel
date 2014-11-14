@@ -227,7 +227,6 @@
             <plugin>
               <groupId>org.fusesource.mvnplugins</groupId>
               <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
-              <version>1.35-SNAPSHOT</version>
               <executions>
                 <execution>
                   <id>create-modules-archive</id>
@@ -399,16 +398,4 @@
         </plugins>
     </build>
 
-    <pluginRepositories>
-      <pluginRepository>
-        <id>Fusesource Snapshots</id>
-        <url>https://repository.jboss.org/nexus/content/repositories/fs-snapshots/</url>
-        <releases>
-          <enabled>false</enabled>
-        </releases>
-        <snapshots>
-          <enabled>true</enabled>
-        </snapshots>
-      </pluginRepository>
-    </pluginRepositories>
 </project>
