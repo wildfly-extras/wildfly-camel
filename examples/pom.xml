@@ -41,6 +41,7 @@
 		<module>camel-jpa</module>
         <module>camel-cxf-soap</module>
         <module>camel-activemq</module>
+        <module>camel-rest</module>
 	</modules>
 
     <!-- Properties -->
