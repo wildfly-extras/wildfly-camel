@@ -64,7 +64,7 @@
         <version.hibernate.jpa21.api>1.0.0.Final</version.hibernate.jpa21.api>
         <version.javax.enterprise>1.2</version.javax.enterprise>
         <version.jboss.arquillian.core>1.1.2.Final-wildfly-1</version.jboss.arquillian.core>
-        <version.jboss.gravia>1.1.0.Beta43</version.jboss.gravia>
+        <version.jboss.gravia>1.1.0.Beta44</version.jboss.gravia>
         <version.jboss.shrinkwrap>1.2.1</version.jboss.shrinkwrap>
         <version.jboss.shrinkwrap.resolver>2.1.1</version.jboss.shrinkwrap.resolver>
         <version.jboss.spec.javax.annotation>1.0.0.Final</version.jboss.spec.javax.annotation>
@@ -488,12 +488,17 @@
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-server</artifactId>
+                <artifactId>wildfly-controller-client</artifactId>
                 <version>${version.wildfly}</version>
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-controller-client</artifactId>
+                <artifactId>wildfly-naming</artifactId>
+                <version>${version.wildfly}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-server</artifactId>
                 <version>${version.wildfly}</version>
             </dependency>
             <dependency>
@@ -504,12 +509,13 @@
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-naming</artifactId>
-                <version>${version.wildfly}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-testsuite-shared</artifactId>
+                <exclusions>
+                	<exclusion>
+                		<groupId>org.apache.directory.jdbm</groupId>
+                		<artifactId>apacheds-jdbm1</artifactId>
+                	</exclusion>
+                </exclusions>
                 <version>${version.wildfly}</version>
             </dependency>
         </dependencies>

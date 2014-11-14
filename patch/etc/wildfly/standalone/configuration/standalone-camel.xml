@@ -44,12 +44,13 @@
         <extension module="org.jboss.as.webservices"/>
         <extension module="org.jboss.as.weld"/>
         <extension module="org.wildfly.extension.batch"/>
+        <extension module="org.wildfly.extension.camel"/>
         <extension module="org.wildfly.extension.io"/>
         <extension module="org.wildfly.extension.undertow"/>
-        <extension module="org.wildfly.extension.camel"/>
     </extensions>
 
     <system-properties>
+        <!-- Hawt.io Security -->
 		<property name="hawtio.authenticationEnabled" value="true" />
 		<property name="hawtio.realm" value="jboss-web-policy" />
 		<property name="hawtio.role" value="admin" />
