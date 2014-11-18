@@ -19,49 +19,49 @@
   #L%
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
-  
-  <module name="org.springframework.core">
-    <include artifact="org.springframework:spring-core"/>
-    <dependencies>
-      <module name="org.apache.commons.logging" export="true"/>
-      <module name="javax.api" export="true"/>
-      <system export="true">
-          <paths>
-              <path name="org/xml/sax"/>
-              <path name="org/xml/sax/helpers"/>
-          </paths>
-      </system>
-      <system export="true">
-          <paths>
-              <path name="org/w3c/dom"/>
-          </paths>
-      </system>
-    </dependencies>
-  </module>
-  
-  <module name="org.springframework.aop">
-    <include artifact="org.springframework:spring-aop"/>
-    <!-- TODO: Do we really need to include it? -->
-    <include artifact=":aopalliance"/>
-  </module>
-  
-  <!-- TODO: do we really need to change tx=>transaction ?? -->
-  <module name="org.springframework.transaction">
-    <include artifact="org.springframework:spring-tx"/>
-    <!-- kinda weird that the spring-tx module does not have a dep on core. It needs it -->
-    <dependencies>
-      <module name="org.springframework.core"/>
-      <module name="org.springframework.beans"/>
-      <module name="org.springframework.context"/>
-      <module name="javax.transaction.api"/>
-    </dependencies>
-  </module>
 
-  <module name="org.springframework.$1">
-    <include artifact="org.springframework:spring-(.*)"/>
-    <apply-to-dependencies export="true">
-      <include module="org.springframework.core"/>
-      <include module="org.springframework.beans"/>
-    </apply-to-dependencies>    
-  </module>
+    <module name="org.springframework.aop">
+        <include artifact="org.springframework:spring-aop" />
+        <!-- TODO: Do we really need to include it? -->
+        <include artifact=":aopalliance" />
+    </module>
+    
+    <module name="org.springframework.core">
+        <include artifact="org.springframework:spring-core" />
+        <dependencies>
+            <module name="org.apache.commons.logging" export="true" />
+            <module name="javax.api" export="true" />
+            <system export="true">
+                <paths>
+                    <path name="org/xml/sax" />
+                    <path name="org/xml/sax/helpers" />
+                </paths>
+            </system>
+            <system export="true">
+                <paths>
+                    <path name="org/w3c/dom" />
+                </paths>
+            </system>
+        </dependencies>
+    </module>
+    
+    <!-- TODO: do we really need to change tx=>transaction ?? -->
+    <module name="org.springframework.transaction">
+        <include artifact="org.springframework:spring-tx" />
+        <!-- kinda weird that the spring-tx module does not have a dep on core. It needs it -->
+        <dependencies>
+            <module name="org.springframework.core" />
+            <module name="org.springframework.beans" />
+            <module name="org.springframework.context" />
+            <module name="javax.transaction.api" />
+        </dependencies>
+    </module>
+    
+    <module name="org.springframework.$1">
+        <include artifact="org.springframework:spring-(.*)" />
+        <apply-to-dependencies export="true">
+            <include module="org.springframework.core" />
+            <include module="org.springframework.beans" />
+        </apply-to-dependencies>
+    </module>
 </modules>

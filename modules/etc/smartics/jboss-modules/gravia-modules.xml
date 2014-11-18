@@ -20,31 +20,30 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-  <module name="org.jboss.gravia">
-    <include artifact=":gravia-.*"/>
-    <include artifact=":org.apache.felix.configadmin"/>
-    <include artifact=":org.apache.felix.http.bridge"/>
-    <include artifact=":org.apache.felix.log"/>
-    <include artifact=":org.apache.felix.metatype"/>
-    <include artifact=":org.apache.felix.scr"/>
-
-    <apply-to-dependencies skip="true">
-      <include module=".*"/>
-    </apply-to-dependencies>
-
-    <exports>
-        <exclude path="org/jboss/gravia/runtime/embedded"/>
-    </exports>
-    <dependencies>
-        <module name="javax.api"/>
-        <module name="javax.servlet.api"/>
-        <module name="org.osgi.core"/>
-        <module name="org.osgi.enterprise"/>
-        <module name="org.slf4j"/>
-    </dependencies>
-  </module>
-
-  <module name="org.apache.felix" skip="true">
-    <include artifact="org.apache.felix:.*"/>
-  </module>
+    <module name="org.jboss.gravia">
+        <include artifact=":gravia-.*" />
+        <include artifact=":org.apache.felix.configadmin" />
+        <include artifact=":org.apache.felix.http.bridge" />
+        <include artifact=":org.apache.felix.log" />
+        <include artifact=":org.apache.felix.metatype" />
+        <include artifact=":org.apache.felix.scr" />
+        <apply-to-dependencies skip="true">
+            <include module=".*" />
+        </apply-to-dependencies>
+        <exports>
+            <exclude path="org/jboss/gravia/runtime/embedded" />
+        </exports>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.servlet.api" />
+            <module name="org.osgi.core" />
+            <module name="org.osgi.enterprise" />
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+    
+    <module name="org.apache.felix" skip="true">
+        <include artifact="org.apache.felix:.*" />
+    </module>
+    
 </modules>

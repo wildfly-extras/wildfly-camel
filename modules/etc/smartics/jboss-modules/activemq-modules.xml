@@ -20,36 +20,34 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-  <module name="org.apache.activemq.skip" skip="true">
-    <include artifact="org.apache.activemq:activemq-all"/>
-  </module>
+    <module name="org.apache.activemq">
+        <include artifact="org.apache.activemq:.*" />
+        <include artifact="org.apache.activemq.protobuf:activemq-protobuf" />
+        <exclude artifact="org.apache.activemq:activemq-all" />
+        <exclude artifact="org.apache.activemq:activemq-camel" />
+        <apply-to-dependencies skip="true">
+            <include module="org.springframework.osgi.spring-osgi-core" />
+        </apply-to-dependencies>
+        <apply-to-dependencies export="true">
+            <include module="javax.*" />
+        </apply-to-dependencies>
+        <!-- TODO: This this is to deploy the activemq RAR... should we really be doing this? -->
+        <resource-root path="." />
+        <dependencies>
+            <module name="javax.resource.api" export="true" />
+        </dependencies>
+    </module>
 
-  <module name="org.apache.activemq">
-    <include artifact="org.apache.activemq:.*"/>
-    <include artifact="org.apache.activemq.protobuf:activemq-protobuf"/>
-    <exclude artifact="org.apache.activemq:activemq-all"/>
-    <exclude artifact="org.apache.activemq:activemq-camel"/>
-    
-    <apply-to-dependencies skip="true">
-      <include module="org.springframework.osgi.spring-osgi-core"/>
-    </apply-to-dependencies>
-    <apply-to-dependencies export="true">
-      <include module="javax.*"/>
-    </apply-to-dependencies>
-    
-    <!-- TODO: This this is to deploy the activemq RAR... should we really be doing this? -->
-    <resource-root path="."/>    
-    <dependencies>
-      <module name="javax.resource.api" export="true"/>
-    </dependencies>
-  </module>
+    <module name="org.apache.activemq.camel">
+        <include artifact="org.apache.activemq:activemq-camel" />
+        <dependencies>
+            <module name="org.apache.camel.core" />
+            <module name="org.springframework.transaction" />
+        </dependencies>
+    </module>
 
-  <module name="org.apache.activemq.camel">
-    <include artifact="org.apache.activemq:activemq-camel"/>
-    <dependencies>
-      <module name="org.apache.camel.core"/>
-      <module name="org.springframework.transaction"/>
-    </dependencies>    
-  </module>
+    <module name="org.apache.activemq.skip" skip="true">
+        <include artifact="org.apache.activemq:activemq-all" />
+    </module>
 
 </modules>

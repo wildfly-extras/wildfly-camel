@@ -20,66 +20,56 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-  <!-- Give the deltaspike artifacts better module names -->
-  <module name="org.apache.deltaspike.$1.$2">
-    <include artifact=":deltaspike-(.*)-(.*)"/>
-    <dependencies>
-      <module name="javax.api"/>
-      <module name="javax.xml.bind.api"/>
-    </dependencies>
-  </module>
-
-  <!-- Give the mina saxon artifacts better module names -->
-  <module name="net.sf.saxon.he">
-    <include artifact="net.sf.saxon:Saxon-HE"/>
-  </module>
-
-  <!-- Give the mina abdera artifacts better module names -->
-  <module name="org.apache.abdera.$1">
-    <include artifact=":abdera-(.*)"/>
-  </module>
-
-  <!-- Give the mina bundles artifacts better module names -->
-  <module name="org.apache.mina.$1">
-    <include artifact=":mina-(.*)"/>
-  </module>
-
-  <!-- Give the servicemix bundles artifacts better module names -->
-  <module name="org.apache.servicemix.bundles.$1">
-    <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles\.(.*)"/>
-  </module>
-
-  <!-- Give the hawtdispatch artifacts better module names -->
-  <module name="org.fusesource.hawtdispatch.$1">
-    <include artifact="org.fusesource.hawtdispatch:hawtdispatch-(.*)"/>
-  </module>
-
-  <!-- Give the rome artifacts better module names -->
-  <module name="io.github.rometools.rome">
-    <include artifact="rome:rome"/>
-  </module>
-
-  <!-- Give the org.osgi artifacts better module names -->
-  <module name="org.osgi.core">
-    <include artifact=":org.osgi.core"/>
-  </module>
-  <module name="org.osgi.enterprise">
-    <include artifact=":org.osgi.enterprise"/>
-  </module>
-
-  <!-- Give the hapi artifacts better module names -->
-  <module name="ca.uhn.hapi.$1">
-    <include artifact="ca.uhn.hapi:hapi-(.*)"/>
-  </module>
-
-  <!-- Give the commons.net artifacts better module names -->
-  <module name="org.apache.commons.net">
-    <include artifact="commons.net:commons.net"/>
-  </module>
-
-  <!-- Give the xbean artifacts better module names -->
-  <module name="org.apache.xbean.$1">
-    <include artifact="org.apache.xbean:xbean-(.*)"/>
-  </module>
+    <module name="ca.uhn.hapi.$1">
+        <include artifact="ca.uhn.hapi:hapi-(.*)" />
+    </module>
+    
+    <module name="io.github.rometools.rome">
+        <include artifact="rome:rome" />
+    </module>
+    
+    <module name="net.sf.saxon.he">
+        <include artifact="net.sf.saxon:Saxon-HE" />
+    </module>
+    
+    <module name="org.apache.abdera.$1">
+        <include artifact=":abdera-(.*)" />
+    </module>
+    
+    <module name="org.apache.commons.net">
+        <include artifact="commons.net:commons.net" />
+    </module>
+    
+    <module name="org.apache.deltaspike.$1.$2">
+        <include artifact=":deltaspike-(.*)-(.*)" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.xml.bind.api" />
+        </dependencies>
+    </module>
+    
+    <module name="org.apache.mina.$1">
+        <include artifact=":mina-(.*)" />
+    </module>
+    
+    <module name="org.apache.servicemix.bundles.$1">
+        <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles\.(.*)" />
+    </module>
+    
+    <module name="org.apache.xbean.$1">
+        <include artifact="org.apache.xbean:xbean-(.*)" />
+    </module>
+    
+    <module name="org.fusesource.hawtdispatch.$1">
+        <include artifact="org.fusesource.hawtdispatch:hawtdispatch-(.*)" />
+    </module>
+    
+    <module name="org.osgi.core">
+        <include artifact=":org.osgi.core" />
+    </module>
+    
+    <module name="org.osgi.enterprise">
+        <include artifact=":org.osgi.enterprise" />
+    </module>
 
 </modules>
