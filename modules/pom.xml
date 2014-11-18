@@ -32,7 +32,7 @@
     <name>Wildfly Camel :: Modules</name>
 
     <artifactId>wildfly-camel-modules</artifactId>
-	<packaging>pom</packaging>
+    <packaging>pom</packaging>
 
     <!-- Properties -->
     <properties>
@@ -65,9 +65,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-bindy</artifactId>
-           <scope>provided</scope>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-bindy</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -85,18 +85,18 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-ftp</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-ftp</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-hl7</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-hl7</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-jaxb</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jaxb</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -115,64 +115,64 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-mail</artifactId>
-	       <scope>provided</scope>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-mail</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-mina2</artifactId>
-	       <scope>provided</scope>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-mina2</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-mqtt</artifactId>
-	       <scope>provided</scope>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-mqtt</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-mvel</artifactId>
-	       <scope>provided</scope>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-mvel</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-netty</artifactId>
-	       <scope>provided</scope>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-netty</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-ognl</artifactId>
-	       <scope>provided</scope>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-ognl</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-quartz</artifactId>
-	       <scope>provided</scope>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-quartz</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-rss</artifactId>
-	       <scope>provided</scope>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-rss</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-saxon</artifactId>
-	       <scope>provided</scope>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-saxon</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-script</artifactId>
-	       <scope>provided</scope>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-script</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-soap</artifactId>
-	       <scope>provided</scope>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-soap</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-           <groupId>org.apache.camel</groupId>
-           <artifactId>camel-sql</artifactId>
-	       <scope>provided</scope>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-sql</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
@@ -225,135 +225,131 @@
     <build>
         <plugins>
             <plugin>
-              <groupId>org.fusesource.mvnplugins</groupId>
-              <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
-              <executions>
-                <execution>
-                  <id>create-modules-archive</id>
-                  <goals>
-                    <goal>create-modules-archive</goal>
-                  </goals>
-                  <phase>generate-resources</phase>
-                </execution>
-              </executions>
-              <dependencies>
-                <dependency>
-                  <groupId>de.smartics.config</groupId>
-                  <artifactId>config-smartics-jboss-modules</artifactId>
-                  <version>2.0.1</version>
-                </dependency>
-              </dependencies>              
-              <configuration>
-                <excludeDependencyManagementDependenciesInPomProject>true</excludeDependencyManagementDependenciesInPomProject>
-                <attach>false</attach>
-                <targetFolder>${project.build.directory}/wildfly-patch/modules</targetFolder>
-                
-                <!-- These are dependencies we don't want to create/associate modules with -->
-                <dependencyExcludes>
-                   <exclude>
-                     <groupId>com.sun</groupId>
-                     <artifactId>tools</artifactId>
-                   </exclude>
-                   <exclude>
-                     <groupId>org.apache.camel</groupId>
-                     <artifactId>apt</artifactId>
-                   </exclude>
-                   <exclude>
-                     <groupId>org.apache.abdera</groupId>
-                     <artifactId>abdera-parser</artifactId>
-                   </exclude>
-                   <exclude>
-                     <groupId>org.apache.ws.commons.axiom</groupId>
-                     <artifactId>axiom-api</artifactId>
-                   </exclude>
-                   <exclude>
-                     <groupId>org.apache.ws.commons.axiom</groupId>
-                     <artifactId>axiom-impl</artifactId>
-                   </exclude>
-                   
-                   <exclude>
-                     <groupId>org.apache.cxf</groupId>
-                     <artifactId>cxf-rt-bindings-soap</artifactId>
-                   </exclude>
-                   <exclude>
-                     <groupId>org.apache.cxf</groupId>
-                     <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-                   </exclude>
-                   <exclude>
-                     <groupId>org.apache.cxf</groupId>
-                     <artifactId>cxf-rt-frontend-jaxws</artifactId>
-                   </exclude>
-                   <exclude>
-                     <groupId>org.apache.cxf</groupId>
-                     <artifactId>cxf-rt-rs-security-oauth</artifactId>
-                   </exclude>
-                   <exclude>
-                     <groupId>org.apache.cxf</groupId>
-                     <artifactId>cxf-rt-features-clustering</artifactId>
-                   </exclude>
-
-                   <exclude>
-                     <groupId>org.osgi</groupId>
-                     <artifactId>org.osgi.compendium</artifactId>
-                   </exclude>
-                   <exclude>
-                     <groupId>biz.aQute</groupId>
-                     <artifactId>bndlib</artifactId>
-                   </exclude>
-
-                   <exclude>
-                     <groupId>org.apache.aries.blueprint</groupId>
-                     <artifactId>org.apache.aries.blueprint</artifactId>
-                   </exclude>
-                   <exclude>
-                     <groupId>org.apache.aries.blueprint</groupId>
-                     <artifactId>org.apache.aries.blueprint.core</artifactId>
-                   </exclude>
-                   <exclude>
-                     <groupId>org.apache.camel</groupId>
-                     <artifactId>camel-blueprint</artifactId>
-                   </exclude>
-                   
-                   <exclude>
-                     <groupId>net.sf.kxml</groupId>
-                     <artifactId>kxml2</artifactId>
-                   </exclude>
-                   
-                   <exclude>
-                     <groupId>org.apache.ant</groupId>
-                     <artifactId>ant</artifactId>
-                   </exclude>
-                   <exclude>
-                     <groupId>org.apache.ant</groupId>
-                     <artifactId>ant-launcher</artifactId>
-                   </exclude>
-                   
-                   <exclude>
-                     <groupId>org.apache.deltaspike.test</groupId>
-                     <artifactId>test-utils</artifactId>
-                   </exclude>
-
-                   <exclude>
-                     <groupId>org.linkedin</groupId>
-                     <artifactId>org.linkedin.zookeeper-impl</artifactId>
-                   </exclude>
-                   <exclude>
-                     <groupId>org.linkedin</groupId>
-                     <artifactId>org.linkedin.util-groovy</artifactId>
-                   </exclude>
-                   <exclude>
-                     <groupId>org.linkedin</groupId>
-                     <artifactId>org.linkedin.util-core</artifactId>
-                   </exclude>
-                   <exclude>
-                     <groupId>org.apache.zookeeper</groupId>
-                     <artifactId>zookeeper</artifactId>
-                   </exclude>
-                 
-                 </dependencyExcludes>
-              </configuration>
+                <groupId>org.fusesource.mvnplugins</groupId>
+                <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-modules-archive</id>
+                        <goals>
+                            <goal>create-modules-archive</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>de.smartics.config</groupId>
+                        <artifactId>config-smartics-jboss-modules</artifactId>
+                        <version>2.0.1</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <excludeDependencyManagementDependenciesInPomProject>true</excludeDependencyManagementDependenciesInPomProject>
+                    <attach>false</attach>
+                    <targetFolder>${project.build.directory}/wildfly-patch/modules</targetFolder>
+                    <modules>
+                        <dir>etc/smartics/jboss-modules</dir>
+                    </modules>
+                    <!-- 
+                        These are dependencies we don't want to create/associate modules with.
+                        Please keep them in alphabetical order. 
+                    -->
+                    <dependencyExcludes>
+                        <exclude>
+                            <groupId>biz.aQute</groupId>
+                            <artifactId>bndlib</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>com.sun</groupId>
+                            <artifactId>tools</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>net.sf.kxml</groupId>
+                            <artifactId>kxml2</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.abdera</groupId>
+                            <artifactId>abdera-parser</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.ant</groupId>
+                            <artifactId>ant</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.ant</groupId>
+                            <artifactId>ant-launcher</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.aries.blueprint</groupId>
+                            <artifactId>org.apache.aries.blueprint</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.aries.blueprint</groupId>
+                            <artifactId>org.apache.aries.blueprint.core</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.camel</groupId>
+                            <artifactId>apt</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.camel</groupId>
+                            <artifactId>camel-blueprint</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.cxf</groupId>
+                            <artifactId>cxf-rt-bindings-soap</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.cxf</groupId>
+                            <artifactId>cxf-rt-features-clustering</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.cxf</groupId>
+                            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.cxf</groupId>
+                            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.cxf</groupId>
+                            <artifactId>cxf-rt-rs-security-oauth</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.deltaspike.test</groupId>
+                            <artifactId>test-utils</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.ws.commons.axiom</groupId>
+                            <artifactId>axiom-api</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.ws.commons.axiom</groupId>
+                            <artifactId>axiom-impl</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.zookeeper</groupId>
+                            <artifactId>zookeeper</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.linkedin</groupId>
+                            <artifactId>org.linkedin.zookeeper-impl</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.linkedin</groupId>
+                            <artifactId>org.linkedin.util-groovy</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.linkedin</groupId>
+                            <artifactId>org.linkedin.util-core</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.osgi</groupId>
+                            <artifactId>org.osgi.compendium</artifactId>
+                        </exclude>
+                    </dependencyExcludes>
+                </configuration>
             </plugin>
-            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -367,13 +363,12 @@
                         <phase>generate-resources</phase>
                         <configuration>
                             <target>
-                                <ant antfile="${basedir}/src/scripts/antrun-wildfly-patch.xml" inheritRefs="true" />
+                                <ant antfile="${basedir}/scripts/antrun-wildfly-patch.xml" inheritRefs="true" />
                             </target>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-            
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>

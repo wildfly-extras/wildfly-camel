@@ -23,7 +23,7 @@
     <!-- ================================================================== -->
     <!-- Setup                                                              -->
     <!-- ================================================================== -->
-    <property name="source.patch.dir" value="${basedir}/src/patch" />
+    <property name="etc.dir" value="${basedir}/etc" />
     <property name="output.dir" value="${basedir}/target" />
     <property name="target.patch.dir" value="${output.dir}/wildfly-patch" />
 
@@ -34,7 +34,7 @@
 
         <!-- Copy filtered resources -->
         <copy todir="${target.patch.dir}" overwrite="true">
-            <fileset dir="${source.patch.dir}/" />
+            <fileset dir="${etc.dir}/wildfly" />
             <filterset>
                 <filter token="project.version" value="${project.version}" />
             </filterset>
