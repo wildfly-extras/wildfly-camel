@@ -59,11 +59,6 @@
     <include artifact="rome:rome"/>
   </module>
 
-  <!-- skip the rest of the felix artifacts -->
-  <module name="org.apache.felix" skip="true">
-    <include artifact="org.apache.felix:.*"/>
-  </module>
-
   <!-- Give the org.osgi artifacts better module names -->
   <module name="org.osgi.core">
     <include artifact=":org.osgi.core"/>
@@ -81,7 +76,7 @@
   <module name="org.apache.commons.net">
     <include artifact="commons.net:commons.net"/>
   </module>
-  
+
   <!-- Give the xbean artifacts better module names -->
   <module name="org.apache.xbean.$1">
     <include artifact="org.apache.xbean:xbean-(.*)"/>

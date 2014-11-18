@@ -240,7 +240,7 @@
                     <dependency>
                         <groupId>de.smartics.config</groupId>
                         <artifactId>config-smartics-jboss-modules</artifactId>
-                        <version>2.0.1</version>
+                        <version>${version.da.smartics.config}</version>
                     </dependency>
                 </dependencies>
                 <configuration>

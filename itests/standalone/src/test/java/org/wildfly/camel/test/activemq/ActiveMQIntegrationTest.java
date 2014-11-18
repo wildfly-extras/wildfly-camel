@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,6 +23,7 @@ package org.wildfly.camel.test.activemq;
 import org.apache.activemq.camel.component.ActiveMQComponent;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.PollingConsumer;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -83,9 +84,14 @@ public class ActiveMQIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("activemq:queue:" + QUEUE_NAME).
-                transform(body().prepend("Hello ")).to("direct:end");
+                        transform(body().prepend("Hello ")).
+                        to("direct:end");
             }
         });
+
+        PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
+        pollingConsumer.start();
+
         camelctx.start();
 
         // Send a message to the queue
@@ -93,7 +99,8 @@ public class ActiveMQIntegrationTest {
 
         sendMessage(connection, QUEUE_JNDI_NAME, "Kermit");
 
-        String result = consumeRouteMessage(camelctx);
+        String result = pollingConsumer.receive(5000L).getIn().getBody(String.class);
+
         Assert.assertEquals("Hello Kermit", result);
 
         connection.close();
@@ -115,8 +122,8 @@ public class ActiveMQIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start").
-                transform(body().prepend("Hello ")).
-                to("activemq:queue:" + QUEUE_NAME);
+                        transform(body().prepend("Hello ")).
+                        to("activemq:queue:" + QUEUE_NAME);
             }
         });
         camelctx.start();
@@ -164,11 +171,5 @@ public class ActiveMQIntegrationTest {
         MessageConsumer consumer = session.createConsumer(queue);
         consumer.setMessageListener(listener);
         connection.start();
-    }
-
-    private String consumeRouteMessage(CamelContext camelctx) throws Exception {
-        ConsumerTemplate consumer = camelctx.createConsumerTemplate();
-        consumer.start();
-        return consumer.receiveBody("direct:end", String.class);
     }
 }
