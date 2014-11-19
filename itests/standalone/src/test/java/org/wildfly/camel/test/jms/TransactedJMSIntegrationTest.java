@@ -134,29 +134,6 @@ public class TransactedJMSIntegrationTest {
     }
 
     @Test
-    public void testJMSTransaction() throws Exception {
-        // Create the CamelContext
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addComponent("jms", configureJMSComponent());
-
-        camelctx.addRoutes(configureRouteBuilder());
-        camelctx.start();
-
-        // Send a message to the queue
-        ConnectionFactory connectionFactory = (ConnectionFactory) initialctx.lookup("java:/JmsXA");
-        Connection connection = connectionFactory.createConnection();
-        sendMessage(connection, JmsQueue.QUEUE_ONE.getJndiName(), "Bob");
-
-        // The message should have been placed onto the dead letter queue
-        String result = consumeMessageFromEndpoint(camelctx, JmsQueue.DEAD_LETTER_QUEUE.getCamelEndpointUri());
-        Assert.assertNotNull(result);
-        Assert.assertEquals("Bob", result);
-
-        connection.close();
-        camelctx.stop();
-    }
-
-    @Test
     public void testJMSTransactionToDLQ() throws Exception {
         // Create the CamelContext
         CamelContext camelctx = new DefaultCamelContext();
@@ -168,14 +145,37 @@ public class TransactedJMSIntegrationTest {
         // Send a message to the queue
         ConnectionFactory connectionFactory = (ConnectionFactory) initialctx.lookup("java:/JmsXA");
         Connection connection = connectionFactory.createConnection();
-        sendMessage(connection, JmsQueue.QUEUE_ONE.getJndiName(), "Kermit");
+        sendMessage(connection, JmsQueue.QUEUE_ONE.getJndiName(), "Hello Bob");
 
+        // Forwarding the hello message on to QUEUE_TWO should have been rolled back
         String result = consumeMessageFromEndpoint(camelctx, JmsQueue.QUEUE_TWO.getCamelEndpointUri());
-        Assert.assertNull("There should be no reply", result);
+        Assert.assertNull(result);
 
         // The message should have been placed onto the dead letter queue
         result = consumeMessageFromEndpoint(camelctx, JmsQueue.DEAD_LETTER_QUEUE.getCamelEndpointUri());
         Assert.assertNotNull(result);
+        Assert.assertEquals("Hello Bob", result);
+
+        connection.close();
+        camelctx.stop();
+    }
+
+    @Test
+    public void testJMSTransaction() throws Exception {
+        // Create the CamelContext
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addComponent("jms", configureJMSComponent());
+
+        camelctx.addRoutes(configureRouteBuilder());
+        camelctx.start();
+
+        // Send a message to the queue
+        ConnectionFactory connectionFactory = (ConnectionFactory) initialctx.lookup("java:/JmsXA");
+        Connection connection = connectionFactory.createConnection();
+        sendMessage(connection, JmsQueue.QUEUE_ONE.getJndiName(), "Hello Kermit");
+
+        // Verify that the message was forwarded to QUEUE_TWO
+        String result = consumeMessageFromEndpoint(camelctx, JmsQueue.QUEUE_TWO.getCamelEndpointUri());
         Assert.assertEquals("Hello Kermit", result);
 
         connection.close();
@@ -227,7 +227,7 @@ public class TransactedJMSIntegrationTest {
                         .when(body().contains("Bob"))
                         .throwException(new IllegalArgumentException("Invalid name"))
                         .otherwise()
-                        .transform(body().prepend("Hello ")).to("direct:end");
+                        .log("{body}");
             }
         };
     }
