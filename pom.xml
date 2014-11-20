@@ -59,7 +59,9 @@
         <version.hibernate.jpa21.api>1.0.0.Final</version.hibernate.jpa21.api>
         <version.javax.enterprise>1.2</version.javax.enterprise>
         <version.jboss.arquillian.core>1.1.2.Final-wildfly-1</version.jboss.arquillian.core>
+        <version.jboss.ejb3.ext.api>2.1.0</version.jboss.ejb3.ext.api>
         <version.jboss.gravia>1.1.0.Beta44</version.jboss.gravia>
+        <version.jboss.jbossws.api>1.0.2.Final</version.jboss.jbossws.api>
         <version.jboss.shrinkwrap>1.2.1</version.jboss.shrinkwrap>
         <version.jboss.shrinkwrap.resolver>2.1.1</version.jboss.shrinkwrap.resolver>
         <version.jboss.spec.javax.annotation>1.0.0.Final</version.jboss.spec.javax.annotation>
@@ -396,6 +398,11 @@
                 <version>${version.jboss.spec.javax.ejb}</version>
             </dependency>
             <dependency>
+                <groupId>org.jboss.ejb3</groupId>
+                <artifactId>jboss-ejb3-ext-api</artifactId>
+                <version>${version.jboss.ejb3.ext.api}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.jboss.spec.javax.jms</groupId>
                 <artifactId>jboss-jms-api_2.0_spec</artifactId>
                 <version>${version.jboss.spec.javax.jms}</version>
@@ -409,6 +416,11 @@
                 <groupId>org.jboss.spec.javax.ws.rs</groupId>
                 <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
                 <version>${version.jboss.spec.javax.ws.rs}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.ws</groupId>
+                <artifactId>jbossws-api</artifactId>
+                <version>${version.jboss.jbossws.api}</version>
             </dependency>
 
             <!-- JUnit -->
