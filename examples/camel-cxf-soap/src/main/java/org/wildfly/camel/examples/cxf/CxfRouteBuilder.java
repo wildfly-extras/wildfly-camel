@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel :: Example :: Camel CDI
+ * Wildfly Camel :: Example :: Camel CXF SOAP
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -32,22 +32,8 @@ public class CxfRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        /*
-         * Route to expose GreetingService as a JAX-WS web service.
-         *
-         * Requests get sent to http://localhost:8080/example-camel-cxf-soap/greeting
-         *
-         * The recipient list routes the request to a 'direct:' route where the name matches
-         * the web service operation name header. Each route returns the output from
-         * whatever method was invoked on the GreetingServiceImpl class.
-         */
-        from("cxf:/greeting?serviceClass=" + GreetingService.class.getName())
-                .recipientList(simple("direct:${header.operationName}"));
-
-        from("direct:sayHello")
-                .transform(simple("${out.body}"));
-
-        from("direct:sayGoodbye")
-                .transform(simple("${out.body}"));
+        from("direct:start")
+            .to("cxf://http://localhost:8080/example-camel-cxf-soap/greeting?serviceClass=" +
+                    GreetingService.class.getName());
     }
 }

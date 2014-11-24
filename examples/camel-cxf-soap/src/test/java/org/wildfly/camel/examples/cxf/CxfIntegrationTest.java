@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel :: Example :: Camel CDI
+ * Wildfly Camel :: Example :: Camel CXF SOAP
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -19,9 +19,6 @@
  */
 package org.wildfly.camel.examples.cxf;
 
-import java.io.InputStream;
-import java.util.concurrent.TimeUnit;
-
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
@@ -31,19 +28,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wildfly.camel.examples.HttpRequest;
 
+import java.util.concurrent.TimeUnit;
+
 
 @RunAsClient
 @RunWith(Arquillian.class)
 public class CxfIntegrationTest {
 
-    private static final String ENDPOINT_ADDRESS = "http://localhost:8080/example-camel-cxf-soap/greeting";
+    private static final String ENDPOINT_ADDRESS = "http://localhost:8080/example-camel-cxf-soap/?name=Kermit";
     private static final Logger LOG = LoggerFactory.getLogger(CxfIntegrationTest.class);
 
     @Test
     public void testSayHelloCxfSoapRoute() throws Exception {
         // Send HTTP request to greeting service sayHello webservice method
-        InputStream input = HttpRequest.class.getResourceAsStream("/hello-request.xml");
-        String result = HttpRequest.get(ENDPOINT_ADDRESS, input, 10, TimeUnit.SECONDS);
+        String result = HttpRequest.get(ENDPOINT_ADDRESS, 10, TimeUnit.SECONDS);
 
         // Log SOAP response
         LOG.info("*******************************");
@@ -51,21 +49,6 @@ public class CxfIntegrationTest {
         LOG.info("*******************************");
 
         // Verify that a hello response was returned
-        Assert.assertTrue(result.contains("Hello John Doe"));
-    }
-
-    @Test
-    public void testSayGoodbyeCxfSoapRoute() throws Exception {
-        // Send HTTP request to greeting service sayGoodbye webservice method
-        InputStream input = HttpRequest.class.getResourceAsStream("/goodbye-request.xml");
-        String result = HttpRequest.get(ENDPOINT_ADDRESS, input, 10, TimeUnit.SECONDS);
-
-        // Log SOAP response
-        LOG.info("*******************************");
-        LOG.info(result);
-        LOG.info("*******************************");
-
-        // Verify that a goodbye response was returned
-        Assert.assertTrue(result.contains("Goodbye John Doe"));
+        Assert.assertEquals("Hello Kermit", result);
     }
 }

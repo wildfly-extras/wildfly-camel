@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel :: Example :: Camel CDI
+ * Wildfly Camel :: Example :: Camel CXF SOAP
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -21,12 +21,10 @@ package org.wildfly.camel.examples.cxf;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 
 @WebService(name = "greeting")
 public interface GreetingService {
-    @WebMethod(operationName = "sayHello")
+    @WebMethod(operationName = "sayHello", action = "urn:SayHello")
     String sayHello(String name);
-
-    @WebMethod(operationName = "sayGoodbye")
-    String sayGoodbye(String name);
 }
