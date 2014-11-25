@@ -20,7 +20,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "tdiesler/wildfly-camel:@project.version@",
+    "Name": "wildflyext/wildfly-camel",
     "Update": "false"
   },
   "Ports": [

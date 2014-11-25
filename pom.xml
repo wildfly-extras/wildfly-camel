@@ -32,13 +32,13 @@
     <version>1.0.0.CR3-SNAPSHOT</version>
 
     <description>WildFly Camel Integration</description>
-    <url>https://github.com/tdiesler/tdiesler/wildfly-camel</url>
+    <url>https://github.com/wildflyext/wildflyext/wildfly-camel</url>
 
     <!-- Source Control -->
     <scm>
-        <connection>scm:git:git://github.com/tdiesler/wildfly-camel.git</connection>
-        <developerConnection>scm:git:git@github.com:tdiesler/wildfly-camel.git</developerConnection>
-        <url>http://github.com/tdiesler/wildfly-camel</url>
+        <connection>scm:git:git://github.com/wildflyext/wildfly-camel.git</connection>
+        <developerConnection>scm:git:git@github.com:wildflyext/wildfly-camel.git</developerConnection>
+        <url>http://github.com/wildflyext/wildfly-camel</url>
         <tag>HEAD</tag>
     </scm>
 
