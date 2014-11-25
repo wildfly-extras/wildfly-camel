@@ -33,6 +33,12 @@
 
     <artifactId>wildfly-camel-docker</artifactId>
 	<packaging>pom</packaging>
+    
+    <!-- Properties -->
+    <properties>
+        <docker.image.name>wildflyext/wildfly-camel</docker.image.name>
+        <docker.image.version>latest</docker.image.version>
+    </properties>
 	
     <!-- Dependencies -->
     <dependencies>
@@ -84,6 +90,9 @@
                         <configuration>
                             <target>
                                 <ant antfile="${basedir}/scripts/antrun-docker-build.xml" inheritRefs="true" />
+                                <echo>=========================================================================</echo>
+                                <echo>docker build -t ${docker.image.name}:${docker.image.version} ${basedir}/target/context </echo>
+                                <echo>=========================================================================</echo>
                             </target>
                         </configuration>
                     </execution>

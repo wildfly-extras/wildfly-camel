@@ -34,6 +34,13 @@
     <artifactId>example-camel-rest</artifactId>
 	<packaging>war</packaging>
 	
+    <!-- Properties -->
+    <properties>
+        <docker.image.name>wildflyext/${project.artifactId}</docker.image.name>
+        <docker.image.version>latest</docker.image.version>
+    </properties>
+
+    <!-- Dependencies -->    
 	<dependencies>
 	
 		<!-- Provided -->
@@ -114,15 +121,52 @@
 	<!-- Profiles -->
 	<profiles>
 		<profile>
-			<id>ts.all</id>
-			<activation>
-				<property>
-					<name>ts.all</name>
-				</property>
-			</activation>
-		    <properties>
-		        <jboss.home>${basedir}/../target/wildfly-${version.wildfly}</jboss.home>
-		    </properties>
+			<id>docker</id>
+            <activation>
+                <property>
+                    <name>env.DOCKER_HOST</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jolokia</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>build-docker-image</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                                <configuration>
+                                    <images>
+                                        <image>
+                                            <name>${docker.image.name}:${docker.image.version}</name>
+                                            <build>
+                                                <from>wildflyext/wildfly-camel</from>
+                                                <assemblyDescriptorRef>artifact</assemblyDescriptorRef>
+                                                <exportDir>/opt/jboss/wildfly/standalone/deployments</exportDir>
+                                            </build>
+                                        </image>
+                                    </images>
+                                </configuration>
+                            </execution>
+                        </executions>
+                     </plugin>
+                </plugins>
+            </build>
 		</profile>
+        <profile>
+            <id>ts.all</id>
+            <activation>
+                <property>
+                    <name>ts.all</name>
+                </property>
+            </activation>
+            <properties>
+                <jboss.home>${basedir}/../target/wildfly-${version.wildfly}</jboss.home>
+            </properties>
+        </profile>
 	</profiles>
 </project>
