@@ -34,6 +34,13 @@
     <artifactId>example-camel-rest</artifactId>
 	<packaging>war</packaging>
 	
+    <!-- Properties -->
+    <properties>
+        <docker.image.name>wildflyext/${project.artifactId}</docker.image.name>
+        <docker.image.version>latest</docker.image.version>
+    </properties>
+
+    <!-- Dependencies -->    
 	<dependencies>
 	
 		<!-- Provided -->
@@ -96,6 +103,31 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.jolokia</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>build-docker-image</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>${docker.image.name}:${docker.image.version}</name>
+                                    <build>
+                                        <from>wildflyext/wildfly-camel</from>
+                                        <assemblyDescriptorRef>artifact</assemblyDescriptorRef>
+                                        <exportDir>/opt/jboss/wildfly/standalone/deployments</exportDir>
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
+                    </execution>
+                </executions>
+             </plugin>
+             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <executions>
