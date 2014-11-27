@@ -63,19 +63,19 @@ public class JNDIIntegrationTest {
 
     @Test
     public void testCamelContextFactoryLookup() throws Exception {
-        
-        InitialContext initialContext = new InitialContext();
-        CamelContextFactory contextFactory = (CamelContextFactory) initialContext.lookup(CamelConstants.CAMEL_CONTEXT_FACTORY_BINDING_NAME);
-        
-        WildFlyCamelContext camelctx = contextFactory.createCamelContext();
+
+        InitialContext inicxt = new InitialContext();
+        CamelContextFactory factory = (CamelContextFactory) inicxt.lookup(CamelConstants.CAMEL_CONTEXT_FACTORY_BINDING_NAME);
+
+        WildFlyCamelContext camelctx = factory.createCamelContext();
         assertBeanBinding(camelctx);
     }
 
     private void assertBeanBinding(WildFlyCamelContext camelctx) throws NamingException, Exception {
-        
+
         Context context = camelctx.getNamingContext();
         context.bind("helloBean", new HelloBean());
-        
+
         try {
             camelctx.addRoutes(new RouteBuilder() {
                 @Override
