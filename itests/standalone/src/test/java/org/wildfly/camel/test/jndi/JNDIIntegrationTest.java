@@ -21,6 +21,8 @@
 package org.wildfly.camel.test.jndi;
 
 import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -33,6 +35,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.smoke.subA.HelloBean;
+import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextFactory;
 import org.wildfly.extension.camel.WildFlyCamelContext;
 
@@ -45,9 +48,6 @@ import org.wildfly.extension.camel.WildFlyCamelContext;
 @RunWith(Arquillian.class)
 public class JNDIIntegrationTest {
 
-    @ArquillianResource
-    CamelContextFactory contextFactory;
-
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jndi-integration-tests");
@@ -56,10 +56,23 @@ public class JNDIIntegrationTest {
     }
 
     @Test
-    public void testBeanTransform() throws Exception {
-
-        // Bind the bean to JNDI
+    public void testArquillianResource(@ArquillianResource CamelContextFactory contextFactory) throws Exception {
         WildFlyCamelContext camelctx = contextFactory.createCamelContext();
+        assertBeanBinding(camelctx);
+    }
+
+    @Test
+    public void testCamelContextFactoryLookup() throws Exception {
+        
+        InitialContext initialContext = new InitialContext();
+        CamelContextFactory contextFactory = (CamelContextFactory) initialContext.lookup(CamelConstants.CAMEL_CONTEXT_FACTORY_BINDING_NAME);
+        
+        WildFlyCamelContext camelctx = contextFactory.createCamelContext();
+        assertBeanBinding(camelctx);
+    }
+
+    private void assertBeanBinding(WildFlyCamelContext camelctx) throws NamingException, Exception {
+        
         Context context = camelctx.getNamingContext();
         context.bind("helloBean", new HelloBean());
         
