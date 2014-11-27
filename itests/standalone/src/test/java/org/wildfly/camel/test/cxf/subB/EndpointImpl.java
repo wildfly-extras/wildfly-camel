@@ -20,14 +20,13 @@
 
 package org.wildfly.camel.test.cxf.subB;
 
-import org.jboss.ejb3.annotation.SecurityDomain;
-import org.jboss.logging.Logger;
-import org.jboss.ws.api.annotation.WebContext;
-
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
+
+import org.jboss.ejb3.annotation.SecurityDomain;
+import org.jboss.logging.Logger;
+import org.jboss.ws.api.annotation.WebContext;
 
 /**
  * A simple web service endpoint

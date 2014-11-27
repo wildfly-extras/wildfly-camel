@@ -21,7 +21,6 @@ package org.wildfly.camel.examples.cxf;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
 
 @WebService(name = "greeting")
 public interface GreetingService {
