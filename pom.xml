@@ -69,6 +69,7 @@
         <version.jboss.spec.javax.ws.rs>1.0.0.Final</version.jboss.spec.javax.ws.rs>
         <version.jboss.spec.javax.jms>1.0.0.Final</version.jboss.spec.javax.jms>
         <version.jboss.spec.javax.servlet>1.0.0.Final</version.jboss.spec.javax.servlet>
+        <version.jboss.spec.javax.transaction>1.0.0.Final</version.jboss.spec.javax.transaction>
         <version.junit>4.11</version.junit>
         <version.osgi>5.0.0</version.osgi>
         <version.slf4j>1.6.6</version.slf4j>
@@ -417,6 +418,11 @@
                 <groupId>org.jboss.spec.javax.ws.rs</groupId>
                 <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
                 <version>${version.jboss.spec.javax.ws.rs}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.spec.javax.transaction</groupId>
+                <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+                <version>${version.jboss.spec.javax.transaction}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.ws</groupId>

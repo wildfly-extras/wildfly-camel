@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel :: Testsuite
+ * Wildfly Camel :: Example :: Camel JPA
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -24,6 +24,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.transaction.UserTransaction;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.cdi.ContextName;
@@ -40,6 +41,9 @@ public class JpaRouteBuilder extends RouteBuilder {
     @Inject
     private EntityManager em;
 
+    @Inject
+    UserTransaction userTransaction;
+
     @Override
     public void configure() throws Exception {
         
@@ -51,9 +55,7 @@ public class JpaRouteBuilder extends RouteBuilder {
 
         // Configure a JtaTransactionManager by looking up the JBoss transaction manager from JNDI
         JtaTransactionManager transactionManager = new JtaTransactionManager();
-        transactionManager.setTransactionManagerName("java:/TransactionManager");
-        transactionManager.setUserTransactionName("java:jboss/UserTransaction");
-        transactionManager.setTransactionSynchronizationRegistryName("java:jboss/TransactionSynchronizationRegistry");
+        transactionManager.setUserTransaction(userTransaction);
         transactionManager.afterPropertiesSet();
 
         // Configure the JPA endpoint to use the correct EntityManagerFactory and JtaTransactionManager
