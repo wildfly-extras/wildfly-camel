@@ -5,11 +5,15 @@ MAINTAINER Thomas Diesler <tdiesler@redhat.com>
 
 # Add the WildFly-Camel patch
 ADD wildfly-camel-patch-@project.version@.tar.gz /opt/jboss/wildfly
+ADD startup.sh ${JBOSS_HOME}/extras/startup.sh
 
-# Change the ownership of added files/dirs to `jboss` 
+# Change the ownership of added files/dirs to `jboss`
 USER root
 RUN chown -R jboss.jboss /opt/jboss/wildfly
 USER jboss
 
-# Set the default command to run on boot
-CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-c", "standalone-camel.xml", "-b", "0.0.0.0"]
+# Default to operating in standalone mode
+ENV WILDFLY_OPERATING_MODE standalone
+
+# Set the default command to run on startup
+CMD ["/opt/jboss/wildfly/extras/startup.sh"]
