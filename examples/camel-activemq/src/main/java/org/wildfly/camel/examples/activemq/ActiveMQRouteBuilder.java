@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel :: Testsuite
+ * Wildfly Camel :: Example :: Camel ActiveMQ
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
