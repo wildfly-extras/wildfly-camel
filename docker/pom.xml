@@ -37,7 +37,7 @@
     <!-- Properties -->
     <properties>
         <docker.image.name>wildflyext/wildfly-camel</docker.image.name>
-        <docker.image.version>latest</docker.image.version>
+        <docker.image.version>${project.version}</docker.image.version>
     </properties>
 	
     <!-- Dependencies -->
