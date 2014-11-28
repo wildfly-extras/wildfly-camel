@@ -1,4 +1,4 @@
-# Use the wildfly-@version.wildfly@ image
+
 FROM wildflyext/wildfly:@version.wildfly@
 
 MAINTAINER Thomas Diesler <tdiesler@redhat.com>

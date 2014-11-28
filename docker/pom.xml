@@ -92,6 +92,7 @@
                                 <ant antfile="${basedir}/scripts/antrun-docker-build.xml" inheritRefs="true" />
                                 <echo>=========================================================================</echo>
                                 <echo>docker build -t ${docker.image.name}:${docker.image.version} ${basedir}/target/context </echo>
+                                <echo>docker build -t ${docker.image.name} ${basedir}/target/latest </echo>
                                 <echo>=========================================================================</echo>
                             </target>
                         </configuration>
