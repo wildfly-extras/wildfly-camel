@@ -37,7 +37,6 @@
     <!-- Properties -->
     <properties>
         <docker.image.name>wildflyext/${project.artifactId}</docker.image.name>
-        <docker.image.version>${project.version}</docker.image.version>
     </properties>
 
     <!-- Dependencies -->    
@@ -142,7 +141,7 @@
                                 <configuration>
                                     <images>
                                         <image>
-                                            <name>${docker.image.name}:${docker.image.version}</name>
+                                            <name>${docker.image.name}</name>
                                             <build>
                                                 <from>wildflyext/wildfly-camel</from>
                                                 <assemblyDescriptorRef>artifact</assemblyDescriptorRef>
