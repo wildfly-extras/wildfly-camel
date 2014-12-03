@@ -34,14 +34,13 @@ import javax.naming.InitialContext;
 @ContextName("amq-cdi-context")
 public class ActiveMQRouteBuilder extends RouteBuilder {
 
+    private static String BROKER_URL = "vm://localhost?broker.persistent=false&broker.useJmx=false";
+
     @Override
     public void configure() throws Exception {
-        Context context = new InitialContext();
-        ConnectionFactory connectionFactory = (ConnectionFactory) context.lookup("java:/AMQConnectionFactory");
 
         ActiveMQComponent activeMQComponent = new ActiveMQComponent();
-        activeMQComponent.setConnectionFactory(connectionFactory);
-
+        activeMQComponent.setBrokerURL(BROKER_URL);
         getContext().addComponent("activemq", activeMQComponent);
 
         from("file://{{jboss.server.data.dir}}/orders")
