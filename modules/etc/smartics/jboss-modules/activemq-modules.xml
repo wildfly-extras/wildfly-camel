@@ -31,8 +31,6 @@
         <apply-to-dependencies export="true">
             <include module="javax.*" />
         </apply-to-dependencies>
-        <!-- TODO: This this is to deploy the activemq RAR... should we really be doing this? -->
-        <resource-root path="." />
         <dependencies>
             <module name="javax.resource.api" export="true" />
         </dependencies>

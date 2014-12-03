@@ -20,28 +20,14 @@
 
 package org.wildfly.camel.test.activemq;
 
-import java.io.InputStream;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageConsumer;
-import javax.jms.MessageListener;
-import javax.jms.MessageProducer;
-import javax.jms.Queue;
-import javax.jms.Session;
-import javax.jms.TextMessage;
-import javax.naming.InitialContext;
-
+import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.camel.component.ActiveMQComponent;
 import org.apache.camel.CamelContext;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -49,24 +35,38 @@ import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.ProvisionerSupport;
+
+import javax.jms.*;
+import javax.naming.InitialContext;
+import java.io.File;
+import java.io.InputStream;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 @RunWith(Arquillian.class)
 public class ActiveMQIntegrationTest {
 
     static final String QUEUE_NAME = "testQueue";
-    static final String QUEUE_JNDI_NAME = "java:/" + QUEUE_NAME;
 
     @ArquillianResource
     InitialContext initialctx;
 
+    @ArquillianResource
+    Deployer deployer;
+
     @Deployment
     public static WebArchive createdeployment() {
+        File[] amqDependencies = Maven.configureResolverViaPlugin().
+                resolve("org.apache.activemq:activemq-all").
+                withTransitivity().
+                asFile();
+
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-activemq-tests.war");
-        archive.addClasses(ProvisionerSupport.class);
+        archive.addAsLibraries(amqDependencies);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -83,7 +83,7 @@ public class ActiveMQIntegrationTest {
         // Create the CamelContext
         CamelContext camelctx = new DefaultCamelContext();
 
-        ConnectionFactory connectionFactory = (ConnectionFactory) initialctx.lookup("java:/AMQConnectionFactory");
+        ConnectionFactory connectionFactory = createConnectionFactory();
 
         ActiveMQComponent activeMQComponent = new ActiveMQComponent();
         activeMQComponent.setConnectionFactory(connectionFactory);
@@ -106,7 +106,7 @@ public class ActiveMQIntegrationTest {
         // Send a message to the queue
         Connection connection = connectionFactory.createConnection();
 
-        sendMessage(connection, QUEUE_JNDI_NAME, "Kermit");
+        sendMessage(connection, "Kermit");
 
         String result = pollingConsumer.receive(5000L).getIn().getBody(String.class);
 
@@ -121,7 +121,7 @@ public class ActiveMQIntegrationTest {
         // Create the CamelContext
         CamelContext camelctx = new DefaultCamelContext();
 
-        ConnectionFactory connectionFactory = (ConnectionFactory) initialctx.lookup("java:/AMQConnectionFactory");
+        ConnectionFactory connectionFactory = createConnectionFactory();
 
         ActiveMQComponent activeMQComponent = new ActiveMQComponent();
         activeMQComponent.setConnectionFactory(connectionFactory);
@@ -142,7 +142,7 @@ public class ActiveMQIntegrationTest {
 
         // Get the message from the queue
         Connection connection = connectionFactory.createConnection();
-        receiveMessage(connection, QUEUE_JNDI_NAME, new MessageListener() {
+        receiveMessage(connection, new MessageListener() {
             @Override
             public void onMessage(Message message) {
                 TextMessage text = (TextMessage) message;
@@ -165,19 +165,23 @@ public class ActiveMQIntegrationTest {
         camelctx.stop();
     }
 
-    private void sendMessage(Connection connection, String jndiName, String message) throws Exception {
+    private ActiveMQConnectionFactory createConnectionFactory() {
+        return new ActiveMQConnectionFactory("vm://localhost?broker.persistent=false&broker.useJmx=false");
+    }
+
+    private void sendMessage(Connection connection, String message) throws Exception {
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        Queue queue = (Queue) initialctx.lookup(jndiName);
-        MessageProducer producer = session.createProducer(queue);
+        Destination destination = session.createQueue(QUEUE_NAME);
+        MessageProducer producer = session.createProducer(destination);
         TextMessage msg = session.createTextMessage(message);
         producer.send(msg);
         connection.start();
     }
 
-    private void receiveMessage(Connection connection, String jndiName, MessageListener listener) throws Exception {
+    private void receiveMessage(Connection connection, MessageListener listener) throws Exception {
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        Queue queue = (Queue) initialctx.lookup(jndiName);
-        MessageConsumer consumer = session.createConsumer(queue);
+        Destination destination = session.createQueue(QUEUE_NAME);
+        MessageConsumer consumer = session.createConsumer(destination);
         consumer.setMessageListener(listener);
         connection.start();
     }
