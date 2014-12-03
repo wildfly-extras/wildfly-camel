@@ -36,6 +36,9 @@ public class JPAIntegrationTest {
 
     @Test
     public void testFileToJpaRoute() throws Exception {
+        // Give camel a chance to consume the test customer file
+        Thread.sleep(2000);
+
         String res = HttpRequest.get(getEndpointAddress("/example-camel-jpa/customers"), 10, TimeUnit.SECONDS);
         Assert.assertEquals("John Doe", res.trim());
     }
