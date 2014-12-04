@@ -51,9 +51,16 @@
     <module name="org.apache.mina.$1">
         <include artifact=":mina-(.*)" />
     </module>
-    
-    <module name="org.apache.servicemix.bundles.$1">
-        <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles\.(.*)" />
+
+    <module name="org.apache.servicemix.bundles.ognl">
+        <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.ognl"/>
+        <dependencies>
+            <module name="org.apache.servicemix.bundles.javassist"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.servicemix.bundles.javassist">
+        <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.javassist" />
     </module>
     
     <module name="org.apache.xbean.$1">

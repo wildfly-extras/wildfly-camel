@@ -91,6 +91,13 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.ognl">
+        <include artifact="org.apache.camel:camel-ognl" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.servicemix.bundles.javassist" />
+        </apply-to-dependencies>
+    </module>
+
     <module name="org.apache.camel.component.hl7">
         <include artifact="org.apache.camel:camel-hl7" />
         <apply-to-dependencies skip="true">
