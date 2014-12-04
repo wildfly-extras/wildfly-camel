@@ -28,6 +28,7 @@
         <module name="org.apache.camel.component.jmx" export="true" services="export" />
         <module name="org.apache.camel.component.jpa" export="true" services="export" />
         <module name="org.apache.camel.component.ftp" export="true" services="export" />
+        <module name="org.apache.camel.component.ognl" export="true" services="export" />
         <module name="org.apache.activemq.camel" export="true" services="export" />
     </dependencies>
 
