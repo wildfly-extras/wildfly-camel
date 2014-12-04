@@ -229,7 +229,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-netty</artifactId>
+                <artifactId>camel-netty4</artifactId>
                 <version>${version.apache.camel}</version>
             </dependency>
             <dependency>
