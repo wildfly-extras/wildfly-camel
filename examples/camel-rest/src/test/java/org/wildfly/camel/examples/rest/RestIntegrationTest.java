@@ -39,7 +39,7 @@ public class RestIntegrationTest {
     @Test
     public void testRestRoute() throws Exception {
         String res = HttpRequest.get(getEndpointAddress(REST_PATH + "Kermit"), 10, TimeUnit.SECONDS);
-        Assert.assertEquals("Hello Kermit", res.trim());
+        Assert.assertTrue("Starts with 'Hello Kermit': " + res, res.startsWith("Hello Kermit"));
     }
 
     private String getEndpointAddress(String restPath) throws MalformedURLException {

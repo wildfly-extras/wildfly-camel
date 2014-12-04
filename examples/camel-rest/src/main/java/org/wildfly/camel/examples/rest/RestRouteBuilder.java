@@ -19,6 +19,8 @@
  */
 package org.wildfly.camel.examples.rest;
 
+import java.net.InetAddress;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -43,7 +45,9 @@ public class RestRouteBuilder extends RouteBuilder {
                 public void process(Exchange exchange) throws Exception {
                     BeanInvocation beanInvocation = exchange.getIn().getBody(BeanInvocation.class);
                     String name = (String) beanInvocation.getArgs()[0];
-                    exchange.getOut().setBody(Response.ok().entity("Hello " + name).build());
+                    String hostAddress = InetAddress.getLocalHost().getHostAddress();
+                    String message = "Hello " + name + " from " + hostAddress + "\n";
+                    exchange.getOut().setBody(Response.ok().entity(message).build());
                 }
             });
     }
