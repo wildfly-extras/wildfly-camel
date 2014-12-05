@@ -268,10 +268,6 @@
                             <artifactId>kxml2</artifactId>
                         </exclude>
                         <exclude>
-                            <groupId>org.apache.abdera</groupId>
-                            <artifactId>abdera-parser</artifactId>
-                        </exclude>
-                        <exclude>
                             <groupId>org.apache.ant</groupId>
                             <artifactId>ant</artifactId>
                         </exclude>
@@ -319,14 +315,14 @@
                             <groupId>org.apache.deltaspike.test</groupId>
                             <artifactId>test-utils</artifactId>
                         </exclude>
-                        <exclude>
-                            <groupId>org.apache.ws.commons.axiom</groupId>
-                            <artifactId>axiom-api</artifactId>
-                        </exclude>
-                        <exclude>
-                            <groupId>org.apache.ws.commons.axiom</groupId>
-                            <artifactId>axiom-impl</artifactId>
-                        </exclude>
+                        <exclusion>
+                            <groupId>org.apache.geronimo.specs</groupId>
+                            <artifactId>geronimo-activation_1.0.2_spec</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.apache.geronimo.specs</groupId>
+                            <artifactId>geronimo-stax-api_1.0_spec</artifactId>
+                        </exclusion>
                         <exclude>
                             <groupId>org.apache.zookeeper</groupId>
                             <artifactId>zookeeper</artifactId>

@@ -54,11 +54,47 @@
     <module name="net.sf.saxon.he">
         <include artifact="net.sf.saxon:Saxon-HE" />
     </module>
-    
-    <module name="org.apache.abdera.$1">
-        <include artifact=":abdera-(.*)" />
+
+    <module name="org.apache.abdera.core">
+        <include artifact="org.apache.abdera:abdera-core" />
+        <apply-to-dependencies skip="true">
+            <include module=".*" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.commons.logging"/>
+            <module name="org.apache.abdera.i18n"/>
+            <module name="org.apache.abdera.parser"/>
+        </dependencies>
     </module>
-    
+
+    <module name="org.apache.abdera.i18n">
+        <include artifact="org.apache.abdera:abdera-i18n" />
+        <apply-to-dependencies skip="true">
+            <include module=".*" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.apache.abdera.core"/>
+            <module name="org.apache.commons.logging"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.abdera.parser">
+        <include artifact="org.apache.abdera:abdera-parser" />
+        <apply-to-dependencies skip="true">
+            <include module=".*" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="javax.activation.api"/>
+            <module name="org.apache.commons.logging"/>
+            <module name="org.apache.abdera.i18n"/>
+            <module name="org.apache.abdera.core"/>
+            <module name="org.apache.ws.commons.axiom.axiom-api"/>
+            <module name="org.apache.ws.commons.axiom.axiom-impl"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.commons.net">
         <include artifact="commons.net:commons.net" />
     </module>
@@ -85,7 +121,21 @@
     <module name="org.apache.servicemix.bundles.javassist">
         <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.javassist" />
     </module>
-    
+
+    <module name="org.apache.ws.commons.axiom.axiom-impl">
+        <include artifact="org.apache.ws.commons.axiom:axiom-impl" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.ws.commons.axiom.axiom-api">
+        <include artifact="org.apache.ws.commons.axiom:axiom-api" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.xbean.$1">
         <include artifact="org.apache.xbean:xbean-(.*)" />
     </module>
