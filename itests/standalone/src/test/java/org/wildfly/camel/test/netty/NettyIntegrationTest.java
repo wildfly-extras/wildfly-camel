@@ -20,9 +20,11 @@
 
 package org.wildfly.camel.test.netty;
 
+import java.io.PrintWriter;
+import java.net.Socket;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.PollingConsumer;
-import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -32,9 +34,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.io.PrintWriter;
-import java.net.Socket;
 
 @RunWith(Arquillian.class)
 public class NettyIntegrationTest {

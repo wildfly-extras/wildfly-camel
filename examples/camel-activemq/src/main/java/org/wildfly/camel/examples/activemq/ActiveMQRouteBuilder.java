@@ -19,15 +19,12 @@
  */
 package org.wildfly.camel.examples.activemq;
 
+import javax.ejb.Startup;
+import javax.enterprise.context.ApplicationScoped;
+
 import org.apache.activemq.camel.component.ActiveMQComponent;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.cdi.ContextName;
-
-import javax.ejb.Startup;
-import javax.enterprise.context.ApplicationScoped;
-import javax.jms.ConnectionFactory;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 
 @Startup
 @ApplicationScoped
