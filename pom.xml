@@ -703,6 +703,9 @@
                                 <requireJavaVersion>
                                     <version>1.7</version>
                                 </requireJavaVersion>
+                                <requireMavenVersion>
+                                    <version>3.2.3</version>
+                                </requireMavenVersion>                
                             </rules>
                         </configuration>
                     </execution>
@@ -725,11 +728,6 @@
             <name>WildFly Camel Committers</name>
         </developer>
     </developers>
-
-    <!-- Prerequisites -->
-    <prerequisites>
-        <maven>3.2.3</maven>
-    </prerequisites>
 
     <!-- Distribution Management -->
     <distributionManagement>
