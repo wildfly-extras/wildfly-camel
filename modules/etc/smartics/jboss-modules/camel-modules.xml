@@ -53,6 +53,17 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.atom">
+        <include artifact="org.apache.camel:camel-atom" />
+        <apply-to-dependencies skip="true">
+            <include module=".*" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.apache.camel.core"/>
+            <module name="org.apache.abdera.core" export="true"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.bindy">
         <include artifact="org.apache.camel:camel-bindy" />
         <dependencies>
