@@ -38,7 +38,6 @@
                 <include>*:gravia-container-*:jar</include>
                 <include>*:hawtio-default:war</include>
                 <include>*:wildfly-camel-subsystem:jar</include>
-                <include>*:wildfly-camel-webapp:war</include>
             </includes>
             <scope>provided</scope>
             <unpack>false</unpack>

@@ -62,13 +62,6 @@
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-webapp</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-            <type>war</type>
-        </dependency>
 		<dependency>
 			<groupId>io.hawt</groupId>
 			<artifactId>hawtio-default</artifactId>

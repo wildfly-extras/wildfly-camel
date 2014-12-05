@@ -60,9 +60,6 @@
             </fileset>
         </copy>
 
-        <!-- Wildfly-Camel webapp -->
-        <copy file="${deploy.artifacts.lib}/wildfly-camel-webapp-${project.version}.war" tofile="${wildfly.patch.dir}/standalone/deployments/wildfly-camel.war"/>
-
         <!-- Hawt.io -->
         <copy file="${deploy.artifacts.lib}/hawtio-default-${version.hawtio}.war" tofile="${wildfly.patch.dir}/standalone/deployments/hawtio.war"/>
 
