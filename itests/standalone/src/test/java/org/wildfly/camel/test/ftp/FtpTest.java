@@ -22,22 +22,149 @@ package org.wildfly.camel.test.ftp;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
+import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.test.AvailablePortFinder;
+import org.apache.ftpserver.ConnectionConfigFactory;
+import org.apache.ftpserver.FtpServer;
+import org.apache.ftpserver.FtpServerFactory;
+import org.apache.ftpserver.filesystem.nativefs.NativeFileSystemFactory;
+import org.apache.ftpserver.ftplet.UserManager;
+import org.apache.ftpserver.listener.ListenerFactory;
+import org.apache.ftpserver.usermanager.ClearTextPasswordEncryptor;
+import org.apache.ftpserver.usermanager.PasswordEncryptor;
+import org.apache.ftpserver.usermanager.PropertiesUserManagerFactory;
+import org.apache.mina.filter.executor.OrderedThreadPoolExecutor;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
 public class FtpTest {
 
+    protected org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(FtpTest.class);
+
+    static int port = 21000;
+    protected static final File FTP_ROOT_DIR = new File("./target/res/home");
+    protected static final File USERS_FILE = new File("./src/test/resources/users.properties");
+
+    protected FtpServer ftpServer;
+
+    @Before
+    public void startFtpServer() throws Exception {
+
+        try {
+
+            port = AvailablePortFinder.getNextAvailable(21000);
+            recursiveDelete(FTP_ROOT_DIR);
+            System.out.println(new File(".").getCanonicalPath());
+            assertTrue(new File(".").getCanonicalPath(), USERS_FILE.exists());
+
+            NativeFileSystemFactory fsf = new NativeFileSystemFactory();
+            fsf.setCreateHome(true);
+
+            PropertiesUserManagerFactory pumf = new PropertiesUserManagerFactory();
+            pumf.setAdminName("admin");
+            pumf.setPasswordEncryptor(new ClearTextPasswordEncryptor());
+            pumf.setFile(USERS_FILE);
+            UserManager userMgr = pumf.createUserManager();
+
+            ListenerFactory factory1 = new ListenerFactory();
+            factory1.setPort(port);
+
+            FtpServerFactory serverFactory = new FtpServerFactory();
+            serverFactory.setUserManager(userMgr);
+            serverFactory.setFileSystem(fsf);
+            serverFactory.setConnectionConfig(new ConnectionConfigFactory().createConnectionConfig());
+            serverFactory.addListener("default", factory1.createListener());
+
+            FtpServerFactory factory = serverFactory;
+            ftpServer = factory.createServer();
+            ftpServer.start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } catch (Throwable e) {
+            e.printStackTrace();
+            throw new Exception(e);
+        }
+    }
+
+    @After
+    public void stopFtpServer() throws Exception {
+        if (ftpServer != null) {
+            try {
+                ftpServer.stop();
+                ftpServer = null;
+            } catch (Exception e) {
+                // ignore while shutting down as we could be polling during shutdown
+                // and get errors when the ftp server is stopping. This is only an issue
+                // since we host the ftp server embedded in the same jvm for unit testing
+            }
+        }
+    }
+
+    static private void recursiveDelete(File file) {
+        if( file.exists() ) {
+            if( file.isDirectory() ) {
+                File[] files = file.listFiles();
+                if( files!=null ) {
+                    for (File f : files) {
+                        recursiveDelete(f);
+                    }
+                }
+            }
+            file.delete();
+        }
+    }
+
+
+
     @Deployment
-    public static WebArchive createdeployment() {
+    public static WebArchive createdeployment() throws IOException {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-ftp-tests.war");
+        addJarHolding(archive, PasswordEncryptor.class);
+        addJarHolding(archive, AvailablePortFinder.class);
+        addJarHolding(archive, OrderedThreadPoolExecutor.class);
         return archive;
+    }
+
+    private static void addJarHolding(WebArchive archive, Class clazz) {
+        URL location = clazz.getProtectionDomain().getCodeSource().getLocation();
+        if( location!=null && location.getProtocol().equals("file")) {
+            File path = new File(location.getPath());
+            if( path.isFile() ) {
+                archive.addAsLibrary(path);
+            }
+        }
+    }
+
+    @Test
+    public void testSendFile() throws Exception {
+
+        CamelContext ctx = new DefaultCamelContext();
+        Endpoint endpoint = ctx.getEndpoint("ftp://localhost:"+port+"/foo?username=admin&password=admin");
+
+        File test_file = new File(FTP_ROOT_DIR, "foo/test.txt");
+
+        Assert.assertFalse(test_file.exists());
+        ctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFileName", "test.txt");
+        Assert.assertTrue(test_file.exists());
+
+        ctx.stop();
     }
 
     @Test
@@ -46,8 +173,8 @@ public class FtpTest {
         Endpoint endpoint = ctx.getEndpoint("ftp://localhost/foo");
         Assert.assertNotNull(endpoint);
         Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.file.remote.FtpEndpoint");
-        System.out.println("Success!!!");
         ctx.stop();
     }
+
 
 }
