@@ -24,7 +24,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.examples.HttpRequest;
+import org.wildfly.camel.test.common.HttpRequest;
 
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;

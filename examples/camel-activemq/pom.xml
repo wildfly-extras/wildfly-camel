@@ -70,12 +70,6 @@
 
         <!-- Test Scope -->
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
-            <artifactId>example-camel-common</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>

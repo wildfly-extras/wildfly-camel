@@ -82,7 +82,7 @@
 
         <!-- Plugin Versions -->
         <version-build-helper-maven-plugin>1.9.1</version-build-helper-maven-plugin>
-        <version-docker-maven-plugin>0.10.4</version-docker-maven-plugin>
+        <version-docker-maven-plugin>0.10.5</version-docker-maven-plugin>
         <version-jboss-shrinkwrap-resolver-maven-plugin>2.1.1</version-jboss-shrinkwrap-resolver-maven-plugin>
         <version-maven-antrun-plugin>1.7</version-maven-antrun-plugin>
         <version-maven-assembly-plugin>2.4</version-maven-assembly-plugin>
@@ -100,7 +100,6 @@
 
     <!-- Modules -->
     <modules>
-        <module>docker</module>
         <module>enricher</module>
         <module>modules</module>
         <module>patch</module>
@@ -802,6 +801,12 @@
 
     <!-- Profiles -->
     <profiles>
+        <profile>
+            <id>docker</id>
+            <modules>
+                <module>docker</module>
+            </modules>
+        </profile>
         <profile>
             <id>ts.all</id>
             <activation>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   #%L
-  Wildfly Camel Testsuite
+  Wildfly Camel Patch
   %%
   Copyright (C) 2013 - 2014 RedHat
   %%
@@ -20,43 +20,21 @@
   -->
 
 
-<!-- 
-  Set these VM properties in your IDE debugger 
-
-  -Djava.util.logging.manager=org.jboss.logmanager.LogManager
-  -Dwildfly.camel.home=${workspace_loc:wildfly-camel-build}/target/wildfly-camel-1.0.0-SNAPSHOT
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.wildfly.camel</groupId>
-        <artifactId>wildfly-camel</artifactId>
+        <artifactId>wildfly-camel-itests</artifactId>
         <version>2.1.0-SNAPSHOT</version>
     </parent>
 
-    <name>Wildfly Camel :: Testsuite</name>
+    <name>Wildfly Camel :: Testsuite :: Common</name>
 
-    <artifactId>wildfly-camel-itests</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>wildfly-camel-itests-common</artifactId>
+	    
+	<dependencies>
+	
+	</dependencies>
 
-    <!-- Properties -->    
-    <properties>
-        <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
-    </properties>
-    
-	<modules>
-        <module>common</module>
-		<module>standalone</module>
-	</modules>
-
-	<!-- Profiles -->
-	<profiles>
-        <profile>
-            <id>docker</id>
-            <modules>
-                <module>docker</module>
-            </modules>
-        </profile>
-	</profiles>
 </project>
