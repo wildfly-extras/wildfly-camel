@@ -97,6 +97,9 @@
 
     <module name="org.apache.commons.net">
         <include artifact="commons.net:commons.net" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
     </module>
     
     <module name="org.apache.deltaspike.$1.$2">
