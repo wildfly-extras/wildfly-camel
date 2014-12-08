@@ -95,6 +95,10 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.jakarta.regexp">
+        <include artifact=":jakarta-regexp" />
+    </module>
+
     <module name="org.apache.commons.net">
         <include artifact="commons.net:commons.net" />
         <dependencies>
@@ -112,6 +116,10 @@
     
     <module name="org.apache.mina.$1">
         <include artifact=":mina-(.*)" />
+    </module>
+
+    <module name="org.apache.lucene.$1">
+        <include artifact="org.apache.lucene:lucene-(.*)" />
     </module>
 
     <module name="org.apache.servicemix.bundles.ognl">
