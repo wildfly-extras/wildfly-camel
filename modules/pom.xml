@@ -175,6 +175,12 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-weather</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.configadmin</artifactId>
             <scope>provided</scope>
