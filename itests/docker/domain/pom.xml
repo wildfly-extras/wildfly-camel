@@ -200,14 +200,22 @@
                         <configuration>
                             <target>
                                 <exec executable="docker">
-                                    <arg value="rm"/>
-                                    <arg value="-f"/>
+                                    <arg value="stop"/>
+                                    <arg value="domain-slave"/>
+                                </exec>
+                                <exec executable="docker">
+                                    <arg value="stop"/>
                                     <arg value="domain-controller"/>
                                 </exec>
                                 <exec executable="docker">
                                     <arg value="rm"/>
                                     <arg value="-f"/>
                                     <arg value="domain-slave"/>
+                                </exec>
+                                <exec executable="docker">
+                                    <arg value="rm"/>
+                                    <arg value="-f"/>
+                                    <arg value="domain-controller"/>
                                 </exec>
                             </target>
                         </configuration>
