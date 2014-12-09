@@ -36,7 +36,6 @@
 
 	<!-- Modules -->
 	<modules>
-		<module>common</module>
 		<module>camel-cdi</module>
 		<module>camel-jpa</module>
         <module>camel-cxf-soap</module>
@@ -50,6 +49,16 @@
         <server.config>standalone-camel.xml</server.config>
     </properties>
 
+    <!-- Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-itests-common</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
 	<!-- Build -->
 	<build>
 		<plugins>

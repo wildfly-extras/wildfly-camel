@@ -26,7 +26,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wildfly.camel.examples.HttpRequest;
+import org.wildfly.camel.test.common.HttpRequest;
 
 import java.util.concurrent.TimeUnit;
 

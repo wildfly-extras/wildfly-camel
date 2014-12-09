@@ -71,7 +71,7 @@
             <artifactId>shrinkwrap-impl-base</artifactId>
         </dependency>
         
-        <!-- Test Dependencies -->
+        <!-- Test Scope -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

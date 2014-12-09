@@ -37,7 +37,7 @@
     <!-- Properties -->
     <properties>
         <docker.image.name>wildflyext/wildfly-camel</docker.image.name>
-        <docker.image.version>${project.version}</docker.image.version>
+        <docker.image.version>latest</docker.image.version>
     </properties>
 	
     <!-- Dependencies -->
@@ -46,6 +46,7 @@
 	        <groupId>org.wildfly.camel</groupId>
 	        <artifactId>wildfly-camel-patch</artifactId>
 	        <version>${project.version}</version>
+            <scope>provided</scope>
 	        <type>tar.gz</type>
     	</dependency>
     </dependencies>
@@ -55,24 +56,19 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
+                <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>unpack-wildfly-patch</id>
                         <phase>generate-resources</phase>
                         <goals>
-                            <goal>copy</goal>
+                            <goal>single</goal>
                         </goals>
                         <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.wildfly.camel</groupId>
-                                    <artifactId>wildfly-camel-patch</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>tar.gz</type>
-                                    <outputDirectory>./target/context</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <finalName>docker</finalName>
+                            <descriptors>
+                                <descriptor>scripts/assembly-artifacts.xml</descriptor>
+                            </descriptors>
                         </configuration>
                     </execution>
                 </executions>
@@ -80,19 +76,29 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <inherited>false</inherited>
                 <executions>
                     <execution>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
-                        <phase>generate-resources</phase>
                         <configuration>
                             <target>
-                                <ant antfile="${basedir}/scripts/antrun-docker-build.xml" inheritRefs="true" />
+                                <exec executable="docker">
+                                    <arg value="rmi"/>
+                                    <arg value="--force=true"/>
+                                    <arg value="${docker.image.name}:${docker.image.version}"/>
+                                </exec>
+                                <exec executable="docker" error="target/build.err" failonerror="true">
+                                    <arg value="build"/>
+                                    <arg value="--force-rm=true"/>
+                                    <arg value="--rm=true"/>
+                                    <arg value="-t"/>
+                                    <arg value="${docker.image.name}:${docker.image.version}"/>
+                                    <arg value="target/docker"/>
+                                </exec>
                                 <echo>=========================================================================</echo>
-                                <echo>docker build -t ${docker.image.name}:${docker.image.version} ${basedir}/target/context </echo>
-                                <echo>docker build -t ${docker.image.name} ${basedir}/target/latest </echo>
+                                <echo>docker run --rm -ti -p 8080:8080 -p 9990:9990 ${docker.image.name}</echo>
                                 <echo>=========================================================================</echo>
                             </target>
                         </configuration>
