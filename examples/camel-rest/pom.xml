@@ -115,6 +115,11 @@
 	<profiles>
 		<profile>
 			<id>docker</id>
+            <activation>
+                <property>
+                    <name>env.DOCKER_HOST</name>
+                </property>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
