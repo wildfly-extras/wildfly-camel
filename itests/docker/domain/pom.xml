@@ -120,6 +120,7 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>generate-images</id>
                         <phase>generate-resources</phase>
                         <goals>
                             <goal>run</goal>
@@ -159,73 +160,60 @@
                             </target>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.jolokia</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <executions>
                     <execution>
-                        <id>start-docker-image</id>
+                        <id>start-containers</id>
                         <phase>pre-integration-test</phase>
                         <goals>
-                            <goal>start</goal>
+                            <goal>run</goal>
                         </goals>
                         <configuration>
-                            <images>
-                                <image>
-                                    <name>${docker.image.name}-master</name>
-                                    <alias>controller</alias>
-                                    <run>
-                                        <ports>
-                                            <port>9990:9990</port>
-                                        </ports>
-                                        <log>
-                                            <enabled>true</enabled>
-                                        </log>
-                                    </run>
-                                </image>
-                                <image>
-                                    <name>${docker.image.name}-slave</name>
-                                    <alias>slave</alias>
-                                    <run>
-                                        <ports>
-                                            <port>8181:8080</port>
-                                        </ports>
-                                        <links>
-                                            <link>controller:ctrl</link>
-                                        </links>
-                                        <log>
-                                            <enabled>true</enabled>
-                                        </log>
-                                        <wait>
-                                            <url>http://${env.DOCKER_IP}:8181</url>
-                                            <time>10000</time>
-                                        </wait>
-                                    </run>
-                                </image>
-                            </images>
+                            <target>
+                                <exec executable="docker">
+                                    <arg value="run"/>
+                                    <arg value="-d"/>
+                                    <arg value="-p"/>
+                                    <arg value="9990:9990"/>
+                                    <arg value="--name=domain-controller"/>
+                                    <arg value="${docker.image.name}-master:${docker.image.version}"/>
+                                </exec>
+                                <exec executable="docker">
+                                    <arg value="run"/>
+                                    <arg value="-d"/>
+                                    <arg value="-p"/>
+                                    <arg value="8181:8080"/>
+                                    <arg value="--link"/>
+                                    <arg value="domain-controller:ctrl"/>
+                                    <arg value="--name=domain-slave"/>
+                                    <arg value="${docker.image.name}-slave:${docker.image.version}"/>
+                                </exec>
+                                <!-- [TODO] use docker-maven-plugin with wait option -->
+                                <sleep seconds="10"/>
+                            </target>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>stop-docker-image</id>
+                        <id>stop-containers</id>
                         <phase>post-integration-test</phase>
                         <goals>
-                            <goal>stop</goal>
+                            <goal>run</goal>
                         </goals>
                         <configuration>
-                            <images>
-                                <image>
-                                    <alias>slave</alias>
-                                </image>
-                                <image>
-                                    <alias>controller</alias>
-                                </image>
-                            </images>
+                            <target>
+                                <exec executable="docker">
+                                    <arg value="rm"/>
+                                    <arg value="-f"/>
+                                    <arg value="domain-controller"/>
+                                </exec>
+                                <exec executable="docker">
+                                    <arg value="rm"/>
+                                    <arg value="-f"/>
+                                    <arg value="domain-slave"/>
+                                </exec>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>
-             </plugin>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>

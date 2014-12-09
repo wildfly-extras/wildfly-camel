@@ -68,6 +68,13 @@ public class RunCommand {
         return this;
     }
     
+    public RunCommand options(String... opts) {
+        for (String opt : opts) {
+            options.add(opt);
+        }
+        return this;
+    }
+    
     public RunCommand args(String... params) {
         for (String p : params) {
             args.add(p);

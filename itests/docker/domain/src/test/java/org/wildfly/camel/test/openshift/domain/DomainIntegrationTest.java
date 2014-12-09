@@ -21,7 +21,6 @@ package org.wildfly.camel.test.openshift.domain;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -47,8 +46,19 @@ public class DomainIntegrationTest {
     
     @Test
     public void testEndpoint() throws Exception {
-        String host = mgmtClient.getMgmtAddress();
         
+        String host = mgmtClient.getMgmtAddress();
+        RunCommand.Result cmdres = getDeployCommand().connect("slave", "slave", host, 9990).exec();
+        Assert.assertEquals(0, cmdres.exitValue());
+        
+        String reqspec = "http://" + host + ":8181/domain-endpoint";
+        System.out.println(reqspec);
+        
+        String result = HttpRequest.get(reqspec, 10, TimeUnit.SECONDS);
+        Assert.assertTrue("Starts with Hello: " + result, result.startsWith("Hello"));
+    }
+
+    private DeployCommand getDeployCommand() {
         String[] files = new File("target").list(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
@@ -60,15 +70,6 @@ public class DomainIntegrationTest {
         
         String runtimeName = "domain-endpoint.war";
         DeployCommand docker = new DeployCommand(runtimeName, new File("target/" + files[0]));
-        
-        RunCommand.Result cmdres = docker.connect("slave", "slave", host, 9990).exec();
-        Iterator<String> itout = cmdres.outputLines();
-        while (itout.hasNext()) {
-            System.out.println(itout.next());
-        }
-        Assert.assertEquals(0, cmdres.exitValue());
-        
-        String result = HttpRequest.get("http://" + host + ":8181/domain-endpoint", 10, TimeUnit.SECONDS);
-        Assert.assertTrue("Starts with Hello: " + result, result.startsWith("Hello"));
+        return docker;
     }
 }
