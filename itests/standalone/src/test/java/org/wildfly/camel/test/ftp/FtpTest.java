@@ -147,6 +147,7 @@ public class FtpTest {
         if( location!=null && location.getProtocol().equals("file")) {
             File path = new File(location.getPath());
             if( path.isFile() ) {
+                System.out.println("Adding jar lib to war: "+path);
                 archive.addAsLibrary(path);
             }
         }
