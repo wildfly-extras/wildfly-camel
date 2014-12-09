@@ -156,19 +156,19 @@
         <dependency>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-log4j12</artifactId>
-          <version>1.7.7</version>
+          <version>${version.slf4j}</version>
           <scope>test</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.ftpserver</groupId>
           <artifactId>ftpserver-core</artifactId>
-          <version>1.0.6</version>
+          <version>${version.apache.ftpserver}</version>
           <scope>test</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.ftpserver</groupId>
           <artifactId>ftplet-api</artifactId>
-          <version>1.0.6</version>
+          <version>${version.apache.ftpserver}</version>
           <scope>test</scope>
         </dependency>
 
