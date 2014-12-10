@@ -20,7 +20,6 @@
 package org.wildfly.camel.test.common.docker;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +30,6 @@ import java.util.List;
  */
 public class RunCommand extends DockerCommand {
 
-    private List<String> args = new ArrayList<>();
     private String image;
     private String cmd;
 
@@ -64,11 +62,9 @@ public class RunCommand extends DockerCommand {
         return this;
     }
     
-    public RunCommand args(String... params) {
-        for (String p : params) {
-            args.add(p);
-        }
-        return this;
+    @Override
+    protected void appendsArgs(List<String> carr) {
+        // do nothing
     }
 
     @Override
@@ -78,6 +74,6 @@ public class RunCommand extends DockerCommand {
         if (cmd != null) {
             carr.add(cmd);
         }
-        carr.addAll(args);
+        super.appendsArgs(carr);
     }
 }

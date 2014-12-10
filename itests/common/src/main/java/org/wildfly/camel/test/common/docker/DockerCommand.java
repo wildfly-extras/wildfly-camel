@@ -36,6 +36,7 @@ import java.util.NoSuchElementException;
 public class DockerCommand {
 
     private List<String> options = new ArrayList<>();
+    private List<String> args = new ArrayList<>();
     private String cmd;
 
     public DockerCommand(String cmd) {
@@ -49,10 +50,22 @@ public class DockerCommand {
         return this;
     }
     
+    public DockerCommand args(String... params) {
+        for (String p : params) {
+            args.add(p);
+        }
+        return this;
+    }
+
     protected void buildCommand(List<String> carr) {
         carr.add("docker");
         carr.add(cmd);
         carr.addAll(options);
+        appendsArgs(carr);
+    }
+
+    protected void appendsArgs(List<String> carr) {
+        carr.addAll(args);
     }
     
     public final DockerCommand.Result exec() {
