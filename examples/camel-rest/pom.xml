@@ -123,6 +123,27 @@
             <build>
                 <plugins>
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <exec executable="docker">
+                                            <arg value="rmi"/>
+                                            <arg value="--force=true"/>
+                                            <arg value="${docker.image.name}"/>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
                         <groupId>org.jolokia</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
                         <executions>
