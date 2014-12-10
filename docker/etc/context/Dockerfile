@@ -15,11 +15,8 @@ RUN chown -R jboss.jboss /opt/jboss/wildfly
 RUN chmod +x /opt/jboss/wildfly/extras/startup.sh
 USER jboss
 
-# Default to operating in standalone mode
-ENV WILDFLY_OPERATING_MODE standalone
-
 # Expose the native management port 
 EXPOSE 9999
 
-# Set the default command to run on startup
-CMD ["/opt/jboss/wildfly/extras/startup.sh"]
+# Set default command line args for standalone mode
+CMD ["/opt/jboss/wildfly/extras/startup.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0", "-c", "standalone-camel.xml"]
