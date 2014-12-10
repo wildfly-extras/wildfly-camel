@@ -7,8 +7,8 @@
         <configuration>
             <property name="managementAddress">${env.DOCKER_IP}</property>
             <property name="managementPort">9990</property>
-            <property name="username">slave</property>
-            <property name="password">slave</property>
+            <property name="username">domainadmin</property>
+            <property name="password">domainadmin</property>
         </configuration>
     </container>
 

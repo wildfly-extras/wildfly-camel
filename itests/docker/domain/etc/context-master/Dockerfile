@@ -3,7 +3,7 @@ FROM wildflyext/wildfly-camel
 MAINTAINER Thomas Diesler <tdiesler@redhat.com>
 
 # Add a management user to the domain controller
-RUN /opt/jboss/wildfly/bin/add-user.sh --user slave --password slave --silent
+RUN /opt/jboss/wildfly/bin/add-user.sh --user domainadmin --password domainadmin --silent
 
 # Expose the native management port 
 EXPOSE 9999

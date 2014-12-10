@@ -73,7 +73,7 @@ public class DomainIntegrationTest {
         String runtimeName = "domain-endpoint.war";
         DeployCommand docker = new DeployCommand(runtimeName, new File("target/" + files[0]));
         
-        Result result = docker.connect("slave", "slave", host, 9990).exec();
+        Result result = docker.connect("domainadmin", "domainadmin", host, 9990).exec();
         Iterator<String> itout = result.outputLines();
         while (itout.hasNext()) {
             System.out.println(itout.next());

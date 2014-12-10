@@ -22,10 +22,10 @@
                     <properties path="application-roles.properties" relative-to="jboss.domain.config.dir"/>
                 </authorization>
             </security-realm>
-            <security-realm name="SlaveRealm">
+            <security-realm name="DomainControllerRealm">
                 <server-identities>
-                    <!-- Base64 encoded password: slave -->
-                    <secret value="c2xhdmU=" />
+                    <!-- Base64 encoded password -->
+                    <secret value="ZG9tYWluYWRtaW4=" />
                 </server-identities>
             </security-realm>
         </security-realms>
@@ -59,7 +59,7 @@
     </management>
 
     <domain-controller>
-       <remote host="${env.CTRL_PORT_9999_TCP_ADDR}" port="9999" username="slave" security-realm="SlaveRealm"/>
+       <remote host="${env.DOMAIN_CONTROLLER_PORT_9999_TCP_ADDR}" port="9999" username="${env.DOMAIN_CONTROLLER_USERNAME}" security-realm="DomainControllerRealm"/>
     </domain-controller>
 
     <interfaces>
@@ -68,11 +68,6 @@
         </interface>
         <interface name="public">
            <inet-address value="${jboss.bind.address:127.0.0.1}"/>
-        </interface>
-        <interface name="unsecure">
-            <!-- Used for IIOP sockets in the standard configuration.
-                 To secure JacORB you need to setup SSL -->
-            <inet-address value="${jboss.bind.address.unsecure:127.0.0.1}"/>
         </interface>
     </interfaces>
 

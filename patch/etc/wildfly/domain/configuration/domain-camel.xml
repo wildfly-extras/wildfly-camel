@@ -346,7 +346,6 @@
     <interfaces>
         <interface name="management"/>
         <interface name="public"/>
-        <interface name="unsecure"/>
     </interfaces>
     <socket-binding-groups>
         <socket-binding-group name="default-sockets" default-interface="public">

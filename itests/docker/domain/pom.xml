@@ -156,7 +156,7 @@
                                 </exec>
                                 <echo>=========================================================================</echo>
                                 <echo>docker run --rm -ti -p 9990:9990 --name=${docker.alias.master} ${docker.image.name}-master</echo>
-                                <echo>docker run --rm -ti -p 8181:8080 --link ${docker.alias.master}:ctrl --name=${docker.alias.slave} ${docker.image.name}-slave</echo>
+                                <echo>docker run --rm -ti -p 8181:8080 --link ${docker.alias.master}:domain-controller -e DOMAIN_CONTROLLER_USERNAME=domainadmin ${docker.image.name}-slave</echo>
                                 <echo>=========================================================================</echo>
                             </target>
                         </configuration>
@@ -191,11 +191,14 @@
                                     <name>${docker.image.name}-slave</name>
                                     <alias>${docker.alias.slave}</alias>
                                     <run>
+                                        <env>
+                                            <DOMAIN_CONTROLLER_USERNAME>domainadmin</DOMAIN_CONTROLLER_USERNAME>
+                                        </env>
                                         <ports>
                                             <port>8181:8080</port>
                                         </ports>
                                         <links>
-                                            <link>${docker.alias.master}:ctrl</link>
+                                            <link>${docker.alias.master}:domain-controller</link>
                                         </links>
                                         <log>
                                             <enabled>true</enabled>
