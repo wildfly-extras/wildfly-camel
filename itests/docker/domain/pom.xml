@@ -35,9 +35,8 @@
 
     <!-- Properties -->
     <properties>
-        <docker.image.name>wildflyext/example-domain</docker.image.name>
+        <docker.image.name>wildflyext/wildfly-camel</docker.image.name>
         <docker.alias.master>domain-master</docker.alias.master>
-        <docker.alias.slave>domain-slave</docker.alias.slave>
     </properties>
     
     <!-- Dependencies -->
@@ -84,40 +83,6 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>example-domain-master</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <appendAssemblyId>false</appendAssemblyId>
-                            <finalName>docker-master</finalName>
-                            <descriptors>
-                                <descriptor>scripts/assembly-master.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>example-domain-slave</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <appendAssemblyId>false</appendAssemblyId>
-                            <finalName>docker-slave</finalName>
-                            <descriptors>
-                                <descriptor>scripts/assembly-slave.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
@@ -128,35 +93,9 @@
                         </goals>
                         <configuration>
                             <target>
-                                <exec executable="docker">
-                                    <arg value="rmi"/>
-                                    <arg value="-f"/>
-                                    <arg value="${docker.image.name}-master"/>
-                                </exec>
-                                <exec executable="docker">
-                                    <arg value="rmi"/>
-                                    <arg value="-f"/>
-                                    <arg value="${docker.image.name}-slave"/>
-                                </exec>
-                                <exec executable="docker" error="target/build-master.err" failonerror="true">
-                                    <arg value="build"/>
-                                    <arg value="--force-rm=true"/>
-                                    <arg value="--rm=true"/>
-                                    <arg value="-t"/>
-                                    <arg value="${docker.image.name}-master"/>
-                                    <arg value="target/docker-master"/>
-                                </exec>
-                                <exec executable="docker" error="target/build-slave.err" failonerror="true">
-                                    <arg value="build"/>
-                                    <arg value="--force-rm=true"/>
-                                    <arg value="--rm=true"/>
-                                    <arg value="-t"/>
-                                    <arg value="${docker.image.name}-slave"/>
-                                    <arg value="target/docker-slave"/>
-                                </exec>
                                 <echo>=========================================================================</echo>
-                                <echo>docker run --rm -ti -p 9990:9990 --name=${docker.alias.master} ${docker.image.name}-master</echo>
-                                <echo>docker run --rm -ti -p 8181:8080 --link ${docker.alias.master}:domain-controller -e DOMAIN_CONTROLLER_USERNAME=domainadmin ${docker.image.name}-slave</echo>
+                                <echo>docker run --rm -ti -p 9990:9990 --name=${docker.alias.master} -e WILDFLY_ADMIN_USER=domainadmin -e WILDFLY_ADMIN_PASSWORD=domainadmin ${docker.image.name} /opt/jboss/wildfly/extras/startup.sh --domain-config domain-camel.xml --host-config host-camel.xml -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0</echo>
+                                <echo>docker run --rm -ti -p 8181:8080 --link ${docker.alias.master}:domain-controller -e DOMAIN_CONTROLLER_USERNAME=domainadmin ${docker.image.name} /opt/jboss/wildfly/extras/startup.sh --domain-config domain-camel.xml --host-config host-camel-slave.xml -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0</echo>
                                 <echo>=========================================================================</echo>
                             </target>
                         </configuration>
@@ -176,19 +115,24 @@
                         <configuration>
                             <images>
                                 <image>
-                                    <name>${docker.image.name}-master</name>
+                                    <name>${docker.image.name}</name>
                                     <alias>${docker.alias.master}</alias>
                                     <run>
+                                        <env>
+                                            <WILDFLY_ADMIN_USER>domainadmin</WILDFLY_ADMIN_USER>
+                                            <WILDFLY_ADMIN_PASSWORD>domainadmin</WILDFLY_ADMIN_PASSWORD>
+                                        </env>
                                         <ports>
                                             <port>9990:9990</port>
                                         </ports>
                                         <log>
                                             <enabled>true</enabled>
                                         </log>
+                                        <command>/opt/jboss/wildfly/extras/startup.sh --domain-config domain-camel.xml --host-config host-camel.xml -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0</command>
                                     </run>
                                 </image>
                                 <image>
-                                    <name>${docker.image.name}-slave</name>
+                                    <name>${docker.image.name}</name>
                                     <alias>${docker.alias.slave}</alias>
                                     <run>
                                         <env>
@@ -203,6 +147,7 @@
                                         <log>
                                             <enabled>true</enabled>
                                         </log>
+                                        <command>/opt/jboss/wildfly/extras/startup.sh --domain-config domain-camel.xml --host-config host-camel-slave.xml -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0</command>
                                         <wait>
                                             <url>http://${env.DOCKER_IP}:8181</url>
                                             <time>10000</time>
