@@ -38,6 +38,10 @@
         <docker.image.name>wildflyext/wildfly-camel</docker.image.name>
         <docker.alias.master>domain-master</docker.alias.master>
         <docker.alias.slave>domain-slave</docker.alias.slave>
+        <docker.cmd.master>/opt/jboss/wildfly/extras/startup.sh --domain-config domain-camel.xml --host-config host-camel.xml -b 0.0.0.0 -bmanagement 0.0.0.0</docker.cmd.master>
+        <docker.cmd.slave>/opt/jboss/wildfly/extras/startup.sh --domain-config domain-camel.xml --host-config host-camel-slave.xml -b 0.0.0.0 -bmanagement 0.0.0.0</docker.cmd.slave>
+        <wildfly.mgmt.username>admin</wildfly.mgmt.username>
+        <wildfly.mgmt.password>admin</wildfly.mgmt.password>
     </properties>
     
     <!-- Dependencies -->
@@ -95,8 +99,8 @@
                         <configuration>
                             <target>
                                 <echo>=========================================================================</echo>
-                                <echo>docker run --rm -ti -p 9990:9990 --name=${docker.alias.master} ${docker.image.name}-master</echo>
-                                <echo>docker run --rm -ti -p 8181:8080 --link ${docker.alias.master}:domain-controller -e DOMAIN_CONTROLLER_USERNAME=domainadmin ${docker.image.name}-slave</echo>
+                                <echo>docker run --rm -ti -p 9990:9990 -e WILDFLY_MANAGEMENT_USER=${wildfly.mgmt.username} -e WILDFLY_MANAGEMENT_PASSWORD=${wildfly.mgmt.password} --name=${docker.alias.master} ${docker.image.name} ${docker.cmd.master}</echo>
+                                <echo>docker run --rm -ti -p 8181:8080 -e WILDFLY_MANAGEMENT_USER=${wildfly.mgmt.username} -e WILDFLY_MANAGEMENT_PASSWORD=${wildfly.mgmt.password} --link ${docker.alias.master}:domain-controller --name=${docker.alias.slave} ${docker.image.name} ${docker.cmd.slave}</echo>
                                 <echo>=========================================================================</echo>
                             </target>
                         </configuration>
@@ -120,13 +124,13 @@
                                     <alias>${docker.alias.master}</alias>
                                     <run>
                                         <env>
-                                            <WILDFLY_ADMIN_USER>domainadmin</WILDFLY_ADMIN_USER>
-                                            <WILDFLY_ADMIN_PASSWORD>domainadmin</WILDFLY_ADMIN_PASSWORD>
+                                            <WILDFLY_MANAGEMENT_USER>${wildfly.mgmt.username}</WILDFLY_MANAGEMENT_USER>
+                                            <WILDFLY_MANAGEMENT_PASSWORD>${wildfly.mgmt.password}</WILDFLY_MANAGEMENT_PASSWORD>
                                         </env>
                                         <ports>
                                             <port>9990:9990</port>
                                         </ports>
-                                        <command>/opt/jboss/wildfly/extras/startup.sh --domain-config domain-camel.xml --host-config host-camel.xml -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0</command>
+                                        <command>${docker.cmd.master}</command>
                                         <log>
                                             <enabled>true</enabled>
                                         </log>
@@ -137,7 +141,8 @@
                                     <alias>${docker.alias.slave}</alias>
                                     <run>
                                         <env>
-                                            <DOMAIN_CONTROLLER_USERNAME>domainadmin</DOMAIN_CONTROLLER_USERNAME>
+                                            <WILDFLY_MANAGEMENT_USER>${wildfly.mgmt.username}</WILDFLY_MANAGEMENT_USER>
+                                            <WILDFLY_MANAGEMENT_PASSWORD>${wildfly.mgmt.password}</WILDFLY_MANAGEMENT_PASSWORD>
                                         </env>
                                         <ports>
                                             <port>8181:8080</port>
@@ -145,7 +150,7 @@
                                         <links>
                                             <link>${docker.alias.master}:domain-controller</link>
                                         </links>
-                                        <command>/opt/jboss/wildfly/extras/startup.sh --domain-config domain-camel.xml --host-config host-camel-slave.xml -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0</command>
+                                        <command>${docker.cmd.slave}</command>
                                         <log>
                                             <enabled>true</enabled>
                                         </log>
@@ -193,6 +198,10 @@
                         </goals>
                         <configuration>
                             <skip>false</skip>
+                            <systemPropertyVariables>
+                                <wildfly.mgmt.username>${wildfly.mgmt.username}</wildfly.mgmt.username>
+                                <wildfly.mgmt.password>${wildfly.mgmt.password}</wildfly.mgmt.password>
+                            </systemPropertyVariables>
                         </configuration>
                     </execution>
                 </executions>

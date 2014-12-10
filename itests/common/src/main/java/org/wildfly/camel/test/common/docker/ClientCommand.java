@@ -36,4 +36,10 @@ public class ClientCommand extends RunCommand {
         args("-c", "-u=" + username, "-p=" + password, "--controller=" + host + ":" + port);
         return this;
     }
+    
+    public ClientCommand connect(String host, int port) {
+        String username = System.getProperty("wildfly.mgmt.username", "admin");
+        String password = System.getProperty("wildfly.mgmt.password", "admin");
+        return connect (username, password, host, port);
+    }
 }

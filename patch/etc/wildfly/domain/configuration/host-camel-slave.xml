@@ -25,8 +25,7 @@
             <security-realm name="DomainControllerRealm">
                 <server-identities>
                     <!-- Base64 encoded password -->
-                    <!-- [TODO] #151 Externalize domain controller password -->
-                    <secret value="ZG9tYWluYWRtaW4=" />
+                    <secret value="@WILDFLY_MANAGEMENT_PASSWORD@" />
                 </server-identities>
             </security-realm>
         </security-realms>
@@ -60,7 +59,7 @@
     </management>
 
     <domain-controller>
-       <remote host="${env.DOMAIN_CONTROLLER_PORT_9999_TCP_ADDR}" port="9999" username="${env.DOMAIN_CONTROLLER_USERNAME}" security-realm="DomainControllerRealm"/>
+       <remote host="${env.DOMAIN_CONTROLLER_PORT_9999_TCP_ADDR}" port="9999" username="@WILDFLY_MANAGEMENT_USER@" security-realm="DomainControllerRealm"/>
     </domain-controller>
 
     <interfaces>
