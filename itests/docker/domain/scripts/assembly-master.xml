@@ -36,15 +36,6 @@
             </includes>
             <filtered>true</filtered>
         </fileSet>
-        <fileSet>
-            <outputDirectory>/</outputDirectory>
-            <directory>etc/wildfly/domain/configuration</directory>
-            <includes>
-                <include>domain-camel-master.xml</include>
-                <include>host-camel-master.xml</include>
-            </includes>
-            <filtered>true</filtered>
-        </fileSet>
     </fileSets>
 
 </assembly>

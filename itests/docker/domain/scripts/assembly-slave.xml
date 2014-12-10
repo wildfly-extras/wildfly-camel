@@ -40,7 +40,6 @@
             <outputDirectory>/</outputDirectory>
             <directory>etc/wildfly/domain/configuration</directory>
             <includes>
-                <include>domain-camel-slave.xml</include>
                 <include>host-camel-slave.xml</include>
             </includes>
             <filtered>true</filtered>

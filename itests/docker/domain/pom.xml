@@ -138,7 +138,7 @@
                                     <arg value="-f"/>
                                     <arg value="${docker.image.name}-slave"/>
                                 </exec>
-                                <exec executable="docker" error="target/build-master.err">
+                                <exec executable="docker" error="target/build-master.err" failonerror="true">
                                     <arg value="build"/>
                                     <arg value="--force-rm=true"/>
                                     <arg value="--rm=true"/>
@@ -146,7 +146,7 @@
                                     <arg value="${docker.image.name}-master"/>
                                     <arg value="target/docker-master"/>
                                 </exec>
-                                <exec executable="docker" error="target/build-slave.err">
+                                <exec executable="docker" error="target/build-slave.err" failonerror="true">
                                     <arg value="build"/>
                                     <arg value="--force-rm=true"/>
                                     <arg value="--rm=true"/>
