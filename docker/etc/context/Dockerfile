@@ -18,5 +18,8 @@ USER jboss
 # Default to operating in standalone mode
 ENV WILDFLY_OPERATING_MODE standalone
 
+# Expose the native management port 
+EXPOSE 9999
+
 # Set the default command to run on startup
 CMD ["/opt/jboss/wildfly/extras/startup.sh"]

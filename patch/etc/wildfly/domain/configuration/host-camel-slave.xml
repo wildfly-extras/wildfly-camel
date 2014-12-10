@@ -25,6 +25,7 @@
             <security-realm name="DomainControllerRealm">
                 <server-identities>
                     <!-- Base64 encoded password -->
+                    <!-- [TODO] #151 Externalize domain controller password -->
                     <secret value="ZG9tYWluYWRtaW4=" />
                 </server-identities>
             </security-realm>
