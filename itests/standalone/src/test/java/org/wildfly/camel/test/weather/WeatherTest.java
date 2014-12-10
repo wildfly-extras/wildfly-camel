@@ -28,15 +28,18 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @RunWith(Arquillian.class)
 public class WeatherTest {
 
-    protected org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(WeatherTest.class);
+    protected Logger log = LoggerFactory.getLogger(WeatherTest.class);
 
     @Deployment
     public static WebArchive createDeployment() throws IOException {
@@ -54,6 +57,7 @@ public class WeatherTest {
     }
 
     @Test
+    @Ignore("[TODO] #165 - WeatherTest may fail with 511")
     public void testGetWeather() throws Exception {
         CamelContext ctx = new DefaultCamelContext();
         String response = ctx.createProducerTemplate().requestBody("weather:foo?location=Madrid,Spain&period=7 days", "").toString();
