@@ -19,4 +19,5 @@ USER jboss
 EXPOSE 9999
 
 # Set default command line args for standalone mode
-CMD ["/opt/jboss/wildfly/extras/startup.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0", "-c", "standalone-camel.xml"]
+ENTRYPOINT ["/opt/jboss/wildfly/extras/startup.sh"]
+CMD ["-c", "standalone-camel.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]

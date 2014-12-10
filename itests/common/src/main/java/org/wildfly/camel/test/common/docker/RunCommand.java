@@ -42,6 +42,11 @@ public class RunCommand extends DockerCommand {
         return this;
     }
     
+    public RunCommand entrypoint(String entrypoint) {
+        options("--entrypoint=" + entrypoint);
+        return this;
+    }
+    
     public RunCommand port(int host, int container) {
         options("-p", host + ":" + container);
         return this;
