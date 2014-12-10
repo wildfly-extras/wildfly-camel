@@ -19,14 +19,9 @@
  */
 package org.wildfly.camel.test.common.docker;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 /**
  * A Docker run command
@@ -34,27 +29,28 @@ import java.util.NoSuchElementException;
  * @author tdiesler@redhat.com
  * @since 09-Dec-2014
  */
-public class RunCommand {
+public class RunCommand extends DockerCommand {
 
-    protected List<String> options = new ArrayList<>();
-    protected List<String> args = new ArrayList<>();
+    private List<String> args = new ArrayList<>();
     private String image;
     private String cmd;
 
-    public RunCommand rm() {
-        options.add("--rm");
+    public RunCommand() {
+        super("run");
+    }
+    
+    public RunCommand remove() {
+        options("--rm");
         return this;
     }
     
     public RunCommand port(int host, int container) {
-        options.add("-p");
-        options.add(host + ":" + container);
+        options("-p", host + ":" + container);
         return this;
     }
     
     public RunCommand volume(Path host, Path container) {
-        options.add("-v");
-        options.add(host.toAbsolutePath() + ":" + container.toAbsolutePath());
+        options("-v", host.toAbsolutePath() + ":" + container.toAbsolutePath());
         return this;
     }
     
@@ -74,96 +70,14 @@ public class RunCommand {
         }
         return this;
     }
-    
-    public RunCommand.Result exec() throws Exception {
-        
-        List<String> carr = new ArrayList<>();
-        carr.add("docker");
-        carr.add("run");
-        carr.addAll(options);
+
+    @Override
+    protected void buildCommand(List<String> carr) {
+        super.buildCommand(carr);
         carr.add(image);
         if (cmd != null) {
             carr.add(cmd);
         }
         carr.addAll(args);
-        
-        StringBuffer cbuf = new StringBuffer();
-        for (String item : carr) {
-            cbuf.append(item + " ");
-        }
-        System.out.println("Exec: " + cbuf);
-        
-        Process process = Runtime.getRuntime().exec(carr.toArray(new String[carr.size()]));
-        process.waitFor();
-        return new Result(process);
-    }
-    
-    public static class Result {
-
-        private Process process;
-        private BufferedReader output;
-        
-        Result(Process process) {
-            this.process = process;
-            this.output = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            
-            // Print the error lines
-            BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-            try {
-                String line = error.readLine();
-                while (line != null) {
-                    System.err.println(line);
-                    line = error.readLine();
-                }
-            } catch (IOException ex) {
-                // ignore
-            } 
-        }
-        
-        public String outputLine() {
-            Iterator<String> it = outputLines();
-            return it.hasNext() ? it.next() : null;
-        }
-        
-        public Iterator<String> outputLines() {
-            return new Iterator<String> () {
-                
-                String nextLine;
-                
-                @Override
-                public boolean hasNext() {
-                    return nextLine() != null;
-                }
-
-                @Override
-                public String next() {
-                    String result = nextLine();
-                    if (result == null)
-                        throw new NoSuchElementException();
-                    
-                    nextLine = null;
-                    return result;
-                }
-
-                @Override
-                public void remove() {
-                    throw new UnsupportedOperationException();
-                }
-                
-                private String nextLine() {
-                    if (nextLine == null)
-                    try {
-                        nextLine = output.readLine();
-                    } catch (IOException e) {
-                        return null;
-                    }
-                    return nextLine;
-                }
-            };
-        }
-        
-        public int exitValue() {
-            return process.exitValue();
-        }
     }
 }

@@ -36,7 +36,8 @@
     <!-- Properties -->
     <properties>
         <docker.image.name>wildflyext/example-domain</docker.image.name>
-        <docker.image.version>latest</docker.image.version>
+        <docker.alias.master>domain-master</docker.alias.master>
+        <docker.alias.slave>domain-slave</docker.alias.slave>
     </properties>
     
     <!-- Dependencies -->
@@ -120,6 +121,7 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>build-images</id>
                         <phase>generate-resources</phase>
                         <goals>
                             <goal>run</goal>
@@ -128,20 +130,20 @@
                             <target>
                                 <exec executable="docker">
                                     <arg value="rmi"/>
-                                    <arg value="--force=true"/>
-                                    <arg value="${docker.image.name}-master:${docker.image.version}"/>
+                                    <arg value="-f"/>
+                                    <arg value="${docker.image.name}-master"/>
                                 </exec>
                                 <exec executable="docker">
                                     <arg value="rmi"/>
-                                    <arg value="--force=true"/>
-                                    <arg value="${docker.image.name}-slave:${docker.image.version}"/>
+                                    <arg value="-f"/>
+                                    <arg value="${docker.image.name}-slave"/>
                                 </exec>
                                 <exec executable="docker" error="target/build-master.err">
                                     <arg value="build"/>
                                     <arg value="--force-rm=true"/>
                                     <arg value="--rm=true"/>
                                     <arg value="-t"/>
-                                    <arg value="${docker.image.name}-master:${docker.image.version}"/>
+                                    <arg value="${docker.image.name}-master"/>
                                     <arg value="target/docker-master"/>
                                 </exec>
                                 <exec executable="docker" error="target/build-slave.err">
@@ -149,12 +151,12 @@
                                     <arg value="--force-rm=true"/>
                                     <arg value="--rm=true"/>
                                     <arg value="-t"/>
-                                    <arg value="${docker.image.name}-slave:${docker.image.version}"/>
+                                    <arg value="${docker.image.name}-slave"/>
                                     <arg value="target/docker-slave"/>
                                 </exec>
                                 <echo>=========================================================================</echo>
-                                <echo>docker run --rm -ti -p 9990:9990 --name=controller ${docker.image.name}-master</echo>
-                                <echo>docker run --rm -ti -p 8181:8080 --link controller:ctrl ${docker.image.name}-slave</echo>
+                                <echo>docker run --rm -ti -p 9990:9990 --name=${docker.alias.master} ${docker.image.name}-master</echo>
+                                <echo>docker run --rm -ti -p 8181:8080 --link ${docker.alias.master}:ctrl --name=${docker.alias.slave} ${docker.image.name}-slave</echo>
                                 <echo>=========================================================================</echo>
                             </target>
                         </configuration>
@@ -166,7 +168,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>start-docker-image</id>
+                        <id>start-docker-images</id>
                         <phase>pre-integration-test</phase>
                         <goals>
                             <goal>start</goal>
@@ -175,7 +177,7 @@
                             <images>
                                 <image>
                                     <name>${docker.image.name}-master</name>
-                                    <alias>domain-controller</alias>
+                                    <alias>${docker.alias.master}</alias>
                                     <run>
                                         <ports>
                                             <port>9990:9990</port>
@@ -187,13 +189,13 @@
                                 </image>
                                 <image>
                                     <name>${docker.image.name}-slave</name>
-                                    <alias>domain-slave</alias>
+                                    <alias>${docker.alias.slave}</alias>
                                     <run>
                                         <ports>
                                             <port>8181:8080</port>
                                         </ports>
                                         <links>
-                                            <link>domain-controller:ctrl</link>
+                                            <link>${docker.alias.master}:ctrl</link>
                                         </links>
                                         <log>
                                             <enabled>true</enabled>
@@ -207,8 +209,9 @@
                             </images>
                         </configuration>
                     </execution>
+                    <!-- Cannot reliably stop containers  
                     <execution>
-                        <id>stop-docker-image</id>
+                        <id>stop-containers</id>
                         <phase>post-integration-test</phase>
                         <goals>
                             <goal>stop</goal>
@@ -216,10 +219,28 @@
                         <configuration>
                             <images>
                                 <image>
-                                    <alias>slave</alias>
+                                    <alias>${docker.alias.slave}</alias>
                                 </image>
                                 <image>
-                                    <alias>controller</alias>
+                                    <alias>${docker.alias.master}</alias>
+                                </image>
+                            </images>
+                        </configuration>
+                    </execution>
+                    -->
+                    <execution>
+                        <id>remove-docker-images</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>remove</goal>
+                        </goals>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>${docker.image.name}-master</name>
+                                </image>
+                                <image>
+                                    <name>${docker.image.name}-slave</name>
                                 </image>
                             </images>
                         </configuration>

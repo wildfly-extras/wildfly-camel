@@ -20,6 +20,7 @@
 package org.wildfly.camel.test.common.docker;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * A Docker deploy command
@@ -39,8 +40,8 @@ public class DeployCommand extends ClientCommand {
     }
 
     @Override
-    public Result exec() throws Exception {
+    protected void buildCommand(List<String> carr) {
         args("deploy /opt/volume/" + file.getName() + " --name=" + runtimeName + " --all-server-groups");
-        return super.exec();
+        super.buildCommand(carr);
     }
 }

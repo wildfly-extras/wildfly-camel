@@ -28,12 +28,14 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.arquillian.api.ContainerResource;
 import org.jboss.as.arquillian.container.ManagementClient;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
 import org.wildfly.camel.test.common.docker.DeployCommand;
-import org.wildfly.camel.test.common.docker.RunCommand;
+import org.wildfly.camel.test.common.docker.DockerCommand;
+import org.wildfly.camel.test.common.docker.DockerCommand.Result;
 
 
 @RunAsClient
@@ -44,6 +46,16 @@ public class DomainIntegrationTest {
     
     @ContainerResource
     ManagementClient mgmtClient;
+    
+    @AfterClass
+    public static void afterClass() {
+        // [TODO] Remove containers in pom
+        Result result = new DockerCommand("ps").options("-aq").exec();
+        Iterator<String> it = result.outputLines();
+        while (it.hasNext()) {
+            new DockerCommand("rm").options("-f", it.next()).exec();
+        }
+    }
     
     @Test
     public void testEndpoint() throws Exception {
@@ -61,14 +73,14 @@ public class DomainIntegrationTest {
         String runtimeName = "domain-endpoint.war";
         DeployCommand docker = new DeployCommand(runtimeName, new File("target/" + files[0]));
         
-        RunCommand.Result cmdres = docker.connect("slave", "slave", host, 9990).exec();
-        Iterator<String> itout = cmdres.outputLines();
+        Result result = docker.connect("slave", "slave", host, 9990).exec();
+        Iterator<String> itout = result.outputLines();
         while (itout.hasNext()) {
             System.out.println(itout.next());
         }
-        Assert.assertEquals(0, cmdres.exitValue());
+        Assert.assertEquals(0, result.exitValue());
         
-        String result = HttpRequest.get("http://" + host + ":8181/domain-endpoint", 10, TimeUnit.SECONDS);
-        Assert.assertTrue("Starts with Hello: " + result, result.startsWith("Hello"));
+        String resp = HttpRequest.get("http://" + host + ":8181/domain-endpoint", 10, TimeUnit.SECONDS);
+        Assert.assertTrue("Starts with Hello: " + resp, resp.startsWith("Hello"));
     }
 }

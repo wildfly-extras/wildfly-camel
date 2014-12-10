@@ -29,14 +29,11 @@ package org.wildfly.camel.test.common.docker;
 public class ClientCommand extends RunCommand {
     
     public ClientCommand() {
-        rm().image("wildflyext/wildfly-camel").cmd("/opt/jboss/wildfly/bin/jboss-cli.sh");
+        remove().image("wildflyext/wildfly-camel").cmd("/opt/jboss/wildfly/bin/jboss-cli.sh");
     }
     
     public ClientCommand connect(String username, String password, String host, int port) {
-        args.add("-c");
-        args.add("-u=" + username);
-        args.add("-p=" + password);
-        args.add("--controller=" + host + ":" + port);
+        args("-c", "-u=" + username, "-p=" + password, "--controller=" + host + ":" + port);
         return this;
     }
 }
