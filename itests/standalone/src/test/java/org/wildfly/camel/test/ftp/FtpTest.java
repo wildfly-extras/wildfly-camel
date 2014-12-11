@@ -20,9 +20,14 @@
 
 package org.wildfly.camel.test.ftp;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
-import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.test.AvailablePortFinder;
 import org.apache.ftpserver.ConnectionConfigFactory;
@@ -44,12 +49,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-
-import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
 public class FtpTest {
@@ -142,7 +141,7 @@ public class FtpTest {
         return archive;
     }
 
-    private static void addJarHolding(WebArchive archive, Class clazz) {
+    private static void addJarHolding(WebArchive archive, Class<?> clazz) {
         URL location = clazz.getProtectionDomain().getCodeSource().getLocation();
         if( location!=null && location.getProtocol().equals("file")) {
             File path = new File(location.getPath());
