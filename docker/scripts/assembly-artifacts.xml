@@ -33,7 +33,7 @@
             <directory>etc/context</directory>
             <includes>
                 <include>Dockerfile</include>
-                <include>startup.sh</include>
+                <include>entrypoint.sh</include>
             </includes>
             <filtered>true</filtered>
         </fileSet>
