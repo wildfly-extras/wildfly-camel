@@ -16,7 +16,7 @@ Your Enterprise Integration Solution can be architected as a combination of Java
 
 If you like to contribute to the docs, please file a [pull request](https://github.com/wildfly-extras/wildfly-camel-book/branches) against the next version branch.
 
-### Building
+### Build
 
 The default build is straight forward
 
@@ -31,6 +31,28 @@ $ mvn clean install -Dts.all
 ```
 
 If you like to contribute to the project, please file a [pull request](https://github.com/wildfly-extras/wildfly-camel/pulls).
+
+### Install
+
+Simply apply the [wildfly-camel-patch](https://github.com/wildfly-extras/wildfly-camel/releases) to a [compatible wildfly](http://wildflyext.gitbooks.io/wildfly-camel/content/start/compatibility.html) version.
+
+If you use the [wildflyext/wildfly-camel](https://registry.hub.docker.com/u/wildflyext/wildfly-camel/) docker distribution this step does not need to be performed.
+
+### Run
+
+In your WildFly home directory run ...
+
+```
+$ bin/standalone.sh -c standalone-camel.xml
+```
+
+or simply run the docker image like this ...
+
+```
+$ docker run --rm -ti -p 9990:9990 -p 8080:8080 -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin wildflyext/wildfly-camel
+```
+
+Access WildFly Management Console at [http://192.168.59.103:9990] and the Hawtio console at [http://192.168.59.103:8080/hawtio]
 
 ### Docker 
 
