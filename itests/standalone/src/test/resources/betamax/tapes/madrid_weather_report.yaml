@@ -1,0 +1,24 @@
+!tape
+name: madrid-weather-report
+interactions:
+- recorded: 2014-12-12T14:21:08.833Z
+  request:
+    method: GET
+    uri: http://api.openweathermap.org/data/2.5/forecast/daily?q=Madrid,Spain&cnt=7
+    headers:
+      Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
+      Host: api.openweathermap.org
+      Proxy-Connection: keep-alive
+      User-Agent: Java/1.7.0_71
+  response:
+    status: 200
+    headers:
+      Access-Control-Allow-Credentials: 'true'
+      Access-Control-Allow-Methods: GET, POST
+      Access-Control-Allow-Origin: '*'
+      Content-Type: application/json; charset=utf-8
+      Date: Fri, 12 Dec 2014 14:21:10 GMT
+      Server: nginx
+      X-Source: redis
+    body: |
+      {"cod":"200","message":0.0329,"city":{"id":3117735,"name":"Madrid","coord":{"lon":-3.70256,"lat":40.4165},"country":"ES","population":0,"sys":{"population":0}},"cnt":7,"list":[{"dt":1418385600,"temp":{"day":282.15,"min":277.73,"max":283.86,"night":278.88,"eve":279.38,"morn":282.15},"pressure":960,"humidity":85,"weather":[{"id":801,"main":"Clouds","description":"few clouds","icon":"02d"}],"speed":2.01,"deg":206,"clouds":20},{"dt":1418472000,"temp":{"day":283.4,"min":280.61,"max":285.06,"night":283.64,"eve":284.78,"morn":280.61},"pressure":951.98,"humidity":97,"weather":[{"id":500,"main":"Rain","description":"light rain","icon":"10d"}],"speed":4.27,"deg":167,"clouds":92,"rain":2},{"dt":1418558400,"temp":{"day":281.61,"min":275.73,"max":281.61,"night":275.73,"eve":280.66,"morn":277.74},"pressure":949.24,"humidity":0,"weather":[{"id":500,"main":"Rain","description":"light rain","icon":"10d"}],"speed":2.17,"deg":15,"clouds":93,"rain":1.67},{"dt":1418644800,"temp":{"day":281.6,"min":272.18,"max":281.6,"night":272.37,"eve":278.2,"morn":272.18},"pressure":952.67,"humidity":0,"weather":[{"id":800,"main":"Clear","description":"sky is clear","icon":"01d"}],"speed":2.49,"deg":356,"clouds":0},{"dt":1418731200,"temp":{"day":282.45,"min":271.15,"max":282.45,"night":273.12,"eve":277.96,"morn":271.15},"pressure":954.47,"humidity":0,"weather":[{"id":800,"main":"Clear","description":"sky is clear","icon":"01d"}],"speed":0.93,"deg":300,"clouds":3},{"dt":1418817600,"temp":{"day":280.31,"min":273.85,"max":280.31,"night":274.58,"eve":279.84,"morn":273.85},"pressure":950.57,"humidity":0,"weather":[{"id":500,"main":"Rain","description":"light rain","icon":"10d"}],"speed":2.03,"deg":248,"clouds":84,"rain":0.46},{"dt":1418904000,"temp":{"day":279.4,"min":272.48,"max":279.4,"night":273.99,"eve":278.09,"morn":272.48},"pressure":953.12,"humidity":0,"weather":[{"id":500,"main":"Rain","description":"light rain","icon":"10d"}],"speed":2.05,"deg":233,"clouds":43,"rain":0.22}]}

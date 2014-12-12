@@ -20,20 +20,26 @@
 
 package org.wildfly.camel.test.weather;
 
+import co.freeside.betamax.Betamax;
+import co.freeside.betamax.Recorder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.http.client.HttpClient;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Assert;
-import org.junit.Ignore;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 
 @RunWith(Arquillian.class)
@@ -41,9 +47,18 @@ public class WeatherTest {
 
     protected Logger log = LoggerFactory.getLogger(WeatherTest.class);
 
+    @Rule
+    public Recorder recorder = new Recorder();
+
     @Deployment
     public static WebArchive createDeployment() throws IOException {
+        File[] betamaxDependencies = Maven.configureResolverViaPlugin().
+                resolve("co.freeside:betamax", "org.codehaus.groovy:groovy-all").
+                withTransitivity().
+                asFile();
+
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-weather-tests.war");
+        archive.addAsLibraries(betamaxDependencies);
         return archive;
     }
 
@@ -57,7 +72,7 @@ public class WeatherTest {
     }
 
     @Test
-    @Ignore("[FIXME #165] WeatherTest may fail with 511")
+    @Betamax(tape="madrid-weather-report")
     public void testGetWeather() throws Exception {
         CamelContext ctx = new DefaultCamelContext();
         String response = ctx.createProducerTemplate().requestBody("weather:foo?location=Madrid,Spain&period=7 days", "").toString();

@@ -158,6 +158,16 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>co.freeside</groupId>
+            <artifactId>betamax</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
