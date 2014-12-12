@@ -101,7 +101,6 @@ public class ProvisionerSupport {
     }
 
     private InputStream getFeatureResource(ClassLoader classLoader, String feature) {
-        // [TODO] parameterize this
         return classLoader.getResourceAsStream("/repository/" + feature  + ".xml");
     }
 }

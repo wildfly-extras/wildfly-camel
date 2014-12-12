@@ -103,8 +103,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
     }
 
     private String getBeansXML(String name, String contextDefinition) {
-        // [TODO] allow expressions in system context definition
-        // https://github.com/wildflyext/wildfly-camel/issues/2
+        // [FIXME #2] support expressions in subsystem configuration
         String hashReplaced = contextDefinition.replace("#{", "${");
         return SPRING_BEANS_HEADER + "<camelContext id='" + name + "' xmlns='http://camel.apache.org/schema/spring'>" + hashReplaced + "</camelContext></beans>";
     }

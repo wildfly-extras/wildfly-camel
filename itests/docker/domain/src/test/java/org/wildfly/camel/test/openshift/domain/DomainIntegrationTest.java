@@ -49,7 +49,7 @@ public class DomainIntegrationTest {
     
     @AfterClass
     public static void afterClass() {
-        // [TODO] Remove containers in pom
+        // [FIXME #185] docker:stop cannot reliably stop/kill containers
         Result result = new DockerCommand("ps").options("-aq").exec();
         Iterator<String> it = result.outputLines();
         while (it.hasNext()) {

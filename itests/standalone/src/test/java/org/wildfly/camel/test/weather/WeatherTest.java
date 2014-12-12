@@ -57,7 +57,7 @@ public class WeatherTest {
     }
 
     @Test
-    @Ignore("[TODO] #165 - WeatherTest may fail with 511")
+    @Ignore("[FIXME #165] WeatherTest may fail with 511")
     public void testGetWeather() throws Exception {
         CamelContext ctx = new DefaultCamelContext();
         String response = ctx.createProducerTemplate().requestBody("weather:foo?location=Madrid,Spain&period=7 days", "").toString();

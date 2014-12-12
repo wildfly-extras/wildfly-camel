@@ -142,7 +142,7 @@
                             </images>
                         </configuration>
                     </execution>
-                    <!-- Cannot reliably stop containers  
+                    <!-- [FIXME #185] docker:stop cannot reliably stop/kill containers
                     <execution>
                         <id>stop-containers</id>
                         <phase>post-integration-test</phase>
