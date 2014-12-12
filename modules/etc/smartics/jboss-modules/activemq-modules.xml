@@ -40,7 +40,7 @@
         <include artifact="org.apache.activemq:activemq-camel" />
         <dependencies>
             <module name="org.apache.camel.core" />
-            <module name="org.springframework.transaction" />
+            <module name="org.springframework.tx" />
         </dependencies>
     </module>
 

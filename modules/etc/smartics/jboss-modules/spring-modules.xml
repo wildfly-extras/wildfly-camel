@@ -22,8 +22,6 @@
 
     <module name="org.springframework.aop">
         <include artifact="org.springframework:spring-aop" />
-        <!-- [FIXME #186] Review todos in spring modules -->
-        <!-- Do we really need to include it? -->
         <include artifact=":aopalliance" />
     </module>
     
@@ -46,9 +44,7 @@
         </dependencies>
     </module>
     
-    <!-- [FIXME #186] Review todos in spring modules -->
-    <!-- do we really need to change tx=>transaction -->
-    <module name="org.springframework.transaction">
+    <module name="org.springframework.tx">
         <include artifact="org.springframework:spring-tx" />
         <!-- spring-tx module does not have a dep on core -->
         <dependencies>

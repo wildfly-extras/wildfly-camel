@@ -48,7 +48,7 @@
             <module name="org.apache.camel.core" />
             <module name="org.springframework.beans" export="true" />
             <module name="org.springframework.context" export="true" />
-            <module name="org.springframework.transaction" export="true" />
+            <module name="org.springframework.tx" export="true" />
             <module name="org.slf4j" />
         </dependencies>
     </module>
