@@ -33,13 +33,50 @@
     <artifactId>wildfly-camel-itests-docker</artifactId>
     <packaging>pom</packaging>
 
+    <!-- Properties -->
+    <properties>
+        <wildfly.mgmt.username>admin</wildfly.mgmt.username>
+        <wildfly.mgmt.password>admin</wildfly.mgmt.password>
+    </properties>
+    
+    <!-- Dependencies -->
     <dependencies>
+    
+        <!-- Provided -->
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-docker</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
             <type>pom</type>
+        </dependency>
+        
+        <!-- Test -->
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-itests-common</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-arquillian-container-remote</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     

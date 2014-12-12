@@ -20,27 +20,26 @@
 
 package org.wildfly.camel.test.weather;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.Recorder;
+import java.io.File;
+import java.io.IOException;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.http.client.HttpClient;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
+import co.freeside.betamax.Betamax;
+import co.freeside.betamax.Recorder;
 
 @RunWith(Arquillian.class)
 public class WeatherTest {

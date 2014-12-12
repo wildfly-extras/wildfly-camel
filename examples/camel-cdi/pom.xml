@@ -58,7 +58,7 @@
 	        <scope>provided</scope>
 	    </dependency>
 	    
-        <!-- Test Scope -->
+        <!-- Test -->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>

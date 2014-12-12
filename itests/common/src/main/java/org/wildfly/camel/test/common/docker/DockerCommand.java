@@ -22,6 +22,7 @@ package org.wildfly.camel.test.common.docker;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -77,7 +78,7 @@ public class DockerCommand {
         for (String item : carr) {
             cbuf.append(item + " ");
         }
-        System.out.println("Execute: " + cbuf);
+        System.out.println("DOCKER> " + cbuf);
         
         Process process;
         try {
@@ -88,7 +89,8 @@ public class DockerCommand {
         } catch (Exception ex) {
             throw new IllegalStateException(ex);
         }
-        return new Result(process);
+        Result result = new Result(process);
+        return result;
     }
 
     public static class Result {
@@ -98,24 +100,18 @@ public class DockerCommand {
         
         Result(Process process) {
             this.process = process;
-            this.output = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            
-            // Print the error lines
-            BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-            try {
-                String line = error.readLine();
-                while (line != null) {
-                    System.err.println(line);
-                    line = error.readLine();
-                }
-            } catch (IOException ex) {
-                // ignore
-            } 
         }
         
         public String outputLine() {
             Iterator<String> it = outputLines();
             return it.hasNext() ? it.next() : null;
+        }
+        
+        private BufferedReader getOutputReader() {
+            if (output == null) {
+                output = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            }
+            return output;
         }
         
         public Iterator<String> outputLines() {
@@ -146,7 +142,7 @@ public class DockerCommand {
                 private String nextLine() {
                     if (nextLine == null)
                     try {
-                        nextLine = output.readLine();
+                        nextLine = getOutputReader().readLine();
                     } catch (IOException e) {
                         return null;
                     }
@@ -157,6 +153,28 @@ public class DockerCommand {
         
         public int exitValue() {
             return process.exitValue();
+        }
+        
+        public Result printOut(PrintStream out) {
+            Iterator<String> itout = outputLines();
+            while (itout.hasNext()) {
+                out.println(itout.next());
+            }
+            return this;
+        }
+        
+        public Result printErr(PrintStream out) {
+            BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            try {
+                String line = error.readLine();
+                while (line != null) {
+                    out.println(line);
+                    line = error.readLine();
+                }
+            } catch (IOException ex) {
+                // ignore
+            } 
+            return this;
         }
     }
 }

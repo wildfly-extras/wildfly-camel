@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.openshift.domain;
+package org.wildfly.camel.test.docker.domain;
 
 import java.io.IOException;
 import java.net.InetAddress;

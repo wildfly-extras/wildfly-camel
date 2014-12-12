@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.openshift.domain;
+package org.wildfly.camel.test.docker.domain;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -40,7 +40,7 @@ import org.wildfly.camel.test.common.docker.DockerCommand.Result;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class DomainIntegrationTest {
+public class DockerDomainTest {
 
     static String DEPLOYMENT_NAME = "domain-endpoint.war";
     
@@ -73,12 +73,8 @@ public class DomainIntegrationTest {
         String runtimeName = "domain-endpoint.war";
         DeployCommand docker = new DeployCommand(runtimeName, new File("target/" + files[0]));
         
-        Result result = docker.connect(host, 9990).exec();
-        Iterator<String> itout = result.outputLines();
-        while (itout.hasNext()) {
-            System.out.println(itout.next());
-        }
-        Assert.assertEquals(0, result.exitValue());
+        Result result = docker.connect(host, 9990).exec().printOut(System.out).printErr(System.err);
+        Assert.assertEquals("Deploy success", 0, result.exitValue());
         
         String resp = HttpRequest.get("http://" + host + ":8181/domain-endpoint", 10, TimeUnit.SECONDS);
         Assert.assertTrue("Starts with Hello: " + resp, resp.startsWith("Hello"));

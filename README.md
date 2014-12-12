@@ -52,7 +52,7 @@ or simply run the docker image like this ...
 $ docker run --rm -ti -p 9990:9990 -p 8080:8080 -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin wildflyext/wildfly-camel
 ```
 
-Access WildFly Management Console at [http://192.168.59.103:9990] and the Hawtio console at [http://192.168.59.103:8080/hawtio]
+Access WildFly Management Console at http://192.168.59.103:9990 and the Hawtio console at http://192.168.59.103:8080/hawtio
 
 ### Docker 
 
