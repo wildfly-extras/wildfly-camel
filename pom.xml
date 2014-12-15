@@ -568,6 +568,12 @@
                 <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-server</artifactId>
                 <version>${version.wildfly}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>sun.jdk</groupId>
+                        <artifactId>jconsole</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
@@ -578,13 +584,13 @@
             <dependency>
                 <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-testsuite-shared</artifactId>
+                <version>${version.wildfly}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.apache.directory.jdbm</groupId>
                         <artifactId>apacheds-jdbm1</artifactId>
                     </exclusion>
                 </exclusions>
-                <version>${version.wildfly}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
