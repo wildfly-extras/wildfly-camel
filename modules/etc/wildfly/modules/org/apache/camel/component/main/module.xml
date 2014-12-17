@@ -29,11 +29,12 @@
         <module name="org.apache.camel.component.jms" export="true" services="export" />
         <module name="org.apache.camel.component.jmx" export="true" services="export" />
         <module name="org.apache.camel.component.jpa" export="true" services="export" />
+        <module name="org.apache.camel.component.lucene" export="true" services="export" />
         <module name="org.apache.camel.component.mail" export="true" services="export" />
+        <module name="org.apache.camel.component.mvel" export="true" services="export" />
         <module name="org.apache.camel.component.netty4" export="true" services="export" />
         <module name="org.apache.camel.component.ognl" export="true" services="export" />
         <module name="org.apache.camel.component.weather" export="true" services="export" />
-        <module name="org.apache.camel.component.lucene" export="true" services="export" />
         <module name="org.apache.activemq.camel" export="true" services="export" />
     </dependencies>
 
