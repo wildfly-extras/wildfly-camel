@@ -85,9 +85,9 @@
         <version.wildfly>8.1.0.Final</version.wildfly>
 
         <!-- Plugin Versions -->
-        <version-build-helper-maven-plugin>1.9.1</version-build-helper-maven-plugin>
+        <version-build-helper-plugin>1.9.1</version-build-helper-plugin>
         <version-docker-maven-plugin>0.10.5</version-docker-maven-plugin>
-        <version-jboss-shrinkwrap-resolver-maven-plugin>2.1.1</version-jboss-shrinkwrap-resolver-maven-plugin>
+        <version-license-maven-plugin>1.8</version-license-maven-plugin>
         <version-maven-antrun-plugin>1.7</version-maven-antrun-plugin>
         <version-maven-assembly-plugin>2.4</version-maven-assembly-plugin>
         <version-maven-bundle-plugin>2.5.0</version-maven-bundle-plugin>
@@ -98,7 +98,9 @@
         <version-maven-scr-plugin>1.15.0</version-maven-scr-plugin>
         <version-maven-source-plugin>2.3</version-maven-source-plugin>
         <version-maven-surefire-plugin>2.16</version-maven-surefire-plugin>
-        <version-smartics-jboss-modules-maven-plugin>1.35</version-smartics-jboss-modules-maven-plugin>
+        <version-maven-war-plugin>2.5</version-maven-war-plugin>
+        <version-shrinkwrap-resolver-plugin>2.1.1</version-shrinkwrap-resolver-plugin>
+        <version-smartics-maven-plugin>1.35</version-smartics-maven-plugin>
         <version-wildfly-maven-plugin>1.0.2.Final</version-wildfly-maven-plugin>
     </properties>
 
@@ -659,6 +661,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
+                    <version>${version-maven-war-plugin}</version>
                     <configuration>
                         <failOnMissingWebXml>false</failOnMissingWebXml>
                     </configuration>
@@ -666,11 +669,12 @@
                 <plugin>
                   <groupId>org.codehaus.mojo</groupId>
                   <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>${version-build-helper-maven-plugin}</version>
+                    <version>${version-build-helper-plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>license-maven-plugin</artifactId>
+                    <version>${version-license-maven-plugin}</version>
                     <configuration>
                         <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
                         <canUpdateCopyright>true</canUpdateCopyright>
@@ -689,12 +693,12 @@
                 <plugin>
                     <groupId>org.fusesource.mvnplugins</groupId>
                     <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
-                    <version>${version-smartics-jboss-modules-maven-plugin}</version>
+                    <version>${version-smartics-maven-plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.jboss.shrinkwrap.resolver</groupId>
                     <artifactId>shrinkwrap-resolver-maven-plugin</artifactId>
-                    <version>${version-jboss-shrinkwrap-resolver-maven-plugin}</version>
+                    <version>${version-shrinkwrap-resolver-plugin}</version>
                     <executions>
                         <execution>
                             <goals>
