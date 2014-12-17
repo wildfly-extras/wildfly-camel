@@ -238,11 +238,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-mina2</artifactId>
-                <version>${version.apache.camel}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-mqtt</artifactId>
                 <version>${version.apache.camel}</version>
             </dependency>
