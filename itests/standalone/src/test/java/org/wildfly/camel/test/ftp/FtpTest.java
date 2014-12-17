@@ -53,8 +53,6 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class FtpTest {
 
-    protected org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(FtpTest.class);
-
     static int port = 21000;
     protected static final File FTP_ROOT_DIR = new File("./target/res/home");
     protected static final File USERS_FILE = new File("./src/test/resources/users.properties");

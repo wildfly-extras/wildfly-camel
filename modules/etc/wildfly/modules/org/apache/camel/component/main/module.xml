@@ -31,6 +31,7 @@
         <module name="org.apache.camel.component.jpa" export="true" services="export" />
         <module name="org.apache.camel.component.lucene" export="true" services="export" />
         <module name="org.apache.camel.component.mail" export="true" services="export" />
+        <module name="org.apache.camel.component.mina2" export="true" services="export" />
         <module name="org.apache.camel.component.mvel" export="true" services="export" />
         <module name="org.apache.camel.component.netty4" export="true" services="export" />
         <module name="org.apache.camel.component.ognl" export="true" services="export" />
