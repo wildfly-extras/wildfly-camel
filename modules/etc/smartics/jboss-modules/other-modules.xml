@@ -28,29 +28,6 @@
         <include artifact="rome:rome" />
     </module>
 
-    <module name="io.netty.netty-handler">
-        <include artifact="io.netty:netty-handler"/>
-        <dependencies>
-            <module name="io.netty.netty-transport"/>
-            <module name="io.netty.netty-codec"/>
-        </dependencies>
-    </module>
-
-    <module name="io.netty.netty-codec">
-        <include artifact="io.netty:netty-codec"/>
-        <dependencies>
-            <module name="io.netty.netty-buffer"/>
-            <module name="io.netty.netty-common"/>
-        </dependencies>
-    </module>
-
-    <module name="io.netty.netty-transport">
-        <include artifact="io.netty:netty-transport"/>
-        <dependencies>
-            <module name="io.netty.netty-common"/>
-        </dependencies>
-    </module>
-
     <module name="net.sf.saxon.he">
         <include artifact="net.sf.saxon:Saxon-HE" />
     </module>
@@ -118,25 +95,18 @@
         <include artifact=":mina-(.*)" />
     </module>
 
-    <module name="org.apache.lucene.$1">
-        <include artifact="org.apache.lucene:lucene-(.*)" />
-    </module>
-
     <module name="org.apache.servicemix.bundles.ognl">
         <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.ognl"/>
         <dependencies>
-            <module name="org.apache.servicemix.bundles.javassist"/>
+            <module name="org.javassist"/>
         </dependencies>
-    </module>
-
-    <module name="org.apache.servicemix.bundles.javassist">
-        <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.javassist" />
     </module>
 
     <module name="org.apache.ws.commons.axiom.axiom-impl">
         <include artifact="org.apache.ws.commons.axiom:axiom-impl" />
         <dependencies>
             <module name="javax.api"/>
+            <module name="org.apache.commons.logging"/>
         </dependencies>
     </module>
 
@@ -144,6 +114,7 @@
         <include artifact="org.apache.ws.commons.axiom:axiom-api" />
         <dependencies>
             <module name="javax.api"/>
+            <module name="org.apache.commons.logging"/>
         </dependencies>
     </module>
 
