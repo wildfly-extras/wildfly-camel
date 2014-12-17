@@ -184,7 +184,6 @@
             <artifactId>camel-weather</artifactId>
             <scope>provided</scope>
         </dependency>
-        
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.configadmin</artifactId>
@@ -251,7 +250,7 @@
                     <dependency>
                         <groupId>de.smartics.config</groupId>
                         <artifactId>config-smartics-jboss-modules</artifactId>
-                        <version>${version.da.smartics.config}</version>
+                        <version>${version.smartics.config}</version>
                     </dependency>
                 </dependencies>
                 <configuration>

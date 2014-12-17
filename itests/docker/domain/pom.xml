@@ -38,7 +38,7 @@
         <docker.image.name>wildflyext/wildfly-camel</docker.image.name>
         <docker.alias.master>domain-master</docker.alias.master>
         <docker.alias.slave>domain-slave</docker.alias.slave>
-        <docker.cmd.master>--domain-config domain-camel.xml --host-config host-camel.xml -b 0.0.0.0 -bmanagement 0.0.0.0</docker.cmd.master>
+        <docker.cmd.master>--domain-config domain-camel.xml --host-config host-master.xml -b 0.0.0.0 -bmanagement 0.0.0.0</docker.cmd.master>
         <docker.cmd.slave>--domain-config domain-camel.xml --host-config host-camel-slave.xml -b 0.0.0.0 -bmanagement 0.0.0.0</docker.cmd.slave>
         <wildfly.mgmt.username>admin</wildfly.mgmt.username>
         <wildfly.mgmt.password>admin</wildfly.mgmt.password>
