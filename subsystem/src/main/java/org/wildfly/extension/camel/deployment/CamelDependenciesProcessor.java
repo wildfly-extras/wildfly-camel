@@ -47,6 +47,12 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
         DeploymentUnit unit = phaseContext.getDeploymentUnit();
         ModuleLoader moduleLoader = unit.getAttachment(Attachments.SERVICE_MODULE_LOADER);
         ModuleSpecification moduleSpec = unit.getAttachment(Attachments.MODULE_SPECIFICATION);
+        
+        // no camel module dependencies for hawtio
+        String runtimeName = unit.getName();
+        if ("hawtio.war".equals(runtimeName))
+            return;
+        
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(GRAVIA), false, false, false, false));
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL), false, false, false, false));
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(WILDFLY_CAMEL), false, false, false, false));
