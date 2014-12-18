@@ -389,10 +389,11 @@
                         <phase>prepare-package</phase>
                         <configuration>
                             <target>
-                                <exec executable="/usr/bin/find"
+                                <exec executable="/bin/sh"
                                       dir="${project.build.directory}/wildfly-patch/modules"
                                       output="etc/baseline/module-list.txt">
-                                    <arg line=". -name '*.jar' -o -name '*.xml'" />
+                                    <arg line="-c" />
+                                    <arg line="'/usr/bin/find . | grep jar | sort'" />
                                 </exec>
                             </target>
                         </configuration>

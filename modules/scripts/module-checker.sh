@@ -9,6 +9,8 @@ readonly WILDFLY_MODULE_NAMES=wildfly-modules.txt
 [ ! -d ${WILDFLY_CAMEL_MODULE_DIR} ] && echo "${WILDFLY_CAMEL_MODULE_DIR} does not exist - aborting" && exit 1
 
 # Dump out the WildFly module names to file
+> target/${WILDFLY_MODULE_NAMES}
+
 for MODULE in $(find ${WILDFLY_MODULE_DIR} -name module.xml)
 do
   sed -n "s/.* name=\"\(.*\)\".*/\1/p" ${MODULE} | head -n1 >> target/${WILDFLY_MODULE_NAMES}
@@ -19,7 +21,7 @@ for MODULE in $(find ${WILDFLY_CAMEL_MODULE_DIR} -name module.xml)
 do
   MODULE_NAME=$(sed -n "s/.* name=\"\(.*\)\".*/\1/p" $MODULE | head -n1)
 
-  if grep "${MODULE_NAME}" target/${WILDFLY_MODULE_NAMES} > /dev/null
+  if grep "^${MODULE_NAME}\$" target/${WILDFLY_MODULE_NAMES} > /dev/null
   then
     echo
     echo -e "\e[31mDEPENDENCY ERRORS DETECTED!!\e[0m"
