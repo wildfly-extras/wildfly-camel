@@ -148,7 +148,7 @@
                         <configuration>
                             <target>
                                 <!-- [FIXME #175] Deployment fails with missing/unavailable dependencies -->
-                                <sleep seconds="2"/>
+                                <sleep seconds="5"/>
                                 
                                 <echo>=========================================================================</echo>
                                 <echo>docker run --rm -ti -p 9990:9990 -e WILDFLY_MANAGEMENT_USER=${wildfly.mgmt.username} -e WILDFLY_MANAGEMENT_PASSWORD=${wildfly.mgmt.password} --name=${docker.alias.master} ${docker.image.name} ${docker.cmd.master}</echo>
