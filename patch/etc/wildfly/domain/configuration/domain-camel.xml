@@ -34,10 +34,6 @@
     <system-properties>
         <!-- IPv4 is not required, but setting this helps avoid unintended use of IPv6 -->
         <property name="java.net.preferIPv4Stack" value="true"/>
-        <!-- Hawt.io Security -->
-		<property name="hawtio.authenticationEnabled" value="true" />
-		<property name="hawtio.realm" value="jboss-web-policy" />
-		<property name="hawtio.role" value="admin" />
     </system-properties>
     <management>
         <access-control provider="simple">

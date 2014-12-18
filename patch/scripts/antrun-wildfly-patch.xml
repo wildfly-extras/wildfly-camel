@@ -61,7 +61,11 @@
         </copy>
 
         <!-- Hawt.io -->
-        <copy file="${deploy.artifacts.lib}/hawtio-jboss-${version.hawtio}.war" tofile="${wildfly.patch.dir}/standalone/deployments/hawtio.war"/>
+    	<mkdir dir="${deploy.artifacts.dir}/hawtio"/>
+        <unzip src="${deploy.artifacts.lib}/hawtio-jboss-${version.hawtio}.war" dest="${deploy.artifacts.dir}/hawtio"/>
+        <copy file="${etc.dir}/hawtio/jboss-web.xml" todir="${deploy.artifacts.dir}/hawtio/WEB-INF"/>
+        <zip basedir="${deploy.artifacts.dir}/hawtio" destfile="${deploy.artifacts.dir}/hawtio-${version.hawtio}.war"/>
+        <copy file="${deploy.artifacts.dir}/hawtio-${version.hawtio}.war" tofile="${wildfly.patch.dir}/standalone/deployments/hawtio-${version.hawtio}.war"/>
 
         <!-- Zip the wildfly patch -->
         <!-- zip destfile="${output.dir}/${project.artifactId}-${project.version}.zip" basedir="${wildfly.patch.dir}"/-->
