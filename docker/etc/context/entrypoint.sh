@@ -18,9 +18,6 @@ then
   ${JBOSS_HOME}/bin/add-user.sh --silent -e -u ${WILDFLY_MANAGEMENT_USER} -p ${WILDFLY_MANAGEMENT_PASSWORD}
   sed -i "s/@WILDFLY_MANAGEMENT_USER@/${WILDFLY_MANAGEMENT_USER}/" ${JBOSS_HOME}/domain/configuration/host-camel-slave.xml
   sed -i "s/@WILDFLY_MANAGEMENT_PASSWORD@/`echo ${WILDFLY_MANAGEMENT_PASSWORD} | base64`/" ${JBOSS_HOME}/domain/configuration/host-camel-slave.xml
-  
-  # [FIXME #182] Use management realm for hawtio authentication
-  ${JBOSS_HOME}/bin/add-user.sh --silent -e -a -u ${WILDFLY_MANAGEMENT_USER} -p ${WILDFLY_MANAGEMENT_PASSWORD}
 fi
 
 if [[ ! -z "${WILDFLY_APPLICATION_USER}" ]] && [[ ! -z "${WILDFLY_APPLICATION_PASSWORD}" ]]

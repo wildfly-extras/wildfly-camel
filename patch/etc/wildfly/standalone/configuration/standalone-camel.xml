@@ -52,7 +52,7 @@
     <system-properties>
         <!-- Hawt.io Security -->
 		<property name="hawtio.authenticationEnabled" value="true" />
-		<property name="hawtio.realm" value="jboss-web-policy" />
+		<property name="hawtio.realm" value="hawtio-domain" />
 		<property name="hawtio.role" value="admin" />
     </system-properties>
 
@@ -435,6 +435,13 @@
                         <login-module code="UsersRoles" flag="required">
                             <module-option name="usersProperties" value="cxf-users.properties"/>
                             <module-option name="rolesProperties" value="cxf-roles.properties"/>
+                        </login-module>
+                    </authentication>
+                </security-domain>
+                <security-domain name="hawtio-domain" cache-type="default">
+                    <authentication>
+                        <login-module code="RealmDirect" flag="required">
+                            <module-option name="realm" value="ManagementRealm"/>
                         </login-module>
                     </authentication>
                 </security-domain>

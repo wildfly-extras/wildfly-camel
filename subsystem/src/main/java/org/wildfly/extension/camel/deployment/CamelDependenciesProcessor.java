@@ -44,15 +44,16 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
     private static final String WILDFLY_CAMEL = "org.wildfly.extension.camel";
 
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
-        DeploymentUnit unit = phaseContext.getDeploymentUnit();
-        ModuleLoader moduleLoader = unit.getAttachment(Attachments.SERVICE_MODULE_LOADER);
-        ModuleSpecification moduleSpec = unit.getAttachment(Attachments.MODULE_SPECIFICATION);
         
-        // no camel module dependencies for hawtio
+        DeploymentUnit unit = phaseContext.getDeploymentUnit();
+        
+        // No camel module dependencies for hawtio
         String runtimeName = unit.getName();
-        if ("hawtio.war".equals(runtimeName))
+        if (runtimeName.startsWith("hawtio") && runtimeName.endsWith(".war"))
             return;
         
+        ModuleLoader moduleLoader = unit.getAttachment(Attachments.SERVICE_MODULE_LOADER);
+        ModuleSpecification moduleSpec = unit.getAttachment(Attachments.MODULE_SPECIFICATION);
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(GRAVIA), false, false, false, false));
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL), false, false, false, false));
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(WILDFLY_CAMEL), false, false, false, false));
