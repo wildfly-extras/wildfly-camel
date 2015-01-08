@@ -37,6 +37,13 @@
     <!-- Properties -->
     <properties>
         <wildfly.patch>${project.build.directory}/${project.artifactId}-${project.version}</wildfly.patch>
+        <wildfly.module.dir>${project.build.directory}/wildfly-${version.wildfly}/modules</wildfly.module.dir>
+        <smartics.module.dir>${project.build.directory}/wildfly-patch/modules</smartics.module.dir>
+
+        <!-- Used for dependency checking in module-checker.groovy -->
+        <appserver.groupId>org.wildfly</appserver.groupId>
+        <appserver.artifactId>wildfly-feature-pack</appserver.artifactId>
+        <appserver.version>${version.wildfly}</appserver.version>
     </properties>
 
     <!-- Dependencies -->
@@ -235,6 +242,39 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-all</artifactId>
+                        <version>${version.groovy}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>module-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>${project.basedir}/scripts/module-checker.groovy</source>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>module-list-generate</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>${project.basedir}/scripts/module-list-generate.groovy</source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.fusesource.mvnplugins</groupId>
                 <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
                 <executions>
@@ -256,7 +296,7 @@
                 <configuration>
                     <excludeDependencyManagementDependenciesInPomProject>true</excludeDependencyManagementDependenciesInPomProject>
                     <attach>false</attach>
-                    <targetFolder>${project.build.directory}/wildfly-patch/modules</targetFolder>
+                    <targetFolder>${smartics.module.dir}</targetFolder>
                     <modules>
                         <dir>etc/smartics/jboss-modules</dir>
                     </modules>
@@ -378,37 +418,6 @@
                         <configuration>
                             <target>
                                 <ant antfile="${basedir}/scripts/antrun-wildfly-patch.xml" inheritRefs="true" />
-                            </target>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>generate-module-list</id>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <phase>prepare-package</phase>
-                        <configuration>
-                            <target>
-                                <exec executable="/bin/sh"
-                                      dir="${project.build.directory}/wildfly-patch/modules"
-                                      output="etc/baseline/module-list.txt">
-                                    <arg line="-c" />
-                                    <arg line="'/usr/bin/find . | grep jar | sort'" />
-                                </exec>
-                            </target>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>check-duplicate-modules</id>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <phase>verify</phase>
-                        <configuration>
-                            <target>
-                                <exec executable="/bin/sh" failonerror="true">
-                                    <arg line="scripts/module-checker.sh ${project.build.directory}/wildfly-${version.wildfly}" />
-                                </exec>
                             </target>
                         </configuration>
                     </execution>
