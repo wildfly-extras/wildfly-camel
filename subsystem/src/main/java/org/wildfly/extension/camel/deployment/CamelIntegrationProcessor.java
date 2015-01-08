@@ -39,6 +39,7 @@ public class CamelIntegrationProcessor implements DeploymentUnitProcessor {
     @Override
     public void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
         phaseContext.addDeploymentDependency(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME, CamelConstants.CAMEL_CONTEXT_REGISTRY_KEY);
+        phaseContext.addDeploymentDependency(CamelConstants.CAMEL_CONTEXT_FACTORY_SERVICE_NAME, CamelConstants.CAMEL_CONTEXT_FACTORY_KEY);
         phaseContext.addDeploymentDependency(GraviaConstants.REPOSITORY_SERVICE_NAME, GraviaConstants.REPOSITORY_KEY);
         phaseContext.addDeploymentDependency(GraviaConstants.RUNTIME_SERVICE_NAME, GraviaConstants.RUNTIME_KEY);
     }

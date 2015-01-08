@@ -107,8 +107,7 @@ public class JAXBIntegrationTest {
     private String readCustomerXml() throws IOException {
         StringBuilder builder = new StringBuilder();
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().
-                getResourceAsStream("/customer.xml"), "UTF-8"));
+        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/customer.xml"), "UTF-8"));
         for (int c = br.read(); c != -1; c = br.read()) {
             builder.append((char) c);
         }

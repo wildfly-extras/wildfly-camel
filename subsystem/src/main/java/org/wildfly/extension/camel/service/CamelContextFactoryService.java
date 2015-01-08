@@ -23,7 +23,12 @@ package org.wildfly.extension.camel.service;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 
 import javax.naming.Binding;
 import javax.naming.Context;
@@ -35,6 +40,7 @@ import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.OperationNotSupportedException;
 
+import org.apache.camel.CamelContext;
 import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.as.naming.ManagedReferenceFactory;
 import org.jboss.as.naming.ManagedReferenceInjector;
@@ -90,29 +96,87 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
 
     static final class WildflyCamelContextFactory implements CamelContextFactory {
 
-        private final ServiceRegistry serviceRegistry;
-        private final ServiceTarget serviceTarget;
+        private final Map<ClassLoader, List<ContextCreateHandler>> handlerMapping = new HashMap<>();
 
-        WildflyCamelContextFactory(ServiceRegistry serviceRegistry, ServiceTarget serviceTarget) {
-            this.serviceRegistry = serviceRegistry;
-            this.serviceTarget = serviceTarget;
+        WildflyCamelContextFactory(final ServiceRegistry serviceRegistry, final ServiceTarget serviceTarget) {
+            
+            // Setup the default handlers
+            List<ContextCreateHandler> defaultHandlers = new ArrayList<>();
+            defaultHandlers.add(new ContextCreateHandler() {
+                @Override
+                public void setup(CamelContext camelctx) {
+                    if (camelctx instanceof WildFlyCamelContext) {
+                        WildFlyCamelContext wfctx = (WildFlyCamelContext) camelctx;
+                        try {
+                            wfctx.setNamingContext(new NamingContext(serviceRegistry, serviceTarget));
+                        } catch (NamingException ex) {
+                            throw new IllegalStateException("Cannot initialize naming context", ex);
+                        }
+                    }
+                }
+            });
+            handlerMapping.put(null, defaultHandlers);
         }
 
         @Override
         public WildFlyCamelContext createCamelContext() throws Exception {
-            return createCamelContext(null);
+            return setup(new WildFlyCamelContext(), null);
         }
 
         @Override
         public WildFlyCamelContext createCamelContext(ClassLoader classLoader) throws Exception {
-            return setup(new WildFlyCamelContext());
+            return setup(new WildFlyCamelContext(), classLoader);
         }
 
-        private WildFlyCamelContext setup(WildFlyCamelContext context) {
-            try {
-                context.setNamingContext(new NamingContext(serviceRegistry, serviceTarget));
-            } catch (NamingException ex) {
-                throw new IllegalStateException("Cannot initialize naming context", ex);
+        @Override
+        public List<ContextCreateHandler> getContextCreateHandlers(ClassLoader classsLoader) {
+            List<ContextCreateHandler> result = new ArrayList<>();
+            synchronized (handlerMapping) {
+                List<ContextCreateHandler> handlers = handlerMapping.get(classsLoader);
+                if (handlers != null) {
+                    result.addAll(handlers);
+                }
+            }
+            return Collections.unmodifiableList(result);
+        }
+
+        @Override
+        public void addContextCreateHandler(ClassLoader classsLoader, ContextCreateHandler handler) {
+            synchronized (handlerMapping) {
+                List<ContextCreateHandler> handlers = handlerMapping.get(classsLoader);
+                if (handlers == null) {
+                    handlers = new ArrayList<>();
+                    handlerMapping.put(classsLoader, handlers);
+                }
+                handlers.add(handler);
+            }
+        }
+
+        @Override
+        public void removeContextCreateHandler(ClassLoader classsLoader, ContextCreateHandler handler) {
+            synchronized (handlerMapping) {
+                List<ContextCreateHandler> handlers = handlerMapping.get(classsLoader);
+                if (handlers != null) {
+                    handlers.remove(handler);
+                }
+            }
+        }
+
+        @Override
+        public void removeContextCreateHandlers(ClassLoader classsLoader) {
+            synchronized (handlerMapping) {
+                handlerMapping.remove(classsLoader);
+            }
+        }
+
+        private WildFlyCamelContext setup(WildFlyCamelContext context, ClassLoader classLoader) {
+            for (ContextCreateHandler handler : getContextCreateHandlers(null)) {
+                handler.setup(context);
+            }
+            if (classLoader != null) {
+                for (ContextCreateHandler handler : getContextCreateHandlers(classLoader)) {
+                    handler.setup(context);
+                }
             }
             return context;
         }

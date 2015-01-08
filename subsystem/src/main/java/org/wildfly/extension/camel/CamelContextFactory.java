@@ -20,6 +20,8 @@
 
 package org.wildfly.extension.camel;
 
+import java.util.List;
+
 import org.apache.camel.CamelContext;
 
 /**
@@ -33,4 +35,18 @@ public interface CamelContextFactory {
     WildFlyCamelContext createCamelContext() throws Exception;
 
     WildFlyCamelContext createCamelContext(ClassLoader classsLoader) throws Exception;
+    
+    List<ContextCreateHandler> getContextCreateHandlers(ClassLoader classsLoader);
+    
+    void addContextCreateHandler(ClassLoader classsLoader, ContextCreateHandler handler);
+    
+    void removeContextCreateHandler(ClassLoader classsLoader, ContextCreateHandler handler);
+    
+    void removeContextCreateHandlers(ClassLoader classsLoader);
+    
+    interface ContextCreateHandler {
+        
+        void setup(CamelContext camelctx);
+        
+    }
 }

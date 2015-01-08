@@ -36,15 +36,23 @@
     <dependencies>
         <dependency>
             <groupId>org.wildfly</groupId>
-            <artifactId>wildfly-server</artifactId>
+            <artifactId>wildfly-ee</artifactId>
         </dependency>
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-naming</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-server</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-bindy</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>

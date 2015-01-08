@@ -33,10 +33,12 @@ import org.jboss.as.server.DeploymentProcessorTarget;
 import org.jboss.as.server.deployment.Phase;
 import org.jboss.dmr.ModelNode;
 import org.jboss.msc.service.ServiceController;
+import org.wildfly.extension.camel.deployment.BindyAnnotationProcessor;
 import org.wildfly.extension.camel.deployment.CamelContextActivationProcessor;
 import org.wildfly.extension.camel.deployment.CamelContextCreateProcessor;
 import org.wildfly.extension.camel.deployment.CamelDependenciesProcessor;
 import org.wildfly.extension.camel.deployment.CamelIntegrationProcessor;
+import org.wildfly.extension.camel.deployment.PackageScanResolverProcessor;
 import org.wildfly.extension.camel.deployment.RepositoryContentInstallProcessor;
 import org.wildfly.extension.camel.service.CamelBootstrapService;
 import org.wildfly.extension.camel.service.CamelContextFactoryBindingService;
@@ -53,11 +55,16 @@ import org.wildfly.extension.gravia.parser.GraviaSubsystemBootstrap;
  */
 final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
 
-    public static final int PARSE_CAMEL_ITEGRATION_PROVIDER           = Phase.PARSE_OSGI_SUBSYSTEM_ACTIVATOR + 0x01;
+    public static final int PARSE_CAMEL_ITEGRATION_PROVIDER           = Phase.PARSE_WAB_CONTEXT_FACTORY + 0x01;
+    public static final int PARSE_BINDY_ANNOTATION_PROCESSOR          = PARSE_CAMEL_ITEGRATION_PROVIDER + 0x01;
+    
     public static final int DEPENDENCIES_CAMEL              	      = Phase.DEPENDENCIES_LOGGING + 0x01;
+    
     public static final int POST_MODULE_CAMEL_CONTEXT_CREATE          = Phase.POST_MODULE_LOCAL_HOME + 0x01;
+    public static final int POST_MODULE_PACKAGE_SCAN_RESOLVER         = POST_MODULE_CAMEL_CONTEXT_CREATE + 0x01;
+    
     public static final int INSTALL_REPOSITORY_CONTENT                = Phase.INSTALL_BUNDLE_ACTIVATE + 0x01;
-    public static final int INSTALL_CAMEL_CONTEXT_ACTIVATION          = Phase.INSTALL_BUNDLE_ACTIVATE + 0x04;
+    public static final int INSTALL_CAMEL_CONTEXT_ACTIVATION          = INSTALL_REPOSITORY_CONTENT + 0x01;
 
     private final SubsystemState subsystemState;
 
@@ -95,8 +102,10 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
             public void execute(DeploymentProcessorTarget processorTarget) {
                 graviaSubsystem.addDeploymentUnitProcessors(processorTarget);
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_CAMEL_ITEGRATION_PROVIDER, new CamelIntegrationProcessor());
+                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_BINDY_ANNOTATION_PROCESSOR, new BindyAnnotationProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_CAMEL, new CamelDependenciesProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_CAMEL_CONTEXT_CREATE, new CamelContextCreateProcessor());
+                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_PACKAGE_SCAN_RESOLVER, new PackageScanResolverProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CAMEL_CONTEXT_ACTIVATION, new CamelContextActivationProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_REPOSITORY_CONTENT, new RepositoryContentInstallProcessor());
             }

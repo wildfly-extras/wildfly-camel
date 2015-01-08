@@ -23,6 +23,7 @@
 
     <dependencies>
         <module name="org.apache.camel.component.atom" export="true" services="export" />
+        <module name="org.apache.camel.component.bindy" export="true" services="export" />
         <module name="org.apache.camel.component.cxf" export="true" services="export" />
         <module name="org.apache.camel.component.ftp" export="true" services="export" />
         <module name="org.apache.camel.component.jaxb" export="true" services="export" />

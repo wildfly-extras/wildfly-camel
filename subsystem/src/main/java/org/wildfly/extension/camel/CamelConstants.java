@@ -56,6 +56,8 @@ public interface CamelConstants {
     AttachmentKey<CamelContext> CAMEL_CONTEXT_KEY = AttachmentKey.create(CamelContext.class);
     /** The {@link CamelContextRegistry} attachment key */
     AttachmentKey<CamelContextRegistry> CAMEL_CONTEXT_REGISTRY_KEY = AttachmentKey.create(CamelContextRegistry.class);
+    /** The {@link CamelContextFactory} attachment key */
+    AttachmentKey<CamelContextFactory> CAMEL_CONTEXT_FACTORY_KEY = AttachmentKey.create(CamelContextFactory.class);
 
     /** The JNDI name for the {@link CamelContextFactory} binding */
     String CAMEL_CONTEXT_FACTORY_BINDING_NAME = "java:jboss/camel/CamelContextFactory";

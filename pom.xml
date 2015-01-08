@@ -563,6 +563,11 @@
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-ee</artifactId>
+                <version>${version.wildfly}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-naming</artifactId>
                 <version>${version.wildfly}</version>
             </dependency>
