@@ -20,10 +20,6 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="ca.uhn.hapi.$1">
-        <include artifact="ca.uhn.hapi:hapi-(.*)" />
-    </module>
-    
     <module name="io.github.rometools.rome">
         <include artifact="rome:rome" />
     </module>

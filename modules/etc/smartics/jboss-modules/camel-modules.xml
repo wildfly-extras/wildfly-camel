@@ -114,11 +114,13 @@
 
     <module name="org.apache.camel.component.hl7">
         <include artifact="org.apache.camel:camel-hl7" />
+        <include artifact="ca.uhn.hapi:hapi-base" />
+        <include artifact="ca.uhn.hapi:hapi-structures-v24" />
+        <include artifact="ca.uhn.hapi:hapi-structures-v25" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.mina.mina-core" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.apache.mina" />
             <module name="javax.enterprise.api" />
             <module name="javax.inject.api" />
             <module name="javax.interceptor.api" />

@@ -58,6 +58,7 @@
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
         <version.freeside.betamax>1.1.2</version.freeside.betamax>
         <version.groovy>2.2.1</version.groovy>
+        <version.hapi>2.2</version.hapi>
         <version.hawtio>1.4.42</version.hawtio>
         <version.hibernate.jpa21.api>1.0.0.Final</version.hibernate.jpa21.api>
         <version.javax.enterprise>1.2</version.javax.enterprise>
@@ -405,6 +406,18 @@
                 <version>${version.groovy}</version>
             </dependency>
 
+            <!-- Hapi -->
+            <dependency>
+                <groupId>ca.uhn.hapi</groupId>
+                <artifactId>hapi-structures-v24</artifactId>
+                <version>${version.hapi}</version>
+            </dependency>
+            <dependency>
+                <groupId>ca.uhn.hapi</groupId>
+                <artifactId>hapi-structures-v25</artifactId>
+                <version>${version.hapi}</version>
+            </dependency>
+            
             <!-- Hawt.io -->
             <dependency>
                 <groupId>io.hawt</groupId>
@@ -419,6 +432,7 @@
                 <artifactId>hibernate-jpa-2.1-api</artifactId>
                 <version>${version.hibernate.jpa21.api}</version>
             </dependency>
+
             <!-- Javax -->
             <dependency>
                 <groupId>javax.enterprise</groupId>
