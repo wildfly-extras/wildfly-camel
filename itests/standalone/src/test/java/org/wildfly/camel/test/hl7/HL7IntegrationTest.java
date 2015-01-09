@@ -27,13 +27,11 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.model.dataformat.HL7DataFormat;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.extension.camel.CamelContextFactory;
 
 import ca.uhn.hl7v2.DefaultHapiContext;
 import ca.uhn.hl7v2.HapiContext;
@@ -43,9 +41,6 @@ import ca.uhn.hl7v2.parser.Parser;
 @RunWith(Arquillian.class)
 public class HL7IntegrationTest {
 
-    @ArquillianResource
-    CamelContextFactory contextFactory;
-    
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "hl7-tests");

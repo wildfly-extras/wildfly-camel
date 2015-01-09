@@ -32,6 +32,8 @@
 /org/apache/camel/component/mail/main/camel-mail-2.14.1.jar
 /org/apache/camel/component/mina2/main/camel-mina2-2.14.1.jar
 /org/apache/camel/component/mqtt/main/camel-mqtt-2.14.1.jar
+/org/apache/camel/component/mqtt/main/hawtdispatch-1.21.jar
+/org/apache/camel/component/mqtt/main/hawtdispatch-transport-1.21.jar
 /org/apache/camel/component/mvel/main/camel-mvel-2.14.1.jar
 /org/apache/camel/component/netty4/main/camel-netty4-2.14.1.jar
 /org/apache/camel/component/ognl/main/camel-ognl-2.14.1.jar
@@ -55,8 +57,6 @@
 /org/apache/ws/commons/axiom/axiom-impl/main/axiom-impl-1.2.14.jar
 /org/apache/xbean/spring/main/xbean-spring-3.16.jar
 /org/fusesource/hawtbuf/main/hawtbuf-1.10.jar
-/org/fusesource/hawtdispatch/main/hawtdispatch-1.21.jar
-/org/fusesource/hawtdispatch/transport/main/hawtdispatch-transport-1.21.jar
 /org/fusesource/mqtt-client/main/mqtt-client-1.10.jar
 /org/jboss/gravia/main/gravia-provision-1.1.0.Beta44.jar
 /org/jboss/gravia/main/gravia-repository-1.1.0.Beta44.jar

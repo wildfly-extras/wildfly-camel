@@ -118,10 +118,6 @@
         <include artifact="org.apache.xbean:xbean-(.*)" />
     </module>
     
-    <module name="org.fusesource.hawtdispatch.$1">
-        <include artifact="org.fusesource.hawtdispatch:hawtdispatch-(.*)" />
-    </module>
-    
     <module name="org.osgi.core">
         <include artifact=":org.osgi.core" />
     </module>

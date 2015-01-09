@@ -102,16 +102,6 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.lucene">
-        <include artifact="org.apache.camel:camel-lucene" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.lucene.*" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.apache.lucene" />
-        </dependencies>
-    </module>
-
     <module name="org.apache.camel.component.hl7">
         <include artifact="org.apache.camel:camel-hl7" />
         <include artifact="ca.uhn.hapi:hapi-base" />
@@ -127,15 +117,31 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.lucene">
+        <include artifact="org.apache.camel:camel-lucene" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.lucene.*" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.apache.lucene" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.camel.component.mina2">
+        <include artifact="org.apache.camel:camel-mina2" />
+    </module>
+
+    <module name="org.apache.camel.component.mqtt">
+        <include artifact="org.apache.camel:camel-mqtt" />
+        <include artifact="org.fusesource.hawtdispatch:hawtdispatch" />
+        <include artifact="org.fusesource.hawtdispatch:hawtdispatch-transport" />
+    </module>
+
     <module name="org.apache.camel.component.ognl">
         <include artifact="org.apache.camel:camel-ognl" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.servicemix.bundles.javassist" />
         </apply-to-dependencies>
-    </module>
-
-    <module name="org.apache.camel.component.mina2">
-        <include artifact="org.apache.camel:camel-mina2" />
     </module>
 
     <!-- rule to rename the remaining camel artifacts ids to better module names -->
