@@ -133,8 +133,10 @@
 
     <module name="org.apache.camel.component.mqtt">
         <include artifact="org.apache.camel:camel-mqtt" />
+        <include artifact="org.fusesource.hawtbuf:hawtbuf" />
         <include artifact="org.fusesource.hawtdispatch:hawtdispatch" />
         <include artifact="org.fusesource.hawtdispatch:hawtdispatch-transport" />
+        <include artifact="org.fusesource.mqtt-client:mqtt-client" />
     </module>
 
     <module name="org.apache.camel.component.ognl">
