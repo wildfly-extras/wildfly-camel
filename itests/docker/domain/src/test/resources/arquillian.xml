@@ -5,7 +5,7 @@
     
     <container qualifier="remote" default="true">
         <configuration>
-            <property name="managementAddress">${env.DOCKER_IP}</property>
+            <property name="managementAddress">${wildfly.mgmt.address}</property>
             <property name="managementPort">9990</property>
             <property name="username">${wildfly.mgmt.username}</property>
             <property name="password">${wildfly.mgmt.password}</property>

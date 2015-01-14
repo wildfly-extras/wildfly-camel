@@ -76,7 +76,7 @@ public class DockerDomainTest {
         Result result = docker.connect(host, 9990).exec().printOut(System.out).printErr(System.err);
         Assert.assertEquals("Deploy success", 0, result.exitValue());
         
-        String resp = HttpRequest.get("http://" + host + ":8181/domain-endpoint", 10, TimeUnit.SECONDS);
+        String resp = HttpRequest.get("http://localhost:8181/domain-endpoint", 10, TimeUnit.SECONDS);
         Assert.assertTrue("Starts with Hello: " + resp, resp.startsWith("Hello"));
     }
 }
