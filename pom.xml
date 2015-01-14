@@ -56,6 +56,7 @@
         <version.apache.felix.scr.ds.annotations>1.2.4</version.apache.felix.scr.ds.annotations>
         <version.apache.felix.scr.generator>1.8.0</version.apache.felix.scr.generator>
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
+        <version.apache.lucene>4.10.2</version.apache.lucene>
         <version.freeside.betamax>1.1.2</version.freeside.betamax>
         <version.groovy>2.2.1</version.groovy>
         <version.hapi>2.2</version.hapi>
@@ -487,12 +488,28 @@
                 <version>${version.jboss.jbossws.api}</version>
             </dependency>
 
-
             <!-- JUnit -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${version.junit}</version>
+            </dependency>
+
+            <!-- Lucene -->
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-analyzers-common</artifactId>
+                <version>${version.apache.lucene}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-core</artifactId>
+                <version>${version.apache.lucene}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-queryparser</artifactId>
+                <version>${version.apache.lucene}</version>
             </dependency>
 
             <!-- OSGi -->
