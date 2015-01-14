@@ -179,19 +179,19 @@
                         <configuration>
                             <source>
                                 // List all running containers
-                                def proc = ["/usr/bin/docker", "ps", "-q"].execute()
+                                def proc = ["docker", "ps", "-q"].execute()
                                 proc.waitFor()
 
                                 if (proc.exitValue() == 0) {
                                     def containerIds = proc.in.text
                                     containerIds.split("\n").each { containerId ->
                                         // If the container exposes port 9990 assume it's the domain master
-                                        def portProc = ["/usr/bin/docker", "inspect", "--format='{{(index (index .NetworkSettings.Ports \"9990/tcp\") 0).HostPort}}'", containerId].execute()
+                                        def portProc = ["docker", "inspect", "--format='{{(index (index .NetworkSettings.Ports \"9990/tcp\") 0).HostPort}}'", containerId].execute()
                                         portProc.waitFor()
 
                                         if(portProc.exitValue() == 0) {
                                             // Get the container IP address and store in a Maven property
-                                            ipProc = ["/usr/bin/docker", "inspect", "--format='{{ .NetworkSettings.IPAddress }}'", containerId].execute()
+                                            ipProc = ["docker", "inspect", "--format='{{ .NetworkSettings.IPAddress }}'", containerId].execute()
                                             ipProc.waitFor()
 
                                             if(ipProc.exitValue() == 0) {
