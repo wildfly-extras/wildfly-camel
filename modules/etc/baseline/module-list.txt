@@ -53,6 +53,12 @@
 /org/apache/deltaspike/cdictrl/api/main/deltaspike-cdictrl-api-1.0.2.jar
 /org/apache/deltaspike/core/api/main/deltaspike-core-api-1.0.2.jar
 /org/apache/deltaspike/core/impl/main/deltaspike-core-impl-1.0.2.jar
+/org/apache/jakarta/regexp/main/jakarta-regexp-1.4.jar
+/org/apache/lucene/4.10/lucene-analyzers-common-4.6.1.jar
+/org/apache/lucene/4.10/lucene-core-4.6.1.jar
+/org/apache/lucene/4.10/lucene-queries-4.6.1.jar
+/org/apache/lucene/4.10/lucene-queryparser-4.6.1.jar
+/org/apache/lucene/4.10/lucene-sandbox-4.6.1.jar
 /org/apache/mina/core/main/mina-core-2.0.7.jar
 /org/apache/servicemix/bundles/ognl/main/org.apache.servicemix.bundles.ognl-3.0.8_1.jar
 /org/apache/ws/commons/axiom/axiom-api/main/axiom-api-1.2.14.jar
