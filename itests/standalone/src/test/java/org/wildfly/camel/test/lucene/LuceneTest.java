@@ -28,13 +28,10 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-// TODO: Reinstate this test when we have a resolution to issue #194
 @RunWith(Arquillian.class)
-@Ignore
 public class LuceneTest {
 
     @Deployment
