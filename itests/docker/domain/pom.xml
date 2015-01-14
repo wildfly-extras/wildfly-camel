@@ -107,7 +107,7 @@
                                             <enabled>true</enabled>
                                         </log>
                                         <wait>
-                                            <url>http://localhost:8181</url>
+                                            <url>http://${env.DOCKER_IP}:8181</url>
                                             <time>10000</time>
                                         </wait>
                                     </run>

@@ -59,7 +59,8 @@ public class DockerDomainTest {
     
     @Test
     public void testEndpoint() throws Exception {
-        String host = mgmtClient.getMgmtAddress();
+        String mgmtAddress = mgmtClient.getMgmtAddress();
+        String host = System.getenv("DOCKER_IP");
         
         String[] files = new File("target").list(new FilenameFilter() {
             @Override
@@ -73,10 +74,10 @@ public class DockerDomainTest {
         String runtimeName = "domain-endpoint.war";
         DeployCommand docker = new DeployCommand(runtimeName, new File("target/" + files[0]));
         
-        Result result = docker.connect(host, 9990).exec().printOut(System.out).printErr(System.err);
+        Result result = docker.connect(mgmtAddress, 9990).exec().printOut(System.out).printErr(System.err);
         Assert.assertEquals("Deploy success", 0, result.exitValue());
         
-        String resp = HttpRequest.get("http://localhost:8181/domain-endpoint", 10, TimeUnit.SECONDS);
+        String resp = HttpRequest.get("http://" + host + ":8181/domain-endpoint", 10, TimeUnit.SECONDS);
         Assert.assertTrue("Starts with Hello: " + resp, resp.startsWith("Hello"));
     }
 }
