@@ -28,18 +28,25 @@ import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.as.arquillian.api.ContainerResource;
 import org.jboss.as.arquillian.container.ManagementClient;
+import org.jboss.dmr.ModelNode;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.ProvisionerSupport;
 import org.wildfly.camel.test.cxf.subB.Endpoint;
 import org.wildfly.camel.test.cxf.subB.EndpointImpl;
+
+import java.io.IOException;
+
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.ALLOW_RESOURCE_SERVICE_RESTART;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.OPERATION_HEADERS;
 
 @RunWith(Arquillian.class)
 public class SecureWebServicesIntegrationTest {
@@ -49,14 +56,40 @@ public class SecureWebServicesIntegrationTest {
     @ArquillianResource
     Deployer deployer;
 
-    @ArquillianResource
+    @ContainerResource
     ManagementClient managementClient;
 
-    @Deployment
-    public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-integration-tests");
-        archive.addClasses(ProvisionerSupport.class, Endpoint.class);
-        return archive;
+    @Before
+    public void setUp() throws IOException {
+        // Set up a security domain for our tests to authenticate against
+        ModelNode securityDomainOpAdd = createOpNode("subsystem=security/security-domain=cxf-security-domain", "add");
+        ModelNode securityDomainContent = createOpNode("subsystem=security/security-domain=cxf-security-domain/authentication=classic", "add");
+
+        ModelNode loginModules = securityDomainContent.get("login-modules");
+
+        ModelNode userRoles = new ModelNode();
+        userRoles.get("code").set("UsersRoles");
+        userRoles.get("flag").set("required");
+
+        ModelNode moduleOptions = userRoles.get("module-options");
+        moduleOptions.get("usersProperties").set("cxf-users.properties");
+        moduleOptions.get("rolesProperties").set("cxf-roles.properties");
+        loginModules.add(userRoles);
+
+        ModelNode result = managementClient.getControllerClient().execute(createCompositeNode(new ModelNode[] {securityDomainOpAdd, securityDomainContent}));
+
+        // Make sure the commands worked before proceeding
+        Assert.assertEquals("success", result.get("outcome").asString());
+    }
+
+    @After
+    public void tearDown() throws IOException {
+        // Remove the test security domain after each test
+        ModelNode securityDomainOpRemove = createOpNode("subsystem=security/security-domain=cxf-security-domain", "remove");
+        securityDomainOpRemove.get(OPERATION_HEADERS, ALLOW_RESOURCE_SERVICE_RESTART).set(true);
+
+        ModelNode result = managementClient.getControllerClient().execute(securityDomainOpRemove);
+        Assert.assertEquals("success", result.get("outcome").asString());
     }
 
     @Test
@@ -64,19 +97,18 @@ public class SecureWebServicesIntegrationTest {
         deployer.deploy(SIMPLE_WAR);
 
         try {
-            // Create the CamelContext
-            CamelContext camelctx = new DefaultCamelContext();
-            camelctx.addRoutes(new RouteBuilder() {
+            CamelContext camelContext = new DefaultCamelContext();
+            camelContext.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
                     from("direct:start")
-                    .to("cxf://" + getEndpointAddress("/simple", "cxfuser", "cxfpassword"));
+                            .to("cxf://" + getEndpointAddress("/simple", "cxfuser", "cxfpassword"));
                 }
             });
 
-            camelctx.start();
+            camelContext.start();
 
-            ProducerTemplate producer = camelctx.createProducerTemplate();
+            ProducerTemplate producer = camelContext.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
@@ -89,27 +121,26 @@ public class SecureWebServicesIntegrationTest {
         deployer.deploy(SIMPLE_WAR);
 
         try {
-            // Create the CamelContext
-            CamelContext camelctx = new DefaultCamelContext();
-            camelctx.addRoutes(new RouteBuilder() {
+            CamelContext camelContext = new DefaultCamelContext();
+            camelContext.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
                     from("direct:start")
-                    .doTry()
-                        .to("cxf://" + getEndpointAddress("/simple", "baduser", "badpassword"))
-                    .doCatch(Exception.class)
-                          .setBody(exceptionMessage())
-                         .to("direct:error")
-                     .end();
+                            .doTry()
+                            .to("cxf://" + getEndpointAddress("/simple", "baduser", "badpassword"))
+                            .doCatch(Exception.class)
+                            .setBody(exceptionMessage())
+                            .to("direct:error")
+                            .end();
                 }
             });
 
-            PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:error").createPollingConsumer();
+            PollingConsumer pollingConsumer = camelContext.getEndpoint("direct:error").createPollingConsumer();
             pollingConsumer.start();
 
-            camelctx.start();
+            camelContext.start();
 
-            ProducerTemplate producer = camelctx.createProducerTemplate();
+            ProducerTemplate producer = camelContext.createProducerTemplate();
             producer.requestBody("direct:start", "Kermit", String.class);
 
             String result = pollingConsumer.receive(5000L).getIn().getBody(String.class);
@@ -133,7 +164,7 @@ public class SecureWebServicesIntegrationTest {
         return builder.toString();
     }
 
-    @Deployment(name = SIMPLE_WAR, managed = false, testable = false)
+    @Deployment(name = SIMPLE_WAR, managed = false)
     public static Archive<?> getSimpleWar() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, SIMPLE_WAR);
         final StringAsset jbossWebAsset = new StringAsset("<jboss-web><security-domain>" +
@@ -144,5 +175,29 @@ public class SecureWebServicesIntegrationTest {
         archive.addAsResource("cxf/secure/cxf-users.properties", "cxf-users.properties");
         archive.addAsWebInfResource(jbossWebAsset, "jboss-web.xml");
         return archive;
+    }
+
+    private ModelNode createOpNode(String address, String operation) {
+        ModelNode op = new ModelNode();
+
+        ModelNode list = op.get("address").setEmptyList();
+        if (address != null) {
+            String[] pathSegments = address.split("/");
+            for (String segment : pathSegments) {
+                String[] elements = segment.split("=");
+                list.add(elements[0], elements[1]);
+            }
+        }
+        op.get("operation").set(operation);
+        return op;
+    }
+
+    private ModelNode createCompositeNode(ModelNode[] steps) {
+        ModelNode comp = new ModelNode();
+        comp.get("operation").set("composite");
+        for (ModelNode step : steps) {
+            comp.get("steps").add(step);
+        }
+        return comp;
     }
 }

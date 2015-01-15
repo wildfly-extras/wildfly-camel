@@ -430,14 +430,6 @@
                         <policy-module code="Delegating" flag="required"/>
                     </authorization>
                 </security-domain>
-                <security-domain name="cxf-security-domain" cache-type="default">
-                    <authentication>
-                        <login-module code="UsersRoles" flag="required">
-                            <module-option name="usersProperties" value="cxf-users.properties"/>
-                            <module-option name="rolesProperties" value="cxf-roles.properties"/>
-                        </login-module>
-                    </authentication>
-                </security-domain>
                 <security-domain name="hawtio-domain" cache-type="default">
                     <authentication>
                         <login-module code="RealmDirect" flag="required">
