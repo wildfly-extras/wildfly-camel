@@ -62,7 +62,7 @@ public class SpringContextDeploymentTest  {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-deployment-tests");
-        archive.addAsResource("camel/simple/" + SPRING_CONTEXT_XML, SPRING_CONTEXT_XML);
+        archive.addAsResource("simple/" + SPRING_CONTEXT_XML, SPRING_CONTEXT_XML);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {

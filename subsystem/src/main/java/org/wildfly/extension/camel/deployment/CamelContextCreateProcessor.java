@@ -66,11 +66,15 @@ public class CamelContextCreateProcessor implements DeploymentUnitProcessor {
 
         // Create the camel context
         CamelContext camelctx;
+        ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         try {
             Module module = depUnit.getAttachment(Attachments.MODULE);
+            Thread.currentThread().setContextClassLoader(module.getClassLoader());
             camelctx = SpringCamelContextFactory.createSpringCamelContext(contextDefinitionURL, module.getClassLoader());
         } catch (Exception ex) {
             throw new IllegalStateException("Cannot create camel context: " + runtimeName, ex); 
+        } finally {
+            Thread.currentThread().setContextClassLoader(tccl);
         }
 
         // Add the camel context to the deployemnt

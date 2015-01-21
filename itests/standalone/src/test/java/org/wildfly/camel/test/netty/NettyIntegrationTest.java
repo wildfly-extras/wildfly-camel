@@ -25,32 +25,37 @@ import java.net.Socket;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.PollingConsumer;
+import org.apache.camel.ServiceStatus;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.gravia.runtime.ServiceLocator;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.extension.camel.CamelConstants;
+import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
 public class NettyIntegrationTest {
 
     private static final String SOCKET_HOST = "localhost";
-    private static final int SOCKET_PORT = 7999;
+    private static final int SOCKET_PORT = 7998;
 
     @Deployment
     public static WebArchive createdeployment() {
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-test.war");
+        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-netty-test.war");
+        archive.addAsWebResource("netty/netty-camel-context.xml", CamelConstants.CAMEL_CONTEXT_FILE_NAME);
         return archive;
     }
 
     @Test
     public void testNettyTcpSocket() throws Exception {
+        
         CamelContext camelContext = new DefaultCamelContext();
-
         camelContext.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -59,7 +64,6 @@ public class NettyIntegrationTest {
                         .to("direct:end");
             }
         });
-
         camelContext.start();
 
         PollingConsumer pollingConsumer = camelContext.getEndpoint("direct:end").createPollingConsumer();
@@ -77,9 +81,33 @@ public class NettyIntegrationTest {
         }
 
         String result = pollingConsumer.receive().getIn().getBody(String.class);
-
         Assert.assertEquals("Hello Kermit", result);
-
         camelContext.stop();
+    }
+
+    @Test
+    public void testDeployedContext() throws Exception {
+
+        CamelContextRegistry registry = ServiceLocator.getRequiredService(CamelContextRegistry.class);
+        CamelContext camelContext = registry.getContext("netty-context");
+        Assert.assertNotNull("CamelContext not null", camelContext);
+        Assert.assertEquals(ServiceStatus.Started, camelContext.getStatus());
+        
+        PollingConsumer pollingConsumer = camelContext.getEndpoint("direct:end").createPollingConsumer();
+        pollingConsumer.start();
+
+        Socket socket = new Socket(SOCKET_HOST, 7999);
+        socket.setKeepAlive(true);
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+
+        try {
+            out.write("Kermit\n");
+        } finally {
+            out.close();
+            socket.close();
+        }
+
+        String result = pollingConsumer.receive().getIn().getBody(String.class);
+        Assert.assertEquals("Hello Kermit", result);
     }
 }

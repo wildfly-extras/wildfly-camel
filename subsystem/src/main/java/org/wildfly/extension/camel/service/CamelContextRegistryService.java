@@ -35,16 +35,22 @@ import org.apache.camel.spi.Container;
 import org.apache.camel.spi.ManagementStrategy;
 import org.apache.camel.support.EventNotifierSupport;
 import org.jboss.as.controller.ServiceVerificationHandler;
+import org.jboss.gravia.runtime.ModuleContext;
+import org.jboss.gravia.runtime.Runtime;
+import org.jboss.gravia.runtime.ServiceRegistration;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
+import org.jboss.msc.service.StopContext;
+import org.jboss.msc.value.InjectedValue;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextRegistry;
 import org.wildfly.extension.camel.SpringCamelContextFactory;
 import org.wildfly.extension.camel.parser.SubsystemState;
+import org.wildfly.extension.gravia.GraviaConstants;
 
 /**
  * The {@link CamelContextRegistry} service
@@ -69,11 +75,15 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
             + "http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd'>";
 
     private final SubsystemState subsystemState;
+    private final InjectedValue<Runtime> injectedRuntime = new InjectedValue<Runtime>();
+    
     private CamelContextRegistry contextRegistry;
+    private ServiceRegistration<CamelContextRegistry> registration;
 
     public static ServiceController<CamelContextRegistry> addService(ServiceTarget serviceTarget, SubsystemState subsystemState, ServiceVerificationHandler verificationHandler) {
         CamelContextRegistryService service = new CamelContextRegistryService(subsystemState);
         ServiceBuilder<CamelContextRegistry> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME, service);
+        builder.addDependency(GraviaConstants.RUNTIME_SERVICE_NAME, Runtime.class, service.injectedRuntime);
         builder.addListener(verificationHandler);
         return builder.install();
     }
@@ -86,14 +96,31 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
     @Override
     public void start(StartContext startContext) throws StartException {
         contextRegistry = new DefaultCamelContextRegistry();
+        
+        // Register the service with gravia
+        Runtime runtime = injectedRuntime.getValue();
+        ModuleContext syscontext = runtime.getModuleContext();
+        registration = syscontext.registerService(CamelContextRegistry.class, contextRegistry, null);
+        
+        ClassLoader classLoader = CamelContextRegistry.class.getClassLoader();
         for (final String name : subsystemState.getContextDefinitionNames()) {
+            ClassLoader tccl = Thread.currentThread().getContextClassLoader();
             try {
-                ClassLoader classLoader = CamelContextRegistry.class.getClassLoader();
+                Thread.currentThread().setContextClassLoader(classLoader);
                 String beansXML = getBeansXML(name, subsystemState.getContextDefinition(name));
                 SpringCamelContextFactory.createSpringCamelContext(beansXML.getBytes(), classLoader);
             } catch (Exception ex) {
                 throw new IllegalStateException("Cannot create camel context: " + name, ex); 
+            } finally {
+                Thread.currentThread().setContextClassLoader(tccl);
             }
+        }
+    }
+
+    @Override
+    public void stop(StopContext context) {
+        if (registration != null) {
+            registration.unregister();
         }
     }
 

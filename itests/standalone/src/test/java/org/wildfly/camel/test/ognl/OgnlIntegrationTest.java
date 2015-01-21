@@ -38,7 +38,7 @@ public class OgnlIntegrationTest {
     @Deployment
     public static WebArchive createdeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-test.war");
-        archive.addAsResource("camel/ognl/test-ognl-expression.txt", "test-ognl-expression.txt");
+        archive.addAsResource("ognl/test-ognl-expression.txt", "test-ognl-expression.txt");
         return archive;
     }
 

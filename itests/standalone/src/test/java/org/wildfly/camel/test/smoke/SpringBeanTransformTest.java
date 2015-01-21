@@ -49,7 +49,7 @@ import org.wildfly.extension.camel.SpringCamelContextFactory;
 @RunWith(Arquillian.class)
 public class SpringBeanTransformTest {
 
-    static final String SPRING_CAMEL_CONTEXT_XML = "camel/simple/bean-transform-camel-context.xml";
+    static final String SPRING_CAMEL_CONTEXT_XML = "simple/bean-transform-camel-context.xml";
 
     @ArquillianResource
     Deployer deployer;

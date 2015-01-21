@@ -47,8 +47,6 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 @RunWith(Arquillian.class)
 public class SpringBeanDeploymentTest {
 
-    static final String SPRING_CAMEL_CONTEXT_XML = "bean-transform-camel-context.xml";
-
     static final String CAMEL_MODULE = "camel-module.jar";
 
     @ArquillianResource
@@ -80,7 +78,7 @@ public class SpringBeanDeploymentTest {
     public static JavaArchive getModule() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CAMEL_MODULE);
         archive.addClasses(HelloBean.class);
-        archive.addAsResource("camel/simple/" + SPRING_CAMEL_CONTEXT_XML, CamelConstants.CAMEL_CONTEXT_FILE_NAME);
+        archive.addAsResource("simple/bean-transform-camel-context.xml", CamelConstants.CAMEL_CONTEXT_FILE_NAME);
         return archive;
     }
 }
