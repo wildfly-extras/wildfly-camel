@@ -150,4 +150,7 @@
         <include artifact=":slf4j-log4j12" />
     </module>
 
+    <module name="org.wildfly.camel" skip="true">
+        <include artifact=":wildfly-camel-modules" />
+    </module>
 </modules>
