@@ -53,7 +53,7 @@
         </copy>
 
         <!-- Wildfly-Camel jars -->
-        <copy todir="${wildfly.patch.dir}/modules/org/wildfly/extension/camel/main">
+        <copy todir="${wildfly.patch.dir}/modules/system/layers/fuse/org/wildfly/extension/camel/main">
             <fileset dir="${deploy.artifacts.lib}" >
                 <include name="wildfly-camel-subsystem-${project.version}.jar" />
                 <include name="gravia-container-wildfly-extension-${version.jboss.gravia}.jar" />
