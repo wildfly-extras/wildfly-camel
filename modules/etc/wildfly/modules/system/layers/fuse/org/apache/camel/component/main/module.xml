@@ -22,6 +22,7 @@
 <module xmlns="urn:jboss:module:1.3" name="org.apache.camel.component">
 
     <dependencies>
+        <module name="org.apache.camel.component.activemq" export="true" services="export" />
         <module name="org.apache.camel.component.atom" export="true" services="export" />
         <module name="org.apache.camel.component.bindy" export="true" services="export" />
         <module name="org.apache.camel.component.cxf" export="true" services="export" />
@@ -39,7 +40,6 @@
         <module name="org.apache.camel.component.netty4" export="true" services="export" />
         <module name="org.apache.camel.component.ognl" export="true" services="export" />
         <module name="org.apache.camel.component.weather" export="true" services="export" />
-        <module name="org.apache.activemq.camel" export="true" services="export" />
     </dependencies>
 
 </module>

@@ -36,7 +36,7 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.activemq.camel">
+    <module name="org.apache.camel.component.activemq">
         <include artifact="org.apache.activemq:activemq-camel" />
         <dependencies>
             <module name="org.apache.camel.core" />

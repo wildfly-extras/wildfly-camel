@@ -323,7 +323,7 @@
                     <attach>false</attach>
                     <targetFolder>${smartics.module.dir}</targetFolder>
                     <modules>
-                        <dir>etc/smartics/jboss-modules</dir>
+                        <dir>etc/smartics</dir>
                     </modules>
                     <!-- 
                         These are dependencies we don't want to create/associate modules with.
