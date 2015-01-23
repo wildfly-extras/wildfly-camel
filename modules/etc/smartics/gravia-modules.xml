@@ -21,7 +21,12 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
     <module name="org.jboss.gravia">
-        <include artifact=":gravia-.*" />
+        <include artifact=":gravia-provision" />
+        <include artifact=":gravia-repository" />
+        <include artifact=":gravia-resolver" />
+        <include artifact=":gravia-resource" />
+        <include artifact=":gravia-runtime-api" />
+        <include artifact=":gravia-runtime-embedded" />
         <include artifact=":org.apache.felix.configadmin" />
         <include artifact=":org.apache.felix.http.bridge" />
         <include artifact=":org.apache.felix.log" />
@@ -39,6 +44,15 @@
             <module name="org.osgi.core" />
             <module name="org.osgi.enterprise" />
             <module name="org.slf4j" />
+        </dependencies>
+    </module>
+    
+    <module name="org.jboss.gravia.jmx">
+        <include artifact=":gravia-jmx-cm" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.osgi.core" />
+            <module name="org.osgi.enterprise" />
         </dependencies>
     </module>
     

@@ -243,6 +243,11 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.gravia</groupId>
+            <artifactId>gravia-jmx-cm</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.gravia</groupId>
             <artifactId>gravia-provision</artifactId>
             <scope>provided</scope>
         </dependency>

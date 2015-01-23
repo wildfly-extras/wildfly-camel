@@ -128,6 +128,9 @@
     
     <module name="org.osgi.enterprise">
         <include artifact=":org.osgi.enterprise" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
     </module>
 
 </modules>
