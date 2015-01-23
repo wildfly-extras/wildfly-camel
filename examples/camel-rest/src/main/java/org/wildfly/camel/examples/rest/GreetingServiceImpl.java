@@ -19,22 +19,16 @@
  */
 package org.wildfly.camel.examples.rest;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.cdi.ContextName;
 import org.apache.camel.component.bean.ProxyHelper;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-@Path("/greet")
-public class GreetingServiceImpl {
+public class GreetingServiceImpl implements GreetingService {
 
     @Inject
     @ContextName("system-context-1")
@@ -48,10 +42,7 @@ public class GreetingServiceImpl {
         greetingServiceProxy = ProxyHelper.createProxy(endpoint, GreetingService.class);
     }
 
-    @GET
-    @Path("/hello/{name}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response sayHello(@PathParam("name") String name) {
+    public Response sayHello(String name) {
         return greetingServiceProxy.sayHello(name);
     }
 }

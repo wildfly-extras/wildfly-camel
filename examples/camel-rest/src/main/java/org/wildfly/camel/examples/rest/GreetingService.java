@@ -28,8 +28,9 @@ import javax.ws.rs.core.Response;
 
 @Path("/greet")
 public interface GreetingService {
+    
     @GET
     @Path("/hello/{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response sayHello(@PathParam("name") String name);
+    Response sayHello(@PathParam("name") String name);
 }
