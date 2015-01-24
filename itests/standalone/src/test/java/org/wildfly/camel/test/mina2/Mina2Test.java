@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.mina;
+package org.wildfly.camel.test.mina2;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;

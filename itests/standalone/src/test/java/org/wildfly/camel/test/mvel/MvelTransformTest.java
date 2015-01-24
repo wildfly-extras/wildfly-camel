@@ -44,7 +44,7 @@ public class MvelTransformTest {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-mvel-tests");
-        archive.addAsResource("mvel/someTemplate.mvel", "someTemplate.mvel");
+        archive.addAsResource("mvel/template.mvel", "template.mvel");
         return archive;
     }
 
@@ -54,7 +54,7 @@ public class MvelTransformTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").to("mvel:someTemplate.mvel");
+                from("direct:start").to("mvel:template.mvel");
             }
         });
         camelctx.start();
@@ -62,5 +62,4 @@ public class MvelTransformTest {
         String result = producer.requestBody("direct:start", "Kermit", String.class);
         Assert.assertEquals("Hello Kermit", result);
     }
-
 }

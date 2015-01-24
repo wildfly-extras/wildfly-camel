@@ -53,51 +53,39 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class FtpTest {
 
-    static int port = 21000;
-    protected static final File FTP_ROOT_DIR = new File("./target/res/home");
-    protected static final File USERS_FILE = new File("./src/test/resources/users.properties");
+    static final File FTP_ROOT_DIR = new File("./target/res/home");
+    static final File USERS_FILE = new File("./src/test/resources/users.properties");
+    static final int PORT = AvailablePortFinder.getNextAvailable(21000);
 
-    protected FtpServer ftpServer;
+    FtpServer ftpServer;
 
     @Before
     public void startFtpServer() throws Exception {
+        recursiveDelete(FTP_ROOT_DIR);
+        System.out.println(new File(".").getCanonicalPath());
+        assertTrue(new File(".").getCanonicalPath(), USERS_FILE.exists());
 
-        try {
+        NativeFileSystemFactory fsf = new NativeFileSystemFactory();
+        fsf.setCreateHome(true);
 
-            port = AvailablePortFinder.getNextAvailable(21000);
-            recursiveDelete(FTP_ROOT_DIR);
-            System.out.println(new File(".").getCanonicalPath());
-            assertTrue(new File(".").getCanonicalPath(), USERS_FILE.exists());
+        PropertiesUserManagerFactory pumf = new PropertiesUserManagerFactory();
+        pumf.setAdminName("admin");
+        pumf.setPasswordEncryptor(new ClearTextPasswordEncryptor());
+        pumf.setFile(USERS_FILE);
+        UserManager userMgr = pumf.createUserManager();
 
-            NativeFileSystemFactory fsf = new NativeFileSystemFactory();
-            fsf.setCreateHome(true);
+        ListenerFactory factory1 = new ListenerFactory();
+        factory1.setPort(PORT);
 
-            PropertiesUserManagerFactory pumf = new PropertiesUserManagerFactory();
-            pumf.setAdminName("admin");
-            pumf.setPasswordEncryptor(new ClearTextPasswordEncryptor());
-            pumf.setFile(USERS_FILE);
-            UserManager userMgr = pumf.createUserManager();
+        FtpServerFactory serverFactory = new FtpServerFactory();
+        serverFactory.setUserManager(userMgr);
+        serverFactory.setFileSystem(fsf);
+        serverFactory.setConnectionConfig(new ConnectionConfigFactory().createConnectionConfig());
+        serverFactory.addListener("default", factory1.createListener());
 
-            ListenerFactory factory1 = new ListenerFactory();
-            factory1.setPort(port);
-
-            FtpServerFactory serverFactory = new FtpServerFactory();
-            serverFactory.setUserManager(userMgr);
-            serverFactory.setFileSystem(fsf);
-            serverFactory.setConnectionConfig(new ConnectionConfigFactory().createConnectionConfig());
-            serverFactory.addListener("default", factory1.createListener());
-
-            FtpServerFactory factory = serverFactory;
-            ftpServer = factory.createServer();
-            ftpServer.start();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        } catch (Throwable e) {
-            e.printStackTrace();
-            throw new Exception(e);
-        }
+        FtpServerFactory factory = serverFactory;
+        ftpServer = factory.createServer();
+        ftpServer.start();
     }
 
     @After
@@ -114,22 +102,6 @@ public class FtpTest {
         }
     }
 
-    static private void recursiveDelete(File file) {
-        if( file.exists() ) {
-            if( file.isDirectory() ) {
-                File[] files = file.listFiles();
-                if( files!=null ) {
-                    for (File f : files) {
-                        recursiveDelete(f);
-                    }
-                }
-            }
-            file.delete();
-        }
-    }
-
-
-
     @Deployment
     public static WebArchive createdeployment() throws IOException {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-ftp-tests.war");
@@ -139,40 +111,52 @@ public class FtpTest {
         return archive;
     }
 
-    private static void addJarHolding(WebArchive archive, Class<?> clazz) {
-        URL location = clazz.getProtectionDomain().getCodeSource().getLocation();
-        if( location!=null && location.getProtocol().equals("file")) {
-            File path = new File(location.getPath());
-            if( path.isFile() ) {
-                System.out.println("Adding jar lib to war: "+path);
-                archive.addAsLibrary(path);
-            }
-        }
-    }
-
     @Test
     public void testSendFile() throws Exception {
 
-        CamelContext ctx = new DefaultCamelContext();
-        Endpoint endpoint = ctx.getEndpoint("ftp://localhost:"+port+"/foo?username=admin&password=admin");
+        CamelContext camelctx = new DefaultCamelContext();
+        Endpoint endpoint = camelctx.getEndpoint("ftp://localhost:" + PORT + "/foo?username=admin&password=admin");
 
-        File test_file = new File(FTP_ROOT_DIR, "foo/test.txt");
+        File testFile = new File(FTP_ROOT_DIR, "foo/test.txt");
 
-        Assert.assertFalse(test_file.exists());
-        ctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFileName", "test.txt");
-        Assert.assertTrue(test_file.exists());
+        Assert.assertFalse(testFile.exists());
+        camelctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFileName", "test.txt");
+        Assert.assertTrue(testFile.exists());
 
-        ctx.stop();
+        camelctx.stop();
     }
 
     @Test
     public void testComponentLoads() throws Exception {
-        CamelContext ctx = new DefaultCamelContext();
-        Endpoint endpoint = ctx.getEndpoint("ftp://localhost/foo");
+        CamelContext camelctx = new DefaultCamelContext();
+        Endpoint endpoint = camelctx.getEndpoint("ftp://localhost/foo");
         Assert.assertNotNull(endpoint);
         Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.file.remote.FtpEndpoint");
-        ctx.stop();
+        camelctx.stop();
     }
 
+    private static void recursiveDelete(File file) {
+        if (file.exists()) {
+            if (file.isDirectory()) {
+                File[] files = file.listFiles();
+                if (files != null) {
+                    for (File f : files) {
+                        recursiveDelete(f);
+                    }
+                }
+            }
+            file.delete();
+        }
+    }
 
+    private static void addJarHolding(WebArchive archive, Class<?> clazz) {
+        URL location = clazz.getProtectionDomain().getCodeSource().getLocation();
+        if (location != null && location.getProtocol().equals("file")) {
+            File path = new File(location.getPath());
+            if (path.isFile()) {
+                System.out.println("Adding jar lib to war: " + path);
+                archive.addAsLibrary(path);
+            }
+        }
+    }
 }

@@ -27,7 +27,7 @@ import org.apache.camel.dataformat.bindy.csv.BindyCsvDataFormat;
 import org.apache.camel.spi.DataFormat;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.gravia.runtime.ServiceLocator;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -39,9 +39,6 @@ import org.wildfly.extension.camel.CamelContextFactory;
 @RunWith(Arquillian.class)
 public class BindyIntegrationTest {
 
-    @ArquillianResource
-    CamelContextFactory contextFactory;
-    
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "bindy-tests");
@@ -52,11 +49,10 @@ public class BindyIntegrationTest {
     @Test
     public void testUnmarshal() throws Exception {
         
-        ClassLoader classLoader = getClass().getClassLoader();
-        CamelContext camelctx = contextFactory.createCamelContext(classLoader);
+        CamelContextFactory contextFactory = ServiceLocator.getRequiredService(CamelContextFactory.class);
+        CamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
         
         final DataFormat bindy = new BindyCsvDataFormat(Customer.class);
-        
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

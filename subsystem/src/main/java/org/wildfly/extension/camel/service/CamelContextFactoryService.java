@@ -47,6 +47,9 @@ import org.jboss.as.naming.ManagedReferenceInjector;
 import org.jboss.as.naming.ServiceBasedNamingStore;
 import org.jboss.as.naming.deployment.ContextNames;
 import org.jboss.as.naming.service.BinderService;
+import org.jboss.gravia.runtime.ModuleContext;
+import org.jboss.gravia.runtime.Runtime;
+import org.jboss.gravia.runtime.ServiceRegistration;
 import org.jboss.msc.inject.Injector;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
@@ -58,9 +61,11 @@ import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
+import org.jboss.msc.value.InjectedValue;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextFactory;
 import org.wildfly.extension.camel.WildFlyCamelContext;
+import org.wildfly.extension.gravia.GraviaConstants;
 
 /**
  * The {@link CamelContextFactory} service
@@ -70,11 +75,15 @@ import org.wildfly.extension.camel.WildFlyCamelContext;
  */
 public class CamelContextFactoryService extends AbstractService<CamelContextFactory> {
 
+    private final InjectedValue<Runtime> injectedRuntime = new InjectedValue<Runtime>();
+    
+	private ServiceRegistration<CamelContextFactory> registration;
     private CamelContextFactory contextFactory;
 
     public static ServiceController<CamelContextFactory> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
         CamelContextFactoryService service = new CamelContextFactoryService();
         ServiceBuilder<CamelContextFactory> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_FACTORY_SERVICE_NAME, service);
+        builder.addDependency(GraviaConstants.RUNTIME_SERVICE_NAME, Runtime.class, service.injectedRuntime);
         builder.addListener(verificationHandler);
         return builder.install();
     }
@@ -87,9 +96,21 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
     public void start(StartContext startContext) throws StartException {
         ServiceContainer serviceContainer = startContext.getController().getServiceContainer();
         contextFactory = new WildflyCamelContextFactory(serviceContainer, startContext.getChildTarget());
+        
+        // Register the service with gravia
+        Runtime runtime = injectedRuntime.getValue();
+        ModuleContext syscontext = runtime.getModuleContext();
+        registration = syscontext.registerService(CamelContextFactory.class, contextFactory, null);
     }
 
     @Override
+	public void stop(StopContext context) {
+        if (registration != null) {
+            registration.unregister();
+        }
+	}
+
+	@Override
     public CamelContextFactory getValue() {
         return contextFactory;
     }
