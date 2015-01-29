@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel-itests-docker</artifactId>
-        <version>2.1.0-SNAPSHOT</version>
+        <version>2.1.0</version>
     </parent>
 
     <name>Wildfly Camel :: Testsuite :: Docker :: Domain</name>
@@ -148,7 +148,7 @@
                         <configuration>
                             <target>
                                 <!-- [FIXME #175] Deployment fails with missing/unavailable dependencies -->
-                                <sleep seconds="5"/>
+                                <sleep seconds="5" />
                                 
                                 <echo>=========================================================================</echo>
                                 <echo>docker run --rm -ti -p 9990:9990 -e WILDFLY_MANAGEMENT_USER=${wildfly.mgmt.username} -e WILDFLY_MANAGEMENT_PASSWORD=${wildfly.mgmt.password} --name=${docker.alias.master} ${docker.image.name} ${docker.cmd.master}</echo>
@@ -184,7 +184,7 @@
 
                                 if (proc.exitValue() == 0) {
                                     def containerIds = proc.in.text
-                                    containerIds.split("\n").each { containerId ->
+                                    containerIds.split("\n").each { containerId -&gt;
                                         // If the container exposes port 9990 assume it's the domain master
                                         def portProc = ["docker", "inspect", "--format='{{(index (index .NetworkSettings.Ports \"9990/tcp\") 0).HostPort}}'", containerId].execute()
                                         portProc.waitFor()

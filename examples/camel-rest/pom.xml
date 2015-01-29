@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel-example</artifactId>
-        <version>2.1.0-SNAPSHOT</version>
+        <version>2.1.0</version>
     </parent>
 
     <name>Wildfly Camel :: Example :: Camel REST</name>
@@ -134,9 +134,9 @@
                                 <configuration>
                                     <target>
                                         <exec executable="docker">
-                                            <arg value="rmi"/>
-                                            <arg value="--force=true"/>
-                                            <arg value="${docker.image.name}"/>
+                                            <arg value="rmi" />
+                                            <arg value="--force=true" />
+                                            <arg value="${docker.image.name}" />
                                         </exec>
                                     </target>
                                 </configuration>
