@@ -39,6 +39,7 @@
         <module name="org.apache.camel.component.mvel" export="true" services="export" />
         <module name="org.apache.camel.component.netty4" export="true" services="export" />
         <module name="org.apache.camel.component.ognl" export="true" services="export" />
+        <module name="org.apache.camel.component.quartz2" export="true" services="export" />
         <module name="org.apache.camel.component.weather" export="true" services="export" />
     </dependencies>
 
