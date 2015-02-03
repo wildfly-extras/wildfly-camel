@@ -18,10 +18,16 @@
  * #L%
  */
 
-package org.wildfly.camel.test.mqtt;
+package org.wildfly.camel.test.quartz;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -32,19 +38,37 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class MQTTIntegrationTest {
+public class QuartzIntegrationTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "mqtt-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "quartz-tests");
         return archive;
     }
 
     @Test
     public void testEndpointClass() throws Exception {
+    	
+    	final CountDownLatch latch = new CountDownLatch(3);
+    	
         CamelContext camelctx = new DefaultCamelContext();
-        Endpoint endpoint = camelctx.getEndpoint("mqtt://dummy");
-        Assert.assertNotNull(endpoint);
-        Assert.assertEquals("org.apache.camel.component.mqtt.MQTTEndpoint", endpoint.getClass().getName());
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("quartz2://mytimer?trigger.repeatCount=3&trigger.repeatInterval=100")
+                .process(new Processor() {
+					@Override
+					public void process(Exchange exchange) throws Exception {
+						latch.countDown();
+					}})
+                .to("mock:result");
+            }
+        });
+        camelctx.start();
+        
+        Endpoint endpoint = camelctx.getEndpoints().iterator().next();
+        Assert.assertEquals("org.apache.camel.component.quartz2.QuartzEndpoint", endpoint.getClass().getName());
+        
+        Assert.assertTrue("Countdown reached zero", latch.await(500, TimeUnit.MILLISECONDS));
     }
 }

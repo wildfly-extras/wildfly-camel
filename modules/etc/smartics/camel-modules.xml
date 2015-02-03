@@ -154,6 +154,12 @@
         </apply-to-dependencies>
     </module>
 
+    <module name="org.apache.camel.component.quartz2">
+        <include artifact="org.apache.camel:camel-quartz2" />
+        <include artifact="org.quartz-scheduler:quartz" />
+        <include artifact="c3p0:c3p0" />
+    </module>
+
     <!-- rule to rename the remaining camel artifacts ids to better module names -->
     <module name="org.apache.camel.component.$1">
         <include artifact="org.apache.camel:camel-(.*)" />
