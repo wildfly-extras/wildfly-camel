@@ -68,17 +68,13 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.jakarta.regexp">
-        <include artifact=":jakarta-regexp" />
-    </module>
-
     <module name="org.apache.commons.net">
         <include artifact="commons.net:commons.net" />
         <dependencies>
             <module name="javax.api" />
         </dependencies>
     </module>
-    
+
     <module name="org.apache.deltaspike.$1.$2">
         <include artifact=":deltaspike-(.*)-(.*)" />
         <dependencies>
@@ -86,11 +82,31 @@
             <module name="javax.xml.bind.api" />
         </dependencies>
     </module>
-    
+
+    <module name="org.apache.httpcomponents" slot="4.3">
+        <include artifact=":httpcore" />
+        <include artifact=":httpclient" />
+        <apply-to-dependencies skip="true">
+            <!-- Prevents smartics generating a module def with these deps under slot 4.3 -->
+            <include module="org.apache.commons.codec" />
+            <include module="org.apache.commons.logging" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.commons.codec" />
+            <module name="org.apache.commons.logging" />
+            <module name="org.apache.james.mime4j" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.jakarta.regexp">
+        <include artifact=":jakarta-regexp" />
+    </module>
+
     <module name="org.apache.lucene" slot="4.10">
         <include artifact="org.apache.lucene:lucene-(.*)" />
     </module>
-    
+
     <module name="org.apache.mina.$1">
         <include artifact=":mina-(.*)" />
     </module>

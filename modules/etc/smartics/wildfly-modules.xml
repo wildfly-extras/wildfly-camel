@@ -120,6 +120,14 @@
         <include artifact="commons-pool:commons-pool" />
     </module>
 
+    <module name="org.apache.geronimo.specs.geronimo-servlet_3.0_spec" skip="true">
+        <include artifact="org.apache.geronimo.specs:geronimo-servlet_3.0_spec" />
+    </module>
+
+    <module name="org.apache.james.mime4j" skip="true">
+        <include artifact=":apache-mime4j-core" />
+    </module>
+
     <module name="org.apache.james.mime4j" skip="true">
         <include artifact=":apache-mime4j-core" />
     </module>

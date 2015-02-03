@@ -117,6 +117,17 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.http4">
+        <include artifact="org.apache.camel:camel-http4" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.geronimo.specs.geronimo-servlet_3.0_spec" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.servlet.api" />
+            <module name="org.apache.httpcomponents" slot="4.3" />
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.lucene">
         <include artifact="org.apache.camel:camel-lucene" />
         <dependencies>
