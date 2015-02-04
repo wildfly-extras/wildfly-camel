@@ -57,6 +57,7 @@
         <version.apache.felix.scr.generator>1.8.0</version.apache.felix.scr.generator>
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
         <version.apache.lucene>4.10.2</version.apache.lucene>
+        <version.beanshell>2.0b5</version.beanshell>
         <version.freeside.betamax>1.1.2</version.freeside.betamax>
         <version.groovy>2.2.1</version.groovy>
         <version.hapi>2.2</version.hapi>
@@ -161,6 +162,13 @@
                 <groupId>org.jboss.arquillian.junit</groupId>
                 <artifactId>arquillian-junit-container</artifactId>
                 <version>${version.jboss.arquillian.core}</version>
+            </dependency>
+
+            <!-- Beanshell -->
+            <dependency>
+                <groupId>org.beanshell</groupId>
+                <artifactId>bsh</artifactId>
+                <version>${version.beanshell}</version>
             </dependency>
 
             <!-- Betamax -->

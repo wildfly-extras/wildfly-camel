@@ -45,6 +45,7 @@
 /org/apache/camel/component/rss/main/rome-1.0.jar
 /org/apache/camel/component/saxon/main/Saxon-HE-9.5.1-5.jar
 /org/apache/camel/component/saxon/main/camel-saxon-2.14.1.jar
+/org/apache/camel/component/script/main/bsh-2.0b5.jar
 /org/apache/camel/component/script/main/camel-script-2.14.1.jar
 /org/apache/camel/component/soap/main/camel-soap-2.14.1.jar
 /org/apache/camel/component/sql/main/camel-sql-2.14.1.jar

@@ -176,6 +176,11 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.script">
+        <include artifact="org.apache.camel:camel-script" />
+        <include artifact="org.beanshell:bsh" />
+    </module>
+
     <!-- rule to rename the remaining camel artifacts ids to better module names -->
     <module name="org.apache.camel.component.$1">
         <include artifact="org.apache.camel:camel-(.*)" />

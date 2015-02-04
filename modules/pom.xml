@@ -247,6 +247,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.beanshell</groupId>
+            <artifactId>bsh</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.jboss.gravia</groupId>
             <artifactId>gravia-jmx-cm</artifactId>
             <scope>provided</scope>
