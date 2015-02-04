@@ -167,6 +167,14 @@
             <module name="javax.api" />
         </dependencies>
     </module>
+    
+    <module name="org.apache.camel.component.saxon">
+        <include artifact="org.apache.camel:camel-saxon" />
+        <include artifact="net.sf.saxon:Saxon-HE" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
 
     <!-- rule to rename the remaining camel artifacts ids to better module names -->
     <module name="org.apache.camel.component.$1">

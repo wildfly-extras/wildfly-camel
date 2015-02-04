@@ -20,10 +20,6 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="net.sf.saxon.he">
-        <include artifact="net.sf.saxon:Saxon-HE" />
-    </module>
-
     <module name="org.apache.abdera.core">
         <include artifact="org.apache.abdera:abdera-core" />
         <apply-to-dependencies skip="true">

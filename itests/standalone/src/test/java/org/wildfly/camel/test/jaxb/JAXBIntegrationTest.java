@@ -20,9 +20,8 @@
 
 package org.wildfly.camel.test.jaxb;
 
-import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -30,6 +29,7 @@ import org.apache.camel.model.dataformat.JaxbDataFormat;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.gravia.utils.IOUtils;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -104,14 +104,10 @@ public class JAXBIntegrationTest {
         camelctx.stop();
     }
 
-    private String readCustomerXml() throws IOException {
-        StringBuilder builder = new StringBuilder();
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/customer.xml"), "UTF-8"));
-        for (int c = br.read(); c != -1; c = br.read()) {
-            builder.append((char) c);
-        }
-
-        return builder.toString();
-    }
+	private String readCustomerXml() throws IOException {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+    	IOUtils.copyStream(getClass().getResourceAsStream("/customer.xml"), out);
+    	return new String(out.toByteArray());
+	}
 }
