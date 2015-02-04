@@ -160,6 +160,14 @@
         <include artifact="c3p0:c3p0" />
     </module>
 
+    <module name="org.apache.camel.component.rss">
+        <include artifact="org.apache.camel:camel-rss" />
+        <include artifact="rome:rome" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
     <!-- rule to rename the remaining camel artifacts ids to better module names -->
     <module name="org.apache.camel.component.$1">
         <include artifact="org.apache.camel:camel-(.*)" />

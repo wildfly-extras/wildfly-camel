@@ -20,10 +20,6 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="io.github.rometools.rome">
-        <include artifact="rome:rome" />
-    </module>
-
     <module name="net.sf.saxon.he">
         <include artifact="net.sf.saxon:Saxon-HE" />
     </module>

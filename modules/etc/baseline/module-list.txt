@@ -1,5 +1,4 @@
 /com/jcraft/jsch/main/jsch-0.1.51.jar
-/io/github/rometools/rome/main/rome-1.0.jar
 /net/sf/saxon/he/main/Saxon-HE-9.5.1-5.jar
 /org/apache/abdera/core/main/abdera-core-1.1.3.jar
 /org/apache/abdera/i18n/main/abdera-i18n-1.1.3.jar
@@ -44,6 +43,7 @@
 /org/apache/camel/component/quartz2/main/camel-quartz2-2.14.1.jar
 /org/apache/camel/component/quartz2/main/quartz-2.2.1.jar
 /org/apache/camel/component/rss/main/camel-rss-2.14.1.jar
+/org/apache/camel/component/rss/main/rome-1.0.jar
 /org/apache/camel/component/saxon/main/camel-saxon-2.14.1.jar
 /org/apache/camel/component/script/main/camel-script-2.14.1.jar
 /org/apache/camel/component/soap/main/camel-soap-2.14.1.jar
