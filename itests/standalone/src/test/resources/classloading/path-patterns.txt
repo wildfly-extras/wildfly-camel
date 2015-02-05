@@ -1,0 +1,21 @@
+[includes]
+	^bsh/(.*)
+	^ca/uhn/hl7v2(.*)
+	^com/sun/syndication(.*)
+	^org/apache
+	^org/apache/abdera(.*)
+	^org/apache/activemq(.*)
+	^org/apache/camel(.*)
+	^org/springframework(.*)
+	^META-INF/services(.*)
+
+[excludes]
+    bsh/org(.*)
+    bsh/servlet
+    com/mchange(.*)
+    org/fusesource(.*)
+    org/quartz(.*)
+    org/terracotta(.*)
+    w3c/(.*)
+	(.*)/internal
+	

@@ -26,9 +26,9 @@
             <include module=".*" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.slf4j" export="true" />
-            <module name="javax.api" export="true" />
+            <module name="javax.api" />
             <module name="javax.xml.bind.api" />
+            <module name="org.slf4j" />
             <module name="sun.jdk" />
         </dependencies>
     </module>
@@ -46,9 +46,9 @@
             <module name="javax.api" />
             <module name="javax.xml.bind.api" />
             <module name="org.apache.camel.core" />
-            <module name="org.springframework.beans" export="true" />
-            <module name="org.springframework.context" export="true" />
-            <module name="org.springframework.tx" export="true" />
+            <module name="org.springframework.beans" />
+            <module name="org.springframework.context" />
+            <module name="org.springframework.tx" />
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -61,6 +61,7 @@
         <dependencies>
             <module name="org.apache.camel.core"/>
             <module name="org.apache.abdera.core" export="true"/>
+            <module name="org.slf4j" />
         </dependencies>
     </module>
 
@@ -70,6 +71,7 @@
             <module name="javax.enterprise.api" />
             <module name="javax.inject.api" />
             <module name="javax.interceptor.api" />
+            <module name="org.slf4j" />
         </dependencies>
     </module>
 
@@ -79,11 +81,12 @@
             <module name="javax.annotation.api" />
             <module name="javax.enterprise.api" />
             <module name="javax.xml.bind.api" />
-            <module name="org.apache.deltaspike.core.api" export="true" />
-            <module name="org.apache.deltaspike.core.impl" export="true" />
+            <module name="org.apache.deltaspike.core.api" />
+            <module name="org.apache.deltaspike.core.impl" />
             <module name="org.apache.deltaspike.cdictrl.api" />
             <module name="org.jboss.weld.core" />
             <module name="org.jboss.weld.spi" />
+            <module name="org.slf4j" />
         </dependencies>
     </module>
 
@@ -94,11 +97,26 @@
             <include module="org.springframework.*" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="javax.api" />
             <module name="javax.jws.api" />
             <module name="javax.ws.rs.api" />
             <module name="javax.xml.ws.api" />
             <module name="org.apache.cxf.impl" />
             <module name="org.apache.cxf" />
+            <module name="org.slf4j" />
+        </dependencies>
+        <exports>
+            <exclude path="OSGI-INF/blueprint" />
+            <exclude path="schema/blueprint" />
+            <exclude path="schema/configuration" />
+        </exports>
+    </module>
+
+    <module name="org.apache.camel.component.ftp">
+        <include artifact="org.apache.camel:camel-ftp" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
         </dependencies>
     </module>
 
@@ -111,10 +129,15 @@
             <include module="org.apache.mina.mina-core" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="javax.api"/>
             <module name="javax.enterprise.api" />
             <module name="javax.inject.api" />
             <module name="javax.interceptor.api" />
+            <module name="org.slf4j"/>
         </dependencies>
+        <exports>
+            <exclude path="ca/uhn" />
+        </exports>
     </module>
 
     <module name="org.apache.camel.component.http4">
@@ -125,6 +148,43 @@
         <dependencies>
             <module name="javax.servlet.api" />
             <module name="org.apache.httpcomponents" slot="4.3" />
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.camel.component.jaxb">
+        <include artifact="org.apache.camel:camel-jaxb" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+    
+    <module name="org.apache.camel.component.jms">
+        <include artifact="org.apache.camel:camel-jms" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.commons.logging" />
+            <module name="org.springframework.core"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+    
+    <module name="org.apache.camel.component.jmx">
+        <include artifact="org.apache.camel:camel-jmx" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="javax.xml.bind.api" />
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.camel.component.jpa">
+        <include artifact="org.apache.camel:camel-jpa" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.springframework.tx" />
+            <module name="org.slf4j"/>
         </dependencies>
     </module>
 
@@ -135,18 +195,49 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.mail">
+        <include artifact="org.apache.camel:camel-mail" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="javax.activation.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.mina2">
         <include artifact="org.apache.camel:camel-mina2" />
     </module>
 
     <module name="org.apache.camel.component.mqtt">
         <include artifact="org.apache.camel:camel-mqtt" />
-        <include artifact="org.fusesource.hawtbuf:hawtbuf" />
         <include artifact="org.fusesource.hawtdispatch:hawtdispatch" />
         <include artifact="org.fusesource.hawtdispatch:hawtdispatch-transport" />
         <include artifact="org.fusesource.mqtt-client:mqtt-client" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="org/fusesource**" />
+        </exports>
     </module>
 
+    <module name="org.apache.camel.component.mvel">
+        <include artifact="org.apache.camel:camel-mvel" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.camel.component.netty4">
+        <include artifact="org.apache.camel:camel-netty4" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+    
     <module name="org.apache.camel.component.ognl">
         <include artifact="org.apache.camel:camel-ognl" />
         <apply-to-dependencies skip="true">
@@ -158,6 +249,15 @@
         <include artifact="org.apache.camel:camel-quartz2" />
         <include artifact="org.quartz-scheduler:quartz" />
         <include artifact="c3p0:c3p0" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="com/mchange**" />
+            <exclude path="org/quartz**" />
+            <exclude path="org/terracotta**" />
+        </exports>
     </module>
 
     <module name="org.apache.camel.component.rss">
@@ -165,7 +265,11 @@
         <include artifact="rome:rome" />
         <dependencies>
             <module name="javax.api" />
+            <module name="org.slf4j"/>
         </dependencies>
+        <exports>
+            <exclude path="com/sun" />
+        </exports>
     </module>
     
     <module name="org.apache.camel.component.saxon">
@@ -173,17 +277,56 @@
         <include artifact="net.sf.saxon:Saxon-HE" />
         <dependencies>
             <module name="javax.api" />
+            <module name="org.slf4j"/>
         </dependencies>
+        <exports>
+            <exclude path="net/sf**" />
+            <exclude path="w3c/mathml**" />
+            <exclude path="w3c/rddl**" />
+            <exclude path="w3c/svg**" />
+            <exclude path="w3c/xhtml**" />
+            <exclude path="w3c/xlink" />
+            <exclude path="w3c/xmlschema" />
+            <exclude path="w3c/xmlspec" />
+        </exports>
     </module>
 
     <module name="org.apache.camel.component.script">
         <include artifact="org.apache.camel:camel-script" />
         <include artifact="org.beanshell:bsh" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.osgi.core"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="bsh/org**" />
+            <exclude path="bsh/servlet" />
+        </exports>
     </module>
-
-    <!-- rule to rename the remaining camel artifacts ids to better module names -->
-    <module name="org.apache.camel.component.$1">
-        <include artifact="org.apache.camel:camel-(.*)" />
+    
+    <module name="org.apache.camel.component.soap">
+        <include artifact="org.apache.camel:camel-soap" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+    
+    <module name="org.apache.camel.component.sql">
+        <include artifact="org.apache.camel:camel-sql" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+    
+    <module name="org.apache.camel.component.weather">
+        <include artifact="org.apache.camel:camel-weather" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
     </module>
 
 </modules>

@@ -25,29 +25,69 @@
         <include artifact=":aopalliance" />
     </module>
     
+    <module name="org.springframework.beans">
+        <include artifact="org.springframework:spring-beans" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.commons.logging" />
+            <module name="org.springframework.core" />
+        </dependencies>
+    </module>
+    
+    <module name="org.springframework.context">
+        <include artifact="org.springframework:spring-context" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.commons.logging" />
+            <module name="org.springframework.core" />
+        </dependencies>
+    </module>
+    
     <module name="org.springframework.core">
         <include artifact="org.springframework:spring-core" />
         <dependencies>
-            <module name="org.apache.commons.logging" export="true" />
-            <module name="javax.api" export="true" />
-            <system export="true">
-                <paths>
-                    <path name="org/xml/sax" />
-                    <path name="org/xml/sax/helpers" />
-                </paths>
-            </system>
-            <system export="true">
-                <paths>
-                    <path name="org/w3c/dom" />
-                </paths>
-            </system>
+            <module name="javax.api" />
+            <module name="org.apache.commons.logging" />
+        </dependencies>
+    </module>
+    
+    <module name="org.springframework.expression">
+        <include artifact="org.springframework:spring-expression" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.commons.logging" />
+        </dependencies>
+    </module>
+    
+    <module name="org.springframework.jdbc">
+        <include artifact="org.springframework:spring-jdbc" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.commons.logging" />
+        </dependencies>
+    </module>
+    
+    <module name="org.springframework.jms">
+        <include artifact="org.springframework:spring-jms" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.commons.logging" />
+        </dependencies>
+    </module>
+    
+    <module name="org.springframework.orm">
+        <include artifact="org.springframework:spring-orm" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.commons.logging" />
         </dependencies>
     </module>
     
     <module name="org.springframework.tx">
         <include artifact="org.springframework:spring-tx" />
-        <!-- spring-tx module does not have a dep on core -->
         <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.commons.logging" />
             <module name="org.springframework.core" />
             <module name="org.springframework.beans" />
             <module name="org.springframework.context" />
@@ -55,11 +95,4 @@
         </dependencies>
     </module>
     
-    <module name="org.springframework.$1">
-        <include artifact="org.springframework:spring-(.*)" />
-        <apply-to-dependencies export="true">
-            <include module="org.springframework.core" />
-            <include module="org.springframework.beans" />
-        </apply-to-dependencies>
-    </module>
 </modules>
