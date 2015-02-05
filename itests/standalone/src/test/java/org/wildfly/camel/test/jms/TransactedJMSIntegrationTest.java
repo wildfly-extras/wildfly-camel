@@ -20,6 +20,19 @@
 
 package org.wildfly.camel.test.jms;
 
+import java.io.InputStream;
+
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.jms.XAQueueConnectionFactory;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.transaction.TransactionManager;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
@@ -45,13 +58,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.transaction.jta.JtaTransactionManager;
-import org.wildfly.camel.test.ProvisionerSupport;
-
-import javax.jms.*;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.transaction.TransactionManager;
-import java.io.InputStream;
 
 @RunWith(Arquillian.class)
 @ServerSetup({TransactedJMSIntegrationTest.JmsQueueSetup.class})
@@ -110,7 +116,6 @@ public class TransactedJMSIntegrationTest {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-jms-tests");
-        archive.addClasses(ProvisionerSupport.class);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {

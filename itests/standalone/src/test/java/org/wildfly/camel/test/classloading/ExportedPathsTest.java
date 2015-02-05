@@ -20,13 +20,17 @@
 
 package org.wildfly.camel.test.classloading;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.management.JMX;
 import javax.management.MBeanServer;
@@ -39,14 +43,15 @@ import org.jboss.modules.management.DependencyInfo;
 import org.jboss.modules.management.ModuleLoaderMXBean;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.bindy.model.Customer;
 
 @RunWith(Arquillian.class)
 public class ExportedPathsTest {
 
-    private static final File FILE_EXPORTED_PATHS = new File("target/exported-paths.txt");
+    private static final File FILE_EXPORTED_PATHS = new File("../../modules/etc/baseline/exported-paths.txt");
     private static final File FILE_MODULE_INFOS = new File("target/module-infos.txt");
 
     private static final String MODULE_LOADER_OBJECT_NAME = "jboss.modules:type=ModuleLoader,name=LocalModuleLoader-2";
@@ -56,13 +61,12 @@ public class ExportedPathsTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "exported-paths-tests");
-        archive.addPackage(Customer.class.getPackage());
+        archive.addAsResource("classloading/path-patterns.txt", "path-patterns.txt");
         return archive;
     }
 
-    @Test
-    public void testExportedPaths() throws Exception {
-
+    @Before
+    public void setUp() throws Exception {
         MBeanServer server = ManagementFactory.getPlatformMBeanServer();
         ObjectName oname = ObjectNameFactory.create(MODULE_LOADER_OBJECT_NAME);
         ModuleLoaderMXBean mbean = JMX.newMXBeanProxy(server, oname, ModuleLoaderMXBean.class);
@@ -85,12 +89,60 @@ public class ExportedPathsTest {
             List<String> modulePaths = new ArrayList<>(mbean.getModulePathsInfo(module, true).keySet());
             Collections.sort(modulePaths);
             for (String path : modulePaths) {
-                pw.println(path);
+                if (path.contains("/")) {
+                    pw.println(path);
+                }
             }
             pw.println();
         }
 
         pw.flush();
         pw.close();
+    }
+    
+    @Test
+    public void testExportedPaths() throws Exception {
+
+        // Build the patterns
+        List<Pattern> patterns = null;
+        List<Pattern> includePatterns = new ArrayList<>();
+        List<Pattern> excludePatterns = new ArrayList<>();
+        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/path-patterns.txt")));
+        String line = br.readLine();
+        while (line != null) {
+            if (line.startsWith("[includes]")) {
+                patterns = includePatterns;
+            } else if (line.startsWith("[excludes]")) {
+                patterns = excludePatterns;
+            } else if (line.length() > 0 && !line.startsWith("[")) {
+                patterns.add(Pattern.compile(line.trim()));
+            }
+            line = br.readLine();
+        }
+        br.close();
+
+        // Verify each line
+        br = new BufferedReader(new FileReader(FILE_EXPORTED_PATHS));
+        line = br.readLine();
+        while (line != null) {
+            if (line.length() > 0 && !line.startsWith("[")) {
+                boolean match = false;
+                for (Pattern pattern : includePatterns) {
+                    if (pattern.matcher(line).matches()) {
+                        match = true;
+                        break;
+                    }
+                }
+                for (Pattern pattern : excludePatterns) {
+                    if (pattern.matcher(line).matches()) {
+                        match = false;
+                        break;
+                    }
+                }
+                Assert.assertTrue("Matches: " + line, match);
+            }
+            line = br.readLine();
+        }
+        br.close();
     }
 }
