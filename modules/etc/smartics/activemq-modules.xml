@@ -32,7 +32,8 @@
             <include module="javax.*" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="javax.resource.api" export="true" />
+            <module name="javax.api"/>
+            <module name="javax.resource.api"/>
         </dependencies>
     </module>
 
