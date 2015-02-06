@@ -20,12 +20,17 @@
 
 package org.wildfly.camel.test.saxon;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.gravia.utils.IOUtils;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -38,6 +43,7 @@ public class XQueryIntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "xquery-tests");
+        archive.addAsResource("jaxb/model/customer.xml", "customer.xml");
         return archive;
     }
 
@@ -48,16 +54,21 @@ public class XQueryIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").transform().xquery("/people/person[@name='Jonathan']")
+                Namespaces ns = new Namespaces("ns", "http://org/wildfly/test/jaxb/model/Customer");
+                from("direct:start").transform().xquery("/ns:customer/ns:firstName", String.class, ns)
                 .to("mock:result");
             }
         });
         camelctx.start();
-
-    	String xml = new String("<people><person name='Jonathan'/></people>");
-    	
+        System.out.println(readCustomerXml());
         ProducerTemplate producer = camelctx.createProducerTemplate();
-        String customer = producer.requestBody("direct:start", xml, String.class);
-        Assert.assertEquals("<person name=\"Jonathan\"/>", customer);
+        String customer = producer.requestBody("direct:start", readCustomerXml(), String.class);
+        Assert.assertEquals("John", customer);
+    }
+
+    private String readCustomerXml() throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        IOUtils.copyStream(getClass().getResourceAsStream("/customer.xml"), out);
+        return new String(out.toByteArray());
     }
 }

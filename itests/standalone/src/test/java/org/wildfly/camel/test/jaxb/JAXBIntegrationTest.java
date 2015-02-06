@@ -104,7 +104,6 @@ public class JAXBIntegrationTest {
         camelctx.stop();
     }
 
-
 	private String readCustomerXml() throws IOException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
     	IOUtils.copyStream(getClass().getResourceAsStream("/customer.xml"), out);
