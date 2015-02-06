@@ -43,6 +43,9 @@
             <module name="org.apache.camel.core" />
             <module name="org.springframework.tx" />
         </dependencies>
+        <exports>
+            <exclude path="org/apache/activemq" />
+        </exports>
     </module>
 
     <module name="org.apache.activemq.skip" skip="true">

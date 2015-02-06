@@ -89,7 +89,7 @@ public class ExportedPathsTest {
             List<String> modulePaths = new ArrayList<>(mbean.getModulePathsInfo(module, true).keySet());
             Collections.sort(modulePaths);
             for (String path : modulePaths) {
-                if (path.contains("/")) {
+                if (path.contains("/") && !path.equals("org/apache")) {
                     pw.println(path);
                 }
             }
@@ -110,12 +110,16 @@ public class ExportedPathsTest {
         BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/path-patterns.txt")));
         String line = br.readLine();
         while (line != null) {
+            if ((line = line.trim()).startsWith("#")) {
+                line = br.readLine();
+                continue;
+            }
             if (line.startsWith("[includes]")) {
                 patterns = includePatterns;
             } else if (line.startsWith("[excludes]")) {
                 patterns = excludePatterns;
             } else if (line.length() > 0 && !line.startsWith("[")) {
-                patterns.add(Pattern.compile(line.trim()));
+                patterns.add(Pattern.compile(line));
             }
             line = br.readLine();
         }
@@ -127,19 +131,26 @@ public class ExportedPathsTest {
         while (line != null) {
             if (line.length() > 0 && !line.startsWith("[")) {
                 boolean match = false;
+
+                // match include patterns
                 for (Pattern pattern : includePatterns) {
                     if (pattern.matcher(line).matches()) {
                         match = true;
                         break;
                     }
                 }
-                for (Pattern pattern : excludePatterns) {
-                    if (pattern.matcher(line).matches()) {
-                        match = false;
-                        break;
+                
+                // match exclude patterns
+                if (match) {
+                    for (Pattern pattern : excludePatterns) {
+                        if (pattern.matcher(line).matches()) {
+                            match = false;
+                            break;
+                        }
                     }
                 }
-                Assert.assertTrue("Matches: " + line, match);
+                
+                Assert.assertTrue("Matching path: " + line, match);
             }
             line = br.readLine();
         }

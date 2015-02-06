@@ -1,21 +1,21 @@
 [includes]
-	^bsh/(.*)
-	^ca/uhn/hl7v2(.*)
-	^com/sun/syndication(.*)
-	^org/apache
 	^org/apache/abdera(.*)
-	^org/apache/activemq(.*)
+	^org/apache/activemq/camel(.*)
 	^org/apache/camel(.*)
-	^org/springframework(.*)
 	^META-INF/services(.*)
 
+# [FIXME #271] Module camel-script exposes bsh  
+	^bsh/(.*)
+	
+# [FIXME #272] Module camel-rss exposes com.sun.syndication
+	^com/sun/syndication(.*)
+	
+# [FIXME #273] Module camel-hls7 exposes ca.uhn.hl7v2
+	^ca/uhn/hl7v2(.*)
+	
+# [FIXME #274] Module camel-core exposes org.springframework
+	^org/springframework(.*)
+	
 [excludes]
-    bsh/org(.*)
-    bsh/servlet
-    com/mchange(.*)
-    org/fusesource(.*)
-    org/quartz(.*)
-    org/terracotta(.*)
-    w3c/(.*)
 	(.*)/internal
 	

@@ -1,5 +1,4 @@
 [Exported Paths: org.apache.camel]
-org/apache
 org/apache/camel
 org/apache/camel/api
 org/apache/camel/api/management
@@ -198,7 +197,6 @@ com/sun/syndication/feed/synd
 com/sun/syndication/feed/synd/impl
 com/sun/syndication/io
 com/sun/syndication/io/impl
-org/apache
 org/apache/abdera
 org/apache/abdera/factory
 org/apache/abdera/filter
@@ -211,7 +209,6 @@ org/apache/abdera/util
 org/apache/abdera/util/filter
 org/apache/abdera/writer
 org/apache/abdera/xpath
-org/apache/activemq
 org/apache/activemq/camel
 org/apache/activemq/camel/component
 org/apache/activemq/camel/component/broker
