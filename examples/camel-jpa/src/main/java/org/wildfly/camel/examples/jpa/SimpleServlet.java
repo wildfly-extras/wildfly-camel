@@ -55,7 +55,9 @@ public class SimpleServlet extends HttpServlet {
         try {
             InputStream input = servletContext.getResourceAsStream("/WEB-INF/customer.xml");
             Path xmlPath = CUSTOMERS_PATH.resolve("customer.xml");
+            xmlPath.getParent().toFile().mkdirs();
             Files.copy(input, xmlPath);
+            System.out.println("File created: " + xmlPath);
         } catch (IOException ex) {
             throw new ServletException(ex);
         }

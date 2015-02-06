@@ -26,10 +26,6 @@
 
     <dependencies>
         <module name="org.apache.camel.core" export="true"/>
-        
-        <!-- [TODO #267] Review dependency on spring JtaTransactionManager -->
-        <module name="org.apache.camel.spring" export="true"/>
-        <module name="org.springframework.tx" export="true"/>
-        
     </dependencies>
+    
 </module>

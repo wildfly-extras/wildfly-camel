@@ -29,7 +29,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
 
-
 @RunAsClient
 @RunWith(Arquillian.class)
 public class JPAIntegrationTest {

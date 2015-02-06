@@ -13,9 +13,6 @@
 # [FIXME #273] Module camel-hls7 exposes ca.uhn.hl7v2
 	^ca/uhn/hl7v2(.*)
 	
-# [FIXME #274] Module camel-core exposes org.springframework
-	^org/springframework(.*)
-	
 [excludes]
 	(.*)/internal
 	

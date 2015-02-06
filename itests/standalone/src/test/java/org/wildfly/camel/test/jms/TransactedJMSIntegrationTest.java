@@ -120,7 +120,7 @@ public class TransactedJMSIntegrationTest {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.jboss.as.controller-client,javax.jms.api");
+                builder.addManifestHeader("Dependencies", "org.jboss.as.controller-client,javax.jms.api,org.apache.camel.spring,org.springframework.tx");
                 return builder.openStream();
             }
         });
