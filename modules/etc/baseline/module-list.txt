@@ -87,7 +87,7 @@
 /org/springframework/aop/main/spring-aop-3.2.11.RELEASE.jar
 /org/springframework/beans/main/spring-beans-3.2.11.RELEASE.jar
 /org/springframework/context/main/spring-context-3.2.11.RELEASE.jar
-/org/springframework/core/main/spring-core-3.2.8.RELEASE.jar
+/org/springframework/core/main/spring-core-3.2.11.RELEASE.jar
 /org/springframework/expression/main/spring-expression-3.2.11.RELEASE.jar
 /org/springframework/jdbc/main/spring-jdbc-3.2.11.RELEASE.jar
 /org/springframework/jms/main/spring-jms-3.2.11.RELEASE.jar
