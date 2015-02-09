@@ -32,7 +32,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class Mina2Test {
+public class Mina2IntegrationTest {
 
     @Deployment
     public static JavaArchive createdeployment() {
@@ -42,11 +42,15 @@ public class Mina2Test {
 
     @Test
     public void testComponentLoad() throws Exception {
-        CamelContext ctx = new DefaultCamelContext();
-        Endpoint endpoint = ctx.getEndpoint("mina2:tcp://localhost:6200");
+        
+        // [FIXME #291] Usage of camel-mina2 depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        
+        CamelContext camelctx = new DefaultCamelContext();
+        Endpoint endpoint = camelctx.getEndpoint("mina2:tcp://localhost:6200");
         Assert.assertNotNull(endpoint);
         Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.mina2.Mina2Endpoint");
-        ctx.stop();
+        camelctx.stop();
     }
 
 }

@@ -45,9 +45,12 @@ public class HttpIntegrationTest {
 
     @Test
     public void testHttpGetRequest() throws Exception {
-        CamelContext camelContext = new DefaultCamelContext();
+        
+        // [FIXME #286] Usage of camel-http depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
 
-        camelContext.addRoutes(new RouteBuilder() {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
@@ -55,14 +58,14 @@ public class HttpIntegrationTest {
             }
         });
 
-        camelContext.start();
+        camelctx.start();
 
-        ProducerTemplate producer = camelContext.createProducerTemplate();
+        ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBodyAndHeader("direct:start", null, Exchange.HTTP_QUERY,
                 "name=Kermit", String.class);
 
         Assert.assertEquals("Hello Kermit", result);
 
-        camelContext.stop();
+        camelctx.stop();
     }
 }

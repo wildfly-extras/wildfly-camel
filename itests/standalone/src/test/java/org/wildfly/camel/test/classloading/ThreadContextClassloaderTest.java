@@ -18,37 +18,59 @@
  * #L%
  */
 
-package org.wildfly.camel.test.mqtt;
+package org.wildfly.camel.test.classloading;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.Endpoint;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.modules.ModuleClassLoader;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class MQTTIntegrationTest {
+public class ThreadContextClassloaderTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "mqtt-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "tccl-tests");
         return archive;
     }
-
+    
+    @BeforeClass
+    public static void beforeClass() throws Exception {
+        assertNoTCCL();
+    }
+    
+    @AfterClass
+    public static void afterClass() throws Exception {
+        assertNoTCCL();
+    }
+    
+    @Before
+    public void before() throws Exception {
+        assertNoTCCL();
+    }
+    
+    @After
+    public void after() throws Exception {
+        assertNoTCCL();
+    }
+    
     @Test
-    public void testEndpointClass() throws Exception {
+    public void testClassLoader() throws Exception {
+        assertNoTCCL();
+    }
 
-        // [FIXME #292] Camel endpoint discovery depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
-        CamelContext camelctx = new DefaultCamelContext();
-        Endpoint endpoint = camelctx.getEndpoint("mqtt://dummy");
-        Assert.assertNotNull(endpoint);
-        Assert.assertEquals("org.apache.camel.component.mqtt.MQTTEndpoint", endpoint.getClass().getName());
+    private static void assertNoTCCL() {
+        ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+        if (tccl instanceof ModuleClassLoader) {
+            Assert.assertNull("TCCL is null", tccl);
+        }
     }
 }

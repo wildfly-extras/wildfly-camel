@@ -32,7 +32,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class LuceneTest {
+public class LuceneIntegrationTest {
 
     @Deployment
     public static WebArchive createdeployment() {
@@ -42,6 +42,10 @@ public class LuceneTest {
 
     @Test
     public void testComponentLoads() throws Exception {
+        
+        // [FIXME #289] Usage of camel-lucene depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        
         CamelContext ctx = new DefaultCamelContext();
         Endpoint endpoint = ctx.getEndpoint("lucene:searchIndex:query?maxHits=20");
         Assert.assertNotNull(endpoint);

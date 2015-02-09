@@ -58,8 +58,11 @@ public class JAXBIntegrationTest {
 
     @Test
     public void testJaxbUnmarshal() throws Exception {
+        
+        // [FIXME #287] Usage of camel-jaxb depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        
         WildFlyCamelContext camelctx = contextFactory.createCamelContext();
-
         final JaxbDataFormat jaxb = new JaxbDataFormat();
         jaxb.setContextPath("org.wildfly.camel.test.jaxb.model");
 
@@ -82,11 +85,14 @@ public class JAXBIntegrationTest {
 
     @Test
     public void testJaxbMarshal() throws Exception {
-        WildFlyCamelContext camelctx = contextFactory.createCamelContext();
 
         final JaxbDataFormat jaxb = new JaxbDataFormat();
         jaxb.setContextPath("org.wildfly.camel.test.jaxb.model");
 
+        // [FIXME #287] Usage of camel-jaxb depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        
+        WildFlyCamelContext camelctx = contextFactory.createCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

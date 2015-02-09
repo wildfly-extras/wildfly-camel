@@ -38,6 +38,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.cxf.subB.Endpoint;
@@ -48,6 +49,7 @@ import java.io.IOException;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.ALLOW_RESOURCE_SERVICE_RESTART;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.OPERATION_HEADERS;
 
+@Ignore("[FIXME #283] Usage of camel-cxf depends on TCCL")
 @RunWith(Arquillian.class)
 public class SecureWebServicesIntegrationTest {
 
@@ -95,10 +97,9 @@ public class SecureWebServicesIntegrationTest {
     @Test
     public void testEndpointRouteWithValidCredentials() throws Exception {
         deployer.deploy(SIMPLE_WAR);
-
         try {
-            CamelContext camelContext = new DefaultCamelContext();
-            camelContext.addRoutes(new RouteBuilder() {
+            CamelContext camelctx = new DefaultCamelContext();
+            camelctx.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
                     from("direct:start")
@@ -106,9 +107,9 @@ public class SecureWebServicesIntegrationTest {
                 }
             });
 
-            camelContext.start();
+            camelctx.start();
 
-            ProducerTemplate producer = camelContext.createProducerTemplate();
+            ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
@@ -119,10 +120,9 @@ public class SecureWebServicesIntegrationTest {
     @Test
     public void testEndpointRouteWithInvalidCredentials() throws Exception {
         deployer.deploy(SIMPLE_WAR);
-
         try {
-            CamelContext camelContext = new DefaultCamelContext();
-            camelContext.addRoutes(new RouteBuilder() {
+            CamelContext camelctx = new DefaultCamelContext();
+            camelctx.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
                     from("direct:start")
@@ -135,12 +135,12 @@ public class SecureWebServicesIntegrationTest {
                 }
             });
 
-            PollingConsumer pollingConsumer = camelContext.getEndpoint("direct:error").createPollingConsumer();
+            PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:error").createPollingConsumer();
             pollingConsumer.start();
 
-            camelContext.start();
+            camelctx.start();
 
-            ProducerTemplate producer = camelContext.createProducerTemplate();
+            ProducerTemplate producer = camelctx.createProducerTemplate();
             producer.requestBody("direct:start", "Kermit", String.class);
 
             String result = pollingConsumer.receive(5000L).getIn().getBody(String.class);

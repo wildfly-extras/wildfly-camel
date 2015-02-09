@@ -64,7 +64,7 @@
         <version.hawtio>1.4.42</version.hawtio>
         <version.hibernate.jpa21.api>1.0.0.Final</version.hibernate.jpa21.api>
         <version.javax.enterprise>1.2</version.javax.enterprise>
-        <version.jboss.arquillian.core>1.1.6.Final</version.jboss.arquillian.core>
+        <version.jboss.arquillian.core>1.1.7.Final-staging1</version.jboss.arquillian.core>
         <version.jboss.dmr>1.2.1.Final</version.jboss.dmr>
         <version.jboss.ejb3.ext.api>2.1.0</version.jboss.ejb3.ext.api>
         <version.jboss.gravia>1.1.2</version.jboss.gravia>
@@ -87,6 +87,7 @@
 
         <!-- WildFly Versions -->
         <version.wildfly>8.2.0.Final</version.wildfly>
+        <version.wildfly.arquillian>8.2.1.Final-staging1</version.wildfly.arquillian>
 
         <!-- Plugin Versions -->
         <version-build-helper-plugin>1.9.1</version-build-helper-plugin>
@@ -600,17 +601,17 @@
             <dependency>
                 <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-arquillian-container-managed</artifactId>
-                <version>${version.wildfly}</version>
+                <version>${version.wildfly.arquillian}</version>
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-arquillian-container-remote</artifactId>
-                <version>${version.wildfly}</version>
+                <version>${version.wildfly.arquillian}</version>
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-arquillian-protocol-jmx</artifactId>
-                <version>${version.wildfly}</version>
+                <version>${version.wildfly.arquillian}</version>
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
@@ -873,6 +874,14 @@
                 <enabled>true</enabled>
                 <updatePolicy>never</updatePolicy>
             </snapshots>
+        </repository>
+        <repository>
+            <id>arquillian-1.1.7.Final-staging1</id>
+            <url>https://repository.jboss.org/nexus/content/repositories/jboss_releases_staging_profile-4808</url>
+        </repository>
+        <repository>
+            <id>wildfly-8.2.1.Final-staging1</id>
+            <url>https://repository.jboss.org/nexus/content/repositories/jboss_releases_staging_profile-4813</url>
         </repository>
     </repositories>
     <pluginRepositories>

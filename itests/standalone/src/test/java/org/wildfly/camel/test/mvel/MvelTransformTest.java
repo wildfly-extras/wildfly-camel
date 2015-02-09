@@ -50,6 +50,10 @@ public class MvelTransformTest {
 
     @Test
     public void testSimpleTransformFromModule() throws Exception {
+        
+        // [FIXME #292] Camel endpoint discovery depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

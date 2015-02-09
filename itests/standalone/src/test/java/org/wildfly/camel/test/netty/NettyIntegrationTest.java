@@ -55,8 +55,11 @@ public class NettyIntegrationTest {
     @Test
     public void testNettyTcpSocket() throws Exception {
         
-        CamelContext camelContext = new DefaultCamelContext();
-        camelContext.addRoutes(new RouteBuilder() {
+        // [FIXME #292] Camel endpoint discovery depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("netty4:tcp://" + SOCKET_HOST + ":" + SOCKET_PORT + "?textline=true")
@@ -64,9 +67,9 @@ public class NettyIntegrationTest {
                         .to("direct:end");
             }
         });
-        camelContext.start();
+        camelctx.start();
 
-        PollingConsumer pollingConsumer = camelContext.getEndpoint("direct:end").createPollingConsumer();
+        PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
         pollingConsumer.start();
 
         Socket socket = new Socket(SOCKET_HOST, SOCKET_PORT);
@@ -82,18 +85,18 @@ public class NettyIntegrationTest {
 
         String result = pollingConsumer.receive().getIn().getBody(String.class);
         Assert.assertEquals("Hello Kermit", result);
-        camelContext.stop();
+        camelctx.stop();
     }
 
     @Test
     public void testDeployedContext() throws Exception {
 
         CamelContextRegistry registry = ServiceLocator.getRequiredService(CamelContextRegistry.class);
-        CamelContext camelContext = registry.getContext("netty-context");
-        Assert.assertNotNull("CamelContext not null", camelContext);
-        Assert.assertEquals(ServiceStatus.Started, camelContext.getStatus());
+        CamelContext camelctx = registry.getContext("netty-context");
+        Assert.assertNotNull("CamelContext not null", camelctx);
+        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         
-        PollingConsumer pollingConsumer = camelContext.getEndpoint("direct:end").createPollingConsumer();
+        PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
         pollingConsumer.start();
 
         Socket socket = new Socket(SOCKET_HOST, 7999);
