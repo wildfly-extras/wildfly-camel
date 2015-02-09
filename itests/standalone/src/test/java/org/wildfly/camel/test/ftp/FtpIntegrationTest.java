@@ -51,13 +51,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class FtpTest {
+public class FtpIntegrationTest {
 
     static final File FTP_ROOT_DIR = new File("./target/res/home");
     static final File USERS_FILE = new File("./src/test/resources/users.properties");
     static final int PORT = AvailablePortFinder.getNextAvailable(21000);
 
     FtpServer ftpServer;
+
+    @Deployment
+    public static WebArchive createdeployment() throws IOException {
+        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-ftp-tests.war");
+        addJarHolding(archive, PasswordEncryptor.class);
+        addJarHolding(archive, AvailablePortFinder.class);
+        addJarHolding(archive, OrderedThreadPoolExecutor.class);
+        return archive;
+    }
 
     @Before
     public void startFtpServer() throws Exception {
@@ -102,18 +111,12 @@ public class FtpTest {
         }
     }
 
-    @Deployment
-    public static WebArchive createdeployment() throws IOException {
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-ftp-tests.war");
-        addJarHolding(archive, PasswordEncryptor.class);
-        addJarHolding(archive, AvailablePortFinder.class);
-        addJarHolding(archive, OrderedThreadPoolExecutor.class);
-        return archive;
-    }
-
     @Test
     public void testSendFile() throws Exception {
 
+        // [FIXME #284] Usage of camel-ftp depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        
         CamelContext camelctx = new DefaultCamelContext();
         Endpoint endpoint = camelctx.getEndpoint("ftp://localhost:" + PORT + "/foo?username=admin&password=admin");
 
@@ -128,6 +131,9 @@ public class FtpTest {
 
     @Test
     public void testComponentLoads() throws Exception {
+        // [FIXME #283] Usage of camel-cxf depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        
         CamelContext camelctx = new DefaultCamelContext();
         Endpoint endpoint = camelctx.getEndpoint("ftp://localhost/foo");
         Assert.assertNotNull(endpoint);

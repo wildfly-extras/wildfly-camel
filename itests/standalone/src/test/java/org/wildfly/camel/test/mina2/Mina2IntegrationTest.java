@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.mqtt;
+package org.wildfly.camel.test.mina2;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
@@ -32,23 +32,25 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class MQTTIntegrationTest {
+public class Mina2IntegrationTest {
 
     @Deployment
-    public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "mqtt-tests");
+    public static JavaArchive createdeployment() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-mina2-tests");
         return archive;
     }
 
     @Test
-    public void testEndpointClass() throws Exception {
-
-        // [FIXME #292] Camel endpoint discovery depends on TCCL
+    public void testComponentLoad() throws Exception {
+        
+        // [FIXME #291] Usage of camel-mina2 depends on TCCL
         Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
         
         CamelContext camelctx = new DefaultCamelContext();
-        Endpoint endpoint = camelctx.getEndpoint("mqtt://dummy");
+        Endpoint endpoint = camelctx.getEndpoint("mina2:tcp://localhost:6200");
         Assert.assertNotNull(endpoint);
-        Assert.assertEquals("org.apache.camel.component.mqtt.MQTTEndpoint", endpoint.getClass().getName());
+        Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.mina2.Mina2Endpoint");
+        camelctx.stop();
     }
+
 }

@@ -49,19 +49,21 @@ public class AtomIntegrationTest {
 
     @Test
     public void testConsumeAtomFeed() throws Exception {
-        CamelContext camelContext = new DefaultCamelContext();
-
-        camelContext.addRoutes(new RouteBuilder() {
+        
+        // [FIXME #282] Usage of camel-atom depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("atom://http://localhost:8080/camel-test/atom/feed?splitEntries=true")
                 .to("direct:end");
             }
         });
+        camelctx.start();
 
-        camelContext.start();
-
-        PollingConsumer pollingConsumer = camelContext.getEndpoint("direct:end").createPollingConsumer();
+        PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
         pollingConsumer.start();
 
         Entry result = pollingConsumer.receive().getIn().getBody(Entry.class);
@@ -69,6 +71,6 @@ public class AtomIntegrationTest {
         Assert.assertEquals(FeedConstants.ENTRY_TITLE, result.getTitle());
         Assert.assertEquals(FeedConstants.ENTRY_CONTENT, result.getContent());
 
-        camelContext.stop();
+        camelctx.stop();
     }
 }

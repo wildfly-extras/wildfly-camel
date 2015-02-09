@@ -64,6 +64,10 @@ public class SpringBeanTransformTest {
 
     @Test
     public void testSpringContextFromURL() throws Exception {
+
+        // [FIXME #292] Camel endpoint discovery depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        
         URL resourceUrl = getClass().getResource("/" + SPRING_CAMEL_CONTEXT_XML);
         CamelContext camelctx = SpringCamelContextFactory.createSpringCamelContext(resourceUrl, null);
         camelctx.start();

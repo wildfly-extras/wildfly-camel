@@ -44,9 +44,12 @@ public class OgnlIntegrationTest {
 
     @Test
     public void testOgnlExpression() throws Exception {
-        CamelContext camelContext = new DefaultCamelContext();
-
-        camelContext.addRoutes(new RouteBuilder() {
+        
+        // [FIXME #292] Camel endpoint discovery depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
@@ -57,25 +60,27 @@ public class OgnlIntegrationTest {
                             .to("mock:dlq");
             }
         });
-
-        camelContext.start();
+        camelctx.start();
 
         Person person = new Person();
         person.setName("Kermit");
 
-        ProducerTemplate producer = camelContext.createProducerTemplate();
+        ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", person, String.class);
 
         Assert.assertEquals("Hello Kermit", result);
 
-        camelContext.stop();
+        camelctx.stop();
     }
 
     @Test
     public void testOgnlExpressionFromFile() throws Exception {
-        CamelContext camelContext = new DefaultCamelContext();
 
-        camelContext.addRoutes(new RouteBuilder() {
+        // [FIXME #292] Camel endpoint discovery depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
@@ -86,18 +91,17 @@ public class OgnlIntegrationTest {
                             .to("mock:dlq");
             }
         });
-
-        camelContext.start();
+        camelctx.start();
 
         Person person = new Person();
         person.setName("Kermit");
 
-        ProducerTemplate producer = camelContext.createProducerTemplate();
+        ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", person, String.class);
 
         Assert.assertEquals("Hello Kermit", result);
 
-        camelContext.stop();
+        camelctx.stop();
     }
 
     public static final class Person {

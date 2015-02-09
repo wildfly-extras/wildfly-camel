@@ -20,6 +20,10 @@
 
 package org.wildfly.camel.test.mail;
 
+import java.io.File;
+
+import javax.mail.Message;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.ProducerTemplate;
@@ -32,12 +36,10 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.jvnet.mock_javamail.Mailbox;
-
-import javax.mail.Message;
-import java.io.File;
 
 @RunWith(Arquillian.class)
 public class MailIntegrationTest {
@@ -54,13 +56,19 @@ public class MailIntegrationTest {
         return archive;
     }
 
+    @Before
+    public void before() {
+        Mailbox.clearAll();
+    }
+    
     @Test
     public void testSendEmail() throws Exception {
-        Mailbox.clearAll();
 
-        CamelContext camelContext = new DefaultCamelContext();
-
-        camelContext.addRoutes(new RouteBuilder() {
+        // [FIXME #290] Usage of camel-mail depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
@@ -70,13 +78,12 @@ public class MailIntegrationTest {
                 .to("direct:email");
             }
         });
+        camelctx.start();
 
-        camelContext.start();
-
-        PollingConsumer pollingConsumer = camelContext.getEndpoint("direct:email").createPollingConsumer();
+        PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:email").createPollingConsumer();
         pollingConsumer.start();
 
-        ProducerTemplate producer = camelContext.createProducerTemplate();
+        ProducerTemplate producer = camelctx.createProducerTemplate();
         producer.sendBody("direct:start", "Hello Kermit");
 
         MailMessage mailMessage = pollingConsumer.receive().getIn().getBody(MailMessage.class);
@@ -86,6 +93,6 @@ public class MailIntegrationTest {
         Assert.assertEquals("Greetings", message.getSubject());
         Assert.assertEquals("Hello Kermit", message.getContent());
 
-        camelContext.stop();
+        camelctx.stop();
     }
 }

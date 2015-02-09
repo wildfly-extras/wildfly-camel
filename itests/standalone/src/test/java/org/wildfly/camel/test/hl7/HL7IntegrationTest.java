@@ -53,6 +53,9 @@ public class HL7IntegrationTest {
         final String msg = "MSH|^~\\&|MYSENDER|MYRECEIVER|MYAPPLICATION||200612211200||QRY^A19|1234|P|2.4\r";
         final HL7DataFormat format = new HL7DataFormat();
         
+        // [FIXME #285] Usage of camel-hl7 depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
