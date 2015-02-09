@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.deltaspike.cdictrl.api">
+  <resources>
+    <resource-root path="deltaspike-cdictrl-api-1.0.2.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.xml.bind.api" />
+    <module name="javax.enterprise.api" optional="true" />
+    <module name="javax.inject.api" optional="true" />
+    <module name="javax.interceptor.api" optional="true" />
+  </dependencies>
+</module>

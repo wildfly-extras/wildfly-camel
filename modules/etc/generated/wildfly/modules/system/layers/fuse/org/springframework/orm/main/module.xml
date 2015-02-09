@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.springframework.orm">
+  <resources>
+    <resource-root path="spring-orm-3.2.11.RELEASE.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.commons.logging" />
+    <module name="javax.jdo.jdo-api" optional="true" />
+    <module name="javax.persistence.persistence-api" optional="true" />
+    <module name="javax.servlet.api" optional="true" />
+    <module name="org.apache.ibatis.ibatis-sqlmap" optional="true" />
+    <module name="org.apache.openjpa" optional="true" />
+    <module name="org.eclipse.persistence.org.eclipse.persistence.core" optional="true" />
+    <module name="org.eclipse.persistence.org.eclipse.persistence.jpa" optional="true" />
+    <module name="org.hibernate.hibernate-annotations" optional="true" />
+    <module name="org.hibernate.hibernate-core" optional="true" />
+    <module name="org.hibernate.hibernate-entitymanager" optional="true" />
+    <module name="org.springframework.aop" optional="true" />
+    <module name="org.springframework.beans" />
+    <module name="org.springframework.context" optional="true" />
+    <module name="org.springframework.core" />
+    <module name="org.springframework.jdbc" />
+    <module name="org.springframework.spring-web" optional="true" />
+    <module name="org.springframework.tx" />
+    <module name="toplink.essentials.toplink-essentials" optional="true" />
+  </dependencies>
+</module>

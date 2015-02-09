@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.springframework.jdbc">
+  <resources>
+    <resource-root path="spring-jdbc-3.2.11.RELEASE.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.commons.logging" />
+    <module name="com.h2database.h2" optional="true" />
+    <module name="hsqldb" optional="true" />
+    <module name="javax.transaction.api" optional="true" />
+    <module name="org.apache.camel.component.quartz2" optional="true" />
+    <module name="org.apache.derby" optional="true" />
+    <module name="org.apache.derby.derbyclient" optional="true" />
+    <module name="org.springframework.beans" />
+    <module name="org.springframework.context" optional="true" />
+    <module name="org.springframework.core" />
+    <module name="org.springframework.tx" />
+  </dependencies>
+</module>

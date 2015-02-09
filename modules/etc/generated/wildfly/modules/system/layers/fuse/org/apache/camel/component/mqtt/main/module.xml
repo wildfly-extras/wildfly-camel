@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.mqtt">
+  <resources>
+    <resource-root path="camel-mqtt-2.14.1.jar" />
+    <resource-root path="hawtdispatch-1.21.jar" />
+    <resource-root path="hawtdispatch-transport-1.21.jar" />
+    <resource-root path="mqtt-client-1.10.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="asm.asm-tree" optional="true" />
+    <module name="org.apache.camel.core" />
+    <module name="org.fusesource.hawtbuf" optional="true" />
+  </dependencies>
+  <exports>
+    <exclude path="org/fusesource**" />
+  </exports>
+</module>

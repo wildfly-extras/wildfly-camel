@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.springframework.beans">
+  <resources>
+    <resource-root path="spring-beans-3.2.11.RELEASE.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.commons.logging" />
+    <module name="org.springframework.core" />
+    <module name="javax.el.el-api" optional="true" />
+    <module name="javax.inject.api" optional="true" />
+    <module name="org.springframework.core" />
+  </dependencies>
+</module>

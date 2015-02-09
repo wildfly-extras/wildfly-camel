@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.lucene">
+  <resources>
+    <resource-root path="camel-lucene-2.14.1.jar" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.lucene" slot="4.10" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.lucene" slot="4.10" />
+  </dependencies>
+</module>

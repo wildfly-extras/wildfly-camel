@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.hl7">
+  <resources>
+    <resource-root path="camel-hl7-2.14.1.jar" />
+    <resource-root path="hapi-base-2.2.jar" />
+    <resource-root path="hapi-structures-v24-2.2.jar" />
+    <resource-root path="hapi-structures-v25-2.2.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.enterprise.api" />
+    <module name="javax.inject.api" />
+    <module name="javax.interceptor.api" />
+    <module name="org.slf4j" />
+    <module name="javax.jms.api" optional="true" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.cli" optional="true" />
+    <module name="org.apache.log4j" optional="true" />
+    <module name="org.apache.mina.core" />
+    <module name="org.slf4j" />
+  </dependencies>
+  <exports>
+    <exclude path="ca/uhn" />
+  </exports>
+</module>

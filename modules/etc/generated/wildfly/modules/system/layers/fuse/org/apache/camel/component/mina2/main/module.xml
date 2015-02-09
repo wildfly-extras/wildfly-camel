@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.mina2">
+  <resources>
+    <resource-root path="camel-mina2-2.14.1.jar" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.mina.core" />
+  </dependencies>
+</module>

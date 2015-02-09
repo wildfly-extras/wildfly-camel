@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.cxf">
+  <resources>
+    <resource-root path="camel-cxf-2.14.1.jar" />
+    <resource-root path="camel-cxf-transport-2.14.1.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.jws.api" />
+    <module name="javax.ws.rs.api" />
+    <module name="javax.xml.ws.api" />
+    <module name="org.apache.cxf.impl" />
+    <module name="org.apache.cxf" />
+    <module name="org.slf4j" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.camel.spring" />
+  </dependencies>
+  <exports>
+    <exclude path="OSGI-INF/blueprint" />
+    <exclude path="schema/blueprint" />
+    <exclude path="schema/configuration" />
+  </exports>
+</module>

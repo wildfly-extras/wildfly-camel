@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.jpa">
+  <resources>
+    <resource-root path="camel-jpa-2.14.1.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.springframework.tx" />
+    <module name="org.slf4j" />
+    <module name="javax.persistence.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.camel.spring" />
+    <module name="org.springframework.orm" />
+  </dependencies>
+</module>

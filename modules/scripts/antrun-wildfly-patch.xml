@@ -24,6 +24,7 @@
     <!-- Setup                                                              -->
     <!-- ================================================================== -->
     <property name="etc.dir" value="${basedir}/etc" />
+    <property name="module.generated.dir" value="${etc.dir}/generated/wildfly/modules/system/layers/fuse" />
     <property name="output.dir" value="${basedir}/target" />
     <property name="target.patch.dir" value="${output.dir}/wildfly-patch" />
 
@@ -32,12 +33,18 @@
     <!-- ================================================================== -->
     <target name="build">
 
-        <!-- Copy filtered resources -->
+        <!-- Copy managed module.xml resources to patch -->
         <copy todir="${target.patch.dir}" overwrite="true">
-            <fileset dir="${etc.dir}/wildfly" />
-            <filterset>
-                <filter token="project.version" value="${project.version}" />
-            </filterset>
+            <fileset dir="${etc.dir}/managed/wildfly" />
+        </copy>
+
+        <!-- Copy Smartics generated XML files back to source tree -->
+        <copy todir="${module.generated.dir}" overwrite="true">
+            <fileset dir="${target.patch.dir}/modules/system/layers/fuse">
+                <include name="**/module.xml" />
+                <exclude name="**/org/apache/camel/component/main/**" />
+                <exclude name="**/org/apache/camel/main/**" />
+            </fileset>
         </copy>
 
         <tar destfile="${output.dir}/${project.artifactId}-${project.version}.tar.gz" basedir="${target.patch.dir}" compression="gzip"/>

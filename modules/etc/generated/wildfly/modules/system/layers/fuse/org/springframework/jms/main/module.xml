@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.springframework.jms">
+  <resources>
+    <resource-root path="spring-jms-3.2.11.RELEASE.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.commons.logging" />
+    <module name="javax.jms.api" />
+    <module name="javax.resource.connector-api" optional="true" />
+    <module name="javax.transaction.api" optional="true" />
+    <module name="org.codehaus.jackson.jackson-databind" optional="true" />
+    <module name="org.codehaus.jackson.jackson-mapper-asl" optional="true" />
+    <module name="org.springframework.aop" optional="true" />
+    <module name="org.springframework.beans" />
+    <module name="org.springframework.context" />
+    <module name="org.springframework.core" />
+    <module name="org.springframework.spring-oxm" optional="true" />
+    <module name="org.springframework.tx" />
+  </dependencies>
+</module>
