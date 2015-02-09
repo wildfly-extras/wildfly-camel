@@ -188,6 +188,8 @@ org/apache/camel/component/file
 org/apache/camel/component/file/remote
 org/apache/camel/component/file/remote/strategy
 org/apache/camel/component/hl7
+org/apache/camel/component/http
+org/apache/camel/component/http/helper
 org/apache/camel/component/http4
 org/apache/camel/component/http4/helper
 org/apache/camel/component/jms
@@ -206,6 +208,8 @@ org/apache/camel/component/netty4/ssl
 org/apache/camel/component/netty4/util
 org/apache/camel/component/quartz2
 org/apache/camel/component/rss
+org/apache/camel/component/servlet
+org/apache/camel/component/servlet/osgi
 org/apache/camel/component/weather
 org/apache/camel/component/xquery
 org/apache/camel/converter

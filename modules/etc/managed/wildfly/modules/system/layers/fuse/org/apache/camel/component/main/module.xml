@@ -44,6 +44,7 @@
         <module name="org.apache.camel.component.rss" export="true" services="export" />
         <module name="org.apache.camel.component.saxon" export="true" services="export" />
         <module name="org.apache.camel.component.script" export="true" services="export" />
+        <module name="org.apache.camel.component.servlet" export="true" services="export" />
         <module name="org.apache.camel.component.weather" export="true" services="export" />
     </dependencies>
 

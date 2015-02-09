@@ -46,6 +46,9 @@
 /org/apache/camel/component/saxon/main/camel-saxon-2.14.2-staging1.jar
 /org/apache/camel/component/script/main/bsh-2.0b5.jar
 /org/apache/camel/component/script/main/camel-script-2.14.2-staging1.jar
+/org/apache/camel/component/servlet/main/camel-http-2.14.2-staging1.jar
+/org/apache/camel/component/servlet/main/camel-servlet-2.14.2-staging1.jar
+/org/apache/camel/component/servlet/main/commons-httpclient-3.1.jar
 /org/apache/camel/component/soap/main/camel-soap-2.14.2-staging1.jar
 /org/apache/camel/component/sql/main/camel-sql-2.14.2-staging1.jar
 /org/apache/camel/component/weather/main/camel-weather-2.14.2-staging1.jar

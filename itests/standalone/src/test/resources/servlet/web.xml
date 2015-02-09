@@ -1,0 +1,11 @@
+<web-app>
+    <servlet>
+        <servlet-name>CamelServletTest</servlet-name>
+        <servlet-class>org.apache.camel.component.servlet.CamelHttpTransportServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CamelServletTest</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+</web-app>
