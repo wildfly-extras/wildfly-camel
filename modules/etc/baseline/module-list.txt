@@ -69,7 +69,6 @@
 /org/apache/ws/commons/axiom/axiom-impl/main/axiom-impl-1.2.14.jar
 /org/apache/xbean/spring/main/xbean-spring-3.16.jar
 /org/fusesource/hawtbuf/main/hawtbuf-1.10.jar
-/org/jboss/gravia/jmx/main/gravia-jmx-cm-1.1.2.jar
 /org/jboss/gravia/main/gravia-provision-1.1.2.jar
 /org/jboss/gravia/main/gravia-repository-1.1.2.jar
 /org/jboss/gravia/main/gravia-resolver-1.1.2.jar

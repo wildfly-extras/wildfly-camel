@@ -47,15 +47,6 @@
         </dependencies>
     </module>
     
-    <module name="org.jboss.gravia.jmx">
-        <include artifact=":gravia-jmx-cm" />
-        <dependencies>
-            <module name="javax.api" />
-            <module name="org.osgi.core" />
-            <module name="org.osgi.enterprise" />
-        </dependencies>
-    </module>
-    
     <module name="org.apache.felix" skip="true">
         <include artifact="org.apache.felix:.*" />
     </module>

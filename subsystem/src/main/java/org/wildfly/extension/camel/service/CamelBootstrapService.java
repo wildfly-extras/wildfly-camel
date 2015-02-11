@@ -93,13 +93,10 @@ public final class CamelBootstrapService extends AbstractService<Void> {
         installRepositoryContent(startContext);
         
         // Install and start third party stuff as gravia modules
-        activateThirdPartyModules();
+        // installSystemModule(ModuleIdentifier.create("org.jboss.gravia.jmx"), null);
     }
 
-    private void activateThirdPartyModules() throws StartException {
-        installSystemModule(ModuleIdentifier.create("org.jboss.gravia.jmx"), null);
-    }
-
+    @SuppressWarnings("unused")
     private void installSystemModule(ModuleIdentifier moduleId, String match) throws StartException {
         try {
             ModuleLoader moduleLoader = Module.getCallerModuleLoader();

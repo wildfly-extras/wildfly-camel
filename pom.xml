@@ -386,11 +386,6 @@
             </dependency>
             <dependency>
                 <groupId>org.jboss.gravia</groupId>
-                <artifactId>gravia-jmx-cm</artifactId>
-                <version>${version.jboss.gravia}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.gravia</groupId>
                 <artifactId>gravia-provision</artifactId>
                 <version>${version.jboss.gravia}</version>
             </dependency>
