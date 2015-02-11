@@ -10,6 +10,7 @@
     <module name="javax.api" />
     <module name="org.slf4j" />
     <module name="asm.asm-tree" optional="true" />
+    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.fusesource.hawtbuf" optional="true" />
   </dependencies>

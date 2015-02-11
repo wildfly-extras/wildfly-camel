@@ -12,6 +12,7 @@
     <module name="org.apache.cxf.impl" />
     <module name="org.apache.cxf" />
     <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.camel.spring" />
   </dependencies>

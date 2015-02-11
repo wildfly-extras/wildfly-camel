@@ -23,7 +23,7 @@
     <module name="javax.security.jacc.api" optional="true" export="true" />
     <module name="javax.transaction.api" optional="true" export="true" />
     <module name="org.apache.camel.component.mqtt" />
-    <module name="org.apache.commons.net" optional="true" />
+    <module name="org.apache.commons.net" />
     <module name="org.apache.commons.pool" />
     <module name="org.apache.log4j" />
     <module name="org.apache.maven.maven-plugin-api" optional="true" />

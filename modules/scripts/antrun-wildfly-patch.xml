@@ -40,6 +40,9 @@
 
         <!-- Copy Smartics generated XML files back to source tree -->
         <copy todir="${module.generated.dir}" overwrite="true">
+            <filterchain>
+                <fixcrlf/>
+            </filterchain>
             <fileset dir="${target.patch.dir}/modules/system/layers/fuse">
                 <include name="**/module.xml" />
                 <exclude name="**/org/apache/camel/component/main/**" />
