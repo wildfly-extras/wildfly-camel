@@ -87,7 +87,7 @@
 
         <!-- WildFly Versions -->
         <version.wildfly>8.2.0.Final</version.wildfly>
-        <version.wildfly.arquillian>8.2.1.Final-staging1</version.wildfly.arquillian>
+        <version.wildfly.arquillian>8.2.1.Final-staging2</version.wildfly.arquillian>
 
         <!-- Plugin Versions -->
         <version-build-helper-plugin>1.9.1</version-build-helper-plugin>
@@ -876,7 +876,7 @@
         </repository>
         <repository>
             <id>wildfly-8.2.1.Final-staging1</id>
-            <url>https://repository.jboss.org/nexus/content/repositories/jboss_releases_staging_profile-4813</url>
+            <url>https://repository.jboss.org/nexus/content/repositories/jboss_releases_staging_profile-4819</url>
         </repository>
     </repositories>
     <pluginRepositories>
