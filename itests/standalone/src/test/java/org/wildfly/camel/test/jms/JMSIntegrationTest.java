@@ -111,9 +111,6 @@ public class JMSIntegrationTest {
     @Test
     public void testSendMessage() throws Exception {
         
-        // [FIXME #288] Usage of camel-jms depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -138,9 +135,6 @@ public class JMSIntegrationTest {
 
     @Test
     public void testReceiveMessage() throws Exception {
-        
-        // [FIXME #288] Usage of camel-jms depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {

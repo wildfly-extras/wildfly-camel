@@ -43,9 +43,6 @@ public class LuceneIntegrationTest {
     @Test
     public void testComponentLoads() throws Exception {
         
-        // [FIXME #289] Usage of camel-lucene depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
         CamelContext ctx = new DefaultCamelContext();
         Endpoint endpoint = ctx.getEndpoint("lucene:searchIndex:query?maxHits=20");
         Assert.assertNotNull(endpoint);

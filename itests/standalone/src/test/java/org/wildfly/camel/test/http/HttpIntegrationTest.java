@@ -46,9 +46,6 @@ public class HttpIntegrationTest {
     @Test
     public void testHttpGetRequest() throws Exception {
         
-        // [FIXME #286] Usage of camel-http depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

@@ -50,9 +50,6 @@ public class XQueryIntegrationTest {
     @Test
     public void testEndpointClass() throws Exception {
     	
-        // [FIXME #292] Camel endpoint discovery depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

@@ -43,9 +43,6 @@ public class MQTTIntegrationTest {
     @Test
     public void testEndpointClass() throws Exception {
 
-        // [FIXME #292] Camel endpoint discovery depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
         CamelContext camelctx = new DefaultCamelContext();
         Endpoint endpoint = camelctx.getEndpoint("mqtt://dummy");
         Assert.assertNotNull(endpoint);

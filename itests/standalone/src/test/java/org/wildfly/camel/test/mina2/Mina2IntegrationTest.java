@@ -43,9 +43,6 @@ public class Mina2IntegrationTest {
     @Test
     public void testComponentLoad() throws Exception {
         
-        // [FIXME #291] Usage of camel-mina2 depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
         CamelContext camelctx = new DefaultCamelContext();
         Endpoint endpoint = camelctx.getEndpoint("mina2:tcp://localhost:6200");
         Assert.assertNotNull(endpoint);

@@ -49,7 +49,6 @@ import java.io.IOException;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.ALLOW_RESOURCE_SERVICE_RESTART;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.OPERATION_HEADERS;
 
-@Ignore("[FIXME #283] Usage of camel-cxf depends on TCCL")
 @RunWith(Arquillian.class)
 public class SecureWebServicesIntegrationTest {
 

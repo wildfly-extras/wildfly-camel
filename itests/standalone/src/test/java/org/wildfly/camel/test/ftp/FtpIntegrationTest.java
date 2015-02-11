@@ -114,9 +114,6 @@ public class FtpIntegrationTest {
     @Test
     public void testSendFile() throws Exception {
 
-        // [FIXME #284] Usage of camel-ftp depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
         CamelContext camelctx = new DefaultCamelContext();
         Endpoint endpoint = camelctx.getEndpoint("ftp://localhost:" + PORT + "/foo?username=admin&password=admin");
 
@@ -131,8 +128,6 @@ public class FtpIntegrationTest {
 
     @Test
     public void testComponentLoads() throws Exception {
-        // [FIXME #283] Usage of camel-cxf depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
         
         CamelContext camelctx = new DefaultCamelContext();
         Endpoint endpoint = camelctx.getEndpoint("ftp://localhost/foo");

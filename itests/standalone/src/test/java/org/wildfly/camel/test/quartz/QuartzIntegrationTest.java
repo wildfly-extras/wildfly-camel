@@ -51,9 +51,6 @@ public class QuartzIntegrationTest {
     	
     	final CountDownLatch latch = new CountDownLatch(3);
     	
-        // [FIXME #292] Camel endpoint discovery depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

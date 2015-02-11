@@ -54,9 +54,6 @@ public class JMXIntegrationTest {
     @Test
     public void testMonitorMBeanAttribute() throws Exception {
 
-        // [FIXME #292] Camel endpoint discovery depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

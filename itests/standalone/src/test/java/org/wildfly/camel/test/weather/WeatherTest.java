@@ -64,9 +64,6 @@ public class WeatherTest {
     @Test
     public void testComponentLoads() throws Exception {
 
-        // [FIXME #292] Camel endpoint discovery depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
         CamelContext camelctx = new DefaultCamelContext();
         Endpoint endpoint = camelctx.getEndpoint("weather:foo?location=Madrid,Spain&period=7 days");
         Assert.assertNotNull(endpoint);
@@ -78,9 +75,6 @@ public class WeatherTest {
     @Betamax(tape="madrid-weather-report")
     public void testGetWeather() throws Exception {
 
-        // [FIXME #292] Camel endpoint discovery depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
         CamelContext camelctx = new DefaultCamelContext();
         String response = camelctx.createProducerTemplate().requestBody("weather:foo?location=Madrid,Spain&period=7 days", "").toString();
         Assert.assertNotNull(response);

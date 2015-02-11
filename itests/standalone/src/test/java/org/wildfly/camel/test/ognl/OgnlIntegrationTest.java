@@ -45,9 +45,6 @@ public class OgnlIntegrationTest {
     @Test
     public void testOgnlExpression() throws Exception {
         
-        // [FIXME #292] Camel endpoint discovery depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -76,9 +73,6 @@ public class OgnlIntegrationTest {
     @Test
     public void testOgnlExpressionFromFile() throws Exception {
 
-        // [FIXME #292] Camel endpoint discovery depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
