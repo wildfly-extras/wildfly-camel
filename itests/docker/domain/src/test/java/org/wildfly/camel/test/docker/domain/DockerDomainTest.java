@@ -30,6 +30,7 @@ import org.jboss.as.arquillian.api.ContainerResource;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
@@ -58,6 +59,7 @@ public class DockerDomainTest {
     }
     
     @Test
+    @Ignore("[FIXME #295] DockerDomainTest fails frequently")
     public void testEndpoint() throws Exception {
         String mgmtAddress = mgmtClient.getMgmtAddress();
         String host = System.getenv("DOCKER_IP");
