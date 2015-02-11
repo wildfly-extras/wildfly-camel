@@ -13,7 +13,6 @@
     <module name="javax.interceptor.api" />
     <module name="org.slf4j" />
     <module name="javax.jms.api" optional="true" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.cli" optional="true" />
     <module name="org.apache.log4j" optional="true" />

@@ -14,7 +14,6 @@
     <module name="org.jboss.weld.spi" />
     <module name="org.slf4j" />
     <module name="javax.enterprise.api" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.deltaspike.cdictrl.api" />
     <module name="org.apache.deltaspike.core.api" />

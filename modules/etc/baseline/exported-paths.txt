@@ -1,4 +1,11 @@
 [Exported Paths: org.apache.camel]
+META-INF/services
+META-INF/services/org
+META-INF/services/org/apache
+META-INF/services/org/apache/camel
+META-INF/services/org/apache/camel/component
+META-INF/services/org/apache/camel/dataformat
+META-INF/services/org/apache/camel/language
 org/apache/camel
 org/apache/camel/api
 org/apache/camel/api/management

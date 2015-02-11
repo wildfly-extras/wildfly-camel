@@ -23,13 +23,17 @@ package org.wildfly.extension.camel.service;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.EventObject;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.cdi.CdiCamelContext;
 import org.apache.camel.management.event.CamelContextStartedEvent;
+import org.apache.camel.management.event.CamelContextStartingEvent;
+import org.apache.camel.management.event.CamelContextStartupFailureEvent;
 import org.apache.camel.management.event.CamelContextStoppedEvent;
 import org.apache.camel.spi.Container;
 import org.apache.camel.spi.ManagementStrategy;
@@ -38,6 +42,9 @@ import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.gravia.runtime.ModuleContext;
 import org.jboss.gravia.runtime.Runtime;
 import org.jboss.gravia.runtime.ServiceRegistration;
+import org.jboss.gravia.utils.IllegalStateAssertion;
+import org.jboss.modules.Module;
+import org.jboss.modules.ModuleClassLoader;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
@@ -49,6 +56,7 @@ import org.jboss.msc.value.InjectedValue;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextRegistry;
 import org.wildfly.extension.camel.SpringCamelContextFactory;
+import org.wildfly.extension.camel.WildFlyClassResolver;
 import org.wildfly.extension.camel.parser.SubsystemState;
 import org.wildfly.extension.gravia.GraviaConstants;
 
@@ -135,10 +143,19 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         return SPRING_BEANS_HEADER + "<camelContext id='" + name + "' xmlns='http://camel.apache.org/schema/spring'>" + hashReplaced + "</camelContext></beans>";
     }
 
-    class DefaultCamelContextRegistry implements CamelContextRegistry, Container {
+    static class DefaultCamelContextRegistry implements CamelContextRegistry, Container {
 
-        final Set<CamelContext> contexts = new HashSet<>();
+        final Map<CamelContext, ContextRegistration> contexts = new HashMap<>();
             
+        class ContextRegistration {
+            final Module module;
+            final ClassLoader tcclOnStart;
+            ContextRegistration(Module module) {
+                this.tcclOnStart = Thread.currentThread().getContextClassLoader();
+                this.module = module;
+            }
+        }
+        
         DefaultCamelContextRegistry() {
             // Set the Camel Container singleton
             Container.Instance.set(this);
@@ -148,7 +165,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         public CamelContext getContext(String name) {
             CamelContext result = null;
             synchronized (contexts) {
-                for (CamelContext camelctx : contexts) {
+                for (CamelContext camelctx : contexts.keySet()) {
                     if (camelctx.getName().equals(name)) {
                         result = camelctx;
                         break;
@@ -160,43 +177,112 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
 
         @Override
         public void manage(CamelContext camelctx) {
-            registerCamelContext(camelctx);
-        }
-        
-        private void registerCamelContext(CamelContext camelctx) {
             
             // Ignore CDI camel contexts
             if (camelctx instanceof CdiCamelContext) 
                 return;
+
+            Module contextModule = null;
+            
+            // Case #1: The context has already been initialized
+            ClassLoader applicationClassLoader = camelctx.getApplicationContextClassLoader();
+            if (applicationClassLoader instanceof ModuleClassLoader) {
+                contextModule = ((ModuleClassLoader) applicationClassLoader).getModule();
+            } 
+            
+            // Case #2: The context is a system context
+            if (contextModule == null) {
+                ClassLoader thiscl = CamelContextRegistryService.class.getClassLoader();
+                ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+                if (tccl == thiscl) {
+                    contextModule = ((ModuleClassLoader) thiscl).getModule();
+                }
+            }
+            
+            // Case #3: The context is created as part of a deployment
+            if (contextModule == null) {
+                ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+                if (tccl instanceof ModuleClassLoader) {
+                    Module tcm = ((ModuleClassLoader) tccl).getModule();
+                    if (tcm.getIdentifier().getName().startsWith("deployment.")) {
+                        contextModule = tcm;
+                    }
+                }
+            }
+            
+            // Case #4: The context is created through user API
+            if (contextModule == null) {
+                Class<?> callingClass = CallerContext.getCallingClass();
+                contextModule = ((ModuleClassLoader) callingClass.getClassLoader()).getModule();
+            }
+            
+            IllegalStateAssertion.assertNotNull(contextModule, "Cannot obtain module for: " + camelctx);
+            final Module[] moduleHolder = new Module[] { contextModule };
             
             ManagementStrategy mgmtStrategy = camelctx.getManagementStrategy();
             mgmtStrategy.addEventNotifier(new EventNotifierSupport() {
                 
                 public void notify(EventObject event) throws Exception {
-                    if (event instanceof CamelContextStartedEvent) {
+                    
+                    // Starting
+                    if (event instanceof CamelContextStartingEvent) {
+                        CamelContextStartingEvent camelevt = (CamelContextStartingEvent) event;
+                        CamelContext camelctx = camelevt.getContext();
+                        addContext(camelctx, moduleHolder[0]);
+                        Thread.currentThread().setContextClassLoader(moduleHolder[0].getClassLoader());
+                        LOGGER.info("Camel context starting: {}", camelctx);
+                    } 
+                    
+                    // Started
+                    else if (event instanceof CamelContextStartedEvent) {
                         CamelContextStartedEvent camelevt = (CamelContextStartedEvent) event;
                         CamelContext camelctx = camelevt.getContext();
+                        ContextRegistration ctxreg = getContextRegistration(camelctx);
+                        Thread.currentThread().setContextClassLoader(ctxreg.tcclOnStart);
                         LOGGER.info("Camel context started: {}", camelctx);
-                        addContext(camelctx);
-                    } else if (event instanceof CamelContextStoppedEvent) {
+                    } 
+                    
+                    // StartupFailure
+                    else if (event instanceof CamelContextStartupFailureEvent) {
+                        CamelContextStartupFailureEvent camelevt = (CamelContextStartupFailureEvent) event;
+                        CamelContext camelctx = camelevt.getContext();
+                        ContextRegistration ctxreg = getContextRegistration(camelctx);
+                        Thread.currentThread().setContextClassLoader(ctxreg.tcclOnStart);
+                        LOGGER.warn("Camel context startup failed: {}", camelctx);
+                    } 
+                    
+                    // Stopped
+                    else if (event instanceof CamelContextStoppedEvent) {
                         CamelContextStoppedEvent camelevt = (CamelContextStoppedEvent) event;
                         CamelContext camelctx = camelevt.getContext();
-                        LOGGER.info("Camel context stopped: {}", camelctx);
                         removeContext(camelctx);
+                        LOGGER.info("Camel context stopped: {}", camelctx);
                     }
                 }
                 
                 public boolean isEnabled(EventObject event) {
-                    return event instanceof CamelContextStartedEvent || event instanceof CamelContextStoppedEvent;
+                    return true;
                 }
             });
             
-            addContext(camelctx);
+            // Initial context setup and registration
+            ModuleClassLoader contextClassLoader = moduleHolder[0].getClassLoader();
+            camelctx.setClassResolver(new WildFlyClassResolver(contextClassLoader));
+            camelctx.setApplicationContextClassLoader(contextClassLoader);
+            addContext(camelctx, null);
         }
 
-        private void addContext(CamelContext camelctx) {
+        private ContextRegistration getContextRegistration(CamelContext camelctx) {
             synchronized (contexts) {
-                contexts.add(camelctx);
+                return contexts.get(camelctx);
+            }
+        }
+        
+        private ContextRegistration addContext(CamelContext camelctx, Module module) {
+            synchronized (contexts) {
+                ContextRegistration ctxreg = new ContextRegistration(module);
+                contexts.put(camelctx, ctxreg);
+                return ctxreg;
             }
         }
 
@@ -204,6 +290,41 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
             synchronized (contexts) {
                 contexts.remove(camelctx);
             }
+        }
+    }
+
+    static final class CallerContext {
+
+        private CallerContext() {
+        }
+
+        static final class Hack extends SecurityManager {
+            @Override
+            protected Class<?>[] getClassContext() {
+                return super.getClassContext();
+            }
+        }
+
+        private static Hack hack = AccessController.doPrivileged(new PrivilegedAction<Hack>() {
+            @Override
+            public Hack run() {
+                return new Hack();
+            }
+        });
+
+        static Class<?> getCallingClass() {
+            Class<?> stack[] = hack.getClassContext();
+            int i = 3;
+            while (stack[i] == stack[2]) {
+                // skip nested calls front the same class
+                if (++i >= stack.length)
+                    return null;
+            }
+            Class<?> result = stack[i];
+            while (result.getName().startsWith("org.apache.camel") || result.getName().startsWith("org.springframework")) {
+                result = stack[++i];
+            }
+            return result;
         }
     }
 }

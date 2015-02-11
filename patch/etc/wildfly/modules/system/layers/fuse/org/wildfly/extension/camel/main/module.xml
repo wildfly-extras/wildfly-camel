@@ -40,7 +40,7 @@
     
     <dependencies>
         <module name="javax.api"/>
-        <module name="org.apache.camel"/>
+        <module name="org.apache.camel" services="export"/>
         <module name="org.apache.camel.component" services="export"/>
         <module name="org.apache.camel.component.cdi"/>
         <module name="org.apache.camel.spring"/>

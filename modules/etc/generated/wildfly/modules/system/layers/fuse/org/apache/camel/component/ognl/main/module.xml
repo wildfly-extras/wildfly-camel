@@ -4,7 +4,6 @@
     <resource-root path="camel-ognl-2.14.1.jar" />
   </resources>
   <dependencies>
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.servicemix.bundles.ognl" />
     <module name="org.javassist" />

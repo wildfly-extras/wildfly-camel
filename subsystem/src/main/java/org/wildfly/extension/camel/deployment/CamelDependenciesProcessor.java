@@ -55,10 +55,10 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
         ModuleLoader moduleLoader = unit.getAttachment(Attachments.SERVICE_MODULE_LOADER);
         ModuleSpecification moduleSpec = unit.getAttachment(Attachments.MODULE_SPECIFICATION);
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(GRAVIA), false, false, false, false));
-        moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL), false, false, false, false));
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(WILDFLY_CAMEL), false, false, false, false));
 
-        // Add all the configured components
+        // Add camel-core and the configured components
+        moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL), false, false, true, false));
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL_COMPONENT), false, false, true, false));
         
         // Camel-CDI Integration

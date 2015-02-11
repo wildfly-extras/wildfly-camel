@@ -41,7 +41,7 @@ public class AtomIntegrationTest {
 
     @Deployment
     public static WebArchive createdeployment() {
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-test.war");
+        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "atom-test.war");
         archive.addAsWebInfResource(new StringAsset(""), "beans.xml");
         archive.addPackage(AtomFeed.class.getPackage());
         return archive;
@@ -49,15 +49,12 @@ public class AtomIntegrationTest {
 
     @Test
     public void testConsumeAtomFeed() throws Exception {
-        
-        // [FIXME #282] Usage of camel-atom depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
+                
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("atom://http://localhost:8080/camel-test/atom/feed?splitEntries=true")
+                from("atom://http://localhost:8080/atom-test/atom/feed?splitEntries=true")
                 .to("direct:end");
             }
         });

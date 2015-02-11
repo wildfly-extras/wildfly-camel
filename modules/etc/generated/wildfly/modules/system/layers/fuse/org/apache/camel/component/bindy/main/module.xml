@@ -8,7 +8,6 @@
     <module name="javax.inject.api" />
     <module name="javax.interceptor.api" />
     <module name="org.slf4j" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

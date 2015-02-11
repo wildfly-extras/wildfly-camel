@@ -25,7 +25,7 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel">
 
     <dependencies>
-        <module name="org.apache.camel.core" export="true"/>
+        <module name="org.apache.camel.core" export="true" services="export"/>
     </dependencies>
     
 </module>
