@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.weather">
   <resources>
-    <resource-root path="camel-weather-2.14.1.jar" />
+    <resource-root path="camel-weather-2.14.2-staging1.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />

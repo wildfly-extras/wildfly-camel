@@ -46,9 +46,6 @@ public class BeanShellIntegrationTest {
     @Test
     public void testSendMatchingMessage() throws Exception {
 
-        // [FIXME #299] Usage of camel-script depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(getRouteBuilder());
         camelctx.start();
@@ -60,9 +57,6 @@ public class BeanShellIntegrationTest {
 
     @Test
     public void testSendNonMatchingMessage() throws Exception {
-
-        // [FIXME #299] Usage of camel-script depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(getRouteBuilder());
