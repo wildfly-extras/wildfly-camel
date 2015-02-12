@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,12 +23,13 @@ package org.wildfly.camel.test.jaxb;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.model.dataformat.JaxbDataFormat;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.gravia.utils.IOUtils;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -37,14 +38,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.jaxb.model.Customer;
-import org.wildfly.extension.camel.CamelContextFactory;
-import org.wildfly.extension.camel.WildFlyCamelContext;
 
 @RunWith(Arquillian.class)
 public class JAXBIntegrationTest {
-
-    @ArquillianResource
-    CamelContextFactory contextFactory;
 
     @Deployment
     public static JavaArchive deployment() {
@@ -58,11 +54,8 @@ public class JAXBIntegrationTest {
 
     @Test
     public void testJaxbUnmarshal() throws Exception {
-        
-        // [FIXME #287] Usage of camel-jaxb depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
-        WildFlyCamelContext camelctx = contextFactory.createCamelContext();
+
+        CamelContext camelctx = new DefaultCamelContext();
         final JaxbDataFormat jaxb = new JaxbDataFormat();
         jaxb.setContextPath("org.wildfly.camel.test.jaxb.model");
 
@@ -89,10 +82,7 @@ public class JAXBIntegrationTest {
         final JaxbDataFormat jaxb = new JaxbDataFormat();
         jaxb.setContextPath("org.wildfly.camel.test.jaxb.model");
 
-        // [FIXME #287] Usage of camel-jaxb depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
-        WildFlyCamelContext camelctx = contextFactory.createCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
