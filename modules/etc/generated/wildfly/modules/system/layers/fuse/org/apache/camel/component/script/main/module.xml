@@ -2,7 +2,7 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.script">
   <resources>
     <resource-root path="bsh-2.0b5.jar" />
-    <resource-root path="camel-script-2.14.1.jar" />
+    <resource-root path="camel-script-2.14.2-SNAPSHOT.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />
@@ -11,7 +11,6 @@
     <module name="org.apache.camel.core" />
   </dependencies>
   <exports>
-    <exclude path="bsh/org**" />
-    <exclude path="bsh/servlet" />
+    <exclude path="bsh**" />
   </exports>
 </module>
