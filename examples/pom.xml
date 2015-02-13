@@ -132,10 +132,6 @@
 		            <plugin>
 		                <groupId>org.wildfly.plugins</groupId>
 		                <artifactId>wildfly-maven-plugin</artifactId>
-		                <configuration>
-		                    <jbossHome>${jboss.home}</jbossHome>
-		                    <serverConfig>${server.config}</serverConfig>
-		                </configuration>
 		                <executions>
 		                    <execution>
 		                        <id>wildfly-start</id>
@@ -144,6 +140,11 @@
 		                            <goal>start</goal>
 		                        </goals>
 			              		<inherited>false</inherited>
+        		                <configuration>
+                                    <jbossHome>${jboss.home}</jbossHome>
+                                    <serverConfig>${server.config}</serverConfig>
+                                    <jvmArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmArgs>
+        		                </configuration>
 		                    </execution>
 		                </executions>
 		            </plugin>
@@ -224,10 +225,6 @@
 		            <plugin>
 		                <groupId>org.wildfly.plugins</groupId>
 		                <artifactId>wildfly-maven-plugin</artifactId>
-		                <configuration>
-		                    <jbossHome>${jboss.home}</jbossHome>
-		                    <serverConfig>${server.config}</serverConfig>
-		                </configuration>
 		                <executions>
 		                    <execution>
 		                        <id>wildfly-start</id>
@@ -236,6 +233,11 @@
 		                            <goal>start</goal>
 		                        </goals>
 			              		<inherited>true</inherited>
+                                <configuration>
+                                    <jbossHome>${jboss.home}</jbossHome>
+                                    <serverConfig>${server.config}</serverConfig>
+                                    <jvmArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmArgs>
+                                </configuration>
 		                    </execution>
 		                </executions>
 		            </plugin>

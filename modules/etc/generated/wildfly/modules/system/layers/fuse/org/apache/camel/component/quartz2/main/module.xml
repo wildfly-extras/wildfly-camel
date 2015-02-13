@@ -2,7 +2,7 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.quartz2">
   <resources>
     <resource-root path="c3p0-0.9.1.2.jar" />
-    <resource-root path="camel-quartz2-2.14.2-staging1.jar" />
+    <resource-root path="camel-quartz2-2.14.2-staging3.jar" />
     <resource-root path="quartz-2.2.1.jar" />
   </resources>
   <dependencies>

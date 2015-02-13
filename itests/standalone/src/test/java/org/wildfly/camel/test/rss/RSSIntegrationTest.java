@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,10 +34,12 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
+@Ignore("[FIXME #316] Conflict between camel-http / camel-http4 components")
 public class RSSIntegrationTest {
 
     @Deployment
@@ -48,9 +50,9 @@ public class RSSIntegrationTest {
 
     @Test
     public void testEndpointClass() throws Exception {
-    	
+
     	final CountDownLatch latch = new CountDownLatch(1);
-    	
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -65,10 +67,10 @@ public class RSSIntegrationTest {
             }
         });
         camelctx.start();
-        
+
         Endpoint endpoint = camelctx.getEndpoints().iterator().next();
         Assert.assertEquals("org.apache.camel.component.rss.RssEndpoint", endpoint.getClass().getName());
-        
+
         Assert.assertTrue("Countdown reached zero", latch.await(10, TimeUnit.SECONDS));
     }
 }

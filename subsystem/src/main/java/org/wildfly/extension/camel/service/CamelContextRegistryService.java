@@ -30,9 +30,7 @@ import java.util.Map;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.cdi.CdiCamelContext;
-import org.apache.camel.management.event.CamelContextStartedEvent;
 import org.apache.camel.management.event.CamelContextStartingEvent;
-import org.apache.camel.management.event.CamelContextStartupFailureEvent;
 import org.apache.camel.management.event.CamelContextStoppedEvent;
 import org.apache.camel.spi.Container;
 import org.apache.camel.spi.ManagementStrategy;
@@ -87,8 +85,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
     private CamelContextRegistry contextRegistry;
     private ServiceRegistration<CamelContextRegistry> registration;
 
-    public static ServiceController<CamelContextRegistry> addService(ServiceTarget serviceTarget, SubsystemState subsystemState,
-            ServiceVerificationHandler verificationHandler) {
+    public static ServiceController<CamelContextRegistry> addService(ServiceTarget serviceTarget, SubsystemState subsystemState, ServiceVerificationHandler verificationHandler) {
         CamelContextRegistryService service = new CamelContextRegistryService(subsystemState);
         ServiceBuilder<CamelContextRegistry> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME, service);
         builder.addDependency(GraviaConstants.RUNTIME_SERVICE_NAME, Runtime.class, service.injectedRuntime);
@@ -229,26 +226,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
                         CamelContextStartingEvent camelevt = (CamelContextStartingEvent) event;
                         CamelContext camelctx = camelevt.getContext();
                         addContext(camelctx, moduleHolder[0]);
-                        Thread.currentThread().setContextClassLoader(moduleHolder[0].getClassLoader());
                         LOGGER.info("Camel context starting: {}", camelctx);
-                    }
-
-                    // Started
-                    else if (event instanceof CamelContextStartedEvent) {
-                        CamelContextStartedEvent camelevt = (CamelContextStartedEvent) event;
-                        CamelContext camelctx = camelevt.getContext();
-                        ContextRegistration ctxreg = getContextRegistration(camelctx);
-                        Thread.currentThread().setContextClassLoader(ctxreg.tcclOnStart);
-                        LOGGER.info("Camel context started: {}", camelctx);
-                    }
-
-                    // StartupFailure
-                    else if (event instanceof CamelContextStartupFailureEvent) {
-                        CamelContextStartupFailureEvent camelevt = (CamelContextStartupFailureEvent) event;
-                        CamelContext camelctx = camelevt.getContext();
-                        ContextRegistration ctxreg = getContextRegistration(camelctx);
-                        Thread.currentThread().setContextClassLoader(ctxreg.tcclOnStart);
-                        LOGGER.warn("Camel context startup failed: {}", camelctx);
                     }
 
                     // Stopped
@@ -270,12 +248,6 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
             camelctx.setClassResolver(new WildFlyClassResolver(contextClassLoader));
             camelctx.setApplicationContextClassLoader(contextClassLoader);
             addContext(camelctx, null);
-        }
-
-        private ContextRegistration getContextRegistration(CamelContext camelctx) {
-            synchronized (contexts) {
-                return contexts.get(camelctx);
-            }
         }
 
         private ContextRegistration addContext(CamelContext camelctx, Module module) {
