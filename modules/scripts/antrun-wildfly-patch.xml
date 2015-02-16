@@ -38,17 +38,16 @@
             <fileset dir="${etc.dir}/managed/wildfly" />
         </copy>
 
-        <!-- Copy Smartics generated XML files back to source tree -->
-        <copy todir="${module.generated.dir}" overwrite="true">
-            <filterchain>
-                <fixcrlf/>
-            </filterchain>
+        <!-- Sync source tree with Smartics generated XML files -->
+        <sync todir="${module.generated.dir}"
+              overwrite="true"
+              verbose="true">
             <fileset dir="${target.patch.dir}/modules/system/layers/fuse">
                 <include name="**/module.xml" />
                 <exclude name="**/org/apache/camel/component/main/**" />
                 <exclude name="**/org/apache/camel/main/**" />
             </fileset>
-        </copy>
+        </sync>
 
         <tar destfile="${output.dir}/${project.artifactId}-${project.version}.tar.gz" basedir="${target.patch.dir}" compression="gzip"/>
     </target>
