@@ -48,6 +48,9 @@ public interface CamelConstants {
     String CAMEL_CONTEXT_FILE_SUFFIX = "-camel-context.xml";
     String CAMEL_CONTEXT_FILE_NAME = "META-INF/jboss-camel-context.xml";
 
+    /** This file hold the components to use. */
+    String CAMEL_COMPONENTS_FILE_NAME = "META-INF/jboss-camel-components.properties";
+
     /** The deployment names for repository content deployments */
     String REPOSITORY_CONTENT_FILE_SUFFIX = "-repository-content.xml";
     String REPOSITORY_CONTENT_FILE_NAME = "META-INF/jboss-repository-content.xml";

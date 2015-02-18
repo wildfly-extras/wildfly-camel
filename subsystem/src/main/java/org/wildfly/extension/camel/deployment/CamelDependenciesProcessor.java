@@ -29,6 +29,14 @@ import org.jboss.as.server.deployment.module.ModuleSpecification;
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.modules.ModuleLoader;
 import org.jboss.modules.filter.PathFilters;
+import org.jboss.vfs.VirtualFile;
+import org.wildfly.extension.camel.CamelConstants;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * A DUP that sets the dependencies required for using Camel
@@ -59,8 +67,39 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
 
         // Add camel-core and the configured components
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL), false, false, true, false));
-        moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL_COMPONENT), false, false, true, false));
-        
+
+        Properties componentModules = new Properties();
+        componentModules.setProperty(APACHE_CAMEL_COMPONENT, "");
+
+        // Allow deployments to customize which camel components are added to the classpath
+        try {
+            if ( !runtimeName.endsWith(CamelConstants.CAMEL_CONTEXT_FILE_SUFFIX) ) {
+                VirtualFile rootFile = unit.getAttachment(Attachments.DEPLOYMENT_ROOT).getRoot();
+                VirtualFile child = rootFile.getChild(CamelConstants.CAMEL_COMPONENTS_FILE_NAME);
+                if( child.isFile() ) {
+                    componentModules.clear();
+                    URL url = child.asFileURL();
+                    InputStream is = url.openStream();
+                    try {
+                        componentModules.load(is);
+                    } finally {
+                        is.close();
+                    }
+
+                    // TODO figure out if we can validate all
+                    // user configured modules exist and provide a
+                    // helpful error pointing at their config file, if
+                    // it's invalid.
+                }
+            }
+        } catch (IOException ex) {
+        }
+
+        for (Map.Entry<Object, Object> entry : componentModules.entrySet()) {
+            String moduleName = entry.getKey().toString();
+            moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(moduleName), false, false, true, false));
+        }
+
         // Camel-CDI Integration
         ModuleDependency moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create("org.apache.camel.component.cdi"), false, false, false, false);
         moddep.addImportFilter(PathFilters.getMetaInfSubdirectoriesFilter(), true);
