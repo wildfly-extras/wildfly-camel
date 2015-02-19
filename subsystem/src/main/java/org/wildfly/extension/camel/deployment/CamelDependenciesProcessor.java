@@ -50,6 +50,8 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
     private static final String APACHE_CAMEL = "org.apache.camel";
     private static final String APACHE_CAMEL_COMPONENT = "org.apache.camel.component";
     private static final String WILDFLY_CAMEL = "org.wildfly.extension.camel";
+    private static final String MODULE_PREFIX = "module:";
+    private static final String CAMEL_PREFIX = "camel-";
 
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
         
@@ -69,7 +71,7 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL), false, false, true, false));
 
         Properties componentModules = new Properties();
-        componentModules.setProperty(APACHE_CAMEL_COMPONENT, "");
+        componentModules.setProperty("module:"+APACHE_CAMEL_COMPONENT, "");
 
         // Allow deployments to customize which camel components are added to the classpath
         try {
@@ -96,8 +98,21 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
         }
 
         for (Map.Entry<Object, Object> entry : componentModules.entrySet()) {
-            String moduleName = entry.getKey().toString();
-            moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(moduleName), false, false, true, false));
+            String name = entry.getKey().toString();
+
+
+            if( name.startsWith(MODULE_PREFIX) ) {
+                // if the name starts with 'module:' then it's a fully qualified module name.
+                name = name.substring(MODULE_PREFIX.length());
+            } else {
+                // else, it's a Camel component name like 'camel-mqtt'. Lets convert it
+                // to a module name.
+                if( name.startsWith(CAMEL_PREFIX) ) {
+                    name = name.substring(CAMEL_PREFIX.length());
+                }
+                name = APACHE_CAMEL_COMPONENT + "." + name;
+            }
+            moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(name), false, false, true, false));
         }
 
         // Camel-CDI Integration

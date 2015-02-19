@@ -63,7 +63,7 @@ public class CustomComponentsTest {
     }
 
     @Test
-    public void testFtpComponnentLoads() throws Exception {
+    public void testFtpComponentLoads() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
         Endpoint endpoint = camelctx.getEndpoint("ftp://localhost/foo");
         Assert.assertNotNull(endpoint);
@@ -71,4 +71,13 @@ public class CustomComponentsTest {
         camelctx.stop();
     }
 
+
+    @Test
+    public void testRssComponentLoads() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        Endpoint endpoint = camelctx.getEndpoint("rss://https://developer.jboss.org/blogs/feeds/posts?splitEntries=true");
+        Assert.assertNotNull(endpoint);
+        Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.rss.RssEndpoint");
+        camelctx.stop();
+    }
 }
