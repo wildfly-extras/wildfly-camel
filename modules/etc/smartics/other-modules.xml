@@ -60,6 +60,13 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.commons.httpclient">
+        <include artifact="commons-httpclient:commons-httpclient" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+    
     <module name="org.apache.commons.net">
         <include artifact="commons.net:commons.net" />
         <dependencies>

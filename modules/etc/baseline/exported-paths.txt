@@ -188,8 +188,6 @@ org/apache/camel/component/file
 org/apache/camel/component/file/remote
 org/apache/camel/component/file/remote/strategy
 org/apache/camel/component/hl7
-org/apache/camel/component/http
-org/apache/camel/component/http/helper
 org/apache/camel/component/http4
 org/apache/camel/component/http4/helper
 org/apache/camel/component/jms

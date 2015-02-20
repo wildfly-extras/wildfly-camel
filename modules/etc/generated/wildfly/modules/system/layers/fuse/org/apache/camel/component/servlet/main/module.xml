@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.servlet">
   <resources>
-    <resource-root path="camel-http-2.14.2-staging3.jar" />
     <resource-root path="camel-servlet-2.14.2-staging3.jar" />
-    <resource-root path="commons-httpclient-3.1.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="javax.activation.api" />
     <module name="javax.servlet.api" />
-    <module name="org.apache.commons.logging" />
+    <module name="org.apache.commons.httpclient" />
     <module name="org.slf4j" />
+    <module name="org.apache.camel.component.http" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.commons.codec" />
-    <module name="org.apache.commons.logging" />
   </dependencies>
-  <exports>
-    <exclude path="org/apache/commons**" />
-  </exports>
 </module>

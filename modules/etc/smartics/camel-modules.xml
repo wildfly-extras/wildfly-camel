@@ -141,6 +141,18 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.http">
+        <include artifact="org.apache.camel:camel-http" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.geronimo.specs.geronimo-servlet_3.0_spec" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.activation.api"/>
+            <module name="javax.servlet.api" />
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+    
     <module name="org.apache.camel.component.http4">
         <include artifact="org.apache.camel:camel-http4" />
         <apply-to-dependencies skip="true">
@@ -307,21 +319,15 @@
 
     <module name="org.apache.camel.component.servlet">
         <include artifact="org.apache.camel:camel-servlet" />
-        <include artifact="org.apache.camel:camel-http" />
-        <include artifact="commons-httpclient:commons-httpclient" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.geronimo.specs.geronimo-servlet_3.0_spec" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="javax.activation.api"/>
             <module name="javax.servlet.api" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.httpclient"/>
             <module name="org.slf4j"/>
         </dependencies>
-        <exports>
-            <exclude path="org/apache/commons**" />
-        </exports>
     </module>
     
     <module name="org.apache.camel.component.soap">
