@@ -34,12 +34,10 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-@Ignore("[FIXME #316] Conflict between camel-http / camel-http4 components")
 public class RSSIntegrationTest {
 
     @Deployment
@@ -57,7 +55,7 @@ public class RSSIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("rss://https://developer.jboss.org/blogs/feeds/posts?splitEntries=true")
+                from("rss://https://developer.jboss.org/blogs/feeds/posts?splitEntries=true&consumer.initialDelay=200&consumer.delay=1000")
                 .process(new Processor() {
 					@Override
 					public void process(Exchange exchange) throws Exception {
@@ -71,6 +69,6 @@ public class RSSIntegrationTest {
         Endpoint endpoint = camelctx.getEndpoints().iterator().next();
         Assert.assertEquals("org.apache.camel.component.rss.RssEndpoint", endpoint.getClass().getName());
 
-        Assert.assertTrue("Countdown reached zero", latch.await(10, TimeUnit.SECONDS));
+        Assert.assertTrue("Countdown reached zero", latch.await(30, TimeUnit.SECONDS));
     }
 }
