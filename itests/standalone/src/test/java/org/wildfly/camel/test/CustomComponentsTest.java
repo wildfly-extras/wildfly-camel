@@ -22,24 +22,18 @@ package org.wildfly.camel.test;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
-import org.apache.camel.ProducerTemplate;
 import org.apache.camel.ResolveEndpointFailedException;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.smoke.subA.HelloBean;
-import org.wildfly.extension.camel.CamelConstants;
-import org.wildfly.extension.camel.CamelContextRegistry;
 
 /**
- * Verify that a deployment with a META-INF/jboss-camel-components.properties file
+ * Verify that a deployment with a META-INF/jboss-all.xml file
  * only has the specified components on the classpath.
  */
 @RunWith(Arquillian.class)
@@ -48,7 +42,7 @@ public class CustomComponentsTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "no-mqtt-tests");
-        archive.addAsResource("jboss-camel-components.properties", "META-INF/jboss-camel-components.properties");
+        archive.addAsResource("jboss-all.xml", "META-INF/jboss-all.xml");
         return archive;
     }
 
