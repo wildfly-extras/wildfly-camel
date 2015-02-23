@@ -31,10 +31,13 @@ import org.jboss.modules.ModuleLoader;
 import org.jboss.modules.filter.PathFilters;
 import org.jboss.vfs.VirtualFile;
 import org.wildfly.extension.camel.CamelConstants;
+import org.wildfly.extension.camel.deployment.config.CamelDeploymentSettings;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -50,12 +53,18 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
     private static final String APACHE_CAMEL = "org.apache.camel";
     private static final String APACHE_CAMEL_COMPONENT = "org.apache.camel.component";
     private static final String WILDFLY_CAMEL = "org.wildfly.extension.camel";
-    private static final String MODULE_PREFIX = "module:";
-    private static final String CAMEL_PREFIX = "camel-";
 
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
 
         DeploymentUnit unit = phaseContext.getDeploymentUnit();
+        CamelDeploymentSettings camelDeploymentSettings = unit.getAttachment(CamelIntegrationParser.ATTACHMENT_KEY);
+        if( camelDeploymentSettings==null ) {
+            camelDeploymentSettings = new CamelDeploymentSettings();
+        }
+
+        if( !camelDeploymentSettings.isEnabled() ) {
+            return;
+        }
 
         // No camel module dependencies for hawtio
         String runtimeName = unit.getName();
@@ -72,48 +81,12 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
         moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
         moduleSpec.addUserDependency(moddep);
 
-        // Add configured component dependencies
-        Properties componentModules = new Properties();
-        componentModules.setProperty("module:" + APACHE_CAMEL_COMPONENT, "");
-
-        // Allow deployments to customize which camel components are added to the classpath
-        try {
-            if (!runtimeName.endsWith(CamelConstants.CAMEL_CONTEXT_FILE_SUFFIX)) {
-                VirtualFile rootFile = unit.getAttachment(Attachments.DEPLOYMENT_ROOT).getRoot();
-                VirtualFile child = rootFile.getChild(CamelConstants.CAMEL_COMPONENTS_FILE_NAME);
-                if (child.isFile()) {
-                    componentModules.clear();
-                    URL url = child.asFileURL();
-                    InputStream is = url.openStream();
-                    try {
-                        componentModules.load(is);
-                    } finally {
-                        is.close();
-                    }
-
-                    // TODO figure out if we can validate all
-                    // user configured modules exist and provide a
-                    // helpful error pointing at their config file, if
-                    // it's invalid.
-                }
-            }
-        } catch (IOException ex) {
+        ArrayList<String> componentModules = new ArrayList<>();
+        componentModules.addAll(camelDeploymentSettings.getModules());
+        if( componentModules.isEmpty() ) {
+            componentModules.add(APACHE_CAMEL_COMPONENT);
         }
-
-        for (Map.Entry<Object, Object> entry : componentModules.entrySet()) {
-            String name = entry.getKey().toString();
-
-            if (name.startsWith(MODULE_PREFIX)) {
-                // if the name starts with 'module:' then it's a fully qualified module name.
-                name = name.substring(MODULE_PREFIX.length());
-            } else {
-                // else, it's a Camel component name like 'camel-mqtt'. Lets convert it
-                // to a module name.
-                if (name.startsWith(CAMEL_PREFIX)) {
-                    name = name.substring(CAMEL_PREFIX.length());
-                }
-                name = APACHE_CAMEL_COMPONENT + "." + name;
-            }
+        for (String name : componentModules) {
             moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(name), false, false, true, false));
         }
 
@@ -130,6 +103,7 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
         moddep.addImportFilter(PathFilters.getMetaInfSubdirectoriesFilter(), true);
         moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
         moduleSpec.addUserDependency(moddep);
+
     }
 
     public void undeploy(DeploymentUnit context) {

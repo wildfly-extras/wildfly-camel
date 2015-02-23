@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Verify that a deployment with a META-INF/jboss-camel-components.properties file
+ * Verify that a deployment with a META-INF/jboss-all.xml file
  * only has the specified components on the classpath.
  */
 @RunWith(Arquillian.class)
@@ -42,7 +42,7 @@ public class CustomComponentsTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "no-mqtt-tests");
-        archive.addAsResource("jboss-camel-components.properties", "META-INF/jboss-camel-components.properties");
+        archive.addAsResource("jboss-all.xml", "META-INF/jboss-all.xml");
         return archive;
     }
 
