@@ -24,7 +24,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -51,6 +50,9 @@ public class RSSIntegrationTest {
 
     	final CountDownLatch latch = new CountDownLatch(1);
 
+        // [FIXME #292] Camel endpoint discovery depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -65,9 +67,6 @@ public class RSSIntegrationTest {
             }
         });
         camelctx.start();
-
-        Endpoint endpoint = camelctx.getEndpoints().iterator().next();
-        Assert.assertEquals("org.apache.camel.component.rss.RssEndpoint", endpoint.getClass().getName());
 
         Assert.assertTrue("Countdown reached zero", latch.await(30, TimeUnit.SECONDS));
     }

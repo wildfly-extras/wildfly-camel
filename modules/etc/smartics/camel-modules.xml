@@ -281,7 +281,7 @@
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
-            <exclude path="com/sun**" />
+            <exclude path="com/sun" />
         </exports>
     </module>
     
@@ -313,7 +313,8 @@
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
-            <exclude path="bsh**" />
+            <exclude path="bsh/org**" />
+            <exclude path="bsh/servlet" />
         </exports>
     </module>
 

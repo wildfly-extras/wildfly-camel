@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.httpcomponents" slot="4.3">
   <resources>
-    <resource-root path="httpclient-4.3.5.jar" />
+    <resource-root path="httpclient-4.3.3.jar" />
     <resource-root path="httpcore-4.3.2.jar" />
   </resources>
   <dependencies>

@@ -73,6 +73,9 @@ public class WebServicesIntegrationTest {
     public void testSimpleWar() throws Exception {
         deployer.deploy(SIMPLE_WAR);
         try {
+            // [FIXME #283] Usage of camel-cxf depends on TCCL
+            Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+            
             QName serviceName = new QName("http://wildfly.camel.test.cxf", "EndpointService");
             Service service = Service.create(getWsdl("/simple"), serviceName);
             Endpoint port = service.getPort(Endpoint.class);
@@ -86,6 +89,9 @@ public class WebServicesIntegrationTest {
     public void testEndpointRoute() throws Exception {
         deployer.deploy(SIMPLE_WAR);
         try {
+            // [FIXME #283] Usage of camel-cxf depends on TCCL
+            Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+            
             CamelContext camelctx = new DefaultCamelContext();
             camelctx.addRoutes(new RouteBuilder() {
                 @Override
