@@ -67,6 +67,28 @@ public class HttpRequest {
         return execute(task, timeout, unit);
     }
 
+    public static String post(final String spec, final long timeout, final TimeUnit unit) throws IOException, TimeoutException {
+        final URL url = new URL(spec);
+        Callable<String> task = new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                OutputStream outputStream = conn.getOutputStream();
+                outputStream.write(url.getQuery().getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+                return processResponse(conn);
+            }
+        };
+        return execute(task, timeout, unit);
+    }
+
     private static String execute(final Callable<String> task, final long timeout, final TimeUnit unit) throws TimeoutException, IOException {
         final ExecutorService executor = Executors.newSingleThreadExecutor();
         final Future<String> result = executor.submit(task);

@@ -36,17 +36,18 @@
 
 	<!-- Modules -->
 	<modules>
-		<module>camel-cdi</module>
-		<module>camel-jpa</module>
-        <module>camel-cxf-soap</module>
         <module>camel-activemq</module>
+        <module>camel-cxf-soap</module>
+        <module>camel-cdi</module>
+        <module>camel-mail</module>
+        <module>camel-jpa</module>
         <module>camel-rest</module>
 	</modules>
 
     <!-- Properties -->
     <properties>
         <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
-        <server.config>standalone-camel.xml</server.config>
+        <server.config>standalone-examples.xml</server.config>
     </properties>
 
     <!-- Dependencies -->
@@ -129,6 +130,27 @@
 		                    </execution>
 		                </executions>
 		            </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-standalone-xml</id>
+                                <phase>generate-test-sources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${jboss.home}/standalone/configuration</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/main/resources</directory>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
 		            <plugin>
 		                <groupId>org.wildfly.plugins</groupId>
 		                <artifactId>wildfly-maven-plugin</artifactId>
@@ -259,5 +281,5 @@
 				</plugins>
 			</build>
 		</profile>
-	</profiles>
+    </profiles>
 </project>

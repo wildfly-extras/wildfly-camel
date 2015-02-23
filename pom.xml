@@ -59,6 +59,7 @@
         <version.apache.lucene>4.10.2</version.apache.lucene>
         <version.beanshell>2.0b5</version.beanshell>
         <version.freeside.betamax>1.1.2</version.freeside.betamax>
+        <version.greenmail>1.4.0</version.greenmail>
         <version.groovy>2.2.1</version.groovy>
         <version.hapi>2.2</version.hapi>
         <version.hawtio>1.4.42</version.hawtio>

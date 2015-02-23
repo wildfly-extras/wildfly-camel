@@ -75,7 +75,7 @@ public class MailIntegrationTest {
                 .to("smtp://localhost?from=bob@localhost&to=kermit@localhost&subject=Greetings");
 
                 from("pop3://kermit@localhost?consumer.delay=1000")
-                .to("direct:email");
+                    .to("direct:email");
             }
         });
         camelctx.start();
