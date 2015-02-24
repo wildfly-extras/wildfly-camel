@@ -20,10 +20,11 @@
 
 package org.wildfly.camel.test.servlet;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -34,8 +35,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.HttpRequest;
-
-import java.util.concurrent.TimeUnit;
 
 @RunWith(Arquillian.class)
 public class ServletIntegrationTest {

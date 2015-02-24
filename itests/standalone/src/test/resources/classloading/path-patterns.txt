@@ -2,6 +2,7 @@
 	^org/apache/abdera(.*)
 	^org/apache/activemq/camel(.*)
 	^org/apache/camel(.*)
+	^org.springframework(.*)
 	^META-INF/services(.*)
 
 # [FIXME #271] Module camel-script exposes bsh  

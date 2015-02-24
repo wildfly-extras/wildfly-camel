@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -54,31 +54,34 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
     private static final String CAMEL_PREFIX = "camel-";
 
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
-        
+
         DeploymentUnit unit = phaseContext.getDeploymentUnit();
-        
+
         // No camel module dependencies for hawtio
         String runtimeName = unit.getName();
         if (runtimeName.startsWith("hawtio") && runtimeName.endsWith(".war"))
             return;
-        
+
         ModuleLoader moduleLoader = unit.getAttachment(Attachments.SERVICE_MODULE_LOADER);
         ModuleSpecification moduleSpec = unit.getAttachment(Attachments.MODULE_SPECIFICATION);
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(GRAVIA), false, false, false, false));
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(WILDFLY_CAMEL), false, false, false, false));
 
-        // Add camel-core and the configured components
-        moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL), false, false, true, false));
+        // Add camel aggregator dependency
+        ModuleDependency moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL), false, false, true, false);
+        moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
+        moduleSpec.addUserDependency(moddep);
 
+        // Add configured component dependencies
         Properties componentModules = new Properties();
-        componentModules.setProperty("module:"+APACHE_CAMEL_COMPONENT, "");
+        componentModules.setProperty("module:" + APACHE_CAMEL_COMPONENT, "");
 
         // Allow deployments to customize which camel components are added to the classpath
         try {
-            if ( !runtimeName.endsWith(CamelConstants.CAMEL_CONTEXT_FILE_SUFFIX) ) {
+            if (!runtimeName.endsWith(CamelConstants.CAMEL_CONTEXT_FILE_SUFFIX)) {
                 VirtualFile rootFile = unit.getAttachment(Attachments.DEPLOYMENT_ROOT).getRoot();
                 VirtualFile child = rootFile.getChild(CamelConstants.CAMEL_COMPONENTS_FILE_NAME);
-                if( child.isFile() ) {
+                if (child.isFile()) {
                     componentModules.clear();
                     URL url = child.asFileURL();
                     InputStream is = url.openStream();
@@ -100,14 +103,13 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
         for (Map.Entry<Object, Object> entry : componentModules.entrySet()) {
             String name = entry.getKey().toString();
 
-
-            if( name.startsWith(MODULE_PREFIX) ) {
+            if (name.startsWith(MODULE_PREFIX)) {
                 // if the name starts with 'module:' then it's a fully qualified module name.
                 name = name.substring(MODULE_PREFIX.length());
             } else {
                 // else, it's a Camel component name like 'camel-mqtt'. Lets convert it
                 // to a module name.
-                if( name.startsWith(CAMEL_PREFIX) ) {
+                if (name.startsWith(CAMEL_PREFIX)) {
                     name = name.substring(CAMEL_PREFIX.length());
                 }
                 name = APACHE_CAMEL_COMPONENT + "." + name;
@@ -116,7 +118,7 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
         }
 
         // Camel-CDI Integration
-        ModuleDependency moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create("org.apache.camel.component.cdi"), false, false, false, false);
+        moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create("org.apache.camel.component.cdi"), false, false, false, false);
         moddep.addImportFilter(PathFilters.getMetaInfSubdirectoriesFilter(), true);
         moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
         moduleSpec.addUserDependency(moddep);

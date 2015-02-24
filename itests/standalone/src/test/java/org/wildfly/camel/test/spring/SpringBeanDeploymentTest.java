@@ -18,9 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.smoke;
-
-import java.net.URL;
+package org.wildfly.camel.test.spring;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -34,43 +32,53 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.smoke.subA.HelloBean;
-import org.wildfly.extension.camel.CamelContextFactory;
-import org.wildfly.extension.camel.SpringCamelContextFactory;
+import org.wildfly.extension.camel.CamelConstants;
+import org.wildfly.extension.camel.CamelContextRegistry;
 
 /**
  * Deploys a module/bundle which contain a {@link HelloBean} referenced from a spring context definition.
  *
- * The tests then build a route through the {@link CamelContextFactory} API.
- * This verifies access to beans within the same deployemnt.
+ * The tests expect the {@link CamelContext} to be created/started during deployment.
+ * The tests then perfom a {@link CamelContext} lookup and do a simple invokation.
  *
  * @author thomas.diesler@jboss.com
  * @since 21-Apr-2013
  */
 @RunWith(Arquillian.class)
-public class SpringBeanTransformTest {
+public class SpringBeanDeploymentTest {
 
-    static final String SPRING_CAMEL_CONTEXT_XML = "simple/bean-transform-camel-context.xml";
+    static final String CAMEL_MODULE = "camel-module.jar";
+
+    @ArquillianResource
+    CamelContextRegistry contextRegistry;
 
     @ArquillianResource
     Deployer deployer;
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-spring-tests");
-        archive.addClasses(HelloBean.class);
-        archive.addAsResource(SPRING_CAMEL_CONTEXT_XML);
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-deployment-tests");
         return archive;
     }
 
     @Test
-    public void testSpringContextFromURL() throws Exception {
+    public void testBeanTransformFromModule() throws Exception {
+        deployer.deploy(CAMEL_MODULE);
+        try {
+            CamelContext camelctx = contextRegistry.getContext("spring-context");
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", "Kermit", String.class);
+            Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            deployer.undeploy(CAMEL_MODULE);
+        }
+    }
 
-        URL resourceUrl = getClass().getResource("/" + SPRING_CAMEL_CONTEXT_XML);
-        CamelContext camelctx = SpringCamelContextFactory.createSpringCamelContext(resourceUrl, getClass().getClassLoader());
-        camelctx.start();
-
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        String result = producer.requestBody("direct:start", "Kermit", String.class);
-        Assert.assertEquals("Hello Kermit", result);
+    @Deployment(name = CAMEL_MODULE, managed = false, testable = false)
+    public static JavaArchive getModule() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CAMEL_MODULE);
+        archive.addClasses(HelloBean.class);
+        archive.addAsResource("spring/bean-transform-camel-context.xml", CamelConstants.CAMEL_CONTEXT_FILE_NAME);
+        return archive;
     }
 }
