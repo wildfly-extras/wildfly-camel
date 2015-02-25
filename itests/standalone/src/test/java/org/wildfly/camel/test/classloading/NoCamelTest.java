@@ -18,17 +18,13 @@
  * #L%
  */
 
-package org.wildfly.camel.test;
+package org.wildfly.camel.test.classloading;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.Endpoint;
-import org.apache.camel.ResolveEndpointFailedException;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -42,7 +38,7 @@ public class NoCamelTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "no-mqtt-tests");
-        archive.addAsResource("jboss-all-no-camel.xml", "META-INF/jboss-all.xml");
+        archive.addAsResource("classloading/jboss-all-no-camel.xml", "META-INF/jboss-all.xml");
         return archive;
     }
 

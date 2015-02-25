@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jboss umlns="urn:jboss:1.0">
-  <camel-integration xmlns="http://www.jboss.com/xml/ns/camel-integration" enabled="false"/>
-</jboss>

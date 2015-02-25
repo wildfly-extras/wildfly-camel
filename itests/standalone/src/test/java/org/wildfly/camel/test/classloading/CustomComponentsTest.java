@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test;
+package org.wildfly.camel.test.classloading;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
@@ -42,7 +42,7 @@ public class CustomComponentsTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "no-mqtt-tests");
-        archive.addAsResource("jboss-all.xml", "META-INF/jboss-all.xml");
+        archive.addAsResource("classloading/jboss-all-custom-components.xml", "META-INF/jboss-all.xml");
         return archive;
     }
 
@@ -53,6 +53,7 @@ public class CustomComponentsTest {
             camelctx.getEndpoint("mqtt://dummy");
             Assert.fail("Expected a ResolveEndpointFailedException");
         } catch (ResolveEndpointFailedException e) {
+            // expected
         }
     }
 
@@ -64,7 +65,6 @@ public class CustomComponentsTest {
         Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.file.remote.FtpEndpoint");
         camelctx.stop();
     }
-
 
     @Test
     public void testRssComponentLoads() throws Exception {

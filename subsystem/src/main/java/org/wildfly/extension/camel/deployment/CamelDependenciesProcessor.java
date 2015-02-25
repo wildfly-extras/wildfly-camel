@@ -19,6 +19,8 @@
  */
 package org.wildfly.extension.camel.deployment;
 
+import java.util.ArrayList;
+
 import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
@@ -29,17 +31,6 @@ import org.jboss.as.server.deployment.module.ModuleSpecification;
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.modules.ModuleLoader;
 import org.jboss.modules.filter.PathFilters;
-import org.jboss.vfs.VirtualFile;
-import org.wildfly.extension.camel.CamelConstants;
-import org.wildfly.extension.camel.deployment.config.CamelDeploymentSettings;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
 /**
  * A DUP that sets the dependencies required for using Camel
@@ -58,11 +49,11 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
 
         DeploymentUnit unit = phaseContext.getDeploymentUnit();
         CamelDeploymentSettings camelDeploymentSettings = unit.getAttachment(CamelIntegrationParser.ATTACHMENT_KEY);
-        if( camelDeploymentSettings==null ) {
+        if (camelDeploymentSettings == null) {
             camelDeploymentSettings = new CamelDeploymentSettings();
         }
 
-        if( !camelDeploymentSettings.isEnabled() ) {
+        if (!camelDeploymentSettings.isEnabled()) {
             return;
         }
 
@@ -83,7 +74,7 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
 
         ArrayList<String> componentModules = new ArrayList<>();
         componentModules.addAll(camelDeploymentSettings.getModules());
-        if( componentModules.isEmpty() ) {
+        if (componentModules.isEmpty()) {
             componentModules.add(APACHE_CAMEL_COMPONENT);
         }
         for (String name : componentModules) {

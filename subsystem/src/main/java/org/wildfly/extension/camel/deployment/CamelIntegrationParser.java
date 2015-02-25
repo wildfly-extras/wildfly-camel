@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,13 +27,13 @@ import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.jbossallxml.JBossAllXMLParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.staxmapper.XMLExtendedStreamReader;
-import org.wildfly.extension.camel.deployment.config.CamelDeploymentSettings;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.Location;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,8 +46,8 @@ import java.util.Map;
 public class CamelIntegrationParser implements JBossAllXMLParser<CamelDeploymentSettings> {
 
     public static final AttachmentKey<CamelDeploymentSettings> ATTACHMENT_KEY = AttachmentKey.create(CamelDeploymentSettings.class);
-    public static final String NAMESPACE_1_0 = "http://www.jboss.com/xml/ns/camel-integration";
-    public static final QName ROOT_ELEMENT = new QName(NAMESPACE_1_0, "camel-integration");
+    public static final String NAMESPACE_1_0 = "urn:jboss:jboss-camel:1.0";
+    public static final QName ROOT_ELEMENT = new QName(NAMESPACE_1_0, "jboss-camel");
 
     private static final String APACHE_CAMEL_COMPONENT_MODULE = "org.apache.camel.component";
     private static final String CAMEL_COMPONENT_PREFIX = "camel-";

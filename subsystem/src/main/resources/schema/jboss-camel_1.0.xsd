@@ -19,19 +19,19 @@
   #L%
   -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://www.jboss.com/xml/ns/camel-integration"
-            xmlns="http://www.jboss.com/xml/ns/camel-integration"
+            targetNamespace="urn:jboss:jboss-camel:1.0"
+            xmlns="urn:jboss:jboss-camel:1.0"
             elementFormDefault="qualified"
             attributeFormDefault="unqualified"
             version="1.0">
 
-  <xs:element name="camel-integration" type="camel-integration-type"/>
-   <xs:complexType name="camel-integration-type">
+  <xs:element name="jboss-camel" type="jboss-camel-type"/>
+   <xs:complexType name="jboss-camel-type">
      <xs:choice minOccurs="0" maxOccurs="unbounded"><xs:choice>
        <xs:element name="component" type="component-type" minOccurs="0" maxOccurs="unbounded"/>
        <xs:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
      </xs:choice></xs:choice>
-     <xs:attribute name="enabled" type="xs:boolean" use="optional">
+     <xs:attribute name="enabled" type="xs:boolean" default="true">
        <xs:annotation>
           <xs:documentation>
             <![CDATA[[ Set to false to disable the camel subsystem. ]]>

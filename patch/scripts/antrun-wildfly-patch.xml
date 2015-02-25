@@ -52,6 +52,11 @@
             </filterset>
         </copy>
 
+    	<!-- Copy the configuration schemas -->
+        <copy todir="${wildfly.patch.dir}/docs/schema" overwrite="true">
+            <fileset dir="${basedir}/../subsystem/src/main/resources/schema" />
+        </copy>
+    	
         <!-- Wildfly-Camel jars -->
         <copy todir="${wildfly.patch.dir}/modules/system/layers/fuse/org/wildfly/extension/camel/main">
             <fileset dir="${deploy.artifacts.lib}" >

@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.extension.camel.deployment.config;
+package org.wildfly.extension.camel.deployment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,29 +25,29 @@ import java.util.List;
 /**
  * Created by chirino on 2/23/15.
  */
-public class CamelDeploymentSettings {
+public final class CamelDeploymentSettings {
 
     private boolean enabled = true;
     private ArrayList<String> modules = new ArrayList<>();
 
 
-    public boolean isEnabled() {
+    boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
-    public void addModule(String module) {
+    void addModule(String module) {
         modules.add(module);
     }
 
-    public List<String> getModules() {
+    List<String> getModules() {
         return new ArrayList<>(modules);
     }
 
-    public void setModules(List<String> value) {
+    void setModules(List<String> value) {
         this.modules = new ArrayList<>(value);
     }
 }
