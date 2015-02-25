@@ -206,6 +206,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-dozer</artifactId>
+                <version>${version.apache.camel}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-ejb</artifactId>
                 <version>${version.apache.camel}</version>
             </dependency>

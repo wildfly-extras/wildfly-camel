@@ -13,8 +13,8 @@
     <module name="org.apache.openjpa" optional="true" />
     <module name="org.eclipse.persistence.org.eclipse.persistence.core" optional="true" />
     <module name="org.eclipse.persistence.org.eclipse.persistence.jpa" optional="true" />
+    <module name="org.hibernate" optional="true" />
     <module name="org.hibernate.hibernate-annotations" optional="true" />
-    <module name="org.hibernate.hibernate-core" optional="true" />
     <module name="org.hibernate.hibernate-entitymanager" optional="true" />
     <module name="org.springframework.aop" optional="true" />
     <module name="org.springframework.beans" />

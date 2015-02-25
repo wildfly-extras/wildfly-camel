@@ -104,12 +104,24 @@
         <include artifact="com.sun.xml.bind:jaxb-core" />
     </module>
 
+    <module name="org.dom4j" skip="true">
+        <include artifact=":dom4j" />
+    </module>
+
     <module name="org.jaxen" skip="true">
         <include artifact="jaxen:jaxen" />
     </module>
 
+    <module name="org.apache.commons.beanutils" skip="true">
+        <include artifact=":commons-beanutils" />
+    </module>
+
     <module name="org.apache.commons.codec" skip="true">
         <include artifact=":commons-codec" />
+    </module>
+
+    <module name="org.apache.commons.collections" skip="true">
+        <include artifact=":commons-collections" />
     </module>
 
     <module name="org.apache.commons.logging" skip="true">
@@ -145,6 +157,14 @@
         <include artifact=":stax2-api" />
     </module>
 
+    <module name="org.javassist" skip="true">
+        <include artifact=":javassist" />
+    </module>
+
+    <module name="org.hibernate" skip="true">
+        <include artifact=":hibernate-core" />
+    </module>
+
     <module name="org.jboss.netty" skip="true">
         <include artifact="io.netty:netty" />
     </module>
@@ -154,6 +174,7 @@
     </module>
 
     <module name="org.slf4j" skip="true">
+        <include artifact=":jcl-over-slf4j" />
         <include artifact=":slf4j-api" />
         <include artifact=":slf4j-log4j12" />
     </module>

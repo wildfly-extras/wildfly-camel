@@ -18,11 +18,15 @@
  * #L%
  */
 
-package org.wildfly.camel.test.ejb;
+package org.wildfly.camel.test.dozer;
+
+import java.util.Arrays;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.converter.dozer.DozerBeanMapperConfiguration;
+import org.apache.camel.converter.dozer.DozerTypeConverterLoader;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -31,31 +35,45 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.ejb.subA.HelloBean;
+import org.wildfly.camel.test.dozer.subA.CustomerA;
+import org.wildfly.camel.test.dozer.subA.CustomerB;
 
 @RunWith(Arquillian.class)
-public class EjbIntegrationTest {
+public class DozerIntegrationTest {
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-ejb-tests");
-        archive.addClasses(HelloBean.class);
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-dozer-tests");
+        archive.addClasses(CustomerA.class, CustomerB.class);
+        archive.addAsResource("dozer/mappings.xml", "mappings.xml");
         return archive;
     }
 
     @Test
     public void testStatelessSessionBean() throws Exception {
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").to("ejb:java:module/HelloBean");
+                from("direct:start").convertBodyTo(CustomerB.class);
             }
         });
+
+        DozerBeanMapperConfiguration mconfig = new DozerBeanMapperConfiguration();
+        mconfig.setMappingFiles(Arrays.asList(new String[] { "mappings.xml" }));
+        new DozerTypeConverterLoader(camelctx, mconfig);
+
         camelctx.start();
+
+        CustomerA customerA = new CustomerA("Peter", "Post", "SomeStreet", "12345");
+
         ProducerTemplate producer = camelctx.createProducerTemplate();
-        String result = producer.requestBody("direct:start", "Kermit", String.class);
-        Assert.assertEquals("Hello Kermit", result);
+        CustomerB result = producer.requestBody("direct:start", customerA, CustomerB.class);
+        Assert.assertEquals(customerA.getFirstName(), result.getFirstName());
+        Assert.assertEquals(customerA.getLastName(), result.getLastName());
+        Assert.assertEquals(customerA.getStreet(), result.getAddress().getStreet());
+        Assert.assertEquals(customerA.getZip(), result.getAddress().getZip());
     }
 
 }

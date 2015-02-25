@@ -20,6 +20,11 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="javax.el">
+        <include artifact=":el-api" />
+        <include artifact=":el-impl" />
+    </module>
+    
     <module name="org.apache.abdera.core">
         <include artifact="org.apache.abdera:abdera-core" />
         <apply-to-dependencies skip="true">
@@ -65,6 +70,10 @@
         <dependencies>
             <module name="javax.api" />
         </dependencies>
+    </module>
+    
+    <module name="org.apache.commons.lang3">
+        <include artifact="org.apache.commons:commons-lang3" />
     </module>
     
     <module name="org.apache.commons.net">

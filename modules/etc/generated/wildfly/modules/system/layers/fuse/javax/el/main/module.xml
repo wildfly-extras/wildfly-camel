@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="javax.el">
+  <resources>
+    <resource-root path="el-api-2.2.jar" />
+    <resource-root path="el-impl-2.2.jar" />
+  </resources>
+  <dependencies />
+</module>

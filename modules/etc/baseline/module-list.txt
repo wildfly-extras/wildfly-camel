@@ -1,4 +1,6 @@
 /com/jcraft/jsch/main/jsch-0.1.51.jar
+/javax/el/main/el-api-2.2.jar
+/javax/el/main/el-impl-2.2.jar
 /org/apache/abdera/core/main/abdera-core-1.1.3.jar
 /org/apache/abdera/i18n/main/abdera-i18n-1.1.3.jar
 /org/apache/abdera/parser/main/abdera-parser-1.1.3.jar
@@ -17,6 +19,8 @@
 /org/apache/camel/component/cdi/main/camel-cdi-2.14.1.jar
 /org/apache/camel/component/cxf/main/camel-cxf-2.14.1.jar
 /org/apache/camel/component/cxf/main/camel-cxf-transport-2.14.1.jar
+/org/apache/camel/component/dozer/main/camel-dozer-2.14.1.jar
+/org/apache/camel/component/dozer/main/dozer-5.5.1.jar
 /org/apache/camel/component/ejb/main/camel-ejb-2.14.1.jar
 /org/apache/camel/component/ftp/main/camel-ftp-2.14.1.jar
 /org/apache/camel/component/hl7/main/camel-hl7-2.14.1.jar
@@ -56,6 +60,7 @@
 /org/apache/camel/core/xml/main/camel-core-xml-2.14.1.jar
 /org/apache/camel/spring/main/camel-spring-2.14.1.jar
 /org/apache/commons/httpclient/main/commons-httpclient-3.1.jar
+/org/apache/commons/lang3/main/commons-lang3-3.2.1.jar
 /org/apache/commons/net/main/commons-net-3.3.jar
 /org/apache/deltaspike/cdictrl/api/main/deltaspike-cdictrl-api-1.0.2.jar
 /org/apache/deltaspike/core/api/main/deltaspike-core-api-1.0.2.jar

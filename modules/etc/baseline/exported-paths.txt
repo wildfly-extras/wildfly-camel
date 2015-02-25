@@ -301,6 +301,7 @@ org/apache/camel/component/sql
 org/apache/camel/component/weather
 org/apache/camel/component/xquery
 org/apache/camel/converter
+org/apache/camel/converter/dozer
 org/apache/camel/converter/jaxb
 org/apache/camel/converter/jaxb/mapper
 org/apache/camel/dataformat
@@ -331,4 +332,24 @@ org/apache/camel/routepolicy
 org/apache/camel/routepolicy/quartz2
 org/apache/camel/script
 org/apache/camel/script/osgi
+org/dozer
+org/dozer/builder
+org/dozer/cache
+org/dozer/classmap
+org/dozer/classmap/generator
+org/dozer/config
+org/dozer/converters
+org/dozer/event
+org/dozer/factory
+org/dozer/fieldmap
+org/dozer/inject
+org/dozer/jmx
+org/dozer/loader
+org/dozer/loader/api
+org/dozer/loader/xml
+org/dozer/metadata
+org/dozer/osgi
+org/dozer/propertydescriptor
+org/dozer/stats
+org/dozer/util
 
