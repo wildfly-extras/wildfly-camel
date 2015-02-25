@@ -113,6 +113,14 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.ejb">
+        <include artifact="org.apache.camel:camel-ejb" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.ftp">
         <include artifact="org.apache.camel:camel-ftp" />
         <dependencies>

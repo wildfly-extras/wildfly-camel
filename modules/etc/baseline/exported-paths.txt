@@ -271,6 +271,7 @@ org/apache/camel/component/cxf/transport
 org/apache/camel/component/cxf/transport/blueprint
 org/apache/camel/component/cxf/transport/spring
 org/apache/camel/component/cxf/util
+org/apache/camel/component/ejb
 org/apache/camel/component/feed
 org/apache/camel/component/file
 org/apache/camel/component/file/remote
@@ -296,6 +297,7 @@ org/apache/camel/component/quartz2
 org/apache/camel/component/rss
 org/apache/camel/component/servlet
 org/apache/camel/component/servlet/osgi
+org/apache/camel/component/sql
 org/apache/camel/component/weather
 org/apache/camel/component/xquery
 org/apache/camel/converter
@@ -316,7 +318,10 @@ org/apache/camel/language/ognl
 org/apache/camel/pollconsumer
 org/apache/camel/pollconsumer/quartz2
 org/apache/camel/processor
+org/apache/camel/processor/aggregate
+org/apache/camel/processor/aggregate/jdbc
 org/apache/camel/processor/idempotent
+org/apache/camel/processor/idempotent/jdbc
 org/apache/camel/processor/idempotent/jpa
 org/apache/camel/processor/interceptor
 org/apache/camel/processor/interceptor/jpa
