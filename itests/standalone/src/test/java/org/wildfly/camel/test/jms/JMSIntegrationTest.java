@@ -56,7 +56,6 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.ProvisionerSupport;
 
 /**
  * Test routes that use the jms component in routes.
@@ -96,7 +95,6 @@ public class JMSIntegrationTest {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-jms-tests");
-        archive.addClasses(ProvisionerSupport.class);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {

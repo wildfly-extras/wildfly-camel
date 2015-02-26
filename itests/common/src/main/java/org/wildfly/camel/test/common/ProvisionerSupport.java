@@ -19,7 +19,7 @@
  */
 
 
-package org.wildfly.camel.test;
+package org.wildfly.camel.test.common;
 
 import java.io.IOException;
 import java.io.InputStream;

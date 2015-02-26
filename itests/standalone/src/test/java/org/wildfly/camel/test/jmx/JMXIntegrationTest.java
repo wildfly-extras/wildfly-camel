@@ -33,7 +33,6 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.ProvisionerSupport;
 
 /**
  * Deploys a test which monitors an JMX attrbute of a route.
@@ -47,7 +46,6 @@ public class JMXIntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jmx-integration-tests");
-        archive.addClasses(ProvisionerSupport.class);
         return archive;
     }
 

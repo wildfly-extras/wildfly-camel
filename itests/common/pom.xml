@@ -34,7 +34,10 @@
     <artifactId>wildfly-camel-itests-common</artifactId>
 	    
 	<dependencies>
-	
+        <dependency>
+            <groupId>org.jboss.gravia</groupId>
+            <artifactId>gravia-provision</artifactId>
+        </dependency>
 	</dependencies>
 
 </project>

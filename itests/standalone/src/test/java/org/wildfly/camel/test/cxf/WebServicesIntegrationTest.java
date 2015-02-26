@@ -41,7 +41,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.ProvisionerSupport;
 import org.wildfly.camel.test.cxf.subA.Endpoint;
 import org.wildfly.camel.test.cxf.subA.EndpointImpl;
 
@@ -65,7 +64,7 @@ public class WebServicesIntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-integration-tests");
-        archive.addClasses(ProvisionerSupport.class, Endpoint.class);
+        archive.addClasses(Endpoint.class);
         return archive;
     }
 

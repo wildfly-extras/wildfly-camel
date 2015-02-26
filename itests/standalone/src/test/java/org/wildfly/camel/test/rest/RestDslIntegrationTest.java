@@ -20,6 +20,8 @@
 
 package org.wildfly.camel.test.rest;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -30,9 +32,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.HttpRequest;
-
-import java.util.concurrent.TimeUnit;
+import org.wildfly.camel.test.common.HttpRequest;
 
 @RunWith(Arquillian.class)
 public class RestDslIntegrationTest {

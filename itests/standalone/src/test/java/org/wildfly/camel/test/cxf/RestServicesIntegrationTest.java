@@ -45,7 +45,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.ProvisionerSupport;
 import org.wildfly.camel.test.cxf.subC.GreetingService;
 import org.wildfly.camel.test.cxf.subC.RestApplication;
 
@@ -63,7 +62,7 @@ public class RestServicesIntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jaxrs-tests");
-        archive.addClasses(ProvisionerSupport.class, GreetingService.class);
+        archive.addClasses(GreetingService.class);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
