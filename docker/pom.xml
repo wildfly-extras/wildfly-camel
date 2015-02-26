@@ -84,7 +84,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <exec executable="docker">
+                                <exec executable="docker" failonerror="false">
                                     <arg value="rmi" />
                                     <arg value="--force=true" />
                                     <arg value="${docker.image.name}:${docker.image.version}" />
