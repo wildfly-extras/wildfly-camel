@@ -67,10 +67,14 @@ public class SpringBeanTransformTest {
 
         URL resourceUrl = getClass().getResource("/" + SPRING_CAMEL_CONTEXT_XML);
         CamelContext camelctx = SpringCamelContextFactory.createSpringCamelContext(resourceUrl, getClass().getClassLoader());
-        camelctx.start();
 
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        String result = producer.requestBody("direct:start", "Kermit", String.class);
-        Assert.assertEquals("Hello Kermit", result);
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", "Kermit", String.class);
+            Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            camelctx.stop();
+        }
     }
 }

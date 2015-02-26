@@ -64,16 +64,19 @@ public class DozerIntegrationTest {
         mconfig.setMappingFiles(Arrays.asList(new String[] { "mappings.xml" }));
         new DozerTypeConverterLoader(camelctx, mconfig);
 
-        camelctx.start();
-
         CustomerA customerA = new CustomerA("Peter", "Post", "SomeStreet", "12345");
 
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        CustomerB result = producer.requestBody("direct:start", customerA, CustomerB.class);
-        Assert.assertEquals(customerA.getFirstName(), result.getFirstName());
-        Assert.assertEquals(customerA.getLastName(), result.getLastName());
-        Assert.assertEquals(customerA.getStreet(), result.getAddress().getStreet());
-        Assert.assertEquals(customerA.getZip(), result.getAddress().getZip());
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            CustomerB result = producer.requestBody("direct:start", customerA, CustomerB.class);
+            Assert.assertEquals(customerA.getFirstName(), result.getFirstName());
+            Assert.assertEquals(customerA.getLastName(), result.getLastName());
+            Assert.assertEquals(customerA.getStreet(), result.getAddress().getStreet());
+            Assert.assertEquals(customerA.getZip(), result.getAddress().getZip());
+        } finally {
+            camelctx.stop();
+        }
     }
 
 }

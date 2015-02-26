@@ -48,14 +48,18 @@ public class BeanShellIntegrationTest {
 
         // [FIXME #292] Camel endpoint discovery depends on TCCL
         Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(getRouteBuilder());
-        camelctx.start();
 
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        String result = producer.requestBodyAndHeader("direct:start", "mybody", "foo", "bar", String.class);
-        Assert.assertEquals("mybody", result);
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBodyAndHeader("direct:start", "mybody", "foo", "bar", String.class);
+            Assert.assertEquals("mybody", result);
+        } finally {
+            camelctx.stop();
+        }
     }
 
     @Test
@@ -63,14 +67,18 @@ public class BeanShellIntegrationTest {
 
         // [FIXME #292] Camel endpoint discovery depends on TCCL
         Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(getRouteBuilder());
-        camelctx.start();
 
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        String result = producer.requestBodyAndHeader("direct:start", "mybody", "foo", "bad", String.class);
-        Assert.assertEquals("mybody unmatched", result);
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBodyAndHeader("direct:start", "mybody", "foo", "bad", String.class);
+            Assert.assertEquals("mybody unmatched", result);
+        } finally {
+            camelctx.stop();
+        }
     }
 
 	private RouteBuilder getRouteBuilder() {

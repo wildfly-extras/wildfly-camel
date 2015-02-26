@@ -66,7 +66,7 @@ public class MailIntegrationTest {
 
         // [FIXME #290] Usage of camel-mail depends on TCCL
         Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -78,21 +78,23 @@ public class MailIntegrationTest {
                     .to("direct:email");
             }
         });
+
         camelctx.start();
+        try {
+            PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:email").createPollingConsumer();
+            pollingConsumer.start();
 
-        PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:email").createPollingConsumer();
-        pollingConsumer.start();
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            producer.sendBody("direct:start", "Hello Kermit");
 
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        producer.sendBody("direct:start", "Hello Kermit");
+            MailMessage mailMessage = pollingConsumer.receive().getIn().getBody(MailMessage.class);
+            Message message = mailMessage.getMessage();
 
-        MailMessage mailMessage = pollingConsumer.receive().getIn().getBody(MailMessage.class);
-        Message message = mailMessage.getMessage();
-
-        Assert.assertEquals("bob@localhost", message.getFrom()[0].toString());
-        Assert.assertEquals("Greetings", message.getSubject());
-        Assert.assertEquals("Hello Kermit", message.getContent());
-
-        camelctx.stop();
+            Assert.assertEquals("bob@localhost", message.getFrom()[0].toString());
+            Assert.assertEquals("Greetings", message.getSubject());
+            Assert.assertEquals("Hello Kermit", message.getContent());
+        } finally {
+            camelctx.stop();
+        }
     }
 }

@@ -54,7 +54,7 @@ public class NettyIntegrationTest {
 
     @Test
     public void testNettyTcpSocket() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -64,25 +64,28 @@ public class NettyIntegrationTest {
                         .to("direct:end");
             }
         });
+
         camelctx.start();
-
-        PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
-        pollingConsumer.start();
-
-        Socket socket = new Socket(SOCKET_HOST, SOCKET_PORT);
-        socket.setKeepAlive(true);
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-
         try {
-            out.write("Kermit\n");
-        } finally {
-            out.close();
-            socket.close();
-        }
+            PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
+            pollingConsumer.start();
 
-        String result = pollingConsumer.receive().getIn().getBody(String.class);
-        Assert.assertEquals("Hello Kermit", result);
-        camelctx.stop();
+            Socket socket = new Socket(SOCKET_HOST, SOCKET_PORT);
+            socket.setKeepAlive(true);
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+
+            try {
+                out.write("Kermit\n");
+            } finally {
+                out.close();
+                socket.close();
+            }
+
+            String result = pollingConsumer.receive().getIn().getBody(String.class);
+            Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            camelctx.stop();
+        }
     }
 
     @Test
@@ -92,7 +95,7 @@ public class NettyIntegrationTest {
         CamelContext camelctx = registry.getContext("netty-context");
         Assert.assertNotNull("CamelContext not null", camelctx);
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
-        
+
         PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
         pollingConsumer.start();
 

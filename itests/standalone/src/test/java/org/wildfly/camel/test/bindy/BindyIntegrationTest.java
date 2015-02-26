@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -48,10 +48,10 @@ public class BindyIntegrationTest {
 
     @Test
     public void testUnmarshal() throws Exception {
-        
+
         CamelContextFactory contextFactory = ServiceLocator.getRequiredService(CamelContextFactory.class);
         CamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
-        
+
         final DataFormat bindy = new BindyCsvDataFormat(Customer.class);
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -61,11 +61,15 @@ public class BindyIntegrationTest {
                 .to("mock:result");
             }
         });
-        camelctx.start();
 
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        Customer customer = (Customer) producer.requestBody("direct:start", "John,Doe");
-        Assert.assertEquals("John", customer.getFirstName());
-        Assert.assertEquals("Doe", customer.getLastName());
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            Customer customer = (Customer) producer.requestBody("direct:start", "John,Doe");
+            Assert.assertEquals("John", customer.getFirstName());
+            Assert.assertEquals("Doe", customer.getLastName());
+        } finally {
+            camelctx.stop();
+        }
     }
 }

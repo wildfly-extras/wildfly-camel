@@ -24,10 +24,8 @@ import java.net.URL;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -48,26 +46,26 @@ import org.wildfly.extension.camel.SpringCamelContextFactory;
 @RunWith(Arquillian.class)
 public class SpringContextTest {
 
-    static final String SPRING_CAMEL_CONTEXT_XML = "spring/transform1-camel-context.xml";
-
-    @ArquillianResource
-    Deployer deployer;
-
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-spring-tests");
-        archive.addAsResource(SPRING_CAMEL_CONTEXT_XML);
+        archive.addAsResource("spring/transform1-camel-context.xml", "some-other-name.xml");
         return archive;
     }
 
     @Test
     public void testSpringContextFromURL() throws Exception {
-        URL resourceUrl = getClass().getResource("/" + SPRING_CAMEL_CONTEXT_XML);
+        URL resourceUrl = getClass().getResource("/some-other-name.xml");
         CamelContext camelctx = SpringCamelContextFactory.createSpringCamelContext(resourceUrl, null);
+
         camelctx.start();
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        String result = producer.requestBody("direct:start", "Kermit", String.class);
-        Assert.assertEquals("Hello Kermit", result);
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", "Kermit", String.class);
+            Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            camelctx.stop();
+        }
     }
 
 }

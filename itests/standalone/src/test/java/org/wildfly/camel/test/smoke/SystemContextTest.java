@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,6 +22,7 @@ package org.wildfly.camel.test.smoke;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.ServiceStatus;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -58,7 +59,7 @@ public class SystemContextTest {
     @Test
     public void testSystemTransformFromModule() throws Exception {
         CamelContext camelctx = contextRegistry.getContext("system-context-1");
-        camelctx.start();
+        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);
         Assert.assertEquals("Hello Kermit", result);

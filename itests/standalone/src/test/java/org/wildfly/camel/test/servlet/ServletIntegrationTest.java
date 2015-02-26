@@ -49,9 +49,9 @@ public class ServletIntegrationTest {
 
     @Test
     public void testServletRoute() throws Exception {
-        CamelContext camelContext = new DefaultCamelContext();
 
-        camelContext.addRoutes(new RouteBuilder() {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("servlet://hello?servletName=CamelServletTest&matchOnUriPrefix=true")
@@ -64,11 +64,12 @@ public class ServletIntegrationTest {
             }
         });
 
-        camelContext.start();
-
-        String result = HttpRequest.get("http://localhost:8080/camel/services/hello", 10, TimeUnit.SECONDS);
-        Assert.assertEquals("Hello Kermit", result);
-
-        camelContext.stop();
+        camelctx.start();
+        try {
+            String result = HttpRequest.get("http://localhost:8080/camel/services/hello", 10, TimeUnit.SECONDS);
+            Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            camelctx.stop();
+        }
     }
 }

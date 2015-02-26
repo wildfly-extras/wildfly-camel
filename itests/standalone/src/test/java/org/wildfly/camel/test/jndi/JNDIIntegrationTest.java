@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -73,8 +73,8 @@ public class JNDIIntegrationTest {
 
     private void assertBeanBinding(WildFlyCamelContext camelctx) throws NamingException, Exception {
 
-        Context context = camelctx.getNamingContext();
-        context.bind("helloBean", new HelloBean());
+        Context jndictx = camelctx.getNamingContext();
+        jndictx.bind("helloBean", new HelloBean());
 
         try {
             camelctx.addRoutes(new RouteBuilder() {
@@ -83,13 +83,17 @@ public class JNDIIntegrationTest {
                     from("direct:start").beanRef("helloBean");
                 }
             });
-            camelctx.start();
 
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            String result = producer.requestBody("direct:start", "Kermit", String.class);
-            Assert.assertEquals("Hello Kermit", result);
+            camelctx.start();
+            try {
+                ProducerTemplate producer = camelctx.createProducerTemplate();
+                String result = producer.requestBody("direct:start", "Kermit", String.class);
+                Assert.assertEquals("Hello Kermit", result);
+            } finally {
+                camelctx.stop();
+            }
         } finally {
-            context.unbind("helloBean");
+            jndictx.unbind("helloBean");
         }
     }
 

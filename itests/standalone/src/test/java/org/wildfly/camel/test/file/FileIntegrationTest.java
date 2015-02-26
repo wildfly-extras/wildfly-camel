@@ -59,13 +59,18 @@ public class FileIntegrationTest {
                 to("file:" + datadir + "?fileName=camel-file.txt");
             }
         });
-        camelctx.start();
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        String result = producer.requestBody("direct:start", "Kermit", String.class);
-        Assert.assertEquals("Hello Kermit", result);
 
-        BufferedReader br = new BufferedReader(new FileReader(Paths.get(datadir, "camel-file.txt").toFile()));
-        Assert.assertEquals("Hello Kermit", br.readLine());
-        br.close();
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", "Kermit", String.class);
+            Assert.assertEquals("Hello Kermit", result);
+
+            BufferedReader br = new BufferedReader(new FileReader(Paths.get(datadir, "camel-file.txt").toFile()));
+            Assert.assertEquals("Hello Kermit", br.readLine());
+            br.close();
+        } finally {
+            camelctx.stop();
+        }
     }
 }

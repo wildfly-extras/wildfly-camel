@@ -55,14 +55,16 @@ public class SQLIntegrationTest {
                 .to("direct:end");
             }
         });
+
         camelctx.start();
+        try {
+            PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
+            pollingConsumer.start();
 
-        PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
-        pollingConsumer.start();
-
-        String result = (String) pollingConsumer.receive().getIn().getBody(Map.class).get("NAME");
-        Assert.assertEquals("SA", result);
-
-        camelctx.stop();
+            String result = (String) pollingConsumer.receive().getIn().getBody(Map.class).get("NAME");
+            Assert.assertEquals("SA", result);
+        } finally {
+            camelctx.stop();
+        }
     }
 }

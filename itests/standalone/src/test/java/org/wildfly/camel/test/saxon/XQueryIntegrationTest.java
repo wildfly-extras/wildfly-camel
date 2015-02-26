@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,7 +49,7 @@ public class XQueryIntegrationTest {
 
     @Test
     public void testEndpointClass() throws Exception {
-    	
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -59,11 +59,16 @@ public class XQueryIntegrationTest {
                 .to("mock:result");
             }
         });
+
         camelctx.start();
-        System.out.println(readCustomerXml());
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        String customer = producer.requestBody("direct:start", readCustomerXml(), String.class);
-        Assert.assertEquals("John", customer);
+        try {
+            System.out.println(readCustomerXml());
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String customer = producer.requestBody("direct:start", readCustomerXml(), String.class);
+            Assert.assertEquals("John", customer);
+        } finally {
+            camelctx.stop();
+        }
     }
 
     private String readCustomerXml() throws IOException {

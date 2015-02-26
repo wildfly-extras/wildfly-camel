@@ -28,14 +28,14 @@
 
   <jee:jndi-lookup id="connectionFactory" jndi-name="java:jboss/DefaultJMSConnectionFactory" />
   
-  <spring:bean id="helloBean" class="org.wildfly.camel.test.spring.subA.HelloJeeBean">
+  <spring:bean id="helloJeeBean" class="org.wildfly.camel.test.spring.subA.HelloJeeBean">
     <spring:property name="factory" ref="connectionFactory" />
   </spring:bean>
   
   <camelContext id="spring-jee">
     <route>
       <from uri="direct:start"/>
-      <bean ref="helloBean" method="hello"/>
+      <bean ref="helloJeeBean" method="hello"/>
     </route>
   </camelContext>
   

@@ -106,10 +106,13 @@ public class SecureWebServicesIntegrationTest {
             });
 
             camelctx.start();
-
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            String result = producer.requestBody("direct:start", "Kermit", String.class);
-            Assert.assertEquals("Hello Kermit", result);
+            try {
+                ProducerTemplate producer = camelctx.createProducerTemplate();
+                String result = producer.requestBody("direct:start", "Kermit", String.class);
+                Assert.assertEquals("Hello Kermit", result);
+            } finally {
+                camelctx.stop();
+            }
         } finally {
             deployer.undeploy(SIMPLE_WAR);
         }
@@ -137,13 +140,16 @@ public class SecureWebServicesIntegrationTest {
             pollingConsumer.start();
 
             camelctx.start();
+            try {
+                ProducerTemplate producer = camelctx.createProducerTemplate();
+                producer.requestBody("direct:start", "Kermit", String.class);
 
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            producer.requestBody("direct:start", "Kermit", String.class);
+                String result = pollingConsumer.receive(5000L).getIn().getBody(String.class);
 
-            String result = pollingConsumer.receive(5000L).getIn().getBody(String.class);
-
-            Assert.assertTrue(result.contains("401: Unauthorized"));
+                Assert.assertTrue(result.contains("401: Unauthorized"));
+            } finally {
+                camelctx.stop();
+            }
         } finally {
             deployer.undeploy(SIMPLE_WAR);
         }

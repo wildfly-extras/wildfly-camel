@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -110,7 +110,7 @@ public class JMSIntegrationTest {
 
     @Test
     public void testSendMessage() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -119,23 +119,27 @@ public class JMSIntegrationTest {
                 transform(body().prepend("Hello ")).to("direct:end");
             }
         });
+
         camelctx.start();
-
-        // Send a message to the queue
-        ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
-        Connection connection = cfactory.createConnection();
-        sendMessage(connection, QUEUE_JNDI_NAME, "Kermit");
-
-        String result = consumeRouteMessage(camelctx);
-        Assert.assertEquals("Hello Kermit", result);
-
-        connection.close();
-        camelctx.stop();
+        try {
+            // Send a message to the queue
+            ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
+            Connection con = cfactory.createConnection();
+            try {
+                sendMessage(con, QUEUE_JNDI_NAME, "Kermit");
+                String result = consumeRouteMessage(camelctx);
+                Assert.assertEquals("Hello Kermit", result);
+            } finally {
+                con.close();
+            }
+        } finally {
+            camelctx.stop();
+        }
     }
 
     @Test
     public void testReceiveMessage() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -145,35 +149,40 @@ public class JMSIntegrationTest {
                 to("jms:queue:" + QUEUE_NAME + "?connectionFactory=ConnectionFactory");
             }
         });
-        camelctx.start();
 
         final StringBuffer result = new StringBuffer();
         final CountDownLatch latch = new CountDownLatch(1);
 
-        // Get the message from the queue
-        ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
-        Connection connection = cfactory.createConnection();
-        receiveMessage(connection, QUEUE_JNDI_NAME, new MessageListener() {
-            @Override
-            public void onMessage(Message message) {
-                TextMessage text = (TextMessage) message;
-                try {
-                    result.append(text.getText());
-                } catch (JMSException ex) {
-                    result.append(ex.getMessage());
-                }
-                latch.countDown();
+        camelctx.start();
+        try {
+            // Get the message from the queue
+            ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
+            Connection con = cfactory.createConnection();
+            try {
+                receiveMessage(con, QUEUE_JNDI_NAME, new MessageListener() {
+                    @Override
+                    public void onMessage(Message message) {
+                        TextMessage text = (TextMessage) message;
+                        try {
+                            result.append(text.getText());
+                        } catch (JMSException ex) {
+                            result.append(ex.getMessage());
+                        }
+                        latch.countDown();
+                    }
+                });
+
+                ProducerTemplate producer = camelctx.createProducerTemplate();
+                producer.asyncSendBody("direct:start", "Kermit");
+
+                Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
+                Assert.assertEquals("Hello Kermit", result.toString());
+            } finally {
+                con.close();
             }
-        });
-
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        producer.asyncSendBody("direct:start", "Kermit");
-
-        Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
-        Assert.assertEquals("Hello Kermit", result.toString());
-
-        connection.close();
-        camelctx.stop();
+        } finally {
+            camelctx.stop();
+        }
     }
 
     private void sendMessage(Connection connection, String jndiName, String message) throws Exception {

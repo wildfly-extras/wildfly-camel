@@ -44,7 +44,7 @@ public class OgnlIntegrationTest {
 
     @Test
     public void testOgnlExpression() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -57,17 +57,18 @@ public class OgnlIntegrationTest {
                             .to("mock:dlq");
             }
         });
-        camelctx.start();
 
         Person person = new Person();
         person.setName("Kermit");
 
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        String result = producer.requestBody("direct:start", person, String.class);
-
-        Assert.assertEquals("Hello Kermit", result);
-
-        camelctx.stop();
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", person, String.class);
+            Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            camelctx.stop();
+        }
     }
 
     @Test
@@ -85,17 +86,18 @@ public class OgnlIntegrationTest {
                             .to("mock:dlq");
             }
         });
-        camelctx.start();
 
         Person person = new Person();
         person.setName("Kermit");
 
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        String result = producer.requestBody("direct:start", person, String.class);
-
-        Assert.assertEquals("Hello Kermit", result);
-
-        camelctx.stop();
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", person, String.class);
+            Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            camelctx.stop();
+        }
     }
 
     public static final class Person {

@@ -102,18 +102,18 @@ public class ActiveMQIntegrationTest {
         pollingConsumer.start();
 
         camelctx.start();
-
-        // Send a message to the queue
-        Connection connection = connectionFactory.createConnection();
-
-        sendMessage(connection, "Kermit");
-
-        String result = pollingConsumer.receive(5000L).getIn().getBody(String.class);
-
-        Assert.assertEquals("Hello Kermit", result);
-
-        connection.close();
-        camelctx.stop();
+        try {
+            Connection con = connectionFactory.createConnection();
+            try {
+                sendMessage(con, "Kermit");
+                String result = pollingConsumer.receive(5000L).getIn().getBody(String.class);
+                Assert.assertEquals("Hello Kermit", result);
+            } finally {
+                con.close();
+            }
+        } finally {
+            camelctx.stop();
+        }
     }
 
     @Test
@@ -135,34 +135,38 @@ public class ActiveMQIntegrationTest {
                         to("activemq:queue:" + QUEUE_NAME);
             }
         });
-        camelctx.start();
 
         final StringBuffer result = new StringBuffer();
         final CountDownLatch latch = new CountDownLatch(1);
 
-        // Get the message from the queue
-        Connection connection = connectionFactory.createConnection();
-        receiveMessage(connection, new MessageListener() {
-            @Override
-            public void onMessage(Message message) {
-                TextMessage text = (TextMessage) message;
-                try {
-                    result.append(text.getText());
-                } catch (JMSException ex) {
-                    result.append(ex.getMessage());
-                }
-                latch.countDown();
+        camelctx.start();
+        try {
+            Connection con = connectionFactory.createConnection();
+            try {
+                receiveMessage(con, new MessageListener() {
+                    @Override
+                    public void onMessage(Message message) {
+                        TextMessage text = (TextMessage) message;
+                        try {
+                            result.append(text.getText());
+                        } catch (JMSException ex) {
+                            result.append(ex.getMessage());
+                        }
+                        latch.countDown();
+                    }
+                });
+
+                ProducerTemplate producer = camelctx.createProducerTemplate();
+                producer.asyncSendBody("direct:start", "Kermit");
+
+                Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
+                Assert.assertEquals("Hello Kermit", result.toString());
+            } finally {
+                con.close();
             }
-        });
-
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        producer.asyncSendBody("direct:start", "Kermit");
-
-        Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
-        Assert.assertEquals("Hello Kermit", result.toString());
-
-        connection.close();
-        camelctx.stop();
+        } finally {
+            camelctx.stop();
+        }
     }
 
     private ActiveMQConnectionFactory createConnectionFactory() {

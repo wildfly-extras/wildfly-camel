@@ -64,10 +64,11 @@ public class RestDslIntegrationTest {
         });
 
         camelctx.start();
-
-        String result = HttpRequest.get("http://localhost:8080/camel/rest/hello/Kermit", 10, TimeUnit.SECONDS);
-        Assert.assertEquals("Hello Kermit", result);
-
-        camelctx.stop();
+        try {
+            String result = HttpRequest.get("http://localhost:8080/camel/rest/hello/Kermit", 10, TimeUnit.SECONDS);
+            Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            camelctx.stop();
+        }
     }
 }

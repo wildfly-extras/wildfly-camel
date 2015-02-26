@@ -49,7 +49,7 @@ public class AtomIntegrationTest {
 
     @Test
     public void testConsumeAtomFeed() throws Exception {
-                
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -58,16 +58,18 @@ public class AtomIntegrationTest {
                 .to("direct:end");
             }
         });
+
         camelctx.start();
+        try {
+            PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
+            pollingConsumer.start();
 
-        PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
-        pollingConsumer.start();
+            Entry result = pollingConsumer.receive().getIn().getBody(Entry.class);
 
-        Entry result = pollingConsumer.receive().getIn().getBody(Entry.class);
-
-        Assert.assertEquals(FeedConstants.ENTRY_TITLE, result.getTitle());
-        Assert.assertEquals(FeedConstants.ENTRY_CONTENT, result.getContent());
-
-        camelctx.stop();
+            Assert.assertEquals(FeedConstants.ENTRY_TITLE, result.getTitle());
+            Assert.assertEquals(FeedConstants.ENTRY_CONTENT, result.getContent());
+        } finally {
+            camelctx.stop();
+        }
     }
 }

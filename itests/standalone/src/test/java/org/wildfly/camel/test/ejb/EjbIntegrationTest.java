@@ -52,10 +52,15 @@ public class EjbIntegrationTest {
                 from("direct:start").to("ejb:java:module/HelloBean");
             }
         });
+
         camelctx.start();
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        String result = producer.requestBody("direct:start", "Kermit", String.class);
-        Assert.assertEquals("Hello Kermit", result);
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", "Kermit", String.class);
+            Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            camelctx.stop();
+        }
     }
 
 }

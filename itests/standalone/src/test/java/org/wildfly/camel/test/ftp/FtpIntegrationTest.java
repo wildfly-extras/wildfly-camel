@@ -114,26 +114,29 @@ public class FtpIntegrationTest {
     @Test
     public void testSendFile() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        Endpoint endpoint = camelctx.getEndpoint("ftp://localhost:" + PORT + "/foo?username=admin&password=admin");
-
         File testFile = new File(FTP_ROOT_DIR, "foo/test.txt");
 
-        Assert.assertFalse(testFile.exists());
-        camelctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFileName", "test.txt");
-        Assert.assertTrue(testFile.exists());
-
-        camelctx.stop();
+        CamelContext camelctx = new DefaultCamelContext();
+        try {
+            Endpoint endpoint = camelctx.getEndpoint("ftp://localhost:" + PORT + "/foo?username=admin&password=admin");
+            Assert.assertFalse(testFile.exists());
+            camelctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFileName", "test.txt");
+            Assert.assertTrue(testFile.exists());
+        } finally {
+            camelctx.stop();
+        }
     }
 
     @Test
     public void testComponentLoads() throws Exception {
-        
         CamelContext camelctx = new DefaultCamelContext();
-        Endpoint endpoint = camelctx.getEndpoint("ftp://localhost/foo");
-        Assert.assertNotNull(endpoint);
-        Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.file.remote.FtpEndpoint");
-        camelctx.stop();
+        try {
+            Endpoint endpoint = camelctx.getEndpoint("ftp://localhost/foo");
+            Assert.assertNotNull(endpoint);
+            Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.file.remote.FtpEndpoint");
+        } finally {
+            camelctx.stop();
+        }
     }
 
     private static void recursiveDelete(File file) {

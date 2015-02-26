@@ -66,8 +66,12 @@ public class RSSIntegrationTest {
                 .to("mock:result");
             }
         });
-        camelctx.start();
 
-        Assert.assertTrue("Countdown reached zero", latch.await(30, TimeUnit.SECONDS));
+        camelctx.start();
+        try {
+            Assert.assertTrue("Countdown reached zero", latch.await(30, TimeUnit.SECONDS));
+        } finally {
+            camelctx.stop();
+        }
     }
 }

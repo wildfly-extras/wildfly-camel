@@ -36,6 +36,7 @@ import org.wildfly.camel.test.http.servlet.MyServlet;
 
 @RunWith(Arquillian.class)
 public class HttpIntegrationTest {
+
     @Deployment
     public static WebArchive createDeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "simple.war");
@@ -45,7 +46,7 @@ public class HttpIntegrationTest {
 
     @Test
     public void testHttpGetRequest() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -56,13 +57,12 @@ public class HttpIntegrationTest {
         });
 
         camelctx.start();
-
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        String result = producer.requestBodyAndHeader("direct:start", null, Exchange.HTTP_QUERY,
-                "name=Kermit", String.class);
-
-        Assert.assertEquals("Hello Kermit", result);
-
-        camelctx.stop();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBodyAndHeader("direct:start", null, Exchange.HTTP_QUERY, "name=Kermit", String.class);
+            Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            camelctx.stop();
+        }
     }
 }

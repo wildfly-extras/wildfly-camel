@@ -66,14 +66,16 @@ public class JAXBIntegrationTest {
                 .unmarshal(jaxb);
             }
         });
+
         camelctx.start();
-
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        Customer customer = producer.requestBody("direct:start", readCustomerXml(), Customer.class);
-        Assert.assertEquals("John", customer.getFirstName());
-        Assert.assertEquals("Doe", customer.getLastName());
-
-        camelctx.stop();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            Customer customer = producer.requestBody("direct:start", readCustomerXml(), Customer.class);
+            Assert.assertEquals("John", customer.getFirstName());
+            Assert.assertEquals("Doe", customer.getLastName());
+        } finally {
+            camelctx.stop();
+        }
     }
 
     @Test
@@ -90,14 +92,16 @@ public class JAXBIntegrationTest {
                 .marshal(jaxb);
             }
         });
+
         camelctx.start();
-
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        Customer customer = new Customer("John", "Doe");
-        String customerXML = producer.requestBody("direct:start", customer, String.class);
-        Assert.assertEquals(readCustomerXml(), customerXML);
-
-        camelctx.stop();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            Customer customer = new Customer("John", "Doe");
+            String customerXML = producer.requestBody("direct:start", customer, String.class);
+            Assert.assertEquals(readCustomerXml(), customerXML);
+        } finally {
+            camelctx.stop();
+        }
     }
 
 	private String readCustomerXml() throws IOException {

@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,10 +49,10 @@ public class HL7IntegrationTest {
 
     @Test
     public void testMarshalUnmarshal() throws Exception {
-        
+
         final String msg = "MSH|^~\\&|MYSENDER|MYRECEIVER|MYAPPLICATION||200612211200||QRY^A19|1234|P|2.4\r";
         final HL7DataFormat format = new HL7DataFormat();
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -63,15 +63,19 @@ public class HL7IntegrationTest {
                 .to("mock:result");
             }
         });
+
         camelctx.start();
-        
-        @SuppressWarnings("resource")
-        HapiContext context = new DefaultHapiContext();
-        Parser p = context.getGenericParser();
-        Message hapimsg = p.parse(msg);
-        
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        Message result = (Message) producer.requestBody("direct:start", hapimsg);
-        Assert.assertEquals(hapimsg.toString(), result.toString());
+        try {
+            @SuppressWarnings("resource")
+            HapiContext context = new DefaultHapiContext();
+            Parser p = context.getGenericParser();
+            Message hapimsg = p.parse(msg);
+
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            Message result = (Message) producer.requestBody("direct:start", hapimsg);
+            Assert.assertEquals(hapimsg.toString(), result.toString());
+        } finally {
+            camelctx.stop();
+        }
     }
 }

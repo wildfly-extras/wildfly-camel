@@ -25,7 +25,9 @@ import java.net.URL;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
+import org.apache.abdera.model.Entry;
 import org.apache.camel.CamelContext;
+import org.apache.camel.PollingConsumer;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -42,6 +44,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.ProvisionerSupport;
+import org.wildfly.camel.test.atom.feed.FeedConstants;
 import org.wildfly.camel.test.cxf.subA.Endpoint;
 import org.wildfly.camel.test.cxf.subA.EndpointImpl;
 
@@ -75,7 +78,7 @@ public class WebServicesIntegrationTest {
         try {
             // [FIXME #283] Usage of camel-cxf depends on TCCL
             Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-            
+
             QName serviceName = new QName("http://wildfly.camel.test.cxf", "EndpointService");
             Service service = Service.create(getWsdl("/simple"), serviceName);
             Endpoint port = service.getPort(Endpoint.class);
@@ -91,7 +94,7 @@ public class WebServicesIntegrationTest {
         try {
             // [FIXME #283] Usage of camel-cxf depends on TCCL
             Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-            
+
             CamelContext camelctx = new DefaultCamelContext();
             camelctx.addRoutes(new RouteBuilder() {
                 @Override
@@ -100,11 +103,15 @@ public class WebServicesIntegrationTest {
                     to("cxf://" + getEndpointAddress("/simple") + "?serviceClass=" + Endpoint.class.getName());
                 }
             });
-            camelctx.start();
 
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            String result = producer.requestBody("direct:start", "Kermit", String.class);
-            Assert.assertEquals("Hello Kermit", result);
+            camelctx.start();
+            try {
+                ProducerTemplate producer = camelctx.createProducerTemplate();
+                String result = producer.requestBody("direct:start", "Kermit", String.class);
+                Assert.assertEquals("Hello Kermit", result);
+            } finally {
+                camelctx.stop();
+            }
         } finally {
             deployer.undeploy(SIMPLE_WAR);
         }
