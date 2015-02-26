@@ -1,4 +1,5 @@
 [includes]
+	^ca/uhn/hl7v2(.*)
 	^org/apache/abdera(.*)
 	^org/apache/activemq/camel(.*)
 	^org/apache/camel(.*)
@@ -11,9 +12,6 @@
 	
 # [FIXME #272] Module camel-rss exposes com.sun.syndication
 	^com/sun/syndication(.*)
-	
-# [FIXME #273] Module camel-hls7 exposes ca.uhn.hl7v2
-	^ca/uhn/hl7v2(.*)
 	
 [excludes]
 	(.*)/internal
