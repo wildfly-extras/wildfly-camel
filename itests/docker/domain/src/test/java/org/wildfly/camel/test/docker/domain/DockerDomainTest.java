@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,10 +44,10 @@ import org.wildfly.camel.test.common.docker.DockerCommand.Result;
 public class DockerDomainTest {
 
     static String DEPLOYMENT_NAME = "domain-endpoint.war";
-    
+
     @ContainerResource
     ManagementClient mgmtClient;
-    
+
     @AfterClass
     public static void afterClass() {
         // [FIXME #185] docker:stop cannot reliably stop/kill containers
@@ -57,13 +57,13 @@ public class DockerDomainTest {
             new DockerCommand("rm").options("-f", it.next()).exec();
         }
     }
-    
+
     @Test
-    @Ignore("[FIXME #295] DockerDomainTest fails frequently")
+    @Ignore("[FIXME #278] Intermittent failures of Docker domain mode tests")
     public void testEndpoint() throws Exception {
         String mgmtAddress = mgmtClient.getMgmtAddress();
         String host = System.getenv("DOCKER_IP");
-        
+
         String[] files = new File("target").list(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
@@ -72,13 +72,13 @@ public class DockerDomainTest {
         });
         Assert.assertNotNull("File found", files);
         Assert.assertEquals("One file found", 1, files.length);
-        
+
         String runtimeName = "domain-endpoint.war";
         DeployCommand docker = new DeployCommand(runtimeName, new File("target/" + files[0]));
-        
+
         Result result = docker.connect(mgmtAddress, 9990).exec().printOut(System.out).printErr(System.err);
         Assert.assertEquals("Deploy success", 0, result.exitValue());
-        
+
         String resp = HttpRequest.get("http://" + host + ":8181/domain-endpoint", 30, TimeUnit.SECONDS);
         Assert.assertTrue("Starts with Hello: " + resp, resp.startsWith("Hello"));
     }
