@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -90,26 +90,28 @@ public class HttpRequest {
     }
 
     private static String execute(final Callable<String> task, final long timeout, final TimeUnit unit) throws TimeoutException, IOException {
-        final ExecutorService executor = Executors.newSingleThreadExecutor();
-        final Future<String> result = executor.submit(task);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
         try {
-            return result.get(timeout, unit);
-        } catch (TimeoutException e) {
-            result.cancel(true);
-            throw e;
-        } catch (InterruptedException e) {
-            // should not happen
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
-            // by virtue of the Callable redefinition above I can cast
-            throw new IOException(e);
+            Throwable lastCause = null;
+            long endTime = System.currentTimeMillis() + unit.toMillis(timeout);
+            while (System.currentTimeMillis() < endTime) {
+                Future<String> result = executor.submit(task);
+                try {
+                    return result.get(timeout, unit);
+                } catch (InterruptedException ex) {
+                    throw new IllegalStateException(ex);
+                } catch (ExecutionException ex) {
+                    lastCause = ex.getCause();
+                    continue;
+                }
+            }
+            TimeoutException toex = new TimeoutException();
+            if (lastCause != null) {
+                toex.initCause(lastCause);
+            }
+            throw toex;
         } finally {
             executor.shutdownNow();
-            try {
-                executor.awaitTermination(timeout, unit);
-            } catch (InterruptedException e) {
-                // ignore
-            }
         }
     }
 
