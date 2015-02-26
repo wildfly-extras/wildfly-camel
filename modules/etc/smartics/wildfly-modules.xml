@@ -25,6 +25,14 @@
         -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="asm.asm" skip="true">
+        <include artifact="asm:asm" />
+    </module>
+
+    <module name="com.sun.xml.bind" skip="true">
+        <include artifact="com.sun.xml.bind:jaxb-xjc" />
+    </module>
+
     <module name="io.netty" skip="true">
         <include artifact="io.netty:netty-(.*)" />
     </module>
@@ -38,6 +46,7 @@
     </module>
 
     <module name="javax.annotation.api" skip="true">
+        <include artifact=":javax.annotation-api" />
         <include artifact=":geronimo-annotation_1.0_spec" />
         <include artifact=":geronimo-annotation_1.1_spec" />
     </module>
@@ -99,9 +108,21 @@
         <include artifact="org.apache.geronimo.components:geronimo-transaction" />
     </module>
 
+    <module name="javax.wsdl4j.api" skip="true">
+        <include artifact="wsdl4j:wsdl4j" />
+    </module>
+
+    <module name="javax.ws.rs.api" skip="true">
+        <include artifact=":javax.ws.rs-api" />
+    </module>
+
     <module name="javax.xml.bind.api" skip="true">
         <include artifact="com.sun.xml.bind:jaxb-impl" />
         <include artifact="com.sun.xml.bind:jaxb-core" />
+    </module>
+
+    <module name="org.bouncycastle" skip="true">
+        <include artifact="org.bouncycastle:bcprov-(.*)" />
     </module>
 
     <module name="org.dom4j" skip="true">
@@ -124,6 +145,10 @@
         <include artifact=":commons-collections" />
     </module>
 
+    <module name="org.apache.commons.lang" skip="true">
+        <include artifact=":commons-lang" />
+    </module>
+
     <module name="org.apache.commons.logging" skip="true">
         <include artifact=":commons-logging" />
     </module>
@@ -144,8 +169,20 @@
         <include artifact=":apache-mime4j-core" />
     </module>
 
+    <module name="org.apache.neethi" skip="true">
+        <include artifact=":neethi" />
+    </module>
+
     <module name="org.apache.log4j" skip="true">
         <include artifact="log4j:log4j" />
+    </module>
+
+    <module name="org.apache.ws.xmlschema" skip="true">
+        <include artifact=":xmlschema-core" />
+    </module>
+
+    <module name="org.apache.xml-resolver" skip="true">
+        <include artifact="xml-resolver:xml-resolver" />
     </module>
 
     <module name="org.codehaus.jackson.jackson-$1" skip="true">

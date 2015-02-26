@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="net.oauth.core.oauth-provider">
+  <resources>
+    <resource-root path="oauth-provider-20100527.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.servlet.api" />
+    <module name="net.oauth.core.oauth" />
+  </dependencies>
+</module>

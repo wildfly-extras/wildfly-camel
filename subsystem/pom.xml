@@ -64,6 +64,20 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-cxf</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.woodstox</groupId>
+                    <artifactId>woodstox-core-asl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.codehaus.woodstox</groupId>
+                    <artifactId>woodstox-core-asl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring</artifactId>
         </dependency>
         <dependency>

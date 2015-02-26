@@ -20,16 +20,15 @@
 
 package org.wildfly.extension.camel.service;
 
-import static org.wildfly.extension.camel.CamelLogger.LOGGER;
-
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.util.EventObject;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.camel.CamelContext;
+import org.apache.camel.Endpoint;
+import org.apache.camel.Route;
+import org.apache.camel.RuntimeCamelException;
+import org.apache.camel.StartupListener;
 import org.apache.camel.cdi.CdiCamelContext;
+import org.apache.camel.component.cxf.CxfEndpoint;
+import org.apache.camel.component.cxf.cxfbean.CxfBeanEndpoint;
+import org.apache.camel.component.cxf.jaxrs.CxfRsEndpoint;
 import org.apache.camel.management.event.CamelContextStartingEvent;
 import org.apache.camel.management.event.CamelContextStoppedEvent;
 import org.apache.camel.spi.Container;
@@ -56,6 +55,14 @@ import org.wildfly.extension.camel.SpringCamelContextFactory;
 import org.wildfly.extension.camel.WildFlyClassResolver;
 import org.wildfly.extension.camel.parser.SubsystemState;
 import org.wildfly.extension.gravia.GraviaConstants;
+
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.EventObject;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
 /**
  * The {@link CamelContextRegistry} service
@@ -174,8 +181,14 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
 
         @Override
         public void manage(CamelContext camelctx) {
+            // Ensure context does not contain CXF consumer endpoints
+            try {
+                camelctx.addStartupListener(new WildFlyCamelStartupListener());
+            } catch (Exception e) {
+                throw new IllegalStateException("Cannot add camel context startup listener");
+            }
 
-            // Ignore CDI camel contexts
+            // No additional processing for CDI camel contexts is required
             if (camelctx instanceof CdiCamelContext)
                 return;
 
@@ -302,6 +315,25 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
             protected Class<?>[] getClassContext() {
                 return super.getClassContext();
             }
+        }
+    }
+
+    static final class WildFlyCamelStartupListener implements StartupListener{
+        @Override
+        public void onCamelContextStarted(CamelContext camelContext, boolean b) throws Exception {
+            for(Route route : camelContext.getRoutes()) {
+                final Endpoint endpoint = route.getEndpoint();
+                if(isCxfEndpoint(endpoint) && route.getConsumer() != null) {
+                    throw new RuntimeCamelException("CXF Endpoint consumers are not allowed");
+                }
+            }
+        }
+
+        private boolean isCxfEndpoint(final Endpoint endpoint) {
+            return endpoint instanceof CxfEndpoint ||
+                   endpoint instanceof CxfRsEndpoint ||
+                   endpoint instanceof CxfBeanEndpoint ||
+                   endpoint instanceof CxfEndpoint;
         }
     }
 }

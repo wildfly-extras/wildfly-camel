@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Wildfly Camel Patch
+  %%
+  Copyright (C) 2013 - 2014 RedHat
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+<modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
+
+    <module name="org.apache.cxf" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-(.*)" />
+        <apply-to-dependencies skip="true">
+            <include module="junit" />
+            <include module="com.sun.xml.bind" />
+            <include module="javax.xml.bind.api" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.sun.xml.bind" services="import" />
+            <module name="javax.api"/>
+            <module name="javax.jws.api" />
+            <module name="javax.servlet.api" />
+            <module name="javax.xml.bind.api" services="import" />
+            <module name="javax.xml.ws.api" />
+            <module name="org.apache.cxf.services" slot="3.0.2" />
+            <module name="org.apache.cxf.xjcplugins" slot="3.0.2" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.cxf.services" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf.services.sts:cxf-services-(.*)" />
+    </module>
+
+    <module name="org.apache.cxf.xjcplugins" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf.xjcplugins:cxf-xjc-(.*)" />
+    </module>
+
+    <module name="org.opensaml" slot="2.6.1" inherit-slot="false">
+        <include artifact="org.opensaml:opensaml(.*)" />
+        <include artifact="joda-time:joda-time" />
+    </module>
+
+    <module name="org.apache.ws.security" slot="2.0.2" inherit-slot="false">
+        <include artifact="org.apache.wss4j:wss4j-(.*)" />
+    </module>
+
+    <module name="org.apache.santuario.xmlsec" slot="2.0.2" inherit-slot="false">
+        <include artifact="org.apache.santuario:xmlsec" />
+    </module>
+</modules>

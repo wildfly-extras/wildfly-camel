@@ -2,7 +2,7 @@
  * #%L
  * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2013 - 2014 RedHat
+ * Copyright (C) 2013 - 2015 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,39 +20,38 @@
 package org.wildfly.camel.test.cxf;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.cxf.jaxrs.CxfRsComponent;
+import org.apache.camel.component.cxf.jaxrs.CxfRsEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.cxf.Bus;
+import org.apache.cxf.BusFactory;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.container.ManagementClient;
+import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.ProvisionerSupport;
-import org.wildfly.camel.test.cxf.subA.Endpoint;
-import org.wildfly.camel.test.cxf.subA.EndpointImpl;
+import org.wildfly.camel.test.cxf.subC.GreetingService;
+import org.wildfly.camel.test.cxf.subC.RestApplication;
 
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
+import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URL;
 
-/**
- * Test WebService endpoint access with the cxf component.
- *
- * @author thomas.diesler@jboss.com
- * @since 11-Jun-2013
- */
 @RunWith(Arquillian.class)
-public class WebServicesIntegrationTest {
+public class RestServicesIntegrationTest {
 
     static final String SIMPLE_WAR = "simple.war";
 
@@ -64,29 +63,21 @@ public class WebServicesIntegrationTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-integration-tests");
-        archive.addClasses(ProvisionerSupport.class, Endpoint.class);
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jaxrs-tests");
+        archive.addClasses(ProvisionerSupport.class, GreetingService.class);
+        archive.setManifest(new Asset() {
+            @Override
+            public InputStream openStream() {
+                ManifestBuilder builder = new ManifestBuilder();
+                builder.addManifestHeader("Dependencies", "org.apache.cxf:3.0.2");
+                return builder.openStream();
+            }
+        });
         return archive;
     }
 
     @Test
-    public void testSimpleWar() throws Exception {
-        deployer.deploy(SIMPLE_WAR);
-        try {
-            // [FIXME #283] Usage of camel-cxf depends on TCCL
-            Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
-            QName serviceName = new QName("http://wildfly.camel.test.cxf", "EndpointService");
-            Service service = Service.create(getWsdl("/simple"), serviceName);
-            Endpoint port = service.getPort(Endpoint.class);
-            Assert.assertEquals("Hello Foo", port.echo("Foo"));
-        } finally {
-            deployer.undeploy(SIMPLE_WAR);
-        }
-    }
-
-    @Test
-    public void testCxfProducer() throws Exception {
+    public void testCxfRsProducer() throws Exception {
         deployer.deploy(SIMPLE_WAR);
         try {
             // [FIXME #283] Usage of camel-cxf depends on TCCL
@@ -96,36 +87,42 @@ public class WebServicesIntegrationTest {
             camelctx.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
-                    from("direct:start").
-                    to("cxf://" + getEndpointAddress("/simple") + "?serviceClass=" + Endpoint.class.getName());
+                    from("direct:start")
+                    .setHeader(Exchange.HTTP_METHOD, constant("GET")).
+                    to("cxfrs://" + getEndpointAddress("/simple") + "?resourceClasses=" + GreetingService.class.getName());
                 }
             });
-
             camelctx.start();
-            try {
-                ProducerTemplate producer = camelctx.createProducerTemplate();
-                String result = producer.requestBody("direct:start", "Kermit", String.class);
-                Assert.assertEquals("Hello Kermit", result);
-            } finally {
-                camelctx.stop();
-            }
+
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBodyAndHeader("direct:start", "mybody", "name", "Kermit", String.class);
+
+            Assert.assertEquals("Hello Kermit", result);
         } finally {
             deployer.undeploy(SIMPLE_WAR);
         }
     }
 
     @Test
-    public void testCxfConsumer() throws Exception {
+    public void testCxfRsConsumer() throws Exception {
         // [FIXME #283] Usage of camel-cxf depends on TCCL
         Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
 
         CamelContext camelctx = new DefaultCamelContext();
-        final String uri = "cxf:/webservices/?serviceClass=" + Endpoint.class.getName();
+        CxfRsComponent component = new CxfRsComponent();
+        Bus defaultBus = BusFactory.getDefaultBus(true);
+        String uri = "cxfrs://" + getEndpointAddress("/simple");
+
+        final CxfRsEndpoint cxfRsEndpoint = new CxfRsEndpoint(uri, component);
+        cxfRsEndpoint.setCamelContext(camelctx);
+        cxfRsEndpoint.setBus(defaultBus);
+        cxfRsEndpoint.setSetDefaultBus(true);
+        cxfRsEndpoint.setResourceClasses(GreetingService.class);
 
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from(uri).to("direct:end");
+                from(cxfRsEndpoint).to("direct:end");
             }
         });
 
@@ -138,17 +135,13 @@ public class WebServicesIntegrationTest {
     }
 
     private String getEndpointAddress(String contextPath) throws MalformedURLException {
-        return managementClient.getWebUri() + contextPath + "/EndpointService";
-    }
-
-    private URL getWsdl(String contextPath) throws MalformedURLException {
-        return new URL(getEndpointAddress(contextPath) + "?wsdl");
+        return managementClient.getWebUri() + contextPath + "/rest/greet/hello/Kermit";
     }
 
     @Deployment(name = SIMPLE_WAR, managed = false, testable = false)
     public static Archive<?> getSimpleWar() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, SIMPLE_WAR);
-        archive.addClasses(Endpoint.class, EndpointImpl.class);
+        archive.addPackage(RestApplication.class.getPackage());
         return archive;
     }
 }

@@ -13,12 +13,12 @@
     <module name="javax.jms.api" optional="true" />
     <module name="javax.persistence.persistence-api" optional="true" />
     <module name="javax.validation.api" optional="true" />
-    <module name="joda-time" optional="true" />
     <module name="org.apache.camel.component.script" optional="true" />
     <module name="org.aspectj.aspectjweaver" optional="true" />
     <module name="org.codehaus.groovy.groovy-all" optional="true" />
     <module name="org.hibernate.hibernate-validator" optional="true" />
     <module name="org.jruby" optional="true" />
+    <module name="org.opensaml" optional="true" slot="2.6.1" />
     <module name="org.springframework.aop" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.core" />

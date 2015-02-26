@@ -221,6 +221,61 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-management</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-local</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-jms</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-mex</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-rm</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-security</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf.services.sts</groupId>
+            <artifactId>cxf-services-sts-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf.services.ws-discovery</groupId>
+            <artifactId>cxf-services-ws-discovery-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf.xjcplugins</groupId>
+            <artifactId>cxf-xjc-boolean</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf.xjcplugins</groupId>
+            <artifactId>cxf-xjc-dv</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf.xjcplugins</groupId>
+            <artifactId>cxf-xjc-ts</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.configadmin</artifactId>
             <scope>provided</scope>
@@ -414,26 +469,6 @@
                         <exclude>
                             <groupId>org.apache.camel</groupId>
                             <artifactId>camel-blueprint</artifactId>
-                        </exclude>
-                        <exclude>
-                            <groupId>org.apache.cxf</groupId>
-                            <artifactId>cxf-rt-bindings-soap</artifactId>
-                        </exclude>
-                        <exclude>
-                            <groupId>org.apache.cxf</groupId>
-                            <artifactId>cxf-rt-features-clustering</artifactId>
-                        </exclude>
-                        <exclude>
-                            <groupId>org.apache.cxf</groupId>
-                            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-                        </exclude>
-                        <exclude>
-                            <groupId>org.apache.cxf</groupId>
-                            <artifactId>cxf-rt-frontend-jaxws</artifactId>
-                        </exclude>
-                        <exclude>
-                            <groupId>org.apache.cxf</groupId>
-                            <artifactId>cxf-rt-rs-security-oauth</artifactId>
                         </exclude>
                         <exclude>
                             <groupId>org.apache.deltaspike.test</groupId>
