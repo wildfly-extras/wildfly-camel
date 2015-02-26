@@ -115,7 +115,7 @@ public class TransactedJMSIntegrationTest {
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-jms-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-jms-tx-tests");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {

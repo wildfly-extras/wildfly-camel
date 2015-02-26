@@ -22,7 +22,6 @@ package org.wildfly.camel.test.spring;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -47,38 +46,22 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 @RunWith(Arquillian.class)
 public class SpringBeanDeploymentTest {
 
-    static final String CAMEL_MODULE = "camel-module.jar";
-
     @ArquillianResource
     CamelContextRegistry contextRegistry;
-
-    @ArquillianResource
-    Deployer deployer;
 
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-deployment-tests");
+        archive.addClasses(HelloBean.class);
+        archive.addAsResource("spring/bean-transform-camel-context.xml", CamelConstants.CAMEL_CONTEXT_FILE_NAME);
         return archive;
     }
 
     @Test
     public void testBeanTransformFromModule() throws Exception {
-        deployer.deploy(CAMEL_MODULE);
-        try {
-            CamelContext camelctx = contextRegistry.getContext("spring-context");
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            String result = producer.requestBody("direct:start", "Kermit", String.class);
-            Assert.assertEquals("Hello Kermit", result);
-        } finally {
-            deployer.undeploy(CAMEL_MODULE);
-        }
-    }
-
-    @Deployment(name = CAMEL_MODULE, managed = false, testable = false)
-    public static JavaArchive getModule() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CAMEL_MODULE);
-        archive.addClasses(HelloBean.class);
-        archive.addAsResource("spring/bean-transform-camel-context.xml", CamelConstants.CAMEL_CONTEXT_FILE_NAME);
-        return archive;
+        CamelContext camelctx = contextRegistry.getContext("spring-context");
+        ProducerTemplate producer = camelctx.createProducerTemplate();
+        String result = producer.requestBody("direct:start", "Kermit", String.class);
+        Assert.assertEquals("Hello Kermit", result);
     }
 }

@@ -51,7 +51,7 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 @RunWith(Arquillian.class)
 public class SpringContextDeploymentTest  {
 
-    static final String CAMEL_CONTEXT_XML = "simple-transform-camel-context.xml";
+    static final String CAMEL_CONTEXT_XML = "transform1-camel-context.xml";
 
     @ArquillianResource
     CamelContextRegistry contextRegistry;
@@ -80,7 +80,7 @@ public class SpringContextDeploymentTest  {
         ServerDeploymentHelper server = new ServerDeploymentHelper(managementClient.getControllerClient());
         String runtimeName = server.deploy(CAMEL_CONTEXT_XML, resourceUrl.openStream());
         try {
-            CamelContext camelctx = contextRegistry.getContext("spring-context");
+            CamelContext camelctx = contextRegistry.getContext("transform1");
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);

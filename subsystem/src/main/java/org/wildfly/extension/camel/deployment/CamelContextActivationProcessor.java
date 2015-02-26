@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,6 +20,12 @@
 
 
 package org.wildfly.extension.camel.deployment;
+
+import static org.wildfly.extension.camel.CamelLogger.LOGGER;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.camel.CamelContext;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
@@ -38,28 +44,30 @@ public class CamelContextActivationProcessor implements DeploymentUnitProcessor 
 
     @Override
     public void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
-        DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
-        CamelContext camelctx = depUnit.getAttachment(CamelConstants.CAMEL_CONTEXT_KEY);
-        if (camelctx == null)
-            return;
 
-        // Start the camel context
-        try {
-            camelctx.start();
-        } catch (Exception ex) {
-            throw new IllegalStateException("Cannot start camel context: " + camelctx.getName(), ex);
+        // Start the camel contexts
+        DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
+        for (CamelContext camelctx : depUnit.getAttachmentList(CamelConstants.CAMEL_CONTEXT_KEY)) {
+            try {
+                camelctx.start();
+            } catch (Exception ex) {
+                LOGGER.error("Cannot start camel context: " + camelctx.getName(), ex);
+            }
         }
     }
 
     @Override
     public void undeploy(final DeploymentUnit depUnit) {
-        // Stop the camel context
-        CamelContext camelctx = depUnit.getAttachment(CamelConstants.CAMEL_CONTEXT_KEY);
-        if (camelctx != null) {
+
+        List<CamelContext> ctxlist = new ArrayList<>(depUnit.getAttachmentList(CamelConstants.CAMEL_CONTEXT_KEY));
+        Collections.reverse(ctxlist);
+
+        // Stop the camel contexts
+        for (CamelContext camelctx : ctxlist) {
             try {
                 camelctx.stop();
             } catch (Exception ex) {
-                throw new IllegalStateException("Cannot stop camel context: " + camelctx.getName(), ex);
+                LOGGER.warn("Cannot stop camel context: " + camelctx.getName(), ex);
             }
         }
     }
