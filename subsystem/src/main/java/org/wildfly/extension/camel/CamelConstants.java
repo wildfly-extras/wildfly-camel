@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,6 +23,7 @@ package org.wildfly.extension.camel;
 
 import org.apache.camel.CamelContext;
 import org.jboss.as.server.deployment.AttachmentKey;
+import org.jboss.as.server.deployment.AttachmentList;
 import org.jboss.msc.service.ServiceName;
 
 /**
@@ -56,7 +57,7 @@ public interface CamelConstants {
     String REPOSITORY_CONTENT_FILE_NAME = "META-INF/jboss-repository-content.xml";
 
     /** The {@link CamelContext} attachment key */
-    AttachmentKey<CamelContext> CAMEL_CONTEXT_KEY = AttachmentKey.create(CamelContext.class);
+    AttachmentKey<AttachmentList<CamelContext>> CAMEL_CONTEXT_KEY = AttachmentKey.createList(CamelContext.class);
     /** The {@link CamelContextRegistry} attachment key */
     AttachmentKey<CamelContextRegistry> CAMEL_CONTEXT_REGISTRY_KEY = AttachmentKey.create(CamelContextRegistry.class);
     /** The {@link CamelContextFactory} attachment key */

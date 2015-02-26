@@ -24,11 +24,11 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-  <camelContext id="spring-context">
+  <camelContext id="transform2">
     <route>
       <from uri="direct:start"/>
       <transform>
-        <simple>Hello ${body}</simple>
+        <simple>Hello2 ${body}</simple>
       </transform>
     </route>
   </camelContext>

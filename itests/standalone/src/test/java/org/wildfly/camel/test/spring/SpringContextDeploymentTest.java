@@ -51,7 +51,7 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 @RunWith(Arquillian.class)
 public class SpringContextDeploymentTest  {
 
-    static final String CAMEL_CONTEXT_XML = "simple-transform-camel-context.xml";
+    static final String CAMEL_CONTEXT_XML = "transform1-camel-context.xml";
 
     @ArquillianResource
     CamelContextRegistry contextRegistry;

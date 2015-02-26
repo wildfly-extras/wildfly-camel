@@ -20,11 +20,8 @@
 
 package org.wildfly.camel.test.spring;
 
-import java.net.URL;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -33,41 +30,43 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.extension.camel.CamelContextFactory;
-import org.wildfly.extension.camel.SpringCamelContextFactory;
+import org.wildfly.extension.camel.CamelContextRegistry;
 
 /**
- * Deploys a module/bundle that contains a spring context definition.
+ * [#206] Provide multiple Camel config files per deployment
  *
- * The tests then build a route through the {@link CamelContextFactory} API and perform a simple invokation.
- * This verifies spring context creation from a deployment.
+ * https://github.com/wildfly-extras/wildfly-camel/issues/206
  *
  * @author thomas.diesler@jboss.com
- * @since 21-Apr-2013
+ * @since 26-Feb-2015
  */
 @RunWith(Arquillian.class)
-public class SpringContextTest {
-
-    static final String SPRING_CAMEL_CONTEXT_XML = "spring/transform1-camel-context.xml";
+public class SpringMultipleDescriptorsTest {
 
     @ArquillianResource
-    Deployer deployer;
+    CamelContextRegistry contextRegistry;
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-spring-tests");
-        archive.addAsResource(SPRING_CAMEL_CONTEXT_XML);
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-multiple-tests");
+        archive.addAsResource("spring/transform1-camel-context.xml", "transform1-camel-context.xml");
+        archive.addAsResource("spring/transform2-camel-context.xml", "somedir/transform2-camel-context.xml");
         return archive;
     }
 
     @Test
-    public void testSpringContextFromURL() throws Exception {
-        URL resourceUrl = getClass().getResource("/" + SPRING_CAMEL_CONTEXT_XML);
-        CamelContext camelctx = SpringCamelContextFactory.createSpringCamelContext(resourceUrl, null);
-        camelctx.start();
+    public void testTransform1() throws Exception {
+        CamelContext camelctx = contextRegistry.getContext("transform1");
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);
         Assert.assertEquals("Hello Kermit", result);
     }
 
+    @Test
+    public void testTransform2() throws Exception {
+        CamelContext camelctx = contextRegistry.getContext("transform2");
+        ProducerTemplate producer = camelctx.createProducerTemplate();
+        String result = producer.requestBody("direct:start", "Kermit", String.class);
+        Assert.assertEquals("Hello2 Kermit", result);
+    }
 }
