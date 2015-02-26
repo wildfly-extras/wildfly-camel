@@ -21,21 +21,18 @@ package org.wildfly.camel.test.docker.domain;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.arquillian.api.ContainerResource;
 import org.jboss.as.arquillian.container.ManagementClient;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
 import org.wildfly.camel.test.common.docker.DeployCommand;
-import org.wildfly.camel.test.common.docker.DockerCommand;
 import org.wildfly.camel.test.common.docker.DockerCommand.Result;
 
 
@@ -47,16 +44,6 @@ public class DockerDomainTest {
 
     @ContainerResource
     ManagementClient mgmtClient;
-
-    @AfterClass
-    public static void afterClass() {
-        // [FIXME #185] docker:stop cannot reliably stop/kill containers
-        Result result = new DockerCommand("ps").options("-aq").exec();
-        Iterator<String> it = result.outputLines();
-        while (it.hasNext()) {
-            new DockerCommand("rm").options("-f", it.next()).exec();
-        }
-    }
 
     @Test
     @Ignore("[FIXME #278] Intermittent failures of Docker domain mode tests")

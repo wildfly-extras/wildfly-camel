@@ -92,7 +92,7 @@
 
         <!-- Plugin Versions -->
         <version-build-helper-plugin>1.9.1</version-build-helper-plugin>
-        <version-docker-maven-plugin>0.10.5</version-docker-maven-plugin>
+        <version-docker-maven-plugin>0.11.1</version-docker-maven-plugin>
         <version-groovy-maven-plugin>2.0</version-groovy-maven-plugin>
         <version-license-maven-plugin>1.8</version-license-maven-plugin>
         <version-maven-antrun-plugin>1.7</version-maven-antrun-plugin>

@@ -133,7 +133,7 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <exec executable="docker">
+                                        <exec executable="docker" failonerror="false">
                                             <arg value="rmi" />
                                             <arg value="--force=true" />
                                             <arg value="${docker.image.name}" />
@@ -159,8 +159,10 @@
                                             <name>${docker.image.name}</name>
                                             <build>
                                                 <from>wildflyext/wildfly-camel</from>
-                                                <assemblyDescriptorRef>artifact</assemblyDescriptorRef>
-                                                <exportDir>/opt/jboss/wildfly/standalone/deployments</exportDir>
+                                                <assembly>
+                                                    <basedir>/opt/jboss/wildfly/standalone/deployments</basedir>
+                                                    <descriptorRef>artifact</descriptorRef>
+                                                </assembly>
                                             </build>
                                         </image>
                                     </images>
