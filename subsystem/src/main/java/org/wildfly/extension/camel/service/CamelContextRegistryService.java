@@ -332,8 +332,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         private boolean isCxfEndpoint(final Endpoint endpoint) {
             return endpoint instanceof CxfEndpoint ||
                    endpoint instanceof CxfRsEndpoint ||
-                   endpoint instanceof CxfBeanEndpoint ||
-                   endpoint instanceof CxfEndpoint;
+                   endpoint instanceof CxfBeanEndpoint;
         }
     }
 }
