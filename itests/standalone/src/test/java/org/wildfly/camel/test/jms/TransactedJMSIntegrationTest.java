@@ -39,7 +39,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.spring.spi.SpringTransactionPolicy;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -57,7 +56,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.transaction.jta.JtaTransactionManager;
 
 @RunWith(Arquillian.class)
 @ServerSetup({TransactedJMSIntegrationTest.JmsQueueSetup.class})
@@ -120,7 +118,7 @@ public class TransactedJMSIntegrationTest {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.jboss.as.controller-client,javax.jms.api,org.apache.camel.spring,org.springframework.tx");
+                builder.addManifestHeader("Dependencies", "org.jboss.as.controller-client,javax.jms.api");
                 return builder.openStream();
             }
         });
@@ -129,12 +127,12 @@ public class TransactedJMSIntegrationTest {
 
     @Before
     public void setUp() throws Exception {
-        configureTransactionality();
+        TransactionManager transactionManager = (TransactionManager) initialctx.lookup("java:/TransactionManager");
+        initialctx.bind("transactionManager", transactionManager);
     }
 
     @After
     public void tearDown() throws Exception {
-        initialctx.unbind("PROPAGATION_REQUIRED");
         initialctx.unbind("transactionManager");
     }
 
@@ -146,23 +144,26 @@ public class TransactedJMSIntegrationTest {
 
         camelctx.addRoutes(configureRouteBuilder());
         camelctx.start();
+        try {
+            ConnectionFactory connectionFactory = (ConnectionFactory) initialctx.lookup("java:/JmsXA");
+            Connection connection = connectionFactory.createConnection();
+            try {
+                sendMessage(connection, JmsQueue.QUEUE_ONE.getJndiName(), "Hello Bob");
 
-        // Send a message to the queue
-        ConnectionFactory connectionFactory = (ConnectionFactory) initialctx.lookup("java:/JmsXA");
-        Connection connection = connectionFactory.createConnection();
-        sendMessage(connection, JmsQueue.QUEUE_ONE.getJndiName(), "Hello Bob");
+                // Forwarding the hello message on to QUEUE_TWO should have been rolled back
+                String result = consumeMessageFromEndpoint(camelctx, JmsQueue.QUEUE_TWO.getCamelEndpointUri());
+                Assert.assertNull(result);
 
-        // Forwarding the hello message on to QUEUE_TWO should have been rolled back
-        String result = consumeMessageFromEndpoint(camelctx, JmsQueue.QUEUE_TWO.getCamelEndpointUri());
-        Assert.assertNull(result);
-
-        // The message should have been placed onto the dead letter queue
-        result = consumeMessageFromEndpoint(camelctx, JmsQueue.DEAD_LETTER_QUEUE.getCamelEndpointUri());
-        Assert.assertNotNull(result);
-        Assert.assertEquals("Hello Bob", result);
-
-        connection.close();
-        camelctx.stop();
+                // The message should have been placed onto the dead letter queue
+                result = consumeMessageFromEndpoint(camelctx, JmsQueue.DEAD_LETTER_QUEUE.getCamelEndpointUri());
+                Assert.assertNotNull(result);
+                Assert.assertEquals("Hello Bob", result);
+            } finally {
+                connection.close();
+            }
+        } finally {
+            camelctx.stop();
+        }
     }
 
     @Test
@@ -173,18 +174,22 @@ public class TransactedJMSIntegrationTest {
 
         camelctx.addRoutes(configureRouteBuilder());
         camelctx.start();
+        try {
+            // Send a message to the queue
+            ConnectionFactory connectionFactory = (ConnectionFactory) initialctx.lookup("java:/JmsXA");
+            Connection connection = connectionFactory.createConnection();
+            try {
+                sendMessage(connection, JmsQueue.QUEUE_ONE.getJndiName(), "Hello Kermit");
 
-        // Send a message to the queue
-        ConnectionFactory connectionFactory = (ConnectionFactory) initialctx.lookup("java:/JmsXA");
-        Connection connection = connectionFactory.createConnection();
-        sendMessage(connection, JmsQueue.QUEUE_ONE.getJndiName(), "Hello Kermit");
-
-        // Verify that the message was forwarded to QUEUE_TWO
-        String result = consumeMessageFromEndpoint(camelctx, JmsQueue.QUEUE_TWO.getCamelEndpointUri());
-        Assert.assertEquals("Hello Kermit", result);
-
-        connection.close();
-        camelctx.stop();
+                // Verify that the message was forwarded to QUEUE_TWO
+                String result = consumeMessageFromEndpoint(camelctx, JmsQueue.QUEUE_TWO.getCamelEndpointUri());
+                Assert.assertEquals("Hello Kermit", result);
+            } finally {
+                connection.close();
+            }
+        } finally {
+            camelctx.stop();
+        }
     }
 
     private void sendMessage(Connection connection, String jndiName, String message) throws Exception {
@@ -197,11 +202,11 @@ public class TransactedJMSIntegrationTest {
     }
 
     private String consumeMessageFromEndpoint(CamelContext camelctx, String endpoint) throws Exception {
-        String result = null;
 
         ConsumerTemplate consumer = camelctx.createConsumerTemplate();
         consumer.start();
 
+        String result = null;
         Exchange exchange = consumer.receive(endpoint, 2000);
         if (exchange != null) {
             if (exchange.hasOut()) {
@@ -210,7 +215,6 @@ public class TransactedJMSIntegrationTest {
                 result = exchange.getIn().getBody(String.class);
             }
         }
-
         return result;
     }
 
@@ -223,7 +227,6 @@ public class TransactedJMSIntegrationTest {
                         .redeliveryDelay(1000));
 
                 from(JmsQueue.QUEUE_ONE.getCamelEndpointUri())
-                        .transacted("PROPAGATION_REQUIRED")
                         .to("direct:greet")
                         .to(JmsQueue.QUEUE_TWO.getCamelEndpointUri());
 
@@ -237,32 +240,8 @@ public class TransactedJMSIntegrationTest {
         };
     }
 
-    private void configureTransactionality() throws NamingException {
-        JtaTransactionManager jtaTransactionManager = configureJtaTransactionManager();
-        SpringTransactionPolicy transactionPolicy = configureTransactionPolicy(jtaTransactionManager);
-        configureJndiRegistry(jtaTransactionManager, transactionPolicy);
-    }
-
-    private void configureJndiRegistry(JtaTransactionManager jtaTransactionManager, SpringTransactionPolicy transactionPolicy) throws NamingException {
-        initialctx.bind("PROPAGATION_REQUIRED", transactionPolicy);
-        initialctx.bind("transactionManager", jtaTransactionManager);
-    }
-
-    private JtaTransactionManager configureJtaTransactionManager() throws NamingException {
-        TransactionManager transactionManger = (TransactionManager) initialctx.lookup("java:/TransactionManager");
-        return new JtaTransactionManager(transactionManger);
-    }
-
-    private SpringTransactionPolicy configureTransactionPolicy(JtaTransactionManager jtaTransactionManager) {
-        SpringTransactionPolicy transactionPolicy = new SpringTransactionPolicy();
-        transactionPolicy.setTransactionManager(jtaTransactionManager);
-        transactionPolicy.setPropagationBehaviorName("PROPAGATION_REQUIRED");
-        return transactionPolicy;
-    }
-
     private JmsComponent configureJMSComponent() throws NamingException {
         XAQueueConnectionFactory connectionFactory = (XAQueueConnectionFactory) initialctx.lookup("java:/JmsXA");
-
         JmsComponent jmsComponent = new JmsComponent();
         jmsComponent.setConnectionFactory(connectionFactory);
         jmsComponent.setCacheLevelName("CACHE_NONE");

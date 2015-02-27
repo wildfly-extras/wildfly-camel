@@ -124,13 +124,13 @@ public class JMSIntegrationTest {
         try {
             // Send a message to the queue
             ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
-            Connection con = cfactory.createConnection();
+            Connection conection = cfactory.createConnection();
             try {
-                sendMessage(con, QUEUE_JNDI_NAME, "Kermit");
+                sendMessage(conection, QUEUE_JNDI_NAME, "Kermit");
                 String result = consumeRouteMessage(camelctx);
                 Assert.assertEquals("Hello Kermit", result);
             } finally {
-                con.close();
+                conection.close();
             }
         } finally {
             camelctx.stop();
@@ -157,9 +157,9 @@ public class JMSIntegrationTest {
         try {
             // Get the message from the queue
             ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
-            Connection con = cfactory.createConnection();
+            Connection connection = cfactory.createConnection();
             try {
-                receiveMessage(con, QUEUE_JNDI_NAME, new MessageListener() {
+                receiveMessage(connection, QUEUE_JNDI_NAME, new MessageListener() {
                     @Override
                     public void onMessage(Message message) {
                         TextMessage text = (TextMessage) message;
@@ -178,7 +178,7 @@ public class JMSIntegrationTest {
                 Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
                 Assert.assertEquals("Hello Kermit", result.toString());
             } finally {
-                con.close();
+                connection.close();
             }
         } finally {
             camelctx.stop();
