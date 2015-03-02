@@ -28,6 +28,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.arquillian.api.ContainerResource;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
@@ -45,6 +46,7 @@ public class DockerDomainTest {
     ManagementClient mgmtClient;
 
     @Test
+    @Ignore("[FIXME #278] Intermittent failures of Docker domain mode tests")
     public void testEndpoint() throws Exception {
         String mgmtAddress = mgmtClient.getMgmtAddress();
         String host = System.getenv("DOCKER_IP");
