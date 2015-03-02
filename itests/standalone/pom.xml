@@ -257,26 +257,7 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>unpack-wildfly</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.wildfly</groupId>
-                                    <artifactId>wildfly-dist</artifactId>
-                                    <version>${version.wildfly}</version>
-                                    <type>zip</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>unpack-wildfly-patch</id>
+                        <id>unpack-distro</id>
                         <phase>generate-resources</phase>
                         <goals>
                             <goal>unpack</goal>
@@ -285,11 +266,10 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>org.wildfly.camel</groupId>
-                                    <artifactId>wildfly-camel-patch</artifactId>
+                                    <artifactId>wildfly-camel-distro</artifactId>
                                     <version>${project.version}</version>
-                                    <type>tar.gz</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${jboss.home}</outputDirectory>
+                                    <type>tar</type>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>

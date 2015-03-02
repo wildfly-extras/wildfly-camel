@@ -33,7 +33,7 @@
     <module name="javax.xml.ws.api" />
     <module name="org.apache.cxf.services" slot="3.0.2" />
     <module name="org.apache.cxf.xjcplugins" slot="3.0.2" />
-    <module name="asm.asm" optional="true" />
+    <module name="asm.asm" />
     <module name="cglib.cglib-nodep" />
     <module name="com.sun.xml.fastinfoset.FastInfoset" optional="true" />
     <module name="javax.annotation.api" />
@@ -54,7 +54,7 @@
     <module name="org.apache.ws.security" slot="2.0.2" />
     <module name="org.apache.ws.xmlschema" />
     <module name="org.apache.xerces" optional="true" />
-    <module name="org.apache.xml-resolver" optional="true" />
+    <module name="org.apache.xml-resolver" />
     <module name="org.bouncycastle" />
     <module name="org.codehaus.woodstox" />
     <module name="org.slf4j" optional="true" />
