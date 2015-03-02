@@ -23,6 +23,9 @@ package org.wildfly.camel.test.sql;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.builder.RouteBuilder;
@@ -30,6 +33,7 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -38,14 +42,20 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class SQLIntegrationTest {
 
+    @Resource(name = "java:jboss/datasources/ExampleDS")
+    DataSource dataSource;
+
     @Deployment
     public static JavaArchive createdeployment() throws IOException {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-sql-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-sql-tests.jar");
+        archive.addAsManifestResource(new StringAsset(""), "beans.xml");
         return archive;
     }
 
     @Test
-    public void testFileEndpoint() throws Exception {
+    public void testSQLEndpoint() throws Exception {
+
+        Assert.assertNotNull("DataSource not null", dataSource);
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {

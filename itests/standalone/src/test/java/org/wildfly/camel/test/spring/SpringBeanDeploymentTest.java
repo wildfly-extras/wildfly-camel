@@ -20,47 +20,41 @@
 
 package org.wildfly.camel.test.spring;
 
+import javax.annotation.Resource;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.ServiceStatus;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.smoke.subA.HelloBean;
-import org.wildfly.extension.camel.CamelConstants;
-import org.wildfly.extension.camel.CamelContextRegistry;
 
-/**
- * Deploys a module/bundle which contain a {@link HelloBean} referenced from a spring context definition.
- *
- * The tests expect the {@link CamelContext} to be created/started during deployment.
- * The tests then perfom a {@link CamelContext} lookup and do a simple invokation.
- *
- * @author thomas.diesler@jboss.com
- * @since 21-Apr-2013
- */
 @RunWith(Arquillian.class)
 public class SpringBeanDeploymentTest {
 
-    @ArquillianResource
-    CamelContextRegistry contextRegistry;
+    @Resource(name = "java:jboss/camel/context/spring-context")
+    CamelContext camelContext;
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-deployment-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-deployment-tests.jar");
         archive.addClasses(HelloBean.class);
-        archive.addAsResource("spring/bean-transform-camel-context.xml", CamelConstants.CAMEL_CONTEXT_FILE_NAME);
+        archive.addAsResource("spring/bean-transform-camel-context.xml");
+        archive.addAsManifestResource(new StringAsset(""), "beans.xml");
         return archive;
     }
 
     @Test
     public void testBeanTransformFromModule() throws Exception {
-        CamelContext camelctx = contextRegistry.getContext("spring-context");
-        ProducerTemplate producer = camelctx.createProducerTemplate();
+        Assert.assertNotNull("CamelContext not null", camelContext);
+        Assert.assertEquals(ServiceStatus.Started, camelContext.getStatus());
+        ProducerTemplate producer = camelContext.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);
         Assert.assertEquals("Hello Kermit", result);
     }

@@ -49,8 +49,6 @@ import org.wildfly.extension.camel.SpringCamelContextFactory;
 @RunWith(Arquillian.class)
 public class SpringBeanTransformTest {
 
-    static final String SPRING_CAMEL_CONTEXT_XML = "spring/bean-transform-camel-context.xml";
-
     @ArquillianResource
     Deployer deployer;
 
@@ -58,14 +56,14 @@ public class SpringBeanTransformTest {
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-spring-tests");
         archive.addClasses(HelloBean.class);
-        archive.addAsResource(SPRING_CAMEL_CONTEXT_XML);
+        archive.addAsResource("spring/bean-transform-camel-context.xml", "some-other-name.xml");
         return archive;
     }
 
     @Test
     public void testSpringContextFromURL() throws Exception {
 
-        URL resourceUrl = getClass().getResource("/" + SPRING_CAMEL_CONTEXT_XML);
+        URL resourceUrl = getClass().getResource("/some-other-name.xml");
         CamelContext camelctx = SpringCamelContextFactory.createSpringCamelContext(resourceUrl, getClass().getClassLoader());
 
         camelctx.start();

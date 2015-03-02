@@ -19,9 +19,14 @@
  */
 package org.wildfly.camel.test.cxf;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployer;
@@ -39,11 +44,6 @@ import org.junit.runner.RunWith;
 import org.wildfly.camel.test.ProvisionerSupport;
 import org.wildfly.camel.test.cxf.subA.Endpoint;
 import org.wildfly.camel.test.cxf.subA.EndpointImpl;
-
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * Test WebService endpoint access with the cxf component.
@@ -96,8 +96,7 @@ public class WebServicesIntegrationTest {
             camelctx.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
-                    from("direct:start").
-                    to("cxf://" + getEndpointAddress("/simple") + "?serviceClass=" + Endpoint.class.getName());
+                    from("direct:start").to("cxf://" + getEndpointAddress("/simple") + "?serviceClass=" + Endpoint.class.getName());
                 }
             });
 
@@ -116,6 +115,7 @@ public class WebServicesIntegrationTest {
 
     @Test
     public void testCxfConsumer() throws Exception {
+
         // [FIXME #283] Usage of camel-cxf depends on TCCL
         Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
 
@@ -132,7 +132,7 @@ public class WebServicesIntegrationTest {
         try {
             camelctx.start();
             Assert.fail("Expected RuntimeCamelException to be thrown but it was not");
-        } catch (RuntimeCamelException e) {
+        } catch (RuntimeException e) {
             Assert.assertTrue(e.getMessage().equals("CXF Endpoint consumers are not allowed"));
         }
     }

@@ -25,6 +25,7 @@ import java.net.URL;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.ServiceStatus;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -51,8 +52,6 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 @RunWith(Arquillian.class)
 public class SpringContextDeploymentTest  {
 
-    static final String CAMEL_CONTEXT_XML = "transform1-camel-context.xml";
-
     @ArquillianResource
     CamelContextRegistry contextRegistry;
 
@@ -62,7 +61,7 @@ public class SpringContextDeploymentTest  {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-deployment-tests");
-        archive.addAsResource("spring/" + CAMEL_CONTEXT_XML, CAMEL_CONTEXT_XML);
+        archive.addAsResource("spring/transform1-camel-context.xml", "some-other-name.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -76,11 +75,12 @@ public class SpringContextDeploymentTest  {
 
     @Test
     public void testSimpleTransformFromModule() throws Exception {
-        URL resourceUrl = getClass().getResource("/" + CAMEL_CONTEXT_XML);
+        URL resourceUrl = getClass().getResource("/some-other-name.xml");
         ServerDeploymentHelper server = new ServerDeploymentHelper(managementClient.getControllerClient());
-        String runtimeName = server.deploy(CAMEL_CONTEXT_XML, resourceUrl.openStream());
+        String runtimeName = server.deploy("transform1-camel-context.xml", resourceUrl.openStream());
         try {
             CamelContext camelctx = contextRegistry.getContext("transform1");
+            Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);

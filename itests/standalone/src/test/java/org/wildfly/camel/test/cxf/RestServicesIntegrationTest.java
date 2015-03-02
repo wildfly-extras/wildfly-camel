@@ -19,10 +19,12 @@
  */
 package org.wildfly.camel.test.cxf;
 
+import java.io.InputStream;
+import java.net.MalformedURLException;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.cxf.jaxrs.CxfRsComponent;
 import org.apache.camel.component.cxf.jaxrs.CxfRsEndpoint;
@@ -46,9 +48,6 @@ import org.junit.runner.RunWith;
 import org.wildfly.camel.test.ProvisionerSupport;
 import org.wildfly.camel.test.cxf.subC.GreetingService;
 import org.wildfly.camel.test.cxf.subC.RestApplication;
-
-import java.io.InputStream;
-import java.net.MalformedURLException;
 
 @RunWith(Arquillian.class)
 public class RestServicesIntegrationTest {
@@ -129,7 +128,7 @@ public class RestServicesIntegrationTest {
         try {
             camelctx.start();
             Assert.fail("Expected RuntimeCamelException to be thrown but it was not");
-        } catch (RuntimeCamelException e) {
+        } catch (RuntimeException e) {
             Assert.assertTrue(e.getMessage().equals("CXF Endpoint consumers are not allowed"));
         }
     }

@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,6 @@ import org.jboss.as.naming.service.BinderService;
 import org.jboss.msc.inject.Injector;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
-import org.jboss.msc.service.ServiceName;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
@@ -48,7 +47,7 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 public final class CamelContextRegistryBindingService {
 
     public static ServiceController<?> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
-        final ContextNames.BindInfo bindInfo = getBindInfo();
+        final ContextNames.BindInfo bindInfo = ContextNames.bindInfoFor(CamelConstants.CAMEL_CONTEXT_REGISTRY_BINDING_NAME);
         BinderService binderService = new BinderService(bindInfo.getBindName()) {
             @Override
             public synchronized void start(StartContext context) throws StartException {
@@ -68,13 +67,5 @@ public final class CamelContextRegistryBindingService {
         builder.addDependency(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME, CamelContextRegistry.class, new ManagedReferenceInjector<CamelContextRegistry>(injector));
         builder.addListener(verificationHandler);
         return builder.install();
-    }
-
-    static ServiceName getBinderServiceName() {
-        return getBindInfo().getBinderServiceName();
-    }
-
-    static ContextNames.BindInfo getBindInfo() {
-        return ContextNames.bindInfoFor(CamelConstants.CAMEL_CONTEXT_REGISTRY_BINDING_NAME);
     }
 }

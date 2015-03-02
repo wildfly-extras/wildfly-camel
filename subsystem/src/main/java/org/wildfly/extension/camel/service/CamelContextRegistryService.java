@@ -20,21 +20,30 @@
 
 package org.wildfly.extension.camel.service;
 
+import static org.wildfly.extension.camel.CamelLogger.LOGGER;
+
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.EventObject;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Route;
-import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.StartupListener;
-import org.apache.camel.cdi.CdiCamelContext;
 import org.apache.camel.component.cxf.CxfEndpoint;
-import org.apache.camel.component.cxf.cxfbean.CxfBeanEndpoint;
-import org.apache.camel.component.cxf.jaxrs.CxfRsEndpoint;
 import org.apache.camel.management.event.CamelContextStartingEvent;
 import org.apache.camel.management.event.CamelContextStoppedEvent;
 import org.apache.camel.spi.Container;
 import org.apache.camel.spi.ManagementStrategy;
 import org.apache.camel.support.EventNotifierSupport;
 import org.jboss.as.controller.ServiceVerificationHandler;
+import org.jboss.as.naming.ImmediateManagedReferenceFactory;
+import org.jboss.as.naming.ServiceBasedNamingStore;
+import org.jboss.as.naming.deployment.ContextNames;
+import org.jboss.as.naming.deployment.ContextNames.BindInfo;
+import org.jboss.as.naming.service.BinderService;
 import org.jboss.gravia.runtime.ModuleContext;
 import org.jboss.gravia.runtime.Runtime;
 import org.jboss.gravia.runtime.ServiceRegistration;
@@ -44,6 +53,7 @@ import org.jboss.modules.ModuleClassLoader;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
+import org.jboss.msc.service.ServiceController.Mode;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
@@ -55,14 +65,6 @@ import org.wildfly.extension.camel.SpringCamelContextFactory;
 import org.wildfly.extension.camel.WildFlyClassResolver;
 import org.wildfly.extension.camel.parser.SubsystemState;
 import org.wildfly.extension.gravia.GraviaConstants;
-
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.util.EventObject;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
 /**
  * The {@link CamelContextRegistry} service
@@ -107,7 +109,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
 
     @Override
     public void start(StartContext startContext) throws StartException {
-        contextRegistry = new DefaultCamelContextRegistry();
+        contextRegistry = new DefaultCamelContextRegistry(startContext.getChildTarget());
 
         // Register the service with gravia
         Runtime runtime = injectedRuntime.getValue();
@@ -148,20 +150,20 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
 
     static class DefaultCamelContextRegistry implements CamelContextRegistry, Container {
 
-        final Map<CamelContext, ContextRegistration> contexts = new HashMap<>();
+        private final Map<CamelContext, CamelContextRegistration> contexts = new HashMap<>();
+        private final ServiceTarget serviceTarget;
 
-        class ContextRegistration {
-            final Module module;
-            final ClassLoader tcclOnStart;
-
-            ContextRegistration(Module module) {
-                this.tcclOnStart = Thread.currentThread().getContextClassLoader();
+        class CamelContextRegistration {
+            Module module;
+            ServiceController<?> controller;
+            CamelContextRegistration(Module module, ServiceController<?> controller) {
                 this.module = module;
+                this.controller = controller;
             }
         }
 
-        DefaultCamelContextRegistry() {
-            // Set the Camel Container singleton
+        DefaultCamelContextRegistry(ServiceTarget serviceTarget) {
+            this.serviceTarget = serviceTarget;
             Container.Instance.set(this);
         }
 
@@ -181,16 +183,6 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
 
         @Override
         public void manage(CamelContext camelctx) {
-            // Ensure context does not contain CXF consumer endpoints
-            try {
-                camelctx.addStartupListener(new WildFlyCamelStartupListener());
-            } catch (Exception e) {
-                throw new IllegalStateException("Cannot add camel context startup listener");
-            }
-
-            // No additional processing for CDI camel contexts is required
-            if (camelctx instanceof CdiCamelContext)
-                return;
 
             Module contextModule = null;
 
@@ -227,7 +219,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
             }
 
             IllegalStateAssertion.assertNotNull(contextModule, "Cannot obtain module for: " + camelctx);
-            final Module[] moduleHolder = new Module[] { contextModule };
+            final Module[] contextModuleHolder = new Module[] { contextModule };
 
             ManagementStrategy mgmtStrategy = camelctx.getManagementStrategy();
             mgmtStrategy.addEventNotifier(new EventNotifierSupport() {
@@ -238,8 +230,8 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
                     if (event instanceof CamelContextStartingEvent) {
                         CamelContextStartingEvent camelevt = (CamelContextStartingEvent) event;
                         CamelContext camelctx = camelevt.getContext();
-                        addContext(camelctx, moduleHolder[0]);
-                        LOGGER.info("Camel context starting: {}", camelctx);
+                        addContext(camelctx, contextModuleHolder[0]);
+                        LOGGER.info("Camel context starting: {}", camelctx.getName());
                     }
 
                     // Stopped
@@ -247,7 +239,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
                         CamelContextStoppedEvent camelevt = (CamelContextStoppedEvent) event;
                         CamelContext camelctx = camelevt.getContext();
                         removeContext(camelctx);
-                        LOGGER.info("Camel context stopped: {}", camelctx);
+                        LOGGER.info("Camel context stopped: {}", camelctx.getName());
                     }
                 }
 
@@ -256,25 +248,83 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
                 }
             });
 
+            // Ensure context does not contain CXF consumer endpoints
+            StartupListener startupListener = new StartupListener() {
+                @Override
+                public void onCamelContextStarted(CamelContext camelctx, boolean alreadyStarted) throws Exception {
+                    if (!alreadyStarted) {
+                        assertNoCxfEndpoint(camelctx);
+                    }
+                }
+            };
+
             // Initial context setup and registration
-            ModuleClassLoader contextClassLoader = moduleHolder[0].getClassLoader();
-            camelctx.setClassResolver(new WildFlyClassResolver(contextClassLoader));
-            camelctx.setApplicationContextClassLoader(contextClassLoader);
-            addContext(camelctx, null);
+            ModuleClassLoader contextClassLoader = contextModule.getClassLoader();
+            try {
+                camelctx.setClassResolver(new WildFlyClassResolver(contextClassLoader));
+                camelctx.setApplicationContextClassLoader(contextClassLoader);
+                camelctx.addStartupListener(startupListener);
+            } catch (RuntimeException rte) {
+                throw rte;
+            } catch (Exception ex) {
+                throw new IllegalStateException(ex);
+            }
         }
 
-        private ContextRegistration addContext(CamelContext camelctx, Module module) {
+        private CamelContextRegistration addContext(CamelContext camelctx, Module module) {
             synchronized (contexts) {
-                ContextRegistration ctxreg = new ContextRegistration(module);
-                contexts.put(camelctx, ctxreg);
-                return ctxreg;
+                CamelContextRegistration registration = contexts.get(camelctx);
+                if (registration == null) {
+                    ServiceController<?> controller = CamelContextBindingService.addService(serviceTarget, camelctx);
+                    registration = new CamelContextRegistration(module, controller);
+                    contexts.put(camelctx, registration);
+                }
+                return registration;
             }
         }
 
         private void removeContext(CamelContext camelctx) {
             synchronized (contexts) {
-                contexts.remove(camelctx);
+                CamelContextRegistration registration = contexts.remove(camelctx);
+                if (registration != null && registration.controller != null) {
+                    registration.controller.setMode(Mode.REMOVE);
+                }
             }
+        }
+
+        private void assertNoCxfEndpoint(CamelContext camelctx) {
+            String cxfpackage = CxfEndpoint.class.getPackage().getName();
+            for (Route route : camelctx.getRoutes()) {
+                Endpoint endpoint = route.getEndpoint();
+                String eppackage = endpoint.getClass().getPackage().getName();
+                if (route.getConsumer() != null && eppackage.startsWith(cxfpackage)) {
+                    throw new UnsupportedOperationException("CXF Endpoint consumers are not allowed");
+                }
+            }
+        }
+    }
+
+    private static class CamelContextBindingService extends AbstractService<CamelContext> {
+
+        static ServiceController<?> addService(ServiceTarget serviceTarget, final CamelContext camelctx) {
+            final BindInfo bindInfo = ContextNames.bindInfoFor(CamelConstants.CAMEL_CONTEXT_BINDING_NAME + "/" + camelctx.getName());
+            BinderService binderService = new BinderService(bindInfo.getBindName()) {
+                @Override
+                public synchronized void start(StartContext context) throws StartException {
+                    super.start(context);
+                    LOGGER.info("Bound camel naming object: {}", bindInfo.getAbsoluteJndiName());
+                }
+
+                @Override
+                public synchronized void stop(StopContext context) {
+                    LOGGER.debug("Unbind camel naming object: {}", bindInfo.getAbsoluteJndiName());
+                    super.stop(context);
+                }
+            };
+            binderService.getManagedObjectInjector().inject(new ImmediateManagedReferenceFactory(camelctx));
+            ServiceBuilder<?> builder = serviceTarget.addService(bindInfo.getBinderServiceName(), binderService);
+            builder.addDependency(bindInfo.getParentContextServiceName(), ServiceBasedNamingStore.class, binderService.getNamingStoreInjector());
+            return builder.install();
         }
     }
 
@@ -315,24 +365,6 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
             protected Class<?>[] getClassContext() {
                 return super.getClassContext();
             }
-        }
-    }
-
-    static final class WildFlyCamelStartupListener implements StartupListener{
-        @Override
-        public void onCamelContextStarted(CamelContext camelContext, boolean b) throws Exception {
-            for(Route route : camelContext.getRoutes()) {
-                final Endpoint endpoint = route.getEndpoint();
-                if(isCxfEndpoint(endpoint) && route.getConsumer() != null) {
-                    throw new RuntimeCamelException("CXF Endpoint consumers are not allowed");
-                }
-            }
-        }
-
-        private boolean isCxfEndpoint(final Endpoint endpoint) {
-            return endpoint instanceof CxfEndpoint ||
-                   endpoint instanceof CxfRsEndpoint ||
-                   endpoint instanceof CxfBeanEndpoint;
         }
     }
 }

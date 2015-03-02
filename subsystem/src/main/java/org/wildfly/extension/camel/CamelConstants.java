@@ -67,4 +67,6 @@ public interface CamelConstants {
     String CAMEL_CONTEXT_FACTORY_BINDING_NAME = "java:jboss/camel/CamelContextFactory";
     /** The JNDI name for the {@link CamelContextRegistry} binding */
     String CAMEL_CONTEXT_REGISTRY_BINDING_NAME = "java:jboss/camel/CamelContextRegistry";
+    /** The name for the {@link CamelContext} service */
+    String CAMEL_CONTEXT_BINDING_NAME = "java:jboss/camel/context";
 }

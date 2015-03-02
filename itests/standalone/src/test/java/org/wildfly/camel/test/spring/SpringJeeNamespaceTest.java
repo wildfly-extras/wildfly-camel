@@ -37,7 +37,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.spring.subA.HelloJeeBean;
-import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 /**
@@ -57,7 +56,7 @@ public class SpringJeeNamespaceTest {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-jee-tests");
-        archive.addAsResource("spring/jee-namespace-camel-context.xml", CamelConstants.CAMEL_CONTEXT_FILE_NAME);
+        archive.addAsResource("spring/jee-namespace-camel-context.xml");
         archive.addClasses(HelloJeeBean.class);
         return archive;
     }

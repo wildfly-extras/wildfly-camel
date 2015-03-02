@@ -57,7 +57,6 @@ public class SpringContextTest {
     public void testSpringContextFromURL() throws Exception {
         URL resourceUrl = getClass().getResource("/some-other-name.xml");
         CamelContext camelctx = SpringCamelContextFactory.createSpringCamelContext(resourceUrl, null);
-
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
