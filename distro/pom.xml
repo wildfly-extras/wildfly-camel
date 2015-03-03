@@ -110,10 +110,10 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${jboss.home}/standalone/configuration</outputDirectory>
+                            <outputDirectory>${jboss.home}</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>src/main/resources</directory>
+                                    <directory>etc/wildfly</directory>
                                 </resource>
                             </resources>
                         </configuration>
