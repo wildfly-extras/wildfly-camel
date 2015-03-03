@@ -32,27 +32,27 @@
     <name>Wildfly Camel :: Example :: Camel REST</name>
 
     <artifactId>example-camel-rest</artifactId>
-    <packaging>war</packaging>
-
+	<packaging>war</packaging>
+	
     <!-- Properties -->
     <properties>
         <docker.image.name>wildflyext/${project.artifactId}</docker.image.name>
     </properties>
 
-    <!-- Dependencies -->
-    <dependencies>
-
-        <!-- Provided -->
-        <dependency>
+    <!-- Dependencies -->    
+	<dependencies>
+	
+		<!-- Provided -->
+		<dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cdi</artifactId>
-            <scope>provided</scope>
+	        <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
+		<dependency>
+		    <groupId>javax.enterprise</groupId>
+		    <artifactId>cdi-api</artifactId>
+		  <scope>provided</scope>
+		</dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.2_spec</artifactId>
@@ -68,7 +68,7 @@
             <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
-
+	    
         <!-- Test -->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
@@ -184,42 +184,5 @@
                 <jboss.home>${basedir}/../target/wildfly-${version.wildfly}</jboss.home>
             </properties>
         </profile>
-        <profile>
-            <id>docker.push</id>
-            <activation>
-                <property>
-                    <name>docker.push</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.jolokia</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <configuration>
-                            <images>
-                                <image>
-                                    <name>${docker.image.name}</name>
-                                    <build>
-                                        <tags>
-                                            <tag>latest</tag>
-                                        </tags>
-                                    </build>
-                                </image>
-                            </images>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>docker-push</id>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>push</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+	</profiles>
 </project>

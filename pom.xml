@@ -93,7 +93,7 @@
 
         <!-- Plugin Versions -->
         <version-build-helper-plugin>1.9.1</version-build-helper-plugin>
-        <version-docker-maven-plugin>0.11.2</version-docker-maven-plugin>
+        <version-docker-maven-plugin>0.11.1</version-docker-maven-plugin>
         <version-groovy-maven-plugin>2.0</version-groovy-maven-plugin>
         <version-license-maven-plugin>1.8</version-license-maven-plugin>
         <version-maven-antrun-plugin>1.7</version-maven-antrun-plugin>
@@ -1006,47 +1006,6 @@
             <modules>
                 <module>examples</module>
             </modules>
-        </profile>
-        <profile>
-            <id>docker.push</id>
-            <activation>
-                <property>
-                    <name>docker.push</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>enforce-docker-registry-auth-properties</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <requireProperty>
-                                            <property>env.DOCKER_HOST</property>
-                                            <message>You must configure a DOCKER_HOST environment variable to build Docker images</message>
-                                        </requireProperty>
-                                        <requireProperty>
-                                            <property>docker.username</property>
-                                            <message>You must provide property -Ddocker.username to push docker images</message>
-                                        </requireProperty>
-                                        <requireProperty>
-                                            <property>docker.password</property>
-                                            <message>You must provide property -Ddocker.password to push docker images</message>
-                                        </requireProperty>
-                                    </rules>
-                                    <fail>true</fail>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 </project>
