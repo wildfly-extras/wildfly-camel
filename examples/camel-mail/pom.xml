@@ -91,14 +91,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Provided -->
-        <dependency>
-            <groupId>com.icegreen</groupId>
-            <artifactId>greenmail-webapp</artifactId>
-            <version>${version.greenmail}</version>
-            <type>war</type>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <!-- Build -->
@@ -108,20 +100,6 @@
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <executions>
-                    <execution>
-                        <id>greenmail-deploy</id>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>deploy-artifact</goal>
-                        </goals>
-                        <configuration>
-                            <groupId>com.icegreen</groupId>
-                            <artifactId>greenmail-webapp</artifactId>
-                            <version>${version.greenmail}</version>
-                            <type>war</type>
-                            <artifactId>greenmail-webapp</artifactId>
-                        </configuration>
-                    </execution>
                     <execution>
                         <id>wildfly-deploy</id>
                         <phase>integration-test</phase>
@@ -146,117 +124,6 @@
             <properties>
                 <jboss.home>${basedir}/../target/wildfly-${version.wildfly}</jboss.home>
             </properties>
-        </profile>
-        <profile>
-            <id>run</id>
-            <activation>
-                <property>
-                    <name>run</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>unpack-wildfly</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <inherited>true</inherited>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>org.wildfly</groupId>
-                                            <artifactId>wildfly-dist</artifactId>
-                                            <version>${version.wildfly}</version>
-                                            <type>zip</type>
-                                            <overWrite>false</overWrite>
-                                            <outputDirectory>${project.build.directory}</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>unpack-wildfly-patch</id>
-                                <phase>generate-test-sources</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <inherited>true</inherited>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>org.wildfly.camel</groupId>
-                                            <artifactId>wildfly-camel-patch</artifactId>
-                                            <version>${project.version}</version>
-                                            <type>tar.gz</type>
-                                            <overWrite>false</overWrite>
-                                            <outputDirectory>${jboss.home}</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>copy-standalone-xml</id>
-                                <phase>generate-test-sources</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${jboss.home}/standalone/configuration</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>${basedir}/../src/main/resources</directory>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>copy-greenmail-war</id>
-                                <phase>generate-test-sources</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>com.icegreen</groupId>
-                                            <artifactId>greenmail-webapp</artifactId>
-                                            <version>${version.greenmail}</version>
-                                            <type>war</type>
-                                            <outputDirectory>${jboss.home}/standalone/deployments</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.wildfly.plugins</groupId>
-                        <artifactId>wildfly-maven-plugin</artifactId>
-                        <configuration>
-                            <jbossHome>${jboss.home}</jbossHome>
-                            <serverConfig>${server.config}</serverConfig>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 </project>

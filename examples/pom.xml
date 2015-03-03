@@ -53,6 +53,13 @@
     <!-- Dependencies -->
     <dependencies>
         <dependency>
+            <groupId>com.icegreen</groupId>
+            <artifactId>greenmail-webapp</artifactId>
+            <version>${version.greenmail}</version>
+            <type>war</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-itests-common</artifactId>
             <version>${project.version}</version>
@@ -94,6 +101,8 @@
                                 <goals>
                                     <goal>unpack</goal>
                                 </goals>
+                                <!-- distro unpacking not inherited -->
+                                <inherited>false</inherited>
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
@@ -118,6 +127,7 @@
 		                        <goals>
 		                            <goal>start</goal>
 		                        </goals>
+                                <!-- wildfly startup not inherited -->
 			              		<inherited>false</inherited>
         		                <configuration>
                                     <jbossHome>${jboss.home}</jbossHome>
@@ -125,6 +135,22 @@
                                     <jvmArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmArgs>
         		                </configuration>
 		                    </execution>
+                            <execution>
+                                <id>greenmail-deploy</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>deploy-artifact</goal>
+                                </goals>
+                                <!-- greenmail deployment not inherited -->
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <groupId>com.icegreen</groupId>
+                                    <artifactId>greenmail-webapp</artifactId>
+                                    <version>${version.greenmail}</version>
+                                    <type>war</type>
+                                    <artifactId>greenmail-webapp</artifactId>
+                                </configuration>
+                            </execution>
 		                </executions>
 		            </plugin>
 			        <plugin>
@@ -176,7 +202,7 @@
                                         </artifactItem>
                                     </artifactItems>
                                 </configuration>
-                    </execution>
+                            </execution>
 		                </executions>
 		            </plugin>
 		            <plugin>
@@ -189,13 +215,26 @@
 		                        <goals>
 		                            <goal>start</goal>
 		                        </goals>
-			              		<inherited>true</inherited>
                                 <configuration>
                                     <jbossHome>${jboss.home}</jbossHome>
                                     <serverConfig>${server.config}</serverConfig>
                                     <jvmArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmArgs>
                                 </configuration>
 		                    </execution>
+                            <execution>
+                                <id>greenmail-deploy</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>deploy-artifact</goal>
+                                </goals>
+                                <configuration>
+                                    <groupId>com.icegreen</groupId>
+                                    <artifactId>greenmail-webapp</artifactId>
+                                    <version>${version.greenmail}</version>
+                                    <type>war</type>
+                                    <artifactId>greenmail-webapp</artifactId>
+                                </configuration>
+                            </execution>
 		                </executions>
 		            </plugin>
 			        <plugin>
