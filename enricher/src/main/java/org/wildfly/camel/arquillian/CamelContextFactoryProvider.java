@@ -24,7 +24,6 @@ import java.lang.annotation.Annotation;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.jboss.arquillian.container.test.impl.enricher.resource.OperatesOnDeploymentAwareProvider;
 import org.jboss.arquillian.core.api.Instance;
 import org.jboss.arquillian.core.api.InstanceProducer;
 import org.jboss.arquillian.core.api.annotation.Inject;
@@ -35,8 +34,7 @@ import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextFactory;
 
 /**
- * {@link OperatesOnDeploymentAwareProvider} implementation to
- * provide {@link CamelContextFactory} injection to {@link ArquillianResource}-
+ * Implementation to provide {@link CamelContextFactory} injection to {@link ArquillianResource}-
  * annotated fields.
  *
  * @author Thomas.Diesler@jboss.com

@@ -37,10 +37,6 @@
         <include artifact="io.netty:netty-(.*)" />
     </module>
 
-    <module name="org.javassist" skip="true">
-        <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.javassist" />
-    </module>
-
     <module name="javax.activation.api" skip="true">
         <include artifact=":geronimo-activation_1.1_spec" />
     </module>
@@ -127,6 +123,10 @@
 
     <module name="org.dom4j" skip="true">
         <include artifact=":dom4j" />
+    </module>
+
+    <module name="org.javassist" skip="true">
+        <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.javassist" />
     </module>
 
     <module name="org.jaxen" skip="true">

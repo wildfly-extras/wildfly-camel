@@ -91,6 +91,7 @@ public class SpringJeeNamespaceTest {
         CamelContext camelctx = contextRegistry.getContext("spring-jee");
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);
-        Assert.assertEquals("Hello Kermit using org.hornetq.ra.HornetQRAConnectionFactoryImpl", result);
+        Assert.assertTrue("Starts with: Hello Kermit using =>" + result, result.startsWith("Hello Kermit using"));
+        Assert.assertTrue("Contains: ConnectionFactory =>" + result, result.contains("ConnectionFactory"));
     }
 }
