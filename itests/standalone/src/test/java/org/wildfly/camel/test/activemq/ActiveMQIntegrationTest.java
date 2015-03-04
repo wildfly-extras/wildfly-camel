@@ -20,6 +20,22 @@
 
 package org.wildfly.camel.test.activemq;
 
+import java.io.InputStream;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageConsumer;
+import javax.jms.MessageListener;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.naming.InitialContext;
+
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.camel.component.ActiveMQComponent;
 import org.apache.camel.CamelContext;
@@ -35,17 +51,9 @@ import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.jms.*;
-import javax.naming.InitialContext;
-import java.io.File;
-import java.io.InputStream;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 @RunWith(Arquillian.class)
 public class ActiveMQIntegrationTest {
@@ -60,18 +68,12 @@ public class ActiveMQIntegrationTest {
 
     @Deployment
     public static WebArchive createdeployment() {
-        File[] amqDependencies = Maven.configureResolverViaPlugin().
-                resolve("org.apache.activemq:activemq-all").
-                withTransitivity().
-                asFile();
-
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-activemq-tests.war");
-        archive.addAsLibraries(amqDependencies);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.jboss.as.controller-client,javax.jms.api");
+                builder.addManifestHeader("Dependencies", "org.apache.activemq,javax.jms.api");
                 return builder.openStream();
             }
         });
