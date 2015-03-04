@@ -9,5 +9,7 @@
     <module name="org.apache.commons.codec" />
     <module name="org.apache.commons.logging" />
     <module name="org.apache.james.mime4j" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.logging" />
   </dependencies>
 </module>

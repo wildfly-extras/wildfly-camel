@@ -8,14 +8,9 @@
     <module name="javax.api" />
     <module name="org.slf4j" />
     <module name="javax.el" />
-    <module name="javax.xml.bind.api" optional="true" />
-    <module name="javax.xml.bind.jaxb-api" optional="true" />
-    <module name="javax.xml.bind.jsr173_api" optional="true" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.beanutils" />
     <module name="org.apache.commons.lang3" />
-    <module name="org.apache.xmlbeans" optional="true" />
-    <module name="org.apache.xmlbeans.xmlbeans-xpath" optional="true" />
     <module name="org.javassist" />
     <module name="org.slf4j" />
   </dependencies>

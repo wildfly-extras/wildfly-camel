@@ -4,9 +4,9 @@
     <resource-root path="activemq-camel-5.10.0.jar" />
   </resources>
   <dependencies>
+    <module name="javax.jms.api" />
     <module name="org.apache.camel.core" />
     <module name="org.springframework.tx" />
-    <module name="javax.annotation.api" optional="true" />
     <module name="org.apache.activemq" />
     <module name="org.apache.camel.component.jms" />
     <module name="org.slf4j" />

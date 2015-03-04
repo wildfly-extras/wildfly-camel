@@ -20,43 +20,390 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="org.apache.cxf" slot="3.0.2" inherit-slot="false">
-        <include artifact="org.apache.cxf:cxf-(.*)" />
+    <module name="org.apache.cxf.core" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-core" />
+        <include artifact="asm:asm" />
         <apply-to-dependencies skip="true">
-            <include module="junit" />
-            <include module="com.sun.xml.bind" />
-            <include module="javax.xml.bind.api" />
+            <module name="com.sun.xml.fastinfoset.FastInfoset" />
+            <module name="net.java.dev.msv.msv-core" />
+            <module name="javax.validation.api" />
+            <module name="org.apache.log4j" />
+            <module name="org.apache.xml-resolver" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.sun.xml.bind" services="import" />
-            <module name="javax.api"/>
-            <module name="javax.jws.api" />
-            <module name="javax.servlet.api" />
+            <module name="javax.api" />
+            <module name="javax.annotation.api" />
             <module name="javax.xml.bind.api" services="import" />
-            <module name="javax.xml.ws.api" />
-            <module name="org.apache.cxf.services" slot="3.0.2" />
-            <module name="org.apache.cxf.xjcplugins" slot="3.0.2" />
+            <!-- Import CXF bus extensions-->
+            <module name="org.apache.cxf.rt-transports-http" slot="3.0.2" export="true" services="import">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-bindings-soap" slot="3.0.2" export="true" services="import">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-bindings-xml" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-databinding-jaxb" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-bindings-soap" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-features-clustering" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-frontend-jaxrs" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-frontend-jaxws" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-frontend-simple" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-management" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-rs-client" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-rs-security-oauth" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-security" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-transports-jms" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-transports-local" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-transports-udp" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-ws-addr" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.apache.cxf.rt-wsdl" slot="3.0.2" export="true">
+                <imports>
+                    <include path="META-INF/cxf"/>
+                    <include path="META-INF"/>
+                </imports>
+            </module>
+            <module name="org.codehaus.woodstox" />
+            <module name="org.apache.ws.xmlschema" />
         </dependencies>
     </module>
 
-    <module name="org.apache.cxf.services" slot="3.0.2" inherit-slot="false">
-        <include artifact="org.apache.cxf.services.sts:cxf-services-(.*)" />
+    <module name="org.apache.cxf.rt-bindings-xml" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-bindings-xml"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.cxf.rt-wsdl" />
+            <include module="org.apache.cxf.rt-ws-addr" />
+        </apply-to-dependencies>
     </module>
 
-    <module name="org.apache.cxf.xjcplugins" slot="3.0.2" inherit-slot="false">
-        <include artifact="org.apache.cxf.xjcplugins:cxf-xjc-(.*)" />
+    <module name="org.apache.cxf.rt-databinding-jaxb" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-databinding-jaxb"/>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.ws.xmlschema" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.cxf.rt-bindings-soap" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-bindings-soap"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.springframework.beans" />
+            <include module="org.springframework.core" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.wsdl4j.api" />
+            <module name="javax.xml.ws.api" />
+            <module name="org.apache.ws.xmlschema" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.cxf.rt-rs-client" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-rs-client"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.springframework.context" />
+            <include module="org.springframework.core" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.ws.rs.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.cxf.rt-features-clustering" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-features-clustering"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.springframework.beans" />
+            <include module="org.springframework.context" />
+            <include module="org.springframework.core" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="org.apache.cxf.rt-frontend-jaxrs" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-frontend-jaxrs"/>
+        <apply-to-dependencies skip="true">
+            <include module="javax.validation.api" />
+            <include module="org.apache.geronimo.specs.geronimo-servlet_3.0_spec" />
+            <include module="org.springframework.context" />
+            <include module="org.springframework.core" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.xml.bind.api" services="import" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.cxf.rt-frontend-jaxws" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-frontend-jaxws"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.geronimo.specs.geronimo-servlet_3.0_spec" />
+            <include module="org.springframework.aop" />
+            <include module="org.springframework.beans" />
+            <include module="org.springframework.context" />
+            <include module="org.springframework.core" />
+            <include module="org.springframework.spring-web" />
+            <include module="org.springframework.spring-webmvc" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.jws.api" />
+            <module name="javax.wsdl4j.api" />
+            <module name="javax.xml.ws.api" />
+            <module name="org.apache.cxf.rt-wsdl" slot="3.0.2" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.cxf.rt-frontend-simple" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-frontend-simple"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.xml.bind" />
+            <include module="org.apache.cxf.rt-databinding-jaxb" />
+            <include module="org.apache.cxf.rt-transports-local" />
+            <include module="org.springframework.beans" />
+            <include module="org.springframework.context" />
+            <include module="org.springframework.core" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.cxf.rt-transports-udp" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-transports-udp"/>
+    </module>
+
+    <module name="org.apache.cxf.rt-management" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-management"/>
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.cxf.rt-rs-security-oauth" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-rs-security-oauth"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.geronimo.specs.geronimo-servlet_3.0_spec" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="org.apache.cxf.rt-security" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-security"/>
+    </module>
+
+    <module name="org.apache.cxf.rt-transports-http" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-transports-http"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.cxf.rt-wsdl" />
+            <include module="org.apache.cxf.rt-ws-addr" />
+            <include module="org.apache.cxf.rt-ws-policy" />
+            <include module="org.apache.geronimo.specs.geronimo-servlet_3.0_spec" />
+            <include module="org.springframework.spring-web" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.xml.bind.api" services="import" />
+            <module name="javax.servlet.api" />
+            <module name="org.apache.cxf.rt-wsdl" slot="3.0.2" />
+            <module name="org.apache.cxf.rt-ws-addr" slot="3.0.2" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.cxf.rt-transports-jms" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-transports-jms"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.cxf.rt-wsdl" />
+            <include module="org.apache.cxf.rt-ws-addr" />
+            <include module="org.apache.geronimo.specs.geronimo-j2ee-connector_1.5_spec" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="org.apache.cxf.rt-transports-local" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-transports-local"/>
+    </module>
+
+    <module name="org.apache.cxf.rt-wsdl" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-wsdl"/>
+        <apply-to-dependencies skip="true">
+            <include module="junit" />
+            <include module="org.apache.xerces" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.cxf.rt-databinding-jaxb" slot="3.0.2" />
+            <module name="org.apache.ws.xmlschema" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.cxf.rt-ws-addr" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf: "/>
+        <apply-to-dependencies skip="true">
+            <include module="junit" />
+            <include module="org.apache.cxf.rt-frontend-jaxws" />
+            <include module="org.apache.cxf.rt-transports-http" />
+            <include module="org.apache.cxf.rt-ws-mex" />
+            <include module="org.apache.xerces" />
+            <include module="org.springframework.beans" />
+            <include module="org.springframework.context" />
+            <include module="org.springframework.core" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.xml.bind.api" services="import" />
+            <module name="org.apache.ws.xmlschema" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.cxf.rt-ws-mex" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-ws-mex"/>
+    </module>
+
+    <module name="org.apache.cxf.rt-ws-policy" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-ws-policy"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.springframework.beans" />
+            <include module="org.springframework.context" />
+            <include module="org.springframework.core" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="org.apache.cxf.rt-ws-rm" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-ws-rm"/>
+    </module>
+
+    <module name="org.apache.cxf.rt-ws-security" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf:cxf-rt-ws-security"/>
+    </module>
+
+    <module name="org.apache.cxf.services.sts.cxf-services-sts-core" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf.services.sts:cxf-services-sts-core" />
+        <apply-to-dependencies skip="true">
+            <include module="ch.qos.logback.logback-classic" />
+            <include module="com.hazelcast" />
+            <include module="net.sf.ehcache" />
+            <include module="org.apache.commons.commons-jexl" />
+            <include module="org.apache.geronimo.specs.geronimo-servlet_3.0_spec" />
+            <include module="org.apache.log4j" />
+            <include module="org.springframework.ldap.spring-ldap-core" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="org.apache.cxf.services.ws-discovery.cxf-services-ws-discovery-api" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf.services.ws-discovery:cxf-services-ws-discovery-api" />
+    </module>
+
+    <module name="org.apache.cxf.xjcplugins.cxf-xjc-boolean" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf.xjcplugins:cxf-xjc-boolean"/>
+    </module>
+    <module name="org.apache.cxf.xjcplugins.cxf-xjc-dv" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf.xjcplugins:cxf-xjc-dv"/>
+    </module>
+    <module name="org.apache.cxf.xjcplugins.cxf-xjc-ts" slot="3.0.2" inherit-slot="false">
+        <include artifact="org.apache.cxf.xjcplugins:cxf-xjc-ts"/>
     </module>
 
     <module name="org.opensaml" slot="2.6.1" inherit-slot="false">
         <include artifact="org.opensaml:opensaml(.*)" />
         <include artifact="joda-time:joda-time" />
+        <apply-to-dependencies skip="true">
+            <include module="org.joda.joda-convert" />
+        </apply-to-dependencies>
     </module>
 
     <module name="org.apache.ws.security" slot="2.0.2" inherit-slot="false">
         <include artifact="org.apache.wss4j:wss4j-(.*)" />
+        <apply-to-dependencies skip="true">
+            <include module="javax.wsdl4j.api" />
+            <include module="net.sf.ehcache" />
+            <include module="org.apache.directory.server.apacheds-kerberos-shared" />
+            <include module="org.bouncycastle" />
+        </apply-to-dependencies>
     </module>
 
     <module name="org.apache.santuario.xmlsec" slot="2.0.2" inherit-slot="false">
         <include artifact="org.apache.santuario:xmlsec" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.xalan" />
+            <include module="org.apache.xerces" />
+            <include module="xml-apis" />
+        </apply-to-dependencies>
     </module>
 </modules>

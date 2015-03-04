@@ -9,14 +9,10 @@
     <resource-root path="wss4j-ws-security-stax-2.0.2.jar" />
   </resources>
   <dependencies>
-    <module name="javax.wsdl4j.api" optional="true" />
-    <module name="net.sf.ehcache" optional="true" />
-    <module name="org.apache.directory.server.apacheds-kerberos-shared" optional="true" />
     <module name="org.apache.neethi" />
     <module name="org.apache.santuario.xmlsec" slot="2.0.2" />
     <module name="org.apache.xalan" />
     <module name="org.apache.xerces" />
-    <module name="org.bouncycastle" optional="true" />
     <module name="org.jasypt" />
     <module name="org.opensaml" slot="2.6.1" />
     <module name="org.slf4j" />

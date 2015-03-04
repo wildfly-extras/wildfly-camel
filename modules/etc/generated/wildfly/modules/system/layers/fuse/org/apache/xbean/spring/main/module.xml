@@ -4,10 +4,8 @@
     <resource-root path="xbean-spring-3.16.jar" />
   </resources>
   <dependencies>
-    <module name="com.thoughtworks.qdox" optional="true" />
     <module name="org.apache.commons.logging" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.context" />
-    <module name="org.springframework.spring-web" optional="true" />
   </dependencies>
 </module>

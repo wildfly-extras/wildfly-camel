@@ -3,11 +3,5 @@
   <resources>
     <resource-root path="deltaspike-cdictrl-api-1.0.2.jar" />
   </resources>
-  <dependencies>
-    <module name="javax.api" />
-    <module name="javax.xml.bind.api" />
-    <module name="javax.enterprise.api" optional="true" />
-    <module name="javax.inject.api" optional="true" />
-    <module name="javax.interceptor.api" optional="true" />
-  </dependencies>
+  <dependencies />
 </module>

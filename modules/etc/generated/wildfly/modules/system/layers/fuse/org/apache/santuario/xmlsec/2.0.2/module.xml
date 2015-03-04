@@ -5,10 +5,7 @@
   </resources>
   <dependencies>
     <module name="org.apache.commons.codec" />
-    <module name="org.apache.xalan" optional="true" />
-    <module name="org.apache.xerces" optional="true" />
     <module name="org.codehaus.woodstox" />
     <module name="org.slf4j" />
-    <module name="xml-apis" optional="true" />
   </dependencies>
 </module>

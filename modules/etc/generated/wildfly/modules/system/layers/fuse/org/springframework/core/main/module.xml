@@ -6,9 +6,5 @@
   <dependencies>
     <module name="javax.api" />
     <module name="org.apache.commons.logging" />
-    <module name="net.sf.jopt-simple" optional="true" />
-    <module name="org.apache.commons.logging" />
-    <module name="org.apache.log4j" optional="true" />
-    <module name="org.aspectj.aspectjweaver" optional="true" />
   </dependencies>
 </module>

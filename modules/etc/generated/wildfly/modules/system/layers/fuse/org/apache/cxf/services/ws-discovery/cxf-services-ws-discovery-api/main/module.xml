@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="org.apache.cxf.services.ws-discovery.cxf-services-ws-discovery-api">
-  <resources>
-    <resource-root path="cxf-services-ws-discovery-api-3.0.2.jar" />
-  </resources>
-  <dependencies>
-    <module name="org.apache.cxf" slot="3.0.2" />
-  </dependencies>
-</module>

@@ -5,9 +5,6 @@
     <resource-root path="spring-aop-3.2.11.RELEASE.jar" />
   </resources>
   <dependencies>
-    <module name="com.jamonapi.jamon" optional="true" />
-    <module name="org.apache.commons.pool" optional="true" />
-    <module name="org.aspectj.aspectjweaver" optional="true" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.core" />
   </dependencies>

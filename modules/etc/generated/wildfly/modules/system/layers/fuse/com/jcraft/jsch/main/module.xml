@@ -3,7 +3,5 @@
   <resources>
     <resource-root path="jsch-0.1.51.jar" />
   </resources>
-  <dependencies>
-    <module name="com.jcraft.jzlib" optional="true" />
-  </dependencies>
+  <dependencies />
 </module>

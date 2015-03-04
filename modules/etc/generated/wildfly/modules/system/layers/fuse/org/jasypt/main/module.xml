@@ -3,8 +3,5 @@
   <resources>
     <resource-root path="jasypt-1.9.2.jar" />
   </resources>
-  <dependencies>
-    <module name="com.ibm.icu.icu4j" optional="true" />
-    <module name="javax.servlet.api" optional="true" />
-  </dependencies>
+  <dependencies />
 </module>

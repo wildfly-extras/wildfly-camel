@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.cxf.services.sts.cxf-services-sts-core" slot="3.0.2">
+  <resources>
+    <resource-root path="cxf-services-sts-core-3.0.2.jar" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.cxf.rt-transports-http" slot="3.0.2" />
+    <module name="org.apache.cxf.rt-ws-addr" slot="3.0.2" />
+    <module name="org.springframework.context" />
+  </dependencies>
+</module>

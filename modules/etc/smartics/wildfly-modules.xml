@@ -25,10 +25,6 @@
         -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="asm.asm" skip="true">
-        <include artifact="asm:asm" />
-    </module>
-
     <module name="com.sun.xml.bind" skip="true">
         <include artifact="com.sun.xml.bind:jaxb-xjc" />
     </module>

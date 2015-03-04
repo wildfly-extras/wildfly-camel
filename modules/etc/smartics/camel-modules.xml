@@ -96,12 +96,14 @@
         <include artifact="org.apache.camel:camel-cxf-transport" />
         <apply-to-dependencies skip="true">
             <include module="org.springframework.*" />
+            <include module="org.apache.cxf.rt.*" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="javax.jws.api" />
             <module name="javax.ws.rs.api" />
             <module name="javax.xml.ws.api" />
+            <module name="org.apache.cxf" slot="3.0.2" />
             <module name="org.slf4j" />
         </dependencies>
         <exports>
@@ -115,8 +117,13 @@
         <include artifact="org.apache.camel:camel-dozer" />
         <include artifact="net.sf.dozer:dozer" />
         <apply-to-dependencies skip="true">
-            <include module="org.hibernate" />
+            <include module="javax.xml.bind.api" />
+            <include module="javax.xml.bind.jaxb-api" />
+            <include module="javax.xml.bind.jsr173_api" />
             <include module="junit" />
+            <include module="org.apache.xmlbeans" />
+            <include module="org.apache.xmlbeans.xmlbeans-xpath" />
+            <include module="org.hibernate" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
@@ -146,6 +153,9 @@
         <include artifact="ca.uhn.hapi:hapi-structures-v24" />
         <include artifact="ca.uhn.hapi:hapi-structures-v25" />
         <apply-to-dependencies skip="true">
+            <include module="javax.jms.api" />
+            <include module="org.apache.commons.cli" />
+            <include module="org.apache.log4j" />
             <include module="org.apache.mina.mina-core" />
         </apply-to-dependencies>
         <dependencies>
@@ -239,9 +249,10 @@
 
     <module name="org.apache.camel.component.mqtt">
         <include artifact="org.apache.camel:camel-mqtt" />
-        <include artifact="org.fusesource.hawtdispatch:hawtdispatch" />
-        <include artifact="org.fusesource.hawtdispatch:hawtdispatch-transport" />
         <include artifact="org.fusesource.mqtt-client:mqtt-client" />
+        <apply-to-dependencies skip="true">
+            <include module="asm.asm-tree" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>

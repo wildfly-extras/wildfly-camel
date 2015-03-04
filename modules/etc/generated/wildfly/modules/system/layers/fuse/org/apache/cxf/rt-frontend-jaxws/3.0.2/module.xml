@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.cxf.rt-frontend-jaxws" slot="3.0.2">
+  <resources>
+    <resource-root path="cxf-rt-frontend-jaxws-3.0.2.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.jws.api" />
+    <module name="javax.wsdl4j.api" />
+    <module name="javax.xml.ws.api" />
+    <module name="org.apache.cxf.rt-wsdl" slot="3.0.2" />
+    <module name="org.apache.cxf.core" slot="3.0.2" />
+    <module name="org.apache.cxf.rt-bindings-soap" slot="3.0.2" />
+    <module name="org.apache.cxf.rt-bindings-xml" slot="3.0.2" />
+    <module name="org.apache.cxf.rt-frontend-simple" slot="3.0.2" />
+    <module name="org.apache.cxf.rt-transports-http" slot="3.0.2" />
+    <module name="org.apache.cxf.rt-ws-addr" slot="3.0.2" />
+    <module name="org.apache.xml-resolver" />
+  </dependencies>
+</module>

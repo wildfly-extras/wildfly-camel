@@ -20,6 +20,20 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="cglib.cglib-nodep">
+        <include artifact=":cglib-nodep" />
+        <apply-to-dependencies skip="true">
+            <include module="ant" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="com.jcraft.jsch">
+        <include artifact=":jsch" />
+        <apply-to-dependencies skip="true">
+            <include module="com.jcraft.jzlib" />
+        </apply-to-dependencies>
+    </module>
+
     <module name="javax.el">
         <include artifact=":el-api" />
         <include artifact=":el-impl" />
@@ -85,20 +99,29 @@
 
     <module name="org.apache.deltaspike.$1.$2">
         <include artifact=":deltaspike-(.*)-(.*)" />
+        <exclude artifact="deltaspike-cdictrl-api" />
+        <apply-to-dependencies skip="true">
+            <include module="javax.inject.api" />
+            <include module="javax.interceptor.api" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="javax.xml.bind.api" />
         </dependencies>
     </module>
 
-    <module name="org.apache.httpcomponents" slot="4.3">
+    <module name="org.apache.deltaspike.cdictrl.api">
+        <include artifact=":deltaspike-cdictrl-api" />
+        <apply-to-dependencies skip="true">
+            <include module="javax.enterprise.api" />
+            <include module="javax.inject.api" />
+            <include module="javax.interceptor.api" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="org.apache.httpcomponents" slot="4.3" inherit-slot="false">
         <include artifact=":httpcore" />
         <include artifact=":httpclient" />
-        <apply-to-dependencies skip="true">
-            <!-- Prevents smartics generating a module def with these deps under slot 4.3 -->
-            <include module="org.apache.commons.codec" />
-            <include module="org.apache.commons.logging" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.apache.commons.codec" />
@@ -141,6 +164,41 @@
 
     <module name="org.apache.xbean.$1">
         <include artifact="org.apache.xbean:xbean-(.*)" />
+        <apply-to-dependencies skip="true">
+            <include module="com.thoughtworks.qdox" />
+            <include module="org.springframework.spring-web" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="org.fusesource.hawtbuf">
+        <include artifact="org.fusesource.hawtbuf:hawtbuf" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.commons.logging" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="org.fusesource.hawtbuf">
+        <include artifact="org.fusesource.hawtbuf:hawtbuf" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.commons.logging" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="org.fusesource.hawtdispatch">
+        <include artifact="org.fusesource.hawtdispatch:hawtdispatch" />
+        <include artifact="org.fusesource.hawtdispatch:hawtdispatch-transport" />
+        <apply-to-dependencies skip="true">
+            <include module="asm.asm-tree" />
+            <include module="org.fusesource.hawtbuf" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="org.jasypt">
+        <include artifact="org.jasypt:jasypt" />
+        <apply-to-dependencies skip="true">
+            <include module="com.ibm.icu.icu4j" />
+            <include module="javax.servlet.api" />
+        </apply-to-dependencies>
     </module>
     
     <module name="org.osgi.core">

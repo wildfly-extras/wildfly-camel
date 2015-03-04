@@ -3,7 +3,5 @@
   <resources>
     <resource-root path="hawtbuf-1.10.jar" />
   </resources>
-  <dependencies>
-    <module name="org.apache.commons.logging" optional="true" />
-  </dependencies>
+  <dependencies />
 </module>

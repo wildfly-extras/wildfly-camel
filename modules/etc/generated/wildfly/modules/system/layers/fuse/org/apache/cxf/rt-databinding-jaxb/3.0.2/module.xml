@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.cxf.rt-databinding-jaxb" slot="3.0.2">
+  <resources>
+    <resource-root path="cxf-rt-databinding-jaxb-3.0.2.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.ws.xmlschema" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.cxf.core" slot="3.0.2" />
+    <module name="org.apache.cxf.rt-wsdl" slot="3.0.2" />
+  </dependencies>
+</module>

@@ -9,10 +9,10 @@
     <module name="javax.jws.api" />
     <module name="javax.ws.rs.api" />
     <module name="javax.xml.ws.api" />
+    <module name="org.apache.cxf" slot="3.0.2" />
     <module name="org.slf4j" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.camel.spring" />
-    <module name="org.apache.cxf" slot="3.0.2" />
   </dependencies>
   <exports>
     <exclude path="OSGI-INF/blueprint" />
