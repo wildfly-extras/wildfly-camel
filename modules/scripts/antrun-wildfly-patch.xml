@@ -49,6 +49,6 @@
             </fileset>
         </sync>
 
-        <tar destfile="${output.dir}/${project.artifactId}-${project.version}.tar.gz" basedir="${target.patch.dir}" compression="gzip"/>
+        <tar destfile="${output.dir}/${project.artifactId}-${project.version}.tar.gz" basedir="${target.patch.dir}" compression="gzip" longfile="gnu"/>
     </target>
 </project>
