@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.http;
+package org.wildfly.camel.test.http4;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -32,7 +32,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.http.servlet.MyServlet;
+import org.wildfly.camel.test.http4.servlet.MyServlet;
 
 @RunWith(Arquillian.class)
 public class HttpIntegrationTest {

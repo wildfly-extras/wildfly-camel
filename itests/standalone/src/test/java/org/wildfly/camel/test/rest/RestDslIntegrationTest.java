@@ -48,18 +48,12 @@ public class RestDslIntegrationTest {
     @Test
     public void testRestDsl() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
-
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 restConfiguration().component("servlet").contextPath("camel/rest").port(8080);
-
-                rest("/hello")
-                    .get("/{name}")
-                        .to("direct:hello");
-
-                from("direct:hello")
-                        .transform(simple("Hello ${header.name}"));
+                rest("/hello").get("/{name}").to("direct:hello");
+                from("direct:hello").transform(simple("Hello ${header.name}"));
             }
         });
 
