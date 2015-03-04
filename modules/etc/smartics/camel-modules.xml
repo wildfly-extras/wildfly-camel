@@ -222,9 +222,6 @@
 
     <module name="org.apache.camel.component.lucene">
         <include artifact="org.apache.camel:camel-lucene" />
-        <dependencies>
-            <module name="org.apache.lucene" slot="4.6"/>
-        </dependencies>
     </module>
 
     <module name="org.apache.camel.component.mail">

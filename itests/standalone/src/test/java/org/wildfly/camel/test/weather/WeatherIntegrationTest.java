@@ -50,16 +50,11 @@ public class WeatherIntegrationTest {
 
     @Deployment
     public static WebArchive createDeployment() throws Exception {
-        File[] libraryDependencies;
-        try {
-            libraryDependencies = Maven.configureResolverViaPlugin().
+        File[] libraryDependencies = Maven.configureResolverViaPlugin().
                     resolve("co.freeside:betamax", "org.codehaus.groovy:groovy-all").
                     withTransitivity().
                     asFile();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw ex;
-        }
+
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-weather-tests.war");
         archive.addAsLibraries(libraryDependencies);
         return archive;

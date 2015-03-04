@@ -4,7 +4,6 @@
     <resource-root path="camel-lucene-2.14.1.jar" />
   </resources>
   <dependencies>
-    <module name="org.apache.lucene" slot="4.6" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.lucene" slot="4.6" />
   </dependencies>
