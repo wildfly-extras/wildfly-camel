@@ -107,12 +107,9 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.jakarta.regexp">
-        <include artifact=":jakarta-regexp" />
-    </module>
-
-    <module name="org.apache.lucene" slot="4.10">
+    <module name="org.apache.lucene" slot="4.6">
         <include artifact="org.apache.lucene:lucene-(.*)" />
+        <include artifact=":jakarta-regexp" />
     </module>
 
     <module name="org.apache.mina.$1">

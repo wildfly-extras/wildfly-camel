@@ -21,7 +21,6 @@
 package org.wildfly.camel.test.weather;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
@@ -42,22 +41,27 @@ import co.freeside.betamax.Betamax;
 import co.freeside.betamax.Recorder;
 
 @RunWith(Arquillian.class)
-public class WeatherTest {
+public class WeatherIntegrationTest {
 
-    protected Logger log = LoggerFactory.getLogger(WeatherTest.class);
+    protected Logger log = LoggerFactory.getLogger(WeatherIntegrationTest.class);
 
     @Rule
     public Recorder recorder = new Recorder();
 
     @Deployment
-    public static WebArchive createDeployment() throws IOException {
-        File[] betamaxDependencies = Maven.configureResolverViaPlugin().
-                resolve("co.freeside:betamax", "org.codehaus.groovy:groovy-all").
-                withTransitivity().
-                asFile();
-
+    public static WebArchive createDeployment() throws Exception {
+        File[] libraryDependencies;
+        try {
+            libraryDependencies = Maven.configureResolverViaPlugin().
+                    resolve("co.freeside:betamax", "org.codehaus.groovy:groovy-all").
+                    withTransitivity().
+                    asFile();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-weather-tests.war");
-        archive.addAsLibraries(betamaxDependencies);
+        archive.addAsLibraries(libraryDependencies);
         return archive;
     }
 
