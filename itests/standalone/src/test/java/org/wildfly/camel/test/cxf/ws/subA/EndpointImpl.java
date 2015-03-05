@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,16 +18,25 @@
  * #L%
  */
 
-package org.wildfly.camel.test.cxf.subA;
+package org.wildfly.camel.test.cxf.ws.subA;
 
-import javax.jws.WebMethod;
 import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
 
-@WebService (name="Endpoint")
-@SOAPBinding(style = SOAPBinding.Style.RPC)
-public interface Endpoint {
+import org.jboss.logging.Logger;
 
-   @WebMethod(operationName = "echoString", action = "urn:EchoString")
-   String echo(String input);
+/**
+ * A simple web service endpoint
+ *
+ * @author thomas.diesler@jboss.com
+ * @since 28-Aug-2012
+ */
+@WebService(serviceName="EndpointService", portName="EndpointPort", targetNamespace="http://wildfly.camel.test.cxf", endpointInterface = "org.wildfly.camel.test.cxf.ws.subA.Endpoint")
+public class EndpointImpl {
+
+   private static Logger log = Logger.getLogger(EndpointImpl.class);
+
+   public String echo(String input) {
+      log.info("echo: " + input);
+      return "Hello " + input;
+   }
 }

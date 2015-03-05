@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.cxf.subC;
+package org.wildfly.camel.test.cxf.rs.subA;
 
 import javax.ws.rs.core.Response;
 
