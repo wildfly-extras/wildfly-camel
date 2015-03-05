@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.cxf;
+package org.wildfly.camel.test.cxf.ws;
 
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.ALLOW_RESOURCE_SERVICE_RESTART;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.OPERATION_HEADERS;
@@ -45,8 +45,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.cxf.subB.Endpoint;
-import org.wildfly.camel.test.cxf.subB.EndpointImpl;
+import org.wildfly.camel.test.cxf.ws.subA.Endpoint;
+import org.wildfly.camel.test.cxf.ws.subA.SecureEndpointImpl;
 
 @RunWith(Arquillian.class)
 public class SecureWebServicesIntegrationTest {
@@ -171,10 +171,8 @@ public class SecureWebServicesIntegrationTest {
     @Deployment(name = SIMPLE_WAR, managed = false)
     public static Archive<?> getSimpleWar() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, SIMPLE_WAR);
-        final StringAsset jbossWebAsset = new StringAsset("<jboss-web><security-domain>" +
-                "cxf-security-domain</security-domain></jboss-web>");
-
-        archive.addClasses(Endpoint.class, EndpointImpl.class);
+        final StringAsset jbossWebAsset = new StringAsset("<jboss-web><security-domain>cxf-security-domain</security-domain></jboss-web>");
+        archive.addClasses(Endpoint.class, SecureEndpointImpl.class);
         archive.addAsResource("cxf/secure/cxf-roles.properties", "cxf-roles.properties");
         archive.addAsResource("cxf/secure/cxf-users.properties", "cxf-users.properties");
         archive.addAsWebInfResource(jbossWebAsset, "jboss-web.xml");

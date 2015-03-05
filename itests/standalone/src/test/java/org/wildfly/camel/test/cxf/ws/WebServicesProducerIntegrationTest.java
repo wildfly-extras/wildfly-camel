@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.cxf;
+package org.wildfly.camel.test.cxf.ws;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -33,7 +33,6 @@ import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -41,8 +40,8 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.cxf.subA.Endpoint;
-import org.wildfly.camel.test.cxf.subA.EndpointImpl;
+import org.wildfly.camel.test.cxf.ws.subA.Endpoint;
+import org.wildfly.camel.test.cxf.ws.subA.EndpointImpl;
 
 /**
  * Test WebService endpoint access with the cxf component.
@@ -51,19 +50,16 @@ import org.wildfly.camel.test.cxf.subA.EndpointImpl;
  * @since 11-Jun-2013
  */
 @RunWith(Arquillian.class)
-public class WebServicesIntegrationTest {
+public class WebServicesProducerIntegrationTest {
 
     static final String SIMPLE_WAR = "simple.war";
 
     @ArquillianResource
     Deployer deployer;
 
-    @ArquillianResource
-    ManagementClient managementClient;
-
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-integration-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-ws-producer-tests");
         archive.addClasses(Endpoint.class);
         return archive;
     }
@@ -72,9 +68,6 @@ public class WebServicesIntegrationTest {
     public void testSimpleWar() throws Exception {
         deployer.deploy(SIMPLE_WAR);
         try {
-            // [FIXME #283] Usage of camel-cxf depends on TCCL
-            Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
             QName serviceName = new QName("http://wildfly.camel.test.cxf", "EndpointService");
             Service service = Service.create(getWsdl("/simple"), serviceName);
             Endpoint port = service.getPort(Endpoint.class);
@@ -112,32 +105,8 @@ public class WebServicesIntegrationTest {
         }
     }
 
-    @Test
-    public void testCxfConsumer() throws Exception {
-
-        // [FIXME #283] Usage of camel-cxf depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
-        CamelContext camelctx = new DefaultCamelContext();
-        final String uri = "cxf:/webservices/?serviceClass=" + Endpoint.class.getName();
-
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from(uri).to("direct:end");
-            }
-        });
-
-        try {
-            camelctx.start();
-            Assert.fail("Expected RuntimeCamelException to be thrown but it was not");
-        } catch (RuntimeException e) {
-            Assert.assertTrue(e.getMessage().equals("CXF Endpoint consumers are not allowed"));
-        }
-    }
-
     private String getEndpointAddress(String contextPath) throws MalformedURLException {
-        return managementClient.getWebUri() + contextPath + "/EndpointService";
+        return "http://localhost:8080" + contextPath + "/EndpointService";
     }
 
     private URL getWsdl(String contextPath) throws MalformedURLException {

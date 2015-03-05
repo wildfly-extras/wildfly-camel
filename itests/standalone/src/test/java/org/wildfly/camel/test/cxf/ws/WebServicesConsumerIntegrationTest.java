@@ -2,7 +2,7 @@
  * #%L
  * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2013 - 2015 RedHat
+ * Copyright (C) 2013 - 2014 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,52 +17,57 @@
  * limitations under the License.
  * #L%
  */
-
-package org.wildfly.camel.test.http4;
+package org.wildfly.camel.test.cxf.ws;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.Exchange;
-import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.http4.subA.MyServlet;
+import org.wildfly.camel.test.cxf.ws.subA.Endpoint;
 
+/**
+ * Test WebService endpoint access with the cxf component.
+ *
+ * @author thomas.diesler@jboss.com
+ * @since 11-Jun-2013
+ */
 @RunWith(Arquillian.class)
-public class HttpIntegrationTest {
+public class WebServicesConsumerIntegrationTest {
 
     @Deployment
-    public static WebArchive createDeployment() {
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "simple.war");
-        archive.addPackage(MyServlet.class.getPackage());
+    public static JavaArchive deployment() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-ws-consumer-tests");
+        archive.addClasses(Endpoint.class);
         return archive;
     }
 
     @Test
-    public void testHttpGetRequest() throws Exception {
+    public void testCxfConsumer() throws Exception {
+
+        // [FIXME #283] Usage of camel-cxf depends on TCCL
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
 
         CamelContext camelctx = new DefaultCamelContext();
+        final String uri = "cxf:/webservices/?serviceClass=" + Endpoint.class.getName();
+
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start")
-                .to("http4://localhost:8080/simple/myservlet");
+                from(uri).to("direct:end");
             }
         });
 
-        camelctx.start();
         try {
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            String result = producer.requestBodyAndHeader("direct:start", null, Exchange.HTTP_QUERY, "name=Kermit", String.class);
-            Assert.assertEquals("Hello Kermit", result);
-        } finally {
-            camelctx.stop();
+            camelctx.start();
+            Assert.fail("Expected RuntimeCamelException to be thrown but it was not");
+        } catch (RuntimeException e) {
+            Assert.assertTrue(e.getMessage().equals("CXF Endpoint consumers are not allowed"));
         }
     }
 }

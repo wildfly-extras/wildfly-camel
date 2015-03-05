@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.http4.servlet;
+package org.wildfly.camel.test.http4.subA;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
