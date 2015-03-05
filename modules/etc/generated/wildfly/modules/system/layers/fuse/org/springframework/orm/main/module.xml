@@ -9,5 +9,6 @@
     <module name="org.springframework.beans" />
     <module name="org.springframework.core" />
     <module name="org.springframework.jdbc" />
+    <module name="org.springframework.tx" />
   </dependencies>
 </module>

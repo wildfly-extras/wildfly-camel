@@ -23,19 +23,10 @@
     <module name="org.springframework.aop">
         <include artifact="org.springframework:spring-aop" />
         <include artifact=":aopalliance" />
-        <apply-to-dependencies skip="true">
-            <include module="com.jamonapi.jamon" />
-            <include module="org.apache.commons.pool" />
-            <include module="org.aspectj.aspectjweaver" />
-        </apply-to-dependencies>
     </module>
     
     <module name="org.springframework.beans">
         <include artifact="org.springframework:spring-beans" />
-        <apply-to-dependencies skip="true">
-            <include module="javax.el" />
-            <include module="javax.inject.api" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />
@@ -46,21 +37,6 @@
     
     <module name="org.springframework.context">
         <include artifact="org.springframework:spring-context" />
-        <apply-to-dependencies skip="true">
-            <include module="backport-util-concurrent" />
-            <include module="javax.ejb.ejb-api" />
-            <include module="javax.inject.api" />
-            <include module="javax.jms.api" />
-            <include module="javax.persistence.persistence-api" />
-            <include module="javax.validation.api" />
-            <include module="org.apache.camel.component.script" />
-            <include module="org.aspectj.aspectjweaver" />
-            <include module="org.codehaus.groovy.groovy-all" />
-            <include module="org.hibernate.hibernate-validator" />
-            <include module="org.jruby" />
-            <include module="org.opensaml" slot="2.6.1" />
-            <include module="org.springframework.spring-instrument" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />
@@ -70,11 +46,6 @@
     
     <module name="org.springframework.core">
         <include artifact="org.springframework:spring-core" />
-        <apply-to-dependencies skip="true">
-            <include module="net.sf.jopt-simple" />
-            <include module="org.apache.log4j" />
-            <include module="org.aspectj.aspectjweaver" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
         </dependencies>
@@ -90,14 +61,6 @@
     
     <module name="org.springframework.jdbc">
         <include artifact="org.springframework:spring-jdbc" />
-        <apply-to-dependencies skip="true">
-            <include module="com.h2database.h2" />
-            <include module="hsqldb" />
-            <include module="javax.transaction.api" />
-            <include module="org.apache.camel.component.quartz2" />
-            <include module="org.apache.derby.*" />
-            <include module="org.springframework.context" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />
@@ -106,13 +69,6 @@
     
     <module name="org.springframework.jms">
         <include artifact="org.springframework:spring-jms" />
-        <apply-to-dependencies skip="true">
-            <include module="javax.resource.connector-api" />
-            <include module="javax.transaction.api" />
-            <include module="org.codehaus.jackson.*" />
-            <include module="org.springframework.aop" />
-            <include module="org.springframework.spring-oxm" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />
@@ -121,20 +77,6 @@
     
     <module name="org.springframework.orm">
         <include artifact="org.springframework:spring-orm" />
-        <apply-to-dependencies skip="true">
-            <include module="javax.jdo.jdo-api" />
-            <include module="javax.persistence.persistence-api" />
-            <include module="javax.servlet.api" />
-            <include module="org.apache.ibatis.ibatis-sqlmap" />
-            <include module="org.apache.openjpa" />
-            <include module="org.eclipse.persistence.*" />
-            <include module="org.hibernate.*" />
-            <include module="org.springframework.aop" />
-            <include module="org.springframework.context" />
-            <include module="org.springframework.spring-web" />
-            <include module="org.springframework.tx" />
-            <include module="toplink.essentials.toplink-essentials" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />

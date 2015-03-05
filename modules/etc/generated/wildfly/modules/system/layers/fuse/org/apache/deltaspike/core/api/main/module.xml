@@ -7,5 +7,7 @@
     <module name="javax.api" />
     <module name="javax.xml.bind.api" />
     <module name="javax.enterprise.api" />
+    <module name="javax.inject.api" />
+    <module name="javax.interceptor.api" />
   </dependencies>
 </module>

@@ -25,19 +25,6 @@
         <include artifact="org.apache.activemq.protobuf:activemq-protobuf" />
         <exclude artifact="org.apache.activemq:activemq-all" />
         <exclude artifact="org.apache.activemq:activemq-camel" />
-        <apply-to-dependencies skip="true">
-            <include module="com.thoughtworks.xstream" />
-            <include module="javax.annotation.api" />
-            <include module="javax.jmdns" />
-            <include module="javax.security.jacc.api" />
-            <include module="javax.transaction.api" />
-            <include module="org.apache.commons.net" />
-            <include module="org.apache.maven.*" />
-            <include module="org.apache.xalan" />
-            <include module="org.codehaus.jettison" />
-            <include module="org.springframework.beans" />
-            <include module="org.springframework.osgi.spring-osgi-core" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="javax.resource.api" />
@@ -47,9 +34,6 @@
 
     <module name="org.apache.camel.component.activemq">
         <include artifact="org.apache.activemq:activemq-camel" />
-        <apply-to-dependencies skip="true">
-            <include module="javax.annotation.api" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.jms.api" />
             <module name="org.apache.camel.core" />

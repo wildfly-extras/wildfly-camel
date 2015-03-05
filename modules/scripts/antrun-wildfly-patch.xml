@@ -46,7 +46,6 @@
                 <include name="**/module.xml" />
                 <exclude name="**/org/apache/camel/component/main/**" />
                 <exclude name="**/org/apache/camel/main/**" />
-                <exclude name="**/org/apache/cxf/3.0.2/**" />
             </fileset>
         </sync>
 

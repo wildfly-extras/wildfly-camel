@@ -426,6 +426,7 @@
                     <excludeDependencyManagementDependenciesInPomProject>true</excludeDependencyManagementDependenciesInPomProject>
                     <attach>false</attach>
                     <targetFolder>${smartics.module.dir}</targetFolder>
+                    <ignoreOptionalDependencies>true</ignoreOptionalDependencies>
                     <modules>
                         <dir>etc/smartics</dir>
                     </modules>

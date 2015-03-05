@@ -4,8 +4,12 @@
     <resource-root path="camel-atom-2.14.1.jar" />
   </resources>
   <dependencies>
-    <module name="org.apache.camel.core" />
-    <module name="org.apache.abdera.core" export="true" />
     <module name="org.slf4j" />
+    <module name="org.apache.abdera.core" />
+    <module name="org.apache.abdera.parser" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.apache.ws.commons.axiom.axiom-api" />
+    <module name="org.apache.ws.commons.axiom.axiom-impl" />
   </dependencies>
 </module>
