@@ -38,6 +38,7 @@ import javax.naming.InitialContext;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.PollingConsumer;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -119,13 +120,17 @@ public class JMSIntegrationTest {
         });
 
         camelctx.start();
+
+        PollingConsumer consumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
+        consumer.start();
+
         try {
             // Send a message to the queue
             ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
             Connection conection = cfactory.createConnection();
             try {
                 sendMessage(conection, QUEUE_JNDI_NAME, "Kermit");
-                String result = consumeRouteMessage(camelctx);
+                String result = consumer.receive().getIn().getBody(String.class);
                 Assert.assertEquals("Hello Kermit", result);
             } finally {
                 conection.close();
@@ -198,11 +203,5 @@ public class JMSIntegrationTest {
         MessageConsumer consumer = session.createConsumer(destination);
         consumer.setMessageListener(listener);
         connection.start();
-    }
-
-    private String consumeRouteMessage(CamelContext camelctx) throws Exception {
-        ConsumerTemplate consumer = camelctx.createConsumerTemplate();
-        consumer.start();
-        return consumer.receiveBody("direct:end", String.class);
     }
 }
