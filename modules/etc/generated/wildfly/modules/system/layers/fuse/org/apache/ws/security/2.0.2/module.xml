@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.ws.security" slot="2.0.2">
   <resources>
-    <resource-root path="wss4j-bindings-2.0.2.jar" />
-    <resource-root path="wss4j-policy-2.0.2.jar" />
-    <resource-root path="wss4j-ws-security-common-2.0.2.jar" />
-    <resource-root path="wss4j-ws-security-dom-2.0.2.jar" />
-    <resource-root path="wss4j-ws-security-policy-stax-2.0.2.jar" />
-    <resource-root path="wss4j-ws-security-stax-2.0.2.jar" />
+    <resource-root path="wss4j-bindings-2.0.3.jar" />
+    <resource-root path="wss4j-policy-2.0.3.jar" />
+    <resource-root path="wss4j-ws-security-common-2.0.3.jar" />
+    <resource-root path="wss4j-ws-security-dom-2.0.3.jar" />
+    <resource-root path="wss4j-ws-security-policy-stax-2.0.3.jar" />
+    <resource-root path="wss4j-ws-security-stax-2.0.3.jar" />
   </resources>
   <dependencies>
+    <module name="net.sf.ehcache" />
     <module name="org.apache.neethi" />
     <module name="org.apache.santuario.xmlsec" slot="2.0.2" />
     <module name="org.apache.xalan" />

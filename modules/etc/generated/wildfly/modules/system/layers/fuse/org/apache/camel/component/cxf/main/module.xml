@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.cxf">
   <resources>
-    <resource-root path="camel-cxf-2.14.1.jar" />
-    <resource-root path="camel-cxf-transport-2.14.1.jar" />
+    <resource-root path="camel-cxf-2.15.0.jar" />
+    <resource-root path="camel-cxf-transport-2.15.0.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />
@@ -11,6 +11,7 @@
     <module name="javax.xml.ws.api" />
     <module name="org.apache.cxf" slot="3.0.2" />
     <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.camel.spring" />
     <module name="org.apache.cxf" slot="3.0.2" />

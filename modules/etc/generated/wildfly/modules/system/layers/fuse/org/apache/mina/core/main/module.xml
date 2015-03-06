@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.mina.core">
   <resources>
-    <resource-root path="mina-core-2.0.7.jar" />
+    <resource-root path="mina-core-2.0.9.jar" />
   </resources>
   <dependencies>
     <module name="org.slf4j" />

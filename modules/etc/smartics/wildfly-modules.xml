@@ -71,6 +71,7 @@
 
     <module name="javax.jms.api" skip="true">
         <include artifact=":geronimo-jms_1.1_spec" />
+        <include artifact=":jms-api" />
     </module>
 
     <module name="javax.management.j2ee.api" skip="true">

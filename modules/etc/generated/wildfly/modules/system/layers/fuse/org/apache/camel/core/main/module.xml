@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.core">
   <resources>
-    <resource-root path="camel-core-2.14.1.jar" />
+    <resource-root path="camel-core-2.15.0.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />

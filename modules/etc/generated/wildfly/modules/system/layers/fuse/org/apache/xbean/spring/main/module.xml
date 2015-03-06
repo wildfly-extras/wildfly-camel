@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.xbean.spring">
   <resources>
-    <resource-root path="xbean-spring-3.16.jar" />
+    <resource-root path="xbean-spring-3.18.jar" />
   </resources>
   <dependencies>
     <module name="org.apache.commons.logging" />

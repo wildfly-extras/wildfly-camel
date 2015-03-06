@@ -46,9 +46,6 @@ public class BeanShellIntegrationTest {
     @Test
     public void testSendMatchingMessage() throws Exception {
 
-        // [FIXME #292] Camel endpoint discovery depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(getRouteBuilder());
 
@@ -64,9 +61,6 @@ public class BeanShellIntegrationTest {
 
     @Test
     public void testSendNonMatchingMessage() throws Exception {
-
-        // [FIXME #292] Camel endpoint discovery depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(getRouteBuilder());

@@ -2,7 +2,7 @@
 <module xmlns="urn:jboss:module:1.1" name="org.springframework.aop">
   <resources>
     <resource-root path="aopalliance-1.0.jar" />
-    <resource-root path="spring-aop-3.2.11.RELEASE.jar" />
+    <resource-root path="spring-aop-4.1.5.RELEASE.jar" />
   </resources>
   <dependencies>
     <module name="org.springframework.beans" />

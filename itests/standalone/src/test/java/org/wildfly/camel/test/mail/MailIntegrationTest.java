@@ -64,9 +64,6 @@ public class MailIntegrationTest {
     @Test
     public void testSendEmail() throws Exception {
 
-        // [FIXME #290] Usage of camel-mail depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

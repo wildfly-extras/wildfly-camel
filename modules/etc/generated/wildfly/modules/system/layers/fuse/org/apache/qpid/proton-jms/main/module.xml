@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.qpid.proton-jms">
+  <resources>
+    <resource-root path="proton-jms-0.8.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.jms.api" />
+    <module name="org.apache.qpid.proton-j" />
+  </dependencies>
+</module>

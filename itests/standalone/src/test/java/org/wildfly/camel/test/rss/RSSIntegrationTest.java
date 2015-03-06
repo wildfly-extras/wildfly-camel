@@ -50,9 +50,6 @@ public class RSSIntegrationTest {
 
     	final CountDownLatch latch = new CountDownLatch(1);
 
-        // [FIXME #292] Camel endpoint discovery depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

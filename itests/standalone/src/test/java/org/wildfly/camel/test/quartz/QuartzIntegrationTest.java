@@ -24,7 +24,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -67,8 +66,6 @@ public class QuartzIntegrationTest {
 
         camelctx.start();
         try {
-            Endpoint endpoint = camelctx.getEndpoints().iterator().next();
-            Assert.assertEquals("org.apache.camel.component.quartz2.QuartzEndpoint", endpoint.getClass().getName());
             Assert.assertTrue("Countdown reached zero", latch.await(500, TimeUnit.MILLISECONDS));
         } finally {
             camelctx.stop();
