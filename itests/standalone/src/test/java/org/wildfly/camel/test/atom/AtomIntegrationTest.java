@@ -27,9 +27,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
@@ -37,8 +35,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.atom.feed.AtomFeed;
 import org.wildfly.camel.test.atom.feed.FeedConstants;
-
-import java.io.InputStream;
 
 @RunWith(Arquillian.class)
 public class AtomIntegrationTest {
@@ -48,14 +44,6 @@ public class AtomIntegrationTest {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "atom-test.war");
         archive.addAsWebInfResource(new StringAsset(""), "beans.xml");
         archive.addPackage(AtomFeed.class.getPackage());
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.apache.abdera.core");
-                return builder.openStream();
-            }
-        });
         return archive;
     }
 
