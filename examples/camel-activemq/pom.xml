@@ -97,6 +97,10 @@
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
+                <configuration>
+                    <jbossHome>${jboss.home}</jbossHome>
+                    <serverConfig>${server.config}</serverConfig>
+                </configuration>
                 <executions>
                     <execution>
                         <id>wildfly-deploy</id>
