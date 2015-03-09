@@ -645,48 +645,22 @@
     <!-- Repositories -->
     <repositories>
         <repository>
-            <id>jboss-public-repository-group</id>
-            <name>JBoss Public Repository Group</name>
+            <id>jboss-public-repository</id>
             <url>http://repository.jboss.org/nexus/content/groups/public/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
         </repository>
         <repository>
-            <id>camel-2.14.2-staging</id>
-            <url>https://repository.jboss.org/nexus/content/repositories/fusesource_releases_external-1555</url>
+            <id>camel-staging</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1027</url>
         </repository>
         <repository>
-            <id>wildfly-8.2.1.Final-staging</id>
+            <id>wildfly-8.2-staging</id>
             <url>https://repository.jboss.org/nexus/content/repositories/jboss_releases_staging_profile-4819</url>
         </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
-            <id>Fusesource</id>
-            <url>http://repository.jboss.org/nexus/content/groups/fs-public</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
             <id>smartics</id>
             <url>http://www.smartics.eu/nexus/content/groups/public-group</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 
