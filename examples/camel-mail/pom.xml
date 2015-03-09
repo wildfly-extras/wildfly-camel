@@ -97,8 +97,37 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>greenmail-deploy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.icegreen</groupId>
+                                    <artifactId>greenmail-webapp</artifactId>
+                                    <version>${version.greenmail}</version>
+                                    <type>war</type>
+                                    <artifactId>greenmail-webapp</artifactId>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${jboss.home}/standalone/deployments</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
+                <configuration>
+                    <jbossHome>${jboss.home}</jbossHome>
+                    <serverConfig>${server.config}</serverConfig>
+                </configuration>
                 <executions>
                     <execution>
                         <id>wildfly-deploy</id>
