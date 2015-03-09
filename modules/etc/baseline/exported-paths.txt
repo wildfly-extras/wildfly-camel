@@ -299,6 +299,7 @@ org/apache/camel/dataformat/bindy/format
 org/apache/camel/dataformat/bindy/kvp
 org/apache/camel/dataformat/bindy/util
 org/apache/camel/dataformat/rss
+org/apache/camel/dataformat/xstream
 org/apache/camel/language
 org/apache/camel/language/mvel
 org/apache/camel/language/ognl

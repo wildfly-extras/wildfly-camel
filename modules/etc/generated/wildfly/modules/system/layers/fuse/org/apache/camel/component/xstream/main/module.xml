@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.xstream">
+  <resources>
+    <resource-root path="camel-xstream-2.15.0.jar" />
+    <resource-root path="xmlpull-1.1.3.1.jar" />
+    <resource-root path="xpp3_min-1.1.4c.jar" />
+    <resource-root path="xstream-1.4.7.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.xml.stream.api" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="javax.xml.stream.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.codehaus.jettison" />
+    <module name="org.codehaus.woodstox" />
+  </dependencies>
+  <exports>
+    <exclude path="com/thoughtworks**" />
+    <exclude path="org/xmlpull**" />
+  </exports>
+</module>

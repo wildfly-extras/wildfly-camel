@@ -110,12 +110,20 @@
     </module>
 
     <module name="javax.xml.bind.api" skip="true">
-        <include artifact="com.sun.xml.bind:jaxb-impl" />
-        <include artifact="com.sun.xml.bind:jaxb-core" />
+        <include artifact=":jaxb-impl" />
+        <include artifact=":jaxb-core" />
+    </module>
+
+    <module name="javax.xml.stream.api" skip="true">
+        <include artifact=":stax-api" />
     </module>
 
     <module name="org.bouncycastle" skip="true">
         <include artifact="org.bouncycastle:bcprov-(.*)" />
+    </module>
+
+    <module name="org.codehaus.jettison" skip="true">
+        <include artifact=":jettison" />
     </module>
 
     <module name="org.dom4j" skip="true">
