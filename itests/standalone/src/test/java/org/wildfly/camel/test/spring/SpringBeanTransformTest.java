@@ -34,13 +34,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.smoke.subA.HelloBean;
-import org.wildfly.extension.camel.CamelContextFactory;
 import org.wildfly.extension.camel.SpringCamelContextFactory;
 
 /**
  * Deploys a module/bundle which contain a {@link HelloBean} referenced from a spring context definition.
  *
- * The tests then build a route through the {@link CamelContextFactory} API.
+ * The tests then build a route through the {@link SpringCamelContextFactory} API.
  * This verifies access to beans within the same deployemnt.
  *
  * @author thomas.diesler@jboss.com

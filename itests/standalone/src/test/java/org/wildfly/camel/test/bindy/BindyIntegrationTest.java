@@ -20,7 +20,6 @@
 
 package org.wildfly.camel.test.bindy;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.bindy.csv.BindyCsvDataFormat;
@@ -35,6 +34,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.bindy.model.Customer;
 import org.wildfly.extension.camel.CamelContextFactory;
+import org.wildfly.extension.camel.WildFlyCamelContext;
 
 @RunWith(Arquillian.class)
 public class BindyIntegrationTest {
@@ -47,27 +47,53 @@ public class BindyIntegrationTest {
     }
 
     @Test
-    public void testUnmarshal() throws Exception {
+    public void testMarshal() throws Exception {
 
+        // WildFlyCamelContext has the PackageScanClassResolver set to init the model
         CamelContextFactory contextFactory = ServiceLocator.getRequiredService(CamelContextFactory.class);
-        CamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
+        WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
 
         final DataFormat bindy = new BindyCsvDataFormat(Customer.class);
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .unmarshal(bindy)
-                .to("mock:result");
+                .marshal(bindy);
             }
         });
 
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            Customer customer = (Customer) producer.requestBody("direct:start", "John,Doe");
-            Assert.assertEquals("John", customer.getFirstName());
-            Assert.assertEquals("Doe", customer.getLastName());
+            String result = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
+            Assert.assertEquals("John,Doe", result.trim());
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testUnmarshal() throws Exception {
+
+        // WildFlyCamelContext has the PackageScanClassResolver set to init the model
+        CamelContextFactory contextFactory = ServiceLocator.getRequiredService(CamelContextFactory.class);
+        WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
+
+        final DataFormat bindy = new BindyCsvDataFormat(Customer.class);
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .unmarshal(bindy);
+            }
+        });
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            Customer result = producer.requestBody("direct:start", "John,Doe", Customer.class);
+            Assert.assertEquals("John", result.getFirstName());
+            Assert.assertEquals("Doe", result.getLastName());
         } finally {
             camelctx.stop();
         }

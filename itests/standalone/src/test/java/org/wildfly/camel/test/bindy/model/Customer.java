@@ -27,9 +27,17 @@ public class Customer {
 
     @DataField(pos = 1)
     private String firstName;
-    
+
     @DataField(pos = 2)
     private String lastName;
+
+    public Customer() {
+    }
+
+    public Customer(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public String getFirstName() {
         return firstName;

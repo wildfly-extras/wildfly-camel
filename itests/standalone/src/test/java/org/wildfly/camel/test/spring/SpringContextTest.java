@@ -31,13 +31,12 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.extension.camel.CamelContextFactory;
 import org.wildfly.extension.camel.SpringCamelContextFactory;
 
 /**
  * Deploys a module/bundle that contains a spring context definition.
  *
- * The tests then build a route through the {@link CamelContextFactory} API and perform a simple invokation.
+ * The tests then build a route through the {@link SpringCamelContextFactory} API and perform a simple invokation.
  * This verifies spring context creation from a deployment.
  *
  * @author thomas.diesler@jboss.com

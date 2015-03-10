@@ -29,6 +29,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.gravia.runtime.ServiceLocator;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -63,19 +64,22 @@ public class JNDIIntegrationTest {
 
     @Test
     public void testCamelContextFactoryLookup() throws Exception {
-
         InitialContext inicxt = new InitialContext();
         CamelContextFactory factory = (CamelContextFactory) inicxt.lookup(CamelConstants.CAMEL_CONTEXT_FACTORY_BINDING_NAME);
-
         WildFlyCamelContext camelctx = factory.createCamelContext();
         assertBeanBinding(camelctx);
     }
 
-    private void assertBeanBinding(WildFlyCamelContext camelctx) throws NamingException, Exception {
+    @Test
+    public void testCamelContextFactoryService() throws Exception {
+        CamelContextFactory contextFactory = ServiceLocator.getRequiredService(CamelContextFactory.class);
+        WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
+        assertBeanBinding(camelctx);
+    }
 
+    private void assertBeanBinding(WildFlyCamelContext camelctx) throws NamingException, Exception {
         Context jndictx = camelctx.getNamingContext();
         jndictx.bind("helloBean", new HelloBean());
-
         try {
             camelctx.addRoutes(new RouteBuilder() {
                 @Override
