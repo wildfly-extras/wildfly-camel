@@ -72,9 +72,6 @@ public class XStreamIntegrationTest {
     @Test
     public void testUnmarshal() throws Exception {
 
-        // [FIXME #387] Usage of camel-xstream depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
