@@ -40,10 +40,11 @@ import org.jboss.modules.filter.PathFilters;
  */
 public final class CamelDependenciesProcessor implements DeploymentUnitProcessor {
 
-    private static final String GRAVIA = "org.jboss.gravia";
-    private static final String APACHE_CAMEL = "org.apache.camel";
-    private static final String APACHE_CAMEL_COMPONENT = "org.apache.camel.component";
-    private static final String WILDFLY_CAMEL = "org.wildfly.extension.camel";
+    private static final String GRAVIA_MODULE = "org.jboss.gravia";
+    private static final String APACHE_CAMEL_MODULE = "org.apache.camel";
+    private static final String APACHE_CAMEL_COMPONENT_MODULE = "org.apache.camel.component";
+    private static final String WILDFLY_CAMEL_MODULE = "org.wildfly.extension.camel";
+    private static final String JDK_EXTRAS_MODULE = "sun.jdk.ext";
 
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
 
@@ -64,11 +65,12 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
 
         ModuleLoader moduleLoader = unit.getAttachment(Attachments.SERVICE_MODULE_LOADER);
         ModuleSpecification moduleSpec = unit.getAttachment(Attachments.MODULE_SPECIFICATION);
-        moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(GRAVIA), false, false, false, false));
-        moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(WILDFLY_CAMEL), false, false, false, false));
+        moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(GRAVIA_MODULE), false, false, false, false));
+        moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(WILDFLY_CAMEL_MODULE), false, false, false, false));
+        moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(JDK_EXTRAS_MODULE), false, false, false, false));
 
         // Add camel aggregator dependency
-        ModuleDependency moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL), false, false, true, false);
+        ModuleDependency moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL_MODULE), false, false, true, false);
         moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
         moduleSpec.addUserDependency(moddep);
 
@@ -78,7 +80,7 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
                 moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(name), false, false, true, false));
             }
         } else {
-            moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL_COMPONENT), false, false, true, false);
+            moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL_COMPONENT_MODULE), false, false, true, false);
             moddep.addImportFilter(PathFilters.isOrIsChildOf("META-INF/cxf"), true);
             moduleSpec.addUserDependency(moddep);
         }
