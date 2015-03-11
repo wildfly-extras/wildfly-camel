@@ -649,10 +649,6 @@
             <url>http://repository.jboss.org/nexus/content/groups/public/</url>
         </repository>
         <repository>
-            <id>camel-staging</id>
-            <url>https://repository.apache.org/content/repositories/orgapachecamel-1027</url>
-        </repository>
-        <repository>
             <id>wildfly-8.2-staging</id>
             <url>https://repository.jboss.org/nexus/content/repositories/jboss_releases_staging_profile-4819</url>
         </repository>
