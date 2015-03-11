@@ -48,6 +48,7 @@
         <include artifact="org.springframework:spring-core" />
         <dependencies>
             <module name="javax.api" />
+            <module name="org.jboss.vfs" />
         </dependencies>
     </module>
     
