@@ -42,7 +42,7 @@ public class CamelEmailIntegrationTest {
                    .append("&message=Hello");
 
         String res = HttpRequest.post(endpointURL.toString(), 10, TimeUnit.SECONDS);
-        Assert.assertTrue(res.contains("Message sent successfully"));
+        Assert.assertTrue("Sent successful: " + res, res.contains("Message sent successfully"));
     }
 
     private String getEndpointAddress(String contextPath) throws MalformedURLException {
