@@ -31,45 +31,35 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.spring.subA.ScannedComponentRouteBuilder;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 /**
- * [#206] Provide multiple Camel config files per deployment
- *
- * https://github.com/wildfly-extras/wildfly-camel/issues/206
+ * Test the packageScan element
  *
  * @author thomas.diesler@jboss.com
- * @since 26-Feb-2015
+ * @since 11-Mar-2015
  */
 @RunWith(Arquillian.class)
-public class SpringMultipleDescriptorsTest {
+public class SpringPackageScanTest {
 
     @ArquillianResource
     CamelContextRegistry contextRegistry;
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-multiple-tests");
-        archive.addAsResource("spring/transform1-camel-context.xml", "transform1-camel-context.xml");
-        archive.addAsResource("spring/transform2-camel-context.xml", "somedir/transform2-camel-context.xml");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "package-scan-tests");
+        archive.addAsResource("spring/package-scan-camel-context.xml", "package-scan-camel-context.xml");
+        archive.addClasses(ScannedComponentRouteBuilder.class);
         return archive;
     }
 
     @Test
     public void testTransform1() throws Exception {
-        CamelContext camelctx = contextRegistry.getContext("transform1");
+        CamelContext camelctx = contextRegistry.getContext("packageScan");
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);
         Assert.assertEquals("Hello Kermit", result);
-    }
-
-    @Test
-    public void testTransform2() throws Exception {
-        CamelContext camelctx = contextRegistry.getContext("transform2");
-        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        String result = producer.requestBody("direct:start", "Kermit", String.class);
-        Assert.assertEquals("Hello2 Kermit", result);
     }
 }

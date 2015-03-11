@@ -24,6 +24,7 @@ import java.net.URL;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.ServiceStatus;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -89,6 +90,7 @@ public class SpringJeeNamespaceTest {
     @Test
     public void testJNDILookup() throws Exception {
         CamelContext camelctx = contextRegistry.getContext("spring-jee");
+        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);
         Assert.assertTrue("Starts with: Hello Kermit using =>" + result, result.startsWith("Hello Kermit using"));

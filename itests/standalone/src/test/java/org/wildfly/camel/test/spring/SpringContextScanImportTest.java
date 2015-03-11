@@ -22,6 +22,7 @@ package org.wildfly.camel.test.spring;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.ServiceStatus;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -57,6 +58,7 @@ public class SpringContextScanImportTest {
     @Test
     public void testTransform1() throws Exception {
         CamelContext camelctx = contextRegistry.getContext("contextScan");
+        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);
         Assert.assertEquals("Hello Kermit", result);
