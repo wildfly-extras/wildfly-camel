@@ -22,7 +22,6 @@ package org.wildfly.camel.examples.mail;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
@@ -35,7 +34,6 @@ import java.util.concurrent.TimeUnit;
 public class CamelEmailIntegrationTest {
 
     @Test
-    @Ignore("[FIXME #402] CamelEmailIntegrationTest cannot connect")
     public void sendEmailTest() throws Exception {
         StringBuilder endpointURL = new StringBuilder(getEndpointAddress("/example-camel-mail/send"));
         endpointURL.append("?from=user1@localhost")
