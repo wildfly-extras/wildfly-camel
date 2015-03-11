@@ -60,8 +60,6 @@ public class RestConsumerIntegrationTest {
 
     @Test
     public void testCxfRsConsumer() throws Exception {
-        // [FIXME #283] Usage of camel-cxf depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
 
         CamelContext camelctx = new DefaultCamelContext();
         CxfRsComponent component = new CxfRsComponent();

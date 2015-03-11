@@ -50,9 +50,6 @@ public class WebServiceConsumerIntegrationTest {
     @Test
     public void testCxfConsumer() throws Exception {
 
-        // [FIXME #283] Usage of camel-cxf depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
         CamelContext camelctx = new DefaultCamelContext();
         final String uri = "cxf:/webservices/?serviceClass=" + Endpoint.class.getName();
 

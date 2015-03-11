@@ -70,9 +70,6 @@ public class RestProducerIntegrationTest {
     public void testCxfRsProducer() throws Exception {
         deployer.deploy(SIMPLE_WAR);
         try {
-            // [FIXME #283] Usage of camel-cxf depends on TCCL
-            Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
             CamelContext camelctx = new DefaultCamelContext();
             camelctx.addRoutes(new RouteBuilder() {
                 @Override
