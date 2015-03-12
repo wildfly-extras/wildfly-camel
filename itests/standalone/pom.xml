@@ -39,6 +39,13 @@
 
     <artifactId>wildfly-camel-itests-standalone</artifactId>
 
+    <!-- Properties -->
+    <properties>
+        <server.config>standalone-camel-examples.xml</server.config>
+        <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true</jvmArgs>
+        <jvmDebugArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmDebugArgs>
+    </properties>
+    
     <!-- Dependencies -->
     <dependencies>
         <dependency>
