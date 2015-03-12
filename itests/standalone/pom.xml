@@ -282,7 +282,7 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>org.wildfly.camel</groupId>
-                                    <artifactId>wildfly-camel-distro</artifactId>
+                                    <artifactId>wildfly-camel-itests-distro</artifactId>
                                     <version>${project.version}</version>
                                     <type>tar</type>
                                     <outputDirectory>${project.build.directory}</outputDirectory>

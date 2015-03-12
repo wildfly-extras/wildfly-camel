@@ -115,7 +115,6 @@
 
     <!-- Modules -->
     <modules>
-        <module>distro</module>
         <module>enricher</module>
         <module>modules</module>
         <module>patch</module>
