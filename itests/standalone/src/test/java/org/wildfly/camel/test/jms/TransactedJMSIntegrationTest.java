@@ -95,8 +95,10 @@ public class TransactedJMSIntegrationTest {
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
             for (JmsQueue jmsQueue : JmsQueue.values()) {
-                jmsAdminOperations = JMSOperationsProvider.getInstance(managementClient);
-                jmsAdminOperations.createJmsQueue(jmsQueue.getQueueName(), jmsQueue.getJndiName());
+                if(!jmsQueue.equals(JmsQueue.DEAD_LETTER_QUEUE)) {
+                    jmsAdminOperations = JMSOperationsProvider.getInstance(managementClient);
+                    jmsAdminOperations.createJmsQueue(jmsQueue.getQueueName(), jmsQueue.getJndiName());
+                }
             }
         }
 
@@ -104,7 +106,9 @@ public class TransactedJMSIntegrationTest {
         public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
             if (jmsAdminOperations != null) {
                 for (JmsQueue jmsQueue : JmsQueue.values()) {
-                    jmsAdminOperations.removeJmsQueue(jmsQueue.getQueueName());
+                    if(!jmsQueue.equals(JmsQueue.DEAD_LETTER_QUEUE)) {
+                        jmsAdminOperations.removeJmsQueue(jmsQueue.getQueueName());
+                    }
                 }
                 jmsAdminOperations.close();
             }
