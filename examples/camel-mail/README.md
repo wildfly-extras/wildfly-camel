@@ -1,4 +1,4 @@
-#camel-mail example
+# camel-mail example
 
 This example demonstrates using the camel-email component with with WildFly Camel susbsystem to send and receive email.
 
@@ -48,8 +48,8 @@ from(receiveMailEndpoint)
 
 To run the example.
 
-1. Change into the `examples/camel-mail directory`
-2. Run `mvn clean wildfly:run -Drun`
+1. Change into the `examples/camel-mail` directory
+2. Run `mvn clean wildfly:run`
 3. When the WildFly server has started, browse to `http://localhost:8080/example-camel-mail/`
 
 You should see a form from which you can test sending emails with Camel.

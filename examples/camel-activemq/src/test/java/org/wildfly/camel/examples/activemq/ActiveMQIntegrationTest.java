@@ -21,26 +21,65 @@ package org.wildfly.camel.examples.activemq;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.concurrent.TimeUnit;
-
 
 @RunAsClient
 @RunWith(Arquillian.class)
 public class ActiveMQIntegrationTest {
 
+    private File destination = new File(System.getProperty("jboss.data.dir") + "/orders");
+
+    @After
+    public void tearDown() throws IOException {
+        Files.walkFileTree(destination.toPath(), new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Files.delete(file);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFileFailed(Path file, IOException exception) throws IOException {
+                exception.printStackTrace();
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exception) throws IOException {
+                if (exception == null) {
+                    Files.delete(dir);
+                }
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
+
     @Test
-    public void testFileToJpaRoute() throws Exception {
-        // Give camel a chance to consume the test order file and pass on to AMQ
+    public void testFileToActiveMQRoute() throws Exception {
+        InputStream testOrder = getClass().getResourceAsStream("/orders/test-order.xml");
+
+        Files.copy(testOrder, destination.toPath().resolve("test-order.xml"));
+
+        // Give camel a chance to consume the test order file
         Thread.sleep(2000);
 
-        String res = HttpRequest.get(getEndpointAddress("/example-camel-activemq/orders"), 10, TimeUnit.SECONDS);
-        Assert.assertEquals("Processed 1 order files for UK", res.trim());
+        String result = HttpRequest.get(getEndpointAddress("/example-camel-activemq/orders"), 10, TimeUnit.SECONDS);
+        Assert.assertTrue(result.contains("UK: 1"));
     }
 
     private String getEndpointAddress(String contextPath) throws MalformedURLException {

@@ -37,15 +37,29 @@ public class ActiveMQRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
+        /**
+         * Configure the ActiveMQ component to use an embedded VM transport broker
+         */
         ActiveMQComponent activeMQComponent = new ActiveMQComponent();
         activeMQComponent.setBrokerURL(BROKER_URL);
         getContext().addComponent("activemq", activeMQComponent);
 
+        /**
+         * This route reads files placed within JBOSS_HOME/standalone/data/orders
+         * and places them onto ActiveMQ queue 'ordersQueue'
+         */
         from("file://{{jboss.server.data.dir}}/orders")
-            .log("Receiving order for ${file:name}")
-            .to("activemq:queue:testQueue");
+        .convertBodyTo(String.class)
+        // Remove headers to ensure we end up with unique file names being generated in the next route
+        .removeHeaders("*")
+        .to("activemq:queue:OrdersQueue");
 
-        from("activemq:queue:testQueue")
+        /**
+         * This route consumes messages from the 'ordersQueue'. Then, based on the
+         * message payload XML content it uses a content based router to output
+         * orders into appropriate country directories
+         */
+        from("activemq:queue:OrdersQueue")
             .choice()
                 .when(xpath("/order/customer/country = 'UK'"))
                     .log("Sending order ${file:name} to the UK")

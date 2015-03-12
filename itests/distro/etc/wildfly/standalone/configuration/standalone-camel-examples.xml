@@ -363,6 +363,9 @@
                         <page-size-bytes>2097152</page-size-bytes>
                         <message-counter-history-day-limit>10</message-counter-history-day-limit>
                     </address-setting>
+                    <address-setting match="jms.queue.OrdersQueue">
+                        <max-delivery-attempts>1</max-delivery-attempts>
+                    </address-setting>
                 </address-settings>
                 <jms-connection-factories>
                     <connection-factory name="InVmConnectionFactory">
@@ -394,6 +397,9 @@
                     </pooled-connection-factory>
                 </jms-connection-factories>
                 <jms-destinations>
+                    <jms-queue name="OrdersQueue">
+                        <entry name="java:/jms/queue/OrdersQueue"/>
+                    </jms-queue>
                     <jms-queue name="ExpiryQueue">
                         <entry name="java:/jms/queue/ExpiryQueue"/>
                     </jms-queue>

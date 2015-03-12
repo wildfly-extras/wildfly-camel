@@ -40,13 +40,16 @@
         <module>camel-cxf-soap</module>
         <module>camel-cdi</module>
         <module>camel-mail</module>
+        <module>camel-jms</module>
         <module>camel-jpa</module>
         <module>camel-rest</module>
+        <module>camel-transacted-jms</module>
 	</modules>
 
     <!-- Properties -->
     <properties>
         <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
+        <jboss.data.dir>${jboss.home}/standalone/data</jboss.data.dir>
         <server.config>standalone-camel-examples.xml</server.config>
         <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true</jvmArgs>
         <jvmDebugArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmDebugArgs>
@@ -166,6 +169,9 @@
 			                    </goals>
 			                    <configuration>
 			                        <skip>false</skip>
+                                    <systemPropertyVariables>
+                                        <jboss.data.dir>${jboss.data.dir}</jboss.data.dir>
+                                    </systemPropertyVariables>
 			                    </configuration>
 			                </execution>
 			            </executions>
@@ -250,6 +256,9 @@
 			                    </goals>
 			                    <configuration>
 			                        <skip>false</skip>
+                                    <systemPropertyVariables>
+                                        <jboss.data.dir>${jboss.data.dir}</jboss.data.dir>
+                                    </systemPropertyVariables>
 			                    </configuration>
 			                </execution>
 			            </executions>

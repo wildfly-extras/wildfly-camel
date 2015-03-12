@@ -6,6 +6,7 @@
   <dependencies>
     <module name="javax.jms.api" />
     <module name="org.apache.camel.core" />
+    <module name="org.springframework.jms" />
     <module name="org.springframework.tx" />
     <module name="org.apache.activemq" />
     <module name="org.apache.camel.component.jms" />

@@ -19,8 +19,6 @@
  */
 package org.wildfly.camel.examples.activemq;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,8 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,22 +35,6 @@ import java.util.Map;
 public class SimpleServlet extends HttpServlet {
 
     private static final String[] COUNTRIES = {"UK", "US", "Others"};
-    private static final Path ORDERS_PATH = new File(System.getProperty("jboss.server.data.dir")).toPath().resolve("orders");
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-
-        // Copy WEB-INF/order.xml to the data dir
-        ServletContext servletContext = config.getServletContext();
-        try {
-            InputStream input = servletContext.getResourceAsStream("/WEB-INF/order.xml");
-            Path xmlPath = ORDERS_PATH.resolve("order.xml");
-            Files.copy(input, xmlPath);
-        } catch (IOException ex) {
-            throw new ServletException(ex);
-        }
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -70,7 +50,7 @@ public class SimpleServlet extends HttpServlet {
         }
 
         request.setAttribute("orders", orderCounts);
-        request.getRequestDispatcher("/WEB-INF/orders.jsp").forward(request, response);
+        request.getRequestDispatcher("orders.jsp").forward(request, response);
     }
 
     private int countOrdersForCountry(String country) throws IOException {

@@ -16,6 +16,17 @@ Your Enterprise Integration Solution can be architected as a combination of Java
 
 If you like to contribute to the docs, please file a [pull request](https://github.com/wildfly-extras/wildfly-camel-book/branches) against the next version branch.
 
+### System Requirements
+
+#### Java
+
+Minimum of Java 1.7, to run WildFly and Maven.
+
+#### Maven
+
+Minimum of Maven 3.2.3. Maven 3.2.5 and above is not currently supported.
+
+
 ### Build
 
 The default build is straight forward

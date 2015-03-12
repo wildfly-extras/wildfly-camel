@@ -21,7 +21,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>WildFly Camel Subsystem Mail Demo</title>
+    <title>WildFly Camel Subsystem Mail Example</title>
     <link href="bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
@@ -40,6 +40,5 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
