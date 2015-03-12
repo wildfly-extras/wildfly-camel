@@ -51,7 +51,7 @@
             <artifactId>wildfly-camel-subsystem</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -178,19 +178,19 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        
+
         <!-- Test -->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
         </dependency>
-		<dependency>
-			<groupId>org.jboss.shrinkwrap.resolver</groupId>
-			<artifactId>shrinkwrap-resolver-depchain</artifactId>
-			<scope>test</scope>
-			<type>pom</type>
-		</dependency>
+        <dependency>
+            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+            <artifactId>shrinkwrap-resolver-depchain</artifactId>
+            <scope>test</scope>
+            <type>pom</type>
+        </dependency>
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-arquillian-container-managed</artifactId>
@@ -229,32 +229,28 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- for testing ftp -->
         <dependency>
-          <groupId>org.apache.camel</groupId>
-          <artifactId>camel-test</artifactId>
-          <scope>test</scope>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-log4j12</artifactId>
-          <version>${version.slf4j}</version>
-          <scope>test</scope>
+            <groupId>org.apache.ftpserver</groupId>
+            <artifactId>ftpserver-core</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>org.apache.ftpserver</groupId>
-          <artifactId>ftpserver-core</artifactId>
-          <version>${version.apache.ftpserver}</version>
-          <scope>test</scope>
+            <groupId>org.apache.ftpserver</groupId>
+            <artifactId>ftplet-api</artifactId>
+            <scope>test</scope>
         </dependency>
-        <dependency>
-          <groupId>org.apache.ftpserver</groupId>
-          <artifactId>ftplet-api</artifactId>
-          <version>${version.apache.ftpserver}</version>
-          <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -296,6 +292,7 @@
                     <redirectTestOutputToFile>false</redirectTestOutputToFile>
                     <systemPropertyVariables>
                         <jboss.home>${jboss.home}</jboss.home>
+                        <log4j.configuration>file://${basedir}/src/test/resources/logging.properties</log4j.configuration>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
