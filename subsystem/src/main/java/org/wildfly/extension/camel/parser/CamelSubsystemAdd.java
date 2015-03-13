@@ -39,6 +39,7 @@ import org.wildfly.extension.camel.service.CamelContextFactoryBindingService;
 import org.wildfly.extension.camel.service.CamelContextFactoryService;
 import org.wildfly.extension.camel.service.CamelContextRegistryBindingService;
 import org.wildfly.extension.camel.service.CamelContextRegistryService;
+import org.wildfly.extension.camel.service.ContextCreateHandlerRegistryService;
 import org.wildfly.extension.gravia.parser.GraviaSubsystemBootstrap;
 
 /**
@@ -90,6 +91,7 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
                 newControllers.add(CamelContextFactoryBindingService.addService(context.getServiceTarget(), verificationHandler));
                 newControllers.add(CamelContextRegistryService.addService(context.getServiceTarget(), subsystemState, verificationHandler));
                 newControllers.add(CamelContextRegistryBindingService.addService(context.getServiceTarget(), verificationHandler));
+                newControllers.add(ContextCreateHandlerRegistryService.addService(context.getServiceTarget(), verificationHandler));
                 context.completeStep(OperationContext.RollbackHandler.NOOP_ROLLBACK_HANDLER);
             }
         }, OperationContext.Stage.RUNTIME);

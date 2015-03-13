@@ -17,20 +17,18 @@
  * limitations under the License.
  * #L%
  */
-
 package org.wildfly.extension.camel;
 
 import org.apache.camel.CamelContext;
 
 /**
- * The WildFly {@link CamelContext} factory.
+ * A handler that gets called on CamelContext creation
  *
  * @author Thomas.Diesler@jboss.com
- * @since 19-Apr-2013
+ * @since 13-Mar-2015
  */
-public interface CamelContextFactory {
+public interface ContextCreateHandler {
 
-    WildFlyCamelContext createCamelContext() throws Exception;
+    void setup(CamelContext camelctx);
 
-    WildFlyCamelContext createCamelContext(ClassLoader classsLoader) throws Exception;
 }

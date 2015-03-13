@@ -17,20 +17,24 @@
  * limitations under the License.
  * #L%
  */
-
 package org.wildfly.extension.camel;
 
-import org.apache.camel.CamelContext;
+import java.util.List;
 
 /**
- * The WildFly {@link CamelContext} factory.
+ * A registry for CAmelContext create handlers
  *
  * @author Thomas.Diesler@jboss.com
- * @since 19-Apr-2013
+ * @since 13-Mar-2015
  */
-public interface CamelContextFactory {
+public interface ContextCreateHandlerRegistry {
 
-    WildFlyCamelContext createCamelContext() throws Exception;
+    List<ContextCreateHandler> getContextCreateHandlers(ClassLoader classsLoader);
 
-    WildFlyCamelContext createCamelContext(ClassLoader classsLoader) throws Exception;
+    void addContextCreateHandler(ClassLoader classsLoader, ContextCreateHandler handler);
+
+    void removeContextCreateHandler(ClassLoader classsLoader, ContextCreateHandler handler);
+
+    void removeContextCreateHandlers(ClassLoader classsLoader);
+
 }

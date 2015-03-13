@@ -20,21 +20,20 @@
 
 package org.wildfly.camel.test.bindy;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.bindy.csv.BindyCsvDataFormat;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spi.DataFormat;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.runtime.ServiceLocator;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.bindy.model.Customer;
-import org.wildfly.extension.camel.CamelContextFactory;
-import org.wildfly.extension.camel.WildFlyCamelContext;
 
 @RunWith(Arquillian.class)
 public class BindyIntegrationTest {
@@ -49,11 +48,9 @@ public class BindyIntegrationTest {
     @Test
     public void testMarshal() throws Exception {
 
-        // WildFlyCamelContext has the PackageScanClassResolver set to init the model
-        CamelContextFactory contextFactory = ServiceLocator.getRequiredService(CamelContextFactory.class);
-        WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
-
         final DataFormat bindy = new BindyCsvDataFormat(Customer.class);
+
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -75,11 +72,9 @@ public class BindyIntegrationTest {
     @Test
     public void testUnmarshal() throws Exception {
 
-        // WildFlyCamelContext has the PackageScanClassResolver set to init the model
-        CamelContextFactory contextFactory = ServiceLocator.getRequiredService(CamelContextFactory.class);
-        WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
-
         final DataFormat bindy = new BindyCsvDataFormat(Customer.class);
+
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

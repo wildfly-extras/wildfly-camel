@@ -24,8 +24,10 @@ import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.CamelContext;
@@ -39,11 +41,6 @@ import org.apache.camel.spi.Container;
 import org.apache.camel.spi.ManagementStrategy;
 import org.apache.camel.support.EventNotifierSupport;
 import org.jboss.as.controller.ServiceVerificationHandler;
-import org.jboss.as.naming.ImmediateManagedReferenceFactory;
-import org.jboss.as.naming.ServiceBasedNamingStore;
-import org.jboss.as.naming.deployment.ContextNames;
-import org.jboss.as.naming.deployment.ContextNames.BindInfo;
-import org.jboss.as.naming.service.BinderService;
 import org.jboss.gravia.runtime.ModuleContext;
 import org.jboss.gravia.runtime.Runtime;
 import org.jboss.gravia.runtime.ServiceRegistration;
@@ -54,6 +51,7 @@ import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
 import org.jboss.msc.service.ServiceController.Mode;
+import org.jboss.msc.service.ServiceRegistry;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
@@ -61,35 +59,29 @@ import org.jboss.msc.service.StopContext;
 import org.jboss.msc.value.InjectedValue;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextRegistry;
+import org.wildfly.extension.camel.ContextCreateHandler;
+import org.wildfly.extension.camel.ContextCreateHandlerRegistry;
 import org.wildfly.extension.camel.SpringCamelContextFactory;
-import org.wildfly.extension.camel.WildFlyClassResolver;
 import org.wildfly.extension.camel.parser.SubsystemState;
 import org.wildfly.extension.gravia.GraviaConstants;
 
 /**
  * The {@link CamelContextRegistry} service
  *
- * Ths implementation creates a jboss-msc {@link org.jboss.msc.service.Service}.
- *
- * JBoss services can create a dependency on the {@link CamelContext} service like this
- *
- * <code>
-        ServiceName serviceName = CamelConstants.CAMEL_CONTEXT_BASE_NAME.append(contextName);
-        builder.addDependency(serviceName, CamelContext.class, service.injectedCamelContext);
- * </code>
- *
  * @author Thomas.Diesler@jboss.com
  * @since 19-Apr-2013
  */
 public class CamelContextRegistryService extends AbstractService<CamelContextRegistry> {
 
-    private static final String SPRING_BEANS_HEADER = "<beans " + "xmlns='http://www.springframework.org/schema/beans' "
+    private static final String SPRING_BEANS_HEADER = "<beans xmlns='http://www.springframework.org/schema/beans' "
             + "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' "
             + "xsi:schemaLocation='http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd "
+            + "http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd "
             + "http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd'>";
 
     private final SubsystemState subsystemState;
-    private final InjectedValue<Runtime> injectedRuntime = new InjectedValue<Runtime>();
+    private final InjectedValue<Runtime> injectedRuntime = new InjectedValue<>();
+    private final InjectedValue<ContextCreateHandlerRegistry> injectedHandlerRegistry = new InjectedValue<>();
 
     private CamelContextRegistry contextRegistry;
     private ServiceRegistration<CamelContextRegistry> registration;
@@ -98,6 +90,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         CamelContextRegistryService service = new CamelContextRegistryService(subsystemState);
         ServiceBuilder<CamelContextRegistry> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME, service);
         builder.addDependency(GraviaConstants.RUNTIME_SERVICE_NAME, Runtime.class, service.injectedRuntime);
+        builder.addDependency(CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_SERVICE_NAME, ContextCreateHandlerRegistry.class, service.injectedHandlerRegistry);
         builder.addListener(verificationHandler);
         return builder.install();
     }
@@ -109,7 +102,9 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
 
     @Override
     public void start(StartContext startContext) throws StartException {
-        contextRegistry = new DefaultCamelContextRegistry(startContext.getChildTarget());
+        ContextCreateHandlerRegistry handlerRegistry = injectedHandlerRegistry.getValue();
+        ServiceRegistry serviceRegistry = startContext.getController().getServiceContainer();
+        contextRegistry = new CamelContextRegistryImpl(handlerRegistry, serviceRegistry, startContext.getChildTarget());
 
         // Register the service with gravia
         Runtime runtime = injectedRuntime.getValue();
@@ -148,21 +143,22 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         return SPRING_BEANS_HEADER + "<camelContext id='" + name + "' xmlns='http://camel.apache.org/schema/spring'>" + hashReplaced + "</camelContext></beans>";
     }
 
-    static class DefaultCamelContextRegistry implements CamelContextRegistry, Container {
+    static final class CamelContextRegistryImpl implements CamelContextRegistry, Container {
 
         private final Map<CamelContext, CamelContextRegistration> contexts = new HashMap<>();
+        private final ContextCreateHandlerRegistry handlerRegistry;
         private final ServiceTarget serviceTarget;
 
         class CamelContextRegistration {
-            Module module;
-            ServiceController<?> controller;
-            CamelContextRegistration(Module module, ServiceController<?> controller) {
-                this.module = module;
-                this.controller = controller;
+            private List<ServiceController<?>> controllers = new ArrayList<>();
+            CamelContextRegistration addServiceDependency(ServiceController<?> controller) {
+                controllers.add(controller);
+                return this;
             }
         }
 
-        DefaultCamelContextRegistry(ServiceTarget serviceTarget) {
+        CamelContextRegistryImpl(ContextCreateHandlerRegistry handlerRegistry, ServiceRegistry serviceRegistry, ServiceTarget serviceTarget) {
+            this.handlerRegistry = handlerRegistry;
             this.serviceTarget = serviceTarget;
             Container.Instance.set(this);
         }
@@ -184,42 +180,19 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         @Override
         public void manage(CamelContext camelctx) {
 
-            Module contextModule = null;
-
-            // Case #1: The context has already been initialized
-            ClassLoader applicationClassLoader = camelctx.getApplicationContextClassLoader();
-            if (applicationClassLoader instanceof ModuleClassLoader) {
-                contextModule = ((ModuleClassLoader) applicationClassLoader).getModule();
+            // Call the default {@link ContextCreateHandler}s
+            for (ContextCreateHandler handler : handlerRegistry.getContextCreateHandlers(null)) {
+                handler.setup(camelctx);
             }
 
-            // Case #2: The context is a system context
-            if (contextModule == null) {
-                ClassLoader thiscl = CamelContextRegistryService.class.getClassLoader();
-                ClassLoader tccl = Thread.currentThread().getContextClassLoader();
-                if (tccl == thiscl) {
-                    contextModule = ((ModuleClassLoader) thiscl).getModule();
-                }
-            }
+            // Verify that the application context class loader is a ModuleClassLoader
+            ClassLoader classLoader = camelctx.getApplicationContextClassLoader();
+            IllegalStateAssertion.assertTrue(classLoader instanceof ModuleClassLoader, "Invalid class loader association: " + classLoader);
 
-            // Case #3: The context is created as part of a deployment
-            if (contextModule == null) {
-                ClassLoader tccl = Thread.currentThread().getContextClassLoader();
-                if (tccl instanceof ModuleClassLoader) {
-                    Module tcm = ((ModuleClassLoader) tccl).getModule();
-                    if (tcm.getIdentifier().getName().startsWith("deployment.")) {
-                        contextModule = tcm;
-                    }
-                }
+            // Call the module specific {@link ContextCreateHandler}s
+            for (ContextCreateHandler handler : handlerRegistry.getContextCreateHandlers(classLoader)) {
+                handler.setup(camelctx);
             }
-
-            // Case #4: The context is created through user API
-            if (contextModule == null) {
-                Class<?> callingClass = CallerContext.getCallingClass();
-                contextModule = ((ModuleClassLoader) callingClass.getClassLoader()).getModule();
-            }
-
-            IllegalStateAssertion.assertNotNull(contextModule, "Cannot obtain module for: " + camelctx);
-            final Module[] contextModuleHolder = new Module[] { contextModule };
 
             ManagementStrategy mgmtStrategy = camelctx.getManagementStrategy();
             mgmtStrategy.addEventNotifier(new EventNotifierSupport() {
@@ -230,7 +203,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
                     if (event instanceof CamelContextStartingEvent) {
                         CamelContextStartingEvent camelevt = (CamelContextStartingEvent) event;
                         CamelContext camelctx = camelevt.getContext();
-                        addContext(camelctx, contextModuleHolder[0]);
+                        addContext(camelctx);
                         LOGGER.info("Camel context starting: {}", camelctx.getName());
                     }
 
@@ -247,36 +220,14 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
                     return true;
                 }
             });
-
-            // Ensure context does not contain CXF consumer endpoints
-            StartupListener startupListener = new StartupListener() {
-                @Override
-                public void onCamelContextStarted(CamelContext camelctx, boolean alreadyStarted) throws Exception {
-                    if (!alreadyStarted) {
-                        assertNoCxfEndpoint(camelctx);
-                    }
-                }
-            };
-
-            // Initial context setup and registration
-            ModuleClassLoader contextClassLoader = contextModule.getClassLoader();
-            try {
-                camelctx.setClassResolver(new WildFlyClassResolver(contextClassLoader));
-                camelctx.setApplicationContextClassLoader(contextClassLoader);
-                camelctx.addStartupListener(startupListener);
-            } catch (RuntimeException rte) {
-                throw rte;
-            } catch (Exception ex) {
-                throw new IllegalStateException(ex);
-            }
         }
 
-        private CamelContextRegistration addContext(CamelContext camelctx, Module module) {
+        private CamelContextRegistration addContext(CamelContext camelctx) {
             synchronized (contexts) {
                 CamelContextRegistration registration = contexts.get(camelctx);
                 if (registration == null) {
                     ServiceController<?> controller = CamelContextBindingService.addService(serviceTarget, camelctx);
-                    registration = new CamelContextRegistration(module, controller);
+                    registration = new CamelContextRegistration().addServiceDependency(controller);
                     contexts.put(camelctx, registration);
                 }
                 return registration;
@@ -286,85 +237,13 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         private void removeContext(CamelContext camelctx) {
             synchronized (contexts) {
                 CamelContextRegistration registration = contexts.remove(camelctx);
-                if (registration != null && registration.controller != null) {
-                    registration.controller.setMode(Mode.REMOVE);
+                if (registration != null) {
+                    for (ServiceController<?> controller : registration.controllers) {
+                        controller.setMode(Mode.REMOVE);
+                    }
                 }
             }
         }
 
-        private void assertNoCxfEndpoint(CamelContext camelctx) {
-            String cxfpackage = CxfEndpoint.class.getPackage().getName();
-            for (Route route : camelctx.getRoutes()) {
-                Endpoint endpoint = route.getEndpoint();
-                String eppackage = endpoint.getClass().getPackage().getName();
-                if (route.getConsumer() != null && eppackage.startsWith(cxfpackage)) {
-                    throw new UnsupportedOperationException("CXF Endpoint consumers are not allowed");
-                }
-            }
-        }
-    }
-
-    private static class CamelContextBindingService extends AbstractService<CamelContext> {
-
-        static ServiceController<?> addService(ServiceTarget serviceTarget, final CamelContext camelctx) {
-            final BindInfo bindInfo = ContextNames.bindInfoFor(CamelConstants.CAMEL_CONTEXT_BINDING_NAME + "/" + camelctx.getName());
-            BinderService binderService = new BinderService(bindInfo.getBindName()) {
-                @Override
-                public synchronized void start(StartContext context) throws StartException {
-                    super.start(context);
-                    LOGGER.info("Bound camel naming object: {}", bindInfo.getAbsoluteJndiName());
-                }
-
-                @Override
-                public synchronized void stop(StopContext context) {
-                    LOGGER.debug("Unbind camel naming object: {}", bindInfo.getAbsoluteJndiName());
-                    super.stop(context);
-                }
-            };
-            binderService.getManagedObjectInjector().inject(new ImmediateManagedReferenceFactory(camelctx));
-            ServiceBuilder<?> builder = serviceTarget.addService(bindInfo.getBinderServiceName(), binderService);
-            builder.addDependency(bindInfo.getParentContextServiceName(), ServiceBasedNamingStore.class, binderService.getNamingStoreInjector());
-            return builder.install();
-        }
-    }
-
-    static final class CallerContext {
-
-        // Hide ctor
-        private CallerContext() {
-        }
-
-        private static Hack hack = AccessController.doPrivileged(new PrivilegedAction<Hack>() {
-            public Hack run() {
-                return new Hack();
-            }
-        });
-
-        static Class<?> getCallingClass() {
-            Class<?> stack[] = hack.getClassContext();
-            int i = 3;
-            while (stack[i] == stack[2]) {
-                if (++i >= stack.length)
-                    return null;
-            }
-            Class<?> result = stack[i];
-            while (ignoreCaller(result.getName())) {
-                result = stack[++i];
-            }
-            return result;
-        }
-
-        private static boolean ignoreCaller(String caller) {
-            boolean result = caller.startsWith("org.wildfly.extension.camel");
-            result |= caller.startsWith("org.springframework");
-            result |= caller.startsWith("org.apache.camel");
-            return result;
-        }
-
-        private static final class Hack extends SecurityManager {
-            protected Class<?>[] getClassContext() {
-                return super.getClassContext();
-            }
-        }
     }
 }
