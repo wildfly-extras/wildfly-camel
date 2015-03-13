@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.extension.camel;
+package org.wildfly.extension.camel.handler;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
@@ -36,20 +36,20 @@ import org.jboss.modules.ModuleClassLoader;
 
 /**
  * A class resolver that delegates to a module class loader
- * 
+ *
  * @author Thomas.Diesler@jboss.com
  * @since 11-Feb-2015
  */
-public final class WildFlyClassResolver extends DefaultClassResolver {
+final class WildFlyClassResolver extends DefaultClassResolver {
 
     private final ModuleClassLoader classLoader;
 
-    public WildFlyClassResolver(Module module) {
+    WildFlyClassResolver(Module module) {
         IllegalArgumentAssertion.assertNotNull(module, "module");
         this.classLoader = module.getClassLoader();
     }
 
-    public WildFlyClassResolver(ClassLoader classLoader) {
+    WildFlyClassResolver(ClassLoader classLoader) {
         IllegalArgumentAssertion.assertNotNull(classLoader, "classLoader");
         IllegalArgumentAssertion.assertTrue(classLoader instanceof ModuleClassLoader, "ModuleClassLoader required: " + classLoader);
         this.classLoader = (ModuleClassLoader) classLoader;

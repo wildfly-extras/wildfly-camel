@@ -42,6 +42,8 @@ public interface CamelConstants {
     ServiceName CAMEL_CONTEXT_FACTORY_SERVICE_NAME = CAMEL_BASE_NAME.append("CamelContextFactory");
     /** The name for the {@link CamelContextRegistry} service */
     ServiceName CAMEL_CONTEXT_REGISTRY_SERVICE_NAME = CAMEL_BASE_NAME.append("CamelContextRegistry");
+    /** The name for the {@link ContextCreateHandlerRegistry} service */
+    ServiceName CONTEXT_CREATE_HANDLER_REGISTRY_SERVICE_NAME = CAMEL_BASE_NAME.append("ContextCreateHandlerRegistry");
     /** The name for the camel subsystem service */
     ServiceName CAMEL_SUBSYSTEM_SERVICE_NAME = CAMEL_BASE_NAME.append("Subsystem");
 
@@ -62,6 +64,8 @@ public interface CamelConstants {
     AttachmentKey<CamelContextRegistry> CAMEL_CONTEXT_REGISTRY_KEY = AttachmentKey.create(CamelContextRegistry.class);
     /** The {@link CamelContextFactory} attachment key */
     AttachmentKey<CamelContextFactory> CAMEL_CONTEXT_FACTORY_KEY = AttachmentKey.create(CamelContextFactory.class);
+    /** The {@link ContextCreateHandlerRegistry} attachment key */
+    AttachmentKey<ContextCreateHandlerRegistry> CONTEXT_CREATE_HANDLER_REGISTRY_KEY = AttachmentKey.create(ContextCreateHandlerRegistry.class);
 
     /** The JNDI name for the {@link CamelContextFactory} binding */
     String CAMEL_CONTEXT_FACTORY_BINDING_NAME = "java:jboss/camel/CamelContextFactory";
