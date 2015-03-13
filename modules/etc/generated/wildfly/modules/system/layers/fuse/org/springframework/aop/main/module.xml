@@ -5,6 +5,8 @@
     <resource-root path="spring-aop-4.1.5.RELEASE.jar" />
   </resources>
   <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.commons.logging" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.core" />
   </dependencies>

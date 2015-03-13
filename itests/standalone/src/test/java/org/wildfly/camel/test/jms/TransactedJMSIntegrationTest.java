@@ -20,25 +20,13 @@
 
 package org.wildfly.camel.test.jms;
 
-import java.io.InputStream;
-
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
-import javax.jms.XAQueueConnectionFactory;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.transaction.TransactionManager;
-
 import org.apache.camel.CamelContext;
-import org.apache.camel.ConsumerTemplate;
-import org.apache.camel.Exchange;
+import org.apache.camel.PollingConsumer;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.spring.spi.SpringTransactionPolicy;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -56,6 +44,22 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.jta.JtaTransactionManager;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.transaction.support.TransactionTemplate;
+
+import javax.annotation.Resource;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.naming.InitialContext;
+import javax.transaction.TransactionManager;
+import javax.transaction.UserTransaction;
+import java.io.InputStream;
 
 @RunWith(Arquillian.class)
 @ServerSetup({TransactedJMSIntegrationTest.JmsQueueSetup.class})
@@ -64,38 +68,24 @@ public class TransactedJMSIntegrationTest {
     @ArquillianResource
     InitialContext initialctx;
 
-    private enum JmsQueue {
-        QUEUE_ONE("camel-jms-queue-one"),
-        QUEUE_TWO("camel-jms-queue-two"),
-        DEAD_LETTER_QUEUE("DLQ");
+    @Resource(mappedName = "java:/JmsXA")
+    private ConnectionFactory connectionFactory;
 
-        private final String queueName;
+    @Resource(mappedName = "java:/TransactionManager")
+    private TransactionManager transactionManager;
 
-        JmsQueue(String queueName) {
-            this.queueName = queueName;
-        }
+    @Resource(mappedName = "java:/jboss/UserTransaction")
+    private UserTransaction userTransaction;
 
-        public String getQueueName() {
-            return this.queueName;
-        }
-
-        public String getJndiName() {
-            return "java:/jms/queue/" + this.queueName;
-        }
-
-        public String getCamelEndpointUri() {
-            return "jms:queue:" + this.queueName + "?connectionFactory=JmsXA";
-        }
-    }
+    private JmsComponent jmsComponent;
 
     static class JmsQueueSetup implements ServerSetupTask {
-
         private JMSOperations jmsAdminOperations;
 
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
             for (JmsQueue jmsQueue : JmsQueue.values()) {
-                if(!jmsQueue.equals(JmsQueue.DEAD_LETTER_QUEUE)) {
+                if (!jmsQueue.equals(JmsQueue.DEAD_LETTER_QUEUE)) {
                     jmsAdminOperations = JMSOperationsProvider.getInstance(managementClient);
                     jmsAdminOperations.createJmsQueue(jmsQueue.getQueueName(), jmsQueue.getJndiName());
                 }
@@ -106,7 +96,7 @@ public class TransactedJMSIntegrationTest {
         public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
             if (jmsAdminOperations != null) {
                 for (JmsQueue jmsQueue : JmsQueue.values()) {
-                    if(!jmsQueue.equals(JmsQueue.DEAD_LETTER_QUEUE)) {
+                    if (!jmsQueue.equals(JmsQueue.DEAD_LETTER_QUEUE)) {
                         jmsAdminOperations.removeJmsQueue(jmsQueue.getQueueName());
                     }
                 }
@@ -131,73 +121,106 @@ public class TransactedJMSIntegrationTest {
 
     @Before
     public void setUp() throws Exception {
-        TransactionManager transactionManager = (TransactionManager) initialctx.lookup("java:/TransactionManager");
-        initialctx.bind("transactionManager", transactionManager);
+        JtaTransactionManager jtaTransactionManager = new JtaTransactionManager();
+        jtaTransactionManager.setTransactionManager(transactionManager);
+        jtaTransactionManager.setUserTransaction(userTransaction);
+
+        TransactionTemplate template = new TransactionTemplate(jtaTransactionManager,
+                new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRED));
+
+        SpringTransactionPolicy transactionPolicy = new SpringTransactionPolicy();
+        transactionPolicy.setTransactionTemplate(template);
+        transactionPolicy.setTransactionManager(jtaTransactionManager);
+
+        initialctx.bind("PROPAGATION_REQUIRED", transactionPolicy);
+        initialctx.bind("transactionManager", jtaTransactionManager);
+
+        jmsComponent = JmsComponent.jmsComponentTransacted(connectionFactory, jtaTransactionManager);
     }
 
     @After
     public void tearDown() throws Exception {
+        initialctx.unbind("PROPAGATION_REQUIRED");
         initialctx.unbind("transactionManager");
     }
 
     @Test
     public void testJMSTransactionToDLQ() throws Exception {
-        // Create the CamelContext
         CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addComponent("jms", configureJMSComponent());
+        camelctx.addComponent("jms", jmsComponent);
+        camelctx.addRoutes(configureJmsRoutes());
 
-        camelctx.addRoutes(configureRouteBuilder());
         camelctx.start();
-        try {
-            ConnectionFactory connectionFactory = (ConnectionFactory) initialctx.lookup("java:/JmsXA");
-            Connection connection = connectionFactory.createConnection();
-            try {
-                sendMessage(connection, JmsQueue.QUEUE_ONE.getJndiName(), "Hello Bob");
 
-                // Forwarding the hello message on to QUEUE_TWO should have been rolled back
-                String result = consumeMessageFromEndpoint(camelctx, JmsQueue.QUEUE_TWO.getCamelEndpointUri());
-                Assert.assertNull(result);
+        PollingConsumer consumer = camelctx.getEndpoint("direct:dlq").createPollingConsumer();
+        consumer.start();
 
-                // The message should have been placed onto the dead letter queue
-                result = consumeMessageFromEndpoint(camelctx, JmsQueue.DEAD_LETTER_QUEUE.getCamelEndpointUri());
-                Assert.assertNotNull(result);
-                Assert.assertEquals("Hello Bob", result);
-            } finally {
-                connection.close();
-            }
-        } finally {
-            camelctx.stop();
-        }
+        // Send a message to queue camel-jms-queue-one
+        Connection connection = connectionFactory.createConnection();
+        sendMessage(connection, JmsQueue.QUEUE_ONE.getJndiName(), "Hello Bob");
+
+        // The JMS transaction should have been rolled back and the message sent to the DLQ
+        String result = consumer.receive().getIn().getBody(String.class);
+        Assert.assertNotNull(result);
+        Assert.assertEquals("Hello Bob", result);
+
+        connection.close();
+        camelctx.stop();
     }
 
     @Test
     public void testJMSTransaction() throws Exception {
-        // Create the CamelContext
         CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addComponent("jms", configureJMSComponent());
+        camelctx.addComponent("jms", jmsComponent);
+        camelctx.addRoutes(configureJmsRoutes());
 
-        camelctx.addRoutes(configureRouteBuilder());
         camelctx.start();
-        try {
-            // Send a message to the queue
-            ConnectionFactory connectionFactory = (ConnectionFactory) initialctx.lookup("java:/JmsXA");
-            Connection connection = connectionFactory.createConnection();
-            try {
-                sendMessage(connection, JmsQueue.QUEUE_ONE.getJndiName(), "Hello Kermit");
 
-                // Verify that the message was forwarded to QUEUE_TWO
-                String result = consumeMessageFromEndpoint(camelctx, JmsQueue.QUEUE_TWO.getCamelEndpointUri());
-                Assert.assertEquals("Hello Kermit", result);
-            } finally {
-                connection.close();
+        PollingConsumer consumer = camelctx.getEndpoint("direct:success").createPollingConsumer();
+        consumer.start();
+
+        // Send a message to queue camel-jms-queue-one
+        Connection connection = connectionFactory.createConnection();
+        sendMessage(connection, JmsQueue.QUEUE_ONE.getJndiName(), "Hello Kermit");
+
+        // The JMS transaction should have been committed and the message payload sent to the direct:success endpoint
+        String result = consumer.receive().getIn().getBody(String.class);
+        Assert.assertNotNull(result);
+        Assert.assertEquals("Hello Kermit", result);
+
+        connection.close();
+        camelctx.stop();
+    }
+
+    private RoutesBuilder configureJmsRoutes() {
+        return new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                errorHandler(deadLetterChannel(JmsQueue.DEAD_LETTER_QUEUE.getCamelEndpointUri())
+                .useOriginalMessage()
+                .maximumRedeliveries(0)
+                .redeliveryDelay(1000));
+
+                from(JmsQueue.QUEUE_ONE.getCamelEndpointUri())
+                .transacted("PROPAGATION_REQUIRED")
+                .to(JmsQueue.QUEUE_TWO.getCamelEndpointUri());
+
+                from(JmsQueue.QUEUE_TWO.getCamelEndpointUri())
+                .choice()
+                    .when(body().contains("Bob"))
+                        .throwException(new IllegalArgumentException("Invalid name"))
+                    .otherwise()
+                        .to("direct:success");
+
+                from(JmsQueue.DEAD_LETTER_QUEUE.getCamelEndpointUri())
+                .to("direct:dlq");
             }
-        } finally {
-            camelctx.stop();
-        }
+        };
     }
 
     private void sendMessage(Connection connection, String jndiName, String message) throws Exception {
-        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        InitialContext initialctx = new InitialContext();
+        Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
         Destination destination = (Destination) initialctx.lookup(jndiName);
         MessageProducer producer = session.createProducer(destination);
         TextMessage msg = session.createTextMessage(message);
@@ -205,50 +228,27 @@ public class TransactedJMSIntegrationTest {
         connection.start();
     }
 
-    private String consumeMessageFromEndpoint(CamelContext camelctx, String endpoint) throws Exception {
+    private enum JmsQueue {
+        QUEUE_ONE("camel-jms-queue-one"),
+        QUEUE_TWO("camel-jms-queue-two"),
+        DEAD_LETTER_QUEUE("DLQ");
 
-        ConsumerTemplate consumer = camelctx.createConsumerTemplate();
-        consumer.start();
+        private final String queueName;
 
-        String result = null;
-        Exchange exchange = consumer.receive(endpoint, 2000);
-        if (exchange != null) {
-            if (exchange.hasOut()) {
-                result = exchange.getOut().getBody(String.class);
-            } else {
-                result = exchange.getIn().getBody(String.class);
-            }
+        JmsQueue(String queueName) {
+            this.queueName = queueName;
         }
-        return result;
-    }
 
-    private RouteBuilder configureRouteBuilder() {
-        return new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                errorHandler(deadLetterChannel(JmsQueue.DEAD_LETTER_QUEUE.getCamelEndpointUri())
-                        .maximumRedeliveries(1)
-                        .redeliveryDelay(1000));
+        public String getQueueName() {
+            return this.queueName;
+        }
 
-                from(JmsQueue.QUEUE_ONE.getCamelEndpointUri())
-                        .to("direct:greet")
-                        .to(JmsQueue.QUEUE_TWO.getCamelEndpointUri());
+        public String getJndiName() {
+            return "java:/jms/queue/" + this.queueName;
+        }
 
-                from("direct:greet")
-                        .choice()
-                        .when(body().contains("Bob"))
-                        .throwException(new IllegalArgumentException("Invalid name"))
-                        .otherwise()
-                        .log("{body}");
-            }
-        };
-    }
-
-    private JmsComponent configureJMSComponent() throws NamingException {
-        XAQueueConnectionFactory connectionFactory = (XAQueueConnectionFactory) initialctx.lookup("java:/JmsXA");
-        JmsComponent jmsComponent = new JmsComponent();
-        jmsComponent.setConnectionFactory(connectionFactory);
-        jmsComponent.setCacheLevelName("CACHE_NONE");
-        return jmsComponent;
+        public String getCamelEndpointUri() {
+            return "jms:queue:" + this.queueName;
+        }
     }
 }

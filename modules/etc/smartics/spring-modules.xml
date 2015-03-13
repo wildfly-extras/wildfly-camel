@@ -23,6 +23,10 @@
     <module name="org.springframework.aop">
         <include artifact="org.springframework:spring-aop" />
         <include artifact=":aopalliance" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.commons.logging" />
+        </dependencies>
     </module>
     
     <module name="org.springframework.beans">

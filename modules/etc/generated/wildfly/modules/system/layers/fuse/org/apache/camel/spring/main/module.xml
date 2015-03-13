@@ -10,7 +10,18 @@
     <module name="org.springframework.beans" />
     <module name="org.springframework.context" />
     <module name="org.springframework.core" />
-    <module name="org.springframework.tx" />
+    <module name="org.springframework.tx" export="true">
+      <exports>
+        <exclude path="org/springframework/dao**" />
+        <exclude path="org/springframework/jca**" />
+      </exports>
+    </module>
     <module name="org.slf4j" />
   </dependencies>
+  <exports>
+    <exclude path="org/apache/camel/component/event**" />
+    <exclude path="org/apache/camel/core**" />
+    <exclude path="org/apache/camel/language/spel**" />
+    <exclude path="org/apache/camel/osgi**" />
+  </exports>
 </module>
