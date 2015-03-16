@@ -22,8 +22,6 @@ package org.wildfly.extension.camel.service;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.HashMap;
@@ -31,13 +29,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.Endpoint;
-import org.apache.camel.Route;
-import org.apache.camel.StartupListener;
-import org.apache.camel.component.cxf.CxfEndpoint;
+import org.apache.camel.impl.CamelContextTrackerRegistry;
 import org.apache.camel.management.event.CamelContextStartingEvent;
 import org.apache.camel.management.event.CamelContextStoppedEvent;
-import org.apache.camel.spi.Container;
+import org.apache.camel.spi.CamelContextTracker;
 import org.apache.camel.spi.ManagementStrategy;
 import org.apache.camel.support.EventNotifierSupport;
 import org.jboss.as.controller.ServiceVerificationHandler;
@@ -45,7 +40,6 @@ import org.jboss.gravia.runtime.ModuleContext;
 import org.jboss.gravia.runtime.Runtime;
 import org.jboss.gravia.runtime.ServiceRegistration;
 import org.jboss.gravia.utils.IllegalStateAssertion;
-import org.jboss.modules.Module;
 import org.jboss.modules.ModuleClassLoader;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
@@ -143,7 +137,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         return SPRING_BEANS_HEADER + "<camelContext id='" + name + "' xmlns='http://camel.apache.org/schema/spring'>" + hashReplaced + "</camelContext></beans>";
     }
 
-    static final class CamelContextRegistryImpl implements CamelContextRegistry, Container {
+    static final class CamelContextRegistryImpl extends CamelContextTracker implements CamelContextRegistry {
 
         private final Map<CamelContext, CamelContextRegistration> contexts = new HashMap<>();
         private final ContextCreateHandlerRegistry handlerRegistry;
@@ -160,7 +154,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         CamelContextRegistryImpl(ContextCreateHandlerRegistry handlerRegistry, ServiceRegistry serviceRegistry, ServiceTarget serviceTarget) {
             this.handlerRegistry = handlerRegistry;
             this.serviceTarget = serviceTarget;
-            Container.Instance.set(this);
+            CamelContextTrackerRegistry.INSTANCE.addTracker(this);
         }
 
         @Override
@@ -178,7 +172,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         }
 
         @Override
-        public void manage(CamelContext camelctx) {
+        public void contextCreated(CamelContext camelctx) {
 
             // Call the default {@link ContextCreateHandler}s
             for (ContextCreateHandler handler : handlerRegistry.getContextCreateHandlers(null)) {
