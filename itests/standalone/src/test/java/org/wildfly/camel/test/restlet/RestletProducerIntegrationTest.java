@@ -17,8 +17,9 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.cxf.rs;
+package org.wildfly.camel.test.restlet;
 
+import java.io.InputStream;
 import java.net.MalformedURLException;
 
 import org.apache.camel.CamelContext;
@@ -30,8 +31,10 @@ import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
@@ -41,7 +44,7 @@ import org.wildfly.camel.test.cxf.rs.subA.GreetingService;
 import org.wildfly.camel.test.cxf.rs.subA.RestApplication;
 
 @RunWith(Arquillian.class)
-public class RestProducerIntegrationTest {
+public class RestletProducerIntegrationTest {
 
     static final String SIMPLE_WAR = "simple-rs-endpoint.war";
 
@@ -50,13 +53,21 @@ public class RestProducerIntegrationTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jaxrs-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "restlet-tests");
         archive.addClasses(GreetingService.class);
+        archive.setManifest(new Asset() {
+            @Override
+            public InputStream openStream() {
+                ManifestBuilder builder = new ManifestBuilder();
+                builder.addManifestHeader("Dependencies", "org.apache.cxf:3.0.2");
+                return builder.openStream();
+            }
+        });
         return archive;
     }
 
     @Test
-    public void testCxfRsProducer() throws Exception {
+    public void testRestletProducer() throws Exception {
         deployer.deploy(SIMPLE_WAR);
         try {
             CamelContext camelctx = new DefaultCamelContext();
@@ -65,7 +76,7 @@ public class RestProducerIntegrationTest {
                 public void configure() throws Exception {
                     from("direct:start")
                     .setHeader(Exchange.HTTP_METHOD, constant("GET")).
-                    to("cxfrs://" + getEndpointAddress("/simple-rs-endpoint") + "?resourceClasses=" + GreetingService.class.getName());
+                    to("restlet://" + getEndpointAddress("/simple-rs-endpoint") + "?resourceClasses=" + GreetingService.class.getName());
                 }
             });
 

@@ -20,11 +20,13 @@
 
 package org.wildfly.extension.camel.handler;
 
+import java.util.Collection;
+
 import org.apache.camel.CamelContext;
+import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Route;
-import org.apache.camel.StartupListener;
-import org.apache.camel.component.cxf.CxfEndpoint;
+import org.apache.camel.support.LifecycleStrategySupport;
 import org.wildfly.extension.camel.ContextCreateHandler;
 
 /**
@@ -37,34 +39,22 @@ public final class ContextValidationHandler implements ContextCreateHandler {
 
     @Override
     public void setup(CamelContext camelctx) {
-
-        // Ensure context does not contain CXF consumer endpoints
-        StartupListener startupListener = new StartupListener() {
+        camelctx.addLifecycleStrategy(new LifecycleStrategySupport() {
             @Override
-            public void onCamelContextStarted(CamelContext camelctx, boolean alreadyStarted) throws Exception {
-                if (!alreadyStarted) {
-                    assertNoCxfEndpoint(camelctx);
+            public void onRoutesAdd(Collection<Route> routes) {
+                for (Route route : routes) {
+                    Consumer consumer = route.getConsumer();
+                    if (consumer != null) {
+                        Endpoint endpoint = consumer.getEndpoint();
+                        String eppackage = endpoint.getClass().getPackage().getName();
+                        if (eppackage.startsWith("org.apache.camel.component.cxf")) {
+                            throw new UnsupportedOperationException("CXF consumer endpoint not supported");
+                        } else if (eppackage.startsWith("org.apache.camel.component.restlet")) {
+                            throw new UnsupportedOperationException("Restlet consumer endpoint not supported");
+                        }
+                    }
                 }
             }
-        };
-
-        try {
-            camelctx.addStartupListener(startupListener);
-        } catch (RuntimeException rte) {
-            throw rte;
-        } catch (Exception ex) {
-            throw new IllegalStateException(ex);
-        }
-    }
-
-    private void assertNoCxfEndpoint(CamelContext camelctx) {
-        String cxfpackage = CxfEndpoint.class.getPackage().getName();
-        for (Route route : camelctx.getRoutes()) {
-            Endpoint endpoint = route.getEndpoint();
-            String eppackage = endpoint.getClass().getPackage().getName();
-            if (route.getConsumer() != null && eppackage.startsWith(cxfpackage)) {
-                throw new UnsupportedOperationException("CXF Endpoint consumers are not allowed");
-            }
-        }
+        });
     }
 }

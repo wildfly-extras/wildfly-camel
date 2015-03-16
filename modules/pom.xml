@@ -188,6 +188,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-restlet</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-rss</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -326,6 +331,16 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.restlet.jee</groupId>
+            <artifactId>org.restlet</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.restlet.jee</groupId>
+            <artifactId>org.restlet.ext.httpclient</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <scope>provided</scope>
@@ -433,6 +448,10 @@
                             <groupId>com.sun</groupId>
                             <artifactId>tools</artifactId>
                         </exclude>
+                        <exclusion>
+                            <groupId>net.jcip</groupId>
+                            <artifactId>jcip-annotations</artifactId>
+                        </exclusion>
                         <exclude>
                             <groupId>net.sf.kxml</groupId>
                             <artifactId>kxml2</artifactId>

@@ -102,6 +102,7 @@
     <module name="org.apache.httpcomponents" slot="4.3" inherit-slot="false">
         <include artifact=":httpcore" />
         <include artifact=":httpclient" />
+        <include artifact=":httpmime" />
         <dependencies>
             <module name="javax.api"/>
             <module name="org.apache.commons.codec" />
@@ -171,6 +172,15 @@
         <include artifact=":org.osgi.enterprise" />
         <dependencies>
             <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="org.restlet">
+        <include artifact=":org.restlet" />
+        <include artifact=":org.restlet.ext.httpclient" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="sun.jdk.ext"/>
         </dependencies>
     </module>
 

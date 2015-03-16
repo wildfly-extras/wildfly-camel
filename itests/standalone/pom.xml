@@ -125,6 +125,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-restlet</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-rss</artifactId>
         </dependency>
         <dependency>
@@ -166,6 +170,10 @@
         <dependency>
             <groupId>org.jboss.ws</groupId>
             <artifactId>jbossws-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.restlet.jee</groupId>
+            <artifactId>org.restlet</artifactId>
         </dependency>
         <dependency>
             <groupId>org.wildfly</groupId>

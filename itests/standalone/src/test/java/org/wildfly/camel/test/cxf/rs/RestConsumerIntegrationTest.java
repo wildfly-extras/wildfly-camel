@@ -83,7 +83,8 @@ public class RestConsumerIntegrationTest {
             camelctx.start();
             Assert.fail("Expected RuntimeCamelException to be thrown but it was not");
         } catch (RuntimeException e) {
-            Assert.assertTrue(e.getMessage().equals("CXF Endpoint consumers are not allowed"));
+            String message = e.getMessage();
+            Assert.assertTrue("Message equals: " + message, message.equals("CXF consumer endpoint not supported"));
         }
     }
 

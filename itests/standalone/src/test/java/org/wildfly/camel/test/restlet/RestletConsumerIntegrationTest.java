@@ -2,7 +2,7 @@
  * #%L
  * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2013 - 2014 RedHat
+ * Copyright (C) 2013 - 2015 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,9 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.cxf.ws;
+package org.wildfly.camel.test.restlet;
+
+import java.net.MalformedURLException;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
@@ -29,43 +31,40 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.cxf.ws.subA.Endpoint;
+import org.wildfly.camel.test.cxf.rs.subA.GreetingService;
 
-/**
- * Test WebService endpoint access with the cxf component.
- *
- * @author thomas.diesler@jboss.com
- * @since 11-Jun-2013
- */
 @RunWith(Arquillian.class)
-public class WebServiceConsumerIntegrationTest {
+public class RestletConsumerIntegrationTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-ws-consumer-tests");
-        archive.addClasses(Endpoint.class);
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jaxrs-consumer-tests");
+        archive.addClasses(GreetingService.class);
         return archive;
     }
 
     @Test
-    public void testCxfConsumer() throws Exception {
+    public void testCxfRsConsumer() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
-        final String uri = "cxf:/webservices/?serviceClass=" + Endpoint.class.getName();
 
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from(uri).to("direct:end");
+                from("restlet://" + getEndpointAddress("/simple")).to("direct:end");
             }
         });
 
         try {
             camelctx.start();
-            Assert.fail("Expected RuntimeCamelException to be thrown but it was not");
-        } catch (RuntimeException e) {
-            String message = e.getMessage();
-            Assert.assertTrue("Message equals: " + message, message.equals("CXF consumer endpoint not supported"));
+            Assert.fail("Expected RuntimeException to be thrown but it was not");
+        } catch (RuntimeException ex) {
+            String message = ex.getMessage();
+            Assert.assertTrue("Message equals: " + message, message.contains("Restlet consumer endpoint not supported"));
         }
+    }
+
+    private String getEndpointAddress(String contextPath) throws MalformedURLException {
+        return "http://localhost:8080" + contextPath + "/rest/greet/hello/Kermit";
     }
 }

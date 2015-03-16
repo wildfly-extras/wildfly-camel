@@ -47,6 +47,7 @@
         
         <!-- Camel version -->
         <version.apache.camel>2.15.0</version.apache.camel>
+        <version.restlet>2.2.3</version.restlet>
         
         <!-- WildFly versions -->
         <version.wildfly>8.2.0.Final</version.wildfly>
@@ -149,6 +150,21 @@
                 <version>${version.apache.camel}</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-restlet</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.restlet.osgi</groupId>
+                        <artifactId>org.restlet</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.restlet.osgi</groupId>
+                        <artifactId>org.restlet.ext.httpclient</artifactId>
+                    </exclusion>
+                </exclusions>
+                <version>${version.apache.camel}</version>
             </dependency>
 
             <!-- Felix -->
@@ -346,6 +362,18 @@
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-utils</artifactId>
                 <version>${version.codehaus.plexus.utils}</version>
+            </dependency>
+            
+            <!-- Restlet -->
+            <dependency>
+                <groupId>org.restlet.jee</groupId>
+                <artifactId>org.restlet</artifactId>
+                <version>${version.restlet}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.restlet.jee</groupId>
+                <artifactId>org.restlet.ext.httpclient</artifactId>
+                <version>${version.restlet}</version>
             </dependency>
             
             <!-- Shrinkwrap -->
@@ -662,6 +690,11 @@
         <repository>
             <id>wildfly-8.2-staging</id>
             <url>https://repository.jboss.org/nexus/content/repositories/jboss_releases_staging_profile-4819</url>
+        </repository>
+        <repository>
+            <!-- for restlet -->
+            <id>springsource-libs-releases</id>
+            <url>http://repo.springsource.org/libs-release-remote</url>
         </repository>
     </repositories>
     <pluginRepositories>

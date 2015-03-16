@@ -283,6 +283,15 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.restlet">
+        <include artifact="org.apache.camel:camel-restlet" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.restlet"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+    
     <module name="org.apache.camel.component.rss">
         <include artifact="org.apache.camel:camel-rss" />
         <include artifact="rome:rome" />

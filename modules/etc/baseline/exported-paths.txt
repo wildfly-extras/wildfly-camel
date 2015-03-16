@@ -293,6 +293,8 @@ org/apache/camel/component/netty4/handlers
 org/apache/camel/component/netty4/ssl
 org/apache/camel/component/netty4/util
 org/apache/camel/component/quartz2
+org/apache/camel/component/restlet
+org/apache/camel/component/restlet/converter
 org/apache/camel/component/rss
 org/apache/camel/component/servlet
 org/apache/camel/component/servlet/osgi

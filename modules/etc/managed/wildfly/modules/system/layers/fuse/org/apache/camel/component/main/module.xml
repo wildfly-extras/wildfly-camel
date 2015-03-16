@@ -44,6 +44,7 @@
         <module name="org.apache.camel.component.netty4" export="true" services="export" />
         <module name="org.apache.camel.component.ognl" export="true" services="export" />
         <module name="org.apache.camel.component.quartz2" export="true" services="export" />
+        <module name="org.apache.camel.component.restlet" export="true" services="export" />
         <module name="org.apache.camel.component.rss" export="true" services="export" />
         <module name="org.apache.camel.component.saxon" export="true" services="export" />
         <module name="org.apache.camel.component.script" export="true" services="export" />
