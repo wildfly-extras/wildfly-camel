@@ -54,7 +54,7 @@ public class RSSIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("rss://http://news.google.com?output=rss&splitEntries=true&consumer.initialDelay=200&consumer.delay=1000")
+                from("rss://http://www.redhat.com/en/rss/press-releases?splitEntries=true&consumer.initialDelay=200&consumer.delay=1000")
                 .process(new Processor() {
 					@Override
 					public void process(Exchange exchange) throws Exception {
