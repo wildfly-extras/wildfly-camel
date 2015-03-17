@@ -220,7 +220,7 @@ public class TransactedJMSIntegrationTest {
 
     private void sendMessage(Connection connection, String jndiName, String message) throws Exception {
         InitialContext initialctx = new InitialContext();
-        Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
+        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         Destination destination = (Destination) initialctx.lookup(jndiName);
         MessageProducer producer = session.createProducer(destination);
         TextMessage msg = session.createTextMessage(message);
