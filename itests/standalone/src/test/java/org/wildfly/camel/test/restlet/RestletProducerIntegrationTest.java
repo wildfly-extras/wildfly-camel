@@ -19,7 +19,6 @@
  */
 package org.wildfly.camel.test.restlet;
 
-import java.io.InputStream;
 import java.net.MalformedURLException;
 
 import org.apache.camel.CamelContext;
@@ -31,10 +30,8 @@ import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
@@ -55,14 +52,6 @@ public class RestletProducerIntegrationTest {
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "restlet-tests");
         archive.addClasses(GreetingService.class);
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.apache.cxf:3.0.2");
-                return builder.openStream();
-            }
-        });
         return archive;
     }
 
