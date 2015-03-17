@@ -7,11 +7,11 @@
     <resource-root path="gravia-resource-1.1.2.jar" />
     <resource-root path="gravia-runtime-api-1.1.2.jar" />
     <resource-root path="gravia-runtime-embedded-1.1.2.jar" />
-    <resource-root path="org.apache.felix.configadmin-1.8.0.jar" />
+    <resource-root path="org.apache.felix.configadmin-1.8.2.jar" />
     <resource-root path="org.apache.felix.http.bridge-2.2.1.jar" />
     <resource-root path="org.apache.felix.log-1.0.1.jar" />
     <resource-root path="org.apache.felix.metatype-1.0.8.jar" />
-    <resource-root path="org.apache.felix.scr-1.6.2.jar" />
+    <resource-root path="org.apache.felix.scr-1.8.2.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />

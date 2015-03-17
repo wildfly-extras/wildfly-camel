@@ -132,11 +132,11 @@
 /org/jboss/gravia/main/gravia-resource-1.1.2.jar
 /org/jboss/gravia/main/gravia-runtime-api-1.1.2.jar
 /org/jboss/gravia/main/gravia-runtime-embedded-1.1.2.jar
-/org/jboss/gravia/main/org.apache.felix.configadmin-1.8.0.jar
+/org/jboss/gravia/main/org.apache.felix.configadmin-1.8.2.jar
 /org/jboss/gravia/main/org.apache.felix.http.bridge-2.2.1.jar
 /org/jboss/gravia/main/org.apache.felix.log-1.0.1.jar
 /org/jboss/gravia/main/org.apache.felix.metatype-1.0.8.jar
-/org/jboss/gravia/main/org.apache.felix.scr-1.6.2.jar
+/org/jboss/gravia/main/org.apache.felix.scr-1.8.2.jar
 /org/mvel/mvel2/main/mvel2-2.2.1.Final.jar
 /org/opensaml/2.6.1/joda-time-2.2.jar
 /org/opensaml/2.6.1/opensaml-2.6.1.jar

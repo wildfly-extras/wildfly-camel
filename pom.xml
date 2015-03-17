@@ -47,19 +47,22 @@
         
         <!-- Camel version -->
         <version.apache.camel>2.15.0</version.apache.camel>
-        <version.restlet>2.2.3</version.restlet>
+        <version.apache.camel.restlet>2.2.3</version.apache.camel.restlet>
         
         <!-- WildFly versions -->
         <version.wildfly>8.2.0.Final</version.wildfly>
         <version.wildfly.arquillian>8.2.1.Final-staging2</version.wildfly.arquillian>
 
+        <!-- Versions to be aligned with Karaf based runtime -->
+        <version.apache.felix.configadmin>1.8.2</version.apache.felix.configadmin>
+        <version.apache.felix.scr>1.8.2</version.apache.felix.scr>
+        <version.hawtio>1.4.42</version.hawtio>
+        
         <!-- Other version -->
-        <version.apache.felix.configadmin>1.8.0</version.apache.felix.configadmin>
         <version.apache.felix.eventadmin>1.3.0</version.apache.felix.eventadmin>
         <version.apache.felix.log>1.0.1</version.apache.felix.log>
         <version.apache.felix.metatype>1.0.8</version.apache.felix.metatype>
         <version.apache.felix.http>2.2.1</version.apache.felix.http>
-        <version.apache.felix.scr>1.6.2</version.apache.felix.scr>
         <version.apache.felix.scr.ds.annotations>1.2.4</version.apache.felix.scr.ds.annotations>
         <version.apache.felix.scr.generator>1.8.0</version.apache.felix.scr.generator>
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
@@ -67,7 +70,6 @@
         <version.freeside.betamax>1.1.2</version.freeside.betamax>
         <version.greenmail>1.4.0</version.greenmail>
         <version.groovy>2.2.1</version.groovy>
-        <version.hawtio>1.4.42</version.hawtio>
         <version.hibernate.jpa21.api>1.0.0.Final</version.hibernate.jpa21.api>
         <version.javax.enterprise>1.2</version.javax.enterprise>
         <version.jboss.arquillian.core>1.1.7.Final</version.jboss.arquillian.core>
@@ -368,12 +370,12 @@
             <dependency>
                 <groupId>org.restlet.jee</groupId>
                 <artifactId>org.restlet</artifactId>
-                <version>${version.restlet}</version>
+                <version>${version.apache.camel.restlet}</version>
             </dependency>
             <dependency>
                 <groupId>org.restlet.jee</groupId>
                 <artifactId>org.restlet.ext.httpclient</artifactId>
-                <version>${version.restlet}</version>
+                <version>${version.apache.camel.restlet}</version>
             </dependency>
             
             <!-- Shrinkwrap -->
