@@ -40,7 +40,7 @@ import java.util.concurrent.TimeUnit;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class JmsIntegrationTest {
+public class JMSExampleTest {
 
     private File destination = new File(System.getProperty("jboss.data.dir") + "/orders");
 

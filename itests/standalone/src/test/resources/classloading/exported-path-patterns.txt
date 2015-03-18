@@ -3,6 +3,7 @@
 	^org/apache/abdera(.*)
 	^org/apache/activemq/camel(.*)
 	^org/apache/camel(.*)
+	^org/apache/cxf
 	^org/dozer(.*)
 	^org.springframework(.*)
 	^META-INF/services(.*)

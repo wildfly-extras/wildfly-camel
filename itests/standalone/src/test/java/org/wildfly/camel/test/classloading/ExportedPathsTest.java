@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -51,6 +51,7 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class ExportedPathsTest {
 
+    private static final String FILE_EXPORTED_PATH_PATTERNS = "exported-path-patterns.txt";
     private static final File FILE_EXPORTED_PATHS = new File("../../modules/etc/baseline/exported-paths.txt");
     private static final File FILE_MODULE_INFOS = new File("target/module-infos.txt");
 
@@ -61,7 +62,7 @@ public class ExportedPathsTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "exported-paths-tests");
-        archive.addAsResource("classloading/path-patterns.txt", "path-patterns.txt");
+        archive.addAsResource("classloading/" + FILE_EXPORTED_PATH_PATTERNS, FILE_EXPORTED_PATH_PATTERNS);
         return archive;
     }
 
@@ -99,7 +100,7 @@ public class ExportedPathsTest {
         pw.flush();
         pw.close();
     }
-    
+
     @Test
     public void testExportedPaths() throws Exception {
 
@@ -107,7 +108,7 @@ public class ExportedPathsTest {
         List<Pattern> patterns = null;
         List<Pattern> includePatterns = new ArrayList<>();
         List<Pattern> excludePatterns = new ArrayList<>();
-        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/path-patterns.txt")));
+        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + FILE_EXPORTED_PATH_PATTERNS)));
         String line = br.readLine();
         while (line != null) {
             if ((line = line.trim()).startsWith("#")) {
@@ -139,7 +140,7 @@ public class ExportedPathsTest {
                         break;
                     }
                 }
-                
+
                 // match exclude patterns
                 if (match) {
                     for (Pattern pattern : excludePatterns) {
@@ -149,7 +150,7 @@ public class ExportedPathsTest {
                         }
                     }
                 }
-                
+
                 Assert.assertTrue("Matching path: " + line, match);
             }
             line = br.readLine();

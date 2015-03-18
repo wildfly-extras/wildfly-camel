@@ -31,7 +31,7 @@ import org.wildfly.camel.test.common.HttpRequest;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class JPAIntegrationTest {
+public class JPAExampleTest {
 
     @Test
     public void testFileToJpaRoute() throws Exception {

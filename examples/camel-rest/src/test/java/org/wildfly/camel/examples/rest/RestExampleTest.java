@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel :: Example :: Camel CDI
+ * Wildfly Camel :: Example :: Camel REST
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -17,10 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.examples.cdi;
-
-import java.net.MalformedURLException;
-import java.util.concurrent.TimeUnit;
+package org.wildfly.camel.examples.rest;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
@@ -29,23 +26,23 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
 
-/**
- * Test the CDI component.
- *
- * @author thomas.diesler@jboss.com
- * @since 20-Oct-2014
- */
+import java.net.MalformedURLException;
+import java.util.concurrent.TimeUnit;
+
+
 @RunAsClient
 @RunWith(Arquillian.class)
-public class CDIIntegrationTest {
+public class RestExampleTest {
+
+    public static final String REST_PATH = "/example-camel-rest/rest/greet/hello/";
 
     @Test
-    public void testSimpleWar() throws Exception {
-    	String res = HttpRequest.get(getEndpointAddress("/example-camel-cdi?name=Kermit"), 10, TimeUnit.SECONDS);
-        Assert.assertEquals("Hello Kermit", res);
+    public void testRestRoute() throws Exception {
+        String res = HttpRequest.get(getEndpointAddress(REST_PATH + "Kermit"), 10, TimeUnit.SECONDS);
+        Assert.assertTrue("Starts with 'Hello Kermit': " + res, res.startsWith("Hello Kermit"));
     }
 
-    private String getEndpointAddress(String contextPath) throws MalformedURLException {
-        return "http://localhost:8080" + contextPath;
+    private String getEndpointAddress(String restPath) throws MalformedURLException {
+        return "http://localhost:8080" + restPath;
     }
 }

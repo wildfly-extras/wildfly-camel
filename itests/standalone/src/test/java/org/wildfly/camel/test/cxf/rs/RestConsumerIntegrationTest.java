@@ -19,7 +19,6 @@
  */
 package org.wildfly.camel.test.cxf.rs;
 
-import java.io.InputStream;
 import java.net.MalformedURLException;
 
 import org.apache.camel.CamelContext;
@@ -31,9 +30,7 @@ import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -47,14 +44,6 @@ public class RestConsumerIntegrationTest {
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jaxrs-consumer-tests");
         archive.addClasses(GreetingService.class);
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.apache.cxf:3.0.2");
-                return builder.openStream();
-            }
-        });
         return archive;
     }
 

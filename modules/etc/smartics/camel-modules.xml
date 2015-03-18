@@ -99,6 +99,7 @@
         <include artifact="org.apache.camel:camel-cxf" />
         <include artifact="org.apache.camel:camel-cxf-transport" />
         <apply-to-dependencies skip="true">
+            <include module="org.apache.cxf" />
             <include module="org.springframework.*" />
         </apply-to-dependencies>
         <dependencies>
@@ -106,7 +107,13 @@
             <module name="javax.jws.api" />
             <module name="javax.ws.rs.api" />
             <module name="javax.xml.ws.api" />
-            <module name="org.apache.cxf" slot="3.0.2" />
+            <module name="org.apache.cxf" export="true" slot="3.0" >
+              <exports>
+                  <exclude path="org/apache/cxf/**" />
+                  <exclude path="org/objectweb/asm**" />
+                  <exclude path="schemas**" />
+              </exports>
+            </module>
             <module name="org.slf4j" />
         </dependencies>
         <exports>

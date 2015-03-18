@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="org.apache.cxf" slot="3.0.2">
+<module xmlns="urn:jboss:module:1.1" name="org.apache.cxf" slot="3.0">
   <resources>
     <resource-root path="asm-3.3.1.jar" />
     <resource-root path="cxf-core-3.0.4.jar" />
@@ -44,9 +44,13 @@
     <module name="org.apache.commons.lang" />
     <module name="org.apache.mina.core" />
     <module name="org.apache.neethi" />
-    <module name="org.apache.ws.security" slot="2.0.2" />
+    <module name="org.apache.ws.security" slot="2.0" />
     <module name="org.apache.ws.xmlschema" />
     <module name="org.bouncycastle" />
     <module name="org.codehaus.woodstox" />
   </dependencies>
+  <exports>
+    <exclude path="OSGI-INF/blueprint" />
+    <exclude path="OSGI-INF/metatype" />
+  </exports>
 </module>

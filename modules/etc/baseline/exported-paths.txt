@@ -336,6 +336,7 @@ org/apache/camel/routepolicy
 org/apache/camel/routepolicy/quartz2
 org/apache/camel/script
 org/apache/camel/script/osgi
+org/apache/cxf
 org/dozer
 org/dozer/builder
 org/dozer/cache

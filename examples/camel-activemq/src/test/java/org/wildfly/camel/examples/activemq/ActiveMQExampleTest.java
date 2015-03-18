@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel :: Example :: Camel JMS
+ * Wildfly Camel :: Example :: Camel ActiveMQ
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.examples.jms.transacted;
+package org.wildfly.camel.examples.activemq;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
@@ -40,12 +40,12 @@ import java.util.concurrent.TimeUnit;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class TransactedJmsIntegrationTest {
+public class ActiveMQExampleTest {
 
     private File destination = new File(System.getProperty("jboss.data.dir") + "/orders");
 
     @After
-    public void tearDown () throws IOException {
+    public void tearDown() throws IOException {
         Files.walkFileTree(destination.toPath(), new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
@@ -70,7 +70,7 @@ public class TransactedJmsIntegrationTest {
     }
 
     @Test
-    public void testFileToJmsRoute() throws Exception {
+    public void testFileToActiveMQRoute() throws Exception {
         InputStream testOrder = getClass().getResourceAsStream("/orders/test-order.xml");
 
         Files.copy(testOrder, destination.toPath().resolve("test-order.xml"));
@@ -78,9 +78,8 @@ public class TransactedJmsIntegrationTest {
         // Give camel a chance to consume the test order file
         Thread.sleep(2000);
 
-        String result = HttpRequest.get(getEndpointAddress("/example-camel-transacted-jms/orders"), 10, TimeUnit.SECONDS);
-
-        Assert.assertTrue(result.contains("Test Product"));
+        String result = HttpRequest.get(getEndpointAddress("/example-camel-activemq/orders"), 10, TimeUnit.SECONDS);
+        Assert.assertTrue(result.contains("UK: 1"));
     }
 
     private String getEndpointAddress(String contextPath) throws MalformedURLException {

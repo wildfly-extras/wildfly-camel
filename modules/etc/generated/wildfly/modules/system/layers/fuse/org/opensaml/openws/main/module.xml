@@ -7,11 +7,11 @@
     <module name="javax.servlet.api" />
     <module name="org.apache.commons.codec" />
     <module name="org.apache.commons.httpclient" />
-    <module name="org.apache.santuario.xmlsec" slot="2.0.2" />
+    <module name="org.apache.santuario.xmlsec" slot="2.0" />
     <module name="org.apache.xalan" />
     <module name="org.apache.xerces" />
     <module name="org.apache.xml-resolver" />
-    <module name="org.opensaml" slot="2.6.1" />
+    <module name="org.opensaml" slot="2.6" />
     <module name="org.opensaml.xmltooling" />
   </dependencies>
 </module>
