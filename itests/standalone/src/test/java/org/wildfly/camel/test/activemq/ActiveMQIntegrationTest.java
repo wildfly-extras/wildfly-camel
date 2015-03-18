@@ -20,7 +20,6 @@
 
 package org.wildfly.camel.test.activemq;
 
-import java.io.InputStream;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -47,9 +46,7 @@ import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -69,14 +66,6 @@ public class ActiveMQIntegrationTest {
     @Deployment
     public static WebArchive createdeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-activemq-tests.war");
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.apache.activemq,javax.jms.api");
-                return builder.openStream();
-            }
-        });
         return archive;
     }
 

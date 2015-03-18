@@ -60,6 +60,24 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.activemq">
+        <include artifact="org.apache.activemq:activemq-camel" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.activemq" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.jms.api" />
+            <module name="org.apache.activemq" export="true">
+                <exports>
+                    <exclude path="org/apache/activemq/**" />
+                </exports>
+            </module>
+            <module name="org.apache.camel.core" />
+            <module name="org.springframework.jms" />
+            <module name="org.springframework.tx" />
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.atom">
         <include artifact="org.apache.camel:camel-atom" />
         <apply-to-dependencies export="true">
