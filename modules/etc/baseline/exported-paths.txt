@@ -243,6 +243,7 @@ org/apache/abdera/util
 org/apache/abdera/util/filter
 org/apache/abdera/writer
 org/apache/abdera/xpath
+org/apache/activemq
 org/apache/activemq/camel
 org/apache/activemq/camel/camelplugin
 org/apache/activemq/camel/component

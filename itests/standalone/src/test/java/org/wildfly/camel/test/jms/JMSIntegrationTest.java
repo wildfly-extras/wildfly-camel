@@ -37,7 +37,6 @@ import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -100,7 +99,7 @@ public class JMSIntegrationTest {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.jboss.as.controller-client,javax.jms.api");
+                builder.addManifestHeader("Dependencies", "org.jboss.as.controller-client");
                 return builder.openStream();
             }
         });

@@ -32,19 +32,6 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.activemq">
-        <include artifact="org.apache.activemq:activemq-camel" />
-        <dependencies>
-            <module name="javax.jms.api" />
-            <module name="org.apache.camel.core" />
-            <module name="org.springframework.jms" />
-            <module name="org.springframework.tx" />
-        </dependencies>
-        <exports>
-            <exclude path="org/apache/activemq" />
-        </exports>
-    </module>
-
     <module name="org.apache.activemq.skip" skip="true">
         <include artifact="org.apache.activemq:activemq-all" />
     </module>

@@ -5,14 +5,15 @@
   </resources>
   <dependencies>
     <module name="javax.jms.api" />
+    <module name="org.apache.activemq" export="true">
+      <exports>
+        <exclude path="org/apache/activemq/**" />
+      </exports>
+    </module>
     <module name="org.apache.camel.core" />
     <module name="org.springframework.jms" />
     <module name="org.springframework.tx" />
-    <module name="org.apache.activemq" />
     <module name="org.apache.camel.component.jms" />
     <module name="org.slf4j" />
   </dependencies>
-  <exports>
-    <exclude path="org/apache/activemq" />
-  </exports>
 </module>
