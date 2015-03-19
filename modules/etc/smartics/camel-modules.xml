@@ -98,6 +98,20 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.castor">
+        <include artifact="org.apache.camel:camel-castor" />
+        <include artifact=":castor-core" />
+        <include artifact=":castor-xml" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="sun.jdk.ext" />
+        </dependencies>
+        <exports>
+            <exclude path="org/castor**" />
+            <exclude path="org/exolab**" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.cdi">
         <include artifact="org.apache.camel:camel-cdi" />
         <dependencies>

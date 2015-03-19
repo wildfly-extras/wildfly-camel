@@ -18,14 +18,12 @@
  * #L%
  */
 
-package org.wildfly.camel.test.bindy;
+package org.wildfly.camel.test.castor;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.dataformat.bindy.csv.BindyCsvDataFormat;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.spi.DataFormat;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -33,29 +31,30 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.bindy.model.Customer;
+import org.wildfly.camel.test.core.subA.Customer;
 
 @RunWith(Arquillian.class)
-public class BindyIntegrationTest {
+public class CastorIntegrationTest {
+
+    private static final String CUSTOMER_XML = "<customer><last-name>Doe</last-name><first-name>John</first-name></customer>";
 
     @Deployment
-    public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "bindy-tests");
+    public static JavaArchive createdeployment() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "castor-dataformat-tests");
         archive.addClasses(Customer.class);
+        archive.addAsResource("castor/castor-mapping.xml", "castor-mapping.xml");
         return archive;
     }
 
     @Test
     public void testMarshal() throws Exception {
 
-        final DataFormat bindy = new BindyCsvDataFormat(Customer.class);
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .marshal(bindy);
+                .marshal().castor("castor-mapping.xml");
             }
         });
 
@@ -63,7 +62,7 @@ public class BindyIntegrationTest {
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
-            Assert.assertEquals("John,Doe", result.trim());
+            Assert.assertTrue("Ends with: " + result, result.endsWith(CUSTOMER_XML));
         } finally {
             camelctx.stop();
         }
@@ -72,21 +71,19 @@ public class BindyIntegrationTest {
     @Test
     public void testUnmarshal() throws Exception {
 
-        final DataFormat bindy = new BindyCsvDataFormat(Customer.class);
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .unmarshal(bindy);
+                .unmarshal().castor("castor-mapping.xml");
             }
         });
 
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            Customer result = producer.requestBody("direct:start", "John,Doe", Customer.class);
+            Customer result = producer.requestBody("direct:start", CUSTOMER_XML, Customer.class);
             Assert.assertEquals("John", result.getFirstName());
             Assert.assertEquals("Doe", result.getLastName());
         } finally {

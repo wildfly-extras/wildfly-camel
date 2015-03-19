@@ -124,6 +124,7 @@
 
     <module name="javax.xml.stream.api" skip="true">
         <include artifact=":stax-api" />
+        <include artifact=":stax" />
     </module>
 
     <module name="org.apache.commons.beanutils" skip="true">

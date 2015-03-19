@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.castor">
+  <resources>
+    <resource-root path="camel-castor-2.15.0.jar" />
+    <resource-root path="castor-core-1.3.2.jar" />
+    <resource-root path="castor-xml-1.3.2.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="sun.jdk.ext" />
+    <module name="javax.xml.bind.api" />
+    <module name="javax.xml.stream.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.lang" />
+    <module name="org.apache.commons.logging" />
+  </dependencies>
+  <exports>
+    <exclude path="org/castor**" />
+    <exclude path="org/exolab**" />
+  </exports>
+</module>

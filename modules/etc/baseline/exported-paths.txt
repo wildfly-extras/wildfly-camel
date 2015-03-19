@@ -322,6 +322,7 @@ org/apache/camel/dataformat/bindy/fixed
 org/apache/camel/dataformat/bindy/format
 org/apache/camel/dataformat/bindy/kvp
 org/apache/camel/dataformat/bindy/util
+org/apache/camel/dataformat/castor
 org/apache/camel/dataformat/csv
 org/apache/camel/dataformat/flatpack
 org/apache/camel/dataformat/rss

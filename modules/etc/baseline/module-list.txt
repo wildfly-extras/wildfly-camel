@@ -23,6 +23,9 @@
 /org/apache/camel/component/activemq/main/activemq-camel-5.11.1.jar
 /org/apache/camel/component/atom/main/camel-atom-2.15.0.jar
 /org/apache/camel/component/bindy/main/camel-bindy-2.15.0.jar
+/org/apache/camel/component/castor/main/camel-castor-2.15.0.jar
+/org/apache/camel/component/castor/main/castor-core-1.3.2.jar
+/org/apache/camel/component/castor/main/castor-xml-1.3.2.jar
 /org/apache/camel/component/cdi/main/camel-cdi-2.15.0.jar
 /org/apache/camel/component/crypto/main/camel-crypto-2.15.0.jar
 /org/apache/camel/component/csv/main/camel-csv-2.15.0.jar

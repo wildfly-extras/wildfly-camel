@@ -93,6 +93,17 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-castor</artifactId>
+            <exclusions>
+              <exclusion>
+                <groupId>org.apache.servicemix.bundles</groupId>
+                <artifactId>org.apache.servicemix.bundles.castor</artifactId>
+              </exclusion>
+            </exclusions>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-cdi</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -338,6 +349,11 @@
         <dependency>
             <groupId>org.beanshell</groupId>
             <artifactId>bsh</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.castor</groupId>
+            <artifactId>castor-xml</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

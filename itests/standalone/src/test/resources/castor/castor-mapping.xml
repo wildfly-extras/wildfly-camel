@@ -1,0 +1,5 @@
+<mapping>
+
+  <class name="org.wildfly.camel.test.core.subA.Customer" auto-complete="true" />
+  
+</mapping>

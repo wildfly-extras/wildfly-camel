@@ -24,10 +24,11 @@
     <dependencies>
         <system export="true">
             <paths>
-                <!-- nedded by restlet Engine.registerDefaultConnectors() -->
-                <path name="com/sun/net/httpserver" /> 
+                <!-- needed by restlet -->
+                <path name="com/sun/net/httpserver" />
+                <!-- needed by castor -->
+                <path name="com/sun/org/apache/xml/internal/serialize" />
             </paths>
         </system>
-        <module name="sun.jdk" />
     </dependencies>
 </module>
