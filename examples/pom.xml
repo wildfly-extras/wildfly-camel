@@ -37,9 +37,10 @@
 	<!-- Modules -->
 	<modules>
         <module>camel-activemq</module>
-        <module>camel-cxf-soap</module>
+        <module>camel-cxf</module>
         <module>camel-cdi</module>
         <module>camel-mail</module>
+        <module>camel-jaxws</module>
         <module>camel-jms</module>
         <module>camel-jpa</module>
         <module>camel-rest</module>
