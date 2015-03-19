@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.xstream.model;
+package org.wildfly.camel.test.core.subA;
 
 
 public class Customer {

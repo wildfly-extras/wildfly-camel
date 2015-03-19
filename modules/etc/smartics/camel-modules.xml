@@ -121,6 +121,10 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.csv">
+        <include artifact="org.apache.camel:camel-csv" />
+    </module>
+
     <module name="org.apache.camel.component.cxf">
         <include artifact="org.apache.camel:camel-cxf" />
         <include artifact="org.apache.camel:camel-cxf-transport" />

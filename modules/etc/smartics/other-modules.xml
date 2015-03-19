@@ -73,6 +73,10 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.commons.csv">
+        <include artifact=":commons-csv" />
+    </module>
+    
     <module name="org.apache.commons.httpclient">
         <include artifact="commons-httpclient:commons-httpclient" />
         <dependencies>

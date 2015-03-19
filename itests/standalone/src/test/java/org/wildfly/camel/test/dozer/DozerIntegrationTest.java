@@ -41,11 +41,13 @@ import org.wildfly.camel.test.dozer.subA.CustomerB;
 @RunWith(Arquillian.class)
 public class DozerIntegrationTest {
 
+    private static final String DOZER_MAPPINGS_XML = "dozer-mappings.xml";
+
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-dozer-tests");
         archive.addClasses(CustomerA.class, CustomerB.class);
-        archive.addAsResource("dozer/mappings.xml", "mappings.xml");
+        archive.addAsResource("dozer/" + DOZER_MAPPINGS_XML, DOZER_MAPPINGS_XML);
         return archive;
     }
 
@@ -61,7 +63,7 @@ public class DozerIntegrationTest {
         });
 
         DozerBeanMapperConfiguration mconfig = new DozerBeanMapperConfiguration();
-        mconfig.setMappingFiles(Arrays.asList(new String[] { "mappings.xml" }));
+        mconfig.setMappingFiles(Arrays.asList(new String[] { DOZER_MAPPINGS_XML }));
         new DozerTypeConverterLoader(camelctx, mconfig);
 
         CustomerA customerA = new CustomerA("Peter", "Post", "SomeStreet", "12345");

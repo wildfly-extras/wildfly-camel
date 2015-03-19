@@ -18,11 +18,17 @@
  * #L%
  */
 
-package org.wildfly.camel.test.xstream;
+package org.wildfly.camel.test.csv;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.converter.dozer.DozerBeanMapperConfiguration;
+import org.apache.camel.converter.dozer.DozerTypeConverterLoader;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -34,13 +40,14 @@ import org.junit.runner.RunWith;
 import org.wildfly.camel.test.core.subA.Customer;
 
 @RunWith(Arquillian.class)
-public class XStreamIntegrationTest {
+public class CSVIntegrationTest {
 
-    static String XML_STRING = "<firstName>John</firstName><lastName>Doe</lastName>";
+    private static final String DOZER_MAPPINGS_XML = "dozer-mappings.xml";
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "xstream-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "csv-dataformat-tests");
+        archive.addAsResource("csv/" + DOZER_MAPPINGS_XML, DOZER_MAPPINGS_XML);
         archive.addClasses(Customer.class);
         return archive;
     }
@@ -52,53 +59,48 @@ public class XStreamIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start")
-                .marshal().xstream();
+                from("direct:start").convertBodyTo(Map.class).marshal().csv();
             }
         });
 
-        String expected = wrapWithType(XML_STRING, Customer.class);
+        DozerBeanMapperConfiguration mconfig = new DozerBeanMapperConfiguration();
+        mconfig.setMappingFiles(Arrays.asList(new String[] { DOZER_MAPPINGS_XML }));
+        new DozerTypeConverterLoader(camelctx, mconfig);
 
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            String customer = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
-            Assert.assertTrue("Contains " + expected + ": " + customer, customer.contains(expected));
+            String result = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
+            Assert.assertEquals("John,Doe", result.trim());
         } finally {
             camelctx.stop();
         }
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testUnmarshal() throws Exception {
-
-        // [FIXME #387] Usage of camel-xstream depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .unmarshal().xstream();
+                .unmarshal().csv();
             }
         });
-
-        String expected = wrapWithType(XML_STRING, Customer.class);
 
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            Customer customer = producer.requestBody("direct:start", expected, Customer.class);
-            Assert.assertEquals("John", customer.getFirstName());
-            Assert.assertEquals("Doe", customer.getLastName());
+            List<List<String>> result = producer.requestBody("direct:start", "John,Doe", List.class);
+            Assert.assertEquals("Expected size 1: " + result, 1, result.size());
+            List<String> line = result.get(0);
+            Assert.assertEquals("Expected size 2: " + line, 2, line.size());
+            Assert.assertEquals("John", line.get(0));
+            Assert.assertEquals("Doe", line.get(1));
         } finally {
             camelctx.stop();
         }
-    }
-
-    private String wrapWithType(String xml, Class<?> type) {
-        String fqn = type.getName();
-        return "<" + fqn + ">" + xml + "</" + fqn + ">";
     }
 }

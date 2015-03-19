@@ -24,6 +24,7 @@
 /org/apache/camel/component/bindy/main/camel-bindy-2.15.0.jar
 /org/apache/camel/component/cdi/main/camel-cdi-2.15.0.jar
 /org/apache/camel/component/crypto/main/camel-crypto-2.15.0.jar
+/org/apache/camel/component/csv/main/camel-csv-2.15.0.jar
 /org/apache/camel/component/cxf/main/camel-cxf-2.15.0.jar
 /org/apache/camel/component/cxf/main/camel-cxf-transport-2.15.0.jar
 /org/apache/camel/component/dozer/main/camel-dozer-2.15.0.jar
@@ -69,6 +70,7 @@
 /org/apache/camel/core/main/camel-core-2.15.0.jar
 /org/apache/camel/core/xml/main/camel-core-xml-2.15.0.jar
 /org/apache/camel/spring/main/camel-spring-2.15.0.jar
+/org/apache/commons/csv/main/commons-csv-1.1.jar
 /org/apache/commons/httpclient/main/commons-httpclient-3.1.jar
 /org/apache/commons/lang3/main/commons-lang3-3.2.1.jar
 /org/apache/commons/net/main/commons-net-3.3.jar
