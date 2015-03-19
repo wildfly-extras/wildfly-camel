@@ -1,6 +1,6 @@
 # camel-mail example
 
-This example demonstrates using the camel-email component with with WildFly Camel susbsystem to send and receive email.
+This example demonstrates using the camel-email component with WildFly Camel susbsystem to send and receive email.
 
 The example uses [Greenmail](http://www.icegreen.com/greenmail/) to configure a local mail server on your machine. This eliminates the need to
 use external mail services. The configuration for the WildFly mail subsystem can be found within `src/main/resources/standalone.xml`.
