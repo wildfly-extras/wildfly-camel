@@ -28,6 +28,9 @@
             <module name="javax.jws.api" />
             <module name="javax.servlet.api" />
             <module name="javax.xml.ws.api" />
+            <module name="org.springframework.beans" />
+            <module name="org.springframework.context" />
+            <module name="org.springframework.core" />
         </dependencies>
         <exports>
             <exclude path="OSGI-INF/blueprint" />
@@ -42,6 +45,9 @@
 
     <module name="org.apache.ws.security" slot="2.0" inherit-slot="false">
         <include artifact="org.apache.wss4j:wss4j-(.*)" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
     </module>
 
     <module name="org.apache.santuario.xmlsec" slot="2.0" inherit-slot="false">

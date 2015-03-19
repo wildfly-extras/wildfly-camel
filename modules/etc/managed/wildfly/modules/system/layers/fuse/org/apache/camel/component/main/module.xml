@@ -25,7 +25,18 @@
         <module name="org.apache.camel.component.activemq" export="true" services="export" />
         <module name="org.apache.camel.component.atom" export="true" services="export" />
         <module name="org.apache.camel.component.bindy" export="true" services="export" />
-        <module name="org.apache.camel.component.cxf" export="true" services="export" />
+        <module name="org.apache.camel.component.cxf" export="true" services="export" >
+            <imports>
+                <include path="META-INF" />
+                <include path="META-INF/cxf" />
+                <include path="META-INF/cxf/camel" />
+            </imports>
+            <exports>
+                <include path="META-INF" />
+                <include path="META-INF/cxf" />
+                <include path="META-INF/cxf/camel" />
+            </exports>
+        </module>
         <module name="org.apache.camel.component.ejb" export="true" services="export" />
         <module name="org.apache.camel.component.dozer" export="true" services="export" />
         <module name="org.apache.camel.component.ejb" export="true" services="export" />

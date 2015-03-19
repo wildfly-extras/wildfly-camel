@@ -5,10 +5,17 @@
 	^org/apache/activemq/camel(.*)
 	^org/apache/camel(.*)
 	^org/apache/cxf
+	^org/apache/cxf/bus(.*)
+	^org/apache/cxf/interceptor(.*)
+	^org/apache/cxf/sts(.*)
+	^org/apache/cxf/transport/http(.*)
+	^org/apache/cxf/ws/discovery(.*)
+	^org/apache/cxf/ws/security(.*)
 	^org/dozer(.*)
 	^org.springframework(.*)
+	^META-INF/cxf
+	^META-INF/cxf/camel
 	^META-INF/services(.*)
 
 [excludes]
 	(.*)/internal
-	

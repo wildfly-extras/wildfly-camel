@@ -9,6 +9,7 @@
     <resource-root path="wss4j-ws-security-stax-2.0.3.jar" />
   </resources>
   <dependencies>
+    <module name="javax.api" />
     <module name="net.sf.ehcache" />
     <module name="org.apache.neethi" />
     <module name="org.apache.santuario.xmlsec" slot="2.0" />

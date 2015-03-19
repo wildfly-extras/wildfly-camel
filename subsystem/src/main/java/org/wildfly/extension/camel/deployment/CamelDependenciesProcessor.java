@@ -19,7 +19,7 @@
  */
 package org.wildfly.extension.camel.deployment;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
@@ -72,13 +72,17 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
         moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
         moduleSpec.addUserDependency(moddep);
 
-        ArrayList<String> componentModules = new ArrayList<>();
-        componentModules.addAll(camelDeploymentSettings.getModules());
-        if (componentModules.isEmpty()) {
-            componentModules.add(APACHE_CAMEL_COMPONENT);
-        }
-        for (String name : componentModules) {
-            moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(name), false, false, true, false));
+        List<String> deploymentDefinedModules = camelDeploymentSettings.getModules();
+        if (!deploymentDefinedModules.isEmpty()) {
+            for (String name : deploymentDefinedModules) {
+                moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(name), false, false, true, false));
+            }
+        } else {
+            moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL_COMPONENT), false, false, true, false);
+            moddep.addImportFilter(PathFilters.is("META-INF"), true);
+            moddep.addImportFilter(PathFilters.is("META-INF/cxf"), true);
+            moddep.addImportFilter(PathFilters.is("META-INF/cxf/camel"), true);
+            moduleSpec.addUserDependency(moddep);
         }
 
         // Camel-CDI Integration

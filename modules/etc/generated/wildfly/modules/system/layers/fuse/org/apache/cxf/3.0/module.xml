@@ -32,6 +32,9 @@
     <module name="javax.jws.api" />
     <module name="javax.servlet.api" />
     <module name="javax.xml.ws.api" />
+    <module name="org.springframework.beans" />
+    <module name="org.springframework.context" />
+    <module name="org.springframework.core" />
     <module name="cglib.cglib-nodep" />
     <module name="javax.annotation.api" />
     <module name="javax.jms.api" />
