@@ -113,6 +113,14 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.crypto">
+        <include artifact="org.apache.camel:camel-crypto" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.cxf">
         <include artifact="org.apache.camel:camel-cxf" />
         <include artifact="org.apache.camel:camel-cxf-transport" />

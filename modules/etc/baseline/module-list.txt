@@ -23,6 +23,7 @@
 /org/apache/camel/component/atom/main/camel-atom-2.15.0.jar
 /org/apache/camel/component/bindy/main/camel-bindy-2.15.0.jar
 /org/apache/camel/component/cdi/main/camel-cdi-2.15.0.jar
+/org/apache/camel/component/crypto/main/camel-crypto-2.15.0.jar
 /org/apache/camel/component/cxf/main/camel-cxf-2.15.0.jar
 /org/apache/camel/component/cxf/main/camel-cxf-transport-2.15.0.jar
 /org/apache/camel/component/dozer/main/camel-dozer-2.15.0.jar

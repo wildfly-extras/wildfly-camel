@@ -256,6 +256,8 @@ org/apache/camel/builder
 org/apache/camel/builder/script
 org/apache/camel/component
 org/apache/camel/component/atom
+org/apache/camel/component/crypto
+org/apache/camel/component/crypto/processor
 org/apache/camel/component/cxf
 org/apache/camel/component/cxf/blueprint
 org/apache/camel/component/cxf/common
@@ -305,6 +307,7 @@ org/apache/camel/component/sql
 org/apache/camel/component/weather
 org/apache/camel/component/xquery
 org/apache/camel/converter
+org/apache/camel/converter/crypto
 org/apache/camel/converter/dozer
 org/apache/camel/converter/jaxb
 org/apache/camel/converter/jaxb/mapper

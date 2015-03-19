@@ -118,26 +118,6 @@
         <include artifact=":stax-api" />
     </module>
 
-    <module name="org.bouncycastle" skip="true">
-        <include artifact="org.bouncycastle:bcprov-(.*)" />
-    </module>
-
-    <module name="org.codehaus.jettison" skip="true">
-        <include artifact=":jettison" />
-    </module>
-
-    <module name="org.dom4j" skip="true">
-        <include artifact=":dom4j" />
-    </module>
-
-    <module name="org.javassist" skip="true">
-        <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.javassist" />
-    </module>
-
-    <module name="org.jaxen" skip="true">
-        <include artifact="jaxen:jaxen" />
-    </module>
-
     <module name="org.apache.commons.beanutils" skip="true">
         <include artifact=":commons-beanutils" />
     </module>
@@ -152,6 +132,10 @@
 
     <module name="org.apache.commons.lang" skip="true">
         <include artifact=":commons-lang" />
+    </module>
+
+    <module name="org.apache.commons.io" skip="true">
+        <include artifact=":commons-io" />
     </module>
 
     <module name="org.apache.commons.logging" skip="true">
@@ -190,8 +174,17 @@
         <include artifact="xml-resolver:xml-resolver" />
     </module>
 
+    <module name="org.bouncycastle" skip="true">
+        <include artifact="org.bouncycastle:bcprov-(.*)" />
+        <include artifact="org.bouncycastle:bcpg-(.*)" />
+    </module>
+
     <module name="org.codehaus.jackson.jackson-$1" skip="true">
         <include artifact=":jackson-(.*)" />
+    </module>
+
+    <module name="org.codehaus.jettison" skip="true">
+        <include artifact=":jettison" />
     </module>
 
     <module name="org.codehaus.woodstox" skip="true">
@@ -199,12 +192,24 @@
         <include artifact=":stax2-api" />
     </module>
 
-    <module name="org.javassist" skip="true">
-        <include artifact=":javassist" />
+    <module name="org.dom4j" skip="true">
+        <include artifact=":dom4j" />
     </module>
 
     <module name="org.hibernate" skip="true">
         <include artifact=":hibernate-core" />
+    </module>
+
+    <module name="org.javassist" skip="true">
+        <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.javassist" />
+    </module>
+
+    <module name="org.jaxen" skip="true">
+        <include artifact="jaxen:jaxen" />
+    </module>
+
+    <module name="org.javassist" skip="true">
+        <include artifact=":javassist" />
     </module>
 
     <module name="org.jboss.netty" skip="true">
