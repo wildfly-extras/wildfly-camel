@@ -11,14 +11,10 @@
     <module name="javax.xml.ws.api" />
     <module name="org.apache.cxf" export="true" slot="3.0">
       <imports>
-        <include path="META-INF" />
-        <include path="META-INF/cxf" />
-        <include path="META-INF/cxf/camel" />
+        <include path="META-INF/cxf**" />
       </imports>
       <exports>
-        <include path="META-INF" />
-        <include path="META-INF/cxf" />
-        <include path="META-INF/cxf/camel" />
+        <include path="META-INF/cxf**" />
         <include path="org/apache/cxf/transport/http**" />
         <include path="org/apache/cxf/bus**" />
         <include path="org/apache/cxf/interceptor**" />

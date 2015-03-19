@@ -13,8 +13,7 @@
 	^org/apache/cxf/ws/security(.*)
 	^org/dozer(.*)
 	^org.springframework(.*)
-	^META-INF/cxf
-	^META-INF/cxf/camel
+	^META-INF/cxf(.*)
 	^META-INF/services(.*)
 
 [excludes]
