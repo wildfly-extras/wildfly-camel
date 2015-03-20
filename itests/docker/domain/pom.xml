@@ -203,6 +203,25 @@
                             </source>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>set-selinux-properties</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>
+                                // Change target directory SELinux label on environments that support it
+                                if (System.properties['os.name'].toLowerCase().equals('linux')) {
+                                    def proc = ["which", "chcon"].execute()
+                                    proc.waitFor()
+                                    if(proc.exitValue() == 0) {
+                                        "chcon -Rt svirt_sandbox_file_t ${project.build.directory}".execute()
+                                    }
+                                }
+                            </source>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
