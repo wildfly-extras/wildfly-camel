@@ -46,6 +46,7 @@
         <module name="org.apache.camel.component.ftp" export="true" services="export" />
         <module name="org.apache.camel.component.hl7" export="true" services="export" />
         <module name="org.apache.camel.component.http4" export="true" services="export" />
+        <module name="org.apache.camel.component.jackson" export="true" services="export" />
         <module name="org.apache.camel.component.jaxb" export="true" services="export" />
         <module name="org.apache.camel.component.jms" export="true" services="export" />
         <module name="org.apache.camel.component.jmx" export="true" services="export" />

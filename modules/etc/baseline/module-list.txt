@@ -39,6 +39,7 @@
 /org/apache/camel/component/hl7/main/hapi-structures-v25-2.2.jar
 /org/apache/camel/component/http/main/camel-http-2.15.0.jar
 /org/apache/camel/component/http4/main/camel-http4-2.15.0.jar
+/org/apache/camel/component/jackson/main/camel-jackson-2.15.0.jar
 /org/apache/camel/component/jaxb/main/camel-jaxb-2.15.0.jar
 /org/apache/camel/component/jms/main/camel-jms-2.15.0.jar
 /org/apache/camel/component/jmx/main/camel-jmx-2.15.0.jar

@@ -48,6 +48,7 @@ public class HL7IntegrationTest {
     }
 
     @Test
+    @SuppressWarnings("resource")
     public void testMarshalUnmarshal() throws Exception {
 
         final String msg = "MSH|^~\\&|MYSENDER|MYRECEIVER|MYAPPLICATION||200612211200||QRY^A19|1234|P|2.4\r";
@@ -66,7 +67,6 @@ public class HL7IntegrationTest {
 
         camelctx.start();
         try {
-            @SuppressWarnings("resource")
             HapiContext context = new DefaultHapiContext();
             Parser p = context.getGenericParser();
             Message hapimsg = p.parse(msg);
