@@ -35,6 +35,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.core.subA.Customer;
@@ -53,6 +54,7 @@ public class CSVIntegrationTest {
     }
 
     @Test
+    @Ignore("[FIXME #464] Object may get marshalled to wrong CSV order")
     public void testMarshal() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
