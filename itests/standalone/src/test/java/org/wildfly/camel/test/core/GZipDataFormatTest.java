@@ -18,14 +18,11 @@
  * #L%
  */
 
-package org.wildfly.camel.test.crypto;
-
-import javax.crypto.KeyGenerator;
+package org.wildfly.camel.test.core;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.converter.crypto.CryptoDataFormat;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -36,27 +33,24 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class CryptoIntegrationTest {
+public class GZipDataFormatTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "crypto-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "gzip-dataformat-tests");
         return archive;
     }
 
     @Test
     public void testMarshalUnmarshall() throws Exception {
 
-        final KeyGenerator generator = KeyGenerator.getInstance("DES");
-        final CryptoDataFormat cryptoFormat = new CryptoDataFormat("DES", generator.generateKey());
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .marshal(cryptoFormat)
-                .unmarshal(cryptoFormat);
+                .marshal().gzip()
+                .unmarshal().gzip();
             }
         });
 
