@@ -21,6 +21,10 @@
   
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="jexcelapi.jxl" skip="true">
+        <include artifact="jexcelapi:jxl" />
+    </module>
+
     <module name="junit" skip="true">
         <include artifact=":junit" />
     </module>

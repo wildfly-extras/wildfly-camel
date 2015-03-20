@@ -224,6 +224,7 @@
         <include artifact=":jcl-over-slf4j" />
         <include artifact=":slf4j-api" />
         <include artifact=":slf4j-log4j12" />
+        <include artifact=":slf4j-simple" />
     </module>
 
     <module name="org.wildfly.camel" skip="true">
