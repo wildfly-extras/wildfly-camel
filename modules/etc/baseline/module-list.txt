@@ -130,7 +130,6 @@
 /org/fusesource/hawtbuf/main/hawtbuf-1.11.jar
 /org/fusesource/hawtdispatch/main/hawtdispatch-1.21.jar
 /org/fusesource/hawtdispatch/main/hawtdispatch-transport-1.21.jar
-/org/glassfish/web/javax/el/main/javax.el-2.2.4.jar
 /org/jasypt/main/jasypt-1.9.2.jar
 /org/jboss/gravia/main/gravia-provision-1.1.2.jar
 /org/jboss/gravia/main/gravia-repository-1.1.2.jar

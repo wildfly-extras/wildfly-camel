@@ -33,4 +33,8 @@
         <include artifact=":junit" />
     </module>
 
+    <module name="org.glassfish.web.javax.el" skip="true">
+        <include artifact=":javax.el" />
+    </module>
+
 </modules>
