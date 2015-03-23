@@ -50,7 +50,6 @@
         <version.apache.camel.groovy>2.2.1</version.apache.camel.groovy>
         <version.apache.camel.jdom>1.1.3</version.apache.camel.jdom>
         <version.apache.camel.jruby>1.7.2</version.apache.camel.jruby>
-        <version.apache.camel.ognl>3.0.8</version.apache.camel.ognl>
         <version.apache.camel.python>2.5.3</version.apache.camel.python>
         <version.apache.camel.rhino>1.7R2</version.apache.camel.rhino>
         <version.apache.camel.scriptengines>1.1.1</version.apache.camel.scriptengines>
@@ -364,13 +363,6 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${version.junit}</version>
-            </dependency>
-
-            <!-- OGNL -->
-            <dependency>
-                <groupId>ognl</groupId>
-                <artifactId>ognl</artifactId>
-                <version>${version.apache.camel.ognl}</version>
             </dependency>
 
             <!-- OSGi -->
