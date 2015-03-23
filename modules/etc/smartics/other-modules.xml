@@ -124,13 +124,6 @@
         <include artifact=":mina-(.*)" />
     </module>
 
-    <module name="org.apache.servicemix.bundles.ognl">
-        <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.ognl"/>
-        <dependencies>
-            <module name="org.javassist"/>
-        </dependencies>
-    </module>
-
     <module name="org.apache.ws.commons.axiom.axiom-impl">
         <include artifact="org.apache.ws.commons.axiom:axiom-impl" />
         <dependencies>
@@ -164,6 +157,16 @@
         <include artifact="org.fusesource.hawtdispatch:hawtdispatch-transport" />
     </module>
 
+    <module name="ognl">
+        <include artifact="ognl" />
+        <apply-to-dependencies skip="true">
+            <include module=".*" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.javassist"/>
+        </dependencies>
+    </module>
+    
     <module name="org.jasypt">
         <include artifact="org.jasypt:jasypt" />
     </module>

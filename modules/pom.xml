@@ -61,6 +61,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>ognl</groupId>
+            <artifactId>ognl</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-all</artifactId>
             <scope>provided</scope>

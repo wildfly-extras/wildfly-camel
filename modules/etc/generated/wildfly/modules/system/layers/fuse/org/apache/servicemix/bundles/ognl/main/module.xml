@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="org.apache.servicemix.bundles.ognl">
-  <resources>
-    <resource-root path="org.apache.servicemix.bundles.ognl-3.0.8_1.jar" />
-  </resources>
-  <dependencies>
-    <module name="org.javassist" />
-  </dependencies>
-</module>

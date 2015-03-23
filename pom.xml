@@ -47,6 +47,7 @@
         
         <!-- Camel version -->
         <version.apache.camel>2.15.0</version.apache.camel>
+        <version.apache.camel.ognl>3.0.8</version.apache.camel.ognl>
         <version.apache.camel.restlet>2.2.3</version.apache.camel.restlet>
         
         <!-- WildFly versions -->
@@ -347,6 +348,13 @@
                 <version>${version.junit}</version>
             </dependency>
 
+            <!-- OGNL -->
+            <dependency>
+                <groupId>ognl</groupId>
+                <artifactId>ognl</artifactId>
+                <version>${version.apache.camel.ognl}</version>
+            </dependency>
+            
             <!-- OSGi -->
             <dependency>
                 <groupId>org.osgi</groupId>

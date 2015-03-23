@@ -33,6 +33,10 @@
         <include artifact=":junit" />
     </module>
 
+    <module name="org.apache.servicemix.bundles.ognl" skip="true">
+        <include artifact=":org.apache.servicemix.bundles.ognl" />
+    </module>
+
     <module name="org.glassfish.web.javax.el" skip="true">
         <include artifact=":javax.el" />
     </module>

@@ -341,6 +341,12 @@
     
     <module name="org.apache.camel.component.ognl">
         <include artifact="org.apache.camel:camel-ognl" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.servicemix.bundles.ognl" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="ognl" />
+        </dependencies>
     </module>
 
     <module name="org.apache.camel.component.quartz2">

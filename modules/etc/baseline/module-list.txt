@@ -5,6 +5,7 @@
 /net/oauth/core/oauth-provider/main/oauth-provider-20100527.jar
 /net/oauth/core/oauth/main/oauth-20100527.jar
 /net/sf/ehcache/main/ehcache-2.8.5.jar
+/ognl/main/ognl-3.0.8.jar
 /org/apache/abdera/core/main/abdera-core-1.1.3.jar
 /org/apache/abdera/i18n/main/abdera-i18n-1.1.3.jar
 /org/apache/abdera/parser/main/abdera-parser-1.1.3.jar
@@ -117,7 +118,6 @@
 /org/apache/qpid/proton-j/main/proton-j-0.8.jar
 /org/apache/qpid/proton-jms/main/proton-jms-0.8.jar
 /org/apache/santuario/xmlsec/2.0/xmlsec-2.0.3.jar
-/org/apache/servicemix/bundles/ognl/main/org.apache.servicemix.bundles.ognl-3.0.8_1.jar
 /org/apache/ws/commons/axiom/axiom-api/main/axiom-api-1.2.14.jar
 /org/apache/ws/commons/axiom/axiom-impl/main/axiom-impl-1.2.14.jar
 /org/apache/ws/security/2.0/wss4j-bindings-2.0.3.jar
