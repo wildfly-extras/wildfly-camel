@@ -25,8 +25,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
+import org.wildfly.camel.test.common.HttpResponse;
 
-import java.util.concurrent.TimeUnit;
+import javax.ws.rs.core.MediaType;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -35,19 +36,31 @@ public class JaxwsExampleTest {
 
     @Test
     public void testJaxwsGreeting() throws Exception {
-        String result = HttpRequest.post(ENDPOINT_ADDRESS + "?name=Kermit", 10, TimeUnit.SECONDS);
-        Assert.assertTrue(result.contains("Hello Kermit"));
+        HttpResponse result = HttpRequest.post(ENDPOINT_ADDRESS)
+                .header("Content-Type", MediaType.APPLICATION_FORM_URLENCODED)
+                .content("name=Kermit")
+                .getResponse();
+
+        Assert.assertTrue(result.getBody().contains("Hello Kermit"));
     }
 
     @Test
     public void testJaxwsGreetingWithMessage() throws Exception {
-        String result = HttpRequest.post(ENDPOINT_ADDRESS + "?name=Kermit&message=Goodbye", 10, TimeUnit.SECONDS);
-        Assert.assertTrue(result.contains("Goodbye Kermit"));
+        HttpResponse result = HttpRequest.post(ENDPOINT_ADDRESS)
+                .header("Content-Type", MediaType.APPLICATION_FORM_URLENCODED)
+                .content("name=Kermit&message=Goodbye")
+                .getResponse();
+
+        Assert.assertTrue(result.getBody().contains("Goodbye Kermit"));
     }
 
     @Test
     public void testJaxwsGreetingWithoutNameOrMessage() throws Exception {
-        String result = HttpRequest.post(ENDPOINT_ADDRESS + "?name=&message=", 10, TimeUnit.SECONDS);
-        Assert.assertTrue(result.contains("Hello unknown"));
+        HttpResponse result = HttpRequest.post(ENDPOINT_ADDRESS)
+                .header("Content-Type", MediaType.APPLICATION_FORM_URLENCODED)
+                .content("name=&message=")
+                .getResponse();
+
+        Assert.assertTrue(result.getBody().contains("Hello unknown"));
     }
 }

@@ -20,8 +20,6 @@
 
 package org.wildfly.camel.test.servlet;
 
-import java.util.concurrent.TimeUnit;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -35,6 +33,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
+import org.wildfly.camel.test.common.HttpResponse;
 
 @RunWith(Arquillian.class)
 public class ServletIntegrationTest {
@@ -43,7 +42,7 @@ public class ServletIntegrationTest {
     public static WebArchive createDeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel.war");
         archive.addAsWebInfResource("servlet/web.xml", "web.xml");
-        archive.addClass(HttpRequest.class);
+        archive.addClasses(HttpRequest.class, HttpResponse.class);
         return archive;
     }
 
@@ -66,8 +65,8 @@ public class ServletIntegrationTest {
 
         camelctx.start();
         try {
-            String result = HttpRequest.get("http://localhost:8080/camel/services/hello", 10, TimeUnit.SECONDS);
-            Assert.assertEquals("Hello Kermit", result);
+            HttpResponse result = HttpRequest.get("http://localhost:8080/camel/services/hello").getResponse();
+            Assert.assertEquals("Hello Kermit", result.getBody());
         } finally {
             camelctx.stop();
         }

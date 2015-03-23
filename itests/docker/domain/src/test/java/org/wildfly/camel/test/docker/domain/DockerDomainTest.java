@@ -19,10 +19,6 @@
  */
 package org.wildfly.camel.test.docker.domain;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.concurrent.TimeUnit;
-
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.arquillian.api.ContainerResource;
@@ -31,8 +27,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
+import org.wildfly.camel.test.common.HttpResponse;
 import org.wildfly.camel.test.common.docker.DeployCommand;
 import org.wildfly.camel.test.common.docker.DockerCommand.Result;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.concurrent.TimeUnit;
 
 
 @RunAsClient
@@ -64,7 +65,11 @@ public class DockerDomainTest {
         Result result = docker.connect(mgmtAddress, 9990).exec().printOut(System.out).printErr(System.err);
         Assert.assertEquals("Deploy success", 0, result.exitValue());
 
-        String resp = HttpRequest.get("http://" + host + ":8181/domain-endpoint", 30, TimeUnit.SECONDS);
-        Assert.assertTrue("Starts with Hello: " + resp, resp.startsWith("Hello"));
+        HttpResponse response = HttpRequest.get("http://" + host + ":8181/domain-endpoint")
+            .timeout(30, TimeUnit.SECONDS)
+            .getResponse();
+
+        String responseBody = response.getBody();
+        Assert.assertTrue("Starts with Hello: " + responseBody, responseBody.startsWith("Hello"));
     }
 }

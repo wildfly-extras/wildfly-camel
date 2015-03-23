@@ -26,6 +26,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
+import org.wildfly.camel.test.common.HttpResponse;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +37,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.concurrent.TimeUnit;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -78,9 +78,9 @@ public class TransactedJMSExampleTest {
         // Give camel a chance to consume the test order file
         Thread.sleep(2000);
 
-        String result = HttpRequest.get(getEndpointAddress("/example-camel-transacted-jms/orders"), 10, TimeUnit.SECONDS);
+        HttpResponse result = HttpRequest.get(getEndpointAddress("/example-camel-transacted-jms/orders")).getResponse();
 
-        Assert.assertTrue(result.contains("Test Product"));
+        Assert.assertTrue(result.getBody().contains("Test Product"));
     }
 
     private String getEndpointAddress(String contextPath) throws MalformedURLException {

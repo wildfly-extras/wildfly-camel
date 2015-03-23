@@ -19,15 +19,15 @@
  */
 package org.wildfly.camel.examples.cdi;
 
-import java.net.MalformedURLException;
-import java.util.concurrent.TimeUnit;
-
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
+import org.wildfly.camel.test.common.HttpResponse;
+
+import java.net.MalformedURLException;
 
 /**
  * Test the CDI component.
@@ -41,8 +41,8 @@ public class CDIExampleTest {
 
     @Test
     public void testSimpleWar() throws Exception {
-    	String res = HttpRequest.get(getEndpointAddress("/example-camel-cdi?name=Kermit"), 10, TimeUnit.SECONDS);
-        Assert.assertEquals("Hello Kermit", res);
+    	HttpResponse res = HttpRequest.get(getEndpointAddress("/example-camel-cdi?name=Kermit")).getResponse();
+        Assert.assertEquals("Hello Kermit", res.getBody());
     }
 
     private String getEndpointAddress(String contextPath) throws MalformedURLException {

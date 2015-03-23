@@ -1,8 +1,8 @@
 /*
  * #%L
- * Wildfly Camel :: Example :: Camel REST
+ * Wildfly Camel :: Testsuite :: Common
  * %%
- * Copyright (C) 2013 - 2014 RedHat
+ * Copyright (C) 2013 - 2015 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,19 +17,26 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.examples.rest;
 
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
-import java.util.HashSet;
-import java.util.Set;
+package org.wildfly.camel.test.common;
 
-@ApplicationPath("/rest")
-public class RestApplication extends Application {
-    @Override
-    public Set<Class<?>> getClasses() {
-        final Set<Class<?>> classes = new HashSet<>();
-        classes.add(GreetingServiceImpl.class);
-        return classes;
+public class HttpResponse {
+    private int statusCode;
+    private String body;
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 }

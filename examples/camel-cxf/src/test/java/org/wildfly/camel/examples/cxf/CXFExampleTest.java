@@ -25,19 +25,21 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
-
-import java.util.concurrent.TimeUnit;
+import org.wildfly.camel.test.common.HttpResponse;
 
 
 @RunAsClient
 @RunWith(Arquillian.class)
 public class CXFExampleTest {
 
-    private static final String ENDPOINT_ADDRESS = "http://localhost:8080/example-camel-cxf/cxf/?message=Hello&name=Kermit";
+    private static final String ENDPOINT_ADDRESS = "http://localhost:8080/example-camel-cxf/cxf/";
 
     @Test
     public void testSayHelloCxfSoapRoute() throws Exception {
-        String result = HttpRequest.post(ENDPOINT_ADDRESS, 10, TimeUnit.SECONDS);
-        Assert.assertTrue(result.contains("Hello Kermit"));
+        HttpResponse result = HttpRequest.post(ENDPOINT_ADDRESS)
+            .header("Content-Type", "application/x-www-form-urlencoded")
+            .content("message=Hello&name=Kermit")
+            .getResponse();
+        Assert.assertTrue(result.getBody().contains("Hello Kermit"));
     }
 }

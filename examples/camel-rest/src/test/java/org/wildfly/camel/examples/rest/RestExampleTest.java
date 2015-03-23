@@ -21,28 +21,150 @@ package org.wildfly.camel.examples.rest;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
+import org.wildfly.camel.test.common.HttpResponse;
 
+import javax.ws.rs.core.MediaType;
 import java.net.MalformedURLException;
-import java.util.concurrent.TimeUnit;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 
-@RunAsClient
 @RunWith(Arquillian.class)
+@RunAsClient
 public class RestExampleTest {
 
-    public static final String REST_PATH = "/example-camel-rest/rest/greet/hello/";
+    @After
+    public void tearDown() throws Exception {
+        HttpResponse response = HttpRequest.delete(getEndpointAddress("/rest/customer/"))
+                .throwExceptionOnFailure(false)
+                .getResponse();
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 
     @Test
-    public void testRestRoute() throws Exception {
-        String res = HttpRequest.get(getEndpointAddress(REST_PATH + "Kermit"), 10, TimeUnit.SECONDS);
-        Assert.assertTrue("Starts with 'Hello Kermit': " + res, res.startsWith("Hello Kermit"));
+    public void testCreateCustomer() throws Exception {
+        HttpResponse result = createCustomer();
+
+        Assert.assertEquals(200, result.getStatusCode());
+        Assert.assertTrue(result.getBody().contains("\"firstName\":\"John\",\"lastName\":\"Doe\""));
+    }
+
+    @Test
+    public void testReadAllCustomers() throws Exception {
+        String customersBefore = HttpRequest.get(getEndpointAddress("/rest/customer/")).getResponse().getBody();
+        String customersAfter = createCustomer().getBody();
+
+        Assert.assertEquals("[]", customersBefore);
+        Assert.assertTrue(customersAfter.contains("\"firstName\":\"John\",\"lastName\":\"Doe\""));
+    }
+
+    @Test
+    public void testReadCustomer() throws Exception {
+        HttpResponse createCustomerResponse = createCustomer();
+
+        String responseBody = createCustomerResponse.getBody();
+        String customerId = getCustomerIdFromJson(responseBody.split(":")[1]);
+
+        HttpResponse getCustomerResponse = HttpRequest.get(getEndpointAddress("/camel/customer/" + customerId))
+            .getResponse();
+
+        Assert.assertEquals(200, getCustomerResponse.getStatusCode());
+        Assert.assertTrue(getCustomerResponse.getBody().contains("\"firstName\":\"John\",\"lastName\":\"Doe\""));
+    }
+
+    @Test
+    public void testReadNonExistentCustomer() throws Exception {
+        HttpResponse getCustomerResponse = HttpRequest.get(getEndpointAddress("/camel/customer/99"))
+            .throwExceptionOnFailure(false)
+            .getResponse();
+
+        Assert.assertEquals(404, getCustomerResponse.getStatusCode());
+    }
+
+    @Test
+    public void testUpdateCustomer() throws Exception {
+        HttpResponse newCustomerResponse = createCustomer();
+
+        // Update the first name / last name
+        String customerJson = newCustomerResponse.getBody()
+            .replace("John", "Foo")
+            .replace("Doe", "Bar");
+
+        HttpResponse updateCustomerResponse = HttpRequest.put(getEndpointAddress("/rest/customer/"))
+            .header("Content-Type", MediaType.APPLICATION_JSON)
+            .content(customerJson)
+            .getResponse();
+
+        Assert.assertEquals(200, updateCustomerResponse.getStatusCode());
+    }
+
+    @Test
+    public void testUpdateUnmodifiedCustomer() throws Exception {
+        HttpResponse newCustomerResponse = createCustomer();
+
+        HttpResponse updateCustomerResponse = HttpRequest.put(getEndpointAddress("/rest/customer/"))
+            .header("Content-Type", MediaType.APPLICATION_JSON)
+            .content(newCustomerResponse.getBody())
+            .throwExceptionOnFailure(false)
+            .getResponse();
+
+        Assert.assertEquals(304, updateCustomerResponse.getStatusCode());
+    }
+
+    @Test
+    public void testUpdateNonExistentCustomer() throws Exception {
+        HttpResponse updateCustomerResponse = HttpRequest.put(getEndpointAddress("/rest/customer/"))
+            .header("Content-Type", MediaType.APPLICATION_JSON)
+            .content(readFileFromClasspath("/update-customer.json"))
+            .throwExceptionOnFailure(false)
+            .getResponse();
+
+        Assert.assertEquals(404, updateCustomerResponse.getStatusCode());
+    }
+
+    @Test
+    public void testDeleteCustomer() throws Exception {
+        HttpResponse createCustomerResponse = createCustomer();
+
+        String responseBody = createCustomerResponse.getBody();
+        String customerId = getCustomerIdFromJson(responseBody.split(":")[1]);
+
+        HttpResponse deleteCustomerResponse = HttpRequest.delete(getEndpointAddress("/rest/customer/" + customerId))
+            .throwExceptionOnFailure(false)
+            .getResponse();
+
+        Assert.assertEquals(200, deleteCustomerResponse.getStatusCode());
+    }
+
+    @Test
+    public void testDeleteNonExistentCustomer() throws Exception {
+        HttpResponse response = HttpRequest.delete(getEndpointAddress("/rest/customer/99"))
+            .throwExceptionOnFailure(false)
+            .getResponse();
+        Assert.assertEquals(404, response.getStatusCode());
+    }
+
+    private HttpResponse createCustomer() throws Exception {
+        return HttpRequest.post(getEndpointAddress("/camel/customer/"))
+                .header("Content-Type", MediaType.APPLICATION_JSON)
+                .content(readFileFromClasspath("/create-customer.json"))
+                .getResponse();
+    }
+
+    private String getCustomerIdFromJson(String s) {
+        return s.replaceAll("[^\\d.]", "");
+    }
+
+    private String readFileFromClasspath(String filePath) throws Exception {
+        return new String(Files.readAllBytes(Paths.get(getClass().getResource(filePath).toURI())));
     }
 
     private String getEndpointAddress(String restPath) throws MalformedURLException {
-        return "http://localhost:8080" + restPath;
+        return "http://localhost:8080/example-camel-rest" + restPath;
     }
 }

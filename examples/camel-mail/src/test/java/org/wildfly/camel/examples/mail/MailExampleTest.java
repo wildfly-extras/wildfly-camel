@@ -25,9 +25,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
+import org.wildfly.camel.test.common.HttpResponse;
 
 import java.net.MalformedURLException;
-import java.util.concurrent.TimeUnit;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -35,14 +35,18 @@ public class MailExampleTest {
 
     @Test
     public void sendEmailTest() throws Exception {
-        StringBuilder endpointURL = new StringBuilder(getEndpointAddress("/example-camel-mail/send"));
-        endpointURL.append("?from=user1@localhost")
-                   .append("&to=user2@localhost")
+        StringBuilder endpointURL = new StringBuilder("from=user1@localhost");
+        endpointURL.append("&to=user2@localhost")
                    .append("&subject=Greetings")
                    .append("&message=Hello");
 
-        String res = HttpRequest.post(endpointURL.toString(), 10, TimeUnit.SECONDS);
-        Assert.assertTrue("Sent successful: " + res, res.contains("Message sent successfully"));
+        HttpResponse result = HttpRequest.post(getEndpointAddress("/example-camel-mail/send"))
+            .header("Content-Type", "application/x-www-form-urlencoded")
+            .content(endpointURL.toString())
+            .getResponse();
+
+        String responseBody = result.getBody();
+        Assert.assertTrue("Sent successful: " + responseBody, responseBody.contains("Message sent successfully"));
     }
 
     private String getEndpointAddress(String contextPath) throws MalformedURLException {

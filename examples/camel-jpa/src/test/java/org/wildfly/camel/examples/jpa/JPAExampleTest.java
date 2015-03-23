@@ -19,15 +19,15 @@
  */
 package org.wildfly.camel.examples.jpa;
 
-import java.net.MalformedURLException;
-import java.util.concurrent.TimeUnit;
-
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
+import org.wildfly.camel.test.common.HttpResponse;
+
+import java.net.MalformedURLException;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -38,8 +38,8 @@ public class JPAExampleTest {
         // Give camel a chance to consume the test customer file
         Thread.sleep(2000);
 
-        String res = HttpRequest.get(getEndpointAddress("/example-camel-jpa/customers"), 10, TimeUnit.SECONDS);
-        Assert.assertEquals("John Doe", res.trim());
+        HttpResponse result = HttpRequest.get(getEndpointAddress("/example-camel-jpa/customers")).getResponse();
+        Assert.assertEquals("John Doe", result.getBody().trim());
     }
 
     private String getEndpointAddress(String contextPath) throws MalformedURLException {

@@ -19,36 +19,34 @@
  */
 package org.wildfly.camel.examples.rest;
 
-import java.net.InetAddress;
-
 import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.cdi.ContextName;
-import org.apache.camel.component.bean.BeanInvocation;
 
 import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.core.Response;
 
 @Startup
 @ApplicationScoped
-@ContextName("rest-context")
-public class RestRouteBuilder extends RouteBuilder {
+@ContextName("rest-camel-context")
+public class RestProducerRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("direct:start")
-            .to("log:input?showAll=true")
-            .process(new Processor() {
-                @Override
-                public void process(Exchange exchange) throws Exception {
-                    BeanInvocation beanInvocation = exchange.getIn().getBody(BeanInvocation.class);
-                    String name = (String) beanInvocation.getArgs()[0];
-                    String hostAddress = InetAddress.getLocalHost().getHostAddress();
-                    String message = "Hello " + name + " from " + hostAddress + "\n";
-                    exchange.getOut().setBody(Response.ok().entity(message).build());
-                }
-            });
+        /**
+         * This route demonstrates a JAX-RS producer using the camel-restlet component.
+         *
+         * Every 30 seconds, a call is made to the REST API for retrieving all customers at
+         * the URL http://localhost:8080/example-camel-rest/rest/customer.
+         *
+         * The results of the REST service call are written to a file at:
+         *
+         * JBOSS_HOME/standalone/data/customer-records/customers.json
+         */
+        from("timer://outputCustomers?period=30000")
+        .log("Updating customers.json")
+        .to("restlet://http://localhost:8080/example-camel-rest/rest/customer")
+        .setHeader(Exchange.FILE_NAME, constant("customers.json"))
+        .to("file:{{jboss.server.data.dir}}/customer-records/");
     }
 }

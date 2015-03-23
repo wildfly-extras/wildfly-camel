@@ -20,8 +20,6 @@
 
 package org.wildfly.camel.test.rest;
 
-import java.util.concurrent.TimeUnit;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -33,6 +31,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
+import org.wildfly.camel.test.common.HttpResponse;
 
 @RunWith(Arquillian.class)
 public class RestDslIntegrationTest {
@@ -41,7 +40,7 @@ public class RestDslIntegrationTest {
     public static WebArchive createDeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel.war");
         archive.addAsWebInfResource("rest/web.xml", "web.xml");
-        archive.addClass(HttpRequest.class);
+        archive.addClasses(HttpRequest.class, HttpResponse.class);
         return archive;
     }
 
@@ -59,8 +58,8 @@ public class RestDslIntegrationTest {
 
         camelctx.start();
         try {
-            String result = HttpRequest.get("http://localhost:8080/camel/rest/hello/Kermit", 10, TimeUnit.SECONDS);
-            Assert.assertEquals("Hello Kermit", result);
+            HttpResponse result = HttpRequest.get("http://localhost:8080/camel/rest/hello/Kermit").getResponse();
+            Assert.assertEquals("Hello Kermit", result.getBody());
         } finally {
             camelctx.stop();
         }

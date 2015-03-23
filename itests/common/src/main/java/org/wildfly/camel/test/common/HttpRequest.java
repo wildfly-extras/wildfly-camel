@@ -21,11 +21,15 @@
 package org.wildfly.camel.test.common;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -39,117 +43,159 @@ import java.util.concurrent.TimeoutException;
  */
 public class HttpRequest {
 
-    public static String get(final String spec, final long timeout, final TimeUnit unit) throws IOException, ExecutionException, TimeoutException {
-        final URL url = new URL(spec);
-        Callable<String> task = new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setDoInput(true);
-                return processResponse(conn);
-            }
-        };
-        return execute(task, timeout, unit);
+    private HttpRequest(){
     }
 
-    public static String get(final String spec, final InputStream inputStream, final long timeout, final TimeUnit unit) throws TimeoutException, IOException {
-        final URL url = new URL(spec);
-        Callable<String> task = new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-                copy(inputStream, conn.getOutputStream());
-                return processResponse(conn);
-            }
-        };
-        return execute(task, timeout, unit);
+    public static HttpRequestBuilder get(String url) {
+        return new HttpRequestBuilder(url, "GET");
     }
 
-    public static String post(final String spec, final long timeout, final TimeUnit unit) throws IOException, TimeoutException {
-        final URL url = new URL(spec);
-        Callable<String> task = new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-
-                OutputStream outputStream = conn.getOutputStream();
-                outputStream.write(url.getQuery().getBytes("UTF-8"));
-                outputStream.flush();
-                outputStream.close();
-
-                return processResponse(conn);
-            }
-        };
-        return execute(task, timeout, unit);
+    public static HttpRequestBuilder post(String url) {
+        return new HttpRequestBuilder(url, "POST");
     }
 
-    private static String execute(final Callable<String> task, final long timeout, final TimeUnit unit) throws TimeoutException, IOException {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        try {
-            Throwable lastCause = null;
-            long endTime = System.currentTimeMillis() + unit.toMillis(timeout);
-            while (System.currentTimeMillis() < endTime) {
-                Future<String> result = executor.submit(task);
+    public static HttpRequestBuilder put(String url) {
+        return new HttpRequestBuilder(url, "PUT");
+    }
+
+    public static HttpRequestBuilder delete(String url) {
+        return new HttpRequestBuilder(url, "DELETE");
+    }
+
+    public static final class HttpRequestBuilder {
+        private String requestUrl;
+        private String method;
+        private String content;
+        private long timeout = 10;
+        private boolean throwExceptionOnFailure = true;
+        private Map<String, String> headers = new HashMap<>();
+        private TimeUnit timeUnit = TimeUnit.SECONDS;
+
+        HttpRequestBuilder(String url, String method) {
+            this.requestUrl = url;
+            this.method = method;
+        }
+
+        public HttpRequestBuilder content(String value) {
+            this.content = value;
+            return this;
+        }
+
+        public HttpRequestBuilder header(String name, String value) {
+            this.headers.put(name, value);
+            return this;
+        }
+
+        public HttpRequestBuilder throwExceptionOnFailure(boolean value) {
+            this.throwExceptionOnFailure = value;
+            return this;
+        }
+
+        public HttpRequestBuilder timeout(long value) {
+            this.timeout = value;
+            return this;
+        }
+
+        public HttpRequestBuilder timeout(long value, TimeUnit unit) {
+            this.timeout = value;
+            this.timeUnit = unit;
+            return this;
+        }
+
+        public HttpResponse getResponse() throws TimeoutException, IOException {
+            Callable<HttpResponse> task = new Callable<HttpResponse>() {
+                @Override
+                public HttpResponse call() throws Exception {
+                    URL url = new URL(requestUrl);
+                    final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setDoInput(true);
+                    conn.setRequestMethod(method);
+
+                    Set<String> headerNames = headers.keySet();
+                    for(String headerName : headerNames) {
+                        conn.setRequestProperty(headerName, headers.get(headerName));
+                    }
+
+                    if(method.equals("POST") || method.equals("PUT")) {
+                        conn.setDoOutput(true);
+                    }
+
+                    if(content != null && !content.isEmpty()) {
+                        OutputStream outputStream = conn.getOutputStream();
+                        outputStream.write(content.getBytes("UTF-8"));
+                        outputStream.flush();
+                        outputStream.close();
+                    }
+
+                    return processResponse(conn);
+                }
+            };
+            return executeRequest(task, timeout, timeUnit);
+        }
+
+        private HttpResponse executeRequest(final Callable<HttpResponse> task, final long timeout, final TimeUnit unit) throws TimeoutException, IOException {
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            try {
+                Throwable lastCause = null;
+                long endTime = System.currentTimeMillis() + unit.toMillis(timeout);
+                while (System.currentTimeMillis() < endTime) {
+                    Future<HttpResponse> result = executor.submit(task);
+                    try {
+                        return result.get(timeout, unit);
+                    } catch (InterruptedException ex) {
+                        throw new IllegalStateException(ex);
+                    } catch (ExecutionException ex) {
+                        lastCause = ex.getCause();
+
+                        // HttpURLConnection throws FileNotFoundException on 404 so handle this
+                        if (lastCause instanceof FileNotFoundException) {
+                            HttpResponse httpResult = new HttpResponse();
+                            httpResult.setStatusCode(HttpURLConnection.HTTP_NOT_FOUND);
+                            return httpResult;
+                        } else {
+                            continue;
+                        }
+                    }
+                }
+                TimeoutException toex = new TimeoutException();
+                if (lastCause != null) {
+                    toex.initCause(lastCause);
+                }
+                throw toex;
+            } finally {
+                executor.shutdownNow();
+            }
+        }
+
+        private String read(final InputStream in) throws IOException {
+            final ByteArrayOutputStream out = new ByteArrayOutputStream();
+            int b;
+            while ((b = in.read()) != -1) {
+                out.write(b);
+            }
+            return out.toString();
+        }
+
+        private HttpResponse processResponse(HttpURLConnection conn) throws IOException {
+            int responseCode = conn.getResponseCode();
+
+            if (throwExceptionOnFailure && responseCode != HttpURLConnection.HTTP_OK) {
+                final InputStream err = conn.getErrorStream();
                 try {
-                    return result.get(timeout, unit);
-                } catch (InterruptedException ex) {
-                    throw new IllegalStateException(ex);
-                } catch (ExecutionException ex) {
-                    lastCause = ex.getCause();
-                    continue;
+                    throw new IOException(read(err));
+                } finally {
+                    err.close();
                 }
             }
-            TimeoutException toex = new TimeoutException();
-            if (lastCause != null) {
-                toex.initCause(lastCause);
-            }
-            throw toex;
-        } finally {
-            executor.shutdownNow();
-        }
-    }
-
-    private static String read(final InputStream in) throws IOException {
-        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        int b;
-        while ((b = in.read()) != -1) {
-            out.write(b);
-        }
-        return out.toString();
-    }
-
-    private static void copy(final InputStream in, OutputStream out) throws IOException {
-        int c = 0;
-        try {
-            while ((c = in.read()) != -1) {
-                out.write(c);
-            }
-        } finally {
-            in.close();
-        }
-    }
-
-    private static String processResponse(HttpURLConnection conn) throws IOException {
-        int responseCode = conn.getResponseCode();
-        if (responseCode != HttpURLConnection.HTTP_OK) {
-            final InputStream err = conn.getErrorStream();
+            final InputStream in = conn.getInputStream();
             try {
-                throw new IOException(read(err));
+                HttpResponse result = new HttpResponse();
+                result.setStatusCode(responseCode);
+                result.setBody(read(in));
+                return result;
             } finally {
-                err.close();
+                in.close();
             }
-        }
-        final InputStream in = conn.getInputStream();
-        try {
-            return read(in);
-        } finally {
-            in.close();
         }
     }
 }
