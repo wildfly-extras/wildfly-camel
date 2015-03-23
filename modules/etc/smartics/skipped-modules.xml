@@ -21,6 +21,10 @@
   
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="com.sun.xml.bind" skip="true">
+        <include artifact="com.sun.xml.bind:jaxb-xjc" />
+    </module>
+
     <module name="jexcelapi.jxl" skip="true">
         <include artifact="jexcelapi:jxl" />
     </module>

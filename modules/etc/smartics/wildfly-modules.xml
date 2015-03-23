@@ -37,10 +37,6 @@
         <include artifact=":jackson-module-jaxb-annotations" />
     </module>
 
-    <module name="com.sun.xml.bind" skip="true">
-        <include artifact="com.sun.xml.bind:jaxb-xjc" />
-    </module>
-
     <module name="io.netty" skip="true">
         <include artifact="io.netty:netty-(.*)" />
     </module>
@@ -199,22 +195,6 @@
         <include artifact=":jackson-mapper-asl" />
     </module>
     
-    <!--  
-    <module name="org.codehaus.jackson.jackson-annotations" skip="true">
-        <include artifact=":jackson-annotations" />
-    </module>
-
-    <module name="org.codehaus.jackson.jackson-core" skip="true">
-        <include artifact=":jackson-core" />
-    </module>
-
-
-    <module name="org.codehaus.jackson.jackson-databind" skip="true">
-        <include artifact=":jackson-databind" />
-    </module>
-
-    -->
-
     <module name="org.codehaus.jettison" skip="true">
         <include artifact=":jettison" />
     </module>

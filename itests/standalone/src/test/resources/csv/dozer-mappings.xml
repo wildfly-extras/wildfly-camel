@@ -3,7 +3,7 @@
     
     <mapping>
         <class-a>org.wildfly.camel.test.core.subA.Customer</class-a>
-        <class-b>java.util.Map</class-b>
+        <class-b>java.util.LinkedHashMap</class-b>
         <field>
             <a>firstName</a>
             <b key="firstName">this</b>
