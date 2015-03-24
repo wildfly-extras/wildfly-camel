@@ -13,7 +13,8 @@
 	^org/apache/cxf/ws/discovery(.*)
 	^org/apache/cxf/ws/security(.*)
 	^org/dozer(.*)
-	^org.springframework(.*)
+	^org/springframework(.*)
+	^org/xmlsoap(.*)
 	^META-INF/cxf(.*)
 	^META-INF/services(.*)
 

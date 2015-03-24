@@ -456,8 +456,12 @@
         <include artifact="org.apache.camel:camel-soap" />
         <dependencies>
             <module name="javax.api"/>
+            <module name="javax.xml.ws.api"/>
             <module name="org.slf4j"/>
         </dependencies>
+        <exports>
+            <exclude path="org/w3**" />
+        </exports>
     </module>
     
     <module name="org.apache.camel.component.sql">

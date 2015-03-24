@@ -331,6 +331,8 @@ org/apache/camel/dataformat/csv
 org/apache/camel/dataformat/flatpack
 org/apache/camel/dataformat/protobuf
 org/apache/camel/dataformat/rss
+org/apache/camel/dataformat/soap
+org/apache/camel/dataformat/soap/name
 org/apache/camel/dataformat/xmlsecurity
 org/apache/camel/dataformat/xstream
 org/apache/camel/dataformat/zipfile
@@ -419,4 +421,8 @@ org/dozer/osgi
 org/dozer/propertydescriptor
 org/dozer/stats
 org/dozer/util
+org/xmlsoap
+org/xmlsoap/schemas
+org/xmlsoap/schemas/soap
+org/xmlsoap/schemas/soap/envelope
 

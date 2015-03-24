@@ -43,7 +43,7 @@ public class XQueryIntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "xquery-tests");
-        archive.addAsResource("jaxb/model/customer.xml", "customer.xml");
+        archive.addAsResource("jaxb/customer.xml", "customer.xml");
         return archive;
     }
 

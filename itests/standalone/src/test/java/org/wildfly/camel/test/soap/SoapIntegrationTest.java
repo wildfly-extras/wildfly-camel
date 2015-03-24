@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.jaxb;
+package org.wildfly.camel.test.soap;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,8 +26,8 @@ import java.io.IOException;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.dataformat.soap.SoapJaxbDataFormat;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.model.dataformat.JaxbDataFormat;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.gravia.utils.IOUtils;
@@ -37,24 +37,25 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.w3c.dom.Element;
 import org.wildfly.camel.test.jaxb.model.Customer;
 
 @RunWith(Arquillian.class)
-public class JAXBIntegrationTest {
+public class SoapIntegrationTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jaxb-integration-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "soap-dataformat-tests");
         archive.addPackage(Customer.class.getPackage());
         archive.addAsResource(new StringAsset("Customer"), "org/wildfly/camel/test/jaxb/model/jaxb.index");
-        archive.addAsResource("jaxb/customer.xml", "customer.xml");
+        archive.addAsResource("soap/envelope.xml", "envelope.xml");
         return archive;
     }
 
     @Test
-    public void testJaxbMarshal() throws Exception {
+    public void testSoapMarshal() throws Exception {
 
-        final JaxbDataFormat format = new JaxbDataFormat();
+        final SoapJaxbDataFormat format = new SoapJaxbDataFormat();
         format.setContextPath("org.wildfly.camel.test.jaxb.model");
 
         CamelContext camelctx = new DefaultCamelContext();
@@ -71,7 +72,7 @@ public class JAXBIntegrationTest {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             Customer customer = new Customer("John", "Doe");
             String customerXML = producer.requestBody("direct:start", customer, String.class);
-            Assert.assertEquals(readCustomerXml(), customerXML);
+            Assert.assertEquals(readEnvelopeXml(), customerXML);
         } finally {
             camelctx.stop();
         }
@@ -80,7 +81,7 @@ public class JAXBIntegrationTest {
     @Test
     public void testJaxbUnmarshal() throws Exception {
 
-        final JaxbDataFormat format = new JaxbDataFormat();
+        final SoapJaxbDataFormat format = new SoapJaxbDataFormat();
         format.setContextPath("org.wildfly.camel.test.jaxb.model");
 
         CamelContext camelctx = new DefaultCamelContext();
@@ -95,17 +96,16 @@ public class JAXBIntegrationTest {
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            Customer customer = producer.requestBody("direct:start", readCustomerXml(), Customer.class);
-            Assert.assertEquals("John", customer.getFirstName());
-            Assert.assertEquals("Doe", customer.getLastName());
+            Element response = producer.requestBody("direct:start", readEnvelopeXml(), Element.class);
+            Assert.assertEquals("Customer", response.getLocalName());
         } finally {
             camelctx.stop();
         }
     }
 
-	private String readCustomerXml() throws IOException {
+	private String readEnvelopeXml() throws IOException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-    	IOUtils.copyStream(getClass().getResourceAsStream("/customer.xml"), out);
+    	IOUtils.copyStream(getClass().getResourceAsStream("/envelope.xml"), out);
     	return new String(out.toByteArray());
 	}
 }

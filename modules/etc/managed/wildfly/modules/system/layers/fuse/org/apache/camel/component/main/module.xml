@@ -66,6 +66,7 @@
         <module name="org.apache.camel.component.saxon" export="true" services="export" />
         <module name="org.apache.camel.component.script" export="true" services="export" />
         <module name="org.apache.camel.component.servlet" export="true" services="export" />
+        <module name="org.apache.camel.component.soap" export="true" services="export" />
         <module name="org.apache.camel.component.sql" export="true" services="export" />
         <module name="org.apache.camel.component.weather" export="true" services="export" />
         <module name="org.apache.camel.component.xmlsecurity" export="true" services="export" />
