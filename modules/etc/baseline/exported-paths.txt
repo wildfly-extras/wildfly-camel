@@ -233,6 +233,7 @@ ca/uhn/hl7v2/validation/builder
 ca/uhn/hl7v2/validation/builder/support
 ca/uhn/hl7v2/validation/impl
 ca/uhn/hl7v2/view
+com/google/protobuf
 org/apache/abdera
 org/apache/abdera/factory
 org/apache/abdera/filter
@@ -325,6 +326,7 @@ org/apache/camel/dataformat/bindy/util
 org/apache/camel/dataformat/castor
 org/apache/camel/dataformat/csv
 org/apache/camel/dataformat/flatpack
+org/apache/camel/dataformat/protobuf
 org/apache/camel/dataformat/rss
 org/apache/camel/dataformat/xstream
 org/apache/camel/language

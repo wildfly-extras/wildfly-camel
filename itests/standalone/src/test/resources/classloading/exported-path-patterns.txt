@@ -1,5 +1,6 @@
 [includes]
 	^ca/uhn/hl7v2(.*)
+	^com/google/protobuf
 	^org/apache/abdera(.*)
 	^org/apache/activemq
 	^org/apache/activemq/camel(.*)

@@ -18,11 +18,14 @@
  * #L%
  */
 
-package org.wildfly.camel.test.ognl;
+package org.wildfly.camel.test.protobuf;
+
+import java.io.ByteArrayOutputStream;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.dataformat.protobuf.ProtobufDataFormat;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -31,84 +34,68 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.protobuf.model.AddressBookProtos;
+import org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person;
 
 @RunWith(Arquillian.class)
-public class OgnlIntegrationTest {
+public class ProtobufIntegrationTest {
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "ognl-tests");
-        archive.addAsResource("ognl/test-ognl-expression.txt", "test-ognl-expression.txt");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "protobuf-tests");
+        archive.addClasses(AddressBookProtos.class);
         return archive;
     }
 
     @Test
-    public void testOgnlExpression() throws Exception {
+    public void testMarshall() throws Exception {
+
+        final ProtobufDataFormat format = new ProtobufDataFormat(Person.getDefaultInstance());
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start")
-                    .choice()
-                        .when()
-                            .ognl("request.body.name == 'Kermit'").transform(simple("Hello ${body.name}"))
-                        .otherwise()
-                            .to("mock:dlq");
+                from("direct:start").marshal(format);
             }
         });
 
-        Person person = new Person();
-        person.setName("Kermit");
+        Person person = Person.newBuilder().setId(1).setName("John Doe").build();
 
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", person, String.class);
-            Assert.assertEquals("Hello Kermit", result);
+            Assert.assertEquals("John Doe", result.trim());
         } finally {
             camelctx.stop();
         }
     }
 
     @Test
-    public void testOgnlExpressionFromFile() throws Exception {
+    public void testUnmarshall() throws Exception {
+
+        final ProtobufDataFormat format = new ProtobufDataFormat(Person.getDefaultInstance());
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start")
-                    .choice()
-                        .when()
-                            .ognl("resource:classpath:test-ognl-expression.txt").transform(simple("Hello ${body.name}"))
-                         .otherwise()
-                            .to("mock:dlq");
+                from("direct:start").unmarshal(format);
             }
         });
 
-        Person person = new Person();
-        person.setName("Kermit");
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Person person = Person.newBuilder().setId(1).setName("John Doe").build();
+        person.writeTo(baos);
 
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            String result = producer.requestBody("direct:start", person, String.class);
-            Assert.assertEquals("Hello Kermit", result);
+            Person result = producer.requestBody("direct:start", baos.toByteArray(), Person.class);
+            Assert.assertEquals("John Doe", result.getName().trim());
         } finally {
             camelctx.stop();
-        }
-    }
-
-    public static final class Person {
-        private String name;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(final String name) {
-            this.name = name;
         }
     }
 }

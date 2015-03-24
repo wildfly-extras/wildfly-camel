@@ -56,6 +56,8 @@
 /org/apache/camel/component/mvel/main/camel-mvel-2.15.0.jar
 /org/apache/camel/component/netty4/main/camel-netty4-2.15.0.jar
 /org/apache/camel/component/ognl/main/camel-ognl-2.15.0.jar
+/org/apache/camel/component/protobuf/main/camel-protobuf-2.15.0.jar
+/org/apache/camel/component/protobuf/main/protobuf-java-2.6.1.jar
 /org/apache/camel/component/quartz2/main/c3p0-0.9.1.2.jar
 /org/apache/camel/component/quartz2/main/camel-quartz2-2.15.0.jar
 /org/apache/camel/component/quartz2/main/quartz-2.2.1.jar
