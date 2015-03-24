@@ -4,6 +4,7 @@
     <resource-root path="xmlsec-2.0.3.jar" />
   </resources>
   <dependencies>
+    <module name="javax.api" />
     <module name="org.apache.commons.codec" />
     <module name="org.codehaus.woodstox" />
     <module name="org.slf4j" />

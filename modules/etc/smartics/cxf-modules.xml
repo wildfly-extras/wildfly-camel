@@ -52,5 +52,8 @@
 
     <module name="org.apache.santuario.xmlsec" slot="2.0" inherit-slot="false">
         <include artifact="org.apache.santuario:xmlsec" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
     </module>
 </modules>

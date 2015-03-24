@@ -476,6 +476,14 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.xmlsecurity">
+        <include artifact="org.apache.camel:camel-xmlsecurity" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.xstream">
         <include artifact="org.apache.camel:camel-xstream" />
         <include artifact="com.thoughtworks.xstream:xstream" />

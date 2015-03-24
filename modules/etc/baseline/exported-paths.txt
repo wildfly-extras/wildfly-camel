@@ -308,6 +308,9 @@ org/apache/camel/component/servlet
 org/apache/camel/component/servlet/osgi
 org/apache/camel/component/sql
 org/apache/camel/component/weather
+org/apache/camel/component/xmlsecurity
+org/apache/camel/component/xmlsecurity/api
+org/apache/camel/component/xmlsecurity/processor
 org/apache/camel/component/xquery
 org/apache/camel/converter
 org/apache/camel/converter/crypto
@@ -328,6 +331,7 @@ org/apache/camel/dataformat/csv
 org/apache/camel/dataformat/flatpack
 org/apache/camel/dataformat/protobuf
 org/apache/camel/dataformat/rss
+org/apache/camel/dataformat/xmlsecurity
 org/apache/camel/dataformat/xstream
 org/apache/camel/dataformat/zipfile
 org/apache/camel/language
