@@ -74,6 +74,7 @@
 /org/apache/camel/component/xstream/main/xmlpull-1.1.3.1.jar
 /org/apache/camel/component/xstream/main/xpp3_min-1.1.4c.jar
 /org/apache/camel/component/xstream/main/xstream-1.4.7.jar
+/org/apache/camel/component/zipfile/main/camel-zipfile-2.15.0.jar
 /org/apache/camel/core/main/camel-core-2.15.0.jar
 /org/apache/camel/core/xml/main/camel-core-xml-2.15.0.jar
 /org/apache/camel/spring/main/camel-spring-2.15.0.jar

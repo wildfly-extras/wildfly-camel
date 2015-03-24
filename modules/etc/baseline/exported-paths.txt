@@ -327,6 +327,7 @@ org/apache/camel/dataformat/csv
 org/apache/camel/dataformat/flatpack
 org/apache/camel/dataformat/rss
 org/apache/camel/dataformat/xstream
+org/apache/camel/dataformat/zipfile
 org/apache/camel/language
 org/apache/camel/language/mvel
 org/apache/camel/language/ognl
@@ -336,6 +337,7 @@ org/apache/camel/pollconsumer/quartz2
 org/apache/camel/processor
 org/apache/camel/processor/aggregate
 org/apache/camel/processor/aggregate/jdbc
+org/apache/camel/processor/aggregate/zipfile
 org/apache/camel/processor/idempotent
 org/apache/camel/processor/idempotent/jdbc
 org/apache/camel/processor/idempotent/jpa
