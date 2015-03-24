@@ -363,6 +363,14 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.protobuf">
+        <include artifact="org.apache.camel:camel-protobuf" />
+        <include artifact=":protobuf-java" />
+        <exports>
+            <exclude path="com/google" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.quartz2">
         <include artifact="org.apache.camel:camel-quartz2" />
         <include artifact="org.quartz-scheduler:quartz" />

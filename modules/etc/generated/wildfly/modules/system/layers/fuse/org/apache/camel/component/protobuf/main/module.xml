@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.protobuf">
+  <resources>
+    <resource-root path="camel-protobuf-2.15.0.jar" />
+    <resource-root path="protobuf-java-2.6.1.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+  <exports>
+    <exclude path="com/google" />
+  </exports>
+</module>
