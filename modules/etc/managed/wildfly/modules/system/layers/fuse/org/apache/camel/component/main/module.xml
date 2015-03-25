@@ -68,6 +68,7 @@
         <module name="org.apache.camel.component.servlet" export="true" services="export" />
         <module name="org.apache.camel.component.soap" export="true" services="export" />
         <module name="org.apache.camel.component.sql" export="true" services="export" />
+        <module name="org.apache.camel.component.tagsoup" export="true" services="export" />
         <module name="org.apache.camel.component.weather" export="true" services="export" />
         <module name="org.apache.camel.component.xmlsecurity" export="true" services="export" />
         <module name="org.apache.camel.component.xstream" export="true" services="export" />
