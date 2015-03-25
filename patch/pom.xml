@@ -62,12 +62,12 @@
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
-		<dependency>
-			<groupId>io.hawt</groupId>
-			<artifactId>hawtio-jboss</artifactId>
+        <dependency>
+            <groupId>io.hawt</groupId>
+            <artifactId>hawtio-wildfly</artifactId>
             <scope>provided</scope>
-			<type>war</type>
-		</dependency>
+            <type>war</type>
+        </dependency>
     </dependencies>
 
     <!-- Build -->
