@@ -167,6 +167,10 @@
             <artifactId>camel-zipfile</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jboss-dmr</artifactId>
         </dependency>
@@ -307,6 +311,22 @@
             </testResource>
         </testResources>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xmlbeans-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>xmlbeans-generate</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>xmlbeans-test</goal>
+                        </goals>
+                        <configuration>
+                            <schemaDirectory>src/test/resources/xmlbeans/xsd</schemaDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>

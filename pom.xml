@@ -65,6 +65,7 @@
         <version.apache.felix.scr.ds.annotations>1.2.4</version.apache.felix.scr.ds.annotations>
         <version.apache.felix.scr.generator>1.8.0</version.apache.felix.scr.generator>
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
+        <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
         <version.codehaus.plexus.utils>3.0.15</version.codehaus.plexus.utils>
         <version.freeside.betamax>1.1.2</version.freeside.betamax>
         <version.greenmail>1.4.0</version.greenmail>
@@ -114,6 +115,7 @@
         <version-shrinkwrap-resolver-plugin>2.1.1</version-shrinkwrap-resolver-plugin>
         <version-smartics-maven-plugin>1.36</version-smartics-maven-plugin>
         <version-wildfly-maven-plugin>1.0.2.Final</version-wildfly-maven-plugin>
+        <version-xmlbeans-maven-plugin>2.3.3</version-xmlbeans-maven-plugin>
     </properties>
 
     <!-- Modules -->
@@ -227,6 +229,13 @@
                 <groupId>org.apache.felix</groupId>
                 <artifactId>org.apache.felix.scr.generator</artifactId>
                 <version>${version.apache.felix.scr.generator}</version>
+            </dependency>
+
+            <!-- Xmlbeans -->
+            <dependency>
+                <groupId>org.apache.xmlbeans</groupId>
+                <artifactId>xmlbeans</artifactId>
+                <version>${version.apache.xmlbeans}</version>
             </dependency>
 
             <!-- Gravia -->
@@ -594,6 +603,11 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>properties-maven-plugin</artifactId>
                     <version>${version-properties-maven-plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>xmlbeans-maven-plugin</artifactId>
+                    <version>${version-xmlbeans-maven-plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.fusesource.mvnplugins</groupId>

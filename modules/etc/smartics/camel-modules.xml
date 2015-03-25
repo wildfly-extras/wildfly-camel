@@ -492,6 +492,22 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.xmlbeans">
+        <include artifact="org.apache.camel:camel-xmlbeans" />
+        <include artifact="org.apache.xmlbeans:xmlbeans" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="org/apache/xmlbeans/impl/jam/internal" />
+            <exclude path="org/apache/xmlbeans/impl/soap/**" />
+            <exclude path="org/apache/xmlbeans/soap/**" />
+            <exclude path="org/w3c**" />
+            <exclude path="schemaorg_apache_xmlbeans/**" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.xmlsecurity">
         <include artifact="org.apache.camel:camel-xmlsecurity" />
         <dependencies>
