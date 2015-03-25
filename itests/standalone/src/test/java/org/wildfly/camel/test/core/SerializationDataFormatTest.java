@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.csv;
+package org.wildfly.camel.test.core;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -39,7 +39,7 @@ import org.junit.runner.RunWith;
 import org.wildfly.camel.test.core.subA.Customer;
 
 @RunWith(Arquillian.class)
-public class SerializationFormatTest {
+public class SerializationDataFormatTest {
 
     @Deployment
     public static JavaArchive deployment() {

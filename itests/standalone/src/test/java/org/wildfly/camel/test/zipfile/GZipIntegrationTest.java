@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.core;
+package org.wildfly.camel.test.zipfile;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class GZipDataFormatTest {
+public class GZipIntegrationTest {
 
     @Deployment
     public static JavaArchive deployment() {
@@ -60,7 +60,7 @@ public class GZipDataFormatTest {
             String result = producer.requestBody("direct:start", "password", String.class);
             Assert.assertEquals("password", result.trim());
         } finally {
-            //camelctx.stop();
+            camelctx.stop();
         }
     }
 
