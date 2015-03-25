@@ -4,6 +4,7 @@
     <resource-root path="camel-mina2-2.15.0.jar" />
   </resources>
   <dependencies>
+    <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.mina.core" />

@@ -21,7 +21,6 @@
     <module name="javax.jms.api" />
     <module name="javax.management.j2ee.api" />
     <module name="org.apache.camel.component.mqtt" />
-    <module name="org.apache.commons.net" />
     <module name="org.apache.commons.pool" />
     <module name="org.apache.log4j" />
     <module name="org.apache.qpid.proton-jms" />

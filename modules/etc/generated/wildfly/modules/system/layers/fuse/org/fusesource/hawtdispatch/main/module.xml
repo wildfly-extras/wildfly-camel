@@ -4,5 +4,7 @@
     <resource-root path="hawtdispatch-1.21.jar" />
     <resource-root path="hawtdispatch-transport-1.21.jar" />
   </resources>
-  <dependencies />
+  <dependencies>
+    <module name="org.fusesource.hawtbuf" />
+  </dependencies>
 </module>
