@@ -12,6 +12,7 @@
     <module name="javax.inject.api" />
     <module name="javax.interceptor.api" />
     <module name="org.slf4j" />
+    <module name="org.apache.mina.core" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.slf4j" />
