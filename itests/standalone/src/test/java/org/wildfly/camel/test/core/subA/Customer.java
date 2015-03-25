@@ -19,8 +19,12 @@
  */
 package org.wildfly.camel.test.core.subA;
 
+import java.io.Serializable;
 
-public class Customer {
+
+public class Customer implements Serializable {
+
+    private static final long serialVersionUID = 7301753065476408128L;
 
     private String firstName;
     private String lastName;
