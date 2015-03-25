@@ -237,6 +237,7 @@
             <module name="javax.inject.api" />
             <module name="javax.interceptor.api" />
             <module name="org.slf4j"/>
+            <module name="org.apache.mina.core"/>
         </dependencies>
         <exports>
             <exclude path="ca/uhn" />
@@ -323,6 +324,9 @@
 
     <module name="org.apache.camel.component.mina2">
         <include artifact="org.apache.camel:camel-mina2" />
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
     </module>
 
     <module name="org.apache.camel.component.mqtt">
@@ -433,6 +437,38 @@
             <module name="javax.api"/>
             <module name="org.osgi.core"/>
             <module name="org.slf4j"/>
+            <module name="rhino" export="true">
+                <imports>
+                    <include path="META-INF/services" />
+                </imports>
+                <exports>
+                    <include path="META-INF/services" />
+                </exports>
+            </module>
+            <module name="org.python" export="true">
+                <imports>
+                    <include path="META-INF/services" />
+                </imports>
+                <exports>
+                    <include path="META-INF/services" />
+                </exports>
+            </module>
+            <module name="org.jruby" export="true">
+                <imports>
+                    <include path="META-INF/services" />
+                </imports>
+                <exports>
+                    <include path="META-INF/services" />
+                </exports>
+            </module>
+            <module name="org.codehaus.groovy" export="true">
+                <imports>
+                    <include path="META-INF/services" />
+                </imports>
+                <exports>
+                    <include path="META-INF/services" />
+                </exports>
+            </module>
         </dependencies>
         <exports>
             <exclude path="bsh**" />

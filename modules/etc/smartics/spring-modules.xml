@@ -84,6 +84,7 @@
         <include artifact="org.springframework:spring-orm" />
         <dependencies>
             <module name="javax.api" />
+            <module name="javax.persistence.api" />
             <module name="org.apache.commons.logging" />
         </dependencies>
     </module>
