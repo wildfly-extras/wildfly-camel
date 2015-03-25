@@ -89,7 +89,10 @@
         <version.jboss.spec.javax.transaction>1.0.0.Final</version.jboss.spec.javax.transaction>
         <version.jvnet.mock.javamail>1.9</version.jvnet.mock.javamail>
         <version.junit>4.11</version.junit>
+        <version.org.jruby>1.7.2</version.org.jruby>
+        <version.org.python>2.5.3</version.org.python>
         <version.osgi>5.0.0</version.osgi>
+        <version.rhino.js>1.7R2</version.rhino.js>
         <version.slf4j>1.6.6</version.slf4j>
         <version.smartics.config>2.0.1</version.smartics.config>
 
@@ -356,6 +359,13 @@
                 <version>${version.jboss.jbossws.api}</version>
             </dependency>
 
+            <!-- JRuby -->
+            <dependency>
+                <groupId>org.jruby</groupId>
+                <artifactId>jruby</artifactId>
+                <version>${version.org.jruby}</version>
+            </dependency>
+
             <!-- JUnit -->
             <dependency>
                 <groupId>junit</groupId>
@@ -389,6 +399,13 @@
                 <version>${version.codehaus.plexus.utils}</version>
             </dependency>
             
+            <!-- Python -->
+            <dependency>
+                <groupId>org.python</groupId>
+                <artifactId>jython</artifactId>
+                <version>${version.org.python}</version>
+            </dependency>
+
             <!-- Restlet -->
             <dependency>
                 <groupId>org.restlet.jee</groupId>
@@ -401,6 +418,13 @@
                 <version>${version.apache.camel.restlet}</version>
             </dependency>
             
+            <!-- Rhino -->
+            <dependency>
+                <groupId>rhino</groupId>
+                <artifactId>js</artifactId>
+                <version>${version.rhino.js}</version>
+            </dependency>
+
             <!-- Shrinkwrap -->
             <dependency>
                 <groupId>org.jboss.shrinkwrap</groupId>

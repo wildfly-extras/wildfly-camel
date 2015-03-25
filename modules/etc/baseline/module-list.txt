@@ -1,3 +1,4 @@
+/bsf/main/bsf-2.3.0.jar
 /cglib/cglib-nodep/main/cglib-nodep-2.2.2.jar
 /com/jcraft/jsch/main/jsch-0.1.51.jar
 /javax/el/main/el-api-2.2.jar
@@ -68,6 +69,10 @@
 /org/apache/camel/component/saxon/main/camel-saxon-2.15.0.jar
 /org/apache/camel/component/script/main/bsh-2.0b5.jar
 /org/apache/camel/component/script/main/camel-script-2.15.0.jar
+/org/apache/camel/component/script/main/groovy-all-2.2.1.jar
+/org/apache/camel/component/script/main/jruby-1.7.2.jar
+/org/apache/camel/component/script/main/js-1.7R2.jar
+/org/apache/camel/component/script/main/jython-2.5.3.jar
 /org/apache/camel/component/servlet/main/camel-servlet-2.15.0.jar
 /org/apache/camel/component/soap/main/camel-soap-2.15.0.jar
 /org/apache/camel/component/sql/main/camel-sql-2.15.0.jar

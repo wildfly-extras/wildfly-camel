@@ -387,6 +387,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.jboss.gravia</groupId>
             <artifactId>gravia-provision</artifactId>
             <scope>provided</scope>
@@ -397,8 +402,18 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.jruby</groupId>
+            <artifactId>jruby</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.enterprise</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.python</groupId>
+            <artifactId>jython</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -419,6 +434,11 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>rhino</groupId>
+            <artifactId>js</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
