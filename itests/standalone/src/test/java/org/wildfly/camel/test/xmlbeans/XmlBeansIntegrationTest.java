@@ -26,6 +26,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.gravia.utils.IOUtils;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
@@ -37,7 +38,9 @@ import org.wildfly.camel.xmlbeans.PurchaseOrderDocument;
 import org.wildfly.camel.xmlbeans.impl.PurchaseOrderDocumentImpl;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -146,13 +149,8 @@ public class XmlBeansIntegrationTest {
     }
 
     private String readPurchaseOrderXml() throws Exception {
-        String line;
-        StringBuilder builder = new StringBuilder();
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/purchaseOrder.xml")))) {
-            while ((line = br.readLine()) != null) {
-                builder.append(line);
-            }
-        }
-        return builder.toString();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        IOUtils.copyStream(getClass().getResourceAsStream("/purchaseOrder.xml"), out);
+        return new String(out.toByteArray());
     }
 }

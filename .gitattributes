@@ -4,3 +4,5 @@
 *.sh   			text ident
 *.txt  			text ident
 *.xml  			text ident
+itests/standalone/src/test/resources/jaxb/*.xml   text ident eol=lf
+itests/standalone/src/test/resources/soap/*.xml   text ident eol=lf

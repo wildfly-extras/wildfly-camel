@@ -44,6 +44,7 @@
         <server.config>standalone-camel-examples.xml</server.config>
         <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true</jvmArgs>
         <jvmDebugArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmDebugArgs>
+        <log4j.configuration>file://${basedir}/src/test/resources/logging.properties</log4j.configuration>
     </properties>
     
     <!-- Dependencies -->
@@ -358,7 +359,7 @@
                     <redirectTestOutputToFile>false</redirectTestOutputToFile>
                     <systemPropertyVariables>
                         <jboss.home>${jboss.home}</jboss.home>
-                        <log4j.configuration>file://${basedir}/src/test/resources/logging.properties</log4j.configuration>
+                        <log4j.configuration>${log4j.configuration}</log4j.configuration>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -368,4 +369,17 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>itests-standalone-windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <log4j.configuration>file:/${basedir}/src/test/resources/logging.properties</log4j.configuration>
+            </properties>
+        </profile>
+    </profiles>
 </project>
