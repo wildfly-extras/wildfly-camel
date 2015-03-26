@@ -307,6 +307,7 @@ org/apache/camel/component/rss
 org/apache/camel/component/servlet
 org/apache/camel/component/servlet/osgi
 org/apache/camel/component/sql
+org/apache/camel/component/velocity
 org/apache/camel/component/weather
 org/apache/camel/component/xmlsecurity
 org/apache/camel/component/xmlsecurity/api

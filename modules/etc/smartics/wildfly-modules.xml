@@ -167,12 +167,16 @@
         <include artifact=":apache-mime4j-core" />
     </module>
 
+    <module name="org.apache.log4j" skip="true">
+        <include artifact="log4j:log4j" />
+    </module>
+
     <module name="org.apache.neethi" skip="true">
         <include artifact=":neethi" />
     </module>
 
-    <module name="org.apache.log4j" skip="true">
-        <include artifact="log4j:log4j" />
+    <module name="org.apache.velocity" skip="true">
+        <include artifact=":velocity" />
     </module>
 
     <module name="org.apache.ws.xmlschema" skip="true">
