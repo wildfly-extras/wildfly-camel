@@ -73,6 +73,7 @@
 /org/apache/camel/component/sql/main/camel-sql-2.15.0.jar
 /org/apache/camel/component/tagsoup/main/camel-tagsoup-2.15.0.jar
 /org/apache/camel/component/tagsoup/main/tagsoup-1.2.1.jar
+/org/apache/camel/component/velocity/main/camel-velocity-2.15.0.jar
 /org/apache/camel/component/weather/main/camel-weather-2.15.0.jar
 /org/apache/camel/component/xmlsecurity/main/camel-xmlsecurity-2.15.0.jar
 /org/apache/camel/component/xstream/main/camel-xstream-2.15.0.jar

@@ -484,6 +484,14 @@
         </exports>
     </module>
     
+    <module name="org.apache.camel.component.velocity">
+        <include artifact="org.apache.camel:camel-velocity" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.weather">
         <include artifact="org.apache.camel:camel-weather" />
         <dependencies>
