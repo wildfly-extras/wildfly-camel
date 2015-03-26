@@ -34,6 +34,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.core.subA.CustomConverter;
 import org.wildfly.camel.test.core.subA.Customer;
 
 @RunWith(Arquillian.class)

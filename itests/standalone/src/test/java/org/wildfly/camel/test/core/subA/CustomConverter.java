@@ -17,16 +17,13 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.converter;
+package org.wildfly.camel.test.core.subA;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.camel.Converter;
-import org.wildfly.camel.test.core.subA.Customer;
-
-// [FIXME CAMEL-8556] AnnotationTypeConverterLoader treats package as class
 
 @Converter
 public class CustomConverter {
