@@ -232,6 +232,7 @@
             <module name="javax.inject.api" />
             <module name="javax.interceptor.api" />
             <module name="org.slf4j"/>
+            <module name="org.apache.mina.core"/>
         </dependencies>
         <exports>
             <exclude path="ca/uhn" />
@@ -318,6 +319,9 @@
 
     <module name="org.apache.camel.component.mina2">
         <include artifact="org.apache.camel:camel-mina2" />
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
     </module>
 
     <module name="org.apache.camel.component.mqtt">
@@ -421,13 +425,44 @@
     <module name="org.apache.camel.component.script">
         <include artifact="org.apache.camel:camel-script" />
         <include artifact="org.beanshell:bsh" />
+        <include artifact="rhino:js" />
+        <include artifact="org.python:jython" />
+        <include artifact="org.jruby:jruby" />
+        <include artifact="org.codehaus.groovy:groovy-all" />
         <dependencies>
             <module name="javax.api"/>
             <module name="org.osgi.core"/>
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
+            <exclude path="antlr**" />
             <exclude path="bsh**" />
+            <exclude path="com/google**" />
+            <exclude path="com/headius**" />
+            <exclude path="com/jcraft**" />
+            <exclude path="com/kenai**" />
+            <exclude path="com/martiansoftware**" />
+            <exclude path="com/xhaus**" />
+            <exclude path="com/ziclix**" />
+            <exclude path="groovy**" />
+            <exclude path="jay**" />
+            <exclude path="jline**" />
+            <exclude path="jni**" />
+            <exclude path="jnr**" />
+            <exclude path="jruby**" />
+            <exclude path="org/apache/commons**" />
+            <exclude path="org/apache/tools**" />
+            <exclude path="org/codehaus**" />
+            <exclude path="org/fusesource**" />
+            <exclude path="org/jcodings**" />
+            <exclude path="org/joda**" />
+            <exclude path="org/joni**" />
+            <exclude path="org/jruby**" />
+            <exclude path="org/mozilla**" />
+            <exclude path="org/python**" />
+            <exclude path="org/w3c/dom/html**" />
+            <exclude path="org/yaml**" />
+            <exclude path="org/yecht**" />
         </exports>
     </module>
 

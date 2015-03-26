@@ -155,6 +155,9 @@
     <module name="org.fusesource.hawtdispatch">
         <include artifact="org.fusesource.hawtdispatch:hawtdispatch" />
         <include artifact="org.fusesource.hawtdispatch:hawtdispatch-transport" />
+        <dependencies>
+            <module name="org.fusesource.hawtbuf"/>
+        </dependencies>
     </module>
 
     <module name="ognl">

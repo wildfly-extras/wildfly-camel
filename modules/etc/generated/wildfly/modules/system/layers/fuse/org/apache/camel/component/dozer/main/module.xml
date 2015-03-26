@@ -10,6 +10,7 @@
     <module name="org.slf4j" />
     <module name="javax.el" />
     <module name="javax.el.api" />
+    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.beanutils" />
     <module name="org.apache.commons.lang3" />
