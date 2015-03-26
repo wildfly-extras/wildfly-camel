@@ -184,8 +184,6 @@
         <include artifact="org.apache.camel:camel-dozer" />
         <include artifact="net.sf.dozer:dozer" />
         <apply-to-dependencies skip="true">
-            <include module="junit" />
-            <include module="org.glassfish.web.javax.el" />
             <include module="org.hibernate" />
         </apply-to-dependencies>
         <dependencies>
@@ -206,9 +204,6 @@
     <module name="org.apache.camel.component.flatpack">
         <include artifact="org.apache.camel:camel-flatpack" />
         <include artifact=":flatpack" />
-        <apply-to-dependencies skip="true">
-            <include module="jexcelapi.jxl" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j" />
@@ -355,9 +350,6 @@
     
     <module name="org.apache.camel.component.ognl">
         <include artifact="org.apache.camel:camel-ognl" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.servicemix.bundles.ognl" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="ognl" />
         </dependencies>
