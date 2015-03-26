@@ -12,9 +12,10 @@
     <module name="org.apache.camel.core" />
   </dependencies>
   <exports>
-    <exclude path="org/apache/xmlbeans/impl/jam/internal" />
-    <exclude path="org/apache/xmlbeans/impl/soap/**" />
-    <exclude path="org/apache/xmlbeans/soap/**" />
+    <include path="org/apache/xmlbeans" />
+    <include path="org/apache/xmlbeans/impl/values" />
+    <include path="org/apache/xmlbeans/impl/schema" />
+    <exclude path="org/apache/xmlbeans**" />
     <exclude path="org/w3c**" />
     <exclude path="schemaorg_apache_xmlbeans/**" />
   </exports>
