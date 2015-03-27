@@ -61,6 +61,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>com.google.code.scriptengines</groupId>
+            <artifactId>scriptengines-javascript</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>ognl</groupId>
             <artifactId>ognl</artifactId>
             <scope>provided</scope>

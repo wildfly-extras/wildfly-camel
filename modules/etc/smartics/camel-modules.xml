@@ -577,6 +577,8 @@
     </module>
     
     <module name="org.apache.camel.script.rhino">
+        <include artifact=":scriptengines-javascript" />
+        <include artifact=":livetribe-jsr223" />
         <include artifact="rhino:js" />
         <dependencies>
             <module name="javax.api"/>

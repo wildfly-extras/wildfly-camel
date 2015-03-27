@@ -55,6 +55,7 @@
         <version.apache.camel.python>2.5.3</version.apache.camel.python>
         <version.apache.camel.restlet>2.2.3</version.apache.camel.restlet>
         <version.apache.camel.rhino>1.7R2</version.apache.camel.rhino>
+        <version.apache.camel.scriptengines>1.1.1</version.apache.camel.scriptengines>
         
         <!-- WildFly versions -->
         <version.wildfly>8.2.0.Final</version.wildfly>
@@ -278,7 +279,14 @@
                 <artifactId>gravia-runtime-embedded</artifactId>
                 <version>${version.jboss.gravia}</version>
             </dependency>
-
+            
+            <!-- Google -->
+            <dependency>
+                <groupId>com.google.code.scriptengines</groupId>
+                <artifactId>scriptengines-javascript</artifactId>
+                <version>${version.apache.camel.scriptengines}</version>
+            </dependency>
+            
             <!-- Groovy -->
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
