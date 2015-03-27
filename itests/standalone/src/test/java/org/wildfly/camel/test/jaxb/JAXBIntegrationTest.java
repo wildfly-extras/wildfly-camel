@@ -20,8 +20,7 @@
 
 package org.wildfly.camel.test.jaxb;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -30,24 +29,27 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.model.dataformat.JaxbDataFormat;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.utils.IOUtils;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.XMLUtils;
 import org.wildfly.camel.test.jaxb.model.Customer;
 
 @RunWith(Arquillian.class)
 public class JAXBIntegrationTest {
 
     @Deployment
-    public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jaxb-integration-tests");
+    public static WebArchive deployment() {
+        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "jaxb-integration-tests.war");
         archive.addPackage(Customer.class.getPackage());
+        archive.addClasses(XMLUtils.class);
         archive.addAsResource(new StringAsset("Customer"), "org/wildfly/camel/test/jaxb/model/jaxb.index");
         archive.addAsResource("jaxb/customer.xml", "customer.xml");
+        archive.addAsLibraries(Maven.configureResolverViaPlugin().resolve("org.jdom:jdom").withoutTransitivity().asFile());
         return archive;
     }
 
@@ -66,12 +68,14 @@ public class JAXBIntegrationTest {
             }
         });
 
+        InputStream input = getClass().getResourceAsStream("/customer.xml");
+
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             Customer customer = new Customer("John", "Doe");
-            String customerXML = producer.requestBody("direct:start", customer, String.class);
-            Assert.assertEquals(readCustomerXml(), customerXML);
+            String result = producer.requestBody("direct:start", customer, String.class);
+            Assert.assertEquals(XMLUtils.compactXML(input), XMLUtils.compactXML(result));
         } finally {
             camelctx.stop();
         }
@@ -92,20 +96,15 @@ public class JAXBIntegrationTest {
             }
         });
 
+        InputStream input = getClass().getResourceAsStream("/customer.xml");
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            Customer customer = producer.requestBody("direct:start", readCustomerXml(), Customer.class);
+            Customer customer = producer.requestBody("direct:start", input, Customer.class);
             Assert.assertEquals("John", customer.getFirstName());
             Assert.assertEquals("Doe", customer.getLastName());
         } finally {
             camelctx.stop();
         }
     }
-
-	private String readCustomerXml() throws IOException {
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-    	IOUtils.copyStream(getClass().getResourceAsStream("/customer.xml"), out);
-    	return new String(out.toByteArray());
-	}
 }

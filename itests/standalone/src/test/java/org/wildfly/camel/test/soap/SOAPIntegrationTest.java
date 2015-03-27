@@ -20,8 +20,7 @@
 
 package org.wildfly.camel.test.soap;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -30,25 +29,36 @@ import org.apache.camel.dataformat.soap.SoapJaxbDataFormat;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.utils.IOUtils;
+import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.w3c.dom.Element;
+import org.wildfly.camel.test.common.XMLUtils;
 import org.wildfly.camel.test.jaxb.model.Customer;
 
 @RunWith(Arquillian.class)
-public class SoapIntegrationTest {
+public class SOAPIntegrationTest {
 
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "soap-dataformat-tests");
         archive.addPackage(Customer.class.getPackage());
+        archive.addClasses(XMLUtils.class);
         archive.addAsResource(new StringAsset("Customer"), "org/wildfly/camel/test/jaxb/model/jaxb.index");
         archive.addAsResource("soap/envelope.xml", "envelope.xml");
+        archive.setManifest(new Asset() {
+            @Override
+            public InputStream openStream() {
+                ManifestBuilder builder = new ManifestBuilder();
+                builder.addManifestHeader("Dependencies", "org.jdom");
+                return builder.openStream();
+            }
+        });
         return archive;
     }
 
@@ -67,12 +77,14 @@ public class SoapIntegrationTest {
             }
         });
 
+        InputStream input = getClass().getResourceAsStream("/envelope.xml");
+
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             Customer customer = new Customer("John", "Doe");
             String customerXML = producer.requestBody("direct:start", customer, String.class);
-            Assert.assertEquals(readEnvelopeXml(), customerXML);
+            Assert.assertEquals(XMLUtils.compactXML(input), XMLUtils.compactXML(customerXML));
         } finally {
             camelctx.stop();
         }
@@ -93,19 +105,15 @@ public class SoapIntegrationTest {
             }
         });
 
+        InputStream input = getClass().getResourceAsStream("/envelope.xml");
+
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            Element response = producer.requestBody("direct:start", readEnvelopeXml(), Element.class);
+            Element response = producer.requestBody("direct:start", input, Element.class);
             Assert.assertEquals("Customer", response.getLocalName());
         } finally {
             camelctx.stop();
         }
     }
-
-	private String readEnvelopeXml() throws IOException {
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-    	IOUtils.copyStream(getClass().getResourceAsStream("/envelope.xml"), out);
-    	return new String(out.toByteArray());
-	}
 }

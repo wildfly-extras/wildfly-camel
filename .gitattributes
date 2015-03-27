@@ -1,8 +1,9 @@
-*.bat  			text ident
-*.java 			text ident
-*.properties	text ident
-*.sh   			text ident
-*.txt  			text ident
-*.xml  			text ident
-itests/standalone/src/test/resources/jaxb/*.xml   text ident eol=lf
-itests/standalone/src/test/resources/soap/*.xml   text ident eol=lf
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+*.bat  			text
+*.java 			text
+*.properties	text
+*.sh   			text
+*.txt  			text
+*.xml  			text
