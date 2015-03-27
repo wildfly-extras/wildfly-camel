@@ -46,12 +46,14 @@ public class ScriptIntegrationTest {
 
     private static final String BEANSHELL_SCRIPT = "beanshell-script.bsh";
     private static final String PYTHON_SCRIPT = "python-script.py";
+    private static final String RUBY_SCRIPT = "ruby-script.rb";
 
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "script-tests");
         archive.addAsResource("script/" + BEANSHELL_SCRIPT, BEANSHELL_SCRIPT);
         archive.addAsResource("script/" + PYTHON_SCRIPT, PYTHON_SCRIPT);
+        archive.addAsResource("script/" + RUBY_SCRIPT, RUBY_SCRIPT);
         return archive;
     }
 
@@ -63,6 +65,11 @@ public class ScriptIntegrationTest {
     @Test
     public void testPhyton() throws Exception {
         scriptProcessing("python", PYTHON_SCRIPT);
+    }
+
+    @Test
+    public void testRuby() throws Exception {
+        scriptProcessing("ruby", RUBY_SCRIPT);
     }
 
     private void scriptProcessing(final String type, final String resource) throws Exception {
