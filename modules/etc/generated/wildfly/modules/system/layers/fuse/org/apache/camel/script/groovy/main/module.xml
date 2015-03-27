@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.script.groovy">
+  <resources>
+    <resource-root path="groovy-all-2.2.1.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+  </dependencies>
+</module>

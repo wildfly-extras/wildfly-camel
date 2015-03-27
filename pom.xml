@@ -48,9 +48,13 @@
         <!-- Camel version -->
         <version.apache.camel>2.15.0</version.apache.camel>
         <version.apache.camel.castor>1.3.2</version.apache.camel.castor>
+        <version.apache.camel.groovy>2.2.1</version.apache.camel.groovy>
         <version.apache.camel.jdom>1.1.3</version.apache.camel.jdom>
+        <version.apache.camel.jruby>1.7.2</version.apache.camel.jruby>
         <version.apache.camel.ognl>3.0.8</version.apache.camel.ognl>
+        <version.apache.camel.python>2.5.3</version.apache.camel.python>
         <version.apache.camel.restlet>2.2.3</version.apache.camel.restlet>
+        <version.apache.camel.rhino>1.7R2</version.apache.camel.rhino>
         
         <!-- WildFly versions -->
         <version.wildfly>8.2.0.Final</version.wildfly>
@@ -70,7 +74,6 @@
         <version.codehaus.plexus.utils>3.0.15</version.codehaus.plexus.utils>
         <version.freeside.betamax>1.1.2</version.freeside.betamax>
         <version.greenmail>1.4.0</version.greenmail>
-        <version.groovy>2.2.1</version.groovy>
         <version.hawtio>1.4.48</version.hawtio>
         <version.hibernate.jpa21.api>1.0.0.Final</version.hibernate.jpa21.api>
         <version.javax.enterprise>1.2</version.javax.enterprise>
@@ -90,10 +93,7 @@
         <version.jboss.spec.javax.transaction>1.0.0.Final</version.jboss.spec.javax.transaction>
         <version.jvnet.mock.javamail>1.9</version.jvnet.mock.javamail>
         <version.junit>4.11</version.junit>
-        <version.org.jruby>1.7.2</version.org.jruby>
-        <version.org.python>2.5.3</version.org.python>
         <version.osgi>5.0.0</version.osgi>
-        <version.rhino.js>1.7R2</version.rhino.js>
         <version.slf4j>1.6.6</version.slf4j>
         <version.smartics.config>2.0.1</version.smartics.config>
 
@@ -283,7 +283,7 @@
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
-                <version>${version.groovy}</version>
+                <version>${version.apache.camel.groovy}</version>
             </dependency>
 
             <!-- Hawt.io -->
@@ -364,7 +364,7 @@
             <dependency>
                 <groupId>org.jruby</groupId>
                 <artifactId>jruby</artifactId>
-                <version>${version.org.jruby}</version>
+                <version>${version.apache.camel.jruby}</version>
             </dependency>
 
             <!-- JDOM -->            
@@ -411,7 +411,7 @@
             <dependency>
                 <groupId>org.python</groupId>
                 <artifactId>jython</artifactId>
-                <version>${version.org.python}</version>
+                <version>${version.apache.camel.python}</version>
             </dependency>
 
             <!-- Restlet -->
@@ -430,7 +430,7 @@
             <dependency>
                 <groupId>rhino</groupId>
                 <artifactId>js</artifactId>
-                <version>${version.rhino.js}</version>
+                <version>${version.apache.camel.rhino}</version>
             </dependency>
 
             <!-- Shrinkwrap -->
@@ -606,6 +606,13 @@
                     <groupId>org.codehaus.gmaven</groupId>
                     <artifactId>groovy-maven-plugin</artifactId>
                     <version>${version-groovy-maven-plugin}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.codehaus.groovy</groupId>
+                            <artifactId>groovy-all</artifactId>
+                            <version>${version.apache.camel.groovy}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                   <groupId>org.codehaus.mojo</groupId>

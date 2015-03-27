@@ -1,49 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.script">
   <resources>
-    <resource-root path="bsh-2.0b5.jar" />
     <resource-root path="camel-script-2.15.0.jar" />
-    <resource-root path="groovy-all-2.2.1.jar" />
-    <resource-root path="jruby-1.7.2.jar" />
-    <resource-root path="js-1.7R2.jar" />
-    <resource-root path="jython-2.5.3.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="org.apache.camel.script.bsh" services="export" />
+    <module name="org.apache.camel.script.groovy" services="export" />
+    <module name="org.apache.camel.script.jruby" services="export" />
+    <module name="org.apache.camel.script.python" services="export" />
+    <module name="org.apache.camel.script.rhino" services="export" />
     <module name="org.osgi.core" />
     <module name="org.slf4j" />
-    <module name="bsf" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
-  <exports>
-    <exclude path="antlr**" />
-    <exclude path="bsh**" />
-    <exclude path="com/google**" />
-    <exclude path="com/headius**" />
-    <exclude path="com/jcraft**" />
-    <exclude path="com/kenai**" />
-    <exclude path="com/martiansoftware**" />
-    <exclude path="com/xhaus**" />
-    <exclude path="com/ziclix**" />
-    <exclude path="groovy**" />
-    <exclude path="jay**" />
-    <exclude path="jline**" />
-    <exclude path="jni**" />
-    <exclude path="jnr**" />
-    <exclude path="jruby**" />
-    <exclude path="org/apache/commons**" />
-    <exclude path="org/apache/tools**" />
-    <exclude path="org/codehaus**" />
-    <exclude path="org/fusesource**" />
-    <exclude path="org/jcodings**" />
-    <exclude path="org/joda**" />
-    <exclude path="org/joni**" />
-    <exclude path="org/jruby**" />
-    <exclude path="org/mozilla**" />
-    <exclude path="org/python**" />
-    <exclude path="org/w3c/dom/html**" />
-    <exclude path="org/yaml**" />
-    <exclude path="org/yecht**" />
-  </exports>
 </module>

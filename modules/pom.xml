@@ -468,13 +468,6 @@
             <plugin>
                 <groupId>org.codehaus.gmaven</groupId>
                 <artifactId>groovy-maven-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-all</artifactId>
-                        <version>${version.groovy}</version>
-                    </dependency>
-                </dependencies>
                 <executions>
                     <execution>
                         <id>module-check</id>
