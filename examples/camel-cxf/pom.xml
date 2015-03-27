@@ -31,7 +31,7 @@
 
     <name>Wildfly Camel :: Example :: Camel CXF</name>
 
-    <artifactId>example-camel-cxf-soap</artifactId>
+    <artifactId>example-camel-cxf</artifactId>
     <packaging>war</packaging>
 
     <dependencies>

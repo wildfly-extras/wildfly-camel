@@ -108,53 +108,59 @@ public class ExportedPathsTest {
         List<Pattern> patterns = null;
         List<Pattern> includePatterns = new ArrayList<>();
         List<Pattern> excludePatterns = new ArrayList<>();
-        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + FILE_EXPORTED_PATH_PATTERNS)));
-        String line = br.readLine();
-        while (line != null) {
-            if ((line = line.trim()).startsWith("#")) {
-                line = br.readLine();
-                continue;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + FILE_EXPORTED_PATH_PATTERNS)));
+        try {
+            String line = reader.readLine();
+            while (line != null) {
+                if ((line = line.trim()).startsWith("#")) {
+                    line = reader.readLine();
+                    continue;
+                }
+                if (line.startsWith("[includes]")) {
+                    patterns = includePatterns;
+                } else if (line.startsWith("[excludes]")) {
+                    patterns = excludePatterns;
+                } else if (line.length() > 0 && !line.startsWith("[")) {
+                    patterns.add(Pattern.compile(line));
+                }
+                line = reader.readLine();
             }
-            if (line.startsWith("[includes]")) {
-                patterns = includePatterns;
-            } else if (line.startsWith("[excludes]")) {
-                patterns = excludePatterns;
-            } else if (line.length() > 0 && !line.startsWith("[")) {
-                patterns.add(Pattern.compile(line));
-            }
-            line = br.readLine();
+        } finally {
+            reader.close();
         }
-        br.close();
 
         // Verify each line
-        br = new BufferedReader(new FileReader(FILE_EXPORTED_PATHS));
-        line = br.readLine();
-        while (line != null) {
-            if (line.length() > 0 && !line.startsWith("[")) {
-                boolean match = false;
+        reader = new BufferedReader(new FileReader(FILE_EXPORTED_PATHS));
+        try {
+            String line = reader.readLine();
+            while (line != null) {
+                if (line.length() > 0 && !line.startsWith("[")) {
+                    boolean match = false;
 
-                // match include patterns
-                for (Pattern pattern : includePatterns) {
-                    if (pattern.matcher(line).matches()) {
-                        match = true;
-                        break;
-                    }
-                }
-
-                // match exclude patterns
-                if (match) {
-                    for (Pattern pattern : excludePatterns) {
+                    // match include patterns
+                    for (Pattern pattern : includePatterns) {
                         if (pattern.matcher(line).matches()) {
-                            match = false;
+                            match = true;
                             break;
                         }
                     }
-                }
 
-                Assert.assertTrue("Matching path: " + line, match);
+                    // match exclude patterns
+                    if (match) {
+                        for (Pattern pattern : excludePatterns) {
+                            if (pattern.matcher(line).matches()) {
+                                match = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    Assert.assertTrue("Matching path: " + line, match);
+                }
+                line = reader.readLine();
             }
-            line = br.readLine();
+        } finally {
+            reader.close();
         }
-        br.close();
     }
 }

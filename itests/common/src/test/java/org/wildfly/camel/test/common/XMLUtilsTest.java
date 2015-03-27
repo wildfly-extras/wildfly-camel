@@ -20,6 +20,8 @@
 
 package org.wildfly.camel.test.common;
 
+import java.io.InputStream;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -28,6 +30,7 @@ public final class XMLUtilsTest {
     @Test
     public void testNormalise() throws Exception {
         String expected = "<customer><firstName>John</firstName><lastName>Doe</lastName></customer>";
-        Assert.assertEquals(expected, XMLUtils.compactXML(getClass().getClassLoader().getResourceAsStream("customer.xml")));
+        InputStream input = getClass().getClassLoader().getResourceAsStream("customer.xml");
+        Assert.assertEquals(expected, XMLUtils.compactXML(input));
     }
 }

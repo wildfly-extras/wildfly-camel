@@ -20,11 +20,9 @@
 
 package org.wildfly.camel.test.common;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringReader;
 
 import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
@@ -44,20 +42,17 @@ public final class XMLUtils {
     }
 
     public static String compactXML(String xmlinput) throws Exception {
-        return compactXML(new StringReader(xmlinput));
+        return compactXML(new ByteArrayInputStream(xmlinput.getBytes()));
     }
 
     public static String compactXML(InputStream input) throws Exception {
-        return compactXML(new InputStreamReader(input));
-    }
-
-    public static String compactXML(Reader input) throws Exception {
 
         Document doc = new SAXBuilder().build(input);
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         XMLOutputter xo = new XMLOutputter();
         xo.setFormat(Format.getCompactFormat().setOmitDeclaration(true));
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         xo.output(doc, baos);
 
         return new String(baos.toByteArray()).trim();

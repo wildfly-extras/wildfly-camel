@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -71,9 +71,10 @@ public class ActiveMQExampleTest {
 
     @Test
     public void testFileToActiveMQRoute() throws Exception {
-        InputStream testOrder = getClass().getResourceAsStream("/orders/test-order.xml");
 
-        Files.copy(testOrder, destination.toPath().resolve("test-order.xml"));
+        InputStream input = getClass().getResourceAsStream("/orders/test-order.xml");
+        Files.copy(input, destination.toPath().resolve("test-order.xml"));
+        input.close();
 
         // Give camel a chance to consume the test order file
         Thread.sleep(2000);

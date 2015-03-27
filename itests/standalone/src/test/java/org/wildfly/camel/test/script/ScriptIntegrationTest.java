@@ -22,12 +22,9 @@ package org.wildfly.camel.test.script;
 
 import static org.apache.camel.builder.script.ScriptBuilder.script;
 
-import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -35,6 +32,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.gravia.utils.IOUtils;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -105,19 +103,9 @@ public class ScriptIntegrationTest {
     }
 
     private String scriptSource(String resource) throws IOException {
-        StringWriter swriter = new StringWriter();
-        PrintWriter pwriter = new PrintWriter(swriter);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         InputStream input = getClass().getResourceAsStream("/" + resource);
-        try {
-            BufferedReader breader = new BufferedReader(new InputStreamReader(input));
-            String line = breader.readLine();
-            while (line != null) {
-                pwriter.println(line);
-                line = breader.readLine();
-            }
-        } finally {
-            input.close();
-        }
-        return swriter.toString();
+        IOUtils.copyStream(input, baos);
+        return new String(baos.toByteArray());
     }
 }

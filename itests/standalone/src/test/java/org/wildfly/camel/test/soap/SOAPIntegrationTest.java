@@ -78,13 +78,14 @@ public class SOAPIntegrationTest {
         });
 
         InputStream input = getClass().getResourceAsStream("/envelope.xml");
+        String expected = XMLUtils.compactXML(input);
 
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             Customer customer = new Customer("John", "Doe");
             String customerXML = producer.requestBody("direct:start", customer, String.class);
-            Assert.assertEquals(XMLUtils.compactXML(input), XMLUtils.compactXML(customerXML));
+            Assert.assertEquals(expected, XMLUtils.compactXML(customerXML));
         } finally {
             camelctx.stop();
         }
