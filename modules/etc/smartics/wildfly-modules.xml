@@ -69,6 +69,7 @@
 
     <module name="javax.inject.api" skip="true">
         <include artifact=":geronimo-atinject_1.0_spec" />
+        <include artifact=":javax.inject" />
     </module>
 
     <module name="javax.interceptor.api" skip="true">

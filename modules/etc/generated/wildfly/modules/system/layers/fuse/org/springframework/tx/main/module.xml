@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.springframework.tx">
   <resources>
-    <resource-root path="spring-tx-4.1.5.RELEASE.jar" />
+    <resource-root path="spring-tx-4.1.6.RELEASE.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />
