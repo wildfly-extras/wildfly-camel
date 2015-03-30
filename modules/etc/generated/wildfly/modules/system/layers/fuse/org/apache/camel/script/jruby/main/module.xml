@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.script.jruby">
   <resources>
-    <resource-root path="bsf-2.3.0.jar" />
-    <resource-root path="jruby-1.7.2.jar" />
+    <resource-root path="jruby-complete-1.7.18.jar" />
+    <resource-root path="scriptengines-jruby-1.1.1.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="sun.jdk" />
   </dependencies>
 </module>

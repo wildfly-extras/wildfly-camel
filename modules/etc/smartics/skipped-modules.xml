@@ -100,6 +100,12 @@
         <include artifact="org.glassfish.web:javax.el" />
     </module>
     
+    <module name="org.jruby" skip="true">
+        <include artifact="org.jruby:jruby" />
+        <include artifact="org.jruby:jruby-core" />
+        <include artifact="org.jruby:jruby-stdlib" />
+    </module>
+
     <module name="org.jruby.extras" skip="true">
         <include artifact="org.jruby.ext.posix:jna-posix" />
         <include artifact="org.jruby.extras:bytelist" />
@@ -108,8 +114,6 @@
         <include artifact="org.jruby.jcodings:jcodings" />
         <include artifact="org.jruby:joda-timezones" />
         <include artifact="org.jruby.joni:joni" />
-        <include artifact="org.jruby:jruby-core" />
-        <include artifact="org.jruby:jruby-stdlib" />
         <include artifact="org.jruby:yecht" />
     </module>
 

@@ -47,12 +47,6 @@
         
         <!-- Camel version -->
         <version.apache.camel>2.15.2</version.apache.camel>
-        <version.apache.camel.groovy>2.2.1</version.apache.camel.groovy>
-        <version.apache.camel.jdom>1.1.3</version.apache.camel.jdom>
-        <version.apache.camel.jruby>1.7.2</version.apache.camel.jruby>
-        <version.apache.camel.python>2.5.3</version.apache.camel.python>
-        <version.apache.camel.rhino>1.7R2</version.apache.camel.rhino>
-        <version.apache.camel.scriptengines>1.1.1</version.apache.camel.scriptengines>
         
         <!-- WildFly versions -->
         <version.wildfly>8.2.0.Final</version.wildfly>
@@ -179,20 +173,6 @@
                 <version>${version.jboss.gravia}</version>
             </dependency>
             
-            <!-- Google -->
-            <dependency>
-                <groupId>com.google.code.scriptengines</groupId>
-                <artifactId>scriptengines-javascript</artifactId>
-                <version>${version.apache.camel.scriptengines}</version>
-            </dependency>
-            
-            <!-- Groovy -->
-            <dependency>
-                <groupId>org.codehaus.groovy</groupId>
-                <artifactId>groovy-all</artifactId>
-                <version>${version.apache.camel.groovy}</version>
-            </dependency>
-
             <!-- Hawt.io -->
             <dependency>
                 <groupId>io.hawt</groupId>
@@ -267,20 +247,6 @@
                 <version>${version.jboss.jbossws.api}</version>
             </dependency>
 
-            <!-- JRuby -->
-            <dependency>
-                <groupId>org.jruby</groupId>
-                <artifactId>jruby</artifactId>
-                <version>${version.apache.camel.jruby}</version>
-            </dependency>
-
-            <!-- JDOM -->            
-            <dependency>
-                <groupId>org.jdom</groupId>
-                <artifactId>jdom</artifactId>
-                <version>${version.apache.camel.jdom}</version>
-            </dependency>            
-
             <!-- JUnit -->
             <dependency>
                 <groupId>junit</groupId>
@@ -307,20 +273,6 @@
                 <version>${version.codehaus.plexus.utils}</version>
             </dependency>
             
-            <!-- Python -->
-            <dependency>
-                <groupId>org.python</groupId>
-                <artifactId>jython</artifactId>
-                <version>${version.apache.camel.python}</version>
-            </dependency>
-
-            <!-- Rhino -->
-            <dependency>
-                <groupId>rhino</groupId>
-                <artifactId>js</artifactId>
-                <version>${version.apache.camel.rhino}</version>
-            </dependency>
-
             <!-- Shrinkwrap -->
             <dependency>
                 <groupId>org.jboss.shrinkwrap</groupId>
@@ -499,13 +451,6 @@
                     <groupId>org.codehaus.gmaven</groupId>
                     <artifactId>groovy-maven-plugin</artifactId>
                     <version>${version-groovy-maven-plugin}</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.codehaus.groovy</groupId>
-                            <artifactId>groovy-all</artifactId>
-                            <version>${version.apache.camel.groovy}</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
                 <plugin>
                   <groupId>org.codehaus.mojo</groupId>

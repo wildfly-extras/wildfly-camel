@@ -66,6 +66,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>com.google.code.scriptengines</groupId>
+            <artifactId>scriptengines-jruby</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-all</artifactId>
             <scope>provided</scope>
@@ -367,7 +372,7 @@
         </dependency>
         <dependency>
             <groupId>org.jruby</groupId>
-            <artifactId>jruby</artifactId>
+            <artifactId>jruby-complete</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
