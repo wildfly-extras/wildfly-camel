@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.ftp">
   <resources>
-    <resource-root path="camel-ftp-2.15.0.jar" />
+    <resource-root path="camel-ftp-2.15.1.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />

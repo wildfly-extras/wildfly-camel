@@ -46,7 +46,7 @@
     <properties>
         
         <!-- Camel version -->
-        <version.apache.camel>2.15.0</version.apache.camel>
+        <version.apache.camel>2.15.1</version.apache.camel>
         <version.apache.camel.castor>1.3.2</version.apache.camel.castor>
         <version.apache.camel.groovy>2.2.1</version.apache.camel.groovy>
         <version.apache.camel.jdom>1.1.3</version.apache.camel.jdom>
