@@ -88,6 +88,7 @@
 
     <module name="javax.mail.api" skip="true">
         <include artifact="javax.mail:mail" />
+        <include artifact=":geronimo-javamail_1.4_spec" />
     </module>
 
     <module name="javax.persistence.api" skip="true">
@@ -95,18 +96,19 @@
     </module>
 
     <module name="javax.security.jacc.api" skip="true">
-        <include artifact="org.apache.geronimo.specs:geronimo-jacc_1.1_spec" />
+        <include artifact=":geronimo-jacc_1.1_spec" />
     </module>
 
     <module name="javax.servlet.api" skip="true">
         <include artifact=":servlet-api" />
         <include artifact=":javax.servlet-api" />
+        <include artifact=":geronimo-servlet_3.0_spec" />
     </module>
 
     <module name="javax.transaction.api" skip="true">
         <include artifact=":geronimo-jta_1.0.1B_spec" />
         <include artifact=":geronimo-jta_1.1_spec" />
-        <include artifact="org.apache.geronimo.components:geronimo-transaction" />
+        <include artifact=":geronimo-transaction" />
     </module>
 
     <module name="javax.wsdl4j.api" skip="true">
@@ -123,6 +125,7 @@
     </module>
 
     <module name="javax.xml.stream.api" skip="true">
+        <include artifact=":geronimo-stax-api_1.0_spec" />
         <include artifact=":stax-api" />
         <include artifact=":stax" />
     </module>
@@ -153,10 +156,6 @@
 
     <module name="org.apache.commons.pool" skip="true">
         <include artifact="commons-pool:commons-pool" />
-    </module>
-
-    <module name="org.apache.geronimo.specs.geronimo-servlet_3.0_spec" skip="true">
-        <include artifact="org.apache.geronimo.specs:geronimo-servlet_3.0_spec" />
     </module>
 
     <module name="org.apache.james.mime4j" skip="true">
@@ -218,7 +217,7 @@
     </module>
 
     <module name="org.javassist" skip="true">
-        <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.javassist" />
+        <include artifact=":org.apache.servicemix.bundles.javassist" />
     </module>
 
     <module name="org.jaxen" skip="true">
@@ -235,6 +234,10 @@
 
     <module name="org.jdom" skip="true">
         <include artifact=":jdom" />
+    </module>
+
+    <module name="org.osgi.core" skip="true">
+        <include artifact=":org.osgi.core" />
     </module>
 
     <module name="org.slf4j" skip="true">

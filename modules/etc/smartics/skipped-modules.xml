@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Wildfly Camel Patch
+  %%
+  Copyright (C) 2013 - 2014 RedHat
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+  
+<!--
+  This file holds all the module definitions that are generallly skipped.
+-->
+<modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
+
+    <module name="ant" skip="true">
+        <include artifact="ant" />
+    </module>
+    
+    <module name="asm.extras" skip="true">
+        <include artifact="asm:asm-analysis" />
+        <include artifact="asm:asm-commons" />
+        <include artifact="asm:asm-tree" />
+        <include artifact="asm:asm-util" />
+    </module>
+    
+    <module name="com.github.jnr" skip="true">
+        <include artifact="com.github.jnr:jnr-(.*)" />
+        <include artifact="com.github.jnr:jffi" />
+    </module>
+    
+    <module name="com.headius" skip="true">
+        <include artifact="com.headius:(.*)" />
+    </module>
+    
+    <module name="com.jcraft.jzlib" skip="true">
+        <include artifact="com.jcraft:jzlib" />
+    </module>
+    
+    <module name="com.martiansoftware" skip="true">
+        <include artifact="com.martiansoftware:nailgun-server" />
+    </module>
+    
+    <module name="jexcelapi" skip="true">
+        <include artifact="jexcelapi:jxl" />
+    </module>
+    
+    <module name="jline" skip="true">
+        <include artifact="jline" />
+    </module>
+    
+    <module name="junit" skip="true">
+        <include artifact="junit" />
+    </module>
+    
+    <module name="net.jcip" skip="true">
+        <include artifact="net.jcip:jcip-annotations" />
+    </module>
+    
+    <module name="org.apache.aries.blueprint" skip="true">
+        <include artifact="org.apache.aries.blueprint:(.*)" />
+    </module>
+    
+    <module name="org.apache.camel.apt" skip="true">
+        <include artifact="org.apache.camel:apt" />
+    </module>
+    
+    <module name="org.apache.camel.blueprint" skip="true">
+        <include artifact="org.apache.camel:camel-blueprint" />
+    </module>
+    
+    <module name="org.apache.deltaspike.test" skip="true">
+        <include artifact="org.apache.deltaspike.test:(.*)" />
+    </module>
+    
+    <module name="org.apache.servicemix.bundles" skip="true">
+        <include artifact="org.apache.servicemix.bundles:(.*)" />
+    </module>
+    
+    <module name="org.apache.zookeeper" skip="true">
+        <include artifact="org.apache.zookeeper:zookeeper" />
+    </module>
+    
+    <module name="org.glassfish.web" skip="true">
+        <include artifact="org.glassfish.web:javax.el" />
+    </module>
+    
+    <module name="org.jruby.extras" skip="true">
+        <include artifact="org.jruby.ext.posix:jna-posix" />
+        <include artifact="org.jruby.extras:bytelist" />
+        <include artifact="org.jruby.extras:jna" />
+        <include artifact="org.jruby.extras:jvyamlb" />
+        <include artifact="org.jruby.jcodings:jcodings" />
+        <include artifact="org.jruby:joda-timezones" />
+        <include artifact="org.jruby.joni:joni" />
+        <include artifact="org.jruby:jruby" />
+        <include artifact="org.jruby:jruby-core" />
+        <include artifact="org.jruby:jruby-stdlib" />
+        <include artifact="org.jruby:yecht" />
+    </module>
+
+    <module name="org.linkedin" skip="true">
+        <include artifact="org.linkedin:(.*)" />
+    </module>
+
+    <module name="org.osgi.compendium" skip="true">
+        <include artifact="org.osgi:org.osgi.compendium" />
+    </module>
+    
+</modules>

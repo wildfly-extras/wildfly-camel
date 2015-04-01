@@ -25,6 +25,11 @@
         <include artifact="org.apache.activemq.protobuf:activemq-protobuf" />
         <exclude artifact="org.apache.activemq:activemq-all" />
         <exclude artifact="org.apache.activemq:activemq-camel" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.zookeeper" />
+            <include module="org.linkedin" />
+            <include module="org.osgi.compendium" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="javax.resource.api" />

@@ -22,6 +22,9 @@
 
     <module name="org.apache.camel.core">
         <include artifact="org.apache.camel:camel-core" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="sun.jdk" />
@@ -30,6 +33,9 @@
 
     <module name="org.apache.camel.core.xml">
         <include artifact="org.apache.camel:camel-core-xml" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
     </module>
 
     <module name="org.apache.camel.spring">
@@ -64,6 +70,7 @@
         <include artifact="org.apache.activemq:activemq-camel" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.activemq" />
+            <include module="org.apache.camel.apt" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.jms.api" />
@@ -83,6 +90,9 @@
         <apply-to-dependencies export="true">
             <include module="org.apache.abdera.core" />
         </apply-to-dependencies>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="org.slf4j" />
         </dependencies>
@@ -90,6 +100,9 @@
 
     <module name="org.apache.camel.component.bindy">
         <include artifact="org.apache.camel:camel-bindy" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.enterprise.api" />
             <module name="javax.inject.api" />
@@ -102,6 +115,9 @@
         <include artifact="org.apache.camel:camel-castor" />
         <include artifact=":castor-core" />
         <include artifact=":castor-xml" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="sun.jdk.ext" />
@@ -114,6 +130,9 @@
 
     <module name="org.apache.camel.component.cdi">
         <include artifact="org.apache.camel:camel-cdi" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.annotation.api" />
             <module name="javax.enterprise.api" />
@@ -129,6 +148,9 @@
 
     <module name="org.apache.camel.component.crypto">
         <include artifact="org.apache.camel:camel-crypto" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="org.slf4j" />
@@ -137,14 +159,22 @@
 
     <module name="org.apache.camel.component.csv">
         <include artifact="org.apache.camel:camel-csv" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
     </module>
 
     <module name="org.apache.camel.component.cxf">
         <include artifact="org.apache.camel:camel-cxf" />
         <include artifact="org.apache.camel:camel-cxf-transport" />
         <apply-to-dependencies skip="true">
+            <include module="org.apache.aries.blueprint" />
+            <include module="org.apache.camel.apt" />
+            <include module="org.apache.camel.blueprint" />
             <include module="org.apache.cxf" />
             <include module="org.springframework.*" />
+            <include module="org.osgi.compendium" />
+            <include module="org.osgi.core" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
@@ -184,7 +214,11 @@
         <include artifact="org.apache.camel:camel-dozer" />
         <include artifact="net.sf.dozer:dozer" />
         <apply-to-dependencies skip="true">
+            <include module="junit" />
+            <include module="org.apache.camel.apt" />
+            <include module="org.glassfish.web" />
             <include module="org.hibernate" />
+            <include module="org.osgi.core" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
@@ -195,6 +229,9 @@
 
     <module name="org.apache.camel.component.ejb">
         <include artifact="org.apache.camel:camel-ejb" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
@@ -204,6 +241,10 @@
     <module name="org.apache.camel.component.flatpack">
         <include artifact="org.apache.camel:camel-flatpack" />
         <include artifact=":flatpack" />
+        <apply-to-dependencies skip="true">
+            <include module="jexcelapi" />
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j" />
@@ -215,6 +256,9 @@
 
     <module name="org.apache.camel.component.ftp">
         <include artifact="org.apache.camel:camel-ftp" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
@@ -226,6 +270,9 @@
         <include artifact="ca.uhn.hapi:hapi-base" />
         <include artifact="ca.uhn.hapi:hapi-structures-v24" />
         <include artifact="ca.uhn.hapi:hapi-structures-v25" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="javax.enterprise.api" />
@@ -241,6 +288,9 @@
 
     <module name="org.apache.camel.component.http">
         <include artifact="org.apache.camel:camel-http" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.activation.api"/>
             <module name="javax.servlet.api" />
@@ -251,10 +301,9 @@
     <module name="org.apache.camel.component.http4">
         <include artifact="org.apache.camel:camel-http4" />
         <apply-to-dependencies skip="true">
-            <include module="org.apache.geronimo.specs.geronimo-servlet_3.0_spec" />
+            <include module="org.apache.camel.apt" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="javax.servlet.api" />
             <module name="org.apache.httpcomponents" slot="4.3" />
             <module name="org.slf4j" />
         </dependencies>
@@ -262,6 +311,9 @@
 
     <module name="org.apache.camel.component.jackson">
         <include artifact="org.apache.camel:camel-jackson" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
@@ -270,6 +322,9 @@
     
     <module name="org.apache.camel.component.jaxb">
         <include artifact="org.apache.camel:camel-jaxb" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
@@ -278,6 +333,9 @@
     
     <module name="org.apache.camel.component.jms">
         <include artifact="org.apache.camel:camel-jms" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.apache.commons.logging" />
@@ -288,6 +346,9 @@
     
     <module name="org.apache.camel.component.jmx">
         <include artifact="org.apache.camel:camel-jmx" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="javax.xml.bind.api" />
@@ -297,6 +358,9 @@
 
     <module name="org.apache.camel.component.jpa">
         <include artifact="org.apache.camel:camel-jpa" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.springframework.tx" />
@@ -306,10 +370,16 @@
 
     <module name="org.apache.camel.component.lucene">
         <include artifact="org.apache.camel:camel-lucene" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
     </module>
 
     <module name="org.apache.camel.component.mail">
         <include artifact="org.apache.camel:camel-mail" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="javax.activation.api"/>
@@ -319,6 +389,9 @@
 
     <module name="org.apache.camel.component.mina2">
         <include artifact="org.apache.camel:camel-mina2" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="org.slf4j"/>
         </dependencies>
@@ -327,6 +400,9 @@
     <module name="org.apache.camel.component.mqtt">
         <include artifact="org.apache.camel:camel-mqtt" />
         <include artifact="org.fusesource.mqtt-client:mqtt-client" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
@@ -338,6 +414,9 @@
 
     <module name="org.apache.camel.component.mvel">
         <include artifact="org.apache.camel:camel-mvel" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
@@ -346,6 +425,9 @@
 
     <module name="org.apache.camel.component.netty4">
         <include artifact="org.apache.camel:camel-netty4" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j" />
@@ -354,6 +436,10 @@
     
     <module name="org.apache.camel.component.ognl">
         <include artifact="org.apache.camel:camel-ognl" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.apache.servicemix.bundles" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="ognl" />
         </dependencies>
@@ -362,6 +448,9 @@
     <module name="org.apache.camel.component.protobuf">
         <include artifact="org.apache.camel:camel-protobuf" />
         <include artifact=":protobuf-java" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <exports>
             <exclude path="com/google" />
         </exports>
@@ -371,6 +460,9 @@
         <include artifact="org.apache.camel:camel-quartz2" />
         <include artifact="org.quartz-scheduler:quartz" />
         <include artifact="c3p0:c3p0" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
@@ -384,6 +476,9 @@
 
     <module name="org.apache.camel.component.restlet">
         <include artifact="org.apache.camel:camel-restlet" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="org.restlet"/>
@@ -394,6 +489,9 @@
     <module name="org.apache.camel.component.rss">
         <include artifact="org.apache.camel:camel-rss" />
         <include artifact="rome:rome" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="org.slf4j"/>
@@ -406,6 +504,9 @@
     <module name="org.apache.camel.component.saxon">
         <include artifact="org.apache.camel:camel-saxon" />
         <include artifact="net.sf.saxon:Saxon-HE" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="org.slf4j"/>
@@ -424,6 +525,9 @@
 
     <module name="org.apache.camel.component.script">
         <include artifact="org.apache.camel:camel-script" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.apache.camel.script.bsh" services="export"/>
@@ -439,11 +543,11 @@
     <module name="org.apache.camel.component.servlet">
         <include artifact="org.apache.camel:camel-servlet" />
         <apply-to-dependencies skip="true">
-            <include module="org.apache.geronimo.specs.geronimo-servlet_3.0_spec" />
+            <include module="org.apache.camel.apt" />
+            <include module="org.osgi.compendium" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="javax.servlet.api" />
             <module name="org.apache.commons.httpclient"/>
             <module name="org.slf4j"/>
         </dependencies>
@@ -451,6 +555,9 @@
     
     <module name="org.apache.camel.component.soap">
         <include artifact="org.apache.camel:camel-soap" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="javax.xml.ws.api"/>
@@ -463,6 +570,9 @@
     
     <module name="org.apache.camel.component.sql">
         <include artifact="org.apache.camel:camel-sql" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
@@ -472,6 +582,9 @@
     <module name="org.apache.camel.component.tagsoup">
         <include artifact="org.apache.camel:camel-tagsoup" />
         <include artifact=":tagsoup" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
@@ -483,6 +596,9 @@
     
     <module name="org.apache.camel.component.velocity">
         <include artifact="org.apache.camel:camel-velocity" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
@@ -491,6 +607,9 @@
 
     <module name="org.apache.camel.component.weather">
         <include artifact="org.apache.camel:camel-weather" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
@@ -500,6 +619,9 @@
     <module name="org.apache.camel.component.xmlbeans">
         <include artifact="org.apache.camel:camel-xmlbeans" />
         <include artifact="org.apache.xmlbeans:xmlbeans" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
@@ -516,6 +638,9 @@
 
     <module name="org.apache.camel.component.xmlsecurity">
         <include artifact="org.apache.camel:camel-xmlsecurity" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
@@ -527,6 +652,9 @@
         <include artifact="com.thoughtworks.xstream:xstream" />
         <include artifact="xmlpull:xmlpull" />
         <include artifact="xpp3:xpp3_min" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="javax.xml.stream.api"/>
@@ -541,6 +669,9 @@
 
     <module name="org.apache.camel.component.zipfile">
         <include artifact="org.apache.camel:camel-zipfile" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="org.slf4j"/>

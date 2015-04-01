@@ -5,9 +5,9 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="javax.servlet.api" />
     <module name="org.apache.commons.httpclient" />
     <module name="org.slf4j" />
+    <module name="javax.servlet.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.component.http" />
     <module name="org.apache.camel.core" />

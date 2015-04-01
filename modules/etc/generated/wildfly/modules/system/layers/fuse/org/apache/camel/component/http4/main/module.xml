@@ -4,9 +4,9 @@
     <resource-root path="camel-http4-2.15.0.jar" />
   </resources>
   <dependencies>
-    <module name="javax.servlet.api" />
     <module name="org.apache.httpcomponents" slot="4.3" />
     <module name="org.slf4j" />
+    <module name="javax.servlet.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.httpcomponents" slot="4.3" />

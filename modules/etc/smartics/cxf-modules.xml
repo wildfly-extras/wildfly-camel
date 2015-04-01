@@ -21,8 +21,37 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
     <module name="org.apache.cxf" slot="3.0" inherit-slot="false">
-        <include artifact=":cxf-(.*)" />
         <include artifact="asm:asm" />
+        <include artifact="cxf-core" />
+        <include artifact="cxf-rt-bindings-soap" />
+        <include artifact="cxf-rt-bindings-xml" />
+        <include artifact="cxf-rt-databinding-jaxb" />
+        <include artifact="cxf-rt-features-clustering" />
+        <include artifact="cxf-rt-frontend-jaxrs" />
+        <include artifact="cxf-rt-frontend-jaxws" />
+        <include artifact="cxf-rt-frontend-simple" />
+        <include artifact="cxf-rt-management" />
+        <include artifact="cxf-rt-rs-client" />
+        <include artifact="cxf-rt-rs-security-oauth" />
+        <include artifact="cxf-rt-security" />
+        <include artifact="cxf-rt-transports-http" />
+        <include artifact="cxf-rt-transports-jms" />
+        <include artifact="cxf-rt-transports-local" />
+        <include artifact="cxf-rt-transports-udp" />
+        <include artifact="cxf-rt-ws-addr" />
+        <include artifact="cxf-rt-ws-mex" />
+        <include artifact="cxf-rt-ws-policy" />
+        <include artifact="cxf-rt-ws-rm" />
+        <include artifact="cxf-rt-ws-security" />
+        <include artifact="cxf-rt-wsdl" />
+        <include artifact="cxf-services-sts-core" />
+        <include artifact="cxf-services-ws-discovery-api" />
+        <!--  [FIXME #522] Explicit exclude of org.osgi.core needed
+        <apply-to-dependencies skip="true">
+            <include module="org.osgi.compendium" />
+            <include module="org.osgi.core" />
+        </apply-to-dependencies>
+        -->
         <dependencies>
             <module name="javax.api" />
             <module name="javax.jws.api" />

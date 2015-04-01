@@ -7,6 +7,5 @@
     <module name="ognl" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.javassist" />
   </dependencies>
 </module>

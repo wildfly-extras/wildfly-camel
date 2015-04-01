@@ -33,6 +33,16 @@
         <include artifact=":el-impl" />
     </module>
     
+    <module name="ognl">
+        <include artifact="ognl" />
+        <apply-to-dependencies skip="true">
+            <include module=".*" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.javassist"/>
+        </dependencies>
+    </module>
+    
     <module name="org.apache.abdera.core">
         <include artifact="org.apache.abdera:abdera-core" />
         <apply-to-dependencies skip="true">
@@ -97,6 +107,9 @@
 
     <module name="org.apache.deltaspike.$1.$2">
         <include artifact=":deltaspike-(.*)-(.*)" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.deltaspike.test" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="javax.xml.bind.api" />
@@ -134,6 +147,10 @@
 
     <module name="org.apache.ws.commons.axiom.axiom-api">
         <include artifact="org.apache.ws.commons.axiom:axiom-api" />
+        <apply-to-dependencies skip="true">
+            <include module="org.osgi.compendium" />
+            <include module="org.osgi.core" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.apache.commons.logging"/>
@@ -160,22 +177,8 @@
         </dependencies>
     </module>
 
-    <module name="ognl">
-        <include artifact="ognl" />
-        <apply-to-dependencies skip="true">
-            <include module=".*" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.javassist"/>
-        </dependencies>
-    </module>
-    
     <module name="org.jasypt">
         <include artifact="org.jasypt:jasypt" />
-    </module>
-    
-    <module name="org.osgi.core">
-        <include artifact=":org.osgi.core" />
     </module>
     
     <module name="org.osgi.enterprise">
@@ -188,6 +191,9 @@
     <module name="org.restlet">
         <include artifact=":org.restlet" />
         <include artifact=":org.restlet.ext.httpclient" />
+        <apply-to-dependencies skip="true">
+            <include module="net.jcip" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="sun.jdk.ext"/>
