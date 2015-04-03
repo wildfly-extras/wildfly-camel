@@ -127,8 +127,8 @@ For details see [2.2.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 [456]: https://github.com/wildflyext/wildfly-camel/issues/456
 [457]: https://github.com/wildflyext/wildfly-camel/issues/457
 [458]: https://github.com/wildflyext/wildfly-camel/issues/458
-[485]: https://github.com/wildflyext/wildfly-camel/issues/485
 [459]: https://github.com/wildflyext/wildfly-camel/issues/459
+[485]: https://github.com/wildflyext/wildfly-camel/issues/485
 [498]: https://github.com/wildflyext/wildfly-camel/issues/498
 [499]: https://github.com/wildflyext/wildfly-camel/issues/499
 [500]: https://github.com/wildflyext/wildfly-camel/issues/500
