@@ -97,6 +97,8 @@ org/apache/camel/util/spring
 org/apache/camel/util/toolbox
 org/apache/camel/view
 org/springframework
+org/springframework/beans
+org/springframework/beans/factory
 org/springframework/cache
 org/springframework/cache/annotation
 org/springframework/cache/concurrent

@@ -7,7 +7,14 @@
     <module name="javax.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.springframework.beans" />
+    <module name="org.springframework.beans" export="true">
+      <exports>
+        <exclude path="org/springframework/beans/annotation**" />
+        <exclude path="org/springframework/beans/propertyeditors**" />
+        <exclude path="org/springframework/beans/support**" />
+        <exclude path="org/springframework/beans/factory/**" />
+      </exports>
+    </module>
     <module name="org.springframework.context" />
     <module name="org.springframework.core" />
     <module name="org.springframework.tx" export="true">
