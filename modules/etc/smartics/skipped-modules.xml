@@ -104,7 +104,6 @@
         <include artifact="org.jruby.jcodings:jcodings" />
         <include artifact="org.jruby:joda-timezones" />
         <include artifact="org.jruby.joni:joni" />
-        <include artifact="org.jruby:jruby" />
         <include artifact="org.jruby:jruby-core" />
         <include artifact="org.jruby:jruby-stdlib" />
         <include artifact="org.jruby:yecht" />

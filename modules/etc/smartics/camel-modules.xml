@@ -695,6 +695,9 @@
     <module name="org.apache.camel.script.jruby">
         <include artifact="org.jruby:jruby" />
         <include artifact="bsf:bsf" />
+        <apply-to-dependencies skip="true">
+            <include module="ant" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
