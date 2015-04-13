@@ -64,9 +64,6 @@ public class XmlBeansIntegrationTest {
 
     @Test
     public void testXmlBeansUnmarshal() throws Exception {
-        // [FIXME #490] Usage of camel-xmlbeans depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
         CamelContext camelctx = new DefaultCamelContext();
 
         camelctx.addRoutes(new RouteBuilder() {
@@ -105,9 +102,6 @@ public class XmlBeansIntegrationTest {
 
     @Test
     public void testXmlBeansMarshal() throws Exception {
-        // [FIXME #490] Usage of camel-xmlbeans depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
         CamelContext camelctx = new DefaultCamelContext();
 
         camelctx.addRoutes(new RouteBuilder() {
