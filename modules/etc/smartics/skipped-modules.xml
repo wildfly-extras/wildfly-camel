@@ -84,6 +84,10 @@
         <include artifact="org.apache.deltaspike.test:(.*)" />
     </module>
     
+    <module name="org.apache.felix" skip="true">
+        <include artifact="org.apache.felix:(.*)" />
+    </module>
+    
     <module name="org.apache.servicemix.bundles" skip="true">
         <include artifact="org.apache.servicemix.bundles:(.*)" />
     </module>

@@ -20,6 +20,7 @@
 
 package org.wildfly.extension.camel.parser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.as.controller.AbstractBoottimeAddStepHandler;
@@ -77,7 +78,7 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
     protected void performBoottime(final OperationContext context, final ModelNode operation, final ModelNode model,
             final ServiceVerificationHandler verificationHandler, final List<ServiceController<?>> newControllers) {
 
-        final GraviaSubsystemBootstrap graviaSubsystem = new GraviaSubsystemBootstrap();
+        final GraviaSubsystemBootstrap graviaSubsystem = new ReducedGraviaSubsystemBootstrap();
         final JBossAllXmlParserRegisteringProcessor<CamelDeploymentSettings> parser =
                 new JBossAllXmlParserRegisteringProcessor<>(CamelIntegrationParser.ROOT_ELEMENT, CamelIntegrationParser.ATTACHMENT_KEY, new CamelIntegrationParser());
 
@@ -100,7 +101,6 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
         context.addStep(new AbstractDeploymentChainStep() {
             @Override
             public void execute(DeploymentProcessorTarget processorTarget) {
-                graviaSubsystem.addDeploymentUnitProcessors(processorTarget);
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.STRUCTURE, STRUCTURE_REGISTER_CAMEL_INTEGRATION, parser);
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, STRUCTURE_REGISTER_CAMEL_INTEGRATION, new CamelIntegrationProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_CAMEL, new CamelDependenciesProcessor());
@@ -115,5 +115,15 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
     @Override
     protected boolean requiresRuntimeVerification() {
         return false;
+    }
+
+    final class ReducedGraviaSubsystemBootstrap extends GraviaSubsystemBootstrap {
+
+        public List<ServiceController<?>> getSubsystemServices(OperationContext context, ServiceVerificationHandler verificationHandler) {
+            List<ServiceController<?>> controllers = new ArrayList<ServiceController<?>>();
+            controllers.add(getRuntimeService(context, verificationHandler));
+            controllers.add(getSystemContextService(context, verificationHandler));
+            return controllers;
+        }
     }
 }
