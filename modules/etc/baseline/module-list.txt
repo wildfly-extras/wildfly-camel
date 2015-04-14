@@ -150,11 +150,9 @@
 /org/fusesource/hawtdispatch/main/hawtdispatch-1.21.jar
 /org/fusesource/hawtdispatch/main/hawtdispatch-transport-1.21.jar
 /org/jasypt/main/jasypt-1.9.2.jar
-/org/jboss/gravia/main/gravia-repository-1.1.2.jar
-/org/jboss/gravia/main/gravia-resource-1.1.2.jar
-/org/jboss/gravia/main/gravia-runtime-api-1.1.2.jar
-/org/jboss/gravia/main/gravia-runtime-embedded-1.1.2.jar
-/org/jboss/gravia/main/org.apache.felix.configadmin-1.8.2.jar
+/org/jboss/gravia/main/gravia-resource-1.1.3.jar
+/org/jboss/gravia/main/gravia-runtime-api-1.1.3.jar
+/org/jboss/gravia/main/gravia-runtime-embedded-1.1.3.jar
 /org/mvel/mvel2/main/mvel2-2.2.1.Final.jar
 /org/opensaml/2.6/joda-time-2.2.jar
 /org/opensaml/2.6/opensaml-2.6.1.jar

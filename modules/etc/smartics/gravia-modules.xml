@@ -21,11 +21,9 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
     <module name="org.jboss.gravia">
-        <include artifact=":gravia-repository" />
         <include artifact=":gravia-resource" />
         <include artifact=":gravia-runtime-api" />
         <include artifact=":gravia-runtime-embedded" />
-        <include artifact=":org.apache.felix.configadmin" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.felix" />
         </apply-to-dependencies>

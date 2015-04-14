@@ -60,8 +60,7 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
     public static final int POST_MODULE_PACKAGE_SCAN_RESOLVER = Phase.POST_MODULE_LOCAL_HOME + 0x01;
     public static final int POST_MODULE_CAMEL_CONTEXT_CREATE = Phase.POST_MODULE_LOCAL_HOME + 0x02;
 
-    public static final int INSTALL_REPOSITORY_CONTENT = Phase.INSTALL_BUNDLE_ACTIVATE + 0x01;
-    public static final int INSTALL_CAMEL_CONTEXT_ACTIVATION = Phase.INSTALL_BUNDLE_ACTIVATE + 0x02;
+    public static final int INSTALL_CAMEL_CONTEXT_ACTIVATION = Phase.INSTALL_BUNDLE_ACTIVATE + 0x01;
 
     private final SubsystemState subsystemState;
 
@@ -107,7 +106,6 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_CAMEL_CONTEXT_CREATE, new CamelContextCreateProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_PACKAGE_SCAN_RESOLVER, new PackageScanResolverProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CAMEL_CONTEXT_ACTIVATION, new CamelContextActivationProcessor());
-                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_REPOSITORY_CONTENT, new RepositoryContentInstallProcessor());
             }
         }, OperationContext.Stage.RUNTIME);
     }
