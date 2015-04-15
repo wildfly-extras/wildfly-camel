@@ -88,6 +88,7 @@
                                     <arg value="rmi" />
                                     <arg value="--force=true" />
                                     <arg value="${docker.image.name}:${docker.image.version}" />
+                                    <arg value="${docker.image.name}:${project.version}" />
                                 </exec>
                                 <exec executable="docker" error="target/build.err" failonerror="true">
                                     <arg value="build" />
@@ -96,6 +97,11 @@
                                     <arg value="-t" />
                                     <arg value="${docker.image.name}:${docker.image.version}" />
                                     <arg value="target/docker" />
+                                </exec>
+                                <exec executable="docker" error="target/tag.err" failonerror="true">
+                                    <arg value="tag" />
+                                    <arg value="${docker.image.name}:${docker.image.version}" />
+                                    <arg value="${docker.image.name}:${project.version}" />
                                 </exec>
                                 <echo>=========================================================================</echo>
                                 <echo>docker run --rm -ti -p 8080:8080 -p 9990:9990 -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin ${docker.image.name}</echo>
