@@ -46,6 +46,7 @@
     </properties>
     
 	<modules>
+        <module>camel</module>
         <module>common</module>
         <module>distro</module>
 		<module>standalone</module>
