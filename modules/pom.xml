@@ -468,13 +468,6 @@
                         <phase>generate-resources</phase>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>de.smartics.config</groupId>
-                        <artifactId>config-smartics-jboss-modules</artifactId>
-                        <version>${version.smartics.config}</version>
-                    </dependency>
-                </dependencies>
                 <configuration>
                     <excludeDependencyManagementDependenciesInPomProject>true</excludeDependencyManagementDependenciesInPomProject>
                     <attach>false</attach>

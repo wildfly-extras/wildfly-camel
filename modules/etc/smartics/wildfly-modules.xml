@@ -182,6 +182,15 @@
         <include artifact=":xmlschema-core" />
     </module>
 
+    <module name="org.apache.xalan" skip="true">
+        <include artifact="xalan:xalan"/>
+        <include artifact="xalan:serializer"/>
+    </module>
+
+    <module name="org.apache.xerces" skip="true">
+        <include artifact="xerces:xercesImpl"/>
+    </module>
+
     <module name="org.apache.xml-resolver" skip="true">
         <include artifact="xml-resolver:xml-resolver" />
     </module>

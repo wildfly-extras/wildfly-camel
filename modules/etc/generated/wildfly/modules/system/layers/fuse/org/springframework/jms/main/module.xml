@@ -7,6 +7,7 @@
     <module name="javax.api" />
     <module name="org.apache.commons.logging" />
     <module name="javax.jms.api" />
+    <module name="org.springframework.aop" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.context" />
     <module name="org.springframework.core" />
