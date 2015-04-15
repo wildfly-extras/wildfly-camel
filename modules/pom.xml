@@ -476,17 +476,6 @@
                     <modules>
                         <dir>etc/smartics</dir>
                     </modules>
-                    <dependencyExcludes>
-                        <!-- [FIXME #522] Explicit exclude of org.osgi.core needed -->
-                        <exclude>
-                            <groupId>org.osgi</groupId>
-                            <artifactId>org.osgi.core</artifactId>
-                        </exclude>
-                        <exclude>
-                            <groupId>org.osgi</groupId>
-                            <artifactId>org.osgi.compendium</artifactId>
-                        </exclude>
-                    </dependencyExcludes>
                 </configuration>
             </plugin>
             <plugin>

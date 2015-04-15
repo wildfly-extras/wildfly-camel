@@ -32,7 +32,6 @@
         </exports>
         <dependencies>
             <module name="javax.api" />
-            <module name="org.osgi.core" />
         </dependencies>
     </module>
     

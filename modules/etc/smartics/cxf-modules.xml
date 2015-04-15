@@ -46,12 +46,10 @@
         <include artifact="cxf-rt-wsdl" />
         <include artifact="cxf-services-sts-core" />
         <include artifact="cxf-services-ws-discovery-api" />
-        <!--  [FIXME #522] Explicit exclude of org.osgi.core needed
         <apply-to-dependencies skip="true">
             <include module="org.osgi.compendium" />
             <include module="org.osgi.core" />
         </apply-to-dependencies>
-        -->
         <dependencies>
             <module name="javax.api" />
             <module name="javax.jws.api" />
