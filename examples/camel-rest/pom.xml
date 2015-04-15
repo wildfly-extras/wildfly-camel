@@ -74,22 +74,6 @@
             <scope>provided</scope>
         </dependency>
 	    
-        <!-- Test -->
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.wildfly</groupId>
-            <artifactId>wildfly-arquillian-container-remote</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
 	</dependencies>
 
 	<!-- Build -->
@@ -128,7 +112,7 @@
 			<id>docker</id>
             <activation>
                 <property>
-                    <name>env.DOCKER_HOST</name>
+                    <name>DISABLED.env.DOCKER_HOST</name>
                 </property>
             </activation>
             <build>

@@ -52,7 +52,7 @@ public class CXFResourcesTest {
     @Test
     public void testAccessFromCXFModule() throws Exception {
         ModuleLoader moduleLoader = Module.getCallerModuleLoader();
-        ModuleIdentifier modid = ModuleIdentifier.create("org.apache.cxf", "3.0");
+        ModuleIdentifier modid = ModuleIdentifier.create("org.apache.cxf");
         ModuleClassLoader classLoader = moduleLoader.loadModule(modid).getClassLoader();
         URL resurl = classLoader.getResource("META-INF/cxf/cxf.xml");
         Assert.assertNotNull("URL not null", resurl);

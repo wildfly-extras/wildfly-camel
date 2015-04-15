@@ -11,8 +11,8 @@
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.thoughtworks.paranamer" />
+    <module name="joda-time" />
     <module name="org.joda.convert" />
-    <module name="org.opensaml" slot="2.6" />
     <module name="org.scala.lang" />
   </dependencies>
 </module>

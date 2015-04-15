@@ -57,7 +57,7 @@ public class TidyMarkupIntegrationTest {
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "<body><a href=foo></body>", String.class).trim();
-            Assert.assertTrue("Starts with html: " + result, result.startsWith("<html xmlns:html=\"http://www.w3.org/1999/xhtml\">"));
+            Assert.assertTrue("Starts with html: " + result, result.startsWith("<html "));
             Assert.assertTrue("Contains end link: " + result, result.contains("</a>"));
             Assert.assertTrue("Ends with html: " + result, result.endsWith("</html>"));
         } finally {

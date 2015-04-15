@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="org.bouncycastle" slot="1.52">
+<module xmlns="urn:jboss:module:1.1" name="org.bouncycastle.pgp">
   <resources>
     <resource-root path="bcpg-jdk15on-1.52.jar" />
-    <resource-root path="bcprov-jdk15on-1.52.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="org.bouncycastle" />
   </dependencies>
 </module>

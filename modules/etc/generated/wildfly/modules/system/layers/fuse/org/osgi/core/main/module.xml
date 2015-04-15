@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.osgi.core">
+  <resources>
+    <resource-root path="org.osgi.core-4.3.1.jar" />
+  </resources>
+  <dependencies />
+</module>

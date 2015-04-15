@@ -20,74 +20,23 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="org.apache.cxf" slot="3.0" inherit-slot="false">
-        <include artifact="cxf-core" />
-        <include artifact="cxf-rt-bindings-soap" />
-        <include artifact="cxf-rt-bindings-xml" />
-        <include artifact="cxf-rt-databinding-jaxb" />
+    <module name="org.apache.cxf.ext" >
         <include artifact="cxf-rt-features-clustering" />
         <include artifact="cxf-rt-frontend-jaxrs" />
-        <include artifact="cxf-rt-frontend-jaxws" />
-        <include artifact="cxf-rt-frontend-simple" />
-        <include artifact="cxf-rt-management" />
         <include artifact="cxf-rt-rs-client" />
-        <include artifact="cxf-rt-rs-security-oauth" />
-        <include artifact="cxf-rt-security" />
-        <include artifact="cxf-rt-transports-http" />
-        <include artifact="cxf-rt-transports-jms" />
-        <include artifact="cxf-rt-transports-local" />
-        <include artifact="cxf-rt-transports-udp" />
-        <include artifact="cxf-rt-ws-addr" />
-        <include artifact="cxf-rt-ws-mex" />
-        <include artifact="cxf-rt-ws-policy" />
-        <include artifact="cxf-rt-ws-rm" />
-        <include artifact="cxf-rt-ws-security" />
-        <include artifact="cxf-rt-wsdl" />
-        <include artifact="cxf-services-sts-core" />
-        <include artifact="cxf-services-ws-discovery-api" />
-        <apply-to-dependencies skip="true">
-            <include module="org.osgi.compendium" />
-            <include module="org.osgi.core" />
-        </apply-to-dependencies>
+        <include artifact="cxf-rt-rs-security-oauth"/>
+        <include artifact="oauth"/>
+        <include artifact="oauth-provider"/>
         <dependencies>
             <module name="javax.api" />
-            <module name="javax.jws.api" />
-            <module name="javax.servlet.api" />
-            <module name="javax.xml.ws.api" />
+            <module name="javax.xml.bind.api" />
         </dependencies>
         <exports>
+            <exclude path="net/oauth*" />
             <exclude path="OSGI-INF/blueprint" />
             <exclude path="OSGI-INF/metatype" />
+            <exclude path="schemas/blueprint" />
         </exports>
     </module>
 
-    <module name="org.opensaml" slot="2.6" inherit-slot="false">
-        <include artifact="org.opensaml:opensaml(.*)" />
-        <include artifact="joda-time:joda-time" />
-    </module>
-
-    <module name="org.opensaml.xmltooling" slot="1.4.1" inherit-slot="false">
-        <include artifact="org.opensaml:xmltooling" />
-        <apply-to-dependencies skip="true">
-            <include module="org.bouncycastle.bcprov-jdk15" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api" />
-            <module name="org.bouncycastle" slot="1.52" />
-        </dependencies>
-    </module>
-
-    <module name="org.apache.ws.security" slot="2.0" inherit-slot="false">
-        <include artifact="org.apache.wss4j:wss4j-(.*)" />
-        <dependencies>
-            <module name="javax.api" />
-        </dependencies>
-    </module>
-
-    <module name="org.apache.santuario.xmlsec" slot="2.0" inherit-slot="false">
-        <include artifact="org.apache.santuario:xmlsec" />
-        <dependencies>
-            <module name="javax.api" />
-        </dependencies>
-    </module>
 </modules>
