@@ -59,6 +59,8 @@
 
     <!-- Dependencies -->
     <dependencies>
+    
+        <!-- Provided -->
         <dependency>
             <groupId>com.icegreen</groupId>
             <artifactId>greenmail-webapp</artifactId>
@@ -66,6 +68,8 @@
             <type>war</type>
             <scope>provided</scope>
         </dependency>
+        
+        <!-- Test -->
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-itests-common</artifactId>
@@ -73,8 +77,30 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.arquillian</groupId>
+            <artifactId>wildfly-arquillian-container-remote</artifactId>
+            <!-- [#544] Examples fail with ClassNotFoundException: org.w3c.dom.ElementTraversal -->
+            <exclusions>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

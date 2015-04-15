@@ -9,7 +9,8 @@
     <module name="javax.jws.api" />
     <module name="javax.ws.rs.api" />
     <module name="javax.xml.ws.api" />
-    <module name="org.apache.cxf" export="true" slot="3.0">
+    <module name="org.apache.cxf.ext" export="true" />
+    <module name="org.apache.cxf.impl" export="true">
       <imports>
         <include path="META-INF/cxf**" />
       </imports>

@@ -137,7 +137,7 @@
                     <executable>java</executable>
                     <arguments>
                       <argument>-jar</argument>
-                      <argument>${project.build.directory}/wildfly-8.2.0.Final/bin/wildfly-camel-config.jar</argument>
+                      <argument>${project.build.directory}/wildfly-${version.wildfly}/bin/wildfly-camel-config.jar</argument>
                       <argument>enable</argument>
                     </arguments>
                   </configuration>

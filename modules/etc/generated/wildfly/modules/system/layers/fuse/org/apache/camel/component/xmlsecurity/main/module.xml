@@ -9,7 +9,7 @@
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.codec" />
-    <module name="org.apache.santuario.xmlsec" slot="2.0" />
+    <module name="org.apache.santuario.xmlsec" />
     <module name="org.apache.xalan" />
   </dependencies>
 </module>

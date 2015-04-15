@@ -49,8 +49,10 @@
         <version.apache.camel>2.15.2</version.apache.camel>
         
         <!-- WildFly versions -->
-        <version.wildfly>8.2.0.Final</version.wildfly>
-        <version.wildfly.arquillian>${version.wildfly}</version.wildfly.arquillian>
+        <version.wildfly>9.0.0.CR1</version.wildfly>
+        <version.wildfly.arquillian>1.0.0.Alpha5</version.wildfly.arquillian>
+        <version.wildfly.build-tools>1.0.0.Alpha8</version.wildfly.build-tools>
+        <version.wildfly.core>1.0.0.CR1</version.wildfly.core>
 
         <!-- Other versions -->
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
@@ -310,24 +312,24 @@
 
             <!-- WildFly -->
             <dependency>
-                <groupId>org.wildfly</groupId>
+                <groupId>org.wildfly.arquillian</groupId>
                 <artifactId>wildfly-arquillian-container-managed</artifactId>
                 <version>${version.wildfly.arquillian}</version>
             </dependency>
             <dependency>
-                <groupId>org.wildfly</groupId>
+                <groupId>org.wildfly.arquillian</groupId>
                 <artifactId>wildfly-arquillian-container-remote</artifactId>
                 <version>${version.wildfly.arquillian}</version>
             </dependency>
             <dependency>
-                <groupId>org.wildfly</groupId>
+                <groupId>org.wildfly.arquillian</groupId>
                 <artifactId>wildfly-arquillian-protocol-jmx</artifactId>
                 <version>${version.wildfly.arquillian}</version>
             </dependency>
             <dependency>
-                <groupId>org.wildfly</groupId>
+                <groupId>org.wildfly.core</groupId>
                 <artifactId>wildfly-controller-client</artifactId>
-                <version>${version.wildfly}</version>
+                <version>${version.wildfly.core}</version>
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
@@ -340,20 +342,14 @@
                 <version>${version.wildfly}</version>
             </dependency>
             <dependency>
-                <groupId>org.wildfly</groupId>
+                <groupId>org.wildfly.core</groupId>
                 <artifactId>wildfly-server</artifactId>
-                <version>${version.wildfly}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>sun.jdk</groupId>
-                        <artifactId>jconsole</artifactId>
-                    </exclusion>
-                </exclusions>
+                <version>${version.wildfly.core}</version>
             </dependency>
             <dependency>
-                <groupId>org.wildfly</groupId>
+                <groupId>org.wildfly.core</groupId>
                 <artifactId>wildfly-subsystem-test</artifactId>
-                <version>${version.wildfly}</version>
+                <version>${version.wildfly.core}</version>
                 <type>pom</type>
             </dependency>
             <dependency>
@@ -361,6 +357,14 @@
                 <artifactId>wildfly-testsuite-shared</artifactId>
                 <version>${version.wildfly}</version>
                 <exclusions>
+                    <exclusion>
+                        <groupId>org.wildfly</groupId>
+                        <artifactId>wildfly-build</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.wildfly</groupId>
+                        <artifactId>wildfly-client-all</artifactId>
+                    </exclusion>
                     <exclusion>
                         <groupId>org.apache.directory.jdbm</groupId>
                         <artifactId>apacheds-jdbm1</artifactId>
@@ -629,7 +633,7 @@
             <id>docker</id>
             <activation>
                 <property>
-                    <name>env.DOCKER_HOST</name>
+                    <name>DISABLED.env.DOCKER_HOST</name>
                 </property>
             </activation>
             <modules>
@@ -642,5 +646,5 @@
                 <module>docs</module>
             </modules>
         </profile>
-    </profiles>
+	</profiles>
 </project>

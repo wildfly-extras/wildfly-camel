@@ -21,6 +21,39 @@
 	^org/xmlsoap(.*)
 	^META-INF/cxf(.*)
 	^META-INF/services(.*)
+	
+# [FIXME #536] Remove OSGi-INF/blueprint from exported paths
+	^OSGI-INF/blueprint
+	^OSGI-INF/metatype
 
+# [FIXME #540] jboss-modules does not respect path excludes
+	^ca/uhn
+	^com/google
+	^com/mchange(.*)
+	^com/sun(.*)
+	^com/thoughtworks(.*)
+	^net/oauth(.*)
+	^net/sf(.*)
+	^org/apache/cxf/clustering(.*)
+	^org/apache/cxf/jaxrs(.*)
+	^org/apache/cxf/rs(.*)
+	^org/apache/xmlbeans/impl(.*)
+	^org/apache/xmlbeans/soap
+	^org/apache/xmlbeans/xml(.*)
+	^org/castor(.*)
+	^org/ccil(.*)
+	^org/exolab(.*)
+	^org/fusesource(.*)
+	^org/quartz(.*)
+	^org/terracotta(.*)
+	^org/w3(.*)
+	^org/xmlpull(.*)
+	^schema/blueprint
+	^schema/configuration
+	^schemaorg_apache_xmlbeans(.*)
+	^schemas/blueprint
+	^w3c(.*)
+	
 [excludes]
-	(.*)/internal
+# [FIXME #540] jboss-modules does not respect path excludes
+#	(.*)/internal
