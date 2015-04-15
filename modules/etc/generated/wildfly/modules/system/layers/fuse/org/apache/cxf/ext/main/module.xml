@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.cxf.ext">
+  <resources>
+    <resource-root path="cxf-rt-features-clustering-3.0.4.jar" />
+    <resource-root path="cxf-rt-frontend-jaxrs-3.0.4.jar" />
+    <resource-root path="cxf-rt-rs-client-3.0.4.jar" />
+    <resource-root path="cxf-rt-rs-security-oauth-3.0.4.jar" />
+    <resource-root path="oauth-20100527.jar" />
+    <resource-root path="oauth-provider-20100527.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.xml.bind.api" />
+    <module name="javax.annotation.api" />
+    <module name="javax.servlet.api" />
+    <module name="javax.ws.rs.api" />
+    <module name="org.apache.cxf" />
+    <module name="org.apache.cxf.impl" />
+    <module name="org.osgi.core" />
+  </dependencies>
+  <exports>
+    <exclude path="net/oauth*" />
+    <exclude path="OSGI-INF/blueprint" />
+    <exclude path="OSGI-INF/metatype" />
+    <exclude path="schemas/blueprint" />
+  </exports>
+</module>

@@ -174,6 +174,37 @@
         <include artifact="commons-pool:commons-pool" />
     </module>
 
+    <module name="org.apache.cxf" skip="true">
+        <include artifact=":cxf-core" />
+    </module>
+    
+    <module name="org.apache.cxf.impl" skip="true">
+        <include artifact=":cxf-rt-bindings-soap" />
+        <include artifact=":cxf-rt-bindings-xml" />
+        <include artifact=":cxf-rt-databinding-jaxb" />
+        <include artifact=":cxf-rt-frontend-jaxws" />
+        <include artifact=":cxf-rt-frontend-simple" />
+        <include artifact=":cxf-rt-management" />
+        <include artifact=":cxf-rt-security" />
+        <include artifact=":cxf-rt-transports-http" />
+        <include artifact=":cxf-rt-transports-jms" />
+        <include artifact=":cxf-rt-transports-local" />
+        <include artifact=":cxf-rt-ws-addr" />
+        <include artifact=":cxf-rt-ws-mex" />
+        <include artifact=":cxf-rt-ws-policy" />
+        <include artifact=":cxf-rt-ws-rm" />
+        <include artifact=":cxf-rt-ws-security" />
+        <include artifact=":cxf-rt-wsdl" />
+        <include artifact=":cxf-services-sts-core" />
+        <include artifact=":cxf-services-ws-discovery-api" />
+    </module>
+    
+    <module name="org.apache.httpcomponents" skip="true">
+        <include artifact=":httpcore" />
+        <include artifact=":httpclient" />
+        <include artifact=":httpmime" />
+    </module>
+
     <module name="org.apache.james.mime4j" skip="true">
         <include artifact=":apache-mime4j-core" />
     </module>
@@ -186,10 +217,18 @@
         <include artifact="log4j:log4j" />
     </module>
 
+    <module name="org.apache.lucene" skip="true">
+        <include artifact="org.apache.lucene:lucene-(.*)" />
+    </module>
+
     <module name="org.apache.neethi" skip="true">
         <include artifact=":neethi" />
     </module>
 
+    <module name="org.apache.santuario.xmlsec" skip="true">
+        <include artifact="org.apache.santuario:xmlsec" />
+    </module>
+    
     <module name="org.apache.velocity" skip="true">
         <include artifact=":velocity" />
     </module>
@@ -211,6 +250,10 @@
         <include artifact="xml-resolver:xml-resolver" />
     </module>
 
+    <module name="org.bouncycastle" skip="true">
+        <include artifact=":bcprov-jdk15on" />
+    </module>
+    
     <module name="org.codehaus.jackson.jackson-core-asl" skip="true">
         <include artifact=":jackson-core-asl" />
     </module>
@@ -254,10 +297,6 @@
 
     <module name="org.jdom" skip="true">
         <include artifact=":jdom" />
-    </module>
-
-    <module name="org.osgi.core" skip="true">
-        <include artifact=":org.osgi.core" />
     </module>
 
     <module name="org.slf4j" skip="true">

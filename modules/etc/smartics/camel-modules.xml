@@ -178,7 +178,8 @@
             <include module="org.apache.aries.blueprint" />
             <include module="org.apache.camel.apt" />
             <include module="org.apache.camel.blueprint" />
-            <include module="org.apache.cxf" />
+            <include module="org.apache.cxf.ext" />
+            <include module="org.apache.cxf.impl" />
             <include module="org.springframework.*" />
             <include module="org.osgi.compendium" />
             <include module="org.osgi.core" />
@@ -188,7 +189,8 @@
             <module name="javax.jws.api" />
             <module name="javax.ws.rs.api" />
             <module name="javax.xml.ws.api" />
-            <module name="org.apache.cxf" export="true" slot="3.0" >
+            <module name="org.apache.cxf.ext" export="true" />
+            <module name="org.apache.cxf.impl" export="true" >
                 <imports>
                     <include path="META-INF/cxf**" />
                 </imports>
@@ -314,7 +316,7 @@
             <include module="org.apache.camel.apt" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.apache.httpcomponents" slot="4.3" />
+            <module name="org.apache.httpcomponents" />
             <module name="org.slf4j" />
         </dependencies>
     </module>
