@@ -54,6 +54,7 @@
         <server.config>standalone-camel-examples.xml</server.config>
         <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true</jvmArgs>
         <jvmDebugArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmDebugArgs>
+        <log4j.configuration>file://${basedir}/src/test/resources/logging.properties</log4j.configuration>
     </properties>
 
     <!-- Dependencies -->
@@ -69,6 +70,11 @@
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-itests-common</artifactId>
             <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -172,6 +178,7 @@
 			                        <skip>false</skip>
                                     <systemPropertyVariables>
                                         <jboss.data.dir>${jboss.data.dir}</jboss.data.dir>
+                                        <log4j.configuration>${log4j.configuration}</log4j.configuration>
                                     </systemPropertyVariables>
 			                    </configuration>
 			                </execution>
@@ -259,6 +266,7 @@
 			                        <skip>false</skip>
                                     <systemPropertyVariables>
                                         <jboss.data.dir>${jboss.data.dir}</jboss.data.dir>
+                                        <log4j.configuration>${log4j.configuration}</log4j.configuration>
                                     </systemPropertyVariables>
 			                    </configuration>
 			                </execution>
