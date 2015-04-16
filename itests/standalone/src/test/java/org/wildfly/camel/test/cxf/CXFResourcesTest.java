@@ -45,7 +45,7 @@ public class CXFResourcesTest {
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-namespace-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-resaccess-tests");
         return archive;
     }
 
