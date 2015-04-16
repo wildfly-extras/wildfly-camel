@@ -21,6 +21,7 @@
 package org.wildfly.camel.test.camel.file;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -54,8 +55,9 @@ public class FileURLDecodingTest {
     }
 
     @Test
+    @Ignore("[ENTESB-3012] Camel URL decoding not deterministic")
     public void testFile2B() throws Exception {
-        assertTargetFile("RAW(data%2B.txt)", "data+.txt");
+        assertTargetFile("data%2B.txt", "data+.txt");
     }
 
     @Test
@@ -76,6 +78,9 @@ public class FileURLDecodingTest {
     }
 
     private void assertTargetFile(final String encoded, final String expected) throws Exception, FileNotFoundException, IOException {
+        File expectedFile = Paths.get(TARGET_DIR, expected).toFile();
+        expectedFile.delete();
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -93,7 +98,7 @@ public class FileURLDecodingTest {
             camelctx.stop();
         }
 
-        BufferedReader br = new BufferedReader(new FileReader(Paths.get(TARGET_DIR, expected).toFile()));
+        BufferedReader br = new BufferedReader(new FileReader(expectedFile));
         Assert.assertEquals("Kermit", br.readLine());
         br.close();
     }
