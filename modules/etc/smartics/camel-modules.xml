@@ -189,7 +189,13 @@
             <module name="javax.jws.api" />
             <module name="javax.ws.rs.api" />
             <module name="javax.xml.ws.api" />
-            <module name="org.apache.cxf.ext" export="true" />
+            <module name="org.apache.cxf.ext" export="true">
+              <exports>
+                <exclude path="org/apache/cxf/clustering**" />
+                <exclude path="org/apache/cxf/jaxrs**" />
+                <exclude path="org/apache/cxf/rs**" />
+              </exports>
+            </module>
             <module name="org.apache.cxf.impl" export="true" >
                 <imports>
                     <include path="META-INF/cxf**" />
@@ -203,7 +209,9 @@
                     <include path="org/apache/cxf/ws/security/**" />
                     <include path="org/apache/cxf/sts" />
                     <exclude path="org/apache/cxf/**" />
-                    <exclude path="org/objectweb/asm**" />
+                    <exclude path="OSGI-INF/blueprint" />
+                    <exclude path="OSGI-INF/metatype" />
+                    <exclude path="com/sun**" />
                     <exclude path="schemas**" />
                 </exports>
             </module>

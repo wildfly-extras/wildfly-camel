@@ -1,4 +1,3 @@
-package org.wildfly.camel.test.spring;
 /*
  * #%L
  * Wildfly Camel :: Testsuite
@@ -18,6 +17,7 @@ package org.wildfly.camel.test.spring;
  * limitations under the License.
  * #L%
  */
+package org.wildfly.camel.test.spring;
 
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -29,7 +29,6 @@ import org.jboss.modules.ModuleLoader;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -39,7 +38,6 @@ import org.junit.runner.RunWith;
  * https://github.com/wildfly-extras/wildfly-camel/issues/540
  */
 @RunWith(Arquillian.class)
-@Ignore("[FIXME #540] jboss-modules does not respect path excludes")
 public class SpringExcludedPathsTest {
 
     @Deployment
