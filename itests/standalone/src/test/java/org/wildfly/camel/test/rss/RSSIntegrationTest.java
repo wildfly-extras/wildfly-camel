@@ -20,9 +20,8 @@
 
 package org.wildfly.camel.test.rss;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
+import co.freeside.betamax.Betamax;
+import co.freeside.betamax.Recorder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -31,21 +30,36 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 @RunWith(Arquillian.class)
 public class RSSIntegrationTest {
 
+    @Rule
+    public Recorder recorder = new Recorder();
+
     @Deployment
-    public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "rss-tests");
+    public static WebArchive deployment() {
+        File[] libraryDependencies = Maven.configureResolverViaPlugin().
+                resolve("co.freeside:betamax", "org.codehaus.groovy:groovy-all").
+                withTransitivity().
+                asFile();
+        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "rss-tests.war");
+        archive.addAsLibraries(libraryDependencies);
         return archive;
     }
 
     @Test
+    @Betamax(tape="redhat-rss")
     public void testEndpointClass() throws Exception {
 
     	final CountDownLatch latch = new CountDownLatch(1);
