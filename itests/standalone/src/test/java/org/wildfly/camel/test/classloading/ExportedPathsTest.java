@@ -21,12 +21,14 @@
 package org.wildfly.camel.test.classloading;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.management.ManagementFactory;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -42,6 +44,7 @@ import org.jboss.gravia.utils.ObjectNameFactory;
 import org.jboss.modules.management.DependencyInfo;
 import org.jboss.modules.management.ModuleLoaderMXBean;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Before;
@@ -51,9 +54,10 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class ExportedPathsTest {
 
+    private static final String FILE_BASEDIR = "basedir.txt";
     private static final String FILE_EXPORTED_PATH_PATTERNS = "exported-path-patterns.txt";
-    private static final File FILE_EXPORTED_PATHS = new File("../../modules/etc/baseline/exported-paths.txt");
-    private static final File FILE_MODULE_INFOS = new File("target/module-infos.txt");
+    private static final Path FILE_EXPORTED_PATHS = Paths.get("../../modules/etc/baseline/exported-paths.txt");
+    private static final Path FILE_MODULE_INFOS = Paths.get("target/module-infos.txt");
 
     private static final String MODULE_LOADER_OBJECT_NAME = "jboss.modules:type=ModuleLoader,name=LocalModuleLoader-2";
     private static final String MODULE_CAMEL_COMPONENT = "org.apache.camel.component";
@@ -63,6 +67,7 @@ public class ExportedPathsTest {
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "exported-paths-tests");
         archive.addAsResource("classloading/" + FILE_EXPORTED_PATH_PATTERNS, FILE_EXPORTED_PATH_PATTERNS);
+        archive.addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR);
         return archive;
     }
 
@@ -72,19 +77,31 @@ public class ExportedPathsTest {
         ObjectName oname = ObjectNameFactory.create(MODULE_LOADER_OBJECT_NAME);
         ModuleLoaderMXBean mbean = JMX.newMXBeanProxy(server, oname, ModuleLoaderMXBean.class);
 
-        PrintWriter pw = new PrintWriter(new FileWriter(FILE_MODULE_INFOS));
+        Path moduleInfos = resolvePath(FILE_MODULE_INFOS);
+        PrintWriter pw = new PrintWriter(new FileWriter(moduleInfos.toFile()));
         for (String module : new String[] { MODULE_CAMEL, MODULE_CAMEL_COMPONENT }) {
+            pw.println(mbean.dumpModuleInformation(module));
             for (DependencyInfo depinfo : mbean.getDependencies(module)) {
                 String moduleName = depinfo.getModuleName();
                 if (moduleName != null) {
                     pw.println(mbean.dumpModuleInformation(moduleName));
+                    pw.println("[Exported Paths: " + moduleName + "]");
+                    List<String> modulePaths = new ArrayList<>(mbean.getModulePathsInfo(moduleName, true).keySet());
+                    Collections.sort(modulePaths);
+                    for (String path : modulePaths) {
+                        if (path.contains("/") && !path.equals("org/apache")) {
+                            pw.println(path);
+                        }
+                    }
+                    pw.println();
                 }
             }
         }
         pw.flush();
         pw.close();
 
-        pw = new PrintWriter(new FileWriter(FILE_EXPORTED_PATHS));
+        Path exportedPaths = resolvePath(FILE_EXPORTED_PATHS);
+        pw = new PrintWriter(new FileWriter(exportedPaths.toFile()));
         for (String module : new String[] { MODULE_CAMEL, MODULE_CAMEL_COMPONENT }) {
             pw.println("[Exported Paths: " + module + "]");
             List<String> modulePaths = new ArrayList<>(mbean.getModulePathsInfo(module, true).keySet());
@@ -130,7 +147,8 @@ public class ExportedPathsTest {
         }
 
         // Verify each line
-        reader = new BufferedReader(new FileReader(FILE_EXPORTED_PATHS));
+        Path exportedPaths = resolvePath(FILE_EXPORTED_PATHS);
+        reader = new BufferedReader(new FileReader(exportedPaths.toFile()));
         try {
             String line = reader.readLine();
             while (line != null) {
@@ -159,6 +177,15 @@ public class ExportedPathsTest {
                 }
                 line = reader.readLine();
             }
+        } finally {
+            reader.close();
+        }
+    }
+
+    private Path resolvePath(Path other) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + FILE_BASEDIR)));
+        try {
+            return Paths.get(reader.readLine()).resolve(other);
         } finally {
             reader.close();
         }
