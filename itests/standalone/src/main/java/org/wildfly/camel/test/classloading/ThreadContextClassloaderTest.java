@@ -30,12 +30,10 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-@Ignore("[ARQ-1913] ARQ calls test methods with TCCL being set")
 public class ThreadContextClassloaderTest {
 
     @Deployment

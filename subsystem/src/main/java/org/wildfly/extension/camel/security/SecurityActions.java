@@ -18,8 +18,7 @@
  * #L%
  */
 
-
-package org.wildfly.extension.camel.parser;
+package org.wildfly.extension.camel.security;
 
 import static java.lang.System.getProperty;
 import static java.lang.System.getSecurityManager;
