@@ -31,12 +31,13 @@ import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.auth.login.AppConfigurationEntry;
+import javax.security.auth.login.AppConfigurationEntry.LoginModuleControlFlag;
 import javax.security.auth.login.Configuration;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 
+import org.jboss.modules.ModuleClassLoader;
 import org.jboss.security.ClientLoginModule;
-
 
 /**
  * Provides access RunAs Client login context
@@ -44,7 +45,7 @@ import org.jboss.security.ClientLoginModule;
  * @author Thomas.Diesler@jboss.com
  * @since 08-May-2015
  */
-public final class ClientLoginContext  {
+public final class ClientLoginContext {
 
     // Hide ctor
     private ClientLoginContext() {
@@ -75,12 +76,21 @@ public final class ClientLoginContext  {
                 options.put("multi-threaded", "true");
                 options.put("restore-login-identity", "true");
 
-                AppConfigurationEntry clmEntry = new AppConfigurationEntry(ClientLoginModule.class.getName(), AppConfigurationEntry.LoginModuleControlFlag.REQUIRED, options);
+                AppConfigurationEntry clmEntry = new AppConfigurationEntry(ClientLoginModule.class.getName(), LoginModuleControlFlag.REQUIRED, options);
 
-                return new AppConfigurationEntry[]{clmEntry};
+                return new AppConfigurationEntry[] { clmEntry };
             }
         };
 
-        return new LoginContext(configurationName, new Subject(), cbh, config);
+        ClassLoader tccl = SecurityActions.getContextClassLoader();
+        try {
+            if (!(tccl instanceof ModuleClassLoader)) {
+                ClassLoader modcl = ClientLoginContext.class.getClassLoader();
+                SecurityActions.setContextClassLoader(modcl);
+            }
+            return new LoginContext(configurationName, new Subject(), cbh, config);
+        } finally {
+            SecurityActions.setContextClassLoader(tccl);
+        }
     }
 }
