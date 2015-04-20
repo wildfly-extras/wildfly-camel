@@ -55,6 +55,7 @@
         <property name="hawtio.offline" value="true" />
         <property name="hawtio.realm" value="hawtio-domain" />
         <property name="hawtio.role" value="admin" />
+        <property name="hawtio.rolePrincipalClasses" value="org.jboss.security.SimplePrincipal" />
     </system-properties>
 
     <management>
