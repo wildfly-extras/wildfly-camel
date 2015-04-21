@@ -50,6 +50,9 @@ public class CamelContextCreateProcessor implements DeploymentUnitProcessor {
     public void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
 
         final DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
+        if (depUnit.getParent() != null)
+            return;
+
         final Module module = depUnit.getAttachment(Attachments.MODULE);
         final String runtimeName = depUnit.getName();
 
@@ -89,6 +92,5 @@ public class CamelContextCreateProcessor implements DeploymentUnitProcessor {
 
     @Override
     public void undeploy(final DeploymentUnit depUnit) {
-        depUnit.removeAttachment(CamelConstants.CAMEL_CONTEXT_KEY);
     }
 }
