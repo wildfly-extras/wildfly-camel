@@ -20,6 +20,8 @@
 
 package org.wildfly.camel.test.ejb;
 
+import javax.naming.InitialContext;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.ServiceStatus;
@@ -55,38 +57,46 @@ public class EjbEarIntegrationTest {
 
     @Test
     public void testEjbJarDeployment() throws Exception {
-        deployer.deploy(SIMPLE_JAR);
-        try {
-            assertContextAccess("ejb-jar-context");
-        } finally {
-            deployer.undeploy(SIMPLE_JAR);
-        }
+        CamelContext camelctx = contextRegistry.getContext("ejb-jar-context");
+        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
+        assertContextAccess(camelctx);
+    }
+
+    @Test
+    public void testEjbJarContextLookup() throws Exception {
+        InitialContext inicxt = new InitialContext();
+        CamelContext camelctx = (CamelContext) inicxt.lookup("java:jboss/camel/context/ejb-jar-context");
+        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
+        assertContextAccess(camelctx);
     }
 
     @Test
     public void testEjbEarDeployment() throws Exception {
-        deployer.deploy(SIMPLE_EAR);
-        try {
-            assertContextAccess("ejb-ear-context");
-        } finally {
-            deployer.undeploy(SIMPLE_EAR);
-        }
+        CamelContext camelctx = contextRegistry.getContext("ejb-ear-context");
+        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
+        assertContextAccess(camelctx);
     }
 
-    private void assertContextAccess(String contextName) {
-        CamelContext camelctx = contextRegistry.getContext(contextName);
+    @Test
+    public void testEjbEarContextLookup() throws Exception {
+        InitialContext inicxt = new InitialContext();
+        CamelContext camelctx = (CamelContext) inicxt.lookup("java:jboss/camel/context/ejb-ear-context");
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
+        assertContextAccess(camelctx);
+    }
+
+    private void assertContextAccess(CamelContext camelctx) {
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);
         Assert.assertEquals("Hello Kermit", result);
     }
 
-    @Deployment(name = SIMPLE_JAR, managed = false, testable = false)
+    @Deployment(name = SIMPLE_JAR, managed = true, testable = false)
     public static JavaArchive createJarDeployment() {
         return getEjbModule("ejb/ejb-jar-camel-context.xml");
     }
 
-    @Deployment(name = SIMPLE_EAR, managed = false, testable = false)
+    @Deployment(name = SIMPLE_EAR, managed = true, testable = false)
     public static EnterpriseArchive createEarDeployment() {
         EnterpriseArchive ear = ShrinkWrap.create(EnterpriseArchive.class, SIMPLE_EAR);
         ear.addAsModule(getEjbModule("ejb/ejb-ear-camel-context.xml"));
@@ -95,8 +105,8 @@ public class EjbEarIntegrationTest {
 
     private static JavaArchive getEjbModule(String descriptorName) {
         JavaArchive jar = ShrinkWrap.create(JavaArchive.class, SIMPLE_JAR);
-        jar.addClasses(HelloBean.class);
         jar.addAsManifestResource(descriptorName, "ejb-camel-context.xml");
+        jar.addClasses(HelloBean.class);
         return jar;
     }
 }
