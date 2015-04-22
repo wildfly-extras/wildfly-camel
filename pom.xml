@@ -85,7 +85,6 @@
         <version.junit>4.11</version.junit>
         <version.osgi>5.0.0</version.osgi>
         <version.slf4j>1.6.6</version.slf4j>
-        <version.smartics.config>2.0.1</version.smartics.config>
 
         <!-- Plugin versions -->
         <version-build-helper-plugin>1.9.1</version-build-helper-plugin>
@@ -108,7 +107,7 @@
         <version-maven-war-plugin>2.5</version-maven-war-plugin>
         <version-properties-maven-plugin>1.0-alpha-2</version-properties-maven-plugin>
         <version-shrinkwrap-resolver-plugin>2.1.1</version-shrinkwrap-resolver-plugin>
-        <version-smartics-maven-plugin>1.37</version-smartics-maven-plugin>
+        <version-smartics-maven-plugin>1.38</version-smartics-maven-plugin>
         <version-wildfly-maven-plugin>1.0.2.Final</version-wildfly-maven-plugin>
         <version-xmlbeans-maven-plugin>2.3.3</version-xmlbeans-maven-plugin>
     </properties>
@@ -666,6 +665,9 @@
         <pluginRepository>
             <id>smartics</id>
             <url>http://www.smartics.eu/nexus/content/groups/public-group</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 
