@@ -19,8 +19,10 @@
                 xmlns:xdt="http://www.w3.org/2005/xpath-datatypes"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:ns1="urn:jboss:domain:switchyard:1.0"
-                xmlns:as="urn:jboss:domain:1.6"
-                exclude-result-prefixes="xs xsl xsi fn xdt as">
+                xmlns:as="urn:jboss:domain:1.7"
+                xmlns:security="urn:jboss:domain:security:1.2"
+                xmlns:camel="urn:jboss:domain:camel:1.0"
+                exclude-result-prefixes="xs xsl xsi fn xdt as camel security">
 
   <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
 
@@ -30,6 +32,22 @@
     </xsl:copy>
   </xsl:template>
 
-  <!-- TODO -->
+  <xsl:template match="as:extension[@module='org.wildfly.extension.camel']">
+  </xsl:template>
+
+  <xsl:template match="as:property[starts-with(@name,'hawtio.')]">
+  </xsl:template>
+
+  <xsl:template match="//*[local-name()='subsystem' and contains(namespace-uri(),'urn:jboss:domain:weld')]">
+    <xsl:copy>
+      <xsl:apply-templates select="@*[name(.)!='require-bean-descriptor']|node()"/>
+    </xsl:copy>
+  </xsl:template>
+
+  <xsl:template match="security:security-domain[@name='hawtio-domain']">
+  </xsl:template>
+
+  <xsl:template match="camel:subsystem">
+  </xsl:template>
 
 </xsl:stylesheet>
