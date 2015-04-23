@@ -1,0 +1,15 @@
+        <subsystem xmlns="urn:jboss:domain:camel:1.0">
+          <!-- You can add static camelContext definitions here. -->
+          <!--
+             <camelContext id="system-context-1">
+               <![CDATA[
+               <route>
+                 <from uri="direct:start"/>
+                 <transform>
+                   <simple>Hello #{body}</simple>
+                 </transform>
+               </route>
+               ]]>
+             </camelContext>
+          -->
+        </subsystem>

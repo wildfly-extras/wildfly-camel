@@ -55,16 +55,16 @@ public class ConfigMain {
     }
 
     private static void run(String jbossHome, String[] args) throws Exception {
-        XSLTransformer transformer=new XSLTransformer();
+        WildflyCamelConfigEditor transformer=new WildflyCamelConfigEditor();
         String standalonePath = jbossHome + "/standalone/configuration";
         String domainPath = jbossHome + "/domain/configuration";
         File stanaloneFile = new File(standalonePath);
         File domainFile = new File(domainPath);
         if (stanaloneFile.exists() && domainFile.exists()) {
             if (args[0].equals("enable")) {
-                transformer.applyXSLT(true, jbossHome);
+                transformer.applyConfigChange(true, jbossHome);
             } else if (args[0].equals("disable")) {
-                transformer.applyXSLT(false, jbossHome);
+                transformer.applyConfigChange(false, jbossHome);
             } else {
                 System.out.println("\t"+ PROCESS_NAME +" [disable|enable]");
             }

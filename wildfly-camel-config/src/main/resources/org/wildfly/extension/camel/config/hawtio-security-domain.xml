@@ -1,0 +1,7 @@
+                <security-domain name="hawtio-domain" cache-type="default">
+                    <authentication>
+                        <login-module code="RealmDirect" flag="required">
+                            <module-option name="realm" value="ManagementRealm"/>
+                        </login-module>
+                    </authentication>
+                </security-domain>
