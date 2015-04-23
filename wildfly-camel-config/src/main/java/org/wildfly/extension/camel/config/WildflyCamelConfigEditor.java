@@ -54,9 +54,9 @@ public class WildflyCamelConfigEditor extends AbstractConfigEditor {
     protected void addCamelExtension(Document doc) {
         Element extensions = doc.getRootElement().getChild("extensions");
         assertExists(extensions, "Did not find the <extensions> element");
-        Element element = findElementWithAttributeValue(extensions.getChildren("element"), "module", "org.wildfly.extension.camel");
+        Element element = findElementWithAttributeValue(extensions.getChildren("extension"), "module", "org.wildfly.extension.camel");
         if( element== null ) {
-            element = new Element ("element");
+            element = new Element ("extension");
             element.addAttribute("module", "org.wildfly.extension.camel");
             extensions.addNodes(
                     new Text("    "),
