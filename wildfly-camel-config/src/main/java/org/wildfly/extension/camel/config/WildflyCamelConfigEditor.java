@@ -16,105 +16,81 @@
 package org.wildfly.extension.camel.config;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import de.pdark.decentxml.*;
 
+import static org.wildfly.extension.camel.config.ConfigSupport.*;
+
 /**
  */
-public class WildflyCamelConfigEditor extends AbstractConfigEditor {
+public class WildflyCamelConfigEditor implements ConfigEditor {
 
     @Override
-    protected void enableStandaloneConfig(Document doc) {
-        addCamelExtension(doc);
-        addCamelSubsystem(doc);
-        enableWeldConfig(doc);
-        addHawtIOSystemProperties(doc);
-        addHawtIOSecurityDomain(doc);
+    public void applyStandaloneConfigChange(boolean enable, Document doc) {
+        updateExtension(enable, doc);
+        updateSubsystem(enable, doc);
+        updateWeldConfig(enable, doc);
+        updateHawtIOSystemProperties(enable, doc);
+        updateHawtIOSecurityDomain(enable, doc);
     }
 
     @Override
-    protected void disableStandaloneConfig(Document doc) {
-        rmCamelExtension(doc);
-        rmCamelSubsystem(doc);
-        disableWeldConfig(doc);
-        rmHawtIOSystemProperties(doc);
-        rmHawtIOSecurityDomain(doc);
+    public void applyDomainConfigChange(boolean enable, Document doc) {
+        applyStandaloneConfigChange(enable, doc);
     }
 
-    @Override
-    protected void enableDomainConfig(Document doc) {
-
-    }
-
-    @Override
-    protected void disableDomainConfig(Document doc) {
-
-    }
-
-    protected void addCamelExtension(Document doc) {
+    public static void updateExtension(boolean enable, Document doc) {
         Element extensions = doc.getRootElement().getChild("extensions");
         assertExists(extensions, "Did not find the <extensions> element");
         Element element = findElementWithAttributeValue(extensions.getChildren("extension"), "module", "org.wildfly.extension.camel");
-        if( element== null ) {
-            element = new Element ("extension");
-            element.addAttribute("module", "org.wildfly.extension.camel");
+        if (enable && element == null) {
             extensions.addNodes(
                     new Text("    "),
-                    element,
+                    new Element("extension").addAttribute("module", "org.wildfly.extension.camel"),
                     new Text("\n    ")
             );
         }
-    }
-
-    protected void rmCamelExtension(Document doc) {
-        Element extensions = doc.getRootElement().getChild("extensions");
-        assertExists(extensions, "Did not find the <extensions> element");
-        Element element = findElementWithAttributeValue(extensions.getChildren("element"), "module", "org.wildfly.extension.camel");
-        element.remove();
-    }
-
-    protected void enableWeldConfig(Document doc) {
-        Element profile = doc.getRootElement().getChild("profile");
-        assertExists(profile, "Did not find the <profile> element");
-        Element weld = findElementWithStartingAttributeValue(profile.getChildren("subsystem"), "xmlns", "urn:jboss:domain:weld:");
-        assertExists(weld, "Did not find the weld subsystem");
-        weld.setAttribute("require-bean-descriptor", "true");
-    }
-
-    protected void disableWeldConfig(Document doc) {
-        Element profile = doc.getRootElement().getChild("profile");
-        assertExists(profile, "Did not find the <profile> element");
-        Element weld = findElementWithStartingAttributeValue(profile.getChildren("subsystem"), "xmlns", "urn:jboss:domain:weld:");
-        assertExists(weld, "Did not find the weld subsystem");
-        weld.removeAttribute("require-bean-descriptor");
-    }
-
-    protected void addCamelSubsystem(Document doc) {
-        Element profile = doc.getRootElement().getChild("profile");
-        assertExists(profile, "Did not find the <profile> element");
-        Element camel = findElementWithStartingAttributeValue(profile.getChildren("subsystem"), "xmlns", "urn:jboss:domain:camel:");
-        if( camel == null ) {
-            camel = loadElementFrom(getClass().getResource("camel-subsystem.xml"));
-            profile.addNodes(
-                    new Text("    "),
-                    camel,
-                    new Text("\n    ")
-            );
+        if (!enable && element != null) {
+            element.remove();
         }
-
     }
 
-    protected void rmCamelSubsystem(Document doc) {
-        Element profile = doc.getRootElement().getChild("profile");
-        assertExists(profile, "Did not find the <profile> element");
-        Element camel = findElementWithStartingAttributeValue(profile.getChildren("subsystem"), "xmlns", "urn:jboss:domain:camel:");
-        camel.remove();
+    public static void updateWeldConfig(boolean enable, Document doc) {
+        List<Element> profiles = findProfileElements(doc);
+        for (Element profile : profiles) {
+            Element weld = findElementWithStartingAttributeValue(profile.getChildren("subsystem"), "xmlns", "urn:jboss:domain:weld:");
+            assertExists(weld, "Did not find the weld subsystem");
+            if (enable) {
+                weld.setAttribute("require-bean-descriptor", "true");
+            } else {
+                weld.removeAttribute("require-bean-descriptor");
+            }
+        }
     }
 
-    protected void addHawtIOSystemProperties(Document doc) {
+
+    public static void updateSubsystem(boolean enable, Document doc) {
+        List<Element> profiles = findProfileElements(doc);
+        for (Element profile : profiles) {
+            Element camel = findElementWithStartingAttributeValue(profile.getChildren("subsystem"), "xmlns", "urn:jboss:domain:camel:");
+            if (enable && camel == null) {
+                profile.addNodes(
+                        new Text("    "),
+                        loadElementFrom(WildflyCamelConfigEditor.class.getResource("camel-subsystem.xml")),
+                        new Text("\n    ")
+                );
+            }
+            if (!enable && camel != null) {
+                camel.remove();
+            }
+        }
+    }
+
+    public static void updateHawtIOSystemProperties(boolean enable, Document doc) {
         Element systemProperties = doc.getRootElement().getChild("system-properties");
-        if( systemProperties == null ) {
-            systemProperties = new Element ("system-properties");
+        if (systemProperties == null) {
+            systemProperties = new Element("system-properties");
             systemProperties.addNode(new Text("\n    "));
             doc.getRootElement().addNodes(
                     new Text("    "),
@@ -124,27 +100,22 @@ public class WildflyCamelConfigEditor extends AbstractConfigEditor {
         }
 
         LinkedHashMap<String, Element> propertiesByName = mapByAttributeName(systemProperties.getChildren(), "name");
-        addProperty(systemProperties, propertiesByName, "hawtio.authenticationEnabled", "true");
-        addProperty(systemProperties, propertiesByName, "hawtio.offline", "true");
-        addProperty(systemProperties, propertiesByName, "hawtio.realm", "hawtio-domain");
-        addProperty(systemProperties, propertiesByName, "hawtio.role", "admin");
-    }
-
-    protected void rmHawtIOSystemProperties(Document doc) {
-        Element systemProperties = doc.getRootElement().getChild("system-properties");
-        if( systemProperties == null ) {
-            return;
+        if (enable) {
+            addProperty(systemProperties, propertiesByName, "hawtio.authenticationEnabled", "true");
+            addProperty(systemProperties, propertiesByName, "hawtio.offline", "true");
+            addProperty(systemProperties, propertiesByName, "hawtio.realm", "hawtio-domain");
+            addProperty(systemProperties, propertiesByName, "hawtio.role", "admin");
+        } else {
+            rmProperty(propertiesByName, "hawtio.authenticationEnabled");
+            rmProperty(propertiesByName, "hawtio.offline");
+            rmProperty(propertiesByName, "hawtio.realm");
+            rmProperty(propertiesByName, "hawtio.role");
         }
-
-        LinkedHashMap<String, Element> propertiesByName = mapByAttributeName(systemProperties.getChildren(), "name");
-        rmProperty(propertiesByName, "hawtio.authenticationEnabled");
-        rmProperty(propertiesByName, "hawtio.offline");
-        rmProperty(propertiesByName, "hawtio.realm");
-        rmProperty(propertiesByName, "hawtio.role");
     }
 
-    private void addProperty(Element systemProperties, LinkedHashMap<String, Element> propertiesByName, String name, String value) {
-        if( !propertiesByName.containsKey(name) ) {
+
+    protected static void addProperty(Element systemProperties, LinkedHashMap<String, Element> propertiesByName, String name, String value) {
+        if (!propertiesByName.containsKey(name)) {
             systemProperties.addNodes(
                     new Text("   "),
                     new Element("property").
@@ -155,42 +126,34 @@ public class WildflyCamelConfigEditor extends AbstractConfigEditor {
         }
     }
 
-    private void rmProperty(LinkedHashMap<String, Element> propertiesByName, String name) {
+    protected static void rmProperty(LinkedHashMap<String, Element> propertiesByName, String name) {
         Element element = propertiesByName.get(name);
-        if( element!=null ) {
+        if (element != null) {
             element.remove();
         }
     }
 
-    protected void addHawtIOSecurityDomain(Document doc) {
-        Element profile = doc.getRootElement().getChild("profile");
-        assertExists(profile, "Did not find the <profile> element");
-        Element security = findElementWithStartingAttributeValue(profile.getChildren("subsystem"), "xmlns", "urn:jboss:domain:security:");
-        assertExists(security, "Did not find the security subsystem");
-        Element domains = security.getChild("security-domains");
-        assertExists(domains, "Did not find the <security-domains> element");
-        Element hawtioDomain = findElementWithAttributeValue(domains.getChildren("security-domain"), "name", "hawtio-domain");
-        if( hawtioDomain == null ) {
-            hawtioDomain = loadElementFrom(getClass().getResource("hawtio-security-domain.xml"));
-            domains.addNodes(
-                    new Text("    "),
-                    hawtioDomain,
-                    new Text("\n            ")
-            );
+    public static void updateHawtIOSecurityDomain(boolean enable, Document doc) {
+        List<Element> profiles = findProfileElements(doc);
+        for (Element profile : profiles) {
+
+            assertExists(profile, "Did not find the <profile> element");
+            Element security = findElementWithStartingAttributeValue(profile.getChildren("subsystem"), "xmlns", "urn:jboss:domain:security:");
+            assertExists(security, "Did not find the security subsystem");
+            Element domains = security.getChild("security-domains");
+            assertExists(domains, "Did not find the <security-domains> element");
+            Element hawtioDomain = findElementWithAttributeValue(domains.getChildren("security-domain"), "name", "hawtio-domain");
+            if (enable && hawtioDomain == null) {
+                domains.addNodes(
+                        new Text("    "),
+                        loadElementFrom(WildflyCamelConfigEditor.class.getResource("hawtio-security-domain.xml")),
+                        new Text("\n            ")
+                );
+            }
+            if (!enable && hawtioDomain != null) {
+                hawtioDomain.remove();
+            }
         }
-
-
-    }
-
-    protected void rmHawtIOSecurityDomain(Document doc) {
-        Element profile = doc.getRootElement().getChild("profile");
-        assertExists(profile, "Did not find the <profile> element");
-        Element security = findElementWithStartingAttributeValue(profile.getChildren("subsystem"), "xmlns", "urn:jboss:domain:security:");
-        assertExists(security, "Did not find the security subsystem");
-        Element domains = security.getChild("security-domains");
-        assertExists(domains, "Did not find the <security-domains> element");
-        Element hawtioDomain = findElementWithAttributeValue(domains.getChildren("security-domain"), "name", "hawtio-domain");
-        hawtioDomain.remove();
     }
 
 }

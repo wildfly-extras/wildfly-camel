@@ -15,63 +15,37 @@
  */
 package org.wildfly.extension.camel.config;
 
-import java.io.File;
-import java.net.URLDecoder;
+import static org.wildfly.extension.camel.config.ConfigSupport.BadDocument;
+import static org.wildfly.extension.camel.config.ConfigSupport.CommandException;
+import static org.wildfly.extension.camel.config.ConfigSupport.applyConfigChange;
+import static org.wildfly.extension.camel.config.ConfigSupport.getJBossHome;
 
 /**
- * Main class that executes the xslt fuse integration transformations on the EAP
+ * Main class that executes the wildfly-camel transformations on the EAP
  * configuration files
- *
- * @author David Virgil Naranjo 2015 Red Hat Inc.
  */
 public class ConfigMain {
-    static String PROCESS_NAME = "wildfly-camel-config";
+    static String PROCESS_NAME = "wildfly-camel-config.jar";
 
-    /**
-     * The main method.
-     *
-     * @param args
-     *            the arguments
-     * @throws Exception
-     *             the exception
-     */
     public static void main(String[] args) throws Exception {
         if(args.length!=1){
             System.out.println(PROCESS_NAME + " [disable|enable]");
         } else {
-            String jbossHome = System.getProperty("jboss.home");
-            if( jbossHome==null ) {
-                String path = ConfigMain.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-                String decodedPath = URLDecoder.decode(path, "UTF-8");
-                String containingFolder = decodedPath.substring(0, decodedPath.lastIndexOf(File.separator));
-                if (containingFolder.endsWith("bin")) {
-                    jbossHome = containingFolder.substring(0, containingFolder.lastIndexOf(File.separator));
+            try {
+                WildflyCamelConfigEditor editor=new WildflyCamelConfigEditor();
+                if (args[0].equals("enable")) {
+                    applyConfigChange(getJBossHome(), true, editor);
+                } else if (args[0].equals("disable")) {
+                    applyConfigChange(getJBossHome(), false, editor);
                 } else {
-                    System.out.println("\t The execution is not correct. This jar should be placed inside of ${JBOSS_HOME}/bin");
+                    System.out.println("\t"+ PROCESS_NAME +" [disable|enable]");
                 }
+            } catch (BadDocument e) {
+                System.out.println(e.getMessage());
+            } catch (CommandException e) {
+                System.out.println(e.getMessage());
             }
-            run(jbossHome, args);
         }
     }
-
-    private static void run(String jbossHome, String[] args) throws Exception {
-        WildflyCamelConfigEditor transformer=new WildflyCamelConfigEditor();
-        String standalonePath = jbossHome + "/standalone/configuration";
-        String domainPath = jbossHome + "/domain/configuration";
-        File stanaloneFile = new File(standalonePath);
-        File domainFile = new File(domainPath);
-        if (stanaloneFile.exists() && domainFile.exists()) {
-            if (args[0].equals("enable")) {
-                transformer.applyConfigChange(true, jbossHome);
-            } else if (args[0].equals("disable")) {
-                transformer.applyConfigChange(false, jbossHome);
-            } else {
-                System.out.println("\t"+ PROCESS_NAME +" [disable|enable]");
-            }
-        } else {
-            System.out.println("\t The execution is not correct. This jar should be placed inside of ${JBOSS_HOME}/bin");
-        }
-    }
-
 
 }
