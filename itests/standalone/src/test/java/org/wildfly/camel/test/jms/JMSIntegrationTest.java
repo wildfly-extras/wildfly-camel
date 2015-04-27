@@ -20,7 +20,8 @@
 
 package org.wildfly.camel.test.jms;
 
-import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -37,9 +38,12 @@ import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
 import org.apache.camel.PollingConsumer;
+import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jms.JmsMessage;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -49,11 +53,10 @@ import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.as.test.integration.common.jms.JMSOperations;
 import org.jboss.as.test.integration.common.jms.JMSOperationsProvider;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -94,20 +97,11 @@ public class JMSIntegrationTest {
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-jms-tests");
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.jboss.as.controller-client");
-                return builder.openStream();
-            }
-        });
-        return archive;
+        return ShrinkWrap.create(JavaArchive.class, "camel-jms-tests");
     }
 
     @Test
-    public void testSendMessage() throws Exception {
+    public void testMessageConsumerRoute() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -140,7 +134,49 @@ public class JMSIntegrationTest {
     }
 
     @Test
-    public void testReceiveMessage() throws Exception {
+    @Ignore("[CAMEL-8711] JMS Session not exposed to Camel route")
+    public void testMessageConsumerRouteWithClientAck() throws Exception {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("jms:queue:" + QUEUE_NAME + "?connectionFactory=ConnectionFactory&acknowledgementModeName=CLIENT_ACKNOWLEDGE").
+                process(new Processor() {
+                    @Override
+                    public void process(Exchange exchange) throws Exception {
+                        JmsMessage in = (JmsMessage) exchange.getIn();
+                        Message message = in.getJmsMessage();
+                        message.acknowledge();
+                    }
+                }).
+                transform(body().prepend("Hello ")).to("direct:end");
+            }
+        });
+
+        camelctx.start();
+
+        PollingConsumer consumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
+        consumer.start();
+
+        try {
+            // Send a message to the queue
+            ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
+            Connection conection = cfactory.createConnection();
+            try {
+                sendMessage(conection, QUEUE_JNDI_NAME, "Kermit");
+                String result = consumer.receive().getIn().getBody(String.class);
+                Assert.assertEquals("Hello Kermit", result);
+            } finally {
+                conection.close();
+            }
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testMessageProviderRoute() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -152,7 +188,7 @@ public class JMSIntegrationTest {
             }
         });
 
-        final StringBuffer result = new StringBuffer();
+        final List<String> result = new ArrayList<>();
         final CountDownLatch latch = new CountDownLatch(1);
 
         camelctx.start();
@@ -166,9 +202,9 @@ public class JMSIntegrationTest {
                     public void onMessage(Message message) {
                         TextMessage text = (TextMessage) message;
                         try {
-                            result.append(text.getText());
+                            result.add(text.getText());
                         } catch (JMSException ex) {
-                            result.append(ex.getMessage());
+                            result.add(ex.getMessage());
                         }
                         latch.countDown();
                     }
@@ -178,7 +214,77 @@ public class JMSIntegrationTest {
                 producer.asyncSendBody("direct:start", "Kermit");
 
                 Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
-                Assert.assertEquals("Hello Kermit", result.toString());
+                Assert.assertEquals("One message", 1, result.size());
+                Assert.assertEquals("Hello Kermit", result.get(0));
+            } finally {
+                connection.close();
+            }
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testMessageProviderRouteWithClientAck() throws Exception {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start").
+                transform(body().prepend("Hello ")).
+                to("jms:queue:" + QUEUE_NAME + "?connectionFactory=ConnectionFactory");
+            }
+        });
+
+        final List<String> result = new ArrayList<>();
+        final CountDownLatch latch = new CountDownLatch(4);
+
+        camelctx.start();
+        try {
+            // Get the message from the queue
+            ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
+            Connection connection = cfactory.createConnection();
+            final Session session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
+            Destination destination = (Destination) initialctx.lookup(QUEUE_JNDI_NAME);
+            MessageConsumer consumer = session.createConsumer(destination);
+            consumer.setMessageListener(new MessageListener() {
+                @Override
+                public void onMessage(Message message) {
+                    TextMessage text = (TextMessage) message;
+                    try {
+                        // always append the message text
+                        long count = latch.getCount();
+                        result.add(text.getText() + " " + (5 - count));
+
+                        if (count == 4) {
+                            // do nothing on first
+                        } else if (count == 3) {
+                            // recover causing a redelivery
+                            session.recover();
+                        } else {
+                            // ackknowledge
+                            message.acknowledge();
+                        }
+                    } catch (JMSException ex) {
+                        result.add(ex.getMessage());
+                    }
+                    latch.countDown();
+                }
+            });
+            connection.start();
+
+            try {
+                ProducerTemplate producer = camelctx.createProducerTemplate();
+                producer.asyncSendBody("direct:start", "Kermit");
+                producer.asyncSendBody("direct:start", "Piggy");
+
+                Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
+                Assert.assertEquals("Four messages", 4, result.size());
+                Assert.assertEquals("Hello Kermit 1", result.get(0));
+                Assert.assertEquals("Hello Piggy 2", result.get(1));
+                Assert.assertTrue("Contains Kermit 3", result.contains("Hello Kermit 3"));
+                Assert.assertTrue("Contains Piggy 4", result.contains("Hello Piggy 4"));
             } finally {
                 connection.close();
             }
@@ -196,11 +302,12 @@ public class JMSIntegrationTest {
         connection.start();
     }
 
-    private void receiveMessage(Connection connection, String jndiName, MessageListener listener) throws Exception {
+    private Session receiveMessage(Connection connection, String jndiName, MessageListener listener) throws Exception {
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         Destination destination = (Destination) initialctx.lookup(jndiName);
         MessageConsumer consumer = session.createConsumer(destination);
         consumer.setMessageListener(listener);
         connection.start();
+        return session;
     }
 }
