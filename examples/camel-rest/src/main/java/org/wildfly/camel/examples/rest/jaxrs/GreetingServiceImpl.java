@@ -19,18 +19,21 @@
  */
 package org.wildfly.camel.examples.rest.jaxrs;
 
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
-import java.util.HashSet;
-import java.util.Set;
+import javax.ws.rs.core.Response;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
-@ApplicationPath("/rest")
-public class RestApplication extends Application {
+/**
+ * This web service is used for the Openshift examples.
+ *
+ * http://wildflyext.gitbooks.io/wildfly-camel/content/cloud/openshift.html
+ */
+public class GreetingServiceImpl implements GreetingService {
+
     @Override
-    public Set<Class<?>> getClasses() {
-        final Set<Class<?>> classes = new HashSet<>();
-        classes.add(CustomerServiceImpl.class);
-        classes.add(GreetingServiceImpl.class);
-        return classes;
+    public Response greet(String name) throws UnknownHostException {
+        String hostAddress = InetAddress.getLocalHost().getHostAddress();
+        String message = "Hello " + name + " from " + hostAddress + "\n";
+        return Response.ok().entity(message).build();
     }
 }

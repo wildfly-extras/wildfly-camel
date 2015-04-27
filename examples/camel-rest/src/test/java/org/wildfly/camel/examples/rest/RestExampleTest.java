@@ -149,6 +149,12 @@ public class RestExampleTest {
         Assert.assertEquals(404, response.getStatusCode());
     }
 
+    @Test
+    public void testGreet() throws Exception {
+        HttpResponse response = HttpRequest.get(getEndpointAddress("/rest/greet/hello/Kermit")).getResponse();
+        Assert.assertTrue(response.getBody().startsWith("Hello Kermit"));
+    }
+
     private HttpResponse createCustomer() throws Exception {
         return HttpRequest.post(getEndpointAddress("/camel/customer/"))
                 .header("Content-Type", MediaType.APPLICATION_JSON)
