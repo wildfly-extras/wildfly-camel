@@ -54,7 +54,6 @@
         <property name="hawtio.authenticationEnabled" value="true" />
         <property name="hawtio.offline" value="true" />
         <property name="hawtio.realm" value="hawtio-domain" />
-        <property name="hawtio.role" value="admin" />
     </system-properties>
 
     <management>
