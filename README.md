@@ -11,8 +11,8 @@ Your Enterprise Integration Solution can be architected as a combination of Java
 * [User Guide](http://wildflyext.gitbooks.io/wildfly-camel/content/)
 * [Roadmap](https://github.com/wildfly-extras/wildfly-camel/wiki/Roadmap)
 * [Whishlist](https://github.com/wildfly-extras/wildfly-camel/wiki/Whishlist)
-* [JavaEE Integration](http://wildflyext.gitbooks.io/wildfly-camel/content/javaee/README.html)
-* [Camel Components](http://wildflyext.gitbooks.io/wildfly-camel/content/components/README.html)
+* [JavaEE Integration](http://wildflyext.gitbooks.io/wildfly-camel/content/javaee/index.html)
+* [Camel Components](http://wildflyext.gitbooks.io/wildfly-camel/content/components/index.html)
 
 If you like to contribute to the docs, please file a [pull request](https://github.com/wildfly-extras/wildfly-camel-book/branches) against the next version branch.
 
@@ -24,7 +24,7 @@ Minimum of Java 1.7, to run WildFly and Maven.
 
 #### Maven
 
-Minimum of Maven 3.2.3. Maven 3.2.5 and above is not currently supported.
+Minimum of Maven 3.2.3.
 
 
 ### Build
