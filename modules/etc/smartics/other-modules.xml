@@ -24,6 +24,17 @@
         <include artifact=":cglib-nodep" />
     </module>
 
+    <module name="com.fasterxml.jackson.json">
+        <include artifact=":jackson-module-jsonSchema" />
+    </module>
+
+    <module name="com.fasterxml.jackson.scala">
+        <include artifact=":jackson-module-scala(.*)" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
+    </module>
+
     <module name="com.jcraft.jsch">
         <include artifact=":jsch" />
     </module>
@@ -179,6 +190,21 @@
 
     <module name="org.jasypt">
         <include artifact="org.jasypt:jasypt" />
+    </module>
+    
+    <module name="org.json4s">
+        <include artifact="org.json4s:json4s-(.*)" />
+        <dependencies>
+            <module name="com.fasterxml.jackson.core.jackson-core"/>
+        </dependencies>
+    </module>
+    
+    <module name="org.joda.convert">
+        <include artifact=":joda-convert" />
+    </module>
+    
+    <module name="org.scala.lang">
+        <include artifact="org.scala-lang:(.*)" />
     </module>
     
     <module name="org.osgi.enterprise">

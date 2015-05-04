@@ -33,7 +33,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
-import org.wildfly.camel.test.common.HttpResponse;
+import org.wildfly.camel.test.common.HttpRequest.HttpResponse;
 
 @RunWith(Arquillian.class)
 public class ServletIntegrationTest {
@@ -42,7 +42,7 @@ public class ServletIntegrationTest {
     public static WebArchive createDeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel.war");
         archive.addAsWebInfResource("servlet/web.xml", "web.xml");
-        archive.addClasses(HttpRequest.class, HttpResponse.class);
+        archive.addClasses(HttpRequest.class);
         return archive;
     }
 

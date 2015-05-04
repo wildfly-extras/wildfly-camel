@@ -41,8 +41,9 @@ import java.util.concurrent.TimeoutException;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class HttpRequest {
+public final class HttpRequest {
 
+    // Hide ctor
     private HttpRequest(){
     }
 
@@ -181,10 +182,12 @@ public class HttpRequest {
 
             if (throwExceptionOnFailure && responseCode != HttpURLConnection.HTTP_OK) {
                 final InputStream err = conn.getErrorStream();
-                try {
-                    throw new IOException(read(err));
-                } finally {
-                    err.close();
+                if (err != null) {
+                    try {
+                        throw new IOException(read(err));
+                    } finally {
+                        err.close();
+                    }
                 }
             }
             final InputStream in = conn.getInputStream();
@@ -196,6 +199,31 @@ public class HttpRequest {
             } finally {
                 in.close();
             }
+        }
+    }
+
+    public static class HttpResponse {
+        private int statusCode;
+        private String body;
+
+        public int getStatusCode() {
+            return statusCode;
+        }
+
+        public void setStatusCode(int statusCode) {
+            this.statusCode = statusCode;
+        }
+
+        public String getBody() {
+            return body;
+        }
+
+        public void setBody(String body) {
+            this.body = body;
+        }
+
+        public String toString() {
+            return "HttpResponse{status=" + statusCode + "}";
         }
     }
 }

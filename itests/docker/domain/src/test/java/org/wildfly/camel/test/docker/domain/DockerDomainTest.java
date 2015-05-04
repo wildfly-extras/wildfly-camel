@@ -19,6 +19,10 @@
  */
 package org.wildfly.camel.test.docker.domain;
 
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.concurrent.TimeUnit;
+
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.arquillian.api.ContainerResource;
@@ -27,13 +31,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
-import org.wildfly.camel.test.common.HttpResponse;
+import org.wildfly.camel.test.common.HttpRequest.HttpResponse;
 import org.wildfly.camel.test.common.docker.DeployCommand;
 import org.wildfly.camel.test.common.docker.DockerCommand.Result;
-
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.concurrent.TimeUnit;
 
 
 @RunAsClient

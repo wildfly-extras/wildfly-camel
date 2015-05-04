@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +19,12 @@
  */
 package org.wildfly.camel.examples.rest;
 
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import javax.ws.rs.core.MediaType;
+
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.After;
@@ -26,12 +32,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
-import org.wildfly.camel.test.common.HttpResponse;
-
-import javax.ws.rs.core.MediaType;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import org.wildfly.camel.test.common.HttpRequest.HttpResponse;
 
 
 @RunWith(Arquillian.class)

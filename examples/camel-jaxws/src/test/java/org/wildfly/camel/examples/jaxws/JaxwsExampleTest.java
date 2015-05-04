@@ -19,15 +19,15 @@
  */
 package org.wildfly.camel.examples.jaxws;
 
+import javax.ws.rs.core.MediaType;
+
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
-import org.wildfly.camel.test.common.HttpResponse;
-
-import javax.ws.rs.core.MediaType;
+import org.wildfly.camel.test.common.HttpRequest.HttpResponse;
 
 @RunAsClient
 @RunWith(Arquillian.class)

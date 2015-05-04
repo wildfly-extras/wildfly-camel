@@ -18,23 +18,33 @@
   limitations under the License.
   #L%
   -->
-        <!--
-          This file holds all the module definitions that come with wildfly.  Here
-          we map maven artifacts to those modules, but skip generating the modules since
-          they are provided for us.
-        -->
+  
+<!--
+  This file holds all the module definitions that come with wildfly.  Here
+  we map maven artifacts to those modules, but skip generating the modules since
+  they are provided for us.
+-->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="com.fasterxml.jackson.core.jackson-annotations" skip="true">
+        <include artifact=":jackson-annotations" />
+    </module>
+
     <module name="com.fasterxml.jackson.core.jackson-core" skip="true">
-        <include artifact="com.fasterxml.jackson.core:jackson-core" />
+        <include artifact=":jackson-core" />
     </module>
 
     <module name="com.fasterxml.jackson.core.jackson-databind" skip="true">
-        <include artifact="com.fasterxml.jackson.core:jackson-databind" />
+        <include artifact=":jackson-databind" />
     </module>
 
     <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" skip="true">
+        <include artifact=":jackson-jaxrs-json-provider" />
         <include artifact=":jackson-module-jaxb-annotations" />
+    </module>
+
+    <module name="com.google.guava" skip="true">
+        <include artifact=":guava" />
     </module>
 
     <module name="io.netty" skip="true">
@@ -118,6 +128,7 @@
 
     <module name="javax.ws.rs.api" skip="true">
         <include artifact=":javax.ws.rs-api" />
+        <include artifact=":jsr311-api" />
     </module>
 
     <module name="javax.xml.bind.api" skip="true">

@@ -586,6 +586,23 @@
         </dependencies>
     </module>
     
+    <module name="org.apache.camel.component.swagger">
+        <include artifact="org.apache.camel:camel-swagger" />
+        <include artifact="com.wordnik:swagger-(.*)" />
+        <apply-to-dependencies skip="true">
+            <include module="ch.qos.logback" />
+            <include module="com.google.code.findbugs" />
+            <include module="org.apache.camel.apt" />
+            <include module="org.reflections" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+        <exports>
+            <exclude path="com/wordnik" />
+        </exports>
+    </module>
+    
     <module name="org.apache.camel.component.tagsoup">
         <include artifact="org.apache.camel:camel-tagsoup" />
         <include artifact=":tagsoup" />

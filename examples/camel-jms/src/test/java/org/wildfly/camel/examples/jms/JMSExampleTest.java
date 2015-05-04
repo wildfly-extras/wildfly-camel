@@ -19,15 +19,6 @@
  */
 package org.wildfly.camel.examples.jms;
 
-import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.HttpRequest;
-import org.wildfly.camel.test.common.HttpResponse;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,6 +28,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+
+import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.jboss.arquillian.junit.Arquillian;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.HttpRequest;
+import org.wildfly.camel.test.common.HttpRequest.HttpResponse;
 
 @RunAsClient
 @RunWith(Arquillian.class)

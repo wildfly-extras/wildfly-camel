@@ -35,9 +35,18 @@
         <include artifact="asm:asm-util" />
     </module>
     
+    <module name="ch.qos.logback" skip="true">
+        <include artifact="ch.qos.logback:logback-classic" />
+        <include artifact="ch.qos.logback:logback-core" />
+    </module>
+    
     <module name="com.github.jnr" skip="true">
         <include artifact="com.github.jnr:jnr-(.*)" />
         <include artifact="com.github.jnr:jffi" />
+    </module>
+    
+    <module name="com.google.code.findbugs" skip="true">
+        <include artifact="com.google.code.findbugs:(.*)" />
     </module>
     
     <module name="com.headius" skip="true">
@@ -123,6 +132,10 @@
 
     <module name="org.osgi.compendium" skip="true">
         <include artifact="org.osgi:org.osgi.compendium" />
+    </module>
+    
+    <module name="org.reflections" skip="true">
+        <include artifact="org.reflections:reflections" />
     </module>
     
 </modules>
