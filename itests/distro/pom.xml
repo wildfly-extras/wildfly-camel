@@ -61,7 +61,7 @@
                 <executions>
                     <execution>
                         <id>unpack-wildfly</id>
-                        <phase>package</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -80,7 +80,7 @@
                     </execution>
                     <execution>
                         <id>unpack-wildfly-patch</id>
-                        <phase>package</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -105,7 +105,7 @@
                 <executions>
                     <execution>
                         <id>copy-configurations</id>
-                        <phase>package</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
@@ -120,6 +120,30 @@
                     </execution>
                 </executions>
             </plugin>
+            
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>exec-maven-plugin</artifactId>
+              <version>1.4.0</version>
+              <executions>
+                <execution>
+                  <id>enabled-fuse-config</id>
+                  <phase>generate-resources</phase>
+                  <goals>
+                    <goal>exec</goal>
+                  </goals>
+                  <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                      <argument>-jar</argument>
+                      <argument>${project.build.directory}/wildfly-8.2.0.Final/bin/wildfly-camel-config.jar</argument>
+                      <argument>enable</argument>
+                    </arguments>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
+                        
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
