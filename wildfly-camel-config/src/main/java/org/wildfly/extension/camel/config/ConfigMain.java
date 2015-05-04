@@ -30,20 +30,23 @@ public class ConfigMain {
     public static void main(String[] args) throws Exception {
         if(args.length!=1){
             System.out.println(PROCESS_NAME + " [disable|enable]");
+            System.exit(1);
         } else {
             try {
-                WildflyCamelConfigEditor editor=new WildflyCamelConfigEditor();
                 if (args[0].equals("enable")) {
-                    applyConfigChange(getJBossHome(), true, editor);
+                    applyConfigChange(getJBossHome(), true, new WildflyCamelConfigEditor());
                 } else if (args[0].equals("disable")) {
-                    applyConfigChange(getJBossHome(), false, editor);
+                    applyConfigChange(getJBossHome(), false, new WildflyCamelConfigEditor());
                 } else {
                     System.out.println("\t"+ PROCESS_NAME +" [disable|enable]");
+                    System.exit(1);
                 }
             } catch (BadDocument e) {
                 System.out.println(e.getMessage());
+                System.exit(1);
             } catch (CommandException e) {
                 System.out.println(e.getMessage());
+                System.exit(1);
             }
         }
     }
