@@ -108,6 +108,7 @@
 
     <!-- Modules -->
     <modules>
+        <module>config</module>
         <module>enricher</module>
         <module>modules</module>
         <module>patch</module>

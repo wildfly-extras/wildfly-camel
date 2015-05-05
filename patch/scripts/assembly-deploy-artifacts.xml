@@ -17,31 +17,71 @@
   limitations under the License.
   #L%
   -->
-<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
 
-    <id>deploy-artifacts</id>
+    <id>distro</id>
     <formats>
-        <format>dir</format>
+        <format>tar.gz</format>
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
+    
+    <fileSets>
+      <fileSet>
+        <directory>etc/wildfly</directory>
+        <outputDirectory>/</outputDirectory>
+        <filtered>true</filtered>
+      </fileSet>
+      <fileSet>
+        <directory>../subsystem/src/main/resources/schema</directory>
+        <outputDirectory>docs/schema</outputDirectory>
+      </fileSet>
+    </fileSets>
 
-    <!-- Dependency Sets -->
     <dependencySets>
 
-        <!-- lib -->
         <dependencySet>
-            <outputDirectory>lib</outputDirectory>
-            <useStrictFiltering>true</useStrictFiltering>
-            <includes>
-                <include>*:gravia-container-*:jar</include>
-                <include>*:hawtio-wildfly:war</include>
-                <include>*:wildfly-camel-subsystem:jar</include>
-            </includes>
-            <scope>provided</scope>
-            <unpack>false</unpack>
+          <outputDirectory>modules/system/layers/fuse/org/wildfly/extension/camel/main</outputDirectory>
+          <includes>
+            <include>org.wildfly.camel:wildfly-camel-subsystem:jar</include>      
+            <include>org.jboss.gravia:gravia-container-wildfly-extension:jar</include>      
+          </includes>
+        </dependencySet>
+
+        <dependencySet>
+          <outputDirectory>standalone/deployments</outputDirectory>
+          <includes>
+            <include>io.hawt:hawtio-wildfly:war</include>      
+          </includes>
+        </dependencySet>
+
+        <dependencySet>
+          <outputDirectory>/</outputDirectory>
+          <includes>
+            <include>org.wildfly.camel:wildfly-camel-modules:tar.gz</include>      
+          </includes>
+          <useProjectArtifact>false</useProjectArtifact>
+          <useProjectAttachments>false</useProjectAttachments>
+          <useTransitiveDependencies>false</useTransitiveDependencies>
+          <useTransitiveFiltering>false</useTransitiveFiltering>
+          <directoryMode>0644</directoryMode>
+          <fileMode>0644</fileMode>
+          <unpack>true</unpack>
+        </dependencySet>
+
+        <dependencySet>
+          <outputDirectory>/bin</outputDirectory>
+          <includes>
+            <include>*:wildfly-camel-config:jar</include>      
+          </includes>
+          <outputFileNameMapping>wildfly-camel-config.jar</outputFileNameMapping>
+          <useProjectArtifact>false</useProjectArtifact>
+          <useProjectAttachments>false</useProjectAttachments>
+          <useTransitiveDependencies>false</useTransitiveDependencies>
+          <useTransitiveFiltering>false</useTransitiveFiltering>
+          <directoryMode>0755</directoryMode>
+          <fileMode>0755</fileMode>
         </dependencySet>
     </dependencySets>
-
+    
 </assembly>
