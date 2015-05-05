@@ -64,7 +64,7 @@ public class HawtIOIntegrationTest {
             String content = new String(readFully((InputStream) conn.getContent()), "UTF-8");
 
             // Let check to see if it has some of the expected output.
-            assertTrue(content.contains("\"request\":{\"mbean\":\"java.lang:type=Memory\""));
+            assertTrue("Unexpected content: "+content, content.contains("\"request\":{\"mbean\":\"java.lang:type=Memory\""));
 
         } finally {
             try {
