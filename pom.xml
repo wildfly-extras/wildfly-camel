@@ -113,6 +113,7 @@
         <module>patch</module>
         <module>subsystem</module>
         <module>itests</module>
+        <module>wildfly-camel-config</module>
     </modules>
 
     <!-- DependencyManagement -->

@@ -43,29 +43,31 @@
     <!-- Dependencies -->
     <dependencies>
         
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-config</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- Provided -->
         <dependency>
             <groupId>org.jboss.gravia</groupId>
             <artifactId>gravia-container-wildfly-extension</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-modules</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
-            <type>pom</type>
+            <type>tar.gz</type>
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-subsystem</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.hawt</groupId>
             <artifactId>hawtio-wildfly</artifactId>
-            <scope>provided</scope>
             <type>war</type>
         </dependency>
     </dependencies>
@@ -73,93 +75,22 @@
     <!-- Build -->
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>deploy-artifacts</id>
-                        <phase>generate-resources</phase>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
                         <goals>
-                            <goal>directory-single</goal>
+                            <goal>single</goal>
                         </goals>
                         <configuration>
-                            <finalName>deploy-artifacts</finalName>
-                            <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
                             <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
                                 <descriptor>scripts/assembly-deploy-artifacts.xml</descriptor>
                             </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack-wildfly-modules</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.wildfly.camel</groupId>
-                                    <artifactId>wildfly-camel-modules</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>tar.gz</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${wildfly.patch.dir}</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <inherited>false</inherited>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <target>
-                                <ant antfile="${basedir}/scripts/antrun-wildfly-patch.xml" inheritRefs="true" />
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-artifacts</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>attach-artifact</goal>
-                        </goals>
-                        <configuration>
-                            <artifacts>
-                                <!--
-                                <artifact>
-                                    <file>${wildfly.patch}.zip</file>
-                                    <type>zip</type>
-                                </artifact>
-                                -->
-                                <artifact>
-                                    <file>${wildfly.patch}.tar.gz</file>
-                                    <type>tar.gz</type>
-                                </artifact>
-                            </artifacts>
                         </configuration>
                     </execution>
                 </executions>
