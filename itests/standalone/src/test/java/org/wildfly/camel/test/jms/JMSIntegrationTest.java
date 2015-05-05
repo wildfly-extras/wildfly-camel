@@ -250,11 +250,11 @@ public class JMSIntegrationTest {
             MessageConsumer consumer = session.createConsumer(destination);
             consumer.setMessageListener(new MessageListener() {
                 @Override
-                public void onMessage(Message message) {
+                public synchronized void onMessage(Message message) {
                     TextMessage text = (TextMessage) message;
+                    long count = latch.getCount();
                     try {
                         // always append the message text
-                        long count = latch.getCount();
                         result.add(text.getText() + " " + (5 - count));
 
                         if (count == 4) {
@@ -276,15 +276,15 @@ public class JMSIntegrationTest {
 
             try {
                 ProducerTemplate producer = camelctx.createProducerTemplate();
-                producer.asyncSendBody("direct:start", "Kermit");
-                producer.asyncSendBody("direct:start", "Piggy");
+                producer.asyncSendBody("direct:start", "Message");
+                producer.asyncSendBody("direct:start", "Message");
 
                 Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
                 Assert.assertEquals("Four messages", 4, result.size());
-                Assert.assertEquals("Hello Kermit 1", result.get(0));
-                Assert.assertEquals("Hello Piggy 2", result.get(1));
-                Assert.assertTrue("Contains Kermit 3", result.contains("Hello Kermit 3"));
-                Assert.assertTrue("Contains Piggy 4", result.contains("Hello Piggy 4"));
+                Assert.assertEquals("Hello Message 1", result.get(0));
+                Assert.assertEquals("Hello Message 2", result.get(1));
+                Assert.assertEquals("Hello Message 3", result.get(2));
+                Assert.assertEquals("Hello Message 4", result.get(3));
             } finally {
                 connection.close();
             }
