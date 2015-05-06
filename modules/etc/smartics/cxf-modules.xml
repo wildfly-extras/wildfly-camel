@@ -21,7 +21,6 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
     <module name="org.apache.cxf" slot="3.0" inherit-slot="false">
-        <include artifact="asm:asm" />
         <include artifact="cxf-core" />
         <include artifact="cxf-rt-bindings-soap" />
         <include artifact="cxf-rt-bindings-xml" />

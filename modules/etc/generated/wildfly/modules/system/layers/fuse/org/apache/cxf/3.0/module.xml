@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.cxf" slot="3.0">
   <resources>
-    <resource-root path="asm-3.3.1.jar" />
     <resource-root path="cxf-core-3.0.4.jar" />
     <resource-root path="cxf-rt-bindings-soap-3.0.4.jar" />
     <resource-root path="cxf-rt-bindings-xml-3.0.4.jar" />
@@ -32,6 +31,7 @@
     <module name="javax.jws.api" />
     <module name="javax.servlet.api" />
     <module name="javax.xml.ws.api" />
+    <module name="asm.asm" />
     <module name="cglib.cglib-nodep" />
     <module name="javax.annotation.api" />
     <module name="javax.jms.api" />
