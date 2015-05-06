@@ -8,6 +8,7 @@
     <module name="javax.api" />
     <module name="javax.jws.api" />
     <module name="javax.ws.rs.api" />
+    <module name="javax.wsdl4j.api" />
     <module name="javax.xml.ws.api" />
     <module name="org.apache.cxf.ext" export="true">
       <exports>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.quartz">
   <resources>
-    <artifact name="${c3p0:c3p0}" />
+    <artifact name="${com.mchange:c3p0}" />
+    <artifact name="${com.mchange:mchange-commons-java}" />
     <artifact name="${org.quartz-scheduler:quartz}" />
   </resources>
   <dependencies>

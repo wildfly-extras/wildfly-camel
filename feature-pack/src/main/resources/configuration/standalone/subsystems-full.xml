@@ -18,7 +18,9 @@
         <subsystem>jmx.xml</subsystem>
         <subsystem>jpa.xml</subsystem>
         <subsystem>jsf.xml</subsystem>
+        <!-- [WFLY-5016] MBeanServer returns MBean names that do not match filter 
         <subsystem>jsr77.xml</subsystem>
+        -->
         <subsystem>mail.xml</subsystem>
         <subsystem>messaging.xml</subsystem>
         <subsystem>naming.xml</subsystem>

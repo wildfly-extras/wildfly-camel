@@ -189,6 +189,7 @@
             <module name="javax.api" />
             <module name="javax.jws.api" />
             <module name="javax.ws.rs.api" />
+            <module name="javax.wsdl4j.api" />
             <module name="javax.xml.ws.api" />
             <module name="org.apache.cxf.ext" export="true">
               <exports>
@@ -239,6 +240,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
+            <module name="org.apache.commons.lang3"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -294,23 +296,22 @@
             <module name="javax.enterprise.api" />
             <module name="javax.inject.api" />
             <module name="javax.interceptor.api" />
-            <module name="org.slf4j"/>
             <module name="org.apache.mina.core"/>
+            <module name="org.slf4j"/>
         </dependencies>
         <exports>
             <exclude path="ca/uhn" />
         </exports>
     </module>
 
-    <module name="org.apache.camel.component.http">
-        <include artifact="org.apache.camel:camel-http" />
+    <module name="org.apache.camel.component.http.common">
+        <include artifact="org.apache.camel:camel-http-common" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="javax.activation.api"/>
-            <module name="javax.servlet.api" />
-            <module name="org.slf4j" />
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
         </dependencies>
     </module>
     
@@ -320,7 +321,7 @@
             <include module="org.apache.camel.apt" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.apache.httpcomponents" />
+            <module name="javax.api"/>
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -626,7 +627,6 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.apache.commons.httpclient"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -691,8 +691,10 @@
         <include artifact="com.wordnik:swagger-(.*)" />
         <apply-to-dependencies skip="true">
             <include module="ch.qos.logback" />
+            <include module="com.fasterxml.jackson.scala" />
             <include module="com.google.code.findbugs" />
             <include module="org.apache.camel.apt" />
+            <include module="org.json4s" />
             <include module="org.reflections" />
         </apply-to-dependencies>
         <dependencies>

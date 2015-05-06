@@ -35,6 +35,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.zookeeper.EmbeddedZookeeperServer;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware

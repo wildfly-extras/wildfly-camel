@@ -54,7 +54,7 @@ public class DozerIntegrationTest {
     }
 
     @Test
-    public void testStatelessSessionBean() throws Exception {
+    public void testBeanMapping() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {

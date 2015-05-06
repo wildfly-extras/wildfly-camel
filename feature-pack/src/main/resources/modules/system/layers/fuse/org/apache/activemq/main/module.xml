@@ -15,7 +15,7 @@
     <module name="javax.jms.api" />
     <module name="javax.management.j2ee.api" />
     <module name="javax.transaction.api" />
-    <module name="org.apache.commons.pool" />
+    <module name="org.apache.commons.pool2" />
     <module name="org.apache.xbean.spring" />
     <module name="org.fusesource.hawtbuf" />
     <module name="org.fusesource.hawtdispatch" />

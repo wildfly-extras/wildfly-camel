@@ -20,15 +20,6 @@
 
 package org.wildfly.camel.test.kafka;
 
-import kafka.consumer.Consumer;
-import kafka.consumer.ConsumerConfig;
-import kafka.consumer.ConsumerIterator;
-import kafka.consumer.KafkaStream;
-import kafka.javaapi.consumer.ConsumerConnector;
-import kafka.javaapi.producer.Producer;
-import kafka.producer.KeyedMessage;
-import kafka.producer.ProducerConfig;
-
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +30,15 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+
+import kafka.consumer.Consumer;
+import kafka.consumer.ConsumerConfig;
+import kafka.consumer.ConsumerIterator;
+import kafka.consumer.KafkaStream;
+import kafka.javaapi.consumer.ConsumerConnector;
+import kafka.javaapi.producer.Producer;
+import kafka.producer.KeyedMessage;
+import kafka.producer.ProducerConfig;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -58,7 +58,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wildfly.camel.test.zookeeper.EmbeddedZookeeperServer;
+import org.wildfly.camel.test.common.zookeeper.EmbeddedZookeeperServer;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware

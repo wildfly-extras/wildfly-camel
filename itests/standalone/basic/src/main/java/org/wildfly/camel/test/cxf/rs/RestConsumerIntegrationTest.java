@@ -60,7 +60,7 @@ public class RestConsumerIntegrationTest {
         final CxfRsEndpoint cxfRsEndpoint = new CxfRsEndpoint(uri, component);
         cxfRsEndpoint.setCamelContext(camelctx);
         cxfRsEndpoint.setBus(defaultBus);
-        cxfRsEndpoint.setSetDefaultBus(true);
+        cxfRsEndpoint.setDefaultBus(true);
         cxfRsEndpoint.setResourceClasses(GreetingService.class);
 
         camelctx.addRoutes(new RouteBuilder() {

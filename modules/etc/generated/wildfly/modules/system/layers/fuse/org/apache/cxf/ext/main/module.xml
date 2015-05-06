@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.cxf.ext">
   <resources>
-    <resource-root path="cxf-rt-features-clustering-3.0.4.jar" />
-    <resource-root path="cxf-rt-frontend-jaxrs-3.0.4.jar" />
-    <resource-root path="cxf-rt-rs-client-3.0.4.jar" />
-    <resource-root path="cxf-rt-rs-security-oauth-3.0.4.jar" />
+    <resource-root path="cxf-rt-frontend-jaxrs-3.1.2.jar" />
+    <resource-root path="cxf-rt-rs-client-3.1.2.jar" />
+    <resource-root path="cxf-rt-rs-security-oauth-3.1.2.jar" />
     <resource-root path="oauth-20100527.jar" />
     <resource-root path="oauth-provider-20100527.jar" />
   </resources>

@@ -35,9 +35,17 @@
         <include artifact="asm:asm-util" />
     </module>
     
+    <module name="c3p0" skip="true">
+        <include artifact="c3p0:c3p0" />
+    </module>
+    
     <module name="ch.qos.logback" skip="true">
         <include artifact="ch.qos.logback:logback-classic" />
         <include artifact="ch.qos.logback:logback-core" />
+    </module>
+    
+    <module name="com.fasterxml.jackson.scala" skip="true">
+        <include artifact=":jackson-module-scala(.*)" />
     </module>
     
     <module name="com.github.jnr" skip="true">
@@ -117,6 +125,10 @@
         <include artifact="org.glassfish.web:javax.el" />
     </module>
     
+    <module name="org.json4s" skip="true">
+        <include artifact="org.json4s:json4s-(.*)" />
+    </module>
+    
     <module name="org.jboss.shrinkwrap" skip="true">
         <include artifact="org.jboss.shrinkwrap:(.*)" />
     </module>
@@ -150,4 +162,9 @@
         <include artifact="org.reflections:reflections" />
     </module>
     
+    <module name="org.scala"  skip="true">
+        <include artifact="org.scala-lang:scala-compiler" />
+        <include artifact="org.scala-lang:scala-reflect" />
+        <include artifact="org.scala-lang:scalap" />
+    </module>
 </modules>

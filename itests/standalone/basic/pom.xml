@@ -140,18 +140,32 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.wildfly.build</groupId>
-                <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <groupId>org.jboss.shrinkwrap.resolver</groupId>
                 <artifactId>shrinkwrap-resolver-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
     
+    <profiles>
+        <profile>
+            <id>running.server</id>
+            <activation>
+                <property>
+                    <name>!running.server</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.wildfly.build</groupId>
+                        <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.quartz">
   <resources>
-    <resource-root path="c3p0-0.9.1.2.jar" />
+    <resource-root path="c3p0-0.9.5.1.jar" />
+    <resource-root path="mchange-commons-java-0.2.10.jar" />
     <resource-root path="quartz-2.2.1.jar" />
   </resources>
   <dependencies>
