@@ -39,6 +39,10 @@
             <artifactId>camel-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jboss-dmr</artifactId>
         </dependency>

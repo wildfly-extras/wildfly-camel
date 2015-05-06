@@ -28,13 +28,6 @@
         <include artifact=":jackson-module-jsonSchema" />
     </module>
 
-    <module name="com.fasterxml.jackson.scala">
-        <include artifact=":jackson-module-scala(.*)" />
-        <apply-to-dependencies skip="true">
-            <include module="com.google.code.findbugs" />
-        </apply-to-dependencies>
-    </module>
-
     <module name="com.jcraft.jsch">
         <include artifact=":jsch" />
         <dependencies>
@@ -110,13 +103,6 @@
         <include artifact=":commons-csv" />
     </module>
     
-    <module name="org.apache.commons.httpclient">
-        <include artifact="commons-httpclient:commons-httpclient" />
-        <dependencies>
-            <module name="javax.api" />
-        </dependencies>
-    </module>
-    
     <module name="org.apache.commons.lang3">
         <include artifact="org.apache.commons:commons-lang3" />
     </module>
@@ -128,6 +114,13 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.commons.pool2">
+        <include artifact="org.apache.commons:commons-pool2" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+    
     <module name="org.apache.deltaspike.$1.$2">
         <include artifact=":deltaspike-(.*)-(.*)" />
         <apply-to-dependencies skip="true">
@@ -140,13 +133,13 @@
     </module>
 
     <module name="org.apache.kafka">
-        <include artifact="org.apache.kafka:kafka_2.10" />
+        <include artifact="org.apache.kafka:kafka_2.11" />
         <include artifact="com.yammer.metrics:metrics-core" />
         <include artifact="net.sf.jopt-simple:jopt-simple" />
         <include artifact="com.101tec:zkclient" />
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.scala.lang" />
+            <module name="org.scala.library" />
         </dependencies>
         <exports>
             <exclude path="com/yammer**" />
@@ -246,7 +239,7 @@
             <module name="org.joda.time" />
         </dependencies>
     </module>
-    
+
     <module name="org.joda.convert">
         <include artifact=":joda-convert" />
     </module>
@@ -264,7 +257,11 @@
 
     <module name="org.quartz">
         <include artifact="org.quartz-scheduler:quartz" />
-        <include artifact="c3p0:c3p0" />
+        <include artifact="com.mchange:mchange-commons-java" />
+        <include artifact="com.mchange:c3p0" />
+        <apply-to-dependencies skip="true">
+            <include module="c3p0" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
@@ -286,8 +283,12 @@
         </dependencies>
     </module>
 
-    <module name="org.scala.lang">
-        <include artifact="org.scala-lang:(.*)" />
+    <module name="org.scala.library">
+        <include artifact="org.scala-lang:scala-library" />
+    </module>
+    
+    <module name="org.scala.modules">
+        <include artifact="org.scala-lang.modules:(.*)" />
     </module>
     
 </modules>

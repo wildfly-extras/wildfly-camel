@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.commons.pool2">
+  <resources>
+    <resource-root path="commons-pool2-2.4.2.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+  </dependencies>
+</module>

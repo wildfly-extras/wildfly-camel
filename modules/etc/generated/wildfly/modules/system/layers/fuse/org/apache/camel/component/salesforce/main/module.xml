@@ -2,13 +2,13 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.salesforce">
   <resources>
     <resource-root path="bayeux-api-2.4.3.jar" />
-    <resource-root path="camel-salesforce-2.15.2.jar" />
+    <resource-root path="camel-salesforce-2.16.0.jar" />
     <resource-root path="cometd-java-client-2.4.3.jar" />
     <resource-root path="cometd-java-common-2.4.3.jar" />
-    <resource-root path="jetty-client-8.1.16.v20140903.jar" />
-    <resource-root path="jetty-http-8.1.16.v20140903.jar" />
-    <resource-root path="jetty-io-8.1.16.v20140903.jar" />
-    <resource-root path="jetty-util-8.1.16.v20140903.jar" />
+    <resource-root path="jetty-client-8.1.17.v20150415.jar" />
+    <resource-root path="jetty-http-8.1.17.v20150415.jar" />
+    <resource-root path="jetty-io-8.1.17.v20150415.jar" />
+    <resource-root path="jetty-util-8.1.17.v20150415.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />

@@ -30,9 +30,8 @@
             <param-value>Camel Rest Example with Swagger that provides an User REST service</param-value>
         </init-param>
         <init-param>
-            <!-- [CAMEL-8745] Swagger requires context name with quotes -->
             <param-name>camelId</param-name>
-            <param-value>"swagger-test"</param-value>
+            <param-value>swagger-test</param-value>
         </init-param>
         <load-on-startup>2</load-on-startup>
     </servlet>

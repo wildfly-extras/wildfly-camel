@@ -21,6 +21,7 @@
 package org.wildfly.camel.test.csv;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,13 +54,38 @@ public class CSVIntegrationTest {
     }
 
     @Test
-    public void testMarshal() throws Exception {
+    public void testMarshalMap() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").convertBodyTo(Map.class).marshal().csv();
+                from("direct:start").marshal().csv();
+            }
+        });
+
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("firstName", "John");
+        map.put("lastName", "Doe");
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", map, String.class);
+            Assert.assertEquals("John,Doe", result.trim());
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testMarshalViaDozer() throws Exception {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start").marshal().csv();
             }
         });
 

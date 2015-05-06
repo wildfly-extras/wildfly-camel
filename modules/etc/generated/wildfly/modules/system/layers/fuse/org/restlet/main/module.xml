@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.restlet">
   <resources>
-    <resource-root path="org.restlet-2.2.3.jar" />
-    <resource-root path="org.restlet.ext.httpclient-2.2.3.jar" />
+    <resource-root path="org.restlet-2.3.1.jar" />
+    <resource-root path="org.restlet.ext.httpclient-2.3.1.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.servlet">
   <resources>
-    <resource-root path="camel-servlet-2.15.2.jar" />
+    <resource-root path="camel-servlet-2.16.0.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="org.apache.commons.httpclient" />
     <module name="org.slf4j" />
     <module name="javax.servlet.api" />
     <module name="javax.xml.bind.api" />
-    <module name="org.apache.camel.component.http" />
+    <module name="org.apache.camel.component.http.common" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

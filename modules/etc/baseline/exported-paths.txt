@@ -95,7 +95,6 @@ org/apache/camel/util/jndi
 org/apache/camel/util/jsse
 org/apache/camel/util/spring
 org/apache/camel/util/toolbox
-org/apache/camel/view
 org/springframework
 org/springframework/beans
 org/springframework/beans/factory
@@ -365,6 +364,7 @@ org/apache/camel/component/hl7
 org/apache/camel/component/http4
 org/apache/camel/component/http4/helper
 org/apache/camel/component/jackson
+org/apache/camel/component/jackson/converter
 org/apache/camel/component/jasypt
 org/apache/camel/component/jgroups
 org/apache/camel/component/jms
@@ -390,6 +390,8 @@ org/apache/camel/component/rss
 org/apache/camel/component/salesforce
 org/apache/camel/component/salesforce/api
 org/apache/camel/component/salesforce/api/dto
+org/apache/camel/component/salesforce/api/dto/analytics
+org/apache/camel/component/salesforce/api/dto/analytics/reports
 org/apache/camel/component/salesforce/api/dto/bulk
 org/apache/camel/component/servlet
 org/apache/camel/component/servlet/osgi

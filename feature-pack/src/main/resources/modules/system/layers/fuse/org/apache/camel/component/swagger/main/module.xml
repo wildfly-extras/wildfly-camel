@@ -12,13 +12,11 @@
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" />
     <module name="com.fasterxml.jackson.json" />
-    <module name="com.fasterxml.jackson.scala" />
     <module name="javax.servlet.api" />
     <module name="javax.ws.rs.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.json4s" />
-    <module name="org.scala.lang" />
+    <module name="org.scala.library" />
     <module name="org.slf4j" />
   </dependencies>
   <exports>

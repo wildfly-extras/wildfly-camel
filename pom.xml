@@ -46,14 +46,14 @@
     <properties>
         
         <!-- Camel version -->
-        <version.apache.camel>2.15.2</version.apache.camel>
+        <version.apache.camel>2.16.0</version.apache.camel>
         <!-- [#726] Remove explicit spring-security version -->
         <version.spring.security>3.2.5.RELEASE</version.spring.security>
         
         <!-- WildFly versions -->
-        <version.wildfly>9.0.0.CR1</version.wildfly>
-        <version.wildfly.arquillian>1.0.0.CR1</version.wildfly.arquillian>
-        <version.wildfly.core>1.0.0.CR1</version.wildfly.core>
+        <version.wildfly>9.0.1.Final</version.wildfly>
+        <version.wildfly.arquillian>1.0.0.Final</version.wildfly.arquillian>
+        <version.wildfly.core>1.0.1.Final</version.wildfly.core>
 
         <!-- Other versions -->
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
