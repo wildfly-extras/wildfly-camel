@@ -116,10 +116,10 @@ def getModules(def path, def artifactReferences, def ignoredDependencies) {
 def getAppServerDependencies() {
     repository = container.lookup(RepositorySystem.class)
     group = properties.get("appserver.groupId")
-    artifiact = properties.get("appserver.artifactId")
+    artifiactId = properties.get("appserver.artifactId")
     version = properties.get("appserver.version")
 
-    Artifact artifact = repository.createArtifact(group, artifiact, version, "pom");
+    Artifact artifact = repository.createArtifact(group, artifiactId, version, "pom");
 
     ArtifactResolutionRequest request = new ArtifactResolutionRequest();
     request.setArtifact(artifact);
@@ -128,7 +128,11 @@ def getAppServerDependencies() {
     request.setMirrors(session.getRequest().getMirrors());
     request.setProxies(session.getRequest().getProxies());
     request.setLocalRepository(session.getLocalRepository());
-    request.setRemoteRepositories(session.getRequest().getRemoteRepositories());
+
+    def remoteRepositories = session.getRequest().getRemoteRepositories()
+    remoteRepositories.addAll(project.remoteArtifactRepositories)
+
+    request.setRemoteRepositories(remoteRepositories);
     request.setResolutionFilter(new ArtifactFilter() {
         @Override
         public boolean include(final Artifact a) {
