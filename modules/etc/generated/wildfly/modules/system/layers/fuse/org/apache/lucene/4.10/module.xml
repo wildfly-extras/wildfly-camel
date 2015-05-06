@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="org.apache.lucene" slot="4.6">
+<module xmlns="urn:jboss:module:1.1" name="org.apache.lucene" slot="4.10">
   <resources>
     <resource-root path="lucene-analyzers-common-4.10.3.jar" />
     <resource-root path="lucene-core-4.10.3.jar" />

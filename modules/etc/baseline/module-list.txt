@@ -135,11 +135,11 @@
 /org/apache/httpcomponents/4.3/httpclient-4.3.6.jar
 /org/apache/httpcomponents/4.3/httpcore-4.3.1.jar
 /org/apache/httpcomponents/4.3/httpmime-4.3.jar
-/org/apache/lucene/4.6/lucene-analyzers-common-4.10.3.jar
-/org/apache/lucene/4.6/lucene-core-4.10.3.jar
-/org/apache/lucene/4.6/lucene-queries-4.10.3.jar
-/org/apache/lucene/4.6/lucene-queryparser-4.10.3.jar
-/org/apache/lucene/4.6/lucene-sandbox-4.10.3.jar
+/org/apache/lucene/4.10/lucene-analyzers-common-4.10.3.jar
+/org/apache/lucene/4.10/lucene-core-4.10.3.jar
+/org/apache/lucene/4.10/lucene-queries-4.10.3.jar
+/org/apache/lucene/4.10/lucene-queryparser-4.10.3.jar
+/org/apache/lucene/4.10/lucene-sandbox-4.10.3.jar
 /org/apache/mina/core/main/mina-core-2.0.9.jar
 /org/apache/qpid/proton-j/main/proton-j-0.8.jar
 /org/apache/qpid/proton-jms/main/proton-jms-0.8.jar
