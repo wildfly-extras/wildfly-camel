@@ -276,4 +276,60 @@
 			</build>
 		</profile>
     </profiles>
+    
+    <repositories>
+        <!-- Note: repo.fusesource.com is the correct repo for JBoss Fuse and it is not a mistake -->
+        <repository>
+            <id>fusesource.ea</id>
+            <name>JBoss Community Early Access Release Repository</name>
+            <url>https://repo.fusesource.com/nexus/content/groups/ea</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+        </repository>
+        <repository>
+            <id>jboss-enterprise-techpreview-group</id>
+            <name>JBoss Enterprise Technology Preview  Maven Repository Group</name>
+            <url>http://maven.repository.redhat.com/techpreview/all/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>jboss-public-repository-group</id>
+            <name>JBoss Public Maven Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>fusesource-public-release-repository-group</id>
+            <url>https://repository.jboss.org/nexus/content/repositories/fs-releases</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>
