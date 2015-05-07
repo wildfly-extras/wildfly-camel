@@ -25,13 +25,13 @@
 
     <parent>
         <groupId>org.wildfly.camel</groupId>
-        <artifactId>wildfly-camel-itests</artifactId>
+        <artifactId>wildfly-camel-example</artifactId>
         <version>2.3.0-SNAPSHOT</version>
     </parent>
 
-    <name>Wildfly Camel :: Testsuite :: Distro</name>
+    <name>Wildfly Camel :: Example :: Distro</name>
 
-    <artifactId>wildfly-camel-itests-distro</artifactId>
+    <artifactId>wildfly-camel-example-distro</artifactId>
 	<packaging>pom</packaging>
 	
     <!-- Properties -->    

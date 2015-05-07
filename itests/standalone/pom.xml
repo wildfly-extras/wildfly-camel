@@ -50,6 +50,12 @@
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-example-distro</artifactId>
+            <version>${project.version}</version>
+            <type>tar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-subsystem</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -344,7 +350,7 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>org.wildfly.camel</groupId>
-                                    <artifactId>wildfly-camel-itests-distro</artifactId>
+                                    <artifactId>wildfly-camel-example-distro</artifactId>
                                     <version>${project.version}</version>
                                     <type>tar</type>
                                     <outputDirectory>${project.build.directory}</outputDirectory>
