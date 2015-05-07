@@ -79,7 +79,7 @@ public class SpringContextDeploymentTest  {
         ServerDeploymentHelper server = new ServerDeploymentHelper(managementClient.getControllerClient());
         String runtimeName = server.deploy("transform1-camel-context.xml", resourceUrl.openStream());
         try {
-            CamelContext camelctx = contextRegistry.getContext("transform1");
+            CamelContext camelctx = contextRegistry.getCamelContext("transform1");
             Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);

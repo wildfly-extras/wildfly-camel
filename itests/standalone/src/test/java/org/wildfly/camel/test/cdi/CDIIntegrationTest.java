@@ -127,7 +127,7 @@ public class CDIIntegrationTest {
     }
 
     private CamelContext assertCamelContext(String contextName) {
-        CamelContext camelctx = contextRegistry.getContext(contextName);
+        CamelContext camelctx = contextRegistry.getCamelContext(contextName);
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         return camelctx;
     }

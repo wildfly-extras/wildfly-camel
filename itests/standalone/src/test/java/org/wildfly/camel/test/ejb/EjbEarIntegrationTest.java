@@ -57,7 +57,7 @@ public class EjbEarIntegrationTest {
 
     @Test
     public void testEjbJarDeployment() throws Exception {
-        CamelContext camelctx = contextRegistry.getContext("ejb-jar-context");
+        CamelContext camelctx = contextRegistry.getCamelContext("ejb-jar-context");
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         assertContextAccess(camelctx);
     }
@@ -72,7 +72,7 @@ public class EjbEarIntegrationTest {
 
     @Test
     public void testEjbEarDeployment() throws Exception {
-        CamelContext camelctx = contextRegistry.getContext("ejb-ear-context");
+        CamelContext camelctx = contextRegistry.getCamelContext("ejb-ear-context");
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         assertContextAccess(camelctx);
     }

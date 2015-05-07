@@ -50,7 +50,7 @@ public class SpringRouteBuilderScanTest {
 
     @Test
     public void testSpringRouteBuilderLoads() throws Exception {
-        CamelContext camelctx = contextRegistry.getContext("contextScan");
+        CamelContext camelctx = contextRegistry.getCamelContext("contextScan");
         ProducerTemplate producer = camelctx.createProducerTemplate();
         GenericApplicationContext result = producer.requestBody("direct:start", null, GenericApplicationContext.class);
         Assert.assertNotNull(result);

@@ -34,5 +34,5 @@ import org.apache.camel.CamelContext;
 public interface CamelContextRegistry {
 
     /** Get the camel context for the given name */
-    CamelContext getContext(String name);
+    CamelContext getCamelContext(String name);
 }

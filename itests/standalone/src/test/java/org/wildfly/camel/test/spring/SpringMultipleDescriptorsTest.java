@@ -57,7 +57,7 @@ public class SpringMultipleDescriptorsTest {
 
     @Test
     public void testTransform1() throws Exception {
-        CamelContext camelctx = contextRegistry.getContext("transform1");
+        CamelContext camelctx = contextRegistry.getCamelContext("transform1");
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);
@@ -66,7 +66,7 @@ public class SpringMultipleDescriptorsTest {
 
     @Test
     public void testTransform2() throws Exception {
-        CamelContext camelctx = contextRegistry.getContext("transform2");
+        CamelContext camelctx = contextRegistry.getCamelContext("transform2");
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);

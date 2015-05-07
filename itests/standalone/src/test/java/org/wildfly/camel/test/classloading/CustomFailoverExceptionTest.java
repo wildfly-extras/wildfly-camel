@@ -50,7 +50,7 @@ public class CustomFailoverExceptionTest {
     @Test
     public void testExportedPaths() throws Exception {
 
-        CamelContext camelctx = contextRegistry.getContext("custom-failover-context");
+        CamelContext camelctx = contextRegistry.getCamelContext("custom-failover-context");
         Assert.assertNotNull("Context not null", camelctx);
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
 

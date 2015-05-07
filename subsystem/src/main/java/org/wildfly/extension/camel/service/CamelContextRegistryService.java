@@ -158,7 +158,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         }
 
         @Override
-        public CamelContext getContext(String name) {
+        public CamelContext getCamelContext(String name) {
             CamelContext result = null;
             synchronized (contexts) {
                 for (CamelContext camelctx : contexts.keySet()) {

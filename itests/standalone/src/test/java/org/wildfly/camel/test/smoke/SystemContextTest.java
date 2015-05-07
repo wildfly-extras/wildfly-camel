@@ -58,7 +58,7 @@ public class SystemContextTest {
 
     @Test
     public void testSystemTransformFromModule() throws Exception {
-        CamelContext camelctx = contextRegistry.getContext("system-context-1");
+        CamelContext camelctx = contextRegistry.getCamelContext("system-context-1");
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);

@@ -68,7 +68,7 @@ public class CXFSpringContextTest {
     public void testCxfSpringContext() throws Exception {
         deployer.deploy(SIMPLE_WAR);
         try {
-            CamelContext camelctx = contextRegistry.getContext("cxf-context");
+            CamelContext camelctx = contextRegistry.getCamelContext("cxf-context");
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);

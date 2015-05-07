@@ -92,7 +92,7 @@ public class NettyIntegrationTest {
     public void testDeployedContext() throws Exception {
 
         CamelContextRegistry registry = ServiceLocator.getRequiredService(CamelContextRegistry.class);
-        CamelContext camelctx = registry.getContext("netty-context");
+        CamelContext camelctx = registry.getCamelContext("netty-context");
         Assert.assertNotNull("CamelContext not null", camelctx);
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
 

@@ -49,7 +49,7 @@ public class PropertiesFromClasspathTest {
     @Test
     public void testExportedPaths() throws Exception {
 
-        CamelContext camelctx = contextRegistry.getContext("classpath-properties-context");
+        CamelContext camelctx = contextRegistry.getCamelContext("classpath-properties-context");
         Assert.assertNotNull("Context not null", camelctx);
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
 

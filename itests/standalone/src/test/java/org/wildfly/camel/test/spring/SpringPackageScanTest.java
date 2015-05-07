@@ -56,7 +56,7 @@ public class SpringPackageScanTest {
 
     @Test
     public void testTransform1() throws Exception {
-        CamelContext camelctx = contextRegistry.getContext("packageScan");
+        CamelContext camelctx = contextRegistry.getCamelContext("packageScan");
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);

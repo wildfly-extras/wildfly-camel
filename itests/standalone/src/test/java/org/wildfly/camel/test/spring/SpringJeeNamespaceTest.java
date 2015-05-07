@@ -89,7 +89,7 @@ public class SpringJeeNamespaceTest {
 
     @Test
     public void testJNDILookup() throws Exception {
-        CamelContext camelctx = contextRegistry.getContext("spring-jee");
+        CamelContext camelctx = contextRegistry.getCamelContext("spring-jee");
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);
