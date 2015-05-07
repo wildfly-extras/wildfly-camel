@@ -19,9 +19,6 @@
   #L%
   -->
 
-
-
-
 <module xmlns="urn:jboss:module:1.1" name="org.wildfly.extension.camel">
     <properties>
         <property name="jboss.api" value="private"/>
@@ -56,6 +53,7 @@
         <module name="org.jboss.shrinkwrap.core"/>
         <module name="org.jboss.staxmapper"/>
         <module name="org.jboss.vfs"/>
+        <module name="org.picketbox"/>
         <module name="org.springframework.beans"/>
         <module name="org.springframework.core"/>
         <module name="org.springframework.context"/>
