@@ -39,6 +39,7 @@ import org.wildfly.extension.camel.ContextCreateHandler;
 import org.wildfly.extension.camel.ContextCreateHandlerRegistry;
 import org.wildfly.extension.camel.handler.ClassResolverAssociationHandler;
 import org.wildfly.extension.camel.handler.ContextValidationHandler;
+import org.wildfly.extension.camel.handler.ModelJAXBContextFactoryWrapperHandler;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.camel.handler.NamingContextAssociationHandler;
 
@@ -81,6 +82,7 @@ public class ContextCreateHandlerRegistryService extends AbstractService<Context
             addContextCreateHandler(null, new ClassResolverAssociationHandler());
             addContextCreateHandler(null, new NamingContextAssociationHandler(serviceRegistry, serviceTarget));
             addContextCreateHandler(null, new ContextValidationHandler());
+            addContextCreateHandler(null, new ModelJAXBContextFactoryWrapperHandler());
         }
 
         @Override
