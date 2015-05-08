@@ -36,7 +36,30 @@
         <directory>../subsystem/src/main/resources/schema</directory>
         <outputDirectory>docs/schema</outputDirectory>
       </fileSet>
+      <fileSet>
+        <directory>../examples</directory>
+        <outputDirectory>docs/examples/camel</outputDirectory>
+        <excludes>
+            <exclude>pom.xml</exclude>
+            <exclude>**/.classpath</exclude>
+            <exclude>**/.project</exclude>
+            <exclude>**/.settings/**</exclude>
+            <exclude>**/target/**</exclude>
+        </excludes>
+      </fileSet>
     </fileSets>
+    <files>
+        <file>
+            <source>target/examples-pom.xml</source>
+            <outputDirectory>docs/examples/camel</outputDirectory>
+            <destName>pom.xml</destName>
+        </file>
+        <file>
+            <source>../pom.xml</source>
+            <outputDirectory>docs/examples/camel</outputDirectory>
+            <destName>parent-pom.xml</destName>
+        </file>
+    </files>
 
     <dependencySets>
 
