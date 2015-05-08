@@ -36,6 +36,28 @@
         <directory>../subsystem/src/main/resources/schema</directory>
         <outputDirectory>docs/schema</outputDirectory>
       </fileSet>
+      <fileSet>
+        <directory>../examples</directory>
+        <outputDirectory>quickstarts/camel</outputDirectory>
+        <excludes>
+            <exclude>**/.git</exclude>
+            <exclude>**/.gitignore</exclude>
+            <exclude>**/.DS_Store</exclude>
+            <exclude>**/.project</exclude>
+            <exclude>**/.classpath</exclude>
+            <exclude>**/*.iml</exclude>
+            <exclude>**/*.ipr</exclude>
+            <exclude>**/*.iws</exclude>
+            <exclude>**/assembly</exclude>
+            <exclude>**/assembly/**/*</exclude>
+            <exclude>**/.settings</exclude>
+            <exclude>**/.settings/**/*</exclude>
+            <exclude>**/target</exclude>
+            <exclude>**/target/**/*</exclude>
+        </excludes>
+        <fileMode>644</fileMode>
+        <directoryMode>755</directoryMode>        
+      </fileSet>
     </fileSets>
 
     <dependencySets>
