@@ -36,6 +36,16 @@
         <directory>../subsystem/src/main/resources/schema</directory>
         <outputDirectory>docs/schema</outputDirectory>
       </fileSet>
+      <fileSet>
+        <directory>../examples</directory>
+        <outputDirectory>docs/examples/camel</outputDirectory>
+        <excludes>
+            <exclude>**/.classpath</exclude>
+            <exclude>**/.project</exclude>
+            <exclude>**/.settings/**</exclude>
+            <exclude>**/target/**</exclude>
+        </excludes>
+      </fileSet>
     </fileSets>
 
     <dependencySets>
