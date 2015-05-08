@@ -14,7 +14,7 @@ A JAX-RS producer example is demonstrated with the [camel-restlet component](htt
 
 To run the example.
 
-1. Change into the `examples/camel-rest` directory
+1. Change into the `camel-rest` directory
 2. Run `mvn clean wildfly:run`
 3. When the WildFly server has started, browse to `http://localhost:8080/example-camel-rest/customers`
 

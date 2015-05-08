@@ -48,7 +48,7 @@ from(receiveMailEndpoint)
 
 To run the example.
 
-1. Change into the `examples/camel-mail` directory
+1. Change into the `camel-mail` directory
 2. Run `mvn clean wildfly:run`
 3. When the WildFly server has started, browse to `http://localhost:8080/example-camel-mail/`
 

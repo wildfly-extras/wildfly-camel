@@ -10,7 +10,7 @@ sorts the orders into individual country directories within JBOSS_JOME/standalon
 
 To run the example.
 
-1. Change into the `examples/camel-activemq directory`
+1. Change into the `camel-activemq` directory
 2. Run `mvn clean wildfly:run`
 3. When the WildFly server has started, browse to `http://localhost:8080/example-camel-activemq/orders`
 

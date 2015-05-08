@@ -13,7 +13,7 @@ to pass arguments to a JAX-WS web service.
 
 To run the example.
 
-1. Change into the `examples/camel-cxf` directory
+1. Change into the `camel-cxf` directory
 2. Run `mvn clean wildfly:run`
 3. When the WildFly server has started, browse to `http://localhost:8080/example-camel-cxf/`
 

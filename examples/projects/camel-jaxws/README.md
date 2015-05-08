@@ -7,7 +7,7 @@ of a Camel JAX-WS consumer. This is an alternative to using CXF consumers **whic
 
 To run the example.
 
-1. Change into the `examples/camel-jaxws` directory
+1. Change into the `camel-jaxws` directory
 2. Run `mvn clean wildfly:run`
 3. When the WildFly server has started, browse to `http://localhost:8080/example-camel-jaxws/`
 
