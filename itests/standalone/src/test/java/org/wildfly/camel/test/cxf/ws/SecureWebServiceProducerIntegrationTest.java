@@ -45,6 +45,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.DMRUtils;
 import org.wildfly.camel.test.cxf.ws.subA.Endpoint;
 import org.wildfly.camel.test.cxf.ws.subA.SecureEndpointImpl;
 
@@ -62,8 +63,8 @@ public class SecureWebServiceProducerIntegrationTest {
     @Before
     public void setUp() throws IOException {
         // Set up a security domain for our tests to authenticate against
-        ModelNode securityDomainOpAdd = createOpNode("subsystem=security/security-domain=cxf-security-domain", "add");
-        ModelNode securityDomainContent = createOpNode("subsystem=security/security-domain=cxf-security-domain/authentication=classic", "add");
+        ModelNode securityDomainOpAdd = DMRUtils.createOpNode("subsystem=security/security-domain=cxf-security-domain", "add");
+        ModelNode securityDomainContent = DMRUtils.createOpNode("subsystem=security/security-domain=cxf-security-domain/authentication=classic", "add");
 
         ModelNode loginModules = securityDomainContent.get("login-modules");
 
@@ -76,7 +77,7 @@ public class SecureWebServiceProducerIntegrationTest {
         moduleOptions.get("rolesProperties").set("cxf-roles.properties");
         loginModules.add(userRoles);
 
-        ModelNode result = managementClient.getControllerClient().execute(createCompositeNode(new ModelNode[] {securityDomainOpAdd, securityDomainContent}));
+        ModelNode result = managementClient.getControllerClient().execute(DMRUtils.createCompositeNode(new ModelNode[]{securityDomainOpAdd, securityDomainContent}));
 
         // Make sure the commands worked before proceeding
         Assert.assertEquals("success", result.get("outcome").asString());
@@ -85,7 +86,7 @@ public class SecureWebServiceProducerIntegrationTest {
     @After
     public void tearDown() throws IOException {
         // Remove the test security domain after each test
-        ModelNode securityDomainOpRemove = createOpNode("subsystem=security/security-domain=cxf-security-domain", "remove");
+        ModelNode securityDomainOpRemove = DMRUtils.createOpNode("subsystem=security/security-domain=cxf-security-domain", "remove");
         securityDomainOpRemove.get(OPERATION_HEADERS, ALLOW_RESOURCE_SERVICE_RESTART).set(true);
 
         ModelNode result = managementClient.getControllerClient().execute(securityDomainOpRemove);
@@ -177,29 +178,5 @@ public class SecureWebServiceProducerIntegrationTest {
         archive.addAsResource("cxf/secure/cxf-users.properties", "cxf-users.properties");
         archive.addAsWebInfResource(jbossWebAsset, "jboss-web.xml");
         return archive;
-    }
-
-    private ModelNode createOpNode(String address, String operation) {
-        ModelNode op = new ModelNode();
-
-        ModelNode list = op.get("address").setEmptyList();
-        if (address != null) {
-            String[] pathSegments = address.split("/");
-            for (String segment : pathSegments) {
-                String[] elements = segment.split("=");
-                list.add(elements[0], elements[1]);
-            }
-        }
-        op.get("operation").set(operation);
-        return op;
-    }
-
-    private ModelNode createCompositeNode(ModelNode[] steps) {
-        ModelNode comp = new ModelNode();
-        comp.get("operation").set("composite");
-        for (ModelNode step : steps) {
-            comp.get("steps").add(step);
-        }
-        return comp;
     }
 }

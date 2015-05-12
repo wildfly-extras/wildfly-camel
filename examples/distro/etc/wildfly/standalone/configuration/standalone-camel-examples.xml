@@ -162,18 +162,7 @@
                 <keepalive-time time="30" unit="seconds"/>
             </thread-pool>
         </subsystem>
-		<subsystem xmlns="urn:jboss:domain:camel:1.0">
-		   <camelContext id="system-context-1">
-		     <![CDATA[
-		     <route>
-		       <from uri="direct:start"/>
-		       <transform>
-		         <simple>Hello #{body}</simple>
-		       </transform>
-		     </route>
-		     ]]>
-		   </camelContext>
-		</subsystem>
+		<subsystem xmlns="urn:jboss:domain:camel:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:2.0">
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">

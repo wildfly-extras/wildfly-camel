@@ -29,6 +29,9 @@ import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.as.controller.descriptions.ModelDescriptionConstants;
 import org.jboss.dmr.ModelNode;
 import org.jboss.msc.service.ServiceController;
+import org.wildfly.extension.camel.CamelConstants;
+import org.wildfly.extension.camel.CamelContextRegistry;
+import org.wildfly.extension.camel.service.CamelContextRegistryService;
 
 /**
  * @author Thomas.Diesler@jboss.com
@@ -49,12 +52,15 @@ final class CamelContextAdd extends AbstractAddStepHandler {
 
     @Override
     protected void performRuntime(OperationContext context, ModelNode operation, ModelNode model, ServiceVerificationHandler verificationHandler,
-            List<ServiceController<?>> newControllers) throws OperationFailedException {
+                                  List<ServiceController<?>> newControllers) throws OperationFailedException {
 
         String propName = operation.get(ModelDescriptionConstants.OP_ADDR).asObject().get(ModelConstants.CONTEXT).asString();
         String propValue = CamelContextResource.VALUE.resolveModelAttribute(context, model).asString();
         subsystemState.putContextDefinition(propName, propValue.trim());
 
+        ServiceController<?> service = context.getServiceRegistry(false).getService(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME);
+        CamelContextRegistryService serviceRegistry = CamelContextRegistryService.class.cast(service.getService());
+        serviceRegistry.createCamelContext(CamelContextRegistry.class.getClassLoader(), propName, propValue);
     }
 
     @Override

@@ -107,16 +107,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
 
         ClassLoader classLoader = CamelContextRegistry.class.getClassLoader();
         for (final String name : subsystemState.getContextDefinitionNames()) {
-            ClassLoader tccl = Thread.currentThread().getContextClassLoader();
-            try {
-                Thread.currentThread().setContextClassLoader(classLoader);
-                String beansXML = getBeansXML(name, subsystemState.getContextDefinition(name));
-                SpringCamelContextFactory.createSpringCamelContext(beansXML.getBytes(), classLoader);
-            } catch (Exception ex) {
-                throw new IllegalStateException("Cannot create camel context: " + name, ex);
-            } finally {
-                Thread.currentThread().setContextClassLoader(tccl);
-            }
+            createCamelContext(classLoader, name, subsystemState.getContextDefinition(name));
         }
     }
 
@@ -130,6 +121,19 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
     @Override
     public CamelContextRegistry getValue() {
         return contextRegistry;
+    }
+
+    public void createCamelContext(ClassLoader classLoader, String name, String contextDefinition) {
+        ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+        try {
+            Thread.currentThread().setContextClassLoader(classLoader);
+            String beansXML = getBeansXML(name, contextDefinition);
+            SpringCamelContextFactory.createSpringCamelContext(beansXML.getBytes(), classLoader);
+        } catch (Exception ex) {
+            throw new IllegalStateException("Cannot create camel context: " + name, ex);
+        } finally {
+            Thread.currentThread().setContextClassLoader(tccl);
+        }
     }
 
     private String getBeansXML(String name, String contextDefinition) {

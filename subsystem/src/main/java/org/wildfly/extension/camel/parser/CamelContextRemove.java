@@ -20,11 +20,18 @@
 
 package org.wildfly.extension.camel.parser;
 
+import org.apache.camel.CamelContext;
 import org.jboss.as.controller.AbstractRemoveStepHandler;
 import org.jboss.as.controller.OperationContext;
 import org.jboss.as.controller.OperationFailedException;
 import org.jboss.as.controller.descriptions.ModelDescriptionConstants;
 import org.jboss.dmr.ModelNode;
+import org.jboss.msc.service.ServiceController;
+import org.wildfly.extension.camel.CamelConstants;
+import org.wildfly.extension.camel.CamelContextRegistry;
+import org.wildfly.extension.camel.service.CamelContextRegistryService;
+
+import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
 /**
  * @author Thomas.Diesler@jboss.com
@@ -48,5 +55,18 @@ final class CamelContextRemove extends AbstractRemoveStepHandler {
                 subsystemState.putContextDefinition(propName, oldContextDefinition);
             }
         });
+
+        ServiceController<?> service = context.getServiceRegistry(false).getService(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME);
+        CamelContextRegistryService serviceRegistry = CamelContextRegistryService.class.cast(service.getService());
+        CamelContextRegistry camelContextRegistry = serviceRegistry.getValue();
+        CamelContext camelctx = camelContextRegistry.getCamelContext(propName);
+        try {
+            if (camelctx != null) {
+                camelctx.stop();
+            }
+        } catch (Exception e) {
+            LOGGER.warn("Cannot stop camel context: " + camelctx.getName(), e);
+            throw new OperationFailedException(e);
+        }
     }
 }

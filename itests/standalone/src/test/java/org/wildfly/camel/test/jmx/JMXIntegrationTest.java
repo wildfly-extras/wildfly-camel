@@ -28,11 +28,18 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
+import org.jboss.dmr.ModelNode;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.DMRUtils;
+import org.wildfly.extension.camel.CamelContextRegistry;
 
 /**
  * Deploys a test which monitors an JMX attrbute of a route.
@@ -41,7 +48,38 @@ import org.junit.runner.RunWith;
  * @since 03-Jun-2013
  */
 @RunWith(Arquillian.class)
-public class JMXIntegrationTest {
+@ServerSetup({JMXIntegrationTest.SystemContextSetupTask.class})
+public class JMXIntegrationTest  {
+
+    @ArquillianResource
+    CamelContextRegistry contextRegistry;
+
+    static class SystemContextSetupTask implements ServerSetupTask {
+
+        @Override
+        public void setup(final ManagementClient managementClient, String containerId) throws Exception {
+            String contextXml = "" +
+                    "\t\t     <route>\n" +
+                    "\t\t       <from uri=\"direct:start\"/>\n" +
+                    "\t\t       <transform>\n" +
+                    "\t\t         <simple>Hello #{body}</simple>\n" +
+                    "\t\t       </transform>\n" +
+                    "\t\t     </route>\n" +
+                    "";
+
+            // Add a system context
+            ModelNode contextOpAdd = DMRUtils.createOpNode("subsystem=camel/context=jmx-context-1/", "add");
+            contextOpAdd.get("value").set(contextXml);
+            managementClient.getControllerClient().execute(DMRUtils.createCompositeNode(new ModelNode[]{contextOpAdd}));
+        }
+
+        @Override
+        public void tearDown(final ManagementClient managementClient, String containerId) throws Exception {
+            // Removes a system context
+            ModelNode contextOpAdd = DMRUtils.createOpNode("subsystem=camel/context=jmx-context-1/", "remove");
+            managementClient.getControllerClient().execute(DMRUtils.createCompositeNode(new ModelNode[]{contextOpAdd}));
+        }
+    }
 
     @Deployment
     public static JavaArchive deployment() {
@@ -51,12 +89,15 @@ public class JMXIntegrationTest {
 
     @Test
     public void testMonitorMBeanAttribute() throws Exception {
+        CamelContext context = contextRegistry.getCamelContext("jmx-context-1");
+        Assert.assertNotNull("Camel context jmx-context-1 was null", context);
+        final String routeName = context.getRoutes().get(0).getId();
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("jmx:platform?format=raw&objectDomain=org.apache.camel&key.context=system-context-1&key.type=routes&key.name=\"route1\"" +
+                from("jmx:platform?format=raw&objectDomain=org.apache.camel&key.context=jmx-context-1&key.type=routes&key.name=\"" + routeName + "\"" +
                 "&monitorType=counter&observedAttribute=ExchangesTotal&granularityPeriod=500").
                 to("direct:end");
             }
