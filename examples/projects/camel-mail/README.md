@@ -3,7 +3,7 @@
 This example demonstrates using the camel-email component with WildFly Camel susbsystem to send and receive email.
 
 The example uses [Greenmail](http://www.icegreen.com/greenmail/) to configure a local mail server on your machine. This eliminates the need to
-use external mail services. The configuration for the WildFly mail subsystem can be found within `src/main/resources/standalone.xml`.
+use external mail services. The configuration for the WildFly mail subsystem can be found within CLI scripts at `src/main/resources/cli`.
 
 The mail session used by this example is bound to JNDI at `java:jboss/mail/greenmail`. Server entries are configured for SMTP and POP3 protocols.
 
@@ -49,13 +49,15 @@ from(receiveMailEndpoint)
 To run the example.
 
 1. Change into the `camel-mail` directory
-2. Run `mvn clean wildfly:run`
-3. When the WildFly server has started, browse to `http://localhost:8080/example-camel-mail/`
+2. Build the project `mvn clean install` 
+3. Deploy the web application `mvn wildfly:run`
+4. When the WildFly server has started, browse to `http://localhost:8080/example-camel-mail/`
 
 You should see a form from which you can test sending emails with Camel.
 
 ## Testing Camel email
-Enter a from, to, subject and email message body and click the 'send button'.
+Enter a 'from' address, subject and email message body and click the 'send button'. Note that the pop3 mail endpoint was configured
+to retrieve mail from the mailbox of 'user2@localhost'. Therefore the web UI is hard coded to route mail to this address.
 
 The form details are posted to a servlet defined within the MailSendServlet class. This servlet forwards the data entered on the web form to the Camel
 `direct:sendmail` endpoint. This triggers an email to be sent to the local Greenmail SMTP sevrer.

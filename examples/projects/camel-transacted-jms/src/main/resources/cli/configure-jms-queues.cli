@@ -1,0 +1,9 @@
+batch
+
+# Configure max-delivery-attempts
+/subsystem=messaging/hornetq-server=default/address-setting=jms.queue.OrdersQueue:add(max-delivery-attempts=1)
+
+# Configure the JMS test queue
+jms-queue add --queue-address=OrdersQueue --entries=java:/jms/queue/OrdersQueue
+
+run-batch

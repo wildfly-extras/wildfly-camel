@@ -13,8 +13,9 @@ If the order quantity is greater than 10, the Camel route throws an exception an
 To run the example.
 
 1. Change into the `examples/camel-transacted-jms` directory
-2. Run `mvn clean wildfly:run`
-3. When the WildFly server has started, browse to `http://localhost:8080/example-camel-transacted-jms/orders`
+2. Build the project `mvn clean install`
+3. Deploy the web application `mvn wildfly:run`
+4. When the WildFly server has started, browse to `http://localhost:8080/example-camel-transacted-jms/orders`
 
 You should see a page titled 'Orders Received'. As we send orders to the example application, a list
 of processed orders will be listed on this page.

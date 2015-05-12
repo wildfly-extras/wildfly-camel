@@ -114,6 +114,7 @@
                             <resources>
                                 <resource>
                                     <directory>etc/wildfly</directory>
+                                    <filtering>false</filtering>
                                 </resource>
                             </resources>
                         </configuration>

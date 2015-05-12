@@ -103,6 +103,13 @@
                         <goals>
                             <goal>deploy</goal>
                         </goals>
+                        <configuration>
+                            <beforeDeployment>
+                                <scripts>
+                                    <script>${project.basedir}/src/main/resources/cli/configure-mail.cli</script>
+                                </scripts>
+                            </beforeDeployment>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>wildfly-undeploy</id>

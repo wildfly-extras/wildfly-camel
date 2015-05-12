@@ -36,7 +36,7 @@
         </div>
         <div class="form-group">
           <label for="to">To</label>
-          <input type="email" class="form-control" id="to" name="to"/>
+          <input type="email" class="form-control" id="to" name="to" value="user2@localhost" disabled="disabled"/>
         </div>
         <div class="form-group">
           <label for="subject">Subject</label>

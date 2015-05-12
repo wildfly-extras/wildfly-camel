@@ -35,7 +35,7 @@
 
     <!-- Properties -->
     <properties>
-        <server.config>standalone-camel-examples.xml</server.config>
+        <server.config>standalone-full.xml</server.config>
         <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true</jvmArgs>
         <jvmDebugArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmDebugArgs>
         <log4j.configuration>file://${basedir}/src/main/resources/logging.properties</log4j.configuration>

@@ -98,6 +98,16 @@
                 <configuration>
                     <jbossHome>${jboss.home}</jbossHome>
                     <serverConfig>${server.config}</serverConfig>
+                    <beforeDeployment>
+                        <scripts>
+                            <script>${project.basedir}/src/main/resources/cli/configure-jms-queues.cli</script>
+                        </scripts>
+                    </beforeDeployment>
+                    <afterDeployment>
+                        <scripts>
+                            <script>${project.basedir}/src/main/resources/cli/remove-jms-queues.cli</script>
+                        </scripts>
+                    </afterDeployment>
                 </configuration>
                 <executions>
                     <execution>
