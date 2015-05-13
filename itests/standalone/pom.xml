@@ -38,7 +38,7 @@
         <server.config>standalone-camel-examples.xml</server.config>
         <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true</jvmArgs>
         <jvmDebugArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmDebugArgs>
-        <log4j.configuration>file://${basedir}/src/test/resources/logging.properties</log4j.configuration>
+        <log4j.configuration>file://${basedir}/src/main/resources/logging.properties</log4j.configuration>
     </properties>
     
     <!-- Dependencies -->
@@ -233,29 +233,23 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-        <!-- Test -->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-depchain</artifactId>
-            <scope>test</scope>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-arquillian-container-managed</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-enricher</artifactId>
             <version>${project.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jvnet.mock-javamail</groupId>
@@ -267,54 +261,46 @@
                     <artifactId>mail</artifactId>
                 </exclusion>
             </exclusions>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>co.freeside</groupId>
             <artifactId>betamax</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <!-- for testing ftp -->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.ftpserver</groupId>
             <artifactId>ftpserver-core</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.ftpserver</groupId>
             <artifactId>ftplet-api</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
                 <filtering>true</filtering>
-            </testResource>
-        </testResources>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -324,10 +310,10 @@
                         <id>xmlbeans-generate</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>xmlbeans-test</goal>
+                            <goal>xmlbeans</goal>
                         </goals>
                         <configuration>
-                            <schemaDirectory>src/test/resources/xmlbeans/xsd</schemaDirectory>
+                            <schemaDirectory>src/main/resources/xmlbeans/xsd</schemaDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -365,6 +351,8 @@
                         <jboss.home>${jboss.home}</jboss.home>
                         <log4j.configuration>${log4j.configuration}</log4j.configuration>
                     </systemPropertyVariables>
+                    <testSourceDirectory>${basedir}/src/main/java/</testSourceDirectory>
+                    <testClassesDirectory>${project.build.directory}/classes/</testClassesDirectory>
                 </configuration>
             </plugin>
             <plugin>
@@ -382,7 +370,7 @@
                 </os>
             </activation>
             <properties>
-                <log4j.configuration>file:/${basedir}/src/test/resources/logging.properties</log4j.configuration>
+                <log4j.configuration>file:/${basedir}/src/main/resources/logging.properties</log4j.configuration>
             </properties>
         </profile>
     </profiles>

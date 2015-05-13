@@ -22,6 +22,11 @@ package org.wildfly.camel.test.rss;
 
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.Recorder;
+
+import java.io.File;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -37,10 +42,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
 @RunWith(Arquillian.class)
 public class RSSIntegrationTest {
 
@@ -55,6 +56,7 @@ public class RSSIntegrationTest {
                 asFile();
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "rss-tests.war");
         archive.addAsLibraries(libraryDependencies);
+        archive.addAsResource("betamax.properties","betamax.properties");
         return archive;
     }
 

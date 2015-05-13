@@ -53,7 +53,7 @@ public class XmlBeansIntegrationTest {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "xmlbeans-tests.war");
         archive.addAsResource("xmlbeans/xml/purchaseOrder.xml", "purchaseOrder.xml");
         archive.addAsResource("xmlbeans/xsd/purchaseOrder.xsd", "org/wildfly/camel/xsd/purchaseOrder.xsd");
-        archive.addAsResource(new File("target/generated-classes/test-xmlbeans/schemaorg_apache_xmlbeans"), "schemaorg_apache_xmlbeans");
+        archive.addAsResource(new File("target/generated-classes/xmlbeans/schemaorg_apache_xmlbeans"), "schemaorg_apache_xmlbeans");
         archive.addPackage(PurchaseOrderDocument.class.getPackage());
         archive.addPackage(PurchaseOrderDocumentImpl.class.getPackage());
         return archive;

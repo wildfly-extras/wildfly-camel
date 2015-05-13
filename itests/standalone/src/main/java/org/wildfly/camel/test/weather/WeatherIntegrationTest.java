@@ -57,6 +57,7 @@ public class WeatherIntegrationTest {
 
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-weather-tests.war");
         archive.addAsLibraries(libraryDependencies);
+        archive.addAsResource("betamax.properties","betamax.properties");
         return archive;
     }
 
