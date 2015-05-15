@@ -82,16 +82,6 @@
                 <configuration>
                     <jbossHome>${jboss.home}</jbossHome>
                     <serverConfig>${server.config}</serverConfig>
-                    <beforeDeployment>
-                        <scripts>
-                            <script>${project.basedir}/src/main/resources/cli/configure-jms-queues.cli</script>
-                        </scripts>
-                    </beforeDeployment>
-                    <afterDeployment>
-                        <scripts>
-                            <script>${project.basedir}/src/main/resources/cli/remove-jms-queues.cli</script>
-                        </scripts>
-                    </afterDeployment>
                 </configuration>
                 <executions>
                     <execution>
@@ -100,6 +90,13 @@
                         <goals>
                             <goal>deploy</goal>
                         </goals>
+                        <configuration>
+                            <beforeDeployment>
+                                <scripts>
+                                    <script>${project.basedir}/src/main/resources/cli/configure-jms-queues.cli</script>
+                                </scripts>
+                            </beforeDeployment>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>wildfly-undeploy</id>
@@ -107,6 +104,13 @@
                         <goals>
                             <goal>undeploy</goal>
                         </goals>
+                        <configuration>
+                            <afterDeployment>
+                                <scripts>
+                                    <script>${project.basedir}/src/main/resources/cli/remove-jms-queues.cli</script>
+                                </scripts>
+                            </afterDeployment>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
