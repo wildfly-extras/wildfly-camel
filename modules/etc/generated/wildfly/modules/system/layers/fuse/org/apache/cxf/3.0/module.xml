@@ -47,7 +47,7 @@
     <module name="org.apache.ws.security" slot="2.0" />
     <module name="org.apache.ws.xmlschema" />
     <module name="org.apache.xml-resolver" />
-    <module name="org.bouncycastle" />
+    <module name="org.bouncycastle" slot="1.52" />
     <module name="org.codehaus.woodstox" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.context" />

@@ -26,6 +26,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.converter.crypto.CryptoDataFormat;
+import org.apache.camel.converter.crypto.PGPDataFormat;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -38,14 +39,21 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class CryptoIntegrationTest {
 
+    private static final String PUBRING_GPG = "pubring.gpg";
+    private static final String SECRING_GPG = "secring.gpg";
+    private static final String KEY_USERID = "sdude@nowhere.net";
+    private static final String KEY_PASSWORD = "sdude";
+
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "crypto-tests");
+        archive.addAsResource("crypto/" + PUBRING_GPG, PUBRING_GPG);
+        archive.addAsResource("crypto/" + SECRING_GPG, SECRING_GPG);
         return archive;
     }
 
     @Test
-    public void testMarshalUnmarshall() throws Exception {
+    public void testMarshalUnmarshallDes() throws Exception {
 
         final KeyGenerator generator = KeyGenerator.getInstance("DES");
         final CryptoDataFormat cryptoFormat = new CryptoDataFormat("DES", generator.generateKey());
@@ -66,8 +74,38 @@ public class CryptoIntegrationTest {
             String result = producer.requestBody("direct:start", "password", String.class);
             Assert.assertEquals("password", result.trim());
         } finally {
-            //camelctx.stop();
+            camelctx.stop();
         }
     }
 
+    @Test
+    public void testMarshallUnmarshallPgp() throws Exception {
+        final PGPDataFormat encrypt = new PGPDataFormat();
+        encrypt.setKeyFileName(PUBRING_GPG);
+        encrypt.setKeyUserid(KEY_USERID);
+
+        final PGPDataFormat decrypt = new PGPDataFormat();
+        decrypt.setKeyFileName(SECRING_GPG);
+        decrypt.setKeyUserid(KEY_USERID);
+        decrypt.setPassword(KEY_PASSWORD);
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .marshal(encrypt)
+                .unmarshal(decrypt);
+            }
+        });
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", "password", String.class);
+            Assert.assertEquals("password", result.trim());
+        } finally {
+            camelctx.stop();
+        }
+    }
 }

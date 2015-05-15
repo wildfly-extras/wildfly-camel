@@ -153,6 +153,8 @@
 /org/apache/ws/security/2.0/wss4j-ws-security-policy-stax-2.0.3.jar
 /org/apache/ws/security/2.0/wss4j-ws-security-stax-2.0.3.jar
 /org/apache/xbean/spring/main/xbean-spring-3.18.jar
+/org/bouncycastle/1.52/bcpg-jdk15on-1.52.jar
+/org/bouncycastle/1.52/bcprov-jdk15on-1.52.jar
 /org/fusesource/hawtbuf/main/hawtbuf-1.11.jar
 /org/fusesource/hawtdispatch/main/hawtdispatch-1.21.jar
 /org/fusesource/hawtdispatch/main/hawtdispatch-transport-1.21.jar
@@ -170,7 +172,7 @@
 /org/opensaml/2.6/joda-time-2.3.jar
 /org/opensaml/2.6/opensaml-2.6.1.jar
 /org/opensaml/openws/main/openws-1.5.1.jar
-/org/opensaml/xmltooling/main/xmltooling-1.4.1.jar
+/org/opensaml/xmltooling/1.4.1/xmltooling-1.4.1.jar
 /org/osgi/enterprise/main/org.osgi.enterprise-5.0.0.jar
 /org/restlet/main/org.restlet-2.2.3.jar
 /org/restlet/main/org.restlet.ext.httpclient-2.2.3.jar

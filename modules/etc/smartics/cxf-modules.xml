@@ -66,6 +66,17 @@
         <include artifact="joda-time:joda-time" />
     </module>
 
+    <module name="org.opensaml.xmltooling" slot="1.4.1" inherit-slot="false">
+        <include artifact="org.opensaml:xmltooling" />
+        <apply-to-dependencies skip="true">
+            <include module="org.bouncycastle.bcprov-jdk15" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.bouncycastle" slot="1.52" />
+        </dependencies>
+    </module>
+
     <module name="org.apache.ws.security" slot="2.0" inherit-slot="false">
         <include artifact="org.apache.wss4j:wss4j-(.*)" />
         <dependencies>

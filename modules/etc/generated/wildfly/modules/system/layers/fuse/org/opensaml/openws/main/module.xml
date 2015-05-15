@@ -12,6 +12,6 @@
     <module name="org.apache.xerces" />
     <module name="org.apache.xml-resolver" />
     <module name="org.opensaml" slot="2.6" />
-    <module name="org.opensaml.xmltooling" />
+    <module name="org.opensaml.xmltooling" slot="1.4.1" />
   </dependencies>
 </module>

@@ -211,11 +211,6 @@
         <include artifact="xml-resolver:xml-resolver" />
     </module>
 
-    <module name="org.bouncycastle" skip="true">
-        <include artifact="org.bouncycastle:bcprov-(.*)" />
-        <include artifact="org.bouncycastle:bcpg-(.*)" />
-    </module>
-
     <module name="org.codehaus.jackson.jackson-core-asl" skip="true">
         <include artifact=":jackson-core-asl" />
     </module>

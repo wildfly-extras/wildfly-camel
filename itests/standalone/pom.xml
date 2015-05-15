@@ -299,6 +299,21 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <includes>
+                    <include>**/arquillian.xml</include>
+                    <include>**/betamax.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+                <excludes>
+                    <exclude>**/arquillian.xml</exclude>
+                    <exclude>**/betamax.properties</exclude>
+                </excludes>
             </resource>
         </resources>
         <plugins>

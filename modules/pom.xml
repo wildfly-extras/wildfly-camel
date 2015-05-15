@@ -537,6 +537,10 @@
                                               <artifactId>xmlsec</artifactId>
                                             </dependency>
                                             <dependency>
+                                                <groupId>org.bouncycastle</groupId>
+                                                <artifactId>bcprov-jdk15on</artifactId>
+                                            </dependency>
+                                            <dependency>
                                               <groupId>org.opensaml</groupId>
                                               <artifactId>openws</artifactId>
                                             </dependency>

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="org.opensaml.xmltooling">
+<module xmlns="urn:jboss:module:1.1" name="org.opensaml.xmltooling" slot="1.4.1">
   <resources>
     <resource-root path="xmltooling-1.4.1.jar" />
   </resources>
   <dependencies>
+    <module name="javax.api" />
+    <module name="org.bouncycastle" slot="1.52" />
     <module name="ca.juliusdavies.not-yet-commons-ssl" />
     <module name="org.apache.commons.codec" />
     <module name="org.apache.santuario.xmlsec" slot="2.0" />
     <module name="org.apache.xalan" />
     <module name="org.apache.xerces" />
     <module name="org.apache.xml-resolver" />
-    <module name="org.bouncycastle" />
     <module name="org.opensaml" slot="2.6" />
   </dependencies>
 </module>
