@@ -329,6 +329,7 @@
                         </goals>
                         <configuration>
                             <schemaDirectory>src/main/resources/xmlbeans/xsd</schemaDirectory>
+                            <classGenerationDirectory>${project.build.outputDirectory}</classGenerationDirectory>
                         </configuration>
                     </execution>
                 </executions>
