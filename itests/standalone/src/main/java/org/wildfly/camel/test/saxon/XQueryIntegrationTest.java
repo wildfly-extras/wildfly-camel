@@ -36,6 +36,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.saxon.subA.OrderBean;
 
 @RunWith(Arquillian.class)
 public class XQueryIntegrationTest {
@@ -43,12 +44,14 @@ public class XQueryIntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "xquery-tests");
+        archive.addAsResource("jaxb/customer-nons.xml", "customer-nons.xml");
         archive.addAsResource("jaxb/customer.xml", "customer.xml");
+        archive.addClasses(OrderBean.class);
         return archive;
     }
 
     @Test
-    public void testEndpointClass() throws Exception {
+    public void testQueryTransform() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -62,18 +65,39 @@ public class XQueryIntegrationTest {
 
         camelctx.start();
         try {
-            System.out.println(readCustomerXml());
+            //System.out.println(readCustomerXml());
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            String customer = producer.requestBody("direct:start", readCustomerXml(), String.class);
+            String customer = producer.requestBody("direct:start", readCustomerXml("/customer.xml"), String.class);
             Assert.assertEquals("John", customer);
         } finally {
             camelctx.stop();
         }
     }
 
-    private String readCustomerXml() throws IOException {
+    @Test
+    public void testParameterBinding() throws Exception {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start").bean(OrderBean.class);
+            }
+        });
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String customer = producer.requestBody("direct:start", readCustomerXml("/customer-nons.xml"), String.class);
+            Assert.assertEquals("John Doe", customer);
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    private String readCustomerXml(String xmlpath) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        IOUtils.copyStream(getClass().getResourceAsStream("/customer.xml"), out);
+        IOUtils.copyStream(getClass().getResourceAsStream(xmlpath), out);
         return new String(out.toByteArray());
     }
 }

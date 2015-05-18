@@ -44,7 +44,7 @@ public class ParameterBindingTest {
     }
 
     @Test
-    public void testMarshal() throws Exception {
+    public void testParameterBinding() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
