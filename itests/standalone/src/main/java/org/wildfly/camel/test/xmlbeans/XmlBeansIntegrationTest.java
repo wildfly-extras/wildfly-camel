@@ -21,6 +21,7 @@
 package org.wildfly.camel.test.xmlbeans;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -39,9 +40,8 @@ import org.junit.runner.RunWith;
 import org.wildfly.camel.xmlbeans.Customer;
 import org.wildfly.camel.xmlbeans.LineItem;
 import org.wildfly.camel.xmlbeans.PurchaseOrderDocument;
+import org.wildfly.camel.xmlbeans.PurchaseOrderDocument.PurchaseOrder;
 import org.wildfly.camel.xmlbeans.impl.PurchaseOrderDocumentImpl;
-
-import static org.wildfly.camel.xmlbeans.PurchaseOrderDocument.PurchaseOrder;
 
 
 @RunWith(Arquillian.class)
@@ -52,7 +52,8 @@ public class XmlBeansIntegrationTest {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "xmlbeans-tests.war");
         archive.addAsResource("xmlbeans/xml/purchaseOrder.xml", "purchaseOrder.xml");
         archive.addAsResource("xmlbeans/xsd/purchaseOrder.xsd", "org/wildfly/camel/xsd/purchaseOrder.xsd");
-        archive.addAsResource("schemaorg_apache_xmlbeans", "schemaorg_apache_xmlbeans");
+        // [#643] Cannot add schemaorg_apache_xmlbeans when sourced from jar
+        archive.addAsResource(new File("target/generated-classes/xmlbeans/schemaorg_apache_xmlbeans"));
         archive.addPackage(PurchaseOrderDocument.class.getPackage());
         archive.addPackage(PurchaseOrderDocumentImpl.class.getPackage());
         return archive;
