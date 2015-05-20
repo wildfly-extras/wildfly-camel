@@ -22,14 +22,17 @@ package org.wildfly.extension.camel.deployment;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.as.server.deployment.AttachmentKey;
+
 /**
  * Created by chirino on 2/23/15.
  */
 public final class CamelDeploymentSettings {
 
+    public static final AttachmentKey<CamelDeploymentSettings> ATTACHMENT_KEY = AttachmentKey.create(CamelDeploymentSettings.class);
+
     private boolean enabled = true;
     private ArrayList<String> modules = new ArrayList<>();
-
 
     boolean isEnabled() {
         return enabled;
