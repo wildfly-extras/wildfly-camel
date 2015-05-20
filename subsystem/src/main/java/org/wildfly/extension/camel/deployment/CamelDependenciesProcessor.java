@@ -48,23 +48,21 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
 
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
 
-        DeploymentUnit unit = phaseContext.getDeploymentUnit();
-        CamelDeploymentSettings camelDeploymentSettings = unit.getAttachment(CamelIntegrationParser.ATTACHMENT_KEY);
-        if (camelDeploymentSettings == null) {
-            camelDeploymentSettings = new CamelDeploymentSettings();
-        }
+        DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
+        CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
 
-        if (!camelDeploymentSettings.isEnabled()) {
+        // Camel dependecies disabled
+        if (!depSettings.isEnabled()) {
             return;
         }
 
         // No camel module dependencies for hawtio
-        String runtimeName = unit.getName();
+        String runtimeName = depUnit.getName();
         if (runtimeName.startsWith("hawtio") && runtimeName.endsWith(".war"))
             return;
 
-        ModuleLoader moduleLoader = unit.getAttachment(Attachments.SERVICE_MODULE_LOADER);
-        ModuleSpecification moduleSpec = unit.getAttachment(Attachments.MODULE_SPECIFICATION);
+        ModuleLoader moduleLoader = depUnit.getAttachment(Attachments.SERVICE_MODULE_LOADER);
+        ModuleSpecification moduleSpec = depUnit.getAttachment(Attachments.MODULE_SPECIFICATION);
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(GRAVIA_MODULE), false, false, false, false));
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(WILDFLY_CAMEL_MODULE), false, false, false, false));
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(JDK_EXTRAS_MODULE), false, false, false, false));
@@ -74,7 +72,7 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
         moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
         moduleSpec.addUserDependency(moddep);
 
-        List<String> deploymentDefinedModules = camelDeploymentSettings.getModules();
+        List<String> deploymentDefinedModules = depSettings.getModules();
         if (!deploymentDefinedModules.isEmpty()) {
             for (String name : deploymentDefinedModules) {
                 moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(name), false, false, true, false));

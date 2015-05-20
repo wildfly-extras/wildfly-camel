@@ -22,7 +22,6 @@
 package org.wildfly.extension.camel.deployment;
 
 import org.jboss.as.ee.structure.JBossDescriptorPropertyReplacement;
-import org.jboss.as.server.deployment.AttachmentKey;
 import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.jbossallxml.JBossAllXMLParser;
 import org.jboss.metadata.property.PropertyReplacer;
@@ -45,7 +44,6 @@ import java.util.Map;
  */
 public class CamelIntegrationParser implements JBossAllXMLParser<CamelDeploymentSettings> {
 
-    public static final AttachmentKey<CamelDeploymentSettings> ATTACHMENT_KEY = AttachmentKey.create(CamelDeploymentSettings.class);
     public static final String NAMESPACE_1_0 = "urn:jboss:jboss-camel:1.0";
     public static final QName ROOT_ELEMENT = new QName(NAMESPACE_1_0, "jboss-camel");
 
