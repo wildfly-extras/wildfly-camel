@@ -25,6 +25,7 @@ import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
 import org.jboss.as.server.deployment.DeploymentUnitProcessor;
 import org.jboss.vfs.VirtualFile;
+import org.wildfly.extension.camel.CamelConstants;
 
 /**
  * A DUP that detects switchyard deployments
@@ -33,8 +34,6 @@ import org.jboss.vfs.VirtualFile;
  * @since 20-May-2015
  */
 public final class SwitchyardDeploymentProcessor implements DeploymentUnitProcessor {
-
-    static String SWITCHYARD_MARKER_FILE = "META-INF/switchyard.xml";
 
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
 
@@ -46,7 +45,7 @@ public final class SwitchyardDeploymentProcessor implements DeploymentUnitProces
         }
 
         VirtualFile rootFile = depUnit.getAttachment(Attachments.DEPLOYMENT_ROOT).getRoot();
-        if (rootFile.getChild(SWITCHYARD_MARKER_FILE).exists()) {
+        if (rootFile.getChild(CamelConstants.SWITCHYARD_MARKER_FILE).exists()) {
             depSettings.setEnabled(false);
         }
     }

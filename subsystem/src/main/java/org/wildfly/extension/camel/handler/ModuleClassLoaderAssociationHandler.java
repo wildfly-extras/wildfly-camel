@@ -40,7 +40,11 @@ public final class ModuleClassLoaderAssociationHandler implements ContextCreateH
 
     @Override
     public void setup(CamelContext camelctx) {
+        ModuleClassLoader moduleClassLoader = getModuleClassLoader(camelctx);
+        camelctx.setApplicationContextClassLoader(moduleClassLoader);
+    }
 
+    public static ModuleClassLoader getModuleClassLoader(CamelContext camelctx) {
         Module contextModule = null;
 
         // Case #1: The context has already been initialized
@@ -76,8 +80,7 @@ public final class ModuleClassLoaderAssociationHandler implements ContextCreateH
         }
 
         IllegalStateAssertion.assertNotNull(contextModule, "Cannot obtain module for: " + camelctx);
-        ModuleClassLoader moduleClassLoader = contextModule.getClassLoader();
-        camelctx.setApplicationContextClassLoader(moduleClassLoader);
+        return contextModule.getClassLoader();
     }
 
     static final class CallerContext {
