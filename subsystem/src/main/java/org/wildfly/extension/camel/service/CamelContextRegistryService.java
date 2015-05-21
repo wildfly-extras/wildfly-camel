@@ -22,6 +22,7 @@ package org.wildfly.extension.camel.service;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.HashMap;
@@ -56,6 +57,7 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 import org.wildfly.extension.camel.ContextCreateHandler;
 import org.wildfly.extension.camel.ContextCreateHandlerRegistry;
 import org.wildfly.extension.camel.SpringCamelContextFactory;
+import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.camel.parser.SubsystemState;
 import org.wildfly.extension.gravia.GraviaConstants;
 
@@ -177,6 +179,13 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
 
         @Override
         public void contextCreated(CamelContext camelctx) {
+
+            // Prevent CameContext hooks for switchyard deployments
+            ModuleClassLoader moduleClassLoader = ModuleClassLoaderAssociationHandler.getModuleClassLoader(camelctx);
+            boolean isdeployment = moduleClassLoader.getModule().getIdentifier().getName().startsWith("deployment.");
+            URL switchyardMarkerURL = moduleClassLoader.getResource(CamelConstants.SWITCHYARD_MARKER_FILE);
+            if (isdeployment && switchyardMarkerURL != null)
+                return;
 
             // Call the default {@link ContextCreateHandler}s
             for (ContextCreateHandler handler : handlerRegistry.getContextCreateHandlers(null)) {

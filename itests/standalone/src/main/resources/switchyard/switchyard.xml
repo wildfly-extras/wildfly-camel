@@ -1,0 +1,26 @@
+<switchyard xmlns="urn:switchyard-config:switchyard:1.0" xmlns:camel="urn:switchyard-component-camel:config:1.0" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912">
+    <sca:composite name="camel-service" targetNamespace="urn:switchyard-quickstart:camel-service:0.1.0">
+        <sca:service name="JavaDSL" promote="JavaDSLBuilder/JavaDSL">
+            <sca:binding.sca/>
+        </sca:service>
+        <sca:component name="JavaDSLBuilder">
+            <camel:implementation.camel>
+                <camel:java class="org.wildfly.camel.test.switchyard.subA.JavaDSLBuilder"/>
+            </camel:implementation.camel>
+            <sca:service name="JavaDSL">
+                <sca:interface.java interface="org.wildfly.camel.test.switchyard.subA.JavaDSL"/>
+            </sca:service>
+            <sca:reference name="XMLService">
+                <interface.esb inputType="java:java.lang.String"/>
+            </sca:reference>
+        </sca:component>
+        <sca:component name="XMLComponent">
+            <camel:implementation.camel>
+                <camel:xml path="META-INF/route.xml"/>
+            </camel:implementation.camel>
+            <sca:service name="XMLService">
+                <interface.esb inputType="java:java.lang.String"/>
+            </sca:service>
+        </sca:component>
+    </sca:composite>
+</switchyard>

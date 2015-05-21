@@ -30,7 +30,7 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
 /**
- * Colection of XML utilities
+ * Collection of XML utilities
  *
  * @author Thomas.Diesler@jboss.com
  * @since 27-Mar-2015

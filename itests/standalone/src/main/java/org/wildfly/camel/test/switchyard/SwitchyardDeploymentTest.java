@@ -18,34 +18,46 @@
  * #L%
  */
 
-package org.wildfly.camel.test.classloading;
+package org.wildfly.camel.test.switchyard;
 
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.EnvironmentUtils;
+import org.wildfly.camel.test.switchyard.subA.JavaDSL;
+import org.wildfly.camel.test.switchyard.subA.JavaDSLBuilder;
 
 /**
  * Verify that a deployment with a META-INF/switchyard.xml file
  * disables camel from being added to your deployment.
  */
 @RunWith(Arquillian.class)
-public class SwitchyardDeploymnetTest {
+public class SwitchyardDeploymentTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "switchyard-tests");
-        archive.addAsResource(new StringAsset(""), "META-INF/switchyard.xml");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "switchyard-modules-tests.jar");
+        archive.addClasses(JavaDSL.class, JavaDSLBuilder.class, EnvironmentUtils.class);
+        archive.addAsManifestResource("switchyard/switchyard.xml", "switchyard.xml");
+        archive.addAsManifestResource("switchyard/route.xml", "route.xml");
         return archive;
     }
 
-    @Test(expected = NoClassDefFoundError.class)
+    @Test
     public void testCamelDoesNotLoad() throws Exception {
-        new DefaultCamelContext();
+        Assume.assumeFalse(EnvironmentUtils.switchyardSupport());
+        try {
+            new DefaultCamelContext();
+            Assert.fail("NoClassDefFoundError expected");
+        } catch (NoClassDefFoundError er) {
+            // expected
+        }
     }
 
 }
