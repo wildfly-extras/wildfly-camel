@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.xmlbeans">
+  <resources>
+    <resource-root path="xmlbeans-2.6.0.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.xml.stream.api" />
+  </dependencies>
+</module>

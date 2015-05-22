@@ -83,7 +83,6 @@
 /org/apache/camel/component/velocity/main/camel-velocity-2.15.2.jar
 /org/apache/camel/component/weather/main/camel-weather-2.15.2.jar
 /org/apache/camel/component/xmlbeans/main/camel-xmlbeans-2.15.2.jar
-/org/apache/camel/component/xmlbeans/main/xmlbeans-2.6.0.jar
 /org/apache/camel/component/xmlsecurity/main/camel-xmlsecurity-2.15.2.jar
 /org/apache/camel/component/xstream/main/camel-xstream-2.15.2.jar
 /org/apache/camel/component/xstream/main/xmlpull-1.1.3.1.jar
@@ -92,7 +91,6 @@
 /org/apache/camel/component/zipfile/main/camel-zipfile-2.15.2.jar
 /org/apache/camel/core/main/camel-core-2.15.2.jar
 /org/apache/camel/core/xml/main/camel-core-xml-2.15.2.jar
-/org/apache/camel/script/bsh/main/bsh-2.0b5.jar
 /org/apache/camel/script/groovy/main/groovy-all-2.4.3.jar
 /org/apache/camel/script/jruby/main/jruby-complete-1.7.18.jar
 /org/apache/camel/script/jruby/main/scriptengines-jruby-1.1.1.jar
@@ -153,6 +151,8 @@
 /org/apache/ws/security/2.0/wss4j-ws-security-policy-stax-2.0.3.jar
 /org/apache/ws/security/2.0/wss4j-ws-security-stax-2.0.3.jar
 /org/apache/xbean/spring/main/xbean-spring-3.18.jar
+/org/apache/xmlbeans/main/xmlbeans-2.6.0.jar
+/org/beanshell/main/bsh-2.0b5.jar
 /org/bouncycastle/1.52/bcpg-jdk15on-1.52.jar
 /org/bouncycastle/1.52/bcprov-jdk15on-1.52.jar
 /org/fusesource/hawtbuf/main/hawtbuf-1.11.jar

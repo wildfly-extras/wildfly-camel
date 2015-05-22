@@ -172,6 +172,20 @@
         <include artifact="org.apache.xbean:xbean-(.*)" />
     </module>
 
+    <module name="org.apache.xmlbeans">
+        <include artifact="org.apache.xmlbeans:xmlbeans" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.beanshell">
+        <include artifact="org.beanshell:bsh" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
     <module name="org.bouncycastle" slot="1.52">
         <include artifact="org.bouncycastle:bcprov-jdk15on" />
         <include artifact="org.bouncycastle:bcpg-jdk15on" />
