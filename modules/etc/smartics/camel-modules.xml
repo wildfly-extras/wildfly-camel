@@ -200,6 +200,9 @@
                     <include path="org/apache/cxf/ws/discovery" />
                     <include path="org/apache/cxf/ws/security/**" />
                     <include path="org/apache/cxf/sts" />
+                    <include path="org/apache/cxf/headers" />
+                    <include path="org/apache/cxf/binding/**" />
+                    <include path="org/apache/cxf/message" />
                     <exclude path="org/apache/cxf/**" />
                     <exclude path="org/objectweb/asm**" />
                     <exclude path="schemas**" />
