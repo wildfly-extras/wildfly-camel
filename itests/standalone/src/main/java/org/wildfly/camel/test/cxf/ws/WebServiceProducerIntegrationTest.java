@@ -19,16 +19,24 @@
  */
 package org.wildfly.camel.test.cxf.ws;
 
+import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.ws.Service;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.cxf.binding.soap.SoapHeader;
+import org.apache.cxf.headers.Header;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -40,8 +48,11 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.wildfly.camel.test.cxf.ws.subA.Endpoint;
 import org.wildfly.camel.test.cxf.ws.subA.EndpointImpl;
+import org.xml.sax.InputSource;
 
 /**
  * Test WebService endpoint access with the cxf component.
@@ -100,6 +111,54 @@ public class WebServiceProducerIntegrationTest {
         } finally {
             deployer.undeploy(SIMPLE_WAR);
         }
+    }
+
+    @Test
+    public void testCxfSoapHeader() throws Exception {
+        deployer.deploy(SIMPLE_WAR);
+        try {
+            CamelContext camelctx = new DefaultCamelContext();
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    from("direct:start")
+                    .process(new Processor() {
+                        @Override
+                        public void process(Exchange exchange) throws Exception {
+                            List<SoapHeader> soapHeaders = new ArrayList<SoapHeader>();
+
+                            String headerXml = "<?xml version=\"1.0\" encoding=\"utf-8\"?><input xmlns=\"http://wildfly.camel.test.cxf\">Kermit</input>";
+
+                            SoapHeader soapHeader = new SoapHeader(new QName("http://wildfly.camel.test.cxf", "input"), getSoapHeaderElement(headerXml));
+                            soapHeader.setDirection(Header.Direction.DIRECTION_IN);
+                            soapHeaders.add(soapHeader);
+
+                            exchange.getOut().setHeader(Header.HEADER_LIST, soapHeaders);
+                        }
+                    })
+                    .to("cxf://" + getEndpointAddress("/simple") + "?serviceClass=" + Endpoint.class.getName());
+                }
+            });
+
+            camelctx.start();
+            try {
+                ProducerTemplate producer = camelctx.createProducerTemplate();
+                String result = producer.requestBody("direct:start", null, String.class);
+                Assert.assertEquals("Hello Kermit", result);
+            } finally {
+                camelctx.stop();
+            }
+        } finally {
+            deployer.undeploy(SIMPLE_WAR);
+        }
+    }
+
+    private Element getSoapHeaderElement(String headerXml) throws Exception {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        StringReader stringReader = new StringReader(headerXml);
+        InputSource inputSource = new InputSource(stringReader);
+        Document parsedHeader = documentBuilderFactory.newDocumentBuilder().parse(inputSource);
+        return parsedHeader.getDocumentElement();
     }
 
     private String getEndpointAddress(String contextPath) throws MalformedURLException {

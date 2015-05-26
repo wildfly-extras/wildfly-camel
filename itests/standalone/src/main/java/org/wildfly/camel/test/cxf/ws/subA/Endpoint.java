@@ -21,6 +21,7 @@
 package org.wildfly.camel.test.cxf.ws.subA;
 
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
@@ -29,5 +30,5 @@ import javax.jws.soap.SOAPBinding;
 public interface Endpoint {
 
    @WebMethod(operationName = "echoString", action = "urn:EchoString")
-   String echo(String input);
+   String echo(@WebParam(name = "input", header = true, targetNamespace = "http://wildfly.camel.test.cxf") String input);
 }
