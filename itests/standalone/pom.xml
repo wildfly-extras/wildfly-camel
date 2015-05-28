@@ -359,6 +359,9 @@
                         <jboss.home>${jboss.home}</jboss.home>
                         <log4j.configuration>${log4j.configuration}</log4j.configuration>
                     </systemPropertyVariables>
+                    <environmentVariables>
+                        <JBOSS_HOME>${jboss.home}</JBOSS_HOME>
+                    </environmentVariables>
                     <testSourceDirectory>${basedir}/src/main/java/</testSourceDirectory>
                     <testClassesDirectory>${project.build.directory}/classes/</testClassesDirectory>
                 </configuration>

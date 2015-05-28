@@ -30,16 +30,35 @@ import javax.security.auth.login.LoginContext;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.UserManagement;
 import org.wildfly.camel.test.policy.subA.AnnotatedSLSB;
 import org.wildfly.extension.camel.security.ClientLoginContext;
 
+
 @RunWith(Arquillian.class)
+@ServerSetup(EJBSecurityTestCase.ApplicationUserSetupTask.class)
 public class EJBSecurityTestCase {
+
+    static class ApplicationUserSetupTask implements ServerSetupTask {
+
+        @Override
+        public void setup(ManagementClient managementClient, String containerId) throws Exception {
+            UserManagement.applicationUser().username("user1").password("password1").group("Role1").create();
+        }
+
+        @Override
+        public void tearDown(final ManagementClient managementClient, String containerId) throws Exception {
+            // Do nothing
+        }
+    }
 
     @Deployment
     public static JavaArchive createDeployment() {
