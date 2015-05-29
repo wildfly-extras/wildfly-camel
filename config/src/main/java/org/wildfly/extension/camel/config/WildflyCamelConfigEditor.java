@@ -94,7 +94,6 @@ final class WildflyCamelConfigEditor implements ConfigEditor {
             addProperty(systemProperties, propertiesByName, "hawtio.authenticationEnabled", "true");
             addProperty(systemProperties, propertiesByName, "hawtio.offline", "true");
             addProperty(systemProperties, propertiesByName, "hawtio.realm", "hawtio-domain");
-            addProperty(systemProperties, propertiesByName, "hawtio.role", "admin");
         } else {
             rmProperty(propertiesByName, "hawtio.authenticationEnabled");
             rmProperty(propertiesByName, "hawtio.offline");

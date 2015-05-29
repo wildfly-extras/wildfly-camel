@@ -47,11 +47,14 @@ import org.wildfly.extension.camel.security.ClientLoginContext;
 @ServerSetup(EJBSecurityTestCase.ApplicationUserSetupTask.class)
 public class EJBSecurityTestCase {
 
+    static final String USERNAME = "user1";
+    static final String PASSWORD = "appl-pa$$wrd1";
+
     static class ApplicationUserSetupTask implements ServerSetupTask {
 
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
-            UserManagement.applicationUser().username("user1").password("password1").group("Role1").create();
+            UserManagement.applicationUser().username(USERNAME).password(PASSWORD).group("Role1").create();
         }
 
         @Override
@@ -78,7 +81,7 @@ public class EJBSecurityTestCase {
     public void testAuthorizedAccess() throws Exception {
 
         AnnotatedSLSB bean = lookup(new InitialContext(), AnnotatedSLSB.class, AnnotatedSLSB.class);
-        LoginContext lc = ClientLoginContext.newLoginContext("user1", "password1");
+        LoginContext lc = ClientLoginContext.newLoginContext(USERNAME, PASSWORD);
         lc.login();
         try {
             Assert.assertEquals("Hello Kermit", bean.doSelected("Kermit"));

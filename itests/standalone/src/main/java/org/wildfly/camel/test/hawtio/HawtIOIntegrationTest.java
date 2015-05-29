@@ -45,11 +45,14 @@ import static org.junit.Assert.assertTrue;
 @ServerSetup(HawtIOIntegrationTest.ManagementUserSetupTask.class)
 public class HawtIOIntegrationTest {
 
+    private static final String USERNAME = "admin";
+    private static final String PASSWORD = "mgmnt-pa$$wrd1";
+
     static class ManagementUserSetupTask implements ServerSetupTask {
 
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
-            UserManagement.managementUser().username("admin").password("p-123456").create();
+            UserManagement.managementUser().username(USERNAME).password(PASSWORD).create();
         }
 
         @Override
@@ -71,7 +74,7 @@ public class HawtIOIntegrationTest {
         URLConnection conn = url.openConnection();
         try {
             // Accessing hawtio requires an admin id/password.
-            String userpass = "admin:p-123456";
+            String userpass = USERNAME + ":" + PASSWORD;
             String basicAuth = "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(userpass.getBytes());
             conn.setRequestProperty("Authorization", basicAuth);
 
