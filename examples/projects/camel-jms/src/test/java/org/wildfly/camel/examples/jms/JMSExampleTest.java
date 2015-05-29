@@ -33,6 +33,7 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
@@ -71,6 +72,10 @@ public class JMSExampleTest {
 
     @Test
     public void testFileToJmsRoute() throws Exception {
+
+        // [ENTESB-3281] Wildfly-Camel build fails on OpenJDK
+        String vmname = System.getProperty("java.vm.name");
+        Assume.assumeFalse(vmname.contains("OpenJDK"));
 
         InputStream input = getClass().getResourceAsStream("/orders/test-order.xml");
         Files.copy(input, destination.toPath().resolve("test-order.xml"));

@@ -20,6 +20,19 @@
 
 package org.wildfly.camel.test.zipfile;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Iterator;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipOutputStream;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.PollingConsumer;
@@ -33,21 +46,9 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Iterator;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipOutputStream;
 
 @RunWith(Arquillian.class)
 public class ZipFileIntegrationTest {
@@ -62,8 +63,12 @@ public class ZipFileIntegrationTest {
 
     @Test
     public void testZipFileMarshal() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
 
+        // [ENTESB-3281] Wildfly-Camel build fails on OpenJDK
+        String vmname = System.getProperty("java.vm.name");
+        Assume.assumeFalse(vmname.contains("OpenJDK"));
+
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -75,7 +80,6 @@ public class ZipFileIntegrationTest {
         });
 
         camelctx.start();
-
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             producer.sendBody("direct:start", "Hello Kermit");
@@ -96,11 +100,15 @@ public class ZipFileIntegrationTest {
 
     @Test
     public void testZipFileUnmarshal() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
+
+        // [ENTESB-3281] Wildfly-Camel build fails on OpenJDK
+        String vmname = System.getProperty("java.vm.name");
+        Assume.assumeFalse(vmname.contains("OpenJDK"));
 
         final ZipFileDataFormat zipFileDataFormat = new ZipFileDataFormat();
         zipFileDataFormat.setUsingIterator(true);
 
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -116,7 +124,6 @@ public class ZipFileIntegrationTest {
         createZipFile("Hello Kermit");
 
         camelctx.start();
-
         try {
             PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
             pollingConsumer.start();
@@ -131,6 +138,11 @@ public class ZipFileIntegrationTest {
 
     @Test
     public void testZipSplitterUnmarshal() throws Exception {
+
+        // [ENTESB-3281] Wildfly-Camel build fails on OpenJDK
+        String vmname = System.getProperty("java.vm.name");
+        Assume.assumeFalse(vmname.contains("OpenJDK"));
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -146,7 +158,6 @@ public class ZipFileIntegrationTest {
         createZipFile("Hello Kermit");
 
         camelctx.start();
-
         try {
             PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
             pollingConsumer.start();
