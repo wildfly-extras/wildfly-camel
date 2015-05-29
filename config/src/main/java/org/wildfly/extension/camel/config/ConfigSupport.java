@@ -225,17 +225,16 @@ public class ConfigSupport {
     }
 
     static List<Element> findProfileElements(Document doc) {
+        List<Element> result = new ArrayList<>();
         Element profile = doc.getRootElement().getChild("profile");
         if (profile != null) {
-            return Collections.singletonList(profile);
+            result.add(profile);
         }
-
         Element profiles = doc.getRootElement().getChild("profiles");
         if (profiles != null) {
-            return profiles.getChildren("profile");
+            result.addAll(profiles.getChildren("profile"));
         }
-        assertExists(null, "Did not find the <profile> element");
-        return null;
+        return result;
     }
 
 }

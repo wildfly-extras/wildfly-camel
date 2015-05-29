@@ -20,6 +20,7 @@ package org.wildfly.extension.camel.config;
  * configuration files
  */
 public class ConfigMain {
+
     static String PROCESS_NAME = "wildfly-camel-config.jar";
 
     public static void main(String[] args) throws Exception {

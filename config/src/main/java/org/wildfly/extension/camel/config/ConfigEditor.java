@@ -17,13 +17,10 @@ package org.wildfly.extension.camel.config;
 
 import de.pdark.decentxml.Document;
 
-
-/**
- *
- */
 public interface ConfigEditor {
 
     void applyDomainConfigChange(boolean enable, Document doc);
+
     void applyStandaloneConfigChange(boolean enable, Document doc);
 
 }

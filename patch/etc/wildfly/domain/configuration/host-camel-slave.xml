@@ -82,6 +82,6 @@
  	</jvms>
 
     <servers>
-        <server name="server-one" group="main-server-group"/>
+        <server name="server-one" group="camel-server-group"/>
     </servers>
 </host>
