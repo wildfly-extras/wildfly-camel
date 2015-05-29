@@ -51,7 +51,7 @@
     <properties>
         <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
         <jboss.data.dir>${jboss.home}/standalone/data</jboss.data.dir>
-        <server.config>standalone-full.xml</server.config>
+        <server.config>standalone-full-camel.xml</server.config>
         <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true</jvmArgs>
         <jvmDebugArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmDebugArgs>
         <log4j.configuration>file://${basedir}/src/test/resources/logging.properties</log4j.configuration>
@@ -104,25 +104,45 @@
 			<build>
 				<plugins>
 		            <plugin>
+                        <!-- unpacking not inherited -->
 		                <groupId>org.apache.maven.plugins</groupId>
 		                <artifactId>maven-dependency-plugin</artifactId>
 		                <executions>
                             <execution>
-                                <id>unpack-distro</id>
+                                <id>unpack-wildfly</id>
                                 <phase>generate-resources</phase>
                                 <goals>
                                     <goal>unpack</goal>
                                 </goals>
-                                <!-- distro unpacking not inherited -->
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.wildfly</groupId>
+                                            <artifactId>wildfly-dist</artifactId>
+                                            <version>${version.wildfly}</version>
+                                            <type>zip</type>
+                                            <outputDirectory>${project.build.directory}</outputDirectory>
+                                            <overWrite>false</overWrite>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>unpack-patch</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
                                 <inherited>false</inherited>
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
                                             <groupId>org.wildfly.camel</groupId>
-                                            <artifactId>wildfly-camel-example-distro</artifactId>
+                                            <artifactId>wildfly-camel-patch</artifactId>
                                             <version>${project.version}</version>
-                                            <type>tar</type>
-                                            <outputDirectory>${project.build.directory}</outputDirectory>
+                                            <type>tar.gz</type>
+                                            <outputDirectory>${jboss.home}</outputDirectory>
                                         </artifactItem>
                                     </artifactItems>
                                 </configuration>
@@ -130,6 +150,7 @@
 		                </executions>
 		            </plugin>
 		            <plugin>
+                        <!-- wildfly startup and deployment not inherited -->
 		                <groupId>org.wildfly.plugins</groupId>
 		                <artifactId>wildfly-maven-plugin</artifactId>
 		                <executions>
@@ -139,7 +160,6 @@
 		                        <goals>
 		                            <goal>start</goal>
 		                        </goals>
-                                <!-- wildfly startup not inherited -->
 			              		<inherited>false</inherited>
         		                <configuration>
                                     <jbossHome>${jboss.home}</jbossHome>
@@ -153,7 +173,6 @@
                                 <goals>
                                     <goal>deploy-artifact</goal>
                                 </goals>
-                                <!-- greenmail deployment not inherited -->
                                 <inherited>false</inherited>
                                 <configuration>
                                     <groupId>com.icegreen</groupId>
@@ -202,7 +221,26 @@
 		                <artifactId>maven-dependency-plugin</artifactId>
 		                <executions>
                             <execution>
-                                <id>unpack-distro</id>
+                                <id>unpack-wildfly</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.wildfly</groupId>
+                                            <artifactId>wildfly-dist</artifactId>
+                                            <version>${version.wildfly}</version>
+                                            <type>zip</type>
+                                            <outputDirectory>${project.build.directory}</outputDirectory>
+                                            <overWrite>false</overWrite>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>unpack-patch</id>
                                 <phase>generate-resources</phase>
                                 <goals>
                                     <goal>unpack</goal>
@@ -211,10 +249,10 @@
                                     <artifactItems>
                                         <artifactItem>
                                             <groupId>org.wildfly.camel</groupId>
-                                            <artifactId>wildfly-camel-example-distro</artifactId>
+                                            <artifactId>wildfly-camel-patch</artifactId>
                                             <version>${project.version}</version>
-                                            <type>tar</type>
-                                            <outputDirectory>${project.build.directory}</outputDirectory>
+                                            <type>tar.gz</type>
+                                            <outputDirectory>${jboss.home}</outputDirectory>
                                         </artifactItem>
                                     </artifactItems>
                                 </configuration>

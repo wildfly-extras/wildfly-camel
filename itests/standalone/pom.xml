@@ -35,7 +35,7 @@
 
     <!-- Properties -->
     <properties>
-        <server.config>standalone-full.xml</server.config>
+        <server.config>standalone-full-camel.xml</server.config>
         <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true</jvmArgs>
         <jvmDebugArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmDebugArgs>
         <log4j.configuration>file://${basedir}/src/main/resources/logging.properties</log4j.configuration>
@@ -50,9 +50,9 @@
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-example-distro</artifactId>
+            <artifactId>wildfly-camel-patch</artifactId>
             <version>${project.version}</version>
-            <type>tar</type>
+            <type>tar.gz</type>
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
@@ -331,7 +331,26 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>unpack-distro</id>
+                        <id>unpack-wildfly</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.wildfly</groupId>
+                                    <artifactId>wildfly-dist</artifactId>
+                                    <version>${version.wildfly}</version>
+                                    <type>zip</type>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <overWrite>false</overWrite>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>unpack-wildfly-patch</id>
                         <phase>generate-resources</phase>
                         <goals>
                             <goal>unpack</goal>
@@ -340,10 +359,11 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>org.wildfly.camel</groupId>
-                                    <artifactId>wildfly-camel-example-distro</artifactId>
+                                    <artifactId>wildfly-camel-patch</artifactId>
                                     <version>${project.version}</version>
-                                    <type>tar</type>
-                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <type>tar.gz</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${jboss.home}</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
@@ -354,16 +374,16 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <redirectTestOutputToFile>false</redirectTestOutputToFile>
+                    <environmentVariables>
+                        <JBOSS_HOME>${jboss.home}</JBOSS_HOME>
+                    </environmentVariables>
                     <systemPropertyVariables>
                         <jboss.home>${jboss.home}</jboss.home>
                         <log4j.configuration>${log4j.configuration}</log4j.configuration>
                     </systemPropertyVariables>
-                    <environmentVariables>
-                        <JBOSS_HOME>${jboss.home}</JBOSS_HOME>
-                    </environmentVariables>
                     <testSourceDirectory>${basedir}/src/main/java/</testSourceDirectory>
                     <testClassesDirectory>${project.build.directory}/classes/</testClassesDirectory>
+                    <redirectTestOutputToFile>false</redirectTestOutputToFile>
                 </configuration>
             </plugin>
             <plugin>

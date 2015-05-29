@@ -118,7 +118,6 @@
         <module>patch</module>
         <module>subsystem</module>
         <module>itests</module>
-        <module>examples</module>
     </modules>
 
     <!-- DependencyManagement -->
@@ -646,6 +645,17 @@
             <id>docs</id>
             <modules>
                 <module>docs</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>ts.all</id>
+            <activation>
+                <property>
+                    <name>ts.all</name>
+                </property>
+            </activation>
+            <modules>
+                <module>examples</module>
             </modules>
         </profile>
     </profiles>

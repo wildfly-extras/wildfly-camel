@@ -36,7 +36,7 @@
 
 	<!-- Modules -->
 	<modules>
-        <module>distro</module>
+        <module>projects</module>
 	</modules>
 
     <!-- Repositories -->
@@ -47,18 +47,4 @@
         </repository>
     </repositories>
     
-    <!-- Profiles -->
-    <profiles>
-        <profile>
-            <id>ts.all</id>
-            <activation>
-                <property>
-                    <name>ts.all</name>
-                </property>
-            </activation>
-            <modules>
-                <module>projects</module>
-            </modules>
-        </profile>
-    </profiles>
 </project>

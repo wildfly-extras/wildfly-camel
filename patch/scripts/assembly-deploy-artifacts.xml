@@ -47,9 +47,21 @@
             </excludes>
         </fileSet>
     </fileSets>
+    
+    <files>
+        <file>
+            <source>${jboss.home}/standalone/configuration/standalone.xml</source>
+            <outputDirectory>standalone/configuration</outputDirectory>
+            <destName>standalone-camel.xml</destName>
+        </file>
+        <file>
+            <source>${jboss.home}/standalone/configuration/standalone-full.xml</source>
+            <outputDirectory>standalone/configuration</outputDirectory>
+            <destName>standalone-full-camel.xml</destName>
+        </file>
+    </files>
 
     <dependencySets>
-
         <dependencySet>
             <outputDirectory>modules/system/layers/fuse/org/wildfly/extension/camel/main</outputDirectory>
             <includes>
@@ -57,14 +69,12 @@
                 <include>org.jboss.gravia:gravia-container-wildfly-extension:jar</include>
             </includes>
         </dependencySet>
-
         <dependencySet>
             <outputDirectory>standalone/deployments</outputDirectory>
             <includes>
                 <include>io.hawt:hawtio-wildfly:war</include>
             </includes>
         </dependencySet>
-
         <dependencySet>
             <outputDirectory>/</outputDirectory>
             <includes>
@@ -78,7 +88,6 @@
             <fileMode>0644</fileMode>
             <unpack>true</unpack>
         </dependencySet>
-
         <dependencySet>
             <outputDirectory>/bin</outputDirectory>
             <includes>

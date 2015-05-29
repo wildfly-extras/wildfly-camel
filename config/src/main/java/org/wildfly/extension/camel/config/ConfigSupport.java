@@ -42,19 +42,21 @@ import de.pdark.decentxml.XMLStringSource;
 
 public class ConfigSupport {
 
-    public static class BadDocument extends RuntimeException {
-        public BadDocument(String message) {
+    @SuppressWarnings("serial")
+    static class BadDocument extends RuntimeException {
+        BadDocument(String message) {
             super(message);
         }
     }
 
-    public static class CommandException extends RuntimeException {
-        public CommandException(String message) {
+    @SuppressWarnings("serial")
+    static class CommandException extends RuntimeException {
+        CommandException(String message) {
             super(message);
         }
     }
 
-    public static String getJBossHome() throws UnsupportedEncodingException {
+    static String getJBossHome() throws UnsupportedEncodingException {
         String jbossHome = System.getProperty("jboss.home");
         if (jbossHome == null) {
             String path = ConfigMain.class.getProtectionDomain().getCodeSource().getLocation().getPath();
@@ -78,8 +80,8 @@ public class ConfigSupport {
         return jbossHome;
     }
 
-    public static final List<String> standalonePaths = new ArrayList<String>();
-    public static final List<String> domainPaths = new ArrayList<String>();
+    static final List<String> standalonePaths = new ArrayList<String>();
+    static final List<String> domainPaths = new ArrayList<String>();
 
     static {
         standalonePaths.add("/standalone/configuration/standalone.xml");
@@ -89,9 +91,6 @@ public class ConfigSupport {
         domainPaths.add("/domain/configuration/domain.xml");
     }
 
-    /**
-     *
-     */
     public static void applyConfigChange(String jbossHome, boolean enable, ConfigEditor editor) throws Exception {
 
         XMLParser parser = new XMLParser();
@@ -130,13 +129,13 @@ public class ConfigSupport {
 
     }
 
-    public static Element createElementFromText(String xml) {
+    static Element createElementFromText(String xml) {
         XMLParser parser = new XMLParser();
         Document doc = parser.parse(new XMLStringSource(xml));
         return doc.getRootElement();
     }
 
-    public static Element loadElementFrom(URL resource) {
+    static Element loadElementFrom(URL resource) {
         try {
             byte[] data = loadBytesFromURL(resource);
             String xml = new String(data, "UTF-8");
@@ -146,7 +145,7 @@ public class ConfigSupport {
         }
     }
 
-    public static byte[] loadBytesFromURL(URL resource) throws IOException {
+    static byte[] loadBytesFromURL(URL resource) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         final byte[] buffer = new byte[10234];
         try (InputStream in = resource.openStream()) {
@@ -160,7 +159,7 @@ public class ConfigSupport {
         return out.toByteArray();
     }
 
-    public static Element findElementWithAttributeValue(Collection<Element> elements, String attrName, String attrValue) {
+    static Element findElementWithAttributeValue(Collection<Element> elements, String attrName, String attrValue) {
         if (elements == null)
             return null;
         for (Element element : elements) {
@@ -174,7 +173,7 @@ public class ConfigSupport {
         return null;
     }
 
-    public static Element findElementWithStartingAttributeValue(Collection<Element> elements, String attrName, String attrValue) {
+    static Element findElementWithStartingAttributeValue(Collection<Element> elements, String attrName, String attrValue) {
         if (elements == null)
             return null;
         for (Element element : elements) {
@@ -188,13 +187,13 @@ public class ConfigSupport {
         return null;
     }
 
-    public static void assertExists(Element extensions, String message) {
+    static void assertExists(Element extensions, String message) {
         if (extensions == null) {
             throw new BadDocument(message);
         }
     }
 
-    public static void backup(String path, String xml) throws IOException {
+    static void backup(String path, String xml) throws IOException {
         String name = path + ".bak";
         int counter = 2;
         while (Files.exists(Paths.get(name))) {
@@ -204,17 +203,17 @@ public class ConfigSupport {
         writeFile(name, xml, "UTF-8");
     }
 
-    public static String readFile(String path, String encoding) throws IOException {
+    static String readFile(String path, String encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return new String(encoded, encoding);
     }
 
-    public static Path writeFile(String path, String value, String encoding) throws IOException {
+    static Path writeFile(String path, String value, String encoding) throws IOException {
         byte[] bytes = value.getBytes(encoding);
         return Files.write(Paths.get(path), bytes, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
     }
 
-    public static LinkedHashMap<String, Element> mapByAttributeName(List<Element> elements, String attrName) {
+    static LinkedHashMap<String, Element> mapByAttributeName(List<Element> elements, String attrName) {
         LinkedHashMap<String, Element> rc = new LinkedHashMap<String, Element>();
         for (Element element : elements) {
             Attribute attribute = element.getAttribute(attrName);
@@ -225,7 +224,7 @@ public class ConfigSupport {
         return rc;
     }
 
-    public static List<Element> findProfileElements(Document doc) {
+    static List<Element> findProfileElements(Document doc) {
         Element profile = doc.getRootElement().getChild("profile");
         if (profile != null) {
             return Collections.singletonList(profile);
