@@ -1,55 +1,15 @@
 Release Notes
 -------------------
 
-In WildFly-Camel 2.2.0 we added yet another set of [camel components](http://wildflyext.gitbooks.io/wildfly-camel/content/components/README.html)
+In WildFly-Camel 2.3.0 we added support for language based binding annotations and parameter binding annotations, improved security integration via [Route Policies](http://wildflyext.gitbooks.io/wildfly-camel/content/security/policy.html) and added [camel-swagger](http://wildflyext.gitbooks.io/wildfly-camel/content/components/camel-swagger.html) to the set of supported [camel components](http://wildflyext.gitbooks.io/wildfly-camel/content/components/README.html).
 
-* camel-dozer 
-* camel-ejb 
-* camel-file2 
-* camel-http4 
-* camel-quartz2 
-* camel-rss
-* camel-rest 
-* camel-restlet 
-* camel-saxon 
-* camel-script 
-* camel-servlet 
-* camel-sql
- 
-All out-of-box data formats have been added
-
-* Bindy
-* Castor
-* Crypto
-* CVS
-* Flatpack
-* GZip
-* HL7
-* JAXB
-* Jackson
-* Protobuf
-* SOAP
-* Serialization
-* TidyMarkup
-* XmlBeans
-* XMLSecurity
-* XStream
-* Zip
- 
-Support for a number of scripting languages has been added
-
-* BeanShell
-* Groovy
-* Ruby
-* Python
-* JavaScript
+In addition to that, we also resolved a number of other minor [features, tasks and bugfixes](Changelog.md).
 
 Component upgrades include
 
-* arquillian-1.1.7.Final
-* camel-2.15.0
-* hawtio-1.4.48
+* OpenShift v0.5
+* camel-2.15.2
 
-For details please see the [2.2.0 Milestone](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A2.2.0)
+For details please see the [2.3.0 Milestone](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A2.3.0)
 
 Enjoy
