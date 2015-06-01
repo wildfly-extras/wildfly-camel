@@ -42,7 +42,7 @@
 
         <!-- Used for dependency checking in module-checker.groovy -->
         <appserver.groupId>org.wildfly</appserver.groupId>
-        <appserver.artifactId>wildfly-build</appserver.artifactId>
+        <appserver.artifactId>wildfly-feature-pack</appserver.artifactId>
         <appserver.version>${version.wildfly}</appserver.version>
     </properties>
 
