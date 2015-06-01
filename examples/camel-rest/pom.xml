@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   #%L
-  Wildfly Camel :: Example :: Camel Mail
+  Wildfly Camel :: Example :: Camel REST
   %%
-  Copyright (C) 2013 - 2015 RedHat
+  Copyright (C) 2013 - 2014 RedHat
   %%
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -25,49 +25,55 @@
 
     <parent>
         <groupId>org.wildfly.camel</groupId>
-        <artifactId>wildfly-camel-example-projects</artifactId>
+        <artifactId>wildfly-camel-example</artifactId>
         <version>2.3.0-SNAPSHOT</version>
     </parent>
 
-    <name>Wildfly Camel :: Example :: Camel Mail</name>
+    <name>Wildfly Camel :: Example :: Camel REST</name>
 
-    <artifactId>example-camel-mail</artifactId>
-    <packaging>war</packaging>
+    <artifactId>example-camel-rest</artifactId>
+	<packaging>war</packaging>
+	
+    <!-- Properties -->
+    <properties>
+        <docker.image.name>wildflyext/${project.artifactId}</docker.image.name>
+    </properties>
 
-    <dependencies>
-
-        <!-- Provided -->
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-camel</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-cdi</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-mail</artifactId>
-            <scope>provided</scope>
-        </dependency>
+    <!-- Dependencies -->    
+	<dependencies>
+	
+		<!-- Provided -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-cdi</artifactId>
+	        <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.spec.javax.servlet</groupId>
-            <artifactId>jboss-servlet-api_3.1_spec</artifactId>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
+		  <scope>provided</scope>
+        </dependency>
+	    <dependency>
+	        <groupId>org.jboss.spec.javax.servlet</groupId>
+	        <artifactId>jboss-servlet-api_3.1_spec</artifactId>
+	        <scope>provided</scope>
+	    </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.ws.rs</groupId>
+            <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
-
+	    
         <!-- Test -->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
@@ -84,9 +90,9 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-    </dependencies>
+	</dependencies>
 
-    <!-- Build -->
+	<!-- Build -->
     <build>
         <plugins>
             <plugin>
@@ -103,13 +109,6 @@
                         <goals>
                             <goal>deploy</goal>
                         </goals>
-                        <configuration>
-                            <beforeDeployment>
-                                <scripts>
-                                    <script>${project.basedir}/src/main/resources/cli/configure-mail.cli</script>
-                                </scripts>
-                            </beforeDeployment>
-                        </configuration>
                     </execution>
                     <execution>
                         <id>wildfly-undeploy</id>
@@ -123,8 +122,68 @@
         </plugins>
     </build>
 
-    <!-- Profiles -->
-    <profiles>
+	<!-- Profiles -->
+	<profiles>
+		<profile>
+			<id>docker</id>
+            <activation>
+                <property>
+                    <name>env.DOCKER_HOST</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <exec executable="docker" failonerror="false">
+                                            <arg value="rmi" />
+                                            <arg value="--force=true" />
+                                            <arg value="${docker.image.name}" />
+                                        </exec>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.jolokia</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>build-docker-image</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                                <configuration>
+                                    <images>
+                                        <image>
+                                            <name>${docker.image.name}</name>
+                                            <build>
+                                                <from>wildflyext/wildfly-camel</from>
+                                                <assembly>
+                                                    <basedir>/opt/jboss/wildfly/standalone/deployments</basedir>
+                                                    <descriptorRef>artifact</descriptorRef>
+                                                </assembly>
+                                            </build>
+                                        </image>
+                                    </images>
+                                </configuration>
+                            </execution>
+                        </executions>
+                     </plugin>
+                </plugins>
+            </build>
+		</profile>
         <profile>
             <id>ts.all</id>
             <activation>
@@ -136,42 +195,5 @@
                 <jboss.home>${basedir}/../target/wildfly-${version.wildfly}</jboss.home>
             </properties>
         </profile>
-        <profile>
-            <id>!ts.all</id>
-            <activation>
-                <property>
-                    <name>!ts.all</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>greenmail-deploy</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>com.icegreen</groupId>
-                                            <artifactId>greenmail-webapp</artifactId>
-                                            <version>${version.greenmail}</version>
-                                            <type>war</type>
-                                            <artifactId>greenmail-webapp</artifactId>
-                                        </artifactItem>
-                                    </artifactItems>
-                                    <outputDirectory>${jboss.home}/standalone/deployments</outputDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+	</profiles>
 </project>

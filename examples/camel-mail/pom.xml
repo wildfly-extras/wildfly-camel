@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   #%L
-  Wildfly Camel :: Example :: Camel ActiveMQ
+  Wildfly Camel :: Example :: Camel Mail
   %%
-  Copyright (C) 2013 - 2014 RedHat
+  Copyright (C) 2013 - 2015 RedHat
   %%
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -25,23 +25,18 @@
 
     <parent>
         <groupId>org.wildfly.camel</groupId>
-        <artifactId>wildfly-camel-example-projects</artifactId>
+        <artifactId>wildfly-camel-example</artifactId>
         <version>2.3.0-SNAPSHOT</version>
     </parent>
 
-    <name>Wildfly Camel :: Example :: Camel ActiveMQ</name>
+    <name>Wildfly Camel :: Example :: Camel Mail</name>
 
-    <artifactId>example-camel-activemq</artifactId>
+    <artifactId>example-camel-mail</artifactId>
     <packaging>war</packaging>
 
     <dependencies>
 
         <!-- Provided -->
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-core</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-camel</artifactId>
@@ -50,6 +45,11 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cdi</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-mail</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -103,6 +103,13 @@
                         <goals>
                             <goal>deploy</goal>
                         </goals>
+                        <configuration>
+                            <beforeDeployment>
+                                <scripts>
+                                    <script>${project.basedir}/src/main/resources/cli/configure-mail.cli</script>
+                                </scripts>
+                            </beforeDeployment>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>wildfly-undeploy</id>
@@ -128,6 +135,43 @@
             <properties>
                 <jboss.home>${basedir}/../target/wildfly-${version.wildfly}</jboss.home>
             </properties>
+        </profile>
+        <profile>
+            <id>!ts.all</id>
+            <activation>
+                <property>
+                    <name>!ts.all</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>greenmail-deploy</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>com.icegreen</groupId>
+                                            <artifactId>greenmail-webapp</artifactId>
+                                            <version>${version.greenmail}</version>
+                                            <type>war</type>
+                                            <artifactId>greenmail-webapp</artifactId>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <outputDirectory>${jboss.home}/standalone/deployments</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>
