@@ -35,6 +35,7 @@ done
 function cleanup() {
   IFS=${OLDIFS}
   docker logout > /dev/null 2>&1
+  exit $?
 }
 
 function hashGet() {
