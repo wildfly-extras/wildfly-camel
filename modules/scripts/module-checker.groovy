@@ -81,11 +81,12 @@ class Module {
  */
 def getModules(def path, def artifactReferences, def ignoredDependencies) {
     modules = []
+    xmlParser = new XmlParser()
 
     new File(path).eachFileRecurse() { file ->
         if (file.name.equals("module.xml")) {
             module = new Module()
-            moduleXml = new XmlParser().parseText(file.getText())
+            moduleXml = xmlParser.parseText(file.getText())
 
             // For each module resource, see if there's a Maven artifact with the same file name
             moduleXml.resources."resource-root".@path.each { resource ->
@@ -93,6 +94,8 @@ def getModules(def path, def artifactReferences, def ignoredDependencies) {
                     if (!isIgnoredArtifact(artifact, ignoredDependencies)) {
                         File artifactFile = artifact.getFile()
                         if (artifactFile != null && artifactFile.getName().equals(resource)) {
+                            module.artifacts << artifact
+                        } else if (resource.lastIndexOf("-") > -1 && resource.substring(0, resource.lastIndexOf("-")).equals(artifact.artifactId)) {
                             module.artifacts << artifact
                         }
                     }

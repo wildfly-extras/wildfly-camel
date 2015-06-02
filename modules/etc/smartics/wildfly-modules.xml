@@ -146,6 +146,10 @@
         <include artifact=":stax" />
     </module>
 
+    <module name="joda-time" skip="true">
+        <include artifact=":joda-time" />
+    </module>
+
     <module name="org.apache.commons.beanutils" skip="true">
         <include artifact=":commons-beanutils" />
     </module>

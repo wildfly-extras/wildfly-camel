@@ -198,8 +198,12 @@
     
     <module name="org.json4s">
         <include artifact="org.json4s:json4s-(.*)" />
+        <apply-to-dependencies skip="true">
+            <include module="joda-time" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="com.fasterxml.jackson.core.jackson-core"/>
+            <module name="org.joda.time" />
         </dependencies>
     </module>
     

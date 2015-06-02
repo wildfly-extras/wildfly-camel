@@ -9,9 +9,9 @@
   </resources>
   <dependencies>
     <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="org.joda.time" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.thoughtworks.paranamer" />
-    <module name="joda-time" />
     <module name="org.joda.convert" />
     <module name="org.scala.lang" />
   </dependencies>
