@@ -115,6 +115,7 @@
     <!-- Modules -->
     <modules>
         <module>config</module>
+        <module>docs</module>
         <module>enricher</module>
         <module>modules</module>
         <module>patch</module>
@@ -643,12 +644,6 @@
             </activation>
             <modules>
                 <module>docker</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>docs</id>
-            <modules>
-                <module>docs</module>
             </modules>
         </profile>
         <profile>
