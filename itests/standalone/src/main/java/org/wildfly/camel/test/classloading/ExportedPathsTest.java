@@ -80,43 +80,59 @@ public class ExportedPathsTest {
 
         Path moduleInfos = resolvePath(FILE_MODULE_INFOS);
         PrintWriter pw = new PrintWriter(new FileWriter(moduleInfos.toFile()));
-        for (String module : new String[] { MODULE_CAMEL, MODULE_CAMEL_COMPONENT }) {
-            pw.println(mbean.dumpModuleInformation(module));
-            for (DependencyInfo depinfo : mbean.getDependencies(module)) {
-                String moduleName = depinfo.getModuleName();
-                if (moduleName != null) {
-                    pw.println(mbean.dumpModuleInformation(moduleName));
-                    pw.println("[Exported Paths: " + moduleName + "]");
-                    List<String> modulePaths = new ArrayList<>(mbean.getModulePathsInfo(moduleName, true).keySet());
-                    Collections.sort(modulePaths);
-                    for (String path : modulePaths) {
-                        if (path.contains("/") && !path.equals("org/apache")) {
-                            pw.println(path);
+        try {
+            for (String module : new String[] { MODULE_CAMEL, MODULE_CAMEL_COMPONENT }) {
+                pw.println(mbean.dumpModuleInformation(module));
+                for (DependencyInfo depinfo : mbean.getDependencies(module)) {
+                    String moduleName = depinfo.getModuleName();
+                    if (moduleName != null) {
+                        String modinfo;
+                        try {
+                            modinfo = mbean.dumpModuleInformation(moduleName);
+                        } catch (RuntimeException ex) {
+                            String msg = ex.getMessage();
+                            if (depinfo.isOptional() && msg.contains(moduleName + " not found")) {
+                                continue;
+                            } else {
+                                throw ex;
+                            }
                         }
+                        pw.println(modinfo);
+                        pw.println("[Exported Paths: " + moduleName + "]");
+                        List<String> modulePaths = new ArrayList<>(mbean.getModulePathsInfo(moduleName, true).keySet());
+                        Collections.sort(modulePaths);
+                        for (String path : modulePaths) {
+                            if (path.contains("/") && !path.equals("org/apache")) {
+                                pw.println(path);
+                            }
+                        }
+                        pw.println();
                     }
-                    pw.println();
                 }
             }
+            pw.flush();
+        } finally {
+            pw.close();
         }
-        pw.flush();
-        pw.close();
 
         Path exportedPaths = resolvePath(FILE_EXPORTED_PATHS);
         pw = new PrintWriter(new FileWriter(exportedPaths.toFile()));
-        for (String module : new String[] { MODULE_CAMEL, MODULE_CAMEL_COMPONENT }) {
-            pw.println("[Exported Paths: " + module + "]");
-            List<String> modulePaths = new ArrayList<>(mbean.getModulePathsInfo(module, true).keySet());
-            Collections.sort(modulePaths);
-            for (String path : modulePaths) {
-                if (path.contains("/") && !path.equals("org/apache")) {
-                    pw.println(path);
+        try {
+            for (String module : new String[] { MODULE_CAMEL, MODULE_CAMEL_COMPONENT }) {
+                pw.println("[Exported Paths: " + module + "]");
+                List<String> modulePaths = new ArrayList<>(mbean.getModulePathsInfo(module, true).keySet());
+                Collections.sort(modulePaths);
+                for (String path : modulePaths) {
+                    if (path.contains("/") && !path.equals("org/apache")) {
+                        pw.println(path);
+                    }
                 }
+                pw.println();
             }
-            pw.println();
+            pw.flush();
+        } finally {
+            pw.close();
         }
-
-        pw.flush();
-        pw.close();
     }
 
     @Test

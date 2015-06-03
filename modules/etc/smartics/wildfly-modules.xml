@@ -310,10 +310,6 @@
         <include artifact=":slf4j-simple" />
     </module>
 
-    <module name="org.wildfly.camel" skip="true">
-        <include artifact=":wildfly-camel-modules" />
-    </module>
-
     <module name="org.yaml.snakeyaml" skip="true">
         <include artifact="org.yaml:snakeyaml" />
     </module>

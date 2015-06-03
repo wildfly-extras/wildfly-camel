@@ -348,8 +348,8 @@
                                     <artifactId>wildfly-camel-patch</artifactId>
                                     <version>${project.version}</version>
                                     <type>tar.gz</type>
-                                    <overWrite>false</overWrite>
                                     <outputDirectory>${jboss.home}</outputDirectory>
+                                    <overWrite>false</overWrite>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
