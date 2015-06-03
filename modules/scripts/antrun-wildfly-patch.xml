@@ -46,8 +46,9 @@
 		<sync todir="${module.generated.dir}" overwrite="true" verbose="true">
 			<fileset dir="${target.patch.dir}/modules/system/layers/fuse">
 				<include name="**/module.xml" />
-				<exclude name="**/org/apache/camel/component/main/**" />
-				<exclude name="**/org/apache/camel/main/**" />
+				<exclude name="org/apache/camel/component/main/**" />
+				<exclude name="org/apache/camel/main/**" />
+				<exclude name="org/wildfly/extension/camel/main/**" />
 			</fileset>
 		</sync>
 
