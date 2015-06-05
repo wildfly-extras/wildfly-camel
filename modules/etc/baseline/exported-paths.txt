@@ -324,6 +324,10 @@ org/apache/camel/component/quartz2
 org/apache/camel/component/restlet
 org/apache/camel/component/restlet/converter
 org/apache/camel/component/rss
+org/apache/camel/component/salesforce
+org/apache/camel/component/salesforce/api
+org/apache/camel/component/salesforce/api/dto
+org/apache/camel/component/salesforce/api/dto/bulk
 org/apache/camel/component/servlet
 org/apache/camel/component/servlet/osgi
 org/apache/camel/component/sql

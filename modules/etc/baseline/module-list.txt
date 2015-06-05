@@ -2,6 +2,9 @@
 /com/fasterxml/jackson/scala/main/jackson-module-scala_2.10-2.4.1.jar
 /com/jcraft/jsch/main/jsch-0.1.51.jar
 /com/thoughtworks/paranamer/main/paranamer-2.6.jar
+/com/thoughtworks/xstream/main/xmlpull-1.1.3.1.jar
+/com/thoughtworks/xstream/main/xpp3_min-1.1.4c.jar
+/com/thoughtworks/xstream/main/xstream-1.4.8.jar
 /javax/el/main/el-api-2.2.jar
 /javax/el/main/el-impl-2.2.jar
 /ognl/main/ognl-3.0.9.jar
@@ -63,6 +66,14 @@
 /org/apache/camel/component/restlet/main/camel-restlet-2.15.2.jar
 /org/apache/camel/component/rss/main/camel-rss-2.15.2.jar
 /org/apache/camel/component/rss/main/rome-1.0.jar
+/org/apache/camel/component/salesforce/main/bayeux-api-2.4.3.jar
+/org/apache/camel/component/salesforce/main/camel-salesforce-2.15.2.jar
+/org/apache/camel/component/salesforce/main/cometd-java-client-2.4.3.jar
+/org/apache/camel/component/salesforce/main/cometd-java-common-2.4.3.jar
+/org/apache/camel/component/salesforce/main/jetty-client-8.1.16.v20140903.jar
+/org/apache/camel/component/salesforce/main/jetty-http-8.1.16.v20140903.jar
+/org/apache/camel/component/salesforce/main/jetty-io-8.1.16.v20140903.jar
+/org/apache/camel/component/salesforce/main/jetty-util-8.1.16.v20140903.jar
 /org/apache/camel/component/saxon/main/Saxon-HE-9.5.1-5.jar
 /org/apache/camel/component/saxon/main/camel-saxon-2.15.2.jar
 /org/apache/camel/component/script/main/camel-script-2.15.2.jar
@@ -81,9 +92,6 @@
 /org/apache/camel/component/xmlbeans/main/camel-xmlbeans-2.15.2.jar
 /org/apache/camel/component/xmlsecurity/main/camel-xmlsecurity-2.15.2.jar
 /org/apache/camel/component/xstream/main/camel-xstream-2.15.2.jar
-/org/apache/camel/component/xstream/main/xmlpull-1.1.3.1.jar
-/org/apache/camel/component/xstream/main/xpp3_min-1.1.4c.jar
-/org/apache/camel/component/xstream/main/xstream-1.4.8.jar
 /org/apache/camel/component/zipfile/main/camel-zipfile-2.15.2.jar
 /org/apache/camel/core/main/camel-core-2.15.2.jar
 /org/apache/camel/core/xml/main/camel-core-xml-2.15.2.jar
