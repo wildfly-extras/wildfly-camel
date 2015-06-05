@@ -39,6 +39,16 @@
         <include artifact=":jsch" />
     </module>
 
+    <module name="com.thoughtworks.xstream">
+        <include artifact="com.thoughtworks.xstream:xstream" />
+        <include artifact="xmlpull:xmlpull" />
+        <include artifact="xpp3:xpp3_min" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.xml.stream.api"/>
+        </dependencies>
+    </module>
+
     <module name="javax.el">
         <include artifact=":el-api" />
         <include artifact=":el-impl" />

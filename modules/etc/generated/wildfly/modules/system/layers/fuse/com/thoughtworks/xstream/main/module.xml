@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.thoughtworks.xstream">
+  <resources>
+    <resource-root path="xmlpull-1.1.3.1.jar" />
+    <resource-root path="xpp3_min-1.1.4c.jar" />
+    <resource-root path="xstream-1.4.8.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.xml.stream.api" />
+  </dependencies>
+</module>

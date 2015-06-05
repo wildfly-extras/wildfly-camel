@@ -520,7 +520,33 @@
             <exclude path="com/sun**" />
         </exports>
     </module>
-    
+
+    <module name="org.apache.camel.component.salesforce">
+        <include artifact="org.apache.camel:camel-salesforce" />
+        <include artifact=":bayeux-api" />
+        <include artifact=":cometd-java-client" />
+        <include artifact=":cometd-java-common" />
+        <include artifact=":jetty-client" />
+        <include artifact=":jetty-http" />
+        <include artifact=":jetty-io" />
+        <include artifact=":jetty-util" />
+        <apply-to-dependencies skip="true">
+            <include module="joda-time" />
+            <include module="org.apache.camel.apt" />
+            <include module="org.eclipse.jetty.orbit" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.codehaus.jackson.jackson-core-asl" />
+            <module name="org.joda.time" />
+        </dependencies>
+        <exports>
+            <exclude path="org/apache/camel/component/salesforce/internal**" />
+            <exclude path="org/eclipse**" />
+            <exclude path="org/cometd**" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.saxon">
         <include artifact="org.apache.camel:camel-saxon" />
         <include artifact="net.sf.saxon:Saxon-HE" />
@@ -688,9 +714,6 @@
 
     <module name="org.apache.camel.component.xstream">
         <include artifact="org.apache.camel:camel-xstream" />
-        <include artifact="com.thoughtworks.xstream:xstream" />
-        <include artifact="xmlpull:xmlpull" />
-        <include artifact="xpp3:xpp3_min" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
         </apply-to-dependencies>
@@ -700,10 +723,6 @@
             <module name="org.codehaus.jettison"/>
             <module name="org.slf4j"/>
         </dependencies>
-        <exports>
-            <exclude path="com/thoughtworks**" />
-            <exclude path="org/xmlpull**" />
-        </exports>
     </module>
 
     <module name="org.apache.camel.component.zipfile">
