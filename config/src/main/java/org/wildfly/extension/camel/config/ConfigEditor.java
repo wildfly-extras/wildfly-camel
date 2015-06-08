@@ -15,7 +15,7 @@
  */
 package org.wildfly.extension.camel.config;
 
-import de.pdark.decentxml.Document;
+import org.jdom.Document;
 
 public interface ConfigEditor {
 
