@@ -49,7 +49,6 @@ public class DomainConfigTest {
 
         XMLOutputter output = new XMLOutputter();
         output.setFormat(Format.getRawFormat());
-        String newXML = output.outputString(doc);
-        System.out.println(newXML);
+        //System.out.println(output.outputString(doc));
     }
 }

@@ -107,10 +107,12 @@
                         <phase>generate-resources</phase>
                         <configuration>
                             <target>
-                                <java classname="org.wildfly.extension.camel.config.ConfigMain"
-                                      classpath="../config/target/wildfly-camel-config-${project.version}.jar"
-                                      failonerror="true">
+                                <java classname="org.wildfly.extension.camel.config.ConfigMain" failonerror="true">
                                     <sysproperty key="jboss.home" value="${jboss.home}" />
+                                    <classpath>
+                                        <pathelement location="../config/target/wildfly-camel-config-${project.version}.jar"/>
+                                        <pathelement location="${jboss.home}/modules/system/layers/base/org/jdom/main/jdom-${version.jdom}.jar"/>
+                                    </classpath>
                                     <arg value="enable" />
                                 </java>
                             </target>

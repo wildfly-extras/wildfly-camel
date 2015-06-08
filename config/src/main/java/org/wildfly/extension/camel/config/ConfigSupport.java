@@ -18,13 +18,11 @@
 package org.wildfly.extension.camel.config;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -90,17 +88,14 @@ public class ConfigSupport {
     }
 
     static Path getJBossHome() throws UnsupportedEncodingException {
+
         String jbossHome = System.getProperty("jboss.home");
         if (jbossHome == null) {
-            String path = ConfigMain.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-            String decodedPath = URLDecoder.decode(path, "UTF-8");
-            String containingFolder = decodedPath.substring(0, decodedPath.lastIndexOf(File.separator));
-            if (containingFolder.endsWith("bin")) {
-                jbossHome = containingFolder.substring(0, containingFolder.lastIndexOf(File.separator));
-            } else {
-                throw new CommandException("The execution is not correct. This jar should be placed inside of ${JBOSS_HOME}/bin");
-            }
+            jbossHome = System.getenv("JBOSS_HOME");
         }
+
+        if (!Paths.get(jbossHome).toFile().exists())
+            throw new CommandException("Cannot obtain JBOSS_HOME: " + jbossHome);
 
         Path standalonePath = Paths.get(jbossHome, "standalone", "configuration");
         Path domainPath = Paths.get(jbossHome, "domain", "configuration");

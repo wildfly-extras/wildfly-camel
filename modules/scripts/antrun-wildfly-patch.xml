@@ -48,7 +48,7 @@
 				<include name="**/module.xml" />
 				<exclude name="org/apache/camel/component/main/**" />
 				<exclude name="org/apache/camel/main/**" />
-				<exclude name="org/wildfly/extension/camel/main/**" />
+				<exclude name="org/wildfly/extension/camel/**" />
 			</fileset>
 		</sync>
 

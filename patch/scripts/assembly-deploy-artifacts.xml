@@ -30,7 +30,15 @@
         <fileSet>
             <directory>etc/wildfly</directory>
             <outputDirectory>/</outputDirectory>
+            <excludes>
+                <exclude>bin/*</exclude>
+            </excludes>
             <filtered>true</filtered>
+        </fileSet>
+        <fileSet>
+            <directory>etc/wildfly/bin</directory>
+            <outputDirectory>/bin</outputDirectory>
+            <fileMode>0755</fileMode>
         </fileSet>
         <fileSet>
             <directory>../subsystem/src/main/resources/schema</directory>
@@ -75,6 +83,12 @@
             </includes>
         </dependencySet>
         <dependencySet>
+            <outputDirectory>modules/system/layers/fuse/org/wildfly/extension/camel/config/main</outputDirectory>
+            <includes>
+                <include>org.wildfly.camel:wildfly-camel-config:jar</include>
+            </includes>
+        </dependencySet>
+        <dependencySet>
             <outputDirectory>standalone/deployments</outputDirectory>
             <includes>
                 <include>io.hawt:hawtio-wildfly:war</include>
@@ -92,19 +106,6 @@
             <directoryMode>0644</directoryMode>
             <fileMode>0644</fileMode>
             <unpack>true</unpack>
-        </dependencySet>
-        <dependencySet>
-            <outputDirectory>/bin</outputDirectory>
-            <includes>
-                <include>*:wildfly-camel-config:jar</include>
-            </includes>
-            <outputFileNameMapping>wildfly-camel-config.jar</outputFileNameMapping>
-            <useProjectArtifact>false</useProjectArtifact>
-            <useProjectAttachments>false</useProjectAttachments>
-            <useTransitiveDependencies>false</useTransitiveDependencies>
-            <useTransitiveFiltering>false</useTransitiveFiltering>
-            <directoryMode>0755</directoryMode>
-            <fileMode>0755</fileMode>
         </dependencySet>
     </dependencySets>
 
