@@ -15,12 +15,13 @@
  */
 package org.wildfly.camel.test.config;
 
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigEditor.NS_CAMEL10;
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigEditor.NS_DOMAIN30;
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigEditor.NS_WELD20;
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigEditor.NS_SECURITY12;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_CAMEL10;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAIN30;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_WELD20;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_SECURITY12;
 
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.jdom.Document;
@@ -30,9 +31,10 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.junit.Assert;
 import org.junit.Test;
-import org.wildfly.extension.camel.config.ConfigEditor;
+import org.wildfly.extension.camel.config.ConfigContext;
+import org.wildfly.extension.camel.config.ConfigPlugin;
 import org.wildfly.extension.camel.config.ConfigSupport;
-import org.wildfly.extension.camel.config.WildFlyCamelConfigEditor;
+import org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin;
 
 public class StandaloneConfigTest {
 
@@ -43,8 +45,9 @@ public class StandaloneConfigTest {
         SAXBuilder jdom = new SAXBuilder();
         Document doc = jdom.build(resurl);
 
-        ConfigEditor editor = new WildFlyCamelConfigEditor();
-        editor.applyStandaloneConfigChange(true, doc);
+        ConfigContext context = ConfigSupport.createContext(null, Paths.get(resurl.toURI()), doc);
+        ConfigPlugin plugin = new WildFlyCamelConfigPlugin();
+        plugin.applyStandaloneConfigChange(context, true);
 
         // Verify extension
         Element element = ConfigSupport.findElementWithAttributeValue(doc.getRootElement(), "extension", NS_DOMAIN30, "module", "org.wildfly.extension.camel");

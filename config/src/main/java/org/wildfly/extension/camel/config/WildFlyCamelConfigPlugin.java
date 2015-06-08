@@ -19,13 +19,12 @@ import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
 import org.jdom.Text;
 
 
-public final class WildFlyCamelConfigEditor implements ConfigEditor {
+public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
 
     public static final Namespace NS_DOMAIN30 = Namespace.getNamespace("urn:jboss:domain:3.0");
     public static final Namespace NS_CAMEL10 = Namespace.getNamespace("urn:jboss:domain:camel:1.0");
@@ -33,22 +32,22 @@ public final class WildFlyCamelConfigEditor implements ConfigEditor {
     public static final Namespace NS_WELD20 = Namespace.getNamespace("urn:jboss:domain:weld:2.0");
 
     @Override
-    public void applyStandaloneConfigChange(boolean enable, Document doc) {
-        updateExtension(enable, doc);
-        updateSubsystem(enable, doc);
-        updateWeldConfig(enable, doc);
-        updateHawtIOSystemProperties(enable, doc);
-        updateHawtIOSecurityDomain(enable, doc);
+    public void applyStandaloneConfigChange(ConfigContext context, boolean enable) {
+        updateExtension(context, enable);
+        updateSubsystem(context, enable);
+        updateWeldConfig(context, enable);
+        updateHawtIOSystemProperties(context, enable);
+        updateHawtIOSecurityDomain(context, enable);
     }
 
     @Override
-    public void applyDomainConfigChange(boolean enable, Document doc) {
-        applyStandaloneConfigChange(enable, doc);
-        updateServergroup(enable, doc);
+    public void applyDomainConfigChange(ConfigContext context, boolean enable) {
+        applyStandaloneConfigChange(context, enable);
+        updateServergroup(enable, context);
     }
 
-    private static void updateExtension(boolean enable, Document doc) {
-        Element extensions = doc.getRootElement().getChild("extensions", NS_DOMAIN30);
+    private static void updateExtension(ConfigContext context, boolean enable) {
+        Element extensions = context.getDocument().getRootElement().getChild("extensions", NS_DOMAIN30);
         ConfigSupport.assertExists(extensions, "Did not find the <extensions> element");
         Element element = ConfigSupport.findElementWithAttributeValue(extensions, "extension", NS_DOMAIN30, "module", "org.wildfly.extension.camel");
         if (enable && element == null) {
@@ -61,8 +60,8 @@ public final class WildFlyCamelConfigEditor implements ConfigEditor {
         }
     }
 
-    private static void updateWeldConfig(boolean enable, Document doc) {
-        List<Element> profiles = ConfigSupport.findProfileElements(doc, NS_DOMAIN30);
+    private static void updateWeldConfig(ConfigContext context, boolean enable) {
+        List<Element> profiles = ConfigSupport.findProfileElements(context.getDocument(), NS_DOMAIN30);
         for (Element profile : profiles) {
             Element weld = profile.getChild("subsystem", NS_WELD20);
             ConfigSupport.assertExists(weld, "Did not find the weld subsystem");
@@ -74,12 +73,12 @@ public final class WildFlyCamelConfigEditor implements ConfigEditor {
         }
     }
 
-    private static void updateSubsystem(boolean enable, Document doc) {
-        List<Element> profiles = ConfigSupport.findProfileElements(doc, NS_DOMAIN30);
+    private static void updateSubsystem(ConfigContext context, boolean enable) {
+        List<Element> profiles = ConfigSupport.findProfileElements(context.getDocument(), NS_DOMAIN30);
         for (Element profile : profiles) {
             Element element = profile.getChild("subsystem", NS_CAMEL10);
             if (enable && element == null) {
-                URL resource = WildFlyCamelConfigEditor.class.getResource("camel-subsystem.xml");
+                URL resource = WildFlyCamelConfigPlugin.class.getResource("/camel-subsystem.xml");
                 profile.addContent(new Text("    "));
                 profile.addContent(ConfigSupport.loadElementFrom(resource));
                 profile.addContent(new Text("\n    "));
@@ -91,8 +90,8 @@ public final class WildFlyCamelConfigEditor implements ConfigEditor {
     }
 
     @SuppressWarnings("unchecked")
-    private static void updateHawtIOSystemProperties(boolean enable, Document doc) {
-        Element rootElement = doc.getRootElement();
+    private static void updateHawtIOSystemProperties(ConfigContext context, boolean enable) {
+        Element rootElement = context.getDocument().getRootElement();
         Element element = rootElement.getChild("system-properties", NS_DOMAIN30);
         if (element == null) {
             element = new Element("system-properties", NS_DOMAIN30);
@@ -116,11 +115,11 @@ public final class WildFlyCamelConfigEditor implements ConfigEditor {
         }
     }
 
-    private static void updateServergroup(boolean enable, Document doc) {
-        Element serverGroups = doc.getRootElement().getChild("server-groups", NS_DOMAIN30);
+    private static void updateServergroup(boolean enable, ConfigContext context) {
+        Element serverGroups = context.getDocument().getRootElement().getChild("server-groups", NS_DOMAIN30);
         Element camel = ConfigSupport.findElementWithAttributeValue(serverGroups, "server-group", NS_DOMAIN30, "name", "camel-server-group");
         if (enable && camel == null) {
-            URL resource = WildFlyCamelConfigEditor.class.getResource("camel-servergroup.xml");
+            URL resource = WildFlyCamelConfigPlugin.class.getResource("/camel-servergroup.xml");
             serverGroups.addContent(new Text("    "));
             serverGroups.addContent(ConfigSupport.loadElementFrom(resource));
             serverGroups.addContent(new Text("\n    "));
@@ -145,8 +144,8 @@ public final class WildFlyCamelConfigEditor implements ConfigEditor {
         }
     }
 
-    private static void updateHawtIOSecurityDomain(boolean enable, Document doc) {
-        List<Element> profiles = ConfigSupport.findProfileElements(doc, NS_DOMAIN30);
+    private static void updateHawtIOSecurityDomain(ConfigContext context, boolean enable) {
+        List<Element> profiles = ConfigSupport.findProfileElements(context.getDocument(), NS_DOMAIN30);
         for (Element profile : profiles) {
             Element security = profile.getChild("subsystem", NS_SECURITY12);
             ConfigSupport.assertExists(security, "Did not find the security subsystem");
@@ -154,7 +153,7 @@ public final class WildFlyCamelConfigEditor implements ConfigEditor {
             ConfigSupport.assertExists(domains, "Did not find the <security-domains> element");
             Element hawtioDomain = ConfigSupport.findElementWithAttributeValue(domains, "security-domain", NS_SECURITY12, "name", "hawtio-domain");
             if (enable && hawtioDomain == null) {
-                URL resource = WildFlyCamelConfigEditor.class.getResource("hawtio-security-domain.xml");
+                URL resource = WildFlyCamelConfigPlugin.class.getResource("/hawtio-security-domain.xml");
                 domains.addContent(new Text("    "));
                 domains.addContent(ConfigSupport.loadElementFrom(resource));
                 domains.addContent(new Text("\n            "));

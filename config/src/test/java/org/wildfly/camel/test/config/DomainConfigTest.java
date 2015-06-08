@@ -15,9 +15,10 @@
  */
 package org.wildfly.camel.test.config;
 
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigEditor.NS_DOMAIN30;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAIN30;
 
 import java.net.URL;
+import java.nio.file.Paths;
 
 import org.jdom.Document;
 import org.jdom.Element;
@@ -26,9 +27,10 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.junit.Assert;
 import org.junit.Test;
-import org.wildfly.extension.camel.config.ConfigEditor;
+import org.wildfly.extension.camel.config.ConfigContext;
+import org.wildfly.extension.camel.config.ConfigPlugin;
 import org.wildfly.extension.camel.config.ConfigSupport;
-import org.wildfly.extension.camel.config.WildFlyCamelConfigEditor;
+import org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin;
 
 public class DomainConfigTest {
 
@@ -39,8 +41,9 @@ public class DomainConfigTest {
         SAXBuilder jdom = new SAXBuilder();
         Document doc = jdom.build(resurl);
 
-        ConfigEditor editor = new WildFlyCamelConfigEditor();
-        editor.applyDomainConfigChange(true, doc);
+        ConfigContext context = ConfigSupport.createContext(null, Paths.get(resurl.toURI()), doc);
+        ConfigPlugin plugin = new WildFlyCamelConfigPlugin();
+        plugin.applyDomainConfigChange(context, true);
 
         Element element = doc.getRootElement().getChild("server-groups", NS_DOMAIN30);
         Assert.assertNotNull("server-groups not null", element);

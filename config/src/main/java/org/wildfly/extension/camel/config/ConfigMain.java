@@ -30,9 +30,9 @@ public class ConfigMain {
         } else {
             try {
                 if (args[0].equals("enable")) {
-                    ConfigSupport.applyConfigChange(ConfigSupport.getJBossHome(), true, new WildFlyCamelConfigEditor());
+                    ConfigSupport.applyConfigChange(ConfigSupport.getJBossHome(), true);
                 } else if (args[0].equals("disable")) {
-                    ConfigSupport.applyConfigChange(ConfigSupport.getJBossHome(), false, new WildFlyCamelConfigEditor());
+                    ConfigSupport.applyConfigChange(ConfigSupport.getJBossHome(), false);
                 } else {
                     System.out.println("\t" + PROCESS_NAME + " [disable|enable]");
                     System.exit(1);

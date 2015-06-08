@@ -28,8 +28,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.ServiceLoader;
 
 import org.jdom.Attribute;
 import org.jdom.Document;
@@ -53,37 +55,47 @@ public class ConfigSupport {
         domainPaths.add(Paths.get("domain", "configuration", "domain.xml"));
     }
 
-    static void applyConfigChange(Path jbossHome, boolean enable, ConfigEditor editor) throws Exception {
+    public static ConfigContext createContext(Path jbossHome, Path configuration, Document doc) {
+        return new ConfigContext(jbossHome, configuration, doc);
+    }
 
-        SAXBuilder jdom = new SAXBuilder();
-        for (Path p : standalonePaths) {
-            Path path = jbossHome.resolve(p);
+    public static void applyConfigChange(Path jbossHome, boolean enable) throws Exception {
 
-            System.out.println("\tEnabling configuration on " + path);
-            Document doc = jdom.build(path.toUri().toURL());
+        Iterator<ConfigPlugin> itsrv = ServiceLoader.load(ConfigPlugin.class, ConfigSupport.class.getClassLoader()).iterator();
+        while (itsrv.hasNext()) {
+            ConfigPlugin plugin = itsrv.next();
+            SAXBuilder jdom = new SAXBuilder();
+            for (Path p : standalonePaths) {
+                Path path = jbossHome.resolve(p);
 
-            editor.applyStandaloneConfigChange(enable, doc);
+                System.out.println("\tEnabling configuration on " + path);
+                Document doc = jdom.build(path.toUri().toURL());
 
-            XMLOutputter output = new XMLOutputter();
-            output.setFormat(Format.getRawFormat());
-            String newXML = output.outputString(doc);
-            backup(path);
-            writeFile(path, newXML, "UTF-8");
-        }
+                ConfigContext context = new ConfigContext(jbossHome, path, doc);
+                plugin.applyStandaloneConfigChange(context, enable);
 
-        for (Path p : domainPaths) {
-            Path path = jbossHome.resolve(p);
+                XMLOutputter output = new XMLOutputter();
+                output.setFormat(Format.getRawFormat());
+                String newXML = output.outputString(doc);
+                backup(path);
+                writeFile(path, newXML, "UTF-8");
+            }
 
-            System.out.println("\tEnabling configuration on " + path);
-            Document doc = jdom.build(path.toUri().toURL());
+            for (Path p : domainPaths) {
+                Path path = jbossHome.resolve(p);
 
-            editor.applyDomainConfigChange(enable, doc);
+                System.out.println("\tEnabling configuration on " + path);
+                Document doc = jdom.build(path.toUri().toURL());
 
-            XMLOutputter output = new XMLOutputter();
-            output.setFormat(Format.getRawFormat());
-            String newXML = output.outputString(doc);
-            backup(path);
-            writeFile(path, newXML, "UTF-8");
+                ConfigContext context = new ConfigContext(jbossHome, path, doc);
+                plugin.applyDomainConfigChange(context, enable);
+
+                XMLOutputter output = new XMLOutputter();
+                output.setFormat(Format.getRawFormat());
+                String newXML = output.outputString(doc);
+                backup(path);
+                writeFile(path, newXML, "UTF-8");
+            }
         }
     }
 

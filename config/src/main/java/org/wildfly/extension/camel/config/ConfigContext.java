@@ -15,12 +15,32 @@
  */
 package org.wildfly.extension.camel.config;
 
+import java.nio.file.Path;
+
 import org.jdom.Document;
 
-public interface ConfigEditor {
 
-    void applyDomainConfigChange(boolean enable, Document doc);
+public final class ConfigContext {
 
-    void applyStandaloneConfigChange(boolean enable, Document doc);
+    private final Path jbossHome;
+    private final Path configuration;
+    private final Document document;
 
+    ConfigContext(Path jbossHome, Path configuration, Document document) {
+        this.jbossHome = jbossHome;
+        this.configuration = configuration;
+        this.document = document;
+    }
+
+    public Path getJBossHome() {
+        return jbossHome;
+    }
+
+    public Path getConfiguration() {
+        return configuration;
+    }
+
+    public Document getDocument() {
+        return document;
+    }
 }
