@@ -11,6 +11,6 @@
     <module name="org.apache.commons.codec" />
     <module name="org.apache.commons.io" />
     <module name="org.bouncycastle" />
-    <module name="org.bouncycastle.pgp" />
+    <module name="org.bouncycastle.ext" />
   </dependencies>
 </module>

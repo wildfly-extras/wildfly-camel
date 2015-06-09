@@ -18,8 +18,12 @@
   limitations under the License.
   #L%
   -->
+  
+<!--
+  This file holds extensions to module definitions that come with wildfly.
+-->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
-
+    
     <module name="org.apache.cxf.ext" >
         <include artifact="cxf-rt-features-clustering" />
         <include artifact="cxf-rt-frontend-jaxrs" />
@@ -38,5 +42,12 @@
             <exclude path="schemas/blueprint" />
         </exports>
     </module>
-
+    
+    <module name="org.bouncycastle.ext">
+        <include artifact="org.bouncycastle:bcpg-jdk15on" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+    
 </modules>
