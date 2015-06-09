@@ -179,13 +179,6 @@
         </dependencies>
     </module>
 
-    <module name="org.bouncycastle.pgp">
-        <include artifact="org.bouncycastle:bcpg-jdk15on" />
-        <dependencies>
-            <module name="javax.api" />
-        </dependencies>
-    </module>
-
     <module name="org.fusesource.hawtbuf">
         <include artifact="org.fusesource.hawtbuf:hawtbuf" />
     </module>

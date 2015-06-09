@@ -20,7 +20,7 @@
   -->
   
 <!--
-  This file holds all the module definitions that come with wildfly.  Here
+  This file holds all module definitions that come with wildfly. Here
   we map maven artifacts to those modules, but skip generating the modules since
   they are provided for us.
 -->

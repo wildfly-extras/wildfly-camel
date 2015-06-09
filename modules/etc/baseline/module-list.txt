@@ -124,7 +124,7 @@
 /org/apache/xbean/spring/main/xbean-spring-3.18.jar
 /org/apache/xmlbeans/main/xmlbeans-2.6.0.jar
 /org/beanshell/main/bsh-2.0b5.jar
-/org/bouncycastle/pgp/main/bcpg-jdk15on-1.52.jar
+/org/bouncycastle/ext/main/bcpg-jdk15on-1.52.jar
 /org/fusesource/hawtbuf/main/hawtbuf-1.11.jar
 /org/fusesource/hawtdispatch/main/hawtdispatch-1.21.jar
 /org/fusesource/hawtdispatch/main/hawtdispatch-transport-1.21.jar
