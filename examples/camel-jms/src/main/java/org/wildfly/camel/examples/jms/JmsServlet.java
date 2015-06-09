@@ -35,7 +35,6 @@ import java.util.Map;
 public class JmsServlet extends HttpServlet {
 
     private static final String[] COUNTRIES = {"UK", "US", "Others"};
-    private static final Path ORDERS_PATH = new File(System.getProperty("jboss.server.data.dir")).toPath().resolve("orders");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
