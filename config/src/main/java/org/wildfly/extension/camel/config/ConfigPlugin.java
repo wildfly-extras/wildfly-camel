@@ -15,6 +15,8 @@
  */
 package org.wildfly.extension.camel.config;
 
+import java.util.List;
+
 
 public interface ConfigPlugin {
 
@@ -22,4 +24,5 @@ public interface ConfigPlugin {
 
     void applyStandaloneConfigChange(ConfigContext context, boolean enable);
 
+    List<LayerConfig> getLayerConfigs();
 }

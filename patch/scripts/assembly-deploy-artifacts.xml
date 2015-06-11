@@ -72,6 +72,10 @@
             <outputDirectory>standalone/configuration</outputDirectory>
             <destName>standalone-full-camel.xml</destName>
         </file>
+        <file>
+            <source>${jboss.home}/modules/layers.conf</source>
+            <outputDirectory>modules</outputDirectory>
+        </file>
     </files>
 
     <dependencySets>

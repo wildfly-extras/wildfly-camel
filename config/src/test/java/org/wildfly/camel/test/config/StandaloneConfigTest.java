@@ -15,10 +15,10 @@
  */
 package org.wildfly.camel.test.config;
 
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_CAMEL10;
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAIN30;
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_WELD20;
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_SECURITY12;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_CAMEL;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAIN;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_WELD;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_SECURITY;
 
 import java.net.URL;
 import java.nio.file.Paths;
@@ -50,28 +50,28 @@ public class StandaloneConfigTest {
         plugin.applyStandaloneConfigChange(context, true);
 
         // Verify extension
-        Element element = ConfigSupport.findElementWithAttributeValue(doc.getRootElement(), "extension", NS_DOMAIN30, "module", "org.wildfly.extension.camel");
+        Element element = ConfigSupport.findElementWithAttributeValue(doc.getRootElement(), "extension", NS_DOMAIN, "module", "org.wildfly.extension.camel");
         Assert.assertNotNull("Extension not null", element);
 
         // Verify system-properties
-        element = doc.getRootElement().getChild("system-properties", NS_DOMAIN30);
+        element = doc.getRootElement().getChild("system-properties", NS_DOMAIN);
         Assert.assertNotNull("system-properties not null", element);
-        element = ConfigSupport.findElementWithAttributeValue(element, "property", NS_DOMAIN30, "name", "hawtio.realm");
+        element = ConfigSupport.findElementWithAttributeValue(element, "property", NS_DOMAIN, "name", "hawtio.realm");
         Assert.assertNotNull("property not null", element);
 
         // Verify weld
-        List<Element> profiles = ConfigSupport.findProfileElements(doc, NS_DOMAIN30);
+        List<Element> profiles = ConfigSupport.findProfileElements(doc, NS_DOMAIN);
         Assert.assertEquals("One profile", 1, profiles.size());
-        element = profiles.get(0).getChild("subsystem", NS_WELD20);
+        element = profiles.get(0).getChild("subsystem", NS_WELD);
         Assert.assertNotNull("weld not null", element);
         Assert.assertEquals("true", element.getAttribute("require-bean-descriptor").getValue());
 
         // Verify camel
-        element = profiles.get(0).getChild("subsystem", NS_CAMEL10);
+        element = profiles.get(0).getChild("subsystem", NS_CAMEL);
         Assert.assertNotNull("camel not null", element);
 
         // Verify hawtio-domain
-        element = ConfigSupport.findElementWithAttributeValue(doc.getRootElement(), "security-domain", NS_SECURITY12, "name", "hawtio-domain");
+        element = ConfigSupport.findElementWithAttributeValue(doc.getRootElement(), "security-domain", NS_SECURITY, "name", "hawtio-domain");
         Assert.assertNotNull("hawtio-domain not null", element);
 
         XMLOutputter output = new XMLOutputter();

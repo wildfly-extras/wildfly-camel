@@ -18,6 +18,9 @@
 package org.wildfly.extension.camel.config;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -28,9 +31,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Properties;
 import java.util.ServiceLoader;
 
 import org.jdom.Attribute;
@@ -44,26 +49,61 @@ import org.jdom.output.XMLOutputter;
 
 public class ConfigSupport {
 
-    static final List<Path> standalonePaths = new ArrayList<>();
-    static final List<Path> domainPaths = new ArrayList<>();
-
-    static {
-        standalonePaths.add(Paths.get("standalone", "configuration", "standalone.xml"));
-        standalonePaths.add(Paths.get("standalone", "configuration", "standalone-full.xml"));
-        standalonePaths.add(Paths.get("standalone", "configuration", "standalone-full-ha.xml"));
-        standalonePaths.add(Paths.get("standalone", "configuration", "standalone-ha.xml"));
-        domainPaths.add(Paths.get("domain", "configuration", "domain.xml"));
-    }
-
     public static ConfigContext createContext(Path jbossHome, Path configuration, Document doc) {
         return new ConfigContext(jbossHome, configuration, doc);
     }
 
     public static void applyConfigChange(Path jbossHome, boolean enable) throws Exception {
 
+        List<Path> standalonePaths = new ArrayList<>();
+        standalonePaths.add(Paths.get("standalone", "configuration", "standalone.xml"));
+        standalonePaths.add(Paths.get("standalone", "configuration", "standalone-full.xml"));
+        standalonePaths.add(Paths.get("standalone", "configuration", "standalone-full-ha.xml"));
+        standalonePaths.add(Paths.get("standalone", "configuration", "standalone-ha.xml"));
+        
+        List<Path> domainPaths = new ArrayList<>();
+        domainPaths.add(Paths.get("domain", "configuration", "domain.xml"));
+        
         Iterator<ConfigPlugin> itsrv = ServiceLoader.load(ConfigPlugin.class, ConfigSupport.class.getClassLoader()).iterator();
         while (itsrv.hasNext()) {
             ConfigPlugin plugin = itsrv.next();
+            System.out.println("Using config plugin: " + plugin.getClass().getName());
+
+            File layersFile = jbossHome.resolve(Paths.get("modules", "layers.conf")).toFile();
+            Properties layersProperties = new Properties();
+            ArrayList<String> layers = new ArrayList<String>();
+            if (layersFile.exists()) {
+                try (FileInputStream is = new FileInputStream(layersFile)) {
+                    layersProperties.load(is);
+                }
+                String layersValue = layersProperties.getProperty("layers");
+                if (layersValue == null) {
+                    layersValue = "";
+                }
+                for (String s : layersValue.split(",")) {
+                    s = s.trim();
+                    if (s.length() > 0) {
+                        layers.add(s);
+                    }
+                }
+            }
+
+            // Lets validate that all the layer deps are already installed.
+            applyLayerConfigChange(enable, plugin, layers);
+
+            String layersValue = "";
+            for (String layer : layers) {
+                if (layersValue.length() != 0) {
+                    layersValue += ",";
+                }
+                layersValue += layer;
+            }
+            layersProperties.put("layers", layersValue);
+            System.out.println("\tWriting 'layers=" + layersValue + "' to: " + layersFile);
+            try (FileOutputStream out = new FileOutputStream(layersFile)) {
+                layersProperties.store(out, null);
+            }
+
             SAXBuilder jdom = new SAXBuilder();
             for (Path p : standalonePaths) {
                 Path path = jbossHome.resolve(p);
@@ -99,6 +139,106 @@ public class ConfigSupport {
         }
     }
 
+    public static void applyLayerConfigChange(boolean enable, ConfigPlugin plugin, ArrayList<String> layers) {
+
+        class LayerData implements Comparable<LayerData> {
+            String name;
+            int primaryPriority;
+            int secondaryPriority;
+            LayerConfig config;
+
+            @Override
+            public int compareTo(LayerData o) {
+                if (o.primaryPriority != primaryPriority) {
+                    return primaryPriority - o.primaryPriority;
+                } else {
+                    return secondaryPriority - o.secondaryPriority;
+                }
+            }
+        }
+
+        ArrayList<LayerConfig> configs = new ArrayList<LayerConfig>(plugin.getLayerConfigs());
+        ArrayList<LayerData> workingList = new ArrayList<LayerData>();
+
+        // Lets match up existing layers to the layer config..
+        int secondaryCounter = 0;
+        for (int i = 0; i < layers.size(); i++) {
+
+            String name = layers.get(i);
+            LayerData ld = new LayerData();
+            ld.name = name;
+            ld.primaryPriority = 0;
+            ld.secondaryPriority = i;
+
+            // Now lets see if we can match the layer to a
+            // LayerConfig...
+            boolean add = true;
+            for (LayerConfig config : configs) {
+                if (config.pattern.matcher(name).matches()) {
+                    if (enable) {
+                        ld.config = config;
+                        if (config.type == LayerConfig.Type.INSTALLING) {
+                            ld.name = config.name;
+                        }
+                        ld.primaryPriority = config.priority;
+                        ld.secondaryPriority = secondaryCounter++;
+                    } else {
+                        if (config.type == LayerConfig.Type.INSTALLING) {
+                            add = false;
+                        }
+                    }
+                    break;
+                }
+            }
+            if (add) {
+                workingList.add(ld);
+            }
+        }
+
+        // Lets find out which layers did not match..
+        for (LayerData layerData : workingList) {
+            if (layerData.config != null) {
+                configs.remove(layerData.config);
+            }
+        }
+
+        // Lets deal with the layers which have not been configured yet.
+        for (LayerConfig config : configs) {
+            switch (config.type) {
+                case OPTIONAL:
+                    // We wont add it.. if it was available,
+                    // we would have already applied a priority to it.
+                    break;
+
+                case REQUIRED:
+                    if (enable) {
+                        throw new CommandException("Required layer has not yet been configured: " + config.name);
+                    }
+                    break;
+                case INSTALLING:
+                    // This is a layer we are installing.. so lets add it in.
+                    if (enable) {
+                        LayerData ld = new LayerData();
+                        ld.name = config.name;
+                        ld.config = config;
+                        ld.primaryPriority = config.priority;
+                        ld.secondaryPriority = secondaryCounter++;
+                        workingList.add(ld);
+                    }
+                    break;
+            }
+
+        }
+
+        // Now lets sort the layers by primary and secondary priority.
+        Collections.sort(workingList);
+
+        layers.clear();
+        for (LayerData layerData : workingList) {
+            layers.add(layerData.name);
+        }
+    }
+
     static Path getJBossHome() throws UnsupportedEncodingException {
 
         String jbossHome = System.getProperty("jboss.home");
@@ -121,7 +261,7 @@ public class ConfigSupport {
         return Paths.get(jbossHome);
     }
 
-    private static Element createElementFromText(String xml) {
+    public static Element createElementFromText(String xml) {
         SAXBuilder jdom = new SAXBuilder();
         Document doc;
         try {
@@ -132,7 +272,7 @@ public class ConfigSupport {
         return (Element) doc.getRootElement().clone();
     }
 
-    static Element loadElementFrom(URL resource) {
+    public static Element loadElementFrom(URL resource) {
         try {
             byte[] data = loadBytesFromURL(resource);
             String xml = new String(data, "UTF-8");
@@ -173,7 +313,7 @@ public class ConfigSupport {
         return null;
     }
 
-    static void assertExists(Element extensions, String message) {
+    public static void assertExists(Element extensions, String message) {
         if (extensions == null) {
             throw new BadDocument(message);
         }

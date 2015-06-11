@@ -15,7 +15,7 @@
  */
 package org.wildfly.camel.test.config;
 
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAIN30;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAIN;
 
 import java.net.URL;
 import java.nio.file.Paths;
@@ -45,9 +45,9 @@ public class DomainConfigTest {
         ConfigPlugin plugin = new WildFlyCamelConfigPlugin();
         plugin.applyDomainConfigChange(context, true);
 
-        Element element = doc.getRootElement().getChild("server-groups", NS_DOMAIN30);
+        Element element = doc.getRootElement().getChild("server-groups", NS_DOMAIN);
         Assert.assertNotNull("server-groups not null", element);
-        element = ConfigSupport.findElementWithAttributeValue(element, "server-group", NS_DOMAIN30, "name", "camel-server-group");
+        element = ConfigSupport.findElementWithAttributeValue(element, "server-group", NS_DOMAIN, "name", "camel-server-group");
         Assert.assertNotNull("camel-server-group not null", element);
 
         XMLOutputter output = new XMLOutputter();
