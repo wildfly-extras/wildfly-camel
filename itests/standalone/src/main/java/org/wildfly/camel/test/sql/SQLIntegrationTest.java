@@ -30,31 +30,50 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.sql.subA.CdiRouteBuilder;
+import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
 public class SQLIntegrationTest {
+
+    private static final String CAMEL_SQL_CDI_ROUTES_JAR = "camel-sql-cdi-routes.jar";
+
+    @ArquillianResource
+    CamelContextRegistry contextRegistry;
+
+    @ArquillianResource
+    Deployer deployer;
 
     @Resource(name = "java:jboss/datasources/ExampleDS")
     DataSource dataSource;
 
     @Deployment
-    public static JavaArchive createdeployment() throws IOException {
+    public static JavaArchive createDeployment() throws IOException {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-sql-tests.jar");
-        archive.addAsManifestResource(new StringAsset(""), "beans.xml");
+        archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        return archive;
+    }
+
+    @Deployment(managed = false, name = CAMEL_SQL_CDI_ROUTES_JAR)
+    public static JavaArchive createCDIDeployment() throws IOException {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CAMEL_SQL_CDI_ROUTES_JAR);
+        archive.addPackage(CdiRouteBuilder.class.getPackage());
+        archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }
 
     @Test
     public void testSQLEndpoint() throws Exception {
-
         Assert.assertNotNull("DataSource not null", dataSource);
 
         CamelContext camelctx = new DefaultCamelContext();
@@ -75,6 +94,24 @@ public class SQLIntegrationTest {
             Assert.assertEquals("SA", result);
         } finally {
             camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testSQLEndpointWithCDIContext() throws Exception {
+        try {
+            deployer.deploy(CAMEL_SQL_CDI_ROUTES_JAR);
+
+            CamelContext camelctx = contextRegistry.getCamelContext("camel-sql-cdi-context");
+            Assert.assertNotNull("Camel context not null", camelctx);
+
+            PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
+            pollingConsumer.start();
+
+            String result = (String) pollingConsumer.receive().getIn().getBody(Map.class).get("NAME");
+            Assert.assertEquals("SA", result);
+        } finally {
+            deployer.undeploy(CAMEL_SQL_CDI_ROUTES_JAR);
         }
     }
 }
