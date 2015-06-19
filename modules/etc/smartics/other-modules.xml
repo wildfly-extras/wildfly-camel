@@ -195,6 +195,10 @@
         </dependencies>
     </module>
 
+    <module name="org.fusesource.mqtt">
+        <include artifact="org.fusesource.mqtt-client:mqtt-client" />
+    </module>
+
     <module name="org.jasypt">
         <include artifact="org.jasypt:jasypt" />
     </module>
