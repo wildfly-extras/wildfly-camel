@@ -26,11 +26,23 @@ import org.jdom.Text;
 
 public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
 
+    public static LayerConfig FUSE_LAYER_CONFIG = new LayerConfig("fuse", LayerConfig.Type.INSTALLING, -10);
+    
     public static final Namespace NS_DOMAIN = Namespace.getNamespace("urn:jboss:domain:3.0");
     public static final Namespace NS_CAMEL = Namespace.getNamespace("urn:jboss:domain:camel:1.0");
     public static final Namespace NS_LOGGING = Namespace.getNamespace("urn:jboss:domain:logging:1.5");
     public static final Namespace NS_SECURITY = Namespace.getNamespace("urn:jboss:domain:security:1.2");
     public static final Namespace NS_WELD = Namespace.getNamespace("urn:jboss:domain:weld:2.0");
+
+    @Override
+    public String getConfigName() {
+        return "camel";
+    }
+
+    @Override
+    public List<LayerConfig> getLayerConfigs() {
+        return Arrays.asList(FUSE_LAYER_CONFIG);
+    }
 
     @Override
     public void applyStandaloneConfigChange(ConfigContext context, boolean enable) {
@@ -45,11 +57,6 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
     public void applyDomainConfigChange(ConfigContext context, boolean enable) {
         applyStandaloneConfigChange(context, enable);
         updateServergroup(enable, context);
-    }
-
-    @Override
-    public List<LayerConfig> getLayerConfigs() {
-        return Arrays.asList(new LayerConfig("fuse", LayerConfig.Type.INSTALLING, -10));
     }
 
     private static void updateExtension(ConfigContext context, boolean enable) {

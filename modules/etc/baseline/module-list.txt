@@ -1,3 +1,4 @@
+/args4j/main/args4j-2.0.31.jar
 /com/fasterxml/jackson/json/main/jackson-module-jsonSchema-2.4.1.jar
 /com/fasterxml/jackson/scala/main/jackson-module-scala_2.10-2.4.1.jar
 /com/jcraft/jsch/main/jsch-0.1.51.jar
