@@ -38,6 +38,10 @@ import java.util.List;
 import java.util.Properties;
 import java.util.ServiceLoader;
 
+import org.jboss.modules.Module;
+import org.jboss.modules.ModuleClassLoader;
+import org.jboss.modules.ModuleIdentifier;
+import org.jboss.modules.ModuleLoader;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -46,6 +50,7 @@ import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import org.wildfly.extension.camel.config.LayerConfig.Type;
 
 public class ConfigSupport {
 
@@ -53,93 +58,43 @@ public class ConfigSupport {
         return new ConfigContext(jbossHome, configuration, doc);
     }
 
-    public static void applyConfigChange(Path jbossHome, boolean enable) throws Exception {
+    public static void applyConfigChange(Path jbossHome, List<String> configs, boolean enable) throws Exception {
 
-        List<Path> standalonePaths = new ArrayList<>();
-        standalonePaths.add(Paths.get("standalone", "configuration", "standalone.xml"));
-        standalonePaths.add(Paths.get("standalone", "configuration", "standalone-full.xml"));
-        standalonePaths.add(Paths.get("standalone", "configuration", "standalone-full-ha.xml"));
-        standalonePaths.add(Paths.get("standalone", "configuration", "standalone-ha.xml"));
+        Iterator<ConfigPlugin> itsrv;
+        ClassLoader classLoader = ConfigSupport.class.getClassLoader();
         
-        List<Path> domainPaths = new ArrayList<>();
-        domainPaths.add(Paths.get("domain", "configuration", "domain.xml"));
+        // In wildfly every plugin lives in its own module.
+        // The module identity corresponds to the config name
+        if (classLoader instanceof ModuleClassLoader) {
+            List<ConfigPlugin> plugins = new ArrayList<>();
+            for (String config : configs) {
+                ModuleLoader moduleLoader = Module.getCallerModuleLoader();
+                ModuleIdentifier modid = ModuleIdentifier.create("org.wildfly.extension.camel.config.plugin." + config);
+                ModuleClassLoader modcl = moduleLoader.loadModule(modid).getClassLoader();
+                Iterator<ConfigPlugin> auxit = ServiceLoader.load(ConfigPlugin.class, modcl).iterator();
+                while (auxit.hasNext()) {
+                    plugins.add(auxit.next());
+                }
+            }
+            itsrv = plugins.iterator();
+        } else {
+            itsrv = ServiceLoader.load(ConfigPlugin.class, classLoader).iterator();
+        }
         
-        Iterator<ConfigPlugin> itsrv = ServiceLoader.load(ConfigPlugin.class, ConfigSupport.class.getClassLoader()).iterator();
         while (itsrv.hasNext()) {
             ConfigPlugin plugin = itsrv.next();
-            System.out.println("Using config plugin: " + plugin.getClass().getName());
-
-            File layersFile = jbossHome.resolve(Paths.get("modules", "layers.conf")).toFile();
-            Properties layersProperties = new Properties();
-            ArrayList<String> layers = new ArrayList<String>();
-            if (layersFile.exists()) {
-                try (FileInputStream is = new FileInputStream(layersFile)) {
-                    layersProperties.load(is);
-                }
-                String layersValue = layersProperties.getProperty("layers");
-                if (layersValue == null) {
-                    layersValue = "";
-                }
-                for (String s : layersValue.split(",")) {
-                    s = s.trim();
-                    if (s.length() > 0) {
-                        layers.add(s);
-                    }
-                }
-            }
-
-            // Lets validate that all the layer deps are already installed.
-            applyLayerConfigChange(enable, plugin, layers);
-
-            String layersValue = "";
-            for (String layer : layers) {
-                if (layersValue.length() != 0) {
-                    layersValue += ",";
-                }
-                layersValue += layer;
-            }
-            layersProperties.put("layers", layersValue);
-            System.out.println("\tWriting 'layers=" + layersValue + "' to: " + layersFile);
-            try (FileOutputStream out = new FileOutputStream(layersFile)) {
-                layersProperties.store(out, null);
-            }
-
-            SAXBuilder jdom = new SAXBuilder();
-            for (Path p : standalonePaths) {
-                Path path = jbossHome.resolve(p);
-
-                System.out.println("\tEnabling configuration on " + path);
-                Document doc = jdom.build(path.toUri().toURL());
-
-                ConfigContext context = new ConfigContext(jbossHome, path, doc);
-                plugin.applyStandaloneConfigChange(context, enable);
-
-                XMLOutputter output = new XMLOutputter();
-                output.setFormat(Format.getRawFormat());
-                String newXML = output.outputString(doc);
-                backup(path);
-                writeFile(path, newXML, "UTF-8");
-            }
-
-            for (Path p : domainPaths) {
-                Path path = jbossHome.resolve(p);
-
-                System.out.println("\tEnabling configuration on " + path);
-                Document doc = jdom.build(path.toUri().toURL());
-
-                ConfigContext context = new ConfigContext(jbossHome, path, doc);
-                plugin.applyDomainConfigChange(context, enable);
-
-                XMLOutputter output = new XMLOutputter();
-                output.setFormat(Format.getRawFormat());
-                String newXML = output.outputString(doc);
-                backup(path);
-                writeFile(path, newXML, "UTF-8");
+            if (configs.contains(plugin.getConfigName())) {
+                
+                ConfigLogger.info("Processing config for: " + plugin.getConfigName());
+                
+                applyLayerChanges(jbossHome, plugin, enable);
+                
+                applyConfigurationChanges(jbossHome, plugin, enable);
             }
         }
     }
 
-    public static void applyLayerConfigChange(boolean enable, ConfigPlugin plugin, ArrayList<String> layers) {
+    public static void applyLayerChanges(Path jbossHome, ConfigPlugin plugin, boolean enable) throws IOException {
 
         class LayerData implements Comparable<LayerData> {
             String name;
@@ -157,8 +112,27 @@ public class ConfigSupport {
             }
         }
 
-        ArrayList<LayerConfig> configs = new ArrayList<LayerConfig>(plugin.getLayerConfigs());
-        ArrayList<LayerData> workingList = new ArrayList<LayerData>();
+        ArrayList<LayerConfig> configs = new ArrayList<>(plugin.getLayerConfigs());
+        List<LayerData> workingList = new ArrayList<>();
+
+        File layersFile = jbossHome.resolve(Paths.get("modules", "layers.conf")).toFile();
+        Properties layersProperties = new Properties();
+        List<String> layers = new ArrayList<>();
+        if (layersFile.exists()) {
+            try (FileInputStream is = new FileInputStream(layersFile)) {
+                layersProperties.load(is);
+            }
+            String layersValue = layersProperties.getProperty("layers");
+            if (layersValue == null) {
+                layersValue = "";
+            }
+            for (String s : layersValue.split(",")) {
+                s = s.trim();
+                if (s.length() > 0) {
+                    layers.add(s);
+                }
+            }
+        }
 
         // Lets match up existing layers to the layer config..
         int secondaryCounter = 0;
@@ -170,20 +144,19 @@ public class ConfigSupport {
             ld.primaryPriority = 0;
             ld.secondaryPriority = i;
 
-            // Now lets see if we can match the layer to a
-            // LayerConfig...
+            // Now lets see if we can match the layer to a LayerConfig...
             boolean add = true;
             for (LayerConfig config : configs) {
                 if (config.pattern.matcher(name).matches()) {
                     if (enable) {
                         ld.config = config;
-                        if (config.type == LayerConfig.Type.INSTALLING) {
+                        if (config.type == Type.INSTALLING) {
                             ld.name = config.name;
                         }
                         ld.primaryPriority = config.priority;
                         ld.secondaryPriority = secondaryCounter++;
                     } else {
-                        if (config.type == LayerConfig.Type.INSTALLING) {
+                        if (config.type == Type.INSTALLING) {
                             add = false;
                         }
                     }
@@ -212,7 +185,7 @@ public class ConfigSupport {
 
                 case REQUIRED:
                     if (enable) {
-                        throw new CommandException("Required layer has not yet been configured: " + config.name);
+                        throw new ConfigException("Required layer has not yet been configured: " + config.name);
                     }
                     break;
                 case INSTALLING:
@@ -237,26 +210,102 @@ public class ConfigSupport {
         for (LayerData layerData : workingList) {
             layers.add(layerData.name);
         }
+
+        String layersValue = "";
+        for (String layer : layers) {
+            if (layersValue.length() != 0) {
+                layersValue += ",";
+            }
+            layersValue += layer;
+        }
+        
+        // We cannot remove this layer
+        // otherwise the config tool cannot be accessed any more
+        if (layersValue.isEmpty()) {
+            layersValue = WildFlyCamelConfigPlugin.FUSE_LAYER_CONFIG.name;
+        }
+        
+        layersProperties.put("layers", layersValue);
+        ConfigLogger.info("\tWriting 'layers=" + layersValue + "' to: " + layersFile);
+        try (FileOutputStream out = new FileOutputStream(layersFile)) {
+            layersProperties.store(out, null);
+        }
     }
 
-    static Path getJBossHome() throws UnsupportedEncodingException {
+    private static void applyConfigurationChanges(Path jbossHome, ConfigPlugin plugin, boolean enable) throws Exception {
+
+        List<Path> standalonePaths = new ArrayList<>();
+        standalonePaths.add(Paths.get("standalone", "configuration", "standalone.xml"));
+        standalonePaths.add(Paths.get("standalone", "configuration", "standalone-full.xml"));
+        standalonePaths.add(Paths.get("standalone", "configuration", "standalone-full-ha.xml"));
+        standalonePaths.add(Paths.get("standalone", "configuration", "standalone-ha.xml"));
+
+        List<Path> domainPaths = new ArrayList<>();
+        domainPaths.add(Paths.get("domain", "configuration", "domain.xml"));
+
+        String message = (enable ? "\tEnable" : "\tDisable") + " configuration on: ";
+        
+        SAXBuilder jdom = new SAXBuilder();
+        for (Path p : standalonePaths) {
+            Path path = jbossHome.resolve(p);
+
+            
+            ConfigLogger.info(message + path);
+            Document doc = jdom.build(path.toUri().toURL());
+
+            ConfigContext context = new ConfigContext(jbossHome, path, doc);
+            plugin.applyStandaloneConfigChange(context, enable);
+
+            XMLOutputter output = new XMLOutputter();
+            output.setFormat(Format.getRawFormat());
+            String newXML = output.outputString(doc);
+            backup(path);
+            writeFile(path, newXML, "UTF-8");
+        }
+
+        for (Path p : domainPaths) {
+            Path path = jbossHome.resolve(p);
+
+            ConfigLogger.info(message + path);
+            Document doc = jdom.build(path.toUri().toURL());
+
+            ConfigContext context = new ConfigContext(jbossHome, path, doc);
+            plugin.applyDomainConfigChange(context, enable);
+
+            XMLOutputter output = new XMLOutputter();
+            output.setFormat(Format.getRawFormat());
+            String newXML = output.outputString(doc);
+            backup(path);
+            writeFile(path, newXML, "UTF-8");
+        }
+    }
+
+    public static Path getJBossHome() throws UnsupportedEncodingException {
 
         String jbossHome = System.getProperty("jboss.home");
         if (jbossHome == null) {
+            jbossHome = System.getProperty("jboss.home.dir");
+        }
+        if (jbossHome == null) {
             jbossHome = System.getenv("JBOSS_HOME");
         }
+        if (jbossHome == null) {
+            Path currpath = Paths.get(".");
+            if (currpath.resolve("jboss-modules.jar").toFile().exists()) {
+                jbossHome = currpath.toAbsolutePath().toString();
+            }
+        }
 
-        if (!Paths.get(jbossHome).toFile().exists())
-            throw new CommandException("Cannot obtain JBOSS_HOME: " + jbossHome);
+        if (!Paths.get(jbossHome).toFile().isDirectory())
+            throw new ConfigException("Cannot obtain JBOSS_HOME: " + jbossHome);
 
         Path standalonePath = Paths.get(jbossHome, "standalone", "configuration");
-        Path domainPath = Paths.get(jbossHome, "domain", "configuration");
-
         if (!standalonePath.toFile().exists())
-            throw new CommandException("Path to standalone configutration does not exist: " + standalonePath);
+            throw new ConfigException("Path to standalone configutration does not exist: " + standalonePath);
 
+        Path domainPath = Paths.get(jbossHome, "domain", "configuration");
         if (!domainPath.toFile().exists())
-            throw new CommandException("Path to domain configutration does not exist: " + standalonePath);
+            throw new ConfigException("Path to domain configutration does not exist: " + domainPath);
 
         return Paths.get(jbossHome);
     }
@@ -315,7 +364,7 @@ public class ConfigSupport {
 
     public static void assertExists(Element extensions, String message) {
         if (extensions == null) {
-            throw new BadDocument(message);
+            throw new ConfigException(message);
         }
     }
 
@@ -357,19 +406,5 @@ public class ConfigSupport {
             result.addAll(profiles.getChildren("profile", ns));
         }
         return result;
-    }
-
-    @SuppressWarnings("serial")
-    static class BadDocument extends RuntimeException {
-        BadDocument(String message) {
-            super(message);
-        }
-    }
-
-    @SuppressWarnings("serial")
-    static class CommandException extends RuntimeException {
-        CommandException(String message) {
-            super(message);
-        }
     }
 }

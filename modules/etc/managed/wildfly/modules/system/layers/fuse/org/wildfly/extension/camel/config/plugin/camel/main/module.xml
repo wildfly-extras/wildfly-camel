@@ -19,23 +19,4 @@
   #L%
   -->
 
-<module xmlns="urn:jboss:module:1.1" name="org.wildfly.extension.camel.config">
-
-    <properties>
-        <property name="jboss.api" value="private"/>
-    </properties>
-
-    <main-class name="org.wildfly.extension.camel.config.internal.Main"/>
-    
-    <resources>
-        <resource-root path="wildfly-camel-config-@project.version@.jar"/>
-    </resources>
-
-    <dependencies>
-        <module name="args4j"/>
-        <module name="javax.api"/>
-        <module name="org.jboss.modules"/>
-        <module name="org.jdom"/>
-    </dependencies>
-
-</module>
+<module-alias xmlns="urn:jboss:module:1.1" name="org.wildfly.extension.camel.config.plugin.camel" target-name="org.wildfly.extension.camel.config" />

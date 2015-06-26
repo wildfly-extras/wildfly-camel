@@ -45,4 +45,22 @@ public class LayerConfig {
         this.pattern = Pattern.compile("^" + Pattern.quote(shortName) + "(_.*)?$");
     }
 
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof LayerConfig)) return false;
+        LayerConfig other = (LayerConfig) obj;
+        return name.equals(other.name) && priority == other.priority && type.equals(other.type);
+    }
+
+    @Override
+    public String toString() {
+        return "Layer[name=" + name + ",prio=" + priority + ",type=" + type + "]";
+    }
+
 }
