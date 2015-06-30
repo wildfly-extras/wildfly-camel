@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   #%L
-  Wildfly Camel Patch
+  Wildfly Camel Testsuite
   %%
   Copyright (C) 2013 - 2014 RedHat
   %%
@@ -25,37 +25,24 @@
 
     <parent>
         <groupId>org.wildfly.camel</groupId>
-        <artifactId>wildfly-camel-itests</artifactId>
+        <artifactId>wildfly-camel-itests-standalone</artifactId>
         <version>3.0.0-SNAPSHOT</version>
     </parent>
 
-    <name>Wildfly Camel :: Testsuite :: Common</name>
+    <name>Wildfly Camel :: Testsuite :: Standalone :: Smoke</name>
+    <artifactId>wildfly-camel-itests-standalone-smoke</artifactId>
 
-    <artifactId>wildfly-camel-itests-common</artifactId>
-	    
-	<dependencies>
+    <!-- Properties -->
+    <properties>
+        <server.config>standalone-full-camel.xml</server.config>
+    </properties>
+    
+    <!-- Dependencies -->
+    <dependencies>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-core</artifactId>
+            <artifactId>camel-xmlsecurity</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>jboss-dmr</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jdom</groupId>
-            <artifactId>jdom</artifactId>
-        </dependency>            
-        <dependency>
-            <groupId>org.wildfly.core</groupId>
-            <artifactId>wildfly-server</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-	</dependencies>
+    </dependencies>
 
 </project>
