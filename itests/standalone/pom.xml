@@ -198,7 +198,7 @@
             </activation>
             <modules>
                 <module>basic</module>
-                <module>extra</module>
+                <module>extras</module>
             </modules>
         </profile>
         <profile>

@@ -29,9 +29,9 @@
         <version>3.0.0-SNAPSHOT</version>
     </parent>
 
-    <name>Wildfly Camel :: Testsuite :: Standalone :: Extra</name>
+    <name>Wildfly Camel :: Testsuite :: Standalone :: Extras</name>
 
-    <artifactId>wildfly-camel-itests-standalone-extra</artifactId>
+    <artifactId>wildfly-camel-itests-standalone-extras</artifactId>
 
     <!-- Properties -->
     <properties>
@@ -41,6 +41,14 @@
     <!-- Dependencies -->
     <dependencies>
         <dependency>
+            <groupId>co.freeside</groupId>
+            <artifactId>betamax</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-rss</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-xmlsecurity</artifactId>
         </dependency>
@@ -48,9 +56,31 @@
             <groupId>org.apache.xmlbeans</groupId>
             <artifactId>xmlbeans</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>arquillian.xml</include>
+                    <include>betamax.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>arquillian.xml</exclude>
+                    <exclude>betamax.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -87,6 +117,10 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jboss.shrinkwrap.resolver</groupId>
+                <artifactId>shrinkwrap-resolver-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
