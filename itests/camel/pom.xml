@@ -47,11 +47,21 @@
     <!-- Dependencies -->
     <dependencies>
         <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-itests-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
         </dependency>
 
         <!-- Test -->
+        <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>Saxon-HE</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

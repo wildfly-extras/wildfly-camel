@@ -32,6 +32,7 @@ import org.apache.camel.util.FileUtil;
 import org.jboss.gravia.utils.IllegalArgumentAssertion;
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleClassLoader;
+import org.jboss.modules.ModuleIdentifier;
 
 
 /**
@@ -43,16 +44,20 @@ import org.jboss.modules.ModuleClassLoader;
 final class WildFlyClassResolver extends DefaultClassResolver {
 
     private final ModuleClassLoader classLoader;
+    private final ModuleIdentifier moduleId;
 
     WildFlyClassResolver(Module module) {
         IllegalArgumentAssertion.assertNotNull(module, "module");
         this.classLoader = module.getClassLoader();
+        this.moduleId = module.getIdentifier();
     }
 
     WildFlyClassResolver(ClassLoader classLoader) {
         IllegalArgumentAssertion.assertNotNull(classLoader, "classLoader");
         IllegalArgumentAssertion.assertTrue(classLoader instanceof ModuleClassLoader, "ModuleClassLoader required: " + classLoader);
-        this.classLoader = (ModuleClassLoader) classLoader;
+        Module module = ((ModuleClassLoader) classLoader).getModule();
+        this.classLoader = module.getClassLoader();
+        this.moduleId = module.getIdentifier();
     }
 
     @Override
@@ -62,7 +67,7 @@ final class WildFlyClassResolver extends DefaultClassResolver {
         try {
             loadedClass = classLoader.loadClass(className);
         } catch (ClassNotFoundException e) {
-            LOGGER.warn("Cannot load: {}", className);
+            LOGGER.warn("Cannot load '{}' from module: {}", className, moduleId);
         }
         return loadedClass;
     }

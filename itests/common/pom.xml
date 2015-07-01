@@ -43,6 +43,10 @@
             <artifactId>jboss-dmr</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.jboss.gravia</groupId>
+            <artifactId>gravia-resource</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.jdom</groupId>
             <artifactId>jdom</artifactId>
         </dependency>            

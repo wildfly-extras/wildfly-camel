@@ -11,7 +11,7 @@
     <module name="org.apache.camel.core" />
   </dependencies>
   <exports>
-    <exclude path="net/sf**" />
+    <exclude path="net/sf" />
     <exclude path="w3c/mathml**" />
     <exclude path="w3c/rddl**" />
     <exclude path="w3c/svg**" />

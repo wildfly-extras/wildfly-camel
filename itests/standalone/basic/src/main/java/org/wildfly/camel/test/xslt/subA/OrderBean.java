@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.saxon.subA;
+package org.wildfly.camel.test.xslt.subA;
 
 import org.apache.camel.language.XPath;
 
