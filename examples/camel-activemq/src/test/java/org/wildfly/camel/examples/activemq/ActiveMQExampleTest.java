@@ -34,6 +34,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Assume;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
@@ -45,29 +46,36 @@ public class ActiveMQExampleTest {
 
     private File destination = new File(System.getProperty("jboss.data.dir") + "/orders");
 
+    @Before
+    public void setUp() {
+        destination.toPath().toFile().mkdirs();
+    }
+
     @After
     public void tearDown() throws IOException {
-        Files.walkFileTree(destination.toPath(), new SimpleFileVisitor<Path>() {
-            @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                Files.delete(file);
-                return FileVisitResult.CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult visitFileFailed(Path file, IOException exception) throws IOException {
-                exception.printStackTrace();
-                return FileVisitResult.CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult postVisitDirectory(Path dir, IOException exception) throws IOException {
-                if (exception == null) {
-                    Files.delete(dir);
+        if (destination.toPath().toFile().exists()) {
+            Files.walkFileTree(destination.toPath(), new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    Files.delete(file);
+                    return FileVisitResult.CONTINUE;
                 }
-                return FileVisitResult.CONTINUE;
-            }
-        });
+
+                @Override
+                public FileVisitResult visitFileFailed(Path file, IOException exception) throws IOException {
+                    exception.printStackTrace();
+                    return FileVisitResult.CONTINUE;
+                }
+
+                @Override
+                public FileVisitResult postVisitDirectory(Path dir, IOException exception) throws IOException {
+                    if (exception == null) {
+                        Files.delete(dir);
+                    }
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+        }
     }
 
     @Test
@@ -78,7 +86,9 @@ public class ActiveMQExampleTest {
         Assume.assumeFalse(vmname.contains("OpenJDK"));
 
         InputStream input = getClass().getResourceAsStream("/orders/test-order.xml");
-        Files.copy(input, destination.toPath().resolve("test-order.xml"));
+        Path targetPath = destination.toPath().resolve("test-order.xml");
+        System.out.println("Copying orders to: " + targetPath);
+        Files.copy(input, targetPath);
         input.close();
 
         // Give camel a chance to consume the test order file
