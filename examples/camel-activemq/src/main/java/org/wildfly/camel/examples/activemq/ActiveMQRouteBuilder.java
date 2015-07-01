@@ -31,8 +31,7 @@ import org.apache.camel.cdi.ContextName;
 @ContextName("amq-cdi-context")
 public class ActiveMQRouteBuilder extends RouteBuilder {
 
-    private static String BROKER_URL = "vm://localhost?broker.persistent=false&broker.useJmx=false" +
-            "&broker.useShutdownHook=false";
+    private static String BROKER_URL = "vm://localhost?broker.persistent=false&broker.useJmx=false&broker.useShutdownHook=false";
 
     @Override
     public void configure() throws Exception {

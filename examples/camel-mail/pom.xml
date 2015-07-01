@@ -25,7 +25,7 @@
 
     <parent>
         <groupId>org.wildfly.camel</groupId>
-        <artifactId>wildfly-camel-example</artifactId>
+        <artifactId>wildfly-camel-examples</artifactId>
         <version>3.0.0-SNAPSHOT</version>
     </parent>
 
@@ -121,7 +121,7 @@
             </properties>
         </profile>
         <profile>
-            <id>!ts.all</id>
+            <id>no.ts.all</id>
             <activation>
                 <property>
                     <name>!ts.all</name>
@@ -130,26 +130,59 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
+                        <groupId>org.wildfly.plugins</groupId>
+                        <artifactId>wildfly-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>greenmail-deploy</id>
-                                <phase>package</phase>
+                                <id>wildfly-start</id>
+                                <phase>pre-integration-test</phase>
                                 <goals>
-                                    <goal>copy</goal>
+                                    <goal>start</goal>
                                 </goals>
                                 <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>com.icegreen</groupId>
-                                            <artifactId>greenmail-webapp</artifactId>
-                                            <version>${version.greenmail}</version>
-                                            <type>war</type>
-                                            <artifactId>greenmail-webapp</artifactId>
-                                        </artifactItem>
-                                    </artifactItems>
-                                    <outputDirectory>${jboss.home}/standalone/deployments</outputDirectory>
+                                    <jbossHome>${jboss.home}</jbossHome>
+                                    <serverConfig>${server.config}</serverConfig>
+                                    <jvmArgs>${jvmArgs} ${jvmDebugArgs}</jvmArgs>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>deploy-greenmail</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>deploy-artifact</goal>
+                                </goals>
+                                <configuration>
+                                    <groupId>com.icegreen</groupId>
+                                    <artifactId>greenmail-webapp</artifactId>
+                                    <version>${version.greenmail}</version>
+                                    <type>war</type>
+                                    <artifactId>greenmail-webapp</artifactId>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>wildfly-shutdown</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>shutdown</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration>
+                                    <skip>false</skip>
+                                    <systemPropertyVariables>
+                                        <jboss.data.dir>${jboss.data.dir}</jboss.data.dir>
+                                        <log4j.configuration>${log4j.configuration}</log4j.configuration>
+                                    </systemPropertyVariables>
                                 </configuration>
                             </execution>
                         </executions>
