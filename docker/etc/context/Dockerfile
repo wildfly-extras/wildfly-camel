@@ -1,5 +1,5 @@
-# Use the offical jboss/wildfly base image
-FROM jboss/wildfly:@version.wildfly@
+
+FROM wildflyext/wildfly:@version.wildfly@
 
 MAINTAINER Thomas Diesler <tdiesler@redhat.com>
 
