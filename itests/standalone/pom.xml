@@ -90,11 +90,6 @@
         </dependency>
     </dependencies>
     
-    <!-- Modules -->
-    <modules>
-        <module>smoke</module>
-    </modules>
-    
     <build>
         <resources>
             <resource>
@@ -179,6 +174,17 @@
     <!-- Profiles -->
     <profiles>
         <profile>
+            <id>no.ts.smoke</id>
+            <activation>
+                <property>
+                    <name>!no.ts.smoke</name>
+                </property>
+            </activation>
+            <modules>
+                <module>smoke</module>
+            </modules>
+        </profile>
+        <profile>
             <id>ts.basic</id>
             <activation>
                 <property>
@@ -190,6 +196,17 @@
             </modules>
         </profile>
         <profile>
+            <id>ts.extras</id>
+            <activation>
+                <property>
+                    <name>ts.extras</name>
+                </property>
+            </activation>
+            <modules>
+                <module>extras</module>
+            </modules>
+        </profile>
+        <profile>
             <id>ts.all</id>
             <activation>
                 <property>
@@ -197,6 +214,7 @@
                 </property>
             </activation>
             <modules>
+                <module>smoke</module>
                 <module>basic</module>
                 <module>extras</module>
             </modules>
