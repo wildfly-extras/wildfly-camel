@@ -115,7 +115,7 @@ public class PolicyIntegrationTestCase {
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            Subject subject = getAuthenticationToken(EJBSecurityTestCase.USERNAME, EJBSecurityTestCase.PASSWORD);
+            Subject subject = getAuthenticationToken(AnnotatedSLSB.USERNAME, AnnotatedSLSB.PASSWORD);
             String result = producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION, subject, String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {

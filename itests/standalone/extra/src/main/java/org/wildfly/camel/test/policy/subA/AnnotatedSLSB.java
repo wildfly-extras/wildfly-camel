@@ -22,20 +22,37 @@
 
 package org.wildfly.camel.test.policy.subA;
 
+import java.security.Principal;
+
+import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.ejb.EJBContext;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.security.auth.Subject;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.ProducerTemplate;
 import org.jboss.ejb3.annotation.SecurityDomain;
+import org.wildfly.extension.camel.security.UsernamePasswordAuthentication;
 
 @Stateless
 @DeclareRoles({ "Role1", "Role2", "Role3" })
 @LocalBean
 @SecurityDomain("other")
 public class AnnotatedSLSB {
+
+    public static final String USERNAME = "user1";
+    public static final String PASSWORD = "appl-pa$$wrd1";
+
+    @Resource(name = "java:jboss/camel/context/secured-context")
+    CamelContext camelctx;
+
+    @Resource EJBContext ejbctx;
 
     @PermitAll
     public String doAnything(String msg) {
@@ -45,6 +62,19 @@ public class AnnotatedSLSB {
     @RolesAllowed({ "Role1" })
     public String doSelected(String msg) {
         return "Hello " + msg;
+    }
+
+    @RolesAllowed({ "Role1" })
+    public String secureRouteAccess(String msg) {
+
+        // [TODO #725] Add support for security context propagation
+        Subject subject = new Subject();
+        String username = ejbctx.getCallerPrincipal().getName();
+        Principal principal = new UsernamePasswordAuthentication(username, PASSWORD.toCharArray());
+        subject.getPrincipals().add(principal);
+
+        ProducerTemplate producer = camelctx.createProducerTemplate();
+        return producer.requestBodyAndHeader("direct:start", msg, Exchange.AUTHENTICATION, subject, String.class);
     }
 
     @DenyAll

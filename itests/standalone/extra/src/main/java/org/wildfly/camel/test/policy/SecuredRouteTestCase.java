@@ -40,6 +40,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.wildfly.camel.test.policy.subA.AnnotatedSLSB;
 import org.wildfly.extension.camel.security.ClientLoginAuthorizationPolicy;
 
 @RunWith(Arquillian.class)
@@ -92,7 +93,7 @@ public class SecuredRouteTestCase {
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            Subject subject = getAuthenticationToken(EJBSecurityTestCase.USERNAME, EJBSecurityTestCase.PASSWORD);
+            Subject subject = getAuthenticationToken(AnnotatedSLSB.USERNAME, AnnotatedSLSB.PASSWORD);
             String result = producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION, subject, String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {

@@ -31,24 +31,24 @@ import javax.security.auth.login.LoginContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.policy.subA.AnnotatedSLSB;
+import org.wildfly.camel.test.policy.subA.SecureRouteBuilder;
 import org.wildfly.extension.camel.security.ClientLoginContext;
 
 
 @RunWith(Arquillian.class)
 public class EJBSecurityTestCase {
 
-    static final String USERNAME = "user1";
-    static final String PASSWORD = "appl-pa$$wrd1";
-
     @Deployment
     public static JavaArchive createDeployment() {
-        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "ejb-security-test");
-        archive.addPackage(AnnotatedSLSB.class.getPackage());
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "ejb-security-test.jar");
+        archive.addClasses(AnnotatedSLSB.class, SecureRouteBuilder.class);
+        archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }
 
@@ -63,10 +63,23 @@ public class EJBSecurityTestCase {
     public void testAuthorizedAccess() throws Exception {
 
         AnnotatedSLSB bean = lookup(new InitialContext(), AnnotatedSLSB.class, AnnotatedSLSB.class);
-        LoginContext lc = ClientLoginContext.newLoginContext(USERNAME, PASSWORD.toCharArray());
+        LoginContext lc = ClientLoginContext.newLoginContext(AnnotatedSLSB.USERNAME, AnnotatedSLSB.PASSWORD.toCharArray());
         lc.login();
         try {
             Assert.assertEquals("Hello Kermit", bean.doSelected("Kermit"));
+        } finally {
+            lc.logout();
+        }
+    }
+
+    @Test
+    public void testCallerPricipalPropagation() throws Exception {
+
+        AnnotatedSLSB bean = lookup(new InitialContext(), AnnotatedSLSB.class, AnnotatedSLSB.class);
+        LoginContext lc = ClientLoginContext.newLoginContext(AnnotatedSLSB.USERNAME, AnnotatedSLSB.PASSWORD.toCharArray());
+        lc.login();
+        try {
+            Assert.assertEquals("Hello Kermit", bean.secureRouteAccess("Kermit"));
         } finally {
             lc.logout();
         }
