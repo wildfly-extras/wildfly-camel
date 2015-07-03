@@ -63,7 +63,7 @@ public class EJBSecurityTestCase {
     public void testAuthorizedAccess() throws Exception {
 
         AnnotatedSLSB bean = lookup(new InitialContext(), AnnotatedSLSB.class, AnnotatedSLSB.class);
-        LoginContext lc = ClientLoginContext.newLoginContext(USERNAME, PASSWORD);
+        LoginContext lc = ClientLoginContext.newLoginContext(USERNAME, PASSWORD.toCharArray());
         lc.login();
         try {
             Assert.assertEquals("Hello Kermit", bean.doSelected("Kermit"));
@@ -83,7 +83,7 @@ public class EJBSecurityTestCase {
             //expected
         }
 
-        LoginContext lc = ClientLoginContext.newLoginContext("user1", "wrongpass");
+        LoginContext lc = ClientLoginContext.newLoginContext("user1", "wrongpass".toCharArray());
         lc.login();
         try {
             bean.doSelected("Kermit");

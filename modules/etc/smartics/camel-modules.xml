@@ -612,6 +612,19 @@
         </exports>
     </module>
     
+    <module name="org.apache.camel.component.spring.security">
+        <include artifact="org.apache.camel:camel-spring-security" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.security" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+            <module name="org.springframework.security" export="true"/>
+        </dependencies>
+    </module>
+    
     <module name="org.apache.camel.component.sql">
         <include artifact="org.apache.camel:camel-sql" />
         <apply-to-dependencies skip="true">

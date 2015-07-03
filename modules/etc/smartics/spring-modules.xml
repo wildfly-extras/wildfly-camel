@@ -21,7 +21,7 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
     <module name="org.springframework.aop">
-        <include artifact="org.springframework:spring-aop" />
+        <include artifact=":spring-aop" />
         <include artifact=":aopalliance" />
         <dependencies>
             <module name="javax.api" />
@@ -30,7 +30,7 @@
     </module>
     
     <module name="org.springframework.beans">
-        <include artifact="org.springframework:spring-beans" />
+        <include artifact=":spring-beans" />
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />
@@ -40,7 +40,7 @@
     </module>
     
     <module name="org.springframework.context">
-        <include artifact="org.springframework:spring-context" />
+        <include artifact=":spring-context" />
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />
@@ -49,7 +49,7 @@
     </module>
     
     <module name="org.springframework.core">
-        <include artifact="org.springframework:spring-core" />
+        <include artifact=":spring-core" />
         <dependencies>
             <module name="javax.api" />
             <module name="org.jboss.vfs" />
@@ -57,7 +57,7 @@
     </module>
     
     <module name="org.springframework.expression">
-        <include artifact="org.springframework:spring-expression" />
+        <include artifact=":spring-expression" />
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />
@@ -65,7 +65,7 @@
     </module>
     
     <module name="org.springframework.jdbc">
-        <include artifact="org.springframework:spring-jdbc" />
+        <include artifact=":spring-jdbc" />
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />
@@ -73,7 +73,7 @@
     </module>
     
     <module name="org.springframework.jms">
-        <include artifact="org.springframework:spring-jms" />
+        <include artifact=":spring-jms" />
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />
@@ -81,7 +81,7 @@
     </module>
     
     <module name="org.springframework.orm">
-        <include artifact="org.springframework:spring-orm" />
+        <include artifact=":spring-orm" />
         <dependencies>
             <module name="javax.api" />
             <module name="javax.persistence.api" />
@@ -89,8 +89,17 @@
         </dependencies>
     </module>
     
+    <module name="org.springframework.security">
+        <include artifact=":spring-security-config" />
+        <include artifact=":spring-security-core" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.commons.logging" />
+        </dependencies>
+    </module>
+    
     <module name="org.springframework.tx">
-        <include artifact="org.springframework:spring-tx" />
+        <include artifact=":spring-tx" />
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />

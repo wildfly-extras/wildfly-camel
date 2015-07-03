@@ -19,9 +19,9 @@
   #L%
   -->
 
-
-
-
+<!-- 
+    This is referenced in the base layer from org.apache.cxf as an optional dependency 
+-->
 <module xmlns="urn:jboss:module:1.1" name="org.springframework.spring">
 
     <dependencies>

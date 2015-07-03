@@ -39,49 +39,27 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.policy.subA.AnnotatedSLSB;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.wildfly.extension.camel.security.ClientLoginAuthorizationPolicy;
-import org.wildfly.extension.camel.security.UsernamePasswordAuthentication;
 
 @RunWith(Arquillian.class)
-public class PolicyIntegrationTestCase {
+public class SecuredRouteTestCase {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "policy-test");
-        archive.addPackage(AnnotatedSLSB.class.getPackage());
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "secured-route-test");
         return archive;
     }
 
     @Test
-    public void testAccessAllowed() throws Exception {
-
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:start").to("ejb:java:module/AnnotatedSLSB?method=doAnything");
-            }
-        });
-
-        camelctx.start();
-        try {
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            String result = producer.requestBody("direct:start", "Kermit", String.class);
-            Assert.assertEquals("Hello Kermit", result);
-        } finally {
-            camelctx.stop();
-        }
-    }
-
-    @Test
     public void testRoleBasedAccessDenied() throws Exception {
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").to("ejb:java:module/AnnotatedSLSB?method=doSelected");
+                from("direct:start")
+                .policy(new ClientLoginAuthorizationPolicy())
+                .transform(body().prepend("Hello "));
             }
         });
 
@@ -101,14 +79,13 @@ public class PolicyIntegrationTestCase {
 
     @Test
     public void testRoleBasedAccessAllowed() throws Exception {
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
                 .policy(new ClientLoginAuthorizationPolicy())
-                .to("ejb:java:module/AnnotatedSLSB?method=doSelected");
+                .transform(body().prepend("Hello "));
             }
         });
 
@@ -125,7 +102,7 @@ public class PolicyIntegrationTestCase {
 
     private Subject getAuthenticationToken(String username, String password) {
         Subject subject = new Subject();
-        Principal principal = new UsernamePasswordAuthentication(username, password.toCharArray());
+        Principal principal = new UsernamePasswordAuthenticationToken(username, password);
         subject.getPrincipals().add(principal);
         return subject;
     }
