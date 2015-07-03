@@ -22,8 +22,13 @@
 
 package org.wildfly.camel.test.policy;
 
+import java.security.Principal;
+
+import javax.security.auth.Subject;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelExecutionException;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -35,7 +40,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.policy.subA.AnnotatedSLSB;
-import org.wildfly.extension.camel.security.AuthorizationPolicy;
+import org.wildfly.extension.camel.security.ClientLoginAuthorizationPolicy;
+import org.wildfly.extension.camel.security.UsernamePasswordAuthentication;
 
 @RunWith(Arquillian.class)
 public class PolicyIntegrationTestCase {
@@ -101,7 +107,7 @@ public class PolicyIntegrationTestCase {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .policy(new AuthorizationPolicy(EJBSecurityTestCase.USERNAME, EJBSecurityTestCase.PASSWORD))
+                .policy(new ClientLoginAuthorizationPolicy())
                 .to("ejb:java:module/AnnotatedSLSB?method=doSelected");
             }
         });
@@ -109,10 +115,18 @@ public class PolicyIntegrationTestCase {
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            String result = producer.requestBody("direct:start", "Kermit", String.class);
+            Subject subject = getAuthenticationToken(EJBSecurityTestCase.USERNAME, EJBSecurityTestCase.PASSWORD);
+            String result = producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION, subject, String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
             camelctx.stop();
         }
+    }
+
+    private Subject getAuthenticationToken(String username, String password) {
+        Subject subject = new Subject();
+        Principal principal = new UsernamePasswordAuthentication(username, password.toCharArray());
+        subject.getPrincipals().add(principal);
+        return subject;
     }
 }

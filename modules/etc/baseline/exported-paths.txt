@@ -367,6 +367,9 @@ org/apache/camel/component/salesforce/api/dto
 org/apache/camel/component/salesforce/api/dto/bulk
 org/apache/camel/component/servlet
 org/apache/camel/component/servlet/osgi
+org/apache/camel/component/spring
+org/apache/camel/component/spring/security
+org/apache/camel/component/spring/security/config
 org/apache/camel/component/sql
 org/apache/camel/component/swagger
 org/apache/camel/component/velocity
@@ -513,6 +516,8 @@ org/dozer/osgi
 org/dozer/propertydescriptor
 org/dozer/stats
 org/dozer/util
+org/springframework
+org/springframework/security/authentication
 org/xmlsoap
 org/xmlsoap/schemas
 org/xmlsoap/schemas/soap
