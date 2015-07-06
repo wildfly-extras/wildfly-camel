@@ -62,6 +62,7 @@ public final class PackageScanClassResolverAssociationHandler implements Context
         protected void find(PackageScanFilter filter, String packageName, ClassLoader classLoader, Set<Class<?>> classes) {
             LOGGER.info("Searching for: {} in package: {} using classloader: {}", new Object[] { filter, packageName, classLoader });
             if (classLoader instanceof ModuleClassLoader) {
+                int classLoadCount = classes.size();
                 ModuleClassLoader moduleClassLoader = (ModuleClassLoader) classLoader;
                 Iterator<Resource> itres = moduleClassLoader.iterateResources("/", true);
                 while (itres.hasNext()) {
@@ -79,6 +80,11 @@ public final class PackageScanClassResolverAssociationHandler implements Context
                             //ignore
                         }
                     }
+                }
+
+                // No classes found by previous package scan so delegate to super
+                if(classes.size() == classLoadCount) {
+                    super.find(filter, packageName, classLoader, classes);
                 }
             } else {
                 super.find(filter, packageName, classLoader, classes);
