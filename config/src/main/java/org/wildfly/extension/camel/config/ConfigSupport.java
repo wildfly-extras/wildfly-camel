@@ -51,6 +51,7 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.wildfly.extension.camel.config.LayerConfig.Type;
+import org.wildfly.extension.camel.config.internal.IllegalStateAssertion;
 
 public class ConfigSupport {
 
@@ -59,6 +60,8 @@ public class ConfigSupport {
     }
 
     public static void applyConfigChange(Path jbossHome, List<String> configs, boolean enable) throws Exception {
+
+        IllegalStateAssertion.assertFalse(configs.isEmpty(), "No configurations specified");
 
         Iterator<ConfigPlugin> itsrv;
         ClassLoader classLoader = ConfigSupport.class.getClassLoader();
