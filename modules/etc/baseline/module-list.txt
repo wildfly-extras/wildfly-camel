@@ -48,6 +48,7 @@
 /org/apache/camel/component/http4/main/camel-http4-2.15.2.jar
 /org/apache/camel/component/jackson/main/camel-jackson-2.15.2.jar
 /org/apache/camel/component/jaxb/main/camel-jaxb-2.15.2.jar
+/org/apache/camel/component/jgroups/main/camel-jgroups-2.15.2.jar
 /org/apache/camel/component/jms/main/camel-jms-2.15.2.jar
 /org/apache/camel/component/jmx/main/camel-jmx-2.15.2.jar
 /org/apache/camel/component/jpa/main/camel-jpa-2.15.2.jar

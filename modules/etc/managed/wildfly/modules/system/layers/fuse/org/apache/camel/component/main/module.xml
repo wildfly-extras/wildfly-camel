@@ -49,6 +49,7 @@
         <module name="org.apache.camel.component.http4" export="true" services="export" />
         <module name="org.apache.camel.component.jackson" export="true" services="export" />
         <module name="org.apache.camel.component.jaxb" export="true" services="export" />
+        <module name="org.apache.camel.component.jgroups" export="true" services="export" />
         <module name="org.apache.camel.component.jms" export="true" services="export" />
         <module name="org.apache.camel.component.jmx" export="true" services="export" />
         <module name="org.apache.camel.component.jpa" export="true" services="export" />

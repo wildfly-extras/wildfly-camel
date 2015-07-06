@@ -303,6 +303,10 @@
         <include artifact=":jdom" />
     </module>
 
+    <module name="org.jgroups" skip="true">
+        <include artifact=":jgroups" />
+    </module>
+
     <module name="org.slf4j" skip="true">
         <include artifact=":jcl-over-slf4j" />
         <include artifact=":slf4j-api" />
