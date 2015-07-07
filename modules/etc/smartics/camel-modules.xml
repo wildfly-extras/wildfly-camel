@@ -801,5 +801,18 @@
             <module name="javax.api"/>
         </dependencies>
     </module>
+
+    <module name="org.fusesource.camel.component.sap">
+        <include artifact=":camel-sap" />
+        <dependencies>
+            <module name="com.sap.conn.jco" />
+            <module name="javax.api" />
+            <module name="org.apache.camel.core" />
+            <module name="org.slf4j" />
+        </dependencies>
+        <exports>
+            <exclude path="org/eclipse**" />
+        </exports>
+    </module>
     
 </modules>

@@ -62,6 +62,7 @@
         <version.args4j>2.0.31</version.args4j>
         <version.codehaus.plexus.utils>3.0.15</version.codehaus.plexus.utils>
         <version.freeside.betamax>1.1.2</version.freeside.betamax>
+        <version.fusesource.camel.sap>6.2.0.redhat-133</version.fusesource.camel.sap>
         <version.greenmail>1.4.0</version.greenmail>
         <version.hawtio>1.4.50</version.hawtio>
         <version.hibernate.jpa21.api>1.0.0.Final</version.hibernate.jpa21.api>
@@ -167,6 +168,17 @@
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-core</artifactId>
                 <version>${version.spring.security}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.fusesource</groupId>
+                <artifactId>camel-sap</artifactId>
+                <version>${version.fusesource.camel.sap}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.sap.conn.jco</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- Xmlbeans -->
@@ -650,6 +662,10 @@
             <!-- for restlet -->
             <id>springsource-libs-releases</id>
             <url>http://repo.springsource.org/libs-release-remote</url>
+        </repository>
+        <repository>
+            <id>fusesource-public-repository</id>
+            <url>https://repo.fusesource.com/nexus/content/groups/public/</url>
         </repository>
     </repositories>
     <pluginRepositories>

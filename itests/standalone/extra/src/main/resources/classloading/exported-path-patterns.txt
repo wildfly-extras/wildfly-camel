@@ -21,6 +21,7 @@
 	^org/apache/xmlbeans/impl/schema
 	^org/apache/xmlbeans/impl/values
 	^org/dozer(.*)
+	^org/fusesource(.*)
 	^org/springframework(.*)
 	^org/xmlsoap(.*)
 	^META-INF/cxf(.*)
