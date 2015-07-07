@@ -18,10 +18,16 @@
  * #L%
  */
 
-package org.jboss.modules;
+package org.wildfly.camel.test.camel;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.jboss.modules.Module;
+import org.jboss.modules.ModuleIdentifier;
+import org.jboss.modules.ModuleLoadException;
+import org.jboss.modules.ModuleLoader;
+import org.jboss.modules.ModuleSpec;
 
 /**
  * Test module loader that allows for modules specs to be added at runtime and it will only load modules from the

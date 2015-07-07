@@ -18,14 +18,20 @@
  * #L%
  */
 
-package org.jboss.modules;
+package org.wildfly.camel.test.camel;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.jar.JarFile;
 
+import org.jboss.modules.AbstractResourceLoader;
+import org.jboss.modules.ClassSpec;
+import org.jboss.modules.IterableResourceLoader;
+import org.jboss.modules.PackageSpec;
+import org.jboss.modules.Resource;
 import org.jboss.shrinkwrap.api.exporter.ZipExporter;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 
@@ -34,7 +40,15 @@ public class JavaArchiveResourceLoader extends AbstractResourceLoader implements
     private final IterableResourceLoader delegate;
 
     public JavaArchiveResourceLoader(JavaArchive archive) throws IOException {
-        delegate = new JarFileResourceLoader(archive.getName(), toJarFile(archive));
+        // Access the package protected constructor
+        try {
+            Class<?> clazz = getClass().getClassLoader().loadClass("org.jboss.modules.JarFileResourceLoader");
+            Constructor<?> ctor = clazz.getDeclaredConstructor(new Class[] {String.class, JarFile.class});
+            ctor.setAccessible(true);
+            delegate = (IterableResourceLoader) ctor.newInstance(archive.getName(), toJarFile(archive));
+        } catch (Exception ex) {
+            throw new IllegalStateException(ex);
+        }
     }
 
     public String getRootName() {

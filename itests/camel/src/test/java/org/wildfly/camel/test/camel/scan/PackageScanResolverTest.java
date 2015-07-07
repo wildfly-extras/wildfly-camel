@@ -31,18 +31,18 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spi.PackageScanClassResolver;
 import org.apache.camel.spi.PackageScanFilter;
 import org.jboss.modules.DependencySpec;
-import org.jboss.modules.JavaArchiveResourceLoader;
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleClassLoader;
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.modules.ModuleSpec;
 import org.jboss.modules.ResourceLoader;
 import org.jboss.modules.ResourceLoaderSpec;
-import org.jboss.modules.TestModuleLoader;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
+import org.wildfly.camel.test.camel.JavaArchiveResourceLoader;
+import org.wildfly.camel.test.camel.TestModuleLoader;
 import org.wildfly.extension.camel.handler.PackageScanClassResolverAssociationHandler;
 
 public class PackageScanResolverTest {
