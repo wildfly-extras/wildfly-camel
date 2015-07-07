@@ -61,32 +61,36 @@ public final class PackageScanClassResolverAssociationHandler implements Context
         @Override
         protected void find(PackageScanFilter filter, String packageName, ClassLoader classLoader, Set<Class<?>> classes) {
             LOGGER.info("Searching for: {} in package: {} using classloader: {}", new Object[] { filter, packageName, classLoader });
-            if (classLoader instanceof ModuleClassLoader) {
-                int classLoadCount = classes.size();
-                ModuleClassLoader moduleClassLoader = (ModuleClassLoader) classLoader;
-                Iterator<Resource> itres = moduleClassLoader.iterateResources("/", true);
-                while (itres.hasNext()) {
-                    Resource resource = itres.next();
-                    String resname = resource.getName();
-                    if (resname.startsWith(packageName) && resname.endsWith(".class")) {
-                        String className = resname.substring(0, resname.length() - 6).replace('/', '.');
-                        try {
-                            Class<?> loadedClass = moduleClassLoader.loadClass(className);
-                            if (filter.matches(loadedClass)) {
-                                LOGGER.info("Found type in package scan: {}", loadedClass.getName());
-                                classes.add(loadedClass);
-                            }
-                        } catch (ClassNotFoundException ex) {
-                            //ignore
+
+            // Would be the case for the system classloader
+            if (!(classLoader instanceof ModuleClassLoader)) {
+                super.find(filter, packageName, classLoader, classes);
+                return;
+            }
+
+            int classLoadCount = classes.size();
+
+            ModuleClassLoader moduleClassLoader = (ModuleClassLoader) classLoader;
+            Iterator<Resource> itres = moduleClassLoader.iterateResources("/", true);
+            while (itres.hasNext()) {
+                Resource resource = itres.next();
+                String resname = resource.getName();
+                if (resname.startsWith(packageName) && resname.endsWith(".class")) {
+                    String className = resname.substring(0, resname.length() - 6).replace('/', '.');
+                    try {
+                        Class<?> loadedClass = moduleClassLoader.loadClass(className);
+                        if (filter.matches(loadedClass)) {
+                            LOGGER.info("Found type in package scan: {}", loadedClass.getName());
+                            classes.add(loadedClass);
                         }
+                    } catch (ClassNotFoundException ex) {
+                        //ignore
                     }
                 }
+            }
 
-                // No classes found by previous package scan so delegate to super
-                if(classes.size() == classLoadCount) {
-                    super.find(filter, packageName, classLoader, classes);
-                }
-            } else {
+            // No classes found by previous package scan so delegate to super
+            if(classes.size() == classLoadCount) {
                 super.find(filter, packageName, classLoader, classes);
             }
         }

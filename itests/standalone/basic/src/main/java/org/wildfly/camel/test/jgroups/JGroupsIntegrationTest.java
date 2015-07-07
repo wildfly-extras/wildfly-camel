@@ -18,6 +18,8 @@ package org.wildfly.camel.test.jgroups;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -40,9 +42,9 @@ public class JGroupsIntegrationTest {
     int nominationCount;
 
     String jgroupsEndpoint = String.format("jgroups:%s?enableViewMessages=true", UUID.randomUUID());
+    CountDownLatch latch = new CountDownLatch(1);
 
-    DefaultCamelContext firstCamelContext;
-    DefaultCamelContext secondCamelContext;
+    DefaultCamelContext camelcxt;
 
     @Deployment
     public static JavaArchive createdeployment() throws IOException {
@@ -63,34 +65,30 @@ public class JGroupsIntegrationTest {
                         String camelContextName = exchange.getContext().getName();
                         if (!camelContextName.equals(master)) {
                             master = camelContextName;
+                            System.out.println("ELECTED MASTER: " + master);
                             nominationCount++;
+                            latch.countDown();
                         }
                     }
                 });
             }
         }
 
-        firstCamelContext = new DefaultCamelContext();
-        firstCamelContext.setName("firstNode");
-        firstCamelContext.addRoutes(new JGroupsRouteBuilder());
-
-        secondCamelContext = new DefaultCamelContext();
-        secondCamelContext.setName("secondNode");
-        secondCamelContext.addRoutes(new JGroupsRouteBuilder());
+        camelcxt = new DefaultCamelContext();
+        camelcxt.setName("firstNode");
+        camelcxt.addRoutes(new JGroupsRouteBuilder());
     }
 
     @Test
-    public void shouldElectSecondNode() throws Exception {
+    public void testMasterElection() throws Exception {
 
-        firstCamelContext.start();
+        camelcxt.start();
+        Assert.assertTrue(latch.await(3, TimeUnit.SECONDS));
+        latch = new CountDownLatch(1);
         String firstMaster = master;
-        secondCamelContext.start();
-        firstCamelContext.stop();
-        String secondMaster = master;
-        secondCamelContext.stop();
 
-        Assert.assertEquals(firstCamelContext.getName(), firstMaster);
-        Assert.assertEquals(secondCamelContext.getName(), secondMaster);
-        Assert.assertEquals(2, nominationCount);
+        Assert.assertEquals(camelcxt.getName(), firstMaster);
+
+        camelcxt.stop();
     }
 }
