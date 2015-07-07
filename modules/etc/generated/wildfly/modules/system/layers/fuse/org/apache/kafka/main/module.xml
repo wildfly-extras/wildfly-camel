@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.kafka">
+  <resources>
+    <resource-root path="jopt-simple-3.2.jar" />
+    <resource-root path="kafka_2.10-0.8.2.0.jar" />
+    <resource-root path="metrics-core-2.2.0.jar" />
+    <resource-root path="zkclient-0.3.jar" />
+  </resources>
+  <dependencies>
+    <module name="org.scala.lang" />
+    <module name="org.apache.kafka.clients" />
+    <module name="org.apache.log4j" />
+    <module name="org.apache.zookeeper" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

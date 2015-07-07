@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.kafka.clients">
+  <resources>
+    <resource-root path="kafka-clients-0.8.2.0.jar" />
+    <resource-root path="lz4-1.2.0.jar" />
+    <resource-root path="snappy-java-1.1.1.6.jar" />
+  </resources>
+  <dependencies>
+    <module name="org.osgi.core" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

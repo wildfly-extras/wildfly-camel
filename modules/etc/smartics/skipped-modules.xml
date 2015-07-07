@@ -101,10 +101,6 @@
         <include artifact="org.apache.servicemix.bundles:(.*)" />
     </module>
     
-    <module name="org.apache.zookeeper" skip="true">
-        <include artifact="org.apache.zookeeper:zookeeper" />
-    </module>
-
     <module name="org.eclipse.jetty.orbit" skip="true">
         <include artifact="org.eclipse.jetty.orbit:javax.servlet" />
     </module>

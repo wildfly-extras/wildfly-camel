@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.zookeeper">
+  <resources>
+    <resource-root path="zookeeper-3.4.6.jar" />
+  </resources>
+  <dependencies>
+    <module name="org.jboss.netty" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

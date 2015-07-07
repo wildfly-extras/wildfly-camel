@@ -52,6 +52,7 @@
 /org/apache/camel/component/jms/main/camel-jms-2.15.2.jar
 /org/apache/camel/component/jmx/main/camel-jmx-2.15.2.jar
 /org/apache/camel/component/jpa/main/camel-jpa-2.15.2.jar
+/org/apache/camel/component/kafka/main/camel-kafka-2.15.2.jar
 /org/apache/camel/component/lucene/main/camel-lucene-2.15.2.jar
 /org/apache/camel/component/mail/main/camel-mail-2.15.2.jar
 /org/apache/camel/component/mina2/main/camel-mina2-2.15.2.jar
@@ -118,6 +119,13 @@
 /org/apache/deltaspike/cdictrl/api/main/deltaspike-cdictrl-api-1.2.1.jar
 /org/apache/deltaspike/core/api/main/deltaspike-core-api-1.2.1.jar
 /org/apache/deltaspike/core/impl/main/deltaspike-core-impl-1.2.1.jar
+/org/apache/kafka/clients/main/kafka-clients-0.8.2.0.jar
+/org/apache/kafka/clients/main/lz4-1.2.0.jar
+/org/apache/kafka/clients/main/snappy-java-1.1.1.6.jar
+/org/apache/kafka/main/jopt-simple-3.2.jar
+/org/apache/kafka/main/kafka_2.10-0.8.2.0.jar
+/org/apache/kafka/main/metrics-core-2.2.0.jar
+/org/apache/kafka/main/zkclient-0.3.jar
 /org/apache/mina/core/main/mina-core-2.0.9.jar
 /org/apache/qpid/proton-j/main/proton-j-0.8.jar
 /org/apache/qpid/proton-jms/main/proton-jms-0.8.jar
@@ -125,6 +133,7 @@
 /org/apache/ws/commons/axiom/axiom-impl/main/axiom-impl-1.2.14.jar
 /org/apache/xbean/spring/main/xbean-spring-3.18.jar
 /org/apache/xmlbeans/main/xmlbeans-2.6.0.jar
+/org/apache/zookeeper/main/zookeeper-3.4.6.jar
 /org/beanshell/main/bsh-2.0b5.jar
 /org/bouncycastle/ext/main/bcpg-jdk15on-1.52.jar
 /org/fusesource/camel/component/sap/main/camel-sap-6.2.0.redhat-133.jar

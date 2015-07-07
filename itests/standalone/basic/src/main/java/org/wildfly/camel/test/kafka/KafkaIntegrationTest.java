@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.lucene;
+package org.wildfly.camel.test.kafka;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
@@ -26,26 +26,25 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class LuceneIntegrationTest {
+public class KafkaIntegrationTest {
 
     @Deployment
-    public static WebArchive createdeployment() {
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-lucene-tests.war");
+    public static JavaArchive deployment() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "kafka-integration-tests");
         return archive;
     }
 
     @Test
-    public void testComponentLoads() throws Exception {
-
+    public void testKafkaEndpoint() throws Exception {
         CamelContext ctx = new DefaultCamelContext();
-        Endpoint endpoint = ctx.getEndpoint("lucene:searchIndex:query?maxHits=20");
+        Endpoint endpoint = ctx.getEndpoint("kafka:localhost:9092?topic=test&zookeeperHost=localhost&zookeeperPort=2181&groupId=group1");
         Assert.assertNotNull(endpoint);
-        Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.lucene.LuceneEndpoint");
+        Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.kafka.KafkaEndpoint");
     }
 }

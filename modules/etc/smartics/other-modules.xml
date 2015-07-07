@@ -141,6 +141,22 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.kafka">
+        <include artifact="org.apache.kafka:kafka_2.10" />
+        <include artifact="com.yammer.metrics:metrics-core" />
+        <include artifact="net.sf.jopt-simple:jopt-simple" />
+        <include artifact="com.101tec:zkclient" />
+        <dependencies>
+            <module name="org.scala.lang" />
+        </dependencies>
+    </module>
+    
+    <module name="org.apache.kafka.clients">
+        <include artifact="org.apache.kafka:kafka-clients" />
+        <include artifact="org.xerial.snappy:snappy-java" />
+        <include artifact="net.jpountz.lz4:lz4" />
+    </module>
+    
     <module name="org.apache.mina.$1">
         <include artifact=":mina-(.*)" />
     </module>
@@ -174,6 +190,14 @@
         <dependencies>
             <module name="javax.api" />
         </dependencies>
+    </module>
+
+    <module name="org.apache.zookeeper">
+        <include artifact="org.apache.zookeeper:zookeeper" />
+        <apply-to-dependencies skip="true">
+            <include module="jline" />
+            <include module="org.apache.log4j" />
+        </apply-to-dependencies>
     </module>
 
     <module name="org.beanshell">
