@@ -774,6 +774,19 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.zookeeper">
+        <include artifact="org.apache.camel:camel-zookeeper" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.apache.zookeeper" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.zookeeper" export="true" />
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.script.groovy">
         <include artifact="org.codehaus.groovy:groovy-all" />
         <dependencies>

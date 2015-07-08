@@ -18,53 +18,67 @@
  * #L%
  */
 
-package org.wildfly.camel.test.spring;
+package org.wildfly.camel.test.zookeeper;
 
-import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.types.HelloBean;
-import org.wildfly.extension.camel.SpringCamelContextFactory;
 
-/**
- * Deploys a module/bundle which contain a {@link HelloBean} referenced from a spring context definition.
- *
- * The tests then build a route through the {@link SpringCamelContextFactory} API.
- * This verifies access to beans within the same deployemnt.
- *
- * @author thomas.diesler@jboss.com
- * @since 21-Apr-2013
- */
 @RunWith(Arquillian.class)
-public class SpringBeanTransformTest {
+public class ZookeeperIntegrationTest {
+
+    static EmbeddedZookeeperServer server;
 
     @Deployment
-    public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-spring-tests");
-        archive.addClasses(HelloBean.class);
-        archive.addAsResource("spring/bean-transform-camel-context.xml", "some-other-name.xml");
+    public static JavaArchive deployment() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "zookeeper-integration-tests");
+        archive.addClasses(EmbeddedZookeeperServer.class);
         return archive;
     }
 
+    @Before
+    public void before() throws Exception {
+        server = new EmbeddedZookeeperServer().startup(1, TimeUnit.SECONDS);
+    }
+
+    @After
+    public void after() throws Exception {
+        if (server != null) {
+            server.shutdown();
+        }
+    }
+
     @Test
-    public void testSpringContextFromURL() throws Exception {
-        URL resourceUrl = getClass().getResource("/some-other-name.xml");
-        CamelContext camelctx = SpringCamelContextFactory.createSpringCamelContext(resourceUrl, getClass().getClassLoader());
+    public void testZookeeperEndpoint() throws Exception {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start").to("zookeeper://" + server.getConnection() + "/somenode?create=true");
+            }
+        });
+
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
-            Assert.assertEquals("Hello Kermit", result);
+            Assert.assertEquals("/somenode", result);
         } finally {
             camelctx.stop();
         }
     }
+
 }

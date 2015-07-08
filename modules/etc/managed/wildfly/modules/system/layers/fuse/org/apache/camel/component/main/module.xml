@@ -80,6 +80,7 @@
         <module name="org.apache.camel.component.xmlsecurity" export="true" services="export" />
         <module name="org.apache.camel.component.xstream" export="true" services="export" />
         <module name="org.apache.camel.component.zipfile" export="true" services="export" />
+        <module name="org.apache.camel.component.zookeeper" export="true" services="export" />
         
         <module name="org.wildfly.camel.extras" export="true" services="export" optional="true"/>
     </dependencies>

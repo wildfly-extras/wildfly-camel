@@ -20,6 +20,7 @@
 	^org/apache/xmlbeans
 	^org/apache/xmlbeans/impl/schema
 	^org/apache/xmlbeans/impl/values
+	^org/apache/zookeeper(.*)
 	^org/dozer(.*)
 	^org/fusesource(.*)
 	^org/springframework(.*)

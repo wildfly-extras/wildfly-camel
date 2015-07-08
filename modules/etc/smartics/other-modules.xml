@@ -147,6 +147,7 @@
         <include artifact="net.sf.jopt-simple:jopt-simple" />
         <include artifact="com.101tec:zkclient" />
         <dependencies>
+            <module name="javax.api"/>
             <module name="org.scala.lang" />
         </dependencies>
     </module>
@@ -196,8 +197,13 @@
         <include artifact="org.apache.zookeeper:zookeeper" />
         <apply-to-dependencies skip="true">
             <include module="jline" />
-            <include module="org.apache.log4j" />
         </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+        <exports>
+            <exclude path="org/apache/jute**" />
+        </exports>
     </module>
 
     <module name="org.beanshell">

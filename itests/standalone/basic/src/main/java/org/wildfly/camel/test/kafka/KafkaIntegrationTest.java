@@ -30,6 +30,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.types.HelloBean;
 
 @RunWith(Arquillian.class)
 public class KafkaIntegrationTest {
@@ -37,6 +38,8 @@ public class KafkaIntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "kafka-integration-tests");
+        archive.addClasses(HelloBean.class);
+        //archive.addAsResource("kafka/kafka-camel-context.xml", "kafka-camel-context.xml");
         return archive;
     }
 

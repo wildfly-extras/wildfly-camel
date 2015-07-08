@@ -52,7 +52,7 @@
     </module>
 
     <module name="io.netty" skip="true">
-        <include artifact="io.netty:netty-(.*)" />
+        <include artifact="io.netty:netty(.*)" />
     </module>
 
     <module name="javax.activation.api" skip="true">
@@ -293,10 +293,6 @@
 
     <module name="org.javassist" skip="true">
         <include artifact=":javassist" />
-    </module>
-
-    <module name="org.jboss.netty" skip="true">
-        <include artifact="io.netty:netty" />
     </module>
 
     <module name="org.jdom" skip="true">

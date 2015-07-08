@@ -96,6 +96,7 @@
 /org/apache/camel/component/xmlsecurity/main/camel-xmlsecurity-2.15.2.jar
 /org/apache/camel/component/xstream/main/camel-xstream-2.15.2.jar
 /org/apache/camel/component/zipfile/main/camel-zipfile-2.15.2.jar
+/org/apache/camel/component/zookeeper/main/camel-zookeeper-2.15.2.jar
 /org/apache/camel/core/main/camel-core-2.15.2.jar
 /org/apache/camel/core/xml/main/camel-core-xml-2.15.2.jar
 /org/apache/camel/script/groovy/main/groovy-all-2.4.3.jar
