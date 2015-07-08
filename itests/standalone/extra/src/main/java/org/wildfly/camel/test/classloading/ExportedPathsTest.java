@@ -32,6 +32,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.management.JMX;
@@ -63,6 +65,7 @@ public class ExportedPathsTest {
     private static final String MODULE_LOADER_OBJECT_NAME = "jboss.modules:type=ModuleLoader,name=LocalModuleLoader-2";
     private static final String MODULE_CAMEL_COMPONENT = "org.apache.camel.component";
     private static final String MODULE_CAMEL = "org.apache.camel";
+    private static final String MODULE_WILDFLY_CAMEL_EXTRAS = "org.wildfly.camel.extras:main";
 
     @Deployment
     public static JavaArchive deployment() {
@@ -85,7 +88,7 @@ public class ExportedPathsTest {
                 pw.println(mbean.dumpModuleInformation(module));
                 for (DependencyInfo depinfo : mbean.getDependencies(module)) {
                     String moduleName = depinfo.getModuleName();
-                    if (moduleName != null) {
+                    if (moduleName != null && !moduleName.equals(MODULE_WILDFLY_CAMEL_EXTRAS)) {
                         String modinfo;
                         try {
                             modinfo = mbean.dumpModuleInformation(moduleName);
@@ -117,13 +120,19 @@ public class ExportedPathsTest {
 
         Path exportedPaths = resolvePath(FILE_EXPORTED_PATHS);
         pw = new PrintWriter(new FileWriter(exportedPaths.toFile()));
+        List<String> camelExtraDeps = getDependentModuleNames(mbean.getDependencies(MODULE_WILDFLY_CAMEL_EXTRAS));
         try {
             for (String module : new String[] { MODULE_CAMEL, MODULE_CAMEL_COMPONENT }) {
                 pw.println("[Exported Paths: " + module + "]");
-                List<String> modulePaths = new ArrayList<>(mbean.getModulePathsInfo(module, true).keySet());
+
+                SortedMap<String, List<String>> modulePathsInfo = mbean.getModulePathsInfo(module, true);
+                List<String> modulePaths = new ArrayList<>(modulePathsInfo.keySet());
                 Collections.sort(modulePaths);
                 for (String path : modulePaths) {
-                    if (path.contains("/") && !path.equals("org/apache")) {
+                    String moduleName = getPathModuleLoaderName(modulePathsInfo.get(path));
+
+                    // Ignore paths exported from wildfly.camel.extras as they are not guaranteed to be present
+                    if (path.contains("/") && !path.equals("org/apache") && !camelExtraDeps.contains(moduleName)) {
                         pw.println(path);
                     }
                 }
@@ -207,4 +216,28 @@ public class ExportedPathsTest {
             reader.close();
         }
     }
+
+    private List<String> getDependentModuleNames(List<DependencyInfo> dependencyInfos) {
+        List<String> moduleNames = new ArrayList<>();
+        for (DependencyInfo dependencyInfo : dependencyInfos) {
+            String moduleName = dependencyInfo.getModuleName();
+            if (moduleName != null) {
+                moduleNames.add(moduleName);
+            }
+        }
+        return moduleNames;
+    }
+
+    private String getPathModuleLoaderName(List<String> moduleLoaders) {
+        String moduleName = "";
+        if (moduleLoaders.size() > 0) {
+            Pattern p = Pattern.compile(".*\\\"(.*)\\\".*");
+            Matcher m = p.matcher(moduleLoaders.get(0));
+            if (m.matches()) {
+                moduleName = m.group(1);
+            }
+        }
+        return moduleName;
+    }
+
 }
