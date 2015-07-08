@@ -20,34 +20,74 @@
 
 package org.wildfly.camel.test.kafka;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.types.HelloBean;
+import org.wildfly.camel.test.zookeeper.EmbeddedZookeeperServer;
 
 @RunWith(Arquillian.class)
 public class KafkaIntegrationTest {
 
+    static EmbeddedZookeeperServer server;
+
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "kafka-integration-tests");
-        archive.addClasses(HelloBean.class);
-        //archive.addAsResource("kafka/kafka-camel-context.xml", "kafka-camel-context.xml");
+        archive.addClasses(EmbeddedZookeeperServer.class);
         return archive;
+    }
+
+    @Before
+    public void before() throws Exception {
+        server = new EmbeddedZookeeperServer().startup(1, TimeUnit.SECONDS);
+    }
+
+    @After
+    public void after() throws Exception {
+        if (server != null) {
+            server.shutdown();
+        }
     }
 
     @Test
     public void testKafkaEndpoint() throws Exception {
-        CamelContext ctx = new DefaultCamelContext();
-        Endpoint endpoint = ctx.getEndpoint("kafka:localhost:9092?topic=test&zookeeperHost=localhost&zookeeperPort=2181&groupId=group1");
-        Assert.assertNotNull(endpoint);
-        Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.kafka.KafkaEndpoint");
+
+        String zkhost = "&zookeeperHost=localhost";
+        String zkport = "&zookeeperPort=" + server.getServerPort();
+        String serializer = "&serializerClass=kafka.serializer.StringEncoder";
+        final String epuri = "kafka:localhost:9092?topic=test&groupId=group1" + zkhost + zkport + serializer;
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start").to(epuri);
+            }
+        });
+
+        camelctx.start();
+        try {
+            Endpoint endpoint = camelctx.getEndpoint(epuri);
+            Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.kafka.KafkaEndpoint");
+
+            // [TODO] Send and verify an actual message
+            //ProducerTemplate producer = camelctx.createProducerTemplate();
+            //String result = producer.requestBody("direct:start", "Kermit", String.class);
+
+        } finally {
+            camelctx.stop();
+        }
     }
 }
