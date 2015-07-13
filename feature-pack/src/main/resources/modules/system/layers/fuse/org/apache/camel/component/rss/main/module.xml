@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.rss">
+  <resources>
+    <artifact name="${org.apache.camel:camel-rss}" />
+    <artifact name="${rome:rome}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.component.atom" />
+    <module name="org.apache.camel.core" />
+    <module name="org.jdom" />
+  </dependencies>
+  <exports>
+    <exclude path="com/sun**" />
+  </exports>
+</module>

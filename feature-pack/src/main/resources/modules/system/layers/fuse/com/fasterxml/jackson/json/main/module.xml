@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.fasterxml.jackson.json">
+  <resources>
+    <artifact name="${com.fasterxml.jackson.module:jackson-module-jsonSchema}" />
+  </resources>
+  <dependencies>
+    <module name="com.fasterxml.jackson.core.jackson-annotations" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+  </dependencies>
+</module>

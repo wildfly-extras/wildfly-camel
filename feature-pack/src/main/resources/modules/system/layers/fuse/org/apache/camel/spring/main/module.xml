@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.spring">
+  <resources>
+    <artifact name="${org.apache.camel:camel-spring}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.springframework.beans" export="true">
+      <exports>
+        <exclude path="org/springframework/beans/annotation**" />
+        <exclude path="org/springframework/beans/propertyeditors**" />
+        <exclude path="org/springframework/beans/support**" />
+        <exclude path="org/springframework/beans/factory/**" />
+      </exports>
+    </module>
+    <module name="org.springframework.context" />
+    <module name="org.springframework.core" />
+    <module name="org.springframework.tx" export="true">
+      <exports>
+        <exclude path="org/springframework/dao**" />
+        <exclude path="org/springframework/jca**" />
+      </exports>
+    </module>
+    <module name="org.slf4j" />
+  </dependencies>
+  <exports>
+    <exclude path="org/apache/camel/component/event**" />
+    <exclude path="org/apache/camel/core**" />
+    <exclude path="org/apache/camel/language/spel**" />
+    <exclude path="org/apache/camel/osgi**" />
+  </exports>
+</module>

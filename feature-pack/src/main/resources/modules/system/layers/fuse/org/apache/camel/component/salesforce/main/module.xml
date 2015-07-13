@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.salesforce">
+  <resources>
+    <artifact name="${org.cometd.java:bayeux-api}" />
+    <artifact name="${org.apache.camel:camel-salesforce}" />
+    <artifact name="${org.cometd.java:cometd-java-client}" />
+    <artifact name="${org.cometd.java:cometd-java-common}" />
+    <artifact name="${org.eclipse.jetty:jetty-client}" />
+    <artifact name="${org.eclipse.jetty:jetty-http}" />
+    <artifact name="${org.eclipse.jetty:jetty-io}" />
+    <artifact name="${org.eclipse.jetty:jetty-util}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.codehaus.jackson.jackson-core-asl" />
+    <module name="org.joda.time" />
+    <module name="com.thoughtworks.xstream" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.codehaus.jackson.jackson-mapper-asl" />
+    <module name="org.slf4j" />
+  </dependencies>
+  <exports>
+    <exclude path="org/apache/camel/component/salesforce/internal**" />
+    <exclude path="org/eclipse**" />
+    <exclude path="org/cometd**" />
+  </exports>
+</module>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.swagger">
+  <resources>
+    <artifact name="${org.apache.camel:camel-swagger}" />
+    <artifact name="${com.wordnik:swagger-annotations}" />
+    <artifact name="${com.wordnik:swagger-core_2.10}" />
+    <artifact name="${com.wordnik:swagger-jaxrs_2.10}" />
+    <artifact name="${com.wordnik:swagger-servlet_2.10}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="com.fasterxml.jackson.core.jackson-annotations" />
+    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" />
+    <module name="com.fasterxml.jackson.json" />
+    <module name="com.fasterxml.jackson.scala" />
+    <module name="javax.servlet.api" />
+    <module name="javax.ws.rs.api" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.json4s" />
+    <module name="org.scala.lang" />
+    <module name="org.slf4j" />
+  </dependencies>
+  <exports>
+    <exclude path="com/wordnik" />
+  </exports>
+</module>

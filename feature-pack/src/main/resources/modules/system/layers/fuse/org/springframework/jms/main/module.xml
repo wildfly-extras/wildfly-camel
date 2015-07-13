@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.springframework.jms">
+  <resources>
+    <artifact name="${org.springframework:spring-jms}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.commons.logging" />
+    <module name="javax.jms.api" />
+    <module name="org.springframework.aop" />
+    <module name="org.springframework.beans" />
+    <module name="org.springframework.context" />
+    <module name="org.springframework.core" />
+    <module name="org.springframework.spring-messaging" />
+    <module name="org.springframework.tx" />
+  </dependencies>
+</module>

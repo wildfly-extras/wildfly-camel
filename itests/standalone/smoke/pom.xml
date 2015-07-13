@@ -34,7 +34,7 @@
 
     <!-- Properties -->
     <properties>
-        <server.config>standalone-full-camel.xml</server.config>
+        <server.config>standalone-full.xml</server.config>
     </properties>
     
     <!-- Dependencies -->
@@ -45,4 +45,16 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.wildfly.build</groupId>
+                <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

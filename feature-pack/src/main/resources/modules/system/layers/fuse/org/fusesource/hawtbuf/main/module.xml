@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.fusesource.hawtbuf">
+  <resources>
+    <artifact name="${org.fusesource.hawtbuf:hawtbuf}" />
+  </resources>
+  <dependencies />
+</module>
