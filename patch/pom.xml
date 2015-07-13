@@ -131,7 +131,7 @@
                         <configuration>
                             <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
-                                <descriptor>scripts/assembly-deploy-artifacts.xml</descriptor>
+                                <descriptor>scripts/assembly-wildfly-patch.xml</descriptor>
                             </descriptors>
                         </configuration>
                     </execution>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.kafka">
+  <resources>
+    <artifact name="${net.sf.jopt-simple:jopt-simple}" />
+    <artifact name="${org.apache.kafka:kafka_2.10}" />
+    <artifact name="${com.yammer.metrics:metrics-core}" />
+    <artifact name="${com.101tec:zkclient}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.scala.lang" />
+    <module name="org.apache.kafka.clients" />
+    <module name="org.apache.log4j" />
+    <module name="org.apache.zookeeper" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

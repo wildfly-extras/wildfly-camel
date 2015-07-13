@@ -30,13 +30,9 @@
         <fileSet>
             <directory>etc/wildfly</directory>
             <outputDirectory>/</outputDirectory>
-            <excludes>
-                <exclude>bin/*.sh</exclude>
-            </excludes>
-            <filtered>true</filtered>
         </fileSet>
         <fileSet>
-            <directory>etc/wildfly</directory>
+            <directory>../feature-pack/src/main/resources/content</directory>
             <outputDirectory>/</outputDirectory>
             <includes>
                 <include>bin/*.sh</include>

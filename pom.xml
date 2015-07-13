@@ -109,7 +109,8 @@
         <version-maven-war-plugin>2.5</version-maven-war-plugin>
         <version-properties-maven-plugin>1.0-alpha-2</version-properties-maven-plugin>
         <version-shrinkwrap-resolver-plugin>2.1.1</version-shrinkwrap-resolver-plugin>
-        <version-smartics-maven-plugin>1.38</version-smartics-maven-plugin>
+        <version-smartics-maven-plugin>2.1.0</version-smartics-maven-plugin>
+        <version-wildfly-build-tools>1.0.0.Final</version-wildfly-build-tools>
         <version-wildfly-maven-plugin>1.0.2.Final</version-wildfly-maven-plugin>
         <version-xmlbeans-maven-plugin>2.3.3</version-xmlbeans-maven-plugin>
 
@@ -123,6 +124,7 @@
         <module>config</module>
         <module>docs</module>
         <module>enricher</module>
+        <module>feature-pack</module>
         <module>modules</module>
         <module>patch</module>
         <module>subsystem</module>
@@ -545,7 +547,7 @@
                     <version>${version-xmlbeans-maven-plugin}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.fusesource.mvnplugins</groupId>
+                    <groupId>de.smartics.maven.plugin</groupId>
                     <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
                     <version>${version-smartics-maven-plugin}</version>
                 </plugin>
@@ -565,6 +567,16 @@
                     <groupId>org.jolokia</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
                     <version>${version-docker-maven-plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.wildfly.build</groupId>
+                    <artifactId>wildfly-feature-pack-build-maven-plugin</artifactId>
+                    <version>${version-wildfly-build-tools}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.wildfly.build</groupId>
+                    <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
+                    <version>${version-wildfly-build-tools}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.wildfly.plugins</groupId>

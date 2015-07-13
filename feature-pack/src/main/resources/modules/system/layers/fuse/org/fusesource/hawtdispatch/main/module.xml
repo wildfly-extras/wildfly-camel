@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.fusesource.hawtdispatch">
+  <resources>
+    <artifact name="${org.fusesource.hawtdispatch:hawtdispatch}" />
+    <artifact name="${org.fusesource.hawtdispatch:hawtdispatch-transport}" />
+  </resources>
+  <dependencies>
+    <module name="org.fusesource.hawtbuf" />
+  </dependencies>
+</module>

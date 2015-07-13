@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.json4s">
+  <resources>
+    <artifact name="${org.json4s:json4s-ast_2.10}" />
+    <artifact name="${org.json4s:json4s-core_2.10}" />
+    <artifact name="${org.json4s:json4s-ext_2.10}" />
+    <artifact name="${org.json4s:json4s-jackson_2.10}" />
+    <artifact name="${org.json4s:json4s-native_2.10}" />
+  </resources>
+  <dependencies>
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="org.joda.time" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.thoughtworks.paranamer" />
+    <module name="org.joda.convert" />
+    <module name="org.scala.lang" />
+  </dependencies>
+</module>

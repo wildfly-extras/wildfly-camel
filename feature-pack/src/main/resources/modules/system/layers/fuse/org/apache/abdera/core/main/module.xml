@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.abdera.core">
+  <resources>
+    <artifact name="${org.apache.abdera:abdera-core}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.commons.logging" />
+    <module name="org.apache.abdera.i18n" />
+    <module name="org.apache.abdera.parser" />
+  </dependencies>
+</module>

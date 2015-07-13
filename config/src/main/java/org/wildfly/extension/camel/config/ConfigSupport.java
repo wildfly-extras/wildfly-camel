@@ -258,34 +258,36 @@ public class ConfigSupport {
         SAXBuilder jdom = new SAXBuilder();
         for (Path p : standalonePaths) {
             Path path = jbossHome.resolve(p);
+            if (path.toFile().exists()) {
+                ConfigLogger.info(message + path);
+                Document doc = jdom.build(path.toUri().toURL());
 
-            ConfigLogger.info(message + path);
-            Document doc = jdom.build(path.toUri().toURL());
+                ConfigContext context = new ConfigContext(jbossHome, path, doc);
+                plugin.applyStandaloneConfigChange(context, enable);
 
-            ConfigContext context = new ConfigContext(jbossHome, path, doc);
-            plugin.applyStandaloneConfigChange(context, enable);
-
-            XMLOutputter output = new XMLOutputter();
-            output.setFormat(Format.getRawFormat());
-            String newXML = output.outputString(doc);
-            backup(path);
-            writeFile(path, newXML, "UTF-8");
+                XMLOutputter output = new XMLOutputter();
+                output.setFormat(Format.getRawFormat());
+                String newXML = output.outputString(doc);
+                backup(path);
+                writeFile(path, newXML, "UTF-8");
+            }
         }
 
         for (Path p : domainPaths) {
             Path path = jbossHome.resolve(p);
+            if (path.toFile().exists()) {
+                ConfigLogger.info(message + path);
+                Document doc = jdom.build(path.toUri().toURL());
 
-            ConfigLogger.info(message + path);
-            Document doc = jdom.build(path.toUri().toURL());
+                ConfigContext context = new ConfigContext(jbossHome, path, doc);
+                plugin.applyDomainConfigChange(context, enable);
 
-            ConfigContext context = new ConfigContext(jbossHome, path, doc);
-            plugin.applyDomainConfigChange(context, enable);
-
-            XMLOutputter output = new XMLOutputter();
-            output.setFormat(Format.getRawFormat());
-            String newXML = output.outputString(doc);
-            backup(path);
-            writeFile(path, newXML, "UTF-8");
+                XMLOutputter output = new XMLOutputter();
+                output.setFormat(Format.getRawFormat());
+                String newXML = output.outputString(doc);
+                backup(path);
+                writeFile(path, newXML, "UTF-8");
+            }
         }
     }
 
@@ -304,9 +306,8 @@ public class ConfigSupport {
                 jbossHome = currpath.toAbsolutePath().toString();
             }
         }
-
-        if (!Paths.get(jbossHome).toFile().isDirectory())
-            throw new ConfigException("Cannot obtain JBOSS_HOME: " + jbossHome);
+        IllegalStateAssertion.assertNotNull(jbossHome, "Cannot obtain JBOSS_HOME: " + jbossHome);
+        IllegalStateAssertion.assertTrue(Paths.get(jbossHome).toFile().isDirectory(), "Not a valid directory: " + jbossHome);
 
         Path standalonePath = Paths.get(jbossHome, "standalone", "configuration");
         if (!standalonePath.toFile().exists())

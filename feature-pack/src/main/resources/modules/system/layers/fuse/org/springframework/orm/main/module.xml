@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.springframework.orm">
+  <resources>
+    <artifact name="${org.springframework:spring-orm}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.persistence.api" />
+    <module name="org.apache.commons.logging" />
+    <module name="org.springframework.beans" />
+    <module name="org.springframework.core" />
+    <module name="org.springframework.jdbc" />
+    <module name="org.springframework.tx" />
+  </dependencies>
+</module>

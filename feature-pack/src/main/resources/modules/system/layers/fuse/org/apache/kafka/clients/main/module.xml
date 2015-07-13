@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.kafka.clients">
+  <resources>
+    <artifact name="${org.apache.kafka:kafka-clients}" />
+    <artifact name="${net.jpountz.lz4:lz4}" />
+    <artifact name="${org.xerial.snappy:snappy-java}" />
+  </resources>
+  <dependencies>
+    <module name="org.osgi.core" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

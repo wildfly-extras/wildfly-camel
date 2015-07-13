@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.wildfly.extension.camel">
+  <resources>
+    <artifact name="${org.jboss.gravia:gravia-container-wildfly-extension}" />
+    <artifact name="${org.wildfly.camel:wildfly-camel-subsystem}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.camel" services="export" />
+    <module name="org.apache.camel.component" services="export" />
+    <module name="org.apache.camel.spring" />
+    <module name="org.jboss.as.controller" />
+    <module name="org.jboss.as.ee" />
+    <module name="org.jboss.as.naming" />
+    <module name="org.jboss.as.server" />
+    <module name="org.jboss.jandex" />
+    <module name="org.jboss.logging" />
+    <module name="org.jboss.modules" />
+    <module name="org.jboss.msc" />
+    <module name="org.jboss.shrinkwrap.core" />
+    <module name="org.jboss.staxmapper" />
+    <module name="org.jboss.vfs" />
+    <module name="org.picketbox" />
+    <module name="org.springframework.beans" />
+    <module name="org.springframework.core" />
+    <module name="org.springframework.context" />
+    <module name="org.springframework.tx" />
+    <module name="org.slf4j" />
+    <module name="org.jboss.gravia" />
+    <module name="org.springframework.security" />
+  </dependencies>
+  <exports>
+    <exclude path="org/wildfly/extension/camel/deployment" />
+    <exclude path="org/wildfly/extension/camel/service" />
+    <exclude path="org/wildfly/extension/gravia" />
+  </exports>
+</module>

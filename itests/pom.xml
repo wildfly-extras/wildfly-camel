@@ -33,11 +33,6 @@
     <artifactId>wildfly-camel-itests</artifactId>
     <packaging>pom</packaging>
 
-    <!-- Properties -->    
-    <properties>
-        <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
-    </properties>
-    
 	<modules>
         <module>camel</module>
         <module>common</module>
