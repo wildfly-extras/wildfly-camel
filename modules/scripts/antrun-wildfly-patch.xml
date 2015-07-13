@@ -49,6 +49,7 @@
 				<exclude name="org/apache/camel/component/main/**" />
 				<exclude name="org/apache/camel/main/**" />
 				<exclude name="org/wildfly/extension/camel/**" />
+				<exclude name="org/wildfly/camel/**" />
 			</fileset>
 		</sync>
 

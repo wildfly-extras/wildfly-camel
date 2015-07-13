@@ -19,9 +19,6 @@
  */
 package org.wildfly.camel.test.sap;
 
-import java.io.File;
-import java.nio.file.Paths;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -36,6 +33,10 @@ import org.fusesource.camel.component.sap.SapTransactionalRfcDestinationComponen
 import org.fusesource.camel.component.sap.SapTransactionalRfcServerComponent;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.modules.Module;
+import org.jboss.modules.ModuleIdentifier;
+import org.jboss.modules.ModuleLoadException;
+import org.jboss.modules.ModuleLoader;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -47,8 +48,6 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class SAPIntegrationTest {
 
-    private static final String SAP_MODULE_PATH = "system/layers/fuse/com/sap/conn/jco/main/module.xml";
-
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-sap-tests.jar");
@@ -56,9 +55,12 @@ public class SAPIntegrationTest {
 
     @Before
     public void setUp() {
-        String modules = System.getProperty("jboss.modules.dir");
-        File file = Paths.get(modules).resolve(SAP_MODULE_PATH).toFile();
-        Assume.assumeTrue(file.exists());
+        try {
+            ModuleLoader moduleLoader = Module.getCallerModuleLoader();
+            moduleLoader.loadModule(ModuleIdentifier.create("com.sap.conn.jco"));
+        } catch (ModuleLoadException ex) {
+            Assume.assumeNoException(ex);
+        }
     }
 
     @Test

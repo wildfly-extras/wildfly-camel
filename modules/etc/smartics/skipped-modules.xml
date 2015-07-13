@@ -138,8 +138,4 @@
         <include artifact="org.reflections:reflections" />
     </module>
     
-    <module name="org.wildfly.camel.modules" skip="true">
-        <include artifact=":wildfly-camel-modules" />
-    </module>
-
 </modules>
