@@ -25,12 +25,12 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
     
     <module name="org.apache.cxf.ext" >
-        <include artifact="cxf-rt-features-clustering" />
-        <include artifact="cxf-rt-frontend-jaxrs" />
-        <include artifact="cxf-rt-rs-client" />
-        <include artifact="cxf-rt-rs-security-oauth"/>
-        <include artifact="oauth"/>
-        <include artifact="oauth-provider"/>
+        <include artifact=":cxf-rt-features-clustering" />
+        <include artifact=":cxf-rt-frontend-jaxrs" />
+        <include artifact=":cxf-rt-rs-client" />
+        <include artifact=":cxf-rt-rs-security-oauth"/>
+        <include artifact=":oauth"/>
+        <include artifact=":oauth-provider"/>
         <dependencies>
             <module name="javax.api" />
             <module name="javax.xml.bind.api" />

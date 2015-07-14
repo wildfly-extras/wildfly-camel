@@ -25,7 +25,7 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
     <module name="ant" skip="true">
-        <include artifact="ant" />
+        <include artifact=":ant" />
     </module>
     
     <module name="asm.extras" skip="true">
@@ -66,11 +66,11 @@
     </module>
     
     <module name="jline" skip="true">
-        <include artifact="jline" />
+        <include artifact=":jline" />
     </module>
     
     <module name="junit" skip="true">
-        <include artifact="junit" />
+        <include artifact=":junit" />
     </module>
     
     <module name="net.jcip" skip="true">
