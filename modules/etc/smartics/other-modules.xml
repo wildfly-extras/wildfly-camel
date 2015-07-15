@@ -53,11 +53,6 @@
         </dependencies>
     </module>
 
-    <module name="javax.el">
-        <include artifact=":el-api" />
-        <include artifact=":el-impl" />
-    </module>
-    
     <module name="ognl">
         <include artifact=":ognl" />
         <apply-to-dependencies skip="true">
