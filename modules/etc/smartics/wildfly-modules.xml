@@ -72,6 +72,8 @@
     <module name="javax.el.api" skip="true">
         <include artifact=":geronimo-el_2.2_spec" />
         <include artifact=":javax.el-api" />
+        <include artifact=":el-api" />
+        <include artifact=":el-impl" />
     </module>
 
     <module name="javax.enterprise.api" skip="true">
