@@ -36,10 +36,6 @@
 		<!-- Copy managed module.xml resources to patch -->
 		<copy todir="${target.patch.dir}" overwrite="true" filtering="true">
 			<fileset dir="${etc.dir}/managed/wildfly" />
-			<filterset>
-				<filter token="project.version" value="${project.version}" />
-				<filter token="version.jboss.gravia" value="${version.jboss.gravia}" />
-			</filterset>
 		</copy>
 
 		<!-- Sync source tree with Smartics generated XML files -->

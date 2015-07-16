@@ -27,6 +27,7 @@
     <description>Wildfly Camel Default Configuration Utility</description>
 
     <dependencies>
+
         <dependency>
             <groupId>args4j</groupId>
             <artifactId>args4j</artifactId>
@@ -39,6 +40,8 @@
             <groupId>org.jdom</groupId>
             <artifactId>jdom</artifactId>
         </dependency>
+
+        <!-- Test -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

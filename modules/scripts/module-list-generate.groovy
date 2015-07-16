@@ -24,8 +24,9 @@ def separator = properties.get("file.separator")
 def moduleDir = properties.get("smartics.module.dir").replace("/", separator)
 
 new File("${project.build.directory}/wildfly-patch/modules").eachFileRecurse() { file ->
-    if(file.getName().endsWith(".jar")) {
-        jarList << file.getAbsolutePath().replace(moduleDir, "").replace(separator, "/")
+    fileEntry = file.getAbsolutePath().replace(moduleDir, "").replace(separator, "/")
+    if (fileEntry.endsWith(".jar") && !fileEntry.startsWith("/org/wildfly/extension/camel")) {
+        jarList << fileEntry
     }
 }
 
