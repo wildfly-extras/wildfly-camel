@@ -21,10 +21,12 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
     <module name="org.apache.activemq">
-        <include artifact="org.apache.activemq:.*" />
-        <include artifact="org.apache.activemq.protobuf:activemq-protobuf" />
-        <exclude artifact="org.apache.activemq:activemq-all" />
-        <exclude artifact="org.apache.activemq:activemq-camel" />
+        <include artifact=":activemq-broker" />
+        <include artifact=":activemq-client" />
+        <include artifact=":activemq-jms-pool" />
+        <include artifact=":activemq-openwire-legacy" />
+        <include artifact=":activemq-pool" />
+        <include artifact=":activemq-spring" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.zookeeper" />
             <include module="org.linkedin" />
@@ -37,8 +39,12 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.activemq.skip" skip="true">
-        <include artifact="org.apache.activemq:activemq-all" />
+    <module name="org.apache.activemq.all" skip="true">
+        <include artifact=":activemq-all" />
+    </module>
+
+    <module name="org.apache.activemq.rar" skip="true">
+        <include artifact=":activemq-rar" />
     </module>
 
 </modules>

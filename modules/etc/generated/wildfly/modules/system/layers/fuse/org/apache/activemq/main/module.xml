@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.activemq">
   <resources>
-    <resource-root path="activemq-amqp-5.11.1.jar" />
     <resource-root path="activemq-broker-5.11.1.jar" />
     <resource-root path="activemq-client-5.11.1.jar" />
     <resource-root path="activemq-jms-pool-5.11.1.jar" />
-    <resource-root path="activemq-kahadb-store-5.11.1.jar" />
-    <resource-root path="activemq-mqtt-5.11.1.jar" />
     <resource-root path="activemq-openwire-legacy-5.11.1.jar" />
     <resource-root path="activemq-pool-5.11.1.jar" />
-    <resource-root path="activemq-protobuf-1.1.jar" />
-    <resource-root path="activemq-ra-5.11.1.jar" />
-    <resource-root path="activemq-rar-5.11.1.rar" />
     <resource-root path="activemq-spring-5.11.1.jar" />
   </resources>
   <dependencies>
@@ -21,16 +15,10 @@
     <module name="javax.jms.api" />
     <module name="javax.management.j2ee.api" />
     <module name="javax.transaction.api" />
-    <module name="org.apache.commons.net" />
     <module name="org.apache.commons.pool" />
-    <module name="org.apache.log4j" />
-    <module name="org.apache.qpid.proton-jms" />
     <module name="org.apache.xbean.spring" />
     <module name="org.fusesource.hawtbuf" />
     <module name="org.fusesource.hawtdispatch" />
-    <module name="org.fusesource.mqtt" />
     <module name="org.slf4j" />
-    <module name="org.springframework.context" />
-    <module name="org.springframework.core" />
   </dependencies>
 </module>
