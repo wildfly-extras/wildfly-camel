@@ -108,7 +108,7 @@
                                         </log>
                                         <wait>
                                             <url>http://${env.DOCKER_IP}:8181</url>
-                                            <time>20000</time>
+                                            <time>30000</time>
                                         </wait>
                                     </run>
                                 </image>
