@@ -109,11 +109,10 @@
 	<!-- Profiles -->
 	<profiles>
 		<profile>
-            <!-- Requires DOCKER_HOST -->
             <id>docker</id>
             <activation>
                 <property>
-                    <name>docker</name>
+                    <name>env.DOCKER_HOST</name>
                 </property>
             </activation>
             <build>

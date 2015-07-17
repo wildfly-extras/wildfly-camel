@@ -82,7 +82,7 @@
                                         <ports>
                                             <port>9990:9990</port>
                                         </ports>
-                                        <command>${docker.cmd.master}</command>
+                                        <cmd>${docker.cmd.master}</cmd>
                                         <log>
                                             <enabled>true</enabled>
                                         </log>
@@ -102,13 +102,13 @@
                                         <links>
                                             <link>${docker.alias.master}:domain-controller</link>
                                         </links>
-                                        <command>${docker.cmd.slave}</command>
+                                        <cmd>${docker.cmd.slave}</cmd>
                                         <log>
                                             <enabled>true</enabled>
                                         </log>
                                         <wait>
                                             <url>http://${env.DOCKER_IP}:8181</url>
-                                            <time>10000</time>
+                                            <time>20000</time>
                                         </wait>
                                     </run>
                                 </image>
