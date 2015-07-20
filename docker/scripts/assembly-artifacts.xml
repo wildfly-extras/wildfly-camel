@@ -29,13 +29,11 @@
 
     <fileSets>
         <fileSet>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>bin</outputDirectory>
             <directory>etc/context</directory>
             <includes>
-                <include>Dockerfile</include>
                 <include>entrypoint.sh</include>
             </includes>
-            <filtered>true</filtered>
         </fileSet>
     </fileSets>
     
@@ -45,10 +43,9 @@
             <includes>
                 <include>org.wildfly.camel:wildfly-camel-patch:tar.gz</include>
             </includes>
+            <outputDirectory>.</outputDirectory>
             <scope>provided</scope>
-            <unpack>false</unpack>
+            <unpack>true</unpack>
         </dependencySet>
     </dependencySets>
-    
-
 </assembly>

@@ -37,7 +37,11 @@
     <!-- Properties -->
     <properties>
         <docker.image.name>wildflyext/wildfly-camel</docker.image.name>
+        <docker.image.from>wildflyext/wildfly:${version.wildfly}</docker.image.from>
+        <docker.image.maintainer>Thomas Diesler tdiesler@redhat.com</docker.image.maintainer>
         <docker.image.version>latest</docker.image.version>
+        <docker.removeAll>true</docker.removeAll>
+        <server.config>standalone-camel.xml</server.config>
     </properties>
 	
     <!-- Dependencies -->
@@ -55,58 +59,69 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
+                <groupId>org.jolokia</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>generate-resources</phase>
+                        <id>remove-images</id>
+                        <phase>clean</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>remove</goal>
                         </goals>
                         <configuration>
-                            <appendAssemblyId>false</appendAssemblyId>
-                            <finalName>docker</finalName>
-                            <descriptors>
-                                <descriptor>scripts/assembly-artifacts.xml</descriptor>
-                            </descriptors>
+                            <images>
+                                <image>
+                                    <name>${docker.image.name}:${docker.image.version}</name>
+                                </image>
+                                <image>
+                                    <name>${docker.image.name}:${project.version}</name>
+                                </image>
+                            </images>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
                     <execution>
-                        <phase>generate-resources</phase>
+                        <id>build-docker-image</id>
+                        <phase>install</phase>
                         <goals>
-                            <goal>run</goal>
+                            <goal>build</goal>
                         </goals>
                         <configuration>
-                            <target>
-                                <exec executable="docker" failonerror="false">
-                                    <arg value="rmi" />
-                                    <arg value="--force=true" />
-                                    <arg value="${docker.image.name}:${docker.image.version}" />
-                                    <arg value="${docker.image.name}:${project.version}" />
-                                </exec>
-                                <exec executable="docker" error="target/build.err" failonerror="true">
-                                    <arg value="build" />
-                                    <arg value="--force-rm=true" />
-                                    <arg value="--rm=true" />
-                                    <arg value="-t" />
-                                    <arg value="${docker.image.name}:${docker.image.version}" />
-                                    <arg value="target/docker" />
-                                </exec>
-                                <exec executable="docker" error="target/tag.err" failonerror="true">
-                                    <arg value="tag" />
-                                    <arg value="${docker.image.name}:${docker.image.version}" />
-                                    <arg value="${docker.image.name}:${project.version}" />
-                                </exec>
-                                <echo>=========================================================================</echo>
-                                <echo>docker run --rm -ti -p 8080:8080 -p 9990:9990 -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin ${docker.image.name}</echo>
-                                <echo>=========================================================================</echo>
-                            </target>
+                            <images>
+                                <image>
+                                    <name>${docker.image.name}</name>
+                                    <build>
+                                        <maintainer>${docker.image.maintainer}</maintainer>
+                                        <from>${docker.image.from}</from>
+                                        <cmd>
+                                            <exec>
+                                                <args>-c</args>
+                                                <args>${server.config}</args>
+                                                <args>-b</args>
+                                                <args>0.0.0.0</args>
+                                                <args>-bmanagement</args>
+                                                <args>0.0.0.0</args>
+                                            </exec>
+                                        </cmd>
+                                        <entryPoint>
+                                            <exec>
+                                                <args>/opt/jboss/wildfly/bin/entrypoint.sh</args>
+                                            </exec>
+                                        </entryPoint>
+                                        <ports>
+                                            <port>9999</port>
+                                        </ports>
+                                        <tags>
+                                            <tag>${docker.image.version}</tag>
+                                            <tag>${project.version}</tag>
+                                        </tags>
+                                        <assembly>
+                                            <basedir>/opt/jboss/wildfly</basedir>
+                                            <descriptor>${project.basedir}/scripts/assembly-artifacts.xml</descriptor>
+                                            <user>jboss:jboss:jboss</user>
+                                        </assembly>
+                                    </build>
+                                </image>
+                            </images>
                         </configuration>
                     </execution>
                 </executions>
