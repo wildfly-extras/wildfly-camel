@@ -59,8 +59,7 @@ public class JpaRouteBuilder extends RouteBuilder {
         EntityManagerFactory entityManagerFactory = em.getEntityManagerFactory();
 
         // Configure a JtaTransactionManager by looking up the JBoss transaction manager from JNDI
-        JtaTransactionManager transactionManager = new JtaTransactionManager();
-        transactionManager.setUserTransaction(userTransaction);
+        JtaTransactionManager transactionManager = new JtaTransactionManager(userTransaction);
         transactionManager.afterPropertiesSet();
 
         // Configure the JPA endpoint to use the correct EntityManagerFactory and JtaTransactionManager

@@ -121,12 +121,8 @@ public class TransactedJMSIntegrationTest {
 
     @Before
     public void setUp() throws Exception {
-        JtaTransactionManager jtaTransactionManager = new JtaTransactionManager();
-        jtaTransactionManager.setTransactionManager(transactionManager);
-        jtaTransactionManager.setUserTransaction(userTransaction);
-
-        TransactionTemplate template = new TransactionTemplate(jtaTransactionManager,
-                new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRED));
+        JtaTransactionManager jtaTransactionManager = new JtaTransactionManager(userTransaction, transactionManager);
+        TransactionTemplate template = new TransactionTemplate(jtaTransactionManager, new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRED));
 
         SpringTransactionPolicy transactionPolicy = new SpringTransactionPolicy();
         transactionPolicy.setTransactionTemplate(template);
