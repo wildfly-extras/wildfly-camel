@@ -38,7 +38,6 @@
         <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
         <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true</jvmArgs>
         <jvmDebugArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmDebugArgs>
-        <log4j.configuration>file://${basedir}/src/main/resources/logging.properties</log4j.configuration>
     </properties>
     
     <!-- Dependencies -->
@@ -159,7 +158,6 @@
                     </environmentVariables>
                     <systemPropertyVariables>
                         <jboss.home>${jboss.home}</jboss.home>
-                        <log4j.configuration>${log4j.configuration}</log4j.configuration>
                     </systemPropertyVariables>
                     <testSourceDirectory>${basedir}/src/main/java/</testSourceDirectory>
                     <testClassesDirectory>${project.build.directory}/classes/</testClassesDirectory>
@@ -216,17 +214,6 @@
                 <module>basic</module>
                 <module>extra</module>
             </modules>
-        </profile>
-        <profile>
-            <id>itests-standalone-windows</id>
-            <activation>
-                <os>
-                    <family>Windows</family>
-                </os>
-            </activation>
-            <properties>
-                <log4j.configuration>file:/${basedir}/src/main/resources/logging.properties</log4j.configuration>
-            </properties>
         </profile>
     </profiles>
 </project>

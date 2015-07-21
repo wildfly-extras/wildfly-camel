@@ -39,11 +39,6 @@
 
     <artifactId>wildfly-camel-itests-camel</artifactId>
 
-    <!-- Properties -->
-    <properties>
-        <log4j.configuration>file://${basedir}/src/test/resources/logging.properties</log4j.configuration>
-    </properties>
-    
     <!-- Dependencies -->
     <dependencies>
         <dependency>
@@ -93,9 +88,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <redirectTestOutputToFile>false</redirectTestOutputToFile>
-                    <systemPropertyVariables>
-                        <log4j.configuration>${log4j.configuration}</log4j.configuration>
-                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>

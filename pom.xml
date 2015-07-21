@@ -92,6 +92,7 @@
         <!-- Plugin versions -->
         <version-build-helper-plugin>1.9.1</version-build-helper-plugin>
         <version-docker-maven-plugin>0.13.2</version-docker-maven-plugin>
+        <version-exec-maven-plugin>1.4.0</version-exec-maven-plugin>
         <version-groovy-maven-plugin>2.0</version-groovy-maven-plugin>
         <version-license-maven-plugin>1.8</version-license-maven-plugin>
         <version-maven-antrun-plugin>1.7</version-maven-antrun-plugin>
@@ -516,6 +517,11 @@
                   <groupId>org.codehaus.mojo</groupId>
                   <artifactId>build-helper-maven-plugin</artifactId>
                     <version>${version-build-helper-plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>${version-exec-maven-plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
