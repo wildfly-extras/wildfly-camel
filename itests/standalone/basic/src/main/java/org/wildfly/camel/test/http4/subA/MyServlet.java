@@ -26,8 +26,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.wildfly.extension.camel.CamelAware;
+
 import java.io.IOException;
 
+@CamelAware
 @SuppressWarnings("serial")
 @WebServlet(name = "HttpServiceServlet", urlPatterns = { "/myservlet" }, loadOnStartup = 1)
 public class MyServlet extends HttpServlet {

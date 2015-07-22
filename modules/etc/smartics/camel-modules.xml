@@ -720,6 +720,19 @@
         </exports>
     </module>
     
+    <module name="org.apache.camel.component.undertow">
+        <include artifact="org.apache.camel:camel-undertow" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.httpcomponents" />
+            <module name="org.jboss.xnio" />
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+    
     <module name="org.apache.camel.component.velocity">
         <include artifact="org.apache.camel:camel-velocity" />
         <apply-to-dependencies skip="true">

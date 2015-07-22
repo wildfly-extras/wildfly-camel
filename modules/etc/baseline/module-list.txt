@@ -80,6 +80,7 @@
 /org/apache/camel/component/swagger/main/swagger-servlet_2.10-1.3.12.jar
 /org/apache/camel/component/tagsoup/main/camel-tagsoup-2.16.0.jar
 /org/apache/camel/component/tagsoup/main/tagsoup-1.2.1.jar
+/org/apache/camel/component/undertow/main/camel-undertow-2.16.0.jar
 /org/apache/camel/component/velocity/main/camel-velocity-2.16.0.jar
 /org/apache/camel/component/weather/main/camel-weather-2.16.0.jar
 /org/apache/camel/component/xmlbeans/main/camel-xmlbeans-2.16.0.jar

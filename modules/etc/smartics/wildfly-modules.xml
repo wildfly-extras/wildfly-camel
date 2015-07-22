@@ -55,6 +55,10 @@
         <include artifact="io.netty:netty(.*)" />
     </module>
 
+    <module name="io.undertow.core" skip="true">
+        <include artifact=":undertow-core" />
+    </module>
+
     <module name="javax.activation.api" skip="true">
         <include artifact=":geronimo-activation_1.1_spec" />
     </module>
@@ -303,6 +307,10 @@
 
     <module name="org.jboss.modules" skip="true">
         <include artifact=":jboss-modules" />
+    </module>
+    
+    <module name="org.jboss.xnio" skip="true">
+        <include artifact=":xnio-api" />
     </module>
     
     <module name="org.jdom" skip="true">

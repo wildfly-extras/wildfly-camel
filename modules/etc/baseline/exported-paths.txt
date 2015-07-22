@@ -401,6 +401,8 @@ org/apache/camel/component/spring/security/config
 org/apache/camel/component/sql
 org/apache/camel/component/stream
 org/apache/camel/component/swagger
+org/apache/camel/component/undertow
+org/apache/camel/component/undertow/handlers
 org/apache/camel/component/velocity
 org/apache/camel/component/weather
 org/apache/camel/component/xmlsecurity
