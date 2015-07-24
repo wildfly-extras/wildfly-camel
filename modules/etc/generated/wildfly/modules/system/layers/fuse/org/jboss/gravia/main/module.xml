@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.jboss.gravia">
   <resources>
-    <resource-root path="gravia-resource-1.1.3.jar" />
-    <resource-root path="gravia-runtime-api-1.1.3.jar" />
-    <resource-root path="gravia-runtime-embedded-1.1.3.jar" />
+    <resource-root path="gravia-resource-1.1.4.jar" />
+    <resource-root path="gravia-runtime-api-1.1.4.jar" />
+    <resource-root path="gravia-runtime-embedded-1.1.4.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />

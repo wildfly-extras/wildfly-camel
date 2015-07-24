@@ -22,10 +22,10 @@ package org.wildfly.extension.camel.service;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
-import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.gravia.runtime.Runtime;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
+import org.jboss.msc.service.ServiceContainer;
 import org.jboss.msc.service.ServiceController;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
@@ -45,11 +45,10 @@ public final class CamelBootstrapService extends AbstractService<Void> {
 
     private final InjectedValue<Runtime> injectedRuntime = new InjectedValue<Runtime>();
 
-    public static ServiceController<Void> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
+    public static ServiceController<Void> addService(ServiceTarget serviceTarget) {
         CamelBootstrapService service = new CamelBootstrapService();
         ServiceBuilder<Void> builder = serviceTarget.addService(CamelConstants.CAMEL_SUBSYSTEM_SERVICE_NAME, service);
         builder.addDependency(GraviaConstants.RUNTIME_SERVICE_NAME, Runtime.class, service.injectedRuntime);
-        builder.addListener(verificationHandler);
         return builder.install();
     }
 
@@ -60,5 +59,10 @@ public final class CamelBootstrapService extends AbstractService<Void> {
     @Override
     public void start(StartContext startContext) throws StartException {
         LOGGER.info("Activating Camel Subsystem");
+
+        // Register the jboss-msc service container
+        Runtime runtime = injectedRuntime.getValue();
+        ServiceContainer service = startContext.getController().getServiceContainer();
+        runtime.getModuleContext().registerService(ServiceContainer.class, service, null);
     }
 }

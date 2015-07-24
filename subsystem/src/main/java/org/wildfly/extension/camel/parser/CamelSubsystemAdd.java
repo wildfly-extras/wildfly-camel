@@ -25,9 +25,6 @@ import java.util.List;
 
 import org.jboss.as.controller.AbstractBoottimeAddStepHandler;
 import org.jboss.as.controller.OperationContext;
-import org.jboss.as.controller.OperationFailedException;
-import org.jboss.as.controller.OperationStepHandler;
-import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.as.server.AbstractDeploymentChainStep;
 import org.jboss.as.server.DeploymentProcessorTarget;
 import org.jboss.as.server.deployment.Phase;
@@ -82,27 +79,19 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
     }
 
     @Override
-    protected void performBoottime(final OperationContext context, final ModelNode operation, final ModelNode model,
-            final ServiceVerificationHandler verificationHandler, final List<ServiceController<?>> newControllers) {
+    protected void performBoottime(final OperationContext context, final ModelNode operation, final ModelNode model) {
 
         final GraviaSubsystemBootstrap graviaSubsystem = new ReducedGraviaSubsystemBootstrap();
         final JBossAllXmlParserRegisteringProcessor<CamelDeploymentSettings> parser =
                 new JBossAllXmlParserRegisteringProcessor<>(CamelIntegrationParser.ROOT_ELEMENT, CamelDeploymentSettings.ATTACHMENT_KEY, new CamelIntegrationParser());
 
-        // Register subsystem services
-        context.addStep(new OperationStepHandler() {
-            @Override
-            public void execute(OperationContext context, ModelNode operation) throws OperationFailedException {
-                newControllers.addAll(graviaSubsystem.getSubsystemServices(context, verificationHandler));
-                newControllers.add(CamelBootstrapService.addService(context.getServiceTarget(), verificationHandler));
-                newControllers.add(CamelContextFactoryService.addService(context.getServiceTarget(), verificationHandler));
-                newControllers.add(CamelContextFactoryBindingService.addService(context.getServiceTarget(), verificationHandler));
-                newControllers.add(CamelContextRegistryService.addService(context.getServiceTarget(), subsystemState, verificationHandler));
-                newControllers.add(CamelContextRegistryBindingService.addService(context.getServiceTarget(), verificationHandler));
-                newControllers.add(ContextCreateHandlerRegistryService.addService(context.getServiceTarget(), verificationHandler));
-                context.completeStep(OperationContext.RollbackHandler.NOOP_ROLLBACK_HANDLER);
-            }
-        }, OperationContext.Stage.RUNTIME);
+        graviaSubsystem.getSubsystemServices(context);
+        CamelBootstrapService.addService(context.getServiceTarget());
+        CamelContextFactoryService.addService(context.getServiceTarget());
+        CamelContextFactoryBindingService.addService(context.getServiceTarget());
+        CamelContextRegistryService.addService(context.getServiceTarget(), subsystemState);
+        CamelContextRegistryBindingService.addService(context.getServiceTarget());
+        ContextCreateHandlerRegistryService.addService(context.getServiceTarget());
 
         // Register deployment unit processors
         context.addStep(new AbstractDeploymentChainStep() {
@@ -126,10 +115,10 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
 
     final class ReducedGraviaSubsystemBootstrap extends GraviaSubsystemBootstrap {
 
-        public List<ServiceController<?>> getSubsystemServices(OperationContext context, ServiceVerificationHandler verificationHandler) {
+        public List<ServiceController<?>> getSubsystemServices(OperationContext context) {
             List<ServiceController<?>> controllers = new ArrayList<ServiceController<?>>();
-            controllers.add(getRuntimeService(context, verificationHandler));
-            controllers.add(getSystemContextService(context, verificationHandler));
+            controllers.add(getRuntimeService(context));
+            controllers.add(getSystemContextService(context));
             return controllers;
         }
     }

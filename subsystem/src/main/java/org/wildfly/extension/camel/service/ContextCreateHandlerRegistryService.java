@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
@@ -53,10 +52,9 @@ public class ContextCreateHandlerRegistryService extends AbstractService<Context
 
     private ContextCreateHandlerRegistry createHandlerRegistry;
 
-    public static ServiceController<ContextCreateHandlerRegistry> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
+    public static ServiceController<ContextCreateHandlerRegistry> addService(ServiceTarget serviceTarget) {
         ContextCreateHandlerRegistryService service = new ContextCreateHandlerRegistryService();
         ServiceBuilder<ContextCreateHandlerRegistry> builder = serviceTarget.addService(CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_SERVICE_NAME, service);
-        builder.addListener(verificationHandler);
         return builder.install();
     }
 
