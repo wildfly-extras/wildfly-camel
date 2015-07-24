@@ -36,7 +36,6 @@ import org.apache.camel.management.event.CamelContextStoppedEvent;
 import org.apache.camel.spi.CamelContextTracker;
 import org.apache.camel.spi.ManagementStrategy;
 import org.apache.camel.support.EventNotifierSupport;
-import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.gravia.runtime.ModuleContext;
 import org.jboss.gravia.runtime.Runtime;
 import org.jboss.gravia.runtime.ServiceRegistration;
@@ -82,12 +81,11 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
     private CamelContextRegistry contextRegistry;
     private ServiceRegistration<CamelContextRegistry> registration;
 
-    public static ServiceController<CamelContextRegistry> addService(ServiceTarget serviceTarget, SubsystemState subsystemState, ServiceVerificationHandler verificationHandler) {
+    public static ServiceController<CamelContextRegistry> addService(ServiceTarget serviceTarget, SubsystemState subsystemState) {
         CamelContextRegistryService service = new CamelContextRegistryService(subsystemState);
         ServiceBuilder<CamelContextRegistry> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME, service);
         builder.addDependency(GraviaConstants.RUNTIME_SERVICE_NAME, Runtime.class, service.injectedRuntime);
         builder.addDependency(CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_SERVICE_NAME, ContextCreateHandlerRegistry.class, service.injectedHandlerRegistry);
-        builder.addListener(verificationHandler);
         return builder.install();
     }
 
