@@ -22,7 +22,6 @@ package org.wildfly.extension.camel.service;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
-import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.as.naming.ManagedReferenceFactory;
 import org.jboss.as.naming.ManagedReferenceInjector;
 import org.jboss.as.naming.ServiceBasedNamingStore;
@@ -46,7 +45,7 @@ import org.wildfly.extension.camel.CamelContextRegistry;
  */
 public final class CamelContextRegistryBindingService {
 
-    public static ServiceController<?> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
+    public static ServiceController<?> addService(ServiceTarget serviceTarget) {
         final ContextNames.BindInfo bindInfo = ContextNames.bindInfoFor(CamelConstants.CAMEL_CONTEXT_REGISTRY_BINDING_NAME);
         BinderService binderService = new BinderService(bindInfo.getBindName()) {
             @Override
@@ -65,7 +64,6 @@ public final class CamelContextRegistryBindingService {
         ServiceBuilder<?> builder = serviceTarget.addService(bindInfo.getBinderServiceName(), binderService);
         builder.addDependency(bindInfo.getParentContextServiceName(), ServiceBasedNamingStore.class, binderService.getNamingStoreInjector());
         builder.addDependency(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME, CamelContextRegistry.class, new ManagedReferenceInjector<CamelContextRegistry>(injector));
-        builder.addListener(verificationHandler);
         return builder.install();
     }
 }

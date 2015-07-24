@@ -21,7 +21,6 @@
 
 package org.wildfly.extension.camel.service;
 
-import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.gravia.runtime.ModuleContext;
 import org.jboss.gravia.runtime.Runtime;
 import org.jboss.gravia.runtime.ServiceRegistration;
@@ -51,11 +50,10 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
 	private ServiceRegistration<CamelContextFactory> registration;
     private CamelContextFactory contextFactory;
 
-    public static ServiceController<CamelContextFactory> addService(ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
+    public static ServiceController<CamelContextFactory> addService(ServiceTarget serviceTarget) {
         CamelContextFactoryService service = new CamelContextFactoryService();
         ServiceBuilder<CamelContextFactory> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_FACTORY_SERVICE_NAME, service);
         builder.addDependency(GraviaConstants.RUNTIME_SERVICE_NAME, Runtime.class, service.injectedRuntime);
-        builder.addListener(verificationHandler);
         return builder.install();
     }
 

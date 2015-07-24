@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,6 @@ package org.wildfly.extension.camel.service;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
-import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.as.naming.ManagedReferenceFactory;
 import org.jboss.as.naming.ManagedReferenceInjector;
 import org.jboss.as.naming.ServiceBasedNamingStore;
@@ -46,7 +45,7 @@ import org.wildfly.extension.camel.CamelContextFactory;
  */
 public final class CamelContextFactoryBindingService {
 
-    public static ServiceController<?> addService(final ServiceTarget serviceTarget, ServiceVerificationHandler verificationHandler) {
+    public static ServiceController<?> addService(final ServiceTarget serviceTarget) {
         final ContextNames.BindInfo bindInfo = ContextNames.bindInfoFor(CamelConstants.CAMEL_CONTEXT_FACTORY_BINDING_NAME);
         BinderService binderService = new BinderService(bindInfo.getBindName()) {
             @Override
@@ -65,7 +64,6 @@ public final class CamelContextFactoryBindingService {
         ServiceBuilder<?> builder = serviceTarget.addService(bindInfo.getBinderServiceName(), binderService);
         builder.addDependency(bindInfo.getParentContextServiceName(), ServiceBasedNamingStore.class, binderService.getNamingStoreInjector());
         builder.addDependency(CamelConstants.CAMEL_CONTEXT_FACTORY_SERVICE_NAME, CamelContextFactory.class, new ManagedReferenceInjector<CamelContextFactory>(injector));
-        builder.addListener(verificationHandler);
         return builder.install();
     }
 }
