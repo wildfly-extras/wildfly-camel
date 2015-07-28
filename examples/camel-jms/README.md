@@ -2,17 +2,22 @@
 
 This example demonstrates using the camel-jms component with WildFly Camel susbsystem to produce and consume JMS messages.
 
-In this example, a Camel route consumes files from JBOSS_JOME/standalone/data/orders and places their contents onto an in-memory HornetQ JMS queue
+In this example, a Camel route consumes files from ${JBOSS_JOME}/standalone/data/orders and places their contents onto an in-memory HornetQ JMS queue
 named 'OrdersQueue'. A second route consumes any messages from 'OrdersQueue' and through a simple [content based router](http://camel.apache.org/content-based-router.html)
-sorts the orders into individual country directories within JBOSS_JOME/standalone/data/orders/processed.
+sorts the orders into individual country directories within ${JBOSS_JOME}/standalone/data/orders/processed.
+
+## Prerequsites
+
+* Maven
+* An application server with the wildfly-camel subsystem installed
 
 ## Running the example
 
 To run the example.
 
-1. Change into the `camel-jms` directory
-2. Run `mvn clean wildfly:run`
-3. When the WildFly server has started, browse to `http://localhost:8080/example-camel-jms/orders`
+1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
+2. Build the and deploy the project `mvn install -Pdeploy`
+3. Browse to `http://localhost:8080/example-camel-jms/orders`
 
 You should see a page titled 'Orders Received'. As we send orders to the example application, a list
 of orders per country will be listed on this page.
@@ -25,11 +30,11 @@ directory.
 
 For Linux / Mac users:
 
-    cp src/main/resources/*.xml target/wildfly-*/standalone/data/orders/
+    cp src/main/resources/*.xml ${JBOSS_HOME}/standalone/data/orders/
 
 For Windows users:
 
-    copy src\main\resources\*.xml target\wildfly-*\standalone\data\orders\
+    copy src\main\resources\*.xml %JBOSS_HOME%/standalone\data\orders\
 
 The console will output messages detailing what happened to each of the orders. The output
 will look something like this.
@@ -45,9 +50,13 @@ received orders for each country should have been increased by 1.
 
 All processed orders will have been output to:
 
-    JBOSS_JOME/standalone/data/orders/processed/uk
-    JBOSS_JOME/standalone/data/orders/processed/us
-    JBOSS_JOME/standalone/data/orders/processed/others
+    ${JBOSS_HOME}/standalone/data/orders/processed/uk
+    ${JBOSS_HOME}/standalone/data/orders/processed/us
+    ${JBOSS_HOME}/standalone/data/orders/processed/others
+
+## Undeploy
+
+To undeploy the example run `mvn clean -Pdeploy`.
 
 ## Learn more
 

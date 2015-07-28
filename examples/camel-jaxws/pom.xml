@@ -77,20 +77,19 @@
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <configuration>
-                    <jbossHome>${jboss.home}</jbossHome>
-                    <serverConfig>${server.config}</serverConfig>
+                    <skip>${deploy.skip}</skip>
                 </configuration>
                 <executions>
                     <execution>
                         <id>wildfly-deploy</id>
-                        <phase>integration-test</phase>
+                        <phase>install</phase>
                         <goals>
-                            <goal>deploy</goal>
+                            <goal>deploy-only</goal>
                         </goals>
                     </execution>
                     <execution>
                         <id>wildfly-undeploy</id>
-                        <phase>post-integration-test</phase>
+                        <phase>clean</phase>
                         <goals>
                             <goal>undeploy</goal>
                         </goals>
@@ -103,45 +102,10 @@
     <!-- Profiles -->
     <profiles>
         <profile>
-            <id>ts.all</id>
-            <activation>
-                <property>
-                    <name>ts.all</name>
-                </property>
-            </activation>
+            <id>deploy</id>
             <properties>
-                <jboss.home>${basedir}/../target/wildfly-${version.wildfly}</jboss.home>
+                <deploy.skip>false</deploy.skip>
             </properties>
-        </profile>
-        
-        <profile>
-            <id>no.ts.all</id>
-            <activation>
-                <property>
-                    <name>!ts.all</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.wildfly.plugins</groupId>
-                        <artifactId>wildfly-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>wildfly-shutdown</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>shutdown</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 </project>

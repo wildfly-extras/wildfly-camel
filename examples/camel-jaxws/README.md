@@ -3,13 +3,18 @@
 This example demonstrates using the [CamelProxy](http://camel.apache.org/using-camelproxy.html) to mimic the behaviour
 of a Camel JAX-WS consumer. This is an alternative to using CXF consumers **which are not currently supported by the WildFly Camel Subsystem**.
 
+## Prerequsites
+
+* Maven
+* An application server with the wildfly-camel subsystem installed
+
 ## Running the example
 
 To run the example.
 
-1. Change into the `camel-jaxws` directory
-2. Run `mvn clean wildfly:run`
-3. When the WildFly server has started, browse to `http://localhost:8080/example-camel-jaxws/`
+1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
+2. Build the and deploy the project `mvn install -Pdeploy`
+3. Browse to `http://localhost:8080/example-camel-jaxws/`
 
 You should see a page titled 'Send A Greeting'. This UI enables us to interact with the test 'greeting' web service which will have also been
 started. The service WSDL is available at `http://localhost:8080/example-camel-jaxws/greeting?wsdl`.
@@ -61,11 +66,11 @@ from("direct:start")
 ### cURL
 
 Alternatively, if you would prefer to work with the raw web service SOAP XML. You can use cURL to send SOAP messages to the web service. Example
-SOAP requests can be found at `src/test/resources`. To send the file contents to the greeting web service do.
+SOAP requests can be found at `src/main/resources`. To send the file contents to the greeting web service do.
 
 **greet:**
 ```
-curl -v -X POST -H 'Content-Type: text/xml;charset=UTF-8' -H 'SOAPAction: urn:greet' -d @src/test/resources/soap-request-greet.xml http://localhost:8080/example-camel-jaxws/greeting
+curl -v -X POST -H 'Content-Type: text/xml;charset=UTF-8' -H 'SOAPAction: urn:greet' -d @src/main/resources/soap-request-greet.xml http://localhost:8080/example-camel-jaxws/greeting
 ```
 
 Returns a response of:
@@ -83,8 +88,7 @@ Returns a response of:
 
 **greetWithMessage:**
 ```
-curl -v -X POST -H 'Content-Type: text/xml;charset=UTF-8' -H 'SOAPAction: urn:greetWithMessage' -d @src/test/resources/soap-request-greet-with-message.xml http://localhost:8080/example-camel-jaxws/greeting
-
+curl -v -X POST -H 'Content-Type: text/xml;charset=UTF-8' -H 'SOAPAction: urn:greetWithMessage' -d @src/main/resources/soap-request-greet-with-message.xml http://localhost:8080/example-camel-jaxws/greeting
 ```
 
 Returns a response of:
@@ -103,6 +107,10 @@ Returns a response of:
 
 If you do not have cURL then you can use a tool like SoapUI to send SOAP requests. Simply configure a new project using
 the web service WSDL URL `http://localhost:8080/example-camel-jaxws/greeting?wsdl`.
+
+## Undeploy
+    
+To undeploy the example run `mvn clean -Pdeploy`.
 
 ## Learn more
 

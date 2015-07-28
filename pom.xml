@@ -99,6 +99,7 @@
         <version-maven-assembly-plugin>2.4</version-maven-assembly-plugin>
         <version-maven-changes-plugin>2.11</version-maven-changes-plugin>
         <version-maven-compiler-plugin>3.1</version-maven-compiler-plugin>
+        <version-maven-dependency-plugin>2.10</version-maven-dependency-plugin>
         <version-maven-deploy-plugin>2.8.2</version-maven-deploy-plugin>
         <version-maven-enforcer-plugin>1.3.1</version-maven-enforcer-plugin>
         <version-maven-jar-plugin>2.6</version-maven-jar-plugin>
@@ -129,6 +130,7 @@
         <module>modules</module>
         <module>patch</module>
         <module>subsystem</module>
+        <module>examples</module>
         <module>itests</module>
     </modules>
 
@@ -461,6 +463,11 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${version-maven-dependency-plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>${version-maven-deploy-plugin}</version>
                 </plugin>
@@ -708,17 +715,6 @@
             </activation>
             <modules>
                 <module>docker</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>ts.all</id>
-            <activation>
-                <property>
-                    <name>ts.all</name>
-                </property>
-            </activation>
-            <modules>
-                <module>examples</module>
             </modules>
         </profile>
     </profiles>

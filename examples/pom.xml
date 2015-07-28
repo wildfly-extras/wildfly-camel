@@ -34,76 +34,11 @@
     <artifactId>wildfly-camel-example</artifactId>
     <packaging>pom</packaging>
 
-    <!-- Modules -->
-    <modules>
-        <module>camel-activemq</module>
-        <module>camel-cxf</module>
-        <module>camel-cdi</module>
-        <module>camel-mail</module>
-        <module>camel-jaxws</module>
-        <module>camel-jms</module>
-        <module>camel-jpa</module>
-        <module>camel-rest</module>
-        <module>camel-transacted-jms</module>
-    </modules>
-
     <!-- Properties -->
     <properties>
-        <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
-        <jboss.data.dir>${jboss.home}/standalone/data</jboss.data.dir>
-        <server.config>standalone-full-camel.xml</server.config>
-        <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true</jvmArgs>
-        <jvmDebugArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmDebugArgs>
+        <deploy.skip>true</deploy.skip>
     </properties>
 
-    <!-- Dependencies -->
-    <dependencies>
-    
-        <!-- Provided -->
-        <dependency>
-            <groupId>com.icegreen</groupId>
-            <artifactId>greenmail-webapp</artifactId>
-            <version>${version.greenmail}</version>
-            <type>war</type>
-            <scope>provided</scope>
-        </dependency>
-        
-        <!-- Test -->
-        <dependency>
-            <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-itests-common</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.wildfly.arquillian</groupId>
-            <artifactId>wildfly-arquillian-container-remote</artifactId>
-            <!-- [#544] Examples fail with ClassNotFoundException: org.w3c.dom.ElementTraversal -->
-            <exclusions>
-                <exclusion>
-                    <groupId>xerces</groupId>
-                    <artifactId>xercesImpl</artifactId>
-                </exclusion>
-            </exclusions>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-    
     <!-- Repositories -->
     <repositories>
         <repository>
@@ -111,20 +46,7 @@
             <url>http://repository.jboss.org/nexus/content/groups/public/</url>
         </repository>
     </repositories>
-    
-    <!-- Build -->
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    
+
     <!-- Profiles -->
     <profiles>
         <profile>
@@ -134,205 +56,18 @@
                     <name>ts.all</name>
                 </property>
             </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <!-- unpacking not inherited -->
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>unpack-wildfly</id>
-                                <phase>generate-resources</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <inherited>false</inherited>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>org.wildfly</groupId>
-                                            <artifactId>wildfly-dist</artifactId>
-                                            <version>${version.wildfly}</version>
-                                            <type>zip</type>
-                                            <outputDirectory>${project.build.directory}</outputDirectory>
-                                            <overWrite>false</overWrite>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>unpack-patch</id>
-                                <phase>generate-resources</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <inherited>false</inherited>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>org.wildfly.camel</groupId>
-                                            <artifactId>wildfly-camel-patch</artifactId>
-                                            <version>${project.version}</version>
-                                            <type>tar.gz</type>
-                                            <outputDirectory>${jboss.home}</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <!-- wildfly startup and deployment not inherited -->
-                        <groupId>org.wildfly.plugins</groupId>
-                        <artifactId>wildfly-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>wildfly-start</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>start</goal>
-                                </goals>
-                                <inherited>false</inherited>
-                                <configuration>
-                                    <jbossHome>${jboss.home}</jbossHome>
-                                    <serverConfig>${server.config}</serverConfig>
-                                    <jvmArgs>${jvmArgs} ${jvmDebugArgs}</jvmArgs>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>greenmail-deploy</id>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>deploy-artifact</goal>
-                                </goals>
-                                <inherited>false</inherited>
-                                <configuration>
-                                    <groupId>com.icegreen</groupId>
-                                    <artifactId>greenmail-webapp</artifactId>
-                                    <version>${version.greenmail}</version>
-                                    <type>war</type>
-                                    <artifactId>greenmail-webapp</artifactId>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <configuration>
-                                    <skip>false</skip>
-                                    <systemPropertyVariables>
-                                        <jboss.data.dir>${jboss.data.dir}</jboss.data.dir>
-                                    </systemPropertyVariables>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>no.ts.all</id>
-            <activation>
-                <property>
-                    <name>!ts.all</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>unpack-wildfly</id>
-                                <phase>generate-resources</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>org.wildfly</groupId>
-                                            <artifactId>wildfly-dist</artifactId>
-                                            <version>${version.wildfly}</version>
-                                            <type>zip</type>
-                                            <outputDirectory>${project.build.directory}</outputDirectory>
-                                            <overWrite>false</overWrite>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>unpack-patch</id>
-                                <phase>generate-resources</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>org.wildfly.camel</groupId>
-                                            <artifactId>wildfly-camel-patch</artifactId>
-                                            <version>${project.version}</version>
-                                            <type>tar.gz</type>
-                                            <outputDirectory>${jboss.home}</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.wildfly.plugins</groupId>
-                            <artifactId>wildfly-maven-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <id>wildfly-start</id>
-                                    <phase>pre-integration-test</phase>
-                                    <goals>
-                                        <goal>start</goal>
-                                    </goals>
-                                    <configuration>
-                                        <jbossHome>${jboss.home}</jbossHome>
-                                        <serverConfig>${server.config}</serverConfig>
-                                        <jvmArgs>${jvmArgs} ${jvmDebugArgs}</jvmArgs>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-surefire-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <phase>integration-test</phase>
-                                    <goals>
-                                        <goal>test</goal>
-                                    </goals>
-                                    <configuration>
-                                        <skip>false</skip>
-                                        <systemPropertyVariables>
-                                            <jboss.data.dir>${jboss.data.dir}</jboss.data.dir>
-                                        </systemPropertyVariables>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
+            <modules>
+                <module>camel-activemq</module>
+                <module>camel-cxf</module>
+                <module>camel-cdi</module>
+                <module>camel-mail</module>
+                <module>camel-jaxws</module>
+                <module>camel-jms</module>
+                <module>camel-jpa</module>
+                <module>camel-rest</module>
+                <module>camel-transacted-jms</module>
+            </modules>
         </profile>
     </profiles>
+
 </project>

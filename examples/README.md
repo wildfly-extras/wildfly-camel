@@ -6,9 +6,13 @@ Their aim is to provide small, specific and working examples that can be used fo
 ### Prerequisites
 
 Please refer to the project [README documentation](../README.md) for information on how to build and test the project.
-Please take into consideration the minimum Java and Maven requirements.
+Please take into consideration the minimum Java and Maven requirements. The examples also require a running application server 
+with the wildfly-camel subsystem deployed.
 
 ### Running Examples
 
 Each example aims to be interactive to help you learn how to get started with the WildFly Camel Subsystem. Each example
-can be started by changing into the example source directory and running `mvn clean wildfly:run`.
+can be accessed by changing into the example source directory, building the project `mvn clean install` and then deploying
+to a running application server `mvn install -Pdeploy`.
+
+Examples can be undeployed from a running application server by running `mvn install -Pdeploy`.

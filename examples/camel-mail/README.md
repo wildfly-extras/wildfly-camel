@@ -44,14 +44,18 @@ from(receiveMailEndpoint)
     .to("log:emails?showAll=true");
 ```
 
+## Prerequsites
+
+* Maven
+* An application server with the wildfly-camel subsystem installed
+
 ## Running the example
 
 To run the example.
 
-1. Change into the `camel-mail` directory
-2. Build the project `mvn clean install` 
-3. Deploy the web application `mvn wildfly:run`
-4. When the WildFly server has started, browse to `http://localhost:8080/example-camel-mail/`
+1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
+2. Build the and deploy the project `mvn install -Pdeploy`
+3. Browse to `http://localhost:8080/example-camel-mail/`
 
 You should see a form from which you can test sending emails with Camel.
 
@@ -73,3 +77,15 @@ is eventually reported by the Camel log endpoint. The output will look something
     , BodyType: String
     , Body: Hello World!
     , Out: null:
+
+## Undeploy
+    
+To undeploy the example run `mvn clean -Pdeploy`.
+
+> **NOTE:** If you want to deploy this example application multiple times, you should ensure that you run the undeploy
+step mentioned above and restart the application server afterwards.
+    
+## Learn more
+
+Additional camel-activemq documentation can be
+found at the [WildFly Camel GitBook](http://wildflyext.gitbooks.io/wildfly-camel/content/components/camel-mail.html) site.

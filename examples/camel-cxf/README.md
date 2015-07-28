@@ -9,13 +9,18 @@ See the [camel-jaxws example](../camel-jaxws/README.md) for more information.**
 In this example, a Camel route takes a message payload from a direct endpoint and passes it on to a CXF producer endpoint. The producer uses the payload
 to pass arguments to a JAX-WS web service.
 
+## Prerequsites
+
+* Maven
+* An application server with the wildfly-camel subsystem installed
+
 ## Running the example
 
 To run the example.
 
-1. Change into the `camel-cxf` directory
-2. Run `mvn clean wildfly:run`
-3. When the WildFly server has started, browse to `http://localhost:8080/example-camel-cxf/`
+1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
+2. Build the and deploy the project `mvn install -Pdeploy`
+3. Browse to `http://localhost:8080/example-camel-cxf/`
 
 You should see a page titled 'Send A Greeting'. This UI enables us to interact with the test 'greeting' web service which will have also been
 started. The service WSDL is available at `http://localhost:8080/example-camel-cxf/greeting?wsdl`.
@@ -40,6 +45,10 @@ sends the message payload to Camel. `CxfRouteBuilder` forwards the payload from 
 then invokes the `GreetingServiceImpl` web service.
 
 The web service response is used by `CamelCxfServlet` to display the greeting on the web UI.
+
+## Undeploy
+    
+To undeploy the example run `mvn clean -Pdeploy`.
 
 ## Learn more
 
