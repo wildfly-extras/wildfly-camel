@@ -13,7 +13,7 @@ of a Camel JAX-WS consumer. This is an alternative to using CXF consumers **whic
 To run the example.
 
 1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
-2. Build the and deploy the project `mvn install -Pdeploy`
+2. Build and deploy the project `mvn install -Pdeploy`
 3. Browse to `http://localhost:8080/example-camel-jaxws/`
 
 You should see a page titled 'Send A Greeting'. This UI enables us to interact with the test 'greeting' web service which will have also been

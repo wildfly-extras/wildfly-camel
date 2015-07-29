@@ -19,16 +19,10 @@
  */
 package org.wildfly.camel.examples.jpa;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,27 +35,8 @@ import org.wildfly.camel.examples.jpa.model.Customer;
 @WebServlet(name = "HttpServiceServlet", urlPatterns = { "/customers/*" }, loadOnStartup = 1)
 public class SimpleServlet extends HttpServlet {
 
-    static Path CUSTOMERS_PATH = new File(System.getProperty("jboss.server.data.dir")).toPath().resolve("customers");
-    
     @Inject
     private CustomerRepository customerRepository;
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-
-        // Copy WEB-INF/customer.xml to the data dir 
-        ServletContext servletContext = config.getServletContext();
-        try {
-            InputStream input = servletContext.getResourceAsStream("/WEB-INF/customer.xml");
-            Path xmlPath = CUSTOMERS_PATH.resolve("customer.xml");
-            xmlPath.getParent().toFile().mkdirs();
-            Files.copy(input, xmlPath);
-            System.out.println("File created: " + xmlPath);
-        } catch (IOException ex) {
-            throw new ServletException(ex);
-        }
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -69,10 +44,9 @@ public class SimpleServlet extends HttpServlet {
          * Simple servlet to retrieve all customers from the in memory database for
          * output and display on customers.jsp
          */
-
         List<Customer> customers = customerRepository.findAllCustomers();
 
         request.setAttribute("customers", customers);
-        request.getRequestDispatcher("/WEB-INF/customers.jsp").forward(request, response);
+        request.getRequestDispatcher("customers.jsp").forward(request, response);
     }
 }

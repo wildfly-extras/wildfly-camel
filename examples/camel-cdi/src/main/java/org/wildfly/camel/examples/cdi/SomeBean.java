@@ -35,12 +35,12 @@
  */
 package org.wildfly.camel.examples.cdi;
 
-import javax.inject.Singleton;
+import javax.inject.Named;
 
-@Singleton
+@Named("helloBean")
 public class SomeBean {
 
-    public String someMethod() {
-        return "Hello ";
+    public String someMethod(String message) {
+        return "Hello " + message;
     }
 }

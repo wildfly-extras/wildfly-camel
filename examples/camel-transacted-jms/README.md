@@ -18,7 +18,7 @@ If the order quantity is greater than 10, the Camel route throws an exception an
 To run the example.
 
 1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
-2. Build the and deploy the project `mvn install -Pdeploy`
+2. Build and deploy the project `mvn install -Pdeploy`
 3. When the WildFly server has started, browse to `http://localhost:8080/example-camel-transacted-jms/orders`
 
 You should see a page titled 'Orders Received'. As we send orders to the example application, a list

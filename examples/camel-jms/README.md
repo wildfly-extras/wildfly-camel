@@ -16,7 +16,7 @@ sorts the orders into individual country directories within ${JBOSS_JOME}/standa
 To run the example.
 
 1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
-2. Build the and deploy the project `mvn install -Pdeploy`
+2. Build and deploy the project `mvn install -Pdeploy`
 3. Browse to `http://localhost:8080/example-camel-jms/orders`
 
 You should see a page titled 'Orders Received'. As we send orders to the example application, a list
@@ -24,7 +24,7 @@ of orders per country will be listed on this page.
 
 ## Testing Camel JMS
 
-There are some example order XML files within the `examples/camel-jms` directory. To make Camel
+There are some example order XML files within the `src/main/resources` directory. To make Camel
 consume them and send them to the 'OrdersQueue' JMS destination, simply copy them to the orders input
 directory.
 

@@ -37,7 +37,6 @@ package org.wildfly.camel.examples.cdi;
 
 import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.cdi.ContextName;
@@ -47,11 +46,8 @@ import org.apache.camel.cdi.ContextName;
 @ContextName("cdi-context")
 public class MyRouteBuilder extends RouteBuilder {
 
-	@Inject
-	SomeBean someBean;
-	
     @Override
     public void configure() throws Exception {
-    	from("direct:start").transform(body().prepend(someBean.someMethod()));
+    	from("direct:start").beanRef("helloBean");
     }
 }

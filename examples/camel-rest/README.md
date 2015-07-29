@@ -18,7 +18,7 @@ A JAX-RS producer example is demonstrated with the [camel-restlet component](htt
 To run the example.
 
 1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
-2. Build the and deploy the project `mvn install -Pdeploy`
+2. Build and deploy the project `mvn install -Pdeploy`
 3. Browse to `http://localhost:8080/example-camel-rest/customers`
 
 You should see a page titled 'Manage Customers'. This UI enables you to interact with the example JAX-RS REST services.

@@ -19,6 +19,21 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:forEach var="customer" items="${customers}">
-	${customer.firstName} ${customer.lastName}
-</c:forEach>
+<html>
+    <head>
+        <title>WildFly Camel Subsystem JPA Example</title>
+        <link href="bootstrap.min.css" rel="stylesheet"/>
+        <meta http-equiv="refresh" content="10" />
+    </head>
+<body>
+<div class="container">
+    <div class="page-header">
+    <h1>Customers</h1>
+    <c:forEach var="customer" items="${customers}">
+        <div class="row">
+            <div class="col-md-4">${customer.firstName} ${customer.lastName}</div>
+        </div>
+    </c:forEach>
+    </div>
+</div>
+</body>
