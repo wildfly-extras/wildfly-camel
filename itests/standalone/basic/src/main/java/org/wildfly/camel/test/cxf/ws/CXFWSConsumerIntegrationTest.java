@@ -40,7 +40,7 @@ import org.wildfly.extension.camel.CamelAware;
  */
 @CamelAware
 @RunWith(Arquillian.class)
-public class WebServiceConsumerIntegrationTest {
+public class CXFWSConsumerIntegrationTest {
 
     @Deployment
     public static JavaArchive deployment() {

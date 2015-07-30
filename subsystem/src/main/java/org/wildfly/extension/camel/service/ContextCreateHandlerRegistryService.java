@@ -41,6 +41,7 @@ import org.wildfly.extension.camel.handler.ContextValidationHandler;
 import org.wildfly.extension.camel.handler.ModelJAXBContextFactoryWrapperHandler;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.camel.handler.NamingContextAssociationHandler;
+import org.wildfly.extension.camel.handler.ComponentResolverAssociationHandler;
 
 /**
  * The {@link ContextCreateHandlerRegistry} service
@@ -78,9 +79,10 @@ public class ContextCreateHandlerRegistryService extends AbstractService<Context
             // Setup the default handlers
             addContextCreateHandler(null, new ModuleClassLoaderAssociationHandler());
             addContextCreateHandler(null, new ClassResolverAssociationHandler());
+            addContextCreateHandler(null, new ComponentResolverAssociationHandler());
             addContextCreateHandler(null, new NamingContextAssociationHandler(serviceRegistry, serviceTarget));
-            addContextCreateHandler(null, new ContextValidationHandler());
             addContextCreateHandler(null, new ModelJAXBContextFactoryWrapperHandler());
+            addContextCreateHandler(null, new ContextValidationHandler());
         }
 
         @Override

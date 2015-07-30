@@ -336,6 +336,10 @@
         <include artifact=":wildfly-ee" />
     </module>
     
+    <module name="org.wildfly.extension.undertow" skip="true">
+        <include artifact=":wildfly-undertow" />
+    </module>
+    
     <module name="org.wildfly.naming" skip="true">
         <include artifact=":wildfly-naming" />
     </module>

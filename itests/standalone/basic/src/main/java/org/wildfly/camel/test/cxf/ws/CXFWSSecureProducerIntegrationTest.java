@@ -52,7 +52,7 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class SecureWebServiceProducerIntegrationTest {
+public class CXFWSSecureProducerIntegrationTest {
 
     static final String SIMPLE_WAR = "simple.war";
 

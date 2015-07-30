@@ -43,7 +43,7 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class RestProducerIntegrationTest {
+public class CXFRSProducerIntegrationTest {
 
     static final String SIMPLE_WAR = "simple-rs-endpoint.war";
 

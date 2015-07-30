@@ -427,6 +427,11 @@
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-undertow</artifactId>
+                <version>${version.wildfly}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-testsuite-shared</artifactId>
                 <version>${version.wildfly}</version>
                 <exclusions>

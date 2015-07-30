@@ -45,6 +45,7 @@ import org.wildfly.extension.camel.service.CamelContextFactoryBindingService;
 import org.wildfly.extension.camel.service.CamelContextFactoryService;
 import org.wildfly.extension.camel.service.CamelContextRegistryBindingService;
 import org.wildfly.extension.camel.service.CamelContextRegistryService;
+import org.wildfly.extension.camel.service.CamelUndertowHostService;
 import org.wildfly.extension.camel.service.ContextCreateHandlerRegistryService;
 import org.wildfly.extension.gravia.parser.GraviaSubsystemBootstrap;
 
@@ -93,6 +94,7 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
         CamelContextFactoryBindingService.addService(context.getServiceTarget());
         CamelContextRegistryService.addService(context.getServiceTarget(), subsystemState);
         CamelContextRegistryBindingService.addService(context.getServiceTarget());
+        CamelUndertowHostService.addService(context.getServiceTarget());
         ContextCreateHandlerRegistryService.addService(context.getServiceTarget());
 
         // Register deployment unit processors

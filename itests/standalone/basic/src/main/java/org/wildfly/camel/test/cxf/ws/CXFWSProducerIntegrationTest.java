@@ -63,7 +63,7 @@ import org.xml.sax.InputSource;
  */
 @CamelAware
 @RunWith(Arquillian.class)
-public class WebServiceProducerIntegrationTest {
+public class CXFWSProducerIntegrationTest {
 
     static final String SIMPLE_WAR = "simple.war";
 

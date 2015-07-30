@@ -32,7 +32,6 @@ import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.test.AvailablePortFinder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -52,7 +51,7 @@ public class UndertowIntegrationTest {
     @Deployment
     public static WebArchive createDeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-undertow.war");
-        archive.addClasses(MyServlet.class, AvailablePortFinder.class, HttpRequest.class);
+        archive.addClasses(MyServlet.class, HttpRequest.class);
         return archive;
     }
 
@@ -80,47 +79,83 @@ public class UndertowIntegrationTest {
     @Test
     public void testHttpConsumer() throws Exception {
 
-        final int port = AvailablePortFinder.getNextAvailable(9080);
-        final String httpurl = "http://localhost:" + port + "/myapp/myservice";
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("undertow:" + httpurl).process(new Processor() {
+                from("undertow:http://localhost/myapp/serviceA").process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
-                        System.out.println("Processing: " + exchange);
                         Message in = exchange.getIn();
                         in.setBody("Hello " + in.getHeader("name"));
                     }
-                }).to("seda:end");
+                }).to("seda:endA");
+                from("undertow:http://localhost/myapp/serviceB").process(new Processor() {
+                    @Override
+                    public void process(Exchange exchange) throws Exception {
+                        Message in = exchange.getIn();
+                        in.setBody("Hello " + in.getHeader("name"));
+                    }
+                }).to("seda:endB");
             }
         });
 
         camelctx.start();
         try {
 
-            final CountDownLatch latch = new CountDownLatch(1);
-            Consumer consumer = camelctx.getEndpoint("seda:end").createConsumer(new Processor() {
-                @Override
-                public void process(Exchange exchange) throws Exception {
-                    System.out.println("Processing: " + exchange);
-                    Assert.assertEquals("Hello Kermit", exchange.getIn().getBody());
-                    latch.countDown();
-                }});
+            CountDownProcessor procA = new CountDownProcessor(1);
+            Consumer consumerA = camelctx.getEndpoint("seda:endA").createConsumer(procA);
 
-            HttpResponse response = HttpRequest.get(httpurl + "?name=Kermit").getResponse();
+            CountDownProcessor procB = new CountDownProcessor(1);
+            Consumer consumerB = camelctx.getEndpoint("seda:endB").createConsumer(procB);
+
+            HttpResponse response = HttpRequest.get("http://localhost:8080/myapp/serviceA?name=Kermit").getResponse();
             Assert.assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
 
-            consumer.start();
+            response = HttpRequest.get("http://localhost:8080/myapp/serviceB?name=Piggy").getResponse();
+            Assert.assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
+
+            consumerA.start();
             try {
-                Assert.assertTrue("Message not processed by consumer", latch.await(3, TimeUnit.SECONDS));
+                Assert.assertTrue("Message not processed by consumer", procA.await(3, TimeUnit.SECONDS));
+                Assert.assertEquals("Hello Kermit", procA.getExchange().getIn().getBody(String.class));
             } finally {
-                consumer.stop();
+                consumerA.stop();
+            }
+
+            consumerB.start();
+            try {
+                Assert.assertTrue("Message not processed by consumer", procB.await(3, TimeUnit.SECONDS));
+                Assert.assertEquals("Hello Piggy", procB.getExchange().getIn().getBody(String.class));
+            } finally {
+                consumerB.stop();
             }
         } finally {
             camelctx.stop();
+        }
+    }
+
+    class CountDownProcessor implements Processor {
+
+        private final CountDownLatch latch;
+        private Exchange exchange;
+
+        CountDownProcessor(int count) {
+            latch = new CountDownLatch(count);
+        }
+
+        @Override
+        public synchronized void process(Exchange exchange) throws Exception {
+            this.exchange = exchange;
+            latch.countDown();
+        }
+
+        synchronized Exchange getExchange() {
+            return exchange;
+        }
+
+        boolean await(long timeout, TimeUnit unit) throws InterruptedException {
+            return latch.await(timeout, unit);
         }
     }
 }
