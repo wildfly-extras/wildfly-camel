@@ -11,13 +11,13 @@ We now provide WildFly-Camel as feature pack and added five more to the [set](ht
 * [camel-salesforce](http://wildflyext.gitbooks.io/wildfly-camel/content/components/camel-salesforce.html)
 * [camel-zookeeper](http://wildflyext.gitbooks.io/wildfly-camel/content/components/camel-zookeeper.html)
 
-In addition to that, we also resolved a number of other minor [features, tasks and bugfixes](Changelog.md).
+In addition to that, we also resolved a number of other minor [features, tasks and bugfixes](https://github.com/wildfly-extras/wildfly-camel/blob/master/docs/Changelog.md).
 
 Component upgrades include
 
 * WildFLy-9.0.0.CR1
 * OpenShift-1.0.3
 
-For details please see the [3.0.0 Milestone](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A3.0.0) and the updated [user guide](http://wildflyext.gitbooks.io/wildfly-camel/content/v/2f267bccc14f0754ba2a0e8269ecb18e73822ea3).
+For details please see the [3.0.0 Milestone](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A3.0.0).
 
 Enjoy
