@@ -527,7 +527,6 @@
     
     <module name="org.apache.camel.component.rss">
         <include artifact="org.apache.camel:camel-rss" />
-        <include artifact="rome:rome" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
         </apply-to-dependencies>
