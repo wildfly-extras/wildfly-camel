@@ -1,5 +1,133 @@
 ### Changelog
 
+#### WildFly-Camel 3.0.0
+
+**Features**
+
+* [#11][11] Provide camel subsystem as feature pack
+* [#155][155] Provide camel-sap support
+* [#160][160] Provide camel-jgroups support
+* [#340][340] Make use of TCCL in ARQ ManagedContainer configurable 
+* [#541][541] Add support for wildfly-9.0.x docker image
+* [#563][563] Add executable to enable/disable the camel subsytem
+* [#615][615] Provide camel-zookeeper support
+* [#654][654] Provide camel-salesforce support
+* [#680][680] Add support for extending set of wired modules
+* [#723][723] Add support for Exchange.AUTHENTICATION header
+* [#732][732] Add support for camel-kafka
+
+For details see [3.0.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"3.0.0"+label%3Afeature)
+
+**Tasks**
+
+* [#10][10] Update to wildfly-9.0.0.CR1
+* [#98][98] Use docker-maven-plugin to generate images
+* [#565][565] Ensure smartics-jboss-modules-maven-plugin changes are merged upstream
+* [#629][629] Move module org.bouncycastle.pgp to extras
+* [#630][630] Move module org.apache.cxf.ext to extras
+* [#681][681] Migrate config tool from decentxml to jdom
+* [#682][682] Remove shading of the config tool
+* [#683][683] Provide pluggable SPI for config tool
+* [#689][689] Exclude generated subsystem module definition from SCM
+* [#700][700] Add support for module layers to config tool 
+* [#708][708] Move mqtt-client dependency into its own module
+* [#711][711] Review service loader contract for ConfigPlugins
+* [#713][713] Split integration tests in smoke, basic, extras
+* [#721][721] Reduce redundant plugin configurations in examples
+* [#733][733] Provide unit tests for PackageScanClassResolver
+* [#739][739] ExportedPathsTest should ignore paths exported from org.wildfly.camel.extras
+* [#750][750] Verify that wildfly-camel runs on windows
+* [#751][751] Ensure smartics artifact element values are prefixed with ':' when group id is ignored
+* [#753][753] Fix docker build on Jenkins
+* [#755][755] Use javax.el.api provided by wildfly
+* [#757][757] Verify that tests/examples delegate to the WildFly TransactionManager
+* [#758][758] Provide SAP connector module by default
+* [#760][760] Generate camel subsystem modules
+* [#762][762] Remove activemq-rar from module definition
+* [#776][776] Upgrade to smartics-2.1.0
+* [#777][777] Update OpenShift to 1.0.3
+* [#781][781] Migrate away from deprecated subsystem API
+* [#787][787] Add README files to camel-cdi and camel-jpa quickstarts
+* [#788][788] Enhance deployment of Camel quickstart
+* [#789][789] Make io.github.rometools.rome module available
+
+For details see [3.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"3.0.0"+label%3Atask)
+
+**Bugs**
+
+* [#534][534] CXF cannot access springframework beans module
+* [#540][540] jboss-modules does not respect path excludes
+* [#544][544] Examples fail with ClassNotFoundException
+* [#677][677] Publish docker images script cannot be exited with ctrl+c
+* [#684][684] Replace joda-time module dependency in org.json4s with the WildFly version
+* [#686][686] Docs maven module version not updated
+* [#692][692] The build should fail if execution of ConfigMain utility is not successful
+* [#701][701] Unable to load camel type converters from package locations specified in TypeConverter manifest
+* [#703][703] Permission denied on bin/fuseconfig.sh  access
+* [#710][710] XSLT transform route cannot load net.sf.saxon
+* [#717][717] NoSuchFileException in ActiveMQExampleTest.testFileToActiveMQRoute
+* [#738][738] Kafka module cannot access JMX API
+* [#773][773] Logging.properties is not loaded for all module test suites on Windows
+* [#785][785] Config tool generates files with incorrect line endings
+
+For details see [3.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"3.0.0"+label%3Abug)
+
+[11]: https://github.com/wildfly-extras/wildfly-camel/issues/11
+[155]: https://github.com/wildfly-extras/wildfly-camel/issues/155
+[160]: https://github.com/wildfly-extras/wildfly-camel/issues/160
+[340]: https://github.com/wildfly-extras/wildfly-camel/issues/340
+[541]: https://github.com/wildfly-extras/wildfly-camel/issues/541
+[563]: https://github.com/wildfly-extras/wildfly-camel/issues/563
+[615]: https://github.com/wildfly-extras/wildfly-camel/issues/615
+[654]: https://github.com/wildfly-extras/wildfly-camel/issues/654
+[680]: https://github.com/wildfly-extras/wildfly-camel/issues/680
+[723]: https://github.com/wildfly-extras/wildfly-camel/issues/723
+[732]: https://github.com/wildfly-extras/wildfly-camel/issues/732
+[10]: https://github.com/wildfly-extras/wildfly-camel/issues/10
+[98]: https://github.com/wildfly-extras/wildfly-camel/issues/98
+[565]: https://github.com/wildfly-extras/wildfly-camel/issues/565
+[629]: https://github.com/wildfly-extras/wildfly-camel/issues/629
+[630]: https://github.com/wildfly-extras/wildfly-camel/issues/630
+[681]: https://github.com/wildfly-extras/wildfly-camel/issues/681
+[682]: https://github.com/wildfly-extras/wildfly-camel/issues/682
+[683]: https://github.com/wildfly-extras/wildfly-camel/issues/683
+[689]: https://github.com/wildfly-extras/wildfly-camel/issues/689
+[700]: https://github.com/wildfly-extras/wildfly-camel/issues/700
+[708]: https://github.com/wildfly-extras/wildfly-camel/issues/708
+[711]: https://github.com/wildfly-extras/wildfly-camel/issues/711
+[713]: https://github.com/wildfly-extras/wildfly-camel/issues/713
+[721]: https://github.com/wildfly-extras/wildfly-camel/issues/721
+[733]: https://github.com/wildfly-extras/wildfly-camel/issues/733
+[739]: https://github.com/wildfly-extras/wildfly-camel/issues/739
+[750]: https://github.com/wildfly-extras/wildfly-camel/issues/750
+[751]: https://github.com/wildfly-extras/wildfly-camel/issues/751
+[753]: https://github.com/wildfly-extras/wildfly-camel/issues/753
+[755]: https://github.com/wildfly-extras/wildfly-camel/issues/755
+[757]: https://github.com/wildfly-extras/wildfly-camel/issues/757
+[758]: https://github.com/wildfly-extras/wildfly-camel/issues/758
+[760]: https://github.com/wildfly-extras/wildfly-camel/issues/760
+[762]: https://github.com/wildfly-extras/wildfly-camel/issues/762
+[776]: https://github.com/wildfly-extras/wildfly-camel/issues/776
+[777]: https://github.com/wildfly-extras/wildfly-camel/issues/777
+[781]: https://github.com/wildfly-extras/wildfly-camel/issues/781
+[787]: https://github.com/wildfly-extras/wildfly-camel/issues/787
+[788]: https://github.com/wildfly-extras/wildfly-camel/issues/788
+[789]: https://github.com/wildfly-extras/wildfly-camel/issues/789
+[534]: https://github.com/wildfly-extras/wildfly-camel/issues/534
+[540]: https://github.com/wildfly-extras/wildfly-camel/issues/540
+[544]: https://github.com/wildfly-extras/wildfly-camel/issues/544
+[677]: https://github.com/wildfly-extras/wildfly-camel/issues/677
+[684]: https://github.com/wildfly-extras/wildfly-camel/issues/684
+[686]: https://github.com/wildfly-extras/wildfly-camel/issues/686
+[692]: https://github.com/wildfly-extras/wildfly-camel/issues/692
+[701]: https://github.com/wildfly-extras/wildfly-camel/issues/701
+[703]: https://github.com/wildfly-extras/wildfly-camel/issues/703
+[710]: https://github.com/wildfly-extras/wildfly-camel/issues/710
+[717]: https://github.com/wildfly-extras/wildfly-camel/issues/717
+[738]: https://github.com/wildfly-extras/wildfly-camel/issues/738
+[773]: https://github.com/wildfly-extras/wildfly-camel/issues/773
+[785]: https://github.com/wildfly-extras/wildfly-camel/issues/785
+
 #### WildFly-Camel 2.3.0
 
 **Features**
@@ -11,7 +139,7 @@
 * [#582][582] Add support for authentication and authorization policies
 * [#616][616] Add support for dynamically adding/removing system camel contexts
 * [#657][657] Allow SOAP Header manipulation in cxf component
-* [#671][671] Disable camel subsystem for switchyard deployemnts
+* [#671][671] Disable camel subsystem for switchyard deployments
 
 For details see [2.3.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"2.3.0"+label%3Afeature)
 
