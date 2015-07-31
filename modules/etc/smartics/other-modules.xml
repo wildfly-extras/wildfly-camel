@@ -43,6 +43,13 @@
         <include artifact=":jsch" />
     </module>
 
+    <module name="com.rometools.rome">
+        <include artifact="rome:rome" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+    
     <module name="com.thoughtworks.xstream">
         <include artifact="com.thoughtworks.xstream:xstream" />
         <include artifact="xmlpull:xmlpull" />

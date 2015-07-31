@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.rometools.rome">
+  <resources>
+    <artifact name="${rome:rome}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.jdom" />
+  </dependencies>
+</module>
