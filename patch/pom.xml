@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.0</version>
     </parent>
 
     <name>Wildfly Camel :: Patch</name>
@@ -107,8 +107,7 @@
                         <phase>generate-resources</phase>
                         <configuration>
                             <target>
-                                <java classname="org.wildfly.extension.camel.config.internal.Main" 
-                                    classpathref="maven.compile.classpath" failonerror="true">
+                                <java classname="org.wildfly.extension.camel.config.internal.Main" classpathref="maven.compile.classpath" failonerror="true">
                                     <sysproperty key="jboss.home" value="${jboss.home}" />
                                     <arg value="--configs=camel" />
                                     <arg value="--enable" />
