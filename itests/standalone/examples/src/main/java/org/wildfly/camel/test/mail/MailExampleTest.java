@@ -20,7 +20,6 @@
 package org.wildfly.camel.test.mail;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 
 import org.jboss.arquillian.container.test.api.Deployer;
@@ -33,13 +32,10 @@ import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.as.cli.CommandContext;
 import org.jboss.as.cli.batch.Batch;
-import org.jboss.as.controller.client.OperationBuilder;
-import org.jboss.as.controller.client.helpers.ClientConstants;
 import org.jboss.as.test.integration.management.util.CLITestUtil;
 import org.jboss.dmr.ModelNode;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -19,16 +19,16 @@
  */
 package org.wildfly.camel.test.rest;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import javax.ws.rs.core.MediaType;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.gravia.utils.IOUtils;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
@@ -176,8 +176,10 @@ public class RestExampleTest {
         return s.replaceAll("[^\\d.]", "");
     }
 
-    private String readFileFromClasspath(String filePath) throws Exception {
-        return new String(Files.readAllBytes(Paths.get(getClass().getResource(filePath).toURI())));
+    private String readFileFromClasspath(String resource) throws Exception {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        IOUtils.copyStream(getClass().getResourceAsStream(resource), out);
+        return new String(out.toByteArray());
     }
 
     private String getEndpointAddress(String restPath) throws MalformedURLException {
