@@ -130,6 +130,7 @@
         <module>modules</module>
         <module>patch</module>
         <module>subsystem</module>
+        <module>docker</module>
         <module>examples</module>
         <module>itests</module>
     </modules>
@@ -702,20 +703,4 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-
-    <!-- Profiles -->
-    <profiles>
-        <profile>
-            <!-- Requires DOCKER_HOST -->
-            <id>docker</id>
-            <activation>
-                <property>
-                    <name>docker</name>
-                </property>
-            </activation>
-            <modules>
-                <module>docker</module>
-            </modules>
-        </profile>
-    </profiles>
 </project>

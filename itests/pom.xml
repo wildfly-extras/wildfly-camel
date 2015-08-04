@@ -37,21 +37,7 @@
         <module>camel</module>
         <module>common</module>
 		<module>standalone</module>
+        <module>docker</module>
 	</modules>
 
-	<!-- Profiles -->
-	<profiles>
-        <profile>
-            <!-- Requires DOCKER_HOST -->
-            <id>docker</id>
-            <activation>
-                <property>
-                    <name>docker</name>
-                </property>
-            </activation>
-            <modules>
-                <module>docker</module>
-            </modules>
-        </profile>
-	</profiles>
 </project>
