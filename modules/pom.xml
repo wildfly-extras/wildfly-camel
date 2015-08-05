@@ -39,11 +39,6 @@
         <wildfly.patch>${project.build.directory}/${project.artifactId}-${project.version}</wildfly.patch>
         <wildfly.module.dir>${project.build.directory}/wildfly-${version.wildfly}/modules/system/layers/base</wildfly.module.dir>
         <smartics.module.dir>${project.build.directory}/wildfly-patch/modules/system/layers/fuse</smartics.module.dir>
-
-        <!-- Used for dependency checking in module-checker.groovy -->
-        <appserver.groupId>org.wildfly</appserver.groupId>
-        <appserver.artifactId>wildfly-feature-pack</appserver.artifactId>
-        <appserver.version>${version.wildfly}</appserver.version>
     </properties>
 
     <!-- Dependencies -->

@@ -17,52 +17,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * #L%
- */
+*/
 import groovy.transform.EqualsAndHashCode
-import org.apache.maven.artifact.Artifact
-import org.apache.maven.artifact.resolver.ArtifactResolutionRequest
-import org.apache.maven.artifact.resolver.ArtifactResolutionResult
-import org.apache.maven.artifact.resolver.filter.ArtifactFilter
-import org.apache.maven.repository.RepositorySystem
 
 /**
- * Enables searching across specific combinations of Maven GAV coordinates
+ * Script to help ensure that there is minimum dependency duplication between the wildfly-camel 'fuse'
+ * module layer and the WildFly 'base' module layer.
+ *
+ * A module is considered a duplicate if:
+ *  - It has the same name and slot combination as another module (in any layer)
+ *
+ * A dependency is considered a duplicate if:
+ *  - It appears in another module (I.e has the same resource name)
+ *  - It appears in another module under a different slot, but has the same resource name and version
  */
-enum ArtifactSearchParameters {
-    BASIC(["groupId", "artifactId"]),
-    EXTENDED(["groupId", "artifactId", "version"])
 
-    private searchParameters;
-
-    private ArtifactSearchParameters(def searchParameters) {
-        this.searchParameters = searchParameters
-    }
-
-    def getParameters() {
-        return this.searchParameters
-    }
-}
-
-@EqualsAndHashCode(excludes = "artifacts")
+@EqualsAndHashCode(includes = "name,slot,layer")
 class Module {
     String name
     String slot
-    def artifacts = []
+    String path
+    String layer
+    def resources = []
 
-    /**
-     * Checks whether a module is associated with a particular artifact which matches a set of search parameters
-     * @param artifact The artifact to search for
-     * @param searchParameters The criteria to use for searching the artifact
-     * @return True if a matching artifact was found, false if not
-     */
-    def hasArtifact(def artifact, ArtifactSearchParameters searchParameters) {
-        return artifacts.find { moduleArtifact ->
-            boolean match = true
-            searchParameters.getParameters().each { parameter ->
-                match &= moduleArtifact[parameter].equals(artifact[parameter])
+    def getResource(def resource) {
+        resources.find { resource.equals(it) }
+    }
+
+    def isSameSlot(def module) {
+        return module.slot.equals(this.slot)
+    }
+
+    def findDuplicateResource(def module, def resource) {
+        def duplicateResource = module.getResource(resource)
+
+        if (duplicateResource != null ) {
+            if (module.isSameSlot(this)) {
+                return duplicateResource
+            } else if (!module.isSameSlot(this) && duplicateResource.version.equals(resource.version)) {
+                return duplicateResource
             }
-            return match
         }
+
+        return null
     }
 
     @Override
@@ -71,140 +68,70 @@ class Module {
     }
 }
 
-/**
- * Builds a list of module names, slot ids and resources from all module.xml files
- * from the given path location
- *
- * @param path The file path to the location of application server module XML definitions
- * @param artifactReferences A list of artifacts to cross reference with module resource attribute values
- * @return List of Module objects
- */
-def getModules(def path, def artifactReferences, def ignoredDependencies) {
-    modules = []
-    xmlParser = new XmlParser()
+@EqualsAndHashCode(includes = "name")
+class Resource {
+    String name
+    String version
 
+    public Resource(String rawName) {
+        if (rawName.lastIndexOf("-") > -1) {
+            this.name = "${rawName.substring(0, rawName.lastIndexOf("-"))}"
+            this.version = rawName.substring(rawName.lastIndexOf("-") + 1, rawName.lastIndexOf("."))
+        } else {
+            this.name = rawName
+        }
+    }
+
+    @Override
+    public String toString() {
+        def version = this.version == "" ? "" : "-${this.version}"
+        "${this.name}${version}.jar"
+    }
+}
+
+def paths = [properties.get("wildfly.module.dir"), properties.get("smartics.module.dir")]
+def modules = []
+def duplicateResources = []
+def problems = []
+
+// Build up a list of modules and identify duplicates
+paths.each { path ->
     new File(path).eachFileRecurse() { file ->
+        def parser = new XmlParser();
+
         if (file.name.equals("module.xml")) {
             module = new Module()
-            moduleXml = xmlParser.parseText(file.getText())
 
-            // For each module resource, see if there's a Maven artifact with the same file name
+            moduleXml = parser.parseText(file.getText())
             moduleXml.resources."resource-root".@path.each { resource ->
-                artifactReferences.each { artifact ->
-                    if (!isIgnoredArtifact(artifact, ignoredDependencies)) {
-                        File artifactFile = artifact.getFile()
-                        if (artifactFile != null && artifactFile.getName().equals(resource)) {
-                            module.artifacts << artifact
-                        } else if (resource.lastIndexOf("-") > -1 && resource.substring(0, resource.lastIndexOf("-")).equals(artifact.artifactId)) {
-                            module.artifacts << artifact
-                        }
-                    }
+                if (resource.endsWith(".jar")) {
+                    module.resources << new Resource(resource)
                 }
             }
 
             module.name = moduleXml.attribute("name")
             module.slot = moduleXml.attribute("slot") ?: "main"
+            module.layer = file.path.contains("layers/base") ? "base" : "fuse"
+            module.path = "modules/system/layers/${module.layer}${file.parent.replace(path, "")}"
+
+            otherModule = modules.find { it.name.equals(module.name) && it.slot.equals(module.slot) }
+            if (otherModule != null) {
+                problems << "Duplicate module name and slot detected: ${module.name}:${module.slot}\n\t${module.path}\n\t${otherModule.path}\n"
+            }
+
             modules << module
         }
     }
-
-    modules
 }
 
-/**
- * Obtains a list of dependencies for the target application server
- *
- * @return List of application server build dependencies
- */
-def getAppServerDependencies() {
-    repository = container.lookup(RepositorySystem.class)
-    group = properties.get("appserver.groupId")
-    artifiactId = properties.get("appserver.artifactId")
-    version = properties.get("appserver.version")
-
-    Artifact artifact = repository.createArtifact(group, artifiactId, version, "pom");
-
-    ArtifactResolutionRequest request = new ArtifactResolutionRequest();
-    request.setArtifact(artifact);
-    request.setResolveRoot(true).setResolveTransitively(true);
-    request.setServers(session.getRequest().getServers());
-    request.setMirrors(session.getRequest().getMirrors());
-    request.setProxies(session.getRequest().getProxies());
-    request.setLocalRepository(session.getLocalRepository());
-
-    def remoteRepositories = session.getRequest().getRemoteRepositories()
-    remoteRepositories.addAll(project.remoteArtifactRepositories)
-
-    request.setRemoteRepositories(remoteRepositories);
-    request.setResolutionFilter(new ArtifactFilter() {
-        @Override
-        public boolean include(final Artifact a) {
-            return a.getType().equals("jar") && a.getScope().equals("compile");
-        }
-    });
-
-    ArtifactResolutionResult resolutionResult = repository.resolve(request);
-    resolutionResult.getArtifacts();
-}
-
-/**
- * Checks whether an artifact is in the list of ignored dependencies
- *
- * @Param artifact The artifact to check if ignored
- * @Param ignoredDependencies List of ignored dependencies to check
- * @return Matching ignored artifact. Null if no match is found
- */
-def isIgnoredArtifact(def artifact, def ignoredDependencies) {
-    ignoredDependencies.dependency.find {
-        it.groupId.text().equals(artifact.groupId) && it.artifactId.text().equals(artifact.artifactId)
-    }
-}
-
-/*
- * Script execution starts here...
- */
-problems = []
-ignoredDependencies = []
-
-if (properties.ignoredDependencies != null) {
-    ignoredDependencies = new XmlParser().parseText(properties.ignoredDependencies)
-}
-
-String wildFlyModulePath = properties.get("wildfly.module.dir")
-String wildFlyCamelModulePath = properties.get("smartics.module.dir")
-wildFlyModules = getModules(wildFlyModulePath, (LinkedHashSet) getAppServerDependencies(), ignoredDependencies)
-wildFlyCamelModules = getModules(wildFlyCamelModulePath, (LinkedHashSet) project.getArtifacts(), ignoredDependencies)
-
-wildFlyCamelModules.each { module ->
-    // Check for duplicate module name / slot id combinations
-    if (wildFlyModules.contains(module)) {
-        problems << "Duplicate module name and slot detected: ${module.name}:${module.slot}"
-    }
-
-    /*
-     * Check for duplicate dependencies across all WildFly-Camel modules.
-     *
-     * In theory this should not be possible as Maven & Smartics plugin will prevent this.
-     *
-     * Check anyway in case that something has gone wrong...
-     */
-    module.artifacts.each { artifact ->
-        match = wildFlyCamelModules.findAll {
-            it.name != module.name && it.hasArtifact(artifact, ArtifactSearchParameters.EXTENDED)
-        }
-
-        match.each {
-            problems << "Duplicate dependeny ${artifact.groupId}:${artifact.artifactId} detected in module: ${it}"
-        }
-    }
-}
-
-// Check for dependencies in WildFly-Camel modules that are duplicated in modules provided by the app server
-wildFlyCamelModules.each { wildFlyCamelModule ->
-    wildFlyCamelModule.artifacts.each { artifact ->
-        wildFlyModules.each { wildFlyModule ->
-            if (wildFlyModule.hasArtifact(artifact, ArtifactSearchParameters.BASIC)) {
-                problems << "Duplicate dependency ${artifact.groupId}:${artifact.artifactId} detected in modules: ${wildFlyCamelModule} and ${wildFlyModule}"
+// Search for duplicated module resources
+modules.findAll { it.layer.equals("fuse") }.each { fuseModule ->
+    modules.findAll { it.layer.equals("base") }.each { baseModule ->
+        fuseModule.resources.each { resource ->
+            def duplicateResource = fuseModule.findDuplicateResource(baseModule, resource)
+            if(duplicateResource != null && !duplicateResources.contains(resource)) {
+                duplicateResources << resource
+                problems << "Duplicate dependency ${resource.name}\n\t${fuseModule.path}/${resource}\n\t${baseModule.path}/${duplicateResource}\n"
             }
         }
     }
@@ -213,7 +140,7 @@ wildFlyCamelModules.each { wildFlyCamelModule ->
 // Output detected problems
 if (problems.size() > 0) {
     println ""
-    println "DEPENDENCY ERRORS DETECTED!!"
+    println "MODULE DEPENDENCY ERRORS DETECTED!!"
     println ""
 
     problems.each { problem ->
