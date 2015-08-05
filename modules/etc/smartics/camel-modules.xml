@@ -232,13 +232,9 @@
 
     <module name="org.apache.camel.component.dozer">
         <include artifact="org.apache.camel:camel-dozer" />
-        <include artifact="net.sf.dozer:dozer" />
         <apply-to-dependencies skip="true">
-            <include module="junit" />
             <include module="org.apache.camel.apt" />
             <include module="org.glassfish.web" />
-            <include module="org.hibernate" />
-            <include module="org.osgi.core" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>

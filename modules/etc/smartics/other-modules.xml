@@ -60,6 +60,20 @@
         </dependencies>
     </module>
 
+    <module name="net.sf.dozer">
+        <include artifact="net.sf.dozer:dozer" />
+        <apply-to-dependencies skip="true">
+            <include module="org.hibernate" />
+            <include module="org.osgi.core" />
+            <include module="junit" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <!-- circular dependency to allow dozer to load camel-dozer types -->
+            <module name="org.apache.camel.component.dozer"/>
+        </dependencies>
+    </module>
+    
     <module name="ognl">
         <include artifact=":ognl" />
         <apply-to-dependencies skip="true">
