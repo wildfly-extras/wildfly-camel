@@ -40,7 +40,6 @@
                 <include path="META-INF/cxf/camel" />
             </exports>
         </module>
-        <module name="org.apache.camel.component.ejb" export="true" services="export" />
         <module name="org.apache.camel.component.dozer" export="true" services="export" />
         <module name="org.apache.camel.component.ejb" export="true" services="export" />
         <module name="org.apache.camel.component.flatpack" export="true" services="export" />

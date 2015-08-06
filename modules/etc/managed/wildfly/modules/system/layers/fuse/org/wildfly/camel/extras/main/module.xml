@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Wildfly Camel :: Modules
+  %%
+  Copyright (C) 2013 - 2015 RedHat
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+
+<module xmlns="urn:jboss:module:1.1" name="org.wildfly.camel.extras">
+
+    <!--
+        To activate the camel-sap component:
+            1. Stop the application server
+            2. Uncomment the org.fusesource.camel.component.sap module dependency below
+            3. Refer to the camel-sap documentation to install SAP JCO native libraries
+
+               http://wildflyext.gitbooks.io/wildfly-camel/content/components/camel-sap.html
+
+            4. Start the application server
+     -->
+
+    <dependencies>
+        <!--
+        <module name="org.fusesource.camel.component.sap" export="true" services="export" />
+        -->
+    </dependencies>
+
+</module>
