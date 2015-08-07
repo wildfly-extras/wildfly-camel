@@ -49,6 +49,10 @@
 			</fileset>
 		</sync>
 
-		<tar destfile="${output.dir}/${project.artifactId}-${project.version}.tar.gz" basedir="${target.patch.dir}" compression="gzip" longfile="gnu" />
+		<tar destfile="${output.dir}/${project.artifactId}-${project.version}.tar.gz"
+		     basedir="${target.patch.dir}"
+		     compression="gzip"
+		     longfile="gnu"
+		     excludes="modules/system/layers/fuse/org/wildfly/camel/wildfly-camel-modules/**" />
 	</target>
 </project>
