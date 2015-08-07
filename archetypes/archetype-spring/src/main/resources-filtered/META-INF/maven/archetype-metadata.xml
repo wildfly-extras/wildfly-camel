@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
+        name="wildfly-camel-archetype-spring"
+        xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <requiredProperties>
+        <!-- Dependency versions -->
+        <requiredProperty key="version-apache-camel">
+            <defaultValue>${version.apache.camel}</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="version-jboss-arquillian">
+            <defaultValue>${version.jboss.arquillian.core}</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="version-junit">
+            <defaultValue>${version.junit}</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="version-wildfly">
+            <defaultValue>${version.wildfly}</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="version-wildfly-arquillian">
+            <defaultValue>${version.wildfly.arquillian}</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="version-wildfly-camel">
+            <defaultValue>${project.version}</defaultValue>
+        </requiredProperty>
+
+        <!-- Plugin versions -->
+        <requiredProperty key="version-maven-compiler-plugin">
+            <defaultValue>${version-maven-compiler-plugin}</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="version-maven-surefire-plugin">
+            <defaultValue>${version-maven-surefire-plugin}</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="version-maven-war-plugin">
+            <defaultValue>${version-maven-war-plugin}</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="version-wildfly-maven-plugin">
+            <defaultValue>${version-wildfly-maven-plugin}</defaultValue>
+        </requiredProperty>
+    </requiredProperties>
+    <fileSets>
+        <fileSet filtered="true" packaged="true" encoding="UTF-8">
+            <directory>src/main/java</directory>
+            <includes>
+                <include>**/*.java</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>src/main/webapp/META-INF</directory>
+            <includes>
+                <include>**/*.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" packaged="true" encoding="UTF-8">
+            <directory>src/test/java</directory>
+            <includes>
+                <include>**/*.java</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="false" encoding="UTF-8">
+            <directory>src/test/resources</directory>
+            <includes>
+                <include>**/*.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory></directory>
+            <includes>
+                <include>**/*.md</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</archetype-descriptor>

@@ -1,0 +1,1 @@
+verify -Parq-managed -Djboss.home=${jboss.home} -Dserver.config=standalone.xml
