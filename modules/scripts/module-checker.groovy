@@ -72,14 +72,16 @@ class Module {
 class Resource {
     String name
     String version
+    boolean ignored
 
-    public Resource(String rawName) {
+    public Resource(String rawName, boolean ignored) {
         if (rawName.lastIndexOf("-") > -1) {
             this.name = "${rawName.substring(0, rawName.lastIndexOf("-"))}"
             this.version = rawName.substring(rawName.lastIndexOf("-") + 1, rawName.lastIndexOf("."))
         } else {
             this.name = rawName
         }
+        this.ignored = ignored
     }
 
     @Override
@@ -90,6 +92,7 @@ class Resource {
 }
 
 def paths = [properties.get("wildfly.module.dir"), properties.get("smartics.module.dir")]
+def ignoredDependencies = properties.ignoredDependencies != null ? new XmlParser().parseText(properties.ignoredDependencies) : []
 def modules = []
 def duplicateResources = []
 def problems = []
@@ -100,19 +103,19 @@ paths.each { path ->
         def parser = new XmlParser();
 
         if (file.name.equals("module.xml")) {
-            module = new Module()
-
             moduleXml = parser.parseText(file.getText())
-            moduleXml.resources."resource-root".@path.each { resource ->
-                if (resource.endsWith(".jar")) {
-                    module.resources << new Resource(resource)
-                }
-            }
 
+            module = new Module()
             module.name = moduleXml.attribute("name")
             module.slot = moduleXml.attribute("slot") ?: "main"
             module.layer = file.path.contains("layers/base") ? "base" : "fuse"
             module.path = "modules/system/layers/${module.layer}${file.parent.replace(path, "")}"
+            moduleXml.resources."resource-root".@path.each { resource ->
+                if (resource.endsWith(".jar")) {
+                    boolean ignoreDependency = (ignoredDependencies.dependency.find {it.module.text().equals(module.toString()) && resource.startsWith(it.resource.text()) } != null)
+                    module.resources << new Resource(resource, ignoreDependency)
+                }
+            }
 
             otherModule = modules.find { it.name.equals(module.name) && it.slot.equals(module.slot) }
             if (otherModule != null) {
@@ -128,10 +131,12 @@ paths.each { path ->
 modules.findAll { it.layer.equals("fuse") }.each { fuseModule ->
     modules.findAll { it.layer.equals("base") }.each { baseModule ->
         fuseModule.resources.each { resource ->
-            def duplicateResource = fuseModule.findDuplicateResource(baseModule, resource)
-            if(duplicateResource != null && !duplicateResources.contains(resource)) {
-                duplicateResources << resource
-                problems << "Duplicate dependency ${resource.name}\n\t${fuseModule.path}/${resource}\n\t${baseModule.path}/${duplicateResource}\n"
+            if (!resource.ignored) {
+                def duplicateResource = fuseModule.findDuplicateResource(baseModule, resource)
+                if(duplicateResource != null && !duplicateResources.contains(resource)) {
+                    duplicateResources << resource
+                    problems << "Duplicate dependency ${resource.name}\n\t${fuseModule.path}/${resource}\n\t${baseModule.path}/${duplicateResource}\n"
+                }
             }
         }
     }
