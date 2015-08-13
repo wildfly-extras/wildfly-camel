@@ -296,6 +296,8 @@ org/apache/abdera/factory
 org/apache/abdera/filter
 org/apache/abdera/model
 org/apache/abdera/parser
+org/apache/abdera/parser/stax
+org/apache/abdera/parser/stax/util
 org/apache/abdera/protocol
 org/apache/abdera/protocol/error
 org/apache/abdera/protocol/util

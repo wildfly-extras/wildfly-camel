@@ -5,6 +5,7 @@
   </resources>
   <dependencies>
     <module name="org.apache.abdera.core" />
-    <module name="org.apache.commons.logging" />
+    <module name="javax.activation.api" />
+    <module name="org.apache.commons.codec" />
   </dependencies>
 </module>

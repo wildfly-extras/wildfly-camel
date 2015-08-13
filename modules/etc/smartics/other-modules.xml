@@ -86,41 +86,24 @@
     
     <module name="org.apache.abdera.core">
         <include artifact="org.apache.abdera:abdera-core" />
-        <apply-to-dependencies skip="true">
-            <include module=".*" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.apache.commons.logging"/>
-            <module name="org.apache.abdera.i18n"/>
-            <module name="org.apache.abdera.parser"/>
         </dependencies>
     </module>
 
     <module name="org.apache.abdera.i18n">
         <include artifact="org.apache.abdera:abdera-i18n" />
-        <apply-to-dependencies skip="true">
-            <include module=".*" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="org.apache.abdera.core"/>
-            <module name="org.apache.commons.logging"/>
         </dependencies>
     </module>
 
     <module name="org.apache.abdera.parser">
         <include artifact="org.apache.abdera:abdera-parser" />
-        <apply-to-dependencies skip="true">
-            <include module=".*" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="javax.activation.api"/>
-            <module name="org.apache.commons.logging"/>
             <module name="org.apache.abdera.i18n"/>
-            <module name="org.apache.abdera.core"/>
-            <module name="org.apache.ws.commons.axiom.axiom-api"/>
-            <module name="org.apache.ws.commons.axiom.axiom-impl"/>
         </dependencies>
     </module>
 

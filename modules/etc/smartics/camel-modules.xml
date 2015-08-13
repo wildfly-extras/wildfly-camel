@@ -96,6 +96,7 @@
         <include artifact="org.apache.camel:camel-atom" />
         <apply-to-dependencies export="true">
             <include module="org.apache.abdera.core" />
+            <include module="org.apache.abdera.parser" />
         </apply-to-dependencies>
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />

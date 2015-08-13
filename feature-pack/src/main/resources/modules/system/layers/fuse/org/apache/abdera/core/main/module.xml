@@ -5,8 +5,8 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="org.apache.commons.logging" />
+    <module name="javax.activation.api" />
     <module name="org.apache.abdera.i18n" />
-    <module name="org.apache.abdera.parser" />
+    <module name="org.apache.commons.logging" />
   </dependencies>
 </module>
