@@ -8,7 +8,7 @@
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.kafka" />
+    <module name="org.apache.kafka" export="true" />
     <module name="org.scala.lang" />
   </dependencies>
 </module>

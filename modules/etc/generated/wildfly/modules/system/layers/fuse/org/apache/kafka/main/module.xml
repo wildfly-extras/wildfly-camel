@@ -14,4 +14,9 @@
     <module name="org.apache.zookeeper" />
     <module name="org.slf4j" />
   </dependencies>
+  <exports>
+    <exclude path="com/yammer**" />
+    <exclude path="joptsimple**" />
+    <exclude path="org/I0Itec**" />
+  </exports>
 </module>

@@ -149,6 +149,11 @@
             <module name="javax.api"/>
             <module name="org.scala.lang" />
         </dependencies>
+        <exports>
+            <exclude path="com/yammer**" />
+            <exclude path="joptsimple**" />
+            <exclude path="org/I0Itec**" />
+        </exports>
     </module>
     
     <module name="org.apache.kafka.clients">
