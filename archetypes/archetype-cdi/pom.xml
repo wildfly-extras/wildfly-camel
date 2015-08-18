@@ -28,6 +28,7 @@
     </parent>
 
     <name>Wildfly Camel :: Archetypes :: CDI</name>
+    <description>Creates a WildFly Camel CDI application</description>
     <artifactId>wildfly-camel-archetype-cdi</artifactId>
     <packaging>maven-archetype</packaging>
 

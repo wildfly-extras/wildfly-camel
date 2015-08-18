@@ -28,6 +28,7 @@
     </parent>
 
     <name>Wildfly Camel :: Archetypes :: Spring</name>
+    <description>Creates a WildFly Camel Spring application</description>
     <artifactId>wildfly-camel-archetype-spring</artifactId>
     <packaging>maven-archetype</packaging>
 
