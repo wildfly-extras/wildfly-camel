@@ -40,6 +40,7 @@
         <!-- Other versions -->
         <version.apache.camel>${version-apache-camel}</version.apache.camel>
         <version.jboss.arquillian>${version-jboss-arquillian}</version.jboss.arquillian>
+        <version.jboss.servlet.api>${version-jboss-servlet-api}</version.jboss.servlet.api>
         <version.junit>${version-junit}</version.junit>
         <version.wildfly.camel>${version-wildfly-camel}</version.wildfly.camel>
 
@@ -71,6 +72,20 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- Provided -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
+            <version>${version.apache.camel}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_3.1_spec</artifactId>
+            <version>${version.jboss.servlet.api}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>
@@ -93,6 +108,7 @@
 
     <!-- Build-->
     <build>
+        <finalName>${project.artifactId}</finalName>
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>

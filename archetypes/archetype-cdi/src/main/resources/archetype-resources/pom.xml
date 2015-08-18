@@ -42,6 +42,7 @@
         <version.apache.camel>${version-apache-camel}</version.apache.camel>
         <version.javax.enterprise>${version-javax-enterprise}</version.javax.enterprise>
         <version.jboss.arquillian>${version-jboss-arquillian}</version.jboss.arquillian>
+        <version.jboss.servlet.api>${version-jboss-servlet-api}</version.jboss.servlet.api>
         <version.jboss.spec.javax.ejb>${version-jboss-spec-javax-ejb}</version.jboss.spec.javax.ejb>
         <version.junit>${version-junit}</version.junit>
         <version.wildfly.camel>${version-wildfly-camel}</version.wildfly.camel>
@@ -95,6 +96,12 @@
             <version>${version.jboss.spec.javax.ejb}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_3.1_spec</artifactId>
+            <version>${version.jboss.servlet.api}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- Test -->
         <dependency>
@@ -118,6 +125,7 @@
 
     <!-- Build-->
     <build>
+        <finalName>${project.artifactId}</finalName>
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>

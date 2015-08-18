@@ -33,6 +33,7 @@
 
     <!-- Build -->
     <build>
+        <finalName>${project.artifactId}</finalName>
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
