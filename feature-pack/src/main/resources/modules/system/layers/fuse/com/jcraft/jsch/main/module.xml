@@ -3,5 +3,7 @@
   <resources>
     <artifact name="${com.jcraft:jsch}" />
   </resources>
-  <dependencies />
+  <dependencies>
+    <module name="javax.api" />
+  </dependencies>
 </module>

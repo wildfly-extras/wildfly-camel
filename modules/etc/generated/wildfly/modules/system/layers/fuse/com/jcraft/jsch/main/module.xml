@@ -3,5 +3,7 @@
   <resources>
     <resource-root path="jsch-0.1.51.jar" />
   </resources>
-  <dependencies />
+  <dependencies>
+    <module name="javax.api" />
+  </dependencies>
 </module>
