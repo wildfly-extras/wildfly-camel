@@ -28,6 +28,7 @@
     </parent>
 
     <name>Wildfly Camel :: Archetypes</name>
+    <groupId>org.wildfly.camel.archetypes</groupId>
     <artifactId>wildfly-camel-archetype</artifactId>
     <packaging>pom</packaging>
 
