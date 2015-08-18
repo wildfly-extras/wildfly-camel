@@ -41,6 +41,9 @@
 
     <module name="com.jcraft.jsch">
         <include artifact=":jsch" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
     </module>
 
     <module name="com.rometools.rome">

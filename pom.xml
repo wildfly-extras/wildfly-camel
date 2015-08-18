@@ -58,6 +58,7 @@
 
         <!-- Other versions -->
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
+        <version.apache.sshd.sftp>0.11.0</version.apache.sshd.sftp>
         <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
         <version.args4j>2.0.31</version.args4j>
         <version.codehaus.plexus.utils>3.0.15</version.codehaus.plexus.utils>
@@ -195,6 +196,18 @@
                 <groupId>org.apache.xmlbeans</groupId>
                 <artifactId>xmlbeans</artifactId>
                 <version>${version.apache.xmlbeans}</version>
+            </dependency>
+
+            <!-- FTP Server -->
+            <dependency>
+                <groupId>org.apache.ftpserver</groupId>
+                <artifactId>ftpserver-core</artifactId>
+                <version>${version.apache.ftpserver}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ftpserver</groupId>
+                <artifactId>ftplet-api</artifactId>
+                <version>${version.apache.ftpserver}</version>
             </dependency>
 
             <!-- Gravia -->
@@ -343,7 +356,14 @@
                 <artifactId>plexus-utils</artifactId>
                 <version>${version.codehaus.plexus.utils}</version>
             </dependency>
-            
+
+            <!-- SFTP -->
+            <dependency>
+                <groupId>org.apache.sshd</groupId>
+                <artifactId>sshd-sftp</artifactId>
+                <version>${version.apache.sshd.sftp}</version>
+            </dependency>
+
             <!-- Shrinkwrap -->
             <dependency>
                 <groupId>org.jboss.shrinkwrap</groupId>
