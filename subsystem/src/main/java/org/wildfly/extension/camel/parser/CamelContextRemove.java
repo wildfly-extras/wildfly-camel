@@ -56,17 +56,21 @@ final class CamelContextRemove extends AbstractRemoveStepHandler {
             }
         });
 
-        ServiceController<?> service = context.getServiceRegistry(false).getService(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME);
-        CamelContextRegistryService serviceRegistry = CamelContextRegistryService.class.cast(service.getService());
-        CamelContextRegistry camelContextRegistry = serviceRegistry.getValue();
-        CamelContext camelctx = camelContextRegistry.getCamelContext(propName);
-        try {
-            if (camelctx != null) {
-                camelctx.stop();
+        ServiceController<?> container = context.getServiceRegistry(false).getService(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME);
+        if (container != null) {
+            CamelContextRegistryService serviceRegistry = CamelContextRegistryService.class.cast(container.getService());
+            CamelContextRegistry camelContextRegistry = serviceRegistry.getValue();
+            if (camelContextRegistry != null) {
+                CamelContext camelctx = camelContextRegistry.getCamelContext(propName);
+                try {
+                    if (camelctx != null) {
+                        camelctx.stop();
+                    }
+                } catch (Exception e) {
+                    LOGGER.warn("Cannot stop camel context: " + camelctx.getName(), e);
+                    throw new OperationFailedException(e);
+                }
             }
-        } catch (Exception e) {
-            LOGGER.warn("Cannot stop camel context: " + camelctx.getName(), e);
-            throw new OperationFailedException(e);
         }
     }
 }

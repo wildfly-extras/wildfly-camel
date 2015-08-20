@@ -56,9 +56,16 @@ final class CamelContextAdd extends AbstractAddStepHandler {
         String propValue = CamelContextResource.VALUE.resolveModelAttribute(context, model).asString();
         subsystemState.putContextDefinition(propName, propValue.trim());
 
-        ServiceController<?> service = context.getServiceRegistry(false).getService(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME);
-        CamelContextRegistryService serviceRegistry = CamelContextRegistryService.class.cast(service.getService());
-        serviceRegistry.createCamelContext(CamelContextRegistry.class.getClassLoader(), propName, propValue);
+        ServiceController<?> container = context.getServiceRegistry(false).getService(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME);
+        if (container != null) {
+            CamelContextRegistryService serviceRegistry = CamelContextRegistryService.class.cast(container.getService());
+            CamelContextRegistry camelContextRegistry = serviceRegistry.getValue();
+            if (camelContextRegistry != null) {
+                if (camelContextRegistry.getCamelContext(propName) == null) {
+                    serviceRegistry.createCamelContext(CamelContextRegistry.class.getClassLoader(), propName, propValue);
+                }
+            }
+        }
     }
 
     @Override
