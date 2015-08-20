@@ -23,7 +23,10 @@ package org.wildfly.camel.test.zookeeper;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.PollingConsumer;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.ExchangeBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -37,7 +40,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class ZookeeperIntegrationTest {
+public class ZookeeperConsumerIntegrationTest {
 
     static EmbeddedZookeeperServer server;
 
@@ -61,24 +64,31 @@ public class ZookeeperIntegrationTest {
     }
 
     @Test
-    public void testZookeeperEndpoint() throws Exception {
+    public void testZookeeperConsumer() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").to("zookeeper://" + server.getConnection() + "/somenode?create=true");
+                from("zookeeper://" + server.getConnection() + "/somenode").to("direct:end");
             }
         });
 
+        PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
+        pollingConsumer.start();
+
         camelctx.start();
         try {
+            // Write payload to znode
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            String result = producer.requestBody("direct:start", "Kermit", String.class);
-            Assert.assertEquals("/somenode", result);
+            Exchange exchange = ExchangeBuilder.anExchange(camelctx).withBody("Kermit").build();
+            producer.send("zookeeper://" + server.getConnection() + "/somenode?create=true", exchange);
+
+            // Read back from the znode
+            String result = pollingConsumer.receive().getIn().getBody(String.class);
+            Assert.assertEquals("Kermit", result);
         } finally {
             camelctx.stop();
         }
     }
-
 }
