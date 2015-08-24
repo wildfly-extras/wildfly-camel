@@ -79,6 +79,7 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
             }
         } else {
             moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create(APACHE_CAMEL_COMPONENT_MODULE), false, false, true, false);
+            moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
             moddep.addImportFilter(PathFilters.isOrIsChildOf("META-INF/cxf"), true);
             moduleSpec.addUserDependency(moddep);
         }
