@@ -17,8 +17,8 @@ package org.wildfly.camel.test.config;
 
 import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_CAMEL;
 import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAIN;
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_WELD;
 import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_SECURITY;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_WELD;
 
 import java.net.URL;
 import java.nio.file.Paths;
@@ -31,10 +31,10 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.junit.Assert;
 import org.junit.Test;
-import org.wildfly.extension.camel.config.ConfigContext;
-import org.wildfly.extension.camel.config.ConfigPlugin;
-import org.wildfly.extension.camel.config.ConfigSupport;
 import org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin;
+import org.wildfly.extras.config.ConfigContext;
+import org.wildfly.extras.config.ConfigPlugin;
+import org.wildfly.extras.config.ConfigSupport;
 
 public class StandaloneConfigTest {
 

@@ -27,10 +27,10 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.junit.Assert;
 import org.junit.Test;
-import org.wildfly.extension.camel.config.ConfigContext;
-import org.wildfly.extension.camel.config.ConfigPlugin;
-import org.wildfly.extension.camel.config.ConfigSupport;
 import org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin;
+import org.wildfly.extras.config.ConfigContext;
+import org.wildfly.extras.config.ConfigPlugin;
+import org.wildfly.extras.config.ConfigSupport;
 
 public class DomainConfigTest {
 
