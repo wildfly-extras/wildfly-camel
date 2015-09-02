@@ -69,11 +69,10 @@
         </exports>
     </module>
     
-    <module name="org.wildfly.extension.camel.config">
+    <module name="org.wildfly.extras.config.plugin.camel">
         <include artifact=":wildfly-camel-config" />
-        <main-class name="org.wildfly.extension.camel.config.internal.Main"/>
         <dependencies>
-            <module name="javax.api" />
+            <module name="org.jdom" />
         </dependencies>
     </module>
     

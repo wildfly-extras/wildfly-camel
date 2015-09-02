@@ -47,6 +47,9 @@ import org.wildfly.extension.camel.handler.PackageScanClassResolverAssociationHa
 
 public class PackageScanResolverTest {
 
+    private static final String IMPL_CLASS_PATH = "org/wildfly/camel/test/types";
+    private static final String IMPL_CLASS_NAME = IMPL_CLASS_PATH.replace('/', '.')  + ".MyRuntimeException";
+
     @Test
     public void testDirectModule() throws Exception {
 
@@ -64,7 +67,7 @@ public class PackageScanResolverTest {
         CamelContext camelctx = new DefaultCamelContext();
         PackageScanClassResolver resolver = setupPackageScanClassResolver(classloaderA, camelctx);
 
-        Set<Class<?>> result = resolver.findImplementations(RuntimeException.class, "org/wildfly/extension/camel/config");
+        Set<Class<?>> result = resolver.findImplementations(RuntimeException.class, IMPL_CLASS_PATH);
         assertResolverResult(modidA, result);
     }
 
@@ -90,7 +93,7 @@ public class PackageScanResolverTest {
         CamelContext camelctx = new DefaultCamelContext();
         PackageScanClassResolver resolver = setupPackageScanClassResolver(classloaderB, camelctx);
 
-        Set<Class<?>> result = resolver.findImplementations(RuntimeException.class, "org/wildfly/extension/camel/config");
+        Set<Class<?>> result = resolver.findImplementations(RuntimeException.class, IMPL_CLASS_PATH);
         assertResolverResult(modidA, result);
     }
 
@@ -109,7 +112,7 @@ public class PackageScanResolverTest {
     private void assertResolverResult(ModuleIdentifier modid, Set<Class<?>> result) {
         Assert.assertEquals(1, result.size());
         Class<?> foundType = result.iterator().next();
-        Assert.assertEquals("org.wildfly.extension.camel.config.ConfigException", foundType.getName());
+        Assert.assertEquals(IMPL_CLASS_NAME, foundType.getName());
         ModuleClassLoader modcl = (ModuleClassLoader) foundType.getClassLoader();
         Assert.assertEquals(modid, modcl.getModule().getIdentifier());
     }
@@ -117,8 +120,8 @@ public class PackageScanResolverTest {
     // A module that contains a class that is not on the surefire classpath
     private JavaArchive getModuleA() throws IOException {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "moduleA.jar");
-        URLClassLoader classloader = new URLClassLoader(new URL[] {Paths.get("../../config/target/classes").toUri().toURL()});
-        archive.addClass("org.wildfly.extension.camel.config.ConfigException", classloader);
+        URLClassLoader classloader = new URLClassLoader(new URL[] {Paths.get("../../config/target/test-classes").toUri().toURL()});
+        archive.addClass(IMPL_CLASS_NAME, classloader);
         return archive;
     }
 }

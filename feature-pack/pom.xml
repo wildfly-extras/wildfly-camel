@@ -58,6 +58,18 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>org.wildfly.extras.patch</groupId>
+            <artifactId>fuse-patch-feature-pack</artifactId>
+            <version>${version.fusepatch}</version>
+            <type>zip</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
             <groupId>io.hawt</groupId>
             <artifactId>hawtio-wildfly</artifactId>
             <type>war</type>
@@ -90,6 +102,10 @@
                         <exclude>
                             <groupId>org.wildfly</groupId>
                             <artifactId>wildfly-feature-pack</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.wildfly.extras.patch</groupId>
+                            <artifactId>fuse-patch-feature-pack</artifactId>
                         </exclude>
                         <exclude>
                             <groupId>io.hawt</groupId>

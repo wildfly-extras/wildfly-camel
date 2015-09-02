@@ -1,8 +1,8 @@
 /*
  * #%L
- * Fuse Patch :: Core
+ * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2015 Private
+ * Copyright (C) 2013 - 2014 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,21 +17,11 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.extension.camel.config.internal;
 
-import org.kohsuke.args4j.Option;
+package org.wildfly.camel.test.types;
 
-final class Options {
 
-    @Option(name = "--help", help = true)
-    boolean help;
+@SuppressWarnings("serial")
+public class MyRuntimeException extends RuntimeException {
 
-    @Option(name = "--configs", usage = "The configurations to enable/disable")
-    String configs;
-
-    @Option(name = "--enable", forbids = { "--disable" }, usage = "Enable the given configurations")
-    boolean enable;
-
-    @Option(name = "--disable", forbids = { "--enable" }, usage = "Disable the given configurations")
-    boolean disable;
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.wildfly.extras.config.plugin.camel">
+  <resources>
+    <resource-root path="wildfly-camel-config-3.1.0-SNAPSHOT.jar" />
+  </resources>
+  <dependencies>
+    <module name="org.jdom" />
+    <module name="org.wildfly.extras.config" />
+  </dependencies>
+</module>

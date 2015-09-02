@@ -17,17 +17,19 @@ package org.wildfly.extension.camel.config;
 
 import java.net.URL;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jdom.Element;
 import org.jdom.Namespace;
 import org.jdom.Text;
+import org.wildfly.extras.config.ConfigContext;
+import org.wildfly.extras.config.ConfigPlugin;
+import org.wildfly.extras.config.ConfigSupport;
+import org.wildfly.extras.config.LayerConfig;
 
 public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
 
-    public static LayerConfig FUSE_LAYER_CONFIG = new LayerConfig("fuse", LayerConfig.Type.INSTALLING, -10);
-    
     public static final Namespace NS_DOMAIN = Namespace.getNamespace("urn:jboss:domain:3.0");
     public static final Namespace NS_CAMEL = Namespace.getNamespace("urn:jboss:domain:camel:1.0");
     public static final Namespace NS_LOGGING = Namespace.getNamespace("urn:jboss:domain:logging:1.5");
@@ -41,7 +43,7 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
 
     @Override
     public List<LayerConfig> getLayerConfigs() {
-        return Arrays.asList(FUSE_LAYER_CONFIG);
+        return Arrays.asList(LayerConfig.FUSE_LAYER);
     }
 
     @Override
@@ -87,15 +89,15 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
             rootElement.addContent(pos + 1, new Text("\n"));
         }
 
-        LinkedHashMap<String, Element> propertiesByName = ConfigSupport.mapByAttributeName(element.getChildren(), "name");
+        Map<String, Element> propertiesByName = ConfigSupport.mapByAttributeName(element.getChildren(), "name");
         if (enable) {
             addProperty(element, propertiesByName, "hawtio.authenticationEnabled", "true");
             addProperty(element, propertiesByName, "hawtio.offline", "true");
             addProperty(element, propertiesByName, "hawtio.realm", "hawtio-domain");
         } else {
-            rmProperty(propertiesByName, "hawtio.authenticationEnabled");
-            rmProperty(propertiesByName, "hawtio.offline");
-            rmProperty(propertiesByName, "hawtio.realm");
+            removeProperty(propertiesByName, "hawtio.authenticationEnabled");
+            removeProperty(propertiesByName, "hawtio.offline");
+            removeProperty(propertiesByName, "hawtio.realm");
         }
     }
 
@@ -162,7 +164,7 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
         }
     }
 
-    private static void addProperty(Element systemProperties, LinkedHashMap<String, Element> propertiesByName, String name, String value) {
+    private static void addProperty(Element systemProperties, Map<String, Element> propertiesByName, String name, String value) {
         if (!propertiesByName.containsKey(name)) {
             systemProperties.addContent(new Text("   "));
             systemProperties.addContent(new Element("property", NS_DOMAIN).setAttribute("name", name).setAttribute("value", value));
@@ -170,7 +172,7 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
         }
     }
 
-    private static void rmProperty(LinkedHashMap<String, Element> propertiesByName, String name) {
+    private static void removeProperty(Map<String, Element> propertiesByName, String name) {
         Element element = propertiesByName.get(name);
         if (element != null) {
             element.getParentElement().removeContent(element);
