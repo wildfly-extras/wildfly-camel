@@ -19,6 +19,9 @@
  */
 package ${package};
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -30,13 +33,9 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
 public class MyTest {
-
-    @ArquillianResource
-    CamelContextRegistry contextRegistry;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -47,8 +46,9 @@ public class MyTest {
     }
 
     @Test
-    public void testMyRoute() {
-        CamelContext camelContext = contextRegistry.getCamelContext("cdi-context");
+    public void testMyRoute() throws NamingException {
+        InitialContext context = new InitialContext();
+        CamelContext camelContext = (CamelContext) context.lookup("java:jboss/camel/context/cdi-context");
         Assert.assertNotNull("Expecting camelContext to not be null", camelContext);
 
         ProducerTemplate producerTemplate = camelContext.createProducerTemplate();
