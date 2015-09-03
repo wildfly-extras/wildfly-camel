@@ -29,6 +29,7 @@
     <name>WildFly Camel Spring Application</name>
     <url>http://www.myorganization.org</url>
 
+    <!-- Properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -58,6 +59,7 @@
         <server.config>standalone-camel.xml</server.config>
     </properties>
 
+    <!-- DependencyManagement -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -70,6 +72,7 @@
         </dependencies>
     </dependencyManagement>
 
+    <!-- Dependencies -->
     <dependencies>
         <!-- Provided -->
         <dependency>

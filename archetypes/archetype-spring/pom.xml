@@ -46,7 +46,7 @@
                 <directory>src/test/resources/projects/test-archetype-spring</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>**/*</include>
+                    <include>**/*.properties</include>
                 </includes>
             </testResource>
         </testResources>
