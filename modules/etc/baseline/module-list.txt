@@ -56,9 +56,7 @@
 /org/apache/camel/component/ognl/main/camel-ognl-2.15.2.jar
 /org/apache/camel/component/protobuf/main/camel-protobuf-2.15.2.jar
 /org/apache/camel/component/protobuf/main/protobuf-java-2.6.1.jar
-/org/apache/camel/component/quartz2/main/c3p0-0.9.1.2.jar
 /org/apache/camel/component/quartz2/main/camel-quartz2-2.15.2.jar
-/org/apache/camel/component/quartz2/main/quartz-2.2.1.jar
 /org/apache/camel/component/restlet/main/camel-restlet-2.15.2.jar
 /org/apache/camel/component/rss/main/camel-rss-2.15.2.jar
 /org/apache/camel/component/salesforce/main/bayeux-api-2.4.3.jar
@@ -145,6 +143,8 @@
 /org/mvel/mvel2/main/mvel2-2.2.1.Final.jar
 /org/osgi/core/main/org.osgi.core-4.3.1.jar
 /org/osgi/enterprise/main/org.osgi.enterprise-5.0.0.jar
+/org/quartz/main/c3p0-0.9.1.2.jar
+/org/quartz/main/quartz-2.2.1.jar
 /org/restlet/main/org.restlet-2.2.3.jar
 /org/restlet/main/org.restlet.ext.httpclient-2.2.3.jar
 /org/scala/lang/main/scala-compiler-2.10.0.jar
