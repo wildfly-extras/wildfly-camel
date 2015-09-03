@@ -270,6 +270,18 @@
         </dependencies>
     </module>
 
+    <module name="org.quartz">
+        <include artifact="org.quartz-scheduler:quartz" />
+        <include artifact="c3p0:c3p0" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+        <exports>
+            <exclude path="com/mchange**" />
+            <exclude path="org/terracotta**" />
+        </exports>
+    </module>
+
     <module name="org.restlet">
         <include artifact=":org.restlet" />
         <include artifact=":org.restlet.ext.httpclient" />
