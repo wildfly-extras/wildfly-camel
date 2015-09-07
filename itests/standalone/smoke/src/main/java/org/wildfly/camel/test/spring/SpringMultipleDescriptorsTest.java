@@ -52,6 +52,7 @@ public class SpringMultipleDescriptorsTest {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-multiple-tests");
         archive.addAsResource("spring/transform1-camel-context.xml", "transform1-camel-context.xml");
         archive.addAsResource("spring/transform2-camel-context.xml", "somedir/transform2-camel-context.xml");
+        archive.addAsResource("spring/transform3-camel-context.xml", "transform3-camel-context.xml");
         return archive;
     }
 
@@ -71,5 +72,23 @@ public class SpringMultipleDescriptorsTest {
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);
         Assert.assertEquals("Hello2 Kermit", result);
+    }
+
+    @Test
+    public void testTransform3() throws Exception {
+        CamelContext camelctx = contextRegistry.getCamelContext("transform3");
+        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
+        ProducerTemplate producer = camelctx.createProducerTemplate();
+        String result = producer.requestBody("direct:start", "Kermit", String.class);
+        Assert.assertEquals("Hello3 Kermit", result);
+    }
+
+    @Test
+    public void testTransform4() throws Exception {
+        CamelContext camelctx = contextRegistry.getCamelContext("transform4");
+        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
+        ProducerTemplate producer = camelctx.createProducerTemplate();
+        String result = producer.requestBody("direct:start", "Kermit", String.class);
+        Assert.assertEquals("Hello4 Kermit", result);
     }
 }

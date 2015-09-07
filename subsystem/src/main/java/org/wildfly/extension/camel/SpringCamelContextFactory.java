@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,10 +23,14 @@ package org.wildfly.extension.camel;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.spring.SpringCamelContext;
 import org.apache.camel.spring.handler.CamelNamespaceHandler;
+import org.jboss.gravia.utils.IllegalStateAssertion;
 import org.springframework.beans.factory.xml.NamespaceHandler;
 import org.springframework.beans.factory.xml.NamespaceHandlerResolver;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
@@ -54,20 +58,30 @@ public final class SpringCamelContextFactory {
     }
 
     /**
-     * Create a {@link SpringCamelContext} from the given URL
+     * Create a single {@link SpringCamelContext} from the given URL
+     * @throws IllegalStateException if the given URL does not contain a single context definition
      */
-    public static CamelContext createSpringCamelContext(URL contextUrl, ClassLoader classsLoader) throws Exception {
-        return createSpringCamelContext(new UrlResource(contextUrl), classsLoader);
+    public static SpringCamelContext createSingleCamelContext(URL contextUrl, ClassLoader classsLoader) throws Exception {
+        List<SpringCamelContext> list = createCamelContextList(new UrlResource(contextUrl), classsLoader);
+        IllegalStateAssertion.assertEquals(1, list.size(), "Single context expected in: " + contextUrl);
+        return list.get(0);
     }
 
     /**
-     * Create a {@link SpringCamelContext} from the given bytes
+     * Create a {@link SpringCamelContext} list from the given URL
      */
-    public static CamelContext createSpringCamelContext(byte[] bytes, ClassLoader classsLoader) throws Exception {
-        return createSpringCamelContext(new ByteArrayResource(bytes), classsLoader);
+    public static List<SpringCamelContext> createCamelContextList(URL contextUrl, ClassLoader classsLoader) throws Exception {
+        return createCamelContextList(new UrlResource(contextUrl), classsLoader);
     }
 
-    private static  CamelContext createSpringCamelContext(Resource resource, ClassLoader classLoader) throws Exception {
+    /**
+     * Create a {@link SpringCamelContext} list from the given bytes
+     */
+    public static List<SpringCamelContext> createCamelContextList(byte[] bytes, ClassLoader classsLoader) throws Exception {
+        return createCamelContextList(new ByteArrayResource(bytes), classsLoader);
+    }
+
+    private static List<SpringCamelContext> createCamelContextList(Resource resource, ClassLoader classLoader) throws Exception {
         GenericApplicationContext appContext = new GenericApplicationContext();
         appContext.setClassLoader(classLoader);
         XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(appContext) {
@@ -97,7 +111,12 @@ public final class SpringCamelContextFactory {
         });
         xmlReader.loadBeanDefinitions(resource);
         appContext.refresh();
-        return SpringCamelContext.springCamelContext(appContext);
+
+        List<SpringCamelContext> result = new ArrayList<>();
+        for (String name : appContext.getBeanNamesForType(SpringCamelContext.class)) {
+            result.add(appContext.getBean(name, SpringCamelContext.class));
+        }
+        return Collections.unmodifiableList(result);
     }
 
     private static class CamelNamespaceHandlerResolver implements NamespaceHandlerResolver {

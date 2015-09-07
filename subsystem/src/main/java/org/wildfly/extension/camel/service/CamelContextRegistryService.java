@@ -128,7 +128,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         try {
             Thread.currentThread().setContextClassLoader(classLoader);
             String beansXML = getBeansXML(name, contextDefinition);
-            SpringCamelContextFactory.createSpringCamelContext(beansXML.getBytes(), classLoader);
+            SpringCamelContextFactory.createCamelContextList(beansXML.getBytes(), classLoader);
         } catch (Exception ex) {
             throw new IllegalStateException("Cannot create camel context: " + name, ex);
         } finally {
