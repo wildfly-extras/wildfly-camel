@@ -213,7 +213,6 @@
                 <module>smoke</module>
                 <module>basic</module>
                 <module>extra</module>
-                <module>examples</module>
             </modules>
         </profile>
     </profiles>

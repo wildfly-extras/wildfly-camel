@@ -66,6 +66,7 @@
                 <module>camel-jpa</module>
                 <module>camel-rest</module>
                 <module>camel-transacted-jms</module>
+                <module>itests</module>
             </modules>
         </profile>
     </profiles>
