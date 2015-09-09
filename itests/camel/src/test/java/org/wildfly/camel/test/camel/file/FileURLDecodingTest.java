@@ -32,7 +32,6 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class FileURLDecodingTest {
@@ -55,26 +54,8 @@ public class FileURLDecodingTest {
     }
 
     @Test
-    @Ignore("[ENTESB-3012] Camel URL decoding not deterministic")
-    public void testFile2B() throws Exception {
-        assertTargetFile("data%2B.txt", "data+.txt");
-    }
-
-    @Test
     public void testFileRawPlus() throws Exception {
         assertTargetFile("RAW(data+.txt)", "data+.txt");
-    }
-
-    @Test
-    @Ignore("[ENTESB-3012] Camel URL decoding not deterministic")
-    public void testFileRawSpace() throws Exception {
-        assertTargetFile("RAW(data%20.txt)", "data%20.txt");
-    }
-
-    @Test
-    @Ignore("[ENTESB-3012] Camel URL decoding not deterministic")
-    public void testFileRaw2520() throws Exception {
-        assertTargetFile("RAW(data%2520.txt)", "data%2520.txt");
     }
 
     private void assertTargetFile(final String encoded, final String expected) throws Exception, FileNotFoundException, IOException {
