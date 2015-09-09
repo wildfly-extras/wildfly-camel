@@ -56,11 +56,6 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
             return;
         }
 
-        // No camel module dependencies for hawtio
-        String runtimeName = depUnit.getName();
-        if (runtimeName.startsWith("hawtio") && runtimeName.endsWith(".war"))
-            return;
-
         ModuleLoader moduleLoader = depUnit.getAttachment(Attachments.SERVICE_MODULE_LOADER);
         ModuleSpecification moduleSpec = depUnit.getAttachment(Attachments.MODULE_SPECIFICATION);
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(GRAVIA_MODULE), false, false, false, false));

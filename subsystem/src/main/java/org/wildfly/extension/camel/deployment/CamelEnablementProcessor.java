@@ -28,15 +28,14 @@ import org.jboss.vfs.VirtualFile;
 import org.wildfly.extension.camel.CamelConstants;
 
 /**
- * A DUP that detects switchyard deployments
+ * A DUP that determines whether to enable the camel subsystem for a given deployment
  *
  * @author Thomas.Diesler@jboss.com
  * @since 20-May-2015
  */
-public final class SwitchyardDeploymentProcessor implements DeploymentUnitProcessor {
+public final class CamelEnablementProcessor implements DeploymentUnitProcessor {
 
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
-
         DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
         CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
         if (depSettings == null) {
@@ -44,13 +43,19 @@ public final class SwitchyardDeploymentProcessor implements DeploymentUnitProces
             depUnit.putAttachment(CamelDeploymentSettings.ATTACHMENT_KEY, depSettings);
         }
 
+        // Skip wiring wfc for SwitchYard deployments
         VirtualFile rootFile = depUnit.getAttachment(Attachments.DEPLOYMENT_ROOT).getRoot();
         if (rootFile.getChild(CamelConstants.SWITCHYARD_MARKER_FILE).exists()) {
+            depSettings.setEnabled(false);
+        }
+
+        // Skip wiring wfc for hawtio and resource adapter deployments
+        String runtimeName = depUnit.getName();
+        if ((runtimeName.startsWith("hawtio") && runtimeName.endsWith(".war")) || runtimeName.endsWith(".rar")) {
             depSettings.setEnabled(false);
         }
     }
 
     public void undeploy(DeploymentUnit context) {
     }
-
 }
