@@ -47,28 +47,18 @@
         </repository>
     </repositories>
 
-    <!-- Profiles -->
-    <profiles>
-        <profile>
-            <id>ts.all</id>
-            <activation>
-                <property>
-                    <name>ts.all</name>
-                </property>
-            </activation>
-            <modules>
-                <module>camel-activemq</module>
-                <module>camel-cxf</module>
-                <module>camel-cdi</module>
-                <module>camel-mail</module>
-                <module>camel-jaxws</module>
-                <module>camel-jms</module>
-                <module>camel-jpa</module>
-                <module>camel-rest</module>
-                <module>camel-transacted-jms</module>
-                <module>itests</module>
-            </modules>
-        </profile>
-    </profiles>
+    <!-- Modules -->
+    <modules>
+        <module>camel-activemq</module>
+        <module>camel-cxf</module>
+        <module>camel-cdi</module>
+        <module>camel-mail</module>
+        <module>camel-jaxws</module>
+        <module>camel-jms</module>
+        <module>camel-jpa</module>
+        <module>camel-rest</module>
+        <module>camel-transacted-jms</module>
+        <module>itests</module>
+    </modules>
 
 </project>

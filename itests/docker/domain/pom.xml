@@ -42,7 +42,6 @@
         <docker.cmd.slave>--domain-config domain-camel.xml --host-config host-camel-slave.xml -b 0.0.0.0 -bmanagement 0.0.0.0</docker.cmd.slave>
         <wildfly.mgmt.username>admin</wildfly.mgmt.username>
         <wildfly.mgmt.password>admin</wildfly.mgmt.password>
-        <test.skip>true</test.skip>
     </properties>
     
     <!-- Dependencies -->
@@ -59,215 +58,186 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.jolokia</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>start-containers</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>${docker.image.name}</name>
+                                    <alias>${docker.alias.master}</alias>
+                                    <run>
+                                        <env>
+                                            <WILDFLY_MANAGEMENT_USER>${wildfly.mgmt.username}</WILDFLY_MANAGEMENT_USER>
+                                            <WILDFLY_MANAGEMENT_PASSWORD>${wildfly.mgmt.password}</WILDFLY_MANAGEMENT_PASSWORD>
+                                        </env>
+                                        <ports>
+                                            <port>9990:9990</port>
+                                        </ports>
+                                        <cmd>${docker.cmd.master}</cmd>
+                                        <log>
+                                            <enabled>true</enabled>
+                                        </log>
+                                    </run>
+                                </image>
+                                <image>
+                                    <name>${docker.image.name}</name>
+                                    <alias>${docker.alias.slave}</alias>
+                                    <run>
+                                        <env>
+                                            <WILDFLY_MANAGEMENT_USER>${wildfly.mgmt.username}</WILDFLY_MANAGEMENT_USER>
+                                            <WILDFLY_MANAGEMENT_PASSWORD>${wildfly.mgmt.password}</WILDFLY_MANAGEMENT_PASSWORD>
+                                        </env>
+                                        <ports>
+                                            <port>8181:8080</port>
+                                        </ports>
+                                        <links>
+                                            <link>${docker.alias.master}:domain-controller</link>
+                                        </links>
+                                        <cmd>${docker.cmd.slave}</cmd>
+                                        <log>
+                                            <enabled>true</enabled>
+                                        </log>
+                                        <wait>
+                                            <url>http://${env.DOCKER_IP}:8181</url>
+                                            <time>30000</time>
+                                        </wait>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop-containers</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <alias>${docker.alias.slave}</alias>
+                                </image>
+                                <image>
+                                    <alias>${docker.alias.master}</alias>
+                                </image>
+                            </images>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <!-- [FIXME #175] Deployment fails with missing/unavailable dependencies -->
+                                <sleep seconds="10" />
+
+                                <echo>=========================================================================</echo>
+                                <echo>docker run --rm -ti -p 9990:9990 -e WILDFLY_MANAGEMENT_USER=${wildfly.mgmt.username} -e WILDFLY_MANAGEMENT_PASSWORD=${wildfly.mgmt.password} --name=${docker.alias.master} ${docker.image.name} ${docker.cmd.master}</echo>
+                                <echo>docker run --rm -ti -p 8181:8080 -e WILDFLY_MANAGEMENT_USER=${wildfly.mgmt.username} -e WILDFLY_MANAGEMENT_PASSWORD=${wildfly.mgmt.password} --link ${docker.alias.master}:domain-controller --name=${docker.alias.slave} ${docker.image.name} ${docker.cmd.slave}</echo>
+                                <echo>=========================================================================</echo>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>get-domain-master-ip</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>
+                                // List all running containers
+                                def proc = ["docker", "ps", "-q"].execute()
+                                proc.waitFor()
+
+                                if (proc.exitValue() == 0) {
+                                    def containerIds = proc.in.text
+                                    containerIds.split("\n").each { containerId -&gt;
+                                        // If the container exposes port 9990 assume it's the domain master
+                                        def portProc = ["docker", "inspect", "--format='{{(index (index .NetworkSettings.Ports \"9990/tcp\") 0).HostPort}}'", containerId].execute()
+                                        portProc.waitFor()
+
+                                        if(portProc.exitValue() == 0) {
+                                            // Get the container IP address and store in a Maven property
+                                            ipProc = ["docker", "inspect", "--format='{{ .NetworkSettings.IPAddress }}'", containerId].execute()
+                                            ipProc.waitFor()
+
+                                            if(ipProc.exitValue() == 0) {
+                                                project.properties.setProperty("wildfly.mgmt.address", ipProc.in.text)
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    fail("Unable to determine running containers")
+                                }
+                            </source>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>set-selinux-properties</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>
+                                // Change target directory SELinux label on environments that support it
+                                if (System.properties['os.name'].toLowerCase().equals('linux')) {
+                                    def proc = ["which", "chcon"].execute()
+                                    proc.waitFor()
+                                    if(proc.exitValue() == 0) {
+                                        "chcon -Rt svirt_sandbox_file_t ${project.build.directory}".execute()
+                                    }
+                                }
+                            </source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <skip>${test.skip}</skip>
+                    <skip>true</skip>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <wildfly.mgmt.address>${wildfly.mgmt.address}</wildfly.mgmt.address>
+                                <wildfly.mgmt.username>${wildfly.mgmt.username}</wildfly.mgmt.username>
+                                <wildfly.mgmt.password>${wildfly.mgmt.password}</wildfly.mgmt.password>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
 
-    <!-- Profiles -->
-    <profiles>
-        <profile>
-            <!-- Requires DOCKER_HOST -->
-            <id>docker</id>
-            <activation>
-                <property>
-                    <name>docker</name>
-                </property>
-            </activation>
-
-            <properties>
-                <test.skip>false</test.skip>
-            </properties>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.jolokia</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>start-containers</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>start</goal>
-                                </goals>
-                                <configuration>
-                                    <images>
-                                        <image>
-                                            <name>${docker.image.name}</name>
-                                            <alias>${docker.alias.master}</alias>
-                                            <run>
-                                                <env>
-                                                    <WILDFLY_MANAGEMENT_USER>${wildfly.mgmt.username}</WILDFLY_MANAGEMENT_USER>
-                                                    <WILDFLY_MANAGEMENT_PASSWORD>${wildfly.mgmt.password}</WILDFLY_MANAGEMENT_PASSWORD>
-                                                </env>
-                                                <ports>
-                                                    <port>9990:9990</port>
-                                                </ports>
-                                                <cmd>${docker.cmd.master}</cmd>
-                                                <log>
-                                                    <enabled>true</enabled>
-                                                </log>
-                                            </run>
-                                        </image>
-                                        <image>
-                                            <name>${docker.image.name}</name>
-                                            <alias>${docker.alias.slave}</alias>
-                                            <run>
-                                                <env>
-                                                    <WILDFLY_MANAGEMENT_USER>${wildfly.mgmt.username}</WILDFLY_MANAGEMENT_USER>
-                                                    <WILDFLY_MANAGEMENT_PASSWORD>${wildfly.mgmt.password}</WILDFLY_MANAGEMENT_PASSWORD>
-                                                </env>
-                                                <ports>
-                                                    <port>8181:8080</port>
-                                                </ports>
-                                                <links>
-                                                    <link>${docker.alias.master}:domain-controller</link>
-                                                </links>
-                                                <cmd>${docker.cmd.slave}</cmd>
-                                                <log>
-                                                    <enabled>true</enabled>
-                                                </log>
-                                                <wait>
-                                                    <url>http://${env.DOCKER_IP}:8181</url>
-                                                    <time>30000</time>
-                                                </wait>
-                                            </run>
-                                        </image>
-                                    </images>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>stop-containers</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>stop</goal>
-                                </goals>
-                                <configuration>
-                                    <images>
-                                        <image>
-                                            <alias>${docker.alias.slave}</alias>
-                                        </image>
-                                        <image>
-                                            <alias>${docker.alias.master}</alias>
-                                        </image>
-                                    </images>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <!-- [FIXME #175] Deployment fails with missing/unavailable dependencies -->
-                                        <sleep seconds="10" />
-
-                                        <echo>=========================================================================</echo>
-                                        <echo>docker run --rm -ti -p 9990:9990 -e WILDFLY_MANAGEMENT_USER=${wildfly.mgmt.username} -e WILDFLY_MANAGEMENT_PASSWORD=${wildfly.mgmt.password} --name=${docker.alias.master} ${docker.image.name} ${docker.cmd.master}</echo>
-                                        <echo>docker run --rm -ti -p 8181:8080 -e WILDFLY_MANAGEMENT_USER=${wildfly.mgmt.username} -e WILDFLY_MANAGEMENT_PASSWORD=${wildfly.mgmt.password} --link ${docker.alias.master}:domain-controller --name=${docker.alias.slave} ${docker.image.name} ${docker.cmd.slave}</echo>
-                                        <echo>=========================================================================</echo>
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.gmaven</groupId>
-                        <artifactId>groovy-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>get-domain-master-ip</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <configuration>
-                                    <source>
-                                        // List all running containers
-                                        def proc = ["docker", "ps", "-q"].execute()
-                                        proc.waitFor()
-
-                                        if (proc.exitValue() == 0) {
-                                            def containerIds = proc.in.text
-                                            containerIds.split("\n").each { containerId -&gt;
-                                                // If the container exposes port 9990 assume it's the domain master
-                                                def portProc = ["docker", "inspect", "--format='{{(index (index .NetworkSettings.Ports \"9990/tcp\") 0).HostPort}}'", containerId].execute()
-                                                portProc.waitFor()
-
-                                                if(portProc.exitValue() == 0) {
-                                                    // Get the container IP address and store in a Maven property
-                                                    ipProc = ["docker", "inspect", "--format='{{ .NetworkSettings.IPAddress }}'", containerId].execute()
-                                                    ipProc.waitFor()
-
-                                                    if(ipProc.exitValue() == 0) {
-                                                        project.properties.setProperty("wildfly.mgmt.address", ipProc.in.text)
-                                                    }
-                                                }
-                                            }
-                                        } else {
-                                            fail("Unable to determine running containers")
-                                        }
-                                    </source>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>set-selinux-properties</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <configuration>
-                                    <source>
-                                        // Change target directory SELinux label on environments that support it
-                                        if (System.properties['os.name'].toLowerCase().equals('linux')) {
-                                            def proc = ["which", "chcon"].execute()
-                                            proc.waitFor()
-                                            if(proc.exitValue() == 0) {
-                                                "chcon -Rt svirt_sandbox_file_t ${project.build.directory}".execute()
-                                            }
-                                        }
-                                    </source>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <configuration>
-                                    <skip>false</skip>
-                                    <systemPropertyVariables>
-                                        <wildfly.mgmt.address>${wildfly.mgmt.address}</wildfly.mgmt.address>
-                                        <wildfly.mgmt.username>${wildfly.mgmt.username}</wildfly.mgmt.username>
-                                        <wildfly.mgmt.password>${wildfly.mgmt.password}</wildfly.mgmt.password>
-                                    </systemPropertyVariables>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
