@@ -45,6 +45,17 @@
         <module>archetype-spring</module>
     </modules>
 
+    <!-- Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-feature-pack</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
+
     <!-- Build -->
     <build>
         <resources>
