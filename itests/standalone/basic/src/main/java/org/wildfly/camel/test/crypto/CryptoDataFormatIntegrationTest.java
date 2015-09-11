@@ -37,7 +37,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class CryptoIntegrationTest {
+public class CryptoDataFormatIntegrationTest {
 
     private static final String PUBRING_GPG = "pubring.gpg";
     private static final String SECRING_GPG = "secring.gpg";
