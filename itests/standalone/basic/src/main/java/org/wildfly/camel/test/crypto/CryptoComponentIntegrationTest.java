@@ -49,10 +49,10 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class CryptoComponentIntegrationTest {
 
-    private static String ALIAS = "bob";
-    private static String KEYSTORE = "ks.keystore";
-    private static String KEYSTORE_PASSWORD="letmein";
-    private static String PAYLOAD = "Dear Bob, Rest assured it's me, signed Kermit";
+    private static final String ALIAS = "bob";
+    private static final String KEYSTORE = "ks.keystore";
+    private static final String KEYSTORE_PASSWORD="letmein";
+    private static final String PAYLOAD = "Dear Bob, Rest assured it's me, signed Kermit";
 
     @ArquillianResource
     private InitialContext initialContext;
