@@ -236,10 +236,6 @@
         <include artifact="org.fusesource.mqtt-client:mqtt-client" />
     </module>
 
-    <module name="org.jasypt">
-        <include artifact="org.jasypt:jasypt" />
-    </module>
-    
     <module name="org.json4s">
         <include artifact="org.json4s:json4s-(.*)" />
         <apply-to-dependencies skip="true">

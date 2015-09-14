@@ -336,6 +336,19 @@
         </dependencies>
     </module>
     
+    <module name="org.apache.camel.component.jasypt">
+        <include artifact="org.apache.camel:camel-jasypt" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.jasypt" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.ws.security"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+    
     <module name="org.apache.camel.component.jaxb">
         <include artifact="org.apache.camel:camel-jaxb" />
         <apply-to-dependencies skip="true">
