@@ -60,7 +60,7 @@ public class JpaRouteBuilder extends RouteBuilder {
             .to("file:{{jboss.server.data.dir}}/deadletter?fileName=deadLetters.xml")
             .markRollbackOnly();
 
-        from("direct:start").to("log:end?showAll=true")
+        from("direct:start")
             .transacted()
             .setHeader("targetAccountId", simple("${body[targetAccountId]}"))
             .setHeader("amount", simple("${body[amount]}"))
@@ -91,6 +91,6 @@ public class JpaRouteBuilder extends RouteBuilder {
                 exchange.getOut().setBody(account);
             }
         })
-        .to("jpa://org.wildfly.test.jpa.subA.Account");
+        .to("jpa:org.wildfly.camel.test.jpa.subA.Account");
     }
 }
