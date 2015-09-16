@@ -336,10 +336,6 @@
             <artifactId>groovy-all</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.fusesource</groupId>
-            <artifactId>camel-sap</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.jboss.gravia</groupId>
             <artifactId>gravia-runtime-embedded</artifactId>
         </dependency>

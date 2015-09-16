@@ -21,21 +21,7 @@
 
 <module xmlns="urn:jboss:module:1.1" name="org.wildfly.camel.extras">
 
-    <!--
-        To activate the camel-sap component:
-            1. Stop the application server
-            2. Uncomment the org.fusesource.camel.component.sap module dependency below
-            3. Refer to the camel-sap documentation to install SAP JCO native libraries
-
-               http://wildflyext.gitbooks.io/wildfly-camel/content/components/camel-sap.html
-
-            4. Start the application server
-     -->
-
     <dependencies>
-        <!--
-        <module name="org.fusesource.camel.component.sap" export="true" services="export" />
-        -->
     </dependencies>
 
 </module>

@@ -60,10 +60,6 @@
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.fusesource</groupId>
-            <artifactId>camel-sap</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
@@ -138,41 +134,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>sap</id>
-            <activation>
-                <property>
-                    <name>env.SAP_TMP_DIR</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>copy-sap-module-defs</id>
-                                <phase>generate-resources</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${jboss.home}/modules/system/layers/fuse</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>${env.SAP_TMP_DIR}/modules</directory>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-    
 </project>

@@ -365,6 +365,7 @@ org/apache/camel/component/hl7
 org/apache/camel/component/http4
 org/apache/camel/component/http4/helper
 org/apache/camel/component/jackson
+org/apache/camel/component/jasypt
 org/apache/camel/component/jgroups
 org/apache/camel/component/jms
 org/apache/camel/component/jms/reply
