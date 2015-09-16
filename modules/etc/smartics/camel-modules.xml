@@ -403,6 +403,12 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
+            <module name="org.springframework.orm" export="true">
+                <exports>
+                    <include path="org/springframework/orm/jpa" />
+                    <exclude path="org/springframework/**" />
+                </exports>
+            </module>
             <module name="org.springframework.tx" />
             <module name="org.slf4j"/>
         </dependencies>

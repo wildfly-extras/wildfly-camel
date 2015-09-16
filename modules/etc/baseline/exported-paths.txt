@@ -572,6 +572,7 @@ org/quartz/utils/counter/sampled
 org/quartz/utils/weblogic
 org/quartz/xml
 org/springframework
+org/springframework/orm/jpa
 org/springframework/security/authentication
 org/xmlsoap
 org/xmlsoap/schemas

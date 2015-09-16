@@ -20,8 +20,6 @@
 
 package org.wildfly.camel.test.jpa;
 
-import java.io.InputStream;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -30,9 +28,7 @@ import org.apache.camel.component.jpa.JpaComponent;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -52,14 +48,6 @@ public class JpaTransactionManagerIntegrationTest {
         archive.addClass(Account.class);
         archive.addAsResource("jpa/persistence-local.xml", "META-INF/persistence.xml");
         archive.addAsResource("jpa/jpa-camel-context.xml", "META-INF/jboss-camel-context.xml");
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.springframework.orm");
-                return builder.openStream();
-            }
-        });
         return archive;
     }
 
