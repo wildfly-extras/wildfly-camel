@@ -74,6 +74,7 @@
 /org/apache/camel/component/soap/main/camel-soap-2.15.2.jar
 /org/apache/camel/component/spring/security/main/camel-spring-security-2.15.2.jar
 /org/apache/camel/component/sql/main/camel-sql-2.15.2.jar
+/org/apache/camel/component/stream/main/camel-stream-2.15.2.jar
 /org/apache/camel/component/swagger/main/camel-swagger-2.15.2.jar
 /org/apache/camel/component/swagger/main/swagger-annotations-1.3.12.jar
 /org/apache/camel/component/swagger/main/swagger-core_2.10-1.3.12.jar

@@ -397,6 +397,7 @@ org/apache/camel/component/spring
 org/apache/camel/component/spring/security
 org/apache/camel/component/spring/security/config
 org/apache/camel/component/sql
+org/apache/camel/component/stream
 org/apache/camel/component/swagger
 org/apache/camel/component/velocity
 org/apache/camel/component/weather
