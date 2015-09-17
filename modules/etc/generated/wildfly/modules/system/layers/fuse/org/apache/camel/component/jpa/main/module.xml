@@ -17,6 +17,5 @@
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.camel.spring" />
-    <module name="org.springframework.orm" />
   </dependencies>
 </module>

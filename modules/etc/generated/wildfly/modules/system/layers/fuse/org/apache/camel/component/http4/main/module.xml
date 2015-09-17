@@ -9,6 +9,5 @@
     <module name="javax.servlet.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.httpcomponents" />
   </dependencies>
 </module>

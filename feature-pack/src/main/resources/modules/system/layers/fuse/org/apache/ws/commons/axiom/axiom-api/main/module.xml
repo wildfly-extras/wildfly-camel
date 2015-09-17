@@ -9,7 +9,6 @@
     <module name="javax.activation.api" />
     <module name="javax.mail.api" />
     <module name="javax.xml.stream.api" />
-    <module name="org.apache.commons.logging" />
     <module name="org.apache.james.mime4j" />
     <module name="org.codehaus.woodstox" />
     <module name="org.jaxen" />
