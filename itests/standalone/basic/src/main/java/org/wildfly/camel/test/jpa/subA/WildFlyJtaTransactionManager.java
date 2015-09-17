@@ -29,7 +29,8 @@ import javax.transaction.UserTransaction;
 import org.springframework.transaction.jta.JtaTransactionManager;
 
 @Named("transactionManager")
-public class WildflyJtaTransactionManager extends JtaTransactionManager {
+@SuppressWarnings("serial")
+public class WildFlyJtaTransactionManager extends JtaTransactionManager {
 
     @Resource(mappedName = "java:/TransactionManager")
     private TransactionManager transactionManager;

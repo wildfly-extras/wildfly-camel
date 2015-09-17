@@ -27,6 +27,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "account")
 public class Account {
+
     @Id
     private int id;
     private int balance;

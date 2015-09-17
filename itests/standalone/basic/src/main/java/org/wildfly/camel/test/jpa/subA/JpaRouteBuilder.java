@@ -33,6 +33,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.cdi.ContextName;
 import org.apache.camel.component.jpa.JpaComponent;
+import org.springframework.transaction.jta.JtaTransactionManager;
 
 @Startup
 @ContextName("jpa-cdi-context")
@@ -42,7 +43,7 @@ public class JpaRouteBuilder extends RouteBuilder {
     EntityManager em;
 
     @Inject
-    WildflyJtaTransactionManager transactionManager;
+    JtaTransactionManager transactionManager;
 
     @Override
     public void configure() throws Exception {
@@ -78,6 +79,7 @@ public class JpaRouteBuilder extends RouteBuilder {
         .to("sql:select balance from account where id = :#targetAccountId?dataSource=wildFlyExampleDS")
         .process(new Processor() {
             @Override
+            @SuppressWarnings("unchecked")
             public void process(Exchange exchange) throws Exception {
                 List<Map<String, Object>> result = (List<Map<String, Object>>) exchange.getIn().getBody();
                 int id = exchange.getIn().getHeader("targetAccountId", Integer.class);

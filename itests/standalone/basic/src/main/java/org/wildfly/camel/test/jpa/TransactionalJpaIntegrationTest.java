@@ -91,6 +91,11 @@ public class TransactionalJpaIntegrationTest {
     public void testJpaTransactionalRoute() throws Exception {
 
         CamelContext camelctx = contextRegistry.getCamelContext("jpa-cdi-context");
+        Account accountA = em.getReference(Account.class, 1);
+        Account accountB = em.getReference(Account.class, 2);
+
+        Assert.assertEquals(750, accountA.getBalance());
+        Assert.assertEquals(300, accountB.getBalance());
 
         // Update account id 2 with 250
         Map<String, Integer> params = new HashMap<>();
@@ -99,11 +104,10 @@ public class TransactionalJpaIntegrationTest {
         params.put("amount", 250);
 
         camelctx.createProducerTemplate().sendBody("direct:start", params);
+        accountA = em.getReference(Account.class, 1);
+        accountB = em.getReference(Account.class, 2);
 
         // Account A should have been decremented by 250, Account B should have been credited 250
-        Account accountA = em.getReference(Account.class, 1);
-        Account accountB = em.getReference(Account.class, 2);
-
         Assert.assertEquals(500, accountA.getBalance());
         Assert.assertEquals(550, accountB.getBalance());
     }
@@ -112,19 +116,23 @@ public class TransactionalJpaIntegrationTest {
     public void testJpaTransactionalRouteRollback() throws Exception {
 
         CamelContext camelctx = contextRegistry.getCamelContext("jpa-cdi-context");
+        Account accountA = em.getReference(Account.class, 1);
+        Account accountB = em.getReference(Account.class, 2);
 
-        // Attempt to update account 2 with 1500 which is greater than max allowed amount
+        Assert.assertEquals(750, accountA.getBalance());
+        Assert.assertEquals(300, accountB.getBalance());
+
+        // Attempt to update account 2 with 550 which is greater than max allowed amount
         Map<String, Integer> params = new HashMap<>();
         params.put("sourceAccountId", 1);
         params.put("targetAccountId", 2);
         params.put("amount", 550);
 
         camelctx.createProducerTemplate().sendBody("direct:start", params);
+        accountA = em.getReference(Account.class, 1);
+        accountB = em.getReference(Account.class, 2);
 
         // Transaction should have been rolled back and accounts left unmodified
-        Account accountA = em.getReference(Account.class, 1);
-        Account accountB = em.getReference(Account.class, 2);
-
         Assert.assertEquals(750, accountA.getBalance());
         Assert.assertEquals(300, accountB.getBalance());
 
