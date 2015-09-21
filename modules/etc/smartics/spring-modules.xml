@@ -82,6 +82,9 @@
     
     <module name="org.springframework.orm">
         <include artifact=":spring-orm" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.openjpa" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="javax.persistence.api" />

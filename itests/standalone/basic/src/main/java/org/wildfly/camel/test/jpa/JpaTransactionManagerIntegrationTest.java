@@ -31,13 +31,11 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.jpa.subA.Account;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
-@Ignore("[wfc #872] JpaTransactionManager test throws NCDFE for ResourceTransactionManager")
 @RunWith(Arquillian.class)
 public class JpaTransactionManagerIntegrationTest {
 
