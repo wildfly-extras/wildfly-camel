@@ -29,6 +29,7 @@ import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,7 +82,7 @@ public class KafkaIntegrationTest {
         List<Integer> kafkaPorts = new ArrayList<>();
         kafkaPorts.add(KAFKA_PORT);
 
-        zkServer = new EmbeddedZookeeperServer(ZOOKEEPER_PORT, true);
+        zkServer = new EmbeddedZookeeperServer(ZOOKEEPER_PORT, Paths.get("target", "zookeper"));
         kafkaCluster = new EmbeddedKafkaCluster(zkServer.getConnection(), new Properties(), kafkaPorts);
 
         zkServer.startup(1, TimeUnit.SECONDS);
@@ -93,7 +94,6 @@ public class KafkaIntegrationTest {
         if (kafkaCluster != null) {
             kafkaCluster.shutdown();
         }
-
         if (zkServer != null) {
             zkServer.shutdown();
         }
@@ -147,7 +147,7 @@ public class KafkaIntegrationTest {
 
         final CountDownLatch latch = new CountDownLatch(5);
 
-        Producer producer = createKafkaMessageProducer();
+        Producer<String, String> producer = createKafkaMessageProducer();
         CamelContext camelctx = new DefaultCamelContext();
 
         camelctx.addRoutes(new RouteBuilder() {
@@ -202,7 +202,7 @@ public class KafkaIntegrationTest {
         return kafkaConsumer;
     }
 
-    private Producer<Object, Object> createKafkaMessageProducer() {
+    private Producer<String, String> createKafkaMessageProducer() {
         Properties properties = new Properties();
         properties.put("metadata.broker.list", "localhost:" + KAFKA_PORT);
         properties.put("serializer.class", "kafka.serializer.StringEncoder");

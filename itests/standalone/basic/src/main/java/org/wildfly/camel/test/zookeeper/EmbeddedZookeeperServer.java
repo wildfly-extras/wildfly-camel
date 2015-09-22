@@ -18,14 +18,17 @@ package org.wildfly.camel.test.zookeeper;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Random;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.util.IOHelper;
@@ -39,30 +42,23 @@ public class EmbeddedZookeeperServer {
 
     private static final Logger LOG = LoggerFactory.getLogger(EmbeddedZookeeperServer.class);
 
-    private static int count;
-
     private final NIOServerCnxnFactory connectionFactory;
     private final ZooKeeperServer zkServer;
-    private final File zookeeperBaseDir;
+    private final Path zookeeperBaseDir;
     private final int port;
 
     public EmbeddedZookeeperServer() throws Exception {
-        this(Utils.getAvailablePort(), true);
+        this(PortUtils.getAvailablePort(), Files.createTempDirectory("zktemp"));
     }
 
-    public EmbeddedZookeeperServer(int port, boolean clearServerData) throws Exception {
+    public EmbeddedZookeeperServer(int port, Path baseDir) throws Exception {
         this.port = port;
 
-        // TODO This is necessary as zookeeper does not delete the log dir when it shuts down.
-        // Remove as soon as zookeeper shutdown works
-        zookeeperBaseDir = new File("./target/zookeeper" + count++);
-        if (clearServerData) {
-            cleanZookeeperDir();
-        }
+        zookeeperBaseDir = baseDir;
 
         zkServer = new ZooKeeperServer();
-        File dataDir = new File(zookeeperBaseDir, "log");
-        File snapDir = new File(zookeeperBaseDir, "data");
+        File dataDir = zookeeperBaseDir.resolve("log").toFile();
+        File snapDir = zookeeperBaseDir.resolve("data").toFile();
         FileTxnSnapLog ftxn = new FileTxnSnapLog(dataDir, snapDir);
         zkServer.setTxnLogFactory(ftxn);
         zkServer.setTickTime(1000);
@@ -92,14 +88,18 @@ public class EmbeddedZookeeperServer {
     }
 
     public void shutdown() throws Exception {
-        connectionFactory.shutdown();
-        connectionFactory.join();
-        zkServer.shutdown();
-        while (zkServer.isRunning()) {
+        try {
+            connectionFactory.shutdown();
+            connectionFactory.join();
             zkServer.shutdown();
-            Thread.sleep(100);
+
+            while (zkServer.isRunning()) {
+                zkServer.shutdown();
+                Thread.sleep(100);
+            }
+        } finally {
+            cleanZookeeperDir();
         }
-        cleanZookeeperDir();
     }
 
     public static boolean waitForServerUp(String hp, long timeout) {
@@ -161,27 +161,32 @@ public class EmbeddedZookeeperServer {
     }
 
     private void cleanZookeeperDir() throws Exception {
-        File working = zookeeperBaseDir;
-        Utils.deleteFile(working);
+        Files.walkFileTree(zookeeperBaseDir, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Files.delete(file);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFileFailed(Path file, IOException exception) throws IOException {
+                exception.printStackTrace();
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exception) throws IOException {
+                if (exception == null) {
+                    Files.delete(dir);
+                }
+                return FileVisitResult.CONTINUE;
+            }
+        });
     }
 
-    static final class Utils {
+    final static class PortUtils {
 
-        private static final Random RANDOM = new Random();
-
-        private Utils() {
-        }
-
-        public static File constructTempDir(String dirPrefix) {
-            File file = new File(System.getProperty("java.io.tmpdir"), dirPrefix + RANDOM.nextInt(10000000));
-            if (!file.mkdirs()) {
-                throw new RuntimeException("could not create temp directory: " + file.getAbsolutePath());
-            }
-            file.deleteOnExit();
-            return file;
-        }
-
-        public static int getAvailablePort() {
+        static int getAvailablePort() {
             try {
                 ServerSocket socket = new ServerSocket(0);
                 try {
@@ -194,17 +199,5 @@ public class EmbeddedZookeeperServer {
             }
         }
 
-        public static boolean deleteFile(File path) throws FileNotFoundException {
-            boolean ret = true;
-            if (path != null && path.exists()) {
-                if (path.isDirectory()) {
-                    for (File f : path.listFiles()) {
-                        ret = ret && deleteFile(f);
-                    }
-                }
-                ret = path.delete();
-            }
-            return ret;
-        }
     }
 }
