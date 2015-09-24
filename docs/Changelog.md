@@ -1,5 +1,99 @@
 ### Changelog
 
+#### WildFly-Camel 3.1.0
+
+**Features**
+
+* [#766][766] Create simple archetype for camel project 
+* [#859][859] Add support for camel-jasypt
+* [#874][874] Add support for camel-stream
+
+For details see [3.1.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"3.1.0"+label%3Afeature)
+
+**Tasks**
+
+* [#555][555] Verify that Hawtio camel tab works as expected 
+* [#746][746] Provide test coverage for zookeeper consumer
+* [#747][747] Add test coverage for Kafka consumer/producer
+* [#754][754] Investigate integration of container managed transactions within Camel routes
+* [#792][792] Review use of Maven dependency resolution in module-checker script 
+* [#797][797] Split up dozer into individual module from camel-dozer
+* [#799][799] Add dependence on SAP module to extras by default
+* [#801][801] Restore or remove skipped tests in CamelSubsystemTestCase
+* [#802][802] Restore or remove skipped tests in FileURLDecodingTest
+* [#806][806] Remove activemq-rar dependency from modules pom.xml
+* [#808][808] Prevent org.wildfly.camel.wildfly-camel-modules module from being added to the patch
+* [#811][811] Restore ability for module-checker script to ignore dependencies
+* [#817][817] wildfly-camel archetypes group id should be consistent with related projects
+* [#818][818] WildFly-Camel archetype example application should be interactive
+* [#822][822] Configure descriptions for WildFly-Camel archetypes
+* [#831][831] Migrate config core functionality to fuse-patch
+* [#834][834] Remove wildfly-camel-enricher dependency from generated wildfly-camel archetype pom.xml
+* [#836][836] Expose quartz public API in separate module
+* [#838][838] Remove GitHub style markdown from archetype generated README files 
+* [#849][849] Cleanup/Simplify profile handling
+* [#857][857] Add test coverage for camel-crypto component
+* [#860][860] Add test coverage for markRollbackOnly DSL command
+* [#861][861] Add test coverage for secure routes utilising SslContextParameters
+* [#862][862] Add test coverage for a transactional SQL / JPA camel routes
+* [#865][865] Add test coverage for JpaTransactionManager
+* [#868][868] Remove camel-sap component
+
+For details see [3.1.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"3.1.0"+label%3Atask)
+
+**Bugs**
+
+* [#780][780] Many modules have duplicated dependency declarations
+* [#794][794] camel-rest example integration tests throw FileSystemNotFoundException
+* [#796][796] Docker maven module versions not updated
+* [#815][815] Missing javax.activation.api dependency for org.apache.abdera.core
+* [#841][841] Multiple contexts not undeployed properly
+* [#848][848] Skip wiring of Camel modules for resource adapter deployments
+* [#853][853] Add feature-pack dependency to archetypes module to ensure correct build order
+* [#870][870] Path org.springframework.orm.jpa not exported from org.springframework.orm module
+* [#872][872] JpaTransactionManager test throws NCDFE for ResourceTransactionManager
+
+For details see [3.1.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"3.1.0"+label%3Abug)
+
+[766]: https://github.com/wildfly-extras/wildfly-camel/issues/766
+[859]: https://github.com/wildfly-extras/wildfly-camel/issues/859
+[874]: https://github.com/wildfly-extras/wildfly-camel/issues/874
+[555]: https://github.com/wildfly-extras/wildfly-camel/issues/555
+[746]: https://github.com/wildfly-extras/wildfly-camel/issues/746
+[747]: https://github.com/wildfly-extras/wildfly-camel/issues/747
+[754]: https://github.com/wildfly-extras/wildfly-camel/issues/754
+[792]: https://github.com/wildfly-extras/wildfly-camel/issues/792
+[797]: https://github.com/wildfly-extras/wildfly-camel/issues/797
+[799]: https://github.com/wildfly-extras/wildfly-camel/issues/799
+[801]: https://github.com/wildfly-extras/wildfly-camel/issues/801
+[802]: https://github.com/wildfly-extras/wildfly-camel/issues/802
+[806]: https://github.com/wildfly-extras/wildfly-camel/issues/806
+[808]: https://github.com/wildfly-extras/wildfly-camel/issues/808
+[811]: https://github.com/wildfly-extras/wildfly-camel/issues/811
+[817]: https://github.com/wildfly-extras/wildfly-camel/issues/817
+[818]: https://github.com/wildfly-extras/wildfly-camel/issues/818
+[822]: https://github.com/wildfly-extras/wildfly-camel/issues/822
+[831]: https://github.com/wildfly-extras/wildfly-camel/issues/831
+[834]: https://github.com/wildfly-extras/wildfly-camel/issues/834
+[836]: https://github.com/wildfly-extras/wildfly-camel/issues/836
+[838]: https://github.com/wildfly-extras/wildfly-camel/issues/838
+[849]: https://github.com/wildfly-extras/wildfly-camel/issues/849
+[857]: https://github.com/wildfly-extras/wildfly-camel/issues/857
+[860]: https://github.com/wildfly-extras/wildfly-camel/issues/860
+[861]: https://github.com/wildfly-extras/wildfly-camel/issues/861
+[862]: https://github.com/wildfly-extras/wildfly-camel/issues/862
+[865]: https://github.com/wildfly-extras/wildfly-camel/issues/865
+[868]: https://github.com/wildfly-extras/wildfly-camel/issues/868
+[780]: https://github.com/wildfly-extras/wildfly-camel/issues/780
+[794]: https://github.com/wildfly-extras/wildfly-camel/issues/794
+[796]: https://github.com/wildfly-extras/wildfly-camel/issues/796
+[815]: https://github.com/wildfly-extras/wildfly-camel/issues/815
+[841]: https://github.com/wildfly-extras/wildfly-camel/issues/841
+[848]: https://github.com/wildfly-extras/wildfly-camel/issues/848
+[853]: https://github.com/wildfly-extras/wildfly-camel/issues/853
+[870]: https://github.com/wildfly-extras/wildfly-camel/issues/870
+[872]: https://github.com/wildfly-extras/wildfly-camel/issues/872
+
 #### WildFly-Camel 3.0.0
 
 **Features**
@@ -55,6 +149,7 @@ For details see [3.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 
 **Bugs**
 
+* [#345][345] xnio-file-watcher exception
 * [#534][534] CXF cannot access springframework beans module
 * [#540][540] jboss-modules does not respect path excludes
 * [#544][544] Examples fail with ClassNotFoundException
@@ -113,6 +208,7 @@ For details see [3.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 [787]: https://github.com/wildfly-extras/wildfly-camel/issues/787
 [788]: https://github.com/wildfly-extras/wildfly-camel/issues/788
 [789]: https://github.com/wildfly-extras/wildfly-camel/issues/789
+[345]: https://github.com/wildfly-extras/wildfly-camel/issues/345
 [534]: https://github.com/wildfly-extras/wildfly-camel/issues/534
 [540]: https://github.com/wildfly-extras/wildfly-camel/issues/540
 [544]: https://github.com/wildfly-extras/wildfly-camel/issues/544
