@@ -32,7 +32,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
 import org.wildfly.camel.test.common.HttpRequest.HttpResponse;
+import org.wildfly.extension.camel.CamelAware;
 
+@CamelAware
 @RunWith(Arquillian.class)
 public class RestDslIntegrationTest {
 

@@ -31,6 +31,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.extension.camel.CamelAware;
 
 /**
  * Deploys a module/bundle with dependency on the Camel API;
@@ -41,6 +42,7 @@ import org.junit.runner.RunWith;
  * @author thomas.diesler@jboss.com
  * @since 21-Apr-2013
  */
+@CamelAware
 @RunWith(Arquillian.class)
 public class SimpleTransformTest {
 

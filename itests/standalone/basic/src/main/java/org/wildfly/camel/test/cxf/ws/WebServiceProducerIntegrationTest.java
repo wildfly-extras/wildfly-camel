@@ -52,6 +52,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.wildfly.camel.test.cxf.ws.subA.Endpoint;
 import org.wildfly.camel.test.cxf.ws.subA.EndpointImpl;
+import org.wildfly.extension.camel.CamelAware;
 import org.xml.sax.InputSource;
 
 /**
@@ -60,6 +61,7 @@ import org.xml.sax.InputSource;
  * @author thomas.diesler@jboss.com
  * @since 11-Jun-2013
  */
+@CamelAware
 @RunWith(Arquillian.class)
 public class WebServiceProducerIntegrationTest {
 

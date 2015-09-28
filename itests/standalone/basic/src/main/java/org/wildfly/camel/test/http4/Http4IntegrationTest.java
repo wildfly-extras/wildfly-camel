@@ -33,9 +33,11 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.http4.subA.MyServlet;
+import org.wildfly.extension.camel.CamelAware;
 
+@CamelAware
 @RunWith(Arquillian.class)
-public class HttpIntegrationTest {
+public class Http4IntegrationTest {
 
     @Deployment
     public static WebArchive createDeployment() {

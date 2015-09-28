@@ -20,7 +20,9 @@
 package org.wildfly.camel.test.core.subA;
 
 import org.apache.camel.RecipientList;
+import org.wildfly.extension.camel.CamelAware;
 
+@CamelAware
 public class RecipientListBean {
 
     @RecipientList

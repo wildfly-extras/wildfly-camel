@@ -41,8 +41,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.wildfly.camel.test.policy.subA.AnnotatedSLSB;
+import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.security.ClientLoginAuthorizationPolicy;
 
+@CamelAware
 @RunWith(Arquillian.class)
 public class SecuredRouteTestCase {
 

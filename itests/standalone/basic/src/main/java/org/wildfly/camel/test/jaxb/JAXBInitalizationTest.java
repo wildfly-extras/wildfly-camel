@@ -31,11 +31,13 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.extension.camel.CamelAware;
 
 /**
  * This test shows that When JAXB context is initialized and jaxb-impl classes are loaded, TCCL must be present.
  * Otherwise we get <code>Caused by: java.lang.ClassNotFoundException: __redirected/__DatatypeFactory</code> exception
  */
+@CamelAware
 @RunWith(Arquillian.class)
 public class JAXBInitalizationTest {
 

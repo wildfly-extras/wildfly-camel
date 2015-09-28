@@ -37,17 +37,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.w3c.dom.Node;
+import org.wildfly.extension.camel.CamelAware;
 
 import javax.naming.InitialContext;
 import javax.xml.crypto.KeySelector;
 import javax.xml.crypto.dsig.keyinfo.KeyInfo;
 import javax.xml.crypto.dsig.keyinfo.KeyInfoFactory;
+
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.SecureRandom;
 
+@CamelAware
 @RunWith(Arquillian.class)
 public class XmlSecurityIntegrationTest {
 

@@ -20,6 +20,7 @@
 package org.wildfly.extension.camel.deployment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.jboss.as.server.deployment.AttachmentKey;
@@ -31,7 +32,7 @@ public final class CamelDeploymentSettings {
 
     public static final AttachmentKey<CamelDeploymentSettings> ATTACHMENT_KEY = AttachmentKey.create(CamelDeploymentSettings.class);
 
-    private boolean enabled = true;
+    private boolean enabled;
     private ArrayList<String> modules = new ArrayList<>();
 
     boolean isEnabled() {
@@ -47,7 +48,7 @@ public final class CamelDeploymentSettings {
     }
 
     List<String> getModules() {
-        return new ArrayList<>(modules);
+        return Collections.unmodifiableList(modules);
     }
 
     void setModules(List<String> value) {
