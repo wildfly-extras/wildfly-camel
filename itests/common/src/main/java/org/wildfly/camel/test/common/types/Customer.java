@@ -21,7 +21,10 @@ package org.wildfly.camel.test.common.types;
 
 import java.io.Serializable;
 
+import org.wildfly.extension.camel.CamelAware;
 
+
+@CamelAware
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 7301753065476408128L;

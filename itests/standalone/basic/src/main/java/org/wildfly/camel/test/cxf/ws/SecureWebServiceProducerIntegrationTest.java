@@ -48,7 +48,9 @@ import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.DMRUtils;
 import org.wildfly.camel.test.cxf.ws.subA.Endpoint;
 import org.wildfly.camel.test.cxf.ws.subA.SecureEndpointImpl;
+import org.wildfly.extension.camel.CamelAware;
 
+@CamelAware
 @RunWith(Arquillian.class)
 public class SecureWebServiceProducerIntegrationTest {
 

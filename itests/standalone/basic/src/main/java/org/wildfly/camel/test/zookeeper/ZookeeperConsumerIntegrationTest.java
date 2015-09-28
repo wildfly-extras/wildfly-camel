@@ -38,7 +38,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.extension.camel.CamelAware;
 
+@CamelAware
 @RunWith(Arquillian.class)
 public class ZookeeperConsumerIntegrationTest {
 

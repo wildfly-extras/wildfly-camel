@@ -38,7 +38,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.jpa.subA.Account;
 import org.wildfly.camel.test.jpa.subA.Accounting;
+import org.wildfly.extension.camel.CamelAware;
 
+@CamelAware
 @RunWith(Arquillian.class)
 public class ContainerManagedTransactionIntegrationTest {
 

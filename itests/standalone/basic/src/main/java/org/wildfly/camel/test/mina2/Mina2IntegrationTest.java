@@ -30,7 +30,9 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.extension.camel.CamelAware;
 
+@CamelAware
 @RunWith(Arquillian.class)
 public class Mina2IntegrationTest {
 
@@ -42,7 +44,7 @@ public class Mina2IntegrationTest {
 
     @Test
     public void testComponentLoad() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         Endpoint endpoint = camelctx.getEndpoint("mina2:tcp://localhost:6200");
         Assert.assertNotNull(endpoint);

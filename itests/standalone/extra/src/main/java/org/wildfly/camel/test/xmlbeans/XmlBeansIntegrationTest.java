@@ -42,8 +42,10 @@ import org.wildfly.camel.xmlbeans.LineItem;
 import org.wildfly.camel.xmlbeans.PurchaseOrderDocument;
 import org.wildfly.camel.xmlbeans.PurchaseOrderDocument.PurchaseOrder;
 import org.wildfly.camel.xmlbeans.impl.PurchaseOrderDocumentImpl;
+import org.wildfly.extension.camel.CamelAware;
 
 
+@CamelAware
 @RunWith(Arquillian.class)
 public class XmlBeansIntegrationTest {
 

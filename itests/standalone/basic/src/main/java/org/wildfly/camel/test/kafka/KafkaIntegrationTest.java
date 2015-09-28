@@ -59,7 +59,9 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.zookeeper.EmbeddedZookeeperServer;
+import org.wildfly.extension.camel.CamelAware;
 
+@CamelAware
 @RunWith(Arquillian.class)
 public class KafkaIntegrationTest {
 

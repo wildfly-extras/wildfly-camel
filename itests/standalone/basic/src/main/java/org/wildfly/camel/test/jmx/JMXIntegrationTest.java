@@ -39,6 +39,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.DMRUtils;
+import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 /**
@@ -47,6 +48,7 @@ import org.wildfly.extension.camel.CamelContextRegistry;
  * @author thomas.diesler@jboss.com
  * @since 03-Jun-2013
  */
+@CamelAware
 @RunWith(Arquillian.class)
 @ServerSetup({JMXIntegrationTest.SystemContextSetupTask.class})
 public class JMXIntegrationTest  {

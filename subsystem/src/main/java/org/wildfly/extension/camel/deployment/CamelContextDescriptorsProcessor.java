@@ -21,8 +21,8 @@
 
 package org.wildfly.extension.camel.deployment;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 
 import org.apache.camel.CamelContext;
 import org.jboss.as.server.deployment.Attachments;
@@ -30,9 +30,9 @@ import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
 import org.jboss.as.server.deployment.DeploymentUnitProcessor;
-import org.jboss.modules.Module;
+import org.jboss.vfs.VirtualFile;
+import org.jboss.vfs.VirtualFileFilter;
 import org.wildfly.extension.camel.CamelConstants;
-import org.wildfly.extension.camel.SpringCamelContextFactory;
 
 /**
  * Processes deployments that can create a {@link CamelContext}.
@@ -40,30 +40,35 @@ import org.wildfly.extension.camel.SpringCamelContextFactory;
  * @author Thomas.Diesler@jboss.com
  * @since 22-Apr-2013
  */
-public class CamelContextCreateProcessor implements DeploymentUnitProcessor {
+public class CamelContextDescriptorsProcessor implements DeploymentUnitProcessor {
 
     @Override
     public void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
 
         final DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
+        if (depUnit.getParent() != null)
+            return;
 
-        final Module module = depUnit.getAttachment(Attachments.MODULE);
         final String runtimeName = depUnit.getName();
 
-        // Add the camel contexts to the deployemnt
-        List<URL> contextURLs = depUnit.getAttachmentList(CamelConstants.CAMEL_CONTEXT_DESCRIPTORS_KEY);
-        for (URL contextURL : contextURLs) {
-            ClassLoader tccl = Thread.currentThread().getContextClassLoader();
-            try {
-                Thread.currentThread().setContextClassLoader(module.getClassLoader());
-                for (CamelContext camelctx : SpringCamelContextFactory.createCamelContextList(contextURL, module.getClassLoader())) {
-                    depUnit.addToAttachmentList(CamelConstants.CAMEL_CONTEXT_KEY, camelctx);
+        try {
+            if (runtimeName.endsWith(CamelConstants.CAMEL_CONTEXT_FILE_SUFFIX)) {
+                URL fileURL = depUnit.getAttachment(Attachments.DEPLOYMENT_CONTENTS).asFileURL();
+                depUnit.addToAttachmentList(CamelConstants.CAMEL_CONTEXT_DESCRIPTORS_KEY, fileURL);
+            } else {
+                VirtualFileFilter filter = new VirtualFileFilter() {
+                    public boolean accepts(VirtualFile child) {
+                        return child.isFile() && child.getName().endsWith(CamelConstants.CAMEL_CONTEXT_FILE_SUFFIX);
+                    }
+                };
+                VirtualFile rootFile = depUnit.getAttachment(Attachments.DEPLOYMENT_ROOT).getRoot();
+                for (VirtualFile contextFile : rootFile.getChildrenRecursively(filter)) {
+                    URL fileURL = contextFile.asFileURL();
+                    depUnit.addToAttachmentList(CamelConstants.CAMEL_CONTEXT_DESCRIPTORS_KEY, fileURL);
                 }
-            } catch (Exception ex) {
-                throw new IllegalStateException("Cannot create camel context: " + runtimeName, ex);
-            } finally {
-                Thread.currentThread().setContextClassLoader(tccl);
             }
+        } catch (IOException ex) {
+            throw new IllegalStateException("Cannot create camel context: " + runtimeName, ex);
         }
     }
 
