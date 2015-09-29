@@ -36,10 +36,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wildfly.extension.camel.CamelAware;
 
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.Recorder;
 
+@CamelAware
 @RunWith(Arquillian.class)
 public class WeatherIntegrationTest {
 

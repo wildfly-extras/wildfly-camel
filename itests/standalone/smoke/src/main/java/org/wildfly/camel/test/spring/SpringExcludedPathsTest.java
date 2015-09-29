@@ -31,12 +31,14 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.extension.camel.CamelAware;
 
 /**
  * [#540] jboss-modules does not respect path excludes
  *
  * https://github.com/wildfly-extras/wildfly-camel/issues/540
  */
+@CamelAware
 @RunWith(Arquillian.class)
 public class SpringExcludedPathsTest {
 

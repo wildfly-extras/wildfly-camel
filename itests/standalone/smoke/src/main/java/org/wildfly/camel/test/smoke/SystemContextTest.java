@@ -36,6 +36,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.DMRUtils;
+import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 
@@ -46,6 +47,7 @@ import org.wildfly.extension.camel.CamelContextRegistry;
  * @author thomas.diesler@jboss.com
  * @since 21-Apr-2013
  */
+@CamelAware
 @RunWith(Arquillian.class)
 @ServerSetup({SystemContextTest.SystemContextSetupTask.class})
 public class SystemContextTest {

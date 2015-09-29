@@ -37,7 +37,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.dozer.subA.CustomerA;
 import org.wildfly.camel.test.dozer.subA.CustomerB;
+import org.wildfly.extension.camel.CamelAware;
 
+@CamelAware
 @RunWith(Arquillian.class)
 public class DozerIntegrationTest {
 

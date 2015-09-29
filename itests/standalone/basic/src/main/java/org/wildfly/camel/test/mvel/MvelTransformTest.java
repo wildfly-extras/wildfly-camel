@@ -31,6 +31,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.extension.camel.CamelAware;
 
 /**
  * Test camel-mvel integration
@@ -38,6 +39,7 @@ import org.junit.runner.RunWith;
  * @author thomas.diesler@jboss.com
  * @since 17-Dec-2014
  */
+@CamelAware
 @RunWith(Arquillian.class)
 public class MvelTransformTest {
 

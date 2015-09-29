@@ -33,6 +33,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.extension.camel.CamelAware;
 
 /**
  * Test resource access in META-INF/cxf
@@ -40,6 +41,7 @@ import org.junit.runner.RunWith;
  * @author thomas.diesler@jboss.com
  * @since 19-Mar-2015
  */
+@CamelAware
 @RunWith(Arquillian.class)
 public class CXFResourcesTest {
 

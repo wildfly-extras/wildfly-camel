@@ -30,6 +30,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.cxf.ws.subA.Endpoint;
+import org.wildfly.extension.camel.CamelAware;
 
 /**
  * Test WebService endpoint access with the cxf component.
@@ -37,6 +38,7 @@ import org.wildfly.camel.test.cxf.ws.subA.Endpoint;
  * @author thomas.diesler@jboss.com
  * @since 11-Jun-2013
  */
+@CamelAware
 @RunWith(Arquillian.class)
 public class WebServiceConsumerIntegrationTest {
 

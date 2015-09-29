@@ -36,8 +36,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.ejb.subA.HelloBean;
+import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
+@CamelAware
 @RunWith(Arquillian.class)
 public class EjbEarIntegrationTest {
 

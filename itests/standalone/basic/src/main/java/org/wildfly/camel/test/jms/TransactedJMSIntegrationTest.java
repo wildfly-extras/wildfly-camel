@@ -48,6 +48,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.jta.JtaTransactionManager;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.transaction.support.TransactionTemplate;
+import org.wildfly.extension.camel.CamelAware;
 
 import javax.annotation.Resource;
 import javax.jms.Connection;
@@ -59,8 +60,10 @@ import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;
+
 import java.io.InputStream;
 
+@CamelAware
 @RunWith(Arquillian.class)
 @ServerSetup({TransactedJMSIntegrationTest.JmsQueueSetup.class})
 public class TransactedJMSIntegrationTest {

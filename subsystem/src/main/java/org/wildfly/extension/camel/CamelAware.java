@@ -1,6 +1,6 @@
 /*
  * #%L
- * Wildfly Camel :: Example :: Camel CDI
+ * Wildfly Camel :: Subsystem
  * %%
  * Copyright (C) 2013 - 2014 RedHat
  * %%
@@ -17,17 +17,27 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.core.subA;
 
-import org.apache.camel.Body;
-import org.apache.camel.Header;
-import org.wildfly.extension.camel.CamelAware;
+package org.wildfly.extension.camel;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-@CamelAware
-public class OrderBean {
+/**
+ * Marker annotation to enable the Camel subsystem.
+ *
+ * @author Thomas.Diesler@jboss.com
+ * @since 25-Sep-2015
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE})
+public @interface CamelAware {
 
-    public String orderStatus(@Header("customerId") Integer customerId, @Body Integer orderId) {
-        return "Order " + orderId + " from customer " + customerId;
-    }
+    /**
+     * Enable the Camel subsystem.
+     * The default value is true.
+     */
+    boolean value() default true;
 }

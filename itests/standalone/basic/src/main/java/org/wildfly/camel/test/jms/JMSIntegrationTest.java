@@ -59,6 +59,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.extension.camel.CamelAware;
 
 /**
  * Test routes that use the jms component in routes.
@@ -66,6 +67,7 @@ import org.junit.runner.RunWith;
  * @author thomas.diesler@jboss.com
  * @since 18-May-2013
  */
+@CamelAware
 @RunWith(Arquillian.class)
 @ServerSetup({ JMSIntegrationTest.JmsQueueSetup.class })
 public class JMSIntegrationTest {
