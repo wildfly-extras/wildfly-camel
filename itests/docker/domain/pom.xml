@@ -106,7 +106,7 @@
                                         </log>
                                         <wait>
                                             <url>http://${env.DOCKER_IP}:8181</url>
-                                            <time>30000</time>
+                                            <time>${env.DOCKER_PLUGIN_TIMEOUT}</time>
                                         </wait>
                                     </run>
                                 </image>
@@ -145,7 +145,6 @@
                             <target>
                                 <!-- [FIXME #175] Deployment fails with missing/unavailable dependencies -->
                                 <sleep seconds="10" />
-
                                 <echo>=========================================================================</echo>
                                 <echo>docker run --rm -ti -p 9990:9990 -e WILDFLY_MANAGEMENT_USER=${wildfly.mgmt.username} -e WILDFLY_MANAGEMENT_PASSWORD=${wildfly.mgmt.password} --name=${docker.alias.master} ${docker.image.name} ${docker.cmd.master}</echo>
                                 <echo>docker run --rm -ti -p 8181:8080 -e WILDFLY_MANAGEMENT_USER=${wildfly.mgmt.username} -e WILDFLY_MANAGEMENT_PASSWORD=${wildfly.mgmt.password} --link ${docker.alias.master}:domain-controller --name=${docker.alias.slave} ${docker.image.name} ${docker.cmd.slave}</echo>
@@ -239,5 +238,20 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- Profiles -->
+    <profiles>
+        <profile>
+            <id>docker.timeout</id>
+            <activation>
+                <property>
+                    <name>!env.DOCKER_PLUGIN_TIMEOUT</name>
+                </property>
+            </activation>
+            <properties>
+                <env.DOCKER_PLUGIN_TIMEOUT>60000</env.DOCKER_PLUGIN_TIMEOUT>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
