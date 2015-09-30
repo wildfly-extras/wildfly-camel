@@ -4,7 +4,7 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="spring-beans-4.1.6.RELEASE.jar" />
+    <resource-root path="spring-beans-4.1.8.RELEASE.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />
