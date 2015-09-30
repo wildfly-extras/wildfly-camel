@@ -37,7 +37,7 @@
     <!-- Properties -->
     <properties>
         <docker.image.name>wildflyext/wildfly-camel</docker.image.name>
-        <docker.image.from>wildflyext/wildfly:${version.wildfly}</docker.image.from>
+        <docker.image.from>jboss/wildfly:${version.wildfly}</docker.image.from>
         <docker.image.maintainer>Thomas Diesler tdiesler@redhat.com</docker.image.maintainer>
         <docker.image.version>latest</docker.image.version>
         <docker.removeAll>true</docker.removeAll>
