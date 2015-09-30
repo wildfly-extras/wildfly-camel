@@ -47,8 +47,6 @@
         
         <!-- Camel version -->
         <version.apache.camel>2.16.0</version.apache.camel>
-        <!-- [#726] Remove explicit spring-security version -->
-        <version.spring.security>3.2.5.RELEASE</version.spring.security>
         
         <!-- WildFly versions -->
         <version.wildfly>9.0.1.Final</version.wildfly>
@@ -170,11 +168,6 @@
                 <version>${version.apache.camel}</version>
                 <scope>import</scope>
                 <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-core</artifactId>
-                <version>${version.spring.security}</version>
             </dependency>
 
             <!-- FTP Server -->
