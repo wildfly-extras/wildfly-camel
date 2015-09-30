@@ -44,6 +44,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.Route;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.kafka.KafkaConstants;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -54,11 +55,14 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.common.zookeeper.EmbeddedZookeeperServer;
+import org.wildfly.camel.test.kafka.subA.SimpleKafkaPartitioner;
+import org.wildfly.camel.test.kafka.subA.SimpleKafkaSerializer;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -126,9 +130,9 @@ public class KafkaIntegrationTest {
             Map<String, Object> headerMap = new HashMap<>();
             headerMap.put(KafkaConstants.PARTITION_KEY, "1");
 
-            ProducerTemplate producer = camelctx.createProducerTemplate();
+            ProducerTemplate producerTemplate = camelctx.createProducerTemplate();
             for (int i = 0; i < 5; i++) {
-                producer.sendBodyAndHeaders("direct:start", "Camel Kafka test message " + i, headerMap);
+                producerTemplate.sendBodyAndHeaders("direct:start", "Camel Kafka test message " + i, headerMap);
             }
 
             boolean result = latch.await(5, TimeUnit.SECONDS);
@@ -180,6 +184,56 @@ public class KafkaIntegrationTest {
         }
     }
 
+    @Test
+    @Ignore("[KAFKA-2295] Dynamically loaded classes (encoders, etc.) may not be found by Kafka Producer")
+    public void testCustomKafkaPartitionerLoads() throws Exception {
+        String zkhost = "&zookeeperHost=localhost";
+        String zkport = "&zookeeperPort=" + ZOOKEEPER_PORT;
+        String partitioner = "&partitionerClass=" + SimpleKafkaPartitioner.class.getName();
+        final String epuri = "kafka:localhost:" + KAFKA_PORT + "?topic=" + TEST_TOPIC_NAME + "&groupId=group1" + zkhost + zkport + partitioner;
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start").routeId("testCustomPartitioner").to(epuri);
+            }
+        });
+
+        camelctx.start();
+        try {
+            Route route = camelctx.getRoute("testCustomPartitioner");
+            Assert.assertTrue(route.getRouteContext().isRouteAdded());
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    @Ignore("[KAFKA-2295] Dynamically loaded classes (encoders, etc.) may not be found by Kafka Producer")
+    public void testCustomKafkaSerializerLoads() throws Exception {
+        String zkhost = "&zookeeperHost=localhost";
+        String zkport = "&zookeeperPort=" + ZOOKEEPER_PORT;
+        String serializer = "&serializerClass=" + SimpleKafkaSerializer.class.getName();
+        final String epuri = "kafka:localhost:" + KAFKA_PORT + "?topic=" + TEST_TOPIC_NAME + "&groupId=group1" + zkhost + zkport + serializer;
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start").routeId("testCustomSerializer").to(epuri);
+            }
+        });
+
+        camelctx.start();
+        try {
+            Route route = camelctx.getRoute("testCustomSerializer");
+            Assert.assertTrue(route.getRouteContext().isRouteAdded());
+        } finally {
+            camelctx.stop();
+        }
+    }
+
     private ConsumerConnector createKafkaMessageConsumer(CountDownLatch messagesLatch) {
         Properties consumerProps = new Properties();
         consumerProps.put("zookeeper.connect", "localhost:" + ZOOKEEPER_PORT);
@@ -208,7 +262,6 @@ public class KafkaIntegrationTest {
         Properties properties = new Properties();
         properties.put("metadata.broker.list", "localhost:" + KAFKA_PORT);
         properties.put("serializer.class", "kafka.serializer.StringEncoder");
-        properties.put("partitioner.class", kafka.producer.DefaultPartitioner.class.getName());
         properties.put("request.required.acks", "1");
 
         ProducerConfig config = new ProducerConfig(properties);
