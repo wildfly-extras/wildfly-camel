@@ -71,6 +71,11 @@
             <artifactId>wildfly-camel-subsystem-undertow</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>cxf-undertow-wildfly</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         
         <dependency>
             <groupId>ca.uhn.hapi</groupId>

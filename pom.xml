@@ -57,6 +57,7 @@
         <version.apache.felix.metatype>1.0.8</version.apache.felix.metatype>
         <version.apache.felix.scr>1.6.2</version.apache.felix.scr>
         <version.apache.felix.scr.ds.annotations>1.2.4</version.apache.felix.scr.ds.annotations>
+        <version.apache.cxf>3.1.5</version.apache.cxf>
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
         <version.apache.karaf>2.4.3</version.apache.karaf>
         <version.apache.sshd.sftp>0.11.0</version.apache.sshd.sftp>
@@ -118,6 +119,7 @@
     <!-- Modules -->
     <modules>
         <module>config</module>
+        <module>cxfhttp</module>
         <module>feature</module>
         <module>subsystem</module>
         <module>testenricher</module>
@@ -181,6 +183,18 @@
                 <type>pom</type>
             </dependency>
 
+            <!-- CXF -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http</artifactId>
+                <version>${version.apache.cxf}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http-jetty</artifactId>
+                <version>${version.apache.cxf}</version>
+            </dependency>
+            
             <!-- Felix -->
             <dependency>
                 <groupId>org.apache.felix</groupId>
@@ -208,7 +222,7 @@
                 <artifactId>org.apache.felix.scr.ds-annotations</artifactId>
                 <version>${version.apache.felix.scr.ds.annotations}</version>
             </dependency>
-            
+                
             <!-- FTP Server -->
             <dependency>
                 <groupId>org.apache.ftpserver</groupId>

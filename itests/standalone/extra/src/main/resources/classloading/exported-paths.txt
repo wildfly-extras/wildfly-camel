@@ -616,6 +616,7 @@ org/apache/cxf/interceptor/security/callback
 org/apache/cxf/interceptor/transform
 org/apache/cxf/message
 org/apache/cxf/sts
+org/apache/cxf/transport
 org/apache/cxf/transport/http
 org/apache/cxf/transport/http/asyncclient
 org/apache/cxf/transport/http/auth
@@ -627,6 +628,8 @@ org/apache/cxf/transport/http/spring
 org/apache/cxf/transport/http_jaxws_spi
 org/apache/cxf/transport/https
 org/apache/cxf/transport/https/httpclient
+org/apache/cxf/transport/undertow
+org/apache/cxf/transport/undertow/wildfly
 org/apache/cxf/ws/discovery
 org/apache/cxf/ws/security/cache
 org/apache/cxf/ws/security/kerberos

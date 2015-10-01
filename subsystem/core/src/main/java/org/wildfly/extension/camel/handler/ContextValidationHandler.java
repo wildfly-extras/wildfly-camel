@@ -47,9 +47,7 @@ public final class ContextValidationHandler implements ContextCreateHandler {
                     if (consumer != null) {
                         Endpoint endpoint = consumer.getEndpoint();
                         String eppackage = endpoint.getClass().getPackage().getName();
-                        if (eppackage.startsWith("org.apache.camel.component.cxf"))
-                            throw new UnsupportedOperationException("CXF consumer endpoint not supported");
-                        else if (eppackage.startsWith("org.apache.camel.component.restlet"))
+                        if (eppackage.startsWith("org.apache.camel.component.restlet"))
                             throw new UnsupportedOperationException("Restlet consumer endpoint not supported");
                     }
                 }

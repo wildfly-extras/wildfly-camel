@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.wildfly.extension.camel.cxf.undertow">
+  <resources>
+    <artifact name="${org.wildfly.camel:cxf-undertow-base}" />
+    <artifact name="${org.wildfly.camel:cxf-undertow-wildfly}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.servlet.api" />
+    <module name="io.undertow.core" />
+    <module name="io.undertow.servlet" />
+    <module name="org.apache.cxf.impl" />
+    <module name="org.slf4j" />
+    <module name="org.jboss.gravia" />
+    <module name="org.wildfly.extension.undertow" />
+  </dependencies>
+</module>
