@@ -16,7 +16,9 @@
 	^org/apache/cxf/interceptor(.*)
     ^org/apache/cxf/message(.*)
 	^org/apache/cxf/sts(.*)
+	^org/apache/cxf/transport
 	^org/apache/cxf/transport/http(.*)
+	^org/apache/cxf/transport/undertow(.*)
 	^org/apache/cxf/ws/discovery(.*)
 	^org/apache/cxf/ws/security(.*)
 	^org/apache/xmlbeans

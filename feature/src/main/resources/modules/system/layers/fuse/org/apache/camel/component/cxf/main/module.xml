@@ -44,6 +44,14 @@
     <module name="org.springframework.beans" />
     <module name="org.springframework.context" />
     <module name="org.springframework.core" />
+    <module name="org.wildfly.extension.camel.cxf.undertow" export="true">
+      <imports>
+        <include path="META-INF/cxf**" />
+      </imports>
+      <exports>
+        <include path="META-INF/cxf**" />
+      </exports>
+    </module>
     <module name="javax.servlet.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />

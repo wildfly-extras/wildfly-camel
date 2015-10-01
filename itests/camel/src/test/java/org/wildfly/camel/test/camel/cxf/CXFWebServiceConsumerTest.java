@@ -17,7 +17,8 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.cxf.ws;
+
+package org.wildfly.camel.test.camel.cxf;
 
 import java.net.URL;
 
@@ -27,44 +28,36 @@ import javax.xml.ws.Service;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.ServiceStatus;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.wildfly.camel.test.camel.SpringCamelContextFactory;
 import org.wildfly.camel.test.common.types.Endpoint;
-import org.wildfly.extension.camel.CamelAware;
-import org.wildfly.extension.camel.CamelContextRegistry;
 
-/**
- * Test WebService endpoint access with the cxf component.
- *
- * @author thomas.diesler@jboss.com
- * @since 11-Jun-2013
- */
-@CamelAware
-@RunWith(Arquillian.class)
-public class CXFWSConsumerIntegrationTest {
+@Ignore("[#1114] Align WildFly and Camel CXF versions")
+public class CXFWebServiceConsumerTest {
 
-    @ArquillianResource
-    CamelContextRegistry contextRegistry;
+    static CamelContext camelctx;
 
-    @Deployment
-    public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-ws-consumer-tests");
-        archive.addClasses(Endpoint.class);
-        archive.addAsResource("cxf/spring/cxf-consumer-camel-context.xml", "cxf-consumer-camel-context.xml");
-        return archive;
+    @BeforeClass
+    public static void beforeClass() throws Exception {
+        ClassLoader classLoader = CXFWebServiceConsumerTest.class.getClassLoader();
+        URL resurl = classLoader.getResource("cxf/cxfws-camel-context.xml");
+        camelctx = SpringCamelContextFactory.createSingleCamelContext(resurl, classLoader);
+    }
+
+    @AfterClass
+    public static void afterClass() throws Exception {
+        if (camelctx != null) {
+            camelctx.stop();
+        }
     }
 
     @Test
     public void testCXFConsumer() throws Exception {
 
-        CamelContext camelctx = contextRegistry.getCamelContext("cxf-undertow");
-        Assert.assertNotNull("Expected cxf-undertow to not be null", camelctx);
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
 
         QName qname = new QName("http://wildfly.camel.test.cxf", "EndpointService");
@@ -78,12 +71,11 @@ public class CXFWSConsumerIntegrationTest {
     @Test
     public void testCXFRoundtrip() throws Exception {
 
-        CamelContext camelctx = contextRegistry.getCamelContext("cxf-undertow");
-        Assert.assertNotNull("Expected cxf-undertow to not be null", camelctx);
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
 
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);
         Assert.assertEquals("Hello Kermit", result);
     }
+
 }
