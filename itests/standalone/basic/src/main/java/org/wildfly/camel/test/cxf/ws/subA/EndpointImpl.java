@@ -30,13 +30,13 @@ import org.jboss.logging.Logger;
  * @author thomas.diesler@jboss.com
  * @since 28-Aug-2012
  */
-@WebService(serviceName="EndpointService", portName="EndpointPort", targetNamespace="http://wildfly.camel.test.cxf", endpointInterface = "org.wildfly.camel.test.cxf.ws.subA.Endpoint")
+@WebService(serviceName="EndpointService", portName="EndpointPort", targetNamespace="http://wildfly.camel.test.cxf", endpointInterface = "org.wildfly.camel.test.common.types.Endpoint")
 public class EndpointImpl {
 
-   private static Logger log = Logger.getLogger(EndpointImpl.class);
+    private static Logger log = Logger.getLogger(EndpointImpl.class);
 
-   public String echo(String input) {
-      log.info("echo: " + input);
-      return "Hello " + input;
-   }
+    public String echo(String input) {
+        log.info("echo: " + input);
+        return "Hello " + input;
+    }
 }

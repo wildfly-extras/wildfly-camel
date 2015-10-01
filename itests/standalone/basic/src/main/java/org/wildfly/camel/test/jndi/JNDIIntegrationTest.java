@@ -36,6 +36,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.types.HelloBean;
+import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextFactory;
 import org.wildfly.extension.camel.WildFlyCamelContext;
@@ -46,6 +47,7 @@ import org.wildfly.extension.camel.WildFlyCamelContext;
  * @author thomas.diesler@jboss.com
  * @since 03-Jun-2013
  */
+@CamelAware
 @RunWith(Arquillian.class)
 public class JNDIIntegrationTest {
 

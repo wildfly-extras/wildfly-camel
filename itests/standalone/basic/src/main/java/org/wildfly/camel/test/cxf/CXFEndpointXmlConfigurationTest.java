@@ -33,7 +33,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.cxf.ws.subA.Endpoint;
+import org.wildfly.camel.test.common.types.Endpoint;
 import org.wildfly.camel.test.cxf.ws.subA.EndpointImpl;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextRegistry;

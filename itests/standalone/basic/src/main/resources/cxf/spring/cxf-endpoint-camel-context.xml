@@ -29,7 +29,7 @@
 
     <cxf:cxfEndpoint id="cxfEndpoint"
                      address="http://localhost:8080/simple/EndpointService"
-                     serviceClass="org.wildfly.camel.test.cxf.ws.subA.Endpoint"/>
+                     serviceClass="org.wildfly.camel.test.common.types.Endpoint"/>
 
     <camelContext id="cxf-context">
         <route>

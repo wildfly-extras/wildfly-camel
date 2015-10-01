@@ -37,7 +37,7 @@ import org.jboss.ws.api.annotation.WebContext;
 @Stateless
 @SecurityDomain("cxf-security-domain")
 @RolesAllowed("CXFRole")
-@WebService(serviceName="EndpointService", portName="EndpointPort", targetNamespace="http://wildfly.camel.test.cxf", endpointInterface = "org.wildfly.camel.test.cxf.ws.subA.Endpoint")
+@WebService(serviceName="EndpointService", portName="EndpointPort", targetNamespace="http://wildfly.camel.test.cxf", endpointInterface = "org.wildfly.camel.test.common.types.Endpoint")
 @WebContext(urlPattern="/*", authMethod="BASIC", transportGuarantee="NONE", secureWSDLAccess=false)
 public class SecureEndpointImpl {
 

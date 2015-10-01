@@ -19,13 +19,6 @@
   #L%
   -->
 
-
-<!-- 
-  Set these VM properties in your IDE debugger 
-
-  -Djava.util.logging.manager=org.jboss.logmanager.LogManager
-  -Dwildfly.camel.home=${workspace_loc:wildfly-camel-build}/target/wildfly-camel-1.0.0-SNAPSHOT
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -47,21 +40,21 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-subsystem</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-kafka</artifactId>
+            <artifactId>camel-cxf</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-library</artifactId>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http-jetty</artifactId>
+            <version>3.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.modules</groupId>
+            <artifactId>jboss-modules</artifactId>
         </dependency>
 
         <!-- Test -->

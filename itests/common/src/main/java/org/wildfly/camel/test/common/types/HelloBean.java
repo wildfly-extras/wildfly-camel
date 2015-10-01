@@ -20,9 +20,7 @@
 
 package org.wildfly.camel.test.common.types;
 
-import org.wildfly.extension.camel.CamelAware;
 
-@CamelAware
 public class HelloBean {
 
     public String hello(String name) {

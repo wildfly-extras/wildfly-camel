@@ -28,7 +28,7 @@
     <camelContext id="cxf-context">
         <route>
             <from uri="direct:start"/>
-            <to uri="cxf://http://localhost:8080/simple/EndpointService?serviceClass=org.wildfly.camel.test.cxf.ws.subA.Endpoint"/>
+            <to uri="cxf://http://localhost:8080/simple/EndpointService?serviceClass=org.wildfly.camel.test.common.types.Endpoint"/>
         </route>
     </camelContext>
 </spring:beans>

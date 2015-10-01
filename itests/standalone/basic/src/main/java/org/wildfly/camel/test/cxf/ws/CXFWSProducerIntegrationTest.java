@@ -50,7 +50,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.wildfly.camel.test.cxf.ws.subA.Endpoint;
+import org.wildfly.camel.test.common.types.Endpoint;
 import org.wildfly.camel.test.cxf.ws.subA.EndpointImpl;
 import org.wildfly.extension.camel.CamelAware;
 import org.xml.sax.InputSource;

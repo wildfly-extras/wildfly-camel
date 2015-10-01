@@ -39,15 +39,6 @@
 		<module>standalone</module>
 	</modules>
 
-    <!-- Dependencies -->
-    <dependencies>
-        <dependency>
-            <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-subsystem</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
-    
     <!-- Profiles -->
     <profiles>
         <profile>

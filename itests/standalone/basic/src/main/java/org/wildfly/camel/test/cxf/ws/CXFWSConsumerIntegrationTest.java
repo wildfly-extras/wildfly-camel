@@ -29,7 +29,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.cxf.ws.subA.Endpoint;
+import org.wildfly.camel.test.common.types.Endpoint;
 import org.wildfly.extension.camel.CamelAware;
 
 /**

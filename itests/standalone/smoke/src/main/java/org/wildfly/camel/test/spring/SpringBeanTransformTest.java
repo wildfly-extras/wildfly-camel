@@ -32,6 +32,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.types.HelloBean;
+import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.SpringCamelContextFactory;
 
 /**
@@ -43,6 +44,7 @@ import org.wildfly.extension.camel.SpringCamelContextFactory;
  * @author thomas.diesler@jboss.com
  * @since 21-Apr-2013
  */
+@CamelAware
 @RunWith(Arquillian.class)
 public class SpringBeanTransformTest {
 

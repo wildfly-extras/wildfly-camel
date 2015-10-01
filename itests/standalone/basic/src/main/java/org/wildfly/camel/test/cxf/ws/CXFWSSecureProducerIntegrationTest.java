@@ -46,7 +46,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.DMRUtils;
-import org.wildfly.camel.test.cxf.ws.subA.Endpoint;
+import org.wildfly.camel.test.common.types.Endpoint;
 import org.wildfly.camel.test.cxf.ws.subA.SecureEndpointImpl;
 import org.wildfly.extension.camel.CamelAware;
 
