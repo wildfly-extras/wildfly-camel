@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.eclipse.jetty">
+  <resources>
+    <artifact name="${org.eclipse.jetty:jetty-client}" />
+    <artifact name="${org.eclipse.jetty:jetty-http}" />
+    <artifact name="${org.eclipse.jetty:jetty-io}" />
+    <artifact name="${org.eclipse.jetty:jetty-util}" />
+  </resources>
+  <dependencies />
+</module>

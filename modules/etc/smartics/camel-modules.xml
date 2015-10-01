@@ -559,14 +559,9 @@
         <include artifact=":bayeux-api" />
         <include artifact=":cometd-java-client" />
         <include artifact=":cometd-java-common" />
-        <include artifact=":jetty-client" />
-        <include artifact=":jetty-http" />
-        <include artifact=":jetty-io" />
-        <include artifact=":jetty-util" />
         <apply-to-dependencies skip="true">
             <include module="joda-time" />
             <include module="org.apache.camel.apt" />
-            <include module="org.eclipse.jetty.orbit" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />

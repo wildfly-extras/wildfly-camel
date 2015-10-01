@@ -97,6 +97,10 @@
         <include artifact="org.apache.camel:camel-blueprint" />
     </module>
     
+    <module name="org.apache.camel.spi-annotations" skip="true">
+        <include artifact="org.apache.camel:spi-annotations" />
+    </module>
+    
     <module name="org.apache.deltaspike.test" skip="true">
         <include artifact="org.apache.deltaspike.test:(.*)" />
     </module>
@@ -119,6 +123,10 @@
     
     <module name="org.eclipse.jetty.orbit" skip="true">
         <include artifact="org.eclipse.jetty.orbit:javax.servlet" />
+    </module>
+    
+    <module name="org.eclipse.jetty.server" skip="true">
+        <include artifact="org.eclipse.jetty:jetty-server" />
     </module>
     
     <module name="org.glassfish.web" skip="true">
@@ -154,6 +162,10 @@
         <include artifact="org.linkedin:(.*)" />
     </module>
 
+    <module name="org.mortbay.jetty" skip="true">
+        <include artifact="org.mortbay.jetty:(.*)" />
+    </module>
+    
     <module name="org.osgi.compendium" skip="true">
         <include artifact="org.osgi:org.osgi.compendium" />
     </module>

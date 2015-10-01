@@ -209,10 +209,19 @@
         </dependencies>
     </module>
 
-    <module name="org.fusesource.hawtbuf">
-        <include artifact="org.fusesource.hawtbuf:hawtbuf" />
+    <module name="org.eclipse.jetty">
+        <include artifact="org.eclipse.jetty:jetty-client" />
+        <include artifact="org.eclipse.jetty:jetty-http" />
+        <include artifact="org.eclipse.jetty:jetty-io" />
+        <include artifact="org.eclipse.jetty:jetty-util" />
+        <include artifact="org.eclipse.jetty:jetty-websocket" />
+        <apply-to-dependencies skip="true">
+            <include module="org.eclipse.jetty.orbit" />
+            <include module="org.eclipse.jetty.server" />
+            <include module="org.mortbay.jetty" />
+        </apply-to-dependencies>
     </module>
-
+    
     <module name="org.fusesource.hawtbuf">
         <include artifact="org.fusesource.hawtbuf:hawtbuf" />
     </module>
