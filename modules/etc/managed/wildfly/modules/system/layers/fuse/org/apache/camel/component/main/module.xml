@@ -42,6 +42,7 @@
         </module>
         <module name="org.apache.camel.component.dozer" export="true" services="export" />
         <module name="org.apache.camel.component.ejb" export="true" services="export" />
+        <module name="org.apache.camel.component.elasticsearch" export="true" services="export" />
         <module name="org.apache.camel.component.flatpack" export="true" services="export" />
         <module name="org.apache.camel.component.ftp" export="true" services="export" />
         <module name="org.apache.camel.component.hl7" export="true" services="export" />

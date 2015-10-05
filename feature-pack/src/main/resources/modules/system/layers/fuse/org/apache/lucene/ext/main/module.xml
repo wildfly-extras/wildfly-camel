@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.lucene.ext">
+  <resources>
+    <artifact name="${org.apache.lucene:lucene-grouping}" />
+    <artifact name="${org.apache.lucene:lucene-highlighter}" />
+    <artifact name="${org.apache.lucene:lucene-join}" />
+    <artifact name="${org.apache.lucene:lucene-misc}" />
+    <artifact name="${org.apache.lucene:lucene-sandbox}" />
+    <artifact name="${org.apache.lucene:lucene-spatial}" />
+    <artifact name="${org.apache.lucene:lucene-suggest}" />
+    <artifact name="${com.spatial4j:spatial4j}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.lucene" />
+  </dependencies>
+</module>

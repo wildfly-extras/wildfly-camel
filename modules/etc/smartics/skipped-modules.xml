@@ -84,7 +84,11 @@
     <module name="net.jcip" skip="true">
         <include artifact="net.jcip:jcip-annotations" />
     </module>
-    
+
+    <module name="org.antlr.antlr-runtime" skip="true">
+        <include artifact="org.antlr:antlr-runtime"/>
+    </module>
+
     <module name="org.apache.aries.blueprint" skip="true">
         <include artifact="org.apache.aries.blueprint:(.*)" />
     </module>
@@ -168,6 +172,11 @@
     
     <module name="org.osgi.compendium" skip="true">
         <include artifact="org.osgi:org.osgi.compendium" />
+    </module>
+
+    <module name="org.ow2.asm" skip="true">
+        <include artifact="org.ow2.asm:asm"/>
+        <include artifact="org.ow2.asm:asm-commons"/>
     </module>
 
     <module name="org.scala"  skip="true">

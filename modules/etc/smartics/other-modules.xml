@@ -167,7 +167,7 @@
         <include artifact="org.xerial.snappy:snappy-java" />
         <include artifact="net.jpountz.lz4:lz4" />
     </module>
-    
+
     <module name="org.apache.mina.$1">
         <include artifact=":mina-(.*)" />
     </module>
@@ -234,6 +234,23 @@
             <include module="org.eclipse.jetty.server" />
             <include module="org.mortbay.jetty" />
         </apply-to-dependencies>
+    </module>
+
+    <module name="org.elasticsearch">
+        <include artifact="org.elasticsearch:elasticsearch" />
+        <apply-to-dependencies skip="true">
+            <include module="org.ow2.asm"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.antlr.antlr-runtime" slot="3.4"/>
+            <module name="org.slf4j"/>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc/Unsafe" />
+                </imports>
+            </module>
+        </dependencies>
     </module>
     
     <module name="org.fusesource.hawtbuf">
