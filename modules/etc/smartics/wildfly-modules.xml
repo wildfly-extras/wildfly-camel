@@ -132,6 +132,10 @@
         <include artifact=":geronimo-transaction" />
     </module>
 
+    <module name="javax.validation.api" skip="true">
+        <include artifact=":validation-api" />
+    </module>
+
     <module name="javax.wsdl4j.api" skip="true">
         <include artifact="wsdl4j:wsdl4j" />
     </module>

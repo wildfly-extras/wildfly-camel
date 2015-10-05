@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.commons.lang3">
   <resources>
-    <resource-root path="commons-lang3-3.2.1.jar" />
+    <resource-root path="commons-lang3-3.4.jar" />
   </resources>
   <dependencies />
 </module>

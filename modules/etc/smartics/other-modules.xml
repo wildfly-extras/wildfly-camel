@@ -24,8 +24,22 @@
         <include artifact=":cglib-nodep" />
     </module>
 
-    <module name="com.fasterxml.jackson.json">
-        <include artifact=":jackson-module-jsonSchema" />
+    <module name="com.fasterxml.jackson.dataformat.xml">
+        <include artifact=":jackson-dataformat-xml" />
+    </module>
+
+    <module name="com.fasterxml.jackson.dataformat.yaml">
+        <include artifact=":jackson-dataformat-yaml" />
+    </module>
+
+    <module name="com.fasterxml.jackson.datatype.joda">
+        <include artifact=":jackson-datatype-joda" />
+        <apply-to-dependencies skip="true">
+            <include module="joda-time"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.joda.time" />
+        </dependencies>
     </module>
 
     <module name="com.jcraft.jsch">

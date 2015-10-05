@@ -169,11 +169,7 @@
     <module name="org.osgi.compendium" skip="true">
         <include artifact="org.osgi:org.osgi.compendium" />
     </module>
-    
-    <module name="org.reflections" skip="true">
-        <include artifact="org.reflections:reflections" />
-    </module>
-    
+
     <module name="org.scala"  skip="true">
         <include artifact="org.scala-lang:scala-compiler" />
         <include artifact="org.scala-lang:scala-reflect" />

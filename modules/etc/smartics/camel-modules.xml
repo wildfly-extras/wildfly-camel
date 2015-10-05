@@ -682,21 +682,20 @@
     </module>
     
     <module name="org.apache.camel.component.swagger">
-        <include artifact="org.apache.camel:camel-swagger" />
-        <include artifact="com.wordnik:swagger-(.*)" />
+        <include artifact="org.apache.camel:camel-swagger-java" />
+        <include artifact="io.swagger:swagger-(.*)" />
+        <include artifact="org.reflections:reflections" />
         <apply-to-dependencies skip="true">
             <include module="ch.qos.logback" />
-            <include module="com.fasterxml.jackson.scala" />
             <include module="com.google.code.findbugs" />
             <include module="org.apache.camel.apt" />
-            <include module="org.json4s" />
-            <include module="org.reflections" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
         <exports>
-            <exclude path="com/wordnik" />
+            <exclude path="io/swagger" />
+            <exclude path="org/reflections**" />
         </exports>
     </module>
     

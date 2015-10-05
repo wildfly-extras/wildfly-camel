@@ -1,8 +1,8 @@
 [includes]
 	^ca/uhn/hl7v2(.*)
 	^com/google/protobuf
-	^com/wordnik/swagger(.*)
 	^kafka(.*)
+	^io/swagger(.*)
 	^net/sf/saxon(.*)
 	^org/apache/abdera(.*)
 	^org/apache/activemq

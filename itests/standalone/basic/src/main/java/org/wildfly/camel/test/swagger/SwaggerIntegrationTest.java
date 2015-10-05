@@ -77,7 +77,7 @@ public class SwaggerIntegrationTest {
 
             result = HttpRequest.get("http://localhost:8080/swagger-tests/api-docs").getResponse();
             Assert.assertEquals(HttpURLConnection.HTTP_OK, result.getStatusCode());
-            Assert.assertTrue("Contains substr: " + result.getBody(), result.getBody().contains("\"name\": \"swagger-test\""));
+            Assert.assertTrue("Contains substr: " + result.getBody(), result.getBody().contains("\"name\" : \"hello\""));
         } finally {
             camelctx.stop();
         }

@@ -249,13 +249,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-swagger</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.scala-lang</groupId>
-                    <artifactId>scala-library</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>camel-swagger-java</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>

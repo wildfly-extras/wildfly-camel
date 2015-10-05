@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.fasterxml.jackson.dataformat.xml">
+  <resources>
+    <resource-root path="jackson-dataformat-xml-2.6.2.jar" />
+  </resources>
+  <dependencies>
+    <module name="com.fasterxml.jackson.core.jackson-annotations" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" />
+    <module name="javax.xml.stream.api" />
+    <module name="org.codehaus.woodstox" />
+  </dependencies>
+</module>
