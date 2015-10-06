@@ -552,6 +552,7 @@ org/apache/zookeeper/server/util
 org/apache/zookeeper/txn
 org/apache/zookeeper/version
 org/apache/zookeeper/version/util
+org/dozer/util
 org/elasticsearch
 org/elasticsearch/action
 org/elasticsearch/action/admin

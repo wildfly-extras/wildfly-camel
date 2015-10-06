@@ -240,6 +240,12 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
+            <module name="net.sf.dozer" export="true">
+                <exports>
+                    <include path="org/dozer/util**" />
+                    <exclude path="org/dozer**" />
+                </exports>
+            </module>
             <module name="org.apache.commons.lang3"/>
             <module name="org.slf4j"/>
         </dependencies>
