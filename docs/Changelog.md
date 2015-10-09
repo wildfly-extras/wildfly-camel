@@ -5,6 +5,8 @@
 **Features**
 
 * [#766][766] Create simple archetype for camel project 
+* [#778][778] Add support for camel-undertow 
+* [#814][814] Add support for camel-elasticsearch
 * [#859][859] Add support for camel-jasypt
 * [#874][874] Add support for camel-stream
 * [#883][883] Only add Camel dependencies for a deployment when used
@@ -14,14 +16,19 @@ For details see [3.1.0 features](https://github.com/wildfly-extras/wildfly-camel
 **Tasks**
 
 * [#555][555] Verify that Hawtio camel tab works as expected 
+* [#592][592] Update to camel-2.16.0
+* [#660][660] Update to wildfly-9.0.1.Final
+* [#726][726] Remove explicit spring-security version
 * [#746][746] Provide test coverage for zookeeper consumer
 * [#747][747] Add test coverage for Kafka consumer/producer
 * [#754][754] Investigate integration of container managed transactions within Camel routes
+* [#779][779] Endpoint creation on existing undertow server
 * [#792][792] Review use of Maven dependency resolution in module-checker script 
 * [#797][797] Split up dozer into individual module from camel-dozer
 * [#799][799] Add dependence on SAP module to extras by default
 * [#801][801] Restore or remove skipped tests in CamelSubsystemTestCase
 * [#802][802] Restore or remove skipped tests in FileURLDecodingTest
+* [#803][803] Restore or remove skipped tests in JMSIntegrationTest
 * [#806][806] Remove activemq-rar dependency from modules pom.xml
 * [#808][808] Prevent org.wildfly.camel.wildfly-camel-modules module from being added to the patch
 * [#811][811] Restore ability for module-checker script to ignore dependencies
@@ -39,16 +46,21 @@ For details see [3.1.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#862][862] Add test coverage for a transactional SQL / JPA camel routes
 * [#865][865] Add test coverage for JpaTransactionManager
 * [#868][868] Remove camel-sap component
+* [#889][889] Increase docker-maven-plugin timeout property for domain mode tests
+* [#893][893] Separate jetty from component salesforce
+* [#894][894] Revisit plain camel test dependencies
 
 For details see [3.1.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"3.1.0"+label%3Atask)
 
 **Bugs**
 
+* [#591][591] JMS Session not accessible from route
 * [#780][780] Many modules have duplicated dependency declarations
 * [#794][794] camel-rest example integration tests throw FileSystemNotFoundException
 * [#796][796] Docker maven module versions not updated
 * [#815][815] Missing javax.activation.api dependency for org.apache.abdera.core
 * [#841][841] Multiple contexts not undeployed properly
+* [#844][844] Cannot resolve beanmapping XML Schema
 * [#848][848] Skip wiring of Camel modules for resource adapter deployments
 * [#853][853] Add feature-pack dependency to archetypes module to ensure correct build order
 * [#870][870] Path org.springframework.orm.jpa not exported from org.springframework.orm module
@@ -57,18 +69,25 @@ For details see [3.1.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 For details see [3.1.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"3.1.0"+label%3Abug)
 
 [766]: https://github.com/wildfly-extras/wildfly-camel/issues/766
+[778]: https://github.com/wildfly-extras/wildfly-camel/issues/778
+[814]: https://github.com/wildfly-extras/wildfly-camel/issues/814
 [859]: https://github.com/wildfly-extras/wildfly-camel/issues/859
 [874]: https://github.com/wildfly-extras/wildfly-camel/issues/874
 [883]: https://github.com/wildfly-extras/wildfly-camel/issues/883
 [555]: https://github.com/wildfly-extras/wildfly-camel/issues/555
+[592]: https://github.com/wildfly-extras/wildfly-camel/issues/592
+[660]: https://github.com/wildfly-extras/wildfly-camel/issues/660
+[726]: https://github.com/wildfly-extras/wildfly-camel/issues/726
 [746]: https://github.com/wildfly-extras/wildfly-camel/issues/746
 [747]: https://github.com/wildfly-extras/wildfly-camel/issues/747
 [754]: https://github.com/wildfly-extras/wildfly-camel/issues/754
+[779]: https://github.com/wildfly-extras/wildfly-camel/issues/779
 [792]: https://github.com/wildfly-extras/wildfly-camel/issues/792
 [797]: https://github.com/wildfly-extras/wildfly-camel/issues/797
 [799]: https://github.com/wildfly-extras/wildfly-camel/issues/799
 [801]: https://github.com/wildfly-extras/wildfly-camel/issues/801
 [802]: https://github.com/wildfly-extras/wildfly-camel/issues/802
+[803]: https://github.com/wildfly-extras/wildfly-camel/issues/803
 [806]: https://github.com/wildfly-extras/wildfly-camel/issues/806
 [808]: https://github.com/wildfly-extras/wildfly-camel/issues/808
 [811]: https://github.com/wildfly-extras/wildfly-camel/issues/811
@@ -86,11 +105,16 @@ For details see [3.1.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 [862]: https://github.com/wildfly-extras/wildfly-camel/issues/862
 [865]: https://github.com/wildfly-extras/wildfly-camel/issues/865
 [868]: https://github.com/wildfly-extras/wildfly-camel/issues/868
+[889]: https://github.com/wildfly-extras/wildfly-camel/issues/889
+[893]: https://github.com/wildfly-extras/wildfly-camel/issues/893
+[894]: https://github.com/wildfly-extras/wildfly-camel/issues/894
+[591]: https://github.com/wildfly-extras/wildfly-camel/issues/591
 [780]: https://github.com/wildfly-extras/wildfly-camel/issues/780
 [794]: https://github.com/wildfly-extras/wildfly-camel/issues/794
 [796]: https://github.com/wildfly-extras/wildfly-camel/issues/796
 [815]: https://github.com/wildfly-extras/wildfly-camel/issues/815
 [841]: https://github.com/wildfly-extras/wildfly-camel/issues/841
+[844]: https://github.com/wildfly-extras/wildfly-camel/issues/844
 [848]: https://github.com/wildfly-extras/wildfly-camel/issues/848
 [853]: https://github.com/wildfly-extras/wildfly-camel/issues/853
 [870]: https://github.com/wildfly-extras/wildfly-camel/issues/870
