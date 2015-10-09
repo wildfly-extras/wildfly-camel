@@ -9,8 +9,6 @@ Your Enterprise Integration Solution can be architected as a combination of Java
 ### Documentation
 
 * [User Guide](http://wildflyext.gitbooks.io/wildfly-camel/content/)
-* [Roadmap](https://github.com/wildfly-extras/wildfly-camel/wiki/Roadmap)
-* [Whishlist](https://github.com/wildfly-extras/wildfly-camel/wiki/Whishlist)
 * [JavaEE Integration](http://wildflyext.gitbooks.io/wildfly-camel/content/javaee/index.html)
 * [Camel Components](http://wildflyext.gitbooks.io/wildfly-camel/content/components/index.html)
 
