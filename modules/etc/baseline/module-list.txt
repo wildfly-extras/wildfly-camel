@@ -169,4 +169,4 @@
 /org/springframework/security/main/spring-security-core-3.2.8.RELEASE.jar
 /org/springframework/spring-messaging/main/spring-messaging-4.1.6.RELEASE.jar
 /org/springframework/tx/main/spring-tx-4.1.6.RELEASE.jar
-/org/wildfly/extras/config/plugin/camel/main/wildfly-camel-config-3.1.0-SNAPSHOT.jar
+/org/wildfly/extras/config/plugin/camel/main/wildfly-camel-config-3.2.0-SNAPSHOT.jar

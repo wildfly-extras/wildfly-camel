@@ -44,9 +44,13 @@ public class RestProducerRouteBuilder extends RouteBuilder {
          * JBOSS_HOME/standalone/data/customer-records/customers.json
          */
         from("timer://outputCustomers?period=30000")
-        .log("Updating customers.json")
         .to("restlet://http://localhost:8080/example-camel-rest/rest/customer")
-        .setHeader(Exchange.FILE_NAME, constant("customers.json"))
-        .to("file:{{jboss.server.data.dir}}/customer-records/");
+        .choice()
+            .when(simple("${header.CamelHttpResponseCode} == 200"))
+                .log("Updating customers.json")
+                .setHeader(Exchange.FILE_NAME, constant("customers.json"))
+                .to("file:{{jboss.server.data.dir}}/customer-records/")
+            .otherwise()
+                .log("REST request failed. HTTP status ${header.CamelHttpResponseCode}");
     }
 }
