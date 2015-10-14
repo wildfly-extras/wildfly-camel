@@ -7,7 +7,7 @@
     <artifact name="${org.apache.lucene:lucene-grouping}" />
     <artifact name="${org.apache.lucene:lucene-highlighter}" />
     <artifact name="${org.apache.lucene:lucene-join}" />
-    <artifact name="${org.apache.lucene:lucene-misc}" />
+    <artifact name="${org.apache.lucene:lucene-memory}" />
     <artifact name="${org.apache.lucene:lucene-sandbox}" />
     <artifact name="${org.apache.lucene:lucene-spatial}" />
     <artifact name="${org.apache.lucene:lucene-suggest}" />
@@ -16,5 +16,6 @@
   <dependencies>
     <module name="javax.api" />
     <module name="org.apache.lucene" />
+    <module name="org.apache.lucene.internal" />
   </dependencies>
 </module>

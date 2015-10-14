@@ -125,7 +125,7 @@
 /org/apache/lucene/ext/main/lucene-grouping-4.10.4.jar
 /org/apache/lucene/ext/main/lucene-highlighter-4.10.4.jar
 /org/apache/lucene/ext/main/lucene-join-4.10.4.jar
-/org/apache/lucene/ext/main/lucene-misc-4.10.4.jar
+/org/apache/lucene/ext/main/lucene-memory-4.10.4.jar
 /org/apache/lucene/ext/main/lucene-sandbox-4.10.4.jar
 /org/apache/lucene/ext/main/lucene-spatial-4.10.4.jar
 /org/apache/lucene/ext/main/lucene-suggest-4.10.4.jar

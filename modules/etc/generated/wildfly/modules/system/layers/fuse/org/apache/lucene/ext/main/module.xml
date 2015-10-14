@@ -7,7 +7,7 @@
     <resource-root path="lucene-grouping-4.10.4.jar" />
     <resource-root path="lucene-highlighter-4.10.4.jar" />
     <resource-root path="lucene-join-4.10.4.jar" />
-    <resource-root path="lucene-misc-4.10.4.jar" />
+    <resource-root path="lucene-memory-4.10.4.jar" />
     <resource-root path="lucene-sandbox-4.10.4.jar" />
     <resource-root path="lucene-spatial-4.10.4.jar" />
     <resource-root path="lucene-suggest-4.10.4.jar" />
@@ -16,5 +16,6 @@
   <dependencies>
     <module name="javax.api" />
     <module name="org.apache.lucene" />
+    <module name="org.apache.lucene.internal" />
   </dependencies>
 </module>

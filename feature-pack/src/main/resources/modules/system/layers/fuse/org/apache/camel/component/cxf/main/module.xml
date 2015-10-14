@@ -36,6 +36,7 @@
         <exclude path="OSGI-INF/blueprint" />
         <exclude path="OSGI-INF/metatype" />
         <exclude path="com/sun**" />
+        <exclude path="org/osgi**" />
         <exclude path="schemas**" />
       </exports>
     </module>

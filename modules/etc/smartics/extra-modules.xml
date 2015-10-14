@@ -60,13 +60,13 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="org.apache.lucene:lucene-highlighter" />
-        <include artifact="org.apache.lucene:lucene-suggest" />
-        <include artifact="org.apache.lucene:lucene-misc" />
-        <include artifact="org.apache.lucene:lucene-join" />
         <include artifact="org.apache.lucene:lucene-grouping" />
+        <include artifact="org.apache.lucene:lucene-highlighter" />
+        <include artifact="org.apache.lucene:lucene-join" />
+        <include artifact="org.apache.lucene:lucene-memory" />
         <include artifact="org.apache.lucene:lucene-sandbox" />
         <include artifact="org.apache.lucene:lucene-spatial" />
+        <include artifact="org.apache.lucene:lucene-suggest" />
         <include artifact="com.spatial4j:spatial4j" />
         <dependencies>
             <module name="javax.api" />

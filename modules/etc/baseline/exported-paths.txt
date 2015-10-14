@@ -549,6 +549,7 @@ org/apache/cxf/buslifecycle
 org/apache/cxf/headers
 org/apache/cxf/interceptor
 org/apache/cxf/interceptor/security
+org/apache/cxf/interceptor/security/callback
 org/apache/cxf/interceptor/transform
 org/apache/cxf/message
 org/apache/cxf/sts
@@ -1313,6 +1314,7 @@ org/elasticsearch/watcher
 org/infinispan
 org/infinispan/commons
 org/infinispan/commons/api
+org/infinispan/commons/api/functional
 org/infinispan/manager
 org/infinispan/manager/impl
 org/quartz

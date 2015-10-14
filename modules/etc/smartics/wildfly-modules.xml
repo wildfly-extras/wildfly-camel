@@ -244,9 +244,13 @@
     <module name="org.apache.lucene" skip="true">
         <include artifact="org.apache.lucene:lucene-analyzers-common" />
         <include artifact="org.apache.lucene:lucene-core" />
-        <include artifact="org.apache.lucene:lucene-memory" />
-        <include artifact="org.apache.lucene:lucene-queryparser" />
+        <include artifact="org.apache.lucene:lucene-facet" />
         <include artifact="org.apache.lucene:lucene-queries" />
+        <include artifact="org.apache.lucene:lucene-queryparser" />
+    </module>
+
+    <module name="org.apache.lucene.internal" skip="true">
+        <include artifact="org.apache.lucene:lucene-misc" />
     </module>
 
     <module name="org.apache.neethi" skip="true">

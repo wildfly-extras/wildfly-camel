@@ -49,9 +49,9 @@
         <version.apache.camel>2.16.2</version.apache.camel>
         
         <!-- WildFly versions -->
-        <version.wildfly>9.0.2.Final</version.wildfly>
-        <version.wildfly.arquillian>1.0.1.Final</version.wildfly.arquillian>
-        <version.wildfly.core>1.0.2.Final</version.wildfly.core>
+        <version.wildfly>10.0.0.Final</version.wildfly>
+        <version.wildfly.arquillian>1.0.2.Final</version.wildfly.arquillian>
+        <version.wildfly.core>2.0.10.Final</version.wildfly.core>
 
         <!-- Other versions -->
         <version.apache.felix.configadmin>1.8.8</version.apache.felix.configadmin>

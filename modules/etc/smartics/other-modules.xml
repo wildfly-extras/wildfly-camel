@@ -323,11 +323,11 @@
         </properties>
         <include artifact="org.elasticsearch:elasticsearch" />
         <apply-to-dependencies skip="true">
+            <include module="org.antlr.antlr-runtime"/>
             <include module="org.ow2.asm"/>
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.antlr.antlr-runtime" slot="3.4"/>
             <module name="org.slf4j"/>
             <module name="sun.jdk">
                 <imports>
