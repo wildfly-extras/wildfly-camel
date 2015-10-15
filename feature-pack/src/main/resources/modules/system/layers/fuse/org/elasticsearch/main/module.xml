@@ -14,9 +14,7 @@
         <include path="sun/misc/Unsafe" />
       </imports>
     </module>
-    <module name="org.apache.lucene" />
-    <module name="org.apache.lucene.ext" />
-    <module name="org.apache.lucene.internal" />
+    <module name="org.apache.lucene" slot="4.10" />
     <module name="org.yaml.snakeyaml" />
   </dependencies>
 </module>
