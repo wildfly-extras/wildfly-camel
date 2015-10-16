@@ -130,6 +130,7 @@
         <include artifact=":geronimo-jta_1.0.1B_spec" />
         <include artifact=":geronimo-jta_1.1_spec" />
         <include artifact=":geronimo-transaction" />
+        <include artifact=":jboss-transaction-api_1.1_spec" />
     </module>
 
     <module name="javax.validation.api" skip="true">
@@ -158,6 +159,10 @@
 
     <module name="joda-time" skip="true">
         <include artifact=":joda-time" />
+    </module>
+
+    <module name="org.apache.avro" skip="true">
+        <include artifact=":avro"/>
     </module>
 
     <module name="org.apache.commons.beanutils" skip="true">
@@ -301,6 +306,10 @@
         <include artifact=":hibernate-core" />
     </module>
 
+    <module name="org.infinispan" skip="true">
+        <include artifact=":infinispan-(.*)" />
+    </module>
+
     <module name="org.javassist" skip="true">
         <include artifact=":org.apache.servicemix.bundles.javassist" />
     </module>
@@ -311,6 +320,22 @@
 
     <module name="org.javassist" skip="true">
         <include artifact=":javassist" />
+    </module>
+
+    <module name="org.jboss.logging" skip="true">
+        <include artifact=":jboss-logging"/>
+    </module>
+
+    <module name="org.jboss.logmanager" skip="true">
+        <include artifact=":jboss-logmanager"/>
+    </module>
+
+    <module name="org.jboss.marshalling" skip="true">
+        <include artifact=":jboss-marshalling"/>
+    </module>
+
+    <module name="org.jboss.marshalling.river" skip="true">
+        <include artifact=":jboss-marshalling-river"/>
     </module>
 
     <module name="org.jboss.modules" skip="true">

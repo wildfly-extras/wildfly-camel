@@ -25,6 +25,8 @@
 	^org/dozer(.*)
 	^org/elasticsearch(.*)
 	^org/quartz(.*)
+	^org/infinispan
+	^org/infinispan/manager(.*)
 	^org/springframework(.*)
 	^org/xmlsoap(.*)
 	^META-INF/cxf(.*)

@@ -40,6 +40,7 @@
 /org/apache/camel/component/hl7/main/hapi-structures-v25-2.2.jar
 /org/apache/camel/component/http/common/main/camel-http-common-2.16.0.jar
 /org/apache/camel/component/http4/main/camel-http4-2.16.0.jar
+/org/apache/camel/component/infinispan/main/camel-infinispan-2.16.0.jar
 /org/apache/camel/component/jackson/main/camel-jackson-2.16.0.jar
 /org/apache/camel/component/jasypt/main/camel-jasypt-2.16.0.jar
 /org/apache/camel/component/jaxb/main/camel-jaxb-2.16.0.jar

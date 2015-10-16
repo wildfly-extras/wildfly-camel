@@ -368,6 +368,9 @@ org/apache/camel/component/flatpack
 org/apache/camel/component/hl7
 org/apache/camel/component/http4
 org/apache/camel/component/http4/helper
+org/apache/camel/component/infinispan
+org/apache/camel/component/infinispan/processor
+org/apache/camel/component/infinispan/processor/idempotent
 org/apache/camel/component/jackson
 org/apache/camel/component/jackson/converter
 org/apache/camel/component/jasypt
@@ -1191,6 +1194,9 @@ org/elasticsearch/transport/netty
 org/elasticsearch/transport/support
 org/elasticsearch/tribe
 org/elasticsearch/watcher
+org/infinispan
+org/infinispan/manager
+org/infinispan/manager/impl
 org/quartz
 org/quartz/commonj
 org/quartz/core

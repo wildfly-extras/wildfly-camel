@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.infinispan">
+  <resources>
+    <resource-root path="camel-infinispan-2.16.0.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.infinispan" export="true">
+      <exports>
+        <include path="org/infinispan" />
+        <include path="org/infinispan/manager**" />
+        <exclude path="org/infinispan**" />
+        <exclude path="OSGI-INF/blueprint" />
+      </exports>
+    </module>
+    <module name="org.infinispan.commons" />
+    <module name="org.infinispan.client.hotrod" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>
