@@ -36,7 +36,6 @@ import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.http4.subA.MyServlet;
@@ -44,7 +43,6 @@ import org.wildfly.extension.camel.EndpointRegistryClient;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-@Ignore("[#903] Undertow component incompatible with WildFly")
 public class UndertowProducerIntegrationTest {
 
     @ArquillianResource

@@ -4,7 +4,7 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="ognl-3.1.jar" />
+    <resource-root path="ognl-3.1.2.jar" />
   </resources>
   <dependencies>
     <module name="org.javassist" />

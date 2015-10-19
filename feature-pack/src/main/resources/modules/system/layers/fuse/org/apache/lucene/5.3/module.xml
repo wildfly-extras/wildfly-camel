@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="org.apache.lucene" slot="4.10">
+<module xmlns="urn:jboss:module:1.1" name="org.apache.lucene" slot="5.3">
   <resources>
-    <artifact name="${org.apache.lucene:lucene-analyzers-common}" />
-    <artifact name="${org.apache.lucene:lucene-core}" />
     <artifact name="${org.apache.lucene:lucene-grouping}" />
     <artifact name="${org.apache.lucene:lucene-highlighter}" />
     <artifact name="${org.apache.lucene:lucene-join}" />
     <artifact name="${org.apache.lucene:lucene-memory}" />
-    <artifact name="${org.apache.lucene:lucene-misc}" />
-    <artifact name="${org.apache.lucene:lucene-queries}" />
-    <artifact name="${org.apache.lucene:lucene-queryparser}" />
-    <artifact name="${org.apache.lucene:lucene-sandbox}" />
     <artifact name="${org.apache.lucene:lucene-spatial}" />
+    <artifact name="${org.apache.lucene:lucene-spatial3d}" />
     <artifact name="${org.apache.lucene:lucene-suggest}" />
     <artifact name="${com.spatial4j:spatial4j}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="org.apache.lucene.internal" />
   </dependencies>
 </module>

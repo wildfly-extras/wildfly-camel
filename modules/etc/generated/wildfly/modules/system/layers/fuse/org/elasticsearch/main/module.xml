@@ -4,17 +4,16 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="elasticsearch-1.7.3.jar" />
+    <resource-root path="elasticsearch-2.1.1.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="org.apache.lucene" slot="5.3" />
     <module name="org.slf4j" />
     <module name="sun.jdk">
       <imports>
         <include path="sun/misc/Unsafe" />
       </imports>
     </module>
-    <module name="org.apache.lucene" slot="4.10" />
-    <module name="org.yaml.snakeyaml" />
   </dependencies>
 </module>

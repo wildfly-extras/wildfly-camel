@@ -2,7 +2,7 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.saxon">
   <resources>
     <resource-root path="Saxon-HE-9.5.1-5.jar" />
-    <resource-root path="camel-saxon-2.16.2.jar" />
+    <resource-root path="camel-saxon-2.17-SNAPSHOT.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />

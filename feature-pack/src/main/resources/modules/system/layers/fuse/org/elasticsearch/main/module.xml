@@ -8,13 +8,14 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="org.apache.lucene" slot="5.3" />
     <module name="org.slf4j" />
     <module name="sun.jdk">
       <imports>
         <include path="sun/misc/Unsafe" />
       </imports>
     </module>
-    <module name="org.apache.lucene" slot="4.10" />
-    <module name="org.yaml.snakeyaml" />
+    <module name="com.google.guava" />
+    <module name="org.apache.lucene.internal" />
   </dependencies>
 </module>

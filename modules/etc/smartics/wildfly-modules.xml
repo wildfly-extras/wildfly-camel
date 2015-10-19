@@ -162,16 +162,16 @@
         <include artifact=":stax" />
     </module>
 
-    <module name="joda-time" skip="true">
-        <include artifact=":joda-time" />
-    </module>
-
     <module name="org.apache.avro" skip="true">
         <include artifact=":avro"/>
     </module>
 
     <module name="org.apache.commons.beanutils" skip="true">
         <include artifact=":commons-beanutils" />
+    </module>
+
+    <module name="org.apache.commons.cli" skip="true">
+        <include artifact=":commons-cli" />
     </module>
 
     <module name="org.apache.commons.codec" skip="true">
@@ -250,6 +250,7 @@
     </module>
 
     <module name="org.apache.lucene.internal" skip="true">
+        <include artifact="org.apache.lucene:lucene-backward-codecs" />
         <include artifact="org.apache.lucene:lucene-misc" />
     </module>
 
@@ -367,6 +368,10 @@
 
     <module name="org.jgroups" skip="true">
         <include artifact=":jgroups" />
+    </module>
+
+    <module name="org.joda.time" skip="true">
+        <include artifact=":joda-time" />
     </module>
 
     <module name="org.slf4j" skip="true">
