@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.script">
   <resources>
-    <resource-root path="camel-script-2.16.2.jar" />
+    <resource-root path="camel-script-2.17-SNAPSHOT.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />

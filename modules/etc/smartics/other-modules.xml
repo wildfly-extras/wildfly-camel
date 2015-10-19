@@ -225,8 +225,22 @@
         <include artifact="net.jpountz.lz4:lz4" />
     </module>
 
-    <module name="org.apache.lucene" slot="4.10">
-        <include artifact="org.apache.lucene:lucene-(.*)" />
+    <module name="org.apache.lucene" slot="5.4">
+        <include artifact="org.apache.lucene:lucene-analyzers-common" />
+        <include artifact="org.apache.lucene:lucene-backward-codecs" />
+        <include artifact="org.apache.lucene:lucene-core" />
+        <include artifact="org.apache.lucene:lucene-facet" />
+        <include artifact="org.apache.lucene:lucene-queries" />
+        <include artifact="org.apache.lucene:lucene-queryparser" />
+        <include artifact="org.apache.lucene:lucene-grouping" />
+        <include artifact="org.apache.lucene:lucene-highlighter" />
+        <include artifact="org.apache.lucene:lucene-join" />
+        <include artifact="org.apache.lucene:lucene-memory" />
+        <include artifact="org.apache.lucene:lucene-misc" />
+        <include artifact="org.apache.lucene:lucene-sandbox" />
+        <include artifact="org.apache.lucene:lucene-spatial" />
+        <include artifact="org.apache.lucene:lucene-spatial3d" />
+        <include artifact="org.apache.lucene:lucene-suggest" />
         <include artifact="com.spatial4j:spatial4j" />
         <dependencies>
             <module name="javax.api" />
@@ -330,8 +344,22 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.elasticsearch:elasticsearch" />
+        <include artifact="org.elasticsearch:securesm" />
         <apply-to-dependencies skip="true">
+            <include module="com.carrotsearch.hppc"/>
+            <include module="com.fasterxml.jackson.core.jackson-core" />
+            <include module="com.fasterxml.jackson.dataformat.cbor" />
+            <include module="com.fasterxml.jackson.dataformat.smile" />
+            <include module="com.fasterxml.jackson.dataformat.yaml" />
+            <include module="com.ning.compress" />
+            <include module="com.tdunning.tdigest" />
+            <include module="com.twitter.jsr166e" />
+            <include module="io.netty" />
             <include module="org.antlr.antlr-runtime"/>
+            <include module="org.apache.commons.cli" />
+            <include module="org.hdrhistogram" />
+            <include module="org.joda.convert" />
+            <include module="org.joda.time" />
             <include module="org.ow2.asm"/>
         </apply-to-dependencies>
         <dependencies>
@@ -384,13 +412,6 @@
         </dependencies>
     </module>
 
-    <module name="org.joda.convert">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":joda-convert" />
-    </module>
-    
     <module name="org.osgi.core">
         <properties>
             <property name="jboss.api" value="private"/>

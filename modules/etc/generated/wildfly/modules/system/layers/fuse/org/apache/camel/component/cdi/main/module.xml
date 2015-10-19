@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.cdi">
   <resources>
-    <resource-root path="camel-cdi-2.16.2.jar" />
+    <resource-root path="camel-cdi-2.17-SNAPSHOT.jar" />
   </resources>
   <dependencies>
     <module name="javax.annotation.api" />
     <module name="javax.enterprise.api" />
     <module name="javax.xml.bind.api" />
-    <module name="org.apache.deltaspike.core.api" />
-    <module name="org.apache.deltaspike.core.impl" />
     <module name="org.jboss.weld.core" />
     <module name="org.jboss.weld.spi" />
     <module name="org.slf4j" />
+    <module name="javax.el.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

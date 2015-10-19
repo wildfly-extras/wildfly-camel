@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.lucene" slot="5.4">
+  <resources>
+    <resource-root path="lucene-analyzers-common-5.4.1.jar" />
+    <resource-root path="lucene-backward-codecs-5.4.1.jar" />
+    <resource-root path="lucene-core-5.4.1.jar" />
+    <resource-root path="lucene-grouping-5.4.1.jar" />
+    <resource-root path="lucene-highlighter-5.4.1.jar" />
+    <resource-root path="lucene-join-5.4.1.jar" />
+    <resource-root path="lucene-memory-5.4.1.jar" />
+    <resource-root path="lucene-misc-5.4.1.jar" />
+    <resource-root path="lucene-queries-5.4.1.jar" />
+    <resource-root path="lucene-queryparser-5.4.1.jar" />
+    <resource-root path="lucene-sandbox-5.4.1.jar" />
+    <resource-root path="lucene-spatial-5.4.1.jar" />
+    <resource-root path="lucene-spatial3d-5.4.1.jar" />
+    <resource-root path="lucene-suggest-5.4.1.jar" />
+    <resource-root path="spatial4j-0.5.jar" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+  </dependencies>
+</module>

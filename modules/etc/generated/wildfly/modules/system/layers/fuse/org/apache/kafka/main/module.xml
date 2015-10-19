@@ -5,9 +5,9 @@
   </properties>
   <resources>
     <resource-root path="jopt-simple-3.2.jar" />
-    <resource-root path="kafka_2.11-0.8.2.2.jar" />
+    <resource-root path="kafka_2.11-0.9.0.0.jar" />
     <resource-root path="metrics-core-2.2.0.jar" />
-    <resource-root path="zkclient-0.3.jar" />
+    <resource-root path="zkclient-0.7.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />

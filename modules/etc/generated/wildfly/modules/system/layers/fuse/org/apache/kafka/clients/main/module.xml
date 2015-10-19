@@ -4,7 +4,7 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="kafka-clients-0.8.2.2.jar" />
+    <resource-root path="kafka-clients-0.9.0.0.jar" />
     <resource-root path="lz4-1.2.0.jar" />
     <resource-root path="snappy-java-1.1.1.7.jar" />
   </resources>

@@ -4,9 +4,9 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="c3p0-0.9.5.1.jar" />
-    <resource-root path="mchange-commons-java-0.2.10.jar" />
-    <resource-root path="quartz-2.2.1.jar" />
+    <resource-root path="c3p0-0.9.5.2.jar" />
+    <resource-root path="mchange-commons-java-0.2.11.jar" />
+    <resource-root path="quartz-2.2.2.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />

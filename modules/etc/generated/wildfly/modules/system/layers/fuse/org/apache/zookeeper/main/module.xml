@@ -4,7 +4,7 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="zookeeper-3.4.6.jar" />
+    <resource-root path="zookeeper-3.4.7.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />
