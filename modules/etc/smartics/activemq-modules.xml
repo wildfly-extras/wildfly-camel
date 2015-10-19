@@ -39,10 +39,6 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.activemq.all" skip="true">
-        <include artifact=":activemq-all" />
-    </module>
-
     <module name="org.apache.activemq.rar" skip="true">
         <include artifact=":activemq-rar" />
     </module>
