@@ -29,6 +29,7 @@ import javax.ejb.Stateless;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.infinispan.InfinispanConstants;
+import org.apache.camel.component.infinispan.processor.idempotent.InfinispanIdempotentRepository;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.infinispan.manager.CacheContainer;
@@ -285,6 +286,37 @@ public class InfinispanIntegrationTest {
             mockEndpoint.message(1).outHeader(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_NAME);
 
             cacheContainer.getCache().replace(CACHE_KEY_NAME, CACHE_VALUE_BOB);
+
+            mockEndpoint.assertIsSatisfied();
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testIdempotentConsumer() throws Exception {
+        final InfinispanIdempotentRepository messageIdRepository = new InfinispanIdempotentRepository(cacheContainer, "myProcessorName");
+
+        DefaultCamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .idempotentConsumer(simple("${header.messageId}"), messageIdRepository)
+                .to("mock:result");
+            }
+        });
+
+        camelctx.start();
+        try {
+            MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+            mockEndpoint.expectedMessageCount(1);
+
+            // Send 5 messages with the same messageId header. Only 1 should be forwarded to the mock:result endpoint
+            ProducerTemplate template = camelctx.createProducerTemplate();
+            for (int i = 0; i < 5; i++) {
+                template.requestBodyAndHeader("direct:start", null, "messageId", "12345");
+            }
 
             mockEndpoint.assertIsSatisfied();
         } finally {

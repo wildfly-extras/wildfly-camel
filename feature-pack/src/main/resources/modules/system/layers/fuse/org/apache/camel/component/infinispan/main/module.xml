@@ -13,7 +13,13 @@
         <exclude path="OSGI-INF/blueprint" />
       </exports>
     </module>
-    <module name="org.infinispan.commons" />
+    <module name="org.infinispan.commons" export="true">
+      <exports>
+        <include path="org/infinispan/commons" />
+        <include path="org/infinispan/commons/api**" />
+        <exclude path="org/infinispan**" />
+      </exports>
+    </module>
     <module name="org.infinispan.client.hotrod" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />

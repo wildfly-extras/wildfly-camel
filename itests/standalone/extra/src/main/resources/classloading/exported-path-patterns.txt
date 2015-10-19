@@ -26,6 +26,7 @@
 	^org/elasticsearch(.*)
 	^org/quartz(.*)
 	^org/infinispan
+	^org/infinispan/commons(.*)
 	^org/infinispan/manager(.*)
 	^org/springframework(.*)
 	^org/xmlsoap(.*)

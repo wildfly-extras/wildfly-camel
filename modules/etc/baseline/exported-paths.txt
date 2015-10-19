@@ -1195,6 +1195,8 @@ org/elasticsearch/transport/support
 org/elasticsearch/tribe
 org/elasticsearch/watcher
 org/infinispan
+org/infinispan/commons
+org/infinispan/commons/api
 org/infinispan/manager
 org/infinispan/manager/impl
 org/quartz
