@@ -5,6 +5,7 @@
   </properties>
   <resources>
     <artifact name="${org.elasticsearch:elasticsearch}" />
+    <artifact name="${org.elasticsearch:securesm}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
@@ -14,7 +15,7 @@
         <include path="sun/misc/Unsafe" />
       </imports>
     </module>
-    <module name="org.apache.lucene" slot="4.10" />
-    <module name="org.yaml.snakeyaml" />
+    <module name="com.google.guava" />
+    <module name="org.apache.lucene" slot="5.4" />
   </dependencies>
 </module>

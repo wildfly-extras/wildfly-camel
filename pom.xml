@@ -32,13 +32,13 @@
     <version>4.0.0-SNAPSHOT</version>
 
     <description>WildFly Camel Integration</description>
-    <url>https://github.com/wildflyext/wildflyext/wildfly-camel</url>
+    <url>https://github.com/wildfly-extras/wildfly-camel</url>
 
     <!-- Source Control -->
     <scm>
-        <connection>scm:git:git://github.com/wildflyext/wildfly-camel.git</connection>
-        <developerConnection>scm:git:git@github.com:wildflyext/wildfly-camel.git</developerConnection>
-        <url>http://github.com/wildflyext/wildfly-camel</url>
+        <connection>scm:git:git://github.com/wildfly-extras/wildfly-camel.git</connection>
+        <developerConnection>scm:git:git@github.com:wildfly-extras/wildfly-camel.git</developerConnection>
+        <url>http://github.com/wildfly-extras/wildfly-camel</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -49,7 +49,7 @@
         <version.wildfly>10.0.0.Final</version.wildfly>
         
         <!-- Camel version -->
-        <version.apache.camel>2.16.2</version.apache.camel>
+        <version.apache.camel>2.17.0</version.apache.camel>
         
         <!-- Other versions -->
         <version.apache.felix.configadmin>1.8.8</version.apache.felix.configadmin>

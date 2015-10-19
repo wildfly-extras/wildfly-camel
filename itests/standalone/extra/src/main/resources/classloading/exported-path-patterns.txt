@@ -3,7 +3,6 @@
 	^com/google/protobuf
 	^com/codahale(.*)
 	^groovy(.*)
-	^kafka(.*)
 	^io/swagger(.*)
 	^net/sf/saxon(.*)
 	^org/apache/abdera(.*)

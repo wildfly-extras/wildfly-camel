@@ -52,6 +52,18 @@
         <include artifact="ch.qos.logback:logback-core" />
     </module>
     
+    <module name="com.carrotsearch.hppc" skip="true">
+        <include artifact="com.carrotsearch:hppc" />
+    </module>
+    
+    <module name="com.fasterxml.jackson.dataformat.cbor" skip="true">
+        <include artifact=":jackson-dataformat-cbor" />
+    </module>
+    
+    <module name="com.fasterxml.jackson.dataformat.smile" skip="true">
+        <include artifact=":jackson-dataformat-smile" />
+    </module>
+    
     <module name="com.fasterxml.jackson.scala" skip="true">
         <include artifact=":jackson-module-scala(.*)" />
     </module>
@@ -65,6 +77,10 @@
         <include artifact="com.google.code.findbugs:(.*)" />
     </module>
     
+    <module name="org.hdrhistogram" skip="true">
+        <include artifact="org.hdrhistogram:HdrHistogram" />
+    </module>
+    
     <module name="com.headius" skip="true">
         <include artifact="com.headius:(.*)" />
     </module>
@@ -75,6 +91,22 @@
     
     <module name="com.martiansoftware" skip="true">
         <include artifact="com.martiansoftware:nailgun-server" />
+    </module>
+    
+    <module name="com.ning.compress" skip="true">
+        <include artifact="com.ning:compress-lzf" />
+    </module>
+    
+    <module name="com.sun.mail" skip="true">
+        <include artifact="com.sun.mail:javax.mail" />
+    </module>
+    
+    <module name="com.tdunning.tdigest" skip="true">
+        <include artifact="com.tdunning:t-digest" />
+    </module>
+    
+    <module name="com.twitter.jsr166e" skip="true">
+        <include artifact="com.twitter:jsr166e" />
     </module>
     
     <module name="jexcelapi" skip="true">
@@ -117,10 +149,6 @@
         <include artifact="org.apache.camel:spi-annotations" />
     </module>
     
-    <module name="org.apache.deltaspike.test" skip="true">
-        <include artifact="org.apache.deltaspike.test:(.*)" />
-    </module>
-
     <module name="org.apache.felix" skip="true">
         <include artifact="org.apache.felix:org.apache.felix.http.proxy" />
         <include artifact="org.apache.felix:org.apache.felix.gogo.runtime" />
@@ -159,6 +187,10 @@
     
     <module name="org.glassfish.web" skip="true">
         <include artifact="org.glassfish.web:javax.el" />
+    </module>
+    
+    <module name="org.joda.convert" skip="true">
+        <include artifact=":joda-convert" />
     </module>
     
     <module name="org.json4s" skip="true">

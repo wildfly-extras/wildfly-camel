@@ -29,10 +29,6 @@
         <apply-to-dependencies skip="true">
             <include module="aopalliance" />
         </apply-to-dependencies>
-        <exports>
-            <include path="org/springframework/aop/support" />
-            <exclude path="org/springframework/aop/**" />
-        </exports>
     </module>
     
     <module name="org.springframework.beans">
