@@ -47,7 +47,7 @@ import org.wildfly.camel.test.jpa.subA.JpaRouteBuilder;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
-public class TransactionalJpaIntegrationTest {
+public class UserManagedTransactionIntegrationTest {
 
     @ArquillianResource
     CamelContextRegistry contextRegistry;

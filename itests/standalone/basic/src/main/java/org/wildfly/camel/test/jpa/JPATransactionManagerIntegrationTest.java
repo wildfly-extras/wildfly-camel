@@ -37,7 +37,7 @@ import org.wildfly.camel.test.jpa.subA.Account;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
-public class JpaTransactionManagerIntegrationTest {
+public class JPATransactionManagerIntegrationTest {
 
     @ArquillianResource
     CamelContextRegistry contextRegistry;

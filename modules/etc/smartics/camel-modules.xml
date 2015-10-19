@@ -454,6 +454,8 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
+            <module name="org.hibernate" />
+            <module name="org.javassist" />
             <module name="org.springframework.orm" export="true">
                 <exports>
                     <include path="org/springframework/orm/jpa" />
