@@ -26,8 +26,10 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -74,5 +76,38 @@ public class FileIntegrationTest {
         BufferedReader br = new BufferedReader(new FileReader(Paths.get(datadir, "camel-file.txt").toFile()));
         Assert.assertEquals("Hello Kermit", br.readLine());
         br.close();
+    }
+
+    @Test
+    public void testFileIdempotentConsumer() throws Exception {
+        final String datadir = System.getProperty("jboss.server.data.dir");
+        Assert.assertNotNull("Directory name not nul", datadir);
+
+        final String fileEndpointUri = "file://" + datadir;
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from(fileEndpointUri + "?noop=true&idempotent=true&delay=10")
+                .to("mock:result");
+            }
+        });
+
+        camelctx.start();
+        try {
+            MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+            mockEndpoint.expectedMessageCount(1);
+
+            ProducerTemplate template = camelctx.createProducerTemplate();
+            template.sendBodyAndHeader(fileEndpointUri, "Testing idempotency", Exchange.FILE_NAME, "idempotent-test.txt");
+
+            // Give the file consumer a chance to run multiple times
+            Thread.sleep(300);
+
+            mockEndpoint.assertIsSatisfied();
+        } finally {
+            camelctx.stop();
+        }
     }
 }
