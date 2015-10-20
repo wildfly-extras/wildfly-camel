@@ -71,6 +71,13 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-patch</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+            <type>pom</type>
+        </dependency>
+        <dependency>
             <groupId>com.icegreen</groupId>
             <artifactId>greenmail-webapp</artifactId>
             <version>${version.greenmail}</version>
@@ -168,6 +175,62 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-example-wars</id>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>org.wildfly.camel,com.icegreen</includeGroupIds>
+                            <includeTypes>war</includeTypes>
+                            <stripVersion>true</stripVersion>
+                            <outputDirectory>${project.build.directory}/examples</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>unpack-wildfly</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.wildfly</groupId>
+                                    <artifactId>wildfly-dist</artifactId>
+                                    <version>${version.wildfly}</version>
+                                    <type>zip</type>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <overWrite>false</overWrite>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>unpack-wildfly-patch</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.wildfly.camel</groupId>
+                                    <artifactId>wildfly-camel-patch</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>tar.gz</type>
+                                    <outputDirectory>${jboss.home}</outputDirectory>
+                                    <overWrite>false</overWrite>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <executions>
@@ -183,24 +246,6 @@
                                 <JBOSS_HOME>${jboss.home}</JBOSS_HOME>
                             </environmentVariables>
                             <commandlineArgs>-jar ${jboss.home}/jboss-modules.jar -mp ${jboss.home}/modules org.wildfly.extras.config --configs camel --enable</commandlineArgs>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-example-wars</id>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeGroupIds>org.wildfly.camel,com.icegreen</includeGroupIds>
-                            <includeTypes>war</includeTypes>
-                            <stripVersion>true</stripVersion>
-                            <outputDirectory>${project.build.directory}/examples</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
