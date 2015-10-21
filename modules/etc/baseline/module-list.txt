@@ -1,3 +1,4 @@
+/args4j/main/args4j-2.0.31.jar
 /com/fasterxml/jackson/dataformat/xml/main/jackson-dataformat-xml-2.6.2.jar
 /com/fasterxml/jackson/dataformat/yaml/main/jackson-dataformat-yaml-2.6.2.jar
 /com/fasterxml/jackson/datatype/joda/main/jackson-datatype-joda-2.6.2.jar
@@ -170,4 +171,5 @@
 /org/springframework/security/main/spring-security-core-3.2.8.RELEASE.jar
 /org/springframework/spring-messaging/main/spring-messaging-4.1.6.RELEASE.jar
 /org/springframework/tx/main/spring-tx-4.1.6.RELEASE.jar
+/org/wildfly/extras/config/main/fuse-patch-config-1.6.1.jar
 /org/wildfly/extras/config/plugin/camel/main/wildfly-camel-config-3.2.0-SNAPSHOT.jar

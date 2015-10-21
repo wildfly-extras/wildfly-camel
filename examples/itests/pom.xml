@@ -158,23 +158,6 @@
         </resources>
         <plugins>
             <plugin>
-                <groupId>org.wildfly.build</groupId>
-                <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>server-provisioning</id>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <config-file>src/main/resources/server-provisioning.xml</config-file>
-                            <server-name>wildfly-${version.wildfly}</server-name>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>

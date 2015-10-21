@@ -26,11 +26,15 @@
 -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="args4j" skip="true">
+    <module name="args4j">
         <include artifact="args4j:args4j" />
     </module>
 
-    <module name="org.wildfly.extras.config" skip="true">
+    <module name="org.wildfly.extras.config">
+        <main-class name="org.wildfly.extras.config.internal.Main"/>
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":fuse-patch-config" />
     </module>
     
