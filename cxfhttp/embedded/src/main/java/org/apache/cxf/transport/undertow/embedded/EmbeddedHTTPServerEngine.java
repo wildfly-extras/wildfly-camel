@@ -41,6 +41,9 @@ import io.undertow.servlet.core.ManagedServlet;
 
 class EmbeddedHTTPServerEngine extends AbstractHTTPServerEngine {
 
+    private DeploymentManager manager;
+    private Undertow server;
+
     EmbeddedHTTPServerEngine(String protocol, String host, int port) {
         super(protocol, host, port);
     }
@@ -55,7 +58,7 @@ class EmbeddedHTTPServerEngine extends AbstractHTTPServerEngine {
                 .setDeploymentName("cxfdestination.war")
                 .addServlets(servletInfo);
 
-        DeploymentManager manager = Servlets.defaultContainer().addDeployment(servletBuilder);
+        manager = Servlets.defaultContainer().addDeployment(servletBuilder);
         manager.deploy();
 
         try {
@@ -63,7 +66,7 @@ class EmbeddedHTTPServerEngine extends AbstractHTTPServerEngine {
             Undertow.Builder builder = Undertow.builder();
             builder.addHttpListener(getPort(), getHost());
             builder.setHandler(servletHandler);
-            Undertow server = builder.build();
+            server = builder.build();
             server.start();
 
             UndertowHTTPDestination destination = handler.getHTTPDestination();
@@ -78,7 +81,12 @@ class EmbeddedHTTPServerEngine extends AbstractHTTPServerEngine {
     }
 
     public void removeServant(URL nurl) {
-        throw new UnsupportedOperationException();
+        if (manager != null) {
+            manager.undeploy();
+        }
+        if (server != null) {
+            server.stop();
+        }
     }
 
     @SuppressWarnings("serial")

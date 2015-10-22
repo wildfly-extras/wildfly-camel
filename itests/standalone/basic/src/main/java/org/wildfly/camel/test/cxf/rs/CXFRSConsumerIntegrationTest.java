@@ -19,69 +19,69 @@
  */
 package org.wildfly.camel.test.cxf.rs;
 
-import java.net.MalformedURLException;
+import java.io.InputStream;
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.cxf.jaxrs.CxfRsComponent;
-import org.apache.camel.component.cxf.jaxrs.CxfRsEndpoint;
-import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.cxf.Bus;
-import org.apache.cxf.BusFactory;
+import org.apache.camel.ServiceStatus;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.cxf.rs.subA.GreetingService;
+import org.wildfly.camel.test.common.types.GreetingService;
 import org.wildfly.extension.camel.CamelAware;
+import org.wildfly.extension.camel.CamelContextRegistry;
 
 @CamelAware
 @RunWith(Arquillian.class)
-@Ignore("[#369] Add support for CXF REST Consumers")
 public class CXFRSConsumerIntegrationTest {
+
+    @ArquillianResource
+    CamelContextRegistry contextRegistry;
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jaxrs-consumer-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxfrs-consumer-tests");
         archive.addClasses(GreetingService.class);
+        archive.addAsResource("cxf/spring/cxfrs-consumer-camel-context.xml", "cxfrs-consumer-camel-context.xml");
+        archive.setManifest(new Asset() {
+            @Override
+            public InputStream openStream() {
+                ManifestBuilder builder = new ManifestBuilder();
+                builder.addManifestHeader("Dependencies", "org.jboss.resteasy.resteasy-jaxrs");
+                return builder.openStream();
+            }
+        });
         return archive;
     }
 
     @Test
-    public void testCxfRsConsumer() throws Exception {
+    public void testCXFConsumer() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        CxfRsComponent component = new CxfRsComponent();
-        Bus defaultBus = BusFactory.getDefaultBus(true);
-        String uri = "cxfrs://" + getEndpointAddress("/simple");
+        CamelContext camelctx = contextRegistry.getCamelContext("cxfrs-undertow");
+        Assert.assertNotNull("Expected cxfrs-undertow to not be null", camelctx);
+        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
 
-        final CxfRsEndpoint cxfRsEndpoint = new CxfRsEndpoint(uri, component);
-        cxfRsEndpoint.setCamelContext(camelctx);
-        cxfRsEndpoint.setBus(defaultBus);
-        cxfRsEndpoint.setDefaultBus(true);
-        cxfRsEndpoint.setResourceClasses(GreetingService.class);
-
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from(cxfRsEndpoint).to("direct:end");
-            }
-        });
-
+        ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         try {
-            camelctx.start();
-            Assert.fail("Expected RuntimeCamelException to be thrown but it was not");
-        } catch (RuntimeException e) {
-            String message = e.getMessage();
-            Assert.assertTrue("Message equals: " + message, message.equals("CXF consumer endpoint not supported"));
+            // The JAXRS Client API needs to see resteasy
+            Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+
+            Client client = ClientBuilder.newClient();
+            Object result = client.target("http://localhost:8080/cxfrestful/greet/hello/Kermit").request(MediaType.APPLICATION_JSON).get(String.class);
+            Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            Thread.currentThread().setContextClassLoader(tccl);
         }
     }
 
-    private String getEndpointAddress(String contextPath) throws MalformedURLException {
-        return "http://localhost:8080" + contextPath + "/rest/greet/hello/Kermit";
-    }
 }

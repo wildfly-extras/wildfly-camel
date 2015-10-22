@@ -56,15 +56,15 @@ public class CXFWSConsumerIntegrationTest {
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-ws-consumer-tests");
         archive.addClasses(Endpoint.class);
-        archive.addAsResource("cxf/spring/cxf-consumer-camel-context.xml", "cxf-consumer-camel-context.xml");
+        archive.addAsResource("cxf/spring/cxfws-consumer-camel-context.xml", "cxfws-consumer-camel-context.xml");
         return archive;
     }
 
     @Test
     public void testCXFConsumer() throws Exception {
 
-        CamelContext camelctx = contextRegistry.getCamelContext("cxf-undertow");
-        Assert.assertNotNull("Expected cxf-undertow to not be null", camelctx);
+        CamelContext camelctx = contextRegistry.getCamelContext("cxfws-undertow");
+        Assert.assertNotNull("Expected cxfws-undertow to not be null", camelctx);
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
 
         QName qname = new QName("http://wildfly.camel.test.cxf", "EndpointService");
@@ -78,8 +78,8 @@ public class CXFWSConsumerIntegrationTest {
     @Test
     public void testCXFRoundtrip() throws Exception {
 
-        CamelContext camelctx = contextRegistry.getCamelContext("cxf-undertow");
-        Assert.assertNotNull("Expected cxf-undertow to not be null", camelctx);
+        CamelContext camelctx = contextRegistry.getCamelContext("cxfws-undertow");
+        Assert.assertNotNull("Expected cxfws-undertow to not be null", camelctx);
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
 
         ProducerTemplate producer = camelctx.createProducerTemplate();

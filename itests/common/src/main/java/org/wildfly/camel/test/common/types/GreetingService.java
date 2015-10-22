@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.cxf.rs.subA;
+package org.wildfly.camel.test.common.types;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
