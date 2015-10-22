@@ -42,8 +42,12 @@ import io.undertow.servlet.core.ManagedServlet;
 
 class WildflyHTTPServerEngine extends AbstractHTTPServerEngine {
 
+    private final Host defaultHost;
+    private DeploymentManager manager;
+
     WildflyHTTPServerEngine(String protocol, String host, int port) {
         super(protocol, host, port);
+        defaultHost = ServiceLocator.getRequiredService(Host.class);
     }
 
     public void addServant(URL nurl, UndertowHTTPHandler handler) {
@@ -56,13 +60,12 @@ class WildflyHTTPServerEngine extends AbstractHTTPServerEngine {
                 .setDeploymentName("cxfdestination.war")
                 .addServlets(servletInfo);
 
-        DeploymentManager manager = Servlets.defaultContainer().addDeployment(servletBuilder);
+        manager = Servlets.defaultContainer().addDeployment(servletBuilder);
         manager.deploy();
 
 
         try {
             HttpHandler servletHandler = manager.start();
-            Host defaultHost = ServiceLocator.getRequiredService(Host.class);
             defaultHost.registerDeployment(manager.getDeployment(), servletHandler);
 
             UndertowHTTPDestination destination = handler.getHTTPDestination();
@@ -77,7 +80,9 @@ class WildflyHTTPServerEngine extends AbstractHTTPServerEngine {
     }
 
     public void removeServant(URL nurl) {
-        throw new UnsupportedOperationException();
+        if (manager != null) {
+            defaultHost.unregisterDeployment(manager.getDeployment());
+        }
     }
 
     @SuppressWarnings("serial")

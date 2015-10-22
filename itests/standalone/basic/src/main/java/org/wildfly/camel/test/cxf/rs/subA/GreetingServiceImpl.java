@@ -21,6 +21,8 @@ package org.wildfly.camel.test.cxf.rs.subA;
 
 import javax.ws.rs.core.Response;
 
+import org.wildfly.camel.test.common.types.GreetingService;
+
 public class GreetingServiceImpl implements GreetingService {
 
     public Response sayHello(String name) {
