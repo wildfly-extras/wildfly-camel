@@ -729,6 +729,34 @@
             <modules>
                 <module>docker</module>
             </modules>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>enforce-docker-properties</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireProperty>
+                                            <property>env.DOCKER_HOST</property>
+                                            <message>You must set a env.DOCKER_HOST property</message>
+                                        </requireProperty>
+                                        <requireProperty>
+                                            <property>env.DOCKER_IP</property>
+                                            <message>You must set a env.DOCKER_IP property</message>
+                                        </requireProperty>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>ts.all</id>
