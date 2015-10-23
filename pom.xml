@@ -66,14 +66,14 @@
         <version.hibernate.jpa21.api>1.0.0.Final</version.hibernate.jpa21.api>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
         <version.javax.enterprise>1.2</version.javax.enterprise>
-        <version.jboss.arquillian.core>1.1.8.Final</version.jboss.arquillian.core>
+        <version.jboss.arquillian.core>1.1.10.Final</version.jboss.arquillian.core>
         <version.jboss.dmr>1.2.1.Final</version.jboss.dmr>
         <version.jboss.ejb3.ext.api>2.1.0</version.jboss.ejb3.ext.api>
         <version.jboss.gravia>1.1.4</version.jboss.gravia>
         <version.jboss.jbossws.api>1.0.2.Final</version.jboss.jbossws.api>
         <version.jboss.modules>1.4.3.Final</version.jboss.modules>
         <version.jboss.shrinkwrap>1.2.1</version.jboss.shrinkwrap>
-        <version.jboss.shrinkwrap.resolver>2.1.1</version.jboss.shrinkwrap.resolver>
+        <version.jboss.shrinkwrap.resolver>2.2.0</version.jboss.shrinkwrap.resolver>
         <version.jboss.resteasy.atom.provider>3.0.10.Final</version.jboss.resteasy.atom.provider>
         <version.jboss.spec.javax.annotation>1.0.0.Final</version.jboss.spec.javax.annotation>
         <version.jboss.spec.javax.ejb>1.0.0.Final</version.jboss.spec.javax.ejb>
@@ -110,7 +110,6 @@
         <version-maven-surefire-plugin>2.18.1</version-maven-surefire-plugin>
         <version-maven-war-plugin>2.5</version-maven-war-plugin>
         <version-properties-maven-plugin>1.0-alpha-2</version-properties-maven-plugin>
-        <version-shrinkwrap-resolver-plugin>2.1.1</version-shrinkwrap-resolver-plugin>
         <version-smartics-maven-plugin>2.1.1</version-smartics-maven-plugin>
         <version-wildfly-build-tools>1.0.0.Final</version-wildfly-build-tools>
         <version-wildfly-maven-plugin>1.0.2.Final</version-wildfly-maven-plugin>
@@ -596,7 +595,6 @@
                 <plugin>
                     <groupId>org.jboss.shrinkwrap.resolver</groupId>
                     <artifactId>shrinkwrap-resolver-maven-plugin</artifactId>
-                    <version>${version-shrinkwrap-resolver-plugin}</version>
                     <executions>
                         <execution>
                             <goals>
