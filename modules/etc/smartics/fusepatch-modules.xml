@@ -37,5 +37,19 @@
         </properties>
         <include artifact=":fuse-patch-config" />
     </module>
+
+    <module name="org.wildfly.extras.patch">
+        <main-class name="org.wildfly.extras.patch.internal.Main"/>
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":fuse-patch-core" />
+        <dependencies>
+            <module name="args4j"/>
+            <module name="javax.api"/>
+            <module name="org.jboss.logmanager" services="import"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
     
 </modules>

@@ -32,14 +32,6 @@
             <outputDirectory>/</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>../feature-pack/src/main/resources/content</directory>
-            <outputDirectory>/</outputDirectory>
-            <includes>
-                <include>bin/*.sh</include>
-            </includes>
-            <fileMode>0755</fileMode>
-        </fileSet>
-        <fileSet>
             <directory>../subsystem/src/main/resources/schema</directory>
             <outputDirectory>docs/schema</outputDirectory>
         </fileSet>
@@ -79,13 +71,6 @@
 
     <dependencySets>
         <dependencySet>
-            <outputDirectory>modules/system/layers/fuse/org/wildfly/extension/camel/main</outputDirectory>
-            <includes>
-                <include>org.wildfly.camel:wildfly-camel-subsystem:jar</include>
-                <include>org.jboss.gravia:gravia-container-wildfly-extension:jar</include>
-            </includes>
-        </dependencySet>
-        <dependencySet>
             <outputDirectory>modules/system/layers/fuse/org/wildfly/extension/camel/config/main</outputDirectory>
             <includes>
                 <include>org.wildfly.camel:wildfly-camel-config:jar</include>
@@ -96,6 +81,19 @@
             <includes>
                 <include>io.hawt:hawtio-wildfly:war</include>
             </includes>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>org.wildfly.extras.patch:fuse-patch-distro-wildfly</include>
+            </includes>
+            <unpack>true</unpack>
+            <unpackOptions>
+                <includes>
+                    <include>bin/*</include>
+                    <include>fusepatch/*</include>
+                </includes>
+            </unpackOptions>
         </dependencySet>
         <dependencySet>
             <outputDirectory>/</outputDirectory>

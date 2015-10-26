@@ -54,6 +54,10 @@
             <artifactId>wildfly-camel-subsystem</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.wildfly.extras.patch</groupId>
+            <artifactId>fuse-patch-core</artifactId>
+        </dependency>
         
         <dependency>
             <groupId>args4j</groupId>
