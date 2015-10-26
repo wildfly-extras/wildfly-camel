@@ -53,6 +53,12 @@
             <type>tar.gz</type>
         </dependency>
         <dependency>
+            <groupId>org.wildfly.extras.patch</groupId>
+            <artifactId>fuse-patch-distro-wildfly</artifactId>
+            <version>${version.fusepatch}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-subsystem</artifactId>
             <version>${project.version}</version>
