@@ -34,7 +34,7 @@
 
     <!-- Properties -->
     <properties>
-        <server.config>standalone-full.xml</server.config>
+        <server.config>standalone.xml</server.config>
     </properties>
     
     <!-- Dependencies -->
