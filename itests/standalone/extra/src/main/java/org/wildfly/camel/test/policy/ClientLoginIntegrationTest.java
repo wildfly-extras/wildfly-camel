@@ -22,8 +22,6 @@
 
 package org.wildfly.camel.test.policy;
 
-import java.security.Principal;
-
 import javax.security.auth.Subject;
 
 import org.apache.camel.CamelContext;
@@ -40,16 +38,19 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.policy.subA.AnnotatedSLSB;
+import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.security.ClientLoginAuthorizationPolicy;
-import org.wildfly.extension.camel.security.UsernamePasswordAuthentication;
+import org.wildfly.extension.camel.security.DomainPrincipal;
+import org.wildfly.extension.camel.security.EncodedUsernamePasswordPrincipal;
 
+@CamelAware
 @RunWith(Arquillian.class)
-public class PolicyIntegrationTestCase {
+public class ClientLoginIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "policy-test");
-        archive.addPackage(AnnotatedSLSB.class.getPackage());
+        archive.addClasses(AnnotatedSLSB.class);
         return archive;
     }
 
@@ -115,7 +116,7 @@ public class PolicyIntegrationTestCase {
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            Subject subject = getAuthenticationToken(AnnotatedSLSB.USERNAME, AnnotatedSLSB.PASSWORD);
+            Subject subject = getAuthenticationToken("user-domain", AnnotatedSLSB.USERNAME, AnnotatedSLSB.PASSWORD);
             String result = producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION, subject, String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
@@ -123,10 +124,10 @@ public class PolicyIntegrationTestCase {
         }
     }
 
-    private Subject getAuthenticationToken(String username, String password) {
+    Subject getAuthenticationToken(String domain, String username, String password) {
         Subject subject = new Subject();
-        Principal principal = new UsernamePasswordAuthentication(username, password.toCharArray());
-        subject.getPrincipals().add(principal);
+        subject.getPrincipals().add(new DomainPrincipal(domain));
+        subject.getPrincipals().add(new EncodedUsernamePasswordPrincipal(username, password.toCharArray()));
         return subject;
     }
 }

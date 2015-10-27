@@ -20,35 +20,18 @@
 
 package org.wildfly.extension.camel.security;
 
-import java.security.Principal;
-
-import org.jboss.gravia.utils.IllegalArgumentAssertion;
-
-
 /**
  * A username password authentication token
+ *
+ * @deprecated Use {@link UsernamePasswordPrincipal}
  *
  * @author Thomas.Diesler@jboss.com
  * @since 03-Jul-2015
  */
-public class UsernamePasswordAuthentication implements Authentication, Principal {
-
-    private final String username;
-    private final char[] password;
+@Deprecated
+public class UsernamePasswordAuthentication extends UsernamePasswordPrincipal {
 
     public UsernamePasswordAuthentication(String username, char[] password) {
-        IllegalArgumentAssertion.assertNotNull(username, "username");
-        IllegalArgumentAssertion.assertNotNull(password, "password");
-        this.username = username;
-        this.password = password;
-    }
-
-    @Override
-    public String getName() {
-        return username;
-    }
-
-    public char[] getPassword() {
-        return password;
+        super (username, password);
     }
 }

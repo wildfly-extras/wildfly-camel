@@ -20,17 +20,10 @@
 
 package org.wildfly.extension.camel.security;
 
-import java.security.Principal;
-
-import javax.security.auth.Subject;
 import javax.security.auth.login.LoginContext;
+import javax.security.auth.login.LoginException;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
-import org.apache.camel.model.ProcessorDefinition;
-import org.apache.camel.spi.AuthorizationPolicy;
-import org.apache.camel.spi.RouteContext;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.wildfly.extension.camel.security.LoginContextBuilder.Type;
 
 
 /**
@@ -39,49 +32,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
  * @author Thomas.Diesler@jboss.com
  * @since 08-May-2015
  */
-public class ClientLoginAuthorizationPolicy implements AuthorizationPolicy {
+public class ClientLoginAuthorizationPolicy extends AbstractAuthorizationPolicy {
 
-    @Override
-    public void beforeWrap(RouteContext routeContext, ProcessorDefinition<?> definition) {
+    protected LoginContext getLoginContext(String domain, String username, char[] password) throws LoginException {
+        LoginContextBuilder builder = new LoginContextBuilder(Type.CLIENT).domain(domain);
+        return builder.username(username).password(password).build();
     }
-
-    @Override
-    public Processor wrap(final RouteContext routeContext, final Processor processor) {
-        return new Processor() {
-            @Override
-            public void process(Exchange exchange) throws Exception {
-                Subject subject = exchange.getIn().getHeader(Exchange.AUTHENTICATION, Subject.class);
-                if (subject == null) {
-                    throw new SecurityException("Cannot obtain authentication subject from exchange: " + exchange);
-                }
-                String username = null;
-                char[] password = null;
-                for (Principal principal : subject.getPrincipals()) {
-                    if (principal instanceof UsernamePasswordAuthentication) {
-                        username = principal.getName();
-                        password = ((UsernamePasswordAuthentication) principal).getPassword();
-                    } else if (principal instanceof UsernamePasswordAuthenticationToken) {
-                        username = principal.getName();
-                        Object credentials = ((UsernamePasswordAuthenticationToken) principal).getCredentials();
-                        if (credentials instanceof String) {
-                            password = ((String) credentials).toCharArray();
-                        } else if (credentials instanceof char[]) {
-                            password = (char[]) credentials;
-                        }
-                    }
-                }
-                if (username == null || password == null) {
-                    throw new SecurityException("Cannot obtain credentials from exchange: " + exchange);
-                }
-                LoginContext loginContext = ClientLoginContext.newLoginContext(username, password);
-                loginContext.login();
-                try {
-                    processor.process(exchange);
-                } finally {
-                    loginContext.logout();
-                }
-            }
-        };
-    }
-
 }

@@ -20,14 +20,35 @@
 
 package org.wildfly.extension.camel.security;
 
+import java.security.Principal;
+
+import org.jboss.gravia.utils.IllegalArgumentAssertion;
 
 
 /**
- * An authetication marker interface
+ * A username password authentication token
  *
  * @author Thomas.Diesler@jboss.com
  * @since 03-Jul-2015
  */
-public interface Authentication {
+public class UsernamePasswordPrincipal implements Principal {
 
+    private final String username;
+    private final char[] password;
+
+    public UsernamePasswordPrincipal(String username, char[] password) {
+        IllegalArgumentAssertion.assertNotNull(username, "username");
+        IllegalArgumentAssertion.assertNotNull(password, "password");
+        this.username = username;
+        this.password = password;
+    }
+
+    @Override
+    public String getName() {
+        return username;
+    }
+
+    public char[] getPassword() {
+        return password;
+    }
 }

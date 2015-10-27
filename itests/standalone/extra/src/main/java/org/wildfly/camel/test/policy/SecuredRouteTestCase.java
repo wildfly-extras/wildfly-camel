@@ -22,8 +22,6 @@
 
 package org.wildfly.camel.test.policy;
 
-import java.security.Principal;
-
 import javax.security.auth.Subject;
 
 import org.apache.camel.CamelContext;
@@ -39,10 +37,11 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.wildfly.camel.test.policy.subA.AnnotatedSLSB;
 import org.wildfly.extension.camel.CamelAware;
-import org.wildfly.extension.camel.security.ClientLoginAuthorizationPolicy;
+import org.wildfly.extension.camel.security.DomainAuthenticationPolicy;
+import org.wildfly.extension.camel.security.DomainPrincipal;
+import org.wildfly.extension.camel.security.EncodedUsernamePasswordPrincipal;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -55,13 +54,13 @@ public class SecuredRouteTestCase {
     }
 
     @Test
-    public void testRoleBasedAccessDenied() throws Exception {
+    public void testNoAuthenticationHeader() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .policy(new ClientLoginAuthorizationPolicy())
+                .policy(new DomainAuthenticationPolicy())
                 .transform(body().prepend("Hello "));
             }
         });
@@ -81,13 +80,13 @@ public class SecuredRouteTestCase {
     }
 
     @Test
-    public void testRoleBasedAccessAllowed() throws Exception {
+    public void testInvalidCredentials() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .policy(new ClientLoginAuthorizationPolicy())
+                .policy(new DomainAuthenticationPolicy())
                 .transform(body().prepend("Hello "));
             }
         });
@@ -95,7 +94,61 @@ public class SecuredRouteTestCase {
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            Subject subject = getAuthenticationToken(AnnotatedSLSB.USERNAME, AnnotatedSLSB.PASSWORD);
+            try {
+                Subject subject = getAuthenticationToken("user-domain", AnnotatedSLSB.USERNAME, "bogus");
+                producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION, subject, String.class);
+                Assert.fail("CamelExecutionException expected");
+            } catch (CamelExecutionException e) {
+                // expected
+            }
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testInsufficientRoles() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .policy(new DomainAuthenticationPolicy().roles("Role3"))
+                .transform(body().prepend("Hello "));
+            }
+        });
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            try {
+                Subject subject = getAuthenticationToken("user-domain", AnnotatedSLSB.USERNAME, AnnotatedSLSB.PASSWORD);
+                producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION, subject, String.class);
+                Assert.fail("CamelExecutionException expected");
+            } catch (CamelExecutionException e) {
+                // expected
+            }
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testAuthenticatedAccess() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .policy(new DomainAuthenticationPolicy())
+                .transform(body().prepend("Hello "));
+            }
+        });
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            Subject subject = getAuthenticationToken("user-domain", AnnotatedSLSB.USERNAME, AnnotatedSLSB.PASSWORD);
             String result = producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION, subject, String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
@@ -103,10 +156,33 @@ public class SecuredRouteTestCase {
         }
     }
 
-    private Subject getAuthenticationToken(String username, String password) {
+    @Test
+    public void testRoleBasedAccess() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .policy(new DomainAuthenticationPolicy().roles("Role2"))
+                .transform(body().prepend("Hello "));
+            }
+        });
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            Subject subject = getAuthenticationToken("user-domain", AnnotatedSLSB.USERNAME, AnnotatedSLSB.PASSWORD);
+            String result = producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION, subject, String.class);
+            Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    Subject getAuthenticationToken(String domain, String username, String password) {
         Subject subject = new Subject();
-        Principal principal = new UsernamePasswordAuthenticationToken(username, password);
-        subject.getPrincipals().add(principal);
+        subject.getPrincipals().add(new DomainPrincipal(domain));
+        subject.getPrincipals().add(new EncodedUsernamePasswordPrincipal(username, password.toCharArray()));
         return subject;
     }
 }
