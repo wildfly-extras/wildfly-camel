@@ -49,7 +49,7 @@
         <version.apache.camel>2.16.0</version.apache.camel>
         
         <!-- WildFly versions -->
-        <version.wildfly>9.0.1.Final</version.wildfly>
+        <version.wildfly>9.0.2.Final</version.wildfly>
         <version.wildfly.arquillian>1.0.0.Final</version.wildfly.arquillian>
         <version.wildfly.core>1.0.1.Final</version.wildfly.core>
 
