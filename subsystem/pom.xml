@@ -34,49 +34,62 @@
     <artifactId>wildfly-camel-subsystem</artifactId>
 
     <dependencies>
+    
+        <!-- Provided -->
         <dependency>
             <groupId>org.wildfly.core</groupId>
             <artifactId>wildfly-server</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-ee</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-naming</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-undertow</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cdi</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-undertow</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core-xml</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.gravia</groupId>
             <artifactId>gravia-container-wildfly-extension</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
+            <scope>provided</scope>
         </dependency>
         
         <!-- Test -->
