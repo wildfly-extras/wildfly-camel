@@ -67,8 +67,10 @@
     <module name="org.springframework.jdbc">
         <include artifact=":spring-jdbc" />
         <dependencies>
+            <module name="com.h2database.h2" />
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />
+            <module name="org.springframework.context" />
         </dependencies>
     </module>
     

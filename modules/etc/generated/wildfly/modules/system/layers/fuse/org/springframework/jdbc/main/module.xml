@@ -4,8 +4,10 @@
     <resource-root path="spring-jdbc-4.1.6.RELEASE.jar" />
   </resources>
   <dependencies>
+    <module name="com.h2database.h2" />
     <module name="javax.api" />
     <module name="org.apache.commons.logging" />
+    <module name="org.springframework.context" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.core" />
     <module name="org.springframework.tx" />

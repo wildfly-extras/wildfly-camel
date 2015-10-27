@@ -131,6 +131,7 @@ org/springframework/instrument/classloading/jboss
 org/springframework/instrument/classloading/tomcat
 org/springframework/instrument/classloading/weblogic
 org/springframework/instrument/classloading/websphere
+org/springframework/jdbc/config
 org/springframework/jmx
 org/springframework/jmx/access
 org/springframework/jmx/export

@@ -57,6 +57,16 @@
             </module>
             <module name="org.springframework.context" />
             <module name="org.springframework.core" />
+            <module name="org.springframework.jdbc" export="true">
+                <imports>
+                    <include path="META-INF" />
+                </imports>
+                <exports>
+                    <include path="META-INF" />
+                    <include path="org/springframework/jdbc/config" />
+                    <exclude path="org/springframework/jdbc**" />
+                </exports>
+            </module>
             <module name="org.springframework.tx" export="true">
                 <exports>
                     <exclude path="org/springframework/dao**" />

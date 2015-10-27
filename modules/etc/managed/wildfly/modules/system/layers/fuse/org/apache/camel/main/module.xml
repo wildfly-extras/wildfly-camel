@@ -26,7 +26,14 @@
 
     <dependencies>
         <module name="org.apache.camel.core" export="true" services="export" />
-        <module name="org.apache.camel.spring" export="true" services="export" />
+        <module name="org.apache.camel.spring" export="true" services="export">
+            <imports>
+                <include path="META-INF" />
+            </imports>
+            <exports>
+                <include path="META-INF" />
+            </exports>
+        </module>
         <module name="org.springframework.context" export="true">
             <imports>
                 <include path="META-INF" />
