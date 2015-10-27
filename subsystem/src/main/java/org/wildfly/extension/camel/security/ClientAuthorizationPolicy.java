@@ -20,14 +20,22 @@
 
 package org.wildfly.extension.camel.security;
 
+import javax.security.auth.login.LoginContext;
+import javax.security.auth.login.LoginException;
+
+import org.wildfly.extension.camel.security.LoginContextBuilder.Type;
 
 
 /**
- * An authetication marker interface
+ * Provides access to RunAs login policy
  *
  * @author Thomas.Diesler@jboss.com
- * @since 03-Jul-2015
+ * @since 08-May-2015
  */
-public interface Authentication {
+public class ClientAuthorizationPolicy extends AbstractAuthorizationPolicy {
 
+    protected LoginContext getLoginContext(String domain, String username, char[] password) throws LoginException {
+        LoginContextBuilder builder = new LoginContextBuilder(Type.CLIENT).domain(domain);
+        return builder.username(username).password(password).build();
+    }
 }

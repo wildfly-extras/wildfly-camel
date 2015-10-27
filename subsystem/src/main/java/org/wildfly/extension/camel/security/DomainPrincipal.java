@@ -20,9 +20,28 @@
 
 package org.wildfly.extension.camel.security;
 
-/**
- * @deprecated Use {@link ClientAuthorizationPolicy}
- */
-public class ClientLoginAuthorizationPolicy extends ClientAuthorizationPolicy {
+import java.security.Principal;
 
+import org.jboss.gravia.utils.IllegalArgumentAssertion;
+
+
+/**
+ * A domain name principal
+ *
+ * @author Thomas.Diesler@jboss.com
+ * @since 28-Sep-2015
+ */
+public class DomainPrincipal implements Principal {
+
+    private final String domain;
+
+    public DomainPrincipal(String domain) {
+        IllegalArgumentAssertion.assertNotNull(domain, "domain");
+        this.domain = domain;
+    }
+
+    @Override
+    public String getName() {
+        return domain;
+    }
 }

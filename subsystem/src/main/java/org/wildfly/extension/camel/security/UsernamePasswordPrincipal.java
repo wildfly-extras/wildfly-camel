@@ -20,27 +20,35 @@
 
 package org.wildfly.extension.camel.security;
 
-import javax.security.auth.login.LoginContext;
-import javax.security.auth.login.LoginException;
+import java.security.Principal;
 
-import org.wildfly.extension.camel.security.LoginContextBuilder.Type;
+import org.jboss.gravia.utils.IllegalArgumentAssertion;
+
 
 /**
- * Provides access RunAs Client login context
- *
- * @deprecated see {@link LoginContextBuilder}
+ * A username password authentication token
  *
  * @author Thomas.Diesler@jboss.com
- * @since 08-May-2015
+ * @since 03-Jul-2015
  */
-@Deprecated
-public final class ClientLoginContext {
+public class UsernamePasswordPrincipal implements Principal {
 
-    // Hide ctor
-    private ClientLoginContext() {
+    private final String username;
+    private final char[] password;
+
+    public UsernamePasswordPrincipal(String username, char[] password) {
+        IllegalArgumentAssertion.assertNotNull(username, "username");
+        IllegalArgumentAssertion.assertNotNull(password, "password");
+        this.username = username;
+        this.password = password;
     }
 
-    public static LoginContext newLoginContext(final String username, final char[] password) throws LoginException {
-        return new LoginContextBuilder(Type.CLIENT).username(username).password(password).build();
+    @Override
+    public String getName() {
+        return username;
+    }
+
+    public char[] getPassword() {
+        return password;
     }
 }

@@ -38,7 +38,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.policy.subA.AnnotatedSLSB;
 import org.wildfly.camel.test.policy.subA.SecureRouteBuilder;
-import org.wildfly.extension.camel.security.ClientLoginContext;
+import org.wildfly.extension.camel.security.LoginContextBuilder;
+import org.wildfly.extension.camel.security.LoginContextBuilder.Type;
 
 
 @RunWith(Arquillian.class)
@@ -63,12 +64,13 @@ public class EJBSecurityTestCase {
     public void testAuthorizedAccess() throws Exception {
 
         AnnotatedSLSB bean = lookup(new InitialContext(), AnnotatedSLSB.class, AnnotatedSLSB.class);
-        LoginContext lc = ClientLoginContext.newLoginContext(AnnotatedSLSB.USERNAME, AnnotatedSLSB.PASSWORD.toCharArray());
-        lc.login();
+        LoginContextBuilder builder = new LoginContextBuilder(Type.CLIENT).domain("user-domain");
+        LoginContext loginContext = builder.username(AnnotatedSLSB.USERNAME).encryptedPassword(AnnotatedSLSB.PASSWORD.toCharArray()).build();
+        loginContext.login();
         try {
             Assert.assertEquals("Hello Kermit", bean.doSelected("Kermit"));
         } finally {
-            lc.logout();
+            loginContext.logout();
         }
     }
 
@@ -76,12 +78,13 @@ public class EJBSecurityTestCase {
     public void testCallerPricipalPropagation() throws Exception {
 
         AnnotatedSLSB bean = lookup(new InitialContext(), AnnotatedSLSB.class, AnnotatedSLSB.class);
-        LoginContext lc = ClientLoginContext.newLoginContext(AnnotatedSLSB.USERNAME, AnnotatedSLSB.PASSWORD.toCharArray());
-        lc.login();
+        LoginContextBuilder builder = new LoginContextBuilder(Type.CLIENT).domain("user-domain");
+        LoginContext loginContext = builder.username(AnnotatedSLSB.USERNAME).encryptedPassword(AnnotatedSLSB.PASSWORD.toCharArray()).build();
+        loginContext.login();
         try {
             Assert.assertEquals("Hello Kermit", bean.secureRouteAccess("Kermit"));
         } finally {
-            lc.logout();
+            loginContext.logout();
         }
     }
 
@@ -96,15 +99,16 @@ public class EJBSecurityTestCase {
             //expected
         }
 
-        LoginContext lc = ClientLoginContext.newLoginContext("user1", "wrongpass".toCharArray());
-        lc.login();
+        LoginContextBuilder builder = new LoginContextBuilder(Type.CLIENT);
+        LoginContext loginContext = builder.username("user1").password("wrongpass".toCharArray()).build();
+        loginContext.login();
         try {
             bean.doSelected("Kermit");
             Assert.fail("Call to doSelected() method was expected to fail");
         } catch (EJBAccessException ejbae) {
             //expected
         } finally {
-            lc.logout();
+            loginContext.logout();
         }
     }
 

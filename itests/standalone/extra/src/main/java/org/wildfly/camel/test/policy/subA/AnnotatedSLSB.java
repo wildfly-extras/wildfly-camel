@@ -22,8 +22,6 @@
 
 package org.wildfly.camel.test.policy.subA;
 
-import java.security.Principal;
-
 import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.DenyAll;
@@ -38,16 +36,17 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.jboss.ejb3.annotation.SecurityDomain;
-import org.wildfly.extension.camel.security.UsernamePasswordAuthentication;
+import org.wildfly.extension.camel.security.DomainPrincipal;
+import org.wildfly.extension.camel.security.EncodedUsernamePasswordPrincipal;
 
 @Stateless
 @DeclareRoles({ "Role1", "Role2", "Role3" })
 @LocalBean
-@SecurityDomain("other")
+@SecurityDomain("user-domain")
 public class AnnotatedSLSB {
 
-    public static final String USERNAME = "user1";
-    public static final String PASSWORD = "appl-pa$$wrd1";
+    public static final String USERNAME = "user2";
+    public static final String PASSWORD = "appl-pa$$wrd2";
 
     @Resource(name = "java:jboss/camel/context/secured-context")
     CamelContext camelctx;
@@ -59,19 +58,19 @@ public class AnnotatedSLSB {
         return "Hello " + msg;
     }
 
-    @RolesAllowed({ "Role1" })
+    @RolesAllowed({ "Role2" })
     public String doSelected(String msg) {
         return "Hello " + msg;
     }
 
-    @RolesAllowed({ "Role1" })
+    @RolesAllowed({ "Role2" })
     public String secureRouteAccess(String msg) {
 
         // [TODO #725] Add support for security context propagation
         Subject subject = new Subject();
         String username = ejbctx.getCallerPrincipal().getName();
-        Principal principal = new UsernamePasswordAuthentication(username, PASSWORD.toCharArray());
-        subject.getPrincipals().add(principal);
+        subject.getPrincipals().add(new DomainPrincipal("user-domain"));
+        subject.getPrincipals().add(new EncodedUsernamePasswordPrincipal(username, PASSWORD.toCharArray()));
 
         ProducerTemplate producer = camelctx.createProducerTemplate();
         return producer.requestBodyAndHeader("direct:start", msg, Exchange.AUTHENTICATION, subject, String.class);

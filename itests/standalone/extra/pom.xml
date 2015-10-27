@@ -35,7 +35,7 @@
 
     <!-- Properties -->
     <properties>
-        <server.config>standalone.xml</server.config>
+        <server.config>standalone-extra.xml</server.config>
     </properties>
     
     <!-- Dependencies -->

@@ -24,7 +24,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.cdi.ContextName;
-import org.wildfly.extension.camel.security.ClientLoginAuthorizationPolicy;
+import org.wildfly.extension.camel.security.DomainAuthorizationPolicy;
 
 @Startup
 @ApplicationScoped
@@ -34,7 +34,7 @@ public class SecureRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:start")
-        .policy(new ClientLoginAuthorizationPolicy())
+        .policy(new DomainAuthorizationPolicy().roles("Role2"))
         .transform(body().prepend("Hello "));
     }
 }
