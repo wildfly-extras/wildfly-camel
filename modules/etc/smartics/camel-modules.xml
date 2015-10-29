@@ -325,7 +325,9 @@
             <module name="javax.enterprise.api" />
             <module name="javax.inject.api" />
             <module name="javax.interceptor.api" />
+            <module name="org.apache.camel.component.netty4"/>
             <module name="org.apache.mina.core"/>
+            <module name="io.netty"/>
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
