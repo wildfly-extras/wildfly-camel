@@ -43,7 +43,7 @@ import org.wildfly.extension.camel.security.LoginContextBuilder.Type;
 
 
 @RunWith(Arquillian.class)
-public class EJBSecurityTestCase {
+public class EJBSecurityTest {
 
     @Deployment
     public static JavaArchive createDeployment() {

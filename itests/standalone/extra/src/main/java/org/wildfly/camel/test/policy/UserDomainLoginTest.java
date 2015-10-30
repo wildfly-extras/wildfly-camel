@@ -38,7 +38,7 @@ import org.wildfly.extension.camel.security.LoginContextBuilder.Type;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class UserDomainLoginTestCase {
+public class UserDomainLoginTest {
 
     @Deployment
     public static JavaArchive createDeployment() {

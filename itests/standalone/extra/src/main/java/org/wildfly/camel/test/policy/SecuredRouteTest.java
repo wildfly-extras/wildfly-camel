@@ -45,7 +45,7 @@ import org.wildfly.extension.camel.security.EncodedUsernamePasswordPrincipal;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class SecuredRouteTestCase {
+public class SecuredRouteTest {
 
     @Deployment
     public static JavaArchive createDeployment() {

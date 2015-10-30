@@ -79,16 +79,17 @@ public class WildFlyCamelThreadPoolFactory implements ThreadPoolFactory {
         } else {
             Object workQueue;
             if(corePoolSize == 0 && maxQueueSize <= 0) {
-                workQueue = new SynchronousQueue();
+                workQueue = new SynchronousQueue<Object>();
                 corePoolSize = 1;
                 maxPoolSize = 1;
             } else if(maxQueueSize <= 0) {
-                workQueue = new SynchronousQueue();
+                workQueue = new SynchronousQueue<Object>();
             } else {
-                workQueue = new LinkedBlockingQueue(maxQueueSize);
+                workQueue = new LinkedBlockingQueue<Object>(maxQueueSize);
             }
 
-            RejectableThreadPoolExecutor answer = new RejectableThreadPoolExecutor(corePoolSize, maxPoolSize, keepAliveTime, timeUnit, (BlockingQueue)workQueue);
+            @SuppressWarnings("unchecked")
+            RejectableThreadPoolExecutor answer = new RejectableThreadPoolExecutor(corePoolSize, maxPoolSize, keepAliveTime, timeUnit, (BlockingQueue<Runnable>)workQueue);
             answer.setThreadFactory(managedThreadFactory);
             answer.allowCoreThreadTimeOut(allowCoreThreadTimeOut);
             if(rejectedExecutionHandler == null) {

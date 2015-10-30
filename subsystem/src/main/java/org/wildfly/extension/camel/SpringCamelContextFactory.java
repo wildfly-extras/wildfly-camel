@@ -61,9 +61,19 @@ public final class SpringCamelContextFactory {
      * Create a single {@link SpringCamelContext} from the given URL
      * @throws IllegalStateException if the given URL does not contain a single context definition
      */
-    public static SpringCamelContext createSingleCamelContext(URL contextUrl, ClassLoader classsLoader) throws Exception {
-        List<SpringCamelContext> list = createCamelContextList(new UrlResource(contextUrl), classsLoader);
+    public static SpringCamelContext createCamelContext(URL contextUrl, ClassLoader classsLoader) throws Exception {
+        List<SpringCamelContext> list = createCamelContextList(contextUrl, classsLoader);
         IllegalStateAssertion.assertEquals(1, list.size(), "Single context expected in: " + contextUrl);
+        return list.get(0);
+    }
+
+    /**
+     * Create a single {@link SpringCamelContext} from the given bytes
+     * @throws IllegalStateException if the given bytes do not contain a single context definition
+     */
+    public static SpringCamelContext createCamelContext(byte[] contextDef, ClassLoader classsLoader) throws Exception {
+        List<SpringCamelContext> list = createCamelContextList(contextDef, classsLoader);
+        IllegalStateAssertion.assertEquals(1, list.size(), "Single context expected");
         return list.get(0);
     }
 
@@ -77,8 +87,8 @@ public final class SpringCamelContextFactory {
     /**
      * Create a {@link SpringCamelContext} list from the given bytes
      */
-    public static List<SpringCamelContext> createCamelContextList(byte[] bytes, ClassLoader classsLoader) throws Exception {
-        return createCamelContextList(new ByteArrayResource(bytes), classsLoader);
+    public static List<SpringCamelContext> createCamelContextList(byte[] contextDef, ClassLoader classsLoader) throws Exception {
+        return createCamelContextList(new ByteArrayResource(contextDef), classsLoader);
     }
 
     private static List<SpringCamelContext> createCamelContextList(Resource resource, ClassLoader classLoader) throws Exception {

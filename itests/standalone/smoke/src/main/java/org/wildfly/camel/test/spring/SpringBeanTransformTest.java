@@ -59,7 +59,7 @@ public class SpringBeanTransformTest {
     @Test
     public void testSpringContextFromURL() throws Exception {
         URL resourceUrl = getClass().getResource("/some-other-name.xml");
-        CamelContext camelctx = SpringCamelContextFactory.createSingleCamelContext(resourceUrl, getClass().getClassLoader());
+        CamelContext camelctx = SpringCamelContextFactory.createCamelContext(resourceUrl, getClass().getClassLoader());
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
