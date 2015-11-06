@@ -50,8 +50,8 @@
         
         <!-- WildFly versions -->
         <version.wildfly>9.0.2.Final</version.wildfly>
-        <version.wildfly.arquillian>1.0.0.Final</version.wildfly.arquillian>
-        <version.wildfly.core>1.0.1.Final</version.wildfly.core>
+        <version.wildfly.arquillian>1.0.1.Final</version.wildfly.arquillian>
+        <version.wildfly.core>1.0.2.Final</version.wildfly.core>
 
         <!-- Other versions -->
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
@@ -72,7 +72,7 @@
         <version.jboss.gravia>1.1.4</version.jboss.gravia>
         <version.jboss.jbossws.api>1.0.2.Final</version.jboss.jbossws.api>
         <version.jboss.modules>1.4.3.Final</version.jboss.modules>
-        <version.jboss.shrinkwrap>1.2.1</version.jboss.shrinkwrap>
+        <version.jboss.shrinkwrap>1.2.2</version.jboss.shrinkwrap>
         <version.jboss.shrinkwrap.resolver>2.2.0</version.jboss.shrinkwrap.resolver>
         <version.jboss.resteasy.atom.provider>3.0.10.Final</version.jboss.resteasy.atom.provider>
         <version.jboss.spec.javax.annotation>1.0.0.Final</version.jboss.spec.javax.annotation>
