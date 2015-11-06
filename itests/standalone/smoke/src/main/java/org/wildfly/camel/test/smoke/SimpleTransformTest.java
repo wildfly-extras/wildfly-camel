@@ -53,7 +53,7 @@ public class SimpleTransformTest {
     }
 
     @Test
-    public void testSimpleTransformFromModule() throws Exception {
+    public void testSimpleTransform() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

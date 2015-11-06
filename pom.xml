@@ -123,11 +123,11 @@
         <module>archetypes</module>
         <module>config</module>
         <module>docs</module>
-        <module>enricher</module>
         <module>feature-pack</module>
         <module>modules</module>
         <module>patch</module>
         <module>subsystem</module>
+        <module>testenricher</module>
         <module>itests</module>
     </modules>
 
@@ -371,12 +371,12 @@
             <!-- WildFly -->
             <dependency>
                 <groupId>org.wildfly.arquillian</groupId>
-                <artifactId>wildfly-arquillian-container-managed</artifactId>
+                <artifactId>wildfly-arquillian-container-domain-managed</artifactId>
                 <version>${version.wildfly.arquillian}</version>
             </dependency>
             <dependency>
                 <groupId>org.wildfly.arquillian</groupId>
-                <artifactId>wildfly-arquillian-container-managed-domain</artifactId>
+                <artifactId>wildfly-arquillian-container-managed</artifactId>
                 <version>${version.wildfly.arquillian}</version>
             </dependency>
             <dependency>
