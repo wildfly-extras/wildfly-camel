@@ -35,7 +35,7 @@ public class CamelAuxiliaryArchiveAppender implements AuxiliaryArchiveAppender {
 
     @Override
     public Archive<?> createAuxiliaryArchive() {
-        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "wildfly-camel-enricher.jar");
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "wildfly-camel-testenricher.jar");
         archive.addAsServiceProvider(RemoteLoadableExtension.class, CamelRemoteLoadableExtension.class);
         archive.addPackage(CamelLoadableExtension.class.getPackage());
         return archive;

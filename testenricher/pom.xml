@@ -31,7 +31,7 @@
 
     <name>Wildfly Camel :: Enricher</name>
     
-    <artifactId>wildfly-camel-enricher</artifactId>
+    <artifactId>wildfly-camel-testenricher</artifactId>
 
     <dependencies>
         <dependency>

@@ -49,7 +49,7 @@
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-enricher</artifactId>
+            <artifactId>wildfly-camel-testenricher</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
