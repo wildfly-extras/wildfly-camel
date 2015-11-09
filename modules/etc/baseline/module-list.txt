@@ -52,6 +52,9 @@
 /org/apache/camel/component/kafka/main/camel-kafka-2.16.0.jar
 /org/apache/camel/component/lucene/main/camel-lucene-2.16.0.jar
 /org/apache/camel/component/mail/main/camel-mail-2.16.0.jar
+/org/apache/camel/component/metrics/main/camel-metrics-2.16.0.jar
+/org/apache/camel/component/metrics/main/metrics-core-3.1.2.jar
+/org/apache/camel/component/metrics/main/metrics-json-3.1.2.jar
 /org/apache/camel/component/mina2/main/camel-mina2-2.16.0.jar
 /org/apache/camel/component/mqtt/main/camel-mqtt-2.16.0.jar
 /org/apache/camel/component/mvel/main/camel-mvel-2.16.0.jar

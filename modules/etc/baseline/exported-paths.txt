@@ -236,6 +236,9 @@ ca/uhn/hl7v2/validation/builder
 ca/uhn/hl7v2/validation/builder/support
 ca/uhn/hl7v2/validation/impl
 ca/uhn/hl7v2/view
+com/codahale
+com/codahale/metrics
+com/codahale/metrics/json
 com/google/protobuf
 io/swagger/annotations
 io/swagger/config
@@ -384,6 +387,8 @@ org/apache/camel/component/jpa
 org/apache/camel/component/kafka
 org/apache/camel/component/lucene
 org/apache/camel/component/mail
+org/apache/camel/component/metrics
+org/apache/camel/component/metrics/routepolicy
 org/apache/camel/component/mina2
 org/apache/camel/component/mqtt
 org/apache/camel/component/mvel

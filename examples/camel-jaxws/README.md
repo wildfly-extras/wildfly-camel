@@ -28,7 +28,7 @@ There are 2 service operations:
 
 ### Web UI
 
-Browse to `http://localhost:8080/example-camel-cxf/`.
+Browse to `http://localhost:8080/example-camel-jaxws/`.
 
 From the 'Send A Greeting' web form, enter a 'message' and 'name' into the text fields and press the 'send' button. You'll then
 see the information you entered combined to display a greeting on the UI.
