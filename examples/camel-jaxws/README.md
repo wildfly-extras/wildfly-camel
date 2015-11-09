@@ -1,34 +1,39 @@
-# Camel JAX-WS Example
+Camel JAX-WS Example
+--------------------
 
 This example demonstrates using the [CamelProxy](http://camel.apache.org/using-camelproxy.html) to mimic the behaviour
 of a Camel JAX-WS consumer. This is an alternative to using CXF consumers **which are not currently supported by the WildFly Camel Subsystem**.
 
-## Prerequsites
+Prerequisites
+-------------
 
 * Maven
 * An application server with the wildfly-camel subsystem installed
 
-## Running the example
+Running the example
+-------------------
 
 To run the example.
 
 1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
 2. Build and deploy the project `mvn install -Pdeploy`
-3. Browse to `http://localhost:8080/example-camel-jaxws/`
+3. Browse to http://localhost:8080/example-camel-jaxws/
 
 You should see a page titled 'Send A Greeting'. This UI enables us to interact with the test 'greeting' web service which will have also been
-started. The service WSDL is available at `http://localhost:8080/example-camel-jaxws/greeting?wsdl`.
+started. The service WSDL is available at http://localhost:8080/example-camel-jaxws/greeting?wsdl.
 
 There are 2 service operations:
 
 * greet - Which takes 2 String parameters named 'message' and 'name'
 * greetWithMessage - Which takes a single parameter 'name'
 
-## Testing Camel CXF
+Testing Camel CXF
+-----------------
 
-### Web UI
+Web UI
+------
 
-Browse to `http://localhost:8080/example-camel-jaxws/`.
+Browse to http://localhost:8080/example-camel-jaxws/.
 
 From the 'Send A Greeting' web form, enter a 'message' and 'name' into the text fields and press the 'send' button. You'll then
 see the information you entered combined to display a greeting on the UI.
@@ -63,7 +68,8 @@ from("direct:start")
      });
 ```
 
-### cURL
+cURL
+----
 
 Alternatively, if you would prefer to work with the raw web service SOAP XML. You can use cURL to send SOAP messages to the web service. Example
 SOAP requests can be found at `src/main/resources`. To send the file contents to the greeting web service do.
@@ -103,16 +109,19 @@ Returns a response of:
 </soap:Envelope>
 ```
 
-### SoapUI
+SoapUI
+------
 
 If you do not have cURL then you can use a tool like SoapUI to send SOAP requests. Simply configure a new project using
-the web service WSDL URL `http://localhost:8080/example-camel-jaxws/greeting?wsdl`.
+the web service WSDL URL http://localhost:8080/example-camel-jaxws/greeting?wsdl.
 
-## Undeploy
-    
+Undeploy
+--------
+
 To undeploy the example run `mvn clean -Pdeploy`.
 
-## Learn more
+Learn more
+----------
 
 Additional camel-jaxws documentation can be found at the [WildFly Camel GitBook](http://wildflyext.gitbooks.io/wildfly-camel/content/javaee/jaxws.html
 ) site.

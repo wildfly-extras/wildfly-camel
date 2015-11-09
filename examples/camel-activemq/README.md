@@ -1,4 +1,5 @@
-# Camel Activemq Example
+Camel Activemq Example
+----------------------
 
 This example demonstrates using the camel-activemq component with WildFly Camel susbsystem to produce and consume JMS messages.
 
@@ -6,24 +7,27 @@ In this example, a Camel route consumes files from ${JBOSS_JOME}/standalone/data
 named 'OrdersQueue'. A second route consumes any messages from 'OrdersQueue' and through a simple [content based router](http://camel.apache.org/content-based-router.html)
 sorts the orders into individual country directories within JBOSS_JOME/standalone/data/orders/processed.
 
-## Prerequsites
+Prerequisites
+-------------
 
 * Maven
 * An application server with the wildfly-camel subsystem installed
 
-## Running the example
+Running the example
+-------------------
 
 To run the example.
 
 1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
 2. Build and deploy the project `mvn install -Pdeploy`
-3. Browse to `http://localhost:8080/example-camel-activemq/orders`
+3. Browse to http://localhost:8080/example-camel-activemq/orders
 
 You should see a page titled 'Orders Received'. As we send orders to the example application, a list
 of orders per country will be listed on this page.
 
-## Testing Camel ActiveMQ
-
+Testing Camel ActiveMQ
+----------------------
+        
 There are some example order XML files within the `src/main/resources` directory. To make Camel
 consume them and send them to the 'OrdersQueue' JMS destination, simply copy them to the orders input
 director.
@@ -54,11 +58,13 @@ All processed orders will have been output to:
     ${JBOSS_JOME}/standalone/data/orders/processed/us
     ${JBOSS_JOME}/standalone/data/orders/processed/others
 
-## Undeploy
+Undeploy
+--------
 
 To undeploy the example run `mvn clean -Pdeploy`.
 
-## Learn more
-
+Learn more
+----------
+ 
 Additional camel-activemq documentation can be
 found at the [WildFly Camel GitBook](http://wildflyext.gitbooks.io/wildfly-camel/content/components/camel-activemq.html) site.

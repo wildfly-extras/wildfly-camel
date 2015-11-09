@@ -1,4 +1,5 @@
-# camel-mail example
+camel-mail example
+------------------
 
 This example demonstrates using the camel-email component with WildFly Camel susbsystem to send and receive email.
 
@@ -44,22 +45,26 @@ from(receiveMailEndpoint)
     .to("log:emails?showAll=true");
 ```
 
-## Prerequsites
+Prerequisites
+-------------
 
 * Maven
 * An application server with the wildfly-camel subsystem installed
 
-## Running the example
+Running the example
+-------------------
 
 To run the example.
 
 1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
 2. Build and deploy the project `mvn install -Pdeploy`
-3. Browse to `http://localhost:8080/example-camel-mail/`
+3. Browse to http://localhost:8080/example-camel-mail/
 
 You should see a form from which you can test sending emails with Camel.
 
-## Testing Camel email
+Testing Camel email
+-------------------
+
 Enter a 'from' address, subject and email message body and click the 'send button'. Note that the pop3 mail endpoint was configured
 to retrieve mail from the mailbox of 'user2@localhost'. Therefore the web UI is hard coded to route mail to this address.
 
@@ -78,14 +83,16 @@ is eventually reported by the Camel log endpoint. The output will look something
     , Body: Hello World!
     , Out: null:
 
-## Undeploy
-    
+Undeploy
+--------
+
 To undeploy the example run `mvn clean -Pdeploy`.
 
 > **NOTE:** If you want to deploy this example application multiple times, you should ensure that you run the undeploy
 step mentioned above and restart the application server afterwards.
-    
-## Learn more
+
+Learn more
+----------
 
 Additional camel-mail documentation can be
 found at the [WildFly Camel GitBook](http://wildflyext.gitbooks.io/wildfly-camel/content/components/camel-mail.html) site.

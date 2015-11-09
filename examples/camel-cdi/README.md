@@ -1,29 +1,34 @@
-# Camel CDI Example
+Camel CDI Example
+-----------------
 
 This example demonstrates using the camel-cdi component with the WildFly Camel Subsystem to integrate CDI beans with Camel routes.
 
 In this example, a Camel route takes a message payload from a servlet HTTP GET request and passes it on to a direct endpoint. The payload
 is then passed onto a Camel CDI bean invocation to produce a message response which is displayed on the web browser page.
 
-## Prerequsites
+Prerequisites
+-------------
 
 * Maven
 * An application server with the wildfly-camel subsystem installed
 
-## Running the example
+Running the example
+-------------------
 
 To run the example.
 
 1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
 2. Build and deploy the project `mvn install -Pdeploy`
 
-## Testing Camel CXF
+Testing Camel CXF
+-----------------
 
-### Web UI
+Web UI
+------
 
-Browse to `http://localhost:8080/example-camel-cdi/?name=Kermit`.
+Browse to http://localhost:8080/example-camel-cdi/?name=Kermit.
 
-You should see the message "Hello Kermit" output on the web page. 
+You should see the message "Hello Kermit" output on the web page.
 
 The Camel route is very simple and looks like this:
 
@@ -47,7 +52,7 @@ public class SomeBean {
 By using the `@Named` annotation, camel-cdi will add this bean to the Camel bean registry.
 
 ## Undeploy
-    
+
 To undeploy the example run `mvn clean -Pdeploy`.
 
 ## Learn more

@@ -1,4 +1,5 @@
-# Camel CXF Example
+Camel CXF Example
+-----------------
 
 This example demonstrates using the camel-cxf component with the WildFly Camel Subsystem to consume JAX-WS web services.
 
@@ -9,30 +10,34 @@ See the [camel-jaxws example](../camel-jaxws/README.md) for more information.**
 In this example, a Camel route takes a message payload from a direct endpoint and passes it on to a CXF producer endpoint. The producer uses the payload
 to pass arguments to a JAX-WS web service.
 
-## Prerequsites
+Prerequisites
+-------------
 
 * Maven
 * An application server with the wildfly-camel subsystem installed
 
-## Running the example
+Running the example
+-------------------
 
 To run the example.
 
 1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
 2. Build and deploy the project `mvn install -Pdeploy`
-3. Browse to `http://localhost:8080/example-camel-cxf/`
+3. Browse to http://localhost:8080/example-camel-cxf/
 
 You should see a page titled 'Send A Greeting'. This UI enables us to interact with the test 'greeting' web service which will have also been
-started. The service WSDL is available at `http://localhost:8080/example-camel-cxf/greeting?wsdl`.
+started. The service WSDL is available at http://localhost:8080/example-camel-cxf/greeting?wsdl.
 
 There is a single service operation named 'greet' which takes 2 String parameters named 'message' and 'name'. The web method will concatenate these
 together and return the result.
 
-## Testing Camel CXF
+Testing Camel CXF
+-----------------
 
-### Web UI
+Web UI
+------
 
-Browse to `http://localhost:8080/example-camel-cxf/`.
+Browse to http://localhost:8080/example-camel-cxf/.
 
 From the 'Send A Greeting' web form, enter a 'message' and 'name' into the text fields and press the 'send' button. You'll then
 see the information you entered combined to display a greeting on the UI.
@@ -47,7 +52,7 @@ then invokes the `GreetingServiceImpl` web service.
 The web service response is used by `CamelCxfServlet` to display the greeting on the web UI.
 
 ## Undeploy
-    
+
 To undeploy the example run `mvn clean -Pdeploy`.
 
 ## Learn more

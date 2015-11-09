@@ -1,4 +1,5 @@
-# Camel REST Example
+Camel REST Example
+------------------
 
 This example demonstrates how to write JAX-RS REST routes with the WildFly Camel Subsystem.
 
@@ -8,18 +9,20 @@ using the CXFRS and Restlet component consumer endpoints **which are not current
 
 A JAX-RS producer example is demonstrated with the [camel-restlet component](http://camel.apache.org/restlet.html).
 
-## Prerequsites
+Prerequisites
+-------------
 
 * Maven
 * An application server with the wildfly-camel subsystem installed
 
-## Running the example
+Running the example
+-------------------
 
 To run the example.
 
 1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
 2. Build and deploy the project `mvn install -Pdeploy`
-3. Browse to `http://localhost:8080/example-camel-rest/customers`
+3. Browse to http://localhost:8080/example-camel-rest/customers
 
 You should see a page titled 'Manage Customers'. This UI enables you to interact with the example JAX-RS REST services.
 
@@ -37,13 +40,17 @@ The exposed REST endpoints are:
 You may be wondering why some paths are written as `/example-camel-rest/camel` and others as `/example-camel-rest/rest`. This example demonstrates two methods of implementing Camel REST consumers. Requests made to paths under `/example-camel-rest/camel` are handled by the Camel REST DSL and requests made to paths `/example-camel-rest/rest` are handled by the WildFly JAX-RS subsystem together with the CamelProxy.  
 
 
-## Testing Camel REST Consumers
+Testing Camel REST Consumers
+----------------------------
 
-### Web UI
+Web UI
+------
 
-Browse to `http://localhost:8080/example-camel-rest/customers`.
+Browse to http://localhost:8080/example-camel-rest/customers.
 
-#### Creating Customers
+Creating Customers
+------------------
+
 The web form allows us to interact with each REST endpoint. Enter a 'first name' and 'last name' into the provided fields and click Submit. A new customer is created. The WebUI sends POST request with a JSON representation of the customer detail to `/example-camel-rest/camel/customer`.
 
 ````json
@@ -68,7 +75,7 @@ To enable this to work, the REST DSL is configured with an appropriate binding m
 restConfiguration().component("servlet").contextPath("/camel-example-rest/camel").port(8080).bindingMode(RestBindingMode.json);
 ````
 
-#### Updating Customers
+__Updating Customers__
 
 Now click on the link against the customer name you just created. The details are populated within the form fields. When this happens the web UI makes a HTTP GET request to `/example-camel-rest/camel/customer/1`. This results in a JSON representation of a Customer POJO being returned.
 
@@ -139,52 +146,54 @@ In each of the if statement cases a respnonse is sent back to the client using a
 exchange.getOut().setBody(Response.ok().build());
 ````
 
-#### Deleting Customers
+__Deleting Customers__
 
 Now click on the 'X' icon next to the customer to trigger a delete. The web UI makes a HTTP DELETE request to `/example-camel-rest/rest/customer/1`.
 
 
-### cURL
+cURL
+----
 
 If you have access to cURL then you can run the following commands from a terminal session and get an insight into the HTTP request / response
 data being sent to and from the server.
 
-#### Get Customers
+__Get Customers__
 ```
 curl -v -X GET localhost:8080/example-camel-rest/rest/customer
 ```
 
-#### Create Customer
+__Create Customer__
 ```
 curl -v -X POST -H "Content-Type: application/json" -d @src/main/resources/create-customer.json localhost:8080/example-camel-rest/camel/customer/
 ```
 
-#### Get Customer id 1
+__Get Customer id 1__
 ```
 curl -v -X GET -H "Content-Type: application/json" -d @src/main/resources/create-customer.json localhost:8080/example-camel-rest/camel/customer/1
 ```
 
-#### Update Customer
+__Update Customer__
 ```
 curl -v -X PUT -H "Content-Type: application/json" -d @src/main/resources/update-customer.json localhost:8080/example-camel-rest/rest/customer/
 ```
 
-#### Unmodified Customer
+__Unmodified Customer__
 ```
 curl -v -X PUT -H "Content-Type: application/json" -d @src/main/resources/update-unmodified-customer.json localhost:8080/example-camel-rest/rest/customer/
 ```
 
-#### Delete Customer
+__Delete Customer__
 ```
 curl -v -X DELETE localhost:8080/example-camel-rest/rest/customer/1
 ```
 
-#### Delete Customers
+__Delete Customers__
 ```
 curl -v -X DELETE localhost:8080/example-camel-rest/rest/customer/
 ```
 
-## Testing Camel REST Producers
+Testing Camel REST Producers
+----------------------------
 
 This example demonstrates how to use camel-restlet endpoints as clients for consuming RESTful services.
 
@@ -196,14 +205,16 @@ from("timer://outputCustomers?period=30000")
 .to("file:{{jboss.server.data.dir}}/customer-records/");
 ```
 
-This route makes HTTP GET requests to a REST service running at `http://localhost:8080/example-camel-rest/rest/customer` (see above consumer examples). It
+This route makes HTTP GET requests to a REST service running at http://localhost:8080/example-camel-rest/rest/customer (see above consumer examples). It
 retrieves any customer records as a JSON string and writes the results to a `customers.json` file to `${JBOSS_HOME}/standalone/data/customer-records/`.
 
-## Undeploy
-    
+Undeploy
+--------
+
 To undeploy the example run `mvn clean -Pdeploy`.
 
-## Learn more
+Learn more
+----------
 
 Additional camel-rest documentation can be found at the [WildFly Camel GitBook](http://wildflyext.gitbooks.io/wildfly-camel/content/javaee/jaxrs.html
 ) site.

@@ -1,4 +1,5 @@
-# Camel Transacted JMS example
+Camel Transacted JMS example
+----------------------------
 
 This example demonstrates using the camel-jms component with WildFly Camel susbsystem to produce and consume JMS messages in a transacted session.
 
@@ -8,23 +9,29 @@ to an in-memory database table named 'orders'.
 
 If the order quantity is greater than 10, the Camel route throws an exception and the database / JMS transaction is rolled back.
 
-## Prerequsites
+CLI scripts take care of creating and removing the JMS 'OrdersQueue' for you when the
+application is deployed and undeployed. These scripts are located within the `src/main/resources/cli` directory.
+
+Prerequisites
+-------------
 
 * Maven
 * An application server with the wildfly-camel subsystem installed
 
-## Running the example
+Running the example
+-------------------
 
 To run the example.
 
 1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
 2. Build and deploy the project `mvn install -Pdeploy`
-3. When the WildFly server has started, browse to `http://localhost:8080/example-camel-transacted-jms/orders`
+3. When the WildFly server has started, browse to http://localhost:8080/example-camel-transacted-jms/orders
 
 You should see a page titled 'Orders Received'. As we send orders to the example application, a list
 of processed orders will be listed on this page.
 
-## Testing Transacted Camel JMS
+Testing Transacted Camel JMS
+----------------------------
 
 There are some example order XML files within the `src/main/resources/orders` directory.
 
@@ -43,7 +50,7 @@ For Windows users:
 
     copy src\main\resources\orders\*.xml %JBOSS_HOME%\standalone\data\orders\
 
-Once the files have been consumed, you can return to `http://localhost:8080/example-camel-transacted-jms/orders`. You should see that only the wireless keyboard
+Once the files have been consumed, you can return to http://localhost:8080/example-camel-transacted-jms/orders. You should see that only the wireless keyboard
 and HDMI cable product orders were processed. What happened to the order contained within order-2.xml for the wireless mouse?
 
 Look at the WildFly server console output. The output should show a sequence of events similar to the following.
@@ -64,11 +71,13 @@ Note the second line "Order quantity is greater than 10 - rolling back transacti
 number permitted, the entire transaction was rolled back. No order was saved to the 'orders' database table and the JMS message was sent to the dead
 letter queue, as specified by the RouteBuilder 'onException' policy. Hence it does not show up in the list of received orders.
 
-## Undeploy
-    
+Undeploy
+--------
+
 To undeploy the example run `mvn clean -Pdeploy`.
-    
-## Learn more
+
+Learn more
+----------
 
 Additional camel-jms documentation can be found at the [WildFly Camel GitBook](http://wildflyext.gitbooks.io/wildfly-camel/content/javaee/jms.html
 ) site.
