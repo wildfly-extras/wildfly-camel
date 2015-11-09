@@ -22,7 +22,6 @@ package org.wildfly.extension.camel.service;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.HashMap;
@@ -36,11 +35,13 @@ import org.apache.camel.management.event.CamelContextStoppedEvent;
 import org.apache.camel.spi.CamelContextTracker;
 import org.apache.camel.spi.ManagementStrategy;
 import org.apache.camel.support.EventNotifierSupport;
+import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.gravia.runtime.ModuleContext;
 import org.jboss.gravia.runtime.Runtime;
 import org.jboss.gravia.runtime.ServiceRegistration;
 import org.jboss.gravia.utils.IllegalStateAssertion;
 import org.jboss.modules.ModuleClassLoader;
+import org.jboss.modules.ModuleIdentifier;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
@@ -56,6 +57,8 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 import org.wildfly.extension.camel.ContextCreateHandler;
 import org.wildfly.extension.camel.ContextCreateHandlerRegistry;
 import org.wildfly.extension.camel.SpringCamelContextFactory;
+import org.wildfly.extension.camel.deployment.CamelDeploymentSettings;
+import org.wildfly.extension.camel.deployment.CamelEnablementProcessor;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.camel.parser.SubsystemState;
 import org.wildfly.extension.gravia.GraviaConstants;
@@ -178,53 +181,61 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         @Override
         public void contextCreated(CamelContext camelctx) {
 
-            // Prevent CameContext hooks for switchyard deployments
+            boolean enableIntegration = true;
+
+            // Enable the integration based on deployment settings
             ModuleClassLoader moduleClassLoader = ModuleClassLoaderAssociationHandler.getModuleClassLoader(camelctx);
-            boolean isdeployment = moduleClassLoader.getModule().getIdentifier().getName().startsWith("deployment.");
-            URL switchyardMarkerURL = moduleClassLoader.getResource(CamelConstants.SWITCHYARD_MARKER_FILE);
-            if (isdeployment && switchyardMarkerURL != null)
-                return;
-
-            // Call the default {@link ContextCreateHandler}s
-            for (ContextCreateHandler handler : handlerRegistry.getContextCreateHandlers(null)) {
-                handler.setup(camelctx);
+            ModuleIdentifier moduleId = moduleClassLoader.getModule().getIdentifier();
+            if (moduleId.getName().startsWith("deployment.")) {
+                String depName = moduleId.getName().substring(11);
+                DeploymentUnit depUnit = CamelEnablementProcessor.getDeploymentUnitForName(depName);
+                CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
+                enableIntegration = depSettings.isEnabled();
             }
 
-            // Verify that the application context class loader is a ModuleClassLoader
-            ClassLoader classLoader = camelctx.getApplicationContextClassLoader();
-            IllegalStateAssertion.assertTrue(classLoader instanceof ModuleClassLoader, "Invalid class loader association: " + classLoader);
+            if (enableIntegration) {
 
-            // Call the module specific {@link ContextCreateHandler}s
-            for (ContextCreateHandler handler : handlerRegistry.getContextCreateHandlers(classLoader)) {
-                handler.setup(camelctx);
+                // Call the default {@link ContextCreateHandler}s
+                for (ContextCreateHandler handler : handlerRegistry.getContextCreateHandlers(null)) {
+                    handler.setup(camelctx);
+                }
+
+                // Verify that the application context class loader is a ModuleClassLoader
+                ClassLoader classLoader = camelctx.getApplicationContextClassLoader();
+                IllegalStateAssertion.assertTrue(classLoader instanceof ModuleClassLoader, "Invalid class loader association: " + classLoader);
+
+                // Call the module specific {@link ContextCreateHandler}s
+                for (ContextCreateHandler handler : handlerRegistry.getContextCreateHandlers(classLoader)) {
+                    handler.setup(camelctx);
+                }
+
+                ManagementStrategy mgmtStrategy = camelctx.getManagementStrategy();
+                mgmtStrategy.addEventNotifier(new EventNotifierSupport() {
+
+                    public void notify(EventObject event) throws Exception {
+
+                        // Starting
+                        if (event instanceof CamelContextStartingEvent) {
+                            CamelContextStartingEvent camelevt = (CamelContextStartingEvent) event;
+                            CamelContext camelctx = camelevt.getContext();
+                            addContext(camelctx);
+                            LOGGER.info("Camel context starting: {}", camelctx.getName());
+                        }
+
+                        // Stopped
+                        else if (event instanceof CamelContextStoppedEvent) {
+                            CamelContextStoppedEvent camelevt = (CamelContextStoppedEvent) event;
+                            CamelContext camelctx = camelevt.getContext();
+                            removeContext(camelctx);
+                            LOGGER.info("Camel context stopped: {}", camelctx.getName());
+                        }
+                    }
+
+                    public boolean isEnabled(EventObject event) {
+                        return true;
+                    }
+                });
             }
-
-            ManagementStrategy mgmtStrategy = camelctx.getManagementStrategy();
-            mgmtStrategy.addEventNotifier(new EventNotifierSupport() {
-
-                public void notify(EventObject event) throws Exception {
-
-                    // Starting
-                    if (event instanceof CamelContextStartingEvent) {
-                        CamelContextStartingEvent camelevt = (CamelContextStartingEvent) event;
-                        CamelContext camelctx = camelevt.getContext();
-                        addContext(camelctx);
-                        LOGGER.info("Camel context starting: {}", camelctx.getName());
-                    }
-
-                    // Stopped
-                    else if (event instanceof CamelContextStoppedEvent) {
-                        CamelContextStoppedEvent camelevt = (CamelContextStoppedEvent) event;
-                        CamelContext camelctx = camelevt.getContext();
-                        removeContext(camelctx);
-                        LOGGER.info("Camel context stopped: {}", camelctx.getName());
-                    }
-                }
-
-                public boolean isEnabled(EventObject event) {
-                    return true;
-                }
-            });
         }
 
         private CamelContextRegistration addContext(CamelContext camelctx) {

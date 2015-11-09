@@ -35,8 +35,12 @@ public final class CamelDeploymentSettings {
     private boolean enabled;
     private ArrayList<String> modules = new ArrayList<>();
 
-    boolean isEnabled() {
+    public boolean isEnabled() {
         return enabled;
+    }
+
+    public List<String> getModules() {
+        return Collections.unmodifiableList(modules);
     }
 
     void setEnabled(boolean enabled) {
@@ -45,10 +49,6 @@ public final class CamelDeploymentSettings {
 
     void addModule(String module) {
         modules.add(module);
-    }
-
-    List<String> getModules() {
-        return Collections.unmodifiableList(modules);
     }
 
     void setModules(List<String> value) {
