@@ -25,6 +25,7 @@ import org.jboss.arquillian.container.test.api.OperateOnDeployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.ResourceAdapterArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
@@ -34,7 +35,8 @@ import org.junit.runner.RunWith;
 public class CamelEnablementTest {
 
     private static final String DEPLOYMENT_HAWTIO_WAR = "hawtio.war";
-    private static final String DEPLOYMENT_TEST_RAR = "test.rar";
+    private static final String DEPLOYMENT_RESADAPTOR_RAR = "myadapter.rar";
+    private static final String DEPLOYMENT_NOCAMELDEP = "nocameldep.jar";
 
     @Deployment(name = DEPLOYMENT_HAWTIO_WAR)
     public static WebArchive hawtioDeployment() {
@@ -44,9 +46,15 @@ public class CamelEnablementTest {
         return archive;
     }
 
-    @Deployment(name = DEPLOYMENT_TEST_RAR)
+    @Deployment(name = DEPLOYMENT_RESADAPTOR_RAR)
     public static ResourceAdapterArchive rarDeployment() {
-        final ResourceAdapterArchive archive = ShrinkWrap.create(ResourceAdapterArchive.class, DEPLOYMENT_TEST_RAR);
+        final ResourceAdapterArchive archive = ShrinkWrap.create(ResourceAdapterArchive.class, DEPLOYMENT_RESADAPTOR_RAR);
+        return archive;
+    }
+
+    @Deployment(name = DEPLOYMENT_NOCAMELDEP)
+    public static JavaArchive jarNoCamelDeployment() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, DEPLOYMENT_NOCAMELDEP);
         return archive;
     }
 
@@ -57,8 +65,14 @@ public class CamelEnablementTest {
     }
 
     @Test(expected = NoClassDefFoundError.class)
-    @OperateOnDeployment(DEPLOYMENT_TEST_RAR)
+    @OperateOnDeployment(DEPLOYMENT_RESADAPTOR_RAR)
     public void testRarDeployment() {
+        new DefaultCamelContext();
+    }
+
+    @Test(expected = NoClassDefFoundError.class)
+    @OperateOnDeployment(DEPLOYMENT_NOCAMELDEP)
+    public void testNoCamelDependency() {
         new DefaultCamelContext();
     }
 }

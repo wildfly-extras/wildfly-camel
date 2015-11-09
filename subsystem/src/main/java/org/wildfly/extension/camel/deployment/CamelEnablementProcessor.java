@@ -22,7 +22,9 @@ package org.wildfly.extension.camel.deployment;
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
@@ -44,6 +46,14 @@ import org.wildfly.extension.camel.CamelConstants;
  */
 public final class CamelEnablementProcessor implements DeploymentUnitProcessor {
 
+    private static Map<String, DeploymentUnit> deploymentMap = new HashMap<>();
+
+    public static DeploymentUnit getDeploymentUnitForName(String name) {
+        synchronized (deploymentMap) {
+            return deploymentMap.get(name);
+        }
+    }
+
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
 
         DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
@@ -51,6 +61,10 @@ public final class CamelEnablementProcessor implements DeploymentUnitProcessor {
         if (depSettings == null) {
             depSettings = new CamelDeploymentSettings();
             depUnit.putAttachment(CamelDeploymentSettings.ATTACHMENT_KEY, depSettings);
+        }
+
+        synchronized (deploymentMap) {
+            deploymentMap.put(depUnit.getName(), depUnit);
         }
 
         // Skip wiring wfc for SwitchYard deployments
@@ -88,7 +102,10 @@ public final class CamelEnablementProcessor implements DeploymentUnitProcessor {
         }
     }
 
-    public void undeploy(DeploymentUnit context) {
+    public void undeploy(DeploymentUnit depUnit) {
+        synchronized (deploymentMap) {
+            deploymentMap.remove(depUnit.getName());
+        }
     }
 
     private List<AnnotationInstance> getAnnotations(DeploymentUnit depUnit, String className) {
