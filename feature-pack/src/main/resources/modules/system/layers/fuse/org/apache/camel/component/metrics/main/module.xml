@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.metrics">
+  <resources>
+    <artifact name="${org.apache.camel:camel-metrics}" />
+    <artifact name="${io.dropwizard.metrics:metrics-core}" />
+    <artifact name="${io.dropwizard.metrics:metrics-json}" />
+  </resources>
+  <dependencies>
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="sun.jdk">
+      <imports>
+        <include path="sun/misc/Unsafe" />
+      </imports>
+    </module>
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>

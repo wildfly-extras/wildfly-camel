@@ -1,6 +1,7 @@
 [includes]
 	^ca/uhn/hl7v2(.*)
 	^com/google/protobuf
+	^com/codahale(.*)
 	^kafka(.*)
 	^io/swagger(.*)
 	^net/sf/saxon(.*)
