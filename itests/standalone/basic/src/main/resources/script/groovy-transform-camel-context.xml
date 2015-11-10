@@ -1,0 +1,60 @@
+<!--
+  #%L
+  Wildfly Camel :: Testsuite
+  %%
+  Copyright (C) 2013 - 2014 RedHat
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+
+    <!-- The custom groovy shell factory -->
+    <bean id="myShellFactory" class="org.wildfly.camel.test.script.subA.CustomGroovyShellFactory" />
+    
+    <!-- inline a groovy script to use for the aggregator -->
+    <lang:groovy id="myAggregate">
+        <lang:inline-script>
+            class MyAggregate {
+                String someNameHere(String prev, int next) {
+                    return "Hello " + prev * next
+                }
+            }
+        </lang:inline-script>
+    </lang:groovy>
+
+    <camelContext id="spring-context"
+        xmlns="http://camel.apache.org/schema/spring">
+        <route>
+            <from uri="direct:start" />
+            <!-- we must declare the name of the method, as the inlined groovy 
+                script has additional methods -->
+            <aggregate strategyRef="myAggregate"
+                strategyMethodName="someNameHere" completionSize="2">
+                <correlationExpression>
+                    <header>foo</header>
+                </correlationExpression>
+                <to uri="seda:end" />
+            </aggregate>
+        </route>
+    </camelContext>
+
+</beans>

@@ -6,4 +6,10 @@
   <dependencies>
     <module name="javax.api" />
   </dependencies>
+  <exports>
+    <exclude path="groovy/json/internal" />
+    <exclude path="groovyjarjarantlr/**" />
+    <exclude path="groovyjarjarasm/**" />
+    <exclude path="org/codehaus" />
+  </exports>
 </module>

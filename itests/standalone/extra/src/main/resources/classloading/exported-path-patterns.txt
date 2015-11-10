@@ -2,6 +2,7 @@
 	^ca/uhn/hl7v2(.*)
 	^com/google/protobuf
 	^com/codahale(.*)
+	^groovy(.*)
 	^kafka(.*)
 	^io/swagger(.*)
 	^net/sf/saxon(.*)
@@ -23,6 +24,7 @@
 	^org/apache/xmlbeans/impl/schema
 	^org/apache/xmlbeans/impl/values
 	^org/apache/zookeeper(.*)
+	^org/codehaus/groovy(.*)
 	^org/dozer(.*)
 	^org/elasticsearch(.*)
 	^org/quartz(.*)

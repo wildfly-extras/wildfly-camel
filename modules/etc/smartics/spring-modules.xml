@@ -43,6 +43,7 @@
         <include artifact=":spring-context" />
         <dependencies>
             <module name="javax.api" />
+            <module name="org.apache.camel.script.groovy" />
             <module name="org.apache.commons.logging" />
             <module name="org.springframework.core" />
         </dependencies>

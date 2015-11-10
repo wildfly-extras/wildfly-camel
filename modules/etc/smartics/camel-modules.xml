@@ -322,6 +322,13 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.groovy">
+        <include artifact="org.apache.camel:camel-groovy" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
+    </module>
+
     <module name="org.apache.camel.component.hl7">
         <include artifact="org.apache.camel:camel-hl7" />
         <include artifact="ca.uhn.hapi:hapi-base" />
@@ -693,7 +700,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.apache.camel.script.groovy" services="export"/>
+            <module name="org.apache.camel.script.groovy" export="true" services="export"/>
             <module name="org.apache.camel.script.jruby" services="export"/>
             <module name="org.apache.camel.script.python" services="export"/>
             <module name="org.apache.camel.script.rhino" services="export"/>
@@ -915,6 +922,12 @@
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
+        <exports>
+            <exclude path="groovy/json/internal"/>
+            <exclude path="groovyjarjarantlr/**"/>
+            <exclude path="groovyjarjarasm/**"/>
+            <exclude path="org/codehaus"/>
+        </exports>
     </module>
     
     <module name="org.apache.camel.script.jruby">

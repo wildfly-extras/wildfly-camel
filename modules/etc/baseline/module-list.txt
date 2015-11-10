@@ -35,6 +35,7 @@
 /org/apache/camel/component/flatpack/main/camel-flatpack-2.16.0.jar
 /org/apache/camel/component/flatpack/main/flatpack-3.4.3.jar
 /org/apache/camel/component/ftp/main/camel-ftp-2.16.0.jar
+/org/apache/camel/component/groovy/main/camel-groovy-2.16.0.jar
 /org/apache/camel/component/hl7/main/camel-hl7-2.16.0.jar
 /org/apache/camel/component/hl7/main/hapi-base-2.2.jar
 /org/apache/camel/component/hl7/main/hapi-structures-v24-2.2.jar
