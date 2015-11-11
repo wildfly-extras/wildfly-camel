@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.springframework.jdbc">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
   <resources>
     <resource-root path="spring-jdbc-4.1.6.RELEASE.jar" />
   </resources>

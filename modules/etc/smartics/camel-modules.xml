@@ -32,6 +32,9 @@
     </module>
 
     <module name="org.apache.camel.core.xml">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.camel:camel-core-xml" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
@@ -922,6 +925,9 @@
     </module>
 
     <module name="org.apache.camel.script.groovy">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.codehaus.groovy:groovy-all" />
         <dependencies>
             <module name="javax.api"/>
@@ -935,6 +941,9 @@
     </module>
     
     <module name="org.apache.camel.script.jruby">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.jruby:jruby-complete" />
         <include artifact=":scriptengines-jruby" />
         <include artifact="bsf:bsf" />
@@ -951,6 +960,9 @@
     </module>
     
     <module name="org.apache.camel.script.python">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.python:jython" />
         <dependencies>
             <module name="javax.api"/>
@@ -958,6 +970,9 @@
     </module>
     
     <module name="org.apache.camel.script.rhino">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":scriptengines-javascript" />
         <include artifact=":livetribe-jsr223" />
         <include artifact="rhino:js" />

@@ -27,6 +27,9 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
     <module name="args4j">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="args4j:args4j" />
     </module>
 

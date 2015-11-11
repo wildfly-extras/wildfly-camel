@@ -25,6 +25,9 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
     
     <module name="org.apache.cxf.ext" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":cxf-rt-features-clustering" />
         <include artifact=":cxf-rt-frontend-jaxrs" />
         <include artifact=":cxf-rt-rs-client" />
@@ -44,6 +47,9 @@
     </module>
     
     <module name="org.bouncycastle.ext">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.bouncycastle:bcpg-jdk15on" />
         <dependencies>
             <module name="javax.api" />
@@ -51,6 +57,9 @@
     </module>
 
     <module name="org.apache.lucene.ext">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.lucene:lucene-highlighter" />
         <include artifact="org.apache.lucene:lucene-suggest" />
         <include artifact="org.apache.lucene:lucene-misc" />

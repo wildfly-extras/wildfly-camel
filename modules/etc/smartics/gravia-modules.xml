@@ -36,18 +36,30 @@
     </module>
         
     <module name="org.jboss.gravia.container.common" skip="true">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":gravia-container-common" />
     </module>
         
     <module name="org.jboss.gravia.provision" skip="true">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":gravia-provision" />
     </module>
         
     <module name="org.jboss.gravia.repository" skip="true">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":gravia-repository" />
     </module>
         
     <module name="org.jboss.gravia.resolver" skip="true">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":gravia-resolver" />
     </module>
 </modules>

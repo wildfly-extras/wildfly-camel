@@ -21,6 +21,9 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
     <module name="org.springframework.aop">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":spring-aop" />
         <include artifact=":aopalliance" />
         <dependencies>
@@ -30,6 +33,9 @@
     </module>
     
     <module name="org.springframework.beans">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":spring-beans" />
         <dependencies>
             <module name="javax.api" />
@@ -40,6 +46,9 @@
     </module>
     
     <module name="org.springframework.context">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":spring-context" />
         <dependencies>
             <module name="javax.api" />
@@ -50,6 +59,9 @@
     </module>
     
     <module name="org.springframework.core">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":spring-core" />
         <dependencies>
             <module name="javax.api" />
@@ -58,6 +70,9 @@
     </module>
     
     <module name="org.springframework.expression">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":spring-expression" />
         <dependencies>
             <module name="javax.api" />
@@ -66,6 +81,9 @@
     </module>
     
     <module name="org.springframework.jdbc">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":spring-jdbc" />
         <dependencies>
             <module name="com.h2database.h2" />
@@ -76,6 +94,9 @@
     </module>
     
     <module name="org.springframework.jms">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":spring-jms" />
         <dependencies>
             <module name="javax.api" />
@@ -84,6 +105,9 @@
     </module>
     
     <module name="org.springframework.orm">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":spring-orm" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.openjpa" />
@@ -96,6 +120,9 @@
     </module>
     
     <module name="org.springframework.security">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":spring-security-config" />
         <include artifact=":spring-security-core" />
         <dependencies>
@@ -105,6 +132,9 @@
     </module>
     
     <module name="org.springframework.tx">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":spring-tx" />
         <dependencies>
             <module name="javax.api" />
