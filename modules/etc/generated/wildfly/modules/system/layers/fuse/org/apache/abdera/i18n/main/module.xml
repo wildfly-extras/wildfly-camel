@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.abdera.i18n">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
   <resources>
     <resource-root path="abdera-i18n-1.1.3.jar" />
   </resources>

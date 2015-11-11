@@ -21,18 +21,30 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
     <module name="cglib.cglib-nodep">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":cglib-nodep" />
     </module>
 
     <module name="com.fasterxml.jackson.dataformat.xml">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":jackson-dataformat-xml" />
     </module>
 
     <module name="com.fasterxml.jackson.dataformat.yaml">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":jackson-dataformat-yaml" />
     </module>
 
     <module name="com.fasterxml.jackson.datatype.joda">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":jackson-datatype-joda" />
         <apply-to-dependencies skip="true">
             <include module="joda-time"/>
@@ -43,6 +55,9 @@
     </module>
 
     <module name="com.jcraft.jsch">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":jsch" />
         <dependencies>
             <module name="javax.api" />
@@ -50,6 +65,9 @@
     </module>
 
     <module name="com.rometools.rome">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="rome:rome" />
         <dependencies>
             <module name="javax.api" />
@@ -57,6 +75,9 @@
     </module>
     
     <module name="com.thoughtworks.xstream">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="com.thoughtworks.xstream:xstream" />
         <include artifact="xmlpull:xmlpull" />
         <include artifact="xpp3:xpp3_min" />
@@ -67,6 +88,9 @@
     </module>
 
     <module name="net.sf.dozer">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="net.sf.dozer:dozer" />
         <apply-to-dependencies skip="true">
             <include module="org.hibernate" />
@@ -81,6 +105,9 @@
     </module>
     
     <module name="ognl">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":ognl" />
         <apply-to-dependencies skip="true">
             <include module=".*" />
@@ -91,6 +118,9 @@
     </module>
     
     <module name="org.apache.abdera.core">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.abdera:abdera-core" />
         <dependencies>
             <module name="javax.api"/>
@@ -98,6 +128,9 @@
     </module>
 
     <module name="org.apache.abdera.i18n">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.abdera:abdera-i18n" />
         <dependencies>
             <module name="org.apache.abdera.core"/>
@@ -105,6 +138,9 @@
     </module>
 
     <module name="org.apache.abdera.parser">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.abdera:abdera-parser" />
         <dependencies>
             <module name="javax.api"/>
@@ -114,14 +150,23 @@
     </module>
 
     <module name="org.apache.commons.csv">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":commons-csv" />
     </module>
     
     <module name="org.apache.commons.lang3">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.commons:commons-lang3" />
     </module>
     
     <module name="org.apache.commons.net">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="commons.net:commons.net" />
         <dependencies>
             <module name="javax.api" />
@@ -129,6 +174,9 @@
     </module>
 
     <module name="org.apache.commons.pool2">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.commons:commons-pool2" />
         <dependencies>
             <module name="javax.api" />
@@ -136,6 +184,9 @@
     </module>
     
     <module name="org.apache.deltaspike.$1.$2">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":deltaspike-(.*)-(.*)" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.deltaspike.test" />
@@ -147,6 +198,9 @@
     </module>
 
     <module name="org.apache.kafka">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.kafka:kafka_2.11" />
         <include artifact="com.yammer.metrics:metrics-core" />
         <include artifact="net.sf.jopt-simple:jopt-simple" />
@@ -163,16 +217,25 @@
     </module>
     
     <module name="org.apache.kafka.clients">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.kafka:kafka-clients" />
         <include artifact="org.xerial.snappy:snappy-java" />
         <include artifact="net.jpountz.lz4:lz4" />
     </module>
 
     <module name="org.apache.mina.$1">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":mina-(.*)" />
     </module>
 
     <module name="org.apache.ws.commons.axiom.axiom-impl">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.ws.commons.axiom:axiom-impl" />
         <dependencies>
             <module name="javax.api"/>
@@ -181,6 +244,9 @@
     </module>
 
     <module name="org.apache.ws.commons.axiom.axiom-api">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.ws.commons.axiom:axiom-api" />
         <apply-to-dependencies skip="true">
             <include module="org.osgi.compendium" />
@@ -193,10 +259,16 @@
     </module>
 
     <module name="org.apache.xbean.$1">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.xbean:xbean-(.*)" />
     </module>
 
     <module name="org.apache.xmlbeans">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.xmlbeans:xmlbeans" />
         <dependencies>
             <module name="javax.api" />
@@ -204,6 +276,9 @@
     </module>
 
     <module name="org.apache.zookeeper">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.zookeeper:zookeeper" />
         <apply-to-dependencies skip="true">
             <include module="jline" />
@@ -217,6 +292,9 @@
     </module>
 
     <module name="org.beanshell">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.beanshell:bsh" />
         <dependencies>
             <module name="javax.api" />
@@ -224,6 +302,9 @@
     </module>
 
     <module name="org.eclipse.jetty">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.eclipse.jetty:jetty-client" />
         <include artifact="org.eclipse.jetty:jetty-http" />
         <include artifact="org.eclipse.jetty:jetty-io" />
@@ -237,6 +318,9 @@
     </module>
 
     <module name="org.elasticsearch">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.elasticsearch:elasticsearch" />
         <apply-to-dependencies skip="true">
             <include module="org.ow2.asm"/>
@@ -254,10 +338,16 @@
     </module>
     
     <module name="org.fusesource.hawtbuf">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.fusesource.hawtbuf:hawtbuf" />
     </module>
 
     <module name="org.fusesource.hawtdispatch">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.fusesource.hawtdispatch:hawtdispatch" />
         <include artifact="org.fusesource.hawtdispatch:hawtdispatch-transport" />
         <dependencies>
@@ -266,10 +356,16 @@
     </module>
 
     <module name="org.fusesource.mqtt">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.fusesource.mqtt-client:mqtt-client" />
     </module>
 
     <module name="org.json4s">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.json4s:json4s-(.*)" />
         <apply-to-dependencies skip="true">
             <include module="joda-time" />
@@ -281,14 +377,23 @@
     </module>
 
     <module name="org.joda.convert">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":joda-convert" />
     </module>
     
     <module name="org.osgi.core">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":org.osgi.core" />
     </module>
 
     <module name="org.osgi.enterprise">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":org.osgi.enterprise" />
         <dependencies>
             <module name="javax.api"/>
@@ -296,6 +401,9 @@
     </module>
 
     <module name="org.quartz">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.quartz-scheduler:quartz" />
         <include artifact="com.mchange:mchange-commons-java" />
         <include artifact="com.mchange:c3p0" />
@@ -312,6 +420,9 @@
     </module>
 
     <module name="org.restlet">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":org.restlet" />
         <include artifact=":org.restlet.ext.httpclient" />
         <apply-to-dependencies skip="true">
@@ -324,10 +435,16 @@
     </module>
 
     <module name="org.scala.library">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.scala-lang:scala-library" />
     </module>
     
     <module name="org.scala.modules">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.scala-lang.modules:(.*)" />
     </module>
     

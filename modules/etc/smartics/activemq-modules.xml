@@ -21,6 +21,9 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
     <module name="org.apache.activemq">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":activemq-broker" />
         <include artifact=":activemq-client" />
         <include artifact=":activemq-jms-pool" />
