@@ -174,6 +174,8 @@ public class ExportedPathsTest {
             reader.close();
         }
 
+        List<Pattern> usedPatterns = new ArrayList<>(includePatterns);
+
         // Verify each line
         Path exportedPaths = resolvePath(FILE_EXPORTED_PATHS);
         reader = new BufferedReader(new FileReader(exportedPaths.toFile()));
@@ -186,6 +188,7 @@ public class ExportedPathsTest {
                     // match include patterns
                     for (Pattern pattern : includePatterns) {
                         if (pattern.matcher(line).matches()) {
+                            usedPatterns.remove(pattern);
                             match = true;
                             break;
                         }
@@ -208,6 +211,8 @@ public class ExportedPathsTest {
         } finally {
             reader.close();
         }
+
+        Assert.assertTrue("Unused patterns: " + usedPatterns, usedPatterns.isEmpty());
     }
 
     private Path resolvePath(Path other) throws IOException {
