@@ -148,9 +148,9 @@
 /org/fusesource/hawtdispatch/main/hawtdispatch-1.21.jar
 /org/fusesource/hawtdispatch/main/hawtdispatch-transport-1.21.jar
 /org/fusesource/mqtt/main/mqtt-client-1.12.jar
-/org/jboss/gravia/main/gravia-resource-1.1.4.jar
-/org/jboss/gravia/main/gravia-runtime-api-1.1.4.jar
-/org/jboss/gravia/main/gravia-runtime-embedded-1.1.4.jar
+/org/jboss/gravia/main/gravia-resource-1.2.0.jar
+/org/jboss/gravia/main/gravia-runtime-api-1.2.0.jar
+/org/jboss/gravia/main/gravia-runtime-embedded-1.2.0.jar
 /org/mvel/mvel2/main/mvel2-2.2.6.Final.jar
 /org/osgi/core/main/org.osgi.core-4.3.1.jar
 /org/osgi/enterprise/main/org.osgi.enterprise-5.0.0.jar
