@@ -98,15 +98,12 @@ public class JSONDataFormatTest {
     @Test
     public void testUnmarshalJson() throws Exception {
 
-        // [FIXME #387] Usage of camel-xstream depends on TCCL
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .unmarshal().json();
+                .unmarshal().json(JsonLibrary.XStream, Customer.class);
             }
         });
 

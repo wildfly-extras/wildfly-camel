@@ -79,7 +79,7 @@ public class XStreamIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .unmarshal().xstream();
+                .unmarshal().xstream(Customer.class);
             }
         });
 

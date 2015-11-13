@@ -870,6 +870,7 @@ org/elasticsearch/common/jackson/dataformat/yaml/snakeyaml/scanner
 org/elasticsearch/common/jackson/dataformat/yaml/snakeyaml/tokens
 org/elasticsearch/common/jackson/dataformat/yaml/snakeyaml/util
 org/elasticsearch/common/joda
+org/elasticsearch/common/joda/convert
 org/elasticsearch/common/joda/time
 org/elasticsearch/common/joda/time/base
 org/elasticsearch/common/joda/time/chrono
