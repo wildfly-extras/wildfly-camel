@@ -30,6 +30,7 @@
     <module name="org.springframework.tx" />
     <module name="io.undertow.servlet" />
     <module name="org.slf4j" />
+    <module name="org.apache.camel.component.ejb" />
     <module name="org.apache.camel.component.undertow" />
     <module name="org.jboss.gravia" />
     <module name="org.springframework.security" />

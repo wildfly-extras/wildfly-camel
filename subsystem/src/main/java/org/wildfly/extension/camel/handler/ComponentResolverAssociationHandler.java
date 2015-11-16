@@ -20,12 +20,15 @@
 
 package org.wildfly.extension.camel.handler;
 
+import javax.naming.InitialContext;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spi.ComponentResolver;
 import org.wildfly.extension.camel.ContextCreateHandler;
 import org.wildfly.extension.camel.component.WildFlyUndertowComponent;
+import org.wildfly.extension.camel.component.WildFlyEjbComponent;
 import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
 
 /**
@@ -37,9 +40,11 @@ import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
 public final class ComponentResolverAssociationHandler implements ContextCreateHandler {
 
     private final SubsystemRuntimeState runtimeState;
+    private final InitialContext context;
 
-    public ComponentResolverAssociationHandler(SubsystemRuntimeState runtimeState) {
+    public ComponentResolverAssociationHandler(InitialContext context, SubsystemRuntimeState runtimeState) {
         this.runtimeState = runtimeState;
+        this.context = context;
     }
 
     @Override
@@ -60,11 +65,13 @@ public final class ComponentResolverAssociationHandler implements ContextCreateH
         }
 
         @Override
-        public Component resolveComponent(String name, CamelContext context) throws Exception {
-            if ("undertow".equals(name)) {
+        public Component resolveComponent(String name, CamelContext camelctx) throws Exception {
+            if ("ejb".equals(name)) {
+                return new WildFlyEjbComponent(context);
+            } else if ("undertow".equals(name)) {
                 return new WildFlyUndertowComponent(runtimeState);
             } else {
-                return delegate.resolveComponent(name, context);
+                return delegate.resolveComponent(name, camelctx);
             }
         }
     }
