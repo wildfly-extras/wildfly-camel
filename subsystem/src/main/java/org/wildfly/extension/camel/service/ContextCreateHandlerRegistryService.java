@@ -26,6 +26,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
@@ -37,12 +40,13 @@ import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.ContextCreateHandler;
 import org.wildfly.extension.camel.ContextCreateHandlerRegistry;
 import org.wildfly.extension.camel.handler.ClassResolverAssociationHandler;
+import org.wildfly.extension.camel.handler.ComponentResolverAssociationHandler;
 import org.wildfly.extension.camel.handler.ContextValidationHandler;
+import org.wildfly.extension.camel.handler.JndiRegistryAssociationHandler;
 import org.wildfly.extension.camel.handler.ModelJAXBContextFactoryWrapperHandler;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.camel.handler.NamingContextAssociationHandler;
 import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
-import org.wildfly.extension.camel.handler.ComponentResolverAssociationHandler;
 
 /**
  * The {@link ContextCreateHandlerRegistry} service
@@ -80,13 +84,22 @@ public class ContextCreateHandlerRegistryService extends AbstractService<Context
 
         private final Map<ClassLoader, List<ContextCreateHandler>> handlerMapping = new HashMap<>();
 
-        ContextCreateHandlerRegistryImpl(final ServiceRegistry serviceRegistry, final ServiceTarget serviceTarget) {
+        ContextCreateHandlerRegistryImpl(final ServiceRegistry serviceRegistry, final ServiceTarget serviceTarget) throws StartException {
+
+            // Get the initial JNDI context
+            InitialContext context;
+            try {
+                context = new InitialContext();
+            } catch (NamingException ex) {
+                throw new StartException(ex);
+            }
 
             // Setup the default handlers
             addContextCreateHandler(null, new ModuleClassLoaderAssociationHandler());
             addContextCreateHandler(null, new ClassResolverAssociationHandler());
-            addContextCreateHandler(null, new ComponentResolverAssociationHandler(runtimeState));
+            addContextCreateHandler(null, new ComponentResolverAssociationHandler(context, runtimeState));
             addContextCreateHandler(null, new NamingContextAssociationHandler(serviceRegistry, serviceTarget));
+            addContextCreateHandler(null, new JndiRegistryAssociationHandler(context));
             addContextCreateHandler(null, new ModelJAXBContextFactoryWrapperHandler());
             addContextCreateHandler(null, new ContextValidationHandler());
         }
