@@ -123,6 +123,7 @@
                                     <type>tar.gz</type>
 	                                <overWrite>false</overWrite>
 	                                <outputDirectory>${jboss.home}</outputDirectory>
+                                    <excludes>standalone/deployments/gravia.war</excludes>
 	                            </artifactItem>
 	                        </artifactItems>
 	                    </configuration>

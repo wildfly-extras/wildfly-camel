@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.redhat.fuse.itests;
+package org.wildfly.camel.test.compatibility;
 
 import java.io.InputStream;
 

@@ -26,44 +26,6 @@
     <artifactId>compatibility</artifactId>
     <packaging>pom</packaging>
 
-    <!-- Properties -->
-    <properties>
-        <version.apache.karaf>2.3.3</version.apache.karaf>
-        <version.jboss.arquillian.osgi>2.1.0.Final</version.jboss.arquillian.osgi>
-        <version.jboss.osgi.metadata>4.0.0.CR1</version.jboss.osgi.metadata>
-    </properties>
-    
-    <!-- DependencyManagement -->
-    <dependencyManagement>
-        <dependencies>
-
-            <!-- Arquillian OSGi -->
-            <dependency>
-                <groupId>org.jboss.arquillian.container</groupId>
-                <artifactId>arquillian-container-karaf-managed</artifactId>
-                <version>${version.jboss.arquillian.osgi}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian.osgi</groupId>
-                <artifactId>arquillian-osgi-bundle</artifactId>
-                <version>${version.jboss.arquillian.osgi}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian.testenricher</groupId>
-                <artifactId>arquillian-testenricher-osgi</artifactId>
-                <version>${version.jboss.arquillian.osgi}</version>
-            </dependency>
-            
-            <!-- JBoss -->
-            <dependency>
-                <groupId>org.jboss.osgi.metadata</groupId>
-                <artifactId>jbosgi-metadata</artifactId>
-                <version>${version.jboss.osgi.metadata}</version>
-            </dependency>
-            
-        </dependencies>
-    </dependencyManagement>
-    
     <modules>
         <module>itests</module>
     </modules>

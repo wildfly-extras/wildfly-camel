@@ -54,7 +54,9 @@
         <version.wildfly.core>1.0.2.Final</version.wildfly.core>
 
         <!-- Other versions -->
+        <version.apache.felix.scr.ds.annotations>1.2.4</version.apache.felix.scr.ds.annotations>
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
+        <version.apache.karaf>2.3.3</version.apache.karaf>
         <version.apache.sshd.sftp>0.11.0</version.apache.sshd.sftp>
         <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
         <version.args4j>2.0.31</version.args4j>
@@ -67,10 +69,12 @@
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
         <version.javax.enterprise>1.2</version.javax.enterprise>
         <version.jboss.arquillian.core>1.1.10.Final</version.jboss.arquillian.core>
+        <version.jboss.arquillian.osgi>2.1.0.Final</version.jboss.arquillian.osgi>
         <version.jboss.dmr>1.2.1.Final</version.jboss.dmr>
         <version.jboss.ejb3.ext.api>2.1.0</version.jboss.ejb3.ext.api>
-        <version.jboss.gravia>1.2.0</version.jboss.gravia>
+        <version.jboss.gravia>1.2.1</version.jboss.gravia>
         <version.jboss.jbossws.api>1.0.2.Final</version.jboss.jbossws.api>
+        <version.jboss.osgi.metadata>4.0.0.CR1</version.jboss.osgi.metadata>
         <version.jboss.shrinkwrap.resolver>2.2.0</version.jboss.shrinkwrap.resolver>
         <version.jboss.resteasy.atom.provider>3.0.10.Final</version.jboss.resteasy.atom.provider>
         <version.jboss.spec.javax.annotation>1.0.0.Final</version.jboss.spec.javax.annotation>
@@ -86,8 +90,9 @@
         <version.maven.archetype.packaging>2.3</version.maven.archetype.packaging>
         <version.osgi>5.0.0</version.osgi>
         <version.slf4j>1.6.6</version.slf4j>
-
+        
         <!-- Plugin versions -->
+        <version-apache-scr-plugin>1.15.0</version-apache-scr-plugin>
         <version-build-helper-plugin>1.9.1</version-build-helper-plugin>
         <version-docker-maven-plugin>0.13.2</version-docker-maven-plugin>
         <version-exec-maven-plugin>1.4.0</version-exec-maven-plugin>
@@ -134,7 +139,7 @@
     <!-- DependencyManagement -->
     <dependencyManagement>
         <dependencies>
-        
+            
             <!-- Args4J -->
             <dependency>
                 <groupId>args4j</groupId>
@@ -157,6 +162,21 @@
                 <type>pom</type>
                 <version>${version.jboss.arquillian.core}</version>
             </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-container-karaf-managed</artifactId>
+                <version>${version.jboss.arquillian.osgi}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.osgi</groupId>
+                <artifactId>arquillian-osgi-bundle</artifactId>
+                <version>${version.jboss.arquillian.osgi}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.testenricher</groupId>
+                <artifactId>arquillian-testenricher-osgi</artifactId>
+                <version>${version.jboss.arquillian.osgi}</version>
+            </dependency>
 
             <!-- Betamax -->
             <dependency>
@@ -174,6 +194,13 @@
                 <type>pom</type>
             </dependency>
 
+            <!-- Felix -->
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.scr.ds-annotations</artifactId>
+                <version>${version.apache.felix.scr.ds.annotations}</version>
+            </dependency>
+            
             <!-- FTP Server -->
             <dependency>
                 <groupId>org.apache.ftpserver</groupId>
@@ -247,6 +274,11 @@
                 <groupId>org.jboss</groupId>
                 <artifactId>jboss-dmr</artifactId>
                 <version>${version.jboss.dmr}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.osgi.metadata</groupId>
+                <artifactId>jbosgi-metadata</artifactId>
+                <version>${version.jboss.osgi.metadata}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.spec.javax.annotation</groupId>
@@ -462,6 +494,11 @@
         <!-- Plugin Management -->
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-scr-plugin</artifactId>
+                    <version>${version-apache-scr-plugin}</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>

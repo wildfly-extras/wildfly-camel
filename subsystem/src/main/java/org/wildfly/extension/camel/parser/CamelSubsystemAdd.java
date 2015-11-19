@@ -122,6 +122,7 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
 
         public List<ServiceController<?>> getSubsystemServices(OperationContext context) {
             List<ServiceController<?>> controllers = new ArrayList<ServiceController<?>>();
+            controllers.add(getBoostrapService(context));
             controllers.add(getRuntimeService(context));
             controllers.add(getSystemContextService(context));
             return controllers;
