@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Gravia :: Container :: Karaf :: Patch
+  %%
+  Copyright (C) 2010 - 2014 JBoss by Red Hat
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+<project default="build">
+
+  <!-- ================================================================== -->
+  <!-- Setup                                                              -->
+  <!-- ================================================================== -->
+  <property name="etc.dir" value="${basedir}/etc" />
+  <property name="output.dir" value="${basedir}/target" />
+  <property name="resources.dir" value="${basedir}/src/main/resources" />
+  <property name="karaf.patch.dir" value="${output.dir}/karaf-patch" />
+  <property name="karaf.source.dir" value="${output.dir}/apache-karaf-${version.apache.karaf}" />
+  <property name="deploy.artifacts.dir" value="${output.dir}/deploy-artifacts" />
+  <property name="deploy.artifacts.lib" value="${deploy.artifacts.dir}/lib" />
+  <property name="deploy.artifacts.resources" value="${deploy.artifacts.dir}/resources" />
+
+  <!-- ================================================================== -->
+  <!-- Initialization                                                     -->
+  <!-- ================================================================== -->
+  <target name="init">
+  </target>
+
+  <!-- ================================================================== -->
+  <!-- Distribution                                                       -->
+  <!-- ================================================================== -->
+  <target name="build" depends="init">
+
+	<!-- Copy to etc -->
+	<copy todir="${karaf.patch.dir}/etc" overwrite="true" filtering="true">
+        <fileset dir="${etc.dir}/karaf/etc"/>
+		<filterset>
+	        <filter token="version.apache.camel" value="${version.apache.camel}"/>
+		</filterset>
+	</copy>
+  	
+  	<!-- Copy to system -->
+    <copy todir="${karaf.patch.dir}/system/org/apache/felix/org.apache.felix.metatype/${version.apache.felix.metatype}" overwrite="true">
+        <fileset file="${deploy.artifacts.lib}/org.apache.felix.metatype-*.jar" />
+    </copy>
+    <copy todir="${karaf.patch.dir}/system/org/apache/felix/org.apache.felix.scr/${version.apache.felix.scr}" overwrite="true">
+        <fileset file="${deploy.artifacts.lib}/org.apache.felix.scr-*.jar" />
+    </copy>
+    <copy todir="${karaf.patch.dir}/system/org/jboss/gravia/${version.jboss.gravia}" overwrite="true">
+        <fileset dir="${deploy.artifacts.lib}">
+			<include name="gravia-resource-*.jar" />
+			<include name="gravia-runtime-api-*.jar" />
+			<include name="gravia-runtime-osgi-*.jar" />
+        </fileset>
+    </copy>
+  	
+    <copy file="${karaf.source.dir}/etc/startup.properties" todir="${karaf.patch.dir}/etc" overwrite="true"/>
+    <echo file="${karaf.patch.dir}/etc/startup.properties" append="true">
+#
+# Gravia Integration
+# 
+org/apache/felix/org.apache.felix.metatype/${version.apache.felix.metatype}/org.apache.felix.metatype-${version.apache.felix.metatype}.jar=40
+org/apache/felix/org.apache.felix.scr/${version.apache.felix.scr}/org.apache.felix.scr-${version.apache.felix.scr}.jar=40
+org/jboss/gravia/${version.jboss.gravia}/gravia-resource-${version.jboss.gravia}.jar=40
+org/jboss/gravia/${version.jboss.gravia}/gravia-runtime-api-${version.jboss.gravia}.jar=40
+org/jboss/gravia/${version.jboss.gravia}/gravia-runtime-osgi-${version.jboss.gravia}.jar=40
+    </echo>
+  	
+    <copy file="${karaf.source.dir}/etc/custom.properties" todir="${karaf.patch.dir}/etc" overwrite="true"/>
+    <echo file="${karaf.patch.dir}/etc/custom.properties" append="true">
+# Clean the persitent bundle store on Framework INIT                                
+org.osgi.framework.storage.clean=onFirstInit
+
+# Gravia properties
+org.jboss.gravia.runtime.type=karaf
+    	
+# The Felix Framewok log level 
+#
+# ERROR = 1;
+# WARNING = 2;
+# INFO = 3;
+# DEBUG = 4;
+# felix.log.level=4
+    </echo>
+	
+  	<!-- Build the patch -->
+  	<tar destfile="${output.dir}/${project.artifactId}-${project.version}.tar.gz" basedir="${karaf.patch.dir}" compression="gzip"/>
+  	
+  </target>
+</project>

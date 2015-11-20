@@ -27,6 +27,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>patch</module>
         <module>itests</module>
     </modules>
 </project>
