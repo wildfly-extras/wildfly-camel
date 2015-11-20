@@ -25,9 +25,8 @@
 	<container qualifier="jboss" default="true">
 		<configuration>
 			<property name="karafHome">target/apache-karaf-${version.apache.karaf}</property>
-            <!--  property name="javaVmArguments">-agentlib:jdwp=transport=dt_socket,address=5005,server=y,suspend=n</property -->
+            <property name="javaVmArguments">-agentlib:jdwp=transport=dt_socket,address=5005,server=y,suspend=n</property>
             <property name="allowConnectingToRunningServer">true</property>
-            <property name="bootstrapCompleteService">org.osgi.service.http.HttpService</property>
             <property name="karafBeginningStartLevel">100</property>
             <property name="jmxServiceURL">service:jmx:rmi://127.0.0.1:44444/jndi/rmi://127.0.0.1:1099/karaf-root</property>
             <property name="jmxUsername">karaf</property>

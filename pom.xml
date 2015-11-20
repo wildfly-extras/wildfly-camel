@@ -47,6 +47,7 @@
         
         <!-- Camel version -->
         <version.apache.camel>2.16.1</version.apache.camel>
+        <version.springframework.spring>4.1.8.RELEASE</version.springframework.spring>
         
         <!-- WildFly versions -->
         <version.wildfly>9.0.2.Final</version.wildfly>
@@ -60,7 +61,7 @@
         <version.apache.felix.scr>1.6.2</version.apache.felix.scr>
         <version.apache.felix.scr.ds.annotations>1.2.4</version.apache.felix.scr.ds.annotations>
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
-        <version.apache.karaf>2.3.3</version.apache.karaf>
+        <version.apache.karaf>2.4.3</version.apache.karaf>
         <version.apache.sshd.sftp>0.11.0</version.apache.sshd.sftp>
         <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
         <version.args4j>2.0.31</version.args4j>
@@ -212,6 +213,16 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.metatype</artifactId>
+                <version>${version.apache.felix.metatype}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.scr</artifactId>
+                <version>${version.apache.felix.scr}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
                 <artifactId>org.apache.felix.scr.ds-annotations</artifactId>
                 <version>${version.apache.felix.scr.ds.annotations}</version>
             </dependency>
@@ -259,6 +270,11 @@
             <dependency>
                 <groupId>org.jboss.gravia</groupId>
                 <artifactId>gravia-runtime-embedded</artifactId>
+                <version>${version.jboss.gravia}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.gravia</groupId>
+                <artifactId>gravia-runtime-osgi</artifactId>
                 <version>${version.jboss.gravia}</version>
             </dependency>
             
