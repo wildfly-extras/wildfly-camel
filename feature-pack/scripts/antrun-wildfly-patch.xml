@@ -28,6 +28,8 @@
 	<property name="output.dir" value="${basedir}/target" />
 	<property name="target.patch.dir" value="${output.dir}/wildfly-patch" />
 
+	<echoproperties></echoproperties>
+	
 	<!-- ================================================================== -->
 	<!-- Distribution                                                       -->
 	<!-- ================================================================== -->
@@ -35,12 +37,27 @@
 		
 		<!-- Copy managed module.xml resources to patch -->
 		<copy todir="${target.patch.dir}" overwrite="true" filtering="true">
-			<fileset dir="${basedir}/../modules/etc/managed/wildfly" />
+			<fileset dir="${basedir}/../modules/etc/managed/wildfly" >
+				<exclude name="**/fuse/org/jboss/gravia/main/module.xml"/>
+		    </fileset>
+			<fileset dir="${basedir}/etc/managed/wildfly" >
+				<include name="**/fuse/org/jboss/gravia/main/module.xml"/>
+		    </fileset>
 			<filterset>
 				<filter token="project.version" value="${project.version}" />
+		        <filter token="version.apache.felix.configadmin" value="${version.apache.felix.configadmin}"/>
+		        <filter token="version.apache.felix.log" value="${version.apache.felix.log}"/>
+		        <filter token="version.apache.felix.metatype" value="${version.apache.felix.metatype}"/>
+		        <filter token="version.apache.felix.scr" value="${version.apache.felix.scr}"/>
 				<filter token="version.jboss.gravia" value="${version.jboss.gravia}" />
 			</filterset>
 		</copy>
+		
+		<property name="target.gravia.module.dir" value="${output.dir}/managed-jars/modules/system/layers/fuse/org/jboss/gravia/main" />
+		<copy file="${maven.dependency.org.apache.felix.org.apache.felix.configadmin.jar.path}" todir="${target.gravia.module.dir}" />
+		<copy file="${maven.dependency.org.apache.felix.org.apache.felix.log.jar.path}" todir="${target.gravia.module.dir}" />
+		<copy file="${maven.dependency.org.apache.felix.org.apache.felix.metatype.jar.path}" todir="${target.gravia.module.dir}" />
+		<copy file="${maven.dependency.org.apache.felix.org.apache.felix.scr.jar.path}" todir="${target.gravia.module.dir}" />
 		
 		<!-- Sync source tree with Smartics generated XML files -->
 		<sync todir="${module.generated.dir}" overwrite="true" verbose="true">

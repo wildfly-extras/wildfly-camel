@@ -29,22 +29,22 @@
         <artifact name="${org.jboss.gravia:gravia-resource}" />
         <artifact name="${org.jboss.gravia:gravia-runtime-api}" />
         <artifact name="${org.jboss.gravia:gravia-runtime-embedded}" />
-        <resource-root path="org.apache.felix.configadmin-1.8.8.jar">
+        <resource-root path="org.apache.felix.configadmin-@version.apache.felix.configadmin@.jar">
             <filter>
                 <exclude path="org/osgi/**" />
             </filter>
         </resource-root>
-        <resource-root path="org.apache.felix.log-1.0.1.jar">
+        <resource-root path="org.apache.felix.log-@version.apache.felix.log@.jar">
             <filter>
                 <exclude path="org/osgi/**" />
             </filter>
         </resource-root>
-        <resource-root path="org.apache.felix.metatype-1.0.8.jar">
+        <resource-root path="org.apache.felix.metatype-@version.apache.felix.metatype@.jar">
             <filter>
                 <exclude path="org/osgi/**" />
             </filter>
         </resource-root>
-        <resource-root path="org.apache.felix.scr-1.6.2.jar">
+        <resource-root path="org.apache.felix.scr-@version.apache.felix.scr@.jar">
             <filter>
                 <exclude path="org/osgi/**" />
             </filter>

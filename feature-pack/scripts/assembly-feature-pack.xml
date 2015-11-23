@@ -31,6 +31,10 @@
             <directory>target/${project.artifactId}-${project.version}</directory>
             <outputDirectory>/</outputDirectory>
         </fileSet>
+        <fileSet>
+            <directory>target/managed-jars</directory>
+            <outputDirectory>/</outputDirectory>
+        </fileSet>
     </fileSets>
     
 </assembly>

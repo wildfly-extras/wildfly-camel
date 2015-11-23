@@ -36,6 +36,13 @@
 		<!-- Copy managed module.xml resources to patch -->
 		<copy todir="${target.patch.dir}" overwrite="true" filtering="true">
 			<fileset dir="${etc.dir}/managed/wildfly" />
+		    <filterset>
+		        <filter token="version.apache.felix.configadmin" value="${version.apache.felix.configadmin}"/>
+		        <filter token="version.apache.felix.log" value="${version.apache.felix.log}"/>
+		        <filter token="version.apache.felix.metatype" value="${version.apache.felix.metatype}"/>
+		        <filter token="version.apache.felix.scr" value="${version.apache.felix.scr}"/>
+		        <filter token="version.jboss.gravia" value="${version.jboss.gravia}"/>
+		    </filterset>
 		</copy>
 
 		<!-- Sync source tree with Smartics generated XML files -->

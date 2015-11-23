@@ -20,9 +20,6 @@
 
 package org.wildfly.extension.camel.parser;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jboss.as.controller.AbstractBoottimeAddStepHandler;
 import org.jboss.as.controller.OperationContext;
 import org.jboss.as.server.AbstractDeploymentChainStep;
@@ -30,7 +27,6 @@ import org.jboss.as.server.DeploymentProcessorTarget;
 import org.jboss.as.server.deployment.Phase;
 import org.jboss.as.server.deployment.jbossallxml.JBossAllXmlParserRegisteringProcessor;
 import org.jboss.dmr.ModelNode;
-import org.jboss.msc.service.ServiceController;
 import org.wildfly.extension.camel.deployment.CamelContextActivationProcessor;
 import org.wildfly.extension.camel.deployment.CamelContextCreateProcessor;
 import org.wildfly.extension.camel.deployment.CamelContextDescriptorsProcessor;
@@ -84,11 +80,12 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
     @Override
     protected void performBoottime(final OperationContext context, final ModelNode operation, final ModelNode model) {
 
-        final GraviaSubsystemBootstrap graviaSubsystem = new ReducedGraviaSubsystemBootstrap();
         final JBossAllXmlParserRegisteringProcessor<CamelDeploymentSettings> parser =
                 new JBossAllXmlParserRegisteringProcessor<>(CamelIntegrationParser.ROOT_ELEMENT, CamelDeploymentSettings.ATTACHMENT_KEY, new CamelIntegrationParser());
 
-        graviaSubsystem.getSubsystemServices(context);
+        final GraviaSubsystemBootstrap gravia = new GraviaSubsystemBootstrap();
+
+        gravia.getSubsystemServices(context);
         CamelBootstrapService.addService(context.getServiceTarget());
         CamelContextFactoryService.addService(context.getServiceTarget());
         CamelContextFactoryBindingService.addService(context.getServiceTarget());
@@ -101,6 +98,7 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
         context.addStep(new AbstractDeploymentChainStep() {
             @Override
             public void execute(DeploymentProcessorTarget processorTarget) {
+                gravia.addDeploymentUnitProcessors(processorTarget);
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.STRUCTURE, STRUCTURE_REGISTER_CAMEL_INTEGRATION, parser);
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_CAMEL_INTEGRATION, new CamelIntegrationProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_CAMEL_CONTEXT_DESCRIPTORS, new CamelContextDescriptorsProcessor());
@@ -116,16 +114,5 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
     @Override
     protected boolean requiresRuntimeVerification() {
         return false;
-    }
-
-    final class ReducedGraviaSubsystemBootstrap extends GraviaSubsystemBootstrap {
-
-        public List<ServiceController<?>> getSubsystemServices(OperationContext context) {
-            List<ServiceController<?>> controllers = new ArrayList<ServiceController<?>>();
-            controllers.add(getBoostrapService(context));
-            controllers.add(getRuntimeService(context));
-            controllers.add(getSystemContextService(context));
-            return controllers;
-        }
     }
 }

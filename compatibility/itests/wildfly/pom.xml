@@ -117,13 +117,12 @@
                                     <outputDirectory>${project.build.directory}</outputDirectory>
                                 </artifactItem>
 	                            <artifactItem>
-	                                <groupId>org.jboss.gravia</groupId>
-	                                <artifactId>gravia-container-wildfly-patch</artifactId>
-                                    <version>${version.jboss.gravia}</version>
+	                                <groupId>org.wildfly.camel</groupId>
+	                                <artifactId>wildfly-camel-patch</artifactId>
+                                    <version>${project.version}</version>
                                     <type>tar.gz</type>
 	                                <overWrite>false</overWrite>
 	                                <outputDirectory>${jboss.home}</outputDirectory>
-                                    <excludes>standalone/deployments/gravia.war</excludes>
 	                            </artifactItem>
 	                        </artifactItems>
 	                    </configuration>

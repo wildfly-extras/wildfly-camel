@@ -34,8 +34,6 @@
 	
 	<modules>
 		<module>common</module>
-        <module>karaf</module>
-        <module>wildfly</module>
 	</modules>
 	
     <build>
@@ -48,4 +46,30 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- Profiles -->
+    <profiles>
+        <profile>
+            <id>no.karaf</id>
+            <activation>
+                <property>
+                    <name>!no.karaf</name>
+                </property>
+            </activation>
+            <modules>
+                <module>karaf</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>no.wildfly</id>
+            <activation>
+                <property>
+                    <name>!no.wildfly</name>
+                </property>
+            </activation>
+            <modules>
+                <module>wildfly</module>
+            </modules>
+        </profile>
+    </profiles>
 </project>

@@ -24,11 +24,32 @@
         <include artifact=":gravia-resource" />
         <include artifact=":gravia-runtime-api" />
         <include artifact=":gravia-runtime-embedded" />
+        <include artifact=":org.apache.felix.configadmin">
+            <filter>
+                <exclude path="org/osgi/**" />
+            </filter>
+        </include>
+        <include artifact=":org.apache.felix.log">
+            <filter>
+                <exclude path="org/osgi/**" />
+            </filter>
+        </include>
+        <include artifact=":org.apache.felix.metatype">
+            <filter>
+                <exclude path="org/osgi/**" />
+            </filter>
+        </include>
+        <include artifact=":org.apache.felix.scr">
+            <filter>
+                <exclude path="org/osgi/**" />
+            </filter>
+        </include>
         <apply-to-dependencies skip="true">
             <include module="org.apache.felix" />
         </apply-to-dependencies>
         <exports>
-            <exclude path="org/jboss/gravia/runtime/embedded" />
+            <include path="org/jboss/gravia/resource"/>
+            <include path="org/jboss/gravia/runtime"/>
         </exports>
         <dependencies>
             <module name="javax.api" />
@@ -36,30 +57,18 @@
     </module>
         
     <module name="org.jboss.gravia.container.common" skip="true">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
         <include artifact=":gravia-container-common" />
     </module>
         
     <module name="org.jboss.gravia.provision" skip="true">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
         <include artifact=":gravia-provision" />
     </module>
         
     <module name="org.jboss.gravia.repository" skip="true">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
         <include artifact=":gravia-repository" />
     </module>
         
     <module name="org.jboss.gravia.resolver" skip="true">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
         <include artifact=":gravia-resolver" />
     </module>
 </modules>
