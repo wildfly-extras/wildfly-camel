@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jboss.as.server.deployment.AttachmentList;
 import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
@@ -64,7 +65,7 @@ public final class CamelEnablementProcessor implements DeploymentUnitProcessor {
         }
 
         synchronized (deploymentMap) {
-            deploymentMap.put(depUnit.getName(), depUnit);
+            deploymentMap.put(getCanonicalDepUnitName(depUnit), depUnit);
         }
 
         // Skip wiring wfc for SwitchYard deployments
@@ -81,6 +82,29 @@ public final class CamelEnablementProcessor implements DeploymentUnitProcessor {
             return;
         }
 
+        // If this is an EAR deployment, set camel enabled if any sub deployment meets activation criteria
+        AttachmentList<DeploymentUnit> subDeployments = depUnit.getAttachment(Attachments.SUB_DEPLOYMENTS);
+        if (depUnit.getName().endsWith(".ear") && subDeployments != null) {
+            for (DeploymentUnit subDepUnit : subDeployments) {
+                CamelDeploymentSettings subDepSettings = new CamelDeploymentSettings();
+                enableCamelIfRequired(subDepUnit, subDepSettings);
+                if (subDepSettings.isEnabled()) {
+                    depSettings.setEnabled(true);
+                    return;
+                }
+            }
+        }
+
+        enableCamelIfRequired(depUnit, depSettings);
+    }
+
+    public void undeploy(DeploymentUnit depUnit) {
+        synchronized (deploymentMap) {
+            deploymentMap.remove(getCanonicalDepUnitName(depUnit));
+        }
+    }
+
+    private void enableCamelIfRequired(DeploymentUnit depUnit, CamelDeploymentSettings depSettings) {
         AnnotationInstance annotation = getAnnotation(depUnit, "org.wildfly.extension.camel.CamelAware");
         if (annotation != null) {
             LOGGER.info("@CamelAware annotation found");
@@ -102,12 +126,6 @@ public final class CamelEnablementProcessor implements DeploymentUnitProcessor {
         }
     }
 
-    public void undeploy(DeploymentUnit depUnit) {
-        synchronized (deploymentMap) {
-            deploymentMap.remove(depUnit.getName());
-        }
-    }
-
     private List<AnnotationInstance> getAnnotations(DeploymentUnit depUnit, String className) {
         CompositeIndex index = depUnit.getAttachment(Attachments.COMPOSITE_ANNOTATION_INDEX);
         return index.getAnnotations(DotName.createSimple(className));
@@ -119,5 +137,10 @@ public final class CamelEnablementProcessor implements DeploymentUnitProcessor {
             LOGGER.warn("Multiple annotations found: {}", annotations);
         }
         return annotations.size() > 0 ? annotations.get(0) : null;
+    }
+
+    private String getCanonicalDepUnitName(DeploymentUnit depUnit) {
+        DeploymentUnit parent = depUnit.getParent();
+        return parent != null ? parent.getName() + "." + depUnit.getName() : depUnit.getName();
     }
 }
