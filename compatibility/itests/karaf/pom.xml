@@ -142,6 +142,7 @@
                         <log4j.configuration>file://${basedir}/src/test/resources/logging.properties</log4j.configuration>
                     </systemPropertyVariables>
                     <excludes>
+                        <exclude>**/CDIIntegrationTest.class</exclude>
                         <exclude>**/SpringBeanTransformTest.class</exclude>
                     </excludes>
                 </configuration>

@@ -73,6 +73,7 @@
         <version.hibernate.jpa21.api>1.0.0.Final</version.hibernate.jpa21.api>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
         <version.javax.enterprise>1.2</version.javax.enterprise>
+        <version.javax.inject>1</version.javax.inject>
         <version.jboss.arquillian.core>1.1.10.Final</version.jboss.arquillian.core>
         <version.jboss.arquillian.osgi>2.1.0.Final</version.jboss.arquillian.osgi>
         <version.jboss.dmr>1.2.1.Final</version.jboss.dmr>
@@ -298,6 +299,11 @@
                 <groupId>javax.enterprise</groupId>
                 <artifactId>cdi-api</artifactId>
                 <version>${version.javax.enterprise}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>${version.javax.inject}</version>
             </dependency>
 
             <!-- JBoss -->
