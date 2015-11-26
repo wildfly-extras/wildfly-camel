@@ -34,7 +34,11 @@
         <include artifact="asm:asm-tree" />
         <include artifact="asm:asm-util" />
     </module>
-    
+
+    <module name="biz.aQute" skip="true">
+        <include artifact="biz.aQute:(.*)" />
+    </module>
+
     <module name="c3p0" skip="true">
         <include artifact="c3p0:c3p0" />
     </module>
@@ -85,6 +89,10 @@
         <include artifact="net.jcip:jcip-annotations" />
     </module>
 
+    <module name="net.sf.kxml" skip="true">
+        <include artifact="net.sf.kxml:(.*)" />
+    </module>
+
     <module name="org.antlr.antlr-runtime" skip="true">
         <include artifact="org.antlr:antlr-runtime"/>
     </module>
@@ -108,11 +116,17 @@
     <module name="org.apache.deltaspike.test" skip="true">
         <include artifact="org.apache.deltaspike.test:(.*)" />
     </module>
-    
+
     <module name="org.apache.felix" skip="true">
-        <include artifact="org.apache.felix:(.*)" />
+        <include artifact="org.apache.felix:org.apache.felix.http.proxy" />
+        <include artifact="org.apache.felix:org.apache.felix.gogo.runtime" />
+        <include artifact="org.apache.felix:org.apache.felix.shell" />
+        <include artifact="org.apache.felix:org.apache.felix.scr.generator" />
+        <include artifact="org.apache.felix:org.apache.felix.scr.ant" />
+        <include artifact="org.apache.felix:org.apache.felix.scr.annotations" />
+        <include artifact="org.apache.felix:org.apache.felix.scr.ds-annotations" />
     </module>
-    
+
     <module name="org.apache.openjpa" skip="true">
         <include artifact="org.apache.openjpa:(.*)" />
     </module>
@@ -168,6 +182,10 @@
 
     <module name="org.mortbay.jetty" skip="true">
         <include artifact="org.mortbay.jetty:(.*)" />
+    </module>
+
+    <module name="org.ops4j" skip="true">
+        <include artifact="org.ops4j.base:(.*)" />
     </module>
     
     <module name="org.osgi.compendium" skip="true">

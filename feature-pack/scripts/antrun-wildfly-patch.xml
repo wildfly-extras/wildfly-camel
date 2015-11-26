@@ -28,8 +28,6 @@
 	<property name="output.dir" value="${basedir}/target" />
 	<property name="target.patch.dir" value="${output.dir}/wildfly-patch" />
 
-	<echoproperties></echoproperties>
-	
 	<!-- ================================================================== -->
 	<!-- Distribution                                                       -->
 	<!-- ================================================================== -->

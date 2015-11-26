@@ -122,6 +122,8 @@
         <version-properties-maven-plugin>1.0-alpha-2</version-properties-maven-plugin>
         <version-smartics-maven-plugin>2.1.1</version-smartics-maven-plugin>
         <version-wildfly-maven-plugin>1.0.2.Final</version-wildfly-maven-plugin>
+        <version-wildfly-feature-pack-maven-plugin>1.1.0.Final</version-wildfly-feature-pack-maven-plugin>
+        <version-wildfly-provisioning-maven-plugin>1.1.0.Final</version-wildfly-provisioning-maven-plugin>
         <version-xmlbeans-maven-plugin>2.3.3</version-xmlbeans-maven-plugin>
 
         <!-- GitHub -->
@@ -674,6 +676,7 @@
                 <plugin>
                     <groupId>org.jboss.shrinkwrap.resolver</groupId>
                     <artifactId>shrinkwrap-resolver-maven-plugin</artifactId>
+                    <version>${version.jboss.shrinkwrap.resolver}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -686,6 +689,16 @@
                     <groupId>org.jolokia</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
                     <version>${version-docker-maven-plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.wildfly.build</groupId>
+                    <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
+                    <version>${version-wildfly-provisioning-maven-plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.wildfly.build</groupId>
+                    <artifactId>wildfly-feature-pack-build-maven-plugin</artifactId>
+                    <version>${version-wildfly-feature-pack-maven-plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.wildfly.plugins</groupId>
