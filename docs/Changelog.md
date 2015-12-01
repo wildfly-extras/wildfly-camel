@@ -1,5 +1,109 @@
 ### Changelog
 
+#### WildFly-Camel 3.2.0
+
+**Features**
+
+* [#76][76] Provide camel-infinispan integration
+* [#846][846] Add support for spring data access with jdbc
+* [#879][879] Allow automatic discovery/failover of the AMQ Broker
+* [#931][931] Allow customisation for a Groovy Shell 
+* [#940][940] Add support for user defined security domain/roles
+* [#967][967] Provide camel-metrics integration
+* [#985][985] Compatibility for DS based components
+* [#990][990] Compatibility for LogService & ConfigurationAdmin
+* [#1000][1000] Compatibility for Camel Java DSL deployments
+
+For details see [3.2.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"3.2.0"+label%3Afeature)
+
+**Tasks**
+
+* [#847][847] Investigate usage of container managed thread pools / factories with Camel
+* [#892][892] Update to camel-2.16.1
+* [#910][910] Add test coverage for idempotent consumers
+* [#919][919] Verify validity of wildfly-camel patch from the project test suite 
+* [#921][921] Remove dependency on shrinkwrap
+* [#928][928] Remove dependency on fuse-patch feature pack
+* [#929][929] Unnecessary transitive dependencies when using WildFly Camel API
+* [#932][932] Add maven-enforcer-plugin rules for Docker properties
+* [#933][933] Upgrade Arquillian to 1.1.10.Final
+* [#936][936] Add maven repository config for central
+* [#943][943] Upgrade to WildFly-9.0.2
+* [#945][945] Move tests that depend on standalone-full to basic
+* [#952][952] Assert that every expression in exported-path-patterns is used
+* [#953][953] Mark modules as private that do not contain exported packages
+* [#960][960] Update to wildfly-arquillian-1.0.1.Final
+* [#962][962] Use wildfly-core-parent for dependency version defs 
+* [#965][965] Move enricher to testenricher
+* [#973][973] Modify quickstart example README markdown to be more user friendly 
+* [#980][980] Add compatibility tests with Karaf
+* [#984][984] Evaluate compatibility for spring based camel routes
+* [#986][986] Evaluate compatibility for CDI based components
+* [#992][992] Enable Camel in Karaf/WildFly compatibility runtimes
+
+For details see [3.2.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"3.2.0"+label%3Atask)
+
+**Bugs**
+
+* [#897][897] camel-rest example RestProducerRouteBuilder sometimes produces HTTP 404 errors 
+* [#905][905] Cannot use maven release plugin 
+* [#908][908] Unable to configure JDBC idempotent consumers
+* [#914][914] Unable to configure JPA idempotent consumers
+* [#915][915] Unable to configure Infinispan idempotent consumers
+* [#923][923] Error with swagger - RestModelConverters
+* [#938][938] Fuse patch support missing from wildfly-camel distribution
+* [#949][949] HL7 on NETTY4 transport layer fails to define class
+* [#969][969] ContextCreateHandler executed on non camel enabled deployments
+* [#979][979] XStream unmarshalling requires explicit type permissions
+* [#989][989] NCDFE starting gravia subsystem
+* [#1002][1002] Failed to add resource root org.apache.felix.configadmin-1.8.8.jar
+
+For details see [3.2.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"3.2.0"+label%3Abug)
+
+[76]: https://github.com/wildfly-extras/wildfly-camel/issues/76
+[846]: https://github.com/wildfly-extras/wildfly-camel/issues/846
+[879]: https://github.com/wildfly-extras/wildfly-camel/issues/879
+[931]: https://github.com/wildfly-extras/wildfly-camel/issues/931
+[940]: https://github.com/wildfly-extras/wildfly-camel/issues/940
+[967]: https://github.com/wildfly-extras/wildfly-camel/issues/967
+[985]: https://github.com/wildfly-extras/wildfly-camel/issues/985
+[990]: https://github.com/wildfly-extras/wildfly-camel/issues/990
+[1000]: https://github.com/wildfly-extras/wildfly-camel/issues/1000
+[847]: https://github.com/wildfly-extras/wildfly-camel/issues/847
+[892]: https://github.com/wildfly-extras/wildfly-camel/issues/892
+[910]: https://github.com/wildfly-extras/wildfly-camel/issues/910
+[919]: https://github.com/wildfly-extras/wildfly-camel/issues/919
+[921]: https://github.com/wildfly-extras/wildfly-camel/issues/921
+[928]: https://github.com/wildfly-extras/wildfly-camel/issues/928
+[929]: https://github.com/wildfly-extras/wildfly-camel/issues/929
+[932]: https://github.com/wildfly-extras/wildfly-camel/issues/932
+[933]: https://github.com/wildfly-extras/wildfly-camel/issues/933
+[936]: https://github.com/wildfly-extras/wildfly-camel/issues/936
+[943]: https://github.com/wildfly-extras/wildfly-camel/issues/943
+[945]: https://github.com/wildfly-extras/wildfly-camel/issues/945
+[952]: https://github.com/wildfly-extras/wildfly-camel/issues/952
+[953]: https://github.com/wildfly-extras/wildfly-camel/issues/953
+[960]: https://github.com/wildfly-extras/wildfly-camel/issues/960
+[962]: https://github.com/wildfly-extras/wildfly-camel/issues/962
+[965]: https://github.com/wildfly-extras/wildfly-camel/issues/965
+[973]: https://github.com/wildfly-extras/wildfly-camel/issues/973
+[980]: https://github.com/wildfly-extras/wildfly-camel/issues/980
+[984]: https://github.com/wildfly-extras/wildfly-camel/issues/984
+[986]: https://github.com/wildfly-extras/wildfly-camel/issues/986
+[992]: https://github.com/wildfly-extras/wildfly-camel/issues/992
+[897]: https://github.com/wildfly-extras/wildfly-camel/issues/897
+[905]: https://github.com/wildfly-extras/wildfly-camel/issues/905
+[908]: https://github.com/wildfly-extras/wildfly-camel/issues/908
+[914]: https://github.com/wildfly-extras/wildfly-camel/issues/914
+[915]: https://github.com/wildfly-extras/wildfly-camel/issues/915
+[923]: https://github.com/wildfly-extras/wildfly-camel/issues/923
+[938]: https://github.com/wildfly-extras/wildfly-camel/issues/938
+[949]: https://github.com/wildfly-extras/wildfly-camel/issues/949
+[969]: https://github.com/wildfly-extras/wildfly-camel/issues/969
+[979]: https://github.com/wildfly-extras/wildfly-camel/issues/979
+[989]: https://github.com/wildfly-extras/wildfly-camel/issues/989
+[1002]: https://github.com/wildfly-extras/wildfly-camel/issues/1002
+
 #### WildFly-Camel 3.1.0
 
 **Features**

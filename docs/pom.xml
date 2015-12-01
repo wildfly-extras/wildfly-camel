@@ -35,11 +35,7 @@
     <!--
         Generates the wildfly-camel changelog.
 
-        Run from this directory with:
-
-            mvn clean install
-
-        Or from the project root with:
+        Run from the project root with:
 
             mvn clean install -pl docs -Pdocs
     -->

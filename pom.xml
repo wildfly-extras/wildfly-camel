@@ -47,7 +47,6 @@
         
         <!-- Camel version -->
         <version.apache.camel>2.16.1</version.apache.camel>
-        <version.springframework.spring>4.1.8.RELEASE</version.springframework.spring>
         
         <!-- WildFly versions -->
         <version.wildfly>9.0.2.Final</version.wildfly>
