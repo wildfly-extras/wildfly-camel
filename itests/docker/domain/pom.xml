@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel-itests-docker</artifactId>
-        <version>3.2.0</version>
+        <version>3.3.0-SNAPSHOT</version>
     </parent>
 
     <name>Wildfly Camel :: Testsuite :: Docker :: Domain</name>
