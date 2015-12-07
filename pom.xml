@@ -146,7 +146,6 @@
     <!-- DependencyManagement -->
     <dependencyManagement>
         <dependencies>
-            
             <!-- Args4J -->
             <dependency>
                 <groupId>args4j</groupId>
@@ -515,6 +514,11 @@
                         <artifactId>apacheds-jdbm1</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-weld</artifactId>
+                <version>${version.wildfly}</version>
             </dependency>
             
             <!-- Xmlbeans -->

@@ -19,13 +19,6 @@
  */
 package org.wildfly.camel.test.cdi;
 
-
-import java.lang.management.ManagementFactory;
-import java.util.Set;
-
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-
 import org.apache.camel.CamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -37,14 +30,14 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.cdi.subB.Bootstrap;
 import org.wildfly.camel.test.cdi.subB.HelloBean;
+import org.wildfly.camel.test.cdi.subB.SimpleRouteBuilder;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class CDIEarIntegrationTest {
+public class CDIEarRouteBuilderIntegrationTest {
 
     private static final String SIMPLE_JAR = "camel-ejb-jar.jar";
     private static final String SIMPLE_EAR = "camel-ejb-ear.ear";
@@ -59,15 +52,7 @@ public class CDIEarIntegrationTest {
 
     @Test
     public void testEjbJarDeployment() throws Exception {
-        // We don't actually know what the camel context name will be, so defer to JMX lookup
-        MBeanServer server = ManagementFactory.getPlatformMBeanServer();
-        Set<ObjectName> camelContextNames = server.queryNames(new ObjectName("org.apache.camel:context=*,type=context,*"), null);
-        Assert.assertEquals(1, camelContextNames.size());
-
-        ObjectName next = camelContextNames.iterator().next();
-        String camelContextName = next.getKeyProperty("name").replace("\"", "");
-
-        CamelContext camelctx = contextRegistry.getCamelContext(camelContextName);
+        CamelContext camelctx = contextRegistry.getCamelContext("simple-camel-context");
         Assert.assertNotNull(camelctx);
 
         String result = camelctx.createProducerTemplate().requestBody("direct:start", "Kermit", String.class);
@@ -80,7 +65,7 @@ public class CDIEarIntegrationTest {
             .addAsModule(
                 ShrinkWrap.create(JavaArchive.class, SIMPLE_JAR)
                     .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
-                    .addClasses(Bootstrap.class, HelloBean.class)
+                    .addClasses(SimpleRouteBuilder.class, HelloBean.class)
             );
     }
 }

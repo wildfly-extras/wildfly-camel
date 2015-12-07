@@ -84,7 +84,7 @@ public final class CamelEnablementProcessor implements DeploymentUnitProcessor {
 
         // If this is an EAR deployment, set camel enabled if any sub deployment meets activation criteria
         AttachmentList<DeploymentUnit> subDeployments = depUnit.getAttachment(Attachments.SUB_DEPLOYMENTS);
-        if (depUnit.getName().endsWith(".ear") && subDeployments != null) {
+        if (runtimeName.endsWith(".ear") && subDeployments != null) {
             for (DeploymentUnit subDepUnit : subDeployments) {
                 CamelDeploymentSettings subDepSettings = new CamelDeploymentSettings();
                 enableCamelIfRequired(subDepUnit, subDepSettings);

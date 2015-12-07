@@ -27,6 +27,7 @@ import org.jboss.as.server.DeploymentProcessorTarget;
 import org.jboss.as.server.deployment.Phase;
 import org.jboss.as.server.deployment.jbossallxml.JBossAllXmlParserRegisteringProcessor;
 import org.jboss.dmr.ModelNode;
+import org.wildfly.extension.camel.deployment.CamelCdiBeanArchiveProcessor;
 import org.wildfly.extension.camel.deployment.CamelContextActivationProcessor;
 import org.wildfly.extension.camel.deployment.CamelContextCreateProcessor;
 import org.wildfly.extension.camel.deployment.CamelContextDescriptorsProcessor;
@@ -64,7 +65,8 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
     public static final int POST_MODULE_PACKAGE_SCAN_RESOLVER = Phase.POST_MODULE_LOCAL_HOME + 0x01;
     public static final int POST_MODULE_CAMEL_CONTEXT_CREATE = POST_MODULE_PACKAGE_SCAN_RESOLVER + 0x01;
 
-    public static final int INSTALL_CONTEXT_ACTIVATION = Phase.INSTALL_BUNDLE_ACTIVATE + 0x01;
+    public static final int INSTALL_CDI_BEAN_ARCHIVE_PROCESSOR = Phase.INSTALL_BUNDLE_ACTIVATE + 0x01;
+    public static final int INSTALL_CONTEXT_ACTIVATION = INSTALL_CDI_BEAN_ARCHIVE_PROCESSOR + 0x01;
 
     private final SubsystemState subsystemState;
 
@@ -106,6 +108,7 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_CAMEL_WIRINGS, new CamelDependenciesProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_CAMEL_CONTEXT_CREATE, new CamelContextCreateProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_PACKAGE_SCAN_RESOLVER, new PackageScanResolverProcessor());
+                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CDI_BEAN_ARCHIVE_PROCESSOR, new CamelCdiBeanArchiveProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CONTEXT_ACTIVATION, new CamelContextActivationProcessor());
             }
         }, OperationContext.Stage.RUNTIME);

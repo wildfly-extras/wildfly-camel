@@ -341,6 +341,12 @@
     <module name="org.jboss.modules" skip="true">
         <include artifact=":jboss-modules" />
     </module>
+
+    <module name="org.jboss.as.weld" skip="true">
+        <include artifact=":wildfly-weld" />
+        <include artifact=":weld-api" />
+        <include artifact=":weld-spi" />
+    </module>
     
     <module name="org.jboss.xnio" skip="true">
         <include artifact=":xnio-api" />

@@ -55,6 +55,8 @@
             <module name="org.jboss.msc"/>
             <module name="org.jboss.staxmapper"/>
             <module name="org.jboss.vfs"/>
+            <module name="org.jboss.as.weld"/>
+            <module name="org.jboss.weld.spi"/>
             <module name="org.picketbox"/>
             <module name="org.springframework.beans"/>
             <module name="org.springframework.core"/>

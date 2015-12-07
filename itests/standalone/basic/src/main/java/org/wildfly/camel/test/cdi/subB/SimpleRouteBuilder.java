@@ -17,19 +17,17 @@
  * limitations under the License.
  * #L%
  */
-
 package org.wildfly.camel.test.cdi.subB;
 
-import javax.ejb.Singleton;
-import javax.inject.Named;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.cdi.ContextName;
 
-import org.apache.camel.Body;
+@ContextName("simple-camel-context")
+public class SimpleRouteBuilder extends RouteBuilder {
 
-@Singleton
-@Named
-public class HelloBean {
-
-    public String sayHello(@Body String message) {
-        return "Hello " + message;
+    @Override
+    public void configure() throws Exception {
+        from("direct:start")
+        .bean("helloBean");
     }
 }
