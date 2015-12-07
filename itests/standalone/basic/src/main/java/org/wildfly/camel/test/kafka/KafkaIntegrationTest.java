@@ -67,6 +67,7 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
+@Ignore("[#1007] Kafka integration fails with authentication issue")
 public class KafkaIntegrationTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(KafkaIntegrationTest.class);
