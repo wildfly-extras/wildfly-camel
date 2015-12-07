@@ -4,8 +4,12 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
+    <artifact name="${com.ning:compress-lzf}" />
     <artifact name="${org.elasticsearch:elasticsearch}" />
+    <artifact name="${com.carrotsearch:hppc}" />
+    <artifact name="${com.twitter:jsr166e}" />
     <artifact name="${org.elasticsearch:securesm}" />
+    <artifact name="${com.tdunning:t-digest}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
@@ -15,7 +19,18 @@
         <include path="sun/misc/Unsafe" />
       </imports>
     </module>
+    <module name="com.fasterxml.jackson.core.jackson-core" slot="2.7" />
+    <module name="com.fasterxml.jackson.dataformat.cbor" slot="2.7" />
+    <module name="com.fasterxml.jackson.dataformat.smile" slot="2.7" />
+    <module name="com.fasterxml.jackson.dataformat.yaml" slot="2.7" />
     <module name="com.google.guava" />
     <module name="org.apache.lucene" slot="5.4" />
+    <module name="org.joda.time" />
   </dependencies>
+  <exports>
+    <exclude path="com/carrotsearch**" />
+    <exclude path="com/ning**" />
+    <exclude path="com/tdunning**" />
+    <exclude path="com/twitter**" />
+  </exports>
 </module>

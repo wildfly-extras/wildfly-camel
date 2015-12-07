@@ -52,10 +52,6 @@
         <include artifact="ch.qos.logback:logback-core" />
     </module>
     
-    <module name="com.carrotsearch.hppc" skip="true">
-        <include artifact="com.carrotsearch:hppc" />
-    </module>
-    
     <module name="com.fasterxml.jackson.dataformat.cbor" skip="true">
         <include artifact=":jackson-dataformat-cbor" />
     </module>
@@ -93,20 +89,8 @@
         <include artifact="com.martiansoftware:nailgun-server" />
     </module>
     
-    <module name="com.ning.compress" skip="true">
-        <include artifact="com.ning:compress-lzf" />
-    </module>
-    
     <module name="com.sun.mail" skip="true">
         <include artifact="com.sun.mail:javax.mail" />
-    </module>
-    
-    <module name="com.tdunning.tdigest" skip="true">
-        <include artifact="com.tdunning:t-digest" />
-    </module>
-    
-    <module name="com.twitter.jsr166e" skip="true">
-        <include artifact="com.twitter:jsr166e" />
     </module>
     
     <module name="jexcelapi" skip="true">

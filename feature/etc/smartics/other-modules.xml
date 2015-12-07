@@ -51,6 +51,23 @@
         </dependencies>
     </module>
 
+    <module name="com.fasterxml.jackson.dataformat.cbor" inherit-slot="false" slot="2.7">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-dataformat-cbor" />
+    </module>
+
+    <module name="com.fasterxml.jackson.dataformat.smile" inherit-slot="false" slot="2.7">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-dataformat-smile" />
+        <dependencies>
+            <module name="com.fasterxml.jackson.core.jackson-core"  slot="2.7"/>
+        </dependencies>
+    </module>
+
     <module name="com.fasterxml.jackson.dataformat.xml" inherit-slot="false" slot="2.7">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -356,23 +373,18 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
+        <include artifact="com.carrotsearch:hppc" />
+        <include artifact="com.ning:compress-lzf" />
+        <include artifact="com.tdunning:t-digest" />
+        <include artifact="com.twitter:jsr166e" />
         <include artifact="org.elasticsearch:elasticsearch" />
         <include artifact="org.elasticsearch:securesm" />
         <apply-to-dependencies skip="true">
-            <include module="com.carrotsearch.hppc"/>
-            <include module="com.fasterxml.jackson.core.jackson-core" />
-            <include module="com.fasterxml.jackson.dataformat.cbor" />
-            <include module="com.fasterxml.jackson.dataformat.smile" />
-            <include module="com.fasterxml.jackson.dataformat.yaml" />
-            <include module="com.ning.compress" />
-            <include module="com.tdunning.tdigest" />
-            <include module="com.twitter.jsr166e" />
             <include module="io.netty" />
             <include module="org.antlr.antlr-runtime"/>
             <include module="org.apache.commons.cli" />
             <include module="org.hdrhistogram" />
             <include module="org.joda.convert" />
-            <include module="org.joda.time" />
             <include module="org.ow2.asm"/>
         </apply-to-dependencies>
         <dependencies>
@@ -384,6 +396,12 @@
                 </imports>
             </module>
         </dependencies>
+        <exports>
+            <exclude path="com/carrotsearch**" />
+            <exclude path="com/ning**" />
+            <exclude path="com/tdunning**" />
+            <exclude path="com/twitter**" />
+        </exports>
     </module>
     
     <module name="org.fusesource.hawtbuf">
