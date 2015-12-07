@@ -2,6 +2,8 @@
 /com/fasterxml/jackson/core/jackson-annotations/2.7/jackson-annotations-2.7.2.jar
 /com/fasterxml/jackson/core/jackson-core/2.7/jackson-core-2.7.2.jar
 /com/fasterxml/jackson/core/jackson-databind/2.7/jackson-databind-2.7.2.jar
+/com/fasterxml/jackson/dataformat/cbor/2.7/jackson-dataformat-cbor-2.7.2.jar
+/com/fasterxml/jackson/dataformat/smile/2.7/jackson-dataformat-smile-2.7.2.jar
 /com/fasterxml/jackson/dataformat/xml/2.7/jackson-dataformat-xml-2.7.2.jar
 /com/fasterxml/jackson/dataformat/yaml/2.7/jackson-dataformat-yaml-2.7.2.jar
 /com/fasterxml/jackson/datatype/joda/2.7/jackson-datatype-joda-2.7.2.jar
@@ -157,8 +159,12 @@
 /org/eclipse/jetty/main/jetty-http-8.1.17.v20150415.jar
 /org/eclipse/jetty/main/jetty-io-8.1.17.v20150415.jar
 /org/eclipse/jetty/main/jetty-util-8.1.17.v20150415.jar
+/org/elasticsearch/main/compress-lzf-1.0.2.jar
 /org/elasticsearch/main/elasticsearch-2.2.0.jar
+/org/elasticsearch/main/hppc-0.7.1.jar
+/org/elasticsearch/main/jsr166e-1.1.0.jar
 /org/elasticsearch/main/securesm-1.0.jar
+/org/elasticsearch/main/t-digest-3.0.jar
 /org/fusesource/hawtbuf/main/hawtbuf-1.10.jar
 /org/fusesource/hawtdispatch/main/hawtdispatch-1.21.jar
 /org/fusesource/hawtdispatch/main/hawtdispatch-transport-1.21.jar
