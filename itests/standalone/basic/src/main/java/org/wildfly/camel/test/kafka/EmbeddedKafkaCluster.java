@@ -16,11 +16,6 @@
  */
 package org.wildfly.camel.test.kafka;
 
-import kafka.admin.AdminUtils;
-import kafka.server.KafkaConfig;
-import kafka.server.KafkaServer;
-import kafka.utils.Time;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,7 +26,11 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
-import org.I0Itec.zkclient.ZkClient;
+import kafka.admin.AdminUtils;
+import kafka.server.KafkaConfig;
+import kafka.server.KafkaServer;
+import kafka.utils.Time;
+import kafka.utils.ZkUtils;
 
 public class EmbeddedKafkaCluster {
     private final List<Integer> ports;
@@ -61,16 +60,16 @@ public class EmbeddedKafkaCluster {
         this.brokerList = constructBrokerList(this.ports);
     }
 
-    public ZkClient getZkClient() {
+    public ZkUtils getZkUtils() {
         for (KafkaServer server : brokers) {
-            return server.zkClient();
+            return server.zkUtils();
         }
         return null;
     }
 
     public void createTopics(String... topics) {
         for (String topic : topics) {
-            AdminUtils.createTopic(getZkClient(), topic, 2, 1, new Properties());
+            AdminUtils.createTopic(getZkUtils(), topic, 2, 1, new Properties());
         }
     }
 
@@ -126,7 +125,7 @@ public class EmbeddedKafkaCluster {
 
 
     private KafkaServer startBroker(Properties props) {
-        KafkaServer server = new KafkaServer(new KafkaConfig(props), new SystemTime());
+        KafkaServer server = new KafkaServer(new KafkaConfig(props), new SystemTime(), null);
         server.startup();
         return server;
     }
