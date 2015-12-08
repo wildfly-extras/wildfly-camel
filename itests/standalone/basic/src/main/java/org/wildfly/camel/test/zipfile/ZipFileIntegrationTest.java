@@ -46,7 +46,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
@@ -65,11 +64,6 @@ public class ZipFileIntegrationTest {
 
     @Test
     public void testZipFileMarshal() throws Exception {
-
-        // [ENTESB-3281] Wildfly-Camel build fails on OpenJDK
-        String vmname = System.getProperty("java.vm.name");
-        Assume.assumeFalse(vmname.contains("OpenJDK"));
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -102,11 +96,6 @@ public class ZipFileIntegrationTest {
 
     @Test
     public void testZipFileUnmarshal() throws Exception {
-
-        // [ENTESB-3281] Wildfly-Camel build fails on OpenJDK
-        String vmname = System.getProperty("java.vm.name");
-        Assume.assumeFalse(vmname.contains("OpenJDK"));
-
         final ZipFileDataFormat zipFileDataFormat = new ZipFileDataFormat();
         zipFileDataFormat.setUsingIterator(true);
 
@@ -116,7 +105,7 @@ public class ZipFileIntegrationTest {
             public void configure() throws Exception {
                 from("file://" + datadir + File.separator + "zip-unmarshal?consumer.delay=1000&antInclude=*.zip&noop=true")
                     .unmarshal(zipFileDataFormat)
-                    .split(body(Iterator.class))
+                    .split(bodyAs(Iterator.class))
                     .streaming()
                     .convertBodyTo(String.class)
                     .to("direct:end");
@@ -140,11 +129,6 @@ public class ZipFileIntegrationTest {
 
     @Test
     public void testZipSplitterUnmarshal() throws Exception {
-
-        // [ENTESB-3281] Wildfly-Camel build fails on OpenJDK
-        String vmname = System.getProperty("java.vm.name");
-        Assume.assumeFalse(vmname.contains("OpenJDK"));
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

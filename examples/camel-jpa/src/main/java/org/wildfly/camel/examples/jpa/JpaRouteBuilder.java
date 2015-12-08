@@ -46,12 +46,6 @@ public class JpaRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-
-        // [ENTESB-3281] Wildfly-Camel build fails on OpenJDK
-        String vmname = System.getProperty("java.vm.name");
-        if (vmname.contains("OpenJDK"))
-            return;
-
         // Configure our JaxbDataFormat to point at our 'model' package
         JaxbDataFormat jaxbDataFormat = new JaxbDataFormat();
         jaxbDataFormat.setContextPath(Customer.class.getPackage().getName());

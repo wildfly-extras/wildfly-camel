@@ -41,7 +41,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.HttpRequest;
@@ -107,11 +106,6 @@ public class TransactedJMSExampleTest {
 
     @Test
     public void testFileToJmsRoute() throws Exception {
-
-        // [ENTESB-3281] Wildfly-Camel build fails on OpenJDK
-        String vmname = System.getProperty("java.vm.name");
-        Assume.assumeFalse(vmname.contains("OpenJDK"));
-
         InputStream input = getClass().getResourceAsStream("/jms/transacted/order.xml");
         Files.copy(input, destination.toPath().resolve("order.xml"));
         input.close();

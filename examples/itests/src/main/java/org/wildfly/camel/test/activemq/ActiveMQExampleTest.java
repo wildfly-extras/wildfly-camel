@@ -36,7 +36,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -88,10 +87,6 @@ public class ActiveMQExampleTest {
 
     @Test
     public void testFileToActiveMQRoute() throws Exception {
-        // [ENTESB-3281] Wildfly-Camel build fails on OpenJDK
-        String vmname = System.getProperty("java.vm.name");
-        Assume.assumeFalse(vmname.contains("OpenJDK"));
-
         InputStream input = getClass().getResourceAsStream("/activemq/order.xml");
         Path targetPath = destination.toPath().resolve("order.xml");
         Files.copy(input, targetPath);
