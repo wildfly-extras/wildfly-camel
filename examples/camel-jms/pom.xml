@@ -37,11 +37,6 @@
         <!-- Provided -->
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-core</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
             <artifactId>camel-cdi</artifactId>
             <scope>provided</scope>
         </dependency>

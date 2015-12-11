@@ -37,12 +37,6 @@
     <dependencies>
 
         <!-- Provided -->
-
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-camel</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cdi</artifactId>
@@ -99,7 +93,6 @@
                             <artifactId>greenmail-webapp</artifactId>
                             <version>${version.greenmail}</version>
                             <type>war</type>
-                            <artifactId>greenmail-webapp</artifactId>
                         </configuration>
                     </execution>
                     <execution>

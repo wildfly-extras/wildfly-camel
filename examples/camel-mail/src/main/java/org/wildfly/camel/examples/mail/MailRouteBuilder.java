@@ -43,11 +43,11 @@ public class MailRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        // Configure routes and endpoints to send and receieve email over SMTP and POP3
-        MailEndpoint sendMailEndpoint = (MailEndpoint) getContext().getEndpoint("smtp://localhost");
+        // Configure routes and endpoints to send and receive email over SMTP and POP3
+        MailEndpoint sendMailEndpoint = getContext().getEndpoint("smtp://localhost", MailEndpoint.class);
         configureMailEndpoint(sendMailEndpoint);
 
-        MailEndpoint receiveMailEndpoint = (MailEndpoint) getContext().getEndpoint("pop3://user2@localhost?consumer.delay=30000");
+        MailEndpoint receiveMailEndpoint = getContext().getEndpoint("pop3://user2@localhost?consumer.delay=30000", MailEndpoint.class);
         configureMailEndpoint(receiveMailEndpoint);
 
         from("direct:sendmail")

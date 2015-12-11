@@ -21,10 +21,16 @@ package org.wildfly.camel.test.mail;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.concurrent.CountDownLatch;
+
+import javax.annotation.Resource;
+import javax.mail.Folder;
+import javax.mail.Session;
+import javax.mail.Store;
+import javax.naming.InitialContext;
 
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.api.ServerSetup;
@@ -35,6 +41,8 @@ import org.jboss.as.cli.batch.Batch;
 import org.jboss.as.test.integration.management.util.CLITestUtil;
 import org.jboss.dmr.ModelNode;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -43,10 +51,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.common.HttpRequest;
 import org.wildfly.camel.test.common.HttpRequest.HttpResponse;
+import org.wildfly.extension.camel.CamelAware;
 
-@RunAsClient
 @RunWith(Arquillian.class)
 @ServerSetup({ MailExampleTest.MailSessionSetupTask.class })
+@CamelAware
 public class MailExampleTest {
 
     private static final String GREENMAIL_WAR = "greenmail.war";
@@ -55,6 +64,9 @@ public class MailExampleTest {
 
     @ArquillianResource
     Deployer deployer;
+
+    @Resource(lookup = "java:jboss/mail/greenmail")
+    private Session mailSession;
 
     static class MailSessionSetupTask implements ServerSetupTask {
 
@@ -107,8 +119,15 @@ public class MailExampleTest {
         }
     }
 
+    @Deployment
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class)
+            .addClass(HttpRequest.class)
+            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
+
     @Deployment(managed = false, name = EXAMPLE_CAMEL_MAIL_WAR)
-    public static WebArchive createDeployment() {
+    public static WebArchive createCamelMailDeployment() {
         return ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/examples/example-camel-mail.war"));
     }
 
@@ -135,6 +154,14 @@ public class MailExampleTest {
 
             String responseBody = result.getBody();
             Assert.assertTrue("Sent successful: " + responseBody, responseBody.contains("Message sent successfully"));
+
+            // Verify that the email made it to the target address
+            Store store = mailSession.getStore("pop3");
+            store.connect();
+
+            Folder folder = store.getFolder("INBOX");
+            folder.open(Folder.READ_WRITE);
+            Assert.assertEquals(1, folder.getMessageCount());
         } finally {
             deployer.undeploy(GREENMAIL_WAR);
             deployer.undeploy(EXAMPLE_CAMEL_MAIL_WAR);
