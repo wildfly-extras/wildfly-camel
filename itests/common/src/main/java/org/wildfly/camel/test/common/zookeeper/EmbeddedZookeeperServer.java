@@ -27,6 +27,7 @@ import java.net.Socket;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.concurrent.TimeUnit;
@@ -48,7 +49,7 @@ public class EmbeddedZookeeperServer {
     private final int port;
 
     public EmbeddedZookeeperServer() throws Exception {
-        this(PortUtils.getAvailablePort(), Files.createTempDirectory("zktemp"));
+        this(PortUtils.getAvailablePort(), Files.createTempDirectory(Paths.get("target").toAbsolutePath(), "zktemp"));
     }
 
     public EmbeddedZookeeperServer(int port, Path baseDir) throws Exception {
@@ -98,7 +99,11 @@ public class EmbeddedZookeeperServer {
                 Thread.sleep(100);
             }
         } finally {
-            cleanZookeeperDir();
+            try {
+                cleanZookeeperDir();
+            } catch (Exception e) {
+                LOG.warn("Error cleaning up ZK data directory {}", e);
+            }
         }
     }
 
