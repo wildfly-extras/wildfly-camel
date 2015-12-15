@@ -20,40 +20,19 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:lang="http://www.springframework.org/schema/lang"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
-    ">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
     <!-- The custom groovy shell factory -->
     <bean id="myShellFactory" class="org.wildfly.camel.test.script.subA.CustomGroovyShellFactory" />
-    
-    <!-- inline a groovy script to use for the aggregator -->
-    <lang:groovy id="myAggregate">
-        <lang:inline-script>
-            class MyAggregate {
-                String someNameHere(String prev, int next) {
-                    return "Hello " + prev * next
-                }
-            }
-        </lang:inline-script>
-    </lang:groovy>
 
-    <camelContext id="spring-context"
-        xmlns="http://camel.apache.org/schema/spring">
+    <camelContext id="spring-context" xmlns="http://camel.apache.org/schema/spring">
         <route>
             <from uri="direct:start" />
-            <!-- we must declare the name of the method, as the inlined groovy 
-                script has additional methods -->
-            <aggregate strategyRef="myAggregate"
-                strategyMethodName="someNameHere" completionSize="2">
-                <correlationExpression>
-                    <header>foo</header>
-                </correlationExpression>
-                <to uri="seda:end" />
-            </aggregate>
+            <transform>
+                <groovy>hello(request.headers.locale) + ' ' + request.body</groovy>
+            </transform>
         </route>
     </camelContext>
 

@@ -20,20 +20,14 @@
 
 package org.wildfly.camel.test.script;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
 import javax.annotation.Resource;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.Consumer;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -45,62 +39,31 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 public class GroovyShellFactoryTest {
 
-    private static final String GROOVY_SCRIPT = "groovy-script.grv";
-
     @Resource(name = "java:jboss/camel/context/spring-context")
     CamelContext camelctx;
 
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "script-tests.jar");
-        archive.addClasses(CustomGroovyShellFactory.class);
+        archive.addPackage(CustomGroovyShellFactory.class.getPackage());
         archive.addAsResource("script/groovy-transform-camel-context.xml");
-        archive.addAsResource("script/" + GROOVY_SCRIPT, GROOVY_SCRIPT);
-        archive.addAsManifestResource(new StringAsset(""), "beans.xml");
+        archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }
 
     @Test
     public void testGroovy() throws Exception {
+        ProducerTemplate producer = camelctx.createProducerTemplate();
+        String result = producer.requestBody("direct:start", "Kermit", String.class);
 
-        CountDownProcessor proc = new CountDownProcessor(1);
-        Consumer consumer = camelctx.getEndpoint("seda:end").createConsumer(proc);
-
-        consumer.start();
-        try {
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            producer.sendBodyAndHeader("direct:start", "10", "foo", "bar");
-            producer.sendBodyAndHeader("direct:start", "2", "foo", "bar");
-
-            Assert.assertTrue("Message not processed by consumer", proc.await(3, TimeUnit.SECONDS));
-            Assert.assertEquals("Hello 1010", proc.getExchange().getIn().getBody(String.class));
-        } finally {
-            consumer.stop();
-        }
+        Assert.assertEquals("Hello Kermit", result);
     }
 
-    class CountDownProcessor implements Processor {
+    @Test
+    public void testGroovyWithHeader() throws Exception {
+        ProducerTemplate producer = camelctx.createProducerTemplate();
+        String result = producer.requestBodyAndHeader("direct:start", "Kermit", "locale", "es", String.class);
 
-        private final CountDownLatch latch;
-        private Exchange exchange;
-
-        CountDownProcessor(int count) {
-            latch = new CountDownLatch(count);
-        }
-
-        @Override
-        public synchronized void process(Exchange exchange) throws Exception {
-            this.exchange = exchange;
-            latch.countDown();
-            System.out.println(exchange);
-        }
-
-        synchronized Exchange getExchange() {
-            return exchange;
-        }
-
-        boolean await(long timeout, TimeUnit unit) throws InterruptedException {
-            return latch.await(timeout, unit);
-        }
+        Assert.assertEquals("Hola Kermit", result);
     }
 }
