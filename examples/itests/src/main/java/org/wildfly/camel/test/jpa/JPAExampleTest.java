@@ -38,8 +38,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.HttpRequest;
-import org.wildfly.camel.test.common.HttpRequest.HttpResponse;
+import org.wildfly.camel.test.common.http.HttpRequest;
+import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
 
 @RunAsClient
 @RunWith(Arquillian.class)

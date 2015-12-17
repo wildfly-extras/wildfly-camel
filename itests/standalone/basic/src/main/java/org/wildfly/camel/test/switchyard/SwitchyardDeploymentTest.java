@@ -29,7 +29,7 @@ import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.EnvironmentUtils;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.switchyard.subA.JavaDSL;
 import org.wildfly.camel.test.switchyard.subA.JavaDSLBuilder;
 

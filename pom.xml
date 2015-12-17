@@ -84,6 +84,7 @@
         <version.jboss.resteasy.atom.provider>3.0.10.Final</version.jboss.resteasy.atom.provider>
         <version.jboss.spec.javax.annotation>1.0.0.Final</version.jboss.spec.javax.annotation>
         <version.jboss.spec.javax.ejb>1.0.0.Final</version.jboss.spec.javax.ejb>
+        <version.jboss.spec.javax.enterprise.concurrent>1.0.0.Final</version.jboss.spec.javax.enterprise.concurrent>
         <version.jboss.spec.javax.ws.rs>1.0.0.Final</version.jboss.spec.javax.ws.rs>
         <version.jboss.spec.javax.jms>1.0.0.Final</version.jboss.spec.javax.jms>
         <version.jboss.spec.javax.servlet>1.0.0.Final</version.jboss.spec.javax.servlet>
@@ -95,6 +96,7 @@
         <version.maven.archetype.packaging>2.3</version.maven.archetype.packaging>
         <version.osgi>5.0.0</version.osgi>
         <version.slf4j>1.6.6</version.slf4j>
+        <version.xalan>2.7.1</version.xalan>
         
         <!-- Plugin versions -->
         <version-apache-scr-plugin>1.15.0</version-apache-scr-plugin>
@@ -328,6 +330,11 @@
                 <version>${version.jboss.spec.javax.ejb}</version>
             </dependency>
             <dependency>
+                <groupId>org.jboss.spec.javax.enterprise.concurrent</groupId>
+                <artifactId>jboss-concurrency-api_1.0_spec</artifactId>
+                <version>${version.jboss.spec.javax.enterprise.concurrent}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.jboss.ejb3</groupId>
                 <artifactId>jboss-ejb3-ext-api</artifactId>
                 <version>${version.jboss.ejb3.ext.api}</version>
@@ -416,15 +423,6 @@
                 <version>${version.apache.sshd.sftp}</version>
             </dependency>
 
-            <!-- Shrinkwrap -->
-            <dependency>
-                <groupId>org.jboss.shrinkwrap.resolver</groupId>
-                <artifactId>shrinkwrap-resolver-bom</artifactId>
-                <version>${version.jboss.shrinkwrap.resolver}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-
             <!-- SLF4J -->
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -498,27 +496,15 @@
             </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-testsuite-shared</artifactId>
-                <version>${version.wildfly}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.wildfly</groupId>
-                        <artifactId>wildfly-build</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.wildfly</groupId>
-                        <artifactId>wildfly-client-all</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.directory.jdbm</groupId>
-                        <artifactId>apacheds-jdbm1</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-weld</artifactId>
                 <version>${version.wildfly}</version>
+            </dependency>
+
+            <!-- Xalan -->
+            <dependency>
+                <groupId>xalan</groupId>
+                <artifactId>xalan</artifactId>
+                <version>${version.xalan}</version>
             </dependency>
             
             <!-- Xmlbeans -->

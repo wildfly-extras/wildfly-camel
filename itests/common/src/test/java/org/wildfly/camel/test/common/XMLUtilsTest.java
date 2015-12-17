@@ -24,6 +24,7 @@ import java.io.InputStream;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.wildfly.camel.test.common.utils.XMLUtils;
 
 public final class XMLUtilsTest {
 

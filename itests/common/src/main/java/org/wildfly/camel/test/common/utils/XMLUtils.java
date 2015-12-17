@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.common;
+package org.wildfly.camel.test.common.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

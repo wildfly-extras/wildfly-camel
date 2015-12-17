@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.common;
+package org.wildfly.camel.test.common.http;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;

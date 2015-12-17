@@ -37,7 +37,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.XMLUtils;
+import org.wildfly.camel.test.common.utils.XMLUtils;
 import org.wildfly.camel.test.jaxb.model.Customer;
 import org.wildfly.extension.camel.CamelAware;
 

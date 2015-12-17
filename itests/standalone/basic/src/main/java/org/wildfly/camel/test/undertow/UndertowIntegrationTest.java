@@ -39,8 +39,8 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.HttpRequest;
-import org.wildfly.camel.test.common.HttpRequest.HttpResponse;
+import org.wildfly.camel.test.common.http.HttpRequest;
+import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
 import org.wildfly.camel.test.http4.subA.MyServlet;
 import org.wildfly.extension.camel.CamelAware;
 

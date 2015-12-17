@@ -37,14 +37,6 @@
         <server.config>standalone.xml</server.config>
     </properties>
     
-    <!-- Dependencies -->
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-xmlsecurity</artifactId>
-        </dependency>
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>

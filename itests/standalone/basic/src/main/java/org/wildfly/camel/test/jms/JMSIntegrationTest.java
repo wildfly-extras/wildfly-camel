@@ -51,13 +51,13 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
-import org.jboss.as.test.integration.common.jms.JMSOperations;
-import org.jboss.as.test.integration.common.jms.JMSOperationsProvider;
+import org.jboss.dmr.ModelNode;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.JMSUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 /**
@@ -79,20 +79,14 @@ public class JMSIntegrationTest {
 
     static class JmsQueueSetup implements ServerSetupTask {
 
-        private JMSOperations jmsAdminOperations;
-
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
-            jmsAdminOperations = JMSOperationsProvider.getInstance(managementClient);
-            jmsAdminOperations.createJmsQueue(QUEUE_NAME, QUEUE_JNDI_NAME);
+            JMSUtils.createJmsQueue(QUEUE_NAME, QUEUE_JNDI_NAME, managementClient.getControllerClient());
         }
 
         @Override
         public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
-            if (jmsAdminOperations != null) {
-                jmsAdminOperations.removeJmsQueue(QUEUE_NAME);
-                jmsAdminOperations.close();
-            }
+            JMSUtils.removeJmsQueue(QUEUE_NAME, managementClient.getControllerClient());
         }
     }
 

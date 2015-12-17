@@ -35,16 +35,15 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
-import org.jboss.as.test.integration.common.jms.JMSOperations;
-import org.jboss.as.test.integration.common.jms.JMSOperationsProvider;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.HttpRequest;
-import org.wildfly.camel.test.common.HttpRequest.HttpResponse;
+import org.wildfly.camel.test.common.http.HttpRequest;
+import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
+import org.wildfly.camel.test.common.utils.JMSUtils;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -57,20 +56,14 @@ public class TransactedJMSExampleTest {
 
     static class JmsQueueSetup implements ServerSetupTask {
 
-        private JMSOperations jmsAdminOperations;
-
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
-            jmsAdminOperations = JMSOperationsProvider.getInstance(managementClient);
-            jmsAdminOperations.createJmsQueue(ORDERS_QUEUE, ORDERS_QUEUE_JNDI);
+            JMSUtils.createJmsQueue(ORDERS_QUEUE, ORDERS_QUEUE_JNDI, managementClient.getControllerClient());
         }
 
         @Override
         public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
-            if (jmsAdminOperations != null) {
-                jmsAdminOperations.removeJmsQueue(ORDERS_QUEUE);
-                jmsAdminOperations.close();
-            }
+            JMSUtils.removeJmsQueue(ORDERS_QUEUE, managementClient.getControllerClient());
         }
     }
 

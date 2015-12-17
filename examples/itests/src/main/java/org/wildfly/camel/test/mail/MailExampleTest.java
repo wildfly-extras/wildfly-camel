@@ -21,13 +21,11 @@ package org.wildfly.camel.test.mail;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.concurrent.CountDownLatch;
 
 import javax.annotation.Resource;
 import javax.mail.Folder;
 import javax.mail.Session;
 import javax.mail.Store;
-import javax.naming.InitialContext;
 
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -36,9 +34,6 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
-import org.jboss.as.cli.CommandContext;
-import org.jboss.as.cli.batch.Batch;
-import org.jboss.as.test.integration.management.util.CLITestUtil;
 import org.jboss.dmr.ModelNode;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -47,10 +42,9 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.wildfly.camel.test.common.HttpRequest;
-import org.wildfly.camel.test.common.HttpRequest.HttpResponse;
+import org.wildfly.camel.test.common.http.HttpRequest;
+import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
+import org.wildfly.camel.test.common.utils.DMRUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @RunWith(Arquillian.class)
@@ -60,7 +54,6 @@ public class MailExampleTest {
 
     private static final String GREENMAIL_WAR = "greenmail.war";
     private static final String EXAMPLE_CAMEL_MAIL_WAR = "example-camel-mail.war";
-    private static final Logger LOG = LoggerFactory.getLogger(MailSessionSetupTask.class.getPackage().getName());
 
     @ArquillianResource
     Deployer deployer;
@@ -77,45 +70,29 @@ public class MailExampleTest {
         @Override
         public void setup(ManagementClient managementClient, String s) throws Exception {
 
-            final CommandContext ctx = CLITestUtil.getCommandContext();
-            ctx.connectController();
+            ModelNode batchNode = DMRUtils.batchNode()
+                .addStep("socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-smtp", "add(host=localhost, port=10025)")
+                .addStep("socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-pop3", "add(host=localhost, port=10110)")
+                .addStep("subsystem=mail/mail-session=greenmail", "add(jndi-name=java:jboss/mail/greenmail)")
+                .addStep("subsystem=mail/mail-session=greenmail/server=smtp", "add(outbound-socket-binding-ref=mail-greenmail-smtp, username=user1, password=password)")
+                .addStep("subsystem=mail/mail-session=greenmail/server=pop3", "add(outbound-socket-binding-ref=mail-greenmail-pop3, username=user2, password=password2)")
+                .build();
 
-            ctx.getBatchManager().activateNewBatch();
-            final Batch batch = ctx.getBatchManager().getActiveBatch();
-            batch.add(ctx.toBatchedCommand("/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-smtp:add(host=localhost, port=10025)"));
-            batch.add(ctx.toBatchedCommand("/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-pop3:add(host=localhost, port=10110)"));
-            batch.add(ctx.toBatchedCommand("/subsystem=mail/mail-session=greenmail:add(jndi-name=\"java:jboss/mail/greenmail\")"));
-            batch.add(ctx.toBatchedCommand("/subsystem=mail/mail-session=greenmail/server=smtp:add(outbound-socket-binding-ref=mail-greenmail-smtp, username=user1, password=password)"));
-            batch.add(ctx.toBatchedCommand("/subsystem=mail/mail-session=greenmail/server=pop3:add(outbound-socket-binding-ref=mail-greenmail-pop3, username=user2, password=password2)"));
-
-            ModelNode request = batch.toRequest();
-            batch.clear();
-            ctx.getBatchManager().discardActiveBatch();
-
-            ModelNode execute = managementClient.getControllerClient().execute(request);
-            LOG.info(execute.toString());
+            managementClient.getControllerClient().execute(batchNode);
         }
 
         @Override
         public void tearDown(ManagementClient managementClient, String s) throws Exception {
 
-            final CommandContext ctx = CLITestUtil.getCommandContext();
-            ctx.connectController();
+            ModelNode batchNode = DMRUtils.batchNode()
+                .addStep("socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-smtp", "remove")
+                .addStep("socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-pop3", "remove")
+                .addStep("subsystem=mail/mail-session=greenmail", "remove")
+                .addStep("subsystem=mail/mail-session=greenmail/server=smtp", "remove")
+                .addStep("subsystem=mail/mail-session=greenmail/server=pop3", "remove")
+                .build();
 
-            ctx.getBatchManager().activateNewBatch();
-            final Batch batch = ctx.getBatchManager().getActiveBatch();
-            batch.add(ctx.toBatchedCommand("/subsystem=mail/mail-session=greenmail/server=smtp:remove"));
-            batch.add(ctx.toBatchedCommand("/subsystem=mail/mail-session=greenmail/server=pop3:remove"));
-            batch.add(ctx.toBatchedCommand("/subsystem=mail/mail-session=greenmail:remove"));
-            batch.add(ctx.toBatchedCommand("/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-smtp:remove"));
-            batch.add(ctx.toBatchedCommand("/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-pop3:remove"));
-
-            ModelNode request = batch.toRequest();
-            batch.clear();
-            ctx.getBatchManager().discardActiveBatch();
-
-            ModelNode execute = managementClient.getControllerClient().execute(request);
-            LOG.info(execute.toString());
+            managementClient.getControllerClient().execute(batchNode);
         }
     }
 

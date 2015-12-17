@@ -20,6 +20,19 @@
 
 package org.wildfly.camel.test.jms;
 
+import java.io.InputStream;
+
+import javax.annotation.Resource;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.naming.InitialContext;
+import javax.transaction.TransactionManager;
+import javax.transaction.UserTransaction;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.RoutesBuilder;
@@ -33,8 +46,6 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
-import org.jboss.as.test.integration.common.jms.JMSOperations;
-import org.jboss.as.test.integration.common.jms.JMSOperationsProvider;
 import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -48,20 +59,8 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.jta.JtaTransactionManager;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.transaction.support.TransactionTemplate;
+import org.wildfly.camel.test.common.utils.JMSUtils;
 import org.wildfly.extension.camel.CamelAware;
-
-import javax.annotation.Resource;
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
-import javax.naming.InitialContext;
-import javax.transaction.TransactionManager;
-import javax.transaction.UserTransaction;
-
-import java.io.InputStream;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -83,27 +82,22 @@ public class TransactedJMSIntegrationTest {
     private JmsComponent jmsComponent;
 
     static class JmsQueueSetup implements ServerSetupTask {
-        private JMSOperations jmsAdminOperations;
 
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
             for (JmsQueue jmsQueue : JmsQueue.values()) {
                 if (!jmsQueue.equals(JmsQueue.DEAD_LETTER_QUEUE)) {
-                    jmsAdminOperations = JMSOperationsProvider.getInstance(managementClient);
-                    jmsAdminOperations.createJmsQueue(jmsQueue.getQueueName(), jmsQueue.getJndiName());
+                    JMSUtils.createJmsQueue(jmsQueue.getQueueName(), jmsQueue.getJndiName(), managementClient.getControllerClient());
                 }
             }
         }
 
         @Override
         public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
-            if (jmsAdminOperations != null) {
-                for (JmsQueue jmsQueue : JmsQueue.values()) {
-                    if (!jmsQueue.equals(JmsQueue.DEAD_LETTER_QUEUE)) {
-                        jmsAdminOperations.removeJmsQueue(jmsQueue.getQueueName());
-                    }
+            for (JmsQueue jmsQueue : JmsQueue.values()) {
+                if (!jmsQueue.equals(JmsQueue.DEAD_LETTER_QUEUE)) {
+                    JMSUtils.removeJmsQueue(jmsQueue.getQueueName(), managementClient.getControllerClient());
                 }
-                jmsAdminOperations.close();
             }
         }
     }

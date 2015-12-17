@@ -17,7 +17,10 @@
 * limitations under the License.
 * #L%
 */
-package org.wildfly.camel.test.common;
+package org.wildfly.camel.test.common.utils;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jboss.dmr.ModelNode;
 
@@ -33,7 +36,22 @@ public class DMRUtils {
                 list.add(elements[0], elements[1]);
             }
         }
-        op.get("operation").set(operation);
+
+        Matcher matcher = Pattern.compile(".*\\((.*?)\\)").matcher(operation);
+        if (matcher.matches()) {
+            matcher.reset();
+
+            op.get("operation").set(operation.substring(0, operation.indexOf('(')));
+            while (matcher.find()) {
+                String args = matcher.group(1);
+                for (String argSegment : args.split(",")) {
+                    String[] argElements = argSegment.split("=");
+                    op.get(argElements[0].trim()).set(argElements[1].trim());
+                }
+            }
+        } else {
+            op.get("operation").set(operation);
+        }
         return op;
     }
 
@@ -44,5 +62,28 @@ public class DMRUtils {
             comp.get("steps").add(step);
         }
         return comp;
+    }
+
+    public static BatchNodeBuilder batchNode() {
+        return new BatchNodeBuilder();
+    }
+
+    public static final class BatchNodeBuilder {
+        private ModelNode batchNode;
+
+        BatchNodeBuilder() {
+            batchNode = new ModelNode();
+            batchNode.get("operation").set("composite");
+            batchNode.get("address").setEmptyList();
+        }
+
+        public BatchNodeBuilder addStep(String address, String operation) {
+            batchNode.get("steps").add(createOpNode(address, operation));
+            return this;
+        }
+
+        public ModelNode build() {
+            return batchNode;
+        }
     }
 }

@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.common;
+package org.wildfly.camel.test.common.utils;
 
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleIdentifier;
