@@ -68,7 +68,7 @@
         <version.freeside.betamax>1.1.2</version.freeside.betamax>
         <version.fusepatch>1.6.1</version.fusepatch>
         <version.greenmail>1.4.0</version.greenmail>
-        <version.hawtio>1.4.50</version.hawtio>
+        <version.hawtio>1.4.59</version.hawtio>
         <version.hibernate.jpa21.api>1.0.0.Final</version.hibernate.jpa21.api>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
         <version.javax.enterprise>1.2</version.javax.enterprise>
