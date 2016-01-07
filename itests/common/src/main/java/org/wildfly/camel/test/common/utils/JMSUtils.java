@@ -26,31 +26,27 @@ import org.jboss.dmr.ModelNode;
 
 public class JMSUtils {
 
-    private static Boolean isArtemis;
-
     public static ModelNode createJmsQueue(String queueName, String jndiName, ModelControllerClient client) throws IOException {
         ModelNode modelNode = createJmsQueueModelNode("add", queueName, jndiName, client);
-        return client.execute(modelNode);
+        return executeModelNode(client, modelNode);
     }
 
     public static ModelNode removeJmsQueue(String queueName, ModelControllerClient client) throws IOException {
         ModelNode modelNode = createJmsQueueModelNode("remove", queueName, null, client);
-        return client.execute(modelNode);
+        return executeModelNode(client, modelNode);
+    }
+
+    private static ModelNode executeModelNode(ModelControllerClient client, ModelNode modelNode) throws IOException {
+        ModelNode result = client.execute(modelNode);
+        return result;
     }
 
     private static ModelNode createJmsQueueModelNode(String operationName, String queueName, String jndiName, ModelControllerClient client) {
         ModelNode modelNode = new ModelNode();
         modelNode.get("operation").set(operationName);
 
-        // Handle subtle differences in subsystem config for HornetQ / ActiveMQ Artemis
-        if (isArtemisSubsystemPresent(client)) {
-            modelNode.get("address").add("subsystem", MessagingSubsystem.ACTIVEMQ_ARTEMIS.getSubsystemName());
-            modelNode.get("address").add(MessagingSubsystem.ACTIVEMQ_ARTEMIS.getServerName(), "default");
-        } else {
-            modelNode.get("address").add("subsystem", MessagingSubsystem.HORNETQ.getSubsystemName());
-            modelNode.get("address").add(MessagingSubsystem.HORNETQ.getServerName(), "default");
-        }
-
+        modelNode.get("address").add("subsystem", MessagingSubsystem.ACTIVEMQ_ARTEMIS.getSubsystemName());
+        modelNode.get("address").add(MessagingSubsystem.ACTIVEMQ_ARTEMIS.getServerName(), "default");
         modelNode.get("address").add("jms-queue", queueName);
 
         if (jndiName != null) {
@@ -59,26 +55,8 @@ public class JMSUtils {
         return modelNode;
     }
 
-    private static boolean isArtemisSubsystemPresent(ModelControllerClient client) {
-        if (isArtemis == null) {
-            synchronized (JMSUtils.class) {
-                ModelNode modelNode = new ModelNode();
-                modelNode.get("operation").set("read-resource");
-                modelNode.get("address").add("subsystem", MessagingSubsystem.ACTIVEMQ_ARTEMIS.getSubsystemName());
-                try {
-                    ModelNode result = client.execute(modelNode);
-                    isArtemis = result.get("outcome").asString() == "success" ? true : false;
-                } catch (IOException e) {
-                    isArtemis = false;
-                }
-            }
-        }
-        return isArtemis;
-    }
-
     private enum MessagingSubsystem {
-        ACTIVEMQ_ARTEMIS("messaging-activemq", "server"),
-        HORNETQ("messaging", "hornetq-server");
+        ACTIVEMQ_ARTEMIS("messaging-activemq", "server");
 
         private final String subsystemName;
         private final String serverName;
