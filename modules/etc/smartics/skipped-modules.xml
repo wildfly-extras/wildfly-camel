@@ -127,12 +127,22 @@
         <include artifact="org.apache.felix:org.apache.felix.scr.ds-annotations" />
     </module>
 
+    <module name="org.apache.maven" skip="true">
+        <include artifact="org.apache.maven:maven-repository-metadata" />
+        <include artifact="org.apache.maven:maven-model" />
+        <include artifact="org.apache.maven:maven-model-builder" />
+    </module>
+    
     <module name="org.apache.openjpa" skip="true">
         <include artifact="org.apache.openjpa:(.*)" />
     </module>
     
     <module name="org.apache.servicemix.bundles" skip="true">
         <include artifact="org.apache.servicemix.bundles:(.*)" />
+    </module>
+    
+    <module name="org.codehaus.plexus" skip="true">
+        <include artifact="org.codehaus.plexus:(.*)" />
     </module>
     
     <module name="org.jasypt" skip="true">

@@ -66,7 +66,7 @@
         <version.args4j>2.0.31</version.args4j>
         <version.codehaus.plexus.utils>3.0.15</version.codehaus.plexus.utils>
         <version.freeside.betamax>1.1.2</version.freeside.betamax>
-        <version.fusepatch>1.6.1</version.fusepatch>
+        <version.fusepatch>2.0.1</version.fusepatch>
         <version.greenmail>1.4.0</version.greenmail>
         <version.hawtio>1.4.59</version.hawtio>
         <version.hibernate.jpa21.api>1.0.0.Final</version.hibernate.jpa21.api>

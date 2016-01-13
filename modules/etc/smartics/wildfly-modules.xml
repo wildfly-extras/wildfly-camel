@@ -121,9 +121,10 @@
     </module>
 
     <module name="javax.servlet.api" skip="true">
-        <include artifact=":servlet-api" />
-        <include artifact=":javax.servlet-api" />
         <include artifact=":geronimo-servlet_3.0_spec" />
+        <include artifact=":javax.servlet-api" />
+        <include artifact=":jboss-servlet-api_3.1_spec" />
+        <include artifact=":servlet-api" />
     </module>
 
     <module name="javax.transaction.api" skip="true">

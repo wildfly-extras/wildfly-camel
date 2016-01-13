@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.eclipse.aether">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.eclipse.aether:aether-api}" />
+    <artifact name="${org.eclipse.aether:aether-connector-basic}" />
+    <artifact name="${org.eclipse.aether:aether-impl}" />
+    <artifact name="${org.eclipse.aether:aether-spi}" />
+    <artifact name="${org.eclipse.aether:aether-transport-file}" />
+    <artifact name="${org.eclipse.aether:aether-transport-http}" />
+    <artifact name="${org.eclipse.aether:aether-util}" />
+    <artifact name="${org.apache.maven:maven-aether-provider}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.httpcomponents" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

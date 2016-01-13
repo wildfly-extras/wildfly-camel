@@ -5,12 +5,14 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="fuse-patch-core-1.6.1.jar" />
+    <resource-root path="fuse-patch-core-2.0.1.jar" />
   </resources>
   <dependencies>
     <module name="args4j" />
     <module name="javax.api" />
     <module name="org.jboss.logmanager" services="import" />
     <module name="org.slf4j" />
+    <module name="javax.servlet.api" />
+    <module name="org.eclipse.aether" />
   </dependencies>
 </module>

@@ -12,5 +12,7 @@
     <module name="javax.api" />
     <module name="org.jboss.logmanager" services="import" />
     <module name="org.slf4j" />
+    <module name="javax.servlet.api" />
+    <module name="org.eclipse.aether" />
   </dependencies>
 </module>

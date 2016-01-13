@@ -138,6 +138,14 @@
 /org/apache/zookeeper/main/zookeeper-3.4.6.jar
 /org/beanshell/main/bsh-2.0b5.jar
 /org/bouncycastle/ext/main/bcpg-jdk15on-1.52.jar
+/org/eclipse/aether/main/aether-api-1.0.2.v20150114.jar
+/org/eclipse/aether/main/aether-connector-basic-1.0.2.v20150114.jar
+/org/eclipse/aether/main/aether-impl-1.0.2.v20150114.jar
+/org/eclipse/aether/main/aether-spi-1.0.2.v20150114.jar
+/org/eclipse/aether/main/aether-transport-file-1.0.2.v20150114.jar
+/org/eclipse/aether/main/aether-transport-http-1.0.2.v20150114.jar
+/org/eclipse/aether/main/aether-util-1.0.2.v20150114.jar
+/org/eclipse/aether/main/maven-aether-provider-3.3.3.jar
 /org/eclipse/jetty/main/jetty-client-8.1.17.v20150415.jar
 /org/eclipse/jetty/main/jetty-http-8.1.17.v20150415.jar
 /org/eclipse/jetty/main/jetty-io-8.1.17.v20150415.jar
@@ -178,6 +186,6 @@
 /org/springframework/security/main/spring-security-core-3.2.8.RELEASE.jar
 /org/springframework/spring-messaging/main/spring-messaging-4.1.8.RELEASE.jar
 /org/springframework/tx/main/spring-tx-4.1.8.RELEASE.jar
-/org/wildfly/extras/config/main/fuse-patch-config-1.6.1.jar
+/org/wildfly/extras/config/main/fuse-patch-config-2.0.1.jar
 /org/wildfly/extras/config/plugin/camel/main/wildfly-camel-config-3.3.0-SNAPSHOT.jar
-/org/wildfly/extras/patch/main/fuse-patch-core-1.6.1.jar
+/org/wildfly/extras/patch/main/fuse-patch-core-2.0.1.jar
