@@ -35,8 +35,13 @@
 	<packaging>war</packaging>
 	
 	<dependencies>
-	
 		<!-- Provided -->
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-subsystem</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
 		<dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cdi</artifactId>

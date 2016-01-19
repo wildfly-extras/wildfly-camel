@@ -27,14 +27,13 @@ import javax.jws.WebService;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.ProxyBuilder;
-import org.apache.camel.cdi.ContextName;
 
 @WebService(serviceName="greeting", endpointInterface = "org.wildfly.camel.examples.jaxws.GreetingService")
 public class GreetingServiceImpl {
 
     @Inject
-    @ContextName("jaxws-camel-context")
     private CamelContext context;
+
     private GreetingService greetingService;
 
     /**

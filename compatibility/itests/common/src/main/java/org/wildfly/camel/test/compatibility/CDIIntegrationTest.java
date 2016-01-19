@@ -35,9 +35,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.compatibility.subB.MyRoutes;
 import org.wildfly.camel.test.compatibility.subB.SomeBean;
-import org.wildfly.extension.camel.CamelAware;
 
-@CamelAware
 @RunWith(Arquillian.class)
 public class CDIIntegrationTest {
 

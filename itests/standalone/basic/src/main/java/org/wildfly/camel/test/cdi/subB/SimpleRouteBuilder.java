@@ -20,14 +20,15 @@
 package org.wildfly.camel.test.cdi.subB;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
+import org.apache.camel.impl.ExplicitCamelContextNameStrategy;
+import org.wildfly.extension.camel.CamelAware;
 
-@ContextName("simple-camel-context")
+@CamelAware
 public class SimpleRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("direct:start")
-        .bean("helloBean");
+        getContext().setNameStrategy(new ExplicitCamelContextNameStrategy("simple-camel-context"));
+        from("direct:start").bean("helloBean");
     }
 }

@@ -19,8 +19,7 @@
  */
 package ${package};
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.inject.Inject;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -37,6 +36,9 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class MyTest {
 
+    @Inject
+    CamelContext camelContext;
+    
     @Deployment
     public static WebArchive createDeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-tests.war");
@@ -46,14 +48,9 @@ public class MyTest {
     }
 
     @Test
-    public void testMyRoute() throws NamingException {
-        InitialContext context = new InitialContext();
-        CamelContext camelContext = (CamelContext) context.lookup("java:jboss/camel/context/cdi-context");
-        Assert.assertNotNull("Expecting camelContext to not be null", camelContext);
-
+    public void testMyRoute() {
         ProducerTemplate producerTemplate = camelContext.createProducerTemplate();
         String result = producerTemplate.requestBody("direct:start", "Kermit", String.class);
-
         Assert.assertEquals("Hello Kermit", result);
     }
 }

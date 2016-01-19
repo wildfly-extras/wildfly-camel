@@ -33,8 +33,8 @@ import org.slf4j.LoggerFactory;
  * having to mention them on each camel annotation
  */
 @ContextName("contextD")
-public class RoutesContextD extends RouteBuilder {
-    private static final Logger LOG = LoggerFactory.getLogger(RoutesContextD.class);
+public class RouteBuilderD extends RouteBuilder {
+    private static final Logger LOG = LoggerFactory.getLogger(RouteBuilderD.class);
 
     @Inject @Uri("seda:D.a")
     Endpoint a;

@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
@@ -49,8 +50,8 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 @RunWith(Arquillian.class)
 public class UserManagedTransactionIntegrationTest {
 
-    @ArquillianResource
-    CamelContextRegistry contextRegistry;
+    @Inject
+    CamelContext camelctx;
 
     @PersistenceContext
     EntityManager em;
@@ -90,7 +91,6 @@ public class UserManagedTransactionIntegrationTest {
     @Test
     public void testJpaTransactionalRoute() throws Exception {
 
-        CamelContext camelctx = contextRegistry.getCamelContext("jpa-cdi-context");
         Account accountA = em.getReference(Account.class, 1);
         Account accountB = em.getReference(Account.class, 2);
 
@@ -115,7 +115,6 @@ public class UserManagedTransactionIntegrationTest {
     @Test
     public void testJpaTransactionalRouteRollback() throws Exception {
 
-        CamelContext camelctx = contextRegistry.getCamelContext("jpa-cdi-context");
         Account accountA = em.getReference(Account.class, 1);
         Account accountB = em.getReference(Account.class, 2);
 

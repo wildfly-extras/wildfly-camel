@@ -34,29 +34,31 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.cdi.subA.Constants;
-import org.wildfly.camel.test.cdi.subA.RoutesContextA;
-import org.wildfly.camel.test.cdi.subA.RoutesContextB;
-import org.wildfly.camel.test.cdi.subA.RoutesContextC;
-import org.wildfly.camel.test.cdi.subA.RoutesContextD;
+import org.wildfly.camel.test.cdi.subA.RouteBuilderA;
+import org.wildfly.camel.test.cdi.subA.RouteBuilderB;
+import org.wildfly.camel.test.cdi.subA.RouteBuilderC;
+import org.wildfly.camel.test.cdi.subA.RouteBuilderD;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
+@Ignore("[#1028] CDI fails with multiple named route builders")
 public class CDIIntegrationTest {
 
     @ArquillianResource
     CamelContextRegistry contextRegistry;
 
     @Inject
-    RoutesContextA routesA;
+    RouteBuilderA routesA;
     @Inject
-    RoutesContextB routesB;
+    RouteBuilderB routesB;
     @Inject
-    RoutesContextC routesC;
+    RouteBuilderC routesC;
     @Inject
-    RoutesContextD routesD;
+    RouteBuilderD routesD;
 
     @Inject
     @Uri(value = "seda:foo", context = "contextD")
@@ -66,7 +68,7 @@ public class CDIIntegrationTest {
     public static JavaArchive createDeployment() {
         // Note, this needs to have the *.jar suffix
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-cdi-tests.jar");
-        archive.addPackage(RoutesContextA.class.getPackage());
+        archive.addPackage(RouteBuilderA.class.getPackage());
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }
