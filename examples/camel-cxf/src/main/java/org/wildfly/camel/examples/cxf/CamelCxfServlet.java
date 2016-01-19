@@ -19,9 +19,7 @@
  */
 package org.wildfly.camel.examples.cxf;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.ProducerTemplate;
-import org.apache.camel.cdi.ContextName;
+import java.io.IOException;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -29,13 +27,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.ProducerTemplate;
+
+@SuppressWarnings("serial")
 @WebServlet(name = "HttpServiceServlet", urlPatterns = { "/cxf/*" }, loadOnStartup = 1)
 public class CamelCxfServlet extends HttpServlet {
-    
+
     @Inject
-    @ContextName("cxf-camel-context")
     private CamelContext camelContext;
 
     @Override

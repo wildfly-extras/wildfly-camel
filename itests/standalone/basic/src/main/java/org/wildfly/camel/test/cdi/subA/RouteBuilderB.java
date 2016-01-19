@@ -29,19 +29,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Uses contextA with explicit context names on all Camel annotations
+ * Uses contextB with explicit context names on all Camel annotations
  */
-@ContextName("contextA")
-public class RoutesContextA extends RouteBuilder {
-    private static final Logger LOG = LoggerFactory.getLogger(RoutesContextA.class);
+@ContextName("contextB")
+public class RouteBuilderB extends RouteBuilder {
+    private static final Logger LOG = LoggerFactory.getLogger(RouteBuilderB.class);
 
-    @EndpointInject(uri = "mock:A.b", context = "contextA")
+    @EndpointInject(uri = "mock:B.b", context = "contextB")
     public MockEndpoint b;
 
-    @Inject @Uri(value = "seda:A.a", context = "contextA")
+    @Inject @Uri(value = "seda:B.a", context = "contextB")
     Endpoint a;
 
-    @Inject @Uri(value = "seda:A.a", context = "contextA")
+    @Inject @Uri(value = "seda:B.a", context = "contextB")
     ProducerTemplate producer;
 
     @Override
@@ -51,7 +51,7 @@ public class RoutesContextA extends RouteBuilder {
     }
 
     public void sendMessages() {
-        for (Object expectedBody : Constants.EXPECTED_BODIES_A) {
+        for (Object expectedBody : Constants.EXPECTED_BODIES_B) {
             LOG.info("Sending " + expectedBody + " to " + producer.getDefaultEndpoint());
             producer.sendBody(expectedBody);
         }

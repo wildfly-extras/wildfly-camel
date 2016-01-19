@@ -23,16 +23,18 @@ import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
+import org.apache.camel.impl.ExplicitCamelContextNameStrategy;
+import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.security.DomainAuthorizationPolicy;
 
 @Startup
+@CamelAware
 @ApplicationScoped
-@ContextName("secured-context")
 public class SecureRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+        getContext().setNameStrategy(new ExplicitCamelContextNameStrategy("secured-context"));
         from("direct:start")
         .policy(new DomainAuthorizationPolicy().roles("Role2"))
         .transform(body().prepend("Hello "));

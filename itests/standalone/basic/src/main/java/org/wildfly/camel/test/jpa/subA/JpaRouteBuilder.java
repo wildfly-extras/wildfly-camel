@@ -31,12 +31,12 @@ import javax.persistence.PersistenceContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
 import org.apache.camel.component.jpa.JpaComponent;
 import org.springframework.transaction.jta.JtaTransactionManager;
+import org.wildfly.extension.camel.CamelAware;
 
 @Startup
-@ContextName("jpa-cdi-context")
+@CamelAware
 public class JpaRouteBuilder extends RouteBuilder {
 
     @PersistenceContext

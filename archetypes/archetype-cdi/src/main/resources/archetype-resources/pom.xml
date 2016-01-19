@@ -40,6 +40,7 @@
 
         <!-- Other versions -->
         <version.apache.camel>${version-apache-camel}</version.apache.camel>
+        <version.wildfly.camel>${version-wildfly-camel}</version.wildfly.camel>
         <version.javax.enterprise>${version-javax-enterprise}</version.javax.enterprise>
         <version.jboss.arquillian>${version-jboss-arquillian}</version.jboss.arquillian>
         <version.jboss.servlet.api>${version-jboss-servlet-api}</version.jboss.servlet.api>
@@ -77,6 +78,12 @@
     <!-- Dependencies -->
     <dependencies>
         <!-- Provided -->
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-subsystem</artifactId>
+            <version>${version.wildfly.camel}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cdi</artifactId>

@@ -19,25 +19,26 @@
  */
 package org.wildfly.camel.examples.rest;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
-import org.apache.camel.component.bean.BeanInvocation;
-import org.apache.camel.model.rest.RestBindingMode;
-import org.wildfly.camel.examples.rest.data.CustomerRepository;
-import org.wildfly.camel.examples.rest.model.Customer;
+import java.util.List;
 
 import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
+
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.bean.BeanInvocation;
+import org.apache.camel.model.rest.RestBindingMode;
+import org.wildfly.camel.examples.rest.data.CustomerRepository;
+import org.wildfly.camel.examples.rest.model.Customer;
+import org.wildfly.extension.camel.CamelAware;
 
 @Startup
+@CamelAware
 @ApplicationScoped
-@ContextName("rest-camel-context")
 public class RestConsumerRouteBuilder extends RouteBuilder {
 
     /**

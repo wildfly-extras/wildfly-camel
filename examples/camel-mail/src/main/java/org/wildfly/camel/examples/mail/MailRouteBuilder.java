@@ -19,22 +19,23 @@
  */
 package org.wildfly.camel.examples.mail;
 
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
-import org.apache.camel.component.mail.MailConfiguration;
-import org.apache.camel.component.mail.MailEndpoint;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import javax.annotation.Resource;
 import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mail.MailConfiguration;
+import org.apache.camel.component.mail.MailEndpoint;
+import org.wildfly.extension.camel.CamelAware;
 
 @Startup
+@CamelAware
 @ApplicationScoped
-@ContextName("mail-camel-context")
 public class MailRouteBuilder extends RouteBuilder {
 
     // Injects a java mail session

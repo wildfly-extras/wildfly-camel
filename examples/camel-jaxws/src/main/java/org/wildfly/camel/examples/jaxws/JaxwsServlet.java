@@ -29,9 +29,10 @@ import javax.xml.ws.Service;
 import java.io.IOException;
 import java.net.URL;
 
+@SuppressWarnings("serial")
 @WebServlet(name = "HttpServiceServlet", urlPatterns = { "/jaxws/*" }, loadOnStartup = 1)
 public class JaxwsServlet extends HttpServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/index.jsp").forward(request, response);

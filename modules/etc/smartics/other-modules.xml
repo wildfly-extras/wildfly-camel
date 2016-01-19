@@ -183,20 +183,6 @@
         </dependencies>
     </module>
     
-    <module name="org.apache.deltaspike.$1.$2">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":deltaspike-(.*)-(.*)" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.deltaspike.test" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api" />
-            <module name="javax.xml.bind.api" />
-        </dependencies>
-    </module>
-
     <module name="org.apache.kafka">
         <properties>
             <property name="jboss.api" value="private"/>
