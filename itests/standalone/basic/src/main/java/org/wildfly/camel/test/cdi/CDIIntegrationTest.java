@@ -24,6 +24,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.ServiceStatus;
+import org.apache.camel.cdi.ContextName;
 import org.apache.camel.cdi.Uri;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.util.CamelContextHelper;
@@ -34,7 +35,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.cdi.subA.Constants;
@@ -45,23 +45,27 @@ import org.wildfly.camel.test.cdi.subA.RouteBuilderD;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
-@Ignore("[#1028] CDI fails with multiple named route builders")
 public class CDIIntegrationTest {
 
     @ArquillianResource
     CamelContextRegistry contextRegistry;
 
     @Inject
+    @ContextName("contextA")
     RouteBuilderA routesA;
     @Inject
+    @ContextName("contextB")
     RouteBuilderB routesB;
     @Inject
+    @ContextName("contextC")
     RouteBuilderC routesC;
     @Inject
+    @ContextName("contextD")
     RouteBuilderD routesD;
 
     @Inject
-    @Uri(value = "seda:foo", context = "contextD")
+    @ContextName("contextD")
+    @Uri(value = "seda:foo")
     ProducerTemplate producerD;
 
     @Deployment
