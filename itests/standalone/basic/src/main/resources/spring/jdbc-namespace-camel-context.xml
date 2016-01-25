@@ -35,7 +35,7 @@
 
     <camelContext id="spring-jdbc">
         <route>
-            <from uri="sql:select name from jdbc_test?dataSource=#datasource"/>
+            <from uri="sql:select name from jdbc_test?dataSource=#datasource&amp;consumer.initialDelay=500&amp;consumer.delay=60000"/>
             <transform>
                 <simple>Hello ${body['NAME']}</simple>
             </transform>
