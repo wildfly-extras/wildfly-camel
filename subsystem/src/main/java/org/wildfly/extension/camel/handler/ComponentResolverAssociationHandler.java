@@ -25,7 +25,8 @@ import org.apache.camel.Component;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spi.ComponentResolver;
 import org.wildfly.extension.camel.ContextCreateHandler;
-import org.wildfly.extension.camel.component.WildflyUndertowComponent;
+import org.wildfly.extension.camel.component.WildFlyUndertowComponent;
+import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
 
 /**
  * A {@link ContextCreateHandler} that sets the {@link ComponentResolver}
@@ -34,6 +35,12 @@ import org.wildfly.extension.camel.component.WildflyUndertowComponent;
  * @since 30-Jul-2015
  */
 public final class ComponentResolverAssociationHandler implements ContextCreateHandler {
+
+    private final SubsystemRuntimeState runtimeState;
+
+    public ComponentResolverAssociationHandler(SubsystemRuntimeState runtimeState) {
+        this.runtimeState = runtimeState;
+    }
 
     @Override
     public void setup(final CamelContext camelctx) {
@@ -44,7 +51,7 @@ public final class ComponentResolverAssociationHandler implements ContextCreateH
         }
     }
 
-    static class WildFlyComponentResolver implements ComponentResolver {
+    class WildFlyComponentResolver implements ComponentResolver {
 
         final ComponentResolver delegate;
 
@@ -55,7 +62,7 @@ public final class ComponentResolverAssociationHandler implements ContextCreateH
         @Override
         public Component resolveComponent(String name, CamelContext context) throws Exception {
             if ("undertow".equals(name)) {
-                return new WildflyUndertowComponent();
+                return new WildFlyUndertowComponent(runtimeState);
             } else {
                 return delegate.resolveComponent(name, context);
             }

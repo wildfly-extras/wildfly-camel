@@ -59,6 +59,10 @@
         <include artifact=":undertow-core" />
     </module>
 
+    <module name="io.undertow.servlet" skip="true">
+        <include artifact=":undertow-servlet" />
+    </module>
+
     <module name="javax.activation.api" skip="true">
         <include artifact=":geronimo-activation_1.1_spec" />
     </module>

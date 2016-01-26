@@ -68,9 +68,11 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
     public static final int INSTALL_CDI_BEAN_ARCHIVE_PROCESSOR = Phase.INSTALL_BUNDLE_ACTIVATE + 0x01;
     public static final int INSTALL_CONTEXT_ACTIVATION = INSTALL_CDI_BEAN_ARCHIVE_PROCESSOR + 0x01;
 
+    private final SubsystemRuntimeState runtimeState;
     private final SubsystemState subsystemState;
 
-    public CamelSubsystemAdd(SubsystemState subsystemState) {
+    public CamelSubsystemAdd(SubsystemState subsystemState, SubsystemRuntimeState runtimeState) {
+        this.runtimeState = runtimeState;
         this.subsystemState = subsystemState;
     }
 
@@ -93,8 +95,8 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
         CamelContextFactoryBindingService.addService(context.getServiceTarget());
         CamelContextRegistryService.addService(context.getServiceTarget(), subsystemState);
         CamelContextRegistryBindingService.addService(context.getServiceTarget());
-        CamelUndertowHostService.addService(context.getServiceTarget());
-        ContextCreateHandlerRegistryService.addService(context.getServiceTarget());
+        CamelUndertowHostService.addService(context.getServiceTarget(), runtimeState);
+        ContextCreateHandlerRegistryService.addService(context.getServiceTarget(), runtimeState);
 
         // Register deployment unit processors
         context.addStep(new AbstractDeploymentChainStep() {

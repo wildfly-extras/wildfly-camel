@@ -31,6 +31,7 @@ import org.apache.camel.component.undertow.UndertowConsumer;
 import org.apache.camel.component.undertow.UndertowEndpoint;
 import org.apache.camel.component.undertow.UndertowHost;
 import org.jboss.gravia.runtime.ServiceLocator;
+import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
 
 /**
  * An extension to the {@link UndertowComponent}
@@ -38,11 +39,17 @@ import org.jboss.gravia.runtime.ServiceLocator;
  * @author Thomas.Diesler@jboss.com
  * @since 30-Jul-2015
  */
-public class WildflyUndertowComponent extends UndertowComponent {
+public class WildFlyUndertowComponent extends UndertowComponent {
+
+    private final SubsystemRuntimeState runtimeState;
+
+    public WildFlyUndertowComponent(SubsystemRuntimeState runtimeState) {
+        this.runtimeState = runtimeState;
+    }
 
     @Override
     protected UndertowEndpoint createEndpointInstance(URI endpointUri, UndertowComponent component) throws URISyntaxException {
-        return new WildflyUndertowEndpoint(endpointUri.toString(), component);
+        return new WildFlyUndertowEndpoint(endpointUri.toString(), component);
     }
 
     @Override
@@ -50,21 +57,21 @@ public class WildflyUndertowComponent extends UndertowComponent {
         // do nothing
     }
 
-    class WildflyUndertowEndpoint extends UndertowEndpoint {
+    class WildFlyUndertowEndpoint extends UndertowEndpoint {
 
-        WildflyUndertowEndpoint(String uri, UndertowComponent component) throws URISyntaxException {
+        WildFlyUndertowEndpoint(String uri, UndertowComponent component) throws URISyntaxException {
             super(uri, component);
         }
 
         @Override
         public Consumer createConsumer(Processor processor) throws Exception {
-            return new WildflyUndertowUndertowConsumer(this, processor);
+            return new WildFlyUndertowUndertowConsumer(this, processor);
         }
     }
 
-    class WildflyUndertowUndertowConsumer extends UndertowConsumer {
+    class WildFlyUndertowUndertowConsumer extends UndertowConsumer {
 
-        WildflyUndertowUndertowConsumer(UndertowEndpoint endpoint, Processor processor) throws Exception {
+        WildFlyUndertowUndertowConsumer(UndertowEndpoint endpoint, Processor processor) throws Exception {
             super(endpoint, processor);
             URI uri = new URI(endpoint.getEndpointUri());
             String host = uri.getHost();
@@ -77,6 +84,22 @@ public class WildflyUndertowComponent extends UndertowComponent {
         @Override
         protected UndertowHost createUndertowHost() {
             return ServiceLocator.getRequiredService(UndertowHost.class);
+        }
+
+        @Override
+        protected void doStart() throws Exception {
+            super.doStart();
+            URI httpUri = getEndpoint().getHttpURI();
+            String contextPath = httpUri.getPath();
+            runtimeState.addHttpContext(contextPath);
+        }
+
+        @Override
+        protected void doStop() {
+            URI httpUri = getEndpoint().getHttpURI();
+            String contextPath = httpUri.getPath();
+            runtimeState.removeHttpContext(contextPath);
+            super.doStop();
         }
     }
 }
