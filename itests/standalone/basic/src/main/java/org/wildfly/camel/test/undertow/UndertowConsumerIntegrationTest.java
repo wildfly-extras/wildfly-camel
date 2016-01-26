@@ -29,11 +29,12 @@ import org.apache.camel.Consumer;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
-import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
@@ -42,38 +43,18 @@ import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.http.HttpRequest;
 import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
 import org.wildfly.camel.test.http4.subA.MyServlet;
-import org.wildfly.extension.camel.CamelAware;
 
-@CamelAware
 @RunWith(Arquillian.class)
-public class UndertowIntegrationTest {
+public class UndertowConsumerIntegrationTest {
+
+    @ArquillianResource
+    ManagementClient managementClient;
 
     @Deployment
     public static WebArchive createDeployment() {
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-undertow.war");
+        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "undertow-consumer.war");
         archive.addClasses(MyServlet.class, HttpRequest.class);
         return archive;
-    }
-
-    @Test
-    public void testHttpProducer() throws Exception {
-
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:start").to("undertow:http://localhost:8080/camel-undertow/myservlet");
-            }
-        });
-
-        camelctx.start();
-        try {
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            String result = producer.requestBodyAndHeader("direct:start", null, Exchange.HTTP_QUERY, "name=Kermit", String.class);
-            Assert.assertEquals("Hello Kermit", result);
-        } finally {
-            camelctx.stop();
-        }
     }
 
     @Test

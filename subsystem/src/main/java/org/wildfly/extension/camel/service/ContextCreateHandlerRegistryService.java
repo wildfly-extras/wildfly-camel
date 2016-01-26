@@ -41,6 +41,7 @@ import org.wildfly.extension.camel.handler.ContextValidationHandler;
 import org.wildfly.extension.camel.handler.ModelJAXBContextFactoryWrapperHandler;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.camel.handler.NamingContextAssociationHandler;
+import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
 import org.wildfly.extension.camel.handler.ComponentResolverAssociationHandler;
 
 /**
@@ -51,12 +52,17 @@ import org.wildfly.extension.camel.handler.ComponentResolverAssociationHandler;
  */
 public class ContextCreateHandlerRegistryService extends AbstractService<ContextCreateHandlerRegistry> {
 
+    private final SubsystemRuntimeState runtimeState;
     private ContextCreateHandlerRegistry createHandlerRegistry;
 
-    public static ServiceController<ContextCreateHandlerRegistry> addService(ServiceTarget serviceTarget) {
-        ContextCreateHandlerRegistryService service = new ContextCreateHandlerRegistryService();
+    public static ServiceController<ContextCreateHandlerRegistry> addService(ServiceTarget serviceTarget, SubsystemRuntimeState runtimeState) {
+        ContextCreateHandlerRegistryService service = new ContextCreateHandlerRegistryService(runtimeState);
         ServiceBuilder<ContextCreateHandlerRegistry> builder = serviceTarget.addService(CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_SERVICE_NAME, service);
         return builder.install();
+    }
+
+    private ContextCreateHandlerRegistryService(SubsystemRuntimeState runtimeState) {
+        this.runtimeState = runtimeState;
     }
 
     @Override
@@ -70,7 +76,7 @@ public class ContextCreateHandlerRegistryService extends AbstractService<Context
         return createHandlerRegistry;
     }
 
-    static final class ContextCreateHandlerRegistryImpl implements ContextCreateHandlerRegistry {
+    final class ContextCreateHandlerRegistryImpl implements ContextCreateHandlerRegistry {
 
         private final Map<ClassLoader, List<ContextCreateHandler>> handlerMapping = new HashMap<>();
 
@@ -79,7 +85,7 @@ public class ContextCreateHandlerRegistryService extends AbstractService<Context
             // Setup the default handlers
             addContextCreateHandler(null, new ModuleClassLoaderAssociationHandler());
             addContextCreateHandler(null, new ClassResolverAssociationHandler());
-            addContextCreateHandler(null, new ComponentResolverAssociationHandler());
+            addContextCreateHandler(null, new ComponentResolverAssociationHandler(runtimeState));
             addContextCreateHandler(null, new NamingContextAssociationHandler(serviceRegistry, serviceTarget));
             addContextCreateHandler(null, new ModelJAXBContextFactoryWrapperHandler());
             addContextCreateHandler(null, new ContextValidationHandler());
