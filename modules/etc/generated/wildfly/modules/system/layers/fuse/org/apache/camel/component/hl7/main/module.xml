@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.hl7">
   <resources>
-    <resource-root path="camel-hl7-2.16.2.jar" />
+    <resource-root path="camel-hl7-2.16.3-SNAPSHOT.jar" />
     <resource-root path="hapi-base-2.2.jar" />
     <resource-root path="hapi-structures-v24-2.2.jar" />
     <resource-root path="hapi-structures-v25-2.2.jar" />
