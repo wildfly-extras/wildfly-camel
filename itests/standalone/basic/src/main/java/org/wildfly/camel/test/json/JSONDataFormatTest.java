@@ -23,7 +23,6 @@ package org.wildfly.camel.test.json;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -55,35 +54,11 @@ public class JSONDataFormatTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .marshal().json();
+                .marshal().json(JsonLibrary.XStream);
             }
         });
 
         String expected = "{'" + Customer.class.getName() + "':{'firstName':'John','lastName':'Doe'}}";
-
-        camelctx.start();
-        try {
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            String result = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
-            Assert.assertEquals(expected.replace('\'', '"'), result);
-        } finally {
-            camelctx.stop();
-        }
-    }
-
-    @Test
-    public void testMarshalJackson() throws Exception {
-
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:start")
-                .marshal().json(JsonLibrary.Jackson);
-            }
-        });
-
-        String expected = "{'firstName':'John','lastName':'Doe'}";
 
         camelctx.start();
         try {
@@ -121,16 +96,38 @@ public class JSONDataFormatTest {
     }
 
     @Test
-    public void testUnmarshalJackson() throws Exception {
-
-        final JacksonDataFormat format = new JacksonDataFormat(Customer.class);
+    public void testMarshalJackson() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .unmarshal(format);
+                .marshal().json(JsonLibrary.Jackson);
+            }
+        });
+
+        String expected = "{'firstName':'John','lastName':'Doe'}";
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
+            Assert.assertEquals(expected.replace('\'', '"'), result);
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testUnmarshalJackson() throws Exception {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .unmarshal().json(JsonLibrary.Jackson, Customer.class);
             }
         });
 
