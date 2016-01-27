@@ -82,7 +82,6 @@
         <dependency>
             <groupId>org.jboss.ws</groupId>
             <artifactId>jbossws-api</artifactId>
-            <version>${version.jboss.jbossws.api}</version>
         </dependency>
         <dependency>
             <groupId>org.jvnet.mock-javamail</groupId>
