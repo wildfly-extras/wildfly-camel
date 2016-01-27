@@ -28,6 +28,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.converter.dozer.DozerBeanMapperConfiguration;
 import org.apache.camel.converter.dozer.DozerTypeConverterLoader;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -68,7 +69,7 @@ public class DozerIntegrationTest {
         mconfig.setMappingFiles(Arrays.asList(new String[] { DOZER_MAPPINGS_XML }));
         new DozerTypeConverterLoader(camelctx, mconfig);
 
-        CustomerA customerA = new CustomerA("Peter", "Post", "SomeStreet", "12345");
+        CustomerA customerA = new CustomerA("Peter", "Post", "Street", "12345");
 
         camelctx.start();
         try {
@@ -78,6 +79,57 @@ public class DozerIntegrationTest {
             Assert.assertEquals(customerA.getLastName(), result.getLastName());
             Assert.assertEquals(customerA.getStreet(), result.getAddress().getStreet());
             Assert.assertEquals(customerA.getZip(), result.getAddress().getZip());
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testUnmarshalJson() throws Exception {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .unmarshal().json(JsonLibrary.XStream, CustomerA.class);
+            }
+        });
+
+        String input = "{'" + CustomerA.class.getName() + "':{'firstName':'John','lastName':'Doe','street':'Street','zip':1234}}";
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            CustomerA customer = producer.requestBody("direct:start", input, CustomerA.class);
+            Assert.assertEquals("John", customer.getFirstName());
+            Assert.assertEquals("Doe", customer.getLastName());
+            Assert.assertEquals("Street", customer.getStreet());
+            Assert.assertEquals("1234", customer.getZip());
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testMarshalJson() throws Exception {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .marshal().json(JsonLibrary.XStream);
+            }
+        });
+
+        String expected = "{'" + CustomerB.class.getName() + "':{'firstName':'John','lastName':'Doe','address':{'street':'Street','zip':1234}}}";
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", new CustomerB("John", "Doe", new CustomerB.Address("Street", "1234")), String.class);
+            Assert.assertEquals(expected.replace('\'', '"'), result);
         } finally {
             camelctx.stop();
         }

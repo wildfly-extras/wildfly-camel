@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<camelContext id="dozer-spring-context" xmlns="http://camel.apache.org/schema/spring">
+		<endpoint id="json2obj"
+			uri="dozer:json2obj?mappingFile=dozer-mappings.xml&amp;unmarshalId=json&amp;targetModel=org.wildfly.camel.test.dozer.subA.CustomerB" />
+        <dataFormats>
+            <json library="XStream" id="json" unmarshalTypeName="org.wildfly.camel.test.dozer.subA.CustomerA" />
+        </dataFormats>
+		<route>
+			<from uri="direct:start" />
+			<to ref="json2obj" />
+		</route>
+	</camelContext>
+</beans>
