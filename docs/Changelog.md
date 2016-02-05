@@ -1,5 +1,45 @@
 ### Changelog
 
+#### WildFly-Camel 3.3.0
+
+**Features**
+
+* [#878][878] Allow Camel LoadBalancer to connect to clustered WildFly HTTP endpoints
+
+For details see [3.3.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"3.3.0"+label%3Afeature)
+
+**Tasks**
+
+* [#994][994] Update to camel-2.16.2
+* [#1005][1005] Restore ability for tests to run against OpenJDK
+* [#1009][1009] Review project dependencies
+* [#1023][1023] Update to fuse-patch-2.0.1
+* [#1040][1040] Upgrade hawtio to 1.4.60
+
+For details see [3.3.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"3.3.0"+label%3Atask)
+
+**Bugs**
+
+* [#978][978] Camel CDI does not work if the application is deployed from an EAR sub-module
+* [#1011][1011] Camel mail example itest should verify that test emails reach the target address
+* [#1013][1013] GroovyShellFactoryTest does not exercise CustomGroovyShellFactory class
+* [#1015][1015] EmbeddedZookeeperServer fails to delete temporary directories on Windows
+* [#1031][1031] SpringJdbcNamespaceTest expected message count assertion can fail sporadically
+
+For details see [3.3.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"3.3.0"+label%3Abug)
+
+[878]: https://github.com/wildfly-extras/wildfly-camel/issues/878
+[994]: https://github.com/wildfly-extras/wildfly-camel/issues/994
+[1005]: https://github.com/wildfly-extras/wildfly-camel/issues/1005
+[1009]: https://github.com/wildfly-extras/wildfly-camel/issues/1009
+[1023]: https://github.com/wildfly-extras/wildfly-camel/issues/1023
+[1040]: https://github.com/wildfly-extras/wildfly-camel/issues/1040
+[978]: https://github.com/wildfly-extras/wildfly-camel/issues/978
+[1011]: https://github.com/wildfly-extras/wildfly-camel/issues/1011
+[1013]: https://github.com/wildfly-extras/wildfly-camel/issues/1013
+[1015]: https://github.com/wildfly-extras/wildfly-camel/issues/1015
+[1031]: https://github.com/wildfly-extras/wildfly-camel/issues/1031
+
 #### WildFly-Camel 3.2.0
 
 **Features**
