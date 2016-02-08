@@ -15,5 +15,7 @@
         <include path="sun/misc/Unsafe" />
       </imports>
     </module>
+    <module name="com.google.guava" />
+    <module name="org.apache.lucene.internal" />
   </dependencies>
 </module>

@@ -132,6 +132,18 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.braintree">
+        <include artifact="org.apache.camel:camel-braintree" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.apache.servicemix.bundles" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.castor">
         <include artifact="org.apache.camel:camel-castor" />
         <include artifact=":castor-core" />
