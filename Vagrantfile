@@ -28,6 +28,7 @@ Vagrant.configure(2) do |config|
   #config.vm.network "forwarded_port", guest: 5000, host: 5000
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "forwarded_port", guest: 8443, host: 8443
+  config.vm.network "forwarded_port", guest: 2375, host: 2375
 
   config.vm.provider "virtualbox" do |vb|
      #   vb.gui = true

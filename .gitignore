@@ -2,6 +2,7 @@
 .classpath
 .project
 .settings
+.vagrant
 target
 *.iml
 .DS_Store
