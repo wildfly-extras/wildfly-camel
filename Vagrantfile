@@ -30,6 +30,18 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 8443, host: 8443
   config.vm.network "forwarded_port", guest: 2375, host: 2375
 
+docker_config = <<EOF
+  if ! grep 2375 /etc/sysconfig/docker > /dev/null || ! grep docker.sock /etc/sysconfig/docker > /dev/null; then
+    echo "Modifying /etc/sysconfig/docker"
+    sed -i "s/^OPTIONS.*/OPTIONS=\\'--selinux-enabled --storage-opt dm.no_warn_on_loop_devices=true --storage-opt dm.loopdatasize=30G -H tcp:\\/\\/0.0.0.0:2375 -H unix:\\/\\/\\/var\\/run\\/docker.sock\\'/g" /etc/sysconfig/docker
+
+    echo "Restarting docker daemon"
+    systemctl restart docker.service
+  fi
+EOF
+
+  config.vm.provision :shell, :privileged => true, :inline => docker_config
+
   config.vm.provider "virtualbox" do |vb|
      #   vb.gui = true
      vb.memory = "4096"
