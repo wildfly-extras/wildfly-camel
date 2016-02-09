@@ -35,8 +35,12 @@ docker_config = <<EOF
     echo "Modifying /etc/sysconfig/docker"
     sed -i "s/^OPTIONS.*/OPTIONS=\\'--selinux-enabled --storage-opt dm.no_warn_on_loop_devices=true --storage-opt dm.loopdatasize=30G -H tcp:\\/\\/0.0.0.0:2375 -H unix:\\/\\/\\/var\\/run\\/docker.sock\\'/g" /etc/sysconfig/docker
 
-    echo "Restarting docker daemon"
+    echo "Restarting services"
+    systemctl stop origin
+    docker rm -fv $(docker ps -qa) > /dev/null
     systemctl restart docker.service
+    /usr/bin/cloud-init modules --mode=final > /dev/null
+    systemctl start origin
   fi
 EOF
 
