@@ -34,6 +34,7 @@
 
     <!-- Properties -->
     <properties>
+        <jvmExtraArgs>-DTEST_PROPERTY=TestValue</jvmExtraArgs>
         <server.config>standalone.xml</server.config>
     </properties>
     

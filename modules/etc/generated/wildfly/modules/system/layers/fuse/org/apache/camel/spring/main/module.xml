@@ -9,6 +9,7 @@
     <module name="org.apache.camel.core" />
     <module name="org.springframework.beans" export="true">
       <exports>
+        <include path="org/springframework/beans/factory/config" />
         <exclude path="org/springframework/beans/annotation**" />
         <exclude path="org/springframework/beans/propertyeditors**" />
         <exclude path="org/springframework/beans/support**" />

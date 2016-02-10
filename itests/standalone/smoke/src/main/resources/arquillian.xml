@@ -30,7 +30,7 @@
         <configuration>
             <property name="jbossHome">${jboss.home}</property>
             <property name="serverConfig">${server.config}</property>
-            <property name="javaVmArguments">${jvmArgs} ${jvmDebugArgs}</property>
+            <property name="javaVmArguments">${jvmArgs} ${jvmDebugArgs} ${jvmExtraArgs}</property>
             <property name="allowConnectingToRunningServer">true</property>
         </configuration>
     </container>
