@@ -20,10 +20,11 @@
 
 package org.wildfly.camel.test.spring;
 
-import java.util.concurrent.TimeUnit;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.ProducerTemplate;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -54,14 +55,10 @@ public class SpringJdbcNamespaceTest {
         CamelContext camelctx = contextRegistry.getCamelContext("spring-jdbc");
         Assert.assertNotNull(camelctx);
 
-        MockEndpoint resultEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
-        resultEndpoint.expectedMessageCount(1);
+        ProducerTemplate template = camelctx.createProducerTemplate();
+        List<Map<?, ?>> result = template.requestBody("direct:start", "select name from jdbc_test", List.class);
+        Map<?, ?> row = result.get(0);
 
-        MockEndpoint.assertWait(5, TimeUnit.SECONDS, resultEndpoint);
-        resultEndpoint.assertIsSatisfied();
-
-        String result = resultEndpoint.getExchanges().get(0).getIn().getBody(String.class);
-
-        Assert.assertEquals("Hello kermit", result);
+        Assert.assertEquals("kermit", row.get("NAME"));
     }
 }

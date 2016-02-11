@@ -44,7 +44,6 @@ public class SpringPropertyPlaceholderTest {
     public static JavaArchive createDeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-spring-tests");
         archive.addAsResource("spring/property-placeholder-context.xml", "spring-camel-context.xml");
-        archive.addAsResource("classloading/test.properties", "test.properties");
         archive.addClass(PropertyValueBean.class);
         return archive;
     }

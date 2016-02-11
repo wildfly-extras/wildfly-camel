@@ -35,11 +35,8 @@
 
     <camelContext id="spring-jdbc">
         <route>
-            <from uri="sql:select name from jdbc_test?dataSource=#datasource&amp;consumer.initialDelay=500&amp;consumer.delay=60000"/>
-            <transform>
-                <simple>Hello ${body['NAME']}</simple>
-            </transform>
-            <to uri="mock:result" />
+            <from uri="direct:start" />
+            <to uri="sql://query?dataSource=#datasource&amp;useMessageBodyForSql=true"/>
         </route>
     </camelContext>
 
