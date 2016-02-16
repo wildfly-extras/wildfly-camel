@@ -27,16 +27,6 @@
         <include artifact=":cglib-nodep" />
     </module>
 
-    <module name="com.braintreepayments.gateway.braintree">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":braintree-java" />
-        <dependencies>
-            <module name="javax.api" />
-        </dependencies>
-    </module>
-
     <module name="com.fasterxml.jackson.dataformat.xml">
         <properties>
             <property name="jboss.api" value="private"/>

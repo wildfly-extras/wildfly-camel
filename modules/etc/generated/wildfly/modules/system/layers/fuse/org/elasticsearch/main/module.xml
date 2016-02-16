@@ -4,7 +4,7 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="elasticsearch-2.1.1.jar" />
+    <resource-root path="elasticsearch-2.2.0.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />
@@ -17,5 +17,6 @@
     </module>
     <module name="com.google.guava" />
     <module name="org.apache.lucene.internal" />
+    <module name="org.elasticsearch.securesm" />
   </dependencies>
 </module>

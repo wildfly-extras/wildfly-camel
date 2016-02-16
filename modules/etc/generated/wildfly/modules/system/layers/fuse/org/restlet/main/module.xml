@@ -4,8 +4,8 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="org.restlet-2.3.1.jar" />
-    <resource-root path="org.restlet.ext.httpclient-2.3.1.jar" />
+    <resource-root path="org.restlet-2.3.6.jar" />
+    <resource-root path="org.restlet.ext.httpclient-2.3.6.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />

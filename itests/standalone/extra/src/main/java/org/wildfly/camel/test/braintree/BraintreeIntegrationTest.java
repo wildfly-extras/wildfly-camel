@@ -58,7 +58,7 @@ import org.wildfly.extension.camel.CamelAware;
  *   CAMEL_BRAINTREE_PUBLIC_KEY=...
  *   CAMEL_BRAINTREE_PRIVATE_KEY=...
  */
-@Ignore("Requires Braintree tokens")
+@Ignore("Requires Braintree tokens #1058")
 @CamelAware
 @RunWith(Arquillian.class)
 public class BraintreeIntegrationTest {

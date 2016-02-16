@@ -3,10 +3,10 @@
   <resources>
     <resource-root path="camel-swagger-java-2.17-SNAPSHOT.jar" />
     <resource-root path="reflections-0.9.10.jar" />
-    <resource-root path="swagger-annotations-1.5.6.jar" />
-    <resource-root path="swagger-core-1.5.6.jar" />
-    <resource-root path="swagger-jaxrs-1.5.6.jar" />
-    <resource-root path="swagger-models-1.5.6.jar" />
+    <resource-root path="swagger-annotations-1.5.7.jar" />
+    <resource-root path="swagger-core-1.5.7.jar" />
+    <resource-root path="swagger-jaxrs-1.5.7.jar" />
+    <resource-root path="swagger-models-1.5.7.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />

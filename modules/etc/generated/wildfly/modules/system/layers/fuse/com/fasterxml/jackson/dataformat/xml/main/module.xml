@@ -4,7 +4,7 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="jackson-dataformat-xml-2.7.0.jar" />
+    <resource-root path="jackson-dataformat-xml-2.7.1.jar" />
   </resources>
   <dependencies>
     <module name="com.fasterxml.jackson.core.jackson-annotations" />

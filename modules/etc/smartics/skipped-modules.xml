@@ -48,6 +48,12 @@
         <include artifact="ch.qos.logback:logback-core" />
     </module>
     
+    <!--
+    <module name="com.braintreepayments.gateway.braintree" skip="true">
+        <include artifact=":braintree-java" />
+    </module>
+    -->
+
     <module name="com.carrotsearch.hppc" skip="true">
         <include artifact="com.carrotsearch:hppc" />
     </module>

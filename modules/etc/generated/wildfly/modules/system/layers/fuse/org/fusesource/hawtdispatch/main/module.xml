@@ -4,8 +4,8 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="hawtdispatch-1.21.jar" />
-    <resource-root path="hawtdispatch-transport-1.21.jar" />
+    <resource-root path="hawtdispatch-1.22.jar" />
+    <resource-root path="hawtdispatch-transport-1.22.jar" />
   </resources>
   <dependencies>
     <module name="org.fusesource.hawtbuf" />

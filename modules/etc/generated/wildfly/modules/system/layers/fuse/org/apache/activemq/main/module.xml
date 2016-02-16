@@ -4,12 +4,12 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="activemq-broker-5.12.1.jar" />
-    <resource-root path="activemq-client-5.12.1.jar" />
-    <resource-root path="activemq-jms-pool-5.12.1.jar" />
-    <resource-root path="activemq-openwire-legacy-5.12.1.jar" />
-    <resource-root path="activemq-pool-5.12.1.jar" />
-    <resource-root path="activemq-spring-5.12.1.jar" />
+    <resource-root path="activemq-broker-5.13.1.jar" />
+    <resource-root path="activemq-client-5.13.1.jar" />
+    <resource-root path="activemq-jms-pool-5.13.1.jar" />
+    <resource-root path="activemq-openwire-legacy-5.13.1.jar" />
+    <resource-root path="activemq-pool-5.13.1.jar" />
+    <resource-root path="activemq-spring-5.13.1.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />
