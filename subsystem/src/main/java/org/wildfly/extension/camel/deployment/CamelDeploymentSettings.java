@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.jboss.as.server.deployment.AttachmentKey;
+import org.jboss.modules.ModuleIdentifier;
 
 /**
  * Created by chirino on 2/23/15.
@@ -33,25 +34,21 @@ public final class CamelDeploymentSettings {
     public static final AttachmentKey<CamelDeploymentSettings> ATTACHMENT_KEY = AttachmentKey.create(CamelDeploymentSettings.class);
 
     private boolean enabled;
-    private ArrayList<String> modules = new ArrayList<>();
+    private List<ModuleIdentifier> dependencies = new ArrayList<>();
 
     public boolean isEnabled() {
         return enabled;
-    }
-
-    public List<String> getModules() {
-        return Collections.unmodifiableList(modules);
     }
 
     void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
-    void addModule(String module) {
-        modules.add(module);
+    public List<ModuleIdentifier> getModuleDependencies() {
+        return Collections.unmodifiableList(dependencies);
     }
 
-    void setModules(List<String> value) {
-        this.modules = new ArrayList<>(value);
+    void addModuleDependency(String moduleSpec) {
+        dependencies.add(ModuleIdentifier.create(moduleSpec));
     }
 }

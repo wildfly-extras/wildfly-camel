@@ -21,6 +21,7 @@
   -->
 <server-provisioning xmlns="urn:wildfly:server-provisioning:1.0">
     <feature-packs>
-        <feature-pack groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-pack" version="${project.version}"/>
+        <feature-pack groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-core" version="${project.version}"/>
+        <feature-pack groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-full" version="${project.version}"/>
     </feature-packs>
 </server-provisioning>

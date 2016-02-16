@@ -61,7 +61,7 @@ public final class SubsystemState  {
         }
     }
 
-    public List<ModuleIdentifier> getComponentIds() {
+    public List<ModuleIdentifier> getModuleDependencies() {
         return Collections.unmodifiableList(componentIds);
     }
 

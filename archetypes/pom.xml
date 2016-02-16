@@ -49,7 +49,7 @@
     <dependencies>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-feature-pack</artifactId>
+            <artifactId>wildfly-camel-feature-full</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
             <type>pom</type>

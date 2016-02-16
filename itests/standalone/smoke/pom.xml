@@ -38,6 +38,15 @@
         <server.config>standalone.xml</server.config>
     </properties>
     
+    <dependencies>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-feature-core</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
+    
     <build>
         <plugins>
             <plugin>

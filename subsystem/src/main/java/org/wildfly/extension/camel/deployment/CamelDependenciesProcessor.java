@@ -29,6 +29,7 @@ import org.jboss.as.server.deployment.DeploymentUnitProcessor;
 import org.jboss.as.server.deployment.module.ModuleDependency;
 import org.jboss.as.server.deployment.module.ModuleSpecification;
 import org.jboss.modules.ModuleIdentifier;
+import org.jboss.modules.ModuleLoadException;
 import org.jboss.modules.ModuleLoader;
 import org.jboss.modules.filter.PathFilters;
 import org.wildfly.extension.camel.parser.SubsystemState;
@@ -73,36 +74,37 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
         moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
         moduleSpec.addUserDependency(moddep);
 
-        List<String> deploymentDefinedModules = depSettings.getModules();
-        if (!deploymentDefinedModules.isEmpty()) {
-            for (String name : deploymentDefinedModules) {
-                moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(name), false, false, true, false));
+        List<ModuleIdentifier> modids = depSettings.getModuleDependencies();
+        modids = modids.isEmpty() ? subsystemState.getModuleDependencies() : modids;
+
+        for (ModuleIdentifier modid : modids) {
+            try {
+                moduleLoader.loadModule(modid);
+            } catch (ModuleLoadException ex) {
+                continue;
             }
-        } else {
-            for (ModuleIdentifier modid : subsystemState.getComponentIds()) {
-                if ("org.apache.camel.component.cdi".equals(modid.getName())) {
-                    moddep = new ModuleDependency(moduleLoader, modid, false, false, false, false);
-                    moddep.addImportFilter(PathFilters.getMetaInfSubdirectoriesFilter(), true);
-                    moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
-                    moduleSpec.addUserDependency(moddep);
-                    moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create("org.apache.deltaspike.core.api"), false, false, false, false);
-                    moddep.addImportFilter(PathFilters.getMetaInfSubdirectoriesFilter(), true);
-                    moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
-                    moduleSpec.addUserDependency(moddep);
-                    moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create("org.apache.deltaspike.core.impl"), false, false, false, false);
-                    moddep.addImportFilter(PathFilters.getMetaInfSubdirectoriesFilter(), true);
-                    moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
-                    moduleSpec.addUserDependency(moddep);
-                } else if ("org.apache.camel.component.cxf".equals(modid.getName())) {
-                    moddep = new ModuleDependency(moduleLoader, modid, false, false, true, false);
-                    moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
-                    moddep.addImportFilter(PathFilters.isOrIsChildOf("META-INF/cxf"), true);
-                    moduleSpec.addUserDependency(moddep);
-                } else {
-                    moddep = new ModuleDependency(moduleLoader, modid, false, false, true, false);
-                    moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
-                    moduleSpec.addUserDependency(moddep);
-                }
+            if ("org.apache.camel.component.cdi".equals(modid.getName())) {
+                moddep = new ModuleDependency(moduleLoader, modid, false, false, false, false);
+                moddep.addImportFilter(PathFilters.getMetaInfSubdirectoriesFilter(), true);
+                moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
+                moduleSpec.addUserDependency(moddep);
+                moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create("org.apache.deltaspike.core.api"), false, false, false, false);
+                moddep.addImportFilter(PathFilters.getMetaInfSubdirectoriesFilter(), true);
+                moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
+                moduleSpec.addUserDependency(moddep);
+                moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create("org.apache.deltaspike.core.impl"), false, false, false, false);
+                moddep.addImportFilter(PathFilters.getMetaInfSubdirectoriesFilter(), true);
+                moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
+                moduleSpec.addUserDependency(moddep);
+            } else if ("org.apache.camel.component.cxf".equals(modid.getName())) {
+                moddep = new ModuleDependency(moduleLoader, modid, false, false, true, false);
+                moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
+                moddep.addImportFilter(PathFilters.isOrIsChildOf("META-INF/cxf"), true);
+                moduleSpec.addUserDependency(moddep);
+            } else {
+                moddep = new ModuleDependency(moduleLoader, modid, false, false, true, false);
+                moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
+                moduleSpec.addUserDependency(moddep);
             }
         }
     }

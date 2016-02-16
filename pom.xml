@@ -137,9 +137,8 @@
     <modules>
         <module>config</module>
         <module>docs</module>
-        <module>feature-pack</module>
         <module>modules</module>
-        <module>patch</module>
+        <module>features</module>
         <module>subsystem</module>
         <module>testenricher</module>
         <module>itests</module>
@@ -854,6 +853,7 @@
                 <module>archetypes</module>
                 <module>examples</module>
                 <module>compatibility</module>
+                <module>patch</module>
             </modules>
         </profile>
     </profiles>
