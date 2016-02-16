@@ -135,7 +135,6 @@
 
     <!-- Modules -->
     <modules>
-        <module>archetypes</module>
         <module>config</module>
         <module>docs</module>
         <module>feature-pack</module>
@@ -852,6 +851,7 @@
                 </property>
             </activation>
             <modules>
+                <module>archetypes</module>
                 <module>examples</module>
                 <module>compatibility</module>
             </modules>

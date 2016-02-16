@@ -25,7 +25,6 @@
         <include artifact=":gravia-container-wildfly-extension" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel" />
-            <include module="org.apache.camel.component" />
             <include module="org.apache.camel.component.cdi" />
             <include module="org.apache.camel.core" />
             <include module="org.apache.camel.core.xml" />
@@ -42,7 +41,6 @@
         <dependencies>
             <module name="javax.api"/>
             <module name="org.apache.camel" services="export"/>
-            <module name="org.apache.camel.component" services="export"/>
             <module name="org.apache.camel.spring"/>
             <module name="org.jboss.as.controller"/>
             <module name="org.jboss.as.ee"/>
