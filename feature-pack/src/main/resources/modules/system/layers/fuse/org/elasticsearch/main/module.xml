@@ -17,5 +17,6 @@
     </module>
     <module name="com.google.guava" />
     <module name="org.apache.lucene.internal" />
+    <module name="org.elasticsearch.securesm" />
   </dependencies>
 </module>
