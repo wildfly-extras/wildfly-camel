@@ -99,8 +99,16 @@ public class KafkaProducerIntegrationTest {
 
     @AfterClass
     public static void after() throws Exception {
-        embeddedKafkaCluster.shutdown();
-        embeddedZookeeper.shutdown();
+        try {
+            embeddedKafkaCluster.shutdown();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        try {
+            embeddedZookeeper.shutdown();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Test

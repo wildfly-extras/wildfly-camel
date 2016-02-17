@@ -25,6 +25,7 @@
         <module name="org.apache.camel.component.activemq" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.atom" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.bindy" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.braintree" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.castor" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.crypto" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.csv" export="true" services="export" optional="true" />
