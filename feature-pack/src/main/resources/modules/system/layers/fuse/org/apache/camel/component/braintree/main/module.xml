@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.braintree">
+  <resources>
+    <artifact name="${com.braintreepayments.gateway:braintree-java}" />
+    <artifact name="${com.braintreepayments.gateway:braintree-java}" />
+    <artifact name="${org.apache.camel:camel-braintree}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.lang3" />
+  </dependencies>
+  <exports>
+    <exclude path="com/braintreegateway**" />
+    <exclude path="org/apache/camel/component/braintree/internal" />
+  </exports>
+</module>
