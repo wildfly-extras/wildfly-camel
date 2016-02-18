@@ -2,7 +2,7 @@
 <module xmlns="urn:jboss:module:1.1" name="org.wildfly.extension.camel">
   <resources>
     <artifact name="${org.jboss.gravia:gravia-container-wildfly-extension}" />
-    <artifact name="${org.wildfly.camel:wildfly-camel-subsystem}" />
+    <artifact name="${org.wildfly.camel:wildfly-camel-subsystem-core}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
@@ -20,13 +20,12 @@
     <module name="org.jboss.msc" />
     <module name="org.jboss.staxmapper" />
     <module name="org.jboss.vfs" />
-    <module name="org.jboss.as.weld" />
-    <module name="org.jboss.weld.spi" />
     <module name="org.picketbox" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.core" />
     <module name="org.springframework.context" />
     <module name="org.springframework.tx" />
+    <module name="org.wildfly.extension.camel.cdi" services="export" optional="true" />
     <module name="io.undertow.servlet" />
     <module name="org.slf4j" />
     <module name="org.apache.camel.component.undertow" />
@@ -34,8 +33,4 @@
     <module name="org.springframework.security" />
     <module name="org.wildfly.extension.undertow" />
   </dependencies>
-  <exports>
-    <exclude path="org/wildfly/extension/camel/deployment" />
-    <exclude path="org/wildfly/extension/camel/service" />
-  </exports>
 </module>

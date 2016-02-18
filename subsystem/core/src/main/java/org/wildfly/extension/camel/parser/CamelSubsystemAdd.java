@@ -20,6 +20,9 @@
 
 package org.wildfly.extension.camel.parser;
 
+import java.util.ServiceLoader;
+import java.util.function.Consumer;
+
 import org.jboss.as.controller.AbstractBoottimeAddStepHandler;
 import org.jboss.as.controller.OperationContext;
 import org.jboss.as.server.AbstractDeploymentChainStep;
@@ -27,7 +30,6 @@ import org.jboss.as.server.DeploymentProcessorTarget;
 import org.jboss.as.server.deployment.Phase;
 import org.jboss.as.server.deployment.jbossallxml.JBossAllXmlParserRegisteringProcessor;
 import org.jboss.dmr.ModelNode;
-import org.wildfly.extension.camel.deployment.CamelCdiBeanArchiveProcessor;
 import org.wildfly.extension.camel.deployment.CamelContextActivationProcessor;
 import org.wildfly.extension.camel.deployment.CamelContextCreateProcessor;
 import org.wildfly.extension.camel.deployment.CamelContextDescriptorsProcessor;
@@ -36,6 +38,7 @@ import org.wildfly.extension.camel.deployment.CamelDeploymentSettings;
 import org.wildfly.extension.camel.deployment.CamelEnablementProcessor;
 import org.wildfly.extension.camel.deployment.CamelIntegrationParser;
 import org.wildfly.extension.camel.deployment.CamelIntegrationProcessor;
+import org.wildfly.extension.camel.deployment.DeploymentUnitProcessorPlugin;
 import org.wildfly.extension.camel.deployment.PackageScanResolverProcessor;
 import org.wildfly.extension.camel.service.CamelBootstrapService;
 import org.wildfly.extension.camel.service.CamelContextFactoryBindingService;
@@ -52,7 +55,7 @@ import org.wildfly.extension.gravia.parser.GraviaSubsystemBootstrap;
  * @author Thomas.Diesler@jboss.com
  * @since 19-Apr-2013
  */
-final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
+public final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
 
     public static final int STRUCTURE_REGISTER_CAMEL_INTEGRATION = Phase.STRUCTURE_PARSE_JBOSS_ALL_XML - 0x01;
 
@@ -101,7 +104,7 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
         // Register deployment unit processors
         context.addStep(new AbstractDeploymentChainStep() {
             @Override
-            public void execute(DeploymentProcessorTarget processorTarget) {
+            public void execute(final DeploymentProcessorTarget processorTarget) {
                 gravia.addDeploymentUnitProcessors(processorTarget);
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.STRUCTURE, STRUCTURE_REGISTER_CAMEL_INTEGRATION, parser);
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_CAMEL_INTEGRATION, new CamelIntegrationProcessor());
@@ -110,8 +113,13 @@ final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_CAMEL_WIRINGS, new CamelDependenciesProcessor(subsystemState));
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_CAMEL_CONTEXT_CREATE, new CamelContextCreateProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_PACKAGE_SCAN_RESOLVER, new PackageScanResolverProcessor());
-                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CDI_BEAN_ARCHIVE_PROCESSOR, new CamelCdiBeanArchiveProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CONTEXT_ACTIVATION, new CamelContextActivationProcessor());
+                ServiceLoader.load(DeploymentUnitProcessorPlugin.class).iterator().forEachRemaining(new Consumer<DeploymentUnitProcessorPlugin>() {
+                    @Override
+                    public void accept(DeploymentUnitProcessorPlugin plugin) {
+                        plugin.addDeploymentProcessor(processorTarget, subsystemState);
+                    }
+                });
             }
         }, OperationContext.Stage.RUNTIME);
     }

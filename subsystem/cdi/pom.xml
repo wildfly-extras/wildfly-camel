@@ -25,17 +25,38 @@
 
     <parent>
         <groupId>org.wildfly.camel</groupId>
-        <artifactId>wildfly-camel</artifactId>
+        <artifactId>wildfly-camel-subsystem</artifactId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
 
-    <name>Wildfly Camel :: Subsystem</name>
+    <name>Wildfly Camel :: Subsystem :: CDI</name>
     
-    <artifactId>wildfly-camel-subsystem</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>wildfly-camel-subsystem-cdi</artifactId>
 
-    <modules>
-        <module>core</module>
-        <module>cdi</module>
-    </modules>
+    <dependencies>
+    
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-subsystem-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Provided -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-cdi</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-weld</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.core</groupId>
+            <artifactId>wildfly-server</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
 </project>

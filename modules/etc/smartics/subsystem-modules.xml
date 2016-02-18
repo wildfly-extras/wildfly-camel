@@ -21,7 +21,7 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
     <module name="org.wildfly.extension.camel">
-        <include artifact=":wildfly-camel-subsystem" />
+        <include artifact=":wildfly-camel-subsystem-core" />
         <include artifact=":gravia-container-wildfly-extension" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel" />
@@ -54,20 +54,28 @@
             <module name="org.jboss.msc"/>
             <module name="org.jboss.staxmapper"/>
             <module name="org.jboss.vfs"/>
-            <module name="org.jboss.as.weld"/>
-            <module name="org.jboss.weld.spi"/>
             <module name="org.picketbox"/>
             <module name="org.springframework.beans"/>
             <module name="org.springframework.core"/>
             <module name="org.springframework.context"/>
             <module name="org.springframework.tx"/>
+            <module name="org.wildfly.extension.camel.cdi" services="export" optional="true"/>
             <module name="io.undertow.servlet"/>
             <module name="org.slf4j"/>
         </dependencies>
-        <exports>
-            <exclude path="org/wildfly/extension/camel/deployment"/>
-            <exclude path="org/wildfly/extension/camel/service"/>
-        </exports>
+    </module>
+    
+    <module name="org.wildfly.extension.camel.cdi">
+        <include artifact=":wildfly-camel-subsystem-cdi" />
+        <apply-to-dependencies skip="true">
+            <include module="org.wildfly.server" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.jboss.as.ee"/>
+            <module name="org.jboss.as.server"/>
+            <module name="org.jboss.as.weld"/>
+            <module name="org.jboss.weld.spi"/>
+        </dependencies>
     </module>
     
     <module name="org.wildfly.extras.config.plugin.camel">

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.wildfly.extension.camel.cdi">
+  <resources>
+    <artifact name="${org.wildfly.camel:wildfly-camel-subsystem-cdi}" />
+  </resources>
+  <dependencies>
+    <module name="org.jboss.as.ee" />
+    <module name="org.jboss.as.server" />
+    <module name="org.jboss.as.weld" />
+    <module name="org.jboss.weld.spi" />
+    <module name="org.apache.camel.component.cdi" />
+    <module name="org.wildfly.extension.camel" />
+  </dependencies>
+</module>
