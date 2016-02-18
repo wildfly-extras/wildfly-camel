@@ -25,18 +25,38 @@
 
     <parent>
         <groupId>org.wildfly.camel</groupId>
-        <artifactId>wildfly-camel</artifactId>
+        <artifactId>wildfly-camel-subsystem</artifactId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
 
-    <name>Wildfly Camel :: Subsystem</name>
+    <name>Wildfly Camel :: Subsystem :: Undertow</name>
     
-    <artifactId>wildfly-camel-subsystem</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>wildfly-camel-subsystem-undertow</artifactId>
 
-    <modules>
-        <module>core</module>
-        <module>cdi</module>
-        <module>undertow</module>
-    </modules>
+    <dependencies>
+    
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-subsystem-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- Provided -->
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-undertow</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-undertow</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.gravia</groupId>
+            <artifactId>gravia-container-wildfly-extension</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
 </project>

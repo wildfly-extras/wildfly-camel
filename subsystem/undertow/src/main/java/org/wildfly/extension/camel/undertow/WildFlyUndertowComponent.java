@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.extension.camel.component;
+package org.wildfly.extension.camel.undertow;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 

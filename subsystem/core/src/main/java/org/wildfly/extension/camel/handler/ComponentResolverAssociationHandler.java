@@ -20,12 +20,15 @@
 
 package org.wildfly.extension.camel.handler;
 
+import java.util.Iterator;
+import java.util.ServiceLoader;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spi.ComponentResolver;
+import org.wildfly.extension.camel.CamelSubsytemExtension;
 import org.wildfly.extension.camel.ContextCreateHandler;
-import org.wildfly.extension.camel.component.WildFlyUndertowComponent;
 import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
 
 /**
@@ -61,11 +64,13 @@ public final class ComponentResolverAssociationHandler implements ContextCreateH
 
         @Override
         public Component resolveComponent(String name, CamelContext context) throws Exception {
-            if ("undertow".equals(name)) {
-                return new WildFlyUndertowComponent(runtimeState);
-            } else {
-                return delegate.resolveComponent(name, context);
+            Component component = null;
+            Iterator<CamelSubsytemExtension> iterator = ServiceLoader.load(CamelSubsytemExtension.class).iterator();
+            for (; iterator.hasNext() && component == null;) {
+                CamelSubsytemExtension plugin = iterator.next();
+                component = plugin.resolveComponent(name, runtimeState);
             }
+            return component != null ? component : delegate.resolveComponent(name, context);
         }
     }
 }

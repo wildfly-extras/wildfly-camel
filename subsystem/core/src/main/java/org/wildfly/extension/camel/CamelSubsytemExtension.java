@@ -19,13 +19,29 @@
  */
 
 
-package org.wildfly.extension.camel.deployment;
+package org.wildfly.extension.camel;
 
+import org.apache.camel.Component;
 import org.jboss.as.server.DeploymentProcessorTarget;
+import org.jboss.msc.service.ServiceTarget;
+import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
 import org.wildfly.extension.camel.parser.SubsystemState;
 
-public interface DeploymentUnitProcessorPlugin {
+/**
+ * A subsystem extension service
+ *
+ * @author Thomas.Diesler@jboss.com
+ * @since 18-Feb-2016
+ */
+public interface CamelSubsytemExtension {
 
-    public void addDeploymentProcessor(DeploymentProcessorTarget processorTarget, SubsystemState subsystemState);
+    public default void addDeploymentProcessor(DeploymentProcessorTarget processorTarget, SubsystemState subsystemState) {
+    }
 
+    public default void addService(ServiceTarget serviceTarget, SubsystemRuntimeState runtimeState) {
+    }
+
+    public default Component resolveComponent(String name, SubsystemRuntimeState runtimeState) {
+        return null;
+    }
 }
