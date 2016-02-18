@@ -7,39 +7,21 @@
     <module name="javax.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.springframework.beans" export="true">
-      <exports>
-        <include path="org/springframework/beans/factory/config" />
-        <exclude path="org/springframework/beans/annotation**" />
-        <exclude path="org/springframework/beans/propertyeditors**" />
-        <exclude path="org/springframework/beans/support**" />
-        <exclude path="org/springframework/beans/factory/**" />
-      </exports>
-    </module>
+    <module name="org.springframework.beans" export="true" />
     <module name="org.springframework.context" />
     <module name="org.springframework.core" />
-    <module name="org.springframework.jdbc" export="true">
+    <module name="org.springframework.jdbc" export="true" optional="true">
       <imports>
         <include path="META-INF" />
       </imports>
       <exports>
         <include path="META-INF" />
-        <include path="org/springframework/jdbc/config" />
-        <exclude path="org/springframework/jdbc**" />
       </exports>
     </module>
-    <module name="org.springframework.tx" export="true">
-      <exports>
-        <exclude path="org/springframework/dao**" />
-        <exclude path="org/springframework/jca**" />
-      </exports>
-    </module>
+    <module name="org.springframework.tx" export="true" />
     <module name="org.slf4j" />
   </dependencies>
   <exports>
-    <exclude path="org/apache/camel/component/event**" />
-    <exclude path="org/apache/camel/core**" />
-    <exclude path="org/apache/camel/language/spel**" />
     <exclude path="org/apache/camel/osgi**" />
   </exports>
 </module>
