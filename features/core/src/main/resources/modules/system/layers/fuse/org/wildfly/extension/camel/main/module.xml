@@ -26,11 +26,9 @@
     <module name="org.springframework.context" />
     <module name="org.springframework.tx" />
     <module name="org.wildfly.extension.camel.cdi" services="export" optional="true" />
-    <module name="io.undertow.servlet" />
+    <module name="org.wildfly.extension.camel.undertow" services="export" optional="true" />
     <module name="org.slf4j" />
-    <module name="org.apache.camel.component.undertow" />
     <module name="org.jboss.gravia" />
     <module name="org.springframework.security" />
-    <module name="org.wildfly.extension.undertow" />
   </dependencies>
 </module>

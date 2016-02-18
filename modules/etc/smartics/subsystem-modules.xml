@@ -60,7 +60,7 @@
             <module name="org.springframework.context"/>
             <module name="org.springframework.tx"/>
             <module name="org.wildfly.extension.camel.cdi" services="export" optional="true"/>
-            <module name="io.undertow.servlet"/>
+            <module name="org.wildfly.extension.camel.undertow" services="export" optional="true"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -75,6 +75,18 @@
             <module name="org.jboss.as.server"/>
             <module name="org.jboss.as.weld"/>
             <module name="org.jboss.weld.spi"/>
+        </dependencies>
+    </module>
+    
+    <module name="org.wildfly.extension.camel.undertow">
+        <include artifact=":wildfly-camel-subsystem-undertow" />
+        <apply-to-dependencies skip="true">
+            <include module="org.wildfly.server" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.apache.camel.core"/>
+            <module name="org.jboss.as.server"/>
+            <module name="io.undertow.servlet"/>
         </dependencies>
     </module>
     

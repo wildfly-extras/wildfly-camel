@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.extension.camel.service;
+package org.wildfly.extension.camel.undertow;
 
 import java.net.InetAddress;
 import java.net.MalformedURLException;

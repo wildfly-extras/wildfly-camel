@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.wildfly.extension.camel.undertow">
+  <resources>
+    <artifact name="${org.wildfly.camel:wildfly-camel-subsystem-undertow}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.camel.core" />
+    <module name="org.jboss.as.server" />
+    <module name="io.undertow.servlet" />
+    <module name="org.apache.camel.component.undertow" />
+    <module name="org.wildfly.extension.camel" />
+    <module name="org.wildfly.extension.undertow" />
+  </dependencies>
+</module>
