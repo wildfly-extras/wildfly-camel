@@ -17,19 +17,22 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.extension.camel.cdi;
+package org.wildfly.extension.camel.undertow;
 
-import org.jboss.as.server.DeploymentProcessorTarget;
-import org.jboss.as.server.deployment.Phase;
+import org.apache.camel.Component;
+import org.jboss.msc.service.ServiceTarget;
 import org.wildfly.extension.camel.CamelSubsytemExtension;
-import org.wildfly.extension.camel.parser.CamelExtension;
-import org.wildfly.extension.camel.parser.CamelSubsystemAdd;
-import org.wildfly.extension.camel.parser.SubsystemState;
+import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
 
-public class SubsystemCDIExtenstion implements CamelSubsytemExtension {
+public class UndertowSubsystemExtension implements CamelSubsytemExtension {
 
     @Override
-    public void addDeploymentProcessor(DeploymentProcessorTarget processorTarget, SubsystemState subsystemState) {
-        processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, CamelSubsystemAdd.INSTALL_CDI_BEAN_ARCHIVE_PROCESSOR, new CDIBeanArchiveProcessor());
+    public void addExtensionServices(ServiceTarget serviceTarget, SubsystemRuntimeState runtimeState) {
+        CamelUndertowHostService.addService(serviceTarget, runtimeState);
+    }
+
+    @Override
+    public Component resolveComponent(String name, SubsystemRuntimeState runtimeState) {
+        return name.equals("undertow") ? new WildFlyUndertowComponent(runtimeState) : null;
     }
 }

@@ -20,13 +20,12 @@
 
 package org.wildfly.camel.test.spring;
 
-import javax.annotation.Resource;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.ServiceStatus;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -34,12 +33,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.types.HelloBean;
+import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
 public class SpringBeanDeploymentTest {
 
-    @Resource(name = "java:jboss/camel/context/spring-context")
-    CamelContext camelContext;
+    @ArquillianResource
+    CamelContextRegistry contextRegistry;
 
     @Deployment
     public static JavaArchive createdeployment() {
@@ -52,6 +52,7 @@ public class SpringBeanDeploymentTest {
 
     @Test
     public void testBeanTransformFromModule() throws Exception {
+        CamelContext camelContext = contextRegistry.getCamelContext("spring-context");
         Assert.assertNotNull("CamelContext not null", camelContext);
         Assert.assertEquals(ServiceStatus.Started, camelContext.getStatus());
         ProducerTemplate producer = camelContext.createProducerTemplate();

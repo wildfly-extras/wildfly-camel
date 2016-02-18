@@ -40,7 +40,7 @@ public final class CamelDeploymentSettings {
         return enabled;
     }
 
-    void setEnabled(boolean enabled) {
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -48,7 +48,7 @@ public final class CamelDeploymentSettings {
         return Collections.unmodifiableList(dependencies);
     }
 
-    void addModuleDependency(String moduleSpec) {
+    public void addModuleDependency(String moduleSpec) {
         dependencies.add(ModuleIdentifier.create(moduleSpec));
     }
 }

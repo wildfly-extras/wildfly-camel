@@ -29,6 +29,7 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spi.ComponentResolver;
 import org.wildfly.extension.camel.CamelSubsytemExtension;
 import org.wildfly.extension.camel.ContextCreateHandler;
+import org.wildfly.extension.camel.parser.CamelSubsystemAdd;
 import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
 
 /**
@@ -65,7 +66,8 @@ public final class ComponentResolverAssociationHandler implements ContextCreateH
         @Override
         public Component resolveComponent(String name, CamelContext context) throws Exception {
             Component component = null;
-            Iterator<CamelSubsytemExtension> iterator = ServiceLoader.load(CamelSubsytemExtension.class).iterator();
+            ClassLoader classLoader = CamelSubsystemAdd.class.getClassLoader();
+            Iterator<CamelSubsytemExtension> iterator = ServiceLoader.load(CamelSubsytemExtension.class, classLoader).iterator();
             for (; iterator.hasNext() && component == null;) {
                 CamelSubsytemExtension plugin = iterator.next();
                 component = plugin.resolveComponent(name, runtimeState);

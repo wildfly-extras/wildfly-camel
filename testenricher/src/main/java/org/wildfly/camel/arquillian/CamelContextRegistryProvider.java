@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,16 +21,13 @@ package org.wildfly.camel.arquillian;
 
 import java.lang.annotation.Annotation;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 import org.jboss.arquillian.core.api.Instance;
 import org.jboss.arquillian.core.api.InstanceProducer;
 import org.jboss.arquillian.core.api.annotation.Inject;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.test.spi.annotation.SuiteScoped;
 import org.jboss.arquillian.test.spi.enricher.resource.ResourceProvider;
-import org.wildfly.extension.camel.CamelConstants;
+import org.jboss.gravia.runtime.ServiceLocator;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 /**
@@ -57,16 +54,8 @@ public class CamelContextRegistryProvider implements ResourceProvider {
     @Override
     public Object lookup(ArquillianResource resource, Annotation... qualifiers) {
         if (serviceInstance.get() == null) {
-            CamelContextRegistry service;
-            try {
-                InitialContext initialContext = new InitialContext();
-                service = (CamelContextRegistry) initialContext.lookup(CamelConstants.CAMEL_CONTEXT_REGISTRY_BINDING_NAME);
-            } catch (NamingException ex) {
-                throw new IllegalStateException(ex);
-            }
-            if (service != null) {
-                serviceProducer.set(service);
-            }
+            CamelContextRegistry service = ServiceLocator.getRequiredService(CamelContextRegistry.class);
+            serviceProducer.set(service);
         }
         return serviceInstance.get();
     }

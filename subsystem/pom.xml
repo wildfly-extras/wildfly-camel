@@ -37,6 +37,7 @@
     <modules>
         <module>core</module>
         <module>cdi</module>
+        <module>ee</module>
         <module>undertow</module>
     </modules>
 </project>

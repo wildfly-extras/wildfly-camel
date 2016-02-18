@@ -34,8 +34,6 @@
             <include module="org.jboss.gravia.provision" />
             <include module="org.jboss.gravia.repository" />
             <include module="org.jboss.gravia.resolver" />
-            <include module="org.wildfly.ee" />
-            <include module="org.wildfly.naming" />
             <include module="org.wildfly.server" />
         </apply-to-dependencies>
         <dependencies>
@@ -43,8 +41,6 @@
             <module name="org.apache.camel" services="export"/>
             <module name="org.apache.camel.spring"/>
             <module name="org.jboss.as.controller"/>
-            <module name="org.jboss.as.ee"/>
-            <module name="org.jboss.as.naming"/>
             <module name="org.jboss.as.network"/>
             <module name="org.jboss.as.security"/>
             <module name="org.jboss.as.server"/>
@@ -60,6 +56,7 @@
             <module name="org.springframework.context"/>
             <module name="org.springframework.tx"/>
             <module name="org.wildfly.extension.camel.cdi" services="export" optional="true"/>
+            <module name="org.wildfly.extension.camel.ee" services="export" optional="true"/>
             <module name="org.wildfly.extension.camel.undertow" services="export" optional="true"/>
             <module name="org.slf4j"/>
         </dependencies>
@@ -71,10 +68,29 @@
             <include module="org.wildfly.server" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="javax.api"/>
             <module name="org.jboss.as.ee"/>
             <module name="org.jboss.as.server"/>
             <module name="org.jboss.as.weld"/>
             <module name="org.jboss.weld.spi"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+    
+    <module name="org.wildfly.extension.camel.ee">
+        <include artifact=":wildfly-camel-subsystem-ee" />
+        <apply-to-dependencies skip="true">
+            <include module="org.wildfly.ee" />
+            <include module="org.wildfly.naming" />
+            <include module="org.wildfly.server" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.jboss.as.ee"/>
+            <module name="org.jboss.as.naming"/>
+            <module name="org.jboss.as.server"/>
+            <module name="org.jboss.staxmapper"/>
+            <module name="org.slf4j"/>
         </dependencies>
     </module>
     
@@ -84,9 +100,12 @@
             <include module="org.wildfly.server" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="javax.api"/>
             <module name="org.apache.camel.core"/>
             <module name="org.jboss.as.server"/>
+            <module name="org.jboss.as.network"/>
             <module name="io.undertow.servlet"/>
+            <module name="org.slf4j"/>
         </dependencies>
     </module>
     

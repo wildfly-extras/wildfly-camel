@@ -29,36 +29,31 @@
         <version>4.0.0-SNAPSHOT</version>
     </parent>
 
-    <name>Wildfly Camel :: Subsystem :: Undertow</name>
+    <name>Wildfly Camel :: Subsystem :: EE</name>
     
-    <artifactId>wildfly-camel-subsystem-undertow</artifactId>
+    <artifactId>wildfly-camel-subsystem-ee</artifactId>
 
     <dependencies>
     
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-subsystem-core</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.gravia</groupId>
-            <artifactId>gravia-runtime-api</artifactId>
-        </dependency>
         
         <!-- Provided -->
         <dependency>
             <groupId>org.wildfly</groupId>
-            <artifactId>wildfly-undertow</artifactId>
+            <artifactId>wildfly-ee</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-undertow</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.gravia</groupId>
-            <artifactId>gravia-container-wildfly-extension</artifactId>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-naming</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>

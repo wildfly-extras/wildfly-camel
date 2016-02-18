@@ -25,24 +25,29 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
+import org.jboss.gravia.runtime.Runtime;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
+import org.jboss.msc.service.ServiceContainer;
 import org.jboss.msc.service.ServiceController;
-import org.jboss.msc.service.ServiceRegistry;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
+import org.jboss.msc.value.InjectedValue;
 import org.wildfly.extension.camel.CamelConstants;
+import org.wildfly.extension.camel.CamelSubsytemExtension;
 import org.wildfly.extension.camel.ContextCreateHandler;
 import org.wildfly.extension.camel.ContextCreateHandlerRegistry;
 import org.wildfly.extension.camel.handler.ClassResolverAssociationHandler;
+import org.wildfly.extension.camel.handler.ComponentResolverAssociationHandler;
 import org.wildfly.extension.camel.handler.ContextValidationHandler;
 import org.wildfly.extension.camel.handler.ModelJAXBContextFactoryWrapperHandler;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
-import org.wildfly.extension.camel.handler.NamingContextAssociationHandler;
+import org.wildfly.extension.camel.parser.CamelSubsystemAdd;
 import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
-import org.wildfly.extension.camel.handler.ComponentResolverAssociationHandler;
+import org.wildfly.extension.gravia.GraviaConstants;
 
 /**
  * The {@link ContextCreateHandlerRegistry} service
@@ -53,11 +58,14 @@ import org.wildfly.extension.camel.handler.ComponentResolverAssociationHandler;
 public class ContextCreateHandlerRegistryService extends AbstractService<ContextCreateHandlerRegistry> {
 
     private final SubsystemRuntimeState runtimeState;
+    private final InjectedValue<Runtime> injectedRuntime = new InjectedValue<Runtime>();
+
     private ContextCreateHandlerRegistry createHandlerRegistry;
 
     public static ServiceController<ContextCreateHandlerRegistry> addService(ServiceTarget serviceTarget, SubsystemRuntimeState runtimeState) {
         ContextCreateHandlerRegistryService service = new ContextCreateHandlerRegistryService(runtimeState);
         ServiceBuilder<ContextCreateHandlerRegistry> builder = serviceTarget.addService(CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_SERVICE_NAME, service);
+        builder.addDependency(GraviaConstants.RUNTIME_SERVICE_NAME, Runtime.class, service.injectedRuntime);
         return builder.install();
     }
 
@@ -67,8 +75,8 @@ public class ContextCreateHandlerRegistryService extends AbstractService<Context
 
     @Override
     public void start(StartContext startContext) throws StartException {
-        ServiceRegistry serviceRegistry = startContext.getController().getServiceContainer();
-        createHandlerRegistry = new ContextCreateHandlerRegistryImpl(serviceRegistry, startContext.getChildTarget());
+        ServiceContainer serviceContainer = startContext.getController().getServiceContainer();
+        createHandlerRegistry = new ContextCreateHandlerRegistryImpl(serviceContainer, startContext.getChildTarget());
     }
 
     @Override
@@ -80,15 +88,24 @@ public class ContextCreateHandlerRegistryService extends AbstractService<Context
 
         private final Map<ClassLoader, List<ContextCreateHandler>> handlerMapping = new HashMap<>();
 
-        ContextCreateHandlerRegistryImpl(final ServiceRegistry serviceRegistry, final ServiceTarget serviceTarget) {
+        ContextCreateHandlerRegistryImpl(final ServiceContainer serviceContainer, final ServiceTarget serviceTarget) {
 
             // Setup the default handlers
             addContextCreateHandler(null, new ModuleClassLoaderAssociationHandler());
             addContextCreateHandler(null, new ClassResolverAssociationHandler());
             addContextCreateHandler(null, new ComponentResolverAssociationHandler(runtimeState));
-            addContextCreateHandler(null, new NamingContextAssociationHandler(serviceRegistry, serviceTarget));
             addContextCreateHandler(null, new ModelJAXBContextFactoryWrapperHandler());
             addContextCreateHandler(null, new ContextValidationHandler());
+
+            CamelSubsystemAdd.processExtensions(new Consumer<CamelSubsytemExtension>() {
+                @Override
+                public void accept(CamelSubsytemExtension plugin) {
+                    ContextCreateHandler handler = plugin.getContextCreateHandler(serviceContainer, serviceTarget, runtimeState);
+                    if (handler != null) {
+                        addContextCreateHandler(null, handler);
+                    }
+                }
+            });
         }
 
         @Override

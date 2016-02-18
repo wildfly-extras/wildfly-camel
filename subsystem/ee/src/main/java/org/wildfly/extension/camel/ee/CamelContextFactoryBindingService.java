@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.extension.camel.service;
+package org.wildfly.extension.camel.ee;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
@@ -35,18 +35,18 @@ import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
 import org.wildfly.extension.camel.CamelConstants;
-import org.wildfly.extension.camel.CamelContextRegistry;
+import org.wildfly.extension.camel.CamelContextFactory;
 
 /**
- * The {@link CamelContextRegistry} JNDI binding service
+ * The {@link CamelContextFactory} JNDI binding service
  *
  * @author Thomas.Diesler@jboss.com
  * @since 05-Jun-2013
  */
-public final class CamelContextRegistryBindingService {
+public final class CamelContextFactoryBindingService {
 
-    public static ServiceController<?> addService(ServiceTarget serviceTarget) {
-        final ContextNames.BindInfo bindInfo = ContextNames.bindInfoFor(CamelConstants.CAMEL_CONTEXT_REGISTRY_BINDING_NAME);
+    public static ServiceController<?> addService(final ServiceTarget serviceTarget) {
+        final ContextNames.BindInfo bindInfo = ContextNames.bindInfoFor(CamelConstants.CAMEL_CONTEXT_FACTORY_BINDING_NAME);
         BinderService binderService = new BinderService(bindInfo.getBindName()) {
             @Override
             public synchronized void start(StartContext context) throws StartException {
@@ -63,7 +63,7 @@ public final class CamelContextRegistryBindingService {
         Injector<ManagedReferenceFactory> injector = binderService.getManagedObjectInjector();
         ServiceBuilder<?> builder = serviceTarget.addService(bindInfo.getBinderServiceName(), binderService);
         builder.addDependency(bindInfo.getParentContextServiceName(), ServiceBasedNamingStore.class, binderService.getNamingStoreInjector());
-        builder.addDependency(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME, CamelContextRegistry.class, new ManagedReferenceInjector<CamelContextRegistry>(injector));
+        builder.addDependency(CamelConstants.CAMEL_CONTEXT_FACTORY_SERVICE_NAME, CamelContextFactory.class, new ManagedReferenceInjector<CamelContextFactory>(injector));
         return builder.install();
     }
 }

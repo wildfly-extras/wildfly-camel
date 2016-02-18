@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.extension.camel.handler;
+package org.wildfly.extension.camel.ee;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
@@ -42,6 +42,7 @@ import org.jboss.as.naming.deployment.ContextNames;
 import org.jboss.as.naming.service.BinderService;
 import org.jboss.msc.inject.Injector;
 import org.jboss.msc.service.ServiceBuilder;
+import org.jboss.msc.service.ServiceContainer;
 import org.jboss.msc.service.ServiceController;
 import org.jboss.msc.service.ServiceController.Mode;
 import org.jboss.msc.service.ServiceRegistry;
@@ -60,11 +61,11 @@ import org.wildfly.extension.camel.WildFlyCamelContext;
  */
 public final class NamingContextAssociationHandler implements ContextCreateHandler {
 
-    private final ServiceRegistry serviceRegistry;
+    private final ServiceContainer serviceContainer;
     private final ServiceTarget serviceTarget;
 
-    public NamingContextAssociationHandler(ServiceRegistry serviceRegistry, ServiceTarget serviceTarget) {
-        this.serviceRegistry = serviceRegistry;
+    public NamingContextAssociationHandler(ServiceContainer serviceContainer, ServiceTarget serviceTarget) {
+        this.serviceContainer = serviceContainer;
         this.serviceTarget = serviceTarget;
     }
 
@@ -73,7 +74,7 @@ public final class NamingContextAssociationHandler implements ContextCreateHandl
         if (camelctx instanceof WildFlyCamelContext) {
             WildFlyCamelContext wfctx = (WildFlyCamelContext) camelctx;
             try {
-                wfctx.setNamingContext(new CamelNamingContext(serviceRegistry, serviceTarget));
+                wfctx.setNamingContext(new CamelNamingContext(serviceContainer, serviceTarget));
             } catch (NamingException ex) {
                 throw new IllegalStateException("Cannot initialize naming context", ex);
             }

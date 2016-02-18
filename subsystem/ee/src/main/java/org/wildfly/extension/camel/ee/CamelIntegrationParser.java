@@ -19,13 +19,14 @@
  */
 
 
-package org.wildfly.extension.camel.deployment;
+package org.wildfly.extension.camel.ee;
 
 import org.jboss.as.ee.structure.JBossDescriptorPropertyReplacement;
 import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.jbossallxml.JBossAllXMLParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.staxmapper.XMLExtendedStreamReader;
+import org.wildfly.extension.camel.deployment.CamelDeploymentSettings;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.Location;

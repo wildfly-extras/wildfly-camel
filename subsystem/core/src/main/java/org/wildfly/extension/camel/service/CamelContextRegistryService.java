@@ -22,11 +22,10 @@ package org.wildfly.extension.camel.service;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
-import java.util.ArrayList;
 import java.util.EventObject;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Consumer;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.CamelContextTrackerRegistry;
@@ -45,7 +44,6 @@ import org.jboss.modules.ModuleIdentifier;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
-import org.jboss.msc.service.ServiceController.Mode;
 import org.jboss.msc.service.ServiceRegistry;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
@@ -54,12 +52,14 @@ import org.jboss.msc.service.StopContext;
 import org.jboss.msc.value.InjectedValue;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextRegistry;
+import org.wildfly.extension.camel.CamelSubsytemExtension;
 import org.wildfly.extension.camel.ContextCreateHandler;
 import org.wildfly.extension.camel.ContextCreateHandlerRegistry;
 import org.wildfly.extension.camel.SpringCamelContextFactory;
 import org.wildfly.extension.camel.deployment.CamelDeploymentSettings;
 import org.wildfly.extension.camel.deployment.CamelEnablementProcessor;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
+import org.wildfly.extension.camel.parser.CamelSubsystemAdd;
 import org.wildfly.extension.camel.parser.SubsystemState;
 import org.wildfly.extension.gravia.GraviaConstants;
 
@@ -144,19 +144,11 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         return SPRING_BEANS_HEADER + "<camelContext id='" + name + "' xmlns='http://camel.apache.org/schema/spring'>" + hashReplaced + "</camelContext></beans>";
     }
 
-    static final class CamelContextRegistryImpl extends CamelContextTracker implements CamelContextRegistry {
+    final class CamelContextRegistryImpl extends CamelContextTracker implements CamelContextRegistry {
 
-        private final Map<CamelContext, CamelContextRegistration> contexts = new HashMap<>();
+        private final Set<CamelContext> contexts = new HashSet<>();
         private final ContextCreateHandlerRegistry handlerRegistry;
         private final ServiceTarget serviceTarget;
-
-        class CamelContextRegistration {
-            private List<ServiceController<?>> controllers = new ArrayList<>();
-            CamelContextRegistration addServiceDependency(ServiceController<?> controller) {
-                controllers.add(controller);
-                return this;
-            }
-        }
 
         CamelContextRegistryImpl(ContextCreateHandlerRegistry handlerRegistry, ServiceRegistry serviceRegistry, ServiceTarget serviceTarget) {
             this.handlerRegistry = handlerRegistry;
@@ -168,7 +160,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         public CamelContext getCamelContext(String name) {
             CamelContext result = null;
             synchronized (contexts) {
-                for (CamelContext camelctx : contexts.keySet()) {
+                for (CamelContext camelctx : contexts) {
                     if (camelctx.getName().equals(name)) {
                         result = camelctx;
                         break;
@@ -218,7 +210,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
                         if (event instanceof CamelContextStartingEvent) {
                             CamelContextStartingEvent camelevt = (CamelContextStartingEvent) event;
                             CamelContext camelctx = camelevt.getContext();
-                            addContext(camelctx);
+                            addCamelContext(camelctx);
                             LOGGER.info("Camel context starting: {}", camelctx.getName());
                         }
 
@@ -226,7 +218,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
                         else if (event instanceof CamelContextStoppedEvent) {
                             CamelContextStoppedEvent camelevt = (CamelContextStoppedEvent) event;
                             CamelContext camelctx = camelevt.getContext();
-                            removeContext(camelctx);
+                            removeCamelContext(camelctx);
                             LOGGER.info("Camel context stopped: {}", camelctx.getName());
                         }
                     }
@@ -238,28 +230,28 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
             }
         }
 
-        private CamelContextRegistration addContext(CamelContext camelctx) {
+        private void addCamelContext(CamelContext camelctx) {
             synchronized (contexts) {
-                CamelContextRegistration registration = contexts.get(camelctx);
-                if (registration == null) {
-                    ServiceController<?> controller = CamelContextBindingService.addService(serviceTarget, camelctx);
-                    registration = new CamelContextRegistration().addServiceDependency(controller);
-                    contexts.put(camelctx, registration);
-                }
-                return registration;
-            }
-        }
-
-        private void removeContext(CamelContext camelctx) {
-            synchronized (contexts) {
-                CamelContextRegistration registration = contexts.remove(camelctx);
-                if (registration != null) {
-                    for (ServiceController<?> controller : registration.controllers) {
-                        controller.setMode(Mode.REMOVE);
+                contexts.add(camelctx);
+                CamelSubsystemAdd.processExtensions(new Consumer<CamelSubsytemExtension>() {
+                    @Override
+                    public void accept(CamelSubsytemExtension plugin) {
+                        plugin.addCamelContext(serviceTarget, camelctx);
                     }
-                }
+                });
             }
         }
 
+        private void removeCamelContext(CamelContext camelctx) {
+            synchronized (contexts) {
+                CamelSubsystemAdd.processExtensions(new Consumer<CamelSubsytemExtension>() {
+                    @Override
+                    public void accept(CamelSubsytemExtension plugin) {
+                        plugin.removeCamelContext(camelctx);
+                    }
+                });
+                contexts.remove(camelctx);
+            }
+        }
     }
 }

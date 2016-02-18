@@ -17,17 +17,17 @@
  * limitations under the License.
  * #L%
  */
-
-package org.wildfly.extension.camel.service;
+package org.wildfly.extension.camel.ee;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
-import org.jboss.as.naming.ManagedReferenceFactory;
-import org.jboss.as.naming.ManagedReferenceInjector;
+import org.apache.camel.CamelContext;
+import org.jboss.as.naming.ImmediateManagedReferenceFactory;
 import org.jboss.as.naming.ServiceBasedNamingStore;
 import org.jboss.as.naming.deployment.ContextNames;
+import org.jboss.as.naming.deployment.ContextNames.BindInfo;
 import org.jboss.as.naming.service.BinderService;
-import org.jboss.msc.inject.Injector;
+import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
 import org.jboss.msc.service.ServiceTarget;
@@ -35,18 +35,17 @@ import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
 import org.wildfly.extension.camel.CamelConstants;
-import org.wildfly.extension.camel.CamelContextFactory;
 
 /**
- * The {@link CamelContextFactory} JNDI binding service
+ * A service that binds the CamelContext to JNDI
  *
  * @author Thomas.Diesler@jboss.com
- * @since 05-Jun-2013
+ * @since 02-MAR-2015
  */
-public final class CamelContextFactoryBindingService {
+final class CamelContextBindingService extends AbstractService<CamelContext> {
 
-    public static ServiceController<?> addService(final ServiceTarget serviceTarget) {
-        final ContextNames.BindInfo bindInfo = ContextNames.bindInfoFor(CamelConstants.CAMEL_CONTEXT_FACTORY_BINDING_NAME);
+    static ServiceController<?> addService(ServiceTarget serviceTarget, final CamelContext camelctx) {
+        final BindInfo bindInfo = ContextNames.bindInfoFor(CamelConstants.CAMEL_CONTEXT_BINDING_NAME + "/" + camelctx.getName());
         BinderService binderService = new BinderService(bindInfo.getBindName()) {
             @Override
             public synchronized void start(StartContext context) throws StartException {
@@ -60,10 +59,9 @@ public final class CamelContextFactoryBindingService {
                 super.stop(context);
             }
         };
-        Injector<ManagedReferenceFactory> injector = binderService.getManagedObjectInjector();
+        binderService.getManagedObjectInjector().inject(new ImmediateManagedReferenceFactory(camelctx));
         ServiceBuilder<?> builder = serviceTarget.addService(bindInfo.getBinderServiceName(), binderService);
         builder.addDependency(bindInfo.getParentContextServiceName(), ServiceBasedNamingStore.class, binderService.getNamingStoreInjector());
-        builder.addDependency(CamelConstants.CAMEL_CONTEXT_FACTORY_SERVICE_NAME, CamelContextFactory.class, new ManagedReferenceInjector<CamelContextFactory>(injector));
         return builder.install();
     }
 }
