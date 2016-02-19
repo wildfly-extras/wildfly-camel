@@ -109,7 +109,7 @@
         <version-maven-surefire-plugin>2.18.1</version-maven-surefire-plugin>
         <version-maven-war-plugin>2.5</version-maven-war-plugin>
         <version-properties-maven-plugin>1.0-alpha-2</version-properties-maven-plugin>
-        <version-smartics-maven-plugin>2.1.1</version-smartics-maven-plugin>
+        <version-smartics-maven-plugin>2.1.2</version-smartics-maven-plugin>
         <version-wildfly-maven-plugin>1.0.2.Final</version-wildfly-maven-plugin>
         <version-wildfly-feature-pack-maven-plugin>1.1.0.Final</version-wildfly-feature-pack-maven-plugin>
         <version-wildfly-provisioning-maven-plugin>1.1.0.Final</version-wildfly-provisioning-maven-plugin>

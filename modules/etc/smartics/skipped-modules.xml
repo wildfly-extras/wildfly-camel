@@ -133,10 +133,6 @@
         <include artifact="org.apache.maven:maven-model-builder" />
     </module>
     
-    <module name="org.apache.openjpa" skip="true">
-        <include artifact="org.apache.openjpa:(.*)" />
-    </module>
-    
     <module name="org.apache.servicemix.bundles" skip="true">
         <include artifact="org.apache.servicemix.bundles:(.*)" />
     </module>
