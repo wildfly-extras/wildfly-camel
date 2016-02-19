@@ -38,6 +38,7 @@
         <module>core</module>
         <module>cdi</module>
         <module>ee</module>
+        <module>security</module>
         <module>undertow</module>
     </modules>
 </project>

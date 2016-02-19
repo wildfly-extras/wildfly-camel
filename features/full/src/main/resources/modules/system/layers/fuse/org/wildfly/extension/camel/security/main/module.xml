@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.wildfly.extension.camel.security">
+  <resources>
+    <artifact name="${org.wildfly.camel:wildfly-camel-subsystem-security}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.jboss.as.server" />
+    <module name="org.jboss.as.security" />
+    <module name="org.picketbox" />
+    <module name="org.slf4j" />
+    <module name="org.jboss.gravia" />
+    <module name="org.jboss.modules" />
+    <module name="org.springframework.security" />
+    <module name="org.wildfly.extension.camel" />
+  </dependencies>
+</module>

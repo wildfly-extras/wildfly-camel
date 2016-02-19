@@ -42,7 +42,6 @@
             <module name="org.apache.camel.spring"/>
             <module name="org.jboss.as.controller"/>
             <module name="org.jboss.as.network"/>
-            <module name="org.jboss.as.security"/>
             <module name="org.jboss.as.server"/>
             <module name="org.jboss.jandex"/>
             <module name="org.jboss.logging"/>
@@ -50,13 +49,13 @@
             <module name="org.jboss.msc"/>
             <module name="org.jboss.staxmapper"/>
             <module name="org.jboss.vfs"/>
-            <module name="org.picketbox"/>
             <module name="org.springframework.beans"/>
             <module name="org.springframework.core"/>
             <module name="org.springframework.context"/>
             <module name="org.springframework.tx"/>
             <module name="org.wildfly.extension.camel.cdi" services="export" optional="true"/>
             <module name="org.wildfly.extension.camel.ee" services="export" optional="true"/>
+            <module name="org.wildfly.extension.camel.security" export="true" services="export" optional="true"/>
             <module name="org.wildfly.extension.camel.undertow" services="export" optional="true"/>
             <module name="org.slf4j"/>
         </dependencies>
@@ -90,6 +89,21 @@
             <module name="org.jboss.as.naming"/>
             <module name="org.jboss.as.server"/>
             <module name="org.jboss.staxmapper"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+    
+    <module name="org.wildfly.extension.camel.security">
+        <include artifact=":wildfly-camel-subsystem-security" />
+        <apply-to-dependencies skip="true">
+            <include module="org.wildfly.server" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.camel.core"/>
+            <module name="org.jboss.as.server"/>
+            <module name="org.jboss.as.security"/>
+            <module name="org.picketbox"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
