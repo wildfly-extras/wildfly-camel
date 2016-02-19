@@ -22,8 +22,6 @@ package org.wildfly.camel.test.cxf.ws;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.ALLOW_RESOURCE_SERVICE_RESTART;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.OPERATION_HEADERS;
 
-import java.io.IOException;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.ProducerTemplate;
@@ -33,25 +31,26 @@ import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.as.arquillian.api.ContainerResource;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.dmr.ModelNode;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.utils.DMRUtils;
 import org.wildfly.camel.test.common.types.Endpoint;
+import org.wildfly.camel.test.common.utils.DMRUtils;
 import org.wildfly.camel.test.cxf.ws.subA.SecureEndpointImpl;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
+@ServerSetup({ CXFWSSecureProducerIntegrationTest.SecurityDomainSetup.class })
 public class CXFWSSecureProducerIntegrationTest {
 
     static final String SIMPLE_WAR = "simple.war";
@@ -59,40 +58,50 @@ public class CXFWSSecureProducerIntegrationTest {
     @ArquillianResource
     Deployer deployer;
 
-    @ContainerResource
+    @ArquillianResource
     ManagementClient managementClient;
 
-    @Before
-    public void setUp() throws IOException {
-        // Set up a security domain for our tests to authenticate against
-        ModelNode securityDomainOpAdd = DMRUtils.createOpNode("subsystem=security/security-domain=cxf-security-domain", "add");
-        ModelNode securityDomainContent = DMRUtils.createOpNode("subsystem=security/security-domain=cxf-security-domain/authentication=classic", "add");
+    static class SecurityDomainSetup implements ServerSetupTask {
 
-        ModelNode loginModules = securityDomainContent.get("login-modules");
+        @Override
+        public void setup(ManagementClient managementClient, String containerId) throws Exception {
+            // Set up a security domain for our tests to authenticate against
+            ModelNode securityDomainOpAdd = DMRUtils.createOpNode("subsystem=security/security-domain=cxf-security-domain", "add");
+            ModelNode securityDomainContent = DMRUtils.createOpNode("subsystem=security/security-domain=cxf-security-domain/authentication=classic", "add");
 
-        ModelNode userRoles = new ModelNode();
-        userRoles.get("code").set("UsersRoles");
-        userRoles.get("flag").set("required");
+            ModelNode loginModules = securityDomainContent.get("login-modules");
 
-        ModelNode moduleOptions = userRoles.get("module-options");
-        moduleOptions.get("usersProperties").set("cxf-users.properties");
-        moduleOptions.get("rolesProperties").set("cxf-roles.properties");
-        loginModules.add(userRoles);
+            ModelNode userRoles = new ModelNode();
+            userRoles.get("code").set("UsersRoles");
+            userRoles.get("flag").set("required");
 
-        ModelNode result = managementClient.getControllerClient().execute(DMRUtils.createCompositeNode(new ModelNode[]{securityDomainOpAdd, securityDomainContent}));
+            ModelNode moduleOptions = userRoles.get("module-options");
+            moduleOptions.get("usersProperties").set("cxf-users.properties");
+            moduleOptions.get("rolesProperties").set("cxf-roles.properties");
+            loginModules.add(userRoles);
 
-        // Make sure the commands worked before proceeding
-        Assert.assertEquals("success", result.get("outcome").asString());
+            ModelNode result = managementClient.getControllerClient().execute(DMRUtils.createCompositeNode(new ModelNode[]{securityDomainOpAdd, securityDomainContent}));
+
+            // Make sure the commands worked before proceeding
+            Assert.assertEquals("success", result.get("outcome").asString());
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
+            // Remove the test security domain after each test
+            ModelNode securityDomainOpRemove = DMRUtils.createOpNode("subsystem=security/security-domain=cxf-security-domain", "remove");
+            securityDomainOpRemove.get(OPERATION_HEADERS, ALLOW_RESOURCE_SERVICE_RESTART).set(true);
+
+            ModelNode result = managementClient.getControllerClient().execute(securityDomainOpRemove);
+            Assert.assertEquals("success", result.get("outcome").asString());
+        }
     }
 
-    @After
-    public void tearDown() throws IOException {
-        // Remove the test security domain after each test
-        ModelNode securityDomainOpRemove = DMRUtils.createOpNode("subsystem=security/security-domain=cxf-security-domain", "remove");
-        securityDomainOpRemove.get(OPERATION_HEADERS, ALLOW_RESOURCE_SERVICE_RESTART).set(true);
-
-        ModelNode result = managementClient.getControllerClient().execute(securityDomainOpRemove);
-        Assert.assertEquals("success", result.get("outcome").asString());
+    @Deployment
+    public static JavaArchive deployment() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxfws-secure-producer-tests");
+        archive.addClasses(Endpoint.class);
+        return archive;
     }
 
     @Test
