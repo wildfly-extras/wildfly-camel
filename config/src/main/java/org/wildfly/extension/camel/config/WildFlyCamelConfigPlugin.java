@@ -121,11 +121,12 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
         List<Element> profiles = ConfigSupport.findProfileElements(context.getDocument(), NS_DOMAIN);
         for (Element profile : profiles) {
             Element weld = profile.getChild("subsystem", NS_WELD);
-            ConfigSupport.assertExists(weld, "Did not find the weld subsystem");
-            if (enable) {
-                weld.setAttribute("require-bean-descriptor", "true");
-            } else {
-                weld.removeAttribute("require-bean-descriptor");
+            if (weld != null) {
+                if (enable) {
+                    weld.setAttribute("require-bean-descriptor", "true");
+                } else {
+                    weld.removeAttribute("require-bean-descriptor");
+                }
             }
         }
     }
@@ -134,18 +135,19 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
         List<Element> profiles = ConfigSupport.findProfileElements(context.getDocument(), NS_DOMAIN);
         for (Element profile : profiles) {
             Element security = profile.getChild("subsystem", NS_SECURITY);
-            ConfigSupport.assertExists(security, "Did not find the security subsystem");
-            Element domains = security.getChild("security-domains", NS_SECURITY);
-            ConfigSupport.assertExists(domains, "Did not find the <security-domains> element");
-            Element domain = ConfigSupport.findElementWithAttributeValue(domains, "security-domain", NS_SECURITY, "name", "hawtio-domain");
-            if (enable && domain == null) {
-                URL resource = WildFlyCamelConfigPlugin.class.getResource("/hawtio-security-domain.xml");
-                domains.addContent(new Text("    "));
-                domains.addContent(ConfigSupport.loadElementFrom(resource));
-                domains.addContent(new Text("\n            "));
-            }
-            if (!enable && domain != null) {
-                domain.getParentElement().removeContent(domain);
+            if (security != null) {
+                Element domains = security.getChild("security-domains", NS_SECURITY);
+                ConfigSupport.assertExists(domains, "Did not find the <security-domains> element");
+                Element domain = ConfigSupport.findElementWithAttributeValue(domains, "security-domain", NS_SECURITY, "name", "hawtio-domain");
+                if (enable && domain == null) {
+                    URL resource = WildFlyCamelConfigPlugin.class.getResource("/hawtio-security-domain.xml");
+                    domains.addContent(new Text("    "));
+                    domains.addContent(ConfigSupport.loadElementFrom(resource));
+                    domains.addContent(new Text("\n            "));
+                }
+                if (!enable && domain != null) {
+                    domain.getParentElement().removeContent(domain);
+                }
             }
         }
     }

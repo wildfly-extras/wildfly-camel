@@ -21,7 +21,7 @@
 <build xmlns="urn:wildfly:feature-pack-build:1.0">
 
     <dependencies>
-    	<artifact name="org.wildfly:wildfly-feature-pack" />
+    	<artifact name="org.wildfly.core:wildfly-core-feature-pack" />
     </dependencies>
     
     <config>

@@ -84,19 +84,6 @@
                         <generateFeaturePackDefinition>true</generateFeaturePackDefinition>
                         <targetFolder>${smartics.module.dir}</targetFolder>
                         <ignoreOptionalDependencies>true</ignoreOptionalDependencies>
-                        <modules>
-                            <dir>../../modules/etc/smartics</dir>
-                        </modules>
-                        <dependencyExcludes>
-                            <exclude>
-                                <groupId>org.wildfly</groupId>
-                                <artifactId>wildfly-feature-pack</artifactId>
-                            </exclude>
-                            <exclude>
-                                <groupId>io.hawt</groupId>
-                                <artifactId>hawtio-wildfly</artifactId>
-                            </exclude>
-                        </dependencyExcludes>
                         <attach>false</attach>
                     </configuration>
                 </plugin>

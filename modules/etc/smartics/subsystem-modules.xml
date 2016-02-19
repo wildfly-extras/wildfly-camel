@@ -34,7 +34,6 @@
             <include module="org.jboss.gravia.provision" />
             <include module="org.jboss.gravia.repository" />
             <include module="org.jboss.gravia.resolver" />
-            <include module="org.wildfly.server" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
@@ -63,9 +62,6 @@
     
     <module name="org.wildfly.extension.camel.cdi">
         <include artifact=":wildfly-camel-subsystem-cdi" />
-        <apply-to-dependencies skip="true">
-            <include module="org.wildfly.server" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.jboss.as.ee"/>
@@ -78,11 +74,6 @@
     
     <module name="org.wildfly.extension.camel.ee">
         <include artifact=":wildfly-camel-subsystem-ee" />
-        <apply-to-dependencies skip="true">
-            <include module="org.wildfly.ee" />
-            <include module="org.wildfly.naming" />
-            <include module="org.wildfly.server" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.jboss.as.ee"/>
@@ -95,9 +86,6 @@
     
     <module name="org.wildfly.extension.camel.security">
         <include artifact=":wildfly-camel-subsystem-security" />
-        <apply-to-dependencies skip="true">
-            <include module="org.wildfly.server" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.apache.camel.core"/>
@@ -110,9 +98,6 @@
     
     <module name="org.wildfly.extension.camel.undertow">
         <include artifact=":wildfly-camel-subsystem-undertow" />
-        <apply-to-dependencies skip="true">
-            <include module="org.wildfly.server" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.apache.camel.core"/>

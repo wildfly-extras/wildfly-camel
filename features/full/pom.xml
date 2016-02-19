@@ -40,6 +40,12 @@
             <artifactId>wildfly-camel-feature-core</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
@@ -50,7 +56,6 @@
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-feature-pack</artifactId>
-            <version>${version.wildfly}</version>
             <type>zip</type>
             <exclusions>
                 <exclusion>
@@ -71,6 +76,26 @@
             <plugin>
                 <groupId>de.smartics.maven.plugin</groupId>
                 <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
+                <configuration>
+                    <modules>
+                        <dir>../../modules/etc/smartics</dir>
+                        <dir>etc/smartics</dir>
+                    </modules>
+                    <dependencyExcludes>
+                        <exclude>
+                            <groupId>org.wildfly.camel</groupId>
+                            <artifactId>wildfly-camel-feature-core</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.wildfly</groupId>
+                            <artifactId>wildfly-feature-pack</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>io.hawt</groupId>
+                            <artifactId>hawtio-wildfly</artifactId>
+                        </exclude>
+                    </dependencyExcludes>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

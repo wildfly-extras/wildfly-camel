@@ -331,6 +331,24 @@
         <include artifact=":javassist" />
     </module>
 
+    <module name="org.jboss.as.ee" skip="true">
+        <include artifact=":wildfly-ee" />
+    </module>
+    
+    <module name="org.jboss.as.naming" skip="true">
+        <include artifact=":wildfly-naming" />
+    </module>
+    
+    <module name="org.jboss.as.server" skip="true">
+        <include artifact=":wildfly-server" />
+    </module>
+    
+    <module name="org.jboss.as.weld" skip="true">
+        <include artifact=":wildfly-weld" />
+        <include artifact=":weld-api" />
+        <include artifact=":weld-spi" />
+    </module>
+    
     <module name="org.jboss.logging" skip="true">
         <include artifact=":jboss-logging"/>
     </module>
@@ -351,12 +369,6 @@
         <include artifact=":jboss-modules" />
     </module>
 
-    <module name="org.jboss.as.weld" skip="true">
-        <include artifact=":wildfly-weld" />
-        <include artifact=":weld-api" />
-        <include artifact=":weld-spi" />
-    </module>
-    
     <module name="org.jboss.xnio" skip="true">
         <include artifact=":xnio-api" />
     </module>
@@ -380,20 +392,8 @@
         <include artifact="org.yaml:snakeyaml" />
     </module>
     
-    <module name="org.wildfly.ee" skip="true">
-        <include artifact=":wildfly-ee" />
-    </module>
-    
     <module name="org.wildfly.extension.undertow" skip="true">
         <include artifact=":wildfly-undertow" />
-    </module>
-    
-    <module name="org.wildfly.naming" skip="true">
-        <include artifact=":wildfly-naming" />
-    </module>
-    
-    <module name="org.wildfly.server" skip="true">
-        <include artifact=":wildfly-server" />
     </module>
     
 </modules>

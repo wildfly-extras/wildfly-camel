@@ -39,7 +39,7 @@
 				<exclude name="**/fuse/org/jboss/gravia/main/module.xml"/>
 		    </fileset>
 			<fileset dir="${basedir}/etc/managed/wildfly" >
-				<include name="**/fuse/org/jboss/gravia/main/module.xml"/>
+				<include name="modules/**"/>
 		    </fileset>
 			<filterset>
 				<filter token="project.version" value="${project.version}" />

@@ -497,6 +497,7 @@
                     <ignoreOptionalDependencies>true</ignoreOptionalDependencies>
                     <modules>
                         <dir>etc/smartics</dir>
+                        <dir>../features/full/etc/smartics</dir>
                     </modules>
                 </configuration>
             </plugin>
