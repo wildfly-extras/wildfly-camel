@@ -26,6 +26,7 @@
     <module name="org.wildfly.extension.camel.security" export="true" services="export" optional="true" />
     <module name="org.wildfly.extension.camel.undertow" services="export" optional="true" />
     <module name="org.slf4j" />
+    <module name="sun.jdk.ext" />
     <module name="org.jboss.gravia" />
   </dependencies>
 </module>
