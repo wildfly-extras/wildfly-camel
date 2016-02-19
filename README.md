@@ -18,7 +18,7 @@ If you like to contribute to the docs, please file a [pull request](https://gith
 
 #### Java
 
-Minimum of Java 1.7, to run WildFly and Maven.
+Minimum of Java 1.8, to run WildFly and Maven.
 
 #### Maven
 
