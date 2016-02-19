@@ -40,10 +40,7 @@
 
         <!-- Other versions -->
         <version.apache.camel>${version-apache-camel}</version.apache.camel>
-        <version.javax.enterprise>${version-javax-enterprise}</version.javax.enterprise>
         <version.jboss.arquillian>${version-jboss-arquillian}</version.jboss.arquillian>
-        <version.jboss.servlet.api>${version-jboss-servlet-api}</version.jboss.servlet.api>
-        <version.jboss.spec.javax.ejb>${version-jboss-spec-javax-ejb}</version.jboss.spec.javax.ejb>
         <version.junit>${version-junit}</version.junit>
 
         <!-- Plugin versions -->
@@ -71,6 +68,13 @@
                 <type>pom</type>
                 <version>${version.jboss.arquillian}</version>
             </dependency>
+            <dependency>
+                <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-parent</artifactId>
+                <version>${version.wildfly}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -86,19 +90,16 @@
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
-            <version>${version.javax.enterprise}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.2_spec</artifactId>
-            <version>${version.jboss.spec.javax.ejb}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.1_spec</artifactId>
-            <version>${version.jboss.servlet.api}</version>
             <scope>provided</scope>
         </dependency>
 

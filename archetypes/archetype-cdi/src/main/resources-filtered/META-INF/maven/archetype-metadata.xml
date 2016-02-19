@@ -9,17 +9,8 @@
         <requiredProperty key="version-apache-camel">
             <defaultValue>${version.apache.camel}</defaultValue>
         </requiredProperty>
-        <requiredProperty key="version-javax-enterprise">
-            <defaultValue>${version.javax.enterprise}</defaultValue>
-        </requiredProperty>
         <requiredProperty key="version-jboss-arquillian">
             <defaultValue>${version.jboss.arquillian.core}</defaultValue>
-        </requiredProperty>
-        <requiredProperty key="version-jboss-servlet-api">
-            <defaultValue>${version.jboss.spec.javax.servlet}</defaultValue>
-        </requiredProperty>
-        <requiredProperty key="version-jboss-spec-javax-ejb">
-            <defaultValue>${version.jboss.spec.javax.ejb}</defaultValue>
         </requiredProperty>
         <requiredProperty key="version-junit">
             <defaultValue>${version.junit}</defaultValue>

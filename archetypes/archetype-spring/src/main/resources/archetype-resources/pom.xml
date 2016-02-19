@@ -41,7 +41,6 @@
         <!-- Other versions -->
         <version.apache.camel>${version-apache-camel}</version.apache.camel>
         <version.jboss.arquillian>${version-jboss-arquillian}</version.jboss.arquillian>
-        <version.jboss.servlet.api>${version-jboss-servlet-api}</version.jboss.servlet.api>
         <version.junit>${version-junit}</version.junit>
 
         <!-- Plugin versions -->
@@ -69,6 +68,13 @@
                 <type>pom</type>
                 <version>${version.jboss.arquillian}</version>
             </dependency>
+            <dependency>
+                <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-parent</artifactId>
+                <version>${version.wildfly}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -84,7 +90,6 @@
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.1_spec</artifactId>
-            <version>${version.jboss.servlet.api}</version>
             <scope>provided</scope>
         </dependency>
 

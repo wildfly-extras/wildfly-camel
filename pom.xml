@@ -48,11 +48,6 @@
         <!-- WildFly version -->
         <version.wildfly>10.0.0.Final</version.wildfly>
         
-        <!-- [TODO #1078] Remove property definitions that are already defined by wildfly -->
-        <version.javax.enterprise>1.2</version.javax.enterprise>
-        <version.jboss.spec.javax.ejb>1.0.0.Final</version.jboss.spec.javax.ejb>
-        <version.jboss.spec.javax.servlet>1.0.0.Final</version.jboss.spec.javax.servlet>
-
         <!-- Camel version -->
         <version.apache.camel>2.16.2</version.apache.camel>
         
