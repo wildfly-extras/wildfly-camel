@@ -58,12 +58,20 @@
                 </imports>
                 <exports>
                     <include path="META-INF" />
+                    <include path="org/springframework/jdbc/config" />
+                    <exclude path="org/springframework/jdbc**" />
                 </exports>
             </module>
-            <module name="org.springframework.tx" export="true"/>
+            <module name="org.springframework.tx" export="true">
+                <exports>
+                    <exclude path="org/springframework/dao**" />
+                    <exclude path="org/springframework/jca**" />
+                </exports>
+            </module>
             <module name="org.slf4j" />
         </dependencies>
         <exports>
+            <exclude path="org/apache/camel/core/osgi**" />
             <exclude path="org/apache/camel/osgi**" />
         </exports>
     </module>
