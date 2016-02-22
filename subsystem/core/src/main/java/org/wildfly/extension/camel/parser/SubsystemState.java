@@ -21,20 +21,9 @@
 
 package org.wildfly.extension.camel.parser;
 
-import static org.wildfly.extension.camel.CamelLogger.LOGGER;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.jboss.modules.ModuleIdentifier;
 
 
 /**
@@ -45,25 +34,7 @@ import org.jboss.modules.ModuleIdentifier;
  */
 public final class SubsystemState  {
 
-    private final Map<String, String> contextDefinitions = new HashMap<String,String>();
-    private final List<ModuleIdentifier> componentIds = new ArrayList<>();
-
-    public SubsystemState() {
-        try (InputStream ins = getClass().getResourceAsStream("/META-INF/camel-component-ids.txt")) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(ins));
-            String line = br.readLine();
-            while (line != null && line.length() > 0) {
-                componentIds.add(ModuleIdentifier.create(line));
-                line = br.readLine();
-            }
-        } catch (IOException ex) {
-            LOGGER.error("Cannot read camel component ids", ex);
-        }
-    }
-
-    public List<ModuleIdentifier> getModuleDependencies() {
-        return Collections.unmodifiableList(componentIds);
-    }
+    private Map<String, String> contextDefinitions = new HashMap<String,String>();
 
     public Set<String> getContextDefinitionNames() {
         synchronized (contextDefinitions) {

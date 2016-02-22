@@ -1,0 +1,40 @@
+[includes]
+	^ca/uhn/hl7v2(.*)
+	^com/google/protobuf
+	^com/codahale(.*)
+	^groovy(.*)
+	^kafka(.*)
+	^io/swagger(.*)
+	^net/sf/saxon(.*)
+	^org/apache/abdera(.*)
+	^org/apache/activemq
+	^org/apache/activemq/camel(.*)
+	^org/apache/camel(.*)
+	^org/apache/cxf
+	^org/apache/cxf/binding(.*)
+	^org/apache/cxf/bus(.*)
+    ^org/apache/cxf/headers(.*)
+	^org/apache/cxf/interceptor(.*)
+    ^org/apache/cxf/message(.*)
+	^org/apache/cxf/sts(.*)
+	^org/apache/cxf/transport/http(.*)
+	^org/apache/cxf/ws/discovery(.*)
+	^org/apache/cxf/ws/security(.*)
+	^org/apache/xmlbeans
+	^org/apache/xmlbeans/impl/schema
+	^org/apache/xmlbeans/impl/values
+	^org/apache/zookeeper(.*)
+	^org/codehaus/groovy(.*)
+	^org/dozer(.*)
+	^org/elasticsearch(.*)
+	^org/quartz(.*)
+	^org/infinispan
+	^org/infinispan/commons(.*)
+	^org/infinispan/manager(.*)
+	^org/springframework(.*)
+	^org/xmlsoap(.*)
+	^META-INF/cxf(.*)
+	^META-INF/services(.*)
+	
+[excludes]
+	(.*)/internal

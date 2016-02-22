@@ -70,6 +70,15 @@ public class CXFResourcesTest {
     }
 
     @Test
+    public void testAccessFromCamelComponentModule() throws Exception {
+        ModuleLoader moduleLoader = Module.getCallerModuleLoader();
+        ModuleIdentifier modid = ModuleIdentifier.create("org.apache.camel.component");
+        ModuleClassLoader classLoader = moduleLoader.loadModule(modid).getClassLoader();
+        URL resurl = classLoader.getResource("META-INF/cxf/cxf.xml");
+        Assert.assertNotNull("URL not null", resurl);
+    }
+
+    @Test
     public void testAccessFromDeployment() throws Exception {
         ClassLoader classLoader = getClass().getClassLoader();
         URL resurl = classLoader.getResource("META-INF/cxf/cxf.xml");
