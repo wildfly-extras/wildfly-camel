@@ -42,8 +42,14 @@ public class PackageScanResolverProcessor implements DeploymentUnitProcessor {
     private ContextCreateHandler contextCreateHandler;
 
     public final void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
-
         DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
+        CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
+
+        // Camel disabled
+        if (!depSettings.isEnabled()) {
+            return;
+        }
+
         ContextCreateHandlerRegistry createHandlerRegistry = depUnit.getAttachment(CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_KEY);
         ModuleClassLoader moduleClassLoader = depUnit.getAttachment(Attachments.MODULE).getClassLoader();
         contextCreateHandler = new PackageScanClassResolverAssociationHandler(moduleClassLoader);
@@ -52,7 +58,9 @@ public class PackageScanResolverProcessor implements DeploymentUnitProcessor {
 
     public void undeploy(DeploymentUnit depUnit) {
         ContextCreateHandlerRegistry createHandlerRegistry = depUnit.getAttachment(CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_KEY);
-        ModuleClassLoader classLoader = depUnit.getAttachment(Attachments.MODULE).getClassLoader();
-        createHandlerRegistry.removeContextCreateHandler(classLoader, contextCreateHandler);
+        if (createHandlerRegistry != null) {
+            ModuleClassLoader classLoader = depUnit.getAttachment(Attachments.MODULE).getClassLoader();
+            createHandlerRegistry.removeContextCreateHandler(classLoader, contextCreateHandler);
+        }
     }
 }

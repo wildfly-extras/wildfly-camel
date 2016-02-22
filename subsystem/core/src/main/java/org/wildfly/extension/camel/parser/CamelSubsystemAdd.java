@@ -34,7 +34,7 @@ import org.wildfly.extension.camel.deployment.CamelContextActivationProcessor;
 import org.wildfly.extension.camel.deployment.CamelContextCreateProcessor;
 import org.wildfly.extension.camel.deployment.CamelContextDescriptorsProcessor;
 import org.wildfly.extension.camel.deployment.CamelDependenciesProcessor;
-import org.wildfly.extension.camel.deployment.CamelEnablementProcessor;
+import org.wildfly.extension.camel.deployment.CamelDeploymentSettingsProcessor;
 import org.wildfly.extension.camel.deployment.CamelIntegrationProcessor;
 import org.wildfly.extension.camel.deployment.PackageScanResolverProcessor;
 import org.wildfly.extension.camel.service.CamelBootstrapService;
@@ -53,11 +53,11 @@ public final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
 
     public static final int STRUCTURE_REGISTER_CAMEL_INTEGRATION = Phase.STRUCTURE_PARSE_JBOSS_ALL_XML - 0x01;
 
-    public static final int PARSE_CAMEL_INTEGRATION = Phase.PARSE_OSGI_SUBSYSTEM_ACTIVATOR + 0x01;
-    public static final int PARSE_CAMEL_CONTEXT_DESCRIPTORS = PARSE_CAMEL_INTEGRATION + 0x01;
+    public static final int PARSE_DEPLOYMENT_SETTINGS = Phase.PARSE_COMPOSITE_ANNOTATION_INDEX + 0x01;
+    public static final int PARSE_CAMEL_CONTEXT_DESCRIPTORS = PARSE_DEPLOYMENT_SETTINGS + 0x01;
 
-    public static final int DEPENDENCIES_CAMEL_ENABLEMENT = Phase.DEPENDENCIES_LOGGING + 0x01;
-    public static final int DEPENDENCIES_CAMEL_WIRINGS = DEPENDENCIES_CAMEL_ENABLEMENT + 0x01;
+    public static final int DEPENDENCIES_CAMEL_INTEGRATION = Phase.DEPENDENCIES_LOGGING + 0x01;
+    public static final int DEPENDENCIES_CAMEL_WIRINGS = DEPENDENCIES_CAMEL_INTEGRATION + 0x01;
 
     public static final int POST_MODULE_PACKAGE_SCAN_RESOLVER = Phase.POST_MODULE_LOCAL_HOME + 0x01;
     public static final int POST_MODULE_CAMEL_CONTEXT_CREATE = POST_MODULE_PACKAGE_SCAN_RESOLVER + 0x01;
@@ -101,9 +101,9 @@ public final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
             @Override
             public void execute(final DeploymentProcessorTarget processorTarget) {
                 gravia.addDeploymentUnitProcessors(processorTarget);
-                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_CAMEL_INTEGRATION, new CamelIntegrationProcessor());
+                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_DEPLOYMENT_SETTINGS, new CamelDeploymentSettingsProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_CAMEL_CONTEXT_DESCRIPTORS, new CamelContextDescriptorsProcessor());
-                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_CAMEL_ENABLEMENT, new CamelEnablementProcessor());
+                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_CAMEL_INTEGRATION, new CamelIntegrationProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_CAMEL_WIRINGS, new CamelDependenciesProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_CAMEL_CONTEXT_CREATE, new CamelContextCreateProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_PACKAGE_SCAN_RESOLVER, new PackageScanResolverProcessor());

@@ -46,15 +46,19 @@ public class CamelContextDescriptorsProcessor implements DeploymentUnitProcessor
     public void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
 
         final DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
-        if (depUnit.getParent() != null)
+
+        CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
+
+        if (!depSettings.isDisabledByJbossAll() && depSettings.isDeploymentValid() && depUnit.getParent() != null) {
             return;
+        }
 
         final String runtimeName = depUnit.getName();
 
         try {
             if (runtimeName.endsWith(CamelConstants.CAMEL_CONTEXT_FILE_SUFFIX)) {
                 URL fileURL = depUnit.getAttachment(Attachments.DEPLOYMENT_CONTENTS).asFileURL();
-                depUnit.addToAttachmentList(CamelConstants.CAMEL_CONTEXT_DESCRIPTORS_KEY, fileURL);
+                depSettings.addCamelContextUrl(fileURL);
             } else {
                 VirtualFileFilter filter = new VirtualFileFilter() {
                     public boolean accepts(VirtualFile child) {
@@ -63,8 +67,7 @@ public class CamelContextDescriptorsProcessor implements DeploymentUnitProcessor
                 };
                 VirtualFile rootFile = depUnit.getAttachment(Attachments.DEPLOYMENT_ROOT).getRoot();
                 for (VirtualFile contextFile : rootFile.getChildrenRecursively(filter)) {
-                    URL fileURL = contextFile.asFileURL();
-                    depUnit.addToAttachmentList(CamelConstants.CAMEL_CONTEXT_DESCRIPTORS_KEY, fileURL);
+                    depSettings.addCamelContextUrl(contextFile.asFileURL());
                 }
             }
         } catch (IOException ex) {

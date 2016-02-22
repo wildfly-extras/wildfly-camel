@@ -38,6 +38,14 @@ public class CamelIntegrationProcessor implements DeploymentUnitProcessor {
 
     @Override
     public void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
+        DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
+        CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
+
+        // No camel dependencies if camel is disabled
+        if (!depSettings.isEnabled()) {
+            return;
+        }
+
         phaseContext.addDeploymentDependency(CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_SERVICE_NAME, CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_KEY);
         phaseContext.addDeploymentDependency(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME, CamelConstants.CAMEL_CONTEXT_REGISTRY_KEY);
         phaseContext.addDeploymentDependency(CamelConstants.CAMEL_CONTEXT_FACTORY_SERVICE_NAME, CamelConstants.CAMEL_CONTEXT_FACTORY_KEY);

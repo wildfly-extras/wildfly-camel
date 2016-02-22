@@ -65,8 +65,6 @@ public interface CamelConstants {
 
     /** The {@link CamelContext} attachment key */
     AttachmentKey<AttachmentList<CamelContext>> CAMEL_CONTEXT_KEY = AttachmentKey.createList(CamelContext.class);
-    /** The attachment key for spring descriptor URLs */
-    AttachmentKey<AttachmentList<URL>> CAMEL_CONTEXT_DESCRIPTORS_KEY = AttachmentKey.createList(URL.class);
     /** The {@link CamelContextRegistry} attachment key */
     AttachmentKey<CamelContextRegistry> CAMEL_CONTEXT_REGISTRY_KEY = AttachmentKey.create(CamelContextRegistry.class);
     /** The {@link CamelContextFactory} attachment key */

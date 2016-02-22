@@ -2,7 +2,7 @@
  * #%L
  * Wildfly Camel :: Subsystem
  * %%
- * Copyright (C) 2013 - 2014 RedHat
+ * Copyright (C) 2013 - 2016 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,10 @@
  */
 package org.wildfly.extension.camel.deployment;
 
-import static org.wildfly.extension.camel.CamelLogger.LOGGER;
-
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jboss.as.server.deployment.AttachmentList;
 import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
@@ -39,91 +35,94 @@ import org.jboss.jandex.DotName;
 import org.jboss.vfs.VirtualFile;
 import org.wildfly.extension.camel.CamelConstants;
 
-/**
- * A DUP that determines whether to enable the camel subsystem for a given deployment
- *
- * @author Thomas.Diesler@jboss.com
- * @since 20-May-2015
- */
-public final class CamelEnablementProcessor implements DeploymentUnitProcessor {
+import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
-    private static Map<String, DeploymentUnit> deploymentMap = new HashMap<>();
+public final class CamelDeploymentSettingsProcessor implements DeploymentUnitProcessor {
 
-    public static DeploymentUnit getDeploymentUnitForName(String name) {
-        synchronized (deploymentMap) {
-            return deploymentMap.get(name);
+    private static Map<String, CamelDeploymentSettings> deploymentSettingsMap = new HashMap<>();
+
+    public static CamelDeploymentSettings getDeploymentSettings(String name) {
+        synchronized (deploymentSettingsMap) {
+            return deploymentSettingsMap.get(name);
         }
     }
 
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
 
-        DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
+        final DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
+
         CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
         if (depSettings == null) {
             depSettings = new CamelDeploymentSettings();
             depUnit.putAttachment(CamelDeploymentSettings.ATTACHMENT_KEY, depSettings);
+        } else {
+            if (depSettings.isDisabledByJbossAll()) {
+                // Camel is explicitly disabled in jboss-all.xml
+                return;
+            }
         }
 
-        synchronized (deploymentMap) {
-            deploymentMap.put(getCanonicalDepUnitName(depUnit), depUnit);
+        depSettings.setDeploymentValid(isDeploymentValid(depUnit));
+        depSettings.setCamelAnnotationPresent(hasCamelActivationAnnotations(depUnit));
+
+        synchronized (deploymentSettingsMap) {
+            deploymentSettingsMap.put(getDeploymentName(depUnit), depSettings);
         }
 
+        final DeploymentUnit parent = depUnit.getParent();
+        if (parent != null) {
+            final String parentDeploymentName = getDeploymentName(parent);
+            CamelDeploymentSettings parentDepSettings = getDeploymentSettings(parentDeploymentName);
+            if (parentDepSettings != null) {
+                parentDepSettings.addChild(depSettings);
+            }
+        }
+    }
+
+    public void undeploy(final DeploymentUnit depUnit) {
+        synchronized (deploymentSettingsMap) {
+            deploymentSettingsMap.remove(getDeploymentName(depUnit));
+        }
+    }
+
+    private String getDeploymentName(final DeploymentUnit depUnit) {
+        DeploymentUnit parent = depUnit.getParent();
+        return parent != null ? parent.getName() + "." + depUnit.getName() : depUnit.getName();
+    }
+
+    private boolean isDeploymentValid(final DeploymentUnit depUnit) {
         // Skip wiring wfc for SwitchYard deployments
         VirtualFile rootFile = depUnit.getAttachment(Attachments.DEPLOYMENT_ROOT).getRoot();
         if (rootFile.getChild(CamelConstants.SWITCHYARD_MARKER_FILE).exists()) {
-            depSettings.setEnabled(false);
-            return;
+            return false;
         }
 
         // Skip wiring wfc for hawtio and resource adapter deployments
         String runtimeName = depUnit.getName();
         if ((runtimeName.startsWith("hawtio") && runtimeName.endsWith(".war")) || runtimeName.endsWith(".rar")) {
-            depSettings.setEnabled(false);
-            return;
+            return false;
         }
 
-        // If this is an EAR deployment, set camel enabled if any sub deployment meets activation criteria
-        AttachmentList<DeploymentUnit> subDeployments = depUnit.getAttachment(Attachments.SUB_DEPLOYMENTS);
-        if (runtimeName.endsWith(".ear") && subDeployments != null) {
-            for (DeploymentUnit subDepUnit : subDeployments) {
-                CamelDeploymentSettings subDepSettings = new CamelDeploymentSettings();
-                enableCamelIfRequired(subDepUnit, subDepSettings);
-                if (subDepSettings.isEnabled()) {
-                    depSettings.setEnabled(true);
-                    return;
-                }
-            }
-        }
-
-        enableCamelIfRequired(depUnit, depSettings);
+        return true;
     }
 
-    public void undeploy(DeploymentUnit depUnit) {
-        synchronized (deploymentMap) {
-            deploymentMap.remove(getCanonicalDepUnitName(depUnit));
-        }
-    }
-
-    private void enableCamelIfRequired(DeploymentUnit depUnit, CamelDeploymentSettings depSettings) {
+    private boolean hasCamelActivationAnnotations(final DeploymentUnit depUnit) {
+        // Search for CamelAware annotations
         AnnotationInstance annotation = getAnnotation(depUnit, "org.wildfly.extension.camel.CamelAware");
         if (annotation != null) {
             LOGGER.info("@CamelAware annotation found");
             AnnotationValue value = annotation.value();
-            depSettings.setEnabled(value != null ? value.asBoolean() : true);
-            return;
+            return value != null ? value.asBoolean() : true;
         }
 
+        // Search for Camel CDI component annotations
         List<AnnotationInstance> annotations = getAnnotations(depUnit, "org.apache.camel.cdi.ContextName");
         if (!annotations.isEmpty()) {
             LOGGER.info("@ContextName annotation found");
-            depSettings.setEnabled(true);
+            return true;
         }
 
-        List<URL> contextURLs = depUnit.getAttachmentList(CamelConstants.CAMEL_CONTEXT_DESCRIPTORS_KEY);
-        if (!contextURLs.isEmpty()) {
-            LOGGER.info("Camel context descriptors found");
-            depSettings.setEnabled(true);
-        }
+        return false;
     }
 
     private List<AnnotationInstance> getAnnotations(DeploymentUnit depUnit, String className) {
@@ -137,10 +136,5 @@ public final class CamelEnablementProcessor implements DeploymentUnitProcessor {
             LOGGER.warn("Multiple annotations found: {}", annotations);
         }
         return annotations.size() > 0 ? annotations.get(0) : null;
-    }
-
-    private String getCanonicalDepUnitName(DeploymentUnit depUnit) {
-        DeploymentUnit parent = depUnit.getParent();
-        return parent != null ? parent.getName() + "." + depUnit.getName() : depUnit.getName();
     }
 }

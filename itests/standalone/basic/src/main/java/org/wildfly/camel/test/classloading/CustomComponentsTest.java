@@ -41,7 +41,7 @@ public class CustomComponentsTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "no-mqtt-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "enable-component-tests");
         archive.addAsResource("classloading/jboss-all-custom-components.xml", "META-INF/jboss-all.xml");
         return archive;
     }

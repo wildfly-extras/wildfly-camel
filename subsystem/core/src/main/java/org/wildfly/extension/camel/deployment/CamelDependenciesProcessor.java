@@ -50,7 +50,7 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
         DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
         CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
 
-        // Camel dependecies disabled
+        // Camel dependencies disabled
         if (!depSettings.isEnabled()) {
             return;
         }

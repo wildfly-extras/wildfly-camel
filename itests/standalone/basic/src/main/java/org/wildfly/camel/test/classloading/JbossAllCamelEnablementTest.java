@@ -2,7 +2,7 @@
  * #%L
  * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2013 - 2014 RedHat
+ * Copyright (C) 2013 - 2016 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import org.junit.runner.RunWith;
  * can disable camel from being added to your deployment.
  */
 @RunWith(Arquillian.class)
-public class NoCamelTest {
+public class JbossAllCamelEnablementTest {
 
     @Deployment
     public static JavaArchive deployment() {

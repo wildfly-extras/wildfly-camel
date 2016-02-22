@@ -150,11 +150,7 @@ public class CamelIntegrationParser implements JBossAllXMLParser<CamelDeployment
         switch (rootElement) {
             case CAMEL_INTEGRATION:
                 final String value = getAttributeValue(reader, Attribute.ENABLED, propertyReplacer);
-                if (value == null || value.isEmpty()) {
-                    result.setEnabled(true);
-                } else {
-                    result.setEnabled(Boolean.valueOf(value) == Boolean.TRUE);
-                }
+                result.setDisabledByJbossAll(Boolean.valueOf(value) == Boolean.FALSE);
                 break;
             default:
                 throw unexpectedContent(reader);

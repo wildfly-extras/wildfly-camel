@@ -22,7 +22,6 @@
 package org.wildfly.extension.camel.deployment;
 
 import java.net.URL;
-import java.util.List;
 
 import org.apache.camel.CamelContext;
 import org.jboss.as.server.deployment.Attachments;
@@ -50,9 +49,9 @@ public class CamelContextCreateProcessor implements DeploymentUnitProcessor {
         final Module module = depUnit.getAttachment(Attachments.MODULE);
         final String runtimeName = depUnit.getName();
 
-        // Add the camel contexts to the deployemnt
-        List<URL> contextURLs = depUnit.getAttachmentList(CamelConstants.CAMEL_CONTEXT_DESCRIPTORS_KEY);
-        for (URL contextURL : contextURLs) {
+        // Add the camel contexts to the deployment
+        CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
+        for (URL contextURL : depSettings.getCamelContextUrls()) {
             ClassLoader tccl = Thread.currentThread().getContextClassLoader();
             try {
                 Thread.currentThread().setContextClassLoader(module.getClassLoader());
