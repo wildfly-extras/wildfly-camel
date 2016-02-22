@@ -116,26 +116,6 @@
 /org/apache/kafka/clients/main/kafka-clients-0.9.0.1.jar
 /org/apache/kafka/clients/main/lz4-1.2.0.jar
 /org/apache/kafka/clients/main/snappy-java-1.1.1.7.jar
-<<<<<<< HEAD:patch/etc/baseline/module-list.txt
-/org/apache/kafka/main/jopt-simple-3.2.jar
-/org/apache/kafka/main/kafka_2.11-0.8.2.2.jar
-/org/apache/kafka/main/metrics-core-2.2.0.jar
-/org/apache/kafka/main/zkclient-0.3.jar
-/org/apache/lucene/4.10/lucene-analyzers-common-4.10.4.jar
-/org/apache/lucene/4.10/lucene-core-4.10.4.jar
-/org/apache/lucene/4.10/lucene-grouping-4.10.4.jar
-/org/apache/lucene/4.10/lucene-highlighter-4.10.4.jar
-/org/apache/lucene/4.10/lucene-join-4.10.4.jar
-/org/apache/lucene/4.10/lucene-memory-4.10.4.jar
-/org/apache/lucene/4.10/lucene-misc-5.3.1.jar
-/org/apache/lucene/4.10/lucene-queries-5.3.1.jar
-/org/apache/lucene/4.10/lucene-queryparser-4.10.4.jar
-/org/apache/lucene/4.10/lucene-sandbox-4.10.4.jar
-/org/apache/lucene/4.10/lucene-spatial-4.10.4.jar
-/org/apache/lucene/4.10/lucene-suggest-4.10.4.jar
-/org/apache/lucene/4.10/spatial4j-0.4.1.jar
-/org/apache/mina/core/main/mina-core-2.0.9.jar
-=======
 /org/apache/lucene/5.4/lucene-analyzers-common-5.4.1.jar
 /org/apache/lucene/5.4/lucene-backward-codecs-5.4.1.jar
 /org/apache/lucene/5.4/lucene-core-5.4.1.jar
@@ -152,15 +132,13 @@
 /org/apache/lucene/5.4/lucene-suggest-5.4.1.jar
 /org/apache/lucene/5.4/spatial4j-0.5.jar
 /org/apache/mina/core/main/mina-core-2.0.13.jar
->>>>>>> [resolves #906] Update to camel-2.17.0:modules/etc/baseline/module-list.txt
 /org/apache/ws/commons/axiom/axiom-api/main/axiom-api-1.2.14.jar
 /org/apache/ws/commons/axiom/axiom-impl/main/axiom-impl-1.2.14.jar
 /org/apache/xbean/spring/main/xbean-spring-3.18.jar
 /org/apache/xmlbeans/main/xmlbeans-2.6.0.jar
 /org/apache/zookeeper/main/zookeeper-3.4.8.jar
 /org/beanshell/main/bsh-2.0b5.jar
-<<<<<<< HEAD:patch/etc/baseline/module-list.txt
-/org/bouncycastle/ext/main/bcpg-jdk15on-1.52.jar
+/org/bouncycastle/ext/main/bcpg-jdk15on-1.54.jar
 /org/eclipse/aether/main/aether-api-1.0.0.v20140518.jar
 /org/eclipse/aether/main/aether-connector-basic-1.0.0.v20140518.jar
 /org/eclipse/aether/main/aether-impl-1.0.0.v20140518.jar
@@ -169,17 +147,6 @@
 /org/eclipse/aether/main/aether-transport-http-1.0.0.v20140518.jar
 /org/eclipse/aether/main/aether-util-1.0.0.v20140518.jar
 /org/eclipse/aether/main/maven-aether-provider-3.2.5.jar
-=======
-/org/bouncycastle/ext/main/bcpg-jdk15on-1.54.jar
-/org/eclipse/aether/main/aether-api-1.0.2.v20150114.jar
-/org/eclipse/aether/main/aether-connector-basic-1.0.2.v20150114.jar
-/org/eclipse/aether/main/aether-impl-1.0.2.v20150114.jar
-/org/eclipse/aether/main/aether-spi-1.0.2.v20150114.jar
-/org/eclipse/aether/main/aether-transport-file-1.0.2.v20150114.jar
-/org/eclipse/aether/main/aether-transport-http-1.0.2.v20150114.jar
-/org/eclipse/aether/main/aether-util-1.0.2.v20150114.jar
-/org/eclipse/aether/main/maven-aether-provider-3.3.3.jar
->>>>>>> [resolves #906] Update to camel-2.17.0:modules/etc/baseline/module-list.txt
 /org/eclipse/jetty/main/jetty-client-8.1.17.v20150415.jar
 /org/eclipse/jetty/main/jetty-http-8.1.17.v20150415.jar
 /org/eclipse/jetty/main/jetty-io-8.1.17.v20150415.jar
@@ -187,8 +154,8 @@
 /org/elasticsearch/main/elasticsearch-2.2.0.jar
 /org/elasticsearch/main/securesm-1.0.jar
 /org/fusesource/hawtbuf/main/hawtbuf-1.10.jar
-/org/fusesource/hawtdispatch/main/hawtdispatch-1.22.jar
-/org/fusesource/hawtdispatch/main/hawtdispatch-transport-1.22.jar
+/org/fusesource/hawtdispatch/main/hawtdispatch-1.21.jar
+/org/fusesource/hawtdispatch/main/hawtdispatch-transport-1.21.jar
 /org/fusesource/mqtt/main/mqtt-client-1.12.jar
 /org/jboss/gravia/main/gravia-resource-1.3.1.jar
 /org/jboss/gravia/main/gravia-runtime-api-1.3.1.jar

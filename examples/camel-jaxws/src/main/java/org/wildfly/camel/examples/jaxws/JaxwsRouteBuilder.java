@@ -19,18 +19,18 @@
  */
 package org.wildfly.camel.examples.jaxws;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
-import org.apache.camel.component.bean.BeanInvocation;
-
 import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.bean.BeanInvocation;
+import org.wildfly.extension.camel.CamelAware;
+
 @Startup
+@CamelAware
 @ApplicationScoped
-@ContextName("jaxws-camel-context")
 public class JaxwsRouteBuilder extends RouteBuilder {
 
     @Override

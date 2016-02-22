@@ -9,6 +9,9 @@
         <requiredProperty key="version-apache-camel">
             <defaultValue>${version.apache.camel}</defaultValue>
         </requiredProperty>
+        <requiredProperty key="version-wildfly-camel">
+            <defaultValue>${project.version}</defaultValue>
+        </requiredProperty>
         <requiredProperty key="version-jboss-arquillian">
             <defaultValue>${version.jboss.arquillian.core}</defaultValue>
         </requiredProperty>

@@ -27,15 +27,15 @@ import javax.persistence.EntityManagerFactory;
 import javax.transaction.UserTransaction;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
 import org.apache.camel.component.jpa.JpaEndpoint;
 import org.apache.camel.model.dataformat.JaxbDataFormat;
 import org.springframework.transaction.jta.JtaTransactionManager;
 import org.wildfly.camel.examples.jpa.model.Customer;
+import org.wildfly.extension.camel.CamelAware;
 
 @Startup
+@CamelAware
 @ApplicationScoped
-@ContextName("jpa-cdi-context")
 public class JpaRouteBuilder extends RouteBuilder {
 
     @Inject

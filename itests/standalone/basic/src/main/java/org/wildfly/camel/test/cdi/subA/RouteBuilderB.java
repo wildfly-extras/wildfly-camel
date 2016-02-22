@@ -29,29 +29,31 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Uses contextC implicitly using that context for all injection points without
- * having to mention them on each camel annotation
+ * Uses contextB with explicit context names on all Camel annotations
  */
-@ContextName("contextC")
-public class RoutesContextC extends RouteBuilder {
-    private static final Logger LOG = LoggerFactory.getLogger(RoutesContextC.class);
+@ContextName("contextB")
+public class RouteBuilderB extends RouteBuilder {
+    private static final Logger LOG = LoggerFactory.getLogger(RouteBuilderB.class);
 
-    @Inject @Uri("seda:C.a")
-    Endpoint a;
-
-    @EndpointInject(uri = "mock:C.b")
+    @EndpointInject(uri = "mock:B.b", context = "contextB")
     public MockEndpoint b;
 
-    @Inject @Uri("seda:C.a")
+    @ContextName("contextB")
+    @Inject @Uri(value = "seda:B.a")
+    Endpoint a;
+
+    @ContextName("contextB")
+    @Inject @Uri(value = "seda:B.a")
     ProducerTemplate producer;
 
     @Override
     public void configure() throws Exception {
+        LOG.info("Adding route from " + a + " to " + b);
         from(a).to(b);
     }
 
     public void sendMessages() {
-        for (Object expectedBody : Constants.EXPECTED_BODIES_C) {
+        for (Object expectedBody : Constants.EXPECTED_BODIES_B) {
             LOG.info("Sending " + expectedBody + " to " + producer.getDefaultEndpoint());
             producer.sendBody(expectedBody);
         }

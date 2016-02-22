@@ -30,8 +30,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+@SuppressWarnings("serial")
 @WebServlet(name = "HttpServiceServlet", urlPatterns = {"/orders"}, loadOnStartup = 1)
 public class JmsServlet extends HttpServlet {
+
     @Inject
     private OrderRepository orderRepository;
 

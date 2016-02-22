@@ -42,6 +42,7 @@
         <version.apache.camel>${version-apache-camel}</version.apache.camel>
         <version.jboss.arquillian>${version-jboss-arquillian}</version.jboss.arquillian>
         <version.junit>${version-junit}</version.junit>
+        <version.wildfly.camel>${version-wildfly-camel}</version.wildfly.camel>
 
         <!-- Plugin versions -->
         <version.maven.compiler.plugin>${version-maven-compiler-plugin}</version.maven.compiler.plugin>
@@ -50,8 +51,8 @@
         <version.wildfly.maven.plugin>${version-wildfly-maven-plugin}</version.wildfly.maven.plugin>
 
         <!-- maven-compiler-plugin -->
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
 
         <!-- Arquillian application server properties -->
         <jboss.home>${env.JBOSS_HOME}</jboss.home>
@@ -81,6 +82,12 @@
     <!-- Dependencies -->
     <dependencies>
         <!-- Provided -->
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-subsystem-core</artifactId>
+            <version>${version.wildfly.camel}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cdi</artifactId>
