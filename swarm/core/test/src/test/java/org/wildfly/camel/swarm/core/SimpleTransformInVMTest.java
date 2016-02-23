@@ -26,6 +26,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.wildfly.camel.swarm.core.subA.RouteBuilderA;
 import org.wildfly.swarm.container.Container;
 import org.wildfly.swarm.container.JARArchive;
 
@@ -39,14 +40,17 @@ public class SimpleTransformInVMTest {
 
     @Test
     public void testSimpleTransform() throws Exception {
+
+        Path path = Paths.get(System.getProperty("java.io.tmpdir"), RouteBuilderA.class.getName());
+        final String fileUrl = "file://" + path + "?fileName=fileA&doneFileName=fileA.done";
+
         Container container = new Container().fraction(new CamelCoreFraction()).start(camelDeployment());
         try {
             CamelContext camelctx = new DefaultCamelContext();
             camelctx.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
-                    Path path = Paths.get(System.getProperty("java.io.tmpdir"), "fileA");
-                    from("file://" + path.getParent() + "?fileName=" + path.getFileName()).to("direct:end");
+                    from(fileUrl).to("direct:end");
                 }
             });
 

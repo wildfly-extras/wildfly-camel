@@ -34,11 +34,10 @@ public class RouteBuilderA extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         Path path = Paths.get(System.getProperty("java.io.tmpdir"), RouteBuilderA.class.getName());
-        String fileurl = "file://" + path + "?fileName=fileA&doneFileName=fileA.done";
+        String fileUrl = "file://" + path + "?fileName=fileA&doneFileName=fileA.done";
         from("timer://foo?delay=0&repeatCount=1")
             .setBody(new HeaderExpression(Exchange.TIMER_COUNTER))
             .transform(body().prepend("Hello "))
-            .to("log:body")
-            .to(fileurl);
+            .to(fileUrl);
     }
 }

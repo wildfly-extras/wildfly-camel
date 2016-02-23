@@ -26,7 +26,6 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.swarm.core.subA.RouteBuilderA;
@@ -40,7 +39,6 @@ import org.wildfly.swarm.container.JARArchive;
  * @since 09-Feb-2016
  */
 @RunWith(Arquillian.class)
-@Ignore("[#1088] Swarm integration test causes stability issues")
 public class SimpleTransformTest implements ContainerFactory {
 
     @Deployment(testable = false)
@@ -58,19 +56,22 @@ public class SimpleTransformTest implements ContainerFactory {
 
     @Test
     public void testSimpleTransform() throws Exception {
+
+        Path path = Paths.get(System.getProperty("java.io.tmpdir"), RouteBuilderA.class.getName());
+        final String fileUrl = "file://" + path + "?fileName=fileA&doneFileName=fileA.done";
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                Path path = Paths.get(System.getProperty("java.io.tmpdir"), RouteBuilderA.class.getName());
-                from("file://" + path + "?fileName=fileA&doneFileName=fileA.done").to("direct:end");
+                from(fileUrl).convertBodyTo(String.class).to("seda:end");
             }
         });
 
         camelctx.start();
         try {
             ConsumerTemplate consumer = camelctx.createConsumerTemplate();
-            String result = consumer.receiveBody("direct:end", String.class);
+            String result = consumer.receiveBody("seda:end", String.class);
             Assert.assertEquals("Hello 1", result);
         } finally {
             camelctx.stop();
