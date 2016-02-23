@@ -26,6 +26,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.swarm.core.subA.RouteBuilderA;
@@ -39,6 +40,7 @@ import org.wildfly.swarm.container.JARArchive;
  * @since 09-Feb-2016
  */
 @RunWith(Arquillian.class)
+@Ignore("[#1088] Swarm integration test causes stability issues")
 public class SimpleTransformTest implements ContainerFactory {
 
     @Deployment(testable = false)
