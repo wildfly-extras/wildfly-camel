@@ -20,9 +20,6 @@
 
 package org.wildfly.camel.swarm.core.subA;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.language.HeaderExpression;
@@ -33,12 +30,9 @@ public class RouteBuilderA extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        Path path = Paths.get(System.getProperty("java.io.tmpdir"), RouteBuilderA.class.getName());
-        String fileurl = "file://" + path + "?fileName=fileA&doneFileName=fileA.done";
         from("timer://foo?delay=0&repeatCount=1")
             .setBody(new HeaderExpression(Exchange.TIMER_COUNTER))
             .transform(body().prepend("Hello "))
-            .to("log:body")
-            .to(fileurl);
+            .to("file://{{java.io.tmpdir}}/" + RouteBuilderA.class.getName() + "?fileName=fileA&doneFileName=fileA.done");
     }
 }

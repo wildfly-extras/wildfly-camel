@@ -15,9 +15,6 @@
  */
 package org.wildfly.camel.swarm.core;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -56,19 +53,21 @@ public class SimpleTransformTest implements ContainerFactory {
 
     @Test
     public void testSimpleTransform() throws Exception {
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                Path path = Paths.get(System.getProperty("java.io.tmpdir"), RouteBuilderA.class.getName());
-                from("file://" + path + "?fileName=fileA&doneFileName=fileA.done").to("direct:end");
+                from("file://{{java.io.tmpdir}}/" + RouteBuilderA.class.getName() + "?fileName=fileA&doneFileName=fileA.done")
+                .convertBodyTo(String.class)
+                .to("seda:end");
             }
         });
 
         camelctx.start();
         try {
             ConsumerTemplate consumer = camelctx.createConsumerTemplate();
-            String result = consumer.receiveBody("direct:end", String.class);
+            String result = consumer.receiveBody("seda:end", String.class);
             Assert.assertEquals("Hello 1", result);
         } finally {
             camelctx.stop();
