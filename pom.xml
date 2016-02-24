@@ -120,11 +120,9 @@
     <!-- Modules -->
     <modules>
         <module>config</module>
-        <module>docs</module>
         <module>modules</module>
         <module>features</module>
         <module>subsystem</module>
-        <module>swarm</module>
         <module>testenricher</module>
         <module>itests</module>
     </modules>
@@ -740,9 +738,11 @@
             </activation>
             <modules>
                 <module>archetypes</module>
+                <module>docs</module>
+                <module>patch</module>
+                <module>swarm</module>
                 <module>examples</module>
                 <module>compatibility</module>
-                <module>patch</module>
             </modules>
         </profile>
     </profiles>
