@@ -20,16 +20,19 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <!-- needed by org.springframework.context -->
     <module name="org.springframework.aop">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":spring-aop" />
-        <include artifact=":aopalliance" />
-        <dependencies>
-            <module name="javax.api" />
-            <module name="org.apache.commons.logging" />
-        </dependencies>
+        <apply-to-dependencies skip="true">
+            <include module="aopalliance" />
+        </apply-to-dependencies>
+        <exports>
+            <include path="org/springframework/aop/support" />
+            <exclude path="org/springframework/aop/**" />
+        </exports>
     </module>
     
     <module name="org.springframework.beans">
@@ -97,10 +100,18 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":spring-jms" />
+        <apply-to-dependencies skip="true">
+            <include module="org.springframework.aop" />
+            <include module="org.springframework.messaging" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />
         </dependencies>
+    </module>
+    
+    <module name="org.springframework.messaging" skip="true">
+        <include artifact=":spring-messaging" />
     </module>
     
     <module name="org.springframework.orm">
@@ -121,6 +132,10 @@
         </properties>
         <include artifact=":spring-security-config" />
         <include artifact=":spring-security-core" />
+        <apply-to-dependencies skip="true">
+            <include module="org.springframework.aop" />
+            <include module="aopalliance" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />

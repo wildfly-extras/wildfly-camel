@@ -28,6 +28,10 @@
         <include artifact=":ant" />
     </module>
     
+    <module name="aopalliance" skip="true">
+        <include artifact="aopalliance" />
+    </module>
+    
     <module name="asm.extras" skip="true">
         <include artifact="asm:asm-analysis" />
         <include artifact="asm:asm-commons" />

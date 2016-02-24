@@ -178,7 +178,6 @@
 /org/scala/library/main/scala-library-2.11.7.jar
 /org/scala/modules/main/scala-parser-combinators_2.11-1.0.2.jar
 /org/scala/modules/main/scala-xml_2.11-1.0.2.jar
-/org/springframework/aop/main/aopalliance-1.0.jar
 /org/springframework/aop/main/spring-aop-4.1.9.RELEASE.jar
 /org/springframework/beans/main/spring-beans-4.1.9.RELEASE.jar
 /org/springframework/context/main/spring-context-4.1.9.RELEASE.jar
@@ -189,7 +188,6 @@
 /org/springframework/orm/main/spring-orm-4.1.9.RELEASE.jar
 /org/springframework/security/main/spring-security-config-3.2.8.RELEASE.jar
 /org/springframework/security/main/spring-security-core-3.2.8.RELEASE.jar
-/org/springframework/spring-messaging/main/spring-messaging-4.1.9.RELEASE.jar
 /org/springframework/tx/main/spring-tx-4.1.9.RELEASE.jar
 /org/wildfly/extras/config/main/fuse-patch-config-2.0.1.jar
 /org/wildfly/extras/config/plugin/camel/main/wildfly-camel-config-4.0.0-SNAPSHOT.jar

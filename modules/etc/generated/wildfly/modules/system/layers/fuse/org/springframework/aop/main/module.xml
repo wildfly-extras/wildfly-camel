@@ -4,13 +4,14 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="aopalliance-1.0.jar" />
     <resource-root path="spring-aop-4.1.9.RELEASE.jar" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
-    <module name="org.apache.commons.logging" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.core" />
   </dependencies>
+  <exports>
+    <include path="org/springframework/aop/support" />
+    <exclude path="org/springframework/aop/**" />
+  </exports>
 </module>
