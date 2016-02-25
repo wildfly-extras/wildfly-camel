@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.jboss.as.server.deployment.AttachmentKey;
 import org.jboss.modules.ModuleIdentifier;
+import org.wildfly.extension.camel.ContextCreateHandler;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
@@ -39,6 +40,7 @@ public final class CamelDeploymentSettings {
     private List<CamelDeploymentSettings> children = new ArrayList<>();
     private List<ModuleIdentifier> dependencies = new ArrayList<>();
     private List<URL> camelContextUrls = new ArrayList<>();
+    private ContextCreateHandler classResolverAssociationHandler;
     private boolean disabledByJbossAll;
     private boolean deploymentValid;
     private boolean camelAnnotationPresent;
@@ -124,5 +126,13 @@ public final class CamelDeploymentSettings {
 
     public void setCamelAnnotationPresent(boolean camelAnnotationPresent) {
         this.camelAnnotationPresent = camelAnnotationPresent;
+    }
+
+    public ContextCreateHandler getClassResolverAssociationHandler() {
+        return classResolverAssociationHandler;
+    }
+
+    public void setClassResolverAssociationHandler(ContextCreateHandler classResolverAssociationHandler) {
+        this.classResolverAssociationHandler = classResolverAssociationHandler;
     }
 }

@@ -39,8 +39,6 @@ import org.wildfly.extension.camel.handler.PackageScanClassResolverAssociationHa
  */
 public class PackageScanResolverProcessor implements DeploymentUnitProcessor {
 
-    private ContextCreateHandler contextCreateHandler;
-
     public final void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
         DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
         CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
@@ -52,15 +50,17 @@ public class PackageScanResolverProcessor implements DeploymentUnitProcessor {
 
         ContextCreateHandlerRegistry createHandlerRegistry = depUnit.getAttachment(CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_KEY);
         ModuleClassLoader moduleClassLoader = depUnit.getAttachment(Attachments.MODULE).getClassLoader();
-        contextCreateHandler = new PackageScanClassResolverAssociationHandler(moduleClassLoader);
+        ContextCreateHandler contextCreateHandler = new PackageScanClassResolverAssociationHandler(moduleClassLoader);
+        depSettings.setClassResolverAssociationHandler(contextCreateHandler);
         createHandlerRegistry.addContextCreateHandler(moduleClassLoader, contextCreateHandler);
     }
 
     public void undeploy(DeploymentUnit depUnit) {
         ContextCreateHandlerRegistry createHandlerRegistry = depUnit.getAttachment(CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_KEY);
+        CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
         if (createHandlerRegistry != null) {
             ModuleClassLoader classLoader = depUnit.getAttachment(Attachments.MODULE).getClassLoader();
-            createHandlerRegistry.removeContextCreateHandler(classLoader, contextCreateHandler);
+            createHandlerRegistry.removeContextCreateHandler(classLoader, depSettings.getClassResolverAssociationHandler());
         }
     }
 }
