@@ -36,7 +36,7 @@ import org.wildfly.swarm.container.JARArchive;
  * @since 09-Feb-2016
  */
 @RunWith(Arquillian.class)
-public class SimpleTransformTest implements ContainerFactory {
+public class SimpleCoreTransformTest implements ContainerFactory {
 
     @Deployment(testable = false)
     public static JARArchive swarmDeployment() {

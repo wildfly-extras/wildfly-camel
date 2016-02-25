@@ -35,7 +35,7 @@ import org.wildfly.swarm.container.JARArchive;
  * @since 09-Feb-2016
  */
 @Ignore("[#1059] Investigate camel-core swarm in VM startup failure")
-public class SimpleTransformInVMTest {
+public class SimpleCoreTransformInVMTest {
 
     @Test
     public void testSimpleTransform() throws Exception {

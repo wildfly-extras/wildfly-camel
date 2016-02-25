@@ -368,11 +368,6 @@
             </dependency>
             <dependency>
                 <groupId>org.wildfly.swarm</groupId>
-                <artifactId>container-modules</artifactId>
-                <version>${version.wildfly.swarm}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.swarm</groupId>
                 <artifactId>container-runtime</artifactId>
                 <version>${version.wildfly.swarm}</version>
             </dependency>

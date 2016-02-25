@@ -24,19 +24,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.wildfly.camel</groupId>
-        <artifactId>wildfly-camel</artifactId>
+        <groupId>org.wildfly.camel.swarm</groupId>
+        <artifactId>wildfly-camel-swarm</artifactId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
 
-    <name>Wildfly Camel :: Swarm</name>
+    <name>Wildfly Camel :: Swarm :: Servlet</name>
     
-    <groupId>org.wildfly.camel.swarm</groupId>
-    <artifactId>wildfly-camel-swarm</artifactId>
+    <artifactId>wildfly-camel-swarm-servlet</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>core</module>
-        <module>servlet</module>
+        <module>api</module>
+        <module>modules</module>
+        <module>test</module>
     </modules>
 </project>
