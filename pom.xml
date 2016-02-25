@@ -356,13 +356,10 @@
             <!-- WildFly Swarm -->
             <dependency>
                 <groupId>org.wildfly.swarm</groupId>
-                <artifactId>arquillian</artifactId>
+                <artifactId>bom</artifactId>
                 <version>${version.wildfly.swarm}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>bootstrap</artifactId>
-                <version>${version.wildfly.swarm}</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.wildfly.swarm</groupId>
