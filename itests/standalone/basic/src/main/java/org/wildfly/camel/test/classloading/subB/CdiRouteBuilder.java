@@ -17,24 +17,16 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.classloading.subA;
 
-import javax.resource.ResourceException;
-import javax.resource.spi.ActivationSpec;
-import javax.resource.spi.InvalidPropertyException;
-import javax.resource.spi.ResourceAdapter;
+package org.wildfly.camel.test.classloading.subB;
 
-public class FakeActivationSpec implements ActivationSpec {
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.cdi.ContextName;
+
+@ContextName("cdi-context")
+public class CdiRouteBuilder extends RouteBuilder {
     @Override
-    public void validate() throws InvalidPropertyException {
-    }
-
-    @Override
-    public ResourceAdapter getResourceAdapter() {
-        return new FakeResourceAdapter();
-    }
-
-    @Override
-    public void setResourceAdapter(ResourceAdapter resourceAdapter) throws ResourceException {
+    public void configure() throws Exception {
+        from("direct:start").log("Hello world");
     }
 }

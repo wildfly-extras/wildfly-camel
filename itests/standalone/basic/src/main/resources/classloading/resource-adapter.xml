@@ -26,14 +26,14 @@
     <eis-type>resource-adapter</eis-type>
     <resourceadapter-version>1.0</resourceadapter-version>
     <resourceadapter>
-        <resourceadapter-class>org.wildfly.camel.test.classloading.subA.FakeResourceAdapter</resourceadapter-class>
+        <resourceadapter-class>org.wildfly.camel.test.classloading.subB.FakeResourceAdapter</resourceadapter-class>
 
         <inbound-resourceadapter>
             <messageadapter>
                 <messagelistener>
                     <messagelistener-type>javax.resource.cci.MessageListener</messagelistener-type>
                     <activationspec>
-                        <activationspec-class>org.wildfly.camel.test.classloading.subA.FakeActivationSpec</activationspec-class>
+                        <activationspec-class>org.wildfly.camel.test.classloading.subB.FakeActivationSpec</activationspec-class>
                         <required-config-property>
                             <config-property-name>FakeProp</config-property-name>
                         </required-config-property>

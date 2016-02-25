@@ -27,7 +27,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.classloading.subA.CdiRouteBuilder;
+import org.wildfly.camel.test.classloading.subB.CdiRouteBuilder;
 
 @RunWith(Arquillian.class)
 public class JbossAllCamelEnablementWithAnnotationTest {

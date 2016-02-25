@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.classloading.subA;
+package org.wildfly.camel.test.classloading.subB;
 
 import javax.resource.ResourceException;
 import javax.resource.spi.ActivationSpec;

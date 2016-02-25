@@ -27,8 +27,8 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.ResourceAdapterArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.classloading.subA.FakeActivationSpec;
-import org.wildfly.camel.test.classloading.subA.FakeResourceAdapter;
+import org.wildfly.camel.test.classloading.subB.FakeActivationSpec;
+import org.wildfly.camel.test.classloading.subB.FakeResourceAdapter;
 
 @RunWith(Arquillian.class)
 public class CamelEnablementResourceAdapterTest {
