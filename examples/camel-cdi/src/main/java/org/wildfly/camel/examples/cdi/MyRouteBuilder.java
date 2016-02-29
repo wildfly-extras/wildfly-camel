@@ -48,6 +48,6 @@ public class MyRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-    	from("direct:start").beanRef("helloBean");
+    	from("direct:start").bean("helloBean");
     }
 }
