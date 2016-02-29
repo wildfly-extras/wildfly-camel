@@ -5,9 +5,13 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="org.apache.camel.component.http.common" export="true">
+      <exports>
+        <include path="org/apache/camel/http/common" />
+      </exports>
+    </module>
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
-    <module name="org.apache.camel.component.http.common" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.httpcomponents" />
   </dependencies>

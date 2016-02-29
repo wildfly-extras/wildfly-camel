@@ -367,6 +367,11 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
+            <module name="org.apache.camel.component.http.common" export="true">
+                <exports>
+                    <include path="org/apache/camel/http/common" />
+                </exports>
+            </module>
             <module name="org.slf4j" />
         </dependencies>
     </module>

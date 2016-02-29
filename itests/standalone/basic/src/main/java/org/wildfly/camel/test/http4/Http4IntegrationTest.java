@@ -22,8 +22,10 @@ package org.wildfly.camel.test.http4;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.http.common.HttpOperationFailedException;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -63,6 +65,37 @@ public class Http4IntegrationTest {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBodyAndHeader("direct:start", null, Exchange.HTTP_QUERY, "name=Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testHttpPostRequestFailure() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .to("http4://localhost:8080/simple/myservlet");
+            }
+        });
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            Exchange exchange = producer.send("direct:start", new Processor() {
+                @Override
+                public void process(Exchange exchange) throws Exception {
+                    exchange.getIn().setBody("q=test1234");
+                }
+            });
+
+            Assert.assertNotNull("Expected exchange to not  be null", exchange);
+            Assert.assertTrue("Expected exchange to be flagged as failed", exchange.isFailed());
+
+            HttpOperationFailedException exception = (HttpOperationFailedException) exchange.getException();
+            Assert.assertNotNull(exception);
         } finally {
             camelctx.stop();
         }
