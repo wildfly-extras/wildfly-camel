@@ -79,7 +79,6 @@
         <version.maven.archetype.packaging>2.3</version.maven.archetype.packaging>
         <version.osgi>5.0.0</version.osgi>
         <version.wildfly.arquillian>1.0.2.Final</version.wildfly.arquillian>
-        <version.wildfly.swarm>1.0.0.Alpha8</version.wildfly.swarm>
         
         <!-- Plugin versions -->
         <version-apache-scr-plugin>1.21.0</version-apache-scr-plugin>
@@ -109,7 +108,6 @@
         <version-wildfly-maven-plugin>1.0.2.Final</version-wildfly-maven-plugin>
         <version-wildfly-feature-pack-maven-plugin>1.1.0.Final</version-wildfly-feature-pack-maven-plugin>
         <version-wildfly-provisioning-maven-plugin>1.1.0.Final</version-wildfly-provisioning-maven-plugin>
-        <version-wildfly-swarm-fraction-plugin>1.0.0.Alpha9</version-wildfly-swarm-fraction-plugin>
         <version-xmlbeans-maven-plugin>2.3.3</version-xmlbeans-maven-plugin>
 
         <!-- GitHub -->
@@ -353,25 +351,6 @@
                 <version>${version.wildfly.arquillian}</version>
             </dependency>
 
-            <!-- WildFly Swarm -->
-            <dependency>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>bom</artifactId>
-                <version>${version.wildfly.swarm}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>container</artifactId>
-                <version>${version.wildfly.swarm}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>container-runtime</artifactId>
-                <version>${version.wildfly.swarm}</version>
-            </dependency>
-            
             <!-- Xmlbeans -->
             <dependency>
                 <groupId>org.apache.xmlbeans</groupId>
@@ -567,19 +546,6 @@
                         <version>${version.wildfly}</version>
                     </configuration>
                 </plugin>
-                <plugin>
-                    <groupId>org.wildfly.swarm</groupId>
-                    <artifactId>wildfly-swarm-fraction-plugin</artifactId>
-                    <version>${version-wildfly-swarm-fraction-plugin}</version>
-                    <executions>
-                        <execution>
-                            <phase>prepare-package</phase>
-                            <goals>
-                                <goal>generate</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -732,7 +698,6 @@
                 <module>archetypes</module>
                 <module>docs</module>
                 <module>patch</module>
-                <module>swarm</module>
                 <module>examples</module>
                 <module>compatibility</module>
             </modules>
