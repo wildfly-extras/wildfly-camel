@@ -64,7 +64,7 @@
         <version.args4j>2.0.31</version.args4j>
         <version.codehaus.plexus.utils>3.0.15</version.codehaus.plexus.utils>
         <version.freeside.betamax>1.1.2</version.freeside.betamax>
-        <version.fusepatch>2.0.1</version.fusepatch>
+        <version.fusepatch>2.1.0</version.fusepatch>
         <version.greenmail>1.4.0</version.greenmail>
         <version.hawtio>1.4.60</version.hawtio>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
