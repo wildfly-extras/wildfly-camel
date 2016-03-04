@@ -49,7 +49,7 @@ public class CamelContextDescriptorsProcessor implements DeploymentUnitProcessor
 
         CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
 
-        if (!depSettings.isDisabledByJbossAll() && depSettings.isDeploymentValid() && depUnit.getParent() != null) {
+        if (depSettings.isDisabledByJbossAll() || !depSettings.isDeploymentValid() || depUnit.getParent() != null) {
             return;
         }
 
