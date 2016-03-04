@@ -5,7 +5,7 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="fuse-patch-config-2.0.1.jar" />
+    <resource-root path="fuse-patch-config-2.1.0.jar" />
   </resources>
   <dependencies>
     <module name="args4j" />
