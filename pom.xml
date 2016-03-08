@@ -119,7 +119,7 @@
     <modules>
         <module>config</module>
         <module>modules</module>
-        <module>features</module>
+        <module>feature-pack</module>
         <module>subsystem</module>
         <module>testenricher</module>
         <module>itests</module>

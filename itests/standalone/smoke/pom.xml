@@ -41,7 +41,7 @@
     <dependencies>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-feature-core</artifactId>
+            <artifactId>wildfly-camel-feature-pack</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
         </dependency>

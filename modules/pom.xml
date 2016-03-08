@@ -324,8 +324,24 @@
             <artifactId>org.apache.felix.log</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.metatype</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.scr</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.beanshell</groupId>
             <artifactId>bsh</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.gravia</groupId>
+            <artifactId>gravia-container-wildfly-extension</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.gravia</groupId>
+            <artifactId>gravia-runtime-embedded</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jruby</groupId>
@@ -425,7 +441,7 @@
                     <ignoreOptionalDependencies>true</ignoreOptionalDependencies>
                     <modules>
                         <dir>etc/smartics</dir>
-                        <dir>../features/full/etc/smartics</dir>
+                        <dir>../feature/etc/smartics</dir>
                     </modules>
                 </configuration>
             </plugin>
