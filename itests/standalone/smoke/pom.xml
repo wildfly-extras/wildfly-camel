@@ -63,4 +63,19 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!-- Runs smoke tests with IPv6 enabled -->
+        <profile>
+            <id>ipv6</id>
+            <activation>
+                <property>
+                    <name>ipv6</name>
+                </property>
+            </activation>
+            <properties>
+                <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv6Stack=true -Djboss.bind.address=::1</jvmArgs>
+            </properties>
+        </profile>
+    </profiles>
 </project>

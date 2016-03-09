@@ -26,6 +26,7 @@ import java.net.URI;
 import java.net.URL;
 
 import org.apache.camel.component.undertow.UndertowHost;
+import org.jboss.as.network.NetworkUtils;
 import org.jboss.as.network.SocketBinding;
 import org.jboss.gravia.runtime.ModuleContext;
 import org.jboss.gravia.runtime.Runtime;
@@ -123,7 +124,8 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
         URL result;
         try {
-            result = new URL(socketBinding.getName() + "://" + address.getHostAddress() + ":" + socketBinding.getPort());
+            String hostAddress = NetworkUtils.formatPossibleIpv6Address(address.getHostAddress());
+            result = new URL(socketBinding.getName() + "://" + hostAddress + ":" + socketBinding.getPort());
         } catch (MalformedURLException ex) {
             throw new StartException(ex);
         }
