@@ -50,7 +50,7 @@ public class JmsRouteBuilder extends RouteBuilder {
         /**
          * This route reads files placed within JBOSS_HOME/standalone/data/orders
          * and places them onto JMS queue 'ordersQueue' within the WildFly
-         * internal HornetQ broker.
+         * internal ActiveMQ Artemis broker.
          */
         from("file://{{jboss.server.data.dir}}/orders")
         .convertBodyTo(String.class)
