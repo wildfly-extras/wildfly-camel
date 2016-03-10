@@ -61,6 +61,7 @@ import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.camel.parser.CamelSubsystemAdd;
 import org.wildfly.extension.camel.parser.SubsystemState;
 import org.wildfly.extension.gravia.GraviaConstants;
+import org.wildfly.extension.camel.service.CamelContextRegistryService.MutableCamelContextRegistry;
 
 /**
  * The {@link CamelContextRegistry} service
@@ -68,7 +69,7 @@ import org.wildfly.extension.gravia.GraviaConstants;
  * @author Thomas.Diesler@jboss.com
  * @since 19-Apr-2013
  */
-public class CamelContextRegistryService extends AbstractService<CamelContextRegistry> {
+public class CamelContextRegistryService extends AbstractService<MutableCamelContextRegistry> {
 
     private static final String SPRING_BEANS_HEADER = "<beans xmlns='http://www.springframework.org/schema/beans' "
             + "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' "
@@ -80,15 +81,22 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
     private final InjectedValue<Runtime> injectedRuntime = new InjectedValue<>();
     private final InjectedValue<ContextCreateHandlerRegistry> injectedHandlerRegistry = new InjectedValue<>();
 
-    private CamelContextRegistry contextRegistry;
+    private MutableCamelContextRegistry contextRegistry;
     private ServiceRegistration<CamelContextRegistry> registration;
 
-    public static ServiceController<CamelContextRegistry> addService(ServiceTarget serviceTarget, SubsystemState subsystemState) {
+    public static ServiceController<MutableCamelContextRegistry> addService(ServiceTarget serviceTarget, SubsystemState subsystemState) {
         CamelContextRegistryService service = new CamelContextRegistryService(subsystemState);
-        ServiceBuilder<CamelContextRegistry> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME, service);
+        ServiceBuilder<MutableCamelContextRegistry> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME, service);
         builder.addDependency(GraviaConstants.RUNTIME_SERVICE_NAME, Runtime.class, service.injectedRuntime);
         builder.addDependency(CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_SERVICE_NAME, ContextCreateHandlerRegistry.class, service.injectedHandlerRegistry);
         return builder.install();
+    }
+
+    public interface MutableCamelContextRegistry extends CamelContextRegistry {
+
+        void addCamelContext(CamelContext camelctx);
+
+        void removeCamelContext(CamelContext camelctx);
     }
 
     // Hide ctor
@@ -121,7 +129,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
     }
 
     @Override
-    public CamelContextRegistry getValue() {
+    public MutableCamelContextRegistry getValue() {
         return contextRegistry;
     }
 
@@ -143,7 +151,7 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
         return SPRING_BEANS_HEADER + "<camelContext id='" + name + "' xmlns='http://camel.apache.org/schema/spring'>" + hashReplaced + "</camelContext></beans>";
     }
 
-    final class CamelContextRegistryImpl extends CamelContextTracker implements CamelContextRegistry {
+    final class CamelContextRegistryImpl extends CamelContextTracker implements MutableCamelContextRegistry {
 
         private final Set<CamelContext> contexts = new HashSet<>();
         private final ContextCreateHandlerRegistry handlerRegistry;
@@ -228,7 +236,8 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
             }
         }
 
-        private void addCamelContext(CamelContext camelctx) {
+        @Override
+        public void addCamelContext(CamelContext camelctx) {
             synchronized (contexts) {
                 contexts.add(camelctx);
                 CamelSubsystemAdd.processExtensions(new Consumer<CamelSubsytemExtension>() {
@@ -240,7 +249,8 @@ public class CamelContextRegistryService extends AbstractService<CamelContextReg
             }
         }
 
-        private void removeCamelContext(CamelContext camelctx) {
+        @Override
+        public void removeCamelContext(CamelContext camelctx) {
             synchronized (contexts) {
                 CamelSubsystemAdd.processExtensions(new Consumer<CamelSubsytemExtension>() {
                     @Override
