@@ -59,6 +59,20 @@
             <module name="org.springframework.core" />
         </dependencies>
     </module>
+
+    <module name="org.springframework.context-support">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":spring-context-support" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.commons.logging" />
+            <module name="org.springframework.tx" optional="true" />
+            <module name="org.springframework.jdbc" optional="true" />
+            <module name="org.quartz" optional="true" />
+        </dependencies>
+    </module>
     
     <module name="org.springframework.core">
         <properties>
