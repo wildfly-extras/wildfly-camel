@@ -23,28 +23,25 @@ package org.wildfly.camel.test.infinispan;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.ejb.Stateless;
-
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.infinispan.InfinispanConstants;
 import org.apache.camel.component.infinispan.processor.idempotent.InfinispanIdempotentRepository;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.infinispan.manager.CacheContainer;
+import org.infinispan.manager.DefaultCacheManager;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
+import org.wildfly.extension.camel.WildFlyCamelContext;
 
-@Stateless
 @CamelAware
 @RunWith(Arquillian.class)
 public class InfinispanIntegrationTest {
@@ -55,24 +52,33 @@ public class InfinispanIntegrationTest {
     private static final String CACHE_VALUE_BOB = "Bob";
     private static final int CACHE_VALUE_AGE = 65;
 
-    @Resource(lookup = "java:jboss/infinispan/container/test")
     private CacheContainer cacheContainer;
+    private WildFlyCamelContext camelctx;
 
     @Deployment
     public static JavaArchive deployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-infinispan-test.jar");
-        archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }
 
+    @Before
+    public void setUp() throws Exception {
+        cacheContainer = new DefaultCacheManager();
+        cacheContainer.start();
+
+        camelctx = new WildFlyCamelContext();
+        camelctx.getNamingContext().bind("java:jboss/infinispan/container/test", cacheContainer);
+    }
+
     @After
-    public void tearDown() {
-        cacheContainer.getCache().clear();
+    public void tearDown() throws Exception {
+        camelctx.getNamingContext().unbind("java:jboss/infinispan/container/test");
+        cacheContainer.stop();
     }
 
     @Test
     public void testCacheGet() throws Exception {
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -101,7 +107,7 @@ public class InfinispanIntegrationTest {
 
     @Test
     public void testCachePut() throws Exception {
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -128,7 +134,7 @@ public class InfinispanIntegrationTest {
 
     @Test
     public void testCacheRemove() throws Exception {
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -157,7 +163,7 @@ public class InfinispanIntegrationTest {
 
     @Test
     public void testCacheEntryCreatedEvent() throws Exception {
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -198,7 +204,7 @@ public class InfinispanIntegrationTest {
 
     @Test
     public void testCacheEntryRemovedEvent() throws Exception {
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -235,7 +241,7 @@ public class InfinispanIntegrationTest {
 
     @Test
     public void testCacheEntryModifiedEvent() throws Exception {
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -271,9 +277,9 @@ public class InfinispanIntegrationTest {
 
     @Test
     public void testIdempotentConsumer() throws Exception {
+
         final InfinispanIdempotentRepository messageIdRepository = new InfinispanIdempotentRepository(cacheContainer, "myProcessorName");
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

@@ -303,10 +303,6 @@
         <include artifact=":hibernate-core" />
     </module>
 
-    <module name="org.infinispan" skip="true">
-        <include artifact=":infinispan-(.*)" />
-    </module>
-
     <module name="org.javassist" skip="true">
         <include artifact=":org.apache.servicemix.bundles.javassist" />
     </module>

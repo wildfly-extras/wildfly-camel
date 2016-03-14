@@ -266,7 +266,6 @@
                 </local-cache>
                 <local-cache name="timestamps"/>
             </cache-container>
-            <cache-container name="test" default-cache="test" jndi-name="java:jboss/infinispan/container/test"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:jaxrs:1.0"/>
         <subsystem xmlns="urn:jboss:domain:jca:3.0">
