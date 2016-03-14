@@ -159,6 +159,10 @@
 /org/fusesource/hawtdispatch/main/hawtdispatch-1.21.jar
 /org/fusesource/hawtdispatch/main/hawtdispatch-transport-1.21.jar
 /org/fusesource/mqtt/main/mqtt-client-1.12.jar
+/org/infinispan/8.2/infinispan-client-hotrod-8.1.0.Final.jar
+/org/infinispan/8.2/infinispan-commons-8.1.0.Final.jar
+/org/infinispan/8.2/infinispan-core-8.1.0.Final.jar
+/org/infinispan/8.2/infinispan-query-dsl-8.2.0.Final.jar
 /org/jboss/gravia/main/gravia-resource-1.3.1.jar
 /org/jboss/gravia/main/gravia-runtime-api-1.3.1.jar
 /org/jboss/gravia/main/gravia-runtime-embedded-1.3.1.jar
