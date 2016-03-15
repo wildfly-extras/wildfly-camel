@@ -30,23 +30,6 @@
         <include artifact="asm:asm" />
     </module>
 
-    <module name="com.fasterxml.jackson.core.jackson-annotations" skip="true">
-        <include artifact=":jackson-annotations" />
-    </module>
-
-    <module name="com.fasterxml.jackson.core.jackson-core" skip="true">
-        <include artifact=":jackson-core" />
-    </module>
-
-    <module name="com.fasterxml.jackson.core.jackson-databind" skip="true">
-        <include artifact=":jackson-databind" />
-    </module>
-
-    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" skip="true">
-        <include artifact=":jackson-jaxrs-json-provider" />
-        <include artifact=":jackson-module-jaxb-annotations" />
-    </module>
-
     <module name="com.google.guava" skip="true">
         <include artifact=":guava" />
     </module>
@@ -64,6 +47,7 @@
     </module>
 
     <module name="javax.activation.api" skip="true">
+        <include artifact=":activation" />
         <include artifact=":geronimo-activation_1.1_spec" />
     </module>
 
@@ -152,8 +136,9 @@
     </module>
 
     <module name="javax.xml.bind.api" skip="true">
-        <include artifact=":jaxb-impl" />
+        <include artifact=":jaxb-api" />
         <include artifact=":jaxb-core" />
+        <include artifact=":jaxb-impl" />
     </module>
 
     <module name="javax.xml.stream.api" skip="true">

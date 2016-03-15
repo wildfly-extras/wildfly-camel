@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="com.fasterxml.jackson.dataformat.yaml">
+<module xmlns="urn:jboss:module:1.1" name="com.fasterxml.jackson.dataformat.yaml" slot="2.7">
   <properties>
     <property name="jboss.api" value="private" />
   </properties>
@@ -7,8 +7,8 @@
     <artifact name="${com.fasterxml.jackson.dataformat:jackson-dataformat-yaml}" />
   </resources>
   <dependencies>
-    <module name="com.fasterxml.jackson.core.jackson-core" />
-    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.fasterxml.jackson.core.jackson-core" slot="2.7" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" slot="2.7" />
     <module name="org.yaml.snakeyaml" />
   </dependencies>
 </module>

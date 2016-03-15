@@ -86,6 +86,10 @@
             <artifactId>hapi-structures-v25</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.google.code.scriptengines</groupId>
             <artifactId>scriptengines-javascript</artifactId>
         </dependency>
