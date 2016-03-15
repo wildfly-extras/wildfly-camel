@@ -6,7 +6,6 @@
     <artifact name="${io.dropwizard.metrics:metrics-json}" />
   </resources>
   <dependencies>
-    <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="javax.api" />
     <module name="org.slf4j" />
     <module name="sun.jdk">
@@ -14,7 +13,7 @@
         <include path="sun/misc/Unsafe" />
       </imports>
     </module>
-    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" slot="2.7" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>

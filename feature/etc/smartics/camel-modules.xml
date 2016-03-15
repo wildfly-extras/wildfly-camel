@@ -536,7 +536,6 @@
             <include module="org.apache.camel.apt" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.fasterxml.jackson.core.jackson-core" />
             <module name="javax.api"/>
             <module name="org.slf4j"/>
             <module name="sun.jdk">
@@ -793,7 +792,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="com.fasterxml.jackson.core.jackson-core" />
+            <module name="com.fasterxml.jackson.core.jackson-core" slot="2.7"/>
         </dependencies>
         <exports>
             <exclude path="io/swagger" />
