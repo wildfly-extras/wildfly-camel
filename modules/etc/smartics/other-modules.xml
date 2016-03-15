@@ -27,30 +27,54 @@
         <include artifact=":cglib-nodep" />
     </module>
 
-    <module name="com.fasterxml.jackson.dataformat.xml">
+    <module name="com.fasterxml.jackson.core.jackson-annotations" inherit-slot="false" slot="2.6">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-annotations" />
+    </module>
+
+    <module name="com.fasterxml.jackson.core.jackson-core" inherit-slot="false" slot="2.6">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-core" />
+    </module>
+
+    <module name="com.fasterxml.jackson.core.jackson-databind" inherit-slot="false" slot="2.6">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-databind" />
+    </module>
+
+    <module name="com.fasterxml.jackson.dataformat.xml" inherit-slot="false" slot="2.6">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-dataformat-xml" />
     </module>
 
-    <module name="com.fasterxml.jackson.dataformat.yaml">
+    <module name="com.fasterxml.jackson.dataformat.yaml" inherit-slot="false" slot="2.6">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-dataformat-yaml" />
     </module>
 
-    <module name="com.fasterxml.jackson.datatype.joda">
+    <module name="com.fasterxml.jackson.datatype.joda" inherit-slot="false" slot="2.6">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-datatype-joda" />
-        <apply-to-dependencies skip="true">
-            <include module="joda-time"/>
-        </apply-to-dependencies>
+    </module>
+
+    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" inherit-slot="false" slot="2.6">
+        <include artifact=":jackson-jaxrs-base" />
+        <include artifact=":jackson-jaxrs-json-provider" />
+        <include artifact=":jackson-module-jaxb-annotations" />
         <dependencies>
-            <module name="org.joda.time" />
+            <module name="com.fasterxml.jackson.core.jackson-annotations"  slot="2.6"/>
         </dependencies>
     </module>
 
@@ -375,13 +399,6 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.json4s:json4s-(.*)" />
-        <apply-to-dependencies skip="true">
-            <include module="joda-time" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="com.fasterxml.jackson.core.jackson-core"/>
-            <module name="org.joda.time" />
-        </dependencies>
     </module>
 
     <module name="org.joda.convert">
