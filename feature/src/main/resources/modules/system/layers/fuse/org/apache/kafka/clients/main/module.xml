@@ -9,7 +9,15 @@
     <artifact name="${org.xerial.snappy:snappy-java}" />
   </resources>
   <dependencies>
+    <module name="javax.api" />
     <module name="org.osgi.core" />
     <module name="org.slf4j" />
   </dependencies>
+  <exports>
+    <exclude path="darwin/*" />
+    <exclude path="linux/*" />
+    <exclude path="win32/*" />
+    <exclude path="net/jpountz**" />
+    <exclude path="org/xerial**" />
+  </exports>
 </module>

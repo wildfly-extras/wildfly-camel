@@ -516,7 +516,7 @@
             <include module="org.apache.camel.apt" />
         </apply-to-dependencies>
         <apply-to-dependencies export="true">
-            <include module="org.apache.kafka" />
+            <include module="org.apache.kafka.clients" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
