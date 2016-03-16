@@ -346,6 +346,10 @@
             <artifactId>org.apache.felix.scr</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.11</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.beanshell</groupId>
             <artifactId>bsh</artifactId>
         </dependency>
