@@ -31,7 +31,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
-import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 @CamelAware
@@ -44,7 +43,7 @@ public class QuartzPersistentStoreTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "quartz-tests");
-        archive.addAsManifestResource("quartz/quartz-camel-context.xml", CamelConstants.CAMEL_CONTEXT_FILE_NAME);
+        archive.addAsManifestResource("quartz/quartz-camel-context.xml");
         archive.addAsResource("quartz/sql/db-schema.sql", "db-schema.sql");
         return archive;
     }

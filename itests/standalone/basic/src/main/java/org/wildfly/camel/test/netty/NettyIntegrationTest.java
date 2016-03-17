@@ -36,7 +36,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
@@ -48,7 +47,7 @@ public class NettyIntegrationTest {
     @Deployment
     public static WebArchive createdeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-netty-test.war");
-        archive.addAsWebResource("netty/netty-camel-context.xml", CamelConstants.CAMEL_CONTEXT_FILE_NAME);
+        archive.addAsWebResource("netty/netty-camel-context.xml");
         return archive;
     }
 

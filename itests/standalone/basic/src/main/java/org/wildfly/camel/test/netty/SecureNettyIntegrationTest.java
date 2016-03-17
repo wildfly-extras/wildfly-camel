@@ -38,7 +38,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.extension.camel.CamelConstants;
 
 @RunWith(Arquillian.class)
 public class SecureNettyIntegrationTest {
@@ -80,7 +79,7 @@ public class SecureNettyIntegrationTest {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-netty-test.jar");
-        archive.addAsManifestResource("netty/secure-netty-camel-context.xml", CamelConstants.CAMEL_CONTEXT_FILE_NAME);
+        archive.addAsManifestResource("netty/secure-netty-camel-context.xml");
         archive.addAsResource("netty/" + KEYSTORE, KEYSTORE);
         return archive;
     }

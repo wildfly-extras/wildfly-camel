@@ -47,9 +47,8 @@ public interface CamelConstants {
     /** The name for the camel subsystem service */
     ServiceName CAMEL_SUBSYSTEM_SERVICE_NAME = CAMEL_BASE_NAME.append("Subsystem");
 
-    /** The deployment names for spring camel context deployments */
-    String CAMEL_CONTEXT_FILE_SUFFIX = "-camel-context.xml";
-    String CAMEL_CONTEXT_FILE_NAME = "META-INF/jboss-camel-context.xml";
+    /** The deployment suffix for spring camel context deployments */
+    String CAMEL_CONTEXT_FILE_SUFFIX = "camel-context.xml";
 
     /** This file hold the components to use. */
     String CAMEL_COMPONENTS_FILE_NAME = "META-INF/jboss-camel-components.properties";

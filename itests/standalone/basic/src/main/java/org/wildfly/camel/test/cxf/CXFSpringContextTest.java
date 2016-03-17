@@ -35,7 +35,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.types.Endpoint;
 import org.wildfly.camel.test.cxf.ws.subA.EndpointImpl;
-import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
@@ -53,7 +52,7 @@ public class CXFSpringContextTest {
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-spring-context-tests");
         archive.addClasses(Endpoint.class);
-        archive.addAsResource("cxf/spring/cxf-camel-context.xml", CamelConstants.CAMEL_CONTEXT_FILE_NAME);
+        archive.addAsResource("cxf/spring/cxf-camel-context.xml");
         return archive;
     }
 
