@@ -34,38 +34,33 @@
     <artifactId>wildfly-camel-subsystem-undertow</artifactId>
 
     <dependencies>
-    
+
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-subsystem-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.gravia</groupId>
-            <artifactId>gravia-runtime-api</artifactId>
-        </dependency>
-        
-        <!-- Provided -->
-        <dependency>
-            <groupId>org.wildfly</groupId>
-            <artifactId>wildfly-undertow</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cxf</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-undertow</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.gravia</groupId>
             <artifactId>gravia-container-wildfly-extension</artifactId>
-            <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.gravia</groupId>
+            <artifactId>gravia-runtime-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-undertow</artifactId>
+        </dependency>
+        
     </dependencies>
 
 </project>
