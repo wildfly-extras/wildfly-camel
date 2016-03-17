@@ -31,12 +31,10 @@ import org.apache.camel.ServiceStatus;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.wildfly.camel.test.camel.SpringCamelContextFactory;
 import org.wildfly.camel.test.common.types.Endpoint;
 
-@Ignore("[#1114] Align WildFly and Camel CXF versions")
 public class CXFWebServiceConsumerTest {
 
     static CamelContext camelctx;
