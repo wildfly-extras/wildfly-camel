@@ -60,8 +60,8 @@ import org.wildfly.extension.camel.deployment.CamelDeploymentSettingsProcessor;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.camel.parser.CamelSubsystemAdd;
 import org.wildfly.extension.camel.parser.SubsystemState;
-import org.wildfly.extension.gravia.GraviaConstants;
 import org.wildfly.extension.camel.service.CamelContextRegistryService.MutableCamelContextRegistry;
+import org.wildfly.extension.gravia.GraviaConstants;
 
 /**
  * The {@link CamelContextRegistry} service
@@ -138,7 +138,9 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
         try {
             Thread.currentThread().setContextClassLoader(classLoader);
             String beansXML = getBeansXML(name, contextDefinition);
-            SpringCamelContextFactory.createCamelContextList(beansXML.getBytes(), classLoader);
+            for (CamelContext camelctx : SpringCamelContextFactory.createCamelContextList(beansXML.getBytes(), classLoader)) {
+                camelctx.start();
+            }
         } catch (Exception ex) {
             throw new IllegalStateException("Cannot create camel context: " + name, ex);
         } finally {

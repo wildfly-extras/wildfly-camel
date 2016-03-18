@@ -110,12 +110,15 @@ public final class SpringCamelContextFactory {
             }
         });
         xmlReader.loadBeanDefinitions(resource);
+
+        SpringCamelContext.setNoStart(true);
         appContext.refresh();
 
         List<SpringCamelContext> result = new ArrayList<>();
         for (String name : appContext.getBeanNamesForType(SpringCamelContext.class)) {
             result.add(appContext.getBean(name, SpringCamelContext.class));
         }
+
         return Collections.unmodifiableList(result);
     }
 

@@ -24,6 +24,7 @@ import java.net.URL;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.ServiceStatus;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -58,6 +59,7 @@ public class SpringContextTest {
     public void testSpringContextFromURL() throws Exception {
         URL resourceUrl = getClass().getResource("/some-other-name.xml");
         CamelContext camelctx = SpringCamelContextFactory.createSingleCamelContext(resourceUrl, null);
+        Assert.assertEquals(ServiceStatus.Stopped, camelctx.getStatus());
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
