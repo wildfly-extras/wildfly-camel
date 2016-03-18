@@ -24,7 +24,7 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-    <camelContext id="spring-context" xmlns="http://camel.apache.org/schema/spring">
+    <camelContext id="classloading-spring-context" xmlns="http://camel.apache.org/schema/spring">
         <route>
             <from uri="direct:start" />
             <log message="Hello world" />

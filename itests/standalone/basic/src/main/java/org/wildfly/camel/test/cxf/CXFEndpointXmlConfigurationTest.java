@@ -52,7 +52,7 @@ public class CXFEndpointXmlConfigurationTest {
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-spring-context-tests");
         archive.addClasses(Endpoint.class);
-        archive.addAsResource("cxf/spring/cxf-endpoint-camel-context.xml");
+        archive.addAsResource("cxf/spring/cxf-epconfig-camel-context.xml");
         return archive;
     }
 
@@ -67,7 +67,7 @@ public class CXFEndpointXmlConfigurationTest {
     public void testCxfSpringContext() throws Exception {
         deployer.deploy(SIMPLE_WAR);
         try {
-            CamelContext camelctx = contextRegistry.getCamelContext("cxf-context");
+            CamelContext camelctx = contextRegistry.getCamelContext("cxf-epconfig");
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);

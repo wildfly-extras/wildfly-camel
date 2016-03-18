@@ -50,7 +50,7 @@ public class SpringContextTest {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-spring-tests");
-        archive.addAsResource("spring/transform1-camel-context.xml", "some-other-name.xml");
+        archive.addAsResource("spring/transform5-camel-context.xml", "some-other-name.xml");
         return archive;
     }
 

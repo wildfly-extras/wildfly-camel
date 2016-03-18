@@ -18,19 +18,18 @@
   #L%
   -->
 <spring:beans xmlns:spring="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://camel.apache.org/schema/spring"
-       xsi:schemaLocation="
+              xmlns:context="http://www.springframework.org/schema/context"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="http://camel.apache.org/schema/spring"
+              xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-  <spring:bean id="helloBean" class="org.wildfly.camel.test.common.types.HelloBean"/>
-  
-  <camelContext id="spring-context">
-    <route>
-      <from uri="direct:start"/>
-      <bean ref="helloBean" method="hello"/>
-    </route>
-  </camelContext>
-  
+    <context:component-scan base-package="org.wildfly.camel.test.spring.subB" />
+
+    <camelContext id="contextScanC">
+        <contextScan/>
+    </camelContext>
+
 </spring:beans>

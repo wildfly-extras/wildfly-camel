@@ -31,7 +31,7 @@
                      address="http://localhost:8080/simple/EndpointService"
                      serviceClass="org.wildfly.camel.test.common.types.Endpoint"/>
 
-    <camelContext id="cxf-context">
+    <camelContext id="cxf-epconfig">
         <route>
             <from uri="direct:start"/>
             <to uri="cxf:bean:cxfEndpoint" />

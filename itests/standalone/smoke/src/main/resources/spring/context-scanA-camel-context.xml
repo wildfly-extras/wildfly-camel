@@ -18,25 +18,18 @@
   #L%
   -->
 <spring:beans xmlns:spring="http://www.springframework.org/schema/beans"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xmlns="http://camel.apache.org/schema/spring"
-              xsi:schemaLocation="
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-    <sslContextParameters id="sslContextParameters">
-        <keyManagers keyPassword="secret">
-            <keyStore resource="/keystore.jks" password="secret"/>
-        </keyManagers>
-    </sslContextParameters>
-
-    <camelContext id="secure-netty-context">
-        <route>
-            <from uri="netty4:tcp://localhost:7999?textline=true&amp;ssl=true&amp;sslContextParameters=#sslContextParameters"/>
-            <transform>
-                <simple>Hello ${body}</simple>
-            </transform>
-        </route>
-    </camelContext>
-
+  <context:component-scan base-package="org.wildfly.camel.test.spring.subA" />
+  
+  <camelContext id="contextScanA">
+    <contextScan/>
+  </camelContext>
+  
 </spring:beans>

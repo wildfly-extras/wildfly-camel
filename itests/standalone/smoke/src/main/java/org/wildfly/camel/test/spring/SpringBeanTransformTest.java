@@ -52,7 +52,7 @@ public class SpringBeanTransformTest {
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-spring-tests");
         archive.addClasses(HelloBean.class);
-        archive.addAsResource("spring/bean-transform-camel-context.xml", "some-other-name.xml");
+        archive.addAsResource("spring/bean-transformB-camel-context.xml", "some-other-name.xml");
         return archive;
     }
 

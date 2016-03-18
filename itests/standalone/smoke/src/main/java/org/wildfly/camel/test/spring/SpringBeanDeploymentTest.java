@@ -27,7 +27,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -45,15 +45,14 @@ public class SpringBeanDeploymentTest {
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-deployment-tests.jar");
         archive.addClasses(HelloBean.class);
-        archive.addAsResource("spring/bean-transform-camel-context.xml");
-        archive.addAsManifestResource(new StringAsset(""), "beans.xml");
+        archive.addAsResource("spring/bean-transformA-camel-context.xml");
+        archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }
 
     @Test
     public void testBeanTransformFromModule() throws Exception {
-        CamelContext camelContext = contextRegistry.getCamelContext("spring-context");
-        Assert.assertNotNull("CamelContext not null", camelContext);
+        CamelContext camelContext = contextRegistry.getCamelContext("beanA-context");
         Assert.assertEquals(ServiceStatus.Started, camelContext.getStatus());
         ProducerTemplate producer = camelContext.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);

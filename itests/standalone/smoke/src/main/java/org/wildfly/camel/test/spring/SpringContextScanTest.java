@@ -49,14 +49,14 @@ public class SpringContextScanTest {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "context-scan-tests");
-        archive.addAsResource("spring/context-scan-camel-context.xml", "context-scan-camel-context.xml");
+        archive.addAsResource("spring/context-scanA-camel-context.xml");
         archive.addClasses(ScannedComponentRouteBuilder.class);
         return archive;
     }
 
     @Test
     public void testContextScan() throws Exception {
-        CamelContext camelctx = contextRegistry.getCamelContext("contextScan");
+        CamelContext camelctx = contextRegistry.getCamelContext("contextScanA");
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);

@@ -63,7 +63,7 @@ public class SpringContextDeploymentTest  {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-deployment-tests");
-        archive.addAsResource("spring/transform1-camel-context.xml", "some-other-name.xml");
+        archive.addAsResource("spring/transform6-camel-context.xml", "some-other-name.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -79,9 +79,9 @@ public class SpringContextDeploymentTest  {
     public void testSimpleTransformFromModule() throws Exception {
         URL resourceUrl = getClass().getResource("/some-other-name.xml");
         ServerDeploymentHelper server = new ServerDeploymentHelper(managementClient.getControllerClient());
-        String runtimeName = server.deploy("transform1-camel-context.xml", resourceUrl.openStream());
+        String runtimeName = server.deploy("transform6-camel-context.xml", resourceUrl.openStream());
         try {
-            CamelContext camelctx = contextRegistry.getCamelContext("transform1");
+            CamelContext camelctx = contextRegistry.getCamelContext("transform6");
             Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);

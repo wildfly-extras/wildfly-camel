@@ -43,14 +43,14 @@ public class SpringRouteBuilderScanTest {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "spring-routebuilder-tests");
-        archive.addAsResource("spring/context-scan-spring-routebuilder-camel-context.xml", "context-scan-spring-routebuilder-camel-context.xml");
+        archive.addAsResource("spring/context-scanC-camel-context.xml");
         archive.addClasses(ScannedComponentSpringRouteBuilder.class);
         return archive;
     }
 
     @Test
     public void testSpringRouteBuilderLoads() throws Exception {
-        CamelContext camelctx = contextRegistry.getCamelContext("contextScan");
+        CamelContext camelctx = contextRegistry.getCamelContext("contextScanC");
         ProducerTemplate producer = camelctx.createProducerTemplate();
         GenericApplicationContext result = producer.requestBody("direct:start", null, GenericApplicationContext.class);
         Assert.assertNotNull(result);
