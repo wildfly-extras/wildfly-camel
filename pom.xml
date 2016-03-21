@@ -118,7 +118,6 @@
     <!-- Modules -->
     <modules>
         <module>config</module>
-        <module>modules</module>
         <module>feature-pack</module>
         <module>subsystem</module>
         <module>testenricher</module>

@@ -35,9 +35,6 @@
 
 		<!-- Copy managed module.xml resources to patch -->
 		<copy todir="${target.patch.dir}" overwrite="true" filtering="true">
-			<fileset dir="${basedir}/../modules/etc/managed/wildfly" >
-				<exclude name="**/fuse/org/jboss/gravia/main/module.xml"/>
-		    </fileset>
 			<fileset dir="${basedir}/etc/managed/wildfly" >
 				<include name="modules/**"/>
 		    </fileset>
