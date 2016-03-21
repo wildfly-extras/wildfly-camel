@@ -28,12 +28,8 @@
 
     <fileSets>
         <fileSet>
-            <directory>etc/wildfly</directory>
+            <directory>target/wildfly-camel-${version.wildfly}</directory>
             <outputDirectory>/</outputDirectory>
-        </fileSet>
-        <fileSet>
-            <directory>../subsystem/src/main/resources/schema</directory>
-            <outputDirectory>docs/schema</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>../examples</directory>
@@ -47,61 +43,4 @@
         </fileSet>
     </fileSets>
     
-    <files>
-        <file>
-            <source>${jboss.home}/domain/configuration/domain.xml</source>
-            <outputDirectory>domain/configuration</outputDirectory>
-            <destName>domain-camel.xml</destName>
-        </file>
-        <file>
-            <source>${jboss.home}/standalone/configuration/standalone.xml</source>
-            <outputDirectory>standalone/configuration</outputDirectory>
-            <destName>standalone-camel.xml</destName>
-        </file>
-        <file>
-            <source>${jboss.home}/standalone/configuration/standalone-full.xml</source>
-            <outputDirectory>standalone/configuration</outputDirectory>
-            <destName>standalone-full-camel.xml</destName>
-        </file>
-        <file>
-            <source>${jboss.home}/modules/layers.conf</source>
-            <outputDirectory>modules</outputDirectory>
-        </file>
-    </files>
-
-    <dependencySets>
-        <dependencySet>
-            <outputDirectory>modules/system/layers/fuse/org/wildfly/extension/camel/config/main</outputDirectory>
-            <includes>
-                <include>org.wildfly.camel:wildfly-camel-config:jar</include>
-            </includes>
-        </dependencySet>
-        <dependencySet>
-            <outputDirectory>standalone/deployments</outputDirectory>
-            <includes>
-                <include>io.hawt:hawtio-wildfly:war</include>
-            </includes>
-        </dependencySet>
-        <dependencySet>
-            <outputDirectory>/</outputDirectory>
-            <includes>
-                <include>org.wildfly.extras.patch:fuse-patch-distro-wildfly</include>
-            </includes>
-            <unpack>true</unpack>
-            <unpackOptions>
-                <includes>
-                    <include>bin/*</include>
-                    <include>fusepatch/*</include>
-                </includes>
-            </unpackOptions>
-        </dependencySet>
-        <dependencySet>
-            <outputDirectory>/</outputDirectory>
-            <includes>
-                <include>org.wildfly.camel:wildfly-camel-modules:tar.gz</include>
-            </includes>
-            <unpack>true</unpack>
-        </dependencySet>
-    </dependencySets>
-
 </assembly>

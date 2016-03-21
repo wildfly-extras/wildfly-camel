@@ -36,68 +36,51 @@
 	
     <!-- Properties -->
     <properties>
-        <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
+        <jboss.home>${project.build.directory}/wildfly-camel-${version.wildfly}</jboss.home>
     </properties>
     
     <!-- Dependencies -->
     <dependencies>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-feature-pack</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-config</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-modules</artifactId>
-            <version>${project.version}</version>
-            <type>tar.gz</type>
-        </dependency>
-        <dependency>
-            <groupId>org.wildfly.extras.patch</groupId>
-            <artifactId>fuse-patch-distro-wildfly</artifactId>
-            <version>${version.fusepatch}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-subsystem-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.gravia</groupId>
-            <artifactId>gravia-container-wildfly-extension</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.hawt</groupId>
-            <artifactId>hawtio-wildfly</artifactId>
-            <type>war</type>
-        </dependency>
     </dependencies>
-
+    
     <!-- Build -->
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
+                <groupId>org.wildfly.build</groupId>
+                <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>unpack-wildfly</id>
-                        <phase>generate-resources</phase>
+                        <id>wildfly</id>
                         <goals>
-                            <goal>unpack</goal>
+                            <goal>build</goal>
                         </goals>
+                        <phase>generate-resources</phase>
                         <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.wildfly</groupId>
-                                    <artifactId>wildfly-dist</artifactId>
-                                    <version>${version.wildfly}</version>
-                                    <type>zip</type>
-                                    <outputDirectory>${project.build.directory}</outputDirectory>
-                                    <overWrite>false</overWrite>
-                                </artifactItem>
-                            </artifactItems>
+                            <config-file>scripts/wildfly-provisioning.xml</config-file>
+                            <server-name>wildfly-${version.wildfly}</server-name>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>wildfly-camel</id>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <config-file>scripts/wildfly-camel-provisioning.xml</config-file>
+                            <server-name>wildfly-camel-${version.wildfly}</server-name>
                         </configuration>
                     </execution>
                 </executions>
@@ -107,6 +90,7 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>generate-configs</id>
                         <goals>
                             <goal>run</goal>
                         </goals>
@@ -119,6 +103,34 @@
                                     <arg value="--enable" />
                                 </java>
                             </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>sync-resources</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <target>
+                                <ant antfile="scripts/sync-resources.xml" inheritRefs="true" />
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>module-list-generate</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>verify</phase>
+                        <configuration>
+                            <source>${project.basedir}/scripts/module-list-generate.groovy</source>
                         </configuration>
                     </execution>
                 </executions>
