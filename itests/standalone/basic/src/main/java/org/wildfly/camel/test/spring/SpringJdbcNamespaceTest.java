@@ -51,6 +51,7 @@ public class SpringJdbcNamespaceTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testSpringJdbcNamespace() throws Exception {
         CamelContext camelctx = contextRegistry.getCamelContext("spring-jdbc");
         Assert.assertNotNull(camelctx);
