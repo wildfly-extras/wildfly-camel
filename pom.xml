@@ -61,10 +61,9 @@
         <version.apache.karaf>2.4.3</version.apache.karaf>
         <version.apache.sshd.sftp>0.11.0</version.apache.sshd.sftp>
         <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
-        <version.args4j>2.0.31</version.args4j>
         <version.codehaus.plexus.utils>3.0.15</version.codehaus.plexus.utils>
         <version.freeside.betamax>1.1.2</version.freeside.betamax>
-        <version.fusepatch>2.1.1</version.fusepatch>
+        <version.fusepatch>2.2.0</version.fusepatch>
         <version.greenmail>1.4.0</version.greenmail>
         <version.hawtio>1.4.60</version.hawtio>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
@@ -105,9 +104,8 @@
         <version-maven-war-plugin>2.5</version-maven-war-plugin>
         <version-properties-maven-plugin>1.0-alpha-2</version-properties-maven-plugin>
         <version-smartics-maven-plugin>2.1.2</version-smartics-maven-plugin>
-        <version-wildfly-maven-plugin>1.0.2.Final</version-wildfly-maven-plugin>
-        <version-wildfly-feature-pack-maven-plugin>1.1.0.Final</version-wildfly-feature-pack-maven-plugin>
-        <version-wildfly-provisioning-maven-plugin>1.1.0.Final</version-wildfly-provisioning-maven-plugin>
+        <version-wildfly-build-tools>1.1.0.Final</version-wildfly-build-tools>
+        <version-wildfly-maven-plugin>1.1.0.Alpha7</version-wildfly-maven-plugin>
         <version-xmlbeans-maven-plugin>2.3.3</version-xmlbeans-maven-plugin>
 
         <!-- GitHub -->
@@ -128,12 +126,6 @@
     <!-- DependencyManagement -->
     <dependencyManagement>
         <dependencies>
-            <!-- Args4J -->
-            <dependency>
-                <groupId>args4j</groupId>
-                <artifactId>args4j</artifactId>
-                <version>${version.args4j}</version>
-            </dependency>
             
             <!-- Aether -->
             <dependency>
@@ -232,6 +224,12 @@
                 <groupId>org.wildfly.extras.patch</groupId>
                 <artifactId>fuse-patch-core</artifactId>
                 <version>${version.fusepatch}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.extras.patch</groupId>
+                <artifactId>fuse-patch-feature-pack</artifactId>
+                <version>${version.fusepatch}</version>
+                <type>zip</type>
             </dependency>
             
             <!-- Gravia -->
@@ -531,12 +529,12 @@
                 <plugin>
                     <groupId>org.wildfly.build</groupId>
                     <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
-                    <version>${version-wildfly-provisioning-maven-plugin}</version>
+                    <version>${version-wildfly-build-tools}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.wildfly.build</groupId>
                     <artifactId>wildfly-feature-pack-build-maven-plugin</artifactId>
-                    <version>${version-wildfly-feature-pack-maven-plugin}</version>
+                    <version>${version-wildfly-build-tools}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.wildfly.plugins</groupId>
