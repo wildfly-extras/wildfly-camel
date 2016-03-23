@@ -26,51 +26,12 @@
 -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="args4j">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="args4j:args4j" />
-    </module>
-
-    <module name="org.eclipse.aether">
-        <properties>
-            <property name="jboss.api" value="private" />
-        </properties>
-        <include artifact="org.eclipse.aether:aether-api" />
-        <include artifact="org.eclipse.aether:aether-impl" />
-        <include artifact="org.eclipse.aether:aether-spi" />
-        <include artifact="org.eclipse.aether:aether-util" />
-        <include artifact="org.eclipse.aether:aether-connector-basic" />
-        <include artifact="org.eclipse.aether:aether-transport-file" />
-        <include artifact="org.eclipse.aether:aether-transport-http" />
-        <include artifact="org.apache.maven:maven-aether-provider" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.maven" />
-            <include module="org.codehaus.plexus" />
-        </apply-to-dependencies>
-    </module>
-    
-    <module name="org.wildfly.extras.config">
-        <main-class name="org.wildfly.extras.config.internal.Main"/>
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
+    <module name="org.wildfly.extras.config" skip="true">
         <include artifact=":fuse-patch-config" />
     </module>
 
-    <module name="org.wildfly.extras.patch">
-        <main-class name="org.wildfly.extras.patch.internal.Main"/>
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
+    <module name="org.wildfly.extras.patch" skip="true">
         <include artifact=":fuse-patch-core" />
-        <dependencies>
-            <module name="args4j"/>
-            <module name="javax.api"/>
-            <module name="org.jboss.logmanager" services="import"/>
-            <module name="org.slf4j"/>
-        </dependencies>
     </module>
     
 </modules>

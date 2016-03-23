@@ -390,10 +390,6 @@
             <artifactId>spring-context-support</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.extras.patch</groupId>
-            <artifactId>fuse-patch-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>rhino</groupId>
             <artifactId>js</artifactId>
         </dependency>
@@ -401,6 +397,17 @@
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-feature-pack</artifactId>
+            <type>zip</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.extras.patch</groupId>
+            <artifactId>fuse-patch-feature-pack</artifactId>
             <type>zip</type>
             <exclusions>
                 <exclusion>
@@ -462,6 +469,10 @@
                         <exclude>
                             <groupId>org.wildfly</groupId>
                             <artifactId>wildfly-feature-pack</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.wildfly.extras.patch</groupId>
+                            <artifactId>fuse-patch-feature-pack</artifactId>
                         </exclude>
                         <exclude>
                             <groupId>io.hawt</groupId>
