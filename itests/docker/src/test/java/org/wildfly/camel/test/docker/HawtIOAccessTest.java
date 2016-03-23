@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.hawtio;
+package org.wildfly.camel.test.docker;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -37,10 +37,10 @@ import org.junit.runner.RunWith;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class HawtIOIntegrationTest {
+public class HawtIOAccessTest {
 
     private static final String USERNAME = "admin";
-    private static final String PASSWORD = "mgmnt-pa$$wrd1";
+    private static final String PASSWORD = "admin";
 
     @Test
     public void testAccessHawtIO() throws Exception {

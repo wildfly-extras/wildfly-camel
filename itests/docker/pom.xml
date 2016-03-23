@@ -31,10 +31,12 @@
     <name>Wildfly Camel :: Testsuite :: Docker</name>
 
     <artifactId>wildfly-camel-itests-docker</artifactId>
-    <packaging>pom</packaging>
 
     <!-- Properties -->
     <properties>
+        <docker.image.name>wildflyext/wildfly-camel</docker.image.name>
+        <docker.alias.master>standalone-master</docker.alias.master>
+        <docker.cmd.master>-b 0.0.0.0 -bmanagement 0.0.0.0 -c standalone-camel.xml</docker.cmd.master>
         <wildfly.mgmt.username>admin</wildfly.mgmt.username>
         <wildfly.mgmt.password>admin</wildfly.mgmt.password>
     </properties>
@@ -79,9 +81,134 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
-    <modules>
-        <module>domain</module>
-    </modules>
-    
+
+    <!-- Build -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>start-containers</id>
+                        <phase>process-test-sources</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>${docker.image.name}</name>
+                                    <alias>${docker.alias.master}</alias>
+                                    <run>
+                                        <env>
+                                            <WILDFLY_MANAGEMENT_USER>${wildfly.mgmt.username}</WILDFLY_MANAGEMENT_USER>
+                                            <WILDFLY_MANAGEMENT_PASSWORD>${wildfly.mgmt.password}</WILDFLY_MANAGEMENT_PASSWORD>
+                                        </env>
+                                        <ports>
+                                            <port>8080:8080</port>
+                                        </ports>
+                                        <cmd>${docker.cmd.master}</cmd>
+                                        <log>
+                                            <enabled>true</enabled>
+                                        </log>
+                                        <wait>
+                                            <url>http://${env.DOCKER_IP}:8080</url>
+                                            <time>${env.DOCKER_PLUGIN_TIMEOUT}</time>
+                                        </wait>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop-containers</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <alias>${docker.alias.master}</alias>
+                                </image>
+                            </images>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-test-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <!-- [FIXME #175] Deployment fails with missing/unavailable dependencies -->
+                                <sleep seconds="10" />
+                                <echo>=========================================================================</echo>
+                                <echo>docker run --rm -ti -p 8080:8080 -e WILDFLY_MANAGEMENT_USER=${wildfly.mgmt.username} -e WILDFLY_MANAGEMENT_PASSWORD=${wildfly.mgmt.password} --name=${docker.alias.master} ${docker.image.name} ${docker.cmd.master}</echo>
+                                <echo>=========================================================================</echo>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>set-selinux-properties</id>
+                        <phase>process-test-sources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>
+                                // Change target directory SELinux label on environments that support it
+                                if (System.properties['os.name'].toLowerCase().equals('linux')) {
+                                    def proc = ["which", "chcon"].execute()
+                                    proc.waitFor()
+                                    if(proc.exitValue() == 0) {
+                                        "chcon -Rt svirt_sandbox_file_t ${project.build.directory}".execute()
+                                    }
+                                }
+                            </source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <wildfly.mgmt.username>${wildfly.mgmt.username}</wildfly.mgmt.username>
+                        <wildfly.mgmt.password>${wildfly.mgmt.password}</wildfly.mgmt.password>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- Profiles -->
+    <profiles>
+        <profile>
+            <id>docker.timeout</id>
+            <activation>
+                <property>
+                    <name>!env.DOCKER_PLUGIN_TIMEOUT</name>
+                </property>
+            </activation>
+            <properties>
+                <env.DOCKER_PLUGIN_TIMEOUT>60000</env.DOCKER_PLUGIN_TIMEOUT>
+            </properties>
+        </profile>
+    </profiles>
+
 </project>

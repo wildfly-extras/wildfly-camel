@@ -82,7 +82,7 @@
         <!-- Plugin versions -->
         <version-apache-scr-plugin>1.21.0</version-apache-scr-plugin>
         <version-build-helper-plugin>1.9.1</version-build-helper-plugin>
-        <version-docker-maven-plugin>0.13.2</version-docker-maven-plugin>
+        <version-docker-maven-plugin>0.14.2</version-docker-maven-plugin>
         <version-exec-maven-plugin>1.4.0</version-exec-maven-plugin>
         <version-groovy-maven-plugin>2.0</version-groovy-maven-plugin>
         <version-license-maven-plugin>1.8</version-license-maven-plugin>
@@ -365,6 +365,16 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <groupId>de.smartics.maven.plugin</groupId>
+                    <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
+                    <version>${version-smartics-maven-plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${version-docker-maven-plugin}</version>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-scr-plugin</artifactId>
                     <version>${version-apache-scr-plugin}</version>
@@ -505,11 +515,6 @@
                     <version>${version-xmlbeans-maven-plugin}</version>
                 </plugin>
                 <plugin>
-                    <groupId>de.smartics.maven.plugin</groupId>
-                    <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
-                    <version>${version-smartics-maven-plugin}</version>
-                </plugin>
-                <plugin>
                     <groupId>org.jboss.shrinkwrap.resolver</groupId>
                     <artifactId>shrinkwrap-resolver-maven-plugin</artifactId>
                     <version>${version.jboss.shrinkwrap.resolver}</version>
@@ -520,11 +525,6 @@
                             </goals>
                         </execution>
                     </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.jolokia</groupId>
-                    <artifactId>docker-maven-plugin</artifactId>
-                    <version>${version-docker-maven-plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.wildfly.build</groupId>
