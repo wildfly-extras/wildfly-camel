@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,19 +22,19 @@ package org.wildfly.camel.test.common.docker;
 
 /**
  * A Docker command for Kubernetes client
- * 
+ *
  * @author tdiesler@redhat.com
  * @since 12-Dec-2014
  */
-public class KubeCommand extends RunCommand {
-    
+public final class KubeCommand extends RunCommand<KubeCommand> {
+
     public KubeCommand() {
         remove().image("openshift/origin").cmd("kube");
     }
 
-    public DockerCommand apply(String config) {
+    public KubeCommand apply(String config) {
         args("apply", "-c", config);
         return this;
     }
-    
+
 }

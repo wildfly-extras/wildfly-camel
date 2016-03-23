@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,11 +24,11 @@ import java.util.List;
 
 /**
  * A Docker run command
- * 
+ *
  * @author tdiesler@redhat.com
  * @since 09-Dec-2014
  */
-public class RunCommand extends DockerCommand {
+public class RunCommand<T extends RunCommand<?>> extends DockerCommand<T> {
 
     private String image;
     private String cmd;
@@ -36,37 +36,43 @@ public class RunCommand extends DockerCommand {
     public RunCommand() {
         super("run");
     }
-    
-    public RunCommand remove() {
+
+    @SuppressWarnings("unchecked")
+    public T remove() {
         options("--rm");
-        return this;
+        return (T) this;
     }
-    
-    public RunCommand entrypoint(String entrypoint) {
+
+    @SuppressWarnings("unchecked")
+    public T entrypoint(String entrypoint) {
         options("--entrypoint=" + entrypoint);
-        return this;
+        return (T) this;
     }
-    
-    public RunCommand port(int host, int container) {
+
+    @SuppressWarnings("unchecked")
+    public T port(int host, int container) {
         options("-p", host + ":" + container);
-        return this;
+        return (T) this;
     }
-    
-    public RunCommand volume(Path host, Path container) {
+
+    @SuppressWarnings("unchecked")
+    public T volume(Path host, Path container) {
         options("-v", host.toAbsolutePath() + ":" + container.toAbsolutePath());
-        return this;
+        return (T) this;
     }
-    
-    public RunCommand image(String image) {
+
+    @SuppressWarnings("unchecked")
+    public T image(String image) {
         this.image = image;
-        return this;
+        return (T) this;
     }
-    
-    public RunCommand cmd(String cmd) {
+
+    @SuppressWarnings("unchecked")
+    public T cmd(String cmd) {
         this.cmd = cmd;
-        return this;
+        return (T) this;
     }
-    
+
     @Override
     protected void appendsArgs(List<String> carr) {
         // do nothing
