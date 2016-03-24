@@ -30,6 +30,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
+import javax.xml.bind.DatatypeConverter;
+
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
@@ -50,7 +52,7 @@ public class HawtIOAccessTest {
         try {
             // Accessing hawtio requires an admin id/password.
             String userpass = USERNAME + ":" + PASSWORD;
-            String basicAuth = "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(userpass.getBytes());
+            String basicAuth = "Basic " + DatatypeConverter.printBase64Binary(userpass.getBytes());
             conn.setRequestProperty("Authorization", basicAuth);
 
             int code = ((HttpURLConnection) conn).getResponseCode();
@@ -58,7 +60,7 @@ public class HawtIOAccessTest {
             String content = new String(readFully((InputStream) conn.getContent()), "UTF-8");
 
             // Let check to see if it has some of the expected output.
-            assertTrue("Unexpected content: "+content, content.contains("\"mbean\":\"java.lang:type=Memory\""));
+            assertTrue("Unexpected content: " + content, content.contains("\"mbean\":\"java.lang:type=Memory\""));
 
         } finally {
             try {
@@ -66,7 +68,6 @@ public class HawtIOAccessTest {
             } catch (Throwable ignore) {
             }
         }
-
     }
 
     @Test
@@ -87,7 +88,6 @@ public class HawtIOAccessTest {
         }
 
     }
-
 
     private byte[] readFully(InputStream inputStream) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
