@@ -35,8 +35,9 @@
     <!-- Properties -->
     <properties>
         <docker.image.name>wildflyext/wildfly-camel</docker.image.name>
-        <docker.alias.master>standalone-master</docker.alias.master>
+        <docker.alias.master>wildfly-camel</docker.alias.master>
         <docker.cmd.master>-b 0.0.0.0 -bmanagement 0.0.0.0 -c standalone-camel.xml</docker.cmd.master>
+        <wildfly.mgmt.address>vagrant.origin</wildfly.mgmt.address>
         <wildfly.mgmt.username>admin</wildfly.mgmt.username>
         <wildfly.mgmt.password>admin</wildfly.mgmt.password>
     </properties>
@@ -107,6 +108,7 @@
                                         </env>
                                         <ports>
                                             <port>8080:8080</port>
+                                            <port>9990:9990</port>
                                         </ports>
                                         <cmd>${docker.cmd.master}</cmd>
                                         <log>
@@ -151,7 +153,7 @@
                                 <!-- [FIXME #175] Deployment fails with missing/unavailable dependencies -->
                                 <sleep seconds="10" />
                                 <echo>=========================================================================</echo>
-                                <echo>docker run --rm -ti -p 8080:8080 -e WILDFLY_MANAGEMENT_USER=${wildfly.mgmt.username} -e WILDFLY_MANAGEMENT_PASSWORD=${wildfly.mgmt.password} --name=${docker.alias.master} ${docker.image.name} ${docker.cmd.master}</echo>
+                                <echo>docker run --rm -ti -p 8080:8080 -p 9990:9990 -e WILDFLY_MANAGEMENT_USER=${wildfly.mgmt.username} -e WILDFLY_MANAGEMENT_PASSWORD=${wildfly.mgmt.password} --name=${docker.alias.master} ${docker.image.name} ${docker.cmd.master}</echo>
                                 <echo>=========================================================================</echo>
                             </target>
                         </configuration>
@@ -188,6 +190,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemPropertyVariables>
+                        <wildfly.mgmt.address>${wildfly.mgmt.address}</wildfly.mgmt.address>
                         <wildfly.mgmt.username>${wildfly.mgmt.username}</wildfly.mgmt.username>
                         <wildfly.mgmt.password>${wildfly.mgmt.password}</wildfly.mgmt.password>
                     </systemPropertyVariables>
