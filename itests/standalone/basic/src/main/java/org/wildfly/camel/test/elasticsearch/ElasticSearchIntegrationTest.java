@@ -32,18 +32,21 @@ import java.util.Map;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.elasticsearch.ElasticsearchComponent;
 import org.apache.camel.component.elasticsearch.ElasticsearchConstants;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.settings.Settings.Builder;
+import org.elasticsearch.node.Node;
+import org.elasticsearch.node.NodeBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
@@ -52,33 +55,31 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 public class ElasticSearchIntegrationTest {
 
+    private static final Path DATA_PATH = Paths.get("target", "elasticsearch", "data");
+    private static final Path HOME_PATH = Paths.get("target", "elasticsearch", "home");
+
     @Deployment
     public static JavaArchive createDeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-elasticsearch-tests.jar");
         return archive;
     }
 
-    @BeforeClass
-    public static void beforeClass() throws IOException {
-        deleteDataDirectory();
-    }
-
-    @After
-    public void tearDown() throws IOException {
-        deleteDataDirectory();
-    }
+    static Node node;
 
     @Test
     public void testIndexContentUsingHeaders() throws Exception {
-        CamelContext camelContext = new DefaultCamelContext();
-        camelContext.addRoutes(new RouteBuilder() {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start").to("elasticsearch://local");
             }
         });
 
-        camelContext.start();
+        initEleasticSearchClient(camelctx);
+
+        camelctx.start();
         try {
             Map<String, String> indexedData = new HashMap<>();
             indexedData.put("content", "test");
@@ -88,19 +89,19 @@ public class ElasticSearchIntegrationTest {
             headers.put(ElasticsearchConstants.PARAM_INDEX_NAME, "twitter");
             headers.put(ElasticsearchConstants.PARAM_INDEX_TYPE, "tweet");
 
-            ProducerTemplate template = camelContext.createProducerTemplate();
+            ProducerTemplate template = camelctx.createProducerTemplate();
 
             String indexId = template.requestBodyAndHeaders("direct:start", indexedData, headers, String.class);
             Assert.assertNotNull("Index id should not be null", indexId);
         } finally {
-            camelContext.stop();
+            camelctx.stop();
         }
     }
 
     @Test
     public void testGetContent() throws Exception {
-        CamelContext camelContext = new DefaultCamelContext();
-        camelContext.addRoutes(new RouteBuilder() {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:index").to("elasticsearch://local?operation=INDEX&indexName=twitter&indexType=tweet");
@@ -108,13 +109,15 @@ public class ElasticSearchIntegrationTest {
             }
         });
 
-        camelContext.start();
+        initEleasticSearchClient(camelctx);
+
+        camelctx.start();
         try {
             Map<String, String> indexedData = new HashMap<>();
             indexedData.put("content", "test");
 
             // Index some initial data
-            ProducerTemplate template = camelContext.createProducerTemplate();
+            ProducerTemplate template = camelctx.createProducerTemplate();
             template.sendBody("direct:index", indexedData);
 
             String indexId = template.requestBody("direct:index", indexedData, String.class);
@@ -124,14 +127,14 @@ public class ElasticSearchIntegrationTest {
             GetResponse response = template.requestBody("direct:get", indexId, GetResponse.class);
             Assert.assertNotNull("getResponse should not be null", response);
         } finally {
-            camelContext.stop();
+            camelctx.stop();
         }
     }
 
     @Test
     public void testDeleteContent() throws Exception {
-        CamelContext camelContext = new DefaultCamelContext();
-        camelContext.addRoutes(new RouteBuilder() {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:index").to("elasticsearch://local?operation=INDEX&indexName=twitter&indexType=tweet");
@@ -140,13 +143,15 @@ public class ElasticSearchIntegrationTest {
             }
         });
 
-        camelContext.start();
+        initEleasticSearchClient(camelctx);
+
+        camelctx.start();
         try {
             Map<String, String> indexedData = new HashMap<>();
             indexedData.put("content", "test");
 
             // Index some initial data
-            ProducerTemplate template = camelContext.createProducerTemplate();
+            ProducerTemplate template = camelctx.createProducerTemplate();
             template.sendBody("direct:index", indexedData);
 
             String indexId = template.requestBody("direct:index", indexedData, String.class);
@@ -165,14 +170,14 @@ public class ElasticSearchIntegrationTest {
             Assert.assertNotNull("getResponse should not be null", getResponse);
             Assert.assertNull("getResponse source should be null", getResponse.getSource());
         } finally {
-            camelContext.stop();
+            camelctx.stop();
         }
     }
 
     @Test
     public void testSearchContent() throws Exception {
-        CamelContext camelContext = new DefaultCamelContext();
-        camelContext.addRoutes(new RouteBuilder() {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:index").to("elasticsearch://local?operation=INDEX&indexName=twitter&indexType=tweet");
@@ -180,13 +185,15 @@ public class ElasticSearchIntegrationTest {
             }
         });
 
-        camelContext.start();
+        initEleasticSearchClient(camelctx);
+
+        camelctx.start();
         try {
             Map<String, String> indexedData = new HashMap<>();
             indexedData.put("content", "test");
 
             // Index some initial data
-            ProducerTemplate template = camelContext.createProducerTemplate();
+            ProducerTemplate template = camelctx.createProducerTemplate();
             template.sendBody("direct:index", indexedData);
 
             // Search for content
@@ -202,32 +209,43 @@ public class ElasticSearchIntegrationTest {
             Assert.assertNotNull("searchResponse should not be null", searchResponse);
             Assert.assertNotNull("searchResponse hit count should equal 1", searchResponse.getHits().totalHits());
         } finally {
-            camelContext.stop();
+            camelctx.stop();
         }
+    }
+
+    private void initEleasticSearchClient(CamelContext camelctx) throws IOException {
+        if (node == null) {
+            deleteDataDirectory();
+            Builder settings = Settings.settingsBuilder().put("http.enabled", false).put("path.data", DATA_PATH).put("path.home", HOME_PATH);
+            node = NodeBuilder.nodeBuilder().local(true).settings(settings).node();
+        }
+        camelctx.getComponent("elasticsearch", ElasticsearchComponent.class).setClient(node.client());
     }
 
     private static void deleteDataDirectory() throws IOException {
         // ES component currently has no method of configuring the data dir for a local server, hence manual cleanup
-        Files.walkFileTree(Paths.get("data"), new SimpleFileVisitor<Path>() {
-            @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                Files.delete(file);
-                return FileVisitResult.CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult visitFileFailed(Path file, IOException exception) throws IOException {
-                exception.printStackTrace();
-                return FileVisitResult.CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult postVisitDirectory(Path dir, IOException exception) throws IOException {
-                if (exception == null) {
-                    Files.delete(dir);
+        if (DATA_PATH.toFile().isDirectory()) {
+            Files.walkFileTree(DATA_PATH, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    Files.delete(file);
+                    return FileVisitResult.CONTINUE;
                 }
-                return FileVisitResult.CONTINUE;
-            }
-        });
+
+                @Override
+                public FileVisitResult visitFileFailed(Path file, IOException exception) throws IOException {
+                    exception.printStackTrace();
+                    return FileVisitResult.CONTINUE;
+                }
+
+                @Override
+                public FileVisitResult postVisitDirectory(Path dir, IOException exception) throws IOException {
+                    if (exception == null) {
+                        Files.delete(dir);
+                    }
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+        }
     }
 }

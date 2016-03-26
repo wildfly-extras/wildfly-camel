@@ -104,9 +104,23 @@
         <dependencies>
             <module name="javax.api"/>
             <module name="org.apache.camel.core"/>
+            <module name="org.apache.cxf.impl"/>
             <module name="org.jboss.as.server"/>
             <module name="org.jboss.as.network"/>
             <module name="io.undertow.servlet"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+    
+    <module name="org.wildfly.extension.camel.cxf.undertow">
+        <include artifact=":cxf-undertow-base" />
+        <include artifact=":cxf-undertow-wildfly" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="javax.servlet.api"/>
+            <module name="io.undertow.core" />
+            <module name="io.undertow.servlet" />
+            <module name="org.apache.cxf.impl" />
             <module name="org.slf4j"/>
         </dependencies>
     </module>

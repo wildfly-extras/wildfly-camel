@@ -6,6 +6,6 @@
   <dependencies>
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.lucene" slot="4.10" />
+    <module name="org.apache.lucene" slot="5.4" />
   </dependencies>
 </module>

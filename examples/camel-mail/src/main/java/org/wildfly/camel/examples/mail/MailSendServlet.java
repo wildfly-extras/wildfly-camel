@@ -19,10 +19,10 @@
  */
 package org.wildfly.camel.examples.mail;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.CamelExecutionException;
-import org.apache.camel.ProducerTemplate;
-import org.apache.camel.cdi.ContextName;
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -30,15 +30,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.CamelExecutionException;
+import org.apache.camel.ProducerTemplate;
+
+@SuppressWarnings("serial")
 @WebServlet(name = "SendMailServlet", urlPatterns = {"/send/*"}, loadOnStartup = 1)
 public class MailSendServlet extends HttpServlet {
+
   @Inject
-  @ContextName("mail-camel-context")
   private CamelContext camelContext;
 
   @Override

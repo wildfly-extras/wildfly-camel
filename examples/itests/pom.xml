@@ -29,7 +29,7 @@
 
     <name>Wildfly Camel :: Example :: Testsuite</name>
 
-    <artifactId>wildfly-camel-example-itests</artifactId>
+    <artifactId>example-camel-itests</artifactId>
 
     <!-- Properties -->
     <properties>

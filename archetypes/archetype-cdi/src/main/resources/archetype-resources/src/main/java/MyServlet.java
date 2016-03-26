@@ -35,8 +35,8 @@ import org.apache.camel.cdi.ContextName;
 
 @WebServlet(name = "HttpServiceServlet", urlPatterns = { "/*" }, loadOnStartup = 1)
 public class MyServlet extends HttpServlet {
+
     @Inject
-    @ContextName("cdi-context")
     private CamelContext camelContext;
 
     @Override

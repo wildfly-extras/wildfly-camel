@@ -1,12 +1,5 @@
 package org.wildfly.camel.examples.jms.transacted;
 
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
-import org.apache.camel.component.jms.JmsComponent;
-import org.apache.camel.component.jpa.JpaComponent;
-import org.apache.camel.model.dataformat.JaxbDataFormat;
-import org.wildfly.camel.examples.jms.transacted.model.Order;
-
 import javax.annotation.Resource;
 import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
@@ -14,9 +7,16 @@ import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
 import javax.persistence.EntityManager;
 
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jms.JmsComponent;
+import org.apache.camel.component.jpa.JpaComponent;
+import org.apache.camel.model.dataformat.JaxbDataFormat;
+import org.wildfly.camel.examples.jms.transacted.model.Order;
+import org.wildfly.extension.camel.CamelAware;
+
 @Startup
+@CamelAware
 @ApplicationScoped
-@ContextName("jms-camel-context")
 public class JmsRouteBuilder extends RouteBuilder {
 
     /**

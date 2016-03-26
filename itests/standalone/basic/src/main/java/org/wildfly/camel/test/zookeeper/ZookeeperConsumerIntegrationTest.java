@@ -38,25 +38,25 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.zookeeper.EmbeddedZookeeperServer;
+import org.wildfly.camel.test.common.zookeeper.EmbeddedZookeeper;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
 public class ZookeeperConsumerIntegrationTest {
 
-    static EmbeddedZookeeperServer server;
+    static EmbeddedZookeeper server;
 
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "zookeeper-integration-tests");
-        archive.addClasses(EmbeddedZookeeperServer.class);
+        archive.addClasses(EmbeddedZookeeper.class);
         return archive;
     }
 
     @Before
     public void before() throws Exception {
-        server = new EmbeddedZookeeperServer().startup(1, TimeUnit.SECONDS);
+        server = new EmbeddedZookeeper().startup(1, TimeUnit.SECONDS);
     }
 
     @After

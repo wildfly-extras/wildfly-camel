@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
@@ -33,7 +34,6 @@ import javax.transaction.UserTransaction;
 import org.apache.camel.CamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -44,13 +44,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.jpa.subA.Account;
 import org.wildfly.camel.test.jpa.subA.JpaRouteBuilder;
-import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
 public class UserManagedTransactionIntegrationTest {
 
-    @ArquillianResource
-    CamelContextRegistry contextRegistry;
+    @Inject
+    CamelContext camelctx;
 
     @PersistenceContext
     EntityManager em;
@@ -90,7 +89,6 @@ public class UserManagedTransactionIntegrationTest {
     @Test
     public void testJpaTransactionalRoute() throws Exception {
 
-        CamelContext camelctx = contextRegistry.getCamelContext("jpa-cdi-context");
         Account accountA = em.getReference(Account.class, 1);
         Account accountB = em.getReference(Account.class, 2);
 
@@ -115,7 +113,6 @@ public class UserManagedTransactionIntegrationTest {
     @Test
     public void testJpaTransactionalRouteRollback() throws Exception {
 
-        CamelContext camelctx = contextRegistry.getCamelContext("jpa-cdi-context");
         Account accountA = em.getReference(Account.class, 1);
         Account accountB = em.getReference(Account.class, 2);
 

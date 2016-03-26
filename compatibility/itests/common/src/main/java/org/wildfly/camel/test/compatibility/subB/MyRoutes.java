@@ -4,13 +4,13 @@ import javax.inject.Inject;
 
 import org.apache.camel.Endpoint;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
 import org.apache.camel.cdi.Uri;
+import org.wildfly.extension.camel.CamelAware;
 
 /**
  * Configures all our Camel routes, components, endpoints and beans
  */
-@ContextName
+@CamelAware
 public class MyRoutes extends RouteBuilder {
 
     @Inject

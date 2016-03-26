@@ -39,6 +39,16 @@
         <deploy.skip>true</deploy.skip>
     </properties>
 
+    <!-- Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-subsystem-core</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    
     <!-- Repositories -->
     <repositories>
         <repository>

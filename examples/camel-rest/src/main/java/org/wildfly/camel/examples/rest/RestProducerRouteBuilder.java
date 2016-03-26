@@ -19,16 +19,16 @@
  */
 package org.wildfly.camel.examples.rest;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
-
 import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.builder.RouteBuilder;
+import org.wildfly.extension.camel.CamelAware;
+
 @Startup
+@CamelAware
 @ApplicationScoped
-@ContextName("rest-camel-context")
 public class RestProducerRouteBuilder extends RouteBuilder {
 
     @Override

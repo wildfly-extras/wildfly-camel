@@ -80,14 +80,6 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
             moddep.addImportFilter(PathFilters.getMetaInfSubdirectoriesFilter(), true);
             moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
             moduleSpec.addUserDependency(moddep);
-            moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create("org.apache.deltaspike.core.api"), true, false, false, false);
-            moddep.addImportFilter(PathFilters.getMetaInfSubdirectoriesFilter(), true);
-            moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
-            moduleSpec.addUserDependency(moddep);
-            moddep = new ModuleDependency(moduleLoader, ModuleIdentifier.create("org.apache.deltaspike.core.impl"), true, false, false, false);
-            moddep.addImportFilter(PathFilters.getMetaInfSubdirectoriesFilter(), true);
-            moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
-            moduleSpec.addUserDependency(moddep);
         }
     }
 

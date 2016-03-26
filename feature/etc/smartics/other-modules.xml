@@ -27,30 +27,74 @@
         <include artifact=":cglib-nodep" />
     </module>
 
-    <module name="com.fasterxml.jackson.dataformat.xml">
+    <module name="com.fasterxml.jackson.core.jackson-annotations" inherit-slot="false" slot="2.7">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-annotations" />
+    </module>
+
+    <module name="com.fasterxml.jackson.core.jackson-core" inherit-slot="false" slot="2.7">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-core" />
+    </module>
+
+    <module name="com.fasterxml.jackson.core.jackson-databind" inherit-slot="false" slot="2.7">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-databind" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="com.fasterxml.jackson.dataformat.cbor" inherit-slot="false" slot="2.7">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-dataformat-cbor" />
+    </module>
+
+    <module name="com.fasterxml.jackson.dataformat.smile" inherit-slot="false" slot="2.7">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-dataformat-smile" />
+        <dependencies>
+            <module name="com.fasterxml.jackson.core.jackson-core"  slot="2.7"/>
+        </dependencies>
+    </module>
+
+    <module name="com.fasterxml.jackson.dataformat.xml" inherit-slot="false" slot="2.7">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-dataformat-xml" />
     </module>
 
-    <module name="com.fasterxml.jackson.dataformat.yaml">
+    <module name="com.fasterxml.jackson.dataformat.yaml" inherit-slot="false" slot="2.7">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-dataformat-yaml" />
     </module>
 
-    <module name="com.fasterxml.jackson.datatype.joda">
+    <module name="com.fasterxml.jackson.datatype.joda" inherit-slot="false" slot="2.7">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-datatype-joda" />
-        <apply-to-dependencies skip="true">
-            <include module="joda-time"/>
-        </apply-to-dependencies>
+    </module>
+
+    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" inherit-slot="false" slot="2.7">
+        <include artifact=":jackson-jaxrs-base" />
+        <include artifact=":jackson-jaxrs-json-provider" />
+        <include artifact=":jackson-module-jaxb-annotations" />
         <dependencies>
-            <module name="org.joda.time" />
+            <module name="com.fasterxml.jackson.core.jackson-annotations"  slot="2.7"/>
         </dependencies>
     </module>
 
@@ -183,20 +227,6 @@
         </dependencies>
     </module>
     
-    <module name="org.apache.deltaspike.$1.$2">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":deltaspike-(.*)-(.*)" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.deltaspike.test" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api" />
-            <module name="javax.xml.bind.api" />
-        </dependencies>
-    </module>
-
     <module name="org.apache.kafka">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -223,10 +253,34 @@
         <include artifact="org.apache.kafka:kafka-clients" />
         <include artifact="org.xerial.snappy:snappy-java" />
         <include artifact="net.jpountz.lz4:lz4" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+        <exports>
+            <exclude path="darwin/*" />
+            <exclude path="linux/*" />
+            <exclude path="win32/*" />
+            <exclude path="net/jpountz**" />
+            <exclude path="org/xerial**" />
+        </exports>
     </module>
 
-    <module name="org.apache.lucene" slot="4.10">
-        <include artifact="org.apache.lucene:lucene-(.*)" />
+    <module name="org.apache.lucene" slot="5.4">
+        <include artifact="org.apache.lucene:lucene-analyzers-common" />
+        <include artifact="org.apache.lucene:lucene-backward-codecs" />
+        <include artifact="org.apache.lucene:lucene-core" />
+        <include artifact="org.apache.lucene:lucene-facet" />
+        <include artifact="org.apache.lucene:lucene-queries" />
+        <include artifact="org.apache.lucene:lucene-queryparser" />
+        <include artifact="org.apache.lucene:lucene-grouping" />
+        <include artifact="org.apache.lucene:lucene-highlighter" />
+        <include artifact="org.apache.lucene:lucene-join" />
+        <include artifact="org.apache.lucene:lucene-memory" />
+        <include artifact="org.apache.lucene:lucene-misc" />
+        <include artifact="org.apache.lucene:lucene-sandbox" />
+        <include artifact="org.apache.lucene:lucene-spatial" />
+        <include artifact="org.apache.lucene:lucene-spatial3d" />
+        <include artifact="org.apache.lucene:lucene-suggest" />
         <include artifact="com.spatial4j:spatial4j" />
         <dependencies>
             <module name="javax.api" />
@@ -329,9 +383,18 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
+        <include artifact="com.carrotsearch:hppc" />
+        <include artifact="com.ning:compress-lzf" />
+        <include artifact="com.tdunning:t-digest" />
+        <include artifact="com.twitter:jsr166e" />
         <include artifact="org.elasticsearch:elasticsearch" />
+        <include artifact="org.elasticsearch:securesm" />
         <apply-to-dependencies skip="true">
+            <include module="io.netty" />
             <include module="org.antlr.antlr-runtime"/>
+            <include module="org.apache.commons.cli" />
+            <include module="org.hdrhistogram" />
+            <include module="org.joda.convert" />
             <include module="org.ow2.asm"/>
         </apply-to-dependencies>
         <dependencies>
@@ -343,6 +406,12 @@
                 </imports>
             </module>
         </dependencies>
+        <exports>
+            <exclude path="com/carrotsearch**" />
+            <exclude path="com/ning**" />
+            <exclude path="com/tdunning**" />
+            <exclude path="com/twitter**" />
+        </exports>
     </module>
     
     <module name="org.fusesource.hawtbuf">
@@ -370,27 +439,38 @@
         <include artifact="org.fusesource.mqtt-client:mqtt-client" />
     </module>
 
+    <module name="org.infinispan" inherit-slot="false" slot="8.2">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.infinispan:infinispan-client-hotrod" />
+        <include artifact="org.infinispan:infinispan-commons" />
+        <include artifact="org.infinispan:infinispan-core" />
+        <include artifact="org.infinispan:infinispan-query-dsl" />
+        <apply-to-dependencies skip="true">
+            <include module="org.jboss.logging.processor" />
+            <include module="org.jboss.marshalling.osgi" />
+            <include module="org.osgi.compendium" />
+            <include module="org.osgi.core" />
+        </apply-to-dependencies>
+        <exports>
+            <exclude path="OSGI-INF/blueprint" />
+        </exports>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.jboss.marshalling"/>
+            <module name="org.jboss.marshalling.river"/>
+            <module name="sun.jdk"/>
+        </dependencies>
+    </module>
+
     <module name="org.json4s">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.json4s:json4s-(.*)" />
-        <apply-to-dependencies skip="true">
-            <include module="joda-time" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="com.fasterxml.jackson.core.jackson-core"/>
-            <module name="org.joda.time" />
-        </dependencies>
     </module>
 
-    <module name="org.joda.convert">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":joda-convert" />
-    </module>
-    
     <module name="org.osgi.core">
         <properties>
             <property name="jboss.api" value="private"/>

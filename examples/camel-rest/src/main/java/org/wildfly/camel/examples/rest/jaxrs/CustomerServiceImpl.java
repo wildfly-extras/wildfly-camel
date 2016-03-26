@@ -25,14 +25,13 @@ import javax.ws.rs.core.Response;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.ProxyBuilder;
-import org.apache.camel.cdi.ContextName;
 import org.wildfly.camel.examples.rest.model.Customer;
 
 public class CustomerServiceImpl implements CustomerService {
 
     @Inject
-    @ContextName("rest-camel-context")
     private CamelContext context;
+
     private CustomerService customerServiceProxy;
 
     /**

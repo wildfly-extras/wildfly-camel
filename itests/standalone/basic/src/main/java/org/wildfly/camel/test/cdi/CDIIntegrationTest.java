@@ -24,6 +24,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.ServiceStatus;
+import org.apache.camel.cdi.ContextName;
 import org.apache.camel.cdi.Uri;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.util.CamelContextHelper;
@@ -37,10 +38,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.cdi.subA.Constants;
-import org.wildfly.camel.test.cdi.subA.RoutesContextA;
-import org.wildfly.camel.test.cdi.subA.RoutesContextB;
-import org.wildfly.camel.test.cdi.subA.RoutesContextC;
-import org.wildfly.camel.test.cdi.subA.RoutesContextD;
+import org.wildfly.camel.test.cdi.subA.RouteBuilderA;
+import org.wildfly.camel.test.cdi.subA.RouteBuilderB;
+import org.wildfly.camel.test.cdi.subA.RouteBuilderC;
+import org.wildfly.camel.test.cdi.subA.RouteBuilderD;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
@@ -50,23 +51,28 @@ public class CDIIntegrationTest {
     CamelContextRegistry contextRegistry;
 
     @Inject
-    RoutesContextA routesA;
+    @ContextName("contextA")
+    RouteBuilderA routesA;
     @Inject
-    RoutesContextB routesB;
+    @ContextName("contextB")
+    RouteBuilderB routesB;
     @Inject
-    RoutesContextC routesC;
+    @ContextName("contextC")
+    RouteBuilderC routesC;
     @Inject
-    RoutesContextD routesD;
+    @ContextName("contextD")
+    RouteBuilderD routesD;
 
     @Inject
-    @Uri(value = "seda:foo", context = "contextD")
+    @ContextName("contextD")
+    @Uri(value = "seda:foo")
     ProducerTemplate producerD;
 
     @Deployment
     public static JavaArchive createDeployment() {
         // Note, this needs to have the *.jar suffix
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-cdi-tests.jar");
-        archive.addPackage(RoutesContextA.class.getPackage());
+        archive.addPackage(RouteBuilderA.class.getPackage());
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }

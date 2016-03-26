@@ -19,11 +19,17 @@
  */
 package org.wildfly.camel.test.cxf.ws;
 
+import java.net.URL;
+
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+
 import org.apache.camel.CamelContext;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.ServiceStatus;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -31,6 +37,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.types.Endpoint;
 import org.wildfly.extension.camel.CamelAware;
+import org.wildfly.extension.camel.CamelContextRegistry;
 
 /**
  * Test WebService endpoint access with the cxf component.
@@ -42,32 +49,41 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 public class CXFWSConsumerIntegrationTest {
 
+    @ArquillianResource
+    CamelContextRegistry contextRegistry;
+
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-ws-consumer-tests");
         archive.addClasses(Endpoint.class);
+        archive.addAsResource("cxf/spring/cxfws-consumer-camel-context.xml", "cxfws-consumer-camel-context.xml");
         return archive;
     }
 
     @Test
-    public void testCxfConsumer() throws Exception {
+    public void testCXFConsumer() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        final String uri = "cxf:/webservices/?serviceClass=" + Endpoint.class.getName();
+        CamelContext camelctx = contextRegistry.getCamelContext("cxfws-undertow");
+        Assert.assertNotNull("Expected cxfws-undertow to not be null", camelctx);
+        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
 
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from(uri).to("direct:end");
-            }
-        });
+        QName qname = new QName("http://wildfly.camel.test.cxf", "EndpointService");
+        Service service = Service.create(new URL("http://localhost:8080/EndpointService/EndpointPort?wsdl"), qname);
+        Endpoint endpoint = service.getPort(Endpoint.class);
+        Assert.assertNotNull("Endpoint not null", endpoint);
 
-        try {
-            camelctx.start();
-            Assert.fail("Expected RuntimeCamelException to be thrown but it was not");
-        } catch (RuntimeException e) {
-            String message = e.getMessage();
-            Assert.assertTrue("Message equals: " + message, message.equals("CXF consumer endpoint not supported"));
-        }
+        Assert.assertEquals("Hello Kermit", endpoint.echo("Kermit"));
+    }
+
+    @Test
+    public void testCXFRoundtrip() throws Exception {
+
+        CamelContext camelctx = contextRegistry.getCamelContext("cxfws-undertow");
+        Assert.assertNotNull("Expected cxfws-undertow to not be null", camelctx);
+        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
+
+        ProducerTemplate producer = camelctx.createProducerTemplate();
+        String result = producer.requestBody("direct:start", "Kermit", String.class);
+        Assert.assertEquals("Hello Kermit", result);
     }
 }

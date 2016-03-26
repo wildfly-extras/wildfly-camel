@@ -23,14 +23,17 @@ import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
+import org.apache.camel.impl.ExplicitCamelContextNameStrategy;
+import org.wildfly.extension.camel.CamelAware;
 
-@ApplicationScoped
-@ContextName("camel-sql-cdi-context")
 @Startup
+@CamelAware
+@ApplicationScoped
 public class CdiRouteBuilder extends RouteBuilder {
+
     @Override
     public void configure() throws Exception {
+        getContext().setNameStrategy(new ExplicitCamelContextNameStrategy("camel-sql-cdi-context"));
         from("sql:select name from information_schema.users?dataSource=wildFlyExampleDS")
         .to("direct:end");
     }

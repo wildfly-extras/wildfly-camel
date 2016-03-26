@@ -30,24 +30,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+@RunAsClient
 @RunWith(Arquillian.class)
 public class HawtIOIntegrationTest {
 
     private static final String USERNAME = "admin";
     private static final String PASSWORD = "mgmnt-pa$$wrd1";
-
-    @Deployment
-    public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "hawtio-tests");
-        return archive;
-    }
 
     @Test
     public void testAccessHawtIO() throws Exception {

@@ -39,6 +39,10 @@
             <artifactId>camel-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.11</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
         </dependency>
@@ -49,6 +53,10 @@
         <dependency>
             <groupId>org.jboss.gravia</groupId>
             <artifactId>gravia-resource</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.ws.rs</groupId>
+            <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jdom</groupId>

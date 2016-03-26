@@ -10,8 +10,4 @@
     <module name="org.springframework.beans" />
     <module name="org.springframework.core" />
   </dependencies>
-  <exports>
-    <include path="org/springframework/aop/support" />
-    <exclude path="org/springframework/aop/**" />
-  </exports>
 </module>

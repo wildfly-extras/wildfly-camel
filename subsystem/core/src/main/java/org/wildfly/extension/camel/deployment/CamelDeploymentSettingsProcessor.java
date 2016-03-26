@@ -91,38 +91,49 @@ public final class CamelDeploymentSettingsProcessor implements DeploymentUnitPro
     }
 
     private boolean isDeploymentValid(final DeploymentUnit depUnit) {
+
+        boolean result = true;
+
         // Skip wiring wfc for SwitchYard deployments
         VirtualFile rootFile = depUnit.getAttachment(Attachments.DEPLOYMENT_ROOT).getRoot();
         if (rootFile.getChild(CamelConstants.SWITCHYARD_MARKER_FILE).exists()) {
-            return false;
+            result = false;
         }
 
         // Skip wiring wfc for hawtio and resource adapter deployments
         String runtimeName = depUnit.getName();
-        if ((runtimeName.startsWith("hawtio") && runtimeName.endsWith(".war")) || runtimeName.endsWith(".rar")) {
-            return false;
+        if (runtimeName.startsWith("hawtio") && runtimeName.endsWith(".war") || runtimeName.endsWith(".rar")) {
+            result = false;
         }
 
-        return true;
+        return result;
     }
 
     private boolean hasCamelActivationAnnotations(final DeploymentUnit depUnit) {
+
+        boolean result = false;
+
         // Search for CamelAware annotations
         AnnotationInstance annotation = getAnnotation(depUnit, "org.wildfly.extension.camel.CamelAware");
         if (annotation != null) {
-            LOGGER.info("@CamelAware annotation found");
+            LOGGER.debug("@CamelAware annotation found");
             AnnotationValue value = annotation.value();
-            return value != null ? value.asBoolean() : true;
+            result = value != null ? value.asBoolean() : true;
         }
 
         // Search for Camel CDI component annotations
         List<AnnotationInstance> annotations = getAnnotations(depUnit, "org.apache.camel.cdi.ContextName");
         if (!annotations.isEmpty()) {
-            LOGGER.info("@ContextName annotation found");
-            return true;
+            LOGGER.debug("@ContextName annotation found");
+            result = true;
+        }
+        annotations = getAnnotations(depUnit, "org.apache.camel.cdi.Uri");
+        if (!annotations.isEmpty()) {
+            LOGGER.debug("@Uri annotation found");
+            result = true;
         }
 
-        return false;
+        return result;
     }
 
     private List<AnnotationInstance> getAnnotations(DeploymentUnit depUnit, String className) {

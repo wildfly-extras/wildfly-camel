@@ -37,7 +37,8 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.cxf.rs.subA.GreetingService;
+import org.wildfly.camel.test.common.types.GreetingService;
+import org.wildfly.camel.test.cxf.rs.subA.GreetingServiceImpl;
 import org.wildfly.camel.test.cxf.rs.subA.RestApplication;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -91,7 +92,7 @@ public class RestletProducerIntegrationTest {
     @Deployment(name = SIMPLE_WAR, managed = false, testable = false)
     public static Archive<?> getSimpleWar() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, SIMPLE_WAR);
-        archive.addPackage(RestApplication.class.getPackage());
+        archive.addClasses(RestApplication.class, GreetingServiceImpl.class, GreetingService.class);
         return archive;
     }
 }

@@ -32,13 +32,13 @@
     <version>4.0.0-SNAPSHOT</version>
 
     <description>WildFly Camel Integration</description>
-    <url>https://github.com/wildflyext/wildflyext/wildfly-camel</url>
+    <url>https://github.com/wildfly-extras/wildfly-camel</url>
 
     <!-- Source Control -->
     <scm>
-        <connection>scm:git:git://github.com/wildflyext/wildfly-camel.git</connection>
-        <developerConnection>scm:git:git@github.com:wildflyext/wildfly-camel.git</developerConnection>
-        <url>http://github.com/wildflyext/wildfly-camel</url>
+        <connection>scm:git:git://github.com/wildfly-extras/wildfly-camel.git</connection>
+        <developerConnection>scm:git:git@github.com:wildfly-extras/wildfly-camel.git</developerConnection>
+        <url>http://github.com/wildfly-extras/wildfly-camel</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -49,7 +49,7 @@
         <version.wildfly>10.0.0.Final</version.wildfly>
         
         <!-- Camel version -->
-        <version.apache.camel>2.16.2</version.apache.camel>
+        <version.apache.camel>2.17.0</version.apache.camel>
         
         <!-- Other versions -->
         <version.apache.felix.configadmin>1.8.8</version.apache.felix.configadmin>
@@ -61,10 +61,9 @@
         <version.apache.karaf>2.4.3</version.apache.karaf>
         <version.apache.sshd.sftp>0.11.0</version.apache.sshd.sftp>
         <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
-        <version.args4j>2.0.31</version.args4j>
         <version.codehaus.plexus.utils>3.0.15</version.codehaus.plexus.utils>
         <version.freeside.betamax>1.1.2</version.freeside.betamax>
-        <version.fusepatch>2.1.1</version.fusepatch>
+        <version.fusepatch>2.2.0</version.fusepatch>
         <version.greenmail>1.4.0</version.greenmail>
         <version.hawtio>1.4.60</version.hawtio>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
@@ -83,7 +82,7 @@
         <!-- Plugin versions -->
         <version-apache-scr-plugin>1.21.0</version-apache-scr-plugin>
         <version-build-helper-plugin>1.9.1</version-build-helper-plugin>
-        <version-docker-maven-plugin>0.13.2</version-docker-maven-plugin>
+        <version-docker-maven-plugin>0.14.2</version-docker-maven-plugin>
         <version-exec-maven-plugin>1.4.0</version-exec-maven-plugin>
         <version-groovy-maven-plugin>2.0</version-groovy-maven-plugin>
         <version-license-maven-plugin>1.8</version-license-maven-plugin>
@@ -105,9 +104,8 @@
         <version-maven-war-plugin>2.5</version-maven-war-plugin>
         <version-properties-maven-plugin>1.0-alpha-2</version-properties-maven-plugin>
         <version-smartics-maven-plugin>2.1.2</version-smartics-maven-plugin>
-        <version-wildfly-maven-plugin>1.0.2.Final</version-wildfly-maven-plugin>
-        <version-wildfly-feature-pack-maven-plugin>1.1.0.Final</version-wildfly-feature-pack-maven-plugin>
-        <version-wildfly-provisioning-maven-plugin>1.1.0.Final</version-wildfly-provisioning-maven-plugin>
+        <version-wildfly-build-tools>1.1.0.Final</version-wildfly-build-tools>
+        <version-wildfly-maven-plugin>1.1.0.Alpha7</version-wildfly-maven-plugin>
         <version-xmlbeans-maven-plugin>2.3.3</version-xmlbeans-maven-plugin>
 
         <!-- GitHub -->
@@ -118,6 +116,7 @@
     <!-- Modules -->
     <modules>
         <module>config</module>
+        <module>cxfhttp</module>
         <module>feature</module>
         <module>subsystem</module>
         <module>testenricher</module>
@@ -127,12 +126,6 @@
     <!-- DependencyManagement -->
     <dependencyManagement>
         <dependencies>
-            <!-- Args4J -->
-            <dependency>
-                <groupId>args4j</groupId>
-                <artifactId>args4j</artifactId>
-                <version>${version.args4j}</version>
-            </dependency>
             
             <!-- Aether -->
             <dependency>
@@ -208,7 +201,7 @@
                 <artifactId>org.apache.felix.scr.ds-annotations</artifactId>
                 <version>${version.apache.felix.scr.ds.annotations}</version>
             </dependency>
-            
+                
             <!-- FTP Server -->
             <dependency>
                 <groupId>org.apache.ftpserver</groupId>
@@ -231,6 +224,12 @@
                 <groupId>org.wildfly.extras.patch</groupId>
                 <artifactId>fuse-patch-core</artifactId>
                 <version>${version.fusepatch}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.extras.patch</groupId>
+                <artifactId>fuse-patch-feature-pack</artifactId>
+                <version>${version.fusepatch}</version>
+                <type>zip</type>
             </dependency>
             
             <!-- Gravia -->
@@ -365,6 +364,16 @@
         <!-- Plugin Management -->
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>de.smartics.maven.plugin</groupId>
+                    <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
+                    <version>${version-smartics-maven-plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${version-docker-maven-plugin}</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-scr-plugin</artifactId>
@@ -506,11 +515,6 @@
                     <version>${version-xmlbeans-maven-plugin}</version>
                 </plugin>
                 <plugin>
-                    <groupId>de.smartics.maven.plugin</groupId>
-                    <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
-                    <version>${version-smartics-maven-plugin}</version>
-                </plugin>
-                <plugin>
                     <groupId>org.jboss.shrinkwrap.resolver</groupId>
                     <artifactId>shrinkwrap-resolver-maven-plugin</artifactId>
                     <version>${version.jboss.shrinkwrap.resolver}</version>
@@ -523,19 +527,14 @@
                     </executions>
                 </plugin>
                 <plugin>
-                    <groupId>org.jolokia</groupId>
-                    <artifactId>docker-maven-plugin</artifactId>
-                    <version>${version-docker-maven-plugin}</version>
-                </plugin>
-                <plugin>
                     <groupId>org.wildfly.build</groupId>
                     <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
-                    <version>${version-wildfly-provisioning-maven-plugin}</version>
+                    <version>${version-wildfly-build-tools}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.wildfly.build</groupId>
                     <artifactId>wildfly-feature-pack-build-maven-plugin</artifactId>
-                    <version>${version-wildfly-feature-pack-maven-plugin}</version>
+                    <version>${version-wildfly-build-tools}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.wildfly.plugins</groupId>

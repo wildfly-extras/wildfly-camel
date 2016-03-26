@@ -1,10 +1,21 @@
 package org.wildfly.camel.test.kafka.subA;
 
-import kafka.serializer.Encoder;
+import java.util.Map;
 
-public class SimpleKafkaSerializer implements Encoder<String> {
+import org.apache.kafka.common.serialization.Serializer;
+
+public class SimpleKafkaSerializer implements Serializer<String> {
+
     @Override
-    public byte[] toBytes(String s) {
-        return s.getBytes();
+    public void configure(Map<String, ?> configs, boolean isKey) {
+    }
+
+    @Override
+    public byte[] serialize(String topic, String data) {
+        return data.getBytes();
+    }
+
+    @Override
+    public void close() {
     }
 }

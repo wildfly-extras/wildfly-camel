@@ -5,8 +5,9 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="org.slf4j" />
+    <module name="org.springframework.core" />
     <module name="org.springframework.tx" />
+    <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.springframework.jdbc" />

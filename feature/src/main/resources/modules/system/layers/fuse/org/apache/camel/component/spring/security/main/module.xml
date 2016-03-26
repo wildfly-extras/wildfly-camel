@@ -14,7 +14,11 @@
     </module>
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.camel.spring" />
     <module name="org.apache.commons.logging" />
+    <module name="org.springframework.aop" />
+    <module name="org.springframework.beans" />
+    <module name="org.springframework.context" />
+    <module name="org.springframework.core" />
+    <module name="org.springframework.expression" />
   </dependencies>
 </module>

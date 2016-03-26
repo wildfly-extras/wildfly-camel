@@ -29,10 +29,16 @@ public class UndertowSubsystemExtension implements CamelSubsytemExtension {
     @Override
     public void addExtensionServices(ServiceTarget serviceTarget, SubsystemRuntimeState runtimeState) {
         CamelUndertowHostService.addService(serviceTarget, runtimeState);
+        UndertowHostService.addService(serviceTarget);
     }
 
     @Override
     public Component resolveComponent(String name, SubsystemRuntimeState runtimeState) {
-        return name.equals("undertow") ? new WildFlyUndertowComponent(runtimeState) : null;
+        if (name.equals("cxf")) {
+            return new WildFlyCxfComponent();
+        } else if (name.equals("undertow")) {
+            return new WildFlyUndertowComponent(runtimeState);
+        }
+        return null;
     }
 }
