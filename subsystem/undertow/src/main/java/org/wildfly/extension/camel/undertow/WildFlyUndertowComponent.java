@@ -76,8 +76,8 @@ public class WildFlyUndertowComponent extends UndertowComponent {
             URI uri = new URI(endpoint.getEndpointUri());
             String host = uri.getHost();
             int port = uri.getPort();
-            if (!"localhost".equals(host) || port > 0) {
-                LOGGER.warn("Ignoring configured host/port: {}", uri);
+            if (!"localhost".equals(host)) {
+                LOGGER.warn("Ignoring configured host: {}", uri);
             }
         }
 

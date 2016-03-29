@@ -22,7 +22,6 @@ package org.wildfly.camel.test.swagger;
 
 import java.lang.management.ManagementFactory;
 import java.net.HttpURLConnection;
-
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import javax.ws.rs.core.MediaType;
@@ -37,7 +36,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.http.HttpRequest;
-import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
 import org.wildfly.camel.test.swagger.subA.User;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -48,7 +46,6 @@ public class SwaggerIntegrationTest {
     @Deployment
     public static WebArchive createDeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "swagger-tests.war");
-        archive.addAsWebInfResource("swagger/web.xml", "web.xml");
         archive.addClasses(HttpRequest.class, User.class);
         return archive;
     }
@@ -60,7 +57,13 @@ public class SwaggerIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                restConfiguration().component("servlet").contextPath("swagger-tests/rest").port(8080).apiProperty("cors", "true");
+                restConfiguration().component("undertow")
+                    .contextPath("swagger-tests/rest")
+                    .host("localhost")
+                    .port(8080)
+                    .apiContextPath("/api-doc")
+                    .apiProperty("api.title", "User API").apiProperty("api.version", "1.2.3")
+                    .apiProperty("cors", "true");
                 rest("/hello")
                     .get("/{name}").description("A user object").outType(User.class).to("direct:hello")
                     .produces(MediaType.APPLICATION_JSON)
@@ -71,7 +74,7 @@ public class SwaggerIntegrationTest {
 
         camelctx.start();
         try {
-            HttpResponse result = HttpRequest.get("http://localhost:8080/swagger-tests/rest/hello/Kermit").getResponse();
+            HttpRequest.HttpResponse result = HttpRequest.get("http://localhost:8080/swagger-tests/rest/hello/Kermit").getResponse();
             Assert.assertEquals("Hello Kermit", result.getBody());
 
             MBeanServer server = ManagementFactory.getPlatformMBeanServer();
@@ -80,7 +83,7 @@ public class SwaggerIntegrationTest {
                 System.out.println(oname + ": " + jmxret);
             }
 
-            result = HttpRequest.get("http://localhost:8080/swagger-tests/api-docs").getResponse();
+            result = HttpRequest.get("http://localhost:8080/swagger-tests/rest/api-doc").getResponse();
             Assert.assertEquals(HttpURLConnection.HTTP_OK, result.getStatusCode());
             Assert.assertTrue("Contains substr: " + result.getBody(), result.getBody().contains("\"name\" : \"hello\""));
         } finally {

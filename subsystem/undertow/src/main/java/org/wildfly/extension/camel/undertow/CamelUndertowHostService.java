@@ -46,10 +46,13 @@ import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
 import org.wildfly.extension.gravia.GraviaConstants;
 import org.wildfly.extension.undertow.AbstractUndertowEventListener;
 import org.wildfly.extension.undertow.Host;
+import org.wildfly.extension.undertow.ListenerService;
 import org.wildfly.extension.undertow.UndertowEventListener;
 import org.wildfly.extension.undertow.UndertowService;
 
+import io.undertow.Handlers;
 import io.undertow.server.HttpHandler;
+import io.undertow.server.handlers.PathTemplateHandler;
 import io.undertow.servlet.api.Deployment;
 
 /**
@@ -144,7 +147,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
     }
 
     class WildFlyUndertowHost implements UndertowHost {
-
+        private static final String REST_PATH_PLACEHOLDER = "{";
         private final Host defaultHost;
 
         WildFlyUndertowHost(Host host) {
@@ -153,18 +156,49 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
         @Override
         public void validateEndpointURI(URI httpURI) {
+            // Camel HTTP endpoint port defaults are 0 or -1
+            boolean portMatched = httpURI.getPort() == 0 || httpURI.getPort() == -1;
+
+            // If a port was specified, verify that undertow has a listener configured for it
+            if (!portMatched) {
+                for (ListenerService<?> service : defaultHost.getServer().getListeners()) {
+                    InjectedValue<SocketBinding> binding = service.getBinding();
+                    if (binding != null) {
+                        if (binding.getValue().getPort() == httpURI.getPort()) {
+                            portMatched = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
             IllegalStateAssertion.assertEquals("localhost", httpURI.getHost(), "Cannot bind to host other than 'localhost': " + httpURI);
-            IllegalStateAssertion.assertEquals(-1, httpURI.getPort(), "Cannot bind to specific port: " + httpURI);
+            IllegalStateAssertion.assertTrue(portMatched, "Cannot bind to specific port: " + httpURI);
         }
 
         @Override
         public void registerHandler(String path, HttpHandler handler) {
-            defaultHost.registerHandler(path, handler);
+            if (path.contains(REST_PATH_PLACEHOLDER)) {
+                String pathPrefix = path.substring(0, path.indexOf(REST_PATH_PLACEHOLDER));
+                String remaining = path.substring(path.indexOf(REST_PATH_PLACEHOLDER));
+
+                PathTemplateHandler pathTemplateHandler = Handlers.pathTemplate();
+                pathTemplateHandler.add(remaining, handler);
+
+                defaultHost.registerHandler(pathPrefix, pathTemplateHandler);
+            } else {
+                defaultHost.registerHandler(path, Handlers.path(handler));
+                defaultHost.registerHandler(path, handler);
+            }
         }
 
         @Override
         public void unregisterHandler(String path) {
-            defaultHost.unregisterHandler(path);
+            if (path.contains(REST_PATH_PLACEHOLDER)) {
+                defaultHost.unregisterHandler(path.substring(0, path.indexOf(REST_PATH_PLACEHOLDER)));
+            } else {
+                defaultHost.unregisterHandler(path);
+            }
         }
     }
 
