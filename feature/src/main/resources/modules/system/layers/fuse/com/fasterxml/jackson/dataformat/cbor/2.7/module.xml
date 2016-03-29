@@ -6,5 +6,7 @@
   <resources>
     <artifact name="${com.fasterxml.jackson.dataformat:jackson-dataformat-cbor}" />
   </resources>
-  <dependencies />
+  <dependencies>
+    <module name="com.fasterxml.jackson.core.jackson-core" slot="2.7" />
+  </dependencies>
 </module>

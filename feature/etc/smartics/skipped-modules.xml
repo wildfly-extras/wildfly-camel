@@ -51,15 +51,7 @@
         <include artifact="ch.qos.logback:logback-classic" />
         <include artifact="ch.qos.logback:logback-core" />
     </module>
-    
-    <module name="com.fasterxml.jackson.dataformat.cbor" skip="true">
-        <include artifact=":jackson-dataformat-cbor" />
-    </module>
-    
-    <module name="com.fasterxml.jackson.dataformat.smile" skip="true">
-        <include artifact=":jackson-dataformat-smile" />
-    </module>
-    
+
     <module name="com.fasterxml.jackson.scala" skip="true">
         <include artifact=":jackson-module-scala(.*)" />
     </module>
