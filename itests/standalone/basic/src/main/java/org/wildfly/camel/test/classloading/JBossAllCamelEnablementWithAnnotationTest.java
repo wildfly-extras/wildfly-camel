@@ -34,7 +34,7 @@ public class JBossAllCamelEnablementWithAnnotationTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "no-camel-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "no-camel-with-annotation");
         archive.addAsResource("classloading/jboss-all-no-camel.xml", "META-INF/jboss-all.xml");
         archive.addClass(CdiRouteBuilder.class);
         return archive;
