@@ -25,6 +25,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 
+import org.apache.camel.component.undertow.HttpHandlerRegistrationInfo;
 import org.apache.camel.component.undertow.UndertowHost;
 import org.jboss.as.network.NetworkUtils;
 import org.jboss.as.network.SocketBinding;
@@ -177,7 +178,8 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
         }
 
         @Override
-        public void registerHandler(String path, HttpHandler handler) {
+		public void registerHandler(HttpHandlerRegistrationInfo reginfo, HttpHandler handler) {
+        	String path = reginfo.getUri().getPath();
             if (path.contains(REST_PATH_PLACEHOLDER)) {
                 String pathPrefix = path.substring(0, path.indexOf(REST_PATH_PLACEHOLDER));
                 String remaining = path.substring(path.indexOf(REST_PATH_PLACEHOLDER));
@@ -192,8 +194,9 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
             }
         }
 
-        @Override
-        public void unregisterHandler(String path) {
+		@Override
+		public void unregisterHandler(HttpHandlerRegistrationInfo reginfo) {
+        	String path = reginfo.getUri().getPath();
             if (path.contains(REST_PATH_PLACEHOLDER)) {
                 defaultHost.unregisterHandler(path.substring(0, path.indexOf(REST_PATH_PLACEHOLDER)));
             } else {

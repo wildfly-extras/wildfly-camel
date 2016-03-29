@@ -53,7 +53,7 @@ public class RSSIntegrationTest {
     @Deployment
     public static WebArchive deployment() {
         File[] libraryDependencies = Maven.configureResolverViaPlugin().
-                resolve("co.freeside:betamax", "org.codehaus.groovy:groovy-all").
+                resolve("co.freeside:betamax", "org.codehaus.groovy:groovy-all", "org.eclipse.jetty:jetty-util").
                 withTransitivity().
                 asFile();
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "rss-tests.war");

@@ -4,7 +4,7 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${org.beanshell:bsh}" />
+    <artifact name="${org.apache-extras.beanshell:bsh}" />
   </resources>
   <dependencies>
     <module name="javax.api" />

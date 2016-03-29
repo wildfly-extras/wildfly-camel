@@ -8,6 +8,9 @@
     <artifact name="${org.eclipse.jetty:jetty-http}" />
     <artifact name="${org.eclipse.jetty:jetty-io}" />
     <artifact name="${org.eclipse.jetty:jetty-util}" />
+    <artifact name="${org.eclipse.jetty:jetty-util-ajax}" />
   </resources>
-  <dependencies />
+  <dependencies>
+    <module name="javax.servlet.api" />
+  </dependencies>
 </module>

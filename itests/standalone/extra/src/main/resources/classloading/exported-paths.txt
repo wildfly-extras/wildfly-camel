@@ -90,6 +90,8 @@ org/apache/camel/spring
 org/apache/camel/spring/converter
 org/apache/camel/spring/handler
 org/apache/camel/spring/pollingconsumer
+org/apache/camel/spring/processor
+org/apache/camel/spring/processor/idempotent
 org/apache/camel/spring/remoting
 org/apache/camel/spring/spi
 org/apache/camel/spring/util

@@ -228,4 +228,9 @@
         <include artifact="org.scala-lang:scala-reflect" />
         <include artifact="org.scala-lang:scalap" />
     </module>
+
+    <module name="org.slf4j.jul"  skip="true">
+        <include artifact="org.slf4j:jul-to-slf4j" />
+    </module>
+
 </modules>

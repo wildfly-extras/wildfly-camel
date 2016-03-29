@@ -357,7 +357,7 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="org.beanshell:bsh" />
+        <include artifact="org.apache-extras.beanshell:bsh" />
         <dependencies>
             <module name="javax.api" />
         </dependencies>
@@ -371,6 +371,7 @@
         <include artifact="org.eclipse.jetty:jetty-http" />
         <include artifact="org.eclipse.jetty:jetty-io" />
         <include artifact="org.eclipse.jetty:jetty-util" />
+        <include artifact="org.eclipse.jetty:jetty-util-ajax" />
         <include artifact="org.eclipse.jetty:jetty-websocket" />
         <apply-to-dependencies skip="true">
             <include module="org.eclipse.jetty.orbit" />
