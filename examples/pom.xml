@@ -60,13 +60,12 @@
     <!-- Modules -->
     <modules>
         <module>camel-activemq</module>
-        <module>camel-cxf</module>
         <module>camel-cdi</module>
+        <module>camel-cxf-jaxrs</module>
+        <module>camel-cxf-jaxws</module>
         <module>camel-mail</module>
-        <module>camel-jaxws</module>
         <module>camel-jms</module>
         <module>camel-jpa</module>
-        <module>camel-rest</module>
         <module>camel-transacted-jms</module>
         <module>itests</module>
     </modules>

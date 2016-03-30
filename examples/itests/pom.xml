@@ -89,13 +89,13 @@
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
-            <artifactId>example-camel-cxf</artifactId>
+            <artifactId>example-camel-cxf-jaxrs</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
-            <artifactId>example-camel-jaxws</artifactId>
+            <artifactId>example-camel-cxf-jaxws</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
@@ -114,12 +114,6 @@
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>example-camel-mail</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.wildfly.camel</groupId>
-            <artifactId>example-camel-rest</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
