@@ -686,6 +686,12 @@
             </build>
         </profile>
         <profile>
+            <id>docs</id>
+            <modules>
+                <module>docs</module>
+            </modules>
+        </profile>
+        <profile>
             <id>ts.all</id>
             <activation>
                 <property>
