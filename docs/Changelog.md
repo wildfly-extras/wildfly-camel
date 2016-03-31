@@ -1,5 +1,163 @@
 ### Changelog
 
+#### WildFly-Camel 4.0.0
+
+**Features**
+
+* [#369][369] Add support for CXF REST Consumers
+* [#370][370] Add support for CXF WebService Consumers
+* [#925][925] Add support for CDI apps without @ContextName
+* [#955][955] Provide support for Camel on Undertow.js
+* [#964][964] Enable undertow component to be used in Camel REST DSL 
+* [#1044][1044] Add camel support for wildfly-swarm
+* [#1048][1048] Add support for camel-braintree
+* [#1050][1050] Add support for Spring PropertyPlaceholderConfigurer
+* [#1138][1138] Add support for spring-context-support
+
+For details see [4.0.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.0.0"+label%3Afeature)
+
+**Tasks**
+
+* [#887][887] Remove exclusion of OpenJPA module
+* [#899][899] Upgrade to WildFly-10.0.0.Final
+* [#906][906] Upgrade to camel-2.17.0
+* [#948][948] Remove deprecated security types
+* [#957][957] Remove references to HornetQ subsystem
+* [#1007][1007] Restore camel kafka integration for camel-2.17
+* [#1021][1021] Remove support for HornetMQ
+* [#1030][1030] Reduce dependencies on unsupported spring functionality
+* [#1043][1043] Add deamon options to the OpenShift environment
+* [#1045][1045] Remove domain extras and test coverage
+* [#1047][1047] Use feature pack as base for patch generation
+* [#1052][1052] Simplify SpringJdbcNamespaceTest
+* [#1056][1056] Require Java 8 at compile and runtime
+* [#1058][1058] Enable braintree integration test
+* [#1063][1063] Split feature pack into core and full
+* [#1064][1064] Remove dependency on org.apache.camel.component
+* [#1066][1066] Remove dependency on came-cdi from core feature pack
+* [#1067][1067] Remove dependency on spring-jdbc from core feature pack
+* [#1068][1068] Core feature pack should depend on the wildfly core
+* [#1071][1071] Remove dependency on undertow from core feature pack
+* [#1075][1075] Remove dependency on javaee from core feature pack
+* [#1077][1077] Reuse versions defined by wildfly
+* [#1078][1078] Remove property definitions that are already defined by wildfly
+* [#1080][1080] Remove dependency on wildfy security from core feature pack
+* [#1092][1092] Relax the xml suffix to include camel-context.xml
+* [#1097][1097] Collocate classloading integration tests under one module and package 
+* [#1098][1098] Profile ts.basic should only build what's needed for itests/basic
+* [#1113][1113] Remove explicit definition of CXF version
+* [#1115][1115] Move swarm functionality to separate repository
+* [#1118][1118] Review dependencies of the modules maven module
+* [#1123][1123] Revert to a single full feature pack
+* [#1125][1125] Update to fuse-patch-2.1.1
+* [#1131][1131] Allow system context injection to the context registry 
+* [#1141][1141] Use fasterxml-jackson that comes with camel
+* [#1153][1153] Reuse fuse-patch feature pack
+* [#1154][1154] Add arquillian client sample test for docker 
+* [#1166][1166] Update examples to demonstrate CXF consumers
+
+For details see [4.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.0.0"+label%3Atask)
+
+**Bugs**
+
+* [#819][819] Unable to load custom Kafka Serializer or Partition classes 
+* [#904][904] Cannot create ElasticsearchEndpoint
+* [#913][913] Infinispan integration fails on WildFly10
+* [#981][981] JNDI integration incompatible with camel-2.17
+* [#1006][1006] ElasticSearch integration fails with path.home is not configured
+* [#1026][1026] CDI Integration fails with latest camel-2.17
+* [#1028][1028] CDI fails with multiple named route builders
+* [#1035][1035] Dozer classloading may fail with spring based context
+* [#1038][1038] CamelUndertowHostService cannot handle IPV6 addresses
+* [#1039][1039] Dozer cannot find org.apache.el.ExpressionFactory
+* [#1087][1087] wildfly-camel DeploymentUnitProcessors should not impact on non-camel deployments
+* [#1088][1088] Swarm integration test causes stability issues
+* [#1100][1100] PackageScanResolverProcessor may not unregister associated ContextCreateHandler
+* [#1102][1102] No SLF4J logging with camel core fraction
+* [#1107][1107] Subsystem handling of Camel CDI context creation events is flawed
+* [#1108][1108] Expose HttpOperationFailedException from org.apache.camel.component.http4
+* [#1114][1114] Cannot resolve cxf://bean:cxfProducer due to CNFE
+* [#1121][1121] CamelContextDescriptorsProcessor deployment validity check is incorrect
+* [#1128][1128] DuplicateServiceException thrown from Spring Camel Context startup
+* [#1133][1133] Camel references incompatible version of lucene
+* [#1137][1137] Infinispan component incompatible with wildfly
+* [#1147][1147] SpringCamelContextFactory should not start camel contexts
+* [#1160][1160] Required jackson dataformat modules should not be skipped
+* [#1167][1167] Camel modules missing org.slf4j dependency
+
+For details see [4.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.0.0"+label%3Abug)
+
+[369]: https://github.com/wildfly-extras/wildfly-camel/issues/369
+[370]: https://github.com/wildfly-extras/wildfly-camel/issues/370
+[925]: https://github.com/wildfly-extras/wildfly-camel/issues/925
+[955]: https://github.com/wildfly-extras/wildfly-camel/issues/955
+[964]: https://github.com/wildfly-extras/wildfly-camel/issues/964
+[1044]: https://github.com/wildfly-extras/wildfly-camel/issues/1044
+[1048]: https://github.com/wildfly-extras/wildfly-camel/issues/1048
+[1050]: https://github.com/wildfly-extras/wildfly-camel/issues/1050
+[1138]: https://github.com/wildfly-extras/wildfly-camel/issues/1138
+[887]: https://github.com/wildfly-extras/wildfly-camel/issues/887
+[899]: https://github.com/wildfly-extras/wildfly-camel/issues/899
+[906]: https://github.com/wildfly-extras/wildfly-camel/issues/906
+[948]: https://github.com/wildfly-extras/wildfly-camel/issues/948
+[957]: https://github.com/wildfly-extras/wildfly-camel/issues/957
+[1007]: https://github.com/wildfly-extras/wildfly-camel/issues/1007
+[1021]: https://github.com/wildfly-extras/wildfly-camel/issues/1021
+[1030]: https://github.com/wildfly-extras/wildfly-camel/issues/1030
+[1043]: https://github.com/wildfly-extras/wildfly-camel/issues/1043
+[1045]: https://github.com/wildfly-extras/wildfly-camel/issues/1045
+[1047]: https://github.com/wildfly-extras/wildfly-camel/issues/1047
+[1052]: https://github.com/wildfly-extras/wildfly-camel/issues/1052
+[1056]: https://github.com/wildfly-extras/wildfly-camel/issues/1056
+[1058]: https://github.com/wildfly-extras/wildfly-camel/issues/1058
+[1063]: https://github.com/wildfly-extras/wildfly-camel/issues/1063
+[1064]: https://github.com/wildfly-extras/wildfly-camel/issues/1064
+[1066]: https://github.com/wildfly-extras/wildfly-camel/issues/1066
+[1067]: https://github.com/wildfly-extras/wildfly-camel/issues/1067
+[1068]: https://github.com/wildfly-extras/wildfly-camel/issues/1068
+[1071]: https://github.com/wildfly-extras/wildfly-camel/issues/1071
+[1075]: https://github.com/wildfly-extras/wildfly-camel/issues/1075
+[1077]: https://github.com/wildfly-extras/wildfly-camel/issues/1077
+[1078]: https://github.com/wildfly-extras/wildfly-camel/issues/1078
+[1080]: https://github.com/wildfly-extras/wildfly-camel/issues/1080
+[1092]: https://github.com/wildfly-extras/wildfly-camel/issues/1092
+[1097]: https://github.com/wildfly-extras/wildfly-camel/issues/1097
+[1098]: https://github.com/wildfly-extras/wildfly-camel/issues/1098
+[1113]: https://github.com/wildfly-extras/wildfly-camel/issues/1113
+[1115]: https://github.com/wildfly-extras/wildfly-camel/issues/1115
+[1118]: https://github.com/wildfly-extras/wildfly-camel/issues/1118
+[1123]: https://github.com/wildfly-extras/wildfly-camel/issues/1123
+[1125]: https://github.com/wildfly-extras/wildfly-camel/issues/1125
+[1131]: https://github.com/wildfly-extras/wildfly-camel/issues/1131
+[1141]: https://github.com/wildfly-extras/wildfly-camel/issues/1141
+[1153]: https://github.com/wildfly-extras/wildfly-camel/issues/1153
+[1154]: https://github.com/wildfly-extras/wildfly-camel/issues/1154
+[1166]: https://github.com/wildfly-extras/wildfly-camel/issues/1166
+[819]: https://github.com/wildfly-extras/wildfly-camel/issues/819
+[904]: https://github.com/wildfly-extras/wildfly-camel/issues/904
+[913]: https://github.com/wildfly-extras/wildfly-camel/issues/913
+[981]: https://github.com/wildfly-extras/wildfly-camel/issues/981
+[1006]: https://github.com/wildfly-extras/wildfly-camel/issues/1006
+[1026]: https://github.com/wildfly-extras/wildfly-camel/issues/1026
+[1028]: https://github.com/wildfly-extras/wildfly-camel/issues/1028
+[1035]: https://github.com/wildfly-extras/wildfly-camel/issues/1035
+[1038]: https://github.com/wildfly-extras/wildfly-camel/issues/1038
+[1039]: https://github.com/wildfly-extras/wildfly-camel/issues/1039
+[1087]: https://github.com/wildfly-extras/wildfly-camel/issues/1087
+[1088]: https://github.com/wildfly-extras/wildfly-camel/issues/1088
+[1100]: https://github.com/wildfly-extras/wildfly-camel/issues/1100
+[1102]: https://github.com/wildfly-extras/wildfly-camel/issues/1102
+[1107]: https://github.com/wildfly-extras/wildfly-camel/issues/1107
+[1108]: https://github.com/wildfly-extras/wildfly-camel/issues/1108
+[1114]: https://github.com/wildfly-extras/wildfly-camel/issues/1114
+[1121]: https://github.com/wildfly-extras/wildfly-camel/issues/1121
+[1128]: https://github.com/wildfly-extras/wildfly-camel/issues/1128
+[1133]: https://github.com/wildfly-extras/wildfly-camel/issues/1133
+[1137]: https://github.com/wildfly-extras/wildfly-camel/issues/1137
+[1147]: https://github.com/wildfly-extras/wildfly-camel/issues/1147
+[1160]: https://github.com/wildfly-extras/wildfly-camel/issues/1160
+[1167]: https://github.com/wildfly-extras/wildfly-camel/issues/1167
+
 #### WildFly-Camel 3.3.0
 
 **Features**
