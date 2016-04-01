@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -188,20 +187,18 @@ public class KafkaProducerIntegrationTest {
     }
 
     private void consumeKafkaMessages(KafkaConsumer<String, String> consumerConn, String topic, String topicInHeader, CountDownLatch messagesLatch) {
-        List<String> topicList = new CopyOnWriteArrayList<>(Arrays.asList(topic, topicInHeader));
-        consumerConn.subscribe(topicList);
-        new Thread(new Runnable() {
-            @Override
-            @SuppressWarnings("unused")
-            public void run() {
-                while(messagesLatch.getCount() > 0) {
-                    ConsumerRecords<String, String> records = consumerConn.poll(100);
-                    for (ConsumerRecord<String, String> record : records) {
-                        messagesLatch.countDown();
-                    }
+        consumerConn.subscribe(Arrays.asList(topic, topicInHeader));
+        boolean run = true;
+
+        while (run) {
+            ConsumerRecords<String, String> records = consumerConn.poll(100);
+            for (ConsumerRecord<String, String> record : records) {
+                messagesLatch.countDown();
+                if (messagesLatch.getCount() == 0) {
+                    run = false;
                 }
             }
-        }).start();
+        }
     }
 
     private void sendMessagesInRoute(int messages, ProducerTemplate template, Object bodyOther, String... headersWithValue) {
