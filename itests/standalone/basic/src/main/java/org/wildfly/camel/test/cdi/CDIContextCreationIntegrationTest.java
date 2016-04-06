@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.spi.Container;
+import org.apache.camel.spi.CamelContextTracker;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -32,7 +32,6 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,8 +42,8 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 /**
  * Verifies that CDI proxied camel contexts do not become candidates for lifecycle management.
  */
-@RunWith(Arquillian.class)
 @CamelAware
+@RunWith(Arquillian.class)
 public class CDIContextCreationIntegrationTest {
 
     private static final String CDI_CONTEXT_A = "cdi-context-a.jar";
@@ -61,56 +60,57 @@ public class CDIContextCreationIntegrationTest {
         return ShrinkWrap.create(JavaArchive.class);
     }
 
+    @Test
+    public void testCDIContextCreation() throws InterruptedException {
+        FakeContextTracker tracker = new FakeContextTracker();
+        try {
+            tracker.open();
+
+            Assert.assertEquals(0, tracker.getContextCount());
+            Assert.assertEquals(0, contextRegistry.getCamelContexts().size());
+
+            deployer.deploy(CDI_CONTEXT_A);
+            Assert.assertEquals(1, tracker.getContextCount());
+            Assert.assertEquals(1, contextRegistry.getCamelContexts().size());
+
+            deployer.deploy(CDI_CONTEXT_B);
+            Assert.assertEquals(2, tracker.getContextCount());
+            Assert.assertEquals(2, contextRegistry.getCamelContexts().size());
+
+            deployer.undeploy(CDI_CONTEXT_A);
+            deployer.undeploy(CDI_CONTEXT_B);
+
+            Assert.assertEquals(0, contextRegistry.getCamelContexts().size());
+        } finally {
+            tracker.close();
+        }
+    }
+
     @Deployment(name = CDI_CONTEXT_A, managed = false, testable = false)
     public static JavaArchive createCdiTestJar() {
-        return createCamelCdiDeployment(CDI_CONTEXT_A);
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CDI_CONTEXT_A);
+        archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        archive.addPackage(InjectedContextBean.class.getPackage());
+        return archive;
     }
 
     @Deployment(name = CDI_CONTEXT_B, managed = false , testable = false)
     public static JavaArchive createOtherCdiTestJar() {
-        return createCamelCdiDeployment(CDI_CONTEXT_B);
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CDI_CONTEXT_B);
+        archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        archive.addPackage(InjectedContextBean.class.getPackage());
+        return archive;
     }
 
-    private static JavaArchive createCamelCdiDeployment(String name) {
-        return ShrinkWrap.create(JavaArchive.class, name)
-            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
-            .addPackage(InjectedContextBean.class.getPackage());
-    }
-
-    @After
-    public void tearDown() {
-        Container.Instance.set(null);
-    }
-
-    @Test
-    public void testCDIContextCreation() throws InterruptedException {
-        final FakeContainer container = new FakeContainer();
-        Container.Instance.set(container);
-
-        Assert.assertEquals(0, container.getContextCount());
-        Assert.assertEquals(0, contextRegistry.getCamelContexts().size());
-
-        deployer.deploy(CDI_CONTEXT_A);
-        Assert.assertEquals(1, container.getContextCount());
-        Assert.assertEquals(1, contextRegistry.getCamelContexts().size());
-
-        deployer.deploy(CDI_CONTEXT_B);
-        Assert.assertEquals(2, container.getContextCount());
-        Assert.assertEquals(2, contextRegistry.getCamelContexts().size());
-
-        deployer.undeploy(CDI_CONTEXT_A);
-        deployer.undeploy(CDI_CONTEXT_B);
-
-        Assert.assertEquals(0, contextRegistry.getCamelContexts().size());
-    }
-
-    private static final class FakeContainer implements Container {
+    private class FakeContextTracker extends CamelContextTracker {
         private List<CamelContext> camelContextList = new ArrayList<>();
 
         @Override
-        public void manage(CamelContext camelContext) {
+        public void contextCreated(CamelContext camelctx) {
             synchronized (camelContextList) {
-                camelContextList.add(camelContext);
+                if (!camelctx.getClass().getName().contains("Proxy")) {
+                    camelContextList.add(camelctx);
+                }
             }
         }
 
