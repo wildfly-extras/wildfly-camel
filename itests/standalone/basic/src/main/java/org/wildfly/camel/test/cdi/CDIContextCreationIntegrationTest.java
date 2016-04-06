@@ -62,8 +62,7 @@ public class CDIContextCreationIntegrationTest {
 
     @Test
     public void testCDIContextCreation() throws InterruptedException {
-        FakeContextTracker tracker = new FakeContextTracker();
-        try {
+        try (FakeContextTracker tracker = new FakeContextTracker()) {
             tracker.open();
 
             Assert.assertEquals(0, tracker.getContextCount());
@@ -81,8 +80,6 @@ public class CDIContextCreationIntegrationTest {
             deployer.undeploy(CDI_CONTEXT_B);
 
             Assert.assertEquals(0, contextRegistry.getCamelContexts().size());
-        } finally {
-            tracker.close();
         }
     }
 
@@ -108,13 +105,11 @@ public class CDIContextCreationIntegrationTest {
         @Override
         public void contextCreated(CamelContext camelctx) {
             synchronized (camelContextList) {
-                if (!camelctx.getClass().getName().contains("Proxy")) {
-                    camelContextList.add(camelctx);
-                }
+                camelContextList.add(camelctx);
             }
         }
 
-        public int getContextCount() {
+        int getContextCount() {
             synchronized (camelContextList) {
                 return camelContextList.size();
             }
