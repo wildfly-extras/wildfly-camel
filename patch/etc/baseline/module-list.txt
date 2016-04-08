@@ -207,6 +207,6 @@
 /org/springframework/security/main/spring-security-config-4.0.4.RELEASE.jar
 /org/springframework/security/main/spring-security-core-4.0.4.RELEASE.jar
 /org/springframework/tx/main/spring-tx-4.2.5.RELEASE.jar
-/org/wildfly/extras/config/main/fuse-patch-config-2.2.0.jar
+/org/wildfly/extras/config/main/fuse-patch-config-2.2.1.jar
 /org/wildfly/extras/config/plugin/camel/main/wildfly-camel-config-4.1.0-SNAPSHOT.jar
-/org/wildfly/extras/patch/main/fuse-patch-core-2.2.0.jar
+/org/wildfly/extras/patch/main/fuse-patch-core-2.2.1.jar
