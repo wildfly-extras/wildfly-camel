@@ -30,6 +30,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -111,6 +112,33 @@ public class UndertowConsumerIntegrationTest {
             } finally {
                 consumerB.stop();
             }
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testHttpConsumerPrefixPath() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("undertow:http://localhost/foo/bar?matchOnUriPrefix=true")
+                .to("mock:result");
+            }
+        });
+        try {
+            camelctx.start();
+
+            MockEndpoint endpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+            endpoint.setExpectedMessageCount(3);
+
+            HttpRequest.get("http://localhost:8080/foo").throwExceptionOnFailure(false).getResponse();
+            HttpRequest.get("http://localhost:8080/foo/bar").getResponse();
+            HttpRequest.get("http://localhost:8080/foo/bar/hello").getResponse();
+            HttpRequest.get("http://localhost:8080/foo/bar/hello/world").getResponse();
+
+            endpoint.assertIsSatisfied();
         } finally {
             camelctx.stop();
         }

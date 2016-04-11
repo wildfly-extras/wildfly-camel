@@ -189,8 +189,11 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
                 defaultHost.registerHandler(pathPrefix, pathTemplateHandler);
             } else {
-                defaultHost.registerHandler(path, Handlers.path(handler));
-                defaultHost.registerHandler(path, handler);
+                if (reginfo.isMatchOnUriPrefix()) {
+                    defaultHost.registerHandler(path, handler);
+                } else {
+                    defaultHost.registerHandler(path, Handlers.path(handler));
+                }
             }
         }
 
