@@ -9,7 +9,6 @@
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.jboss.logging.jul-to-slf4j-stub" />
   </dependencies>
   <exports>
     <exclude path="org/apache/camel/component/braintree/internal" />
