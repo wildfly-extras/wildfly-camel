@@ -131,7 +131,6 @@
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.osgi.core" />
-            <include module="org.slf4j.jul" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />

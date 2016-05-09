@@ -369,4 +369,8 @@
         <include artifact=":wildfly-undertow" />
     </module>
     
+    <module name="org.jboss.logging.jul-to-slf4j-stub"  skip="true">
+        <include artifact="org.slf4j:jul-to-slf4j" />
+    </module>
+
 </modules>
