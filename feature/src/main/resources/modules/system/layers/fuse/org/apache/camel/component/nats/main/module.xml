@@ -2,7 +2,7 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.nats">
   <resources>
     <artifact name="${org.apache.camel:camel-nats}" />
-    <artifact name="${com.github.tyagihas:java_nats}" />
+    <artifact name="${io.nats:jnats}" />
   </resources>
   <dependencies>
     <module name="javax.api" />

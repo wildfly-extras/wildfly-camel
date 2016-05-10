@@ -52,10 +52,6 @@
         <include artifact=":guava" />
     </module>
 
-    <module name="io.netty" skip="true">
-        <include artifact="io.netty:netty(.*)" />
-    </module>
-
     <module name="io.undertow.core" skip="true">
         <include artifact=":undertow-core" />
     </module>
@@ -227,9 +223,9 @@
     </module>
     
     <module name="org.apache.httpcomponents" skip="true">
-        <include artifact=":httpcore" />
-        <include artifact=":httpclient" />
-        <include artifact=":httpmime" />
+        <include artifact="org.apache.httpcomponents:httpcore" />
+        <include artifact="org.apache.httpcomponents:httpclient" />
+        <include artifact="org.apache.httpcomponents:httpmime" />
     </module>
 
     <module name="org.apache.james.mime4j" skip="true">
@@ -241,7 +237,9 @@
     </module>
 
     <module name="org.apache.log4j" skip="true">
-        <include artifact="log4j:log4j" />
+        <include artifact=":log4j" />
+        <include artifact=":log4j-api" />
+        <include artifact=":log4j-core" />
     </module>
 
     <module name="org.apache.neethi" skip="true">
@@ -395,6 +393,10 @@
         <include artifact=":slf4j-api" />
         <include artifact=":slf4j-log4j12" />
         <include artifact=":slf4j-simple" />
+    </module>
+
+    <module name="org.slf4j.ext" skip="true">
+        <include artifact=":slf4j-ext" />
     </module>
 
     <module name="org.yaml.snakeyaml" skip="true">

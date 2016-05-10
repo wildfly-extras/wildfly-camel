@@ -79,6 +79,9 @@
             <module name="javax.api" />
             <module name="org.jboss.vfs" />
         </dependencies>
+        <exports>
+            <exclude path="org/springframework/cglib/core/internal" />
+        </exports>
     </module>
     
     <module name="org.springframework.expression">

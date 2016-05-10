@@ -6,11 +6,11 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="org.slf4j" />
-    <module name="com.codahale.metrics" />
-    <module name="com.google.guava" />
     <module name="io.netty" />
+    <module name="org.slf4j" />
+    <module name="com.google.guava" />
     <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.component.metrics" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

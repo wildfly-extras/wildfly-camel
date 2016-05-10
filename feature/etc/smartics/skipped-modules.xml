@@ -69,6 +69,22 @@
         <include artifact="com.google.code.findbugs:(.*)" />
     </module>
     
+    <module name="io.netty.parts" skip="true">
+        <include artifact="io.netty:netty" />
+        <include artifact="io.netty:netty-buffer" />
+        <include artifact="io.netty:netty-codec" />
+        <include artifact="io.netty:netty-codec-dns" />
+        <include artifact="io.netty:netty-codec-http" />
+        <include artifact="io.netty:netty-codec-http2" />
+        <include artifact="io.netty:netty-codec-socks" />
+        <include artifact="io.netty:netty-common" />
+        <include artifact="io.netty:netty-handler" />
+        <include artifact="io.netty:netty-handler-proxy" />
+        <include artifact="io.netty:netty-resolver" />
+        <include artifact="io.netty:netty-resolver-dns" />
+        <include artifact="io.netty:netty-transport" />
+    </module>
+
     <module name="org.hdrhistogram" skip="true">
         <include artifact="org.hdrhistogram:HdrHistogram" />
     </module>
@@ -149,8 +165,16 @@
         <include artifact="org.apache.servicemix.bundles:(.*)" />
     </module>
     
+    <module name="org.apache.tomcat.embed" skip="true">
+        <include artifact="org.apache.tomcat.embed:(.*)" />
+    </module>
+    
     <module name="org.codehaus.plexus" skip="true">
         <include artifact="org.codehaus.plexus:(.*)" />
+    </module>
+    
+    <module name="org.codehaus.woodstox.core" skip="true">
+        <include artifact=":woodstox-core" />
     </module>
     
     <module name="org.jasypt" skip="true">
@@ -187,6 +211,10 @@
     
     <module name="org.jboss.shrinkwrap" skip="true">
         <include artifact="org.jboss.shrinkwrap:(.*)" />
+    </module>
+    
+    <module name="org.jctools" skip="true">
+        <include artifact="org.jctools:(.*)" />
     </module>
     
     <module name="org.jruby" skip="true">
@@ -227,10 +255,16 @@
         <include artifact="org.ow2.asm:asm-commons"/>
     </module>
 
-    <module name="org.scala"  skip="true">
+    <module name="org.scala" skip="true">
         <include artifact="org.scala-lang:scala-compiler" />
         <include artifact="org.scala-lang:scala-reflect" />
         <include artifact="org.scala-lang:scalap" />
+    </module>
+
+    <module name="org.springframework.boot" skip="true">
+        <include artifact="org.springframework.boot:spring-boot" />
+        <include artifact="org.springframework.boot:spring-boot-autoconfigure" />
+        <include artifact="org.springframework.boot:spring-boot-configuration-processor" />
     </module>
 
 </modules>

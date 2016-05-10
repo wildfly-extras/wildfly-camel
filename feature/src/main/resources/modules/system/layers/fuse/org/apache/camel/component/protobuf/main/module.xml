@@ -10,5 +10,7 @@
   </dependencies>
   <exports>
     <exclude path="com/google" />
+    <exclude path="com/google/protobuf/compiler" />
+    <exclude path="google/protobuf**" />
   </exports>
 </module>

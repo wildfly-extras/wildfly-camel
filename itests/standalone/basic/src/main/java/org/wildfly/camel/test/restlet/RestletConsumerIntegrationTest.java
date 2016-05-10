@@ -22,6 +22,7 @@ package org.wildfly.camel.test.restlet;
 import java.net.MalformedURLException;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.FailedToCreateRouteException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -59,8 +60,8 @@ public class RestletConsumerIntegrationTest {
 
         try {
             camelctx.start();
-            Assert.fail("Expected RuntimeException to be thrown but it was not");
-        } catch (RuntimeException ex) {
+            Assert.fail("Expected FailedToCreateRouteException to be thrown but it was not");
+        } catch (FailedToCreateRouteException ex) {
             String message = ex.getMessage();
             Assert.assertTrue("Message equals: " + message, message.contains("Restlet consumer endpoint not supported"));
         }

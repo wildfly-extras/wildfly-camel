@@ -50,7 +50,6 @@
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-config</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
     

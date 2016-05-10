@@ -49,10 +49,10 @@
         <version.wildfly>10.1.0.Final</version.wildfly>
         
         <!-- Camel version -->
-        <version.apache.camel>2.17.3</version.apache.camel>
+        <version.apache.camel>2.18.0</version.apache.camel>
         
         <!-- Other versions -->
-        <version.apache.cassandra.unit>2.2.2.1</version.apache.cassandra.unit>
+        <version.apache.cassandra.unit>3.0.0.1</version.apache.cassandra.unit>
         <version.apache.felix.configadmin>1.8.8</version.apache.felix.configadmin>
         <version.apache.felix.log>1.0.1</version.apache.felix.log>
         <version.apache.felix.metatype>1.0.8</version.apache.felix.metatype>

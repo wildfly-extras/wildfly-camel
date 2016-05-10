@@ -59,6 +59,9 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
+        <apply-to-dependencies skip="true">
+            <include module="org.codehaus.woodstox.core" />
+        </apply-to-dependencies>
         <include artifact=":jackson-dataformat-xml" />
     </module>
 
@@ -106,6 +109,20 @@
         <dependencies>
             <module name="javax.api" />
             <module name="javax.xml.stream.api"/>
+        </dependencies>
+    </module>
+
+    <module name="io.netty" inherit-slot="false" slot="4.1">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.netty:netty-all" />
+        <apply-to-dependencies skip="true">
+            <include module="org.jctools" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="sun.jdk"/>
         </dependencies>
     </module>
 
@@ -201,6 +218,13 @@
         <include artifact=":commons-csv" />
     </module>
     
+    <module name="org.apache.commons.httpclient">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="commons-httpclient:commons-httpclient" />
+    </module>
+    
     <module name="org.apache.commons.lang3">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -266,7 +290,7 @@
         </exports>
     </module>
 
-    <module name="org.apache.lucene" slot="5.4">
+    <module name="org.apache.lucene" slot="5.5">
         <include artifact="org.apache.lucene:lucene-analyzers-common" />
         <include artifact="org.apache.lucene:lucene-backward-codecs" />
         <include artifact="org.apache.lucene:lucene-core" />
@@ -350,10 +374,12 @@
         </properties>
         <include artifact="org.apache.zookeeper:zookeeper" />
         <apply-to-dependencies skip="true">
+            <include module="io.netty.parts" />
             <include module="jline" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
+            <module name="org.apache.log4j" />
         </dependencies>
         <exports>
             <exclude path="org/apache/jute**" />
@@ -407,7 +433,7 @@
         <include artifact="org.elasticsearch:elasticsearch" />
         <include artifact="org.elasticsearch:securesm" />
         <apply-to-dependencies skip="true">
-            <include module="io.netty" />
+            <include module="io.netty.parts" />
             <include module="org.antlr.antlr-runtime"/>
             <include module="org.apache.commons.cli" />
             <include module="org.hdrhistogram" />

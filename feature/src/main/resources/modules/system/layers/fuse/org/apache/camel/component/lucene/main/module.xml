@@ -7,6 +7,6 @@
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.lucene" slot="5.4" />
+    <module name="org.apache.lucene" slot="5.5" />
   </dependencies>
 </module>

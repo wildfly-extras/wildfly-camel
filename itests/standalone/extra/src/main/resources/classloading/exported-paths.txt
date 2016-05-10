@@ -13,8 +13,12 @@ org/apache/camel/api/management/mbean
 org/apache/camel/builder
 org/apache/camel/builder/xml
 org/apache/camel/com
-org/apache/camel/com/googlecode
-org/apache/camel/com/googlecode/concurrentlinkedhashmap
+org/apache/camel/com/github
+org/apache/camel/com/github/benmanes
+org/apache/camel/com/github/benmanes/caffeine
+org/apache/camel/com/github/benmanes/caffeine/base
+org/apache/camel/com/github/benmanes/caffeine/cache
+org/apache/camel/com/github/benmanes/caffeine/cache/stats
 org/apache/camel/component
 org/apache/camel/component/bean
 org/apache/camel/component/beanclass
@@ -53,6 +57,7 @@ org/apache/camel/impl
 org/apache/camel/impl/converter
 org/apache/camel/impl/osgi
 org/apache/camel/impl/osgi/tracker
+org/apache/camel/impl/remote
 org/apache/camel/impl/scan
 org/apache/camel/language
 org/apache/camel/language/bean
@@ -75,6 +80,7 @@ org/apache/camel/model/config
 org/apache/camel/model/dataformat
 org/apache/camel/model/language
 org/apache/camel/model/loadbalancer
+org/apache/camel/model/remote
 org/apache/camel/model/rest
 org/apache/camel/processor
 org/apache/camel/processor/aggregate
@@ -92,7 +98,6 @@ org/apache/camel/spring/handler
 org/apache/camel/spring/pollingconsumer
 org/apache/camel/spring/processor
 org/apache/camel/spring/processor/idempotent
-org/apache/camel/spring/remoting
 org/apache/camel/spring/spi
 org/apache/camel/spring/util
 org/apache/camel/support
@@ -122,6 +127,7 @@ org/springframework/beans/propertyeditors
 org/springframework/beans/support
 org/springframework/cache
 org/springframework/cache/annotation
+org/springframework/cache/caffeine
 org/springframework/cache/concurrent
 org/springframework/cache/config
 org/springframework/cache/ehcache
@@ -204,7 +210,6 @@ org/springframework/objenesis/instantiator
 org/springframework/objenesis/instantiator/android
 org/springframework/objenesis/instantiator/basic
 org/springframework/objenesis/instantiator/gcj
-org/springframework/objenesis/instantiator/jrockit
 org/springframework/objenesis/instantiator/perc
 org/springframework/objenesis/instantiator/sun
 org/springframework/objenesis/strategy
@@ -261,7 +266,9 @@ META-INF/services/org/apache/camel/component
 META-INF/services/org/apache/camel/dataformat
 META-INF/services/org/apache/camel/language
 META-INF/services/org/apache/camel/language/resolver
+META-INF/services/org/apache/camel/model
 META-INF/services/org/apache/camel/rest
+META-INF/services/org/apache/camel/restapi
 ca/uhn/hl7v2
 ca/uhn/hl7v2/app
 ca/uhn/hl7v2/concurrent
@@ -342,6 +349,7 @@ com/mongodb/binding
 com/mongodb/bulk
 com/mongodb/client
 com/mongodb/client/gridfs
+com/mongodb/client/gridfs/codecs
 com/mongodb/client/gridfs/model
 com/mongodb/client/model
 com/mongodb/client/model/geojson
@@ -393,6 +401,8 @@ groovy/util/slurpersupport
 groovy/xml
 groovy/xml/dom
 groovy/xml/streamingmarkupsupport
+io/nats
+io/nats/client
 io/swagger/annotations
 io/swagger/config
 io/swagger/converter
@@ -410,6 +420,9 @@ io/swagger/models/auth
 io/swagger/models/parameters
 io/swagger/models/properties
 io/swagger/models/refs
+io/swagger/parser
+io/swagger/parser/processors
+io/swagger/parser/util
 io/swagger/util
 io/vertx/core
 io/vertx/core/buffer
@@ -464,16 +477,24 @@ net/sf/saxon/expr
 net/sf/saxon/expr/flwor
 net/sf/saxon/expr/instruct
 net/sf/saxon/expr/number
+net/sf/saxon/expr/oper
 net/sf/saxon/expr/parser
 net/sf/saxon/expr/sort
 net/sf/saxon/functions
 net/sf/saxon/java
+net/sf/saxon/jaxp
 net/sf/saxon/lib
+net/sf/saxon/ma
+net/sf/saxon/ma/arrays
+net/sf/saxon/ma/json
+net/sf/saxon/ma/map
+net/sf/saxon/ma/trie
 net/sf/saxon/om
 net/sf/saxon/pattern
 net/sf/saxon/pull
 net/sf/saxon/query
 net/sf/saxon/regex
+net/sf/saxon/resource
 net/sf/saxon/s9api
 net/sf/saxon/serialize
 net/sf/saxon/serialize/charcode
@@ -540,6 +561,8 @@ org/apache/camel/component/cxf/transport/blueprint
 org/apache/camel/component/cxf/transport/spring
 org/apache/camel/component/cxf/util
 org/apache/camel/component/dns
+org/apache/camel/component/dns/processor
+org/apache/camel/component/dns/processor/remote
 org/apache/camel/component/dns/types
 org/apache/camel/component/dozer
 org/apache/camel/component/ejb
@@ -557,6 +580,7 @@ org/apache/camel/component/http4/helper
 org/apache/camel/component/infinispan
 org/apache/camel/component/infinispan/embedded
 org/apache/camel/component/infinispan/processor
+org/apache/camel/component/infinispan/processor/aggregate
 org/apache/camel/component/infinispan/processor/idempotent
 org/apache/camel/component/infinispan/remote
 org/apache/camel/component/irc
@@ -580,9 +604,12 @@ org/apache/camel/component/mail
 org/apache/camel/component/metrics
 org/apache/camel/component/metrics/messagehistory
 org/apache/camel/component/metrics/routepolicy
+org/apache/camel/component/metrics/spi
 org/apache/camel/component/mina2
 org/apache/camel/component/mongodb
 org/apache/camel/component/mongodb/converters
+org/apache/camel/component/mongodb/processor
+org/apache/camel/component/mongodb/processor/idempotent
 org/apache/camel/component/mqtt
 org/apache/camel/component/mvel
 org/apache/camel/component/nats
@@ -603,6 +630,7 @@ org/apache/camel/component/salesforce/api/dto
 org/apache/camel/component/salesforce/api/dto/analytics
 org/apache/camel/component/salesforce/api/dto/analytics/reports
 org/apache/camel/component/salesforce/api/dto/bulk
+org/apache/camel/component/salesforce/api/utils
 org/apache/camel/component/scp
 org/apache/camel/component/servlet
 org/apache/camel/component/servlet/osgi
@@ -631,6 +659,8 @@ org/apache/camel/component/undertow/handlers
 org/apache/camel/component/velocity
 org/apache/camel/component/vertx
 org/apache/camel/component/weather
+org/apache/camel/component/weather/geolocation
+org/apache/camel/component/weather/http
 org/apache/camel/component/xmlsecurity
 org/apache/camel/component/xmlsecurity/api
 org/apache/camel/component/xmlsecurity/processor
@@ -653,6 +683,7 @@ org/apache/camel/dataformat/bindy/annotation
 org/apache/camel/dataformat/bindy/csv
 org/apache/camel/dataformat/bindy/fixed
 org/apache/camel/dataformat/bindy/format
+org/apache/camel/dataformat/bindy/format/factories
 org/apache/camel/dataformat/bindy/kvp
 org/apache/camel/dataformat/bindy/util
 org/apache/camel/dataformat/castor
@@ -786,6 +817,7 @@ org/apache/kafka/common/cache
 org/apache/kafka/common/config
 org/apache/kafka/common/config/types
 org/apache/kafka/common/errors
+org/apache/kafka/common/internals
 org/apache/kafka/common/metrics
 org/apache/kafka/common/metrics/stats
 org/apache/kafka/common/network
@@ -797,6 +829,7 @@ org/apache/kafka/common/security
 org/apache/kafka/common/security/auth
 org/apache/kafka/common/security/authenticator
 org/apache/kafka/common/security/kerberos
+org/apache/kafka/common/security/plain
 org/apache/kafka/common/security/ssl
 org/apache/kafka/common/serialization
 org/apache/kafka/common/utils
@@ -897,6 +930,9 @@ org/elasticsearch/action/admin/cluster/node/hotthreads
 org/elasticsearch/action/admin/cluster/node/info
 org/elasticsearch/action/admin/cluster/node/liveness
 org/elasticsearch/action/admin/cluster/node/stats
+org/elasticsearch/action/admin/cluster/node/tasks
+org/elasticsearch/action/admin/cluster/node/tasks/cancel
+org/elasticsearch/action/admin/cluster/node/tasks/list
 org/elasticsearch/action/admin/cluster/repositories
 org/elasticsearch/action/admin/cluster/repositories/delete
 org/elasticsearch/action/admin/cluster/repositories/get
@@ -971,7 +1007,6 @@ org/elasticsearch/action/indexedscripts/get
 org/elasticsearch/action/indexedscripts/put
 org/elasticsearch/action/percolate
 org/elasticsearch/action/search
-org/elasticsearch/action/search/type
 org/elasticsearch/action/suggest
 org/elasticsearch/action/support
 org/elasticsearch/action/support/broadcast
@@ -983,6 +1018,7 @@ org/elasticsearch/action/support/replication
 org/elasticsearch/action/support/single
 org/elasticsearch/action/support/single/instance
 org/elasticsearch/action/support/single/shard
+org/elasticsearch/action/support/tasks
 org/elasticsearch/action/termvectors
 org/elasticsearch/action/termvectors/dfs
 org/elasticsearch/action/update
@@ -1088,6 +1124,7 @@ org/elasticsearch/env
 org/elasticsearch/gateway
 org/elasticsearch/http
 org/elasticsearch/http/netty
+org/elasticsearch/http/netty/cors
 org/elasticsearch/http/netty/pipelining
 org/elasticsearch/index
 org/elasticsearch/index/aliases
@@ -1190,6 +1227,7 @@ org/elasticsearch/rest/action/admin/cluster/node
 org/elasticsearch/rest/action/admin/cluster/node/hotthreads
 org/elasticsearch/rest/action/admin/cluster/node/info
 org/elasticsearch/rest/action/admin/cluster/node/stats
+org/elasticsearch/rest/action/admin/cluster/node/tasks
 org/elasticsearch/rest/action/admin/cluster/repositories
 org/elasticsearch/rest/action/admin/cluster/repositories/delete
 org/elasticsearch/rest/action/admin/cluster/repositories/get
@@ -1353,6 +1391,7 @@ org/elasticsearch/search/suggest/phrase
 org/elasticsearch/search/suggest/term
 org/elasticsearch/search/warmer
 org/elasticsearch/snapshots
+org/elasticsearch/tasks
 org/elasticsearch/threadpool
 org/elasticsearch/transport
 org/elasticsearch/transport/local
@@ -1557,7 +1596,6 @@ org/infinispan/util/stream
 org/infinispan/xsite
 org/infinispan/xsite/statetransfer
 org/infinispan/xsite/status
-org/nats
 org/quartz
 org/quartz/commonj
 org/quartz/core
@@ -1617,4 +1655,5 @@ twitter4j/json
 twitter4j/management
 twitter4j/util
 twitter4j/util/function
+w3c/xslt3
 

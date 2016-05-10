@@ -3,12 +3,12 @@
   <resources>
     <artifact name="${net.sourceforge.htmlunit:htmlunit}" />
     <artifact name="${net.sourceforge.htmlunit:htmlunit-core-js}" />
+    <artifact name="${net.sourceforge.htmlunit:neko-htmlunit}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
     <module name="org.w3c.css.sac" />
     <module name="net.sourceforge.cssparser" />
-    <module name="net.sourceforge.nekohtml" />
     <module name="org.apache.commons.codec" />
     <module name="org.apache.commons.io" />
     <module name="org.apache.commons.lang3" />

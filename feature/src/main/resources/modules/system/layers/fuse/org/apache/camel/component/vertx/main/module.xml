@@ -7,11 +7,12 @@
   <dependencies>
     <module name="javax.api" />
     <module name="org.slf4j" />
+    <module name="io.netty" slot="4.1" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="io.netty" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
+    <module name="org.apache.log4j" />
   </dependencies>
   <exports>
     <exclude path="io/vertx" />

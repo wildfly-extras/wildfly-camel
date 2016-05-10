@@ -7,6 +7,7 @@
     <artifact name="${io.swagger:swagger-core}" />
     <artifact name="${io.swagger:swagger-jaxrs}" />
     <artifact name="${io.swagger:swagger-models}" />
+    <artifact name="${io.swagger:swagger-parser}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
@@ -23,9 +24,11 @@
     <module name="javax.ws.rs.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.io" />
     <module name="org.apache.commons.lang3" />
     <module name="org.javassist" />
     <module name="org.slf4j" />
+    <module name="org.slf4j.ext" />
   </dependencies>
   <exports>
     <exclude path="io/swagger" />

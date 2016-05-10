@@ -55,7 +55,7 @@ public class SpringExcludedPathsTest {
         ModuleClassLoader classLoader = moduleLoader.loadModule(modid).getClassLoader();
         Class<?> loadedClass = classLoader.loadClass("org.apache.camel.spring.SpringCamelContext");
         Assert.assertNotNull("Class not null", loadedClass);
-        loadedClass = classLoader.loadClass("org.apache.camel.osgi.OsgiSpringCamelContext");
+        loadedClass = classLoader.loadClass("org.apache.camel.spring.remoting.CamelServiceExporter");
         Assert.assertNotNull("Class not null", loadedClass);
     }
 
@@ -65,7 +65,7 @@ public class SpringExcludedPathsTest {
         Class<?> loadedClass = classLoader.loadClass("org.apache.camel.spring.SpringCamelContext");
         Assert.assertNotNull("Class not null", loadedClass);
         try {
-            classLoader.loadClass("org.apache.camel.osgi.OsgiSpringCamelContext");
+            classLoader.loadClass("org.apache.camel.spring.remoting.CamelServiceExporter");
             Assert.fail("ClassNotFoundException expected");
         } catch (ClassNotFoundException ex) {
             // expected

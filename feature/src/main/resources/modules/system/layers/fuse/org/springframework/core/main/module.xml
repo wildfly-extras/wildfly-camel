@@ -11,4 +11,7 @@
     <module name="org.jboss.vfs" />
     <module name="org.apache.commons.logging" />
   </dependencies>
+  <exports>
+    <exclude path="org/springframework/cglib/core/internal" />
+  </exports>
 </module>

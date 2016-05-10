@@ -19,6 +19,9 @@
  */
 package org.wildfly.camel.test.nats;
 
+import io.nats.client.Connection;
+import io.nats.client.ConnectionFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
@@ -37,7 +40,6 @@ import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.nats.Connection;
 import org.wildfly.extension.camel.CamelAware;
 
 /**
@@ -90,7 +92,7 @@ public class NatsIntegrationTest {
             });
 
             MockEndpoint to = camelctx.getEndpoint("mock:result", MockEndpoint.class);
-            to.expectedBodiesReceived("message");
+            to.expectedBodiesReceived("{Subject=test;Reply=null;Payload=<test-message>}");
             to.expectedMessageCount(1);
 
             camelctx.start();
@@ -109,10 +111,11 @@ public class NatsIntegrationTest {
             Properties opts = new Properties();
             opts.put("servers", "nats://localhost:4222");
 
-            Connection conn = Connection.connect(opts);
-            conn.publish("test", "message");
-
-            to.assertIsSatisfied(10000);
+            ConnectionFactory factory = new ConnectionFactory(opts);
+            Connection connection = factory.createConnection();
+            connection.publish("test", "test-message".getBytes());
+            
+            to.assertIsSatisfied(5000);
 
         } finally {
             camelctx.stop();

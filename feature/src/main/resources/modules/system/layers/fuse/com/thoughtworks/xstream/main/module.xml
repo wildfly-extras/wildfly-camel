@@ -11,5 +11,6 @@
   <dependencies>
     <module name="javax.api" />
     <module name="javax.xml.stream.api" />
+    <module name="javax.activation.api" />
   </dependencies>
 </module>
