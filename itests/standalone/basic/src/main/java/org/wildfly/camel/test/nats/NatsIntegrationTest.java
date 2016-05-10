@@ -1,18 +1,18 @@
 package org.wildfly.camel.test.nats;
 
-import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Endpoint;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nats.Connection;
@@ -27,6 +27,16 @@ public class NatsIntegrationTest {
     	return ShrinkWrap.create(JavaArchive.class, "came-nats-tests.jar");
     }
 
+    @Test
+    public void testNatsComponent() throws Exception {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        Endpoint endpoint = camelctx.getEndpoint("nats://localhost:4222?topic=test");
+        Assert.assertNotNull(endpoint);
+        Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.nats.NatsEndpoint");
+    }
+    
+    @Ignore("We need a bit of tuning on CI server to make this test works")
     @Test
     public void testNatsRoutes() throws Exception {
 
