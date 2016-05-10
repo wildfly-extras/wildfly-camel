@@ -33,6 +33,7 @@
 	^org/infinispan
 	^org/infinispan/commons(.*)
 	^org/infinispan/manager(.*)
+        ^org/nats(.*)
 	^org/springframework(.*)
 	^org/xmlsoap(.*)
 	^META-INF/cxf(.*)
