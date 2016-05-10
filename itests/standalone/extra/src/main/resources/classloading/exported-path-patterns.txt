@@ -34,6 +34,7 @@
 	^org/infinispan
 	^org/infinispan/commons(.*)
 	^org/infinispan/manager(.*)
+        ^org/nats(.*)
 	^org/springframework(.*)
     ^org/xbill(.*)
 	^org/xmlsoap(.*)

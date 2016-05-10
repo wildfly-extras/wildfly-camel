@@ -499,6 +499,7 @@ org/apache/camel/component/metrics/routepolicy
 org/apache/camel/component/mina2
 org/apache/camel/component/mqtt
 org/apache/camel/component/mvel
+org/apache/camel/component/nats
 org/apache/camel/component/netty4
 org/apache/camel/component/netty4/codec
 org/apache/camel/component/netty4/handlers
@@ -1268,6 +1269,7 @@ org/infinispan/commons/api
 org/infinispan/commons/api/functional
 org/infinispan/manager
 org/infinispan/manager/impl
+org/nats
 org/quartz
 org/quartz/commonj
 org/quartz/core

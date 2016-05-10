@@ -72,6 +72,8 @@
 /org/apache/camel/component/mina2/main/camel-mina2-2.17.2.jar
 /org/apache/camel/component/mqtt/main/camel-mqtt-2.17.2.jar
 /org/apache/camel/component/mvel/main/camel-mvel-2.17.2.jar
+/org/apache/camel/component/nats/main/camel-nats-2.17.2.jar
+/org/apache/camel/component/nats/main/java_nats-0.5.2.jar
 /org/apache/camel/component/netty4/main/camel-netty4-2.17.2.jar
 /org/apache/camel/component/ognl/main/camel-ognl-2.17.2.jar
 /org/apache/camel/component/protobuf/main/camel-protobuf-2.17.2.jar
