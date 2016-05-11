@@ -52,6 +52,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.kafka.EmbeddedKafkaCluster;
 import org.wildfly.camel.test.common.zookeeper.EmbeddedZookeeper;
+import org.wildfly.camel.test.kafka.subA.SimpleKafkaPartitioner;
 import org.wildfly.camel.test.kafka.subA.SimpleKafkaSerializer;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -71,7 +72,7 @@ public class KafkaProducerIntegrationTest {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "kafka-producer-tests.jar");
         archive.addPackage(EmbeddedKafkaCluster.class.getPackage());
         archive.addPackage(EmbeddedZookeeper.class.getPackage());
-        archive.addClasses(SimpleKafkaSerializer.class);
+        archive.addClasses(SimpleKafkaSerializer.class, SimpleKafkaPartitioner.class);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -166,6 +167,27 @@ public class KafkaProducerIntegrationTest {
         }
     }
 
+    @Test
+    public void testCustomKafkaPartitioner() throws Exception {
+
+        String partitioner = "&partitioner=" + SimpleKafkaPartitioner.class.getName();
+        String epuri = "kafka:localhost:" + KAFKA_PORT + "?topic=" + TOPIC_STRINGS + "&requestRequiredAcks=-1" + partitioner;
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start").to(epuri);
+            }
+        });
+
+        camelctx.start();
+        try {
+            Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
+        } finally {
+            camelctx.stop();
+        }
+    }
 
     private KafkaConsumer<String, String> createKafkaConsumer() {
         Properties stringsProps = new Properties();
