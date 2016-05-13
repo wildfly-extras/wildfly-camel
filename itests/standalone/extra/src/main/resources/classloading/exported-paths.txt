@@ -451,6 +451,8 @@ org/apache/camel/component/cxf/transport
 org/apache/camel/component/cxf/transport/blueprint
 org/apache/camel/component/cxf/transport/spring
 org/apache/camel/component/cxf/util
+org/apache/camel/component/dns
+org/apache/camel/component/dns/types
 org/apache/camel/component/dozer
 org/apache/camel/component/ejb
 org/apache/camel/component/elasticsearch
@@ -1279,6 +1281,10 @@ org/quartz/xml
 org/springframework
 org/springframework/orm/jpa
 org/springframework/security/authentication
+org/xbill
+org/xbill/DNS
+org/xbill/DNS/spi
+org/xbill/DNS/utils
 org/xmlsoap
 org/xmlsoap/schemas
 org/xmlsoap/schemas/soap

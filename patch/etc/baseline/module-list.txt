@@ -39,6 +39,8 @@
 /org/apache/camel/component/csv/main/camel-csv-2.17.1.jar
 /org/apache/camel/component/cxf/main/camel-cxf-2.17.1.jar
 /org/apache/camel/component/cxf/main/camel-cxf-transport-2.17.1.jar
+/org/apache/camel/component/dns/main/camel-dns-2.17.1.jar
+/org/apache/camel/component/dns/main/dnsjava-2.1.7.jar
 /org/apache/camel/component/dozer/main/camel-dozer-2.17.1.jar
 /org/apache/camel/component/ejb/main/camel-ejb-2.17.1.jar
 /org/apache/camel/component/elasticsearch/main/camel-elasticsearch-2.17.1.jar
