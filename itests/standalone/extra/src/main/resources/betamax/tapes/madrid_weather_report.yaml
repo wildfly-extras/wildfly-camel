@@ -4,7 +4,7 @@ interactions:
 - recorded: 2014-12-12T14:21:08.833Z
   request:
     method: GET
-    uri: http://api.openweathermap.org/data/2.5/forecast/daily?q=Madrid,Spain&cnt=7
+    uri: http://api.openweathermap.org/data/2.5/forecast/daily?q=Madrid,Spain&lang=en&cnt=7
     headers:
       Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
       Host: api.openweathermap.org

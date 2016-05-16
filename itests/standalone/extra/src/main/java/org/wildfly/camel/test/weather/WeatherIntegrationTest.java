@@ -20,13 +20,11 @@
 
 package org.wildfly.camel.test.weather;
 
-import software.betamax.junit.Betamax;
-import software.betamax.junit.RecorderRule;
-
 import java.io.File;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
+import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -38,6 +36,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
+
+import software.betamax.junit.Betamax;
+import software.betamax.junit.RecorderRule;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -73,7 +74,8 @@ public class WeatherIntegrationTest {
     @Betamax(tape="madrid-weather-report")
     public void testGetWeather() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
-        String response = camelctx.createProducerTemplate().requestBody("weather:foo?location=Madrid,Spain&period=7 days", "").toString();
+        ProducerTemplate template = camelctx.createProducerTemplate();
+        String response = template.requestBody("weather:foo?location=Madrid,Spain&period=7 days&proxyHost=localhost&proxyPort=1337", null, String.class);
         Assert.assertNotNull(response);
         Assert.assertTrue("Contains ", response.contains(",\"name\":\"Madrid\","));
         camelctx.stop();
