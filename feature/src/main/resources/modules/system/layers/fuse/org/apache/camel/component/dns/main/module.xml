@@ -10,4 +10,8 @@
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
+  <exports>
+    <exclude path="org/xbill/DNS/spi**" />
+    <exclude path="org/xbill/DNS/utils**" />
+  </exports>
 </module>

@@ -27,7 +27,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.PublicKey;
 import java.util.Arrays;
 
 import org.apache.camel.CamelContext;
@@ -35,16 +34,12 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.test.AvailablePortFinder;
 import org.apache.sshd.SshServer;
-import org.apache.sshd.common.NamedFactory;
-import org.apache.sshd.server.Command;
-import org.apache.sshd.server.PasswordAuthenticator;
-import org.apache.sshd.server.PublickeyAuthenticator;
 import org.apache.sshd.server.command.ScpCommandFactory;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
-import org.apache.sshd.server.session.ServerSession;
 import org.apache.sshd.server.sftp.SftpSubsystem;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -76,6 +71,11 @@ public class SftpIntegrationTest {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-ftp-tests.war");
         archive.addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR);
         archive.addAsLibraries(libraryDependencies);
+        archive.setManifest(() -> {
+            ManifestBuilder builder = new ManifestBuilder();
+            builder.addManifestHeader("Dependencies", "org.bouncycastle");
+            return builder.openStream();
+        });
         addJarHolding(archive, AvailablePortFinder.class);
         return archive;
     }
@@ -87,21 +87,10 @@ public class SftpIntegrationTest {
         sshServer = SshServer.setUpDefaultServer();
         sshServer.setPort(PORT);
         sshServer.setKeyPairProvider(new SimpleGeneratorHostKeyProvider());
-        sshServer.setSubsystemFactories(Arrays.<NamedFactory<Command>>asList(new SftpSubsystem.Factory()));
+        sshServer.setSubsystemFactories(Arrays.asList(new SftpSubsystem.Factory()));
         sshServer.setCommandFactory(new ScpCommandFactory());
-        sshServer.setPasswordAuthenticator(new PasswordAuthenticator() {
-            @Override
-            public boolean authenticate(String username, String password, ServerSession serverSession) {
-                return username.equals("admin") && password.equals("admin");
-            }
-        });
-        sshServer.setPublickeyAuthenticator(new PublickeyAuthenticator() {
-            @Override
-            public boolean authenticate(String s, PublicKey publicKey, ServerSession serverSession) {
-                return false;
-            }
-        });
-
+        sshServer.setPasswordAuthenticator((username, password, serverSession) -> username.equals("admin") && password.equals("admin"));
+        sshServer.setPublickeyAuthenticator((s, publicKey, serverSession) -> false);
         sshServer.start();
     }
 

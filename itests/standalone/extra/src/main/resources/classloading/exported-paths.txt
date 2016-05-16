@@ -1283,8 +1283,6 @@ org/springframework/orm/jpa
 org/springframework/security/authentication
 org/xbill
 org/xbill/DNS
-org/xbill/DNS/spi
-org/xbill/DNS/utils
 org/xmlsoap
 org/xmlsoap/schemas
 org/xmlsoap/schemas/soap

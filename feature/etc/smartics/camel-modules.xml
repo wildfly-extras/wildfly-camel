@@ -271,6 +271,10 @@
             <module name="javax.api"/>
             <module name="org.slf4j"/>
         </dependencies>
+        <exports>
+            <exclude path="org/xbill/DNS/spi**" />
+            <exclude path="org/xbill/DNS/utils**" />
+        </exports>
     </module>
 
     <module name="org.apache.camel.component.dozer">
