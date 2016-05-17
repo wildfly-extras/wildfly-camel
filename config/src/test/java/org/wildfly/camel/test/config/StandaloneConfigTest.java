@@ -16,7 +16,7 @@
 package org.wildfly.camel.test.config;
 
 import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_CAMEL;
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAIN;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAINS;
 import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_SECURITY;
 import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_WELD;
 
@@ -50,17 +50,17 @@ public class StandaloneConfigTest {
         plugin.applyStandaloneConfigChange(context, true);
 
         // Verify extension
-        Element element = ConfigSupport.findElementWithAttributeValue(doc.getRootElement(), "extension", NS_DOMAIN, "module", "org.wildfly.extension.camel");
+        Element element = ConfigSupport.findElementWithAttributeValue(doc.getRootElement(), "extension", "module", "org.wildfly.extension.camel", NS_DOMAINS);
         Assert.assertNotNull("Extension not null", element);
 
         // Verify system-properties
-        element = doc.getRootElement().getChild("system-properties", NS_DOMAIN);
+        element = ConfigSupport.findChildElement(doc.getRootElement(), "system-properties", NS_DOMAINS);
         Assert.assertNotNull("system-properties not null", element);
-        element = ConfigSupport.findElementWithAttributeValue(element, "property", NS_DOMAIN, "name", "hawtio.realm");
+        element = ConfigSupport.findElementWithAttributeValue(element, "property", "name", "hawtio.realm", NS_DOMAINS);
         Assert.assertNotNull("property not null", element);
 
         // Verify weld
-        List<Element> profiles = ConfigSupport.findProfileElements(doc, NS_DOMAIN);
+        List<Element> profiles = ConfigSupport.findProfileElements(doc, NS_DOMAINS);
         Assert.assertEquals("One profile", 1, profiles.size());
         element = profiles.get(0).getChild("subsystem", NS_WELD);
         Assert.assertNotNull("weld not null", element);
@@ -71,7 +71,7 @@ public class StandaloneConfigTest {
         Assert.assertNotNull("camel not null", element);
 
         // Verify hawtio-domain
-        element = ConfigSupport.findElementWithAttributeValue(doc.getRootElement(), "security-domain", NS_SECURITY, "name", "hawtio-domain");
+        element = ConfigSupport.findElementWithAttributeValue(doc.getRootElement(), "security-domain", "name", "hawtio-domain", NS_SECURITY);
         Assert.assertNotNull("hawtio-domain not null", element);
 
         XMLOutputter output = new XMLOutputter();

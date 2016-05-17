@@ -64,7 +64,7 @@
         <version.codehaus.plexus.utils>3.0.15</version.codehaus.plexus.utils>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
         <version.freeside.betamax>1.1.2</version.freeside.betamax>
-        <version.fusepatch>2.2.2</version.fusepatch>
+        <version.fusepatch>2.3.0</version.fusepatch>
         <version.greenmail>1.4.0</version.greenmail>
         <version.hawtio>1.4.60</version.hawtio>
         <version.jboss.arquillian.core>1.1.10.Final</version.jboss.arquillian.core>
