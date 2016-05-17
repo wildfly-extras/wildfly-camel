@@ -4,7 +4,12 @@
     <artifact name="${org.apache.camel:camel-avro}" />
   </resources>
   <dependencies>
-    <module name="org.apache.avro" export="true" />
+    <module name="org.apache.avro" export="true">
+      <exports>
+        <exclude path="org/apache/avro/util/internal" />
+        <exclude path="avro/shaded**" />
+      </exports>
+    </module>
     <module name="org.slf4j" />
     <module name="io.netty" slot="3.10" />
     <module name="javax.xml.bind.api" />

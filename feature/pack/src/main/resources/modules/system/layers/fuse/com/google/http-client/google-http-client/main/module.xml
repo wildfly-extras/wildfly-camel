@@ -8,7 +8,7 @@
     <module name="javax.api" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="org.apache.commons.codec" />
-    <module name="org.apache.httpcomponents" slot="4.5" />
+    <module name="org.apache.httpcomponents" />
   </dependencies>
   <exports>
     <exclude path="com/google" />

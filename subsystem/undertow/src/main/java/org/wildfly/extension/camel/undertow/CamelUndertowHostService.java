@@ -54,8 +54,8 @@ import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.parser.SubsystemState.RuntimeState;
 import org.wildfly.extension.gravia.GraviaConstants;
 import org.wildfly.extension.undertow.Host;
-import org.wildfly.extension.undertow.ListenerService;
 import org.wildfly.extension.undertow.UndertowEventListener;
+import org.wildfly.extension.undertow.UndertowListener;
 import org.wildfly.extension.undertow.UndertowService;
 
 import io.undertow.Handlers;
@@ -161,10 +161,10 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
             // If a port was specified, verify that undertow has a listener configured for it
             if (!portMatched) {
-                for (ListenerService<?> service : defaultHost.getServer().getListeners()) {
-                    InjectedValue<SocketBinding> binding = service.getBinding();
+                for (UndertowListener listener : defaultHost.getServer().getListeners()) {
+                    SocketBinding binding = listener.getSocketBinding();
                     if (binding != null) {
-                        if (binding.getValue().getPort() == httpURI.getPort()) {
+                        if (binding.getPort() == httpURI.getPort()) {
                             portMatched = true;
                             break;
                         }

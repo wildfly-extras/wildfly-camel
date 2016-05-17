@@ -13,7 +13,7 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="io.netty" slot="4.1" />
+    <module name="io.netty" />
     <module name="org.reactivestreams" />
     <module name="org.slf4j" />
   </dependencies>

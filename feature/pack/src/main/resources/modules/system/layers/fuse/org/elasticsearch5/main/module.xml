@@ -14,7 +14,7 @@
     <resource-root path="transport-netty4-client-5.5.2.jar" />
   </resources>
   <dependencies>
-    <module name="io.netty" slot="4.1" />
+    <module name="io.netty" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.dataformat.cbor" />
     <module name="com.fasterxml.jackson.dataformat.smile" />
@@ -22,7 +22,7 @@
     <module name="com.github.spullara.mustache" />
     <module name="org.apache.commons.codec" />
     <module name="org.apache.commons.logging" />
-    <module name="org.apache.httpcomponents" slot="4.5" />
+    <module name="org.apache.httpcomponents" />
     <module name="org.apache.logging.log4j" />
     <module name="org.apache.lucene" slot="6.6" />
     <module name="org.elasticsearch5.transport.netty3" />

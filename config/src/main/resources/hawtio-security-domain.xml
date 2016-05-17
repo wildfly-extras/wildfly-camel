@@ -1,4 +1,4 @@
-                <security-domain xmlns="urn:jboss:domain:security:1.2" name="hawtio-domain" cache-type="default">
+                <security-domain xmlns="urn:jboss:domain:security:2.0" name="hawtio-domain" cache-type="default">
                     <authentication>
                         <login-module code="RealmDirect" flag="required">
                             <module-option name="realm" value="ManagementRealm"/>

@@ -30,12 +30,12 @@ import org.wildfly.extras.config.LayerConfig;
 
 public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
 
-    public static final Namespace NS_DOMAIN_42 = Namespace.getNamespace("urn:jboss:domain:4.2");
+    public static final Namespace NS_DOMAIN_50 = Namespace.getNamespace("urn:jboss:domain:5.0");
 
-    public static final Namespace[] NS_DOMAINS = new Namespace[] { NS_DOMAIN_42 };
-    
+    public static final Namespace[] NS_DOMAINS = new Namespace[] { NS_DOMAIN_50 };
+
     public static final Namespace NS_CAMEL = Namespace.getNamespace("urn:jboss:domain:camel:1.0");
-    public static final Namespace NS_SECURITY = Namespace.getNamespace("urn:jboss:domain:security:1.2");
+    public static final Namespace NS_SECURITY = Namespace.getNamespace("urn:jboss:domain:security:2.0");
 
     @Override
     public String getConfigName() {
@@ -48,15 +48,17 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
     }
 
     @Override
-    public void applyStandaloneConfigChange(ConfigContext context, boolean enable) {
+    public boolean applyStandaloneConfigChange(ConfigContext context, boolean enable) {
         updateExtension(context, enable);
         updateSystemProperties(context, enable);
         updateSubsystem(context, enable);
         updateSecurityDomain(context, enable);
+        return true;
     }
 
     @Override
-    public void applyDomainConfigChange(ConfigContext context, boolean enable) {
+    public boolean applyDomainConfigChange(ConfigContext context, boolean enable) {
+        return false;
     }
 
     private static void updateExtension(ConfigContext context, boolean enable) {
@@ -106,7 +108,7 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
     }
 
     private static void updateSubsystem(ConfigContext context, boolean enable) {
-        List<Element> profiles = ConfigSupport.findProfileElements(context.getDocument(), NS_DOMAINS );
+        List<Element> profiles = ConfigSupport.findProfileElements(context.getDocument(), NS_DOMAINS);
         for (Element profile : profiles) {
             Element element = profile.getChild("subsystem", NS_CAMEL);
             if (enable && element == null) {
@@ -122,7 +124,7 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
     }
 
     private static void updateSecurityDomain(ConfigContext context, boolean enable) {
-        List<Element> profiles = ConfigSupport.findProfileElements(context.getDocument(), NS_DOMAINS );
+        List<Element> profiles = ConfigSupport.findProfileElements(context.getDocument(), NS_DOMAINS);
         for (Element profile : profiles) {
             Element security = profile.getChild("subsystem", NS_SECURITY);
             if (security != null) {

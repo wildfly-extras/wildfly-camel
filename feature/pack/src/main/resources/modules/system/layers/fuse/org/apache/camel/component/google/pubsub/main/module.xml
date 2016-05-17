@@ -6,7 +6,7 @@
   </resources>
   <dependencies>
     <module name="com.google.http-client.google-http-client" />
-    <module name="org.apache.httpcomponents" slot="4.5" />
+    <module name="org.apache.httpcomponents" />
     <module name="javax.api" />
     <module name="org.slf4j" />
     <module name="com.google.api-client.google-api-client" />

@@ -161,7 +161,7 @@
             <include module="net.sf.jopt-simple" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.netty" slot="4.1"/>
+            <module name="io.netty"/>
         </dependencies>
     </module>
     

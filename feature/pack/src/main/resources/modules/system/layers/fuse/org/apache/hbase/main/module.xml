@@ -19,7 +19,7 @@
       </imports>
     </module>
     <module name="com.yammer.metrics" />
-    <module name="io.netty" slot="4.1" />
+    <module name="io.netty" />
     <module name="org.apache.commons.codec" />
     <module name="org.apache.commons.collections" />
     <module name="org.apache.commons.io" />

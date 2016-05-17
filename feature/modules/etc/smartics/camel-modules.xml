@@ -84,7 +84,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="org.asynchttpclient" export="true"/>
-            <module name="io.netty" slot="4.1" />
+            <module name="io.netty" />
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -208,13 +208,17 @@
     <module name="org.apache.camel.component.avro">
         <include artifact="org.apache.camel:camel-avro" />
         <apply-to-dependencies skip="true">
-            <include module="io.netty.skipped" />
             <include module="org.apache.avro.ipc" />
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.apache.avro" export="true"/>
+            <module name="org.apache.avro" export="true">
+                <exports>
+                    <exclude path="org/apache/avro/util/internal" />
+                    <exclude path="avro/shaded**" />
+                </exports>
+            </module>
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -998,7 +1002,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="com.google.http-client.google-http-client"/>
-            <module name="org.apache.httpcomponents" slot="4.5" />
+            <module name="org.apache.httpcomponents" />
             <module name="javax.api"/>
             <module name="org.slf4j"/>
         </dependencies>
@@ -1170,7 +1174,6 @@
             <module name="javax.interceptor.api" />
             <module name="org.apache.camel.component.netty4"/>
             <module name="org.apache.mina.core"/>
-            <module name="io.netty"/>
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
@@ -1202,7 +1205,7 @@
                     <include path="org/apache/camel/http/common" />
                 </exports>
             </module>
-            <module name="org.apache.httpcomponents" slot="4.5" export="true">
+            <module name="org.apache.httpcomponents" export="true">
                 <exports>
                     <include path="org/apache/http**" />
                     <exclude path="org/apache**" />
@@ -1845,13 +1848,11 @@
     <module name="org.apache.camel.component.netty4">
         <include artifact="org.apache.camel:camel-netty4" />
         <apply-to-dependencies skip="true">
-            <include module="io.netty.skipped" />
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="io.netty" slot="4.1"/>
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -2737,7 +2738,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.netty" slot="4.1"/>
+            <module name="io.netty"/>
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
@@ -2923,7 +2924,6 @@
     <module name="org.apache.camel.component.zookeeper">
         <include artifact="org.apache.camel:camel-zookeeper" />
         <apply-to-dependencies skip="true">
-            <include module="io.netty.skipped" />
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>

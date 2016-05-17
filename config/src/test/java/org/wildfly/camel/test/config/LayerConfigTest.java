@@ -53,11 +53,13 @@ public class LayerConfigTest {
             }
 
             @Override
-            public void applyStandaloneConfigChange(ConfigContext context, boolean enable) {
+            public boolean applyStandaloneConfigChange(ConfigContext context, boolean enable) {
+                return false;
             }
 
             @Override
-            public void applyDomainConfigChange(ConfigContext context, boolean enable) {
+            public boolean applyDomainConfigChange(ConfigContext context, boolean enable) {
+                return false;
             }
         };
 
@@ -103,11 +105,13 @@ public class LayerConfigTest {
             }
 
             @Override
-            public void applyStandaloneConfigChange(ConfigContext context, boolean enable) {
+            public boolean applyStandaloneConfigChange(ConfigContext context, boolean enable) {
+                return false;
             }
 
             @Override
-            public void applyDomainConfigChange(ConfigContext context, boolean enable) {
+            public boolean applyDomainConfigChange(ConfigContext context, boolean enable) {
+                return false;
             }
         };
 
