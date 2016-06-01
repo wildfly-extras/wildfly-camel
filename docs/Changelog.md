@@ -1,5 +1,51 @@
 ### Changelog
 
+#### WildFly-Camel 4.1.0
+
+**Features**
+
+* [#1165][1165] Add support for camel-undertow matchOnUriPrefix configuration option
+
+For details see [4.1.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.1.0"+label%3Afeature)
+
+**Tasks**
+
+* [#1162][1162] Upgrade to camel-2.17.1
+* [#1174][1174] Increase org.jboss.remoting-jmx.timeout for camel-braintree integration tests
+* [#1179][1179] Move CDI proxy filtering to upstream camel  
+* [#1182][1182] Add JacksonDataFormat marshalling test coverage for Jackson annotated classes
+* [#1197][1197] Add test coverage for Kafka custom partitioners
+* [#1208][1208] Upgrade to fuse-patch-2.4.0
+* [#1210][1210] Upgrade to HawtIO 1.4.65
+
+For details see [4.1.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.1.0"+label%3Atask)
+
+**Bugs**
+
+* [#1025][1025] Hawtio not connected
+* [#1171][1171] Intermittent failure of Kafka integration tests 
+* [#1177][1177] Additional CDI camel context always created
+* [#1190][1190] Braintree cannot access JUL to SLF4J bridge
+* [#1195][1195] WeatherIntegrationTest fails with 401 Unauthorized
+* [#1201][1201] SftpIntegrationTest fails on IBM JDK
+
+For details see [4.1.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.1.0"+label%3Abug)
+
+[1165]: https://github.com/wildfly-extras/wildfly-camel/issues/1165
+[1162]: https://github.com/wildfly-extras/wildfly-camel/issues/1162
+[1174]: https://github.com/wildfly-extras/wildfly-camel/issues/1174
+[1179]: https://github.com/wildfly-extras/wildfly-camel/issues/1179
+[1182]: https://github.com/wildfly-extras/wildfly-camel/issues/1182
+[1197]: https://github.com/wildfly-extras/wildfly-camel/issues/1197
+[1208]: https://github.com/wildfly-extras/wildfly-camel/issues/1208
+[1210]: https://github.com/wildfly-extras/wildfly-camel/issues/1210
+[1025]: https://github.com/wildfly-extras/wildfly-camel/issues/1025
+[1171]: https://github.com/wildfly-extras/wildfly-camel/issues/1171
+[1177]: https://github.com/wildfly-extras/wildfly-camel/issues/1177
+[1190]: https://github.com/wildfly-extras/wildfly-camel/issues/1190
+[1195]: https://github.com/wildfly-extras/wildfly-camel/issues/1195
+[1201]: https://github.com/wildfly-extras/wildfly-camel/issues/1201
+
 #### WildFly-Camel 4.0.0
 
 **Features**
