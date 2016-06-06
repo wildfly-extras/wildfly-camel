@@ -2,7 +2,7 @@
  * #%L
  * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2013 - 2015 RedHat
+ * Copyright (C) 2013 - 2014 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,17 @@
  * limitations under the License.
  * #L%
  */
+
 package org.wildfly.camel.test.mail;
 
 import java.io.File;
-import java.net.MalformedURLException;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.mail.Folder;
-import javax.mail.Session;
-import javax.mail.Store;
-
-import org.jboss.arquillian.container.test.api.Deployer;
+import org.apache.camel.CamelContext;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -39,27 +39,24 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.http.HttpRequest;
-import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
 import org.wildfly.camel.test.common.utils.DMRUtils;
+import org.wildfly.camel.test.mail.subA.MailSessionProducer;
 import org.wildfly.extension.camel.CamelAware;
+import org.wildfly.extension.camel.CamelContextRegistry;
 
-@RunWith(Arquillian.class)
-@ServerSetup({ MailExampleTest.MailSessionSetupTask.class })
 @CamelAware
-public class MailExampleTest {
+@ServerSetup({MailIntegrationCDITest.MailSessionSetupTask.class})
+@RunWith(Arquillian.class)
+public class MailIntegrationCDITest {
 
     private static final String GREENMAIL_WAR = "greenmail.war";
-    private static final String EXAMPLE_CAMEL_MAIL_WAR = "example-camel-mail.war";
 
     @ArquillianResource
-    Deployer deployer;
-
-    @Resource(lookup = "java:jboss/mail/greenmail")
-    private Session mailSession;
+    CamelContextRegistry contextRegistry;
 
     static class MailSessionSetupTask implements ServerSetupTask {
 
@@ -92,56 +89,39 @@ public class MailExampleTest {
         }
     }
 
-    @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class)
-            .addClass(HttpRequest.class)
-            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-    }
-
-    @Deployment(managed = false, name = EXAMPLE_CAMEL_MAIL_WAR)
-    public static WebArchive createCamelMailDeployment() {
-        return ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/examples/example-camel-mail.war"));
-    }
-
-    @Deployment(managed = false, testable = false, name = GREENMAIL_WAR)
+    @Deployment(order = 1, testable = false, name = GREENMAIL_WAR)
     public static WebArchive createGreenmailDeployment() {
-        return ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/examples/greenmail-webapp.war"));
+        File mailDependencies = Maven.configureResolverViaPlugin().
+            resolve("com.icegreen:greenmail-webapp:war:1.4.0").
+            withoutTransitivity().
+            asSingleFile();
+        return ShrinkWrap.createFromZipFile(WebArchive.class, mailDependencies);
+    }
+
+    @Deployment(order = 2)
+    public static JavaArchive createDeployment() throws IOException {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-mail-cdi-tests.jar");
+        archive.addPackage(MailSessionProducer.class.getPackage());
+        archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        return archive;
     }
 
     @Test
-    public void sendEmailTest() throws Exception {
-        try {
-            deployer.deploy(GREENMAIL_WAR);
-            deployer.deploy(EXAMPLE_CAMEL_MAIL_WAR);
+    public void testMailEndpointWithCDIContext() throws Exception {
+        CamelContext camelctx = contextRegistry.getCamelContext("camel-mail-cdi-context");
+        Assert.assertNotNull("Camel context not null", camelctx);
 
-            StringBuilder endpointURL = new StringBuilder("from=user1@localhost");
-            endpointURL.append("&to=user2@localhost")
-                    .append("&subject=Greetings")
-                    .append("&message=Hello");
+        MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+        mockEndpoint.setExpectedMessageCount(1);
 
-            HttpResponse result = HttpRequest.post(getEndpointAddress("/example-camel-mail/send"))
-                    .header("Content-Type", "application/x-www-form-urlencoded")
-                    .content(endpointURL.toString())
-                    .getResponse();
+        Map<String, Object> mailHeaders = new HashMap<>();
+        mailHeaders.put("from", "user1@localhost");
+        mailHeaders.put("to", "user2@localhost");
+        mailHeaders.put("message", "Hello Kermit");
 
-            String responseBody = result.getBody();
-            Assert.assertTrue("Sent successful: " + responseBody, responseBody.contains("Message sent successfully"));
+        ProducerTemplate template = camelctx.createProducerTemplate();
+        template.requestBodyAndHeaders("direct:start", null, mailHeaders);
 
-            // Verify that the email made it to the target address
-            Store store = mailSession.getStore("pop3");
-            store.connect();
-
-            Folder folder = store.getFolder("INBOX");
-            folder.open(Folder.READ_WRITE);
-            Assert.assertEquals(1, folder.getMessageCount());
-        } finally {
-            deployer.undeploy(EXAMPLE_CAMEL_MAIL_WAR);
-            deployer.undeploy(GREENMAIL_WAR);
-        }
-    }
-
-    private String getEndpointAddress(String contextPath) throws MalformedURLException {
-        return "http://localhost:8080" + contextPath;
+        mockEndpoint.assertIsSatisfied(5000);
     }
 }

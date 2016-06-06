@@ -21,79 +21,121 @@
 package org.wildfly.camel.test.mail;
 
 import java.io.File;
-
-import javax.mail.Message;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.PollingConsumer;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.mail.MailMessage;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
+import org.jboss.dmr.ModelNode;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.jvnet.mock_javamail.Mailbox;
+import org.wildfly.camel.test.common.utils.DMRUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
+@ServerSetup({ MailIntegrationTest.MailSessionSetupTask.class })
 @RunWith(Arquillian.class)
 public class MailIntegrationTest {
 
-    @Deployment
-    public static WebArchive createdeployment() {
-        File[] mailDependencies = Maven.configureResolverViaPlugin().
-                resolve("org.jvnet.mock-javamail:mock-javamail").
-                withTransitivity().
-                asFile();
+    private static final String GREENMAIL_WAR = "greenmail.war";
 
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-test.war");
-        archive.addAsLibraries(mailDependencies);
-        return archive;
+    @ArquillianResource
+    Deployer deployer;
+
+    static class MailSessionSetupTask implements ServerSetupTask {
+
+        @Override
+        public void setup(ManagementClient managementClient, String s) throws Exception {
+
+            ModelNode batchNode = DMRUtils.batchNode()
+                .addStep("socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-smtp", "add(host=localhost, port=10025)")
+                .addStep("socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-pop3", "add(host=localhost, port=10110)")
+                .addStep("subsystem=mail/mail-session=greenmail", "add(jndi-name=java:jboss/mail/greenmail)")
+                .addStep("subsystem=mail/mail-session=greenmail/server=smtp", "add(outbound-socket-binding-ref=mail-greenmail-smtp, username=user1, password=password)")
+                .addStep("subsystem=mail/mail-session=greenmail/server=pop3", "add(outbound-socket-binding-ref=mail-greenmail-pop3, username=user2, password=password2)")
+                .build();
+
+            managementClient.getControllerClient().execute(batchNode);
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String s) throws Exception {
+
+            ModelNode batchNode = DMRUtils.batchNode()
+                .addStep("socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-smtp", "remove")
+                .addStep("socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-pop3", "remove")
+                .addStep("subsystem=mail/mail-session=greenmail", "remove")
+                .addStep("subsystem=mail/mail-session=greenmail/server=smtp", "remove")
+                .addStep("subsystem=mail/mail-session=greenmail/server=pop3", "remove")
+                .build();
+
+            managementClient.getControllerClient().execute(batchNode);
+        }
     }
 
-    @Before
-    public void before() {
-        Mailbox.clearAll();
+    @Deployment
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class, "camel-mail-tests.jar");
+    }
+
+    @Deployment(managed = false, testable = false, name = GREENMAIL_WAR)
+    public static WebArchive createGreenmailDeployment() {
+        File mailDependencies = Maven.configureResolverViaPlugin().
+            resolve("com.icegreen:greenmail-webapp:war:1.4.0").
+            withoutTransitivity().
+            asSingleFile();
+        return ShrinkWrap.createFromZipFile(WebArchive.class, mailDependencies);
     }
 
     @Test
-    public void testSendEmail() throws Exception {
+    public void testMailEndpoint() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .to("smtp://localhost?from=bob@localhost&to=kermit@localhost&subject=Greetings");
+                .to("smtp://localhost:10025?session=#java:jboss/mail/greenmail");
 
-                from("pop3://kermit@localhost?consumer.delay=1000")
-                    .to("direct:email");
+                from("pop3://user2@localhost:10110?consumer.delay=1000&session=#java:jboss/mail/greenmail&delete=true")
+                .to("mock:result");
             }
         });
 
-        camelctx.start();
         try {
-            PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:email").createPollingConsumer();
-            pollingConsumer.start();
+            deployer.deploy(GREENMAIL_WAR);
 
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            producer.sendBody("direct:start", "Hello Kermit");
+            camelctx.start();
 
-            MailMessage mailMessage = pollingConsumer.receive().getIn().getBody(MailMessage.class);
-            Message message = mailMessage.getMessage();
+            MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+            mockEndpoint.setExpectedMessageCount(1);
 
-            Assert.assertEquals("bob@localhost", message.getFrom()[0].toString());
-            Assert.assertEquals("Greetings", message.getSubject());
-            Assert.assertEquals("Hello Kermit", message.getContent());
+            Map<String, Object> mailHeaders = new HashMap<>();
+            mailHeaders.put("from", "user1@localhost");
+            mailHeaders.put("to", "user2@localhost");
+            mailHeaders.put("message", "Hello Kermit");
+
+            ProducerTemplate template = camelctx.createProducerTemplate();
+            template.requestBodyAndHeaders("direct:start", null, mailHeaders);
+
+            mockEndpoint.assertIsSatisfied(5000);
         } finally {
             camelctx.stop();
+            deployer.undeploy(GREENMAIL_WAR);
         }
     }
 }

@@ -20,7 +20,6 @@
 
 package org.wildfly.camel.test.sql;
 
-import java.io.IOException;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -63,14 +62,14 @@ public class SQLIntegrationTest {
     DataSource dataSource;
 
     @Deployment
-    public static JavaArchive createDeployment() throws IOException {
+    public static JavaArchive createDeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-sql-tests.jar");
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }
 
     @Deployment(managed = false, name = CAMEL_SQL_CDI_ROUTES_JAR)
-    public static JavaArchive createCDIDeployment() throws IOException {
+    public static JavaArchive createCDIDeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CAMEL_SQL_CDI_ROUTES_JAR);
         archive.addPackage(CdiRouteBuilder.class.getPackage());
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");

@@ -29,20 +29,15 @@ There are also some custom socket bindings to ensure that the mail session can c
 </outbound-socket-binding>
 ```
 
-The Greenmail `mail-session` is injected into the `MailRouteBuilder` class using CDI. The mail session is then used to configure two Camel endpoints. One to send email
-and another to receieve email.
+The Greenmail `mail-session` is discovered from the Camel CDI bean registry by referencing it by name on the camel-mail endpoint configuration. 
+See class `MailSessionProducer` for further details. 
+
+Two Camel mail endpoints are configured. One to send email via SMTP and another to receive email with POP3.
+
 ```java
-MailEndpoint sendMailEndpoint = (MailEndpoint) getContext().getEndpoint("smtp://localhost");
-configureMailEndpoint(sendMailEndpoint);
+from("direct:sendmail").to("smtp://localhost:10025?session=#mailSession");
 
-MailEndpoint receiveMailEndpoint = (MailEndpoint) getContext().getEndpoint("pop3://user2@localhost?consumer.delay=30000");
-configureMailEndpoint(receiveMailEndpoint);
-
-from("direct:sendmail")
-    .to(sendMailEndpoint);
-
-from(receiveMailEndpoint)
-    .to("log:emails?showAll=true");
+from("pop3://user2@localhost:10110?consumer.delay=30000&session=#mailSession").to("log:emails?showAll=true&multiline=true");
 ```
 
 Prerequisites
