@@ -63,10 +63,6 @@ public class MailExampleTest {
 
     static class MailSessionSetupTask implements ServerSetupTask {
 
-        public  MailSessionSetupTask() {
-            System.setProperty("jboss.dist", System.getProperty("jboss.home"));
-        }
-
         @Override
         public void setup(ManagementClient managementClient, String s) throws Exception {
 
@@ -140,8 +136,8 @@ public class MailExampleTest {
             folder.open(Folder.READ_WRITE);
             Assert.assertEquals(1, folder.getMessageCount());
         } finally {
-            deployer.undeploy(GREENMAIL_WAR);
             deployer.undeploy(EXAMPLE_CAMEL_MAIL_WAR);
+            deployer.undeploy(GREENMAIL_WAR);
         }
     }
 
