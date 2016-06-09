@@ -24,7 +24,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-
+import java.util.logging.Level;
+import java.util.UUID;
+import com.braintreegateway.Customer;
+import com.braintreegateway.CustomerRequest;
+import com.braintreegateway.CustomerSearchRequest;
+import com.braintreegateway.ResourceCollection;
+import com.braintreegateway.Result;
+import com.braintreegateway.ValidationError;
+import com.braintreegateway.ValidationErrorCode;
+import com.braintreegateway.ValidationErrors;
+import com.braintreegateway.exceptions.NotFoundException;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -76,7 +86,7 @@ public class BraintreeIntegrationTest {
     }
 
     @Test
-    public void testBraintreeEndpoint() throws Exception {
+    public void testBraintreeClientTokenGateway() throws Exception {
         Map<String, Object> braintreeOptions = createBraintreeOptions();
 
         // Do nothing if the required credentials are not present
@@ -85,6 +95,7 @@ public class BraintreeIntegrationTest {
         final CountDownLatch latch = new CountDownLatch(1);
         final CamelContext camelctx = new DefaultCamelContext();
         final BraintreeConfiguration configuration = new BraintreeConfiguration();
+        configuration.setHttpLogLevel(Level.WARNING);
         IntrospectionSupport.setProperties(configuration, braintreeOptions);
 
         // add BraintreeComponent to Camel context
@@ -107,6 +118,87 @@ public class BraintreeIntegrationTest {
         });
 
         camelctx.start();
+        try {
+            Assert.assertTrue("Countdown reached zero", latch.await(5, TimeUnit.MINUTES));
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testBraintreeCustomerGateway() throws Exception {
+        Map<String, Object> braintreeOptions = createBraintreeOptions();
+
+        // Do nothing if the required credentials are not present
+        Assume.assumeTrue(braintreeOptions.size() == BraintreeOption.values().length);
+
+        final CountDownLatch latch = new CountDownLatch(2);
+        final CamelContext camelctx = new DefaultCamelContext();
+        final BraintreeConfiguration configuration = new BraintreeConfiguration();
+        IntrospectionSupport.setProperties(configuration, braintreeOptions);
+
+        // add BraintreeComponent to Camel context
+        final BraintreeComponent component = new BraintreeComponent(camelctx);
+        component.setConfiguration(configuration);
+        camelctx.addComponent("braintree", component);
+
+
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:create")
+                    .to("braintree:customer/create?inBody=request")
+                    .process(new Processor() {
+                        @Override
+                        public void process(Exchange exchange) throws Exception {
+                            latch.countDown();
+                        }});
+                from("direct:delete")
+                    .to("braintree:customer/delete?inBody=id")
+                    .process(new Processor() {
+                        @Override
+                        public void process(Exchange exchange) throws Exception {
+                            latch.countDown();
+                        }});
+
+            }
+        });
+
+        camelctx.start();
+
+        // ****************************
+        // Create a customer
+        // ****************************
+
+        Result<Customer> createResult = camelctx.createProducerTemplate().requestBody(
+            "direct:create",
+            new CustomerRequest()
+                .firstName("user")
+                .lastName(UUID.randomUUID().toString())
+                .company("Apache")
+                .email("user@braintree.camel")
+                .website("http://user.braintree.camel"),
+            Result.class
+        );
+
+        Assert.assertNotNull(createResult);
+        Assert.assertTrue(createResult.isSuccess());
+        Assert.assertNotNull(createResult.getTarget());
+        Assert.assertNotNull(createResult.getTarget().getId());
+
+        // ****************************
+        // Delete the customer
+        // ****************************
+
+        Result<Customer> deleteResult = camelctx.createProducerTemplate().requestBody(
+            "direct:delete", 
+            createResult.getTarget().getId(), 
+            Result.class);
+
+        Assert.assertNotNull(deleteResult);
+        Assert.assertTrue(deleteResult.isSuccess());
+        Assert.assertNull(deleteResult.getTarget());
+
         try {
             Assert.assertTrue("Countdown reached zero", latch.await(5, TimeUnit.MINUTES));
         } finally {

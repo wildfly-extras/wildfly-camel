@@ -313,6 +313,15 @@ ca/uhn/hl7v2/validation/builder
 ca/uhn/hl7v2/validation/builder/support
 ca/uhn/hl7v2/validation/impl
 ca/uhn/hl7v2/view
+com/braintreegateway
+com/braintreegateway/exceptions
+com/braintreegateway/org
+com/braintreegateway/org/apache
+com/braintreegateway/org/apache/commons
+com/braintreegateway/org/apache/commons/codec
+com/braintreegateway/org/apache/commons/codec/binary
+com/braintreegateway/test
+com/braintreegateway/util
 com/codahale
 com/codahale/metrics
 com/codahale/metrics/json
