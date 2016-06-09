@@ -12,7 +12,6 @@
     <module name="org.jboss.logging.jul-to-slf4j-stub" />
   </dependencies>
   <exports>
-    <exclude path="com/braintreegateway**" />
     <exclude path="org/apache/camel/component/braintree/internal" />
   </exports>
 </module>

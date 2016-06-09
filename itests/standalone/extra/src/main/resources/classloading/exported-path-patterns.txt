@@ -1,5 +1,6 @@
 [includes]
-	^ca/uhn/hl7v2(.*)
+	^ca/uhn/hl7v2(.*)    
+	^com/braintreegateway(.*)
 	^com/google/protobuf
 	^com/codahale(.*)
 	^groovy(.*)
