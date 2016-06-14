@@ -808,6 +808,19 @@
         </dependencies>
     </module>
     
+    <module name="org.apache.camel.component.smpp">
+        <include artifact="org.apache.camel:camel-smpp" />
+        <include artifact="org.jsmpp:jsmpp" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
+        <dependencies>
+        </dependencies>
+        <exports>
+            <exclude path="org/jsmpp**" />
+        </exports>
+    </module>
+    
     <module name="org.apache.camel.component.stream">
         <include artifact="org.apache.camel:camel-stream" />
         <apply-to-dependencies skip="true">

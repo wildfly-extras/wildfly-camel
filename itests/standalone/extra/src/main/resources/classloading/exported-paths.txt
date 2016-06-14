@@ -515,6 +515,7 @@ org/apache/camel/component/salesforce/api/dto/analytics/reports
 org/apache/camel/component/salesforce/api/dto/bulk
 org/apache/camel/component/servlet
 org/apache/camel/component/servlet/osgi
+org/apache/camel/component/smpp
 org/apache/camel/component/spring
 org/apache/camel/component/spring/security
 org/apache/camel/component/spring/security/config

@@ -78,6 +78,7 @@
         <module name="org.apache.camel.component.soap" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.spring.security" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.sql" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.smpp" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.stream" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.swagger" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.tagsoup" export="true" services="export" optional="true" />

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.smpp">
+  <resources>
+    <artifact name="${org.apache.camel:camel-smpp}" />
+    <artifact name="${org.jsmpp:jsmpp}" />
+  </resources>
+  <dependencies>
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.slf4j" />
+  </dependencies>
+  <exports>
+    <exclude path="org/jsmpp**" />
+  </exports>
+</module>
