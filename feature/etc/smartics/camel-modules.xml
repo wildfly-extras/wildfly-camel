@@ -219,9 +219,11 @@
             </module>
             <module name="org.apache.cxf.impl" export="true" >
                 <imports>
+                    <include path="META-INF" />
                     <include path="META-INF/cxf**" />
                 </imports>
                 <exports>
+                    <include path="META-INF" />
                     <include path="META-INF/cxf**" />
                     <include path="org/apache/cxf/binding/**" />
                     <include path="org/apache/cxf/bus**" />
@@ -237,7 +239,6 @@
                     <exclude path="OSGI-INF/metatype" />
                     <exclude path="com/sun**" />
                     <exclude path="org/osgi**" />
-                    <exclude path="schemas**" />
                 </exports>
             </module>
             <module name="org.slf4j" />
@@ -256,7 +257,6 @@
         <exports>
             <exclude path="OSGI-INF/blueprint" />
             <exclude path="schema/blueprint" />
-            <exclude path="schema/configuration" />
         </exports>
     </module>
 

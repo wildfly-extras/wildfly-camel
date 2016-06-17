@@ -38,9 +38,22 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.apache.camel" services="export"/>
-            <module name="org.apache.camel.component" services="export"/>
-            <module name="org.apache.camel.spring"/>
+            <module name="org.apache.camel" services="export">
+                <imports>
+                    <include path="META-INF" />
+                </imports>
+                <exports>
+                    <include path="META-INF" />
+                </exports>
+            </module>
+            <module name="org.apache.camel.component" services="export">
+                <imports>
+                    <include path="META-INF" />
+                </imports>
+                <exports>
+                    <include path="META-INF" />
+                </exports>
+            </module>
             <module name="org.jboss.as.controller"/>
             <module name="org.jboss.as.network"/>
             <module name="org.jboss.as.server"/>

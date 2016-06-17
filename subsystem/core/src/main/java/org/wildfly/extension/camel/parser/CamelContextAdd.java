@@ -62,7 +62,7 @@ final class CamelContextAdd extends AbstractAddStepHandler {
             CamelContextRegistry camelContextRegistry = serviceRegistry.getValue();
             if (camelContextRegistry != null) {
                 if (camelContextRegistry.getCamelContext(propName) == null) {
-                    serviceRegistry.createCamelContext(CamelContextRegistry.class.getClassLoader(), propName, propValue);
+                    serviceRegistry.createCamelContext(propName, propValue);
                 }
             }
         }

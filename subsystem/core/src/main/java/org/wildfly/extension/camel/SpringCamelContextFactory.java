@@ -20,8 +20,6 @@
 
 package org.wildfly.extension.camel;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,9 +36,6 @@ import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 /**
  * A {@link CamelContext} factory utility.
@@ -49,9 +44,6 @@ import org.xml.sax.SAXException;
  * @since 19-Apr-2013
  */
 public final class SpringCamelContextFactory {
-
-    private static final String SPRING_BEANS_SYSTEM_ID = "http://www.springframework.org/schema/beans/spring-beans.xsd";
-    private static final String CAMEL_SPRING_SYSTEM_ID = "http://camel.apache.org/schema/spring/camel-spring.xsd";
 
     // Hide ctor
     private SpringCamelContextFactory() {
@@ -82,8 +74,13 @@ public final class SpringCamelContextFactory {
     }
 
     private static List<SpringCamelContext> createCamelContextList(Resource resource, ClassLoader classLoader) throws Exception {
+        
+        if (classLoader == null) 
+            classLoader = SpringCamelContextFactory.class.getClassLoader();
+        
         GenericApplicationContext appContext = new GenericApplicationContext();
         appContext.setClassLoader(classLoader);
+        
         XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(appContext) {
             @Override
             protected NamespaceHandlerResolver createDefaultNamespaceHandlerResolver() {
@@ -91,24 +88,6 @@ public final class SpringCamelContextFactory {
                 return new CamelNamespaceHandlerResolver(defaultResolver);
             }
         };
-        xmlReader.setEntityResolver(new EntityResolver() {
-            @Override
-            public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
-                InputStream inputStream = null;
-                if (CAMEL_SPRING_SYSTEM_ID.equals(systemId)) {
-                    inputStream = SpringCamelContext.class.getResourceAsStream("/camel-spring.xsd");
-                } else if (SPRING_BEANS_SYSTEM_ID.equals(systemId)) {
-                    inputStream = XmlBeanDefinitionReader.class.getResourceAsStream("spring-beans-3.1.xsd");
-                }
-                InputSource result = null;
-                if (inputStream != null) {
-                    result = new InputSource();
-                    result.setSystemId(systemId);
-                    result.setByteStream(inputStream);
-                }
-                return result;
-            }
-        });
         xmlReader.loadBeanDefinitions(resource);
 
         SpringCamelContext.setNoStart(true);

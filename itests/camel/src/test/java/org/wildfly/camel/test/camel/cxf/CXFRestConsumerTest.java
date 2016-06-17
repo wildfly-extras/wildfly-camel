@@ -32,7 +32,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.wildfly.camel.test.camel.SpringCamelContextFactory;
+import org.wildfly.extension.camel.SpringCamelContextFactory;
 
 public class CXFRestConsumerTest {
 
@@ -43,6 +43,7 @@ public class CXFRestConsumerTest {
         ClassLoader classLoader = CXFRestConsumerTest.class.getClassLoader();
         URL resurl = classLoader.getResource("cxf/cxfrs-camel-context.xml");
         camelctx = SpringCamelContextFactory.createSingleCamelContext(resurl, classLoader);
+        camelctx.start();
     }
 
     @AfterClass

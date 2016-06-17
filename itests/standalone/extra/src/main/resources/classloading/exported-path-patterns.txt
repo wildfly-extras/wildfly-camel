@@ -35,8 +35,10 @@
 	^org/infinispan/commons(.*)
 	^org/infinispan/manager(.*)
 	^org/springframework(.*)
-        ^org/xbill(.*)
+    ^org/xbill(.*)
 	^org/xmlsoap(.*)
+	^schema/(.*)
+	^schemas/(.*)
 	^META-INF/cxf(.*)
 	^META-INF/services(.*)
 	

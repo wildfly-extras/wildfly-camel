@@ -116,9 +116,8 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
         ModuleContext syscontext = runtime.getModuleContext();
         registration = syscontext.registerService(CamelContextRegistry.class, contextRegistry, null);
 
-        ClassLoader classLoader = CamelContextRegistry.class.getClassLoader();
         for (final String name : subsystemState.getContextDefinitionNames()) {
-            createCamelContext(classLoader, name, subsystemState.getContextDefinition(name));
+            createCamelContext(name, subsystemState.getContextDefinition(name));
         }
     }
 
@@ -134,7 +133,8 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
         return contextRegistry;
     }
 
-    public void createCamelContext(ClassLoader classLoader, String name, String contextDefinition) {
+    public void createCamelContext(String name, String contextDefinition) {
+        ClassLoader classLoader = CamelContextRegistry.class.getClassLoader();
         ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         try {
             Thread.currentThread().setContextClassLoader(classLoader);

@@ -125,7 +125,7 @@ public class KafkaProducerTest {
 
         while (run) {
             ConsumerRecords<String, String> records = consumerConn.poll(100);
-            for (ConsumerRecord<String, String> record : records) {
+            for (@SuppressWarnings("unused") ConsumerRecord<String, String> record : records) {
                 messagesLatch.countDown();
                 if (messagesLatch.getCount() == 0) {
                     run = false;

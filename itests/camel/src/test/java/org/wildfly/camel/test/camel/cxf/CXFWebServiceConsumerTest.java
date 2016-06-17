@@ -32,8 +32,8 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.wildfly.camel.test.camel.SpringCamelContextFactory;
 import org.wildfly.camel.test.common.types.Endpoint;
+import org.wildfly.extension.camel.SpringCamelContextFactory;
 
 public class CXFWebServiceConsumerTest {
 
@@ -44,6 +44,7 @@ public class CXFWebServiceConsumerTest {
         ClassLoader classLoader = CXFWebServiceConsumerTest.class.getClassLoader();
         URL resurl = classLoader.getResource("cxf/cxfws-camel-context.xml");
         camelctx = SpringCamelContextFactory.createSingleCamelContext(resurl, classLoader);
+        camelctx.start();
     }
 
     @AfterClass

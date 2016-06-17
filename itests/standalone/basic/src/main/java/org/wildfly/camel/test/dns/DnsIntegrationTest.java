@@ -21,14 +21,11 @@
 package org.wildfly.camel.test.dns;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.CamelExecutionException;
 import org.apache.camel.Endpoint;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.dns.DnsConstants;
-import org.apache.camel.component.dns.DnsType;
-import org.apache.camel.http.common.HttpOperationFailedException;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -76,6 +73,9 @@ public class DnsIntegrationTest {
 
             Assert.assertEquals("redhat.com.", record[0].getName().toString());
             Assert.assertEquals(Type.A, record[0].getType());
+        } catch (CamelExecutionException ex) {
+            Throwable cause = ex.getCause();
+            Assert.assertEquals("network error", cause.getMessage());
         } finally {
             camelctx.stop();
         }

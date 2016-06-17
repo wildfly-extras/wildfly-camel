@@ -1297,4 +1297,12 @@ org/xmlsoap
 org/xmlsoap/schemas
 org/xmlsoap/schemas/soap
 org/xmlsoap/schemas/soap/envelope
+schema/configuration
+schemas/bindings
+schemas/bindings/blueprint
+schemas/blueprint
+schemas/configuration
+schemas/configuration/blueprint
+schemas/wsdl
+schemas/wsdl/spec
 
