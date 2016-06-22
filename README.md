@@ -55,36 +55,14 @@ In your WildFly home directory run ...
 $ bin/standalone.sh -c standalone-camel.xml
 ```
 
-or simply run the docker image like this ...
+### Docker 
+
+To setup OpenShift Origin with an integrated Docker environment, follow the instructions [here](wiki/OpenShift-Origin).
+
+Then simply run the docker image like this ...
 
 ```
 $ docker run --rm -ti -p 9990:9990 -p 8080:8080 -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin wildflyext/wildfly-camel
 ```
 
-Access WildFly Management Console at http://192.168.59.103:9990 and the Hawtio console at http://192.168.59.103:8080/hawtio
-
-### Docker 
-
-Docker images and related testsuites are included if you have `DOCKER_IP` and `DOCKER_HOST` environment variables.
-
-On a Mac you would automatically have those when you run the build in a `boot2docker` shell.
-
-```
-DOCKER_CERT_PATH=~/.boot2docker/certs/boot2docker-vm
-DOCKER_HOST=tcp://192.168.59.103:2376
-DOCKER_IP=192.168.59.103
-DOCKER_TLS_VERIFY=1
-```
-
-On Linux you may have to set these environment variables yourself
-
-```
-DOCKER_HOST=tcp://127.0.0.1:2375
-DOCKER_IP=[host ip]
-```
-
-Make sure the docker deamon binds to a socket for a client to connect to
-
-```
-$ docker -d -H tcp://127.0.0.1:2375
-```
+Access WildFly Management Console at http://vagrant.origin:9990 and the Hawtio console at http://vagrant.origin:8080/hawtio
