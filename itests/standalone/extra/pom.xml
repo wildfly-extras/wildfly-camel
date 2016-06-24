@@ -41,25 +41,12 @@
     <!-- Dependencies -->
     <dependencies>
         <dependency>
-            <groupId>co.freeside</groupId>
-            <artifactId>betamax</artifactId>
-        </dependency>
-        <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.xmlbeans</groupId>
             <artifactId>xmlbeans</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-util</artifactId>
-            <version>8.1.17.v20150415</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.enterprise.concurrent</groupId>
@@ -72,6 +59,10 @@
         <dependency>
             <groupId>org.jboss.ejb3</groupId>
             <artifactId>jboss-ejb3-ext-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>software.betamax</groupId>
+            <artifactId>betamax-junit</artifactId>
         </dependency>
         <dependency>
             <groupId>xalan</groupId>

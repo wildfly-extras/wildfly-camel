@@ -20,8 +20,8 @@
 
 package org.wildfly.camel.test.rss;
 
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.Recorder;
+import software.betamax.junit.Betamax;
+import software.betamax.junit.RecorderRule;
 
 import java.io.File;
 import java.util.concurrent.CountDownLatch;
@@ -48,14 +48,14 @@ import org.wildfly.extension.camel.CamelAware;
 public class RSSIntegrationTest {
 
     @Rule
-    public Recorder recorder = new Recorder();
+    public RecorderRule recorder = new RecorderRule();
 
     @Deployment
     public static WebArchive deployment() {
         File[] libraryDependencies = Maven.configureResolverViaPlugin().
-                resolve("co.freeside:betamax", "org.codehaus.groovy:groovy-all", "org.eclipse.jetty:jetty-util").
-                withTransitivity().
-                asFile();
+            resolve("software.betamax:betamax-junit").
+            withTransitivity().
+            asFile();
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "rss-tests.war");
         archive.addAsLibraries(libraryDependencies);
         archive.addAsResource("betamax.properties","betamax.properties");
