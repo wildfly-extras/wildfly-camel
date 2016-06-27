@@ -490,6 +490,7 @@ org/apache/camel/component/jmx
 org/apache/camel/component/jmx/jaxb
 org/apache/camel/component/jpa
 org/apache/camel/component/kafka
+org/apache/camel/component/ldap
 org/apache/camel/component/lucene
 org/apache/camel/component/mail
 org/apache/camel/component/metrics

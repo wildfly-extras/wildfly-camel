@@ -63,6 +63,7 @@
 /org/apache/camel/component/jmx/main/camel-jmx-2.17.1.jar
 /org/apache/camel/component/jpa/main/camel-jpa-2.17.1.jar
 /org/apache/camel/component/kafka/main/camel-kafka-2.17.1.jar
+/org/apache/camel/component/ldap/main/camel-ldap-2.17.1.jar
 /org/apache/camel/component/lucene/main/camel-lucene-2.17.1.jar
 /org/apache/camel/component/mail/main/camel-mail-2.17.1.jar
 /org/apache/camel/component/metrics/main/camel-metrics-2.17.1.jar
