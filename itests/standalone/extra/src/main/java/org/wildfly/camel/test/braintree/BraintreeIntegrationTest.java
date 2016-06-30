@@ -22,19 +22,11 @@ package org.wildfly.camel.test.braintree;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
-import java.util.UUID;
-import com.braintreegateway.Customer;
-import com.braintreegateway.CustomerRequest;
-import com.braintreegateway.CustomerSearchRequest;
-import com.braintreegateway.ResourceCollection;
-import com.braintreegateway.Result;
-import com.braintreegateway.ValidationError;
-import com.braintreegateway.ValidationErrorCode;
-import com.braintreegateway.ValidationErrors;
-import com.braintreegateway.exceptions.NotFoundException;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -52,6 +44,10 @@ import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
+
+import com.braintreegateway.Customer;
+import com.braintreegateway.CustomerRequest;
+import com.braintreegateway.Result;
 
 /*
  * To run this test you need to set the following environment variables with
@@ -170,6 +166,7 @@ public class BraintreeIntegrationTest {
         // Create a customer
         // ****************************
 
+        @SuppressWarnings("unchecked")
         Result<Customer> createResult = camelctx.createProducerTemplate().requestBody(
             "direct:create",
             new CustomerRequest()
@@ -190,6 +187,7 @@ public class BraintreeIntegrationTest {
         // Delete the customer
         // ****************************
 
+        @SuppressWarnings("unchecked")
         Result<Customer> deleteResult = camelctx.createProducerTemplate().requestBody(
             "direct:delete", 
             createResult.getTarget().getId(), 

@@ -57,7 +57,6 @@ public final class LoginContextBuilder {
     public enum Type { CLIENT, AUTHENTICATION };
 
     private final Type contextType;
-    private final Set<String> roles = new HashSet<>();
     private String domain;
     private String username;
     private char[] password;
@@ -91,14 +90,6 @@ public final class LoginContextBuilder {
         this.domain = domain;
         return this;
     }
-
-    public LoginContextBuilder roles(String... roles) {
-        for (String role : roles) {
-            this.roles.add(role);
-        }
-        return this;
-    }
-
 
     public LoginContext build() throws LoginException {
         if (contextType == Type.CLIENT) {
@@ -157,27 +148,7 @@ public final class LoginContextBuilder {
                 ClassLoader modcl = LoginContextBuilder.class.getClassLoader();
                 SecurityActions.setContextClassLoader(modcl);
             }
-            return new LoginContext(configName, new Subject(), cbh, config) {
-                @Override
-                public void login() throws LoginException {
-                    super.login();
-                    HashSet<String> requiredRoles = new HashSet<>(roles);
-                    Set<Group> groups = getSubject().getPrincipals(Group.class);
-                    if (groups != null) {
-                        for (Group group : groups) {
-                            if ("Roles".equals(group.getName())) {
-                                for (String role : roles) {
-                                    if (group.isMember(new SimplePrincipal(role))) {
-                                        requiredRoles.remove(role);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if (!requiredRoles.isEmpty())
-                        throw new LoginException("User does not have required roles: " + requiredRoles);
-                }
-            };
+            return new LoginContext(configName, new Subject(), cbh, config);
         } finally {
             SecurityActions.setContextClassLoader(tccl);
         }

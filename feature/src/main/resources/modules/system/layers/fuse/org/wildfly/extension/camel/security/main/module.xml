@@ -6,13 +6,13 @@
   <dependencies>
     <module name="javax.api" />
     <module name="org.apache.camel.core" />
+    <module name="org.apache.camel.component.spring.security" />
     <module name="org.jboss.as.server" />
     <module name="org.jboss.as.security" />
     <module name="org.picketbox" />
     <module name="org.slf4j" />
     <module name="org.jboss.gravia" />
     <module name="org.jboss.modules" />
-    <module name="org.springframework.security" />
     <module name="org.wildfly.extension.camel" />
   </dependencies>
 </module>

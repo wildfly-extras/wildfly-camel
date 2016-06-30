@@ -20,9 +20,11 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wildfly.camel.test.policy;
+package org.wildfly.camel.test.security;
 
 import javax.security.auth.Subject;
+import javax.security.auth.login.FailedLoginException;
+import javax.security.auth.login.LoginException;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelExecutionException;
@@ -37,7 +39,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.policy.subA.AnnotatedSLSB;
+import org.wildfly.camel.test.security.subA.AnnotatedSLSB;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.security.DomainAuthorizationPolicy;
 import org.wildfly.extension.camel.security.DomainPrincipal;
@@ -71,8 +73,10 @@ public class SecuredRouteTestCase {
             try {
                 producer.requestBody("direct:start", "Kermit", String.class);
                 Assert.fail("CamelExecutionException expected");
-            } catch (CamelExecutionException e) {
-                // expected
+            } catch (CamelExecutionException ex) {
+                Throwable cause = ex.getCause();
+                Assert.assertEquals(SecurityException.class, cause.getClass());
+                Assert.assertTrue(cause.getMessage(), cause.getMessage().startsWith("Cannot obtain authentication subject"));
             }
         } finally {
             camelctx.stop();
@@ -98,35 +102,10 @@ public class SecuredRouteTestCase {
                 Subject subject = getAuthenticationToken("user-domain", AnnotatedSLSB.USERNAME, "bogus");
                 producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION, subject, String.class);
                 Assert.fail("CamelExecutionException expected");
-            } catch (CamelExecutionException e) {
-                // expected
-            }
-        } finally {
-            camelctx.stop();
-        }
-    }
-
-    @Test
-    public void testInsufficientRoles() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:start")
-                .policy(new DomainAuthorizationPolicy().roles("Role3"))
-                .transform(body().prepend("Hello "));
-            }
-        });
-
-        camelctx.start();
-        try {
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            try {
-                Subject subject = getAuthenticationToken("user-domain", AnnotatedSLSB.USERNAME, AnnotatedSLSB.PASSWORD);
-                producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION, subject, String.class);
-                Assert.fail("CamelExecutionException expected");
-            } catch (CamelExecutionException e) {
-                // expected
+            } catch (CamelExecutionException ex) {
+                Throwable cause = ex.getCause();
+                Assert.assertEquals(FailedLoginException.class, cause.getClass());
+                Assert.assertTrue(cause.getMessage(), cause.getMessage().contains("Password invalid/Password required"));
             }
         } finally {
             camelctx.stop();
@@ -174,6 +153,35 @@ public class SecuredRouteTestCase {
             Subject subject = getAuthenticationToken("user-domain", AnnotatedSLSB.USERNAME, AnnotatedSLSB.PASSWORD);
             String result = producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION, subject, String.class);
             Assert.assertEquals("Hello Kermit", result);
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testInsufficientRoles() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .policy(new DomainAuthorizationPolicy().roles("Role3"))
+                .transform(body().prepend("Hello "));
+            }
+        });
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            try {
+                Subject subject = getAuthenticationToken("user-domain", AnnotatedSLSB.USERNAME, AnnotatedSLSB.PASSWORD);
+                producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION, subject, String.class);
+                Assert.fail("CamelExecutionException expected");
+            } catch (CamelExecutionException ex) {
+                Throwable cause = ex.getCause();
+                Assert.assertEquals(LoginException.class, cause.getClass());
+                Assert.assertTrue(cause.getMessage(), cause.getMessage().contains("User does not have required roles: [Role3]"));
+            }
         } finally {
             camelctx.stop();
         }

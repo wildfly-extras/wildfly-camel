@@ -799,8 +799,12 @@
             <module name="org.slf4j"/>
             <module name="org.springframework.security" export="true">
                 <exports>
+                    <include path="org/springframework/security/access" />
                     <include path="org/springframework/security/authentication" />
-                    <exclude path="org/springframework/**" />
+                    <include path="org/springframework/security/core/authority" />
+                    <include path="org/springframework/security/core/userdetails" />
+                    <include path="org/springframework/security/core" />
+                    <exclude path="org/springframework/security/**" />
                 </exports>
             </module>
         </dependencies>

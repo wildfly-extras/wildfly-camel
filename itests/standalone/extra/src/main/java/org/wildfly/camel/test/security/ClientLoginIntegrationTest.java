@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wildfly.camel.test.policy;
+package org.wildfly.camel.test.security;
 
 import javax.security.auth.Subject;
 
@@ -37,7 +37,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.policy.subA.AnnotatedSLSB;
+import org.wildfly.camel.test.security.subA.AnnotatedSLSB;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.security.ClientAuthorizationPolicy;
 import org.wildfly.extension.camel.security.DomainPrincipal;
