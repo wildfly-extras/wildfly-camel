@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.policy.subA;
+package org.wildfly.camel.test.security.subA;
 
 import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;

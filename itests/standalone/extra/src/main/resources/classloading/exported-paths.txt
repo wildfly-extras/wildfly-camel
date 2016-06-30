@@ -1291,7 +1291,12 @@ org/quartz/utils/weblogic
 org/quartz/xml
 org/springframework
 org/springframework/orm/jpa
+org/springframework/security
+org/springframework/security/access
 org/springframework/security/authentication
+org/springframework/security/core
+org/springframework/security/core/authority
+org/springframework/security/core/userdetails
 org/xbill
 org/xbill/DNS
 org/xmlsoap

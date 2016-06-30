@@ -105,6 +105,7 @@
         <dependencies>
             <module name="javax.api"/>
             <module name="org.apache.camel.core"/>
+            <module name="org.apache.camel.component.spring.security"/>
             <module name="org.jboss.as.server"/>
             <module name="org.jboss.as.security"/>
             <module name="org.picketbox"/>

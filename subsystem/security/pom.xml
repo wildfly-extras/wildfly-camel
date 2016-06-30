@@ -45,6 +45,10 @@
             <artifactId>camel-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring-security</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.jboss.gravia</groupId>
             <artifactId>gravia-runtime-api</artifactId>
         </dependency>
@@ -54,11 +58,6 @@
         </dependency>
         
         <!-- Provided -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.wildfly.core</groupId>
             <artifactId>wildfly-server</artifactId>

@@ -78,15 +78,19 @@ public abstract class AbstractAuthorizationPolicy implements AuthorizationPolicy
                     throw new SecurityException("Cannot obtain credentials from exchange: " + exchange);
                 }
 
-                LoginContext loginContext = getLoginContext(domain, username, password);
-                loginContext.login();
+                LoginContext context = getLoginContext(domain, username, password);
+                context.login();
                 try {
+                    authorize(context);
                     processor.process(exchange);
                 } finally {
-                    loginContext.logout();
+                    context.logout();
                 }
             }
         };
+    }
+
+    protected void authorize(LoginContext context) throws LoginException {
     }
 
     protected abstract LoginContext getLoginContext(String domain, String username, char[] password) throws LoginException;

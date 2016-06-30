@@ -20,12 +20,14 @@
 
 package org.wildfly.extension.camel.security;
 
+import java.security.acl.Group;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 
+import org.jboss.security.SimplePrincipal;
 import org.wildfly.extension.camel.security.LoginContextBuilder.Type;
 
 
@@ -37,18 +39,41 @@ import org.wildfly.extension.camel.security.LoginContextBuilder.Type;
  */
 public class DomainAuthorizationPolicy extends AbstractAuthorizationPolicy {
 
-    private final Set<String> roles = new HashSet<>();
+    private final Set<String> requiredRoles = new HashSet<>();
 
     public DomainAuthorizationPolicy roles(String... roles) {
         for (String role : roles) {
-            this.roles.add(role);
+            this.requiredRoles.add(role);
         }
         return this;
     }
 
+    // for use in spring xml
+    public void setRole(String role) {
+        this.requiredRoles.add(role);
+    }
+
     protected LoginContext getLoginContext(String domain, String username, char[] password) throws LoginException {
-        String[] rolesArr = roles.toArray(new String[roles.size()]);
         LoginContextBuilder builder = new LoginContextBuilder(Type.AUTHENTICATION).domain(domain);
-        return builder.username(username).password(password).roles(rolesArr).build();
+        return builder.username(username).password(password).build();
+    }
+
+    @Override
+    protected void authorize(LoginContext context) throws LoginException {
+        HashSet<String> required = new HashSet<>(requiredRoles);
+        Set<Group> groups = context.getSubject().getPrincipals(Group.class);
+        if (groups != null) {
+            for (Group group : groups) {
+                if ("Roles".equals(group.getName())) {
+                    for (String role : requiredRoles) {
+                        if (group.isMember(new SimplePrincipal(role))) {
+                            required.remove(role);
+                        }
+                    }
+                }
+            }
+        }
+        if (!required.isEmpty())
+            throw new LoginException("User does not have required roles: " + required);
     }
 }

@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wildfly.camel.test.policy;
+package org.wildfly.camel.test.security;
 
 import javax.ejb.EJBAccessException;
 import javax.naming.Context;
@@ -36,8 +36,8 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.policy.subA.AnnotatedSLSB;
-import org.wildfly.camel.test.policy.subA.SecureRouteBuilder;
+import org.wildfly.camel.test.security.subA.AnnotatedSLSB;
+import org.wildfly.camel.test.security.subA.SecureRouteBuilder;
 import org.wildfly.extension.camel.security.LoginContextBuilder;
 import org.wildfly.extension.camel.security.LoginContextBuilder.Type;
 

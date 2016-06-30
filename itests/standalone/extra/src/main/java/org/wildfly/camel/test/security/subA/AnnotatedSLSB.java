@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wildfly.camel.test.policy.subA;
+package org.wildfly.camel.test.security.subA;
 
 import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
