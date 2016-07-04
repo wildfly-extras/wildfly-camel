@@ -27,9 +27,7 @@ import java.util.Map;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -39,20 +37,27 @@ import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.dmr.ModelNode;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.DMRUtils;
+import org.wildfly.camel.test.mail.subA.MailSessionProducer;
 import org.wildfly.extension.camel.CamelAware;
+import org.wildfly.extension.camel.CamelContextRegistry;
 
 @CamelAware
-@ServerSetup({ MailIntegrationTest.MailSessionSetupTask.class })
+@ServerSetup({ MailIntegrationCDITest.MailSessionSetupTask.class })
 @RunWith(Arquillian.class)
-public class MailIntegrationTest {
+public class MailIntegrationCDITest {
 
     private static final String GREENMAIL_WAR = "greenmail.war";
+
+    @ArquillianResource
+    CamelContextRegistry contextRegistry;
 
     @ArquillianResource
     Deployer deployer;
@@ -90,7 +95,10 @@ public class MailIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() throws IOException {
-        return ShrinkWrap.create(JavaArchive.class, "camel-mail-tests.jar");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-mail-cdi-tests.jar");
+        archive.addPackage(MailSessionProducer.class.getPackage());
+        archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        return archive;
     }
 
     @Deployment(managed = false, testable = false, name = GREENMAIL_WAR)
@@ -103,23 +111,12 @@ public class MailIntegrationTest {
     }
 
     @Test
-    public void testMailEndpoint() throws Exception {
-
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:start")
-                .to("smtp://localhost:10025?session=#java:jboss/mail/greenmail");
-
-                from("pop3://user2@localhost:10110?consumer.delay=1000&session=#java:jboss/mail/greenmail&delete=true")
-                .to("mock:result");
-            }
-        });
-
-        camelctx.start();
+    public void testMailEndpointWithCDIContext() throws Exception {
         try {
             deployer.deploy(GREENMAIL_WAR);
+
+            CamelContext camelctx = contextRegistry.getCamelContext("camel-mail-cdi-context");
+            Assert.assertNotNull("Camel context not null", camelctx);
 
             MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
             mockEndpoint.setExpectedMessageCount(1);
@@ -134,7 +131,6 @@ public class MailIntegrationTest {
 
             mockEndpoint.assertIsSatisfied(5000);
         } finally {
-            camelctx.stop();
             deployer.undeploy(GREENMAIL_WAR);
         }
     }

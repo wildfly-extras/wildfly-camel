@@ -1,8 +1,8 @@
 /*
  * #%L
- * Wildfly Camel :: Example :: Camel Mail
+ * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2013 - 2015 RedHat
+ * Copyright (C) 2013 - 2016 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,24 +17,24 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.examples.mail;
+package org.wildfly.camel.test.mail.subA;
 
 import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.ExplicitCamelContextNameStrategy;
 import org.wildfly.extension.camel.CamelAware;
 
 @Startup
 @CamelAware
 @ApplicationScoped
-public class MailRouteBuilder extends RouteBuilder {
+public class MailCdiRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        // Configure routes and endpoints to send and receive email over SMTP and POP3
-        from("direct:sendmail").to("smtp://localhost:10025?session=#mailSession");
-
-        from("pop3://user2@localhost:10110?consumer.delay=30000&session=#mailSession").to("log:emails?showAll=true&multiline=true");
+        getContext().setNameStrategy(new ExplicitCamelContextNameStrategy("camel-mail-cdi-context"));
+        from("direct:start").to("smtp://localhost:10025?session=#mailSession");
+        from("pop3://user2@localhost:10110?consumer.delay=30000&session=#mailSession&delete=true").to("mock:result");
     }
 }
