@@ -35,13 +35,6 @@ public class WildFlyCamelContext extends DefaultCamelContext {
 
     private volatile Context namingContext;
 
-    public WildFlyCamelContext() {
-    }
-
-    public WildFlyCamelContext(ClassLoader classLoader) {
-        setApplicationContextClassLoader(classLoader);
-    }
-
     public Context getNamingContext() {
         return namingContext;
     }

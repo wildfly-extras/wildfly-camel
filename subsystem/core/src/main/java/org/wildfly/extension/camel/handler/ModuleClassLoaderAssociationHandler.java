@@ -38,12 +38,22 @@ import org.wildfly.extension.camel.service.CamelContextRegistryService;
  */
 public final class ModuleClassLoaderAssociationHandler implements ContextCreateHandler {
 
+    private static ThreadLocal<ModuleClassLoader> moduleClassLoaderAssociation = new ThreadLocal<>();
+    
     @Override
     public void setup(CamelContext camelctx) {
         ModuleClassLoader moduleClassLoader = getModuleClassLoader(camelctx);
         camelctx.setApplicationContextClassLoader(moduleClassLoader);
     }
 
+    public static void associate(ModuleClassLoader modcl) {
+        moduleClassLoaderAssociation.set(modcl);
+    }
+    
+    public static void disassociate() {
+        moduleClassLoaderAssociation.remove();
+    }
+    
     public static ModuleClassLoader getModuleClassLoader(CamelContext camelctx) {
         Module contextModule = null;
 
@@ -53,7 +63,13 @@ public final class ModuleClassLoaderAssociationHandler implements ContextCreateH
             contextModule = ((ModuleClassLoader) applicationClassLoader).getModule();
         }
 
-        // Case #2: The context is a system context
+        // Case #2: The module classloader has been associated explicitly
+        ModuleClassLoader moduleClassLoader = moduleClassLoaderAssociation.get();
+        if (moduleClassLoader != null) {
+            contextModule = moduleClassLoader.getModule();
+        }
+        
+        // Case #3: The context is a system context
         if (contextModule == null) {
             ClassLoader thiscl = CamelContextRegistryService.class.getClassLoader();
             ClassLoader tccl = Thread.currentThread().getContextClassLoader();
@@ -62,7 +78,7 @@ public final class ModuleClassLoaderAssociationHandler implements ContextCreateH
             }
         }
 
-        // Case #3: The context is created as part of a deployment
+        // Case #4: The context is created as part of a deployment
         if (contextModule == null) {
             ClassLoader tccl = Thread.currentThread().getContextClassLoader();
             if (tccl instanceof ModuleClassLoader) {
@@ -73,7 +89,7 @@ public final class ModuleClassLoaderAssociationHandler implements ContextCreateH
             }
         }
 
-        // Case #4: The context is created through user API
+        // Case #5: The context is created through user API
         if (contextModule == null) {
             Class<?> callingClass = CallerContext.getCallingClass();
             contextModule = ((ModuleClassLoader) callingClass.getClassLoader()).getModule();

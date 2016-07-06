@@ -24,6 +24,8 @@ package org.wildfly.extension.camel.service;
 import org.jboss.gravia.runtime.ModuleContext;
 import org.jboss.gravia.runtime.Runtime;
 import org.jboss.gravia.runtime.ServiceRegistration;
+import org.jboss.gravia.utils.IllegalArgumentAssertion;
+import org.jboss.modules.ModuleClassLoader;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
@@ -35,6 +37,7 @@ import org.jboss.msc.value.InjectedValue;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextFactory;
 import org.wildfly.extension.camel.WildFlyCamelContext;
+import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.gravia.GraviaConstants;
 
 /**
@@ -93,7 +96,13 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
 
         @Override
         public WildFlyCamelContext createCamelContext(ClassLoader classLoader) throws Exception {
-            return new WildFlyCamelContext(classLoader);
+            IllegalArgumentAssertion.assertTrue(classLoader instanceof ModuleClassLoader, "ModuleClassLoader required: " + classLoader);
+            ModuleClassLoaderAssociationHandler.associate((ModuleClassLoader) classLoader);
+            try {
+                return new WildFlyCamelContext();
+            } finally {
+                ModuleClassLoaderAssociationHandler.disassociate();
+            }
         }
     }
 }
