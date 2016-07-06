@@ -20,6 +20,8 @@
 
 package org.wildfly.extension.camel.undertow;
 
+import static org.wildfly.extension.camel.CamelLogger.LOGGER;
+
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -32,7 +34,6 @@ import org.jboss.as.network.SocketBinding;
 import org.jboss.gravia.runtime.ModuleContext;
 import org.jboss.gravia.runtime.Runtime;
 import org.jboss.gravia.runtime.ServiceRegistration;
-import org.jboss.gravia.utils.IllegalStateAssertion;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
@@ -76,6 +77,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
     private UndertowEventListener eventListener;
     private UndertowHost undertowHost;
 
+    @SuppressWarnings("deprecation")
     public static ServiceController<UndertowHost> addService(ServiceTarget serviceTarget, SubsystemRuntimeState runtimeState) {
         CamelUndertowHostService service = new CamelUndertowHostService(runtimeState);
         ServiceBuilder<UndertowHost> builder = serviceTarget.addService(SERVICE_NAME, service);
@@ -102,29 +104,9 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
     }
 
     private URL getConnectionURL() throws StartException {
+
         SocketBinding socketBinding = injectedHttpSocketBinding.getValue();
         InetAddress address = socketBinding.getNetworkInterfaceBinding().getAddress();
-
-        /* Derive the address from network interfaces
-        if (address.getHostAddress().equals("127.0.0.1")) {
-            InetAddress derived = null;
-            try {
-                List<NetworkInterface> nets = Collections.list(NetworkInterface.getNetworkInterfaces());
-                for (int i = 0; derived == null && i < nets.size(); i++) {
-                    for (InetAddress aux : Collections.list(nets.get(i).getInetAddresses())) {
-                        if (!aux.getHostAddress().equals("127.0.0.1")) {
-                            derived = aux;
-                            break;
-                        }
-                    }
-                }
-            } catch (SocketException ex) {
-                throw new StartException(ex);
-            }
-            IllegalStateAssertion.assertNotNull(derived, "Cannot derive internet address from interfaces");
-            address = derived;
-        }
-        */
 
         URL result;
         try {
@@ -172,9 +154,11 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
                     }
                 }
             }
-
-            IllegalStateAssertion.assertEquals("localhost", httpURI.getHost(), "Cannot bind to host other than 'localhost': " + httpURI);
-            IllegalStateAssertion.assertTrue(portMatched, "Cannot bind to specific port: " + httpURI);
+            
+            if (!"localhost".equals(httpURI.getHost())) 
+                LOGGER.warn("Cannot bind to host other than 'localhost': {}", httpURI);
+            if (!portMatched) 
+                LOGGER.warn("Cannot bind to specific port: {}", httpURI);
         }
 
         @Override
