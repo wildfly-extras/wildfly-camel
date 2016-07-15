@@ -36,11 +36,11 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class RestDslIntegrationTest {
+public class RestDslMultipleVerbsIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-rest-dsl-simple");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-rest-dsl-verbs");
         archive.addClasses(HttpRequest.class);
         return archive;
     }
@@ -52,15 +52,23 @@ public class RestDslIntegrationTest {
             @Override
             public void configure() throws Exception {
                 restConfiguration().component("undertow").contextPath("camel/rest").host("localhost").port(8080);
-                rest("/hello").get("/{name}").to("direct:hello");
-                from("direct:hello").transform(simple("Hello ${header.name}"));
+                rest("/hello").get("/{name}").to("direct:get").post("/{name}").to("direct:post").put("/{name}").to("direct:put");
+                from("direct:get").transform(simple("GET ${header.name}"));
+                from("direct:post").transform(simple("POST ${header.name}"));
+                from("direct:put").transform(simple("PUT ${header.name}"));
             }
         });
 
         camelctx.start();
         try {
             HttpResponse result = HttpRequest.get("http://localhost:8080/camel/rest/hello/Kermit").getResponse();
-            Assert.assertEquals("Hello Kermit", result.getBody());
+            Assert.assertEquals("GET Kermit", result.getBody());
+
+            result = HttpRequest.post("http://localhost:8080/camel/rest/hello/Kermit").getResponse();
+            Assert.assertEquals("POST Kermit", result.getBody());
+
+            result = HttpRequest.put("http://localhost:8080/camel/rest/hello/Kermit").getResponse();
+            Assert.assertEquals("PUT Kermit", result.getBody());
         } finally {
             camelctx.stop();
         }

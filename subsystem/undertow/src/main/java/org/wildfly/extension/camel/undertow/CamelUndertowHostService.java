@@ -26,6 +26,9 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.camel.component.undertow.HttpHandlerRegistrationInfo;
 import org.apache.camel.component.undertow.UndertowHost;
@@ -34,6 +37,7 @@ import org.jboss.as.network.SocketBinding;
 import org.jboss.gravia.runtime.ModuleContext;
 import org.jboss.gravia.runtime.Runtime;
 import org.jboss.gravia.runtime.ServiceRegistration;
+import org.jboss.gravia.utils.IllegalStateAssertion;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
@@ -54,8 +58,10 @@ import org.wildfly.extension.undertow.UndertowService;
 
 import io.undertow.Handlers;
 import io.undertow.server.HttpHandler;
+import io.undertow.server.HttpServerExchange;
 import io.undertow.server.handlers.PathTemplateHandler;
 import io.undertow.servlet.api.Deployment;
+import io.undertow.util.HttpString;
 
 /**
  * The {@link UndertowHost} service
@@ -131,6 +137,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
     class WildFlyUndertowHost implements UndertowHost {
         private static final String REST_PATH_PLACEHOLDER = "{";
+        private final Map<String, DelegatingHttpHandler> handlers = new HashMap<>();
         private final Host defaultHost;
 
         WildFlyUndertowHost(Host host) {
@@ -171,27 +178,64 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
                 PathTemplateHandler pathTemplateHandler = Handlers.pathTemplate();
                 pathTemplateHandler.add(remaining, handler);
 
-                defaultHost.registerHandler(pathPrefix, pathTemplateHandler);
-            } else {
-                if (reginfo.isMatchOnUriPrefix()) {
-                    defaultHost.registerHandler(path, handler);
-                } else {
-                    defaultHost.registerHandler(path, Handlers.path(handler));
-                }
+                handler = pathTemplateHandler;
+                path = pathPrefix;
+            } else if (!reginfo.isMatchOnUriPrefix()) {
+                handler = Handlers.path(handler);
             }
+            DelegatingHttpHandler delhandler = handlers.get(path);
+            if (delhandler == null) {
+                delhandler = new DelegatingHttpHandler();
+                defaultHost.registerHandler(path, delhandler);
+                handlers.put(path, delhandler);
+            }
+            delhandler.addDelegate(reginfo, handler);
         }
 
 		@Override
 		public void unregisterHandler(HttpHandlerRegistrationInfo reginfo) {
         	String path = reginfo.getUri().getPath();
             if (path.contains(REST_PATH_PLACEHOLDER)) {
-                defaultHost.unregisterHandler(path.substring(0, path.indexOf(REST_PATH_PLACEHOLDER)));
-            } else {
-                defaultHost.unregisterHandler(path);
+                path = path.substring(0, path.indexOf(REST_PATH_PLACEHOLDER));
             }
+            // This will remove the handlers for all methods
+            defaultHost.unregisterHandler(path);
+            handlers.remove(path);
         }
     }
 
+    class DelegatingHttpHandler implements HttpHandler {
+        
+        private Map<String, HttpHandler> delegates = new HashMap<>();
+        
+        void addDelegate(HttpHandlerRegistrationInfo reginfo, HttpHandler handler) {
+            String methodRestrict = reginfo.getMethodRestrict();
+            if (methodRestrict != null) {
+                for (String method: methodRestrict.split(",")) {
+                    checkedPut(method.trim(), handler);
+                }
+            } else {
+                checkedPut("ALL", handler);
+            }
+        }
+
+        private void checkedPut(String method, HttpHandler handler) {
+            HttpHandler prev = delegates.put(method, handler);
+            IllegalStateAssertion.assertNull(prev, "Handler for " + method + " already registered");
+        }
+        
+        @Override
+        public void handleRequest(HttpServerExchange exchange) throws Exception {
+            HttpString method = exchange.getRequestMethod();
+            HttpHandler delegate = delegates.get(method.toString());
+            if (delegate == null) {
+                delegate = delegates.get("ALL");
+            }
+            IllegalStateAssertion.assertNotNull(delegate, "Cannot obtain handler for method: " + method);
+            delegate.handleRequest(exchange);
+        }
+    }
+    
     class CamelUndertowEventListener extends AbstractUndertowEventListener {
 
         @Override
