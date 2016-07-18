@@ -526,6 +526,15 @@ org/apache/camel/component/sql/stored/template
 org/apache/camel/component/sql/stored/template/ast
 org/apache/camel/component/sql/stored/template/generated
 org/apache/camel/component/stream
+org/apache/camel/component/twitter
+org/apache/camel/component/twitter/consumer
+org/apache/camel/component/twitter/consumer/directmessage
+org/apache/camel/component/twitter/consumer/search
+org/apache/camel/component/twitter/consumer/streaming
+org/apache/camel/component/twitter/consumer/timeline
+org/apache/camel/component/twitter/data
+org/apache/camel/component/twitter/producer
+org/apache/camel/component/twitter/util
 org/apache/camel/component/undertow
 org/apache/camel/component/undertow/handlers
 org/apache/camel/component/velocity
@@ -1311,4 +1320,11 @@ schemas/configuration
 schemas/configuration/blueprint
 schemas/wsdl
 schemas/wsdl/spec
+twitter4j/api
+twitter4j/auth
+twitter4j/conf
+twitter4j/json
+twitter4j/management
+twitter4j/util
+twitter4j/util/function
 

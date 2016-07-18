@@ -39,6 +39,7 @@
 	^org/xmlsoap(.*)
 	^schema/(.*)
 	^schemas/(.*)
+	^twitter4j/(.*)
 	^META-INF/cxf(.*)
 	^META-INF/services(.*)
 	

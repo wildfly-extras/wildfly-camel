@@ -101,6 +101,9 @@
 /org/apache/camel/component/swagger/main/swagger-models-1.5.8.jar
 /org/apache/camel/component/tagsoup/main/camel-tagsoup-2.17.2.jar
 /org/apache/camel/component/tagsoup/main/tagsoup-1.2.1.jar
+/org/apache/camel/component/twitter/main/camel-twitter-2.17.2.jar
+/org/apache/camel/component/twitter/main/twitter4j-core-4.0.4.jar
+/org/apache/camel/component/twitter/main/twitter4j-stream-4.0.4.jar
 /org/apache/camel/component/undertow/main/camel-undertow-2.17.2.jar
 /org/apache/camel/component/velocity/main/camel-velocity-2.17.2.jar
 /org/apache/camel/component/weather/main/camel-weather-2.17.2.jar
