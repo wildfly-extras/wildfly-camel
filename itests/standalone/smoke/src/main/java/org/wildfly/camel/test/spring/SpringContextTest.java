@@ -64,7 +64,7 @@ public class SpringContextTest {
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
-            Assert.assertEquals("Hello Kermit", result);
+            Assert.assertEquals("Hello green Frog", result);
         } finally {
             camelctx.stop();
         }

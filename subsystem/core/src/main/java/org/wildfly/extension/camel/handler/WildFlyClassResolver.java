@@ -27,6 +27,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Enumeration;
 
+import javax.lang.model.SourceVersion;
+
 import org.apache.camel.impl.DefaultClassResolver;
 import org.apache.camel.util.FileUtil;
 import org.jboss.gravia.utils.IllegalArgumentAssertion;
@@ -64,10 +66,12 @@ final class WildFlyClassResolver extends DefaultClassResolver {
     protected Class<?> loadClass(String className, ClassLoader defaultClassLoader) {
         IllegalArgumentAssertion.assertNotNull(className, "className");
         Class<?> loadedClass = null;
-        try {
-            loadedClass = classLoader.loadClass(className);
-        } catch (ClassNotFoundException e) {
-            LOGGER.warn("Cannot load '{}' from module: {}", className, moduleId);
+        if (SourceVersion.isName(className) && className.contains(".")) {
+            try {
+                loadedClass = classLoader.loadClass(className);
+            } catch (ClassNotFoundException e) {
+                LOGGER.warn("Cannot load '{}' from module: {}", className, moduleId);
+            }
         }
         return loadedClass;
     }

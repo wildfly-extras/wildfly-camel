@@ -30,6 +30,9 @@
       <transform>
         <simple>Hello ${body}</simple>
       </transform>
+      <setBody>
+        <simple>${body.replaceAll("Kermit","green Frog")}</simple>
+      </setBody>
     </route>
   </camelContext>
   
