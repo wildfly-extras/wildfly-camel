@@ -5,6 +5,7 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="org.apache.httpcomponents" />
     <module name="org.restlet" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />

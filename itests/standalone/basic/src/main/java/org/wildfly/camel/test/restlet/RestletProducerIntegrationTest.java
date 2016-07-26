@@ -38,8 +38,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.types.GreetingService;
-import org.wildfly.camel.test.cxf.rs.subA.GreetingServiceImpl;
-import org.wildfly.camel.test.cxf.rs.subA.RestApplication;
+import org.wildfly.camel.test.common.types.GreetingServiceImpl;
+import org.wildfly.camel.test.common.types.RestApplication;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -67,8 +67,8 @@ public class RestletProducerIntegrationTest {
                 @Override
                 public void configure() throws Exception {
                     from("direct:start")
-                    .setHeader(Exchange.HTTP_METHOD, constant("GET")).
-                    to("restlet://" + getEndpointAddress("/simple-rs-endpoint") + "?resourceClasses=" + GreetingService.class.getName());
+                    .setHeader(Exchange.HTTP_METHOD, constant("GET"))
+                    .to("restlet://" + getEndpointAddress("simple-rs-endpoint", "hello") + "?resourceClasses=" + GreetingService.class.getName());
                 }
             });
 
@@ -85,8 +85,34 @@ public class RestletProducerIntegrationTest {
         }
     }
 
-    private String getEndpointAddress(String contextPath) throws MalformedURLException {
-        return "http://localhost:8080" + contextPath + "/rest/greet/hello/Kermit";
+    @Test
+    public void testRestletProducerPost() throws Exception {
+        deployer.deploy(SIMPLE_WAR);
+        try {
+            CamelContext camelctx = new DefaultCamelContext();
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    from("direct:start")
+                    .to("restlet://" + getEndpointAddress("simple-rs-endpoint", "goodbye") + "?restletMethod=POST&resourceClasses=" + GreetingService.class.getName());
+                }
+            });
+
+            camelctx.start();
+            try {
+                ProducerTemplate producer = camelctx.createProducerTemplate();
+                String result = producer.requestBodyAndHeader("direct:start", "mybody", "name", "Kermit", String.class);
+                Assert.assertEquals("Goodbye Kermit", result);
+            } finally {
+                camelctx.stop();
+            }
+        } finally {
+            deployer.undeploy(SIMPLE_WAR);
+        }
+    }
+
+    private String getEndpointAddress(String contextPath, String action) throws MalformedURLException {
+        return String.format("http://localhost:8080/%s/rest/greet/%s/Kermit", contextPath, action);
     }
 
     @Deployment(name = SIMPLE_WAR, managed = false, testable = false)

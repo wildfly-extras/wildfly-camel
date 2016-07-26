@@ -17,15 +17,17 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.cxf.rs.subA;
+package org.wildfly.camel.test.common.types;
 
 import javax.ws.rs.core.Response;
-
-import org.wildfly.camel.test.common.types.GreetingService;
 
 public class GreetingServiceImpl implements GreetingService {
 
     public Response sayHello(String name) {
         return Response.ok("Hello " + name).build();
+    }
+
+    public Response sayGoodbye(String name) {
+        return Response.ok("Goodbye " + name).build();
     }
 }

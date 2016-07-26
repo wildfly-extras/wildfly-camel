@@ -20,6 +20,7 @@
 package org.wildfly.camel.test.common.types;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -33,4 +34,9 @@ public interface GreetingService {
     @Path("/hello/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     Response sayHello(@PathParam("name") String name);
+
+    @POST
+    @Path("/goodbye/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    Response sayGoodbye(@PathParam("name") String name);
 }
