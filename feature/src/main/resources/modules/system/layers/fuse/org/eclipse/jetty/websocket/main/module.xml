@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.eclipse.jetty.websocket">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.eclipse.jetty.websocket:websocket-api}" />
+    <artifact name="${org.eclipse.jetty.websocket:websocket-client}" />
+    <artifact name="${org.eclipse.jetty.websocket:websocket-common}" />
+  </resources>
+  <dependencies>
+    <module name="org.eclipse.jetty" />
+  </dependencies>
+</module>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="net.sourceforge.htmlunit">
+  <resources>
+    <artifact name="${net.sourceforge.htmlunit:htmlunit}" />
+    <artifact name="${net.sourceforge.htmlunit:htmlunit-core-js}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.w3c.css.sac" />
+    <module name="net.sourceforge.cssparser" />
+    <module name="net.sourceforge.nekohtml" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.io" />
+    <module name="org.apache.commons.lang3" />
+    <module name="org.apache.commons.logging" />
+    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.xalan" />
+    <module name="org.apache.xerces" />
+    <module name="org.eclipse.jetty.websocket" />
+  </dependencies>
+</module>

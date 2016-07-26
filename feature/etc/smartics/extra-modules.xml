@@ -31,7 +31,12 @@
         <include artifact=":cxf-rt-features-clustering" />
         <include artifact=":cxf-rt-frontend-jaxrs" />
         <include artifact=":cxf-rt-rs-client" />
+        <include artifact=":cxf-rt-rs-extension-providers" />
+        <include artifact=":cxf-rt-rs-json-basic" />
+        <include artifact=":cxf-rt-rs-security-jose" />
+        <include artifact=":cxf-rt-rs-security-jose-jaxrs" />
         <include artifact=":cxf-rt-rs-security-oauth"/>
+        <include artifact=":cxf-rt-rs-security-oauth2" />
         <include artifact=":oauth"/>
         <include artifact=":oauth-provider"/>
         <dependencies>
