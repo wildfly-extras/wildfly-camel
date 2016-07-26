@@ -60,6 +60,7 @@
         <module name="org.apache.camel.component.jpa" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.kafka" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.ldap" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.linkedin" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.lucene" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.mail" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.metrics" export="true" services="export" optional="true" />

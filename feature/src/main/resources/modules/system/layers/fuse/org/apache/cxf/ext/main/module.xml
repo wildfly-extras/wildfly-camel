@@ -6,7 +6,12 @@
   <resources>
     <artifact name="${org.apache.cxf:cxf-rt-frontend-jaxrs}" />
     <artifact name="${org.apache.cxf:cxf-rt-rs-client}" />
+    <artifact name="${org.apache.cxf:cxf-rt-rs-extension-providers}" />
+    <artifact name="${org.apache.cxf:cxf-rt-rs-json-basic}" />
+    <artifact name="${org.apache.cxf:cxf-rt-rs-security-jose}" />
+    <artifact name="${org.apache.cxf:cxf-rt-rs-security-jose-jaxrs}" />
     <artifact name="${org.apache.cxf:cxf-rt-rs-security-oauth}" />
+    <artifact name="${org.apache.cxf:cxf-rt-rs-security-oauth2}" />
     <artifact name="${net.oauth.core:oauth}" />
     <artifact name="${net.oauth.core:oauth-provider}" />
   </resources>

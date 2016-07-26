@@ -16,6 +16,10 @@
 /com/thoughtworks/xstream/main/xpp3_min-1.1.4c.jar
 /com/thoughtworks/xstream/main/xstream-1.4.8.jar
 /net/sf/dozer/main/dozer-5.5.1.jar
+/net/sourceforge/cssparser/main/cssparser-0.9.18.jar
+/net/sourceforge/htmlunit/main/htmlunit-2.20.jar
+/net/sourceforge/htmlunit/main/htmlunit-core-js-2.17.jar
+/net/sourceforge/nekohtml/main/nekohtml-1.9.22.jar
 /ognl/main/ognl-3.1.2.jar
 /org/apache/abdera/core/main/abdera-core-1.1.3.jar
 /org/apache/abdera/i18n/main/abdera-i18n-1.1.3.jar
@@ -64,6 +68,8 @@
 /org/apache/camel/component/jpa/main/camel-jpa-2.17.2.jar
 /org/apache/camel/component/kafka/main/camel-kafka-2.17.2.jar
 /org/apache/camel/component/ldap/main/camel-ldap-2.17.2.jar
+/org/apache/camel/component/linkedin/main/camel-linkedin-2.17.2.jar
+/org/apache/camel/component/linkedin/main/camel-linkedin-api-2.17.2.jar
 /org/apache/camel/component/lucene/main/camel-lucene-2.17.2.jar
 /org/apache/camel/component/mail/main/camel-mail-2.17.2.jar
 /org/apache/camel/component/metrics/main/camel-metrics-2.17.2.jar
@@ -130,7 +136,12 @@
 /org/apache/commons/pool2/main/commons-pool2-2.4.2.jar
 /org/apache/cxf/ext/main/cxf-rt-frontend-jaxrs-3.1.5.jar
 /org/apache/cxf/ext/main/cxf-rt-rs-client-3.1.5.jar
+/org/apache/cxf/ext/main/cxf-rt-rs-extension-providers-3.1.5.jar
+/org/apache/cxf/ext/main/cxf-rt-rs-json-basic-3.1.5.jar
+/org/apache/cxf/ext/main/cxf-rt-rs-security-jose-3.1.5.jar
+/org/apache/cxf/ext/main/cxf-rt-rs-security-jose-jaxrs-3.1.5.jar
 /org/apache/cxf/ext/main/cxf-rt-rs-security-oauth-3.1.5.jar
+/org/apache/cxf/ext/main/cxf-rt-rs-security-oauth2-3.1.5.jar
 /org/apache/cxf/ext/main/oauth-20100527.jar
 /org/apache/cxf/ext/main/oauth-provider-20100527.jar
 /org/apache/kafka/clients/main/kafka-clients-0.9.0.1.jar
@@ -174,6 +185,9 @@
 /org/eclipse/jetty/main/jetty-io-9.2.17.v20160517.jar
 /org/eclipse/jetty/main/jetty-util-9.2.17.v20160517.jar
 /org/eclipse/jetty/main/jetty-util-ajax-9.2.17.v20160517.jar
+/org/eclipse/jetty/websocket/main/websocket-api-9.2.15.v20160210.jar
+/org/eclipse/jetty/websocket/main/websocket-client-9.2.15.v20160210.jar
+/org/eclipse/jetty/websocket/main/websocket-common-9.2.15.v20160210.jar
 /org/elasticsearch/main/compress-lzf-1.0.2.jar
 /org/elasticsearch/main/elasticsearch-2.2.0.jar
 /org/elasticsearch/main/hppc-0.7.1.jar
@@ -218,6 +232,7 @@
 /org/springframework/security/main/spring-security-config-4.0.4.RELEASE.jar
 /org/springframework/security/main/spring-security-core-4.0.4.RELEASE.jar
 /org/springframework/tx/main/spring-tx-4.2.5.RELEASE.jar
+/org/w3c/css/sac/main/sac-1.3.jar
 /org/wildfly/extension/camel/main/gravia-container-wildfly-extension-1.3.1.jar
 /org/wildfly/extras/config/main/fuse-patch-config-2.4.0.jar
 /org/wildfly/extras/patch/main/fuse-patch-core-2.4.0.jar

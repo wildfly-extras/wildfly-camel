@@ -147,7 +147,30 @@
             <module name="org.apache.camel.component.dozer"/>
         </dependencies>
     </module>
-    
+
+    <module name="net.sourceforge.cssparser">
+        <include artifact="net.sourceforge.cssparser:(.*)"/>
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="net.sourceforge.nekohtml">
+        <include artifact="net.sourceforge.nekohtml:(.*)"/>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.xerces"/>
+        </dependencies>
+    </module>
+
+    <module name="net.sourceforge.htmlunit">
+        <include artifact="net.sourceforge.htmlunit:(.*)"/>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.w3c.css.sac"/>
+        </dependencies>
+    </module>
+
     <module name="ognl">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -378,6 +401,15 @@
             <include module="org.eclipse.jetty.server" />
             <include module="org.mortbay.jetty" />
         </apply-to-dependencies>
+    </module>
+
+    <module name="org.eclipse.jetty.websocket">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.eclipse.jetty.websocket:websocket-api" />
+        <include artifact="org.eclipse.jetty.websocket:websocket-client" />
+        <include artifact="org.eclipse.jetty.websocket:websocket-common" />
     </module>
 
     <module name="org.elasticsearch">
