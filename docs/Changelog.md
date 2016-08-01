@@ -1,5 +1,79 @@
 ### Changelog
 
+#### WildFly-Camel 4.2.0
+
+**Features**
+
+* [#673][673] Add support for camel-linkedin
+* [#1194][1194] Add support for camel-nats
+* [#1222][1222] Add support for camel-smpp
+* [#1230][1230] Add support for spring based authorization policy
+* [#1231][1231] Add support for camel-twitter
+* [#1233][1233] Add support for camel-ldap
+
+For details see [4.2.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.2.0"+label%3Afeature)
+
+**Tasks**
+
+* [#1188][1188] Upgrade Betamax to 2.0.0
+* [#1192][1192] Upgrade to camel-2.17.2
+* [#1228][1228] Upgrade to OpenShift Origin 1.1.2
+* [#1244][1244] Allow explicit ModuleClassLoader association
+
+For details see [4.2.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.2.0"+label%3Atask)
+
+**Bugs**
+
+* [#1220][1220] braintree module does not export com.braintreegateway 
+* [#1224][1224] Spring schema file may not resolve when offline
+* [#1238][1238] WildFly-Camel patch not included with the 4.1.0 release 
+* [#1243][1243] Possible race condition with undertow port binding
+* [#1246][1246] Multiple verbs for same resource not working in camel-undertow
+* [#1256][1256] Use of '${body.replaceAll()}' leads to logger warning
+* [#1260][1260] camel-restlet throws NCDFE for URLEncodedUtils
+
+For details see [4.2.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.2.0"+label%3Abug)
+
+[673]: https://github.com/wildfly-extras/wildfly-camel/issues/673
+[1194]: https://github.com/wildfly-extras/wildfly-camel/issues/1194
+[1222]: https://github.com/wildfly-extras/wildfly-camel/issues/1222
+[1230]: https://github.com/wildfly-extras/wildfly-camel/issues/1230
+[1231]: https://github.com/wildfly-extras/wildfly-camel/issues/1231
+[1233]: https://github.com/wildfly-extras/wildfly-camel/issues/1233
+[1188]: https://github.com/wildfly-extras/wildfly-camel/issues/1188
+[1192]: https://github.com/wildfly-extras/wildfly-camel/issues/1192
+[1228]: https://github.com/wildfly-extras/wildfly-camel/issues/1228
+[1244]: https://github.com/wildfly-extras/wildfly-camel/issues/1244
+[1220]: https://github.com/wildfly-extras/wildfly-camel/issues/1220
+[1224]: https://github.com/wildfly-extras/wildfly-camel/issues/1224
+[1238]: https://github.com/wildfly-extras/wildfly-camel/issues/1238
+[1243]: https://github.com/wildfly-extras/wildfly-camel/issues/1243
+[1246]: https://github.com/wildfly-extras/wildfly-camel/issues/1246
+[1256]: https://github.com/wildfly-extras/wildfly-camel/issues/1256
+[1260]: https://github.com/wildfly-extras/wildfly-camel/issues/1260
+
+#### WildFly-Camel 4.1.1
+
+**Features**
+
+* [#1225][1225] Add support for urn:jboss:domain:4.1
+
+For details see [4.1.1 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.1.1"+label%3Afeature)
+
+**Tasks**
+
+* [#1217][1217] Remove wildfly-camel-config from baseline
+
+For details see [4.1.1 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.1.1"+label%3Atask)
+
+**Bugs**
+
+
+For details see [4.1.1 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.1.1"+label%3Abug)
+
+[1225]: https://github.com/wildfly-extras/wildfly-camel/issues/1225
+[1217]: https://github.com/wildfly-extras/wildfly-camel/issues/1217
+
 #### WildFly-Camel 4.1.0
 
 **Features**
