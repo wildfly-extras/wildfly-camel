@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>cxf-undertow</artifactId>
-        <version>4.2.0-SNAPSHOT</version>
+        <version>4.2.0</version>
     </parent>
 
     <name>CXF :: Undertow :: WildFly</name>

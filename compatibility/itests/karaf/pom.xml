@@ -30,7 +30,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>compatibility-itests</artifactId>
-        <version>4.2.0-SNAPSHOT</version>
+        <version>4.2.0</version>
     </parent>
 
     <name>Compatibility :: Integration Tests :: Karaf</name>
