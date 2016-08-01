@@ -29,7 +29,7 @@
     <artifactId>wildfly-camel</artifactId>
     <packaging>pom</packaging>
 
-    <version>4.2.0</version>
+    <version>4.3.0-SNAPSHOT</version>
 
     <description>WildFly Camel Integration</description>
     <url>https://github.com/wildfly-extras/wildfly-camel</url>
@@ -39,7 +39,7 @@
         <connection>scm:git:git://github.com/wildfly-extras/wildfly-camel.git</connection>
         <developerConnection>scm:git:git@github.com:wildfly-extras/wildfly-camel.git</developerConnection>
         <url>http://github.com/wildfly-extras/wildfly-camel</url>
-        <tag>4.2.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <!-- Properties -->
