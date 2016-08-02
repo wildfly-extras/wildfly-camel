@@ -51,6 +51,7 @@
         <include artifact=":spring-context" />
         <dependencies>
             <module name="javax.api" />
+            <module name="javax.annotation.api" />
             <module name="org.apache.commons.logging" />
             <module name="org.springframework.core" />
         </dependencies>
