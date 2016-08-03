@@ -128,8 +128,7 @@
     </module>
     
     <module name="org.wildfly.extension.camel.cxf.undertow">
-        <include artifact=":cxf-undertow-base" />
-        <include artifact=":cxf-undertow-wildfly" />
+        <include artifact=":wildfly-camel-cxf-undertow" />
         <dependencies>
             <module name="javax.api"/>
             <module name="javax.servlet.api"/>

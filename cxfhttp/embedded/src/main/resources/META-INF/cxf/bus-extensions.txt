@@ -1,2 +1,0 @@
-org.apache.cxf.transport.undertow.UndertowDestinationFactory::true
-org.apache.cxf.transport.undertow.embedded.EmbeddedHTTPServerEngineFactory::true
