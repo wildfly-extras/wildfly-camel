@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.pdfbox">
+  <resources>
+    <artifact name="${org.apache.pdfbox:fontbox}" />
+    <artifact name="${org.apache.pdfbox:jempbox}" />
+    <artifact name="${org.apache.pdfbox:pdfbox}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.commons.logging" />
+  </dependencies>
+</module>

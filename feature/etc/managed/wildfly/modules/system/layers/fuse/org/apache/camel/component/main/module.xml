@@ -70,6 +70,7 @@
         <module name="org.apache.camel.component.nats" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.netty4" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.ognl" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.pdf" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.protobuf" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.quartz2" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.restlet" export="true" services="export" optional="true" />

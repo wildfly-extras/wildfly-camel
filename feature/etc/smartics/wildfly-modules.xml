@@ -260,6 +260,8 @@
     </module>
 
     <module name="org.bouncycastle" skip="true">
+        <include artifact=":bcmail-jdk15on"/>
+        <include artifact=":bcpkix-jdk15on"/>
         <include artifact=":bcprov-jdk15on" />
     </module>
     

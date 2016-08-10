@@ -82,6 +82,7 @@
 /org/apache/camel/component/nats/main/java_nats-0.5.2.jar
 /org/apache/camel/component/netty4/main/camel-netty4-2.17.3.jar
 /org/apache/camel/component/ognl/main/camel-ognl-2.17.3.jar
+/org/apache/camel/component/pdf/main/camel-pdf-2.17.3.jar
 /org/apache/camel/component/protobuf/main/camel-protobuf-2.17.3.jar
 /org/apache/camel/component/protobuf/main/protobuf-java-2.6.1.jar
 /org/apache/camel/component/quartz2/main/camel-quartz2-2.17.3.jar
@@ -167,6 +168,9 @@
 /org/apache/lucene/5.4/lucene-suggest-5.4.1.jar
 /org/apache/lucene/5.4/spatial4j-0.5.jar
 /org/apache/mina/core/main/mina-core-2.0.13.jar
+/org/apache/pdfbox/main/fontbox-1.8.11.jar
+/org/apache/pdfbox/main/jempbox-1.8.11.jar
+/org/apache/pdfbox/main/pdfbox-1.8.11.jar
 /org/apache/ws/commons/axiom/axiom-api/main/axiom-api-1.2.14.jar
 /org/apache/ws/commons/axiom/axiom-impl/main/axiom-impl-1.2.14.jar
 /org/apache/xbean/spring/main/xbean-spring-3.18.jar

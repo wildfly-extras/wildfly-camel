@@ -83,7 +83,7 @@ public class FileIntegrationTest {
         final String datadir = System.getProperty("jboss.server.data.dir");
         Assert.assertNotNull("Directory name not nul", datadir);
 
-        final String fileEndpointUri = "file://" + datadir;
+        final String fileEndpointUri = "file://" + datadir + "/camel-file-tests";
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
