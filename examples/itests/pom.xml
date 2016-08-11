@@ -174,7 +174,7 @@
                                     <groupId>org.wildfly</groupId>
                                     <artifactId>wildfly-dist</artifactId>
                                     <version>${version.wildfly}</version>
-                                    <type>zip</type>
+                                    <type>tar.gz</type>
                                     <outputDirectory>${project.build.directory}</outputDirectory>
                                     <overWrite>false</overWrite>
                                 </artifactItem>
