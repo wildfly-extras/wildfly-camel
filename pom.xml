@@ -696,7 +696,6 @@
                 <module>archetypes</module>
                 <module>docs</module>
                 <module>patch</module>
-                <module>examples</module>
                 <module>compatibility</module>
             </modules>
         </profile>
