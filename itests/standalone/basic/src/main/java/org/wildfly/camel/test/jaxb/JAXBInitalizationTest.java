@@ -27,50 +27,44 @@ import org.apache.camel.model.ModelHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
 
 /**
- * This test shows that When JAXB context is initialized and jaxb-impl classes are loaded, TCCL must be present.
- * Otherwise we get <code>Caused by: java.lang.ClassNotFoundException: __redirected/__DatatypeFactory</code> exception
+ * This test shows that when a JAXB context is initialized, jaxb-impl classes can be loaded
  */
 @CamelAware
 @RunWith(Arquillian.class)
 public class JAXBInitalizationTest {
 
     @Deployment
-    public static WebArchive deployment() {
-        return ShrinkWrap.create(WebArchive.class, "jaxb-initialization-tests.war");
+    public static JavaArchive deployment() {
+        return ShrinkWrap.create(JavaArchive.class, "jaxb-initialization-tests");
     }
 
     @Test
-    public void testDumpingCamelModel() throws Exception {
+    public void testJaxbDumpModelAsXML() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                        .routeId("route-1")
-                        .to("log:test");
+                .routeId("route-1")
+                .to("log:test");
             }
         });
 
-        // this will set TCCL anyway
         camelctx.start();
 
-        ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         try {
-            Thread.currentThread().setContextClassLoader(null);
             String xml = ModelHelper.dumpModelAsXml(camelctx, camelctx.getRouteDefinition("route-1"));
             Assert.assertTrue(xml.contains("log:test"));
         } finally {
-            Thread.currentThread().setContextClassLoader(tccl);
             camelctx.stop();
         }
     }
-
 }

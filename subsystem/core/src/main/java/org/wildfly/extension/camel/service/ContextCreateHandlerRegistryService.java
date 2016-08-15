@@ -43,7 +43,6 @@ import org.wildfly.extension.camel.ContextCreateHandlerRegistry;
 import org.wildfly.extension.camel.handler.ClassResolverAssociationHandler;
 import org.wildfly.extension.camel.handler.ComponentResolverAssociationHandler;
 import org.wildfly.extension.camel.handler.ContextValidationHandler;
-import org.wildfly.extension.camel.handler.ModelJAXBContextFactoryWrapperHandler;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.camel.parser.CamelSubsystemAdd;
 import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
@@ -94,7 +93,6 @@ public class ContextCreateHandlerRegistryService extends AbstractService<Context
             addContextCreateHandler(null, new ModuleClassLoaderAssociationHandler());
             addContextCreateHandler(null, new ClassResolverAssociationHandler());
             addContextCreateHandler(null, new ComponentResolverAssociationHandler(runtimeState));
-            addContextCreateHandler(null, new ModelJAXBContextFactoryWrapperHandler());
             addContextCreateHandler(null, new ContextValidationHandler());
 
             CamelSubsystemAdd.processExtensions(new Consumer<CamelSubsytemExtension>() {
