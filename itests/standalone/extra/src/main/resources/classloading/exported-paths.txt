@@ -442,6 +442,8 @@ org/apache/camel/builder
 org/apache/camel/builder/script
 org/apache/camel/component
 org/apache/camel/component/atom
+org/apache/camel/component/bean
+org/apache/camel/component/bean/validator
 org/apache/camel/component/braintree
 org/apache/camel/component/crypto
 org/apache/camel/component/crypto/processor
