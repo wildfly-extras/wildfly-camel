@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.quartz;
+package org.wildfly.camel.test.quartz2;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -50,9 +50,9 @@ public class QuartzIntegrationTest {
     }
 
     @Test
-    public void testEndpointClass() throws Exception {
+    public void testScheduler() throws Exception {
 
-        final CountDownLatch latch = new CountDownLatch(3);
+        final CountDownLatch procLatch = new CountDownLatch(3);
 
         ClassLoader loader = QuartzIntegrationTest.class.getClassLoader();
         Class<?> sclass = loader.loadClass("org.quartz.Scheduler");
@@ -69,7 +69,7 @@ public class QuartzIntegrationTest {
                         QuartzComponent comp = context.getComponent("quartz2", QuartzComponent.class);
                         Scheduler scheduler = comp.getScheduler();
                         Assert.assertNotNull("Scheduler not null", scheduler);
-                        latch.countDown();
+                        procLatch.countDown();
                     }
                 }).to("mock:result");
             }
@@ -77,7 +77,45 @@ public class QuartzIntegrationTest {
 
         camelctx.start();
         try {
-            Assert.assertTrue("Countdown reached zero", latch.await(500, TimeUnit.MILLISECONDS));
+            Assert.assertTrue("ProcLatch reached zero", procLatch.await(500, TimeUnit.MILLISECONDS));
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testManualComponentConfig() throws Exception {
+
+        final CountDownLatch startLatch = new CountDownLatch(1);
+        final CountDownLatch procLatch = new CountDownLatch(3);
+        
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addComponent("quartz2", new QuartzComponent() {
+            @Override
+            public void onCamelContextStarted(CamelContext context, boolean alreadyStarted) throws Exception {
+                super.onCamelContextStarted(context, alreadyStarted);
+                if (!alreadyStarted) {
+                    startLatch.countDown();
+                }
+            }
+        });
+        
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("quartz2://mytimer?trigger.repeatCount=3&trigger.repeatInterval=100").process(new Processor() {
+                    @Override
+                    public void process(Exchange exchange) throws Exception {
+                        procLatch.countDown();
+                    }
+                }).to("mock:result");
+            }
+        });
+
+        camelctx.start();
+        try {
+            Assert.assertEquals("StartLatch is zero", 0, startLatch.getCount());
+            Assert.assertTrue("ProcLatch reached zero", procLatch.await(500, TimeUnit.MILLISECONDS));
         } finally {
             camelctx.stop();
         }

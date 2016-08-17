@@ -17,13 +17,13 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.cdi.subC;
+package org.wildfly.camel.test.cdi.subA;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
-public class RouteBuilderA extends RouteBuilder {
+public class RouteBuilderE extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
