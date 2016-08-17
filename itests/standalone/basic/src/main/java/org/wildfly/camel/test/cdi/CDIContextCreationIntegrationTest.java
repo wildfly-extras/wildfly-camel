@@ -21,9 +21,14 @@
 package org.wildfly.camel.test.cdi;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Endpoint;
+import org.apache.camel.ServiceStatus;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.spi.CamelContextTracker;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -35,7 +40,8 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.cdi.subC.InjectedContextBean;
+import org.wildfly.camel.test.cdi.subA.RouteBuilderE;
+import org.wildfly.camel.test.cdi.subA.RouteBuilderF;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
@@ -48,6 +54,7 @@ public class CDIContextCreationIntegrationTest {
 
     private static final String CDI_CONTEXT_A = "cdi-context-a.jar";
     private static final String CDI_CONTEXT_B = "cdi-context-b.jar";
+    private static final String CDI_CONTEXT_C = "cdi-context-c.jar";
 
     @ArquillianResource
     private Deployer deployer;
@@ -83,19 +90,44 @@ public class CDIContextCreationIntegrationTest {
         }
     }
 
+    @Test
+    public void testManualComponentConfig() throws InterruptedException {
+        deployer.deploy(CDI_CONTEXT_C);
+        try {
+            Assert.assertEquals(1, contextRegistry.getCamelContexts().size());
+            CamelContext camelctx = contextRegistry.getCamelContext("contextF");
+            Assert.assertNotNull("Context not null", camelctx);
+
+            Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
+            
+            MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+            Assert.assertTrue("All messages received", mock.await(500, TimeUnit.MILLISECONDS));
+        } finally {
+            deployer.undeploy(CDI_CONTEXT_C);
+        }
+    }
+
     @Deployment(name = CDI_CONTEXT_A, managed = false, testable = false)
-    public static JavaArchive createCdiTestJar() {
+    public static JavaArchive createTestJarA() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CDI_CONTEXT_A);
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-        archive.addPackage(InjectedContextBean.class.getPackage());
+        archive.addClasses(RouteBuilderE.class);
         return archive;
     }
 
     @Deployment(name = CDI_CONTEXT_B, managed = false , testable = false)
-    public static JavaArchive createOtherCdiTestJar() {
+    public static JavaArchive createTestJarB() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CDI_CONTEXT_B);
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-        archive.addPackage(InjectedContextBean.class.getPackage());
+        archive.addClasses(RouteBuilderE.class);
+        return archive;
+    }
+
+    @Deployment(name = CDI_CONTEXT_C, managed = false , testable = false)
+    public static JavaArchive createTestJarC() {
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CDI_CONTEXT_C);
+        archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        archive.addClasses(RouteBuilderF.class);
         return archive;
     }
 
