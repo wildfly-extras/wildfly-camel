@@ -36,8 +36,8 @@
 
     <!-- Source Control -->
     <scm>
-        <connection>scm:git:git://github.com/wildfly-extras/wildfly-camel.git</connection>
-        <developerConnection>scm:git:git@github.com:wildfly-extras/wildfly-camel.git</developerConnection>
+        <connection>scm:git:https://github.com/wildfly-extras/wildfly-camel.git</connection>
+        <developerConnection>scm:git:https://github.com/wildfly-extras/wildfly-camel.git</developerConnection>
         <url>http://github.com/wildfly-extras/wildfly-camel</url>
         <tag>4.2.1</tag>
     </scm>
