@@ -31,16 +31,6 @@
             <directory>target/wildfly-camel-${version.wildfly}</directory>
             <outputDirectory>/</outputDirectory>
         </fileSet>
-        <fileSet>
-            <directory>../examples</directory>
-            <outputDirectory>quickstarts/camel</outputDirectory>
-            <excludes>
-                <exclude>**/.classpath</exclude>
-                <exclude>**/.project</exclude>
-                <exclude>**/.settings/**</exclude>
-                <exclude>**/target/**</exclude>
-            </excludes>
-        </fileSet>
     </fileSets>
     
 </assembly>
