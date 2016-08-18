@@ -35,6 +35,10 @@
             <directory>target/managed-jars</directory>
             <outputDirectory>/</outputDirectory>
         </fileSet>
+        <fileSet>
+            <directory>target/wildfly-feature-pack</directory>
+            <outputDirectory>/</outputDirectory>
+        </fileSet>
     </fileSets>
     
 </assembly>
