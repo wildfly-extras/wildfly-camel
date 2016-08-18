@@ -50,7 +50,6 @@ import org.jboss.msc.value.InjectedValue;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
 import org.wildfly.extension.gravia.GraviaConstants;
-import org.wildfly.extension.undertow.AbstractUndertowEventListener;
 import org.wildfly.extension.undertow.Host;
 import org.wildfly.extension.undertow.ListenerService;
 import org.wildfly.extension.undertow.UndertowEventListener;
@@ -236,7 +235,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
         }
     }
     
-    class CamelUndertowEventListener extends AbstractUndertowEventListener {
+    class CamelUndertowEventListener implements UndertowEventListener {
 
         @Override
         public void onDeploymentStart(Deployment dep, Host host) {
