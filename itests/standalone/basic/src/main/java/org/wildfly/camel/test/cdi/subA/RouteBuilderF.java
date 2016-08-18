@@ -35,6 +35,8 @@ import org.wildfly.extension.camel.CamelAware;
 @ContextName("contextF")
 public class RouteBuilderF extends RouteBuilder {
 
+    public static final String MOCK_RESULT_URI = "mock:result?expectedCount=3";
+
     @Override
     public void configure() throws Exception {
         
@@ -57,6 +59,6 @@ public class RouteBuilderF extends RouteBuilder {
                     throw new IllegalStateException("onCamelContextStarted not called");
             }
         })
-        .to("mock:result?expectedCount=3");
+        .to(MOCK_RESULT_URI);
     }
 }

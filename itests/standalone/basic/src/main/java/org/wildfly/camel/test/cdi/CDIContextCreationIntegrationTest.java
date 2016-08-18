@@ -62,7 +62,9 @@ public class CDIContextCreationIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class);
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class);
+        archive.addClasses(RouteBuilderF.class);
+        return archive;
     }
 
     @Test
@@ -98,8 +100,9 @@ public class CDIContextCreationIntegrationTest {
 
             Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
             
-            MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+            MockEndpoint mock = camelctx.getEndpoint(RouteBuilderF.MOCK_RESULT_URI, MockEndpoint.class);
             Assert.assertTrue("All messages received", mock.await(500, TimeUnit.MILLISECONDS));
+            Assert.assertEquals(3, mock.getExpectedCount());
         } finally {
             deployer.undeploy(CDI_CONTEXT_C);
         }
