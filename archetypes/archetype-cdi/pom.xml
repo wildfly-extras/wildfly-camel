@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.wildfly.camel.archetypes</groupId>
         <artifactId>wildfly-camel-archetype</artifactId>
-        <version>4.2.1-SNAPSHOT</version>
+        <version>4.2.1</version>
     </parent>
 
     <name>Wildfly Camel :: Archetypes :: CDI</name>
