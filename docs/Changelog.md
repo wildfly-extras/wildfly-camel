@@ -1,5 +1,17 @@
 ### Changelog
 
+#### WildFly-Camel 4.2.1
+
+**Tasks**
+
+* [#1300][1300] Upgrade to wildly-10.1.0.CR1
+* [#1302][1302] Switch to git access over https (recommended)
+
+For details see [4.2.1 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.2.1"+label%3Atask)
+
+[1300]: https://github.com/wildfly-extras/wildfly-camel/issues/1300
+[1302]: https://github.com/wildfly-extras/wildfly-camel/issues/1302
+
 #### WildFly-Camel 4.2.0
 
 **Features**
@@ -65,11 +77,6 @@ For details see [4.1.1 features](https://github.com/wildfly-extras/wildfly-camel
 * [#1217][1217] Remove wildfly-camel-config from baseline
 
 For details see [4.1.1 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.1.1"+label%3Atask)
-
-**Bugs**
-
-
-For details see [4.1.1 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.1.1"+label%3Abug)
 
 [1225]: https://github.com/wildfly-extras/wildfly-camel/issues/1225
 [1217]: https://github.com/wildfly-extras/wildfly-camel/issues/1217

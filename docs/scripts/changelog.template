@@ -25,7 +25,9 @@ milestoneIssues.each { milestone, issues ->
     println "#### WildFly-Camel ${milestone.title}"
 
     issueCategories.each {
-        milestoneSummary <<= processIssues(milestone, issues, it)
+    	if (issues[it] != null) {
+        	milestoneSummary <<= processIssues(milestone, issues, it)
+    	} 
     }
 
     println ''
