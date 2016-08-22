@@ -99,6 +99,7 @@
 /org/apache/camel/component/servlet/main/camel-servlet-2.17.3.jar
 /org/apache/camel/component/smpp/main/camel-smpp-2.17.3.jar
 /org/apache/camel/component/smpp/main/jsmpp-2.1.1.jar
+/org/apache/camel/component/snakeyaml/main/camel-snakeyaml-2.17.3.jar
 /org/apache/camel/component/soap/main/camel-soap-2.17.3.jar
 /org/apache/camel/component/spring/security/main/camel-spring-security-2.17.3.jar
 /org/apache/camel/component/sql/main/camel-sql-2.17.3.jar
