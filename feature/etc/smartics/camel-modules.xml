@@ -636,6 +636,22 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.mongodb">
+        <include artifact="org.apache.camel:camel-mongodb" />
+        <include artifact="org.mongodb:mongo-java-driver" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="com/mongodb/internal**" />
+            <exclude path="org/bson**" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.mqtt">
         <include artifact="org.apache.camel:camel-mqtt" />
         <apply-to-dependencies skip="true">

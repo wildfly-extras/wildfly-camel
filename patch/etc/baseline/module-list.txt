@@ -77,6 +77,8 @@
 /org/apache/camel/component/metrics/main/metrics-core-3.1.2.jar
 /org/apache/camel/component/metrics/main/metrics-json-3.1.2.jar
 /org/apache/camel/component/mina2/main/camel-mina2-2.17.3.jar
+/org/apache/camel/component/mongodb/main/camel-mongodb-2.17.3.jar
+/org/apache/camel/component/mongodb/main/mongo-java-driver-3.2.2.jar
 /org/apache/camel/component/mqtt/main/camel-mqtt-2.17.3.jar
 /org/apache/camel/component/mvel/main/camel-mvel-2.17.3.jar
 /org/apache/camel/component/nats/main/camel-nats-2.17.3.jar

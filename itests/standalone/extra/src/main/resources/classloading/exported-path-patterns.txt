@@ -1,8 +1,9 @@
 [includes]
 	^ca/uhn/hl7v2(.*)    
 	^com/braintreegateway(.*)
-	^com/google/protobuf
 	^com/codahale(.*)
+	^com/google/protobuf
+	^com/mongodb(.*)
 	^groovy(.*)
 	^io/swagger(.*)
 	^net/sf/saxon(.*)

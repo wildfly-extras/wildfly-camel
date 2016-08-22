@@ -63,6 +63,7 @@
         <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
         <version.betamax>2.0.0</version.betamax>
         <version.codehaus.plexus.utils>3.0.15</version.codehaus.plexus.utils>
+        <version.de.flapdoodle.embed.mongo>1.50.1</version.de.flapdoodle.embed.mongo>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
         <version.fusepatch>2.6.0</version.fusepatch>
         <version.greenmail>1.4.0</version.greenmail>
@@ -286,6 +287,13 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${version.junit}</version>
+            </dependency>
+
+            <!-- Mongo Embedded -->
+            <dependency>
+                <groupId>de.flapdoodle.embed</groupId>
+                <artifactId>de.flapdoodle.embed.mongo</artifactId>
+                <version>${version.de.flapdoodle.embed.mongo}</version>
             </dependency>
 
             <!-- OSGi -->

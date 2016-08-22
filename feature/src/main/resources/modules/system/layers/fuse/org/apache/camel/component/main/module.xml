@@ -66,6 +66,7 @@
         <module name="org.apache.camel.component.mail" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.metrics" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.mina2" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.mongodb" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.mqtt" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.mvel" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.nats" export="true" services="export" optional="true" />
