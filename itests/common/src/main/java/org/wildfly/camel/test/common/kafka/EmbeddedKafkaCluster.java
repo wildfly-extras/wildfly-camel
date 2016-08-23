@@ -27,6 +27,9 @@ import kafka.admin.AdminUtils;
 import kafka.server.KafkaConfig;
 import kafka.server.KafkaServer;
 import kafka.utils.ZkUtils;
+
+import org.wildfly.camel.test.common.utils.TestUtils;
+
 import scala.Option;
 
 public class EmbeddedKafkaCluster {

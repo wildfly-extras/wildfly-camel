@@ -2,7 +2,7 @@
  * #%L
  * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2013 - 2015 RedHat
+ * Copyright (C) 2013 - 2016 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.ftp;
+package org.wildfly.camel.test.jsch;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -48,23 +48,23 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class SftpIntegrationTest {
-
+public class JschIntegrationTest {
     private static final String FILE_BASEDIR = "basedir.txt";
-    private static final Path FTP_ROOT_DIR = Paths.get("target/sftp");
+    private static final Path SSHD_ROOT_DIR = Paths.get("target/sshd");
+    private static final Path KNOWN_HOSTS = SSHD_ROOT_DIR.resolve("known_hosts");
     private EmbeddedSSHServer sshServer;
 
     @Deployment
-    public static WebArchive createDeployment() throws IOException {
+    public static WebArchive createDeployment() {
         File[] libraryDependencies = Maven.configureResolverViaPlugin().
-                resolve("org.apache.sshd:sshd-sftp").
-                withTransitivity().
-                asFile();
+            resolve("org.apache.sshd:sshd-sftp").
+            withTransitivity().
+            asFile();
 
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-ftp-tests.war");
+        final WebArchive archive = ShrinkWrap.create(WebArchive .class, "camel-jsch-tests.war");
         archive.addClasses(EmbeddedSSHServer.class, TestUtils.class);
-        archive.addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR);
         archive.addAsLibraries(libraryDependencies);
+        archive.addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR);
         archive.setManifest(() -> {
             ManifestBuilder builder = new ManifestBuilder();
             builder.addManifestHeader("Dependencies", "com.jcraft.jsch");
@@ -75,8 +75,7 @@ public class SftpIntegrationTest {
 
     @Before
     public void setUp() throws Exception {
-        recursiveDelete(resolvePath(FTP_ROOT_DIR).toFile());
-        sshServer = new EmbeddedSSHServer(FTP_ROOT_DIR);
+        sshServer = new EmbeddedSSHServer(SSHD_ROOT_DIR);
         sshServer.start();
     }
 
@@ -88,32 +87,17 @@ public class SftpIntegrationTest {
     }
 
     @Test
-    public void testSendFile() throws Exception {
-
-        File testFile = resolvePath(FTP_ROOT_DIR).resolve("test.txt").toFile();
+    public void testScpFile() throws Exception {
+        File testFile = resolvePath(SSHD_ROOT_DIR).resolve("test.txt").toFile();
 
         CamelContext camelctx = new DefaultCamelContext();
         try {
-            Endpoint endpoint = camelctx.getEndpoint("sftp://" + sshServer.getConnection() + "/target/sftp?username=admin&password=admin");
+            Endpoint endpoint = camelctx.getEndpoint(getScpEndpointUri());
             Assert.assertFalse(testFile.exists());
             camelctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFileName", "test.txt");
             Assert.assertTrue(testFile.exists());
         } finally {
             camelctx.stop();
-        }
-    }
-
-    private void recursiveDelete(File file) {
-        if (file.exists()) {
-            if (file.isDirectory()) {
-                File[] files = file.listFiles();
-                if (files != null) {
-                    for (File f : files) {
-                        recursiveDelete(f);
-                    }
-                }
-            }
-            file.delete();
         }
     }
 
@@ -124,5 +108,10 @@ public class SftpIntegrationTest {
         } finally {
             reader.close();
         }
+    }
+
+    private String getScpEndpointUri() {
+        return String.format("scp://%s/%s?username=admin&password=admin&knownHostsFile=%s", sshServer.getConnection(),
+            SSHD_ROOT_DIR.toFile().getPath(), KNOWN_HOSTS.toAbsolutePath());
     }
 }

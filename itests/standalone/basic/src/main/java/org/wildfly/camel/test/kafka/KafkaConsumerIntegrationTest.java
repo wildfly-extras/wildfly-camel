@@ -45,6 +45,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.kafka.EmbeddedKafkaCluster;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.camel.test.common.zookeeper.EmbeddedZookeeper;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -63,6 +64,7 @@ public class KafkaConsumerIntegrationTest {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "kafka-consumer-tests.jar");
         archive.addPackage(EmbeddedKafkaCluster.class.getPackage());
         archive.addPackage(EmbeddedZookeeper.class.getPackage());
+        archive.addClass(TestUtils.class);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {

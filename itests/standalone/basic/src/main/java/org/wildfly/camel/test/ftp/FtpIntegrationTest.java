@@ -24,7 +24,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -33,7 +32,6 @@ import java.util.List;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.test.AvailablePortFinder;
 import org.apache.ftpserver.ConnectionConfigFactory;
 import org.apache.ftpserver.FtpServer;
 import org.apache.ftpserver.FtpServerFactory;
@@ -42,22 +40,22 @@ import org.apache.ftpserver.ftplet.Authority;
 import org.apache.ftpserver.ftplet.UserManager;
 import org.apache.ftpserver.listener.ListenerFactory;
 import org.apache.ftpserver.usermanager.ClearTextPasswordEncryptor;
-import org.apache.ftpserver.usermanager.PasswordEncryptor;
 import org.apache.ftpserver.usermanager.PropertiesUserManagerFactory;
 import org.apache.ftpserver.usermanager.impl.BaseUser;
 import org.apache.ftpserver.usermanager.impl.WritePermission;
 import org.apache.ftpserver.usermanager.impl.WriteRequest;
-import org.apache.mina.filter.executor.OrderedThreadPoolExecutor;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -67,17 +65,21 @@ public class FtpIntegrationTest {
     private static final String FILE_BASEDIR = "basedir.txt";
     private static final Path FTP_ROOT_DIR = Paths.get(System.getProperty("jboss.server.data.dir") + "/ftp");
     private static final Path USERS_FILE = Paths.get(System.getProperty("jboss.server.config.dir") + "/users.properties");
-    private static final int PORT = AvailablePortFinder.getNextAvailable(21000);
+    private static final int PORT = TestUtils.getAvailablePort();
 
     private FtpServer ftpServer;
 
     @Deployment
     public static WebArchive createdeployment() throws IOException {
+        File[] libraryDependencies = Maven.configureResolverViaPlugin().
+            resolve("org.apache.ftpserver:ftpserver-core").
+            withTransitivity().
+            asFile();
+
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-ftp-tests.war");
         archive.addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR);
-        addJarHolding(archive, PasswordEncryptor.class);
-        addJarHolding(archive, AvailablePortFinder.class);
-        addJarHolding(archive, OrderedThreadPoolExecutor.class);
+        archive.addClasses(TestUtils.class);
+        archive.addAsLibraries(libraryDependencies);
         return archive;
     }
 
@@ -163,16 +165,6 @@ public class FtpIntegrationTest {
             Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.file.remote.FtpEndpoint");
         } finally {
             camelctx.stop();
-        }
-    }
-
-    private static void addJarHolding(WebArchive archive, Class<?> clazz) {
-        URL location = clazz.getProtectionDomain().getCodeSource().getLocation();
-        if (location != null && location.getProtocol().equals("file")) {
-            File path = new File(location.getPath());
-            if (path.isFile()) {
-                archive.addAsLibrary(path);
-            }
         }
     }
 

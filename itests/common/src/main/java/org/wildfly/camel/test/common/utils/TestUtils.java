@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wildfly.camel.test.common.kafka;
+package org.wildfly.camel.test.common.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.Random;
 
-final class TestUtils {
+public final class TestUtils {
     private static final Random RANDOM = new Random();
 
     private TestUtils() {

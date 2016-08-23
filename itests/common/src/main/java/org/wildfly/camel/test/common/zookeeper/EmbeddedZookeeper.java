@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -38,6 +37,7 @@ import org.apache.zookeeper.server.ZooKeeperServer;
 import org.apache.zookeeper.server.persistence.FileTxnSnapLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wildfly.camel.test.common.utils.TestUtils;
 
 public class EmbeddedZookeeper {
 
@@ -49,7 +49,7 @@ public class EmbeddedZookeeper {
     private final int port;
 
     public EmbeddedZookeeper() throws Exception {
-        this(PortUtils.getAvailablePort(), Files.createTempDirectory(Paths.get("target").toAbsolutePath(), "zktemp"));
+        this(TestUtils.getAvailablePort(), Files.createTempDirectory(Paths.get("target").toAbsolutePath(), "zktemp"));
     }
 
     public EmbeddedZookeeper(int port, Path baseDir) throws Exception {
@@ -187,22 +187,5 @@ public class EmbeddedZookeeper {
                 return FileVisitResult.CONTINUE;
             }
         });
-    }
-
-    final static class PortUtils {
-
-        static int getAvailablePort() {
-            try {
-                ServerSocket socket = new ServerSocket(0);
-                try {
-                    return socket.getLocalPort();
-                } finally {
-                    socket.close();
-                }
-            } catch (IOException e) {
-                throw new IllegalStateException("Cannot find available port: " + e.getMessage(), e);
-            }
-        }
-
     }
 }
