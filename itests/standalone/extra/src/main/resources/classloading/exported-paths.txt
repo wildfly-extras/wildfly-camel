@@ -505,6 +505,7 @@ org/apache/camel/component/infinispan/embedded
 org/apache/camel/component/infinispan/processor
 org/apache/camel/component/infinispan/processor/idempotent
 org/apache/camel/component/infinispan/remote
+org/apache/camel/component/irc
 org/apache/camel/component/jackson
 org/apache/camel/component/jackson/converter
 org/apache/camel/component/jasypt
