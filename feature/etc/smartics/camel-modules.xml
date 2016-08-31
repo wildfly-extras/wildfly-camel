@@ -1104,7 +1104,18 @@
             <exclude path="org/reflections**" />
         </exports>
     </module>
-    
+
+    <module name="org.apache.camel.component.syslog">
+        <include artifact="org.apache.camel:camel-syslog" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.tagsoup">
         <include artifact="org.apache.camel:camel-tagsoup" />
         <include artifact=":tagsoup" />

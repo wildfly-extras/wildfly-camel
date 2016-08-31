@@ -119,6 +119,7 @@
 /org/apache/camel/component/swagger/main/swagger-jaxrs-1.5.10.jar
 /org/apache/camel/component/swagger/main/swagger-models-1.5.10.jar
 /org/apache/camel/component/swagger/main/swagger-parser-1.0.22.jar
+/org/apache/camel/component/syslog/main/camel-syslog-2.18.0.jar
 /org/apache/camel/component/tagsoup/main/camel-tagsoup-2.18.0.jar
 /org/apache/camel/component/tagsoup/main/tagsoup-1.2.1.jar
 /org/apache/camel/component/twitter/main/camel-twitter-2.18.0.jar
