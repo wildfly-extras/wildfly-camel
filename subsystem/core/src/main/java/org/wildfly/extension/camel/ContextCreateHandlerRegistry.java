@@ -22,7 +22,7 @@ package org.wildfly.extension.camel;
 import java.util.List;
 
 /**
- * A registry for CAmelContext create handlers
+ * A registry for CamelContext create handlers
  *
  * @author Thomas.Diesler@jboss.com
  * @since 13-Mar-2015
@@ -36,5 +36,7 @@ public interface ContextCreateHandlerRegistry {
     void removeContextCreateHandler(ClassLoader classsLoader, ContextCreateHandler handler);
 
     void removeContextCreateHandlers(ClassLoader classsLoader);
+
+    boolean containsKey(ClassLoader classLoader);
 
 }
