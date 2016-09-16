@@ -1,6 +1,6 @@
 ## WildFly Camel
 
-[![Jenkins](https://img.shields.io/jenkins/s/https/ci.fabric8.io/wildfly-camel.svg?maxAge=600)]()
+[![Jenkins](https://img.shields.io/jenkins/s/https/ci.fabric8.io/wildfly-camel.svg?maxAge=600)](https://fabric8-ci.fusesource.com/view/wildfly-camel/job/wildfly-camel/)
 [![License](https://img.shields.io/:license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Maven Central](https://img.shields.io/maven-central/v/org.wildfly.camel/wildfly-camel.svg?maxAge=600)](http://search.maven.org/#search%7Cga%7C1%7Cg%3Aorg.wildfly.camel%20a%3Awildfly-camel)
 [![Join the chat at freenode:wildfly-camel](https://img.shields.io/badge/irc-freenode%3A%20%23wildfly--camel-blue.svg)](http://webchat.freenode.net/?channels=%23wildfly-camel)
@@ -18,6 +18,12 @@ Your Enterprise Integration Solution can be architected as a combination of Java
 * [Camel Components](http://wildflyext.gitbooks.io/wildfly-camel/content/components/index.html)
 
 If you like to contribute to the docs, please file a [pull request](https://github.com/wildfly-extras/wildfly-camel-book/branches) against the next version branch.
+
+### Running Examples
+
+The [wildfly-camel-examples](https://github.com/wildfly-extras/wildfly-camel-examples) are also available on Eclipse Che.
+
+[![Open workspace in Eclipse Che](http://beta.codenvy.com/factory/resources/codenvy-contribute.svg)](https://beta.codenvy.com/dashboard/#/load-factory?id=lk3jd99yt2tpubk6)
 
 ### System Requirements
 
