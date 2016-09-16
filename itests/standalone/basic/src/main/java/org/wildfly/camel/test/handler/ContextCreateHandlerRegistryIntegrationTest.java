@@ -39,7 +39,7 @@ import org.wildfly.extension.camel.ContextCreateHandlerRegistry;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class TestContextCreateHandlerRegistry {
+public class ContextCreateHandlerRegistryIntegrationTest {
 
     private static final String CAMEL_TEST_JAR = "camel-test.jar";
 

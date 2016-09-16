@@ -52,6 +52,10 @@
         <include artifact="ch.qos.logback:logback-core" />
     </module>
 
+    <module name="com.beust.jcommander" skip="true">
+        <include artifact="com.beust:jcommander" />
+    </module>
+
     <module name="com.fasterxml.jackson.scala" skip="true">
         <include artifact=":jackson-module-scala(.*)" />
     </module>

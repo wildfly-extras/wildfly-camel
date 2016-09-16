@@ -32,6 +32,9 @@
 /org/apache/activemq/main/activemq-spring-5.13.2.jar
 /org/apache/camel/component/activemq/main/activemq-camel-5.13.2.jar
 /org/apache/camel/component/atom/main/camel-atom-2.17.3.jar
+/org/apache/camel/component/barcode/main/camel-barcode-2.17.3.jar
+/org/apache/camel/component/barcode/main/core-3.2.1.jar
+/org/apache/camel/component/barcode/main/javase-3.2.1.jar
 /org/apache/camel/component/base64/main/camel-base64-2.17.3.jar
 /org/apache/camel/component/bean/validator/main/camel-bean-validator-2.17.3.jar
 /org/apache/camel/component/bindy/main/camel-bindy-2.17.3.jar
