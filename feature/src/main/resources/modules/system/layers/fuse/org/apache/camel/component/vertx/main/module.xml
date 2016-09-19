@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.vertx">
+  <resources>
+    <artifact name="${org.apache.camel:camel-vertx}" />
+    <artifact name="${io.vertx:vertx-core}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="com.fasterxml.jackson.core.jackson-core" slot="2.7" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" slot="2.7" />
+    <module name="io.netty" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+  <exports>
+    <exclude path="io/vertx" />
+    <exclude path="vertx-java/template" />
+  </exports>
+</module>
