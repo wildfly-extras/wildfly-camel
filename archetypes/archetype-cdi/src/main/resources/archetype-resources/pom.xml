@@ -147,9 +147,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.maven.war.plugin}</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>

@@ -101,7 +101,7 @@
         <version-maven-resources-plugin>2.7</version-maven-resources-plugin>
         <version-maven-source-plugin>2.3</version-maven-source-plugin>
         <version-maven-surefire-plugin>2.18.1</version-maven-surefire-plugin>
-        <version-maven-war-plugin>2.5</version-maven-war-plugin>
+        <version-maven-war-plugin>3.0.0</version-maven-war-plugin>
         <version-properties-maven-plugin>1.0-alpha-2</version-properties-maven-plugin>
         <version-smartics-maven-plugin>2.1.2</version-smartics-maven-plugin>
         <version-wildfly-build-tools>1.1.6.Final</version-wildfly-build-tools>
@@ -468,9 +468,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>${version-maven-war-plugin}</version>
-                    <configuration>
-                        <failOnMissingWebXml>false</failOnMissingWebXml>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.gmaven</groupId>
