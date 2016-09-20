@@ -30,6 +30,24 @@
         <include artifact="asm:asm" />
     </module>
 
+    <module name="com.fasterxml.jackson.core.jackson-annotations" skip="true">
+        <include artifact=":jackson-annotations" />
+    </module>
+    
+    <module name="com.fasterxml.jackson.core.jackson-core" skip="true">
+        <include artifact=":jackson-core" />
+    </module>
+    
+    <module name="com.fasterxml.jackson.core.jackson-databind" skip="true">
+        <include artifact=":jackson-databind" />
+    </module>
+    
+    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" skip="true">
+        <include artifact=":jackson-jaxrs-base" />
+        <include artifact=":jackson-jaxrs-json-provider" />
+        <include artifact=":jackson-module-jaxb-annotations" />
+    </module>
+    
     <module name="com.google.guava" skip="true">
         <include artifact=":guava" />
     </module>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="com.fasterxml.jackson.dataformat.smile" slot="2.7">
+<module xmlns="urn:jboss:module:1.1" name="com.fasterxml.jackson.dataformat.smile">
   <properties>
     <property name="jboss.api" value="private" />
   </properties>
@@ -7,6 +7,6 @@
     <artifact name="${com.fasterxml.jackson.dataformat:jackson-dataformat-smile}" />
   </resources>
   <dependencies>
-    <module name="com.fasterxml.jackson.core.jackson-core" slot="2.7" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
   </dependencies>
 </module>

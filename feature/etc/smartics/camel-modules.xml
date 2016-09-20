@@ -991,7 +991,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="com.fasterxml.jackson.core.jackson-core" slot="2.7"/>
+            <module name="com.fasterxml.jackson.core.jackson-core"/>
         </dependencies>
         <exports>
             <exclude path="io/swagger" />

@@ -9,7 +9,7 @@
     <module name="javax.api" />
     <module name="javax.ws.rs.api" />
     <module name="org.slf4j" />
-    <module name="com.fasterxml.jackson.core.jackson-databind" slot="2.7" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="javax.xml.bind.api" />
     <module name="net.sourceforge.htmlunit" />
     <module name="org.apache.camel.core" />

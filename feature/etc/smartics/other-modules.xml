@@ -27,75 +27,42 @@
         <include artifact=":cglib-nodep" />
     </module>
 
-    <module name="com.fasterxml.jackson.core.jackson-annotations" inherit-slot="false" slot="2.7">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":jackson-annotations" />
-    </module>
-
-    <module name="com.fasterxml.jackson.core.jackson-core" inherit-slot="false" slot="2.7">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":jackson-core" />
-    </module>
-
-    <module name="com.fasterxml.jackson.core.jackson-databind" inherit-slot="false" slot="2.7">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":jackson-databind" />
-        <dependencies>
-            <module name="javax.api"/>
-        </dependencies>
-    </module>
-
-    <module name="com.fasterxml.jackson.dataformat.cbor" inherit-slot="false" slot="2.7">
+    <module name="com.fasterxml.jackson.dataformat.cbor">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-dataformat-cbor" />
     </module>
 
-    <module name="com.fasterxml.jackson.dataformat.smile" inherit-slot="false" slot="2.7">
+    <module name="com.fasterxml.jackson.dataformat.smile">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-dataformat-smile" />
         <dependencies>
-            <module name="com.fasterxml.jackson.core.jackson-core"  slot="2.7"/>
+            <module name="com.fasterxml.jackson.core.jackson-core" />
         </dependencies>
     </module>
 
-    <module name="com.fasterxml.jackson.dataformat.xml" inherit-slot="false" slot="2.7">
+    <module name="com.fasterxml.jackson.dataformat.xml">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-dataformat-xml" />
     </module>
 
-    <module name="com.fasterxml.jackson.dataformat.yaml" inherit-slot="false" slot="2.7">
+    <module name="com.fasterxml.jackson.dataformat.yaml">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-dataformat-yaml" />
     </module>
 
-    <module name="com.fasterxml.jackson.datatype.joda" inherit-slot="false" slot="2.7">
+    <module name="com.fasterxml.jackson.datatype.joda">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-datatype-joda" />
-    </module>
-
-    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" inherit-slot="false" slot="2.7">
-        <include artifact=":jackson-jaxrs-base" />
-        <include artifact=":jackson-jaxrs-json-provider" />
-        <include artifact=":jackson-module-jaxb-annotations" />
-        <dependencies>
-            <module name="com.fasterxml.jackson.core.jackson-annotations"  slot="2.7"/>
-        </dependencies>
     </module>
 
     <module name="com.jcraft.jsch">
