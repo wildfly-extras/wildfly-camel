@@ -68,6 +68,8 @@ public class NatsIntegrationTest {
     @Test
     public void testNatsRoutes() throws Exception {
         String gnatsdPath = System.getenv().get(GNATSD_PATH);
+        
+        // [#1329] Provide CI testing for camel-nats
         Assume.assumeTrue(gnatsdPath != null && new File(gnatsdPath).exists());
 
         pb = new ProcessBuilder(gnatsdPath, "-DV", "-a", "127.0.0.1", "-l", "target/gnatsd.log");

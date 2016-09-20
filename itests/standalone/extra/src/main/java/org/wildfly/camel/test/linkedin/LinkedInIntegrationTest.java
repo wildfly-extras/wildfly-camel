@@ -52,7 +52,7 @@ public class LinkedInIntegrationTest {
     public void testSearchCompanies() throws Exception {
         Map<String, Object> linkedInOptions = createLinkedInOptions();
 
-        // Do nothing if the required options are not present
+        // [#1328] Provide CI testing for camel-linkedin
         Assume.assumeTrue(linkedInOptions.size() == LinkedInOption.values().length);
 
         CamelContext camelctx = new DefaultCamelContext();

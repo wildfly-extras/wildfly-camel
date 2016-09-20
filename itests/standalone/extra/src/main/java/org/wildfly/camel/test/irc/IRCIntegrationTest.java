@@ -52,6 +52,8 @@ public class IRCIntegrationTest {
     public void testIRCComponent() throws Exception {
         String ircHost = System.getenv("IRC_HOST");
         String ircChannel = System.getenv("IRC_CHANNEL");
+        
+        // [#1327] Provide CI testing for camel-irc
         Assume.assumeNotNull(ircHost, ircChannel);
 
         CamelContext camelctx = new DefaultCamelContext();

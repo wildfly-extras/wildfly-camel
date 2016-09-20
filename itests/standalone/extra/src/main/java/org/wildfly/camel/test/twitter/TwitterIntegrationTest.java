@@ -63,6 +63,7 @@ public class TwitterIntegrationTest {
             }
         });
         
+        // [#1330] Provide CI testing for camel-twitter
         // Assume that the twitter credentials are available
         // https://apps.twitter.com/app/12618845/keys
         Assume.assumeTrue(twitter.hasUriTokens());
