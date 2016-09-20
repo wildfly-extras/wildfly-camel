@@ -22,9 +22,7 @@ package org.wildfly.camel.test.camel.file;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.nio.file.Paths;
 
 import org.apache.camel.CamelContext;
@@ -58,7 +56,7 @@ public class FileURLDecodingTest {
         assertTargetFile("RAW(data+.txt)", "data+.txt");
     }
 
-    private void assertTargetFile(final String encoded, final String expected) throws Exception, FileNotFoundException, IOException {
+    private void assertTargetFile(final String encoded, final String expected) throws Exception {
         File expectedFile = Paths.get(TARGET_DIR, expected).toFile();
         expectedFile.delete();
 

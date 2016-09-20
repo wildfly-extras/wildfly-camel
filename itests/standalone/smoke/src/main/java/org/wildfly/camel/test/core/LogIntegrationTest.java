@@ -20,26 +20,69 @@
 
 package org.wildfly.camel.test.core;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
+import org.jboss.dmr.ModelNode;
+import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.LoggerFactory;
+import org.wildfly.camel.test.common.utils.DMRUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
+@ServerSetup({LogIntegrationTest.LogSetupTask.class})
 public class LogIntegrationTest {
+
+    static class LogSetupTask implements ServerSetupTask {
+
+        public static final String LOG_PROFILE_PREFIX = "subsystem=logging/logging-profile=camel-logging-profile";
+
+        @Override
+        public void setup(ManagementClient managementClient, String s) throws Exception {
+            ModelNode batchNode = DMRUtils.batchNode()
+                .addStep(LOG_PROFILE_PREFIX, "add")
+                .addStep(LOG_PROFILE_PREFIX + "/file-handler=camel-log-file", "add(file={path=>camel-log-test.log,relative-to=>jboss.server.log.dir})")
+                .addStep(LOG_PROFILE_PREFIX + "/file-handler=camel-log-file", "change-log-level(level=DEBUG))")
+                .addStep(LOG_PROFILE_PREFIX + "/logger=" + LogIntegrationTest.class.getName(), "add(level=DEBUG,handlers=[handler=camel-log-file])")
+                .build();
+            managementClient.getControllerClient().execute(batchNode);
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String s) throws Exception {
+            ModelNode batchNode = DMRUtils.batchNode().addStep(LOG_PROFILE_PREFIX, "remove").build();
+            managementClient.getControllerClient().execute(batchNode);
+        }
+    }
 
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "log-tests");
+        archive.setManifest(() -> {
+            ManifestBuilder builder = new ManifestBuilder();
+            builder.addManifestHeader("Logging-Profile", "camel-logging-profile");
+            return builder.openStream();
+        });
         return archive;
     }
 
@@ -63,4 +106,59 @@ public class LogIntegrationTest {
         }
     }
 
+    @Test
+    public void testWildFlyLogProfile() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .log(LoggingLevel.DEBUG, LoggerFactory.getLogger(LogIntegrationTest.class.getName()), "Hello ${body}");
+            }
+        });
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            producer.requestBody("direct:start", "Kermit");
+
+            assertLogFileContainsContent("Hello Kermit");
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testWildFlyLogProfileGloabalLogConfig() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.getProperties().put(Exchange.LOG_EIP_NAME, LogIntegrationTest.class.getName());
+
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .log("Goodbye ${body}");
+            }
+        });
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            producer.requestBody("direct:start", "Kermit");
+
+            assertLogFileContainsContent("Goodbye Kermit");
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    private void assertLogFileContainsContent(String assertion) throws IOException {
+        String logDir = System.getProperty("jboss.server.log.dir");
+        Path logFilePath = Paths.get(logDir, "camel-log-test.log");
+
+        List<String> logLines = Files.readAllLines(logFilePath);
+        boolean match = logLines.stream().anyMatch(l -> l.matches(".*" + assertion + ".*"));
+
+        Assert.assertTrue("Log file does not contain '" + assertion + "'." , match);
+    }
 }

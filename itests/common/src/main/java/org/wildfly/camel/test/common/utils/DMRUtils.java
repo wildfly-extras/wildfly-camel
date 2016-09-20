@@ -25,6 +25,8 @@ import java.util.regex.Pattern;
 import org.jboss.dmr.ModelNode;
 
 public class DMRUtils {
+
+    private static Pattern HANDLER_PATTERN = Pattern.compile(".*handler=(.*)");
     
     public static ModelNode createOpNode(String address, String operation) {
         ModelNode op = new ModelNode();
@@ -45,9 +47,31 @@ public class DMRUtils {
             op.get("operation").set(operation.substring(0, operation.indexOf('(')));
             while (matcher.find()) {
                 String args = matcher.group(1);
-                for (String argSegment : args.split(",")) {
-                    String[] argElements = argSegment.split("=");
-                    op.get(argElements[0].trim()).set(argElements[1].trim());
+                if (args.matches(".*\\{.*\\}.*")) {
+                    ModelNode node = new ModelNode();
+                    String[] argElements = args.split("(?!=>)=");
+                    for (String argSegment : argElements[1].replaceAll("[{}]","").split(",")) {
+                        String[] argParams = argSegment.split("=>");
+                        node.get(argParams[0]).set(argParams[1]);
+                    }
+
+                    op.get(argElements[0].trim()).set(node);
+                } else {
+                    for (String argSegment : args.replaceAll("[{}\\[\\]]", "").split(",")) {
+                        if (argSegment.startsWith("handlers")) {
+                            Matcher handlerMatch = HANDLER_PATTERN.matcher(argSegment);
+                            if (handlerMatch.find()); {
+                                op.get("handlers").add(handlerMatch.group(1));
+                            }
+                        } else {
+                            String[] argElements = argSegment.split("(?!=>)=");
+                            if (argElements[0].trim().equals("handlers")) {
+                                op.add(argElements[1].trim());
+                            } else {
+                                op.get(argElements[0].trim()).set(argElements[1].trim());
+                            }
+                        }
+                    }
                 }
             }
         } else {

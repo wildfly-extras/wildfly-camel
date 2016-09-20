@@ -77,7 +77,7 @@ public class RecipientListTest {
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "John,Doe", String.class);
-            Assert.assertTrue("Latch reached zerro", latch.await(100, TimeUnit.MILLISECONDS));
+            Assert.assertTrue("Latch reached zero", latch.await(100, TimeUnit.MILLISECONDS));
             Assert.assertEquals("John,Doe", result);
         } finally {
             camelctx.stop();
@@ -113,7 +113,7 @@ public class RecipientListTest {
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "John,Doe", String.class);
-            Assert.assertTrue("Latch reached zerro", latch.await(100, TimeUnit.MILLISECONDS));
+            Assert.assertTrue("Latch reached zero", latch.await(100, TimeUnit.MILLISECONDS));
             Assert.assertEquals("John,Doe", result);
         } finally {
             camelctx.stop();
