@@ -31,7 +31,7 @@ import org.apache.camel.component.undertow.UndertowConsumer;
 import org.apache.camel.component.undertow.UndertowEndpoint;
 import org.apache.camel.component.undertow.UndertowHost;
 import org.jboss.gravia.runtime.ServiceLocator;
-import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
+import org.wildfly.extension.camel.parser.SubsystemState.RuntimeState;
 
 /**
  * An extension to the {@link UndertowComponent}
@@ -41,9 +41,9 @@ import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
  */
 public class WildFlyUndertowComponent extends UndertowComponent {
 
-    private final SubsystemRuntimeState runtimeState;
+    private final RuntimeState runtimeState;
 
-    public WildFlyUndertowComponent(SubsystemRuntimeState runtimeState) {
+    public WildFlyUndertowComponent(RuntimeState runtimeState) {
         this.runtimeState = runtimeState;
     }
 
@@ -75,7 +75,6 @@ public class WildFlyUndertowComponent extends UndertowComponent {
             super(endpoint, processor);
             URI uri = new URI(endpoint.getEndpointUri());
             String host = uri.getHost();
-            int port = uri.getPort();
             if (!"localhost".equals(host)) {
                 LOGGER.warn("Ignoring configured host: {}", uri);
             }

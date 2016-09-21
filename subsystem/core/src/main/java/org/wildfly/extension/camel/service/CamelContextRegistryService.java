@@ -59,7 +59,6 @@ import org.wildfly.extension.camel.SpringCamelContextFactory;
 import org.wildfly.extension.camel.deployment.CamelDeploymentSettings;
 import org.wildfly.extension.camel.deployment.CamelDeploymentSettingsProcessor;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
-import org.wildfly.extension.camel.parser.CamelSubsystemAdd;
 import org.wildfly.extension.camel.parser.SubsystemState;
 import org.wildfly.extension.camel.service.CamelContextRegistryService.MutableCamelContextRegistry;
 import org.wildfly.extension.gravia.GraviaConstants;
@@ -250,7 +249,7 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
         public void addCamelContext(CamelContext camelctx) {
             synchronized (contexts) {
                 contexts.add(camelctx);
-                CamelSubsystemAdd.processExtensions(new Consumer<CamelSubsytemExtension>() {
+                subsystemState.processExtensions(new Consumer<CamelSubsytemExtension>() {
                     @Override
                     public void accept(CamelSubsytemExtension plugin) {
                         plugin.addCamelContext(serviceTarget, camelctx);
@@ -262,7 +261,7 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
         @Override
         public void removeCamelContext(CamelContext camelctx) {
             synchronized (contexts) {
-                CamelSubsystemAdd.processExtensions(new Consumer<CamelSubsytemExtension>() {
+                subsystemState.processExtensions(new Consumer<CamelSubsytemExtension>() {
                     @Override
                     public void accept(CamelSubsytemExtension plugin) {
                         plugin.removeCamelContext(camelctx);

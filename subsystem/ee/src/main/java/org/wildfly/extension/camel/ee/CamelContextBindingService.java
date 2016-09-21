@@ -55,7 +55,7 @@ final class CamelContextBindingService extends AbstractService<CamelContext> {
 
             @Override
             public synchronized void stop(StopContext context) {
-                LOGGER.debug("Unbind camel naming object: {}", bindInfo.getAbsoluteJndiName());
+                LOGGER.info("Unbind camel naming object: {}", bindInfo.getAbsoluteJndiName());
                 super.stop(context);
             }
         };

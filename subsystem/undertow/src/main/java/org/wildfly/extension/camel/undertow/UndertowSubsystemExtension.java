@@ -22,22 +22,22 @@ package org.wildfly.extension.camel.undertow;
 import org.apache.camel.Component;
 import org.jboss.msc.service.ServiceTarget;
 import org.wildfly.extension.camel.CamelSubsytemExtension;
-import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
+import org.wildfly.extension.camel.parser.SubsystemState;
 
 public class UndertowSubsystemExtension implements CamelSubsytemExtension {
 
     @Override
-    public void addExtensionServices(ServiceTarget serviceTarget, SubsystemRuntimeState runtimeState) {
-        CamelUndertowHostService.addService(serviceTarget, runtimeState);
+    public void addExtensionServices(ServiceTarget serviceTarget, SubsystemState subsystemState) {
+        CamelUndertowHostService.addService(serviceTarget, subsystemState.getRuntimeState());
         UndertowHostService.addService(serviceTarget);
     }
 
     @Override
-    public Component resolveComponent(String name, SubsystemRuntimeState runtimeState) {
+    public Component resolveComponent(String name, SubsystemState subsystemState) {
         if (name.equals("cxf")) {
             return new WildFlyCxfComponent();
         } else if (name.equals("undertow")) {
-            return new WildFlyUndertowComponent(runtimeState);
+            return new WildFlyUndertowComponent(subsystemState.getRuntimeState());
         }
         return null;
     }

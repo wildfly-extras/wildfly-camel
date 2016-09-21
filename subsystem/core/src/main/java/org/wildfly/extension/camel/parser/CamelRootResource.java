@@ -50,13 +50,12 @@ final class CamelRootResource extends SimpleResourceDefinition {
 
     private static final PathElement SUBSYSTEM_PATH = PathElement.pathElement(SUBSYSTEM, CamelExtension.SUBSYSTEM_NAME);
     private static final ResourceDescriptionResolver RESOLVER = CamelResolvers.getResolver(CamelExtension.SUBSYSTEM_NAME);
-    private static final SubsystemRuntimeState runtimeState = new SubsystemRuntimeState();
     private static final SubsystemState subsystemState = new SubsystemState();
 
     final boolean registerRuntimeOnly;
 
     CamelRootResource(boolean registerRuntimeOnly) {
-        super(SUBSYSTEM_PATH, RESOLVER, new CamelSubsystemAdd(subsystemState, runtimeState), ReloadRequiredRemoveStepHandler.INSTANCE);
+        super(SUBSYSTEM_PATH, RESOLVER, new CamelSubsystemAdd(subsystemState), ReloadRequiredRemoveStepHandler.INSTANCE);
         this.registerRuntimeOnly = registerRuntimeOnly;
     }
 
@@ -90,7 +89,7 @@ final class CamelRootResource extends SimpleResourceDefinition {
             String name = operation.require(ModelDescriptionConstants.NAME).asString();
             if (ModelConstants.ENDPOINTS.equals(name)) {
                 List<ModelNode> values = new ArrayList<>();
-                for (URL aux : runtimeState.getEndpointURLs()) {
+                for (URL aux : subsystemState.getRuntimeState().getEndpointURLs()) {
                     values.add(new ModelNode(aux.toString()));
                 }
                 context.getResult().set(values);

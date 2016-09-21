@@ -21,7 +21,6 @@
 package org.wildfly.extension.camel.handler;
 
 import java.util.Iterator;
-import java.util.ServiceLoader;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
@@ -29,8 +28,7 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spi.ComponentResolver;
 import org.wildfly.extension.camel.CamelSubsytemExtension;
 import org.wildfly.extension.camel.ContextCreateHandler;
-import org.wildfly.extension.camel.parser.CamelSubsystemAdd;
-import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
+import org.wildfly.extension.camel.parser.SubsystemState;
 
 /**
  * A {@link ContextCreateHandler} that sets the {@link ComponentResolver}
@@ -40,10 +38,10 @@ import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
  */
 public final class ComponentResolverAssociationHandler implements ContextCreateHandler {
 
-    private final SubsystemRuntimeState runtimeState;
+    private final SubsystemState subsystemState;
 
-    public ComponentResolverAssociationHandler(SubsystemRuntimeState runtimeState) {
-        this.runtimeState = runtimeState;
+    public ComponentResolverAssociationHandler(SubsystemState subsystemState) {
+        this.subsystemState = subsystemState;
     }
 
     @Override
@@ -66,11 +64,10 @@ public final class ComponentResolverAssociationHandler implements ContextCreateH
         @Override
         public Component resolveComponent(String name, CamelContext context) throws Exception {
             Component component = null;
-            ClassLoader classLoader = CamelSubsystemAdd.class.getClassLoader();
-            Iterator<CamelSubsytemExtension> iterator = ServiceLoader.load(CamelSubsytemExtension.class, classLoader).iterator();
+            Iterator<CamelSubsytemExtension> iterator = subsystemState.getCamelSubsytemExtensions().iterator();
             for (; iterator.hasNext() && component == null;) {
                 CamelSubsytemExtension plugin = iterator.next();
-                component = plugin.resolveComponent(name, runtimeState);
+                component = plugin.resolveComponent(name, subsystemState);
             }
             return component != null ? component : delegate.resolveComponent(name, context);
         }

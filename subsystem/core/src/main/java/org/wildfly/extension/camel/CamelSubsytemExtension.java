@@ -25,7 +25,6 @@ import org.apache.camel.Component;
 import org.jboss.as.server.DeploymentProcessorTarget;
 import org.jboss.msc.service.ServiceContainer;
 import org.jboss.msc.service.ServiceTarget;
-import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
 import org.wildfly.extension.camel.parser.SubsystemState;
 
 /**
@@ -36,13 +35,13 @@ import org.wildfly.extension.camel.parser.SubsystemState;
  */
 public interface CamelSubsytemExtension {
 
-    public default void addExtensionServices(ServiceTarget serviceTarget, SubsystemRuntimeState runtimeState) {
+    public default void addExtensionServices(ServiceTarget serviceTarget, SubsystemState subsystemState) {
     }
 
     public default void addDeploymentProcessor(DeploymentProcessorTarget processorTarget, SubsystemState subsystemState) {
     }
 
-    public default ContextCreateHandler getContextCreateHandler(ServiceContainer serviceContainer, ServiceTarget serviceTarget, SubsystemRuntimeState runtimeState) {
+    public default ContextCreateHandler getContextCreateHandler(ServiceContainer serviceContainer, ServiceTarget serviceTarget, SubsystemState subsystemState) {
         return null;
     }
 
@@ -52,7 +51,7 @@ public interface CamelSubsytemExtension {
     public default void removeCamelContext(CamelContext camelctx) {
     }
 
-    public default Component resolveComponent(String name, SubsystemRuntimeState runtimeState) {
+    public default Component resolveComponent(String name, SubsystemState subsystemState) {
         return null;
     }
 }

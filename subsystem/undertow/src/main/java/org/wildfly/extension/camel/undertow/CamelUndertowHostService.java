@@ -28,7 +28,6 @@ import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.camel.component.undertow.HttpHandlerRegistrationInfo;
 import org.apache.camel.component.undertow.UndertowHost;
@@ -48,7 +47,7 @@ import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
 import org.jboss.msc.value.InjectedValue;
 import org.wildfly.extension.camel.CamelConstants;
-import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
+import org.wildfly.extension.camel.parser.SubsystemState.RuntimeState;
 import org.wildfly.extension.gravia.GraviaConstants;
 import org.wildfly.extension.undertow.Host;
 import org.wildfly.extension.undertow.ListenerService;
@@ -77,13 +76,13 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
     private final InjectedValue<Host> injectedDefaultHost = new InjectedValue<>();
     private final InjectedValue<Runtime> injectedRuntime = new InjectedValue<Runtime>();
 
-    private final SubsystemRuntimeState runtimeState;
+    private final RuntimeState runtimeState;
     private ServiceRegistration<UndertowHost> registration;
     private UndertowEventListener eventListener;
     private UndertowHost undertowHost;
 
     @SuppressWarnings("deprecation")
-    public static ServiceController<UndertowHost> addService(ServiceTarget serviceTarget, SubsystemRuntimeState runtimeState) {
+    public static ServiceController<UndertowHost> addService(ServiceTarget serviceTarget, RuntimeState runtimeState) {
         CamelUndertowHostService service = new CamelUndertowHostService(runtimeState);
         ServiceBuilder<UndertowHost> builder = serviceTarget.addService(SERVICE_NAME, service);
         builder.addDependency(GraviaConstants.RUNTIME_SERVICE_NAME, Runtime.class, service.injectedRuntime);
@@ -94,7 +93,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
     }
 
     // Hide ctor
-    private CamelUndertowHostService(SubsystemRuntimeState runtimeState) {
+    private CamelUndertowHostService(RuntimeState runtimeState) {
         this.runtimeState = runtimeState;
     }
 

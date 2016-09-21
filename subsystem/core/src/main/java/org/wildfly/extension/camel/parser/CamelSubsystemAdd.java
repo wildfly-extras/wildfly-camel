@@ -20,7 +20,6 @@
 
 package org.wildfly.extension.camel.parser;
 
-import java.util.ServiceLoader;
 import java.util.function.Consumer;
 
 import org.jboss.as.controller.AbstractBoottimeAddStepHandler;
@@ -65,11 +64,9 @@ public final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
     public static final int INSTALL_CDI_BEAN_ARCHIVE_PROCESSOR = Phase.INSTALL_BUNDLE_ACTIVATE + 0x01;
     public static final int INSTALL_CONTEXT_ACTIVATION = INSTALL_CDI_BEAN_ARCHIVE_PROCESSOR + 0x01;
 
-    private final SubsystemRuntimeState runtimeState;
     private final SubsystemState subsystemState;
 
-    public CamelSubsystemAdd(SubsystemState subsystemState, SubsystemRuntimeState runtimeState) {
-        this.runtimeState = runtimeState;
+    public CamelSubsystemAdd(SubsystemState subsystemState) {
         this.subsystemState = subsystemState;
     }
 
@@ -87,12 +84,12 @@ public final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
         CamelBootstrapService.addService(context.getServiceTarget());
         CamelContextFactoryService.addService(context.getServiceTarget());
         CamelContextRegistryService.addService(context.getServiceTarget(), subsystemState);
-        ContextCreateHandlerRegistryService.addService(context.getServiceTarget(), runtimeState);
+        ContextCreateHandlerRegistryService.addService(context.getServiceTarget(), subsystemState);
 
-        CamelSubsystemAdd.processExtensions(new Consumer<CamelSubsytemExtension>() {
+        subsystemState.processExtensions(new Consumer<CamelSubsytemExtension>() {
             @Override
             public void accept(CamelSubsytemExtension plugin) {
-                plugin.addExtensionServices(context.getServiceTarget(), runtimeState);
+                plugin.addExtensionServices(context.getServiceTarget(), subsystemState);
             }
         });
 
@@ -108,7 +105,7 @@ public final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_CAMEL_CONTEXT_CREATE, new CamelContextCreateProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.POST_MODULE, POST_MODULE_PACKAGE_SCAN_RESOLVER, new PackageScanResolverProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CONTEXT_ACTIVATION, new CamelContextActivationProcessor());
-                CamelSubsystemAdd.processExtensions(new Consumer<CamelSubsytemExtension>() {
+                subsystemState.processExtensions(new Consumer<CamelSubsytemExtension>() {
                     @Override
                     public void accept(CamelSubsytemExtension plugin) {
                         plugin.addDeploymentProcessor(processorTarget, subsystemState);
@@ -121,10 +118,5 @@ public final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
     @Override
     protected boolean requiresRuntimeVerification() {
         return false;
-    }
-
-    public static void processExtensions(Consumer<CamelSubsytemExtension> consumer) {
-        ClassLoader classLoader = CamelSubsystemAdd.class.getClassLoader();
-        ServiceLoader.load(CamelSubsytemExtension.class, classLoader).iterator().forEachRemaining(consumer);
     }
 }

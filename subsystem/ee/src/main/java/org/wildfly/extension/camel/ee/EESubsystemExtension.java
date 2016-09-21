@@ -36,7 +36,6 @@ import org.wildfly.extension.camel.ContextCreateHandler;
 import org.wildfly.extension.camel.deployment.CamelDeploymentSettings;
 import org.wildfly.extension.camel.parser.CamelExtension;
 import org.wildfly.extension.camel.parser.CamelSubsystemAdd;
-import org.wildfly.extension.camel.parser.SubsystemRuntimeState;
 import org.wildfly.extension.camel.parser.SubsystemState;
 
 public class EESubsystemExtension implements CamelSubsytemExtension {
@@ -44,7 +43,7 @@ public class EESubsystemExtension implements CamelSubsytemExtension {
     private final Map<CamelContext, ServiceController<?>> contexts = new HashMap<>();
 
     @Override
-    public void addExtensionServices(ServiceTarget serviceTarget, SubsystemRuntimeState runtimeState) {
+    public void addExtensionServices(ServiceTarget serviceTarget, SubsystemState subsystemState) {
         CamelContextFactoryBindingService.addService(serviceTarget);
         CamelContextRegistryBindingService.addService(serviceTarget);
     }
@@ -56,19 +55,24 @@ public class EESubsystemExtension implements CamelSubsytemExtension {
     }
 
     @Override
-    public ContextCreateHandler getContextCreateHandler(ServiceContainer serviceContainer, ServiceTarget serviceTarget, SubsystemRuntimeState runtimeState) {
+    public ContextCreateHandler getContextCreateHandler(ServiceContainer serviceContainer, ServiceTarget serviceTarget, SubsystemState subsystemState) {
         return new NamingContextAssociationHandler(serviceContainer, serviceTarget);
     }
 
     @Override
     public void addCamelContext(ServiceTarget serviceTarget, CamelContext camelctx) {
         ServiceController<?> controller = CamelContextBindingService.addService(serviceTarget, camelctx);
-        contexts.put(camelctx, controller);
+        synchronized (contexts) {
+            contexts.put(camelctx, controller);
+        }
     }
 
     @Override
     public void removeCamelContext(CamelContext camelctx) {
-        ServiceController<?> controller = contexts.get(camelctx);
+        ServiceController<?> controller;
+        synchronized (contexts) {
+            controller = contexts.get(camelctx);
+        }
         if (controller != null) {
             controller.setMode(Mode.REMOVE);
         }
