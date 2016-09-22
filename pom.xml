@@ -351,6 +351,18 @@
                 <version>${version.wildfly.arquillian}</version>
             </dependency>
 
+            <!-- WildFly Camel -->
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-itests-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-subsystem-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- Xmlbeans -->
             <dependency>
                 <groupId>org.apache.xmlbeans</groupId>
