@@ -27,6 +27,17 @@
         <include artifact=":cglib-nodep" />
     </module>
 
+    <module name="com.codahale.metrics">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.codahale.metrics:metrics-core" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="sun.jdk" />
+        </dependencies>
+    </module>
+    
     <module name="com.fasterxml.jackson.dataformat.cbor">
         <properties>
             <property name="jboss.api" value="private"/>

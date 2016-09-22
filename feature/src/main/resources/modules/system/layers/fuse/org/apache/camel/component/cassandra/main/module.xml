@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.cassandra">
+  <resources>
+    <artifact name="${org.apache.camel:camel-cassandraql}" />
+    <artifact name="${com.datastax.cassandra:cassandra-driver-core}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="com.codahale.metrics" />
+    <module name="com.google.guava" />
+    <module name="io.netty" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>

@@ -1,4 +1,5 @@
 /args4j/main/args4j-2.0.31.jar
+/com/codahale/metrics/main/metrics-core-3.0.2.jar
 /com/fasterxml/jackson/dataformat/cbor/main/jackson-dataformat-cbor-2.7.2.jar
 /com/fasterxml/jackson/dataformat/smile/main/jackson-dataformat-smile-2.7.2.jar
 /com/fasterxml/jackson/dataformat/xml/main/jackson-dataformat-xml-2.7.2.jar
@@ -34,6 +35,8 @@
 /org/apache/camel/component/bindy/main/camel-bindy-2.17.3.jar
 /org/apache/camel/component/braintree/main/braintree-java-2.63.0.jar
 /org/apache/camel/component/braintree/main/camel-braintree-2.17.3.jar
+/org/apache/camel/component/cassandra/main/camel-cassandraql-2.17.3.jar
+/org/apache/camel/component/cassandra/main/cassandra-driver-core-2.1.9.jar
 /org/apache/camel/component/castor/main/camel-castor-2.17.3.jar
 /org/apache/camel/component/castor/main/castor-core-1.3.3.jar
 /org/apache/camel/component/castor/main/castor-xml-1.3.3.jar

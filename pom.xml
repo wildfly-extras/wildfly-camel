@@ -52,6 +52,7 @@
         <version.apache.camel>2.17.3</version.apache.camel>
         
         <!-- Other versions -->
+        <version.apache.cassandra.unit>2.2.2.1</version.apache.cassandra.unit>
         <version.apache.felix.configadmin>1.8.8</version.apache.felix.configadmin>
         <version.apache.felix.log>1.0.1</version.apache.felix.log>
         <version.apache.felix.metatype>1.0.8</version.apache.felix.metatype>
@@ -174,6 +175,19 @@
                 <type>pom</type>
             </dependency>
 
+            <!-- Cassandra -->
+            <dependency>
+                <groupId>org.cassandraunit</groupId>
+                <artifactId>cassandra-unit</artifactId>
+                <version>${version.apache.cassandra.unit}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>org.apache.cassandra</artifactId>
+                        <groupId>cassandra-all</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            
             <!-- Felix -->
             <dependency>
                 <groupId>org.apache.felix</groupId>
@@ -354,6 +368,16 @@
             <!-- WildFly Camel -->
             <dependency>
                 <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-cxf-undertow</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
                 <artifactId>wildfly-camel-itests-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -362,8 +386,28 @@
                 <artifactId>wildfly-camel-subsystem-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-subsystem-cdi</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-subsystem-ee</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-subsystem-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-subsystem-undertow</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
-            <!-- Xmlbeans -->
+            <!-- XMLBeans -->
             <dependency>
                 <groupId>org.apache.xmlbeans</groupId>
                 <artifactId>xmlbeans</artifactId>

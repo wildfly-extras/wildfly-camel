@@ -325,6 +325,14 @@ com/braintreegateway/util
 com/codahale
 com/codahale/metrics
 com/codahale/metrics/json
+com/datastax
+com/datastax/driver
+com/datastax/driver/core
+com/datastax/driver/core/exceptions
+com/datastax/driver/core/policies
+com/datastax/driver/core/querybuilder
+com/datastax/driver/core/schemabuilder
+com/datastax/driver/core/utils
 com/google/protobuf
 com/mongodb
 com/mongodb/annotations
@@ -513,6 +521,7 @@ org/apache/camel/component/atom
 org/apache/camel/component/bean
 org/apache/camel/component/bean/validator
 org/apache/camel/component/braintree
+org/apache/camel/component/cassandra
 org/apache/camel/component/crypto
 org/apache/camel/component/crypto/processor
 org/apache/camel/component/cxf
@@ -673,9 +682,11 @@ org/apache/camel/pollconsumer
 org/apache/camel/pollconsumer/quartz2
 org/apache/camel/processor
 org/apache/camel/processor/aggregate
+org/apache/camel/processor/aggregate/cassandra
 org/apache/camel/processor/aggregate/jdbc
 org/apache/camel/processor/aggregate/zipfile
 org/apache/camel/processor/idempotent
+org/apache/camel/processor/idempotent/cassandra
 org/apache/camel/processor/idempotent/jdbc
 org/apache/camel/processor/idempotent/jpa
 org/apache/camel/processor/interceptor
@@ -688,6 +699,8 @@ org/apache/camel/script
 org/apache/camel/script/osgi
 org/apache/camel/swagger
 org/apache/camel/swagger/servlet
+org/apache/camel/utils
+org/apache/camel/utils/cassandra
 org/apache/cxf
 org/apache/cxf/binding/coloc
 org/apache/cxf/binding/coloc/blueprint
