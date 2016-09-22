@@ -30,6 +30,9 @@
         <fileSet>
             <directory>target/wildfly-camel-${version.wildfly}</directory>
             <outputDirectory>/</outputDirectory>
+            <excludes>
+                <exclude>standalone/configuration/*.bak</exclude>
+            </excludes>
         </fileSet>
     </fileSets>
     

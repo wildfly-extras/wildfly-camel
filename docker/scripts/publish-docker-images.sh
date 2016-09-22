@@ -12,7 +12,7 @@ then
   exit 1
 fi
 
-DOCKER_IMAGES=$(docker images | grep -E '^wildflyext/(wildfly|example)-camel(-rest)?' | sort)
+DOCKER_IMAGES=$(docker images | grep -E '^wildflyext/(wildfly|example|s2i-wildfly)-camel(-rest)?' | sort)
 IMAGE_COUNT=0
 OLDIFS=${IFS}
 IFS=$'\n'

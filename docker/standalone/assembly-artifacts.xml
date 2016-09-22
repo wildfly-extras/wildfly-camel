@@ -30,7 +30,7 @@
     <fileSets>
         <fileSet>
             <outputDirectory>bin</outputDirectory>
-            <directory>etc/context</directory>
+            <directory>standalone</directory>
             <includes>
                 <include>entrypoint.sh</include>
             </includes>
