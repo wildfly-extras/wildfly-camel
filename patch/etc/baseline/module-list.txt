@@ -103,6 +103,7 @@
 /org/apache/camel/component/saxon/main/Saxon-HE-9.7.0-8.jar
 /org/apache/camel/component/saxon/main/camel-saxon-2.18.0.jar
 /org/apache/camel/component/script/main/camel-script-2.18.0.jar
+/org/apache/camel/component/servicenow/main/camel-servicenow-2.18.0.jar
 /org/apache/camel/component/servlet/main/camel-servlet-2.18.0.jar
 /org/apache/camel/component/smpp/main/camel-smpp-2.18.0.jar
 /org/apache/camel/component/smpp/main/jsmpp-2.3.0.jar
