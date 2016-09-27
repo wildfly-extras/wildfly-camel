@@ -312,6 +312,18 @@
         <include artifact=":hibernate-validator" />
     </module>
 
+    <module name="org.infinispan" skip="true" >
+        <include artifact="org.infinispan:infinispan-core" />
+    </module>
+    
+    <module name="org.infinispan.commons" skip="true" >
+        <include artifact="org.infinispan:infinispan-commons" />
+    </module>
+    
+    <module name="org.infinispan.client.hotrod" skip="true" >
+        <include artifact="org.infinispan:infinispan-client-hotrod" />
+    </module>
+    
     <module name="org.javassist" skip="true">
         <include artifact=":org.apache.servicemix.bundles.javassist" />
     </module>

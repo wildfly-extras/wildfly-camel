@@ -34,9 +34,7 @@
 	^org/dozer(.*)
 	^org/elasticsearch(.*)
 	^org/quartz(.*)
-	^org/infinispan
-	^org/infinispan/commons(.*)
-	^org/infinispan/manager(.*)
+	^org/infinispan(.*)
     ^org/nats(.*)
 	^org/springframework(.*)
     ^org/xbill(.*)

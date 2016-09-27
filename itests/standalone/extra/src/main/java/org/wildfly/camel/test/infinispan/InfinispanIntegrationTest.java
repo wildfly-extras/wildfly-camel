@@ -29,12 +29,10 @@ import org.apache.camel.component.infinispan.InfinispanConstants;
 import org.apache.camel.component.infinispan.processor.idempotent.InfinispanIdempotentRepository;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.infinispan.manager.CacheContainer;
-import org.infinispan.manager.DefaultCacheManager;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +44,8 @@ import org.wildfly.extension.camel.WildFlyCamelContext;
 @RunWith(Arquillian.class)
 public class InfinispanIntegrationTest {
 
+    private static final String CONTAINER_NAME = "java:jboss/infinispan/container/server";
+    
     private static final String CACHE_KEY_NAME = "name";
     private static final String CACHE_KEY_AGE = "age";
     private static final String CACHE_VALUE_KERMIT = "Kermit";
@@ -57,23 +57,13 @@ public class InfinispanIntegrationTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-infinispan-test.jar");
-        return archive;
+        return ShrinkWrap.create(JavaArchive.class, "camel-infinispan-test.jar");
     }
 
     @Before
     public void setUp() throws Exception {
-        cacheContainer = new DefaultCacheManager();
-        cacheContainer.start();
-
         camelctx = new WildFlyCamelContext();
-        camelctx.getNamingContext().bind("java:jboss/infinispan/container/test", cacheContainer);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        camelctx.getNamingContext().unbind("java:jboss/infinispan/container/test");
-        cacheContainer.stop();
+        cacheContainer = (CacheContainer) camelctx.getNamingContext().lookup(CONTAINER_NAME);
     }
 
     @Test
@@ -83,7 +73,7 @@ public class InfinispanIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:get")
-                .to("infinispan://localhost?cacheContainer=#java:jboss/infinispan/container/test&command=GET")
+                .to("infinispan://localhost?cacheContainer=#" + CONTAINER_NAME + "&command=GET")
                 .transform(simple("${headers.CamelInfinispanOperationResult}"))
                 .to("mock:end");
             }
@@ -112,7 +102,7 @@ public class InfinispanIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:put")
-                .to("infinispan://localhost?cacheContainer=#java:jboss/infinispan/container/test&command=PUT");
+                .to("infinispan://localhost?cacheContainer=#" + CONTAINER_NAME + "&command=PUT");
             }
         });
 
@@ -139,7 +129,7 @@ public class InfinispanIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:remove")
-                .to("infinispan://localhost?cacheContainer=#java:jboss/infinispan/container/test&command=REMOVE");
+                .to("infinispan://localhost?cacheContainer=#" + CONTAINER_NAME + "&command=REMOVE");
             }
         });
 
@@ -167,7 +157,7 @@ public class InfinispanIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("infinispan://localhost?cacheContainer=#java:jboss/infinispan/container/test&sync=false&eventTypes=CACHE_ENTRY_CREATED")
+                from("infinispan://localhost?cacheContainer=#" + CONTAINER_NAME + "&sync=false&eventTypes=CACHE_ENTRY_CREATED")
                 .to("mock:result");
             }
         });
@@ -208,7 +198,7 @@ public class InfinispanIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("infinispan://localhost?cacheContainer=#java:jboss/infinispan/container/test&sync=false&eventTypes=CACHE_ENTRY_REMOVED")
+                from("infinispan://localhost?cacheContainer=#" + CONTAINER_NAME + "&sync=false&eventTypes=CACHE_ENTRY_REMOVED")
                 .to("mock:result");
             }
         });
@@ -245,7 +235,7 @@ public class InfinispanIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("infinispan://localhost?cacheContainer=#java:jboss/infinispan/container/test&sync=false&eventTypes=CACHE_ENTRY_MODIFIED")
+                from("infinispan://localhost?cacheContainer=#" + CONTAINER_NAME + "&sync=false&eventTypes=CACHE_ENTRY_MODIFIED")
                 .to("mock:result");
             }
         });

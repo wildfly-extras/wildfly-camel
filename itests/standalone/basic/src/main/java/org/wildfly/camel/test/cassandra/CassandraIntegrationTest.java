@@ -97,7 +97,7 @@ public class CassandraIntegrationTest {
         camelctx.start();
         try {
             ConsumerTemplate consumer = camelctx.createConsumerTemplate();
-            List<?> result = consumer.receiveBody("seda:end", 1000, List.class);
+            List<?> result = consumer.receiveBody("seda:end", 3000, List.class);
             Assert.assertNotNull("Result not null", result);
             Assert.assertEquals("Two records selected", 2, result.size());
         } finally {

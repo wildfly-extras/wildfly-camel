@@ -456,29 +456,14 @@
         <include artifact="org.fusesource.mqtt-client:mqtt-client" />
     </module>
 
-    <module name="org.infinispan" inherit-slot="false" slot="8.2">
+    <module name="org.infinispan.query.dsl" >
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="org.infinispan:infinispan-client-hotrod" />
-        <include artifact="org.infinispan:infinispan-commons" />
-        <include artifact="org.infinispan:infinispan-core" />
         <include artifact="org.infinispan:infinispan-query-dsl" />
         <apply-to-dependencies skip="true">
             <include module="org.jboss.logging.processor" />
-            <include module="org.jboss.marshalling.osgi" />
-            <include module="org.osgi.compendium" />
-            <include module="org.osgi.core" />
         </apply-to-dependencies>
-        <exports>
-            <exclude path="OSGI-INF/blueprint" />
-        </exports>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="org.jboss.marshalling"/>
-            <module name="org.jboss.marshalling.river"/>
-            <module name="sun.jdk"/>
-        </dependencies>
     </module>
 
     <module name="org.json4s">

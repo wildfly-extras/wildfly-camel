@@ -5,15 +5,14 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="org.infinispan" slot="8.2" export="true">
+    <module name="org.infinispan" export="true">
       <exports>
-        <include path="org/infinispan" />
-        <include path="org/infinispan/commons" />
-        <include path="org/infinispan/commons/api**" />
-        <include path="org/infinispan/manager**" />
-        <exclude path="org/infinispan**" />
+        <exclude path="OSGI-INF/blueprint" />
       </exports>
     </module>
+    <module name="org.infinispan.commons" export="true" />
+    <module name="org.infinispan.client.hotrod" export="true" />
+    <module name="org.infinispan.query.dsl" export="true" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
