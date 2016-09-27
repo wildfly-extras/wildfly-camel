@@ -56,6 +56,10 @@
         <include artifact="com.beust:jcommander" />
     </module>
 
+    <module name="com.fasterxml.jackson.afterburner" skip="true">
+        <include artifact=":jackson-module-afterburner" />
+    </module>
+    
     <module name="com.fasterxml.jackson.scala" skip="true">
         <include artifact=":jackson-module-scala(.*)" />
     </module>
@@ -89,10 +93,6 @@
         <include artifact="io.netty:netty-transport" />
     </module>
 
-    <module name="org.hdrhistogram" skip="true">
-        <include artifact="org.hdrhistogram:HdrHistogram" />
-    </module>
-    
     <module name="com.headius" skip="true">
         <include artifact="com.headius:(.*)" />
     </module>

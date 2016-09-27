@@ -89,6 +89,21 @@
         </dependencies>
     </module>
 
+    <module name="com.netflix.hystrix">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <apply-to-dependencies skip="true">
+            <include module="com.fasterxml.jackson.afterburner" />
+        </apply-to-dependencies>
+        <include artifact="com.netflix.archaius:archaius-core" />
+        <include artifact="com.netflix.hystrix:hystrix-core" />
+        <include artifact="com.netflix.hystrix:hystrix-metrics-event-stream" />
+        <include artifact="com.netflix.hystrix:hystrix-serialization" />
+        <include artifact="io.reactivex:rxjava" />
+        <include artifact="org.hdrhistogram:HdrHistogram" />
+    </module>
+
     <module name="com.rometools.rome">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -209,6 +224,13 @@
             <module name="javax.activation.api"/>
             <module name="org.apache.abdera.i18n"/>
         </dependencies>
+    </module>
+
+    <module name="org.apache.commons.configuration">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-configuration" />
     </module>
 
     <module name="org.apache.commons.csv">

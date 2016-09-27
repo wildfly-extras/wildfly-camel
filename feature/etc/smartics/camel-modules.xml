@@ -495,6 +495,18 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.hystrix">
+        <include artifact="org.apache.camel:camel-hystrix" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.infinispan">
         <include artifact="org.apache.camel:camel-infinispan"/>
         <apply-to-dependencies skip="true">

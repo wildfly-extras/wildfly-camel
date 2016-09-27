@@ -579,6 +579,10 @@ org/apache/camel/component/flatpack
 org/apache/camel/component/hl7
 org/apache/camel/component/http4
 org/apache/camel/component/http4/helper
+org/apache/camel/component/hystrix
+org/apache/camel/component/hystrix/metrics
+org/apache/camel/component/hystrix/metrics/servlet
+org/apache/camel/component/hystrix/processor
 org/apache/camel/component/infinispan
 org/apache/camel/component/infinispan/embedded
 org/apache/camel/component/infinispan/processor
@@ -634,6 +638,9 @@ org/apache/camel/component/salesforce/api/dto/analytics/reports
 org/apache/camel/component/salesforce/api/dto/bulk
 org/apache/camel/component/salesforce/api/utils
 org/apache/camel/component/scp
+org/apache/camel/component/servicenow
+org/apache/camel/component/servicenow/auth
+org/apache/camel/component/servicenow/model
 org/apache/camel/component/servlet
 org/apache/camel/component/servlet/osgi
 org/apache/camel/component/smpp
@@ -647,6 +654,8 @@ org/apache/camel/component/sql/stored/template
 org/apache/camel/component/sql/stored/template/ast
 org/apache/camel/component/sql/stored/template/generated
 org/apache/camel/component/stream
+org/apache/camel/component/syslog
+org/apache/camel/component/syslog/netty
 org/apache/camel/component/twitter
 org/apache/camel/component/twitter/consumer
 org/apache/camel/component/twitter/consumer/directmessage

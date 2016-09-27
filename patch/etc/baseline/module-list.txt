@@ -5,6 +5,12 @@
 /com/fasterxml/jackson/dataformat/yaml/main/jackson-dataformat-yaml-2.8.3.jar
 /com/fasterxml/jackson/datatype/joda/main/jackson-datatype-joda-2.8.3.jar
 /com/jcraft/jsch/main/jsch-0.1.54.jar
+/com/netflix/hystrix/main/HdrHistogram-2.1.6.jar
+/com/netflix/hystrix/main/archaius-core-0.4.1.jar
+/com/netflix/hystrix/main/hystrix-core-1.5.5.jar
+/com/netflix/hystrix/main/hystrix-metrics-event-stream-1.5.5.jar
+/com/netflix/hystrix/main/hystrix-serialization-1.5.5.jar
+/com/netflix/hystrix/main/rxjava-1.1.8.jar
 /com/rometools/rome/main/rome-1.0.jar
 /com/thoughtworks/xstream/main/xmlpull-1.1.3.1.jar
 /com/thoughtworks/xstream/main/xpp3_min-1.1.4c.jar
@@ -60,6 +66,7 @@
 /org/apache/camel/component/hl7/main/hapi-structures-v25-2.2.jar
 /org/apache/camel/component/http/common/main/camel-http-common-2.18.0.jar
 /org/apache/camel/component/http4/main/camel-http4-2.18.0.jar
+/org/apache/camel/component/hystrix/main/camel-hystrix-2.18.0.jar
 /org/apache/camel/component/infinispan/main/camel-infinispan-2.18.0.jar
 /org/apache/camel/component/irc/main/camel-irc-2.18.0.jar
 /org/apache/camel/component/irc/main/irclib-1.10.jar
@@ -149,6 +156,7 @@
 /org/apache/camel/script/rhino/main/livetribe-jsr223-2.0.3.jar
 /org/apache/camel/script/rhino/main/scriptengines-javascript-1.1.1.jar
 /org/apache/camel/spring/main/camel-spring-2.18.0.jar
+/org/apache/commons/configuration/main/commons-configuration-1.8.jar
 /org/apache/commons/csv/main/commons-csv-1.4.jar
 /org/apache/commons/httpclient/main/commons-httpclient-3.1.jar
 /org/apache/commons/lang3/main/commons-lang3-3.4.jar
