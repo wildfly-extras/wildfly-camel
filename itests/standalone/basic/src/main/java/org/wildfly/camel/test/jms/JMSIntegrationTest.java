@@ -102,13 +102,13 @@ public class JMSIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("jms:queue:" + QUEUE_NAME + "?connectionFactory=ConnectionFactory").
-                transform(body().prepend("Hello ")).to("direct:end");
+                transform(body().prepend("Hello ")).to("seda:end");
             }
         });
 
         camelctx.start();
 
-        PollingConsumer consumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
+        PollingConsumer consumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
         consumer.start();
 
         try {
@@ -117,7 +117,7 @@ public class JMSIntegrationTest {
             Connection connection = cfactory.createConnection();
             try {
                 sendMessage(connection, QUEUE_JNDI_NAME, "Kermit");
-                String result = consumer.receive().getIn().getBody(String.class);
+                String result = consumer.receive(3000).getIn().getBody(String.class);
                 Assert.assertEquals("Hello Kermit", result);
             } finally {
                 connection.close();
@@ -166,12 +166,12 @@ public class JMSIntegrationTest {
                         latch.countDown();
                     }
                 }).
-                transform(body().prepend("Hello ")).to("direct:end");
+                transform(body().prepend("Hello ")).to("seda:end");
             }
         });
         camelctx.start();
 
-        PollingConsumer consumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
+        PollingConsumer consumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
         consumer.start();
 
         try {

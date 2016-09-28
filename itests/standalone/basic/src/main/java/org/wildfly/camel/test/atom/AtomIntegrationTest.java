@@ -57,16 +57,16 @@ public class AtomIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("atom://http://localhost:8080/atom-test/atom/feed?splitEntries=true")
-                .to("direct:end");
+                .to("seda:end");
             }
         });
 
+        PollingConsumer pollingConsumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
+        pollingConsumer.start();
+
         camelctx.start();
         try {
-            PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
-            pollingConsumer.start();
-
-            Entry result = pollingConsumer.receive().getIn().getBody(Entry.class);
+            Entry result = pollingConsumer.receive(3000).getIn().getBody(Entry.class);
 
             Assert.assertEquals(FeedConstants.ENTRY_TITLE, result.getTitle());
             Assert.assertEquals(FeedConstants.ENTRY_CONTENT, result.getContent());

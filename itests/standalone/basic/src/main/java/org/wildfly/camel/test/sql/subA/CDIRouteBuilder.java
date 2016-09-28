@@ -29,12 +29,12 @@ import org.wildfly.extension.camel.CamelAware;
 @Startup
 @CamelAware
 @ApplicationScoped
-public class CdiRouteBuilder extends RouteBuilder {
+public class CDIRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
         getContext().setNameStrategy(new ExplicitCamelContextNameStrategy("camel-sql-cdi-context"));
         from("sql:select name from information_schema.users?dataSource=wildFlyExampleDS")
-        .to("direct:end");
+        .to("seda:end");
     }
 }

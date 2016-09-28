@@ -103,24 +103,23 @@ public class ZipFileIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("file://" + datadir + File.separator + "zip-unmarshal?consumer.delay=1000&antInclude=*.zip&noop=true")
+                from("file://" + datadir + File.separator + "zip-unmarshal?initialDelay=500&antInclude=*.zip&noop=true")
                     .unmarshal(zipFileDataFormat)
                     .split(bodyAs(Iterator.class))
                     .streaming()
                     .convertBodyTo(String.class)
-                    .to("direct:end");
+                    .to("seda:end");
             }
         });
 
         createZipFile("Hello Kermit");
 
+        PollingConsumer pollingConsumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
+        pollingConsumer.start();
+
         camelctx.start();
         try {
-            PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
-            pollingConsumer.start();
-
-            String result = pollingConsumer.receive().getIn().getBody(String.class);
-
+            String result = pollingConsumer.receive(3000).getIn().getBody(String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
             camelctx.stop();
@@ -133,23 +132,22 @@ public class ZipFileIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("file://" + datadir + File.separator + "zip-unmarshal?consumer.delay=1000&antInclude=*.zip&noop=true")
+                from("file://" + datadir + File.separator + "zip-unmarshal?initialDelay=500&antInclude=*.zip&noop=true")
                     .split(new ZipSplitter())
                     .streaming()
                     .convertBodyTo(String.class)
-                    .to("direct:end");
+                    .to("seda:end");
             }
         });
 
         createZipFile("Hello Kermit");
 
+        PollingConsumer pollingConsumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
+        pollingConsumer.start();
+
         camelctx.start();
         try {
-            PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
-            pollingConsumer.start();
-
-            String result = pollingConsumer.receive().getIn().getBody(String.class);
-
+            String result = pollingConsumer.receive(3000).getIn().getBody(String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
             camelctx.stop();

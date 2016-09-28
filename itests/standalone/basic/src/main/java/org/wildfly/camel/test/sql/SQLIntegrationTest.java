@@ -42,7 +42,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.sql.subA.CdiRouteBuilder;
+import org.wildfly.camel.test.sql.subA.CDIRouteBuilder;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
@@ -71,7 +71,7 @@ public class SQLIntegrationTest {
     @Deployment(managed = false, name = CAMEL_SQL_CDI_ROUTES_JAR)
     public static JavaArchive createCDIDeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CAMEL_SQL_CDI_ROUTES_JAR);
-        archive.addPackage(CdiRouteBuilder.class.getPackage());
+        archive.addPackage(CDIRouteBuilder.class.getPackage());
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }
@@ -85,16 +85,16 @@ public class SQLIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("sql:select name from information_schema.users?dataSource=java:jboss/datasources/ExampleDS")
-                .to("direct:end");
+                .to("seda:end");
             }
         });
 
+        PollingConsumer pollingConsumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
+        pollingConsumer.start();
+
         camelctx.start();
         try {
-            PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
-            pollingConsumer.start();
-
-            String result = (String) pollingConsumer.receive().getIn().getBody(Map.class).get("NAME");
+            String result = (String) pollingConsumer.receive(3000).getIn().getBody(Map.class).get("NAME");
             Assert.assertEquals("SA", result);
         } finally {
             camelctx.stop();
@@ -109,10 +109,10 @@ public class SQLIntegrationTest {
             CamelContext camelctx = contextRegistry.getCamelContext("camel-sql-cdi-context");
             Assert.assertNotNull("Camel context not null", camelctx);
 
-            PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
+            PollingConsumer pollingConsumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
             pollingConsumer.start();
 
-            String result = (String) pollingConsumer.receive().getIn().getBody(Map.class).get("NAME");
+            String result = (String) pollingConsumer.receive(3000).getIn().getBody(Map.class).get("NAME");
             Assert.assertEquals("SA", result);
         } finally {
             deployer.undeploy(CAMEL_SQL_CDI_ROUTES_JAR);

@@ -156,7 +156,7 @@ public class CXFWSSecureProducerIntegrationTest {
                 ProducerTemplate producer = camelctx.createProducerTemplate();
                 producer.requestBody("direct:start", "Kermit", String.class);
 
-                String result = pollingConsumer.receive(5000L).getIn().getBody(String.class);
+                String result = pollingConsumer.receive(3000).getIn().getBody(String.class);
 
                 Assert.assertTrue(result.contains("401: Unauthorized"));
             } finally {

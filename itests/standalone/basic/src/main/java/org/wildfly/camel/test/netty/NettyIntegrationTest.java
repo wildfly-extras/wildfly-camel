@@ -60,13 +60,13 @@ public class NettyIntegrationTest {
             public void configure() throws Exception {
                 from("netty4:tcp://" + SOCKET_HOST + ":" + SOCKET_PORT + "?textline=true")
                         .transform(simple("Hello ${body}"))
-                        .to("direct:end");
+                        .to("seda:end");
             }
         });
 
         camelctx.start();
         try {
-            PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
+            PollingConsumer pollingConsumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
             pollingConsumer.start();
 
             Socket socket = new Socket(SOCKET_HOST, SOCKET_PORT);
@@ -80,7 +80,7 @@ public class NettyIntegrationTest {
                 socket.close();
             }
 
-            String result = pollingConsumer.receive().getIn().getBody(String.class);
+            String result = pollingConsumer.receive(3000).getIn().getBody(String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
             camelctx.stop();
@@ -95,7 +95,7 @@ public class NettyIntegrationTest {
         Assert.assertNotNull("CamelContext not null", camelctx);
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
 
-        PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
+        PollingConsumer pollingConsumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
         pollingConsumer.start();
 
         Socket socket = new Socket(SOCKET_HOST, 7999);

@@ -78,11 +78,11 @@ public class ActiveMQIntegrationTest {
             public void configure() throws Exception {
                 from("activemq:queue:" + QUEUE_NAME).
                         transform(body().prepend("Hello ")).
-                        to("direct:end");
+                        to("seda:end");
             }
         });
 
-        PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
+        PollingConsumer pollingConsumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
         pollingConsumer.start();
 
         camelctx.start();
@@ -90,7 +90,7 @@ public class ActiveMQIntegrationTest {
             Connection con = connectionFactory.createConnection();
             try {
                 sendMessage(con, "Kermit");
-                String result = pollingConsumer.receive(5000L).getIn().getBody(String.class);
+                String result = pollingConsumer.receive(3000).getIn().getBody(String.class);
                 Assert.assertEquals("Hello Kermit", result);
             } finally {
                 con.close();

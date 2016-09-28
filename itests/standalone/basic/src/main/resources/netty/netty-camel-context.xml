@@ -30,7 +30,7 @@
       <transform>
         <simple>Hello ${body}</simple>
       </transform>
-      <to uri="direct:end"/>
+      <to uri="seda:end"/>
     </route>
   </camelContext>
   

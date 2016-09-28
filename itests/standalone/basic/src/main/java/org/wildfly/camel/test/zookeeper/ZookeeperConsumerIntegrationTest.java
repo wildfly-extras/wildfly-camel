@@ -74,11 +74,12 @@ public class ZookeeperConsumerIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("zookeeper://" + server.getConnection() + "/somenode").to("direct:end");
+                from("zookeeper://" + server.getConnection() + "/somenode")
+                .to("seda:end");
             }
         });
 
-        PollingConsumer pollingConsumer = camelctx.getEndpoint("direct:end").createPollingConsumer();
+        PollingConsumer pollingConsumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
         pollingConsumer.start();
 
         camelctx.start();
@@ -89,7 +90,7 @@ public class ZookeeperConsumerIntegrationTest {
             producer.send("zookeeper://" + server.getConnection() + "/somenode?create=true", exchange);
 
             // Read back from the znode
-            String result = pollingConsumer.receive().getIn().getBody(String.class);
+            String result = pollingConsumer.receive(3000).getIn().getBody(String.class);
             Assert.assertEquals("Kermit", result);
         } finally {
             camelctx.stop();

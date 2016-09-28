@@ -145,7 +145,7 @@ public class TransactedJMSIntegrationTest {
 
         camelctx.start();
 
-        PollingConsumer consumer = camelctx.getEndpoint("direct:dlq").createPollingConsumer();
+        PollingConsumer consumer = camelctx.getEndpoint("seda:dlq").createPollingConsumer();
         consumer.start();
 
         // Send a message to queue camel-jms-queue-one
@@ -169,7 +169,7 @@ public class TransactedJMSIntegrationTest {
 
         camelctx.start();
 
-        PollingConsumer consumer = camelctx.getEndpoint("direct:success").createPollingConsumer();
+        PollingConsumer consumer = camelctx.getEndpoint("seda:success").createPollingConsumer();
         consumer.start();
 
         // Send a message to queue camel-jms-queue-one
@@ -177,7 +177,7 @@ public class TransactedJMSIntegrationTest {
         sendMessage(connection, JmsQueue.QUEUE_ONE.getJndiName(), "Hello Kermit");
 
         // The JMS transaction should have been committed and the message payload sent to the direct:success endpoint
-        String result = consumer.receive().getIn().getBody(String.class);
+        String result = consumer.receive(3000).getIn().getBody(String.class);
         Assert.assertNotNull(result);
         Assert.assertEquals("Hello Kermit", result);
 
@@ -203,10 +203,10 @@ public class TransactedJMSIntegrationTest {
                     .when(body().contains("Bob"))
                         .throwException(new IllegalArgumentException("Invalid name"))
                     .otherwise()
-                        .to("direct:success");
+                        .to("seda:success");
 
                 from(JmsQueue.DEAD_LETTER_QUEUE.getCamelEndpointUri())
-                .to("direct:dlq");
+                .to("seda:dlq");
             }
         };
     }

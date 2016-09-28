@@ -66,6 +66,7 @@
 /org/apache/camel/component/jackson/main/camel-jackson-2.17.3.jar
 /org/apache/camel/component/jasypt/main/camel-jasypt-2.17.3.jar
 /org/apache/camel/component/jaxb/main/camel-jaxb-2.17.3.jar
+/org/apache/camel/component/jdbc/main/camel-jdbc-2.17.3.jar
 /org/apache/camel/component/jgroups/main/camel-jgroups-2.17.3.jar
 /org/apache/camel/component/jms/main/camel-jms-2.17.3.jar
 /org/apache/camel/component/jmx/main/camel-jmx-2.17.3.jar
