@@ -23,6 +23,8 @@
       </exports>
     </module>
     <module name="org.jboss.as.controller" />
+    <module name="org.jboss.as.ee" />
+    <module name="org.jboss.as.naming" />
     <module name="org.jboss.as.network" />
     <module name="org.jboss.as.server" />
     <module name="org.jboss.jandex" />
@@ -36,7 +38,6 @@
     <module name="org.springframework.context" />
     <module name="org.springframework.tx" />
     <module name="org.wildfly.extension.camel.cdi" services="export" optional="true" />
-    <module name="org.wildfly.extension.camel.ee" services="export" optional="true" />
     <module name="org.wildfly.extension.camel.security" export="true" services="export" optional="true" />
     <module name="org.wildfly.extension.camel.undertow" services="export" optional="true" />
     <module name="org.slf4j" />

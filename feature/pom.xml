@@ -59,10 +59,6 @@
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-subsystem-ee</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-subsystem-security</artifactId>
         </dependency>
         <dependency>

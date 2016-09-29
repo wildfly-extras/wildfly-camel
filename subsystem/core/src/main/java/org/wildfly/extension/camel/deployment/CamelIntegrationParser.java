@@ -19,7 +19,7 @@
  */
 
 
-package org.wildfly.extension.camel.ee;
+package org.wildfly.extension.camel.deployment;
 
 import org.jboss.as.ee.structure.JBossDescriptorPropertyReplacement;
 import org.jboss.as.server.deployment.DeploymentUnit;

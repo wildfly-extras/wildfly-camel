@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.extension.camel.ee;
+package org.wildfly.extension.camel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,14 +31,17 @@ import org.jboss.msc.service.ServiceContainer;
 import org.jboss.msc.service.ServiceController;
 import org.jboss.msc.service.ServiceController.Mode;
 import org.jboss.msc.service.ServiceTarget;
-import org.wildfly.extension.camel.CamelSubsytemExtension;
-import org.wildfly.extension.camel.ContextCreateHandler;
 import org.wildfly.extension.camel.deployment.CamelDeploymentSettings;
+import org.wildfly.extension.camel.deployment.CamelIntegrationParser;
+import org.wildfly.extension.camel.handler.NamingContextAssociationHandler;
 import org.wildfly.extension.camel.parser.CamelExtension;
 import org.wildfly.extension.camel.parser.CamelSubsystemAdd;
 import org.wildfly.extension.camel.parser.SubsystemState;
+import org.wildfly.extension.camel.service.CamelContextBindingService;
+import org.wildfly.extension.camel.service.CamelContextFactoryBindingService;
+import org.wildfly.extension.camel.service.CamelContextRegistryBindingService;
 
-public class EESubsystemExtension implements CamelSubsytemExtension {
+public class CamelCoreSubsystemExtension implements CamelSubsytemExtension {
 
     private final Map<CamelContext, ServiceController<?>> contexts = new HashMap<>();
 

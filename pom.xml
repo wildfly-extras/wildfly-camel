@@ -393,11 +393,6 @@
             </dependency>
             <dependency>
                 <groupId>org.wildfly.camel</groupId>
-                <artifactId>wildfly-camel-subsystem-ee</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.camel</groupId>
                 <artifactId>wildfly-camel-subsystem-security</artifactId>
                 <version>${project.version}</version>
             </dependency>

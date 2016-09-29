@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.extension.camel.ee;
+package org.wildfly.extension.camel.handler;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
