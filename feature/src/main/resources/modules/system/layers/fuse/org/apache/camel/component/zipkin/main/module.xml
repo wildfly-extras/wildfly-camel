@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.zipkin">
+  <resources>
+    <artifact name="${com.github.kristofa:brave-core}" />
+    <artifact name="${com.github.kristofa:brave-spancollector-scribe}" />
+    <artifact name="${org.apache.camel:camel-zipkin}" />
+    <artifact name="${org.apache.thrift:libthrift}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="javax.servlet.api" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+  <exports>
+    <exclude path="com/github" />
+    <exclude path="com/github/kristofa" />
+    <exclude path="com/github/kristofa/brave/internal**" />
+    <exclude path="com/twitter**" />
+    <exclude path="org/apache/thrift**" />
+  </exports>
+</module>

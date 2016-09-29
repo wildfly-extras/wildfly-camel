@@ -1237,6 +1237,30 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.zipkin">
+        <include artifact="org.apache.camel:camel-zipkin" />
+        <include artifact="com.github.kristofa:brave-core" />
+        <include artifact="com.github.kristofa:brave-spancollector-scribe" />
+        <include artifact="org.apache.thrift:libthrift" />
+        <apply-to-dependencies skip="true">
+            <include module="com.github.kristofa" />
+            <include module="com.google.auto.value" />
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="com/github" />
+            <exclude path="com/github/kristofa" />
+            <exclude path="com/github/kristofa/brave/internal**" />
+            <exclude path="com/twitter**" />
+            <exclude path="org/apache/thrift**" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.zookeeper">
         <include artifact="org.apache.camel:camel-zookeeper" />
         <apply-to-dependencies skip="true">

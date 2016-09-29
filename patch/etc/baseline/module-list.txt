@@ -132,6 +132,10 @@
 /org/apache/camel/component/xmlsecurity/main/camel-xmlsecurity-2.18.0.jar
 /org/apache/camel/component/xstream/main/camel-xstream-2.18.0.jar
 /org/apache/camel/component/zipfile/main/camel-zipfile-2.18.0.jar
+/org/apache/camel/component/zipkin/main/brave-core-3.7.0.jar
+/org/apache/camel/component/zipkin/main/brave-spancollector-scribe-3.7.0.jar
+/org/apache/camel/component/zipkin/main/camel-zipkin-2.18.0.jar
+/org/apache/camel/component/zipkin/main/libthrift-0.9.0.jar
 /org/apache/camel/component/zookeeper/main/camel-zookeeper-2.18.0.jar
 /org/apache/camel/core/main/camel-core-2.18.0.jar
 /org/apache/camel/core/xml/main/camel-core-xml-2.18.0.jar

@@ -340,6 +340,8 @@ com/datastax/driver/core/policies
 com/datastax/driver/core/querybuilder
 com/datastax/driver/core/schemabuilder
 com/datastax/driver/core/utils
+com/github/kristofa/brave
+com/github/kristofa/brave/scribe
 com/google/protobuf
 com/mongodb
 com/mongodb/annotations
@@ -733,6 +735,7 @@ org/apache/camel/swagger
 org/apache/camel/swagger/servlet
 org/apache/camel/utils
 org/apache/camel/utils/cassandra
+org/apache/camel/zipkin
 org/apache/cxf
 org/apache/cxf/binding/coloc
 org/apache/cxf/binding/coloc/blueprint

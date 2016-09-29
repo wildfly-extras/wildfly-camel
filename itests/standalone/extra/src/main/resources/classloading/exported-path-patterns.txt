@@ -3,6 +3,7 @@
 	^com/braintreegateway(.*)
 	^com/datastax(.*)
 	^com/codahale(.*)
+	^com/github/kristofa/brave(.*)
 	^com/google/protobuf
 	^com/mongodb(.*)
 	^groovy(.*)
