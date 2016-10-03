@@ -223,8 +223,10 @@
     </module>
     
     <module name="org.apache.httpcomponents" skip="true">
-        <include artifact="org.apache.httpcomponents:httpcore" />
+        <include artifact="org.apache.httpcomponents:httpasyncclient" />
         <include artifact="org.apache.httpcomponents:httpclient" />
+        <include artifact="org.apache.httpcomponents:httpcore" />
+        <include artifact="org.apache.httpcomponents:httpcore-nio" />
         <include artifact="org.apache.httpcomponents:httpmime" />
     </module>
 

@@ -28,6 +28,7 @@
 	^org/apache/cxf/ws/discovery(.*)
 	^org/apache/cxf/ws/security(.*)
 	^org/apache/kafka(.*)
+    ^org/apache/olingo(.*)
 	^org/apache/xmlbeans
 	^org/apache/xmlbeans/impl/schema
 	^org/apache/xmlbeans/impl/values

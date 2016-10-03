@@ -79,6 +79,13 @@
         <include artifact=":jackson-datatype-joda" />
     </module>
 
+    <module name="com.google.code.gson">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.google.code.gson:gson" />
+    </module>
+
     <module name="com.jcraft.jsch">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -273,7 +280,7 @@
             <module name="javax.api" />
         </dependencies>
     </module>
-    
+
     <module name="org.apache.kafka">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -339,6 +346,17 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":mina-(.*)" />
+    </module>
+
+    <module name="org.apache.olingo">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":olingo-(.*)" />
+        <dependencies>
+            <module name="javax.ws.rs.api" />
+            <module name="javax.xml.stream.api"/>
+        </dependencies>
     </module>
 
     <module name="org.apache.pdfbox">

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.olingo2">
+  <resources>
+    <artifact name="${org.apache.camel:camel-olingo2}" />
+    <artifact name="${org.apache.camel:camel-olingo2-api}" />
+    <artifact name="${org.apache.camel:camel-olingo2-api}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.olingo" export="true">
+      <exports>
+        <include path="org/apache/olingo/odata2/api**" />
+        <exclude path="org/apacheolingo/odata2/core/rest**" />
+      </exports>
+    </module>
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.lang" />
+  </dependencies>
+  <exports>
+    <exclude path="org/apache/camel/component/olingo2/internal**" />
+  </exports>
+</module>

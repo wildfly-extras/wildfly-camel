@@ -4,6 +4,7 @@
 /com/fasterxml/jackson/dataformat/xml/main/jackson-dataformat-xml-2.8.3.jar
 /com/fasterxml/jackson/dataformat/yaml/main/jackson-dataformat-yaml-2.8.3.jar
 /com/fasterxml/jackson/datatype/joda/main/jackson-datatype-joda-2.8.3.jar
+/com/google/code/gson/main/gson-2.4.jar
 /com/jcraft/jsch/main/jsch-0.1.54.jar
 /com/netflix/hystrix/main/HdrHistogram-2.1.6.jar
 /com/netflix/hystrix/main/archaius-core-0.4.1.jar
@@ -97,6 +98,8 @@
 /org/apache/camel/component/nats/main/jnats-0.5.3.jar
 /org/apache/camel/component/netty4/main/camel-netty4-2.18.0.jar
 /org/apache/camel/component/ognl/main/camel-ognl-2.18.0.jar
+/org/apache/camel/component/olingo2/main/camel-olingo2-2.18.0.jar
+/org/apache/camel/component/olingo2/main/camel-olingo2-api-2.18.0.jar
 /org/apache/camel/component/pdf/main/camel-pdf-2.18.0.jar
 /org/apache/camel/component/protobuf/main/camel-protobuf-2.18.0.jar
 /org/apache/camel/component/protobuf/main/protobuf-java-3.1.0.jar
@@ -195,6 +198,8 @@
 /org/apache/lucene/5.5/lucene-suggest-5.5.0.jar
 /org/apache/lucene/5.5/spatial4j-0.5.jar
 /org/apache/mina/core/main/mina-core-2.0.14.jar
+/org/apache/olingo/main/olingo-odata2-api-2.0.6.jar
+/org/apache/olingo/main/olingo-odata2-core-2.0.6.jar
 /org/apache/pdfbox/main/fontbox-1.8.11.jar
 /org/apache/pdfbox/main/jempbox-1.8.11.jar
 /org/apache/pdfbox/main/pdfbox-1.8.11.jar
