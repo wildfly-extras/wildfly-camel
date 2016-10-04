@@ -48,7 +48,7 @@ import org.wildfly.extension.camel.CamelContextRegistry;
  */
 @CamelAware
 @RunWith(Arquillian.class)
-public class CDIContextCreationIntegrationTest {
+public class CDIContextCreationTest {
 
     private static final String CDI_CONTEXT_A = "cdi-context-a.jar";
     private static final String CDI_CONTEXT_B = "cdi-context-b.jar";

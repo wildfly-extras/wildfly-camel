@@ -30,6 +30,9 @@ import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
 import org.jboss.as.server.deployment.DeploymentUnitProcessor;
+import org.jboss.as.server.deployment.annotation.CompositeIndex;
+import org.jboss.jandex.AnnotationInstance;
+import org.jboss.jandex.DotName;
 import org.jboss.vfs.VirtualFile;
 import org.jboss.vfs.VirtualFileFilter;
 import org.wildfly.extension.camel.CamelConstants;
@@ -48,17 +51,15 @@ public class CamelContextDescriptorsProcessor implements DeploymentUnitProcessor
         final DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
 
         CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
-
         if (depSettings.isDisabledByJbossAll() || !depSettings.isDeploymentValid() || depUnit.getParent() != null) {
             return;
         }
 
         final String runtimeName = depUnit.getName();
-
         try {
             if (runtimeName.endsWith(CamelConstants.CAMEL_CONTEXT_FILE_SUFFIX)) {
                 URL fileURL = depUnit.getAttachment(Attachments.DEPLOYMENT_CONTENTS).asFileURL();
-                depSettings.addCamelContextUrl(fileURL);
+                addConditionally(depUnit, fileURL);
             } else {
                 VirtualFileFilter filter = new VirtualFileFilter() {
                     public boolean accepts(VirtualFile child) {
@@ -66,12 +67,30 @@ public class CamelContextDescriptorsProcessor implements DeploymentUnitProcessor
                     }
                 };
                 VirtualFile rootFile = depUnit.getAttachment(Attachments.DEPLOYMENT_ROOT).getRoot();
-                for (VirtualFile contextFile : rootFile.getChildrenRecursively(filter)) {
-                    depSettings.addCamelContextUrl(contextFile.asFileURL());
+                for (VirtualFile vfile : rootFile.getChildrenRecursively(filter)) {
+                    addConditionally(depUnit, vfile.asFileURL());
                 }
             }
         } catch (IOException ex) {
             throw new IllegalStateException("Cannot create camel context: " + runtimeName, ex);
+        }
+    }
+
+    public void addConditionally(DeploymentUnit depUnit, URL fileURL) {
+        
+        boolean skipResource = false;
+        CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
+        CompositeIndex index = depUnit.getAttachment(Attachments.COMPOSITE_ANNOTATION_INDEX);
+        
+        // [#1251] Add support for Spring based CamelContext injection
+        for (AnnotationInstance aninst : index.getAnnotations(DotName.createSimple("org.apache.camel.cdi.ImportResource"))) {
+            for (String resname : aninst.value().asStringArray()) {
+                skipResource |= fileURL.getPath().endsWith(resname);
+            }
+        }
+        
+        if (skipResource == false) {
+            depSettings.addCamelContextUrl(fileURL);
         }
     }
 
