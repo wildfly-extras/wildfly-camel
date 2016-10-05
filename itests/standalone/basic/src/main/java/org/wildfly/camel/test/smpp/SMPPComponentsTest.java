@@ -33,6 +33,7 @@ public class SMPPComponentsTest {
 
     @Test
     public void testSMPPComponentLoads() throws Exception {
+        // [#1359] Provide CI testing for camel-smpp
         CamelContext camelctx = new DefaultCamelContext();
         Endpoint endpoint = camelctx.getEndpoint("smpp://smppclient@localhost:2775?password=password");
         Assert.assertNotNull(endpoint);

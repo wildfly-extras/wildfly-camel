@@ -928,6 +928,7 @@
             <include module="org.apache.camel.apt" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="javax.api"/>
         </dependencies>
         <exports>
             <exclude path="org/jsmpp**" />

@@ -5,6 +5,7 @@
     <artifact name="${org.jsmpp:jsmpp}" />
   </resources>
   <dependencies>
+    <module name="javax.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.codec" />
