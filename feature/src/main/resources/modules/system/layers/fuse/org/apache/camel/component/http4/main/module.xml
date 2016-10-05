@@ -13,6 +13,6 @@
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.httpcomponents" slot="4.5.2" />
   </dependencies>
 </module>

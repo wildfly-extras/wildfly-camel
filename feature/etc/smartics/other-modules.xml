@@ -281,6 +281,20 @@
         </dependencies>
     </module>
 
+    <!-- [FIXME #1357] Integrate with httpclient 4.5.2 when provided by WildFly -->
+    <module name="org.apache.httpcomponents" slot="4.5.2" inherit-slot="false">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.httpcomponents:httpclient" />
+        <include artifact="org.apache.httpcomponents:httpcore" />
+        <include artifact="org.apache.httpcomponents:httpmime" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.james.mime4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.kafka">
         <properties>
             <property name="jboss.api" value="private"/>

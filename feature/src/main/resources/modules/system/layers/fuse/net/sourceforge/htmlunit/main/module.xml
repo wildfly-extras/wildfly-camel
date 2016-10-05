@@ -13,7 +13,7 @@
     <module name="org.apache.commons.io" />
     <module name="org.apache.commons.lang3" />
     <module name="org.apache.commons.logging" />
-    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.httpcomponents" slot="4.5.2" />
     <module name="org.apache.xalan" />
     <module name="org.apache.xerces" />
     <module name="org.eclipse.jetty.websocket" />
