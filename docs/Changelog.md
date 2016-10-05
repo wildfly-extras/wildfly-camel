@@ -1,5 +1,105 @@
 ### Changelog
 
+#### WildFly-Camel 4.3.0
+
+**Features**
+
+* [#1215][1215] Add support for Spring based CamelContext injection
+* [#1276][1276] Add support for camel-cassandra
+* [#1278][1278] Add support for camel-irc
+* [#1279][1279] Add support for camel-jsch
+* [#1280][1280] Add support for camel-mongodb
+* [#1281][1281] Add support for camel-olingo2
+* [#1282][1282] Add support for camel-servicenow
+* [#1283][1283] Add support for camel-vertx
+* [#1284][1284] Add support for camel-bean-validator
+* [#1285][1285] Add support for camel-pdf
+* [#1291][1291] Add Eclipse Che workspaces
+* [#1306][1306] Add support for camel-snakeyaml
+* [#1315][1315] Add support for camel-base64
+* [#1316][1316] Add support for camel-syslog
+* [#1317][1317] Add support for camel-barcode
+* [#1341][1341] Add support for camel-hystrix
+* [#1342][1342] Add support for camel-zipkin
+* [#1348][1348] Add support for camel-jdbc
+
+For details see [4.3.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.3.0"+label%3Afeature)
+
+**Tasks**
+
+* [#1110][1110] Upgrade to wildfly-10.1.0
+* [#1140][1140] Integrate with infinispan subsystem
+* [#1143][1143] Integrate with fasterxml jackson-2.7 when provided by WildFly
+* [#1150][1150] Upgrade to camel-2.18.0
+* [#1187][1187] Improve camel-mail example to use container managed mail sessions
+* [#1234][1234] Consolidate CXF Undertow extension
+* [#1287][1287] Use tar.gz wildfly-dist artifact instead of zip
+* [#1289][1289] Investigate whether ModelJAXBContextFactoryWrapperHandler can be removed
+* [#1292][1292] Move examples to a separate project
+* [#1296][1296] Remove examples config from patch assembly
+* [#1305][1305] Create Wildfly-Camel S2I image for OpenShift Origin
+* [#1312][1312] Add badges to README
+* [#1324][1324] Add test coverage for Camel log EIP with WildFly Logging-Profile configuration
+* [#1333][1333] Upgrade maven-war-plugin to 3.0.0
+* [#1336][1336] Add WildFly-Camel artifacts to DependencyManagement
+* [#1350][1350] Use cassandra-unit defined by camel
+* [#1351][1351] Use SEDA endpoints with polling consumer
+* [#1353][1353] Migrate WildFly-Camel EE subsystem to core
+
+For details see [4.3.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.3.0"+label%3Atask)
+
+**Bugs**
+
+* [#1213][1213] Deployment ModuleClassLoader cannot access Jackson annotations
+* [#1319][1319] ClassLoader leaks in ContextCreateHandlerRegistry
+* [#1321][1321] Camel contexts not unbound from JNDI
+* [#1346][1346] Cannot locate field HttpClientBuilder.dnsResolver
+* [#1358][1358] javax/net/ssl/SSLSocket missed for camel-smpp
+
+For details see [4.3.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.3.0"+label%3Abug)
+
+[1215]: https://github.com/wildfly-extras/wildfly-camel/issues/1215
+[1276]: https://github.com/wildfly-extras/wildfly-camel/issues/1276
+[1278]: https://github.com/wildfly-extras/wildfly-camel/issues/1278
+[1279]: https://github.com/wildfly-extras/wildfly-camel/issues/1279
+[1280]: https://github.com/wildfly-extras/wildfly-camel/issues/1280
+[1281]: https://github.com/wildfly-extras/wildfly-camel/issues/1281
+[1282]: https://github.com/wildfly-extras/wildfly-camel/issues/1282
+[1283]: https://github.com/wildfly-extras/wildfly-camel/issues/1283
+[1284]: https://github.com/wildfly-extras/wildfly-camel/issues/1284
+[1285]: https://github.com/wildfly-extras/wildfly-camel/issues/1285
+[1291]: https://github.com/wildfly-extras/wildfly-camel/issues/1291
+[1306]: https://github.com/wildfly-extras/wildfly-camel/issues/1306
+[1315]: https://github.com/wildfly-extras/wildfly-camel/issues/1315
+[1316]: https://github.com/wildfly-extras/wildfly-camel/issues/1316
+[1317]: https://github.com/wildfly-extras/wildfly-camel/issues/1317
+[1341]: https://github.com/wildfly-extras/wildfly-camel/issues/1341
+[1342]: https://github.com/wildfly-extras/wildfly-camel/issues/1342
+[1348]: https://github.com/wildfly-extras/wildfly-camel/issues/1348
+[1110]: https://github.com/wildfly-extras/wildfly-camel/issues/1110
+[1140]: https://github.com/wildfly-extras/wildfly-camel/issues/1140
+[1143]: https://github.com/wildfly-extras/wildfly-camel/issues/1143
+[1150]: https://github.com/wildfly-extras/wildfly-camel/issues/1150
+[1187]: https://github.com/wildfly-extras/wildfly-camel/issues/1187
+[1234]: https://github.com/wildfly-extras/wildfly-camel/issues/1234
+[1287]: https://github.com/wildfly-extras/wildfly-camel/issues/1287
+[1289]: https://github.com/wildfly-extras/wildfly-camel/issues/1289
+[1292]: https://github.com/wildfly-extras/wildfly-camel/issues/1292
+[1296]: https://github.com/wildfly-extras/wildfly-camel/issues/1296
+[1305]: https://github.com/wildfly-extras/wildfly-camel/issues/1305
+[1312]: https://github.com/wildfly-extras/wildfly-camel/issues/1312
+[1324]: https://github.com/wildfly-extras/wildfly-camel/issues/1324
+[1333]: https://github.com/wildfly-extras/wildfly-camel/issues/1333
+[1336]: https://github.com/wildfly-extras/wildfly-camel/issues/1336
+[1350]: https://github.com/wildfly-extras/wildfly-camel/issues/1350
+[1351]: https://github.com/wildfly-extras/wildfly-camel/issues/1351
+[1353]: https://github.com/wildfly-extras/wildfly-camel/issues/1353
+[1213]: https://github.com/wildfly-extras/wildfly-camel/issues/1213
+[1319]: https://github.com/wildfly-extras/wildfly-camel/issues/1319
+[1321]: https://github.com/wildfly-extras/wildfly-camel/issues/1321
+[1346]: https://github.com/wildfly-extras/wildfly-camel/issues/1346
+[1358]: https://github.com/wildfly-extras/wildfly-camel/issues/1358
+
 #### WildFly-Camel 4.2.1
 
 **Tasks**

@@ -5,6 +5,8 @@
 [![Maven Central](https://img.shields.io/maven-central/v/org.wildfly.camel/wildfly-camel.svg?maxAge=600)](http://search.maven.org/#search%7Cga%7C1%7Cg%3Aorg.wildfly.camel%20a%3Awildfly-camel)
 [![Join the chat at freenode:wildfly-camel](https://img.shields.io/badge/irc-freenode%3A%20%23wildfly--camel-blue.svg)](http://webchat.freenode.net/?channels=%23wildfly-camel)
 
+[![Open workspace in Eclipse Che](http://beta.codenvy.com/factory/resources/codenvy-contribute.svg)](https://beta.codenvy.com/f?id=chknwakr0ykhqr1q)
+
 Provides [Apache Camel](http://camel.apache.org/) integration with the [WildFly Application Server](http://wildfly.org/).
 
 The WildFly-Camel Subsystem allows you to add Camel Routes as part of the WildFly configuration. Routes can be deployed as part of JavaEE applications. JavaEE components can access the Camel Core API and various Camel Component APIs.
