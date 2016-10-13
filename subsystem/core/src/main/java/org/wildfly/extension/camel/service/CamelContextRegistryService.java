@@ -62,6 +62,7 @@ import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.camel.parser.SubsystemState;
 import org.wildfly.extension.camel.service.CamelContextRegistryService.MutableCamelContextRegistry;
 import org.wildfly.extension.gravia.GraviaConstants;
+import org.wildfly.extension.camel.service.CamelContextRegistryService.MutableCamelContextRegistry;
 
 /**
  * The {@link CamelContextRegistry} service
