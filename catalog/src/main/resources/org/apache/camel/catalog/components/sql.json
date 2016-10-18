@@ -4,14 +4,14 @@
     "scheme": "sql",
     "syntax": "sql:query",
     "title": "SQL",
-    "description": "The sql component can be used to perform SQL query to a database.",
+    "description": "The sql component allows you to work with databases using JDBC SQL queries.",
     "label": "database,sql",
     "deprecated": "false",
     "async": "false",
     "javaType": "org.apache.camel.component.sql.SqlComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-sql",
-    "version": "2.18.0"
+    "version": "2.18.1"
   },
   "componentProperties": {
     "dataSource": { "kind": "property", "type": "object", "javaType": "javax.sql.DataSource", "deprecated": "false", "secret": "false", "description": "Sets the DataSource to use to communicate with the database." },

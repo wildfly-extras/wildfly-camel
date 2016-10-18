@@ -1,0 +1,31 @@
+{
+ "component": {
+    "kind": "component",
+    "scheme": "rest-api",
+    "syntax": "rest-api:path/contextIdPattern",
+    "title": "REST API",
+    "description": "The rest-api component is used for providing Swagger API of the REST services which has been defined using the rest-dsl in Camel.",
+    "label": "core,rest",
+    "deprecated": "false",
+    "async": "false",
+    "consumerOnly": "true",
+    "lenientProperties": "true",
+    "javaType": "org.apache.camel.component.rest.RestApiComponent",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-core",
+    "version": "2.18.1"
+  },
+  "componentProperties": {
+  },
+  "properties": {
+    "path": { "kind": "path", "group": "consumer", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The base path" },
+    "contextIdPattern": { "kind": "path", "group": "consumer", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Optional CamelContext id pattern to only allow Rest APIs from rest services within CamelContext's which name matches the pattern." },
+    "apiComponentName": { "kind": "parameter", "group": "consumer", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The Camel Rest API component to use for generating the API of the REST services such as swagger." },
+    "bridgeErrorHandler": { "kind": "parameter", "group": "consumer", "label": "consumer", "type": "boolean", "javaType": "boolean", "optionalPrefix": "consumer.", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Allows for bridging the consumer to the Camel routing Error Handler which mean any exceptions occurred while the consumer is trying to pickup incoming messages or the likes will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions that will be logged at WARN/ERROR level and ignored." },
+    "componentName": { "kind": "parameter", "group": "consumer", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The Camel Rest component to use for the REST transport such as restlet spark-rest. If no component has been explicit configured then Camel will lookup if there is a Camel component that integrates with the Rest DSL or if a org.apache.camel.spi.RestConsumerFactory is registered in the registry. If either one is found then that is being used." },
+    "exceptionHandler": { "kind": "parameter", "group": "consumer (advanced)", "label": "consumer,advanced", "type": "object", "javaType": "org.apache.camel.spi.ExceptionHandler", "optionalPrefix": "consumer.", "deprecated": "false", "secret": "false", "description": "To let the consumer use a custom ExceptionHandler. Notice if the option bridgeErrorHandler is enabled then this options is not in use. By default the consumer will deal with exceptions that will be logged at WARN/ERROR level and ignored." },
+    "exchangePattern": { "kind": "parameter", "group": "consumer (advanced)", "label": "consumer,advanced", "type": "string", "javaType": "org.apache.camel.ExchangePattern", "enum": [ "InOnly", "RobustInOnly", "InOut", "InOptionalOut", "OutOnly", "RobustOutOnly", "OutIn", "OutOptionalIn" ], "deprecated": "false", "secret": "false", "description": "Sets the default exchange pattern when creating an exchange." },
+    "synchronous": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Sets whether synchronous processing should be strictly used or Camel is allowed to use asynchronous processing (if supported)." }
+  }
+}
+

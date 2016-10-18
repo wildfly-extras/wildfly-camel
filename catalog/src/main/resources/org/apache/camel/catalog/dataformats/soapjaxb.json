@@ -10,7 +10,7 @@
     "modelJavaType": "org.apache.camel.model.dataformat.SoapJaxbDataFormat",
     "groupId": "org.apache.camel",
     "artifactId": "camel-soap",
-    "version": "2.18.0"
+    "version": "2.18.1"
   },
   "properties": {
     "contextPath": { "kind": "attribute", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Package name where your JAXB classes are located." },

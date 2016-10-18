@@ -12,7 +12,7 @@
     "javaType": "org.apache.camel.component.metrics.MetricsComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-metrics",
-    "version": "2.18.0"
+    "version": "2.18.1"
   },
   "componentProperties": {
     "metricRegistry": { "kind": "property", "type": "object", "javaType": "com.codahale.metrics.MetricRegistry", "deprecated": "false", "secret": "false", "description": "To use a custom configured MetricRegistry." }

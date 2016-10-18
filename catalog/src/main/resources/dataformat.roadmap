@@ -32,6 +32,10 @@ tarfile
 yaml-snakeyaml
 
 [undecided]
+gzip
+serialization
+string
+zip
 
 [rejected]
 boon

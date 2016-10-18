@@ -14,7 +14,7 @@
     "javaType": "org.apache.camel.component.http4.HttpComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-http4",
-    "version": "2.18.0"
+    "version": "2.18.1"
   },
   "componentProperties": {
     "httpClientConfigurer": { "kind": "property", "type": "object", "javaType": "org.apache.camel.component.http4.HttpClientConfigurer", "deprecated": "false", "secret": "false", "description": "To use the custom HttpClientConfigurer to perform configuration of the HttpClient that will be used." },

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.5">
+<meta name="generator" content="Asciidoctor 1.5.3">
 <meta name="author" content="Thomas Diesler, James Netherton">
 <title>WildFly Camel User Guide</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -18,6 +18,7 @@ audio:not([controls]){display:none;height:0}
 [hidden],template{display:none}
 script{display:none!important}
 html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+body{margin:0}
 a{background:transparent}
 a:focus{outline:thin dotted}
 a:active,a:hover{outline:0}
@@ -52,7 +53,7 @@ textarea{overflow:auto;vertical-align:top}
 table{border-collapse:collapse;border-spacing:0}
 *,*:before,*:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
 html,body{font-size:100%}
-body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto}
 a:hover{cursor:pointer}
 img,object,embed{max-width:100%;height:auto}
 object,embed{height:100%}
@@ -64,6 +65,7 @@ img{-ms-interpolation-mode:bicubic}
 .text-center{text-align:center!important}
 .text-justify{text-align:justify!important}
 .hide{display:none}
+body{-webkit-font-smoothing:antialiased}
 img,object,svg{display:inline-block;vertical-align:middle}
 textarea{height:auto;min-height:50px}
 select{width:100%}
@@ -118,16 +120,13 @@ table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:
 table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
 table tr.even,table tr.alt,table tr:nth-of-type(even){background:#f8f8f7}
 table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+body{tab-size:4}
 h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
 h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
 .clearfix:before,.clearfix:after,.float-group:before,.float-group:after{content:" ";display:table}
 .clearfix:after,.float-group:after{clear:both}
-*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
-*:not(pre)>code.nobreak{word-wrap:normal}
-*:not(pre)>code.nowrap{white-space:nowrap}
+*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;text-rendering:optimizeSpeed}
-em em{font-style:normal}
-strong strong{font-weight:400}
 .keyseq{color:rgba(51,51,51,.8)}
 kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
@@ -418,16 +417,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
-<body class="article toc2 toc-left">
+<body class="book toc2 toc-left">
 <div id="header">
 <h1>WildFly Camel User Guide</h1>
 <div class="details">
 <span id="author" class="author">Thomas Diesler</span><br>
 <span id="author2" class="author">James Netherton</span><br>
 <span id="revnumber">version 4.4.0-SNAPSHOT,</span>
-<span id="revdate">2016-12-02</span>
+<span id="revdate">2016-12-05</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -4242,7 +4241,7 @@ for <a href="https://github.com/openshift/origin/releases" target="_blank">binar
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$ ssh -i ~/.ssh/id_rsa_ec2.pem ec2-user@52.213.244.79</code></pre>
+<pre class="highlight"><code>$ ssh -i ~/.ssh/id_rsa_ec2.pem ec2-user@1.2.3.4</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4268,11 +4267,11 @@ This message shows that your installation appears to be working correctly.</code
 <div class="content">
 <pre class="highlight nowrap"><code>$ curl -L https://github.com/openshift/origin/releases/download/v1.4.0-rc1/openshift-origin-server-v1.4.0-rc1.b4e0954-linux-64bit.tar.gz > openshift-origin-server-v1.4.0-rc1.tar.gz
 $ tar xzf openshift-origin-server-v1.4.0-rc1.tar.gz
-$ oc cluster up --public-hostname=ec2-52-213-244-79.eu-west-1.compute.amazonaws.com --routing-suffix=52.213.244.79.xip.io --skip-registry-check=true</code></pre>
+$ oc cluster up --public-hostname=ec2-1-2-3-4.eu-west-1.compute.amazonaws.com --routing-suffix=1.2.3.4.xip.io --skip-registry-check=true</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>We can now access the OpenShift console on: <a href="https://52.213.244.79:8443/console" class="bare" target="_blank">https://52.213.244.79:8443/console</a></p>
+<p>We can now access the OpenShift console on: <a href="https://1.2.3.4:8443/console" class="bare" target="_blank">https://1.2.3.4:8443/console</a></p>
 </div>
 <div class="paragraph">
 <p>The process of creating a project and application follows that of <a href="index.html#_openshift_local">OpenShift Local</a>.</p>
@@ -4526,7 +4525,7 @@ producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION,
 <div id="footer">
 <div id="footer-text">
 Version 4.4.0-SNAPSHOT<br>
-Last updated 2016-12-02 13:40:31 CET
+Last updated 2016-12-05 09:25:50 CET
 </div>
 </div>
 </body>

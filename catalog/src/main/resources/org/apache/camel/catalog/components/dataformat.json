@@ -1,0 +1,26 @@
+{
+ "component": {
+    "kind": "component",
+    "scheme": "dataformat",
+    "syntax": "dataformat:name:operation",
+    "title": "Data Format",
+    "description": "The dataformat component is used for working with Data Formats as if it was a regular Component supporting Endpoints and URIs.",
+    "label": "core,transformation",
+    "deprecated": "false",
+    "async": "false",
+    "producerOnly": "true",
+    "lenientProperties": "true",
+    "javaType": "org.apache.camel.component.dataformat.DataFormatComponent",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-core",
+    "version": "2.18.1"
+  },
+  "componentProperties": {
+  },
+  "properties": {
+    "name": { "kind": "path", "group": "producer", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Name of data format" },
+    "operation": { "kind": "path", "group": "producer", "required": "true", "type": "string", "javaType": "java.lang.String", "enum": [ "marshal", "unmarshal" ], "deprecated": "false", "secret": "false", "description": "Operation to use either marshal or unmarshal" },
+    "synchronous": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Sets whether synchronous processing should be strictly used or Camel is allowed to use asynchronous processing (if supported)." }
+  }
+}
+

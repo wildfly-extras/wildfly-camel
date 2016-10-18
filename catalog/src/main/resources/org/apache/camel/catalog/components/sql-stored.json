@@ -4,7 +4,7 @@
     "scheme": "sql-stored",
     "syntax": "sql-stored:template",
     "title": "SQL StoredProcedure",
-    "description": "Camel SQL support",
+    "description": "The sql component allows you to work with databases using JDBC Stored Procedure queries.",
     "label": "database,sql",
     "deprecated": "false",
     "async": "false",
@@ -12,7 +12,7 @@
     "javaType": "org.apache.camel.component.sql.stored.SqlStoredComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-sql",
-    "version": "2.18.0"
+    "version": "2.18.1"
   },
   "componentProperties": {
     "dataSource": { "kind": "property", "type": "object", "javaType": "javax.sql.DataSource", "deprecated": "false", "secret": "false", "description": "Sets the DataSource to use to communicate with the database." }

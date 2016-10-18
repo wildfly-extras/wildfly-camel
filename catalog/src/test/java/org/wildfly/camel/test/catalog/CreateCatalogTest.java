@@ -49,7 +49,6 @@ public final class CreateCatalogTest {
     Set<Path> components = new LinkedHashSet<>();
     Set<Path> dataformats = new LinkedHashSet<>();
     Set<Path> languages = new LinkedHashSet<>();
-    Set<Path> models = new LinkedHashSet<>();
 
     RoadMap componentRM = new RoadMap(outdir.resolve("component.roadmap"));
     RoadMap dataformatRM = new RoadMap(outdir.resolve("dataformat.roadmap"));
@@ -81,7 +80,6 @@ public final class CreateCatalogTest {
         generateProperties(components, "components.properties");
         generateProperties(dataformats, "dataformats.properties");
         generateProperties(languages, "languages.properties");
-        generateProperties(models, "models.properties");
 
         generateRoadmap(componentRM);
         generateRoadmap(dataformatRM);
@@ -113,12 +111,14 @@ public final class CreateCatalogTest {
                 if (path.toString().endsWith(".json")) {
                     if (path.startsWith("org/apache/camel/catalog/components")) {
                         componentRM.available.add(simpleName(path));
+                        availablePaths.add(path);
                     } else if (path.startsWith("org/apache/camel/catalog/dataformats")) {
                         dataformatRM.available.add(simpleName(path));
+                        availablePaths.add(path);
                     } else if (path.startsWith("org/apache/camel/catalog/languages")) {
                         languageRM.available.add(simpleName(path));
+                        availablePaths.add(path);
                     }
-                    availablePaths.add(path);
                 }
                 return FileVisitResult.CONTINUE;
             }
@@ -137,8 +137,6 @@ public final class CreateCatalogTest {
                         supportedPath(dataformats, Paths.get("org/apache/camel/catalog/dataformats"), path);
                     } else if (path.startsWith("org/apache/camel/language")) {
                         supportedPath(languages, Paths.get("org/apache/camel/catalog/languages"), path);
-                    } else if (path.startsWith("org/apache/camel/model")) {
-                        supportedPath(models, Paths.get("org/apache/camel/catalog/models"), path);
                     }
                 }
                 return FileVisitResult.CONTINUE;

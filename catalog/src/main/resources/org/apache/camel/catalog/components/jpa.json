@@ -11,7 +11,7 @@
     "javaType": "org.apache.camel.component.jpa.JpaComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-jpa",
-    "version": "2.18.0"
+    "version": "2.18.1"
   },
   "componentProperties": {
     "entityManagerFactory": { "kind": "property", "type": "object", "javaType": "javax.persistence.EntityManagerFactory", "deprecated": "false", "secret": "false", "description": "To use the EntityManagerFactory. This is strongly recommended to configure." },

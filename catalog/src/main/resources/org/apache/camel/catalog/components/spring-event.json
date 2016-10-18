@@ -11,7 +11,7 @@
     "javaType": "org.apache.camel.component.event.EventComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-spring",
-    "version": "2.18.0"
+    "version": "2.18.1"
   },
   "componentProperties": {
     "applicationContext": { "kind": "property", "type": "object", "javaType": "org.springframework.context.ApplicationContext", "deprecated": "false", "secret": "false", "description": "The Spring ApplicationContext" }

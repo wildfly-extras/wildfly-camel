@@ -1,9 +1,19 @@
 [supported]
+bean
+constant
+exchangeProperty
+file
 groovy
+header
 mvel
 ognl
+ref
+simple
 spel
+tokenize
+xpath
 xquery
+xtokenize
 
 [planned]
 javaScript

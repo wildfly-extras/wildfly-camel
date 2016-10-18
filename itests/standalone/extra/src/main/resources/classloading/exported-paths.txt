@@ -642,7 +642,9 @@ org/apache/camel/component/salesforce/api/utils
 org/apache/camel/component/scp
 org/apache/camel/component/servicenow
 org/apache/camel/component/servicenow/auth
-org/apache/camel/component/servicenow/model
+org/apache/camel/component/servicenow/releases
+org/apache/camel/component/servicenow/releases/fuji
+org/apache/camel/component/servicenow/releases/helsinki
 org/apache/camel/component/servlet
 org/apache/camel/component/servlet/osgi
 org/apache/camel/component/smpp

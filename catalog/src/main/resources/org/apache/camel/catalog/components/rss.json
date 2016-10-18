@@ -14,7 +14,7 @@
     "javaType": "org.apache.camel.component.rss.RssComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-rss",
-    "version": "2.18.0"
+    "version": "2.18.1"
   },
   "componentProperties": {
   },

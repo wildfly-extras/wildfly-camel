@@ -27,6 +27,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.servicenow.ServiceNowConstants;
+import org.apache.camel.component.servicenow.ServiceNowParams;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -92,8 +93,8 @@ public class ServiceNowIntegrationTest {
             Map<String, Object> headers = new HashMap<>();
             headers.put(ServiceNowConstants.RESOURCE, "table");
             headers.put(ServiceNowConstants.ACTION, ServiceNowConstants.ACTION_RETRIEVE);
-            headers.put(ServiceNowConstants.SYSPARM_LIMIT, "10");
-            headers.put(ServiceNowConstants.TABLE, "incident");
+            headers.put(ServiceNowParams.SYSPARM_LIMIT.getId(), "10");
+            headers.put(ServiceNowParams.PARAM_TABLE_NAME.getId(), "incident");
 
             ProducerTemplate producer = camelctx.createProducerTemplate();
             List<Incident> result = producer.requestBodyAndHeaders("direct:start", null, headers, List.class);

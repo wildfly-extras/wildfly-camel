@@ -12,7 +12,7 @@
     "javaType": "org.apache.camel.component.lucene.LuceneComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-lucene",
-    "version": "2.18.0"
+    "version": "2.18.1"
   },
   "componentProperties": {
     "config": { "kind": "property", "type": "object", "javaType": "org.apache.camel.component.lucene.LuceneConfiguration", "deprecated": "false", "secret": "false", "description": "To use a shared lucene configuration" }

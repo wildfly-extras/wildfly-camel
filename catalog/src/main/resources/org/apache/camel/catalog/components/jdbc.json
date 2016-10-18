@@ -12,7 +12,7 @@
     "javaType": "org.apache.camel.component.jdbc.JdbcComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-jdbc",
-    "version": "2.18.0"
+    "version": "2.18.1"
   },
   "componentProperties": {
     "dataSource": { "kind": "property", "type": "object", "javaType": "javax.sql.DataSource", "deprecated": "false", "secret": "false", "description": "To use the DataSource instance instead of looking up the data source by name from the registry." }
