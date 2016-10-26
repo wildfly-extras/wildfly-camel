@@ -20,9 +20,9 @@
       </imports>
     </module>
     <module name="com.fasterxml.jackson.core.jackson-core" />
-    <module name="com.fasterxml.jackson.dataformat.cbor" />
-    <module name="com.fasterxml.jackson.dataformat.smile" />
-    <module name="com.fasterxml.jackson.dataformat.yaml" />
+    <module name="com.fasterxml.jackson.dataformat.cbor" slot="2.8" />
+    <module name="com.fasterxml.jackson.dataformat.smile" slot="2.8" />
+    <module name="com.fasterxml.jackson.dataformat.yaml" slot="2.8" />
     <module name="com.google.guava" />
     <module name="com.netflix.hystrix" />
     <module name="org.apache.lucene" slot="5.5" />

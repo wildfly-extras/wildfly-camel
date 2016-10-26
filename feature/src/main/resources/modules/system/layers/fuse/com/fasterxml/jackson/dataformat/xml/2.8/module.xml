@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="com.fasterxml.jackson.datatype.joda">
+<module xmlns="urn:jboss:module:1.1" name="com.fasterxml.jackson.dataformat.xml" slot="2.8">
   <properties>
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${com.fasterxml.jackson.datatype:jackson-datatype-joda}" />
+    <artifact name="${com.fasterxml.jackson.dataformat:jackson-dataformat-xml}" />
   </resources>
   <dependencies>
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="org.joda.time" />
+    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" />
+    <module name="javax.xml.stream.api" />
+    <module name="org.codehaus.woodstox" />
   </dependencies>
 </module>
