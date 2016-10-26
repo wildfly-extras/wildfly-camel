@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="com.fasterxml.jackson.dataformat.smile">
+<module xmlns="urn:jboss:module:1.1" name="com.fasterxml.jackson.dataformat.cbor" slot="2.8">
   <properties>
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${com.fasterxml.jackson.dataformat:jackson-dataformat-smile}" />
+    <artifact name="${com.fasterxml.jackson.dataformat:jackson-dataformat-cbor}" />
   </resources>
   <dependencies>
     <module name="com.fasterxml.jackson.core.jackson-core" />
