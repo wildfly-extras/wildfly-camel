@@ -14,9 +14,9 @@
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="com.fasterxml.jackson.dataformat.xml" slot="2.8" />
-    <module name="com.fasterxml.jackson.dataformat.yaml" slot="2.8" />
-    <module name="com.fasterxml.jackson.datatype.joda" slot="2.8" />
+    <module name="com.fasterxml.jackson.dataformat.xml" />
+    <module name="com.fasterxml.jackson.dataformat.yaml" />
+    <module name="com.fasterxml.jackson.datatype.joda" />
     <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" />
     <module name="com.google.guava" />
     <module name="javax.servlet.api" />

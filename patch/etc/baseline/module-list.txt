@@ -1,9 +1,9 @@
 /args4j/main/args4j-2.0.31.jar
-/com/fasterxml/jackson/dataformat/cbor/main/jackson-dataformat-cbor-2.8.3.jar
-/com/fasterxml/jackson/dataformat/smile/main/jackson-dataformat-smile-2.8.3.jar
-/com/fasterxml/jackson/dataformat/xml/main/jackson-dataformat-xml-2.8.3.jar
-/com/fasterxml/jackson/dataformat/yaml/main/jackson-dataformat-yaml-2.8.3.jar
-/com/fasterxml/jackson/datatype/joda/main/jackson-datatype-joda-2.8.3.jar
+/com/fasterxml/jackson/dataformat/cbor/main/jackson-dataformat-cbor-2.7.4.jar
+/com/fasterxml/jackson/dataformat/smile/main/jackson-dataformat-smile-2.7.4.jar
+/com/fasterxml/jackson/dataformat/xml/main/jackson-dataformat-xml-2.7.4.jar
+/com/fasterxml/jackson/dataformat/yaml/main/jackson-dataformat-yaml-2.7.4.jar
+/com/fasterxml/jackson/datatype/joda/main/jackson-datatype-joda-2.7.4.jar
 /com/google/code/gson/main/gson-2.4.jar
 /com/jcraft/jsch/main/jsch-0.1.54.jar
 /com/netflix/hystrix/main/HdrHistogram-2.1.6.jar
