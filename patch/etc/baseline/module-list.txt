@@ -104,7 +104,6 @@
 /org/apache/camel/component/protobuf/main/camel-protobuf-2.18.0.jar
 /org/apache/camel/component/protobuf/main/protobuf-java-3.1.0.jar
 /org/apache/camel/component/quartz2/main/camel-quartz2-2.18.0.jar
-/org/apache/camel/component/restlet/main/camel-restlet-2.18.0.jar
 /org/apache/camel/component/rss/main/camel-rss-2.18.0.jar
 /org/apache/camel/component/salesforce/main/bayeux-api-3.0.10.jar
 /org/apache/camel/component/salesforce/main/camel-salesforce-2.18.0.jar
@@ -251,8 +250,6 @@
 /org/quartz/main/c3p0-0.9.5.2.jar
 /org/quartz/main/mchange-commons-java-0.2.11.jar
 /org/quartz/main/quartz-2.2.3.jar
-/org/restlet/main/org.restlet-2.3.6.jar
-/org/restlet/main/org.restlet.ext.httpclient-2.3.6.jar
 /org/scala/library/main/scala-library-2.11.7.jar
 /org/scala/modules/main/scala-parser-combinators_2.11-1.0.4.jar
 /org/springframework/aop/main/spring-aop-4.3.3.RELEASE.jar

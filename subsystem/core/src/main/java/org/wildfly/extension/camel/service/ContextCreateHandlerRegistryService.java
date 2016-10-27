@@ -45,7 +45,6 @@ import org.wildfly.extension.camel.ContextCreateHandler;
 import org.wildfly.extension.camel.ContextCreateHandlerRegistry;
 import org.wildfly.extension.camel.handler.ClassResolverAssociationHandler;
 import org.wildfly.extension.camel.handler.ComponentResolverAssociationHandler;
-import org.wildfly.extension.camel.handler.ContextValidationHandler;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.camel.parser.SubsystemState;
 import org.wildfly.extension.gravia.GraviaConstants;
@@ -107,7 +106,6 @@ public class ContextCreateHandlerRegistryService extends AbstractService<Context
             addContextCreateHandler(null, new ModuleClassLoaderAssociationHandler());
             addContextCreateHandler(null, new ClassResolverAssociationHandler());
             addContextCreateHandler(null, new ComponentResolverAssociationHandler(subsystemState));
-            addContextCreateHandler(null, new ContextValidationHandler());
 
             subsystemState.processExtensions(new Consumer<CamelSubsytemExtension>() {
                 @Override

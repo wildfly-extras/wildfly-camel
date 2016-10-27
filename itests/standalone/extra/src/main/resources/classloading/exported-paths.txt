@@ -631,8 +631,6 @@ org/apache/camel/component/olingo2/api/impl
 org/apache/camel/component/pdf
 org/apache/camel/component/pdf/text
 org/apache/camel/component/quartz2
-org/apache/camel/component/restlet
-org/apache/camel/component/restlet/converter
 org/apache/camel/component/rss
 org/apache/camel/component/salesforce
 org/apache/camel/component/salesforce/api
