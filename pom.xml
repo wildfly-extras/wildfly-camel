@@ -65,8 +65,9 @@
         <version.arquillian.cube>1.0.0.Alpha15</version.arquillian.cube>
         <version.betamax>2.0.0</version.betamax>
         <version.codehaus.plexus.utils>3.0.15</version.codehaus.plexus.utils>
-        <version.de.flapdoodle.embed.mongo>1.50.1</version.de.flapdoodle.embed.mongo>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
+        <version.fasterxml.jackson>2.7.4</version.fasterxml.jackson>
+        <version.flapdoodle.embed.mongo>1.50.1</version.flapdoodle.embed.mongo>
         <version.fusepatch>2.6.0</version.fusepatch>
         <version.greenmail>1.4.0</version.greenmail>
         <version.hawtio>1.4.65</version.hawtio>
@@ -179,6 +180,33 @@
                 <version>${version.apache.camel}</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+                
+            <!-- FasterXML Jackson -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-cbor</artifactId>
+                <version>${version.fasterxml.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-smile</artifactId>
+                <version>${version.fasterxml.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-xml</artifactId>
+                <version>${version.fasterxml.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-yaml</artifactId>
+                <version>${version.fasterxml.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-joda</artifactId>
+                <version>${version.fasterxml.jackson}</version>
             </dependency>
 
             <!-- Felix -->
@@ -313,7 +341,7 @@
             <dependency>
                 <groupId>de.flapdoodle.embed</groupId>
                 <artifactId>de.flapdoodle.embed.mongo</artifactId>
-                <version>${version.de.flapdoodle.embed.mongo}</version>
+                <version>${version.flapdoodle.embed.mongo}</version>
             </dependency>
 
             <!-- OSGi -->
