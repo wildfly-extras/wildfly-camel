@@ -586,21 +586,6 @@
         </exports>
     </module>
 
-    <module name="org.restlet">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":org.restlet" />
-        <include artifact=":org.restlet.ext.httpclient" />
-        <apply-to-dependencies skip="true">
-            <include module="net.jcip" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="sun.jdk.ext"/>
-        </dependencies>
-    </module>
-
     <module name="org.scala.library">
         <properties>
             <property name="jboss.api" value="private"/>

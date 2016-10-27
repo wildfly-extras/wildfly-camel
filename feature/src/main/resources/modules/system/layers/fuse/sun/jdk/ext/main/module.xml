@@ -24,8 +24,6 @@
     <dependencies>
         <system export="true">
             <paths>
-                <!-- needed by restlet -->
-                <path name="com/sun/net/httpserver" />
                 <!-- default DOM impl lookup -->
                 <path name="com/sun/org/apache/xerces/internal/dom" />
                 <!-- needed by castor -->
