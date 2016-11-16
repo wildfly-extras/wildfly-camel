@@ -15,11 +15,19 @@ Your Enterprise Integration Solution can be architected as a combination of Java
 
 ### Documentation
 
-* [User Guide](http://wildflyext.gitbooks.io/wildfly-camel/content/)
-* [JavaEE Integration](http://wildflyext.gitbooks.io/wildfly-camel/content/javaee/index.html)
-* [Camel Components](http://wildflyext.gitbooks.io/wildfly-camel/content/components/index.html)
+The docs are generated using [Asciidoctor](http://asciidoctor.org/docs). 
 
-If you like to contribute to the docs, please file a [pull request](https://github.com/wildfly-extras/wildfly-camel-book/branches) against the next version branch.
+* [User Guide](http://wildfly-extras.github.io/wildfly-camel)
+* [JavaEE Integration](http://wildfly-extras.github.io/wildfly-camel/#_javaee_integration)
+* [Camel Components](http://wildfly-extras.github.io/wildfly-camel/#_camel_components)
+
+To generate an update of the docs use:
+
+```
+$ asciidoctor -a version=4.4.0-SNAPSHOT docs/index.adoc 
+```
+
+If you like to contribute to the docs, please file a [pull request](https://github.com/wildfly-extras/wildfly-camel) against the master branch.
 
 ### Running Examples
 
