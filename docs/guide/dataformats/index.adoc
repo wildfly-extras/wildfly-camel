@@ -1,0 +1,25 @@
+## Data Formats
+
+The following lists supported Data Formats
+
+* http://camel.apache.org/barcode-data-format.html[Barcode,window=_blank]
+* http://camel.apache.org/base64.html[Base64,window=_blank]
+* http://camel.apache.org/bindy.html[Bindy,window=_blank]
+* http://camel.apache.org/castor.html[Castor,window=_blank]
+* http://camel.apache.org/crypto.html[Crypto,window=_blank]
+* http://camel.apache.org/csv.html[CSV,window=_blank]
+* http://camel.apache.org/flatpack.html[Flatpack,window=_blank]
+* http://camel.apache.org/gzip-data-format.html[GZip,window=_blank]
+* http://camel.apache.org/hl7.html[HL7,window=_blank]
+* http://camel.apache.org/json.html[JSON,window=_blank]
+* http://camel.apache.org/jaxb.html[JAXB,window=_blank]
+* http://camel.apache.org/protobuf.html[Protobuf,window=_blank]
+* http://camel.apache.org/soap.html[SOAP,window=_blank]
+* http://camel.apache.org/serialization.html[Serialization,window=_blank]
+* http://camel.apache.org/syslog.html[Syslog,window=_blank]
+* http://camel.apache.org/tidymarkup.html[TidyMarkup,window=_blank]
+* http://camel.apache.org/xmlbeans.html[XmlBeans,window=_blank]
+* http://camel.apache.org/xml-security-component.html[XMLSecurity,window=_blank]
+* http://camel.apache.org/xstream.html[XStream,window=_blank]
+* http://camel.apache.org/yaml-data-format.html[YAML,window=_blank]
+* http://camel.apache.org/zip-file-dataformat.html[Zip,window=_blank]

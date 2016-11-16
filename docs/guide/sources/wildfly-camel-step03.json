@@ -1,0 +1,20 @@
+{
+  "kind": "Service",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "rest-service",
+    "description": "Creates a WildFly Camel cluster running the REST example",
+    "labels": {"name": "camel-srv"}
+  },
+  "spec": {
+    "id": "rest-service",
+    "ports": [
+      {
+        "port": 8080
+      }
+    ],
+    "selector": {
+      "name": "camel-pod"
+    }
+  }
+}

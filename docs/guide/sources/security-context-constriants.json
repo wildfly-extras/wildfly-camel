@@ -1,0 +1,16 @@
+{
+    "kind": "SecurityContextConstraints",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "restricted"
+    },
+    "seLinuxContext": {
+        "type": "MustRunAs"
+    },
+    "runAsUser": {
+        "type": "RunAsAny"
+    },
+    "groups": [
+        "system:authenticated"
+    ]
+}

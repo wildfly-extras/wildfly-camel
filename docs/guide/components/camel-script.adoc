@@ -1,0 +1,19 @@
+### camel-script
+
+The http://camel.apache.org/scripting-languages.html[camel-script,window=_blank] 
+component supports a number of scripting languages which can be used to create an http://camel.apache.org/expression.html[Expression,window=_blank] 
+or http://camel.apache.org/predicate.html[Predicate,window=_blank] 
+via the standard http://jcp.org/en/jsr/detail?id=223[JSR 223,window=_blank]
+
+```java
+    CamelContext camelctx = new DefaultCamelContext();
+    camelctx.addRoutes(new RouteBuilder() {
+        @Override
+        public void configure() throws Exception {
+            from("direct:start").choice()
+            .when(script("beanshell", "request.getHeaders().get(\"foo\").equals(\"bar\")")).to("mock:result")
+            .otherwise().transform(body().append(" unmatched")).to("mock:unmatched");
+        }
+    });
+```
+

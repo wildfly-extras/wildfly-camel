@@ -1,0 +1,34 @@
+### camel-bindy
+
+The goal of http://camel.apache.org/bindy.html[camel-bindy,window=_blank] is to allow the parsing/binding of non-structured data to/from Java Beans that have binding mappings defined with annotations.
+
+Here we have a annotated domain model class
+
+```java
+@CsvRecord(separator = ",")
+public class Customer {
+
+    @DataField(pos = 1)
+    private String firstName;
+    
+    @DataField(pos = 2)
+    private String lastName;
+    
+    ...
+}
+```
+
+We can use the `BindyCsvDataFormat` data format unmarshall CSV data like `John,Doe` to the domain model. 
+
+```java
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        from("direct:start")
+        .unmarshal(new BindyCsvDataFormat(Customer.class))
+        .to("mock:result");
+    }
+});
+camelctx.start();
+```
+

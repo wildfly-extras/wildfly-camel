@@ -1,0 +1,5 @@
+### camel-smpp
+
+The http://camel.apache.org/smpp.html[camel-smpp,window=_blank] component enables SMSC over the SMPP protocol in order to send and receive SMS.
+
+

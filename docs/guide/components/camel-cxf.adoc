@@ -1,0 +1,4 @@
+### camel-cxf
+
+Covered by link:index.html#_jax_rs[JAX-RS] and link:index.html#_jax_ws[JAX-WS].
+

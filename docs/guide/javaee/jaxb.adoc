@@ -1,0 +1,99 @@
+### JAXB
+
+JAXB support is provided through the http://camel.apache.org/jaxb.html[Camel JAXB data format,window=_blank].
+
+Camel supports unmarshalling XML data to JAXB annotated classes and marshalling from classes to XML. What follows demonstrates a simple Camel route for marshalling and unmarshalling with the Camel JAXB data format class.  
+
+#### JAXB Annotated class
+
+```java
+@XmlRootElement(name = "customer")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Customer implements Serializable {
+
+    private String firstName;
+    private String lastName;
+
+    public Customer() {
+    }
+
+    public Customer(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+}
+
+```
+
+#### JAXB Class XML representation
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<customer xmlns="http://org/wildfly/test/jaxb/model/Customer">
+    <firstName>John</firstName>
+    <lastName>Doe</lastName>
+</customer>
+```
+
+#### Camel JAXB Unmarshalling
+```java
+WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
+
+final JaxbDataFormat jaxb = new JaxbDataFormat();
+jaxb.setContextPath("org.wildfly.camel.test.jaxb.model");
+
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        from("direct:start")
+        .unmarshal(jaxb);
+    }
+});
+camelctx.start();
+
+ProducerTemplate producer = camelctx.createProducerTemplate();
+
+// Send an XML representation of the customer to the direct:start endpoint
+Customer customer = producer.requestBody("direct:start", readCustomerXml(), Customer.class);
+Assert.assertEquals("John", customer.getFirstName());
+Assert.assertEquals("Doe", customer.getLastName());
+
+```
+
+#### Camel JAXB Marshalling
+
+```java
+WildFlyCamelContext camelctx = contextFactory.createCamelContext();
+
+final JaxbDataFormat jaxb = new JaxbDataFormat();
+jaxb.setContextPath("org.wildfly.camel.test.jaxb.model");
+
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        from("direct:start")
+        .marshal(jaxb);
+    }
+});
+camelctx.start();
+
+ProducerTemplate producer = camelctx.createProducerTemplate();
+Customer customer = new Customer("John", "Doe");
+String customerXML = producer.requestBody("direct:start", customer, String.class); 
+Assert.assertEquals(readCustomerXml(), customerXML);
+```

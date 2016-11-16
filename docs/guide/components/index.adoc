@@ -1,0 +1,111 @@
+## Camel Components
+
+This chapter details information about supported camel components
+
+include::camel-activemq.adoc[]
+include::camel-atom.adoc[]
+include::camel-bean-validator.adoc[]
+include::camel-bindy.adoc[]
+include::camel-braintree.adoc[]
+include::camel-cassandra.adoc[]
+include::camel-cdi.adoc[]
+include::camel-crypto.adoc[]
+include::camel-cxf.adoc[]
+include::camel-dns.adoc[]
+include::camel-dozer.adoc[]
+include::camel-ejb.adoc[]
+include::camel-elasticsearch.adoc[]
+include::camel-file2.adoc[]
+include::camel-ftp.adoc[]
+include::camel-hl7.adoc[]
+include::camel-http4.adoc[]
+include::camel-hystrix.adoc[]
+include::camel-infinispan.adoc[]
+include::camel-irc.adoc[]
+include::camel-jasypt.adoc[]
+include::camel-jaxb.adoc[]
+include::camel-jdbc.adoc[]
+include::camel-jgroups.adoc[]
+include::camel-jms.adoc[]
+include::camel-jmx.adoc[]
+include::camel-jpa.adoc[]
+include::camel-jsch.adoc[]
+include::camel-kafka.adoc[]
+include::camel-ldap.adoc[]
+include::camel-linkedin.adoc[]
+include::camel-lucene.adoc[]
+include::camel-mail.adoc[]
+include::camel-metrics.adoc[]
+include::camel-mina2.adoc[]
+include::camel-mongodb.adoc[]
+include::camel-mqtt.adoc[]
+include::camel-mvel.adoc[]
+include::camel-nats.adoc[]
+include::camel-netty4.adoc[]
+include::camel-ognl.adoc[]
+include::camel-olingo2.adoc[]
+include::camel-pdf.adoc[]
+include::camel-quartz2.adoc[]
+include::camel-rest.adoc[]
+include::camel-rss.adoc[]
+include::camel-salesforce.adoc[]
+include::camel-sap.adoc[]
+include::camel-saxon.adoc[]
+include::camel-script.adoc[]
+include::camel-servicenow.adoc[]
+include::camel-servlet.adoc[]
+include::camel-smpp.adoc[]
+include::camel-spring.adoc[]
+include::camel-sql.adoc[]
+include::camel-stream.adoc[]
+include::camel-swagger.adoc[]
+include::camel-twitter.adoc[]
+include::camel-undertow.adoc[]
+include::camel-velocity.adoc[]
+include::camel-weather.adoc[]
+include::camel-xstream.adoc[]
+include::camel-zipkin.adoc[]
+include::camel-zookeeper.adoc[]
+
+## Adding Components
+
+Adding support for additional Camel Components is easy
+
+[discrete]
+### Add your modules.xml definition
+
+A modules.xml descriptor defines the class loading behavior for your component. It should be placed together with the component's jar in `modules/system/layers/fuse/org/apache/camel/component`. Module dependencies should be setup for direct compile time dependencies.
+
+Here is an example for the camel-ftp component
+
+```xml
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.ftp">
+  <resources>
+    <resource-root path="camel-ftp-2.14.0.jar" />
+  </resources>
+  <dependencies>
+    <module name="com.jcraft.jsch" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.net" />
+  </dependencies>
+</module>
+```
+
+Please make sure you don't duplicate modules that are already available in WildFly and can be reused.
+
+[discrete]
+### Add a reference to the component
+
+To make this module visible by default to arbitrary JavaEE deployments add a reference to `modules/system/layers/fuse/org/apache/camel/component/main/module.xml`
+
+```xml
+<module xmlns="urn:jboss:module:1.3" name="org.apache.camel.component">
+
+  <dependencies>
+    ...
+    <module name="org.apache.camel.component.ftp" export="true" services="export"/>
+  </dependencies>
+
+</module>
+```

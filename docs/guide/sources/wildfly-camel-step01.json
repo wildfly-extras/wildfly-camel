@@ -1,0 +1,27 @@
+{
+  "kind": "Pod",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "wildfly-camel-rest",
+    "description": "Creates a WildFly Camel cluster running the REST example",
+    "labels": {
+      "name": "camel"
+    }
+  },
+  "spec": {
+    "containers": [
+      {
+        "id": "camel-pod",
+        "name": "camel-cnt",
+        "image": "wildflyext/example-camel-rest",
+        "imagePullPolicy": "IfNotPresent",
+        "ports": [
+          {
+            "protocol": "TCP",
+            "containerPort": 8080
+          }
+        ]
+      }
+    ]
+  }
+}

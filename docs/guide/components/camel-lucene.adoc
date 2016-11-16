@@ -1,0 +1,6 @@
+### camel-lucene
+
+The http://camel.apache.org/lucene.html[camel-lucene,window=_blank] 
+component is based on the http://lucene.apache.org/[Apache Lucene,window=_blank] project. Apache Lucene is a powerful high-performance, full-featured text search engine library written entirely in Java.
+
+

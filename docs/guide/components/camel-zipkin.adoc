@@ -1,0 +1,5 @@
+### camel-zipkin
+
+The https://cwiki.apache.org/confluence/display/CAMEL/camel-zipkin[camel-zipkin,window=_blank] 
+component is used for tracing and timing incoming and outgoing Camel messages using http://zipkin.io/[zipkin,window=_blank]. Events are captured for incoming and outgoing messages being sent to/from Camel.
+

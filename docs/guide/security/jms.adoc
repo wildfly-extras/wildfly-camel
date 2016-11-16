@@ -1,0 +1,9 @@
+### JMS Security
+
+The following topics explain how to secure JMS endpoints.
+
+* https://activemq.apache.org/artemis/docs/1.0.0/security.html[ActiveMQ Artemis security documentation,window=_blank]
+*  https://docs.jboss.org/author/display/WFLY10/Messaging+configuration#Messagingconfiguration-SecuritySettingsforArtemisaddressesandJMSdestinations[Security settings for ActiveMQ Artemis addresses and JMS destinations,window=_blank]
+* https://docs.jboss.org/author/display/WFLY10/Messaging+configuration#Messagingconfiguration-SecurityDomainforUsers[ActiveMQ Artemis security domain configuration,window=_blank]
+* http://activemq.apache.org/security.html[ActiveMQ Security,window=_blank]
+

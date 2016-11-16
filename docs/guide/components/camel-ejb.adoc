@@ -1,0 +1,4 @@
+### camel-ejb
+
+Covered by link:index.html#_ejb[EJB].
+

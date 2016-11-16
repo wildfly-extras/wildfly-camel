@@ -1,0 +1,179 @@
+### JAX-RS
+
+JAX-RS support is provided by http://camel.apache.org/cxfrs.html[Camel CXF-RS,window=_blank].
+
+#### CXF-RS Producer
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:cxf="http://camel.apache.org/schema/cxf"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <cxf:rsClient id="cxfProducer"
+                  address="http://localhost:8080/rest"
+                  serviceClass="org.wildfly.camel.examples.cxf.jaxrs.GreetingService" />
+
+    <camelContext id="cxfrs-camel-context" xmlns="http://camel.apache.org/schema/spring">
+        <route>
+            <from uri="direct:start" />
+            <setHeader headerName="operationName">
+                <simple>greet</simple>
+            </setHeader>
+            <setHeader headerName="CamelCxfRsUsingHttpAPI">
+                <constant>false</constant>
+            </setHeader>
+            <to uri="cxfrs:bean:cxfProducer" />
+        </route>
+    </camelContext>
+</beans>
+```
+
+#### CXF-RS Consumer
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:cxf="http://camel.apache.org/schema/cxf"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <cxf:rsServer id="cxfConsumer"
+                  address="http://localhost:8080/rest"
+                  serviceClass="org.wildfly.camel.examples.cxf.jaxrs.GreetingService" />
+
+    <camelContext id="cxfrs-camel-context" xmlns="http://camel.apache.org/schema/spring">
+        <route>
+            <from uri="cxfrs:bean:cxfConsumer" />
+            <setBody>
+                <constant>Hello world</constant>
+            </setBody>
+        </route>
+    </camelContext>
+</beans>
+```
+
+#### JAX-RS Consumer with the Camel REST DSL
+
+The Camel REST DSL gives the capability to write Camel routes that act as JAX-RS consumers. The following RouteBuilder class demonstrates this.
+
+```java
+@Startup
+@ApplicationScoped
+@ContextName("rest-camel-context")
+public class RestConsumerRouteBuilder extends RouteBuilder {
+  @Override
+  public void configure() throws Exception {
+    // Use the camel-servlet component to provide REST integration
+    restConfiguration().component("servlet")
+      .contextPath("/rest").port(8080).bindingMode(RestBindingMode.json);
+
+    rest("/customer")
+      // GET /rest/customer
+      .get()
+        .produces(MediaType.APPLICATION_JSON)
+        .to("direct:getCustomers")
+        // GET /rest/customer/1  
+      .get("/{id}")
+        .produces(MediaType.APPLICATION_JSON)
+        .to("direct:getCustomer")
+      // POST /rest/customer
+      .post()
+        .type(Customer.class)
+        .to("direct:createCustomer");
+      // PUT /rest/customer
+      .put()  
+        .type(Customer.class)
+        .to("direct:updateCustomer");
+      // DELETE /rest/customer/1  
+      .delete("/{id}")
+        .to("direct:deleteCustomer");  
+  }
+}
+```
+
+Note that the REST DSL configuration starts with `restConfiguration().component("servlet")`. **The WildFly Camel Subsystem only supports camel-servlet and camel-undertow for use with the REST DSL. Attempts to configure other components will not work**.
+
+By setting the binding mode, Camel can marshal and unmarshal JSON data either by specifying a 'produces()' or 'type()' configuration step.
+
+
+#### JAX-RS Consumer with CamelProxy
+
+JAX-RS consumer endpoints can be configured using the http://camel.apache.org/using-camelproxy.html[CamelProxy,window=_blank]. The proxy enables
+you to proxy a producer sending to an Endpoint by a regular interface. When clients invoke methods on this interface, the proxy performs a request / reply to a specified endpoint.
+
+Below is an example JAX-RS service interface and implementation.
+
+```java
+// Service interface
+@Path("/customer")
+public interface CustomerService {
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  Response getCustomers();
+
+  @PUT
+  Response updateCustomer();
+}
+
+// Service implementation
+public class CustomerServiceImpl implements CustomerService {
+  @Inject
+  @ContextName("rest-camel-context")
+  private CamelContext context;
+
+  @Produce(uri="direct:rest")
+  private CustomerService customerServiceProxy;  
+
+  @Override
+  public Response getCustomers() {
+    return customerServiceProxy.getCustomers();
+  }
+
+  @Override
+  public Response updateCustomer(Customer customer) {
+    return customerServiceProxy.updateCustomer(customer);
+  }
+}
+```
+
+Notice in the above code example that `CustomerServiceImpl` delegates all method calls to a customerServiceProxy object which has been annotated
+with `@Produce`. This annotation is important as it configures a proxy for the `direct:rest` endpoint against the `CustomerService` interface. Whenever any of the REST service methods are invoked by clients, the `direct:rest` camel route is triggered.
+
+The RouteBuilder class implements logic for each REST service method invocation.
+
+```java
+from("direct:rest")
+  .process(new Processor() {
+      @Override
+      public void process(Exchange exchange) throws Exception {
+        BeanInvocation beanInvocation = exchange.getIn().getBody(BeanInvocation.class);
+        String methodName = beanInvocation.getMethod().getName();
+
+        if (methodName.equals("getCustomers")) {
+          List<Customer> customers = customerService.findAllCustomers();
+          exchange.getOut().setBody(Response.ok(customers).build());
+        } else if(methodName.equals("updateCustomer")) {
+          Customer updatedCustomer = (Customer) beanInvocation.getArgs()[0];
+          customerService.updateCustomer(updatedCustomer);
+          exchange.getOut().setBody(Response.ok().build());
+        }
+      }
+  });
+```
+In the above RouteBuilder a `Processor` handles REST service method invocations that have been proxied through the `direct:rest` endpoint.
+The exchange message body will be an instance of `BeanInvocation`. This can be used to determine which web service method was invoked and
+what arguments were passed to it. In this example some simple logic is used to return results to the client based on the name of the method that
+was called.
+
+#### Security
+
+Refer to the link:index.html#_jax_rs_security[JAX-RS security section].
+
+#### Code examples on GitHub
+
+An example https://github.com/wildfly-extras/wildfly-camel-examples/tree/master/camel-cxf-jaxrs[Camel CXF application,window=_blank] is available on GitHub.
+

@@ -1,0 +1,5 @@
+### camel-hystrix
+
+The http://camel.apache.org/hystrix-eip.html[camel-hystrix,window=_blank] 
+EIP provides integration with Netflix https://github.com/Netflix/Hystrix[Hystrix,window=_blank] to be used as circuit breaker in Camel routes.
+

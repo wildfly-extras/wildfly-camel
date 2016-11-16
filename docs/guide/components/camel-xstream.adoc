@@ -1,0 +1,24 @@
+### camel-xstream
+
+The http://camel.apache.org/xstream.html[camel-xstream,window=_blank] 
+component provides the XStream http://camel.apache.org/data-format.html[Data Format,window=_blank] 
+which uses the http://x-stream.github.io/[XStream library,window=_blank] to marshal and unmarshal Java objects to and from XML.
+
+```java
+CamelContext camelctx = new DefaultCamelContext();
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        from("direct:start")
+        .marshal().xstream();
+    }
+});
+
+camelctx.start();
+try {
+    ProducerTemplate producer = camelctx.createProducerTemplate();
+    String customer = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
+} finally {
+    camelctx.stop();
+}
+```

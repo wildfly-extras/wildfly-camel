@@ -1,0 +1,10 @@
+### JAX-WS Security
+
+The following topics explain how to secure JAX-WS endpoints.
+
+* https://docs.jboss.org/author/display/WFLY8/Authentication[WildFly HTTP basic authentication,window=_blank]
+* https://docs.jboss.org/author/display/WFLY8/WS-Security[WS-Security,window=_blank]
+* http://cxf.apache.org/docs/security.html[CXF Security,window=_blank]
+* https://docs.jboss.org/author/display/WFLY8/Security+Realms[Security Realms & SSL,window=_blank]
+* https://docs.jboss.org/author/display/WFLY8/Securing+EJBs[Securing EJBs,window=_blank]
+

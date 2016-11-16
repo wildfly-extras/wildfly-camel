@@ -1,0 +1,4 @@
+### camel-jpa
+
+Covered by link:index.html#_jpa[JPA].
+

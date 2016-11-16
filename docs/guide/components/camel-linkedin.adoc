@@ -1,0 +1,7 @@
+### camel-linkedin
+
+The http://camel.apache.org/linkedin.html[camel-linkedin,window=_blank] 
+component provides access to the https://developer.linkedin.com/rest[LinkedIn REST APIs,window=_blank].
+
+You must have a valid https://www.linkedin.com/secure/developer[developer account,window=_blank] in order to use this component.
+

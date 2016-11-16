@@ -1,0 +1,3 @@
+### camel-cdi
+
+Covered by link:index.html#_cdi[CDI].

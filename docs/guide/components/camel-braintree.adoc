@@ -1,0 +1,24 @@
+### camel-braintree
+
+The http://camel.apache.org/braintree.html[camel-braintree,window=_blank] component provides access to Braintree Payments trough through their 
+https://developers.braintreepayments.com/start/hello-server/java[Java SDK,window=_blank].
+
+```java
+BraintreeComponent component = new BraintreeComponent(camelctx);
+component.setConfiguration(configuration);
+camelctx.addComponent("braintree", component);
+
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        from("timer://braintree?repeatCount=1")
+            .to("braintree:clientToken/generate")
+            .process(new Processor() {
+                @Override
+                public void process(Exchange exchange) throws Exception {
+                    latch.countDown();
+                }})
+            .to("mock:result");
+    }
+});
+```
