@@ -1,0 +1,131 @@
+### JPA
+
+JPA integration is provided by the http://camel.apache.org/jpa.html[Camel JPA component,window=_blank]. 
+Camel JPA applications are developed as per normal by providing a persistence.xml configuration file together with some JPA annotated classes.
+
+#### Example persistence.xml
+
+In this example we use the Wildfly in-memory ExampleDS datasource which is configured within the Wildfly standalone.xml configuration file.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+             xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
+        http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="camel">
+        <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+        <class>org.wildfly.camel.test.jpa.model.Customer</class>
+        <properties>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.show_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
+```
+
+#### Example JPA entitiy
+
+```java
+@Entity
+@Table(name = "customer")
+public class Customer implements Serializable {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String firstName;
+    private String lastName;
+
+    public Customer() {
+    }
+
+    public Customer(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(final Long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+}
+```
+
+#### Camel JPA endpoint / route configuration
+
+Having configured JPA, you can make use of CDI to inject an EntityManager and UserTransaction instance into your RouteBuilder class or test case:
+
+```java
+@PersistenceContext
+EntityManager em;
+
+@Inject
+UserTransaction userTransaction;
+```
+
+Now to configure the Camel routes and JPA endpoint:
+
+
+```java
+WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
+
+EntityManagerFactory entityManagerFactory = em.getEntityManagerFactory();
+
+// Configure a transaction manager
+JtaTransactionManager transactionManager = new JtaTransactionManager();
+transactionManager.setUserTransaction(userTransaction);
+transactionManager.afterPropertiesSet();
+
+// Configure the JPA endpoint to use the correct EntityManagerFactory and JtaTransactionManager
+final JpaEndpoint jpaEndpoint = new JpaEndpoint();
+jpaEndpoint.setCamelContext(camelctx);
+jpaEndpoint.setEntityType(Customer.class);
+jpaEndpoint.setEntityManagerFactory(entityManagerFactory);
+jpaEndpoint.setTransactionManager(transactionManager);
+
+camelctx.addRoutes(new RouteBuilder() {
+@Override
+public void configure() throws Exception {
+    from("direct:start")
+    .to(jpaEndpoint);
+}
+});
+
+camelctx.start();
+```
+Finally, we can send a 'Customer' entity to the 'direct:start' endpoint and then query the ExampleDS datasource to verify that a record was saved.
+
+```java
+Customer customer = new Customer("John", "Doe");
+ProducerTemplate producer = camelctx.createProducerTemplate();
+producer.sendBody("direct:start", customer);
+
+// Query the in memory database customer table to verify that a record was saved
+CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
+query.select(criteriaBuilder.count(query.from(Customer.class)));
+
+long recordCount = em.createQuery(query).getSingleResult();
+
+Assert.assertEquals(1L, recordCount);
+```

@@ -1,0 +1,21 @@
+### camel-elasticsearch
+
+The http://camel.apache.org/elasticsearch.html[camel-elasticsearch,window=_blank] 
+component allows you to interface with an https://www.elastic.co/[ElasticSearch,window=_blank] server.
+
+```java
+   CamelContext camelContext = new DefaultCamelContext();
+   camelContext.addRoutes(new RouteBuilder() {
+       @Override
+       public void configure() throws Exception {
+           from("direct:index")
+           .to("elasticsearch://local?operation=INDEX&indexName=twitter&indexType=tweet");
+       }
+   });
+
+   Map<String, String> indexedData = new HashMap<>();
+   indexedData.put("content", "test");
+
+   ProducerTemplate template = camelContext.createProducerTemplate();
+   template.sendBody("direct:index", indexedData);
+```

@@ -1,0 +1,35 @@
+[discrete]
+### Camel Deployment Configuration
+
+If you want to fine tune the default configuration of your Camel deployment, you can edit either the `WEB-INF/jboss-all.xml` or `META-INF/jboss-all.xml` configuration file in your deployment.
+
+Use a `<jboss-camel>` XML element within the `jboss-all.xml` file to control the camel configuration.
+
+[discrete]
+#### Disabling the Camel Subsystem
+
+If you don't want the camel subsystem to be added into
+your deployment, set the `enabled="false"` attribute on the `jboss-camel` XML element.
+
+Example `jboss-all.xml` file:
+
+```xml
+    <jboss umlns="urn:jboss:1.0">
+      <jboss-camel xmlns="urn:jboss:jboss-camel:1.0" enabled="false"/>
+    </jboss>
+```    
+[discrete]
+#### Selecting Components
+
+If you add nested `<component>` or `<component-module>` XML elements, then instead of adding the default list of Camel components to your deployment, only the specified components will be added to your deployment.
+
+Example `jboss-all.xml` file:
+
+```xml
+    <jboss umlns="urn:jboss:1.0">
+      <jboss-camel xmlns="urn:jboss:jboss-camel:1.0">
+        <component name="camel-ftp"/>
+        <component-module name="org.apache.camel.component.rss"/>
+      </jboss-camel>
+    </jboss>
+```

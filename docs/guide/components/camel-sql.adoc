@@ -1,0 +1,97 @@
+### camel-sql
+
+The http://camel.apache.org/sql-component.html[camel-sql,window=_blank] 
+component allows you to work with databases using http://camel.apache.org/jdbc.html[JDBC,window=_blank] queries. The difference between this component and JDBC component is that in case of SQL the query is a property of the endpoint and it uses message payload as parameters passed to the query.
+
+```java
+    CamelContext camelctx = new DefaultCamelContext();
+    camelctx.addRoutes(new RouteBuilder() {
+        @Override
+        public void configure() throws Exception {
+            from("sql:select name from information_schema.users?dataSource=java:jboss/datasources/ExampleDS")
+            .to("direct:end");
+        }
+    });
+```
+
+[NOTE]
+====
+The JNDI datasource lookup shown above works only when configuring a `DefaultCamelContext`. See below for `CdiCamelContext` and `SpringCamelContext` examples.
+====
+
+When used in conjunction with the link:index.html#_camel_cdi[camel-cdi] component, Java EE annotations can make a datasource available to Camel. 
+This example uses the `@Named` annotation so that Camel can discover the desired datasource.
+
+```java
+public class DatasourceProducer {
+    @Resource(name = "java:jboss/datasources/ExampleDS")
+    DataSource dataSource;
+
+    @Produces
+    @Named("wildFlyExampleDS")
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+}
+```
+
+Now the datasource can be referenced through the `dataSource` parameter on the camel-sql endpoint configuration.
+
+```java
+@ApplicationScoped
+@ContextName("camel-sql-cdi-context")
+@Startup
+public class CdiRouteBuilder extends RouteBuilder {
+    @Override
+    public void configure() throws Exception {
+        from("sql:select name from information_schema.users?dataSource=wildFlyExampleDS")
+        .to("direct:end");
+    }
+}
+```
+
+When using link:index.html#_camel_spring[camel-spring] the route configuration would look like:
+
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+
+    <jee:jndi-lookup id="wildFlyExampleDS" jndi-name="java:jboss/datasources/ExampleDS"/>
+
+    <camelContext id="sql-spring-context" xmlns="http://camel.apache.org/schema/spring">
+        <route>
+            <from uri="sql:select name from information_schema.users?dataSource=#wildFlyExampleDS" />
+            <to uru="direct:end" />
+        </route>
+    </camelContext>
+
+</beans>
+```
+
+#### Spring JDBC XML namespace support
+
+Support for the following Spring JDBC XML configurations is supported
+
+__jdbc:embedded-database__
+
+> NOTE: Only H2 databases are supported by default as WildFly has native support for this. If you want to use other embedded database providers, you will need
+to install the appropriate database driver.
+
+```xml
+<jdbc:embedded-database id="datasource" type="H2">
+  <jdbc:script location="db-schema.sql"/>
+</jdbc:embedded-database>
+```
+
+__jdbc:initialize-database__
+
+```xml
+<jdbc:initialize-database data-source="datasource">
+  <jdbc:script location="classpath:db-init.sql"/>
+</jdbc:initialize-database>
+```

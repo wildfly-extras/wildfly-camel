@@ -1,0 +1,26 @@
+## Developer Info
+
+[discrete]
+### Source
+
+https://github.com/wildfly-extras/wildfly-camel
+
+[discrete]
+### Issues
+
+https://github.com/wildfly-extras/wildfly-camel/issues
+
+[discrete]
+### Jenkins
+
+https://ci.fabric8.io/job/wildfly-camel
+
+[discrete]
+### Downloads
+
+https://github.com/wildfly-extras/wildfly-camel/releases
+
+[discrete]
+### Forums, Lists, IRC
+
+#wildfly-camel channel on irc.freenode.net

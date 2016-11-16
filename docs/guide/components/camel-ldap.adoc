@@ -1,0 +1,4 @@
+### camel-ldap
+
+The http://camel.apache.org/ldap.html[camel-ldap,window=_blank] component provides the capability to perform LDAP queries.
+

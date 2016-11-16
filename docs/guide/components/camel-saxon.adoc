@@ -1,0 +1,20 @@
+### camel-saxon
+
+The http://camel.apache.org/xquery.html[camel-saxon,window=_blank] 
+component supports http://www.w3.org/TR/xquery/[XQuery,window=_blank] 
+to allow an http://camel.apache.org/expression.html[Expression,window=_blank] 
+or http://camel.apache.org/predicate.html[Predicate,window=_blank] 
+to be used in the http://camel.apache.org/dsl.html[DSL,window=_blank] 
+or http://camel.apache.org/xml-configuration.html[Xml Configuration,window=_blank].
+
+```java
+    CamelContext camelctx = new DefaultCamelContext();
+    camelctx.addRoutes(new RouteBuilder() {
+        @Override
+        public void configure() throws Exception {
+            Namespaces ns = new Namespaces("ns", "http://org/wildfly/test/jaxb/model/Customer");
+            from("direct:start").transform().xquery("/ns:customer/ns:firstName", String.class, ns)
+            .to("mock:result");
+        }
+    });
+```

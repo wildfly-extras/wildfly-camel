@@ -1,0 +1,14 @@
+## JavaEE Integration
+
+This chapter details information about integration points with JavaEE. 
+
+include::cdi.adoc[]
+include::ejb.adoc[]
+include::jaxb.adoc[]
+include::jaxrs.adoc[]
+include::jaxws.adoc[]
+include::jms.adoc[]
+include::jmx.adoc[]
+include::jndi.adoc[]
+include::jpa.adoc[]
+

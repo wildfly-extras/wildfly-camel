@@ -1,0 +1,16 @@
+### EJB
+
+Management support is provided through the http://camel.apache.org/jmx.html[camel-ejb,window=_blank] component which integrates with the EJB3 subsystem.
+
+```java
+CamelContext camelctx = new DefaultCamelContext();
+    camelctx.addRoutes(new RouteBuilder() {
+        @Override
+        public void configure() throws Exception {
+            from("direct:start").to("ejb:java:module/HelloBean");
+        }
+    });
+```
+
+
+

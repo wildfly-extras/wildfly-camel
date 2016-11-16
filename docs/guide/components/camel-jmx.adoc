@@ -1,0 +1,4 @@
+### camel-jmx
+
+Covered by link:index.html#_jmx[JMX].
+

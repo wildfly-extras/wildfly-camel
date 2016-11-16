@@ -1,0 +1,5 @@
+### camel-jms
+
+Covered by link:index.html#_jms[JMS].
+
+

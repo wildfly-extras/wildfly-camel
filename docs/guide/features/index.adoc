@@ -1,0 +1,8 @@
+## Features
+
+This chapter provides more detailed information about WildFly-Camel features.
+
+include::context-definitions.adoc[]
+include::context-deployments.adoc[]
+include::hawtio.adoc[]
+include::arquillian.adoc[]

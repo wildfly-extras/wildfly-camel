@@ -1,0 +1,4 @@
+### camel-jaxb
+
+Covered by link:index.html#_jaxb[JAXB].
+
