@@ -1,4 +1,4 @@
-### camel-file
+### camel-file2
 
 The http://camel.apache.org/file2.html[camel-file,window=_blank] component provides access to file systems, allowing files to be processed by any other Camel Components or messages from other components to be saved to disk.
 

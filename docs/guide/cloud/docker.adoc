@@ -24,7 +24,7 @@ $ sudo usermod -a -G docker ec2-user
 $ sudo service docker restart
 ``` 
 
-[HINT]
+[TIP]
 ====
 You may have to logout/login for this change to take effect
 ====

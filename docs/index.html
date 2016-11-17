@@ -463,10 +463,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_camel_dozer">6.11. camel-dozer</a></li>
 <li><a href="#_camel_ejb">6.12. camel-ejb</a></li>
 <li><a href="#_camel_elasticsearch">6.13. camel-elasticsearch</a></li>
-<li><a href="#_camel_file">6.14. camel-file</a></li>
+<li><a href="#_camel_file2">6.14. camel-file2</a></li>
 <li><a href="#_camel_ftp">6.15. camel-ftp</a></li>
 <li><a href="#_camel_hl7">6.16. camel-hl7</a></li>
-<li><a href="#_camel_http">6.17. camel-http</a></li>
+<li><a href="#_camel_http4">6.17. camel-http4</a></li>
 <li><a href="#_camel_hystrix">6.18. camel-hystrix</a></li>
 <li><a href="#_camel_infinispan">6.19. camel-infinispan</a></li>
 <li><a href="#_camel_irc">6.20. camel-irc</a></li>
@@ -493,7 +493,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_camel_ognl">6.41. camel-ognl</a></li>
 <li><a href="#_camel_olingo2">6.42. camel-olingo2</a></li>
 <li><a href="#_camel_pdf">6.43. camel-pdf</a></li>
-<li><a href="#_camel_quartz">6.44. camel-quartz</a></li>
+<li><a href="#_camel_quartz2">6.44. camel-quartz2</a></li>
 <li><a href="#_camel_rest">6.45. camel-rest</a></li>
 <li><a href="#_camel_rss">6.46. camel-rss</a></li>
 <li><a href="#_camel_salesforce">6.47. camel-salesforce</a></li>
@@ -510,10 +510,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_camel_twitter">6.58. camel-twitter</a></li>
 <li><a href="#_camel_undertow">6.59. camel-undertow</a></li>
 <li><a href="#_camel_velocity">6.60. camel-velocity</a></li>
-<li><a href="#_camel_weather">6.61. camel-weather</a></li>
-<li><a href="#_camel_xstream">6.62. camel-xstream</a></li>
-<li><a href="#_camel_zipkin">6.63. camel-zipkin</a></li>
-<li><a href="#_camel_zookeeper">6.64. camel-zookeeper</a></li>
+<li><a href="#_camel_vertx">6.61. camel-vertx</a></li>
+<li><a href="#_camel_weather">6.62. camel-weather</a></li>
+<li><a href="#_camel_xstream">6.63. camel-xstream</a></li>
+<li><a href="#_camel_zipkin">6.64. camel-zipkin</a></li>
+<li><a href="#_camel_zookeeper">6.65. camel-zookeeper</a></li>
 </ul>
 </li>
 <li><a href="#_adding_components">7. Adding Components</a></li>
@@ -2491,7 +2492,7 @@ component allows you to interface with an <a href="https://www.elastic.co/" targ
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_file">6.14. camel-file</h3>
+<h3 id="_camel_file2">6.14. camel-file2</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/file2.html" target="_blank">camel-file</a> component provides access to file systems, allowing files to be processed by any other Camel Components or messages from other components to be saved to disk.</p>
 </div>
@@ -2562,7 +2563,7 @@ Assert.assertEquals(hapimsg.toString(), result.toString());</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_http">6.17. camel-http</h3>
+<h3 id="_camel_http4">6.17. camel-http4</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/http4.html" target="_blank">camel-http</a> component provides HTTP based endpoints for calling external HTTP resources.</p>
 </div>
@@ -3101,7 +3102,7 @@ component provides the ability to create, modify or extract content from PDF doc
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_quartz">6.44. camel-quartz</h3>
+<h3 id="_camel_quartz2">6.44. camel-quartz2</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/quartz2.html" target="_blank">camel-quartz</a>
 component provides a scheduled delivery of messages using the <a href="http://www.quartz-scheduler.org" target="_blank">Quartz Scheduler 2.x</a>.</p>
@@ -3759,7 +3760,15 @@ camelctx.start();</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_weather">6.61. camel-weather</h3>
+<h3 id="_camel_vertx">6.61. camel-vertx</h3>
+<div class="paragraph">
+<p>The <a href="http://camel.apache.org/vertx.html" target="_blank">camel-vertx</a>
+component is for working with the <a href="http://vertx.io/" target="_blank">Vertx</a>
+<a href="http://vertx.io/core_manual_js.html#the-event-bus" target="_blank">EventBus</a>. The Vertx EventBus sends and receives JSON events.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_camel_weather">6.62. camel-weather</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/weather.html" target="_blank">camel-weather</a>
 component provides integration with the <a href="http://openweathermap.org/api" target="_blank">Open Weather Map API</a>.</p>
@@ -3790,7 +3799,7 @@ camelContext.start();</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_xstream">6.62. camel-xstream</h3>
+<h3 id="_camel_xstream">6.63. camel-xstream</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/xstream.html" target="_blank">camel-xstream</a>
 component provides the XStream <a href="http://camel.apache.org/data-format.html" target="_blank">Data Format</a>
@@ -3818,14 +3827,14 @@ try {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_zipkin">6.63. camel-zipkin</h3>
+<h3 id="_camel_zipkin">6.64. camel-zipkin</h3>
 <div class="paragraph">
 <p>The <a href="https://cwiki.apache.org/confluence/display/CAMEL/camel-zipkin" target="_blank">camel-zipkin</a>
 component is used for tracing and timing incoming and outgoing Camel messages using <a href="http://zipkin.io/" target="_blank">zipkin</a>. Events are captured for incoming and outgoing messages being sent to/from Camel.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_zookeeper">6.64. camel-zookeeper</h3>
+<h3 id="_camel_zookeeper">6.65. camel-zookeeper</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/zookeeper.html" target="_blank">camel-zookeeper</a>
 component allows interaction with a <a href="http://hadoop.apache.org/zookeeper/" target="_blank">ZooKeeper</a> cluster and exposes the following features to Camel:</p>
@@ -4039,12 +4048,19 @@ $ sudo service docker start</code></pre>
 $ sudo service docker restart</code></pre>
 </div>
 </div>
-<div class="exampleblock">
-<div class="content">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
 <div class="paragraph">
 <p>You may have to logout/login for this change to take effect</p>
 </div>
-</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>In my case I also had to add a host mapping like this</p>
