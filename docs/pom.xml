@@ -32,17 +32,72 @@
     <artifactId>wildfly-camel-docs</artifactId>
     <packaging>pom</packaging>
 
-    <!--
-        Generates the wildfly-camel changelog.
-
-        Run from the project root with:
-
-            mvn clean install -pl docs -Pdocs
-    -->
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${basedir}</sourceDirectory>
+                            <sourceDocumentName>index.adoc</sourceDocumentName>
+                            <imagesDir>guide/images</imagesDir>
+                            <backend>html</backend>
+                            <doctype>book</doctype>
+                            <attributes>
+                                <version>${project.version}</version>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>delete-index</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <delete file="${basedir}/index.html" />
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-index</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <copy file="${project.build.directory}/generated-docs/index.html" todir="${basedir}" overwrite="true"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <!-- Generate the changelog -->
     <profiles>
         <profile>
-            <id>docs</id>
+            <id>changelog</id>
+            <activation>
+                <property>
+                    <name>changelog</name>
+                </property>
+            </activation>
             <build>
                 <plugins>
                     <plugin>

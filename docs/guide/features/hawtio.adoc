@@ -13,4 +13,4 @@ What type of user do you wish to add?
 
 The http://hawt.io[Hawt.io,window=_blank] console should show the camel context from subsystem configuration.
 
-image::../images/hawtio-camel-01.png[]
+image::hawtio-camel-01.png[]

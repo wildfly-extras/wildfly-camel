@@ -84,6 +84,7 @@
         
         <!-- Plugin versions -->
         <version-apache-scr-plugin>1.21.0</version-apache-scr-plugin>
+        <version-asciidoctor-maven-plugin>1.5.3</version-asciidoctor-maven-plugin>
         <version-build-helper-plugin>1.9.1</version-build-helper-plugin>
         <version-docker-maven-plugin>0.14.2</version-docker-maven-plugin>
         <version-exec-maven-plugin>1.4.0</version-exec-maven-plugin>
@@ -553,6 +554,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>${version-maven-war-plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.asciidoctor</groupId>
+                    <artifactId>asciidoctor-maven-plugin</artifactId>
+                    <version>${version-asciidoctor-maven-plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.gmaven</groupId>
