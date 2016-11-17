@@ -12,5 +12,3 @@ camelctx.addRoutes(new RouteBuilder() {
 });
 camelctx.start();
 ```
-
-

@@ -1,4 +1,4 @@
-### camel-http
+### camel-http4
 
 The http://camel.apache.org/http4.html[camel-http,window=_blank] component provides HTTP based endpoints for calling external HTTP resources.
 
