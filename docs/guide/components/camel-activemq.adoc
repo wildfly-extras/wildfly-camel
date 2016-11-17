@@ -101,7 +101,7 @@ public class ActiveMQRouteBuilder extends RouteBuilder {
 
 A log message will be output to the console each time a message is added to the WildFlyCamelQueue destination. To verify that the messages really are being placed onto the queue, we can use the ../features/hawtio.md[Hawtio console,window=_blank] provided by the WildFly Camel subsystem.
 
-image::../images/activemq-queue-browse.png[]
+image::activemq-queue-browse.png[]
 
 ##### ActiveMQ Consumer
 

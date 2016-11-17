@@ -35,7 +35,7 @@ $ alias oc="docker exec openshift-origin oc"
 Here we run a set of WildFly Camel servers on https://github.com/openshift/origin[OpenShift Origin,window=_blank]. 
 The target platform is Linux on an Amazon EC2 instance. When done, we have a set of portable https://www.docker.io/[Docker,window=_blank] containers that can be deployed onto a production platform.
 
-image::../images/example-rest-design.png[]
+image::example-rest-design.png[]
 
 The example architecture consists of a set of three high available (HA) servers running REST endpoints. For server replication and failover we use http://kubernetes.io[Kubernetes,window=_blank]. 
 Each server runs in a dedicated https://github.com/GoogleCloudPlatform/kubernetes/blob/v1.0.0/docs/pods.md[Pod,window=_blank] 
@@ -156,13 +156,13 @@ You can see a diagramatic overview of replication controllers, services and pods
 to navigate to https://localhost:8443/console. Then log in using default username 'admin' with a password of 'admin'. Then click on
 the wildfly-camel project and you should see a diagram like this.
 
-image::../images/openshift-console-standalone.png[]
+image::openshift-console-standalone.png[]
 
 #### Domain Setup
 
 Running multiple server containers in a cloud environment is often only useful when these containers can also be managed. In the previous example we had three servers that each exposed an HTTP service reachable through a Kubernetes https://github.com/GoogleCloudPlatform/kubernetes/blob/v1.0.0/docs/services.md[Service,window=_blank]. The management interface of these servers were not exposed. It would be virtually impossible to adjust configurations for these individual servers or the whole set. As a minimum we would like to monitor the health state of these servers so that we can possibly replace containers if needed.
 
-image::../images/example-domain-design.png[]
+image::example-domain-design.png[]
 
 
 #### Starting the Domain
@@ -182,11 +182,11 @@ management-service   <none>    name=ctrl-pod   172.30.97.83     9990/TCP
 ```
 Now, you should be able to access the admin console like this: http://172.30.97.83:9990/console
 
-image::../images/console-domain.png[]
+image::console-domain.png[]
 
 The OpenShift console should display a diagram like this:
 
-image::../images/openshift-console-domain.png[]
+image::openshift-console-domain.png[]
 
 We believe that managing deployments through the WildFly admin interface does not make much sense. Instead, deployments should already be backed into containers that you spin up in the various Pods.
 

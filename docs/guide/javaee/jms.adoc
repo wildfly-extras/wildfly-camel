@@ -58,7 +58,7 @@ public class JmsRouteBuilder extends RouteBuilder {
 ```
 A log message will be output to the console each time a JMS message is added to the WildFlyCamelQueue destination. To verify that the messages really are being placed onto the queue, we can use the WildFly administration console.
 
-image::../images/jms-queue-browse.png[]
+image::jms-queue-browse.png[]
 
 
 ##### JMS Consumer

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.5">
+<meta name="generator" content="Asciidoctor 1.5.3">
 <meta name="author" content="Thomas Diesler, James Netherton">
 <title>WildFly Camel User Guide</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -18,6 +18,7 @@ audio:not([controls]){display:none;height:0}
 [hidden],template{display:none}
 script{display:none!important}
 html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+body{margin:0}
 a{background:transparent}
 a:focus{outline:thin dotted}
 a:active,a:hover{outline:0}
@@ -52,7 +53,7 @@ textarea{overflow:auto;vertical-align:top}
 table{border-collapse:collapse;border-spacing:0}
 *,*:before,*:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
 html,body{font-size:100%}
-body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto}
 a:hover{cursor:pointer}
 img,object,embed{max-width:100%;height:auto}
 object,embed{height:100%}
@@ -64,6 +65,7 @@ img{-ms-interpolation-mode:bicubic}
 .text-center{text-align:center!important}
 .text-justify{text-align:justify!important}
 .hide{display:none}
+body{-webkit-font-smoothing:antialiased}
 img,object,svg{display:inline-block;vertical-align:middle}
 textarea{height:auto;min-height:50px}
 select{width:100%}
@@ -118,16 +120,13 @@ table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:
 table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
 table tr.even,table tr.alt,table tr:nth-of-type(even){background:#f8f8f7}
 table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+body{tab-size:4}
 h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
 h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
 .clearfix:before,.clearfix:after,.float-group:before,.float-group:after{content:" ";display:table}
 .clearfix:after,.float-group:after{clear:both}
-*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
-*:not(pre)>code.nobreak{word-wrap:normal}
-*:not(pre)>code.nowrap{white-space:nowrap}
+*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;text-rendering:optimizeSpeed}
-em em{font-style:normal}
-strong strong{font-weight:400}
 .keyseq{color:rgba(51,51,51,.8)}
 kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
@@ -418,16 +417,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
-<body class="article toc2 toc-left">
+<body class="book toc2 toc-left">
 <div id="header">
 <h1>WildFly Camel User Guide</h1>
 <div class="details">
 <span id="author" class="author">Thomas Diesler</span><br>
 <span id="author2" class="author">James Netherton</span><br>
 <span id="revnumber">version 4.4.0-SNAPSHOT,</span>
-<span id="revdate">2016-11-16</span>
+<span id="revdate">2016-11-17</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -458,62 +457,63 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_camel_braintree">6.5. camel-braintree</a></li>
 <li><a href="#_camel_cassandra">6.6. camel-cassandra</a></li>
 <li><a href="#_camel_cdi">6.7. camel-cdi</a></li>
-<li><a href="#_camel_cxf">6.8. camel-cxf</a></li>
-<li><a href="#_camel_dns">6.9. camel-dns</a></li>
-<li><a href="#_camel_dozer">6.10. camel-dozer</a></li>
-<li><a href="#_camel_ejb">6.11. camel-ejb</a></li>
-<li><a href="#_camel_elasticsearch">6.12. camel-elasticsearch</a></li>
-<li><a href="#_camel_file">6.13. camel-file</a></li>
-<li><a href="#_camel_ftp">6.14. camel-ftp</a></li>
-<li><a href="#_camel_hl7">6.15. camel-hl7</a></li>
-<li><a href="#_camel_http">6.16. camel-http</a></li>
-<li><a href="#_camel_hystrix">6.17. camel-hystrix</a></li>
-<li><a href="#_camel_infinispan">6.18. camel-infinispan</a></li>
-<li><a href="#_camel_irc">6.19. camel-irc</a></li>
-<li><a href="#_camel_jasypt">6.20. camel-jasypt</a></li>
-<li><a href="#_camel_jaxb">6.21. camel-jaxb</a></li>
-<li><a href="#_camel_jdbc">6.22. camel-jdbc</a></li>
-<li><a href="#_camel_jgroups">6.23. camel-jgroups</a></li>
-<li><a href="#_camel_jms">6.24. camel-jms</a></li>
-<li><a href="#_camel_jmx">6.25. camel-jmx</a></li>
-<li><a href="#_camel_jpa">6.26. camel-jpa</a></li>
-<li><a href="#_camel_jsch">6.27. camel-jsch</a></li>
-<li><a href="#_camel_kafka">6.28. camel-kafka</a></li>
-<li><a href="#_camel_ldap">6.29. camel-ldap</a></li>
-<li><a href="#_camel_linkedin">6.30. camel-linkedin</a></li>
-<li><a href="#_camel_lucene">6.31. camel-lucene</a></li>
-<li><a href="#_camel_mail">6.32. camel-mail</a></li>
-<li><a href="#_camel_metrics">6.33. camel-metrics</a></li>
-<li><a href="#_camel_mina2">6.34. camel-mina2</a></li>
-<li><a href="#_camel_mongodb">6.35. camel-mongodb</a></li>
-<li><a href="#_camel_mqtt">6.36. camel-mqtt</a></li>
-<li><a href="#_camel_mvel">6.37. camel-mvel</a></li>
-<li><a href="#_camel_nats">6.38. camel-nats</a></li>
-<li><a href="#_camel_netty4">6.39. camel-netty4</a></li>
-<li><a href="#_camel_ognl">6.40. camel-ognl</a></li>
-<li><a href="#_camel_olingo2">6.41. camel-olingo2</a></li>
-<li><a href="#_camel_pdf">6.42. camel-pdf</a></li>
-<li><a href="#_camel_quartz">6.43. camel-quartz</a></li>
-<li><a href="#_camel_rest">6.44. camel-rest</a></li>
-<li><a href="#_camel_rss">6.45. camel-rss</a></li>
-<li><a href="#_camel_salesforce">6.46. camel-salesforce</a></li>
-<li><a href="#_camel_sap">6.47. camel-sap</a></li>
-<li><a href="#_camel_saxon">6.48. camel-saxon</a></li>
-<li><a href="#_camel_script">6.49. camel-script</a></li>
-<li><a href="#_camel_servicenow">6.50. camel-servicenow</a></li>
-<li><a href="#_camel_servlet">6.51. camel-servlet</a></li>
-<li><a href="#_camel_smpp">6.52. camel-smpp</a></li>
-<li><a href="#_camel_spring">6.53. camel-spring</a></li>
-<li><a href="#_camel_sql">6.54. camel-sql</a></li>
-<li><a href="#_camel_stream">6.55. camel-stream</a></li>
-<li><a href="#_camel_swagger">6.56. camel-swagger</a></li>
-<li><a href="#_camel_twitter">6.57. camel-twitter</a></li>
-<li><a href="#_camel_undertow">6.58. camel-undertow</a></li>
-<li><a href="#_camel_velocity">6.59. camel-velocity</a></li>
-<li><a href="#_camel_weather">6.60. camel-weather</a></li>
-<li><a href="#_camel_xstream">6.61. camel-xstream</a></li>
-<li><a href="#_camel_zipkin">6.62. camel-zipkin</a></li>
-<li><a href="#_camel_zookeeper">6.63. camel-zookeeper</a></li>
+<li><a href="#_camel_crypto">6.8. camel-crypto</a></li>
+<li><a href="#_camel_cxf">6.9. camel-cxf</a></li>
+<li><a href="#_camel_dns">6.10. camel-dns</a></li>
+<li><a href="#_camel_dozer">6.11. camel-dozer</a></li>
+<li><a href="#_camel_ejb">6.12. camel-ejb</a></li>
+<li><a href="#_camel_elasticsearch">6.13. camel-elasticsearch</a></li>
+<li><a href="#_camel_file">6.14. camel-file</a></li>
+<li><a href="#_camel_ftp">6.15. camel-ftp</a></li>
+<li><a href="#_camel_hl7">6.16. camel-hl7</a></li>
+<li><a href="#_camel_http">6.17. camel-http</a></li>
+<li><a href="#_camel_hystrix">6.18. camel-hystrix</a></li>
+<li><a href="#_camel_infinispan">6.19. camel-infinispan</a></li>
+<li><a href="#_camel_irc">6.20. camel-irc</a></li>
+<li><a href="#_camel_jasypt">6.21. camel-jasypt</a></li>
+<li><a href="#_camel_jaxb">6.22. camel-jaxb</a></li>
+<li><a href="#_camel_jdbc">6.23. camel-jdbc</a></li>
+<li><a href="#_camel_jgroups">6.24. camel-jgroups</a></li>
+<li><a href="#_camel_jms">6.25. camel-jms</a></li>
+<li><a href="#_camel_jmx">6.26. camel-jmx</a></li>
+<li><a href="#_camel_jpa">6.27. camel-jpa</a></li>
+<li><a href="#_camel_jsch">6.28. camel-jsch</a></li>
+<li><a href="#_camel_kafka">6.29. camel-kafka</a></li>
+<li><a href="#_camel_ldap">6.30. camel-ldap</a></li>
+<li><a href="#_camel_linkedin">6.31. camel-linkedin</a></li>
+<li><a href="#_camel_lucene">6.32. camel-lucene</a></li>
+<li><a href="#_camel_mail">6.33. camel-mail</a></li>
+<li><a href="#_camel_metrics">6.34. camel-metrics</a></li>
+<li><a href="#_camel_mina2">6.35. camel-mina2</a></li>
+<li><a href="#_camel_mongodb">6.36. camel-mongodb</a></li>
+<li><a href="#_camel_mqtt">6.37. camel-mqtt</a></li>
+<li><a href="#_camel_mvel">6.38. camel-mvel</a></li>
+<li><a href="#_camel_nats">6.39. camel-nats</a></li>
+<li><a href="#_camel_netty4">6.40. camel-netty4</a></li>
+<li><a href="#_camel_ognl">6.41. camel-ognl</a></li>
+<li><a href="#_camel_olingo2">6.42. camel-olingo2</a></li>
+<li><a href="#_camel_pdf">6.43. camel-pdf</a></li>
+<li><a href="#_camel_quartz">6.44. camel-quartz</a></li>
+<li><a href="#_camel_rest">6.45. camel-rest</a></li>
+<li><a href="#_camel_rss">6.46. camel-rss</a></li>
+<li><a href="#_camel_salesforce">6.47. camel-salesforce</a></li>
+<li><a href="#_camel_sap">6.48. camel-sap</a></li>
+<li><a href="#_camel_saxon">6.49. camel-saxon</a></li>
+<li><a href="#_camel_script">6.50. camel-script</a></li>
+<li><a href="#_camel_servicenow">6.51. camel-servicenow</a></li>
+<li><a href="#_camel_servlet">6.52. camel-servlet</a></li>
+<li><a href="#_camel_smpp">6.53. camel-smpp</a></li>
+<li><a href="#_camel_spring">6.54. camel-spring</a></li>
+<li><a href="#_camel_sql">6.55. camel-sql</a></li>
+<li><a href="#_camel_stream">6.56. camel-stream</a></li>
+<li><a href="#_camel_swagger">6.57. camel-swagger</a></li>
+<li><a href="#_camel_twitter">6.58. camel-twitter</a></li>
+<li><a href="#_camel_undertow">6.59. camel-undertow</a></li>
+<li><a href="#_camel_velocity">6.60. camel-velocity</a></li>
+<li><a href="#_camel_weather">6.61. camel-weather</a></li>
+<li><a href="#_camel_xstream">6.62. camel-xstream</a></li>
+<li><a href="#_camel_zipkin">6.63. camel-zipkin</a></li>
+<li><a href="#_camel_zookeeper">6.64. camel-zookeeper</a></li>
 </ul>
 </li>
 <li><a href="#_adding_components">7. Adding Components</a></li>
@@ -2340,9 +2340,11 @@ camelctx.addRoutes(new RouteBuilder() {
 <div class="sect2">
 <h3 id="_camel_cdi">6.7. camel-cdi</h3>
 <div class="paragraph">
-<p>Covered by <a href="index.html#_cdi">CDI</a>.
-<mark>#</mark> camel-crypto</p>
+<p>Covered by <a href="index.html#_cdi">CDI</a>.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_camel_crypto">6.8. camel-crypto</h3>
 <div class="paragraph">
 <p>Secure message exchanges in camel is provided by the <a href="http://camel.apache.org/crypto-digital-signatures.html" target="_blank">camel-crypto</a> component.</p>
 </div>
@@ -2395,13 +2397,13 @@ camelContext.addRoutes(new RouteBuilder() {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_cxf">6.8. camel-cxf</h3>
+<h3 id="_camel_cxf">6.9. camel-cxf</h3>
 <div class="paragraph">
 <p>Covered by <a href="index.html#_jax_rs">JAX-RS</a> and <a href="index.html#_jax_ws">JAX-WS</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_dns">6.9. camel-dns</h3>
+<h3 id="_camel_dns">6.10. camel-dns</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/dns.html" target="_blank">camel-dns</a> component provides the ability to:</p>
 </div>
@@ -2435,7 +2437,7 @@ camelContext.addRoutes(new RouteBuilder() {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_dozer">6.10. camel-dozer</h3>
+<h3 id="_camel_dozer">6.11. camel-dozer</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/dozer.html" target="_blank">camel-dozer</a>
 component provides the ability to map between Java beans using the <a href="http://camel.apache.org/dozer-type-conversion.html" target="_blank">Dozer</a>
@@ -2458,13 +2460,13 @@ mapping framework.  Camel also supports the ability to trigger Dozer mappings as
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_ejb">6.11. camel-ejb</h3>
+<h3 id="_camel_ejb">6.12. camel-ejb</h3>
 <div class="paragraph">
 <p>Covered by <a href="index.html#_ejb">EJB</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_elasticsearch">6.12. camel-elasticsearch</h3>
+<h3 id="_camel_elasticsearch">6.13. camel-elasticsearch</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/elasticsearch.html" target="_blank">camel-elasticsearch</a>
 component allows you to interface with an <a href="https://www.elastic.co/" target="_blank">ElasticSearch</a> server.</p>
@@ -2489,7 +2491,7 @@ component allows you to interface with an <a href="https://www.elastic.co/" targ
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_file">6.13. camel-file</h3>
+<h3 id="_camel_file">6.14. camel-file</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/file2.html" target="_blank">camel-file</a> component provides access to file systems, allowing files to be processed by any other Camel Components or messages from other components to be saved to disk.</p>
 </div>
@@ -2512,7 +2514,7 @@ component allows you to interface with an <a href="https://www.elastic.co/" targ
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_ftp">6.14. camel-ftp</h3>
+<h3 id="_camel_ftp">6.15. camel-ftp</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/ftp2.html" target="_blank">camel-ftp</a> component provides access to remote file systems over the FTP and SFTP protocols.</p>
 </div>
@@ -2526,7 +2528,7 @@ camelctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFil
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_hl7">6.15. camel-hl7</h3>
+<h3 id="_camel_hl7">6.16. camel-hl7</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/hl7.html" target="_blank">camel-hl7</a>
 component is used for working with the HL7 MLLP protocol and <a href="http://www.hl7.org/implement/standards/product_brief.cfm?product_id=185" target="_blank">HL7 v2</a>
@@ -2560,7 +2562,7 @@ Assert.assertEquals(hapimsg.toString(), result.toString());</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_http">6.16. camel-http</h3>
+<h3 id="_camel_http">6.17. camel-http</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/http4.html" target="_blank">camel-http</a> component provides HTTP based endpoints for calling external HTTP resources.</p>
 </div>
@@ -2578,14 +2580,14 @@ Assert.assertEquals(hapimsg.toString(), result.toString());</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_hystrix">6.17. camel-hystrix</h3>
+<h3 id="_camel_hystrix">6.18. camel-hystrix</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/hystrix-eip.html" target="_blank">camel-hystrix</a>
 EIP provides integration with Netflix <a href="https://github.com/Netflix/Hystrix" target="_blank">Hystrix</a> to be used as circuit breaker in Camel routes.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_infinispan">6.18. camel-infinispan</h3>
+<h3 id="_camel_infinispan">6.19. camel-infinispan</h3>
 <div class="paragraph">
 <p>This <a href="http://camel.apache.org/infinispan.html" target="_blank">camel-infinispan</a>
 component allows you to interact with <a href="http://infinispan.org" target="_blank">Infinispan</a> distributed data grid / caches.</p>
@@ -2636,14 +2638,14 @@ component allows you to interact with <a href="http://infinispan.org" target="_b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_irc">6.19. camel-irc</h3>
+<h3 id="_camel_irc">6.20. camel-irc</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/irc.html" target="_blank">camel-irc</a> component enables you to publish and consume messages from
 <a href="http://en.wikipedia.org/wiki/Internet_Relay_Chat" target="_blank">IRC</a> channels.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_jasypt">6.20. camel-jasypt</h3>
+<h3 id="_camel_jasypt">6.21. camel-jasypt</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/jasypt.html" target="_blank">camel-jasypt</a> component provides a simplified encryption library which makes encryption and decryption easy. Camel integrates with Jasypt to allow sensitive information in Properties files to be encrypted.</p>
 </div>
@@ -2661,44 +2663,44 @@ context.addComponent("properties", pc);</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_jaxb">6.21. camel-jaxb</h3>
+<h3 id="_camel_jaxb">6.22. camel-jaxb</h3>
 <div class="paragraph">
 <p>Covered by <a href="index.html#_jaxb">JAXB</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_jdbc">6.22. camel-jdbc</h3>
+<h3 id="_camel_jdbc">6.23. camel-jdbc</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/jdbc.html" target="_blank">camel-jdbc</a> component provides access to SQL databases via JDBC.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_jgroups">6.23. camel-jgroups</h3>
+<h3 id="_camel_jgroups">6.24. camel-jgroups</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/jgroups.html" target="_blank">camel-jgroups</a>
 component provides reliable multicast communication via the <a href="http://www.jgroups.org/" target="_blank">JGroups</a> toolkit.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_jms">6.24. camel-jms</h3>
+<h3 id="_camel_jms">6.25. camel-jms</h3>
 <div class="paragraph">
 <p>Covered by <a href="index.html#_jms">JMS</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_jmx">6.25. camel-jmx</h3>
+<h3 id="_camel_jmx">6.26. camel-jmx</h3>
 <div class="paragraph">
 <p>Covered by <a href="index.html#_jmx">JMX</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_jpa">6.26. camel-jpa</h3>
+<h3 id="_camel_jpa">6.27. camel-jpa</h3>
 <div class="paragraph">
 <p>Covered by <a href="index.html#_jpa">JPA</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_jsch">6.27. camel-jsch</h3>
+<h3 id="_camel_jsch">6.28. camel-jsch</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/jsch.html" target="_blank">camel-jsch</a>
 component enables secure file transfer using the <a href="http://en.wikipedia.org/wiki/Secure_copy" target="_blank">SCP protocol</a>.</p>
@@ -2713,20 +2715,20 @@ camelctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFil
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_kafka">6.28. camel-kafka</h3>
+<h3 id="_camel_kafka">6.29. camel-kafka</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/kafka.html" target="_blank">camel-kafka</a>
 component is used for communicating with <a href="http://kafka.apache.org/" target="_blank">Apache Kafka</a> message broker.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_ldap">6.29. camel-ldap</h3>
+<h3 id="_camel_ldap">6.30. camel-ldap</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/ldap.html" target="_blank">camel-ldap</a> component provides the capability to perform LDAP queries.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_linkedin">6.30. camel-linkedin</h3>
+<h3 id="_camel_linkedin">6.31. camel-linkedin</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/linkedin.html" target="_blank">camel-linkedin</a>
 component provides access to the <a href="https://developer.linkedin.com/rest" target="_blank">LinkedIn REST APIs</a>.</p>
@@ -2736,14 +2738,14 @@ component provides access to the <a href="https://developer.linkedin.com/rest" t
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_lucene">6.31. camel-lucene</h3>
+<h3 id="_camel_lucene">6.32. camel-lucene</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/lucene.html" target="_blank">camel-lucene</a>
 component is based on the <a href="http://lucene.apache.org/" target="_blank">Apache Lucene</a> project. Apache Lucene is a powerful high-performance, full-featured text search engine library written entirely in Java.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_mail">6.32. camel-mail</h3>
+<h3 id="_camel_mail">6.33. camel-mail</h3>
 <div class="paragraph">
 <p>Interaction with email is provided by the <a href="http://camel.apache.org/mail.html" target="_blank">camel-mail</a> component.</p>
 </div>
@@ -2751,7 +2753,7 @@ component is based on the <a href="http://lucene.apache.org/" target="_blank">Ap
 <p>By default, Camel will create its own mail session and use this to interact with your mail server. Since WildFly already provides a mail subsystem with all of the relevant support for secure connections, username / password encryption etc, it is recommended to configure your mail sessions within the WildFly configuration and use JNDI to wire them into your Camel endpoints.</p>
 </div>
 <div class="sect3">
-<h4 id="_wildfly_configuration">6.32.1. WildFly configuration</h4>
+<h4 id="_wildfly_configuration">6.33.1. WildFly configuration</h4>
 <div class="paragraph">
 <p>First we configure the WildFly mail subsystem for our Mail server. This example adds configuration for Google Mail IMAP and SMTP .</p>
 </div>
@@ -2791,7 +2793,7 @@ component is based on the <a href="http://lucene.apache.org/" target="_blank">Ap
 </div>
 </div>
 <div class="sect3">
-<h4 id="_pop3_configuration">6.32.2. POP3 Configuration</h4>
+<h4 id="_pop3_configuration">6.33.2. POP3 Configuration</h4>
 <div class="paragraph">
 <p>If you need to configure POP3 sessions, the principals are the same as defined in the examples above.</p>
 </div>
@@ -2808,7 +2810,7 @@ component is based on the <a href="http://lucene.apache.org/" target="_blank">Ap
 </div>
 </div>
 <div class="sect3">
-<h4 id="_camel_route_configuration_4">6.32.3. Camel route configuration</h4>
+<h4 id="_camel_route_configuration_4">6.33.3. Camel route configuration</h4>
 <div class="sect4">
 <h5 id="_mail_producer">Mail producer</h5>
 <div class="paragraph">
@@ -2878,7 +2880,7 @@ template.sendBodyAndHeaders("direct:start", body, headers);</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_security_5">6.32.4. Security</h4>
+<h4 id="_security_5">6.33.4. Security</h4>
 <div class="sect4">
 <h5 id="_ssl_configuration">SSL configuration</h5>
 <div class="paragraph">
@@ -2916,14 +2918,14 @@ component guide. Camel also has a <a href="http://camel.apache.org/security.html
 </div>
 </div>
 <div class="sect3">
-<h4 id="_code_examples_on_github_5">6.32.5. Code examples on GitHub</h4>
+<h4 id="_code_examples_on_github_5">6.33.5. Code examples on GitHub</h4>
 <div class="paragraph">
 <p>An example <a href="https://github.com/wildfly-extras/wildfly-camel-examples/tree/master/camel-mail" target="_blank">camel-mail application</a> is available on GitHub for you to try out sending / receiving email.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_metrics">6.33. camel-metrics</h3>
+<h3 id="_camel_metrics">6.34. camel-metrics</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/metrics-component.html" target="_blank">camel-metrics</a> component allows you to define, publish and collect metrics from Camel routes.</p>
 </div>
@@ -2935,21 +2937,21 @@ component guide. Camel also has a <a href="http://camel.apache.org/security.html
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_mina2">6.34. camel-mina2</h3>
+<h3 id="_camel_mina2">6.35. camel-mina2</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/mina2.html" target="_blank">camel-mina2</a>
 component is a transport for working with <a href="http://mina.apache.org/" target="_blank">Apache MINA</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_mongodb">6.35. camel-mongodb</h3>
+<h3 id="_camel_mongodb">6.36. camel-mongodb</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/mongodb.html" target="_blank">camel-mongodb</a>
 component provides the capabilty to interact with <a href="http://www.mongodb.org/" target="_blank">MongoDB</a> servers.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_mqtt">6.36. camel-mqtt</h3>
+<h3 id="_camel_mqtt">6.37. camel-mqtt</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/mqtt.html" target="_blank">camel-mqtt</a>
 component is used for communicating with <a href="http://mqtt.org/" target="_blank">MQTT</a>
@@ -2958,7 +2960,7 @@ or <a href="http://mosquitto.org/" target="_blank">Mosquitto</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_mvel">6.37. camel-mvel</h3>
+<h3 id="_camel_mvel">6.38. camel-mvel</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/mvel-component.html" target="_blank">camel-mvel</a>
 component allows you to process a message using an <a href="https://github.com/mvel/mvel" target="_blank">MVEL</a> template.</p>
@@ -2991,14 +2993,14 @@ Assert.assertEquals("Hello Kermit", result);</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_nats">6.38. camel-nats</h3>
+<h3 id="_camel_nats">6.39. camel-nats</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/nats.html" target="_blank">camel-nats</a>
 component is used for communicating with the <a href="http://nats.io/" target="_blank">NATS</a> messaging platform.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_netty4">6.39. camel-netty4</h3>
+<h3 id="_camel_netty4">6.40. camel-netty4</h3>
 <div class="paragraph">
 <p>Netty client / server support in Camel is provided by the <a href="http://camel.apache.org/netty4.html" target="_blank">camel-netty4</a> component.</p>
 </div>
@@ -3007,7 +3009,7 @@ component is used for communicating with the <a href="http://nats.io/" target="_
 project version 4. Therefore, the standard <a href="http://camel.apache.org/netty.html" target="_blank">camel-netty component</a> will not work since it is compatible with Netty version 3 only.</p>
 </div>
 <div class="sect3">
-<h4 id="_simple_netty_client_server_test">6.39.1. Simple Netty Client / Server Test</h4>
+<h4 id="_simple_netty_client_server_test">6.40.1. Simple Netty Client / Server Test</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelContext = new DefaultCamelContext();
@@ -3046,12 +3048,12 @@ camelContext.stop();</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_ognl">6.40. camel-ognl</h3>
+<h3 id="_camel_ognl">6.41. camel-ognl</h3>
 <div class="paragraph">
 <p>OGNL expression support in Camel is provided by the <a href="http://camel.apache.org/ognl.html" target="_blank">camel-ognl</a> component.</p>
 </div>
 <div class="sect3">
-<h4 id="_simple_camel_ognl_use_case">6.40.1. Simple Camel OGNL Use Case</h4>
+<h4 id="_simple_camel_ognl_use_case">6.41.1. Simple Camel OGNL Use Case</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelContext = new DefaultCamelContext();
@@ -3084,7 +3086,7 @@ camelContext.stop();</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_olingo2">6.41. camel-olingo2</h3>
+<h3 id="_camel_olingo2">6.42. camel-olingo2</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/olingo2.html" target="_blank">camel-olingo2</a>
 component provides the capability to interact with <a href="http://www.odata.org/" target="_blank">OData</a>
@@ -3092,14 +3094,14 @@ component provides the capability to interact with <a href="http://www.odata.org
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_pdf">6.42. camel-pdf</h3>
+<h3 id="_camel_pdf">6.43. camel-pdf</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/pdf.html" target="_blank">camel-pdf</a>
 component provides the ability to create, modify or extract content from PDF documents. This component uses <a href="https://pdfbox.apache.org/" target="_blank">Apache PDFBox</a> as underlying library to work with PDF documents.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_quartz">6.43. camel-quartz</h3>
+<h3 id="_camel_quartz">6.44. camel-quartz</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/quartz2.html" target="_blank">camel-quartz</a>
 component provides a scheduled delivery of messages using the <a href="http://www.quartz-scheduler.org" target="_blank">Quartz Scheduler 2.x</a>.</p>
@@ -3121,7 +3123,7 @@ component provides a scheduled delivery of messages using the <a href="http://ww
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_rest">6.44. camel-rest</h3>
+<h3 id="_camel_rest">6.45. camel-rest</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/rest.html" target="_blank">camel-rest</a>
 component allows you to define REST endpoints using the <a href="http://camel.apache.org/rest-dsl.html" target="_blank">Rest DSL</a> and plugin to other Camel components as the REST transport.</p>
@@ -3155,7 +3157,7 @@ component allows you to define REST endpoints using the <a href="http://camel.ap
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_rss">6.45. camel-rss</h3>
+<h3 id="_camel_rss">6.46. camel-rss</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/rss.html" target="_blank">camel-rss</a> component is used for polling RSS feeds.</p>
 </div>
@@ -3176,7 +3178,7 @@ component allows you to define REST endpoints using the <a href="http://camel.ap
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_salesforce">6.46. camel-salesforce</h3>
+<h3 id="_camel_salesforce">6.47. camel-salesforce</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/salesforce.html" target="_blank">camel-salesforce</a>
 component provides producer and consumer endpoints to communicate with <a href="http://www.salesforce.com/" target="_blank">Salesforce</a>.</p>
@@ -3243,7 +3245,7 @@ QueryRecordsOpportunity queryRecords = producer.requestBody("direct:query", null
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_sap">6.47. camel-sap</h3>
+<h3 id="_camel_sap">6.48. camel-sap</h3>
 <div class="paragraph">
 <p><a href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Fuse/6.2/html/Apache_Camel_Component_Reference/SAP.html" target="_blank">camel-sap</a> is a package consisting of ten different SAP components.</p>
 </div>
@@ -3265,7 +3267,7 @@ QueryRecordsOpportunity queryRecords = producer.requestBody("direct:query", null
 </table>
 </div>
 <div class="sect3">
-<h4 id="_configuring_the_camel_sap_module">6.47.1. Configuring the camel-sap module</h4>
+<h4 id="_configuring_the_camel_sap_module">6.48.1. Configuring the camel-sap module</h4>
 <div class="paragraph">
 <p>Before using camel-sap, an additional WildFly / EAP modules needs to be configured so that the subsystem can discover the new functionality.</p>
 </div>
@@ -3346,7 +3348,7 @@ com/sap/conn/jco/main/lib/linux-x86_64/libsapjco3.so</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_sap_camel_route">6.47.2. Example SAP Camel Route</h4>
+<h4 id="_example_sap_camel_route">6.48.2. Example SAP Camel Route</h4>
 <div class="paragraph">
 <p>This example uses XML files containing serialized SAP requests to query Customer records in the Flight Data Application within SAP.</p>
 </div>
@@ -3432,7 +3434,7 @@ You should see an XML structure like the following containing customer records.<
 </div>
 </div>
 <div class="sect3">
-<h4 id="_further_reading">6.47.3. Further Reading</h4>
+<h4 id="_further_reading">6.48.3. Further Reading</h4>
 <div class="paragraph">
 <p>The example above only scratches the surface of the functionality provided by the camel-sap component. For comprehensive component documentation visit
 the <a href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Fuse/6.2/html/Apache_Camel_Component_Reference/SAP.html" target="_blank">Camel SAP Component Reference</a>.</p>
@@ -3440,7 +3442,7 @@ the <a href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Fuse/6.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_saxon">6.48. camel-saxon</h3>
+<h3 id="_camel_saxon">6.49. camel-saxon</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/xquery.html" target="_blank">camel-saxon</a>
 component supports <a href="http://www.w3.org/TR/xquery/" target="_blank">XQuery</a>
@@ -3464,7 +3466,7 @@ or <a href="http://camel.apache.org/xml-configuration.html" target="_blank">Xml 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_script">6.49. camel-script</h3>
+<h3 id="_camel_script">6.50. camel-script</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/scripting-languages.html" target="_blank">camel-script</a>
 component supports a number of scripting languages which can be used to create an <a href="http://camel.apache.org/expression.html" target="_blank">Expression</a>
@@ -3486,14 +3488,14 @@ via the standard <a href="http://jcp.org/en/jsr/detail?id=223" target="_blank">J
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_servicenow">6.50. camel-servicenow</h3>
+<h3 id="_camel_servicenow">6.51. camel-servicenow</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/servicenow.html" target="_blank">camel-servicenow</a>
 component provides access to the ServiceNow <a href="https://developer.servicenow.com/app.do#!/rest_api_doc?v=fuji" target="_blank">REST APIs</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_servlet">6.51. camel-servlet</h3>
+<h3 id="_camel_servlet">6.52. camel-servlet</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/servlet.html" target="_blank">camel-servlet</a>
 component provides HTTP based endpoints for consuming HTTP requests that arrive at a HTTP endpoint that is bound to a published Servlet.</p>
@@ -3517,18 +3519,18 @@ component provides HTTP based endpoints for consuming HTTP requests that arrive 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_smpp">6.52. camel-smpp</h3>
+<h3 id="_camel_smpp">6.53. camel-smpp</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/smpp.html" target="_blank">camel-smpp</a> component enables SMSC over the SMPP protocol in order to send and receive SMS.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_spring">6.53. camel-spring</h3>
+<h3 id="_camel_spring">6.54. camel-spring</h3>
 <div class="paragraph">
 <p>Camel contexts can be configured with Spring via the <a href="http://camel.apache.org/spring.html" target="_blank">camel-spring</a> component.</p>
 </div>
 <div class="sect3">
-<h4 id="_camel_spring_xml_example">6.53.1. Camel Spring XML example</h4>
+<h4 id="_camel_spring_xml_example">6.54.1. Camel Spring XML example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-xml" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
@@ -3549,7 +3551,7 @@ component provides HTTP based endpoints for consuming HTTP requests that arrive 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_deployment">6.53.2. Deployment</h4>
+<h4 id="_deployment">6.54.2. Deployment</h4>
 <div class="paragraph">
 <p>Spring Camel contexts can be deployed either as part of the camel subsystem configuration or by deploying a '-camel-context.xml' suffixed file.</p>
 </div>
@@ -3559,7 +3561,7 @@ component provides HTTP based endpoints for consuming HTTP requests that arrive 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_sql">6.54. camel-sql</h3>
+<h3 id="_camel_sql">6.55. camel-sql</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/sql-component.html" target="_blank">camel-sql</a>
 component allows you to work with databases using <a href="http://camel.apache.org/jdbc.html" target="_blank">JDBC</a> queries. The difference between this component and JDBC component is that in case of SQL the query is a property of the endpoint and it uses message payload as parameters passed to the query.</p>
@@ -3651,7 +3653,7 @@ public class CdiRouteBuilder extends RouteBuilder {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_spring_jdbc_xml_namespace_support">6.54.1. Spring JDBC XML namespace support</h4>
+<h4 id="_spring_jdbc_xml_namespace_support">6.55.1. Spring JDBC XML namespace support</h4>
 <div class="paragraph">
 <p>Support for the following Spring JDBC XML configurations is supported</p>
 </div>
@@ -3695,13 +3697,13 @@ to install the appropriate database driver.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_stream">6.55. camel-stream</h3>
+<h3 id="_camel_stream">6.56. camel-stream</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/stream.html" target="_blank">camel-stream</a> component provides access to the <code>System.in</code>, <code>System.out</code> and <code>System.err</code> streams as well as allowing streaming of file and URL.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_swagger">6.56. camel-swagger</h3>
+<h3 id="_camel_swagger">6.57. camel-swagger</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/swagger-java.html" target="_blank">camel-swagger</a>
 module is used for exposing the REST services and their APIs using <a href="http://swagger.io/" target="_blank">Swagger</a>.</p>
@@ -3722,14 +3724,14 @@ camelctx.start();</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_twitter">6.57. camel-twitter</h3>
+<h3 id="_camel_twitter">6.58. camel-twitter</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/twitter.html" target="_blank">camel-twitter</a> component provides the capability to interact with the Twitter API in order
 to create and consume tweets, timelines, users, trends, and direct messages.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_undertow">6.58. camel-undertow</h3>
+<h3 id="_camel_undertow">6.59. camel-undertow</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/undertow.html" target="_blank">camel-undertow</a>
 component provides HTTP-based endpoints for consuming and producing HTTP requests. That is, the <a href="http://undertow.io/" target="_blank">Undertow</a> component behaves as a simple Web server. Undertow can also be used as a http client which mean you can also use it with Camel as a producer.</p>
@@ -3739,7 +3741,7 @@ component provides HTTP-based endpoints for consuming and producing HTTP request
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_velocity">6.59. camel-velocity</h3>
+<h3 id="_camel_velocity">6.60. camel-velocity</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/velocity.html" target="_blank">camel-velocity</a> component allows you to process a message using an Apache Velocity template.</p>
 </div>
@@ -3757,7 +3759,7 @@ camelctx.start();</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_weather">6.60. camel-weather</h3>
+<h3 id="_camel_weather">6.61. camel-weather</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/weather.html" target="_blank">camel-weather</a>
 component provides integration with the <a href="http://openweathermap.org/api" target="_blank">Open Weather Map API</a>.</p>
@@ -3788,7 +3790,7 @@ camelContext.start();</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_xstream">6.61. camel-xstream</h3>
+<h3 id="_camel_xstream">6.62. camel-xstream</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/xstream.html" target="_blank">camel-xstream</a>
 component provides the XStream <a href="http://camel.apache.org/data-format.html" target="_blank">Data Format</a>
@@ -3816,14 +3818,14 @@ try {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_zipkin">6.62. camel-zipkin</h3>
+<h3 id="_camel_zipkin">6.63. camel-zipkin</h3>
 <div class="paragraph">
 <p>The <a href="https://cwiki.apache.org/confluence/display/CAMEL/camel-zipkin" target="_blank">camel-zipkin</a>
 component is used for tracing and timing incoming and outgoing Camel messages using <a href="http://zipkin.io/" target="_blank">zipkin</a>. Events are captured for incoming and outgoing messages being sent to/from Camel.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_camel_zookeeper">6.63. camel-zookeeper</h3>
+<h3 id="_camel_zookeeper">6.64. camel-zookeeper</h3>
 <div class="paragraph">
 <p>The <a href="http://camel.apache.org/zookeeper.html" target="_blank">camel-zookeeper</a>
 component allows interaction with a <a href="http://hadoop.apache.org/zookeeper/" target="_blank">ZooKeeper</a> cluster and exposes the following features to Camel:</p>
@@ -4037,12 +4039,12 @@ $ sudo service docker start</code></pre>
 $ sudo service docker restart</code></pre>
 </div>
 </div>
-<div class="quoteblock">
-<blockquote>
+<div class="exampleblock">
+<div class="content">
 <div class="paragraph">
-<p>&lt;small&gt;You may have to logout/login for this change to take effect&lt;/small&gt;</p>
+<p>You may have to logout/login for this change to take effect</p>
 </div>
-</blockquote>
+</div>
 </div>
 <div class="paragraph">
 <p>In my case I also had to add a host mapping like this</p>
@@ -4094,58 +4096,6 @@ OPTIONS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock"</code></pre>
 <div class="content">
 <img src="guide/images/hawtio-camel-01.png" alt="hawtio camel 01">
 </div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_domain_setup">10.1.3. Domain Setup</h4>
-<div class="paragraph">
-<p>Running multiple server containers in a cloud environment is often only useful when these containers can also be managed. Without the management interfaces exposed it would be virtually impossible to adjust configurations for these individual servers or the whole set. As a minimum we would like to monitor the health state of these servers so that we can possibly replace containers if needed.</p>
-</div>
-<div class="paragraph">
-<p>You can run the container that acts as a domain controller like this</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>$ docker run --rm -ti -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin -p 9990:9990 --name=domain-master wildflyext/wildfly-camel --domain-config domain-camel.xml --host-config host-master.xml -b 0.0.0.0 -bmanagement 0.0.0.0</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>and various hosts that connect to the domain controller as daemons like this</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>$ docker run -d -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin -p 8080 --link domain-master:domain-controller wildflyext/wildfly-camel --domain-config domain-camel.xml --host-config host-camel-slave.xml -b 0.0.0.0 -bmanagement 0.0.0.0</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>As above, you can access the admin console like this: <a href="http://54.154.82.232:9990/console" class="bare">http://54.154.82.232:9990/console</a></p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="guide/images/console-domain.png" alt="console domain">
-</div>
-</div>
-<div class="paragraph">
-<p>Now we have a domain controller running that is reachable on <code>9990</code> and three hosts that expose their respective <code>8080</code> port on various public network ports.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>$ docker ps
-CONTAINER ID        IMAGE                             COMMAND                CREATED             STATUS              PORTS                                         NAMES
-eac043e97abc        wildflyext/wildfly-camel:latest   "/opt/jboss/wildfly/   4 seconds ago       Up 2 seconds        9990/tcp, 9999/tcp, 0.0.0.0:49158-&gt;8080/tcp   desperate_hawking
-27a41d2b8a4e        wildflyext/wildfly-camel:latest   "/opt/jboss/wildfly/   5 seconds ago       Up 4 seconds        9999/tcp, 9990/tcp, 0.0.0.0:49157-&gt;8080/tcp   ecstatic_davinci
-6d47cae3be7c        wildflyext/wildfly-camel:latest   "/opt/jboss/wildfly/   6 seconds ago       Up 5 seconds        9999/tcp, 9990/tcp, 0.0.0.0:49156-&gt;8080/tcp   determined_mestorf
-6095cf80d3a8        wildflyext/wildfly-camel:latest   "/opt/jboss/wildfly/   15 seconds ago      Up 14 seconds       8080/tcp, 9999/tcp, 0.0.0.0:9990-&gt;9990/tcp    domain-master</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>We retained WildFly manageability in a Docker environment.</p>
-</div>
-<div class="paragraph">
-<p>The next level up would be a cloud management layer like <a href="https://www.openshift.com/products/origin" target="_blank">OpenShift</a> or <a href="https://github.com/GoogleCloudPlatform/kubernetes/blob/master/README.md" target="_blank">Kubernetes</a>.</p>
-</div>
-<div class="paragraph">
-<p>The goal would be a setup that is highly available (HA) and scalable because containers that go bad can transparently replaced or new ones added. The public facing service should be reachable on a known address and request load should be balanced across the available hosts.</p>
 </div>
 </div>
 </div>
@@ -4365,7 +4315,7 @@ the wildfly-camel project and you should see a diagram like this.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_domain_setup_2">10.2.9. Domain Setup</h4>
+<h4 id="_domain_setup">10.2.9. Domain Setup</h4>
 <div class="paragraph">
 <p>Running multiple server containers in a cloud environment is often only useful when these containers can also be managed. In the previous example we had three servers that each exposed an HTTP service reachable through a Kubernetes <a href="https://github.com/GoogleCloudPlatform/kubernetes/blob/v1.0.0/docs/services.md" target="_blank">Service</a>. The management interface of these servers were not exposed. It would be virtually impossible to adjust configurations for these individual servers or the whole set. As a minimum we would like to monitor the health state of these servers so that we can possibly replace containers if needed.</p>
 </div>
@@ -4672,7 +4622,7 @@ producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION,
 <div id="footer">
 <div id="footer-text">
 Version 4.4.0-SNAPSHOT<br>
-Last updated 2016-11-16 16:03:30 CET
+Last updated 2016-11-17 16:40:29 CET
 </div>
 </div>
 </body>
