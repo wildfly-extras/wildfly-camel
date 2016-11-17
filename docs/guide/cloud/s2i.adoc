@@ -33,8 +33,8 @@ $ oc apply -f https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/mas
 When you select 'Add to Project' in the OpenShift web console you should see a new catalog item named
 's2i-wildfly-camel'. Choose this option, provide the required template parameters and click 'Create' to start the build process.
 
-image::../images/wildfly-camel-s2i.png[]
+image::wildfly-camel-s2i.png[]
 
 You'll then be able to monitor your application S2I build and deployment in OpenShift. Eventually you should see your application with 1 pod running.
 
-image::../images/wildfly-camel-s2i-deployed.png[]
+image::wildfly-camel-s2i-deployed.png[]
