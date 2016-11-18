@@ -1,39 +1,80 @@
 ### OpenShift Origin
 
-This chapter gets you started on WildFly-Camel in https://github.com/openshift/origin[OpenShift Origin,window=_blank]  
+Here we follow the instructions on https://www.openshift.org[Try Origin,window=_blank]. We use the https://www.openshift.org/vm[all-in-one VM,window=_blank] approach through a Vagrant VirtualBox VM
 
-#### Starting OpenShift
-
-We can start OpenShift Origin like this
+After having installed Vagrant and VirtualBox, we run:
 
 ```
-$ docker run --rm --name openshift-origin --privileged --net=host \
-  -v /:/rootfs:ro \
-  -v /var/run:/var/run:rw \
-  -v /sys:/sys:ro \
-  -v /var/lib/docker:/var/lib/docker:rw \
-  -v /var/lib/openshift/openshift.local.volumes:/var/lib/openshift/openshift.local.volumes \
-  openshift/origin:v1.0.3 start
+$ vagrant init openshift/origin-all-in-one
+$ vagrant up --provider=virtualbox
+...
+Successfully started and provisioned VM with 2 cores and 5 G of memory.
+To modify the number of cores and/or available memory modify your local Vagrantfile
 ```
 
-Then verify the OpenShift version
+We can now access the OpenShift console on: https://10.2.2.2:8443/console[https://10.2.2.2:8443/console,window=_blank]
+
+Configured users are:
 
 ```
-$ docker exec openshift-origin openshift version
-openshift v1.0.3
-kubernetes v1.0.0
+admin/admin
+user/user
 ```
 
-You may want to create an alias to the OpenShift CLI
+This should now also allow us to ssh into the VM
 
 ```
-$ alias oc="docker exec openshift-origin oc"
+$ vagrant ssh
+Last login: Mon Feb  8 09:06:26 2016 from 10.0.2.2
 ```
 
-#### Standalone Servers
+and use the OpenShift command line client.
 
-Here we run a set of WildFly Camel servers on https://github.com/openshift/origin[OpenShift Origin,window=_blank]. 
-The target platform is Linux on an Amazon EC2 instance. When done, we have a set of portable https://www.docker.io/[Docker,window=_blank] containers that can be deployed onto a production platform.
+==== Client Tools
+
+The client tools are available https://10.2.2.2:8443/console/command-line[from the console,window=_blank].
+
+==== Docker access 
+
+The docker deamon running in the Vagrant VM needs be exposed on the network. 
+The easiest way to do this is to use the provided https://github.com/wildfly-extras/wildfly-camel/blob/master/Vagrantfile[Vagrantfile,window=_blank].
+
+The provided Vagrantfile adds port forwarding, a few docker deamon options and restarts the docker deamon.
+
+```
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.network "forwarded_port", guest: 8443, host: 8443
+  config.vm.network "forwarded_port", guest: 2375, host: 2375
+```
+
+```
+[vagrant@localhost ~]$ sudo vi /etc/sysconfig/docker
+# Additional startup options for the Docker daemon
+OPTIONS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"
+```
+
+```
+[vagrant@localhost ~]$ sudo systemctl restart docker
+```
+
+On you local machine, setup a route to the Vagrant VM
+
+```
+$ sudo cat /etc/hosts
+10.2.2.2    origin
+```
+
+and export a few Docker related environment variables for maven builds.
+
+```
+export DOCKER_HOST=tcp://origin:2375
+export DOCKER_IP=origin
+```
+
+#### Create an OpenShift project
+
+Here we run a set of WildFly Camel servers on https://www.openshift.org[OpenShift Origin,window=_blank]. 
+The target platform is the local OpenShift instance that we created above. 
 
 image::example-rest-design.png[]
 
@@ -41,157 +82,44 @@ The example architecture consists of a set of three high available (HA) servers 
 Each server runs in a dedicated https://github.com/GoogleCloudPlatform/kubernetes/blob/v1.0.0/docs/pods.md[Pod,window=_blank] 
 that we access via https://github.com/GoogleCloudPlatform/kubernetes/blob/v1.0.0/docs/services.md[Services,window=_blank].
 
-#### Enable Images to Run with USER in the Dockerfile
-
-WildFly Docker images run the application server under a custom user named 'jboss'.
-
-To relax the security in your cluster so that images are not forced to run as a OpenShift pre-allocated UID, without granting everyone access to the privileged https://docs.openshift.org/latest/admin_guide/manage_scc.html[security context constraints,window=_blank],
-replace the 'restricted' security context.
-
-Remove the existing security context
-
-```
-$ oc delete scc restricted
-```
-
-Now recreate it
-
-<pre><code>$ oc create -f https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/security-context-constriants.json</code></pre>
-
-The `RunAsUser` strategy should now be `RunAsAny`
-
-```
-$ oc get scc restricted
-
-NAME         PRIV      CAPS      HOSTDIR   SELINUX     RUNASUSER
-restricted   false     []        false     MustRunAs   RunAsAny
-```
-
-Alternatively, if you don't want to do this, you'll have to create your own WildFly image which sets any files or directories written to by WildFly as world-writable.
-See section **Support arbitrary user ids** in the https://docs.openshift.org/latest/creating_images/guidelines.html[OpenShift image guidelines documentation,window=_blank].
-
-
-#### Create an OpenShift project
-
-This allows us to create pods, services and replication controllers under our own custom 'wildfly-camel' namespace instead of the 'default' namespace.
+A project allows us to create deployments, pods, services, routes, etc. under our own custom 'wildfly-camel' namespace.
 
 ```
 $ oc new-project wildfly-camel
 ```
 
-Now allow the default `admin` user to access the project
+##### Create a new application
+
+Now, lets create a new appliction from an existing wildfly-camel based image. 
 
 ```
-$ oc policy add-role-to-user admin admin -n wildfly-camel
+$ oc new-app wildflyext/example-camel-rest -l name=camel
 ```
 
-#### Running a single Pod
-
-A simple Pod configuration for a WildFly Camel container might be defined as in https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-step01.json[wildfly-camel-step01.json,window=_blank]
-
-To create the Pod in OpenShift we do
-
-<pre><code>$ oc create -f https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-step01.json</pre></code>
-
-You can see the running Pod like this
+and scale it up
 
 ```
-$ oc get pods -l name=camel
-
-NAME                 READY     REASON    RESTARTS   AGE
-wildfly-camel-rest   1/1       Running   0          15s
+$ oc scale --replicas=3 dc example-camel-rest
 ```
 
-and delete it again with
+After a while you should see the pod running
+
+image::openshift-standalone-pods.png[]
+
+The pods running the JAX-RS endpoints are however not yet exposed to the world.
+
+##### Exposing the container externally
+
+Now, lets expose the HTTP root context of the running wildlfy server.
 
 ```
-$ oc delete pod -l name=camel
-```
-
-#### Adding a ReplicationController
-
-To achieve high availability (HA), lets replicate this Pod using a ReplicationController as in https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-step02.json[wildfly-camel-step02.json,window=_blank]
-
-To create the replicated Pod in OpenShift we do
-
-<pre><code>$ oc create -f https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-step02.json</pre></code>
-
-We now have three Pods each running an instance of our container
-
-```
-$ oc get pods
-
-NAME                       READY     REASON    RESTARTS   AGE
-wildfly-camel-rest-5fg43   1/1       Running   0          35s
-wildfly-camel-rest-lqqc3   1/1       Running   0          35s
-wildfly-camel-rest-ntjqz   1/1       Running   0          35s
-```
-
-#### Adding a Service
-
-The entry point into the system is a Kubernetes Service as in https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-step03.json[wildfly-camel-step03.json,window=_blank]
-
-To create a Service that accesses replicated Pods do
-
-<pre><code>$ oc create -f https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-step03.json</pre></code>
-
-We now have a service
-
-```
-$ oc get services -l name=camel-srv
-NAME           LABELS           SELECTOR         IP(S)            PORT(S)
-rest-service   name=camel-srv   name=camel-pod   172.30.103.178   8080/TCP
+$ oc expose service example-camel-rest -l name=camel
 ```
 
 From a remote client, you should now be able to access the service like this
 
+http://example-camel-rest-wildfly-camel.apps.10.2.2.2.xip.io/rest/greet/hello/Kermit[,window=_blank]
+
 ```
-$ curl http://172.30.103.178:8080/rest/greet/hello/Kermit
-Hello Kermit from 172.17.0.51
+Hello Kermit from 172.17.0.8
 ```
-
-#### OpenShift Console
-
-You can see a diagramatic overview of replication controllers, services and pods from the OpenShift console. Use a web browser
-to navigate to https://localhost:8443/console. Then log in using default username 'admin' with a password of 'admin'. Then click on
-the wildfly-camel project and you should see a diagram like this.
-
-image::openshift-console-standalone.png[]
-
-#### Domain Setup
-
-Running multiple server containers in a cloud environment is often only useful when these containers can also be managed. In the previous example we had three servers that each exposed an HTTP service reachable through a Kubernetes https://github.com/GoogleCloudPlatform/kubernetes/blob/v1.0.0/docs/services.md[Service,window=_blank]. The management interface of these servers were not exposed. It would be virtually impossible to adjust configurations for these individual servers or the whole set. As a minimum we would like to monitor the health state of these servers so that we can possibly replace containers if needed.
-
-image::example-domain-design.png[]
-
-
-#### Starting the Domain
-
-The WildFly-Camel domain can be configured as in https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-domain.json[wildfly-camel-domain.json,window=_blank]
-
-<pre><code>$ oc create -f https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-domain.json</pre></code>
-
-and verify the resulting servies like this
-```
-$ oc get services
-
-NAME                 LABELS    SELECTOR        IP(S)            PORT(S)
-domain-controller    <none>    name=ctrl-pod   172.30.108.179   9999/TCP
-http-service         <none>    name=http-pod   172.30.35.216    8080/TCP
-management-service   <none>    name=ctrl-pod   172.30.97.83     9990/TCP
-```
-Now, you should be able to access the admin console like this: http://172.30.97.83:9990/console
-
-image::console-domain.png[]
-
-The OpenShift console should display a diagram like this:
-
-image::openshift-console-domain.png[]
-
-We believe that managing deployments through the WildFly admin interface does not make much sense. Instead, deployments should already be backed into containers that you spin up in the various Pods.
-
-There is a wide spectrum of opinion on whether this also applies to configuration. Here we retain the WildFly domain configurability (i.e. mutable containers for configuration).
-
-Feedback is welcome.
-
-

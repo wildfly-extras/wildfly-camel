@@ -45,7 +45,7 @@ and make the docker daemon bind to a number of sockets
 OPTIONS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock"
 ```
 
-#### Standalone Server
+#### Running WildFly-Camel
 
 With every WildFly-Camel release we also publish the latest https://registry.hub.docker.com/u/wildflyext/wildfly-camel/[wildflyext/wildfly-camel,window=_blank] image.
 

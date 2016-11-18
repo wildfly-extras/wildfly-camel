@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "thesteve0/openshift-origin"
+  config.vm.box = "openshift/origin-all-in-one"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -75,13 +75,9 @@ Vagrant.configure(2) do |config|
 docker_config = <<EOF
   if ! grep 2375 /etc/sysconfig/docker > /dev/null || ! grep docker.sock /etc/sysconfig/docker > /dev/null; then
     echo "Modifying /etc/sysconfig/docker"
-    sed -i "s/^OPTIONS.*/OPTIONS=\\'--selinux-enabled --storage-opt dm.no_warn_on_loop_devices=true --storage-opt dm.loopdatasize=30G -H tcp:\\/\\/0.0.0.0:2375 -H unix:\\/\\/\\/var\\/run\\/docker.sock\\'/g" /etc/sysconfig/docker
-    echo "Restarting services"
-    systemctl stop origin
-    docker rm -fv $(docker ps -qa) > /dev/null
-    systemctl restart docker.service
-    /usr/bin/cloud-init modules --mode=final > /dev/null
-    systemctl start origin
+    sed -i "s/^OPTIONS.*/OPTIONS=\\'--selinux-enabled --storage-opt dm.loopdatasize=30G -H tcp:\\/\\/0.0.0.0:2375 -H unix:\\/\\/\\/var\\/run\\/docker.sock\\'/g" /etc/sysconfig/docker
+    echo "Restarting docker"
+    systemctl restart docker
   fi
 EOF
 	
