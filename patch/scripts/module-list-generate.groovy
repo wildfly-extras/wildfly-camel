@@ -27,7 +27,7 @@ println("Scanning: " + moduleDir)
 
 new File(moduleDir).eachFileRecurse() { file ->
     fileEntry = file.getAbsolutePath().replace(moduleDir, "").replace(separator, "/")
-    if (fileEntry.endsWith(".jar") && !(fileEntry.startsWith("/org/wildfly/ext") && fileEntry.contains("SNAPSHOT"))) {
+    if (fileEntry.endsWith(".jar") && !fileEntry.contains("wildfly-camel")) {
         jarList << fileEntry
     }
 }
