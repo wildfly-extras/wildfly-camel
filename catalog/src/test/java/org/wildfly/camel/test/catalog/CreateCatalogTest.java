@@ -20,7 +20,9 @@
 
 package org.wildfly.camel.test.catalog;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.FileVisitResult;
@@ -43,15 +45,28 @@ public final class CreateCatalogTest {
     Path outdir = Paths.get("src/main/resources");
     
     Set<Path> availablePaths = new LinkedHashSet<>();
+    
     Set<Path> components = new LinkedHashSet<>();
     Set<Path> dataformats = new LinkedHashSet<>();
     Set<Path> languages = new LinkedHashSet<>();
     Set<Path> models = new LinkedHashSet<>();
 
-    Set<Path> supported = new LinkedHashSet<>();
-    Set<Path> undecided = new LinkedHashSet<>();
-    Set<Path> rejected = new LinkedHashSet<>();
+    RoadMap componentRM = new RoadMap(outdir.resolve("component.roadmap"));
+    RoadMap dataformatRM = new RoadMap(outdir.resolve("dataformat.roadmap"));
+    RoadMap languageRM = new RoadMap(outdir.resolve("language.roadmap"));
 
+    class RoadMap {
+        public final Path outpath;
+        public Set<String> available = new LinkedHashSet<>();
+        public Set<String> supported = new LinkedHashSet<>();
+        public Set<String> planned = new LinkedHashSet<>();
+        public Set<String> undecided = new LinkedHashSet<>();
+        public Set<String> rejected = new LinkedHashSet<>();
+        RoadMap(Path outpath) {
+            this.outpath = outpath;
+        }
+    }
+    
     @Test
     public void createCatalog() throws Exception {
 
@@ -65,6 +80,9 @@ public final class CreateCatalogTest {
         generateProperties(languages, "languages.properties");
         generateProperties(models, "models.properties");
 
+        generateRoadmap(componentRM);
+        generateRoadmap(dataformatRM);
+        generateRoadmap(languageRM);
     }
 
     private void cleanOutputDir() throws IOException {
@@ -90,6 +108,13 @@ public final class CreateCatalogTest {
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
                 path = rootPath.relativize(path);
                 if (path.toString().endsWith(".json")) {
+                    if (path.startsWith("org/apache/camel/catalog/components")) {
+                        componentRM.available.add(simpleName(path));
+                    } else if (path.startsWith("org/apache/camel/catalog/dataformats")) {
+                        dataformatRM.available.add(simpleName(path));
+                    } else if (path.startsWith("org/apache/camel/catalog/languages")) {
+                        languageRM.available.add(simpleName(path));
+                    }
                     availablePaths.add(path);
                 }
                 return FileVisitResult.CONTINUE;
@@ -104,25 +129,33 @@ public final class CreateCatalogTest {
                 path = rootPath.relativize(path);
                 if (path.toString().endsWith(".json")) {
                     if (path.startsWith("org/apache/camel/component")) {
-                        copyPath(components, Paths.get("org/apache/camel/catalog/components"), path);
+                        supportedPath(components, Paths.get("org/apache/camel/catalog/components"), path);
                     } else if (path.startsWith("org/apache/camel/dataformat")) {
-                        copyPath(dataformats, Paths.get("org/apache/camel/catalog/dataformats"), path);
+                        supportedPath(dataformats, Paths.get("org/apache/camel/catalog/dataformats"), path);
                     } else if (path.startsWith("org/apache/camel/language")) {
-                        copyPath(languages, Paths.get("org/apache/camel/catalog/languages"), path);
+                        supportedPath(languages, Paths.get("org/apache/camel/catalog/languages"), path);
                     } else if (path.startsWith("org/apache/camel/model")) {
-                        copyPath(models, Paths.get("org/apache/camel/catalog/models"), path);
+                        supportedPath(models, Paths.get("org/apache/camel/catalog/models"), path);
                     }
                 }
                 return FileVisitResult.CONTINUE;
             }
 
-            void copyPath(Set<Path> collection, Path parent, Path source) throws IOException {
+            void supportedPath(Set<Path> collection, Path parent, Path source) throws IOException {
                 Path target = parent.resolve(source.getFileName());
                 if (availablePaths.contains(target)) {
                     target = outdir.resolve(target);
                     target.getParent().toFile().mkdirs();
                     Files.copy(rootPath.resolve(source), target, StandardCopyOption.REPLACE_EXISTING);
                     collection.add(target);
+                    
+                    if (collection == components) {
+                        componentRM.supported.add(simpleName(target));
+                    } else if (collection == dataformats) {
+                        dataformatRM.supported.add(simpleName(target));
+                    } else if (collection == languages) {
+                        languageRM.supported.add(simpleName(target));
+                    }
                 }
             }
         });
@@ -132,9 +165,7 @@ public final class CreateCatalogTest {
         
         List<String> names = new ArrayList<>();
         for (Path path : collection) {
-            String name = path.getFileName().toString();
-            name = name.substring(0, name.indexOf("."));
-            names.add(name);
+            names.add(simpleName(path));
         }
         Collections.sort(names);
         
@@ -142,6 +173,64 @@ public final class CreateCatalogTest {
         try (PrintWriter pw = new PrintWriter(outfile)) {
             for (String name : names) {
                 pw.println(name);
+            }
+        }
+    }
+
+    private String simpleName(Path path) {
+        String name = path.getFileName().toString();
+        return name.substring(0, name.indexOf("."));
+    }
+
+    private void generateRoadmap(RoadMap roadmap) throws IOException {
+        
+        Set<String> collection = null;
+        File file = roadmap.outpath.toFile();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line = br.readLine();
+            while (line != null) {
+                if (line.length() > 0 && !line.startsWith("#")) {
+                    if (line.equals("[planned]")) {
+                        collection = roadmap.planned;
+                    } else if (line.equals("[rejected]")) {
+                        collection = roadmap.rejected;
+                    } else if (line.startsWith("[")) {
+                        collection = null;
+                    }
+                    if (collection != null && roadmap.available.contains(line)) {
+                        collection.add(line);
+                    }
+                }
+                line = br.readLine();
+            }
+        }
+        
+        for (String entry : roadmap.available) {
+            if (!roadmap.supported.contains(entry) && !roadmap.planned.contains(entry) && !roadmap.rejected.contains(entry)) {
+                roadmap.undecided.add(entry);
+                
+            }
+        }
+
+        try (PrintWriter pw = new PrintWriter(file)) {
+            pw.println("[supported]");
+            for (String entry : roadmap.supported) {
+                pw.println(entry);
+            }
+            pw.println();
+            pw.println("[planned]");
+            for (String entry : roadmap.planned) {
+                pw.println(entry);
+            }
+            pw.println();
+            pw.println("[undecided]");
+            for (String entry : roadmap.undecided) {
+                pw.println(entry);
+            }
+            pw.println();
+            pw.println("[rejected]");
+            for (String entry : roadmap.rejected) {
+                pw.println(entry);
             }
         }
     }
