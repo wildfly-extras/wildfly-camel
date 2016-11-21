@@ -1,0 +1,31 @@
+{
+ "component": {
+    "kind": "component",
+    "scheme": "metrics",
+    "syntax": "metrics:metricsType:metricsName",
+    "title": "Metrics",
+    "description": "To collect various metrics directly from Camel routes using the DropWizard metrics library.",
+    "label": "monitoring",
+    "deprecated": "false",
+    "async": "false",
+    "producerOnly": "true",
+    "javaType": "org.apache.camel.component.metrics.MetricsComponent",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-metrics",
+    "version": "2.18.0"
+  },
+  "componentProperties": {
+    "metricRegistry": { "kind": "property", "type": "object", "javaType": "com.codahale.metrics.MetricRegistry", "deprecated": "false", "secret": "false", "description": "To use a custom configured MetricRegistry." }
+  },
+  "properties": {
+    "metricsType": { "kind": "path", "group": "producer", "required": "true", "type": "string", "javaType": "org.apache.camel.component.metrics.MetricsType", "enum": [ "GAUGE", "COUNTER", "HISTOGRAM", "METER", "TIMER" ], "deprecated": "false", "secret": "false", "description": "Type of metrics" },
+    "metricsName": { "kind": "path", "group": "producer", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Name of metrics" },
+    "action": { "kind": "parameter", "group": "producer", "type": "string", "javaType": "org.apache.camel.component.metrics.MetricsTimerAction", "enum": [ "start", "stop" ], "deprecated": "false", "secret": "false", "description": "Action when using timer type" },
+    "decrement": { "kind": "parameter", "group": "producer", "type": "integer", "javaType": "java.lang.Long", "deprecated": "false", "secret": "false", "description": "Decrement value when using counter type" },
+    "increment": { "kind": "parameter", "group": "producer", "type": "integer", "javaType": "java.lang.Long", "deprecated": "false", "secret": "false", "description": "Increment value when using counter type" },
+    "mark": { "kind": "parameter", "group": "producer", "type": "integer", "javaType": "java.lang.Long", "deprecated": "false", "secret": "false", "description": "Mark when using meter type" },
+    "value": { "kind": "parameter", "group": "producer", "type": "integer", "javaType": "java.lang.Long", "deprecated": "false", "secret": "false", "description": "Value value when using histogram type" },
+    "synchronous": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Sets whether synchronous processing should be strictly used or Camel is allowed to use asynchronous processing (if supported)." }
+  }
+}
+

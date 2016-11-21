@@ -1,0 +1,28 @@
+{
+ "component": {
+    "kind": "component",
+    "scheme": "ldap",
+    "syntax": "ldap:dirContextName",
+    "title": "LDAP",
+    "description": "The ldap component allows you to perform searches in LDAP servers using filters as the message payload.",
+    "label": "ldap",
+    "deprecated": "false",
+    "async": "false",
+    "producerOnly": "true",
+    "javaType": "org.apache.camel.component.ldap.LdapComponent",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-ldap",
+    "version": "2.18.0"
+  },
+  "componentProperties": {
+  },
+  "properties": {
+    "dirContextName": { "kind": "path", "group": "producer", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Name of javax.naming.directory.DirContext bean to lookup in the registry." },
+    "base": { "kind": "parameter", "group": "producer", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "ou=system", "description": "The base DN for searches." },
+    "pageSize": { "kind": "parameter", "group": "producer", "type": "integer", "javaType": "java.lang.Integer", "deprecated": "false", "secret": "false", "description": "When specified the ldap module uses paging to retrieve all results (most LDAP Servers throw an exception when trying to retrieve more than 1000 entries in one query). To be able to use this a LdapContext (subclass of DirContext) has to be passed in as ldapServerBean (otherwise an exception is thrown)" },
+    "returnedAttributes": { "kind": "parameter", "group": "producer", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Comma-separated list of attributes that should be set in each entry of the result" },
+    "scope": { "kind": "parameter", "group": "producer", "type": "string", "javaType": "java.lang.String", "enum": [ "object", "onelevel", "subtree" ], "deprecated": "false", "secret": "false", "defaultValue": "subtree", "description": "Specifies how deeply to search the tree of entries starting at the base DN." },
+    "synchronous": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Sets whether synchronous processing should be strictly used or Camel is allowed to use asynchronous processing (if supported)." }
+  }
+}
+

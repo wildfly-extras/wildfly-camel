@@ -1,0 +1,36 @@
+{
+ "component": {
+    "kind": "component",
+    "scheme": "infinispan",
+    "syntax": "infinispan:host",
+    "title": "Infinispan",
+    "description": "For reading/writing from/to Infinispan distributed key/value store and data grid.",
+    "label": "cache,datagrid,clustering",
+    "deprecated": "false",
+    "async": "false",
+    "javaType": "org.apache.camel.component.infinispan.InfinispanComponent",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-infinispan",
+    "version": "2.18.0"
+  },
+  "componentProperties": {
+  },
+  "properties": {
+    "host": { "kind": "path", "group": "common", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Specifies the host of the cache on Infinispan instance" },
+    "cacheContainer": { "kind": "parameter", "group": "common", "type": "object", "javaType": "org.infinispan.commons.api.BasicCacheContainer", "deprecated": "false", "secret": "false", "description": "Specifies the cache Container to connect" },
+    "cacheName": { "kind": "parameter", "group": "common", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Specifies the cache name" },
+    "queryBuilder": { "kind": "parameter", "group": "common", "type": "object", "javaType": "org.apache.camel.component.infinispan.InfinispanQueryBuilder", "deprecated": "false", "secret": "false", "description": "Specifies the query builder." },
+    "bridgeErrorHandler": { "kind": "parameter", "group": "consumer", "label": "consumer", "type": "boolean", "javaType": "boolean", "optionalPrefix": "consumer.", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Allows for bridging the consumer to the Camel routing Error Handler which mean any exceptions occurred while the consumer is trying to pickup incoming messages or the likes will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions that will be logged at WARN/ERROR level and ignored." },
+    "clusteredListener": { "kind": "parameter", "group": "consumer", "label": "consumer", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "If true the listener will be installed for the entire cluster" },
+    "customListener": { "kind": "parameter", "group": "consumer", "label": "consumer", "type": "object", "javaType": "org.apache.camel.component.infinispan.InfinispanCustomListener", "deprecated": "false", "secret": "false", "description": "Returns the custom listener in use if provided" },
+    "eventTypes": { "kind": "parameter", "group": "consumer", "label": "consumer", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Specifies the set of event types to register by the consumer. Multiple event can be separated by comma. The possible event types are: CACHE_ENTRY_ACTIVATED CACHE_ENTRY_PASSIVATED CACHE_ENTRY_VISITED CACHE_ENTRY_LOADED CACHE_ENTRY_EVICTED CACHE_ENTRY_CREATED CACHE_ENTRY_REMOVED CACHE_ENTRY_MODIFIED TRANSACTION_COMPLETED TRANSACTION_REGISTERED CACHE_ENTRY_INVALIDATED DATA_REHASHED TOPOLOGY_CHANGED PARTITION_STATUS_CHANGED" },
+    "sync": { "kind": "parameter", "group": "consumer", "label": "consumer", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "true", "description": "If true the consumer will receive notifications synchronously" },
+    "exceptionHandler": { "kind": "parameter", "group": "consumer (advanced)", "label": "consumer,advanced", "type": "object", "javaType": "org.apache.camel.spi.ExceptionHandler", "optionalPrefix": "consumer.", "deprecated": "false", "secret": "false", "description": "To let the consumer use a custom ExceptionHandler. Notice if the option bridgeErrorHandler is enabled then this options is not in use. By default the consumer will deal with exceptions that will be logged at WARN/ERROR level and ignored." },
+    "exchangePattern": { "kind": "parameter", "group": "consumer (advanced)", "label": "consumer,advanced", "type": "string", "javaType": "org.apache.camel.ExchangePattern", "enum": [ "InOnly", "RobustInOnly", "InOut", "InOptionalOut", "OutOnly", "RobustOutOnly", "OutIn", "OutOptionalIn" ], "deprecated": "false", "secret": "false", "description": "Sets the exchange pattern when the consumer creates an exchange." },
+    "command": { "kind": "parameter", "group": "producer", "label": "producer", "type": "string", "javaType": "java.lang.String", "enum": [ "put", "putAll", "putIfAbsent", "putAsync", "putAllAsync", "putIfAbsentAsync", "get", "containsKey", "containsValue", "remove", "removeAsync", "replace", "replaceAsync", "size", "clear", "clearAsync", "query", "stats" ], "deprecated": "false", "secret": "false", "defaultValue": "put", "description": "The operation to perform." },
+    "configurationUri": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "An implementation specific URI for the CacheManager" },
+    "flags": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "A comma separated list of Flag to be applied by default on each cache invocation not applicable to remote caches." },
+    "synchronous": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Sets whether synchronous processing should be strictly used or Camel is allowed to use asynchronous processing (if supported)." }
+  }
+}
+
