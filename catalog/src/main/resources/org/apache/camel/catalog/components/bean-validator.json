@@ -1,0 +1,29 @@
+{
+ "component": {
+    "kind": "component",
+    "scheme": "bean-validator",
+    "syntax": "bean-validator:label",
+    "title": "Bean Validator",
+    "description": "The Validator component performs bean validation of the message body using the Java Bean Validation API.",
+    "label": "validation",
+    "deprecated": "false",
+    "async": "false",
+    "producerOnly": "true",
+    "javaType": "org.apache.camel.component.bean.validator.BeanValidatorComponent",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-bean-validator",
+    "version": "2.18.0"
+  },
+  "componentProperties": {
+  },
+  "properties": {
+    "label": { "kind": "path", "group": "producer", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Where label is an arbitrary text value describing the endpoint" },
+    "constraintValidatorFactory": { "kind": "parameter", "group": "producer", "type": "object", "javaType": "javax.validation.ConstraintValidatorFactory", "deprecated": "false", "secret": "false", "description": "To use a custom ConstraintValidatorFactory" },
+    "group": { "kind": "parameter", "group": "producer", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "javax.validation.groups.Default", "description": "To use a custom validation group" },
+    "messageInterpolator": { "kind": "parameter", "group": "producer", "type": "object", "javaType": "javax.validation.MessageInterpolator", "deprecated": "false", "secret": "false", "description": "To use a custom MessageInterpolator" },
+    "traversableResolver": { "kind": "parameter", "group": "producer", "type": "object", "javaType": "javax.validation.TraversableResolver", "deprecated": "false", "secret": "false", "description": "To use a custom TraversableResolver" },
+    "validationProviderResolver": { "kind": "parameter", "group": "producer", "type": "object", "javaType": "javax.validation.ValidationProviderResolver", "deprecated": "false", "secret": "false", "description": "To use a a custom ValidationProviderResolver" },
+    "synchronous": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Sets whether synchronous processing should be strictly used or Camel is allowed to use asynchronous processing (if supported)." }
+  }
+}
+

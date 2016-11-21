@@ -1,0 +1,43 @@
+{
+ "component": {
+    "kind": "component",
+    "scheme": "properties",
+    "syntax": "properties:key",
+    "title": "Properties",
+    "description": "The properties component is used for using property placeholders in endpoint uris.",
+    "label": "core,endpoint",
+    "deprecated": "false",
+    "async": "false",
+    "javaType": "org.apache.camel.component.properties.PropertiesComponent",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-core",
+    "version": "2.18.0"
+  },
+  "componentProperties": {
+    "locations": { "kind": "property", "type": "array", "javaType": "java.lang.String[]", "deprecated": "false", "secret": "false", "description": "A list of locations to load properties. You can use comma to separate multiple locations. This option will override any default locations and only use the locations from this option." },
+    "location": { "kind": "property", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "A list of locations to load properties. You can use comma to separate multiple locations. This option will override any default locations and only use the locations from this option." },
+    "encoding": { "kind": "property", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Encoding to use when loading properties file from the file system or classpath. If no encoding has been set then the properties files is loaded using ISO-8859-1 encoding (latin-1) as documented by link java.util.Propertiesload(java.io.InputStream)" },
+    "propertiesResolver": { "kind": "property", "type": "object", "javaType": "org.apache.camel.component.properties.PropertiesResolver", "deprecated": "false", "secret": "false", "description": "To use a custom PropertiesResolver" },
+    "propertiesParser": { "kind": "property", "type": "object", "javaType": "org.apache.camel.component.properties.PropertiesParser", "deprecated": "false", "secret": "false", "description": "To use a custom PropertiesParser" },
+    "cache": { "kind": "property", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "description": "Whether or not to cache loaded properties. The default value is true." },
+    "propertyPrefix": { "kind": "property", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Optional prefix prepended to property names before resolution." },
+    "propertySuffix": { "kind": "property", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Optional suffix appended to property names before resolution." },
+    "fallbackToUnaugmentedProperty": { "kind": "property", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "description": "If true first attempt resolution of property name augmented with propertyPrefix and propertySuffix before falling back the plain property name specified. If false only the augmented property name is searched." },
+    "ignoreMissingLocation": { "kind": "property", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "description": "Whether to silently ignore if a location cannot be located such as a properties file not found." },
+    "prefixToken": { "kind": "property", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the prefix token used to identify properties to replace. Setting a value of null restores the default token (link link DEFAULT_PREFIX_TOKEN)." },
+    "suffixToken": { "kind": "property", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the suffix token used to identify properties to replace. Setting a value of null restores the default token (link link DEFAULT_SUFFIX_TOKEN)." },
+    "initialProperties": { "kind": "property", "type": "object", "javaType": "java.util.Properties", "deprecated": "false", "secret": "false", "description": "Sets initial properties which will be used before any locations are resolved." },
+    "overrideProperties": { "kind": "property", "type": "object", "javaType": "java.util.Properties", "deprecated": "false", "secret": "false", "description": "Sets a special list of override properties that take precedence and will use first if a property exist." },
+    "systemPropertiesMode": { "kind": "property", "type": "integer", "javaType": "int", "deprecated": "false", "secret": "false", "description": "Sets the system property mode." }
+  },
+  "properties": {
+    "key": { "kind": "path", "group": "common", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Property key to use as placeholder" },
+    "ignoreMissingLocation": { "kind": "parameter", "group": "common", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to silently ignore if a location cannot be located such as a properties file not found." },
+    "locations": { "kind": "parameter", "group": "common", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "A list of locations to load properties. You can use comma to separate multiple locations. This option will override any default locations and only use the locations from this option." },
+    "bridgeErrorHandler": { "kind": "parameter", "group": "consumer", "label": "consumer", "type": "boolean", "javaType": "boolean", "optionalPrefix": "consumer.", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Allows for bridging the consumer to the Camel routing Error Handler which mean any exceptions occurred while the consumer is trying to pickup incoming messages or the likes will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions that will be logged at WARN/ERROR level and ignored." },
+    "exceptionHandler": { "kind": "parameter", "group": "consumer (advanced)", "label": "consumer,advanced", "type": "object", "javaType": "org.apache.camel.spi.ExceptionHandler", "optionalPrefix": "consumer.", "deprecated": "false", "secret": "false", "description": "To let the consumer use a custom ExceptionHandler. Notice if the option bridgeErrorHandler is enabled then this options is not in use. By default the consumer will deal with exceptions that will be logged at WARN/ERROR level and ignored." },
+    "exchangePattern": { "kind": "parameter", "group": "consumer (advanced)", "label": "consumer,advanced", "type": "string", "javaType": "org.apache.camel.ExchangePattern", "enum": [ "InOnly", "RobustInOnly", "InOut", "InOptionalOut", "OutOnly", "RobustOutOnly", "OutIn", "OutOptionalIn" ], "deprecated": "false", "secret": "false", "description": "Sets the default exchange pattern when creating an exchange." },
+    "synchronous": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Sets whether synchronous processing should be strictly used or Camel is allowed to use asynchronous processing (if supported)." }
+  }
+}
+

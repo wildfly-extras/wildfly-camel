@@ -1,0 +1,19 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "removeProperty",
+    "title": "Remove Property",
+    "description": "Removes a named property from the message exchange",
+    "javaType": "org.apache.camel.model.RemovePropertyDefinition",
+    "label": "eip,transformation",
+    "deprecated": "false",
+    "input": "true",
+    "output": "false"
+  },
+  "properties": {
+    "propertyName": { "kind": "attribute", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Name of property to remove" },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the id of this node" },
+    "description": { "kind": "element", "required": "false", "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": "false", "secret": "false", "description": "Sets the description of this node" }
+  }
+}
+

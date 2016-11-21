@@ -1,0 +1,30 @@
+{
+ "component": {
+    "kind": "component",
+    "scheme": "language",
+    "syntax": "language:languageName:resourceUri",
+    "title": "Language",
+    "description": "The language component allows you to send a message to an endpoint which executes a script by any of the supported Languages in Camel.",
+    "label": "core,script",
+    "deprecated": "false",
+    "async": "false",
+    "producerOnly": "true",
+    "javaType": "org.apache.camel.component.language.LanguageComponent",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-core",
+    "version": "2.18.0"
+  },
+  "componentProperties": {
+  },
+  "properties": {
+    "languageName": { "kind": "path", "group": "producer", "required": "true", "type": "string", "javaType": "java.lang.String", "enum": [ "bean", "constant", "el", "exchangeProperty", "file", "groovy", "header", "javascript", "jsonpath", "jxpath", "mvel", "ognl", "php", "python", "ref", "ruby", "simple", "spel", "sql", "terser", "tokenize", "xpath", "xquery", "xtokenize" ], "deprecated": "false", "secret": "false", "description": "Sets the name of the language to use" },
+    "resourceUri": { "kind": "path", "group": "producer", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Path to the resource or a reference to lookup a bean in the Registry to use as the resource" },
+    "binary": { "kind": "parameter", "group": "producer", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether the script is binary content or text content. By default the script is read as text content (eg java.lang.String)" },
+    "cacheScript": { "kind": "parameter", "group": "producer", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to cache the compiled script and reuse Notice reusing the script can cause side effects from processing one Camel org.apache.camel.Exchange to the next org.apache.camel.Exchange." },
+    "contentCache": { "kind": "parameter", "group": "producer", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Sets whether to use resource content cache or not." },
+    "script": { "kind": "parameter", "group": "producer", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the script to execute" },
+    "transform": { "kind": "parameter", "group": "producer", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "true", "description": "Whether or not the result of the script should be used as message body. This options is default true." },
+    "synchronous": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Sets whether synchronous processing should be strictly used or Camel is allowed to use asynchronous processing (if supported)." }
+  }
+}
+

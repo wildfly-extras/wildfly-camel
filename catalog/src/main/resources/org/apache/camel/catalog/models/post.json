@@ -1,0 +1,30 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "post",
+    "title": "Post",
+    "description": "Rest POST command",
+    "javaType": "org.apache.camel.model.rest.PostVerbDefinition",
+    "label": "rest",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "method": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The HTTP verb such as GET or POST" },
+    "uri": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Uri template of this REST service such as /id." },
+    "consumes": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "To define the content type what the REST service consumes (accept as input) such as application/xml or application/json. This option will override what may be configured on a parent level" },
+    "produces": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "To define the content type what the REST service produces (uses for output) such as application/xml or application/json This option will override what may be configured on a parent level" },
+    "bindingMode": { "kind": "attribute", "required": "false", "type": "string", "javaType": "org.apache.camel.model.rest.RestBindingMode", "enum": [ "auto", "json", "json_xml", "off", "xml" ], "deprecated": "false", "secret": "false", "defaultValue": "auto", "description": "Sets the binding mode to use. This option will override what may be configured on a parent level The default value is auto" },
+    "skipBindingOnErrorCode": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to skip binding on output if there is a custom HTTP error code header. This allows to build custom error messages that do not bind to json / xml etc as success messages otherwise will do. This option will override what may be configured on a parent level" },
+    "enableCORS": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to enable CORS headers in the HTTP response. This option will override what may be configured on a parent level The default value is false." },
+    "type": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the class name to use for binding from input to POJO for the incoming data This option will override what may be configured on a parent level" },
+    "outType": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the class name to use for binding from POJO to output for the outgoing data This option will override what may be configured on a parent level" },
+    "toOrRoute": { "kind": "element", "required": "true", "type": "object", "javaType": "org.apache.camel.model.OptionalIdentifiedDefinition<?>", "oneOf": [ "route", "to", "toD" ], "deprecated": "false", "secret": "false", "description": "To route from this REST service to a Camel endpoint or an inlined route" },
+    "routeId": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The route id this rest-dsl is using (read-only)" },
+    "apiDocs": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to include or exclude the VerbDefinition in API documentation. The default value is true." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the id of this node" },
+    "description": { "kind": "element", "required": "false", "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": "false", "secret": "false", "description": "Sets the description of this node" }
+  }
+}
+

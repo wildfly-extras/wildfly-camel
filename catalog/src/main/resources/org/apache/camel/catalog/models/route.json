@@ -1,0 +1,32 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "route",
+    "title": "Route",
+    "description": "A Camel route",
+    "javaType": "org.apache.camel.model.RouteDefinition",
+    "label": "configuration",
+    "deprecated": "false",
+    "input": "true",
+    "output": "true"
+  },
+  "properties": {
+    "group": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The group that this route belongs to; could be the name of the RouteBuilder class or be explicitly configured in the XML. May be null." },
+    "streamCache": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Whether stream caching is enabled on this route." },
+    "trace": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Whether tracing is enabled on this route." },
+    "messageHistory": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "true", "description": "Whether message history is enabled on this route." },
+    "handleFault": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Whether handle fault is enabled on this route." },
+    "delayer": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Whether to slow down processing messages by a given delay in msec." },
+    "autoStartup": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "true", "description": "Whether to auto start this route" },
+    "startupOrder": { "kind": "attribute", "required": "false", "type": "integer", "javaType": "java.lang.Integer", "deprecated": "false", "secret": "false", "description": "To configure the ordering of the routes being started" },
+    "errorHandlerRef": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the bean ref name of the error handler builder to use on this route" },
+    "routePolicyRef": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Reference to custom org.apache.camel.spi.RoutePolicy to use by the route. Multiple policies can be configured by separating values using comma." },
+    "shutdownRoute": { "kind": "attribute", "required": "false", "type": "string", "javaType": "org.apache.camel.ShutdownRoute", "enum": [ "Default", "Defer" ], "deprecated": "false", "secret": "false", "description": "To control how to shutdown the route." },
+    "shutdownRunningTask": { "kind": "attribute", "required": "false", "type": "string", "javaType": "org.apache.camel.ShutdownRunningTask", "enum": [ "CompleteCurrentTaskOnly", "CompleteAllTasks" ], "deprecated": "false", "secret": "false", "description": "To control how to shutdown the route." },
+    "inputs": { "kind": "element", "required": "true", "type": "array", "javaType": "java.util.List<org.apache.camel.model.FromDefinition>", "oneOf": [ "from" ], "deprecated": "false", "secret": "false", "description": "Input to the route." },
+    "outputs": { "kind": "element", "required": "true", "type": "array", "javaType": "java.util.List<org.apache.camel.model.ProcessorDefinition<?>>", "oneOf": [ "aggregate", "aop", "bean", "choice", "convertBodyTo", "delay", "doCatch", "doFinally", "doTry", "dynamicRouter", "enrich", "filter", "hystrix", "idempotentConsumer", "inOnly", "inOut", "intercept", "interceptFrom", "interceptSendToEndpoint", "loadBalance", "log", "loop", "marshal", "multicast", "onCompletion", "onException", "onFallback", "otherwise", "pipeline", "policy", "pollEnrich", "process", "recipientList", "removeHeader", "removeHeaders", "removeProperties", "removeProperty", "resequence", "rollback", "routingSlip", "sample", "script", "setBody", "setExchangePattern", "setFaultBody", "setHeader", "setOutHeader", "setProperty", "sort", "split", "stop", "threads", "throttle", "throwException", "to", "toD", "transacted", "transform", "unmarshal", "validate", "when", "whenSkipSendToEndpoint", "wireTap" ], "deprecated": "false", "secret": "false", "description": "Outputs are processors that determines how messages are processed by this route." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the id of this node" },
+    "description": { "kind": "element", "required": "false", "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": "false", "secret": "false", "description": "Sets the description of this node" }
+  }
+}
+

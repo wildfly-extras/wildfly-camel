@@ -1,0 +1,18 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "lzf",
+    "title": "LZF Deflate Compression",
+    "description": "LZF compression data format",
+    "javaType": "org.apache.camel.model.dataformat.LZFDataFormat",
+    "label": "dataformat,transformation",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "usingParallelCompression": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Enable encoding (compress) using multiple processing cores." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

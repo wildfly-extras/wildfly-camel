@@ -1,0 +1,18 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "protobuf",
+    "title": "Protobuf",
+    "description": "Google protobuf data format",
+    "javaType": "org.apache.camel.model.dataformat.ProtobufDataFormat",
+    "label": "dataformat,transformation",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "instanceClass": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Name of class to use when unarmshalling" },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

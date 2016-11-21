@@ -1,0 +1,24 @@
+{
+ "language": {
+    "name": "bean",
+    "kind": "language",
+    "modelName": "method",
+    "title": "Bean method",
+    "description": "For expressions and predicates using a java bean (aka method call)",
+    "label": "language,core,java",
+    "javaType": "org.apache.camel.language.bean.BeanLanguage",
+    "modelJavaType": "org.apache.camel.model.language.MethodCallExpression",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-core",
+    "version": "2.18.0"
+  },
+  "properties": {
+    "bean": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "true", "secret": "false", "description": "Either a reference or a class name of the bean to use" },
+    "ref": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Reference to bean to lookup in the registry" },
+    "method": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Name of method to call" },
+    "beanType": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Class name of the bean to use" },
+    "trim": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "true", "description": "Whether to trim the value to remove leading and trailing whitespaces and line breaks" },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the id of this node" }
+  }
+}
+

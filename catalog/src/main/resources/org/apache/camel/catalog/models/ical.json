@@ -1,0 +1,18 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "ical",
+    "title": "iCal",
+    "description": "iCal data format",
+    "javaType": "org.apache.camel.model.dataformat.IcalDataFormat",
+    "label": "dataformat,transformation",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "validating": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to validate." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

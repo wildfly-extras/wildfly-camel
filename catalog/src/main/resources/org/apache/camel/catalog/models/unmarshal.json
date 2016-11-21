@@ -1,0 +1,20 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "unmarshal",
+    "title": "Unmarshal",
+    "description": "Converts the message data received from the wire into a format that Apache Camel processors can consume",
+    "javaType": "org.apache.camel.model.UnmarshalDefinition",
+    "label": "eip,transformation",
+    "deprecated": "false",
+    "input": "true",
+    "output": "false"
+  },
+  "properties": {
+    "dataFormatType": { "kind": "element", "required": "true", "type": "object", "javaType": "org.apache.camel.model.DataFormatDefinition", "oneOf": [ "avro", "base64", "beanio", "bindy", "boon", "castor", "crypto", "csv", "custom", "flatpack", "gzip", "hl7", "ical", "jacksonxml", "jaxb", "jibx", "json", "pgp", "protobuf", "rss", "secureXML", "serialization", "soapjaxb", "string", "syslog", "tarfile", "tidyMarkup", "univocity-csv", "univocity-fixed", "univocity-tsv", "xmlBeans", "xmljson", "xmlrpc", "xstream", "zip", "zipFile" ], "deprecated": "false", "secret": "false", "description": "The data format to be used" },
+    "ref": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "true", "secret": "false", "description": "To refer to a custom data format to use as unmarshaller" },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the id of this node" },
+    "description": { "kind": "element", "required": "false", "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": "false", "secret": "false", "description": "Sets the description of this node" }
+  }
+}
+

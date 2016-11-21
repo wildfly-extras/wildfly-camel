@@ -1,0 +1,18 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "string",
+    "title": "String Encoding",
+    "description": "String (text based) data format",
+    "javaType": "org.apache.camel.model.dataformat.StringDataFormat",
+    "label": "dataformat,transformation,core",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "charset": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets an encoding to use. Will by default use the JVM platform default charset." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

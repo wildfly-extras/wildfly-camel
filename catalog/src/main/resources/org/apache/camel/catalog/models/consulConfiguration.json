@@ -1,0 +1,30 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "consulConfiguration",
+    "title": "Consul Configuration",
+    "description": "Consul remote service call configuration",
+    "javaType": "org.apache.camel.model.remote.ConsulConfigurationDefinition",
+    "label": "eip,routing,remote",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "url": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The Consul agent URL" },
+    "dc": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The data center" },
+    "aclToken": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the ACL token to be used with Consul" },
+    "userName": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the username to be used for basic authentication" },
+    "password": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the password to be used for basic authentication" },
+    "connectTimeoutMillis": { "kind": "attribute", "required": "false", "type": "integer", "javaType": "java.lang.Long", "deprecated": "false", "secret": "false", "description": "Connect timeout for OkHttpClient" },
+    "readTimeoutMillis": { "kind": "attribute", "required": "false", "type": "integer", "javaType": "java.lang.Long", "deprecated": "false", "secret": "false", "description": "Read timeout for OkHttpClient" },
+    "writeTimeoutMillis": { "kind": "attribute", "required": "false", "type": "integer", "javaType": "java.lang.Long", "deprecated": "false", "secret": "false", "description": "Write timeout for OkHttpClient" },
+    "blockSeconds": { "kind": "attribute", "required": "false", "type": "integer", "javaType": "java.lang.Integer", "deprecated": "false", "secret": "false", "defaultValue": "10", "description": "The second to wait for a watch event default 10 seconds" },
+    "component": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "http", "description": "Sets the default Camel component to use for calling the remote service. By default the http component is used. You can configure this to use netty4-http jetty restlet or some other components of choice. If the service is not HTTP protocol you can use other components such as mqtt jms amqp etc. If the service call has been configured using an uri then the component from the uri is used instead of this default component." },
+    "loadBalancerRef": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets a reference to a custom org.apache.camel.spi.ServiceCallLoadBalancer to use." },
+    "serverListStrategyRef": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets a reference to a custom org.apache.camel.spi.ServiceCallServerListStrategy to use." },
+    "clientProperty": { "kind": "element", "required": "false", "type": "array", "javaType": "java.util.List<org.apache.camel.model.PropertyDefinition>", "deprecated": "false", "secret": "false", "description": "Set client properties to use. These properties are specific to what service call implementation are in use. For example if using ribbon then the client properties are define in com.netflix.client.config.CommonClientConfigKey." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

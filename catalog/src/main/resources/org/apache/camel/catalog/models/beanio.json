@@ -1,0 +1,24 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "beanio",
+    "title": "BeanIO",
+    "description": "BeanIO data format",
+    "javaType": "org.apache.camel.model.dataformat.BeanioDataFormat",
+    "label": "dataformat,transformation,csv",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "mapping": { "kind": "attribute", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The BeanIO mapping file. Is by default loaded from the classpath. You can prefix with file: http: or classpath: to denote from where to load the mapping file." },
+    "streamName": { "kind": "attribute", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The name of the stream to use." },
+    "ignoreUnidentifiedRecords": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to ignore unidentified records." },
+    "ignoreUnexpectedRecords": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to ignore unexpected records." },
+    "ignoreInvalidRecords": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to ignore invalid records." },
+    "encoding": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The charset to use. Is by default the JVM platform default charset." },
+    "beanReaderErrorHandlerType": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "To use a custom org.apache.camel.dataformat.beanio.BeanIOErrorHandler as error handler while parsing. Configure the fully qualified class name of the error handler. Notice the options ignoreUnidentifiedRecords ignoreUnexpectedRecords and ignoreInvalidRecords may not be in use when you use a custom error handler." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

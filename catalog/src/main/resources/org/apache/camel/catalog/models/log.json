@@ -1,0 +1,23 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "log",
+    "title": "Log",
+    "description": "Logs the defined message to the logger",
+    "javaType": "org.apache.camel.model.LogDefinition",
+    "label": "configuration",
+    "deprecated": "false",
+    "input": "true",
+    "output": "false"
+  },
+  "properties": {
+    "message": { "kind": "attribute", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the log message (uses simple language)" },
+    "loggingLevel": { "kind": "attribute", "required": "false", "type": "string", "javaType": "org.apache.camel.LoggingLevel", "enum": [ "DEBUG", "ERROR", "INFO", "OFF", "TRACE", "WARN" ], "deprecated": "false", "secret": "false", "defaultValue": "INFO", "description": "Sets the logging level. The default value is INFO" },
+    "logName": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the name of the logger" },
+    "marker": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "To use slf4j marker" },
+    "loggerRef": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "To refer to a custom logger instance to lookup from the registry." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the id of this node" },
+    "description": { "kind": "element", "required": "false", "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": "false", "secret": "false", "description": "Sets the description of this node" }
+  }
+}
+

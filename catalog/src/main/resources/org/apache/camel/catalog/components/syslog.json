@@ -1,0 +1,19 @@
+{
+ "dataformat": {
+    "name": "syslog",
+    "kind": "dataformat",
+    "modelName": "syslog",
+    "title": "Syslog",
+    "description": "Camel Syslog support",
+    "label": "dataformat,transformation",
+    "javaType": "org.apache.camel.component.syslog.SyslogDataFormat",
+    "modelJavaType": "org.apache.camel.model.dataformat.SyslogDataFormat",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-syslog",
+    "version": "2.18.0"
+  },
+  "properties": {
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

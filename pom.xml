@@ -119,6 +119,7 @@
 
     <!-- Modules -->
     <modules>
+        <module>catalog</module>
         <module>config</module>
         <module>cxfhttp</module>
         <module>feature</module>

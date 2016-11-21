@@ -1,0 +1,28 @@
+{
+ "language": {
+    "name": "xpath",
+    "kind": "language",
+    "modelName": "xpath",
+    "title": "XPath",
+    "description": "For XPath expressions and predicates",
+    "label": "language,core,xml",
+    "javaType": "org.apache.camel.language.xpath.XPathLanguage",
+    "modelJavaType": "org.apache.camel.model.language.XPathExpression",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-core",
+    "version": "2.18.0"
+  },
+  "properties": {
+    "expression": { "kind": "value", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The expression value in your chosen language syntax" },
+    "documentType": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Name of class for document type The default value is org.w3c.dom.Document" },
+    "resultType": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the class name of the result type (type from output) The default result type is NodeSet" },
+    "saxon": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to use Saxon." },
+    "factoryRef": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "References to a custom XPathFactory to lookup in the registry" },
+    "objectModel": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The XPath object model to use" },
+    "logNamespaces": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to log namespaces which can assist during trouble shooting" },
+    "headerName": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Name of header to use as input instead of the message body" },
+    "trim": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "true", "description": "Whether to trim the value to remove leading and trailing whitespaces and line breaks" },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the id of this node" }
+  }
+}
+

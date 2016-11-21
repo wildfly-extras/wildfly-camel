@@ -1,0 +1,38 @@
+{
+ "component": {
+    "kind": "component",
+    "scheme": "olingo2",
+    "syntax": "olingo2:apiName/methodName",
+    "title": "Olingo2",
+    "description": "Communicates with OData 2.0 and 3.0 services using Apache Olingo.",
+    "label": "cloud",
+    "deprecated": "false",
+    "async": "false",
+    "javaType": "org.apache.camel.component.olingo2.Olingo2Component",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-olingo2",
+    "version": "2.18.0"
+  },
+  "componentProperties": {
+    "configuration": { "kind": "property", "type": "object", "javaType": "org.apache.camel.component.olingo2.Olingo2Configuration", "deprecated": "false", "secret": "false", "description": "To use the shared configuration" }
+  },
+  "properties": {
+    "apiName": { "kind": "path", "group": "common", "required": "true", "type": "string", "javaType": "org.apache.camel.component.olingo2.internal.Olingo2ApiName", "enum": [ "DEFAULT" ], "deprecated": "false", "secret": "false", "description": "What kind of operation to perform" },
+    "methodName": { "kind": "path", "group": "common", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "What sub operation to use for the selected operation" },
+    "connectTimeout": { "kind": "parameter", "group": "common", "type": "integer", "javaType": "int", "deprecated": "false", "secret": "false", "defaultValue": "30000", "description": "HTTP connection creation timeout in milliseconds defaults to 30000 (30 seconds)" },
+    "contentType": { "kind": "parameter", "group": "common", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "application/json;charset=utf-8", "description": "Content-Type header value can be used to specify JSON or XML message format defaults to application/json;charset=utf-8" },
+    "httpAsyncClientBuilder": { "kind": "parameter", "group": "common", "type": "object", "javaType": "org.apache.http.impl.nio.client.HttpAsyncClientBuilder", "deprecated": "false", "secret": "false", "description": "Custom HTTP async client builder for more complex HTTP client configuration overrides connectionTimeout socketTimeout proxy and sslContext. Note that a socketTimeout MUST be specified in the builder otherwise OData requests could block indefinitely" },
+    "httpClientBuilder": { "kind": "parameter", "group": "common", "type": "object", "javaType": "org.apache.http.impl.client.HttpClientBuilder", "deprecated": "false", "secret": "false", "description": "Custom HTTP client builder for more complex HTTP client configuration overrides connectionTimeout socketTimeout proxy and sslContext. Note that a socketTimeout MUST be specified in the builder otherwise OData requests could block indefinitely" },
+    "httpHeaders": { "kind": "parameter", "group": "common", "type": "object", "javaType": "java.util.Map<java.lang.String,java.lang.String>", "deprecated": "false", "secret": "false", "description": "Custom HTTP headers to inject into every request this could include OAuth tokens etc." },
+    "inBody": { "kind": "parameter", "group": "common", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the name of a parameter to be passed in the exchange In Body" },
+    "proxy": { "kind": "parameter", "group": "common", "type": "object", "javaType": "org.apache.http.HttpHost", "deprecated": "false", "secret": "false", "description": "HTTP proxy server configuration" },
+    "serviceUri": { "kind": "parameter", "group": "common", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Target OData service base URI e.g. http://services.odata.org/OData/OData.svc" },
+    "socketTimeout": { "kind": "parameter", "group": "common", "type": "integer", "javaType": "int", "deprecated": "false", "secret": "false", "defaultValue": "30000", "description": "HTTP request timeout in milliseconds defaults to 30000 (30 seconds)" },
+    "sslContextParameters": { "kind": "parameter", "group": "common", "type": "object", "javaType": "org.apache.camel.util.jsse.SSLContextParameters", "deprecated": "false", "secret": "false", "description": "To configure security using SSLContextParameters" },
+    "bridgeErrorHandler": { "kind": "parameter", "group": "consumer", "label": "consumer", "type": "boolean", "javaType": "boolean", "optionalPrefix": "consumer.", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Allows for bridging the consumer to the Camel routing Error Handler which mean any exceptions occurred while the consumer is trying to pickup incoming messages or the likes will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions that will be logged at WARN/ERROR level and ignored." },
+    "exceptionHandler": { "kind": "parameter", "group": "consumer (advanced)", "label": "consumer,advanced", "type": "object", "javaType": "org.apache.camel.spi.ExceptionHandler", "optionalPrefix": "consumer.", "deprecated": "false", "secret": "false", "description": "To let the consumer use a custom ExceptionHandler. Notice if the option bridgeErrorHandler is enabled then this options is not in use. By default the consumer will deal with exceptions that will be logged at WARN/ERROR level and ignored." },
+    "exchangePattern": { "kind": "parameter", "group": "consumer (advanced)", "label": "consumer,advanced", "type": "string", "javaType": "org.apache.camel.ExchangePattern", "enum": [ "InOnly", "RobustInOnly", "InOut", "InOptionalOut", "OutOnly", "RobustOutOnly", "OutIn", "OutOptionalIn" ], "deprecated": "false", "secret": "false", "description": "Sets the exchange pattern when the consumer creates an exchange." },
+    "synchronous": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Sets whether synchronous processing should be strictly used or Camel is allowed to use asynchronous processing (if supported)." }
+  }
+}
+

@@ -1,0 +1,20 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "whenSkipSendToEndpoint",
+    "title": "When Skip Send To Endpoint",
+    "description": "Predicate to determine if the message should be sent or not to the endpoint when using interceptSentToEndpoint.",
+    "javaType": "org.apache.camel.model.WhenSkipSendToEndpointDefinition",
+    "label": "configuration",
+    "deprecated": "false",
+    "input": "true",
+    "output": "true"
+  },
+  "properties": {
+    "expression": { "kind": "expression", "required": "true", "type": "object", "javaType": "org.apache.camel.model.language.ExpressionDefinition", "oneOf": [ "constant", "el", "exchangeProperty", "groovy", "header", "javaScript", "jsonpath", "jxpath", "language", "method", "mvel", "ognl", "php", "python", "ref", "ruby", "simple", "spel", "sql", "terser", "tokenize", "xpath", "xquery", "xtokenize" ], "deprecated": "false", "secret": "false", "description": "Expression used as the predicate to evaluate whether the message should be sent or not to the endpoint" },
+    "outputs": { "kind": "element", "required": "true", "type": "array", "javaType": "java.util.List<org.apache.camel.model.ProcessorDefinition<?>>", "oneOf": [ "aggregate", "aop", "bean", "choice", "convertBodyTo", "delay", "doCatch", "doFinally", "doTry", "dynamicRouter", "enrich", "filter", "hystrix", "idempotentConsumer", "inOnly", "inOut", "intercept", "interceptFrom", "interceptSendToEndpoint", "loadBalance", "log", "loop", "marshal", "multicast", "onCompletion", "onException", "onFallback", "otherwise", "pipeline", "policy", "pollEnrich", "process", "recipientList", "removeHeader", "removeHeaders", "removeProperties", "removeProperty", "resequence", "rollback", "routingSlip", "sample", "script", "setBody", "setExchangePattern", "setFaultBody", "setHeader", "setOutHeader", "setProperty", "sort", "split", "stop", "threads", "throttle", "throwException", "to", "toD", "transacted", "transform", "unmarshal", "validate", "when", "whenSkipSendToEndpoint", "wireTap" ], "deprecated": "false", "secret": "false" },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the id of this node" },
+    "description": { "kind": "element", "required": "false", "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": "false", "secret": "false", "description": "Sets the description of this node" }
+  }
+}
+

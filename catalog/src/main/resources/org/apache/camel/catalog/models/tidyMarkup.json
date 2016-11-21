@@ -1,0 +1,19 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "tidyMarkup",
+    "title": "TidyMarkup",
+    "description": "Tidymark (wellformed HTML) data format",
+    "javaType": "org.apache.camel.model.dataformat.TidyMarkupDataFormat",
+    "label": "dataformat,transformation",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "dataObjectType": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "org.w3c.dom.Node", "description": "What data type to unmarshal as can either be org.w3c.dom.Node or java.lang.String. Is by default org.w3c.dom.Node" },
+    "omitXmlDeclaration": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "When returning a String do we omit the XML declaration in the top." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

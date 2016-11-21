@@ -1,0 +1,18 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "sticky",
+    "title": "Sticky",
+    "description": "Sticky load balancer",
+    "javaType": "org.apache.camel.model.loadbalancer.StickyLoadBalancerDefinition",
+    "label": "eip,routing,loadbalance",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "correlationExpression": { "kind": "expression", "required": "true", "type": "object", "javaType": "org.apache.camel.model.language.NamespaceAwareExpression", "oneOf": [ "constant", "el", "exchangeProperty", "groovy", "header", "javaScript", "jsonpath", "jxpath", "language", "method", "mvel", "ognl", "php", "python", "ref", "ruby", "simple", "spel", "sql", "terser", "tokenize", "xpath", "xquery", "xtokenize" ], "deprecated": "false", "secret": "false", "description": "The correlation expression to use to calculate the correlation key" },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

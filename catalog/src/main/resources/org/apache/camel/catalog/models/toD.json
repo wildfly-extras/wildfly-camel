@@ -1,0 +1,22 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "toD",
+    "title": "To D",
+    "description": "Sends the message to a dynamic endpoint",
+    "javaType": "org.apache.camel.model.ToDynamicDefinition",
+    "label": "eip,endpoint,routing",
+    "deprecated": "false",
+    "input": "true",
+    "output": "false"
+  },
+  "properties": {
+    "uri": { "kind": "attribute", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The uri of the endpoint to send to. The uri can be dynamic computed using the org.apache.camel.language.simple.SimpleLanguage expression." },
+    "pattern": { "kind": "attribute", "required": "false", "type": "string", "javaType": "org.apache.camel.ExchangePattern", "enum": [ "InOnly", "InOptionalOut", "InOut", "OutIn", "OutOnly", "OutOptionalIn", "RobustInOnly", "RobustOutOnly" ], "deprecated": "false", "secret": "false", "description": "Sets the optional ExchangePattern used to invoke this endpoint" },
+    "cacheSize": { "kind": "attribute", "required": "false", "type": "integer", "javaType": "java.lang.Integer", "deprecated": "false", "secret": "false", "description": "Sets the maximum size used by the org.apache.camel.impl.ConsumerCache which is used to cache and reuse producers." },
+    "ignoreInvalidEndpoint": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Ignore the invalidate endpoint exception when try to create a producer with that endpoint" },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the id of this node" },
+    "description": { "kind": "element", "required": "false", "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": "false", "secret": "false", "description": "Sets the description of this node" }
+  }
+}
+

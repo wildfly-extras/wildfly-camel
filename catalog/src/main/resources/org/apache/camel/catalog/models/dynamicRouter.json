@@ -1,0 +1,22 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "dynamicRouter",
+    "title": "Dynamic Router",
+    "description": "Routes messages based on dynamic rules",
+    "javaType": "org.apache.camel.model.DynamicRouterDefinition",
+    "label": "eip,endpoint,routing",
+    "deprecated": "false",
+    "input": "true",
+    "output": "false"
+  },
+  "properties": {
+    "expression": { "kind": "expression", "required": "true", "type": "object", "javaType": "org.apache.camel.model.language.ExpressionDefinition", "oneOf": [ "constant", "el", "exchangeProperty", "groovy", "header", "javaScript", "jsonpath", "jxpath", "language", "method", "mvel", "ognl", "php", "python", "ref", "ruby", "simple", "spel", "sql", "terser", "tokenize", "xpath", "xquery", "xtokenize" ], "deprecated": "false", "secret": "false", "description": "Expression to call that returns the endpoint(s) to route to in the dynamic routing. Important: The expression will be called in a while loop fashion until the expression returns null which means the dynamic router is finished." },
+    "uriDelimiter": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": ",", "description": "Sets the uri delimiter to use" },
+    "ignoreInvalidEndpoints": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Ignore the invalidate endpoint exception when try to create a producer with that endpoint" },
+    "cacheSize": { "kind": "attribute", "required": "false", "type": "integer", "javaType": "java.lang.Integer", "deprecated": "false", "secret": "false", "description": "Sets the maximum size used by the org.apache.camel.impl.ProducerCache which is used to cache and reuse producers when using this recipient list when uris are reused." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the id of this node" },
+    "description": { "kind": "element", "required": "false", "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": "false", "secret": "false", "description": "Sets the description of this node" }
+  }
+}
+

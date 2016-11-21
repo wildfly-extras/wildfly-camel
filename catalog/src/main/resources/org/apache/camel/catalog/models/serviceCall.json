@@ -1,0 +1,25 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "serviceCall",
+    "title": "Service Call",
+    "description": "Remote service call",
+    "javaType": "org.apache.camel.model.remote.ServiceCallDefinition",
+    "label": "eip,routing",
+    "deprecated": "false",
+    "input": "true",
+    "output": "false"
+  },
+  "properties": {
+    "name": { "kind": "attribute", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the name of the service to use" },
+    "uri": { "kind": "attribute", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The uri of the endpoint to send to. The uri can be dynamic computed using the org.apache.camel.language.simple.SimpleLanguage expression." },
+    "pattern": { "kind": "attribute", "required": "false", "type": "string", "javaType": "org.apache.camel.ExchangePattern", "enum": [ "InOnly", "InOptionalOut", "InOut", "OutIn", "OutOnly", "OutOptionalIn", "RobustInOnly", "RobustOutOnly" ], "deprecated": "false", "secret": "false", "description": "Sets the optional ExchangePattern used to invoke this endpoint" },
+    "serviceCallConfiguration": { "kind": "element", "required": "false", "type": "object", "javaType": "org.apache.camel.model.remote.ServiceCallConfigurationDefinition", "deprecated": "false", "secret": "false", "description": "Configures the ServiceCall using the given configuration" },
+    "serviceCallConfigurationRef": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Refers to a ServiceCall configuration to use" },
+    "loadBalancerRef": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets a reference to a custom org.apache.camel.spi.ServiceCallLoadBalancer to use." },
+    "serverListStrategyRef": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets a reference to a custom org.apache.camel.spi.ServiceCallServerListStrategy to use." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the id of this node" },
+    "description": { "kind": "element", "required": "false", "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": "false", "secret": "false", "description": "Sets the description of this node" }
+  }
+}
+

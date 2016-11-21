@@ -1,0 +1,18 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "routeBuilder",
+    "title": "Route Builder",
+    "description": "To refer to a Java org.apache.camel.builder.RouteBuilder instance to use.",
+    "javaType": "org.apache.camel.model.RouteBuilderDefinition",
+    "label": "configuration",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "ref": { "kind": "attribute", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Reference to the route builder instance" },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

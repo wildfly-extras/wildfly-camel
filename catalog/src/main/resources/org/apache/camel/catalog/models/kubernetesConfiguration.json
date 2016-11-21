@@ -1,0 +1,38 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "kubernetesConfiguration",
+    "title": "Kubernetes Configuration",
+    "description": "Kubernetes remote service call configuration",
+    "javaType": "org.apache.camel.model.remote.KubernetesConfigurationDefinition",
+    "label": "eip,routing,remote",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "lookup": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "environment", "description": "How to perform service lookup. Possible values: client dns environment. When using client then the client queries the kubernetes master to obtain a list of active pods that provides the service and then random (or round robin) select a pod. When using dns the service name is resolved as name.namespace.service.dnsDomain. When using environment then environment variables are used to lookup the service. By default environment is used." },
+    "dnsDomain": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the DNS domain to use for DNS lookup." },
+    "namespace": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the namespace to use. Will by default use namespace from the ENV variable KUBERNETES_MASTER." },
+    "apiVersion": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the API version when using client lookup" },
+    "masterUrl": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the URL to the master when using client lookup" },
+    "username": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the username for authentication when using client lookup" },
+    "password": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the password for authentication when using client lookup" },
+    "oauthToken": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the OAUTH token for authentication (instead of username/password) when using client lookup" },
+    "caCertData": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the Certificate Authority data when using client lookup" },
+    "caCertFile": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the Certificate Authority data that are loaded from the file when using client lookup" },
+    "clientCertData": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the Client Certificate data when using client lookup" },
+    "clientCertFile": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the Client Certificate data that are loaded from the file when using client lookup" },
+    "clientKeyAlgo": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the Client Keystore algorithm such as RSA when using client lookup" },
+    "clientKeyData": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the Client Keystore data when using client lookup" },
+    "clientKeyFile": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the Client Keystore data that are loaded from the file when using client lookup" },
+    "clientKeyPassphrase": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the Client Keystore passphrase when using client lookup" },
+    "trustCerts": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Sets whether to turn on trust certificate check when using client lookup" },
+    "component": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "http", "description": "Sets the default Camel component to use for calling the remote service. By default the http component is used. You can configure this to use netty4-http jetty restlet or some other components of choice. If the service is not HTTP protocol you can use other components such as mqtt jms amqp etc. If the service call has been configured using an uri then the component from the uri is used instead of this default component." },
+    "loadBalancerRef": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets a reference to a custom org.apache.camel.spi.ServiceCallLoadBalancer to use." },
+    "serverListStrategyRef": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets a reference to a custom org.apache.camel.spi.ServiceCallServerListStrategy to use." },
+    "clientProperty": { "kind": "element", "required": "false", "type": "array", "javaType": "java.util.List<org.apache.camel.model.PropertyDefinition>", "deprecated": "false", "secret": "false", "description": "Set client properties to use. These properties are specific to what service call implementation are in use. For example if using ribbon then the client properties are define in com.netflix.client.config.CommonClientConfigKey." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

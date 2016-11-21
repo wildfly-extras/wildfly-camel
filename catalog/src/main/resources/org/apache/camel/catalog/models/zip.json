@@ -1,0 +1,18 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "zip",
+    "title": "Zip Deflate Compression",
+    "description": "Zip compression data format (not for zip files)",
+    "javaType": "org.apache.camel.model.dataformat.ZipDataFormat",
+    "label": "dataformat,transformation",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "compressionLevel": { "kind": "attribute", "required": "false", "type": "integer", "javaType": "java.lang.Integer", "deprecated": "false", "secret": "false", "defaultValue": "-1", "description": "To specify a specific compression between 0-9. -1 is default compression 0 is no compression and 9 is best compression." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

@@ -1,0 +1,17 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "properties",
+    "title": "Properties",
+    "description": "A series of key value pair",
+    "javaType": "org.apache.camel.model.PropertiesDefinition",
+    "label": "configuration",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "property": { "kind": "element", "required": "false", "type": "array", "javaType": "java.util.List<org.apache.camel.model.PropertyDefinition>", "deprecated": "false", "secret": "false", "description": "A series of properties as key value pairs" }
+  }
+}
+

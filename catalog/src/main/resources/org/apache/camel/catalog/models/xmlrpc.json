@@ -1,0 +1,18 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "xmlrpc",
+    "title": "XML RPC",
+    "description": "XML-RPC data format",
+    "javaType": "org.apache.camel.model.dataformat.XmlRpcDataFormat",
+    "label": "dataformat,transformation,xml",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "request": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to marshal/unmarshal request or response Is by default false" },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

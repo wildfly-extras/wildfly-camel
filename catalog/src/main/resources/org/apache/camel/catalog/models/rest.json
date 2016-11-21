@@ -1,0 +1,27 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "rest",
+    "title": "Rest",
+    "description": "Defines a rest service using the rest-dsl",
+    "javaType": "org.apache.camel.model.rest.RestDefinition",
+    "label": "rest",
+    "deprecated": "false",
+    "input": "false",
+    "output": "true"
+  },
+  "properties": {
+    "path": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Path of the rest service such as /foo" },
+    "tag": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "To configure a special tag for the operations within this rest definition." },
+    "consumes": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "To define the content type what the REST service consumes (accept as input) such as application/xml or application/json. This option will override what may be configured on a parent level" },
+    "produces": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "To define the content type what the REST service produces (uses for output) such as application/xml or application/json This option will override what may be configured on a parent level" },
+    "bindingMode": { "kind": "attribute", "required": "false", "type": "string", "javaType": "org.apache.camel.model.rest.RestBindingMode", "enum": [ "auto", "json", "json_xml", "off", "xml" ], "deprecated": "false", "secret": "false", "defaultValue": "auto", "description": "Sets the binding mode to use. This option will override what may be configured on a parent level The default value is auto" },
+    "skipBindingOnErrorCode": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to skip binding on output if there is a custom HTTP error code header. This allows to build custom error messages that do not bind to json / xml etc as success messages otherwise will do. This option will override what may be configured on a parent level" },
+    "enableCORS": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to enable CORS headers in the HTTP response. This option will override what may be configured on a parent level The default value is false." },
+    "apiDocs": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to include or exclude the VerbDefinition in API documentation. This option will override what may be configured on a parent level The default value is true." },
+    "verbs": { "kind": "element", "required": "true", "type": "array", "javaType": "java.util.List<org.apache.camel.model.rest.VerbDefinition>", "oneOf": [ "delete", "get", "head", "options", "patch", "post", "put" ], "deprecated": "false", "secret": "false", "description": "The HTTP verbs this REST service accepts and uses" },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the id of this node" },
+    "description": { "kind": "element", "required": "false", "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": "false", "secret": "false", "description": "Sets the description of this node" }
+  }
+}
+

@@ -1,0 +1,33 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "univocity-fixed",
+    "title": "uniVocity Fixed Length",
+    "description": "UniVocity fixed-width data format",
+    "javaType": "org.apache.camel.model.dataformat.UniVocityFixedWidthDataFormat",
+    "label": "dataformat,transformation,csv",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "skipTrailingCharsUntilNewline": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether or not the trailing characters until new line must be ignored. The default value is false" },
+    "recordEndsOnNewline": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether or not the record ends on new line. The default value is false" },
+    "padding": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": " ", "description": "The padding character. The default value is a space" },
+    "nullValue": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The string representation of a null value. The default value is null" },
+    "skipEmptyLines": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "true", "description": "Whether or not the empty lines must be ignored. The default value is true" },
+    "ignoreTrailingWhitespaces": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "true", "description": "Whether or not the trailing white spaces must ignored. The default value is true" },
+    "ignoreLeadingWhitespaces": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "true", "description": "Whether or not the leading white spaces must be ignored. The default value is true" },
+    "headersDisabled": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether or not the headers are disabled. When defined this option explicitly sets the headers as null which indicates that there is no header. The default value is false" },
+    "headerExtractionEnabled": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether or not the header must be read in the first line of the test document The default value is false" },
+    "numberOfRecordsToRead": { "kind": "attribute", "required": "false", "type": "integer", "javaType": "java.lang.Integer", "deprecated": "false", "secret": "false", "description": "The maximum number of record to read." },
+    "emptyValue": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The String representation of an empty value" },
+    "lineSeparator": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The line separator of the files The default value is to use the JVM platform line separator" },
+    "normalizedLineSeparator": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "\n", "description": "The normalized line separator of the files The default value is \n" },
+    "comment": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "#", "description": "The comment symbol. The default value is" },
+    "lazyLoad": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether the unmarshalling should produce an iterator that reads the lines on the fly or if all the lines must be read at one. The default value is false" },
+    "asMap": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether the unmarshalling should produce maps for the lines values instead of lists. It requires to have header (either defined or collected). The default value is false" },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

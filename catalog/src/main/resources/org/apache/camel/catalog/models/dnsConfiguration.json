@@ -1,0 +1,23 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "dnsConfiguration",
+    "title": "Dns Configuration",
+    "description": "DNS remote service call configuration",
+    "javaType": "org.apache.camel.model.remote.DnsConfigurationDefinition",
+    "label": "eip,routing,remote",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "proto": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "_tcp", "description": "The transport protocol of the desired service." },
+    "domain": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The domain name;" },
+    "component": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "http", "description": "Sets the default Camel component to use for calling the remote service. By default the http component is used. You can configure this to use netty4-http jetty restlet or some other components of choice. If the service is not HTTP protocol you can use other components such as mqtt jms amqp etc. If the service call has been configured using an uri then the component from the uri is used instead of this default component." },
+    "loadBalancerRef": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets a reference to a custom org.apache.camel.spi.ServiceCallLoadBalancer to use." },
+    "serverListStrategyRef": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets a reference to a custom org.apache.camel.spi.ServiceCallServerListStrategy to use." },
+    "clientProperty": { "kind": "element", "required": "false", "type": "array", "javaType": "java.util.List<org.apache.camel.model.PropertyDefinition>", "deprecated": "false", "secret": "false", "description": "Set client properties to use. These properties are specific to what service call implementation are in use. For example if using ribbon then the client properties are define in com.netflix.client.config.CommonClientConfigKey." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

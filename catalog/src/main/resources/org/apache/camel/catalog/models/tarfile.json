@@ -1,0 +1,18 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "tarfile",
+    "title": "Tar File",
+    "description": "TAR file data format",
+    "javaType": "org.apache.camel.model.dataformat.TarFileDataFormat",
+    "label": "dataformat,transformation,file",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "usingIterator": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "If the tar file has more then one entry the setting this option to true allows to work with the splitter EIP to split the data using an iterator in a streaming mode." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

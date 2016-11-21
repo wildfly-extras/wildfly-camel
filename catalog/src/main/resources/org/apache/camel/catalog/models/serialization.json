@@ -1,0 +1,17 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "serialization",
+    "title": "Java Object Serialization",
+    "description": "Java Object Serialization data format",
+    "javaType": "org.apache.camel.model.dataformat.SerializationDataFormat",
+    "label": "dataformat,transformation,core",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

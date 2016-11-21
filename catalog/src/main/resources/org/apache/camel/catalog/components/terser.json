@@ -1,0 +1,21 @@
+{
+ "language": {
+    "name": "terser",
+    "kind": "language",
+    "modelName": "terser",
+    "title": "HL7 Terser",
+    "description": "For HL7 terser expressions and predicates",
+    "label": "language,hl7",
+    "javaType": "org.apache.camel.component.hl7.TerserLanguage",
+    "modelJavaType": "org.apache.camel.model.language.TerserExpression",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-hl7",
+    "version": "2.18.0"
+  },
+  "properties": {
+    "expression": { "kind": "value", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The expression value in your chosen language syntax" },
+    "trim": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "true", "description": "Whether to trim the value to remove leading and trailing whitespaces and line breaks" },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the id of this node" }
+  }
+}
+

@@ -1,0 +1,39 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "redeliveryPolicy",
+    "title": "Redelivery Policy",
+    "description": "To configure re-delivery for error handling",
+    "javaType": "org.apache.camel.model.RedeliveryPolicyDefinition",
+    "label": "configuration",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "maximumRedeliveries": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the maximum redeliveries x = redeliver at most x times 0 = no redeliveries -1 = redeliver forever" },
+    "redeliveryDelay": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the initial redelivery delay" },
+    "asyncDelayedRedelivery": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Allow synchronous delayed redelivery." },
+    "backOffMultiplier": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the back off multiplier" },
+    "useExponentialBackOff": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Turn on exponential backk off" },
+    "collisionAvoidanceFactor": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the collision avoidance factor" },
+    "useCollisionAvoidance": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Turn on collision avoidance." },
+    "maximumRedeliveryDelay": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the maximum delay between redelivery" },
+    "retriesExhaustedLogLevel": { "kind": "attribute", "required": "false", "type": "string", "javaType": "org.apache.camel.LoggingLevel", "enum": [ "DEBUG", "ERROR", "INFO", "OFF", "TRACE", "WARN" ], "deprecated": "false", "secret": "false", "description": "Sets the logging level to use when retries has exhausted" },
+    "retryAttemptedLogLevel": { "kind": "attribute", "required": "false", "type": "string", "javaType": "org.apache.camel.LoggingLevel", "enum": [ "DEBUG", "ERROR", "INFO", "OFF", "TRACE", "WARN" ], "deprecated": "false", "secret": "false", "description": "Sets the logging level to use for logging retry attempts" },
+    "logRetryAttempted": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets whether retry attempts should be logged or not. Can be used to include or reduce verbose." },
+    "logStackTrace": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets whether stack traces should be logged. Can be used to include or reduce verbose." },
+    "logRetryStackTrace": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets whether stack traces should be logged when an retry attempt failed. Can be used to include or reduce verbose." },
+    "logHandled": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets whether handled exceptions should be logged or not. Can be used to include or reduce verbose." },
+    "logNewException": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets whether new exceptions should be logged or not. Can be used to include or reduce verbose. A new exception is an exception that was thrown while handling a previous exception." },
+    "logContinued": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets whether continued exceptions should be logged or not. Can be used to include or reduce verbose." },
+    "logExhausted": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets whether exhausted exceptions should be logged or not. Can be used to include or reduce verbose." },
+    "logExhaustedMessageHistory": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets whether exhausted exceptions should be logged including message history or not (supports property placeholders). Can be used to include or reduce verbose." },
+    "logExhaustedMessageBody": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets whether exhausted message body should be logged including message history or not (supports property placeholders). Can be used to include or reduce verbose. Requires logExhaustedMessageHistory to be enabled." },
+    "disableRedelivery": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Disables redelivery (same as setting maximum redeliveries to 0)" },
+    "delayPattern": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the delay pattern with delay intervals." },
+    "allowRedeliveryWhileStopping": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Controls whether to allow redelivery while stopping/shutting down a route that uses error handling." },
+    "exchangeFormatterRef": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the reference of the instance of org.apache.camel.spi.ExchangeFormatter to generate the log message from exchange." }
+  }
+}
+

@@ -1,0 +1,19 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "removeHeader",
+    "title": "Remove Header",
+    "description": "Removes a named header from the message",
+    "javaType": "org.apache.camel.model.RemoveHeaderDefinition",
+    "label": "eip,transformation",
+    "deprecated": "false",
+    "input": "true",
+    "output": "false"
+  },
+  "properties": {
+    "headerName": { "kind": "attribute", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Name of header to remove" },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the id of this node" },
+    "description": { "kind": "element", "required": "false", "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": "false", "secret": "false", "description": "Sets the description of this node" }
+  }
+}
+

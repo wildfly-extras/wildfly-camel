@@ -1,0 +1,18 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "hl7",
+    "title": "HL7",
+    "description": "HL7 data format",
+    "javaType": "org.apache.camel.model.dataformat.HL7DataFormat",
+    "label": "dataformat,transformation,hl7",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "validate": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "true", "description": "Whether to validate the HL7 message Is by default true." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

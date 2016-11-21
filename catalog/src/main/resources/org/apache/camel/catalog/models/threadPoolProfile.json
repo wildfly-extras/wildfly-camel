@@ -1,0 +1,26 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "threadPoolProfile",
+    "title": "Thread Pool Profile",
+    "description": "To configure thread pools",
+    "javaType": "org.apache.camel.model.ThreadPoolProfileDefinition",
+    "label": "configuration",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "defaultProfile": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether this profile is the default thread pool profile" },
+    "poolSize": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the core pool size" },
+    "maxPoolSize": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the maximum pool size" },
+    "keepAliveTime": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the keep alive time for idle threads in the pool" },
+    "timeUnit": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.util.concurrent.TimeUnit", "enum": [ "DAYS", "HOURS", "MICROSECONDS", "MILLISECONDS", "MINUTES", "NANOSECONDS", "SECONDS" ], "deprecated": "false", "secret": "false", "description": "Sets the time unit to use for keep alive time By default SECONDS is used." },
+    "maxQueueSize": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the maximum number of tasks in the work queue. Use -1 or Integer.MAX_VALUE for an unbounded queue" },
+    "allowCoreThreadTimeOut": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Whether idle core threads is allowed to timeout and therefore can shrink the pool size below the core pool size Is by default false" },
+    "rejectedPolicy": { "kind": "attribute", "required": "false", "type": "string", "javaType": "org.apache.camel.ThreadPoolRejectedPolicy", "enum": [ "Abort", "CallerRuns", "Discard", "DiscardOldest" ], "deprecated": "false", "secret": "false", "description": "Sets the handler for tasks which cannot be executed by the thread pool." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the id of this node" },
+    "description": { "kind": "element", "required": "false", "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": "false", "secret": "false", "description": "Sets the description of this node" }
+  }
+}
+

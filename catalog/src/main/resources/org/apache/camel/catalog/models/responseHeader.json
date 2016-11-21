@@ -1,0 +1,22 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "responseHeader",
+    "title": "Response Header",
+    "description": "To specify the rest operation response headers using Swagger.",
+    "javaType": "org.apache.camel.model.rest.RestOperationResponseHeaderDefinition",
+    "label": "rest",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "name": { "kind": "attribute", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Name of the parameter. This option is mandatory." },
+    "collectionFormat": { "kind": "attribute", "required": "false", "type": "string", "javaType": "org.apache.camel.model.rest.CollectionFormat", "enum": [ "csv", "multi", "pipes", "ssv", "tsv" ], "deprecated": "false", "secret": "false", "defaultValue": "csv", "description": "Sets the Swagger Parameter collection format." },
+    "arrayType": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "string", "description": "Sets the Swagger Parameter array type. Required if data type is array. Describes the type of items in the array." },
+    "dataType": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "string", "description": "Sets the Swagger header data type." },
+    "value": { "kind": "element", "required": "false", "type": "array", "javaType": "java.util.List<java.lang.String>", "deprecated": "false", "secret": "false", "description": "Sets the Swagger Parameter list of allowable values." },
+    "description": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Description of the parameter." }
+  }
+}
+

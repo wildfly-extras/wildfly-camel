@@ -1,0 +1,18 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "customDataFormat",
+    "title": "Custom",
+    "description": "Custom data format",
+    "javaType": "org.apache.camel.model.dataformat.CustomDataFormat",
+    "label": "dataformat,transformation",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "ref": { "kind": "attribute", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Reference to the custom org.apache.camel.spi.DataFormat to lookup from the Camel registry." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

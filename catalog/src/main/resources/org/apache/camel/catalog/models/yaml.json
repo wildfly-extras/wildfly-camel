@@ -1,0 +1,25 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "yaml",
+    "title": "YAML",
+    "description": "YAML data format",
+    "javaType": "org.apache.camel.model.dataformat.YAMLDataFormat",
+    "label": "dataformat,transformation,yaml",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "library": { "kind": "attribute", "required": "false", "type": "string", "javaType": "org.apache.camel.model.dataformat.YAMLLibrary", "enum": [ "SnakeYAML" ], "deprecated": "false", "secret": "false", "defaultValue": "SnakeYAML", "description": "Which yaml library to use such. Is by default SnakeYAML" },
+    "unmarshalTypeName": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Class name of the java type to use when unarmshalling" },
+    "constructor": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "BaseConstructor to construct incoming documents." },
+    "representer": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Representer to emit outgoing objects." },
+    "dumperOptions": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "DumperOptions to configure outgoing objects." },
+    "resolver": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Resolver to detect implicit type" },
+    "useApplicationContextClassLoader": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "true", "description": "Use ApplicationContextClassLoader as custom ClassLoader" },
+    "prettyFlow": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Force the emitter to produce a pretty YAML document when using the flow style." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

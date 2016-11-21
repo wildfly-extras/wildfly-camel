@@ -1,0 +1,19 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "boon",
+    "title": "Boon",
+    "description": "Boon data format",
+    "javaType": "org.apache.camel.model.dataformat.BoonDataFormat",
+    "label": "dataformat,transformation,json",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "unmarshalTypeName": { "kind": "attribute", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Class name of the java type to use when unarmshalling" },
+    "useList": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "To unarmshal to a List of Map or a List of Pojo." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

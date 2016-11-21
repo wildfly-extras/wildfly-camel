@@ -1,0 +1,22 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "castor",
+    "title": "Castor",
+    "description": "Castor data format",
+    "javaType": "org.apache.camel.model.dataformat.CastorDataFormat",
+    "label": "dataformat,transformation,xml",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "mappingFile": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Path to a Castor mapping file to load from the classpath." },
+    "validation": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "true", "description": "Whether validation is turned on or off. Is by default true." },
+    "encoding": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "UTF-8", "description": "Encoding to use when marshalling an Object to XML. Is by default UTF-8" },
+    "packages": { "kind": "attribute", "required": "false", "type": "array", "javaType": "java.lang.String[]", "deprecated": "false", "secret": "false", "description": "Add additional packages to Castor XmlContext" },
+    "classes": { "kind": "attribute", "required": "false", "type": "array", "javaType": "java.lang.String[]", "deprecated": "false", "secret": "false", "description": "Add additional class names to Castor XmlContext" },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+

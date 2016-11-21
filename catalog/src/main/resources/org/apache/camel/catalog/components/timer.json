@@ -1,0 +1,35 @@
+{
+ "component": {
+    "kind": "component",
+    "scheme": "timer",
+    "syntax": "timer:timerName",
+    "title": "Timer",
+    "description": "The timer component is used for generating message exchanges when a timer fires.",
+    "label": "core,scheduling",
+    "deprecated": "false",
+    "async": "false",
+    "consumerOnly": "true",
+    "javaType": "org.apache.camel.component.timer.TimerComponent",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-core",
+    "version": "2.18.0"
+  },
+  "componentProperties": {
+  },
+  "properties": {
+    "timerName": { "kind": "path", "group": "consumer", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The name of the timer" },
+    "bridgeErrorHandler": { "kind": "parameter", "group": "consumer", "label": "consumer", "type": "boolean", "javaType": "boolean", "optionalPrefix": "consumer.", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Allows for bridging the consumer to the Camel routing Error Handler which mean any exceptions occurred while the consumer is trying to pickup incoming messages or the likes will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions that will be logged at WARN/ERROR level and ignored." },
+    "delay": { "kind": "parameter", "group": "consumer", "type": "integer", "javaType": "long", "deprecated": "false", "secret": "false", "defaultValue": "1000", "description": "The number of milliseconds to wait before the first event is generated. Should not be used in conjunction with the time option. The default value is 1000. You can also specify time values using units such as 60s (60 seconds) 5m30s (5 minutes and 30 seconds) and 1h (1 hour)." },
+    "fixedRate": { "kind": "parameter", "group": "consumer", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Events take place at approximately regular intervals separated by the specified period." },
+    "period": { "kind": "parameter", "group": "consumer", "type": "integer", "javaType": "long", "deprecated": "false", "secret": "false", "defaultValue": "1000", "description": "If greater than 0 generate periodic events every period milliseconds. The default value is 1000. You can also specify time values using units such as 60s (60 seconds) 5m30s (5 minutes and 30 seconds) and 1h (1 hour)." },
+    "repeatCount": { "kind": "parameter", "group": "consumer", "type": "integer", "javaType": "long", "deprecated": "false", "secret": "false", "defaultValue": "0", "description": "Specifies a maximum limit of number of fires. So if you set it to 1 the timer will only fire once. If you set it to 5 it will only fire five times. A value of zero or negative means fire forever." },
+    "exceptionHandler": { "kind": "parameter", "group": "consumer (advanced)", "label": "consumer,advanced", "type": "object", "javaType": "org.apache.camel.spi.ExceptionHandler", "optionalPrefix": "consumer.", "deprecated": "false", "secret": "false", "description": "To let the consumer use a custom ExceptionHandler. Notice if the option bridgeErrorHandler is enabled then this options is not in use. By default the consumer will deal with exceptions that will be logged at WARN/ERROR level and ignored." },
+    "exchangePattern": { "kind": "parameter", "group": "consumer (advanced)", "label": "consumer,advanced", "type": "string", "javaType": "org.apache.camel.ExchangePattern", "enum": [ "InOnly", "RobustInOnly", "InOut", "InOptionalOut", "OutOnly", "RobustOutOnly", "OutIn", "OutOptionalIn" ], "deprecated": "false", "secret": "false", "description": "Sets the default exchange pattern when creating an exchange." },
+    "daemon": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "true", "description": "Specifies whether or not the thread associated with the timer endpoint runs as a daemon. The default value is true." },
+    "pattern": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Allows you to specify a custom Date pattern to use for setting the time option using URI syntax." },
+    "synchronous": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Sets whether synchronous processing should be strictly used or Camel is allowed to use asynchronous processing (if supported)." },
+    "time": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "string", "javaType": "java.util.Date", "deprecated": "false", "secret": "false", "description": "A java.util.Date the first event should be generated. If using the URI the pattern expected is: yyyy-MM-dd HH:mm:ss or yyyy-MM-dd'T'HH:mm:ss." },
+    "timer": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "object", "javaType": "java.util.Timer", "deprecated": "false", "secret": "false", "description": "To use a custom Timer" }
+  }
+}
+

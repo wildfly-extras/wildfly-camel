@@ -1,0 +1,17 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "hessian",
+    "title": "Hessian",
+    "description": "Hessian data format",
+    "javaType": "org.apache.camel.model.dataformat.HessianDataFormat",
+    "label": "dataformat,transformation",
+    "deprecated": "false",
+    "input": "false",
+    "output": "false"
+  },
+  "properties": {
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+
