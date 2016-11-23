@@ -38,8 +38,7 @@ public class ThreadContextClassloaderTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "tccl-tests");
-        return archive;
+        return ShrinkWrap.create(JavaArchive.class, "tccl-tests");
     }
 
     @BeforeClass
@@ -54,19 +53,24 @@ public class ThreadContextClassloaderTest {
 
     @Before
     public void before() throws Exception {
-        assertNoTCCL();
+        assertModuleTCCL();
     }
 
     @After
     public void after() throws Exception {
-        assertNoTCCL();
+        assertModuleTCCL();
     }
 
     @Test
     public void testClassLoader() throws Exception {
-        assertNoTCCL();
+        assertModuleTCCL();
     }
 
+    private static void assertModuleTCCL() {
+        ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+        Assert.assertTrue("TCCL is ModuleClassLoader", tccl instanceof ModuleClassLoader);
+    }
+    
     private static void assertNoTCCL() {
         ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         if (tccl instanceof ModuleClassLoader) {
