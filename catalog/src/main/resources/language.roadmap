@@ -6,16 +6,16 @@ spel
 xquery
 
 [planned]
-
-[undecided]
-el
 javaScript
 jsonpath
-jxpath
 php
 python
-ruby
-sql
 terser
 
+[undecided]
+
 [rejected]
+el
+jxpath
+ruby
+sql

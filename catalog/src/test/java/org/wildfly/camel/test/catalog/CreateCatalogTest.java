@@ -34,6 +34,7 @@ import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -57,11 +58,11 @@ public final class CreateCatalogTest {
 
     class RoadMap {
         public final Path outpath;
-        public Set<String> available = new LinkedHashSet<>();
-        public Set<String> supported = new LinkedHashSet<>();
-        public Set<String> planned = new LinkedHashSet<>();
-        public Set<String> undecided = new LinkedHashSet<>();
-        public Set<String> rejected = new LinkedHashSet<>();
+        public Set<String> available = new HashSet<>();
+        public Set<String> supported = new HashSet<>();
+        public Set<String> planned = new HashSet<>();
+        public Set<String> undecided = new HashSet<>();
+        public Set<String> rejected = new HashSet<>();
         RoadMap(Path outpath) {
             this.outpath = outpath;
         }
@@ -214,24 +215,30 @@ public final class CreateCatalogTest {
 
         try (PrintWriter pw = new PrintWriter(file)) {
             pw.println("[supported]");
-            for (String entry : roadmap.supported) {
+            for (String entry : sorted(roadmap.supported)) {
                 pw.println(entry);
             }
             pw.println();
             pw.println("[planned]");
-            for (String entry : roadmap.planned) {
+            for (String entry : sorted(roadmap.planned)) {
                 pw.println(entry);
             }
             pw.println();
             pw.println("[undecided]");
-            for (String entry : roadmap.undecided) {
+            for (String entry : sorted(roadmap.undecided)) {
                 pw.println(entry);
             }
             pw.println();
             pw.println("[rejected]");
-            for (String entry : roadmap.rejected) {
+            for (String entry : sorted(roadmap.rejected)) {
                 pw.println(entry);
             }
         }
+    }
+    
+    List<String> sorted(Set<String> set) {
+        List<String> result = new ArrayList<>(set);
+        Collections.sort(result);
+        return result; 
     }
 }
