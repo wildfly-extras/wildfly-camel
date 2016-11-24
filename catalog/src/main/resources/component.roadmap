@@ -85,8 +85,11 @@ box
 coap
 context
 couchdb
+docker
 dropbox
 elsql
+etcd
+exec
 facebook
 flink
 freemarker
@@ -108,7 +111,9 @@ ibatis
 influxdb
 jbpm
 jcache
+jclouds
 jira
+kubernetes
 mina
 mllp
 mybatis
@@ -138,12 +143,6 @@ stax
 websocket
 
 [undecided]
-docker
-etcd
-exec
-jclouds
-kubernetes
-openshift
 
 [rejected]
 apns
@@ -184,6 +183,7 @@ lpr
 lumberjack
 msv
 mustache
+openshift
 paxlogging
 pgevent
 quickfix
