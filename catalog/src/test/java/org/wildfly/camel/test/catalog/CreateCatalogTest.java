@@ -34,7 +34,6 @@ import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -56,15 +55,18 @@ public final class CreateCatalogTest {
     RoadMap dataformatRM = new RoadMap(outdir.resolve("dataformat.roadmap"));
     RoadMap languageRM = new RoadMap(outdir.resolve("language.roadmap"));
 
-    class RoadMap {
+    static class RoadMap {
         public final Path outpath;
-        public Set<String> available = new HashSet<>();
-        public Set<String> supported = new HashSet<>();
-        public Set<String> planned = new HashSet<>();
-        public Set<String> undecided = new HashSet<>();
-        public Set<String> rejected = new HashSet<>();
+        public String type;
+        public Set<String> available = new LinkedHashSet<>();
+        public Set<String> supported = new LinkedHashSet<>();
+        public Set<String> planned = new LinkedHashSet<>();
+        public Set<String> undecided = new LinkedHashSet<>();
+        public Set<String> rejected = new LinkedHashSet<>();
         RoadMap(Path outpath) {
             this.outpath = outpath;
+            type = outpath.getFileName().toString();
+            type = type.substring(0, type.indexOf('.'));
         }
     }
     
@@ -197,8 +199,7 @@ public final class CreateCatalogTest {
                         collection = roadmap.rejected;
                     } else if (line.startsWith("[")) {
                         collection = null;
-                    }
-                    if (collection != null && roadmap.available.contains(line)) {
+                    } else if (collection != null && roadmap.available.contains(line)) {
                         collection.add(line);
                     }
                 }
