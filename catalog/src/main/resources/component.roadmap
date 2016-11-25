@@ -123,7 +123,6 @@ netty-http
 netty4-http
 optaplanner
 paho
-quartz
 rabbitmq
 sap-netweaver
 schematron
@@ -186,6 +185,7 @@ mustache
 openshift
 paxlogging
 pgevent
+quartz
 quickfix
 restlet
 rmi
