@@ -118,8 +118,6 @@ mina
 mllp
 mybatis
 nagios
-netty
-netty-http
 netty4-http
 optaplanner
 paho
@@ -182,6 +180,8 @@ lpr
 lumberjack
 msv
 mustache
+netty
+netty-http
 openshift
 paxlogging
 pgevent
