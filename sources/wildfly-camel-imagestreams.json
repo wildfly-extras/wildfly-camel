@@ -1,0 +1,52 @@
+{
+  "kind": "ImageStreamList",
+  "apiVersion": "v1",
+  "metadata": {
+      "name": "wildfly-camel-image-streams",
+      "annotations": {
+          "description": "ImageStream definitions for Camel on WildFly"
+      }
+    },
+    "items": [
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "wildfly-camel"
+      },
+      "spec": {
+        "tags": [
+          {
+            "name": "latest",
+            "annotations": {
+              "description": "Build and run Camel applications on Wildfly",
+              "iconClass": "icon-wildfly",
+              "tags": "builder,wildfly,wildfly-camel,camel,java",
+              "supports":"jee,java",
+              "sampleRepo": "https://github.com/wildfly-extras/wildfly-camel-examples.git"
+            },
+            "from": {
+              "kind": "ImageStreamTag",
+              "name": "4.3.0"
+            }
+          },
+          {
+            "name": "4.3.0",
+            "annotations": {
+              "description": "Build and run Camel applications on Wildfly",
+              "iconClass": "icon-wildfly",
+              "tags": "builder,wildfly,java",
+              "supports":"jee,java",
+              "version": "4.3.0",
+              "sampleRepo": "https://github.com/wildfly-extras/wildfly-camel-examples.git"
+            },
+            "from": {
+              "kind": "DockerImage",
+              "name": "wildflyext/s2i-wildfly-camel:4.3.0"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
