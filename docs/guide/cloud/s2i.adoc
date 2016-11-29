@@ -17,17 +17,17 @@ $ docker run -p 8080:8080 wildfly-camel-example-cdi
 
 #### S2I with OpenShift Origin
 
-For convenience, WildFly-Camel provides an OpenShift https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-imagestreams.json[ImageStream,window=_blank] 
-template and an https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-template.json[application template,window=_blank] which enable you to to perform S2I build and deployments in OpenShift origin.
+For convenience, WildFly-Camel provides an OpenShift link:sources/wildfly-camel-imagestreams.json[ImageStream,window=_blank] 
+template and an link:sources/wildfly-camel-template.json[application template,window=_blank] which enable you to to perform S2I build and deployments in OpenShift origin.
 
 First add the WildFly-Camel S2I ImageStream.
 ```
-$ oc apply -f https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-image-streams.json
+$ oc apply -f http://wildfly-extras.github.io/wildfly-camel/sources/wildfly-camel-image-streams.json
 ```
 
 Then add the application template.
 ```
-$ oc apply -f https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-template.json
+$ oc apply -f http://wildfly-extras.github.io/wildfly-camel/sources/wildfly-camel-template.json
 ```
 
 When you select 'Add to Project' in the OpenShift web console you should see a new catalog item named

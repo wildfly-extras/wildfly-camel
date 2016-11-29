@@ -4,7 +4,7 @@ Thomas Diesler;James Netherton
 :revdate: {localdate}
 :toc: left
 :icons: font
-:imagesdir: guide/images
+:imagesdir: images
 :linkattrs:
 :sectnums:
 
@@ -17,24 +17,24 @@ The WildFly-Camel subsystem allows you to add Camel Routes as part of the WildFl
 
 Your Enterprise Integration Solution can be architected as a combination of JavaEE and Camel functionality.
 
-include::guide/start/index.adoc[]
+include::start/index.adoc[]
 
-include::guide/start/compatibility.adoc[]
+include::start/compatibility.adoc[]
 
-include::guide/features/index.adoc[]
+include::features/index.adoc[]
 
-include::guide/config/index.adoc[]
+include::config/index.adoc[]
 
-include::guide/javaee/index.adoc[]
+include::javaee/index.adoc[]
 
-include::guide/components/index.adoc[]
+include::components/index.adoc[]
 
-include::guide/dataformats/index.adoc[]
+include::dataformats/index.adoc[]
 
-include::guide/scripting/index.adoc[]
+include::scripting/index.adoc[]
 
-include::guide/cloud/index.adoc[]
+include::cloud/index.adoc[]
 
-include::guide/security/index.adoc[]
+include::security/index.adoc[]
 
-include::guide/developer/index.adoc[]
+include::developer/index.adoc[]

@@ -44,9 +44,9 @@
                             <goal>process-asciidoc</goal>
                         </goals>
                         <configuration>
-                            <sourceDirectory>${basedir}</sourceDirectory>
+                            <sourceDirectory>${basedir}/guide</sourceDirectory>
                             <sourceDocumentName>index.adoc</sourceDocumentName>
-                            <imagesDir>guide/images</imagesDir>
+                            <imagesDir>images</imagesDir>
                             <backend>html</backend>
                             <doctype>book</doctype>
                             <attributes>
@@ -68,7 +68,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <delete file="${basedir}/index.html" />
+                                <delete file="${basedir}/guide/index.html" />
                             </target>
                         </configuration>
                     </execution>
@@ -80,8 +80,25 @@
                         </goals>
                         <configuration>
                             <target>
-                                <copy file="${project.build.directory}/generated-docs/index.html" todir="${basedir}" overwrite="true"/>
+                                <copy file="${project.build.directory}/generated-docs/index.html" todir="${basedir}/guide" overwrite="true"/>
                             </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>scripts/assembly-userguide.xml</descriptor>
+                            </descriptors>
                         </configuration>
                     </execution>
                 </executions>

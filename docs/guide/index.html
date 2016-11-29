@@ -426,7 +426,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author" class="author">Thomas Diesler</span><br>
 <span id="author2" class="author">James Netherton</span><br>
 <span id="revnumber">version 4.4.0-SNAPSHOT,</span>
-<span id="revdate">2016-11-18</span>
+<span id="revdate">2016-11-29</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -795,7 +795,7 @@ What type of user do you wish to add?
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="guide/images/hawtio-camel-01.png" alt="hawtio camel 01">
+<img src="images/hawtio-camel-01.png" alt="hawtio camel 01">
 </div>
 </div>
 <h3 id="_arquillian_test_support" class="discrete">Arquillian Test Support</h3>
@@ -1545,7 +1545,7 @@ public class JmsRouteBuilder extends RouteBuilder {
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="guide/images/jms-queue-browse.png" alt="jms queue browse">
+<img src="images/jms-queue-browse.png" alt="jms queue browse">
 </div>
 </div>
 </div>
@@ -2068,7 +2068,7 @@ public class ActiveMQRouteBuilder extends RouteBuilder {
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="guide/images/activemq-queue-browse.png" alt="activemq queue browse">
+<img src="images/activemq-queue-browse.png" alt="activemq queue browse">
 </div>
 </div>
 </div>
@@ -4102,7 +4102,7 @@ OPTIONS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock"</code></pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="guide/images/console-standalone.png" alt="console standalone">
+<img src="images/console-standalone.png" alt="console standalone">
 </div>
 </div>
 <div class="paragraph">
@@ -4110,7 +4110,7 @@ OPTIONS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock"</code></pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="guide/images/hawtio-camel-01.png" alt="hawtio camel 01">
+<img src="images/hawtio-camel-01.png" alt="hawtio camel 01">
 </div>
 </div>
 </div>
@@ -4217,7 +4217,7 @@ The target platform is the local OpenShift instance that we created above.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="guide/images/example-rest-design.png" alt="example rest design">
+<img src="images/example-rest-design.png" alt="example rest design">
 </div>
 </div>
 <div class="paragraph">
@@ -4256,7 +4256,7 @@ that we access via <a href="https://github.com/GoogleCloudPlatform/kubernetes/bl
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="guide/images/openshift-standalone-pods.png" alt="openshift standalone pods">
+<img src="images/openshift-standalone-pods.png" alt="openshift standalone pods">
 </div>
 </div>
 <div class="paragraph">
@@ -4312,15 +4312,15 @@ $ docker run -p 8080:8080 wildfly-camel-example-cdi</code></pre>
 <div class="sect3">
 <h4 id="_s2i_with_openshift_origin">10.3.2. S2I with OpenShift Origin</h4>
 <div class="paragraph">
-<p>For convenience, WildFly-Camel provides an OpenShift <a href="https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-imagestreams.json" target="_blank">ImageStream</a>
-template and an <a href="https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-template.json" target="_blank">application template</a> which enable you to to perform S2I build and deployments in OpenShift origin.</p>
+<p>For convenience, WildFly-Camel provides an OpenShift <a href="sources/wildfly-camel-imagestreams.json" target="_blank">ImageStream</a>
+template and an <a href="sources/wildfly-camel-template.json" target="_blank">application template</a> which enable you to to perform S2I build and deployments in OpenShift origin.</p>
 </div>
 <div class="paragraph">
 <p>First add the WildFly-Camel S2I ImageStream.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$ oc apply -f https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-image-streams.json</code></pre>
+<pre class="highlight"><code>$ oc apply -f http://wildfly-extras.github.io/wildfly-camel/sources/wildfly-camel-image-streams.json</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4328,7 +4328,7 @@ template and an <a href="https://raw.githubusercontent.com/wildfly-extras/wildfl
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$ oc apply -f https://raw.githubusercontent.com/wildfly-extras/wildfly-camel/master/docs/guide/sources/wildfly-camel-template.json</code></pre>
+<pre class="highlight"><code>$ oc apply -f http://wildfly-extras.github.io/wildfly-camel/sources/wildfly-camel-template.json</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4337,7 +4337,7 @@ template and an <a href="https://raw.githubusercontent.com/wildfly-extras/wildfl
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="guide/images/wildfly-camel-s2i.png" alt="wildfly camel s2i">
+<img src="images/wildfly-camel-s2i.png" alt="wildfly camel s2i">
 </div>
 </div>
 <div class="paragraph">
@@ -4345,7 +4345,7 @@ template and an <a href="https://raw.githubusercontent.com/wildfly-extras/wildfl
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="guide/images/wildfly-camel-s2i-deployed.png" alt="wildfly camel s2i deployed">
+<img src="images/wildfly-camel-s2i-deployed.png" alt="wildfly camel s2i deployed">
 </div>
 </div>
 </div>
@@ -4536,7 +4536,7 @@ producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION,
 <div id="footer">
 <div id="footer-text">
 Version 4.4.0-SNAPSHOT<br>
-Last updated 2016-11-18 11:54:51 CET
+Last updated 2016-11-29 10:48:30 CET
 </div>
 </div>
 </body>
