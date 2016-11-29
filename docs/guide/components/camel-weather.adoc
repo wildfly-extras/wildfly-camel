@@ -5,9 +5,8 @@ component provides integration with the http://openweathermap.org/api[Open Weath
 
 As an example, we can consume the current weather for Madrid in Spain and make some decisions based upon the humidity percentage:
 
-```java
+[source,java,options="nowrap"]
 CamelContext camelContext = new DefaultCamelContext();
-
 camelContext.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
@@ -21,6 +20,5 @@ camelContext.addRoutes(new RouteBuilder() {
             .to("direct:nothumid");
     }
 });
-
 camelContext.start();
-```
+

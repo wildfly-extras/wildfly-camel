@@ -3,7 +3,8 @@
 The http://camel.apache.org/braintree.html[camel-braintree,window=_blank] component provides access to Braintree Payments trough through their 
 https://developers.braintreepayments.com/start/hello-server/java[Java SDK,window=_blank].
 
-```java
+[source,java,options="nowrap"]
+----
 BraintreeComponent component = new BraintreeComponent(camelctx);
 component.setConfiguration(configuration);
 camelctx.addComponent("braintree", component);
@@ -21,4 +22,4 @@ camelctx.addRoutes(new RouteBuilder() {
             .to("mock:result");
     }
 });
-```
+----

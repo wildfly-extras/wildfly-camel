@@ -8,6 +8,9 @@ Thomas Diesler;James Netherton
 :linkattrs:
 :sectnums:
 
+:ec2-pub-ip-dash: 1-2-3-4
+:ec2-pub-ip: 1.2.3.4
+
 (C) 2016 The original authors.
 
 

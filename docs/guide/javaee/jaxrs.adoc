@@ -3,7 +3,9 @@
 JAX-RS support is provided by http://camel.apache.org/cxfrs.html[Camel CXF-RS,window=_blank].
 
 #### CXF-RS Producer
-```xml
+
+[source,xml,options="nowrap"]
+----
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:cxf="http://camel.apache.org/schema/cxf"
@@ -29,10 +31,12 @@ JAX-RS support is provided by http://camel.apache.org/cxfrs.html[Camel CXF-RS,wi
         </route>
     </camelContext>
 </beans>
-```
+----
 
 #### CXF-RS Consumer
-```xml
+
+[source,xml,options="nowrap"]
+----
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:cxf="http://camel.apache.org/schema/cxf"
@@ -54,19 +58,21 @@ JAX-RS support is provided by http://camel.apache.org/cxfrs.html[Camel CXF-RS,wi
         </route>
     </camelContext>
 </beans>
-```
+----
 
 #### JAX-RS Consumer with the Camel REST DSL
 
 The Camel REST DSL gives the capability to write Camel routes that act as JAX-RS consumers. The following RouteBuilder class demonstrates this.
 
-```java
+[source,java,options="nowrap"]
+----
 @Startup
 @ApplicationScoped
 @ContextName("rest-camel-context")
 public class RestConsumerRouteBuilder extends RouteBuilder {
   @Override
   public void configure() throws Exception {
+  
     // Use the camel-servlet component to provide REST integration
     restConfiguration().component("servlet")
       .contextPath("/rest").port(8080).bindingMode(RestBindingMode.json);
@@ -76,7 +82,7 @@ public class RestConsumerRouteBuilder extends RouteBuilder {
       .get()
         .produces(MediaType.APPLICATION_JSON)
         .to("direct:getCustomers")
-        // GET /rest/customer/1  
+      // GET /rest/customer/1  
       .get("/{id}")
         .produces(MediaType.APPLICATION_JSON)
         .to("direct:getCustomer")
@@ -93,9 +99,14 @@ public class RestConsumerRouteBuilder extends RouteBuilder {
         .to("direct:deleteCustomer");  
   }
 }
-```
+----
 
-Note that the REST DSL configuration starts with `restConfiguration().component("servlet")`. **The WildFly Camel Subsystem only supports camel-servlet and camel-undertow for use with the REST DSL. Attempts to configure other components will not work**.
+Note that the REST DSL configuration starts with `restConfiguration().component("servlet")`. 
+
+[CAUTION]
+====
+The WildFly Camel Subsystem only supports the camel-servlet and camel-undertow components for use with the REST DSL. Attempts to configure other components will not work.
+====
 
 By setting the binding mode, Camel can marshal and unmarshal JSON data either by specifying a 'produces()' or 'type()' configuration step.
 
@@ -107,10 +118,12 @@ you to proxy a producer sending to an Endpoint by a regular interface. When clie
 
 Below is an example JAX-RS service interface and implementation.
 
-```java
+[source,java,options="nowrap"]
+----
 // Service interface
 @Path("/customer")
 public interface CustomerService {
+
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   Response getCustomers();
@@ -118,7 +131,10 @@ public interface CustomerService {
   @PUT
   Response updateCustomer();
 }
+----
 
+[source,java,options="nowrap"]
+----
 // Service implementation
 public class CustomerServiceImpl implements CustomerService {
   @Inject
@@ -138,14 +154,14 @@ public class CustomerServiceImpl implements CustomerService {
     return customerServiceProxy.updateCustomer(customer);
   }
 }
-```
+----
 
 Notice in the above code example that `CustomerServiceImpl` delegates all method calls to a customerServiceProxy object which has been annotated
 with `@Produce`. This annotation is important as it configures a proxy for the `direct:rest` endpoint against the `CustomerService` interface. Whenever any of the REST service methods are invoked by clients, the `direct:rest` camel route is triggered.
 
 The RouteBuilder class implements logic for each REST service method invocation.
 
-```java
+[source,java,options="nowrap"]
 from("direct:rest")
   .process(new Processor() {
       @Override
@@ -163,7 +179,7 @@ from("direct:rest")
         }
       }
   });
-```
+
 In the above RouteBuilder a `Processor` handles REST service method invocations that have been proxied through the `direct:rest` endpoint.
 The exchange message body will be an instance of `BeanInvocation`. This can be used to determine which web service method was invoked and
 what arguments were passed to it. In this example some simple logic is used to return results to the client based on the name of the method that

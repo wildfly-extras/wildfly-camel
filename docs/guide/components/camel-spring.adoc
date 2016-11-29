@@ -4,7 +4,8 @@ Camel contexts can be configured with Spring via the http://camel.apache.org/spr
 
 #### Camel Spring XML example
 
-```xml
+[source,xml,options="nowrap"]
+----
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
@@ -19,7 +20,7 @@ Camel contexts can be configured with Spring via the http://camel.apache.org/spr
     </camelContext>
 
 </beans>
-```
+----
 
 #### Deployment
 

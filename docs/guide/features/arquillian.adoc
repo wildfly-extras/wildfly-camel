@@ -5,10 +5,11 @@ The WildFly Camel test suite uses the WildFly http://arquillian.org/[Arquillian,
 
 A number of test enrichers have been implemented that allow you to have these WildFly Camel specific types injected into your Arquillian test cases.
 
-```java
+[source,java,options="nowrap"]
+----
 @ArquillianResource
 CamelContextFactory contextFactory;
 
 @ArquillianResource
 CamelContextRegistry contextRegistry;
-```
+----

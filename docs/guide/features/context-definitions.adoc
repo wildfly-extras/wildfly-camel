@@ -3,7 +3,7 @@
 
 Camel Contexts can be configured in standalone-camel.xml and domain.xml as part of the subsystem definition like this
 
-```xml
+[source,xml,options="nowrap"]
 <subsystem xmlns="urn:jboss:domain:camel:1.0">
    <camelContext id="system-context-1">
      <![CDATA[
@@ -16,4 +16,4 @@ Camel Contexts can be configured in standalone-camel.xml and domain.xml as part 
      ]]>
    </camelContext>
 </subsystem>
-```
+

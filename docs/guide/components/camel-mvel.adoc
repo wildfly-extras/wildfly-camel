@@ -5,13 +5,11 @@ component allows you to process a message using an https://github.com/mvel/mvel[
 
 A simple template
 
-```
-Hello @{request.body}
-```
+ Hello @{request.body}
 
 can be used like this
 
-```java
+[source,java,options="nowrap"]
 CamelContext camelctx = new DefaultCamelContext();
 camelctx.addRoutes(new RouteBuilder() {
     @Override
@@ -23,4 +21,4 @@ camelctx.start();
 ProducerTemplate producer = camelctx.createProducerTemplate();
 String result = producer.requestBody("direct:start", "Kermit", String.class);
 Assert.assertEquals("Hello Kermit", result);
-```
+

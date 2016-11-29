@@ -3,9 +3,8 @@
 The http://camel.apache.org/jsch.html[camel-jsch,window=_blank] 
 component enables secure file transfer using the http://en.wikipedia.org/wiki/Secure_copy[SCP protocol,window=_blank].
 
-```java
+[source,java,options="nowrap"]
 CamelContext camelctx = new DefaultCamelContext();
 Endpoint endpoint = camelctx.getEndpoint("scp://localhost:22/my/directory?username=admin&password=admin");
-
 camelctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFileName", "test.txt");
-```
+

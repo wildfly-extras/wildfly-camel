@@ -4,7 +4,8 @@ CDI integration is provided by http://camel.apache.org/cdi.html[camel-cdi,window
 
 A Context with an associated route can be provided like this
 
-```java
+[source,java,options="nowrap"]
+----
 @Startup
 @ApplicationScoped
 @ContextName("cdi-context")
@@ -15,12 +16,12 @@ public class MyRouteBuilder extends RouteBuilder {
     	from("direct:start").transform(body().prepend("Hi"));
     }
 }
-```
+----
 
 and consumed like this
 
-```java
-	@Inject
-	@ContextName("cdi-context")
-	private CamelContext camelctx;
-```
+[source,java,options="nowrap"]
+@Inject
+@ContextName("cdi-context")
+private CamelContext camelctx;
+

@@ -3,13 +3,14 @@
 
 By default, access to management consoles is secured. We therefore need to setup a Management User first.
 
-```
+[source,options="nowrap"]
+----
 $ bin/add-user.sh
 
 What type of user do you wish to add? 
  a) Management User (mgmt-users.properties) 
  b) Application User (application-users.properties)
-```
+----
 
 The http://hawt.io[Hawt.io,window=_blank] console should show the camel context from subsystem configuration.
 

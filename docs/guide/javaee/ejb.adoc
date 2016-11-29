@@ -2,7 +2,7 @@
 
 Management support is provided through the http://camel.apache.org/jmx.html[camel-ejb,window=_blank] component which integrates with the EJB3 subsystem.
 
-```java
+[source,java,options="nowrap"]
 CamelContext camelctx = new DefaultCamelContext();
     camelctx.addRoutes(new RouteBuilder() {
         @Override
@@ -10,7 +10,4 @@ CamelContext camelctx = new DefaultCamelContext();
             from("direct:start").to("ejb:java:module/HelloBean");
         }
     });
-```
-
-
 

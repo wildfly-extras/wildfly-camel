@@ -7,13 +7,12 @@ Camel JPA applications are developed as per normal by providing a persistence.xm
 
 In this example we use the Wildfly in-memory ExampleDS datasource which is configured within the Wildfly standalone.xml configuration file.
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
+[source,xml,options="nowrap"]
+----
 <persistence version="2.0"
-             xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="
-        http://java.sun.com/xml/ns/persistence
-        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    
     <persistence-unit name="camel">
         <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
         <class>org.wildfly.camel.test.jpa.model.Customer</class>
@@ -22,12 +21,14 @@ In this example we use the Wildfly in-memory ExampleDS datasource which is confi
             <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
+    
 </persistence>
-```
+----
 
 #### Example JPA entitiy
 
-```java
+[source,java,options="nowrap"]
+----
 @Entity
 @Table(name = "customer")
 public class Customer implements Serializable {
@@ -69,24 +70,26 @@ public class Customer implements Serializable {
         this.lastName = lastName;
     }
 }
-```
+----
 
 #### Camel JPA endpoint / route configuration
 
 Having configured JPA, you can make use of CDI to inject an EntityManager and UserTransaction instance into your RouteBuilder class or test case:
 
-```java
+[source,java,options="nowrap"]
+----
 @PersistenceContext
 EntityManager em;
 
 @Inject
 UserTransaction userTransaction;
-```
+----
 
 Now to configure the Camel routes and JPA endpoint:
 
 
-```java
+[source,java,options="nowrap"]
+----
 WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
 
 EntityManagerFactory entityManagerFactory = em.getEntityManagerFactory();
@@ -112,10 +115,12 @@ public void configure() throws Exception {
 });
 
 camelctx.start();
-```
+----
+
 Finally, we can send a 'Customer' entity to the 'direct:start' endpoint and then query the ExampleDS datasource to verify that a record was saved.
 
-```java
+[source,java,options="nowrap"]
+----
 Customer customer = new Customer("John", "Doe");
 ProducerTemplate producer = camelctx.createProducerTemplate();
 producer.sendBody("direct:start", customer);
@@ -128,4 +133,4 @@ query.select(criteriaBuilder.count(query.from(Customer.class)));
 long recordCount = em.createQuery(query).getSingleResult();
 
 Assert.assertEquals(1L, recordCount);
-```
+----

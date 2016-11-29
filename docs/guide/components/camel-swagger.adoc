@@ -3,7 +3,7 @@
 The http://camel.apache.org/swagger-java.html[camel-swagger,window=_blank] 
 module is used for exposing the REST services and their APIs using http://swagger.io/[Swagger,window=_blank].
 
-```java
+[source,java,options="nowrap"]
 CamelContext camelctx = new DefaultCamelContext();
 camelctx.addRoutes(new RouteBuilder() {
     @Override
@@ -14,4 +14,4 @@ camelctx.addRoutes(new RouteBuilder() {
     }
 });
 camelctx.start();
-```
+

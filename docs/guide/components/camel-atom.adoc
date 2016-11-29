@@ -4,9 +4,8 @@ Atom feed consumption in Camel is provided by the http://camel.apache.org/atom.h
 
 The following example configures an Atom endpoint to consume the recent activity GitHub feed of user 'wildflyext'. The raw content of each feed entry is then written out as a file within directory 'feed/entries'.
 
-```java
+[source,java,options="nowrap"]
 CamelContext camelContext = new DefaultCamelContext();
-
 camelContext.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
@@ -21,6 +20,4 @@ camelContext.addRoutes(new RouteBuilder() {
         .to("file:///feed/entries/");
     }
 });
-```
-
 

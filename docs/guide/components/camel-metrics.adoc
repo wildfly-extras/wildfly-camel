@@ -2,7 +2,7 @@
 
 The http://camel.apache.org/metrics-component.html[camel-metrics,window=_blank] component allows you to define, publish and collect metrics from Camel routes.
 
-```java
+[source,java,options="nowrap"]
 from("direct:start")
 .to("metric:counter:simple.counter?increment=3")
-```
+

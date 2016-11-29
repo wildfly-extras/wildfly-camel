@@ -2,6 +2,6 @@
 
 This chapter details information about cloud integration
 
-include::docker.adoc[]
-include::openshift.adoc[]
+include::openshift-local.adoc[]
+include::openshift-ec2.adoc[]
 include::s2i.adoc[]

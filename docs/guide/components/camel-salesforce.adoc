@@ -12,13 +12,13 @@ In order to use the component, you will need a valid Salesforce account together
 
 You'll want to generate the necessary Salesforce DTO objects before starting. This can be automated with the https://github.com/apache/camel/tree/master/components/camel-salesforce/camel-salesforce-maven-plugin[Camel Salesforce Maven plugin,window=_blank].
 
-```
+[options="nowrap"]
 mvn camel-salesforce:generate -DcamelSalesforce.clientId=<clientid> -DcamelSalesforce.clientSecret=<clientsecret> -DcamelSalesforce.userName=<username> -DcamelSalesforce.password=<password>
-```
 
 This example queries Salesforce 'Opportunity' objects.
-```java
 
+[source,java,options="nowrap"]
+----
 SalesforceLoginConfig loginConfig = new SalesforceLoginConfig();
 loginConfig.setClientId("your-client-id");
 loginConfig.setPassword("your-password");
@@ -45,5 +45,4 @@ camelctx.start();
 
 ProducerTemplate producer = ctx.createProducerTemplate();
 QueryRecordsOpportunity queryRecords = producer.requestBody("direct:query", null, QueryRecordsOpportunity.class);
-
-```
+----

@@ -1,32 +1,31 @@
-### OpenShift Origin
+### OpenShift Local
 
-Here we follow the instructions on https://www.openshift.org[Try Origin,window=_blank]. We use the https://www.openshift.org/vm[all-in-one VM,window=_blank] approach through a Vagrant VirtualBox VM
+Here we follow the instructions on https://www.openshift.org[Try Origin,window=_blank]. 
+We use the https://www.openshift.org/vm[all-in-one VM,window=_blank] approach through a Vagrant VirtualBox VM.
 
 After having installed Vagrant and VirtualBox, we run:
 
-```
+[source,options="nowrap"]
+----
 $ vagrant init openshift/origin-all-in-one
 $ vagrant up --provider=virtualbox
 ...
 Successfully started and provisioned VM with 2 cores and 5 G of memory.
 To modify the number of cores and/or available memory modify your local Vagrantfile
-```
+----
 
-We can now access the OpenShift console on: https://10.2.2.2:8443/console[https://10.2.2.2:8443/console,window=_blank]
+We can now access the OpenShift console on: https://10.2.2.2:8443/console[,window=_blank]
 
 Configured users are:
 
-```
-admin/admin
-user/user
-```
+ admin/admin
+ user/user
 
 This should now also allow us to ssh into the VM
 
-```
+[source,options="nowrap"]
 $ vagrant ssh
 Last login: Mon Feb  8 09:06:26 2016 from 10.0.2.2
-```
 
 and use the OpenShift command line client.
 
@@ -41,35 +40,46 @@ The easiest way to do this is to use the provided https://github.com/wildfly-ext
 
 The provided Vagrantfile adds port forwarding, a few docker deamon options and restarts the docker deamon.
 
-```
+[source,options="nowrap"]
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "forwarded_port", guest: 8443, host: 8443
   config.vm.network "forwarded_port", guest: 2375, host: 2375
-```
 
-```
+
+[source,options="nowrap"]
 [vagrant@localhost ~]$ sudo vi /etc/sysconfig/docker
 # Additional startup options for the Docker daemon
 OPTIONS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"
-```
 
-```
+[source,options="nowrap"]
 [vagrant@localhost ~]$ sudo systemctl restart docker
-```
 
 On you local machine, setup a route to the Vagrant VM
 
-```
-$ sudo cat /etc/hosts
-10.2.2.2    origin
-```
+ $ sudo cat /etc/hosts
+ 10.2.2.2    origin
 
 and export a few Docker related environment variables for maven builds.
 
-```
-export DOCKER_HOST=tcp://origin:2375
-export DOCKER_IP=origin
-```
+ export DOCKER_HOST=tcp://origin:2375
+ export DOCKER_IP=origin
+
+#### Running WildFly-Camel
+
+With every WildFly-Camel release we also publish the latest https://registry.hub.docker.com/u/wildflyext/wildfly-camel/[wildflyext/wildfly-camel,window=_blank] image.
+
+You can run the standalone container like this
+
+[source,options="nowrap"]
+$ docker run --rm -ti -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin -p 8080:8080 -p 9990:9990 wildflyext/wildfly-camel
+
+and access the admin console like this: http://10.2.2.2:9990/console[,window=_blank]
+
+image::console-standalone.png[]
+
+The Hawt.io console is available at: http://10.2.2.2:8080/hawtio[,window=_blank]
+
+image::hawtio-camel-01.png[]
 
 #### Create an OpenShift project
 
@@ -84,23 +94,17 @@ that we access via https://github.com/GoogleCloudPlatform/kubernetes/blob/v1.0.0
 
 A project allows us to create deployments, pods, services, routes, etc. under our own custom 'wildfly-camel' namespace.
 
-```
-$ oc new-project wildfly-camel
-```
+ $ oc new-project wildfly-camel
 
 ##### Create a new application
 
 Now, lets create a new appliction from an existing wildfly-camel based image. 
 
-```
-$ oc new-app wildflyext/example-camel-rest -l name=camel
-```
+ $ oc new-app wildflyext/example-camel-rest
 
 and scale it up
 
-```
-$ oc scale --replicas=3 dc example-camel-rest
-```
+ $ oc scale --replicas=3 dc example-camel-rest
 
 After a while you should see the pod running
 
@@ -112,14 +116,12 @@ The pods running the JAX-RS endpoints are however not yet exposed to the world.
 
 Now, lets expose the HTTP root context of the running wildlfy server.
 
-```
-$ oc expose service example-camel-rest -l name=camel
-```
+ $ oc expose service example-camel-rest
 
 From a remote client, you should now be able to access the service like this
 
 http://example-camel-rest-wildfly-camel.apps.10.2.2.2.xip.io/rest/greet/hello/Kermit[,window=_blank]
 
-```
-Hello Kermit from 172.17.0.8
-```
+ Hello Kermit from 172.17.0.8
+
+ 

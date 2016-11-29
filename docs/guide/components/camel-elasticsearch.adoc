@@ -3,7 +3,8 @@
 The http://camel.apache.org/elasticsearch.html[camel-elasticsearch,window=_blank] 
 component allows you to interface with an https://www.elastic.co/[ElasticSearch,window=_blank] server.
 
-```java
+[source,java,options="nowrap"]
+----
    CamelContext camelContext = new DefaultCamelContext();
    camelContext.addRoutes(new RouteBuilder() {
        @Override
@@ -18,4 +19,4 @@ component allows you to interface with an https://www.elastic.co/[ElasticSearch,
 
    ProducerTemplate template = camelContext.createProducerTemplate();
    template.sendBody("direct:index", indexedData);
-```
+----

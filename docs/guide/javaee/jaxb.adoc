@@ -6,7 +6,8 @@ Camel supports unmarshalling XML data to JAXB annotated classes and marshalling 
 
 #### JAXB Annotated class
 
-```java
+[source,java,options="nowrap"]
+----
 @XmlRootElement(name = "customer")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Customer implements Serializable {
@@ -38,20 +39,20 @@ public class Customer implements Serializable {
         this.lastName = lastName;
     }
 }
-
-```
+----
 
 #### JAXB Class XML representation
-```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+[source,xml,options="nowrap"]
 <customer xmlns="http://org/wildfly/test/jaxb/model/Customer">
     <firstName>John</firstName>
     <lastName>Doe</lastName>
 </customer>
-```
 
 #### Camel JAXB Unmarshalling
-```java
+
+[source,java,options="nowrap"]
+----
 WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
 
 final JaxbDataFormat jaxb = new JaxbDataFormat();
@@ -72,12 +73,12 @@ ProducerTemplate producer = camelctx.createProducerTemplate();
 Customer customer = producer.requestBody("direct:start", readCustomerXml(), Customer.class);
 Assert.assertEquals("John", customer.getFirstName());
 Assert.assertEquals("Doe", customer.getLastName());
-
-```
+----
 
 #### Camel JAXB Marshalling
 
-```java
+[source,java,options="nowrap"]
+----
 WildFlyCamelContext camelctx = contextFactory.createCamelContext();
 
 final JaxbDataFormat jaxb = new JaxbDataFormat();
@@ -96,4 +97,4 @@ ProducerTemplate producer = camelctx.createProducerTemplate();
 Customer customer = new Customer("John", "Doe");
 String customerXML = producer.requestBody("direct:start", customer, String.class); 
 Assert.assertEquals(readCustomerXml(), customerXML);
-```
+----

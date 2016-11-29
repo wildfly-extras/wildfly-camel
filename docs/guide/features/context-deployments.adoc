@@ -10,7 +10,7 @@ A deployment may contain multiple **-camel-context.xml** files.
 
 A deployed Camel context is CDI injectable like this
 
-```java
-    @Resource(name = "java:jboss/camel/context/mycontext")
-    CamelContext camelContext;
-```
+[source,java,options="nowrap"]
+@Resource(name = "java:jboss/camel/context/mycontext")
+CamelContext camelContext;
+

@@ -27,16 +27,14 @@ Download the SAP JCo libraries and the SAP IDoc library from the http://service.
 
 The file and directory structure for module `com.sap.conn.jco` should now look something like this:
 
-```
-com/sap/conn/jco
-com/sap/conn/jco/main
-com/sap/conn/jco/main/sapidoc3.jar
-com/sap/conn/jco/main/sapjco3.jar
-com/sap/conn/jco/main/module.xml
-com/sap/conn/jco/main/lib
-com/sap/conn/jco/main/lib/linux-x86_64
-com/sap/conn/jco/main/lib/linux-x86_64/libsapjco3.so
-```
+ com/sap/conn/jco
+ com/sap/conn/jco/main
+ com/sap/conn/jco/main/sapidoc3.jar
+ com/sap/conn/jco/main/sapjco3.jar
+ com/sap/conn/jco/main/module.xml
+ com/sap/conn/jco/main/lib
+ com/sap/conn/jco/main/lib/linux-x86_64
+ com/sap/conn/jco/main/lib/linux-x86_64/libsapjco3.so
 
 ##### Activate camel-sap component module
 
@@ -46,14 +44,12 @@ com/sap/conn/jco/main/lib/linux-x86_64/libsapjco3.so
 
 The module definition should look like this:
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
+[source,xml,options="nowrap"]
 <module xmlns="urn:jboss:module:1.1" name="org.wildfly.camel.extras">
     <dependencies>
         <module name="org.fusesource.camel.component.sap" export="true" services="export" />
     </dependencies>
 </module>
-```
 
 Start your application server and camel-sap will be available for use.
 
@@ -64,7 +60,9 @@ This example uses XML files containing serialized SAP requests to query Customer
 These files are consumed by Camel and their contents are then converted to string message bodies. These messages are then routed to an `sap-srfc-destination` endpoint which converts and sends them to SAP as `BAPI_FLCUST_GETLIST` requests to query Customer records.
 
 First we configure a destination data store.
-```java
+
+[source,java,options="nowrap"]
+----
 DestinationData destinationData = new DestinationDataImpl();
 destinationData.setAshost("example.com");
 destinationData.setSysnr("00");
@@ -75,17 +73,17 @@ destinationData.setLang("en");
 
 Map<String, DestinationData> destinationDataStore = new HashMap<>();
 destinationDataStore.put("quickstartDest", destinationData);
-```
+----
 
 Next wire the destinationDataStore into a SapConnectionConfiguration.
-```java
+
+[source,java,options="nowrap"]
 SapConnectionConfiguration configuration = new SapConnectionConfiguration();
 configuration.setDestinationDataStore(destinationDataStore);
-```
 
 The Camel RouteBuilder looks like this.
 
-```java
+[source,java,options="nowrap"]
 @ApplicationScoped
 @ContextName("camel-sap-cdi-context")
 @Startup
@@ -99,20 +97,18 @@ public class SAPRouteBuilder extends RouteBuilder {
       .to("log:sap?showAll=true");
     }
 }
-```
 
 The XML request looks like the following and is consumed from a file within src/data.
-```xml
+
+[source,xml,options="nowrap"]
 <?xml version="1.0" encoding="ASCII"?>
 <!-- NOTE: Replace 'XXX' with the SID of your SAP instance -->
 <BAPI_FLCUST_GETLIST:Request xmlns:BAPI_FLCUST_GETLIST="http://sap.fusesource.org/rfc/XXX/BAPI_FLCUST_GETLIST" CUSTOMER_NAME="*" MAX_ROWS="10" WEB_USER="*"/>
-```
 
 When the Camel route runs, the request XML data is consumed from src/data and sent to SAP as a `BAPI_FLCUST_GETLIST` request.  The results of the SAP request are output to the console.
 You should see an XML structure like the following containing customer records.
 
-```xml
-<?xml version="1.0" encoding="ASCII"?>
+[source,xml,options="nowrap"]
 <BAPI_FLCUST_GETLIST:Response xmlns:BAPI_FLCUST_GETLIST="http://sap.fusesource.org/rfc/JBF/BAPI_FLCUST_GETLIST">
 <CUSTOMER_LIST>
     <row CUSTOMERID="00004715" CUSTNAME="Fred Flintstone" FORM="Mr." STREET="123 Flintstone Lane" POBOX="" POSTCODE="01234" CITY="Bedrock" COUNTR="US" COUNTR_ISO="US" REGION="" PHONE="800-555-1212" EMAIL=""/>
@@ -125,7 +121,6 @@ You should see an XML structure like the following containing customer records.
     <row TYPE="S" ID="BC_IBF" NUMBER="000" MESSAGE="Method was executed successfully" LOG_NO="" LOG_MSG_NO="000000" MESSAGE_V1="" MESSAGE_V2="" MESSAGE_V3="" MESSAGE_V4="" PARAMETER="" FIELD="" SYSTEM="DEVQKCLNT"/>
 </RETURN>
 </BAPI_FLCUST_GETLIST:Response>
-```
 
 #### Further Reading
 

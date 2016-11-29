@@ -2,9 +2,8 @@
 
 The http://camel.apache.org/ftp2.html[camel-ftp,window=_blank] component provides access to remote file systems over the FTP and SFTP protocols.
 
-```java
+[source,java,options="nowrap"]
 CamelContext camelctx = new DefaultCamelContext();
 Endpoint endpoint = camelctx.getEndpoint("ftp://localhost:21000/foo?username=admin&password=admin");
-
 camelctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFileName", "test.txt");
-```
+

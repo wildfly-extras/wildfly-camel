@@ -4,7 +4,8 @@ The goal of http://camel.apache.org/bindy.html[camel-bindy,window=_blank] is to 
 
 Here we have a annotated domain model class
 
-```java
+[source,java,options="nowrap"]
+----
 @CsvRecord(separator = ",")
 public class Customer {
 
@@ -16,11 +17,11 @@ public class Customer {
     
     ...
 }
-```
+----
 
 We can use the `BindyCsvDataFormat` data format unmarshall CSV data like `John,Doe` to the domain model. 
 
-```java
+[source,java,options="nowrap"]
 camelctx.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
@@ -30,5 +31,4 @@ camelctx.addRoutes(new RouteBuilder() {
     }
 });
 camelctx.start();
-```
 

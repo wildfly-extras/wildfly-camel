@@ -11,15 +11,17 @@ Integration with other JMS implementations is possible through configuration of 
 The WildFly https://docs.jboss.org/author/display/WFLY8/Messaging+configuration[messaging subsystem,window=_blank] can be configured from within the standard WildFly XML configuration files, standalone.xml or domain.xml.
 
 For the examples that follow we use the embedded ActiveMQ Artemis in memory instance. We first configure a new JMS queue on the messaging subsystem by adding the following XML configuration to the jms-destinations section.
-```xml
+
+[source,xml,options="nowrap"]
 <jms-queue name="WildFlyCamelQueue">
   <entry name="java:/jms/queue/WildFlyCamelQueue"/>
 </jms-queue>
-```
+
 Alternatively you could use a CLI script to add the queue.
-```
-jms-queue add --queue-address=WildFlyCamelQueue --entries=queue/WildFlyCamelQueue,java:/jms/queue/WildFlyCamelQueue
-```
+
+[source,options="nowrap"]
+$ jms-queue add --queue-address=WildFlyCamelQueue --entries=queue/WildFlyCamelQueue,java:/jms/queue/WildFlyCamelQueue
+
 Or, you could create a `messaging-deployment` configuration within a custom jms.xml deployment descriptor. See section 'Deployment of -jms.xml files' within the WildFly messaging subsystem documentation for more information.
 
 #### Camel route configuration
@@ -33,7 +35,8 @@ The RouteBuilder begins by injecting the `DefaultJMSConnectionFactory` connectio
 
 Next a timer endpoint runs every 10 seconds to send an XML payload to the WildFlyCamelQueue destination that we configured earlier.
 
-```java
+[source,java,options="nowrap"]
+----
 @Startup
 @ApplicationScoped
 @ContextName("jms-camel-context")
@@ -55,7 +58,8 @@ public class JmsRouteBuilder extends RouteBuilder {
     .log("JMS Message sent");  
   }
 }
-```
+----
+
 A log message will be output to the console each time a JMS message is added to the WildFlyCamelQueue destination. To verify that the messages really are being placed onto the queue, we can use the WildFly administration console.
 
 image::jms-queue-browse.png[]
@@ -69,7 +73,8 @@ As before, the connection factory is discovered from JNDI, injected and set on t
 
 When the JMS endpoint consumes messages from the WildFlyCamelQueue destination, the content is logged to the console.
 
-```java
+[source,java,options="nowrap"]
+----
 @Override
 public void configure() throws Exception {
   JmsComponent component = new JmsComponent();
@@ -80,14 +85,15 @@ public void configure() throws Exception {
   from("jms:queue:WildFlyCamelQueue")
   .to("log:jms?showAll=true");  
 }
-```
+----
 
 ##### JMS Transactions
 To enable Camel JMS routes to participate in JMS transactions, some additional configuration is required. Since camel-jms is built around spring-jms, we need to configure some Spring classes to enable them to work with WildFly's transaction manager and connection factory. The following code example demonstrates how to use CDI to configure a transactional JMS Camel route.
 
 The camel-jms component requires a transaction manager of type `org.springframework.transaction.PlatformTransactionManager`. Therefore, we begin by creating a bean extending `JtaTransactionManager`. Note that the bean is annotated with `@Named` to allow the bean to be registered within the Camel bean registry. Also note that the WildFly transaction manager and user transaction instances are injected using CDI.
 
-```java
+[source,java,options="nowrap"]
+----
 @Named("transactionManager")
 public class CdiTransactionManager extends JtaTransactionManager {
 
@@ -103,11 +109,11 @@ public class CdiTransactionManager extends JtaTransactionManager {
     setUserTransaction(userTransaction);
   }
 }
-```
+----
 
 Next we need to declare the transaction policy that we want to use. Again we use the `@Named` annotation to make the bean available to Camel. The transaction manager is also injected so that a TransactionTemplate can be created with the desired transaction policy. PROPAGATION_REQUIRED in this instance.
 
-```java
+[source,java,options="nowrap"]
 @Named("PROPAGATION_REQUIRED")
 public class CdiRequiredPolicy extends SpringTransactionPolicy {
   @Inject
@@ -116,13 +122,13 @@ public class CdiRequiredPolicy extends SpringTransactionPolicy {
       new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRED)));
   }
 }
-```
 
 Now we can configure our Camel RouteBuilder class and inject the dependencies needed for the Camel JMS component. The WildFly XA connection factory is injected together with the transaction manager we configured earlier.
 
 In this example RouteBuilder, whenever any messages are consumed from queue1, they are routed to another JMS queue named queue2. Messages consumed from queue2 result in JMS transaction being rolled back using the rollback() DSL method. This results in the original message being placed onto the dead letter queue(DLQ).
 
-```java
+[source,java,options="nowrap"]
+----
 @Startup
 @ApplicationScoped
 @ContextName("jms-camel-context")
@@ -149,7 +155,7 @@ public class JMSRouteBuilder extends RouteBuilder {
       .to("log:end")
       .rollback();
   }
-```
+----
 
 ##### Remote JMS destinations
 
@@ -160,11 +166,11 @@ Some additional WildFly configuration is required to achieve this. First an expo
 Only JNDI names bound in the `java:jboss/exported` namespace are considered as candidates for remote clients, so the queue is named appropriately.
 
 Note that the queue must be configured on the WildFly client application server __and__ the WildFly remote server.
-```xml
+
+[source,xml,options="nowrap"]
 <jms-queue name="RemoteQueue">
   <entry name="java:jboss/exported/jms/queues/RemoteQueue"/>
 </jms-queue>
-```
 
 Before the client can connect to the remote server, user access credentials need to be configured. On the remote server run the https://docs.jboss.org/author/display/WFLY8/add-user+utility[add user utility,window=_blank] to create a new application user within the 'guest' group. This example has a user with the name 'admin' and a password of 'secret'.
 
@@ -174,7 +180,8 @@ The `configureInitialContext` method creates this InitialContext. Notice that we
 
 Finally the route is configured to send an XML payload every 10 seconds to the remote destination configured earlier - 'RemoteQueue'.
 
-```java
+[source,java,options="nowrap"]
+----
 @Override
 public void configure() throws Exception {
   Context initialContext = configureInitialContext();
@@ -199,7 +206,7 @@ private Context configureInitialContext() throws NamingException {
   env.put(Context.SECURITY_CREDENTIALS, System.getProperty("password", "secret"));
   return new InitialContext(env);
 }
-```
+----
 
 #### Security
 

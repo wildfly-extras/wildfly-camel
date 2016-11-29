@@ -2,7 +2,7 @@
 
 The http://camel.apache.org/velocity.html[camel-velocity,window=_blank] component allows you to process a message using an Apache Velocity template. 
 
-```java
+[source,java,options="nowrap"]
 CamelContext camelctx = new DefaultCamelContext();
 camelctx.addRoutes(new RouteBuilder() {
     @Override
@@ -11,4 +11,4 @@ camelctx.addRoutes(new RouteBuilder() {
     }
 });
 camelctx.start();
-```
+

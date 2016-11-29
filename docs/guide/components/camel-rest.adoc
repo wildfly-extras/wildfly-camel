@@ -8,15 +8,14 @@ component allows you to define REST endpoints using the http://camel.apache.org/
 The WildFly Camel Subsystem only supports the camel-servlet and camel-undertow components for use with the REST DSL. Attempts to configure other components will not work.
 ====
 
-```java
-    CamelContext camelctx = new DefaultCamelContext();
-    camelctx.addRoutes(new RouteBuilder() {
-        @Override
-        public void configure() throws Exception {
-            restConfiguration().component("servlet").contextPath("camel/rest").port(8080);
-            rest("/hello").get("/{name}").to("direct:hello");
-            from("direct:hello").transform(simple("Hello ${header.name}"));
-        }
-    });
-```
+[source,java,options="nowrap"]
+CamelContext camelctx = new DefaultCamelContext();
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        restConfiguration().component("servlet").contextPath("camel/rest").port(8080);
+        rest("/hello").get("/{name}").to("direct:hello");
+        from("direct:hello").transform(simple("Hello ${header.name}"));
+    }
+});
 

@@ -21,24 +21,21 @@ Simply unpack the provided patch into the a supported WildFly installation. For 
 
 In your WildFly home directory run ...
 
-```
-$ bin/standalone.sh -c standalone-camel.xml
-...
-10:50:02,833 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 31) JBAS018559: Deployed "wildfly-camel.war" (runtime-name : "wildfly-camel.war")
-10:50:02,834 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 31) JBAS018559: Deployed "hawtio.war" (runtime-name : "hawtio.war")
-10:50:02,848 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015961: Http management interface listening on http://127.0.0.1:9990/management
-10:50:02,849 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015951: Admin console listening on http://127.0.0.1:9990
-10:50:02,849 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: WildFly 8.1.0.Final "Kenny" started in 10804ms
-```
+[options="nowrap"]
+ $ bin/standalone.sh -c standalone-camel.xml
+ ...
+ 10:50:02,833 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 31) JBAS018559: Deployed "wildfly-camel.war" (runtime-name : "wildfly-camel.war")
+ 10:50:02,834 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 31) JBAS018559: Deployed "hawtio.war" (runtime-name : "hawtio.war")
+ 10:50:02,848 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015961: Http management interface listening on http://127.0.0.1:9990/management
+ 10:50:02,849 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015951: Admin console listening on http://127.0.0.1:9990
+ 10:50:02,849 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: WildFly 8.1.0.Final "Kenny" started in 10804ms
 
 [discrete]
 ### Domain Mode
 
 Similarly, for the WildFly Domain Mode run ...  
 
-```
-$ bin/domain.sh -c domain-camel.xml
-```
+ $ bin/domain.sh -c domain-camel.xml
 
 [discrete]
 ### Enable Camel Subsystem
@@ -47,16 +44,15 @@ The patch does not modify existing configuration files. Instead it comes with a 
 
 If you should want to add the Camel subsystem to existing configurations you can run the following command.
 
-```
-$ bin/fuseconfig.sh --configs=camel --enable
-Processing config for: camel
+[options="nowrap"]
+ $ bin/fuseconfig.sh --configs=camel --enable
+ Processing config for: camel
     Writing 'layers=fuse' to: .../wildfly-9.0.0.CR1/modules/layers.conf
     Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone.xml
     Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone-full.xml
     Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone-full-ha.xml
     Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone-ha.xml
     Enable camel configuration in: .../wildfly-9.0.0.CR1/domain/configuration/domain.xml
-```
 
 There are currently three triggers that can be used to enable Camel for a deployment
 
@@ -69,9 +65,8 @@ There are currently three triggers that can be used to enable Camel for a deploy
 
 The easiest and most portable way to run WildFly-Camel is to use the https://registry.hub.docker.com/u/wildflyext/wildfly-camel[wildflyext/wildfly-camel] distribution.
 
-```
-$ docker run --rm -ti -p 8080:8080 -p 9990:9990 -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin wildflyext/wildfly-camel
-```
+[options="nowrap"]
+ $ docker run --rm -ti -p 8080:8080 -p 9990:9990 -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin wildflyext/wildfly-camel
 
 [discrete]
 ### Maven Archetypes
@@ -80,23 +75,21 @@ To get started with writing Camel JEE applications, there are two Maven archetyp
 
 To generate a Camel CDI application, run the following from the command line.
 
-<pre><code>
+[source,options="nowrap"]
 mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
                        -DarchetypeArtifactId=wildfly-camel-archetype-cdi \
                        -DarchetypeVersion=4.4.0 \
                        -DgroupId=com.mycompany \
                        -DartifactId=my-camel-cdi-application
-</code></pre>
 
 To generate a Camel Spring XML application, run the following from the command line.
 
-<pre><code>
+[source,options="nowrap"]
 mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
                        -DarchetypeArtifactId=wildfly-camel-archetype-spring \
                        -DarchetypeVersion=4.4.0 \
                        -DgroupId=com.mycompany \
                        -DartifactId=my-camel-spring-application
-</code></pre>
 
 Instructions on how to build, test and run the project can be found within the generated README files. 
 

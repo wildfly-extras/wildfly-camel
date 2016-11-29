@@ -4,7 +4,8 @@ The http://camel.apache.org/xstream.html[camel-xstream,window=_blank]
 component provides the XStream http://camel.apache.org/data-format.html[Data Format,window=_blank] 
 which uses the http://x-stream.github.io/[XStream library,window=_blank] to marshal and unmarshal Java objects to and from XML.
 
-```java
+[source,java,options="nowrap"]
+----
 CamelContext camelctx = new DefaultCamelContext();
 camelctx.addRoutes(new RouteBuilder() {
     @Override
@@ -21,4 +22,4 @@ try {
 } finally {
     camelctx.stop();
 }
-```
+----

@@ -5,7 +5,8 @@ component allows you to interact with http://infinispan.org[Infinispan,window=_b
 
 You can interact with container managed Infinispan caches by referring to their JNDI lookup within your Camel route. For example, to write a cache entry.
 
-```java
+[source,java,options="nowrap"]
+----
   DefaultCamelContext camelctx = new DefaultCamelContext();
   camelctx.addRoutes(new RouteBuilder() {
       @Override
@@ -21,11 +22,12 @@ You can interact with container managed Infinispan caches by referring to their 
 
   ProducerTemplate template = camelctx.createProducerTemplate();
   template.sendBodyAndHeaders("direct:put", null, headers);
-```
+----
 
 Or you can interact with external Infinispan caches.
 
-```java
+[source,java,options="nowrap"]
+----
   DefaultCamelContext camelctx = new DefaultCamelContext();
   camelctx.addRoutes(new RouteBuilder() {
       @Override
@@ -41,4 +43,4 @@ Or you can interact with external Infinispan caches.
 
   ProducerTemplate template = camelctx.createProducerTemplate();
   template.sendBodyAndHeaders("direct:put", null, headers);
-```
+----

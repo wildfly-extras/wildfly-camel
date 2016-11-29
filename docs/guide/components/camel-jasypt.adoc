@@ -2,7 +2,8 @@
 
 The http://camel.apache.org/jasypt.html[camel-jasypt,window=_blank] component provides a simplified encryption library which makes encryption and decryption easy. Camel integrates with Jasypt to allow sensitive information in Properties files to be encrypted.
 
-```java
+[source,java,options="nowrap"]
+----
 JasyptPropertiesParser jasypt = new JasyptPropertiesParser();
 jasypt.setPassword("secret");
 
@@ -11,4 +12,4 @@ pc.setLocation("classpath:mysecrets.properties");
 pc.setPropertiesParser(jasypt);
 
 context.addComponent("properties", pc);
-```
+----

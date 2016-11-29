@@ -14,7 +14,8 @@ and return them.
 When the WildFly web service subsystem detects classes containing JAX-WS annotations, it bootstraps a CXF endpoint. In this example
 the service endpoint will be located at http://hostname:port/context-root/greeting.
 
-```java
+[source,java,options="nowrap"]
+----
 // Service interface
 @WebService(name = "greeting")
 public interface GreetingService {
@@ -28,12 +29,14 @@ public class GreetingServiceImpl implements GreetingService{
         return message + " " + name ;
     }
 }
-```
+----
 
 ##### Camel route configuration
 This RouteBuilder configures a CXF producer endpoint which will consume the 'greeting' web service defined above. CDI in conjunction with the camel-cdi component
 is used to bootstrap the RouteBuilder and CamelContext.
-```java
+
+[source,java,options="nowrap"]
+----
 @Startup
 @ApplicationScoped
 @ContextName("cxf-camel-context")
@@ -45,22 +48,25 @@ public class CxfRouteBuilder extends RouteBuilder {
         .to("cxf://http://localhost:8080/example-camel-cxf/greeting?serviceClass=" + GreetingService.class.getName());
     }
 }
-```
+----
 
 The greeting web service 'greet' requires two parameters. These can be supplied to the above route by way of a `ProducerTemplate`.
 The web service method argument values are configured by constructing an object array which is passed as the exchange body.
 
-```java
+[source,java,options="nowrap"]
+----
 String message = "Hello"
 String name = "Kermit"
 
 ProducerTemplate producer = camelContext.createProducerTemplate();
 Object[] serviceParams = new Object[] {message, name};
 String result = producer.requestBody("direct:start", serviceParams, String.class);
-```
+----
 
 #### Camel CXF JAX-WS Consumer
-```xml
+
+[source,xml,options="nowrap"]
+----
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:cxf="http://camel.apache.org/schema/cxf"
@@ -81,15 +87,17 @@ String result = producer.requestBody("direct:start", serviceParams, String.class
     </camelContext>
 
 </beans>
-```
+----
 
 #### JAX-WS Consumer with CamelProxy
+
 JAX-WS consumer endpoints can be configured using the http://camel.apache.org/using-camelproxy.html[CamelProxy,window=_blank]. The proxy enables
 you to proxy a producer sending to an Endpoint by a regular interface. When clients invoke methods on this interface, the proxy performs a request / reply to a specified endpoint.
 
 Below is an example JAX-WS web service interface and implementation.
 
-```java
+[source,java,options="nowrap"]
+----
 // Service interface
 @WebService(name = "greeting")
 public interface GreetingService {
@@ -99,7 +107,10 @@ public interface GreetingService {
     @WebMethod(operationName = "greetWithMessage", action = "urn:greetWithMessage")
     String greetWithMessage(@WebParam(name = "message") String message, @WebParam(name = "name") String name);
 }
+----
 
+[source,java,options="nowrap"]
+----
 // Service implementation
 @WebService(serviceName="greeting", endpointInterface = "org.wildfly.camel.examples.jaxws.GreetingService")
 public class GreetingServiceImpl {
@@ -116,13 +127,15 @@ public class GreetingServiceImpl {
         return greetingService.greetWithMessage(message, name);
     }
 }
-```
+----
+
 Notice in the above code example that `GreetingServiceImpl` delegates all method calls to a greetingService object which has been annotated
 with `@Produce`. This annotation is important as it configures a proxy for the `direct:start` endpoint against the `GreetingService` interface. Whenever any of the web service methods are invoked by clients, the `direct:start` camel route is triggered.
 
 The RouteBuilder class implements logic for each web service method invocation.
 
-```java
+[source,java,options="nowrap"]
+----
 @Startup
 @ApplicationScoped
 @ContextName("jaxws-camel-context")
@@ -149,7 +162,7 @@ public class JaxwsRouteBuilder extends RouteBuilder {
             }
         });
     }
-```
+----
 
 In the above RouteBuilder a `Processor` handles web service method invocations that have been proxied through the `direct:start` endpoint.
 The exchange message body will be an instance of `BeanInvocation`. This can be used to determine which web service method was invoked and

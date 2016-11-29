@@ -24,7 +24,7 @@ The docs are generated using [Asciidoctor](http://asciidoctor.org/docs).
 To generate an update of the docs use:
 
 ```
-$ asciidoctor -a version=4.4.0-SNAPSHOT docs/index.adoc 
+$ asciidoctor -a version=4.4.0-SNAPSHOT docs/guide/index.adoc 
 ```
 
 If you like to contribute to the docs, please file a [pull request](https://github.com/wildfly-extras/wildfly-camel) against the master branch.

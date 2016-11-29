@@ -6,7 +6,9 @@ WildFly 8 and EAP 6.4 are bundled with module libraries supporting the http://ne
 project version 4. Therefore, the standard http://camel.apache.org/netty.html[camel-netty component,window=_blank] will not work since it is compatible with Netty version 3 only.
 
 #### Simple Netty Client / Server Test
-```java
+
+[source,java,options="nowrap"]
+----
 CamelContext camelContext = new DefaultCamelContext();
 
 camelContext.addRoutes(new RouteBuilder() {
@@ -38,5 +40,5 @@ String result = pollingConsumer.receive().getIn().getBody(String.class);
 Assert.assertEquals("Hello Kermit", result);
 
 camelContext.stop();
-```
+----
 

@@ -2,7 +2,8 @@
 
 Management support is provided through the http://camel.apache.org/jmx.html[camel-jmx,window=_blank] component which integrates with the WildFly JMX subsystem.
 
-```java
+[source,java,options="nowrap"]
+----
 CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
 camelctx.addRoutes(new RouteBuilder() {
     @Override
@@ -18,5 +19,5 @@ camelctx.start();
 ConsumerTemplate consumer = camelctx.createConsumerTemplate();
 MonitorNotification notifcation = consumer.receiveBody("direct:end", MonitorNotification.class);
 Assert.assertEquals("ExchangesTotal", notifcation.getObservedAttribute());
-```
+----
 

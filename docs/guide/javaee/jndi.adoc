@@ -2,23 +2,20 @@
 
 JNDI integration is provided by a WildFly specific CamelContext, which is can be obtained like this
 
-```java
+[source,java,options="nowrap"]
 InitialContext inictx = new InitialContext();
 CamelContextFactory factory = inictx.lookup("java:jboss/camel/CamelContextFactory");
 WildFlyCamelContext camelctx = factory.createCamelContext();
 
-```
-
 From a `WildFlyCamelContext` you can obtain a preconfigured Naming Context
 
-```java
+[source,java,options="nowrap"]
 Context context = camelctx.getNamingContext();
 context.bind("helloBean", new HelloBean());
-```
 
 which can then be referenced from Camel routes.
 
-```java
+[source,java,options="nowrap"]
 camelctx.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
@@ -26,4 +23,4 @@ camelctx.addRoutes(new RouteBuilder() {
     }
 });
 camelctx.start();
-```
+

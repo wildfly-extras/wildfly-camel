@@ -1,0 +1,34 @@
+### OpenShift on EC2
+
+Here we follow the instructions on https://www.openshift.org[Try Origin,window=_blank] 
+for https://github.com/openshift/origin/releases[binary releases VM,window=_blank].
+
+After having launched an instance of RHEL7 on EC2 we can `ssh` into the box.
+
+[source,subs="attributes"]
+$ ssh -i ~/.ssh/id_rsa_ec2.pem ec2-user@{ec2-pub-ip}
+
+Then we https://docs.docker.com/engine/installation/linux/rhel[install Docker,window=_blank]
+and add the `ec2-user` to the docker group.
+
+[source,subs="attributes"]
+$ curl -fsSL https://get.docker.com/ | sh
+$ sudo usermod -aG docker ec2-user
+$ sudo systemctl enable docker.service
+$ sudo systemctl start docker
+$ docker run hello-world
+...
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+Now download the OpenShift server and start it
+
+[source,subs="attributes",options="nowrap"]
+$ curl -L https://github.com/openshift/origin/releases/download/v1.4.0-rc1/openshift-origin-server-v1.4.0-rc1.b4e0954-linux-64bit.tar.gz > openshift-origin-server-v1.4.0-rc1.tar.gz
+$ tar xzf openshift-origin-server-v1.4.0-rc1.tar.gz 
+$ oc cluster up --public-hostname=ec2-{ec2-pub-ip-dash}.eu-west-1.compute.amazonaws.com --routing-suffix={ec2-pub-ip}.xip.io --skip-registry-check=true
+
+We can now access the OpenShift console on: https://{ec2-pub-ip}:8443/console[,window=_blank]
+
+The process of creating a project and application follows that of link:index.html#_openshift_local[OpenShift Local].
+

@@ -12,12 +12,11 @@ __1)__ Make sure your WildFly instance is stopped.
 
 __2)__ Copy the downloaded resource adapter to the relevant WildFly deployment directory. For standalone mode:
 
-```
-cp activemq-rar-5.11.1.rar ${JBOSS_HOME}/standalone/deployments/activemq-rar.rar
-```
+ cp activemq-rar-5.11.1.rar ${JBOSS_HOME}/standalone/deployments/activemq-rar.rar
+
 __3)__ Configure the WildFly resource adapters subsystem for the ActiveMQ adapter.
 
-```xml
+[source,xml,options="nowrap"]
 <subsystem xmlns="urn:jboss:domain:resource-adapters:2.0">  
      <resource-adapters>  
          <resource-adapter id="activemq-rar.rar">  
@@ -62,7 +61,6 @@ __3)__ Configure the WildFly resource adapters subsystem for the ActiveMQ adapte
          </resource-adapter>  
      </resource-adapters>  
  </subsystem>  
-```
 
 If your resource adapter archive filename differs from activemq-rar.rar, you must change the content of the archive element in the preceding configuration to match the name of your archive file.
 
@@ -73,7 +71,8 @@ You might need to change the value of the ServerUrl configuration property to ma
 
 __4)__ Start WildFly. If everything is configured correctly, you should see a message within the WildFly server.log like.
 
-`13:16:08,412 INFO  [org.jboss.as.connector.deployment] (MSC service thread 1-5) JBAS010406: Registered connection factory java:/AMQConnectionFactory`
+[source,options="nowrap"]
+13:16:08,412 INFO  [org.jboss.as.connector.deployment] (MSC service thread 1-5) JBAS010406: Registered connection factory java:/AMQConnectionFactory`
 
 
 #### Camel route configuration
@@ -83,7 +82,8 @@ The examples use CDI in conjunction with the camel-cdi component. JMS Connection
 
 ##### ActiveMQ Producer
 
-```java
+[source,java,options="nowrap"]
+----
 @Startup
 @ApplicationScoped
 @ContextName("activemq-camel-context")
@@ -97,7 +97,7 @@ public class ActiveMQRouteBuilder extends RouteBuilder {
     .log("JMS Message sent");  
   }
 }
-```
+----
 
 A log message will be output to the console each time a message is added to the WildFlyCamelQueue destination. To verify that the messages really are being placed onto the queue, we can use the ../features/hawtio.md[Hawtio console,window=_blank] provided by the WildFly Camel subsystem.
 
@@ -109,13 +109,13 @@ To consume ActiveMQ messages the Camel RouteBuilder implementation is similar to
 
 When the ActiveMQ endpoint consumes messages from the WildFlyCamelQueue destination, the content is logged to the console.
 
-```java
+[source,java,options="nowrap"]
 @Override
 public void configure() throws Exception {
   from("activemq:queue:WildFlyCamelQueue?brokerURL=vm://localhost")
   .to("log:jms?showAll=true");  
 }
-```
+
 ##### ActiveMQ Transactions
 
 ###### ActiveMQ Resource Adapter Configuration
@@ -125,7 +125,8 @@ The ActiveMQ resource adapter is required as we will want to leverage XA transac
 The XML snippet below shows how the resource adapter is configured within the WildFly server XML configuration. Notice that the `ServerURL` is set to use an embedded broker. The connection factory is bound to the JNDI name `java:/ActiveMQConnectionFactory`. This will be looked up in the RouteBuilder example that follows.
 
 Finally, two queues are configured named 'queue1' and 'queue2'.
-```xml
+
+[source,xml,options="nowrap"]
 <subsystem xmlns="urn:jboss:domain:resource-adapters:2.0">  
   <resource-adapters>  
     <resource-adapter id="activemq-rar.rar">  
@@ -141,12 +142,12 @@ Finally, two queues are configured named 'queue1' and 'queue2'.
     </resource-adapter>  
   </resource-adapters>  
 </subsystem>  
-```
 
 ##### Transaction Manager
 The camel-activemq component requires a transaction manager of type `org.springframework.transaction.PlatformTransactionManager`. Therefore, we begin by creating a bean extending `JtaTransactionManager` which fulfills this requirement. Note that the bean is annotated with `@Named` to allow the bean to be registered within the Camel bean registry. Also note that the WildFly transaction manager and user transaction instances are injected using CDI.
 
-```java
+[source,java,options="nowrap"]
+----
 @Named("transactionManager")
 public class CdiTransactionManager extends JtaTransactionManager {
 
@@ -162,12 +163,14 @@ public class CdiTransactionManager extends JtaTransactionManager {
     setUserTransaction(userTransaction);
   }
 }
-```
+----
 
 ##### Transaction Policy
+
 Next we need to declare the transaction policy that we want to use. Again we use the `@Named` annotation to make the bean available to Camel. The transaction manager is also injected so that a `TransactionTemplate` can be created with the desired transaction policy. `PROPAGATION_REQUIRED` in this instance.
 
-```java
+[source,java,options="nowrap"]
+----
 @Named("PROPAGATION_REQUIRED")
 public class CdiRequiredPolicy extends SpringTransactionPolicy {
   @Inject
@@ -176,14 +179,16 @@ public class CdiRequiredPolicy extends SpringTransactionPolicy {
       new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRED)));
   }
 }
-```
+----
 
 ##### Route Builder
+
 Now we can configure our Camel RouteBuilder class and inject the dependencies needed for the Camel ActiveMQ component. The ActiveMQ connection factory that we configured on the resource adapter configutation is injected together with the transaction manager we configured earlier.
 
 In this example RouteBuilder, whenever any messages are consumed from queue1, they are routed to another JMS queue named queue2. Messages consumed from queue2 result in JMS transaction being rolled back using the rollback() DSL method. This results in the original message being placed onto the dead letter queue(DLQ).
 
-```java
+[source,java,options="nowrap"]
+----
 @Startup
 @ApplicationScoped
 @ContextName("activemq-camel-context")
@@ -218,7 +223,7 @@ public class ActiveMQRouteBuilder extends RouteBuilder {
       .rollback();
   }
 }
-```
+----
 
 #### Security
 

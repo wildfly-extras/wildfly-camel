@@ -7,14 +7,14 @@ or http://camel.apache.org/predicate.html[Predicate,window=_blank]
 to be used in the http://camel.apache.org/dsl.html[DSL,window=_blank] 
 or http://camel.apache.org/xml-configuration.html[Xml Configuration,window=_blank].
 
-```java
-    CamelContext camelctx = new DefaultCamelContext();
-    camelctx.addRoutes(new RouteBuilder() {
-        @Override
-        public void configure() throws Exception {
-            Namespaces ns = new Namespaces("ns", "http://org/wildfly/test/jaxb/model/Customer");
-            from("direct:start").transform().xquery("/ns:customer/ns:firstName", String.class, ns)
-            .to("mock:result");
-        }
-    });
-```
+[source,java,options="nowrap"]
+CamelContext camelctx = new DefaultCamelContext();
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        Namespaces ns = new Namespaces("ns", "http://org/wildfly/test/jaxb/model/Customer");
+        from("direct:start").transform().xquery("/ns:customer/ns:firstName", String.class, ns)
+        .to("mock:result");
+    }
+});
+

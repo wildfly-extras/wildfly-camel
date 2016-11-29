@@ -6,7 +6,8 @@ The http://camel.apache.org/dns.html[camel-dns,window=_blank] component provides
 * Lookup information about a domain
 * Run DNS queries
 
-```java
+[source,java,options="nowrap"]
+----
   CamelContext camelctx = new DefaultCamelContext();
   camelctx.addRoutes(new RouteBuilder() {
       @Override
@@ -18,4 +19,4 @@ The http://camel.apache.org/dns.html[camel-dns,window=_blank] component provides
 
   ProducerTemplate producer = camelctx.createProducerTemplate();
   Record[] record = producer.requestBodyAndHeader("direct:start", null, DnsConstants.DNS_NAME, "wildfly.org", Record[].class);
-```
+----
