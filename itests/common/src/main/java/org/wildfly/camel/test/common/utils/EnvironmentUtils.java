@@ -20,6 +20,10 @@
 
 package org.wildfly.camel.test.common.utils;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Locale;
+
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.modules.ModuleLoadException;
@@ -33,6 +37,31 @@ import org.jboss.modules.ModuleLoader;
  */
 public final class EnvironmentUtils {
 
+    private static final boolean LINUX;
+    private static final boolean MAC;
+    private static final boolean WINDOWS;
+    private static final String JAVA;
+    private static final Path JAVA_HOME;
+
+    static {
+        final String os = System.getProperty("os.name").toLowerCase(Locale.ROOT);
+        LINUX = os.equals("linux");
+        MAC = os.startsWith("mac");
+        WINDOWS = os.contains("win");
+
+        String javaExecutable = "java";
+        if (WINDOWS) {
+            javaExecutable = "java.exe";
+        }
+        JAVA = javaExecutable;
+
+        String javaHome = System.getenv("JAVA_HOME");
+        if (javaHome == null) {
+            javaHome = System.getProperty("java.home");
+        }
+        JAVA_HOME = Paths.get(javaHome);
+    }
+
     // hide ctor
     private EnvironmentUtils() {
     }
@@ -45,5 +74,25 @@ public final class EnvironmentUtils {
         } catch (ModuleLoadException ex) {
             return false;
         }
+    }
+
+    public static boolean isLinux() {
+        return LINUX;
+    }
+
+    public static boolean isMac() {
+        return MAC;
+    }
+
+    public static boolean isWindows() {
+        return WINDOWS;
+    }
+
+    public static boolean isUnknown() {
+        return !LINUX && !MAC && !WINDOWS;
+    }
+
+    public static Path getJavaExecutablePath() {
+        return Paths.get(JAVA_HOME.toString(), "bin", JAVA);
     }
 }

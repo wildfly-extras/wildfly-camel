@@ -76,7 +76,7 @@
         <version.jboss.gravia>1.3.1</version.jboss.gravia>
         <version.jboss.osgi.metadata>4.0.0.CR1</version.jboss.osgi.metadata>
         <version.jboss.shrinkwrap.resolver>2.2.0</version.jboss.shrinkwrap.resolver>
-        <version.junit>4.11</version.junit>
+        <version.junit>4.12</version.junit>
         <version.maven.aether.provider>3.2.5</version.maven.aether.provider>
         <version.maven.archetype.packaging>2.3</version.maven.archetype.packaging>
         <version.osgi>5.0.0</version.osgi>
