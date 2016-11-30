@@ -19,13 +19,10 @@
  */
 package org.wildfly.camel.test.nats;
 
-import io.nats.client.Connection;
-import io.nats.client.ConnectionFactory;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.Properties;
 
+import io.nats.client.Connection;
+import io.nats.client.ConnectionFactory;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.builder.RouteBuilder;
@@ -37,26 +34,32 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Assume;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.rule.ExecutableResource;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
-/**
- * Tests camel-nats integration.
- * Requires a locally running GNATSD instance: https://github.com/nats-io/gnatsd/releases
- */
 @CamelAware
 @RunWith(Arquillian.class)
 public class NatsIntegrationTest {
 
-    private static ProcessBuilder pb;
-    private static Process p;
-    private static final String GNATSD_PATH = "GNATSD_PATH";
+    private static final String NATS_DOWNLOAD_BASE_URL = "https://github.com/nats-io/gnatsd/releases/download";
+    private static final String NATS_VERSION = "v0.9.4";
+
+    @Rule
+    public ExecutableResource nats = new ExecutableResource().builder()
+        .downloadFrom(resolveDownloadURL())
+        .executable(String.format("%s/gnatsd", resolveExecutableName()))
+        .args("-DV -a 127.0.0.1")
+        .waitForPort(4222)
+        .build();
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-nats-tests.jar");
+        return ShrinkWrap.create(JavaArchive.class, "camel-nats-tests.jar")
+            .addClasses(EnvironmentUtils.class, ExecutableResource.class);
     }
 
     @Test
@@ -69,18 +72,6 @@ public class NatsIntegrationTest {
 
     @Test
     public void testNatsRoutes() throws Exception {
-        String gnatsdPath = System.getenv().get(GNATSD_PATH);
-        
-        // [#1329] Provide CI testing for camel-nats
-        Assume.assumeTrue(gnatsdPath != null && new File(gnatsdPath).exists());
-
-        pb = new ProcessBuilder(gnatsdPath, "-DV", "-a", "127.0.0.1", "-l", "target/gnatsd.log");
-        try {
-            p = pb.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         CamelContext camelctx = new DefaultCamelContext();
         try {
             camelctx.addRoutes(new RouteBuilder() {
@@ -119,9 +110,20 @@ public class NatsIntegrationTest {
 
         } finally {
             camelctx.stop();
-            if (p != null) {
-                p.destroy();
-            }
         }
+    }
+
+    private static String resolveDownloadURL() {
+        return String.format("%s/%s/%s.zip", NATS_DOWNLOAD_BASE_URL, NATS_VERSION, resolveExecutableName());
+    }
+
+    private static String resolveExecutableName() {
+        String osName = "linux";
+        if (EnvironmentUtils.isMac()) {
+            osName = "darwin";
+        } else if (EnvironmentUtils.isWindows()) {
+            osName = "windows";
+        }
+        return String.format("gnatsd-%s-%s-amd64", NATS_VERSION, osName);
     }
 }
