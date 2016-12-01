@@ -11,6 +11,7 @@
     <artifact name="${org.eclipse.jetty:jetty-util-ajax}" />
   </resources>
   <dependencies>
+    <module name="javax.api" />
     <module name="javax.servlet.api" />
   </dependencies>
 </module>

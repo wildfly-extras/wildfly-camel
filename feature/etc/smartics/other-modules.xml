@@ -462,6 +462,9 @@
             <include module="org.eclipse.jetty.server" />
             <include module="org.mortbay.jetty" />
         </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
     </module>
 
     <module name="org.eclipse.jetty.websocket">
