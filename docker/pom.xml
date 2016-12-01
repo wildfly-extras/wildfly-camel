@@ -125,11 +125,24 @@
                                             <tag>${docker.image.version}</tag>
                                             <tag>${project.version}</tag>
                                         </tags>
+                                        <runCmds>
+                                            <run>usermod -g root jboss</run>
+                                            <run>chmod -R g+rw /opt/jboss/wildfly</run>
+                                        </runCmds>
                                         <assembly>
                                             <basedir>/opt/jboss/wildfly</basedir>
                                             <descriptor>${project.basedir}/standalone/assembly-artifacts.xml</descriptor>
-                                            <user>jboss:jboss:jboss</user>
+                                            <user>jboss:root:root</user>
                                         </assembly>
+                                        <user>jboss</user>
+                                        <!--  
+                                        <healthCheck>
+                                          <interval>5m</interval>
+                                          <timeout>3s</timeout>
+                                          <retries>3</retries>
+                                          <cmd>curl -f http://localhost:9990 || exit 1</cmd>
+                                        </healthCheck>
+                                        -->
                                     </build>
                                 </image>
                                 <image>
