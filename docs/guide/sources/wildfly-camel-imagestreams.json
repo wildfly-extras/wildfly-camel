@@ -12,7 +12,7 @@
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "wildfly-camel"
+        "name": "wildfly-camel-openshift"
       },
       "spec": {
         "tags": [

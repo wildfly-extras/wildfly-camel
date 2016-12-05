@@ -9,12 +9,12 @@
       "tags": "builder,wildfly,wildfly-camel,camel,java"
     },
     "labels": {},
-    "name": "s2i-wildfly-camel"
+    "name": "wildfly-camel-s2i"
   },
   "parameters": [
     {
       "name": "APP_NAME",
-      "value": "s2i-wildfly-camel",
+      "value": "wildfly-camel-app",
       "description": "Application Name"
     },
     {
@@ -28,9 +28,22 @@
       "description": "Git ref to build"
     },
     {
-      "name": "SERVICE_NAME",
-      "value": "wildfly-camel-service",
-      "description": "Exposed Service name"
+      "name": "CONTEXT_DIR",
+      "value": "",
+      "description": "Path within the project directory structure to build from. Leave blank to build from the project root",
+      "required": false
+    },
+    {
+      "name": "ARTIFACT_DIR",
+      "value": "",
+      "description": "List of directories from which built artefacts will be copied into the deployment directory. If unspecified, all artefacts in 'target' will be copied.",
+      "required": false
+    },
+    {
+      "name": "HOSTNAME_HTTP",
+      "value": "",
+      "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
+      "required": false
     },
     {
       "name": "MYSQL_DATABASE",
@@ -87,14 +100,14 @@
           "version": "${APP_VERSION}",
           "group": "wildfly-camel"
         },
-        "name": "${SERVICE_NAME}"
+        "name": "${APP_NAME}-http"
       },
       "spec": {
         "clusterIP": "None",
         "deprecatedPublicIPs": [],
         "ports": [
           {
-            "port": 9412,
+            "port": 8080,
             "protocol": "TCP",
             "targetPort": 8080
           }
@@ -106,6 +119,29 @@
           "provider": "s2i",
           "group": "wildfly-camel"
         }
+      }
+    },
+    {
+      "kind": "Route",
+      "apiVersion": "v1",
+      "id": "${APP_NAME}-http",
+      "metadata": {
+          "name": "${APP_NAME}",
+          "labels": {
+            "component": "${APP_NAME}",
+            "project": "${APP_NAME}",
+            "version": "${APP_VERSION}",
+            "group": "wildfly-camel"
+          },
+          "annotations": {
+              "description": "Route for ${APP_NAME} http service."
+          }
+      },
+      "spec": {
+          "host": "${HOSTNAME_HTTP}",
+          "to": {
+              "name": "${APP_NAME}-http"
+          }
       }
     },
     {
@@ -170,7 +206,8 @@
           "git": {
             "uri": "${GIT_REPO}",
             "ref": "${GIT_REF}"
-          }
+          },
+          "contextDir": "${CONTEXT_DIR}"
         },
         "strategy": {
           "type": "Source",
@@ -178,7 +215,7 @@
             "from": {
               "kind": "ImageStreamTag",
               "namespace": "${IMAGE_STREAM_NAMESPACE}",
-              "name": "wildfly-camel:${BUILDER_VERSION}"
+              "name": "wildfly-camel-openshift:${BUILDER_VERSION}"
             },
             "forcePull": true,
             "incremental": true,
@@ -194,6 +231,10 @@
               {
                 "name": "MAVEN_ARGS_APPEND",
                 "value": "${MAVEN_ARGS_APPEND}"
+              },
+              {
+                "name": "ARTIFACT_DIR",
+                "value": "${ARTIFACT_DIR}"
               }
             ]
           }

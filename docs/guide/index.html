@@ -4293,8 +4293,19 @@ $ oc cluster up --public-hostname=ec2-1-2-3-4.eu-west-1.compute.amazonaws.com --
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ s2i build https://github.com/wildfly-extras/wildfly-camel-examples.git -r 4.4.0-SNAPSHOT --context-dir camel-cdi wildflyext/s2i-wildfly-camel:4.4.0-SNAPSHOT wildfly-camel-example-cdi
-$ docker run -p 8080:8080 wildfly-camel-example-cdi</code></pre>
+<pre class="highlight nowrap"><code>$ s2i build https://github.com/wildfly-extras/wildfly-camel-examples.git -r 4.3.0 --context-dir camel-cdi wildflyext/s2i-wildfly-camel:4.3.0 wildfly-camel-example-cdi
+$ docker run -ti -p 8080:8080 wildfly-camel-example-cdi</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>From a remote client, you should now be able to access the service like this</p>
+</div>
+<div class="paragraph">
+<p><a href="http://1.2.3.4:8080/example-camel-cdi?name=Kermit" class="bare" target="_blank">http://1.2.3.4:8080/example-camel-cdi?name=Kermit</a></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Hello Kermit</pre>
 </div>
 </div>
 </div>
@@ -4309,7 +4320,7 @@ template and an <a href="sources/wildfly-camel-template.json" target="_blank">ap
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ oc apply -f http://wildfly-extras.github.io/wildfly-camel/sources/wildfly-camel-image-streams.json</code></pre>
+<pre class="highlight nowrap"><code>$ oc apply -f http://wildfly-extras.github.io/wildfly-camel/sources/wildfly-camel-imagestreams.json</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4322,7 +4333,139 @@ template and an <a href="sources/wildfly-camel-template.json" target="_blank">ap
 </div>
 <div class="paragraph">
 <p>When you select 'Add to Project' in the OpenShift web console you should see a new catalog item named
-'s2i-wildfly-camel'. Choose this option, provide the required template parameters and click 'Create' to start the build process.</p>
+'wildfly-camel-s2i'. Choose this option, then provide the required template parameters:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter Name</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">APP_NAME</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of your application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wildfly-camel-app</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GIT_REPO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The URL of your application git repository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GIT_REF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A branch or tag name to reference in the git repository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">master</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONTEXT_DIR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path within the source tree to build from</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project root directory</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ARTIFACT_DIR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comma seperated list of directories where build artefacts are located</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;project-root&gt;/target</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HOSTNAME_HTTP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom hostname for http service route</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;application-name&gt;-&lt;project&gt;.&lt;default-domain-suffix&gt;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MYSQL_DATABASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of a pre-deployed MySQL database service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POSTGRESQL_DATABASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of a pre-deployed PostgreSQL database service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BUILDER_VERSION</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The version of the wildfly-camel S2I image to use</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">APP_VERSION</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The version of the built application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MAVEN_ARGS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Arguments passed to mvn in the build</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clean package -DskipTests -e</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MAVEN_ARGS_APPEND</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra arguments passed to mvn, e.g. for multi-module builds</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IMAGE_STREAM_NAMESPACE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace in which the WildFly-Camel ImageStreams are installed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Openshift</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>To build the latest release of the WildFly-Camel CDI example you would enter:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter Name</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GIT_REPO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/wildfly-extras/wildfly-camel-examples" class="bare">https://github.com/wildfly-extras/wildfly-camel-examples</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GIT_REF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.3.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONTEXT_DIR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">camel-cdi</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IMAGE_STREAM_NAMESPACE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the OpenShift project (namespace) where the WildFly-Camel imagestream is installed</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Click 'Create' to start the build process.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -4336,6 +4479,12 @@ template and an <a href="sources/wildfly-camel-template.json" target="_blank">ap
 <div class="content">
 <img src="images/wildfly-camel-s2i-deployed.png" alt="wildfly camel s2i deployed">
 </div>
+</div>
+<div class="paragraph">
+<p>Then to access the application you can browse to the route endpoint URL. For example:</p>
+</div>
+<div class="paragraph">
+<p><a href="http://wildfly-camel-app-default.1.2.3.4.xip.io/example-camel-cdi?name=Kermit" class="bare">http://wildfly-camel-app-default.1.2.3.4.xip.io/example-camel-cdi?name=Kermit</a></p>
 </div>
 </div>
 </div>
@@ -4525,7 +4674,7 @@ producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION,
 <div id="footer">
 <div id="footer-text">
 Version 4.4.0-SNAPSHOT<br>
-Last updated 2016-12-05 09:25:50 CET
+Last updated 2016-12-05 13:43:25 CET
 </div>
 </div>
 </body>
