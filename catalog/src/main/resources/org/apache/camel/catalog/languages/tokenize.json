@@ -10,7 +10,7 @@
     "modelJavaType": "org.apache.camel.model.language.TokenizerExpression",
     "groupId": "org.apache.camel",
     "artifactId": "camel-core",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "properties": {
     "token": { "kind": "attribute", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The (start) token to use as tokenizer for example \n for a new line token. You can use simple language as the token to support dynamic tokens." },

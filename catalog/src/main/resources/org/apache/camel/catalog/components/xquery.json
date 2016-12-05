@@ -11,7 +11,7 @@
     "javaType": "org.apache.camel.component.xquery.XQueryComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-saxon",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
     "moduleURIResolver": { "kind": "property", "type": "object", "javaType": "net.sf.saxon.lib.ModuleURIResolver", "deprecated": "false", "secret": "false", "description": "To use the custom ModuleURIResolver" }

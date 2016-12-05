@@ -11,7 +11,7 @@
     "javaType": "org.apache.camel.component.properties.PropertiesComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-core",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
     "locations": { "kind": "property", "type": "array", "javaType": "java.lang.String[]", "deprecated": "false", "secret": "false", "description": "A list of locations to load properties. You can use comma to separate multiple locations. This option will override any default locations and only use the locations from this option." },

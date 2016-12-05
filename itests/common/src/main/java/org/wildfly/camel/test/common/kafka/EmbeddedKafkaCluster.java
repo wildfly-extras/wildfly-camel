@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Properties;
 
 import kafka.admin.AdminUtils;
+import kafka.metrics.KafkaMetricsReporter;
 import kafka.server.KafkaConfig;
 import kafka.server.KafkaServer;
 import kafka.utils.ZkUtils;
@@ -32,6 +33,7 @@ import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 import org.wildfly.camel.test.common.utils.TestUtils;
 
 import scala.Option;
+import scala.collection.mutable.Buffer;
 
 public class EmbeddedKafkaCluster {
     private final List<Integer> ports;
@@ -126,7 +128,9 @@ public class EmbeddedKafkaCluster {
 
 
     private KafkaServer startBroker(Properties props) {
-        KafkaServer server = new KafkaServer(new KafkaConfig(props), new SystemTime(), Option.<String>empty());
+        List<KafkaMetricsReporter> kmrList = new ArrayList<>();
+        Buffer<KafkaMetricsReporter> metricsList = scala.collection.JavaConversions.asScalaBuffer(kmrList);
+        KafkaServer server = new KafkaServer(new KafkaConfig(props), new SystemTime(), Option.<String>empty(), metricsList);
         server.startup();
         return server;
     }

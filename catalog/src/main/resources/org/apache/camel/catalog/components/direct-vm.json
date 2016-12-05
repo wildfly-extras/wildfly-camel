@@ -11,7 +11,7 @@
     "javaType": "org.apache.camel.component.directvm.DirectVmComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-core",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
     "block": { "kind": "property", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "description": "If sending a message to a direct endpoint which has no active consumer then we can tell the producer to block and wait for the consumer to become active." },

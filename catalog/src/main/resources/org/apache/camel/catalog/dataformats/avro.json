@@ -10,7 +10,7 @@
     "modelJavaType": "org.apache.camel.model.dataformat.AvroDataFormat",
     "groupId": "org.apache.camel",
     "artifactId": "camel-avro",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "properties": {
     "instanceClassName": { "kind": "attribute", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Class name to use for marshal and unmarshalling" },

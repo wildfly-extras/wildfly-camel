@@ -10,7 +10,7 @@
     "modelJavaType": "org.apache.camel.model.dataformat.HL7DataFormat",
     "groupId": "org.apache.camel",
     "artifactId": "camel-hl7",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "properties": {
     "validate": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "true", "description": "Whether to validate the HL7 message Is by default true." },

@@ -12,7 +12,7 @@
     "javaType": "org.apache.camel.component.rest.RestComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-core",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
     "componentName": { "kind": "property", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The Camel Rest component to use for the REST transport such as restlet spark-rest. If no component has been explicit configured then Camel will lookup if there is a Camel component that integrates with the Rest DSL or if a org.apache.camel.spi.RestConsumerFactory (consumer) or org.apache.camel.spi.RestProducerFactory (producer) is registered in the registry. If either one is found then that is being used." },

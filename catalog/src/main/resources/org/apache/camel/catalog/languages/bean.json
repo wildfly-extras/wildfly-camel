@@ -10,7 +10,7 @@
     "modelJavaType": "org.apache.camel.model.language.MethodCallExpression",
     "groupId": "org.apache.camel",
     "artifactId": "camel-core",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "properties": {
     "bean": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "true", "secret": "false", "description": "Either a reference or a class name of the bean to use" },

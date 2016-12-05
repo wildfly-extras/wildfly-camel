@@ -11,24 +11,20 @@
     "javaType": "org.apache.camel.component.twitter.TwitterComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-twitter",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
-    "accessToken": { "kind": "property", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The access token" },
-    "accessTokenSecret": { "kind": "property", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The access token secret" },
-    "consumerKey": { "kind": "property", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The consumer key" },
-    "consumerSecret": { "kind": "property", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The consumer secret" },
-    "httpProxyHost": { "kind": "property", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The http proxy host which can be used for the camel-twitter." },
-    "httpProxyUser": { "kind": "property", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The http proxy user which can be used for the camel-twitter." },
-    "httpProxyPassword": { "kind": "property", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The http proxy password which can be used for the camel-twitter." },
-    "httpProxyPort": { "kind": "property", "type": "integer", "javaType": "int", "deprecated": "false", "secret": "false", "description": "The http proxy port which can be used for the camel-twitter." }
+    "accessToken": { "kind": "property", "label": "security", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "true", "description": "The access token" },
+    "accessTokenSecret": { "kind": "property", "label": "security", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "true", "description": "The access token secret" },
+    "consumerKey": { "kind": "property", "label": "security", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "true", "description": "The consumer key" },
+    "consumerSecret": { "kind": "property", "label": "security", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "true", "description": "The consumer secret" },
+    "httpProxyHost": { "kind": "property", "label": "proxy", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The http proxy host which can be used for the camel-twitter." },
+    "httpProxyUser": { "kind": "property", "label": "proxy", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The http proxy user which can be used for the camel-twitter." },
+    "httpProxyPassword": { "kind": "property", "label": "proxy", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The http proxy password which can be used for the camel-twitter." },
+    "httpProxyPort": { "kind": "property", "label": "proxy", "required": "false", "type": "integer", "javaType": "int", "deprecated": "false", "secret": "false", "description": "The http proxy port which can be used for the camel-twitter." }
   },
   "properties": {
     "kind": { "kind": "path", "group": "common", "required": "true", "type": "string", "javaType": "java.lang.String", "enum": [ "directmessage", "search", "streaming/filter", "streaming/sample", "streaming/user", "timeline/home", "timeline/mentions", "timeline/retweetsofme", "timeline/user" ], "deprecated": "false", "secret": "false", "description": "What polling mode to use direct polling or event based. The event mode is only supported when the endpoint kind is event based." },
-    "accessToken": { "kind": "parameter", "group": "common", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The access token. Can also be configured on the TwitterComponent level instead." },
-    "accessTokenSecret": { "kind": "parameter", "group": "common", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The access secret. Can also be configured on the TwitterComponent level instead." },
-    "consumerKey": { "kind": "parameter", "group": "common", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The consumer key. Can also be configured on the TwitterComponent level instead." },
-    "consumerSecret": { "kind": "parameter", "group": "common", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The consumer secret. Can also be configured on the TwitterComponent level instead." },
     "user": { "kind": "parameter", "group": "common", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Username used for user timeline consumption direct message production etc." },
     "bridgeErrorHandler": { "kind": "parameter", "group": "consumer", "label": "consumer", "type": "boolean", "javaType": "boolean", "optionalPrefix": "consumer.", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Allows for bridging the consumer to the Camel routing Error Handler which mean any exceptions occurred while the consumer is trying to pickup incoming messages or the likes will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions that will be logged at WARN/ERROR level and ignored." },
     "sendEmptyMessageWhenIdle": { "kind": "parameter", "group": "consumer", "label": "consumer", "type": "boolean", "javaType": "boolean", "optionalPrefix": "consumer.", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "If the polling consumer did not poll any files you can enable this option to send an empty message (no body) instead." },
@@ -66,7 +62,11 @@
     "httpProxyHost": { "kind": "parameter", "group": "proxy", "label": "proxy", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The http proxy host which can be used for the camel-twitter. Can also be configured on the TwitterComponent level instead." },
     "httpProxyPassword": { "kind": "parameter", "group": "proxy", "label": "proxy", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The http proxy password which can be used for the camel-twitter. Can also be configured on the TwitterComponent level instead." },
     "httpProxyPort": { "kind": "parameter", "group": "proxy", "label": "proxy", "type": "integer", "javaType": "java.lang.Integer", "deprecated": "false", "secret": "false", "description": "The http proxy port which can be used for the camel-twitter. Can also be configured on the TwitterComponent level instead." },
-    "httpProxyUser": { "kind": "parameter", "group": "proxy", "label": "proxy", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The http proxy user which can be used for the camel-twitter. Can also be configured on the TwitterComponent level instead." }
+    "httpProxyUser": { "kind": "parameter", "group": "proxy", "label": "proxy", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The http proxy user which can be used for the camel-twitter. Can also be configured on the TwitterComponent level instead." },
+    "accessToken": { "kind": "parameter", "group": "security", "label": "security", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "true", "description": "The access token. Can also be configured on the TwitterComponent level instead." },
+    "accessTokenSecret": { "kind": "parameter", "group": "security", "label": "security", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "true", "description": "The access secret. Can also be configured on the TwitterComponent level instead." },
+    "consumerKey": { "kind": "parameter", "group": "security", "label": "security", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "true", "description": "The consumer key. Can also be configured on the TwitterComponent level instead." },
+    "consumerSecret": { "kind": "parameter", "group": "security", "label": "security", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "true", "description": "The consumer secret. Can also be configured on the TwitterComponent level instead." }
   }
 }
 

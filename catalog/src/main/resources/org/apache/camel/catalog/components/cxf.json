@@ -11,7 +11,7 @@
     "javaType": "org.apache.camel.component.cxf.CxfComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-cxf",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
     "allowStreaming": { "kind": "property", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "description": "This option controls whether the CXF component when running in PAYLOAD mode will DOM parse the incoming messages into DOM Elements or keep the payload as a javax.xml.transform.Source object that would allow streaming in some cases." },

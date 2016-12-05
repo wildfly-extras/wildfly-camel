@@ -11,7 +11,7 @@
     "javaType": "org.apache.camel.component.mina2.Mina2Component",
     "groupId": "org.apache.camel",
     "artifactId": "camel-mina2",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
     "configuration": { "kind": "property", "type": "object", "javaType": "org.apache.camel.component.mina2.Mina2Configuration", "deprecated": "false", "secret": "false", "description": "To use the shared mina configuration." }

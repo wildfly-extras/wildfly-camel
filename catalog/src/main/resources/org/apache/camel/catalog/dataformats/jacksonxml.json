@@ -10,7 +10,7 @@
     "modelJavaType": "org.apache.camel.model.dataformat.JacksonXMLDataFormat",
     "groupId": "org.apache.camel",
     "artifactId": "camel-jacksonxml",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "properties": {
     "xmlMapper": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Lookup and use the existing XmlMapper with the given id." },
@@ -26,6 +26,7 @@
     "moduleRefs": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "To use custom Jackson modules referred from the Camel registry. Multiple modules can be separated by comma." },
     "enableFeatures": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Set of features to enable on the Jackson com.fasterxml.jackson.databind.ObjectMapper. The features should be a name that matches a enum from com.fasterxml.jackson.databind.SerializationFeature com.fasterxml.jackson.databind.DeserializationFeature or com.fasterxml.jackson.databind.MapperFeature Multiple features can be separated by comma" },
     "disableFeatures": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Set of features to disable on the Jackson com.fasterxml.jackson.databind.ObjectMapper. The features should be a name that matches a enum from com.fasterxml.jackson.databind.SerializationFeature com.fasterxml.jackson.databind.DeserializationFeature or com.fasterxml.jackson.databind.MapperFeature Multiple features can be separated by comma" },
+    "allowUnmarshallType": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "If enabled then Jackson is allowed to attempt to use the CamelJacksonUnmarshalType header during the unmarshalling. This should only be enabled when desired to be used." },
     "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
   }
 }

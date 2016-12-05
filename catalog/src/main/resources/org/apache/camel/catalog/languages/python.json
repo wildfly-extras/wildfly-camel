@@ -10,7 +10,7 @@
     "modelJavaType": "org.apache.camel.model.language.PythonExpression",
     "groupId": "org.apache.camel",
     "artifactId": "camel-script",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "properties": {
     "expression": { "kind": "value", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The expression value in your chosen language syntax" },

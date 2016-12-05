@@ -11,7 +11,7 @@
     "javaType": "org.apache.camel.component.seda.SedaComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-core",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
     "queueSize": { "kind": "property", "type": "integer", "javaType": "int", "deprecated": "false", "secret": "false", "description": "Sets the default maximum capacity of the SEDA queue (i.e. the number of messages it can hold)." },

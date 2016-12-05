@@ -11,7 +11,7 @@
     "javaType": "org.apache.camel.component.mybatis.MyBatisComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-mybatis",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
     "sqlSessionFactory": { "kind": "property", "type": "object", "javaType": "org.apache.ibatis.session.SqlSessionFactory", "deprecated": "false", "secret": "false", "description": "To use the SqlSessionFactory" },

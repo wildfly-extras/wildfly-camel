@@ -12,7 +12,7 @@
     "javaType": "org.apache.camel.component.scheduler.SchedulerComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-core",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
     "concurrentTasks": { "kind": "property", "type": "integer", "javaType": "int", "deprecated": "false", "secret": "false", "description": "Number of threads used by the scheduling thread pool. Is by default using a single thread" }

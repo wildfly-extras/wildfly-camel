@@ -11,7 +11,7 @@
     "javaType": "org.apache.camel.component.netty4.NettyComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-netty4",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
     "maximumPoolSize": { "kind": "property", "type": "integer", "javaType": "int", "deprecated": "false", "secret": "false", "description": "The thread pool size for the EventExecutorGroup if its in use. The default value is 16." },

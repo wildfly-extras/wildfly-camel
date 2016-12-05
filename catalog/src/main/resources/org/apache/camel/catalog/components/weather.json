@@ -11,7 +11,7 @@
     "javaType": "org.apache.camel.component.weather.WeatherComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-weather",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
   },

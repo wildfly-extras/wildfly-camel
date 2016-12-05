@@ -10,7 +10,7 @@
     "modelJavaType": "org.apache.camel.model.dataformat.CryptoDataFormat",
     "groupId": "org.apache.camel",
     "artifactId": "camel-crypto",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "properties": {
     "algorithm": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "DES/CBC/PKCS5Padding", "description": "The JCE algorithm name indicating the cryptographic algorithm that will be used. Is by default DES/CBC/PKCS5Padding." },

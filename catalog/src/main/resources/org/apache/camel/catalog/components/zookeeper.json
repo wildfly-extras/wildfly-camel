@@ -11,7 +11,7 @@
     "javaType": "org.apache.camel.component.zookeeper.ZooKeeperComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-zookeeper",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
     "configuration": { "kind": "property", "type": "object", "javaType": "org.apache.camel.component.zookeeper.ZooKeeperConfiguration", "deprecated": "false", "secret": "false", "description": "To use a shared ZooKeeperConfiguration" }

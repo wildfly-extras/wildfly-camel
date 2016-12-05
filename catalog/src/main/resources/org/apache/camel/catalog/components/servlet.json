@@ -13,7 +13,7 @@
     "javaType": "org.apache.camel.component.servlet.ServletComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-servlet",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
     "servletName": { "kind": "property", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Default name of servlet to use. The default name is CamelServlet." },

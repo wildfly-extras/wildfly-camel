@@ -1,26 +1,28 @@
 {
  "component": {
     "kind": "component",
-    "scheme": "spring-event",
-    "syntax": "spring-event:name",
-    "title": "Spring Event",
-    "description": "The spring-event component allows to listen for Spring Application Events.",
-    "label": "spring,eventbus",
+    "scheme": "optaplanner",
+    "syntax": "optaplanner:configFile",
+    "title": "OptaPlanner",
+    "description": "Solves the planning problem contained in a message with OptaPlanner.",
+    "label": "engine,planning",
     "deprecated": "false",
     "async": "false",
-    "javaType": "org.apache.camel.component.event.EventComponent",
+    "javaType": "org.apache.camel.component.optaplanner.OptaPlannerComponent",
     "groupId": "org.apache.camel",
-    "artifactId": "camel-spring",
+    "artifactId": "camel-optaplanner",
     "version": "2.18.2"
   },
   "componentProperties": {
-    "applicationContext": { "kind": "property", "type": "object", "javaType": "org.springframework.context.ApplicationContext", "deprecated": "false", "secret": "false", "description": "The Spring ApplicationContext" }
   },
   "properties": {
-    "name": { "kind": "path", "group": "common", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Name of endpoint" },
+    "configFile": { "kind": "path", "group": "common", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Specifies the location to the solver file" },
+    "solverId": { "kind": "parameter", "group": "common", "label": "common", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "DEFAULT_SOLVER", "description": "Specifies the solverId to user for the solver instance key" },
     "bridgeErrorHandler": { "kind": "parameter", "group": "consumer", "label": "consumer", "type": "boolean", "javaType": "boolean", "optionalPrefix": "consumer.", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Allows for bridging the consumer to the Camel routing Error Handler which mean any exceptions occurred while the consumer is trying to pickup incoming messages or the likes will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions that will be logged at WARN/ERROR level and ignored." },
     "exceptionHandler": { "kind": "parameter", "group": "consumer (advanced)", "label": "consumer,advanced", "type": "object", "javaType": "org.apache.camel.spi.ExceptionHandler", "optionalPrefix": "consumer.", "deprecated": "false", "secret": "false", "description": "To let the consumer use a custom ExceptionHandler. Notice if the option bridgeErrorHandler is enabled then this options is not in use. By default the consumer will deal with exceptions that will be logged at WARN/ERROR level and ignored." },
     "exchangePattern": { "kind": "parameter", "group": "consumer (advanced)", "label": "consumer,advanced", "type": "string", "javaType": "org.apache.camel.ExchangePattern", "enum": [ "InOnly", "RobustInOnly", "InOut", "InOptionalOut", "OutOnly", "RobustOutOnly", "OutIn", "OutOptionalIn" ], "deprecated": "false", "secret": "false", "description": "Sets the exchange pattern when the consumer creates an exchange." },
+    "async": { "kind": "parameter", "group": "producer", "label": "producer", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Specifies to perform operations in async mode" },
+    "threadPoolSize": { "kind": "parameter", "group": "producer", "label": "producer", "type": "integer", "javaType": "int", "deprecated": "false", "secret": "false", "defaultValue": "10", "description": "Specifies the thread pool size to use when async is true" },
     "synchronous": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Sets whether synchronous processing should be strictly used or Camel is allowed to use asynchronous processing (if supported)." }
   }
 }

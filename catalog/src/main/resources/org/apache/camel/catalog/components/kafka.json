@@ -11,7 +11,7 @@
     "javaType": "org.apache.camel.component.kafka.KafkaComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-kafka",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
     "workerPool": { "kind": "property", "type": "object", "javaType": "java.util.concurrent.ExecutorService", "deprecated": "false", "secret": "false", "description": "To use a shared custom worker pool for continue routing Exchange after kafka server has acknowledge the message that was sent to it from KafkaProducer using asynchronous non-blocking processing. If using this option then you must handle the lifecycle of the thread pool to shut the pool down when no longer needed." }

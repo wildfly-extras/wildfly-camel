@@ -12,7 +12,7 @@
     "javaType": "org.apache.camel.component.log.LogComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-core",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
     "exchangeFormatter": { "kind": "property", "type": "object", "javaType": "org.apache.camel.spi.ExchangeFormatter", "deprecated": "false", "secret": "false", "description": "Sets a custom ExchangeFormatter to convert the Exchange to a String suitable for logging. If not specified we default to DefaultExchangeFormatter." }

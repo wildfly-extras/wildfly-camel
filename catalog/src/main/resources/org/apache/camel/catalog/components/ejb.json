@@ -12,7 +12,7 @@
     "javaType": "org.apache.camel.component.ejb.EjbComponent",
     "groupId": "org.apache.camel",
     "artifactId": "camel-ejb",
-    "version": "2.18.1"
+    "version": "2.18.2"
   },
   "componentProperties": {
     "context": { "kind": "property", "type": "object", "javaType": "javax.naming.Context", "deprecated": "false", "secret": "false", "description": "The Context to use for looking up the EJBs" },
