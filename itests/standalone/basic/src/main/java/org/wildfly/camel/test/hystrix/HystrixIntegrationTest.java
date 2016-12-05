@@ -34,6 +34,8 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.hystrix.subA.DelayedHttpResponseServlet;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -42,6 +44,7 @@ import org.wildfly.extension.camel.CamelAware;
 public class HystrixIntegrationTest {
 
     private static final String DELAYED_RESPONSE_WAR = "delayed-http-response.war";
+    private static final Logger LOG = LoggerFactory.getLogger(HystrixIntegrationTest.class);
 
     @ArquillianResource
     Deployer deployer;
@@ -91,6 +94,8 @@ public class HystrixIntegrationTest {
 
     @Test
     public void testHystrixCircuitBreakerFallback() throws Exception {
+        LOG.info("[wfc#1507] testHystrixCircuitBreakerFallback start: {}", System.currentTimeMillis());
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -108,15 +113,22 @@ public class HystrixIntegrationTest {
         });
 
         try {
+            LOG.info("[wfc#1507] DelayedHttpResponseServlet deploy: {}", System.currentTimeMillis());
             deployer.deploy(DELAYED_RESPONSE_WAR);
             camelctx.start();
 
             ProducerTemplate template = camelctx.createProducerTemplate();
+
+            LOG.info("[wfc#1507] ProducerTemplate.requestBody() start: {}", System.currentTimeMillis());
             String result = template.requestBody("direct:start", null, String.class);
+            LOG.info("[wfc#1507] ProducerTemplate.requestBody() end, result = {} : {}", result, System.currentTimeMillis());
 
             Assert.assertEquals("Hello Kermit", result);
         } finally {
+            LOG.info("[wfc#1507] Camel context shutdown: {}", System.currentTimeMillis());
             camelctx.stop();
+
+            LOG.info("[wfc#1507] DelayedHttpResponseServlet undeploy: {}", System.currentTimeMillis());
             deployer.undeploy(DELAYED_RESPONSE_WAR);
         }
     }

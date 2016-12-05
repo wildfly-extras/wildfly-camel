@@ -19,6 +19,9 @@ package org.wildfly.camel.test.hystrix.subA;
  * #L%
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,13 +32,20 @@ import java.io.IOException;
 @WebServlet(name = "delayed-http-response", loadOnStartup = 1, urlPatterns = {"/delay-me/*"})
 public class DelayedHttpResponseServlet extends HttpServlet{
 
+    private static final Logger LOG = LoggerFactory.getLogger(DelayedHttpResponseServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        LOG.info("[wfc#1507] Delayed request start: {}", System.currentTimeMillis());
         try {
             Thread.sleep(2100);
         } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
+        LOG.info("[wfc#1507] Delayed request response send: {}", System.currentTimeMillis());
         resp.getOutputStream().print("Hello World");
+
+        LOG.info("[wfc#1507] Delayed request complete: {}", System.currentTimeMillis());
     }
 }
