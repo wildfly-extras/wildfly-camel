@@ -426,7 +426,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author" class="author">Thomas Diesler</span><br>
 <span id="author2" class="author">James Netherton</span><br>
 <span id="revnumber">version 4.4.0-SNAPSHOT,</span>
-<span id="revdate">2016-11-29</span>
+<span id="revdate">2016-12-05</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -515,27 +515,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_camel_xstream">6.63. camel-xstream</a></li>
 <li><a href="#_camel_zipkin">6.64. camel-zipkin</a></li>
 <li><a href="#_camel_zookeeper">6.65. camel-zookeeper</a></li>
+<li><a href="#_adding_components">6.66. Adding Components</a></li>
 </ul>
 </li>
-<li><a href="#_adding_components">7. Adding Components</a></li>
-<li><a href="#_data_formats">8. Data Formats</a></li>
-<li><a href="#_languages">9. Languages</a></li>
-<li><a href="#_cloud_integration">10. Cloud Integration</a>
+<li><a href="#_data_formats">7. Data Formats</a></li>
+<li><a href="#_languages">8. Languages</a></li>
+<li><a href="#_cloud_integration">9. Cloud Integration</a>
 <ul class="sectlevel2">
-<li><a href="#_docker">10.1. Docker</a></li>
-<li><a href="#_openshift_origin">10.2. OpenShift Origin</a></li>
-<li><a href="#_source_to_image">10.3. Source To Image</a></li>
+<li><a href="#_openshift_local">9.1. OpenShift Local</a></li>
+<li><a href="#_openshift_on_ec2">9.2. OpenShift on EC2</a></li>
+<li><a href="#_source_to_image">9.3. Source To Image</a></li>
 </ul>
 </li>
-<li><a href="#_security_6">11. Security</a>
+<li><a href="#_security_6">10. Security</a>
 <ul class="sectlevel2">
-<li><a href="#_jax_rs_security">11.1. JAX-RS Security</a></li>
-<li><a href="#_jax_ws_security">11.2. JAX-WS Security</a></li>
-<li><a href="#_jms_security">11.3. JMS Security</a></li>
-<li><a href="#_route_policy">11.4. Route Policy</a></li>
+<li><a href="#_jax_rs_security">10.1. JAX-RS Security</a></li>
+<li><a href="#_jax_ws_security">10.2. JAX-WS Security</a></li>
+<li><a href="#_jms_security">10.3. JMS Security</a></li>
+<li><a href="#_route_policy">10.4. Route Policy</a></li>
 </ul>
 </li>
-<li><a href="#_developer_info">12. Developer Info</a></li>
+<li><a href="#_developer_info">11. Developer Info</a></li>
 </ul>
 </div>
 </div>
@@ -584,24 +584,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>In your WildFly home directory run &#8230;&#8203;</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>$ bin/standalone.sh -c standalone-camel.xml
+<pre class="nowrap">$ bin/standalone.sh -c standalone-camel.xml
 ...
 10:50:02,833 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 31) JBAS018559: Deployed "wildfly-camel.war" (runtime-name : "wildfly-camel.war")
 10:50:02,834 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 31) JBAS018559: Deployed "hawtio.war" (runtime-name : "hawtio.war")
 10:50:02,848 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015961: Http management interface listening on http://127.0.0.1:9990/management
 10:50:02,849 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015951: Admin console listening on http://127.0.0.1:9990
-10:50:02,849 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: WildFly 8.1.0.Final "Kenny" started in 10804ms</code></pre>
+10:50:02,849 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: WildFly 8.1.0.Final "Kenny" started in 10804ms</pre>
 </div>
 </div>
 <h3 id="_domain_mode" class="discrete">Domain Mode</h3>
 <div class="paragraph">
 <p>Similarly, for the WildFly Domain Mode run &#8230;&#8203;</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>$ bin/domain.sh -c domain-camel.xml</code></pre>
+<pre>$ bin/domain.sh -c domain-camel.xml</pre>
 </div>
 </div>
 <h3 id="_enable_camel_subsystem" class="discrete">Enable Camel Subsystem</h3>
@@ -611,16 +611,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>If you should want to add the Camel subsystem to existing configurations you can run the following command.</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>$ bin/fuseconfig.sh --configs=camel --enable
+<pre class="nowrap">$ bin/fuseconfig.sh --configs=camel --enable
 Processing config for: camel
-    Writing 'layers=fuse' to: .../wildfly-9.0.0.CR1/modules/layers.conf
-    Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone.xml
-    Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone-full.xml
-    Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone-full-ha.xml
-    Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone-ha.xml
-    Enable camel configuration in: .../wildfly-9.0.0.CR1/domain/configuration/domain.xml</code></pre>
+   Writing 'layers=fuse' to: .../wildfly-9.0.0.CR1/modules/layers.conf
+   Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone.xml
+   Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone-full.xml
+   Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone-full-ha.xml
+   Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone-ha.xml
+   Enable camel configuration in: .../wildfly-9.0.0.CR1/domain/configuration/domain.xml</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -643,9 +643,9 @@ Processing config for: camel
 <div class="paragraph">
 <p>The easiest and most portable way to run WildFly-Camel is to use the <a href="https://registry.hub.docker.com/u/wildflyext/wildfly-camel">wildflyext/wildfly-camel</a> distribution.</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>$ docker run --rm -ti -p 8080:8080 -p 9990:9990 -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin wildflyext/wildfly-camel</code></pre>
+<pre class="nowrap">$ docker run --rm -ti -p 8080:8080 -p 9990:9990 -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin wildflyext/wildfly-camel</pre>
 </div>
 </div>
 <h3 id="_maven_archetypes" class="discrete">Maven Archetypes</h3>
@@ -655,26 +655,26 @@ Processing config for: camel
 <div class="paragraph">
 <p>To generate a Camel CDI application, run the following from the command line.</p>
 </div>
-<div class="paragraph">
-<p>&lt;pre&gt;&lt;code&gt;
-mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
                        -DarchetypeArtifactId=wildfly-camel-archetype-cdi \
                        -DarchetypeVersion=4.4.0 \
                        -DgroupId=com.mycompany \
-                       -DartifactId=my-camel-cdi-application
-&lt;/code&gt;&lt;/pre&gt;</p>
+                       -DartifactId=my-camel-cdi-application</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>To generate a Camel Spring XML application, run the following from the command line.</p>
 </div>
-<div class="paragraph">
-<p>&lt;pre&gt;&lt;code&gt;
-mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
                        -DarchetypeArtifactId=wildfly-camel-archetype-spring \
                        -DarchetypeVersion=4.4.0 \
                        -DgroupId=com.mycompany \
-                       -DartifactId=my-camel-spring-application
-&lt;/code&gt;&lt;/pre&gt;</p>
+                       -DartifactId=my-camel-spring-application</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>Instructions on how to build, test and run the project can be found within the generated README files.</p>
@@ -737,7 +737,7 @@ mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="urn:jboss:domain:camel:1.0"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="urn:jboss:domain:camel:1.0"&gt;
    &lt;camelContext id="system-context-1"&gt;
      &lt;![CDATA[
      &lt;route&gt;
@@ -773,8 +773,8 @@ mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">    @Resource(name = "java:jboss/camel/context/mycontext")
-    CamelContext camelContext;</code></pre>
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Resource(name = "java:jboss/camel/context/mycontext")
+CamelContext camelContext;</code></pre>
 </div>
 </div>
 <h3 id="_management_console" class="discrete">Management Console</h3>
@@ -783,7 +783,7 @@ mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$ bin/add-user.sh
+<pre class="highlight nowrap"><code>$ bin/add-user.sh
 
 What type of user do you wish to add?
  a) Management User (mgmt-users.properties)
@@ -807,7 +807,7 @@ What type of user do you wish to add?
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@ArquillianResource
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@ArquillianResource
 CamelContextFactory contextFactory;
 
 @ArquillianResource
@@ -828,18 +828,18 @@ CamelContextRegistry contextRegistry;</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">	&lt;subsystem xmlns="urn:jboss:domain:camel:1.0"&gt;
-	   &lt;camelContext id="system-context-1"&gt;
-	     &lt;![CDATA[
-	     &lt;route&gt;
-	       &lt;from uri="direct:start"/&gt;
-	       &lt;transform&gt;
-	         &lt;simple&gt;Hello #{body}&lt;/simple&gt;
-	       &lt;/transform&gt;
-	     &lt;/route&gt;
-	     ]]&gt;
-	   &lt;/camelContext&gt;
-	&lt;/subsystem&gt;</code></pre>
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="urn:jboss:domain:camel:1.0"&gt;
+   &lt;camelContext id="system-context-1"&gt;
+     &lt;![CDATA[
+     &lt;route&gt;
+       &lt;from uri="direct:start"/&gt;
+       &lt;transform&gt;
+         &lt;simple&gt;Hello #{body}&lt;/simple&gt;
+       &lt;/transform&gt;
+     &lt;/route&gt;
+     ]]&gt;
+   &lt;/camelContext&gt;
+&lt;/subsystem&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -862,9 +862,9 @@ your deployment, set the <code>enabled="false"</code> attribute on the <code>jbo
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">    &lt;jboss umlns="urn:jboss:1.0"&gt;
-      &lt;jboss-camel xmlns="urn:jboss:jboss-camel:1.0" enabled="false"/&gt;
-    &lt;/jboss&gt;</code></pre>
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;jboss umlns="urn:jboss:1.0"&gt;
+  &lt;jboss-camel xmlns="urn:jboss:jboss-camel:1.0" enabled="false"/&gt;
+&lt;/jboss&gt;</code></pre>
 </div>
 </div>
 <h4 id="_selecting_components" class="discrete">Selecting Components</h4>
@@ -876,12 +876,12 @@ your deployment, set the <code>enabled="false"</code> attribute on the <code>jbo
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">    &lt;jboss umlns="urn:jboss:1.0"&gt;
-      &lt;jboss-camel xmlns="urn:jboss:jboss-camel:1.0"&gt;
-        &lt;component name="camel-ftp"/&gt;
-        &lt;component-module name="org.apache.camel.component.rss"/&gt;
-      &lt;/jboss-camel&gt;
-    &lt;/jboss&gt;</code></pre>
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;jboss umlns="urn:jboss:1.0"&gt;
+  &lt;jboss-camel xmlns="urn:jboss:jboss-camel:1.0"&gt;
+    &lt;component name="camel-ftp"/&gt;
+    &lt;component-module name="org.apache.camel.component.rss"/&gt;
+  &lt;/jboss-camel&gt;
+&lt;/jboss&gt;</code></pre>
 </div>
 </div>
 </div>
@@ -902,7 +902,7 @@ your deployment, set the <code>enabled="false"</code> attribute on the <code>jbo
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Startup
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Startup
 @ApplicationScoped
 @ContextName("cdi-context")
 public class MyRouteBuilder extends RouteBuilder {
@@ -919,9 +919,9 @@ public class MyRouteBuilder extends RouteBuilder {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">	@Inject
-	@ContextName("cdi-context")
-	private CamelContext camelctx;</code></pre>
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Inject
+@ContextName("cdi-context")
+private CamelContext camelctx;</code></pre>
 </div>
 </div>
 </div>
@@ -932,7 +932,7 @@ public class MyRouteBuilder extends RouteBuilder {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
     camelctx.addRoutes(new RouteBuilder() {
         @Override
         public void configure() throws Exception {
@@ -954,7 +954,7 @@ public class MyRouteBuilder extends RouteBuilder {
 <h4 id="_jaxb_annotated_class">5.3.1. JAXB Annotated class</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@XmlRootElement(name = "customer")
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@XmlRootElement(name = "customer")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Customer implements Serializable {
 
@@ -992,8 +992,7 @@ public class Customer implements Serializable {
 <h4 id="_jaxb_class_xml_representation">5.3.2. JAXB Class XML representation</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
-&lt;customer xmlns="http://org/wildfly/test/jaxb/model/Customer"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;customer xmlns="http://org/wildfly/test/jaxb/model/Customer"&gt;
     &lt;firstName&gt;John&lt;/firstName&gt;
     &lt;lastName&gt;Doe&lt;/lastName&gt;
 &lt;/customer&gt;</code></pre>
@@ -1004,7 +1003,7 @@ public class Customer implements Serializable {
 <h4 id="_camel_jaxb_unmarshalling">5.3.3. Camel JAXB Unmarshalling</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
 
 final JaxbDataFormat jaxb = new JaxbDataFormat();
 jaxb.setContextPath("org.wildfly.camel.test.jaxb.model");
@@ -1031,7 +1030,7 @@ Assert.assertEquals("Doe", customer.getLastName());</code></pre>
 <h4 id="_camel_jaxb_marshalling">5.3.4. Camel JAXB Marshalling</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">WildFlyCamelContext camelctx = contextFactory.createCamelContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">WildFlyCamelContext camelctx = contextFactory.createCamelContext();
 
 final JaxbDataFormat jaxb = new JaxbDataFormat();
 jaxb.setContextPath("org.wildfly.camel.test.jaxb.model");
@@ -1062,7 +1061,7 @@ Assert.assertEquals(readCustomerXml(), customerXML);</code></pre>
 <h4 id="_cxf_rs_producer">5.4.1. CXF-RS Producer</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:cxf="http://camel.apache.org/schema/cxf"
     xsi:schemaLocation="
@@ -1094,7 +1093,7 @@ Assert.assertEquals(readCustomerXml(), customerXML);</code></pre>
 <h4 id="_cxf_rs_consumer">5.4.2. CXF-RS Consumer</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:cxf="http://camel.apache.org/schema/cxf"
     xsi:schemaLocation="
@@ -1125,12 +1124,13 @@ Assert.assertEquals(readCustomerXml(), customerXML);</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Startup
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Startup
 @ApplicationScoped
 @ContextName("rest-camel-context")
 public class RestConsumerRouteBuilder extends RouteBuilder {
   @Override
   public void configure() throws Exception {
+
     // Use the camel-servlet component to provide REST integration
     restConfiguration().component("servlet")
       .contextPath("/rest").port(8080).bindingMode(RestBindingMode.json);
@@ -1140,7 +1140,7 @@ public class RestConsumerRouteBuilder extends RouteBuilder {
       .get()
         .produces(MediaType.APPLICATION_JSON)
         .to("direct:getCustomers")
-        // GET /rest/customer/1
+      // GET /rest/customer/1
       .get("/{id}")
         .produces(MediaType.APPLICATION_JSON)
         .to("direct:getCustomer")
@@ -1160,7 +1160,21 @@ public class RestConsumerRouteBuilder extends RouteBuilder {
 </div>
 </div>
 <div class="paragraph">
-<p>Note that the REST DSL configuration starts with <code>restConfiguration().component("servlet")</code>. <strong>The WildFly Camel Subsystem only supports camel-servlet and camel-undertow for use with the REST DSL. Attempts to configure other components will not work</strong>.</p>
+<p>Note that the REST DSL configuration starts with <code>restConfiguration().component("servlet")</code>.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The WildFly Camel Subsystem only supports the camel-servlet and camel-undertow components for use with the REST DSL. Attempts to configure other components will not work.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>By setting the binding mode, Camel can marshal and unmarshal JSON data either by specifying a 'produces()' or 'type()' configuration step.</p>
@@ -1177,18 +1191,22 @@ you to proxy a producer sending to an Endpoint by a regular interface. When clie
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">// Service interface
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">// Service interface
 @Path("/customer")
 public interface CustomerService {
+
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   Response getCustomers();
 
   @PUT
   Response updateCustomer();
-}
-
-// Service implementation
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">// Service implementation
 public class CustomerServiceImpl implements CustomerService {
   @Inject
   @ContextName("rest-camel-context")
@@ -1218,23 +1236,26 @@ with <code>@Produce</code>. This annotation is important as it configures a prox
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">from("direct:rest")
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">from("direct:rest")
   .process(new Processor() {
       @Override
       public void process(Exchange exchange) throws Exception {
         BeanInvocation beanInvocation = exchange.getIn().getBody(BeanInvocation.class);
-        String methodName = beanInvocation.getMethod().getName();
-
-        if (methodName.equals("getCustomers")) {
-          List&lt;Customer&gt; customers = customerService.findAllCustomers();
-          exchange.getOut().setBody(Response.ok(customers).build());
-        } else if(methodName.equals("updateCustomer")) {
-          Customer updatedCustomer = (Customer) beanInvocation.getArgs()[0];
-          customerService.updateCustomer(updatedCustomer);
-          exchange.getOut().setBody(Response.ok().build());
-        }
+        String methodName = beanInvocation.getMethod().getName();</code></pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>      if (methodName.equals("getCustomers")) {
+        List&lt;Customer&gt; customers = customerService.findAllCustomers();
+        exchange.getOut().setBody(Response.ok(customers).build());
+      } else if(methodName.equals("updateCustomer")) {
+        Customer updatedCustomer = (Customer) beanInvocation.getArgs()[0];
+        customerService.updateCustomer(updatedCustomer);
+        exchange.getOut().setBody(Response.ok().build());
       }
-  });</code></pre>
+    }
+});</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1280,7 +1301,7 @@ the service endpoint will be located at <a href="http://hostname:port/context-ro
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">// Service interface
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">// Service interface
 @WebService(name = "greeting")
 public interface GreetingService {
     @WebMethod(operationName = "greet", action = "urn:greet")
@@ -1304,7 +1325,7 @@ is used to bootstrap the RouteBuilder and CamelContext.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Startup
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Startup
 @ApplicationScoped
 @ContextName("cxf-camel-context")
 public class CxfRouteBuilder extends RouteBuilder {
@@ -1323,7 +1344,7 @@ The web service method argument values are configured by constructing an object 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">String message = "Hello"
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">String message = "Hello"
 String name = "Kermit"
 
 ProducerTemplate producer = camelContext.createProducerTemplate();
@@ -1337,7 +1358,7 @@ String result = producer.requestBody("direct:start", serviceParams, String.class
 <h4 id="_camel_cxf_jax_ws_consumer">5.5.2. Camel CXF JAX-WS Consumer</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:cxf="http://camel.apache.org/schema/cxf"
        xsi:schemaLocation="
@@ -1371,7 +1392,7 @@ you to proxy a producer sending to an Endpoint by a regular interface. When clie
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">// Service interface
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">// Service interface
 @WebService(name = "greeting")
 public interface GreetingService {
     @WebMethod(operationName = "greet", action = "urn:greet")
@@ -1379,9 +1400,12 @@ public interface GreetingService {
 
     @WebMethod(operationName = "greetWithMessage", action = "urn:greetWithMessage")
     String greetWithMessage(@WebParam(name = "message") String message, @WebParam(name = "name") String name);
-}
-
-// Service implementation
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">// Service implementation
 @WebService(serviceName="greeting", endpointInterface = "org.wildfly.camel.examples.jaxws.GreetingService")
 public class GreetingServiceImpl {
     @Produce(uri="direct:start")
@@ -1408,7 +1432,7 @@ with <code>@Produce</code>. This annotation is important as it configures a prox
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Startup
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Startup
 @ApplicationScoped
 @ContextName("jaxws-camel-context")
 public class JaxwsRouteBuilder extends RouteBuilder {
@@ -1482,7 +1506,7 @@ component which integrates with the WildFly Messaging (<a href="https://activemq
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;jms-queue name="WildFlyCamelQueue"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;jms-queue name="WildFlyCamelQueue"&gt;
   &lt;entry name="java:/jms/queue/WildFlyCamelQueue"/&gt;
 &lt;/jms-queue&gt;</code></pre>
 </div>
@@ -1492,7 +1516,7 @@ component which integrates with the WildFly Messaging (<a href="https://activemq
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>jms-queue add --queue-address=WildFlyCamelQueue --entries=queue/WildFlyCamelQueue,java:/jms/queue/WildFlyCamelQueue</code></pre>
+<pre class="highlight nowrap"><code>$ jms-queue add --queue-address=WildFlyCamelQueue --entries=queue/WildFlyCamelQueue,java:/jms/queue/WildFlyCamelQueue</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1517,7 +1541,7 @@ component which integrates with the WildFly Messaging (<a href="https://activemq
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Startup
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Startup
 @ApplicationScoped
 @ContextName("jms-camel-context")
 public class JmsRouteBuilder extends RouteBuilder {
@@ -1562,7 +1586,7 @@ public class JmsRouteBuilder extends RouteBuilder {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Override
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Override
 public void configure() throws Exception {
   JmsComponent component = new JmsComponent();
   component.setConnectionFactory(connectionFactory);
@@ -1585,7 +1609,7 @@ public void configure() throws Exception {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Named("transactionManager")
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Named("transactionManager")
 public class CdiTransactionManager extends JtaTransactionManager {
 
   @Resource(mappedName = "java:/TransactionManager")
@@ -1607,7 +1631,7 @@ public class CdiTransactionManager extends JtaTransactionManager {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Named("PROPAGATION_REQUIRED")
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Named("PROPAGATION_REQUIRED")
 public class CdiRequiredPolicy extends SpringTransactionPolicy {
   @Inject
   public CdiRequiredPolicy(CdiTransactionManager cdiTransactionManager) {
@@ -1625,7 +1649,7 @@ public class CdiRequiredPolicy extends SpringTransactionPolicy {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Startup
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Startup
 @ApplicationScoped
 @ContextName("jms-camel-context")
 public class JMSRouteBuilder extends RouteBuilder {
@@ -1670,7 +1694,7 @@ public class JMSRouteBuilder extends RouteBuilder {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;jms-queue name="RemoteQueue"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;jms-queue name="RemoteQueue"&gt;
   &lt;entry name="java:jboss/exported/jms/queues/RemoteQueue"/&gt;
 &lt;/jms-queue&gt;</code></pre>
 </div>
@@ -1689,7 +1713,7 @@ public class JMSRouteBuilder extends RouteBuilder {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Override
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Override
 public void configure() throws Exception {
   Context initialContext = configureInitialContext();
   ConnectionFactory connectionFactory = (ConnectionFactory) initialContext.lookup("java:jms/RemoteConnectionFactory");
@@ -1737,7 +1761,7 @@ private Context configureInitialContext() throws NamingException {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = contextFactory.createWildflyCamelContext(getClass().getClassLoader());
 camelctx.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
@@ -1762,7 +1786,7 @@ Assert.assertEquals("ExchangesTotal", notifcation.getObservedAttribute());</code
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">InitialContext inictx = new InitialContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">InitialContext inictx = new InitialContext();
 CamelContextFactory factory = inictx.lookup("java:jboss/camel/CamelContextFactory");
 WildFlyCamelContext camelctx = factory.createCamelContext();</code></pre>
 </div>
@@ -1772,7 +1796,7 @@ WildFlyCamelContext camelctx = factory.createCamelContext();</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Context context = camelctx.getNamingContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">Context context = camelctx.getNamingContext();
 context.bind("helloBean", new HelloBean());</code></pre>
 </div>
 </div>
@@ -1781,7 +1805,7 @@ context.bind("helloBean", new HelloBean());</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">camelctx.addRoutes(new RouteBuilder() {
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">camelctx.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
         from("direct:start").beanRef("helloBean");
@@ -1804,12 +1828,10 @@ Camel JPA applications are developed as per normal by providing a persistence.xm
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;persistence version="2.0"
-             xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="
-        http://java.sun.com/xml/ns/persistence
-        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;persistence version="2.0"
+    xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"&gt;
+
     &lt;persistence-unit name="camel"&gt;
         &lt;jta-data-source&gt;java:jboss/datasources/ExampleDS&lt;/jta-data-source&gt;
         &lt;class&gt;org.wildfly.camel.test.jpa.model.Customer&lt;/class&gt;
@@ -1818,6 +1840,7 @@ Camel JPA applications are developed as per normal by providing a persistence.xm
             &lt;property name="hibernate.show_sql" value="true"/&gt;
         &lt;/properties&gt;
     &lt;/persistence-unit&gt;
+
 &lt;/persistence&gt;</code></pre>
 </div>
 </div>
@@ -1826,7 +1849,7 @@ Camel JPA applications are developed as per normal by providing a persistence.xm
 <h4 id="_example_jpa_entitiy">5.9.2. Example JPA entitiy</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Entity
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Entity
 @Table(name = "customer")
 public class Customer implements Serializable {
     @Id
@@ -1877,7 +1900,7 @@ public class Customer implements Serializable {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@PersistenceContext
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@PersistenceContext
 EntityManager em;
 
 @Inject
@@ -1889,7 +1912,7 @@ UserTransaction userTransaction;</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
 
 EntityManagerFactory entityManagerFactory = em.getEntityManagerFactory();
 
@@ -1921,7 +1944,7 @@ camelctx.start();</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Customer customer = new Customer("John", "Doe");
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">Customer customer = new Customer("John", "Doe");
 ProducerTemplate producer = camelctx.createProducerTemplate();
 producer.sendBody("direct:start", customer);
 
@@ -1964,9 +1987,9 @@ Assert.assertEquals(1L, recordCount);</code></pre>
 <div class="paragraph">
 <p><em>2)</em> Copy the downloaded resource adapter to the relevant WildFly deployment directory. For standalone mode:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>cp activemq-rar-5.11.1.rar ${JBOSS_HOME}/standalone/deployments/activemq-rar.rar</code></pre>
+<pre>cp activemq-rar-5.11.1.rar ${JBOSS_HOME}/standalone/deployments/activemq-rar.rar</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1974,7 +1997,7 @@ Assert.assertEquals(1L, recordCount);</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="urn:jboss:domain:resource-adapters:2.0"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="urn:jboss:domain:resource-adapters:2.0"&gt;
      &lt;resource-adapters&gt;
          &lt;resource-adapter id="activemq-rar.rar"&gt;
              &lt;archive&gt;
@@ -2032,8 +2055,10 @@ Assert.assertEquals(1L, recordCount);</code></pre>
 <div class="paragraph">
 <p><em>4)</em> Start WildFly. If everything is configured correctly, you should see a message within the WildFly server.log like.</p>
 </div>
-<div class="paragraph">
-<p><code>13:16:08,412 INFO  [org.jboss.as.connector.deployment] (MSC service thread 1-5) JBAS010406: Registered connection factory java:/AMQConnectionFactory</code></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>13:16:08,412 INFO  [org.jboss.as.connector.deployment] (MSC service thread 1-5) JBAS010406: Registered connection factory java:/AMQConnectionFactory`</code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -2048,7 +2073,7 @@ Assert.assertEquals(1L, recordCount);</code></pre>
 <h5 id="_activemq_producer">ActiveMQ Producer</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Startup
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Startup
 @ApplicationScoped
 @ContextName("activemq-camel-context")
 public class ActiveMQRouteBuilder extends RouteBuilder {
@@ -2082,7 +2107,7 @@ public class ActiveMQRouteBuilder extends RouteBuilder {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Override
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Override
 public void configure() throws Exception {
   from("activemq:queue:WildFlyCamelQueue?brokerURL=vm://localhost")
   .to("log:jms?showAll=true");
@@ -2105,7 +2130,7 @@ public void configure() throws Exception {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="urn:jboss:domain:resource-adapters:2.0"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="urn:jboss:domain:resource-adapters:2.0"&gt;
   &lt;resource-adapters&gt;
     &lt;resource-adapter id="activemq-rar.rar"&gt;
       ...
@@ -2131,7 +2156,7 @@ public void configure() throws Exception {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Named("transactionManager")
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Named("transactionManager")
 public class CdiTransactionManager extends JtaTransactionManager {
 
   @Resource(mappedName = "java:/TransactionManager")
@@ -2156,7 +2181,7 @@ public class CdiTransactionManager extends JtaTransactionManager {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Named("PROPAGATION_REQUIRED")
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Named("PROPAGATION_REQUIRED")
 public class CdiRequiredPolicy extends SpringTransactionPolicy {
   @Inject
   public CdiRequiredPolicy(CdiTransactionManager cdiTransactionManager) {
@@ -2177,7 +2202,7 @@ public class CdiRequiredPolicy extends SpringTransactionPolicy {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Startup
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@Startup
 @ApplicationScoped
 @ContextName("activemq-camel-context")
 public class ActiveMQRouteBuilder extends RouteBuilder {
@@ -2238,8 +2263,7 @@ public class ActiveMQRouteBuilder extends RouteBuilder {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelContext = new DefaultCamelContext();
-
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelContext = new DefaultCamelContext();
 camelContext.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
@@ -2274,7 +2298,7 @@ component provides support for message body validation using the <a href="http:/
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@CsvRecord(separator = ",")
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@CsvRecord(separator = ",")
 public class Customer {
 
     @DataField(pos = 1)
@@ -2292,7 +2316,7 @@ public class Customer {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">camelctx.addRoutes(new RouteBuilder() {
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">camelctx.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
         from("direct:start")
@@ -2312,7 +2336,7 @@ camelctx.start();</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">BraintreeComponent component = new BraintreeComponent(camelctx);
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">BraintreeComponent component = new BraintreeComponent(camelctx);
 component.setConfiguration(configuration);
 camelctx.addComponent("braintree", component);
 
@@ -2357,7 +2381,7 @@ camelctx.addRoutes(new RouteBuilder() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
 InputStream in = getClass().getResourceAsStream("/my-keystore.ks");
 keystore.load(in, "my-keystore-password".toCharArray());
 
@@ -2380,20 +2404,22 @@ initialContext.bind("myPrivateKey", keystore.getKey("my-certificate-alias", "my-
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelContext = new DefaultCamelContext();
-
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelContext = new DefaultCamelContext();
 camelContext.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
       from("direct:sign")
       .to("crypto:sign://basic?privateKey=#myPrivateKey")
-      .to("direct:verify");
-
-      from("direct:verify")
+      .to("direct:verify");</code></pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>      from("direct:verify")
       .to("crypto:verify://basic?publicKey=#myPublicKey")
       .to("mock:result");
     }
-});</code></pre>
+});</pre>
 </div>
 </div>
 </div>
@@ -2423,7 +2449,7 @@ camelContext.addRoutes(new RouteBuilder() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">  CamelContext camelctx = new DefaultCamelContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">  CamelContext camelctx = new DefaultCamelContext();
   camelctx.addRoutes(new RouteBuilder() {
       @Override
       public void configure() throws Exception {
@@ -2446,17 +2472,17 @@ mapping framework.  Camel also supports the ability to trigger Dozer mappings as
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">    CamelContext camelctx = new DefaultCamelContext();
-    camelctx.addRoutes(new RouteBuilder() {
-        @Override
-        public void configure() throws Exception {
-            from("direct:start").convertBodyTo(CustomerB.class);
-        }
-    });
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        from("direct:start").convertBodyTo(CustomerB.class);
+    }
+});
 
-    DozerBeanMapperConfiguration mconfig = new DozerBeanMapperConfiguration();
-    mconfig.setMappingFiles(Arrays.asList(new String[] { "mappings.xml" }));
-    new DozerTypeConverterLoader(camelctx, mconfig);</code></pre>
+DozerBeanMapperConfiguration mconfig = new DozerBeanMapperConfiguration();
+mconfig.setMappingFiles(Arrays.asList(new String[] { "mappings.xml" }));
+new DozerTypeConverterLoader(camelctx, mconfig);</code></pre>
 </div>
 </div>
 </div>
@@ -2474,7 +2500,7 @@ component allows you to interface with an <a href="https://www.elastic.co/" targ
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">   CamelContext camelContext = new DefaultCamelContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">   CamelContext camelContext = new DefaultCamelContext();
    camelContext.addRoutes(new RouteBuilder() {
        @Override
        public void configure() throws Exception {
@@ -2501,16 +2527,16 @@ component allows you to interface with an <a href="https://www.elastic.co/" targ
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">    final String datadir = System.getProperty("jboss.server.data.dir");
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">final String datadir = System.getProperty("jboss.server.data.dir");
 
-    CamelContext camelctx = new DefaultCamelContext();
-    camelctx.addRoutes(new RouteBuilder() {
-        @Override
-        public void configure() throws Exception {
-            from("direct:start").transform(body().prepend("Hello ")).
-            to("file:" + datadir + "?fileName=camel-file.txt");
-        }
-    });</code></pre>
+CamelContext camelctx = new DefaultCamelContext();
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        from("direct:start").transform(body().prepend("Hello ")).
+        to("file:" + datadir + "?fileName=camel-file.txt");
+    }
+});</code></pre>
 </div>
 </div>
 </div>
@@ -2521,9 +2547,8 @@ component allows you to interface with an <a href="https://www.elastic.co/" targ
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
 Endpoint endpoint = camelctx.getEndpoint("ftp://localhost:21000/foo?username=admin&amp;password=admin");
-
 camelctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFileName", "test.txt");</code></pre>
 </div>
 </div>
@@ -2537,7 +2562,7 @@ messages using the <a href="http://hl7api.sourceforge.net/" target="_blank">HAPI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">final String msg = "MSH|^~\\&amp;|MYSENDER|MYRECEIVER|MYAPPLICATION||200612211200||QRY^A19|1234|P|2.4\r";
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">final String msg = "MSH|^~\\&amp;|MYSENDER|MYRECEIVER|MYAPPLICATION||200612211200||QRY^A19|1234|P|2.4\r";
 final HL7DataFormat format = new HL7DataFormat();
 
 CamelContext camelctx = new DefaultCamelContext();
@@ -2569,14 +2594,14 @@ Assert.assertEquals(hapimsg.toString(), result.toString());</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">    CamelContext camelctx = new DefaultCamelContext();
-    camelctx.addRoutes(new RouteBuilder() {
-        @Override
-        public void configure() throws Exception {
-            from("direct:start")
-            .to("http4://somehost:8080/simple/myservlet");
-        }
-    });</code></pre>
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        from("direct:start")
+        .to("http4://somehost:8080/simple/myservlet");
+    }
+});</code></pre>
 </div>
 </div>
 </div>
@@ -2598,7 +2623,7 @@ component allows you to interact with <a href="http://infinispan.org" target="_b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">  DefaultCamelContext camelctx = new DefaultCamelContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">  DefaultCamelContext camelctx = new DefaultCamelContext();
   camelctx.addRoutes(new RouteBuilder() {
       @Override
       public void configure() throws Exception {
@@ -2620,7 +2645,7 @@ component allows you to interact with <a href="http://infinispan.org" target="_b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">  DefaultCamelContext camelctx = new DefaultCamelContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">  DefaultCamelContext camelctx = new DefaultCamelContext();
   camelctx.addRoutes(new RouteBuilder() {
       @Override
       public void configure() throws Exception {
@@ -2652,7 +2677,7 @@ component allows you to interact with <a href="http://infinispan.org" target="_b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">JasyptPropertiesParser jasypt = new JasyptPropertiesParser();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">JasyptPropertiesParser jasypt = new JasyptPropertiesParser();
 jasypt.setPassword("secret");
 
 PropertiesComponent pc = new PropertiesComponent();
@@ -2708,9 +2733,8 @@ component enables secure file transfer using the <a href="http://en.wikipedia.or
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
 Endpoint endpoint = camelctx.getEndpoint("scp://localhost:22/my/directory?username=admin&amp;password=admin");
-
 camelctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFileName", "test.txt");</code></pre>
 </div>
 </div>
@@ -2763,24 +2787,25 @@ component is based on the <a href="http://lucene.apache.org/" target="_blank">Ap
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="urn:jboss:domain:mail:2.0"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="urn:jboss:domain:mail:2.0"&gt;
     &lt;mail-session name="default" jndi-name="java:jboss/mail/Default"&gt;
       &lt;smtp-server outbound-socket-binding-ref="mail-smtp"/&gt;
-    &lt;/mail-session&gt;
-
-    &lt;mail-session debug="true" name="gmail" jndi-name="java:jboss/mail/gmail"&gt;
+    &lt;/mail-session&gt;</code></pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    &lt;mail-session debug="true" name="gmail" jndi-name="java:jboss/mail/gmail"&gt;
       &lt;smtp-server outbound-socket-binding-ref="mail-gmail-smtp" ssl="true" username="your-username-here" password="your-password-here"/&gt;
       &lt;imap-server outbound-socket-binding-ref="mail-gmail-imap" ssl="true" username="your-username-here" password="your-password-here"/&gt;
     &lt;/mail-session&gt;
-&lt;/subsystem&gt;</code></pre>
+&lt;/subsystem&gt;
+Note that we configured `outbound-socket-binding-ref` values of 'mail-gmail-smtp' and 'mail-gmail-imap'. The next step is to configure these socket bindings. Add aditional bindings to the `socket-binding-group` configuration like the following.</pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Note that we configured <code>outbound-socket-binding-ref</code> values of 'mail-gmail-smtp' and 'mail-gmail-imap'. The next step is to configure these socket bindings. Add aditional bindings to the <code>socket-binding-group</code> configuration like the following.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;outbound-socket-binding name="mail-gmail-smtp"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;outbound-socket-binding name="mail-gmail-smtp"&gt;
   &lt;remote-destination host="smtp.gmail.com" port="465"/&gt;
 &lt;/outbound-socket-binding&gt;
 
@@ -2800,7 +2825,7 @@ component is based on the <a href="http://lucene.apache.org/" target="_blank">Ap
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;!-- Server configuration --&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;!-- Server configuration --&gt;
 &lt;pop3-server outbound-socket-binding-ref="mail-pop3" ssl="true" username="your-username-here" password="your-password-here"/&gt;
 
 &lt;!-- Socket binding configuration --&gt;
@@ -2824,7 +2849,7 @@ component is based on the <a href="http://lucene.apache.org/" target="_blank">Ap
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class MailSessionProducer {
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">public class MailSessionProducer {
     @Resource(lookup = "java:jboss/mail/greenmail")
     private Session mailSession;
 
@@ -2838,7 +2863,7 @@ component is based on the <a href="http://lucene.apache.org/" target="_blank">Ap
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class MailRouteBuilder extends RouteBuilder {
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">public class MailRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:start")
@@ -2852,7 +2877,7 @@ component is based on the <a href="http://lucene.apache.org/" target="_blank">Ap
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Map&lt;String, Object&gt; headers = new HashMap&lt;String, Object&gt;();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">Map&lt;String, Object&gt; headers = new HashMap&lt;String, Object&gt;();
 headers.put("To", "destination@test.com");
 headers.put("From", "sender@example.com");
 headers.put("Subject", "Camel on Wildfly rocks");
@@ -2872,7 +2897,7 @@ template.sendBodyAndHeaders("direct:start", body, headers);</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public void configure() throws Exception {
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">public void configure() throws Exception {
    from("imaps://imap.gmail.com?session=#mailSession")
    .to("log:email");
 }</code></pre>
@@ -2932,7 +2957,7 @@ component guide. Camel also has a <a href="http://camel.apache.org/security.html
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">from("direct:start")
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">from("direct:start")
 .to("metric:counter:simple.counter?increment=3")</code></pre>
 </div>
 </div>
@@ -2969,9 +2994,9 @@ component allows you to process a message using an <a href="https://github.com/m
 <div class="paragraph">
 <p>A simple template</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>Hello @{request.body}</code></pre>
+<pre>Hello @{request.body}</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2979,7 +3004,7 @@ component allows you to process a message using an <a href="https://github.com/m
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
 camelctx.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
@@ -3013,7 +3038,7 @@ project version 4. Therefore, the standard <a href="http://camel.apache.org/nett
 <h4 id="_simple_netty_client_server_test">6.40.1. Simple Netty Client / Server Test</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelContext = new DefaultCamelContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelContext = new DefaultCamelContext();
 
 camelContext.addRoutes(new RouteBuilder() {
     @Override
@@ -3057,8 +3082,7 @@ camelContext.stop();</code></pre>
 <h4 id="_simple_camel_ognl_use_case">6.41.1. Simple Camel OGNL Use Case</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelContext = new DefaultCamelContext();
-
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelContext = new DefaultCamelContext();
 camelContext.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
@@ -3109,17 +3133,17 @@ component provides a scheduled delivery of messages using the <a href="http://ww
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">    CamelContext camelctx = new DefaultCamelContext();
-    camelctx.addRoutes(new RouteBuilder() {
-        public void configure() throws Exception {
-            from("quartz2://mytimer?trigger.repeatCount=3&amp;trigger.repeatInterval=100")
-            .process(new Processor() {
-				public void process(Exchange exchange) throws Exception {
-					latch.countDown();
-				}})
-            .to("mock:result");
-        }
-    });</code></pre>
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+camelctx.addRoutes(new RouteBuilder() {
+    public void configure() throws Exception {
+        from("quartz2://mytimer?trigger.repeatCount=3&amp;trigger.repeatInterval=100")
+        .process(new Processor() {
+			public void process(Exchange exchange) throws Exception {
+				latch.countDown();
+			}})
+        .to("mock:result");
+    }
+});</code></pre>
 </div>
 </div>
 </div>
@@ -3145,15 +3169,15 @@ component allows you to define REST endpoints using the <a href="http://camel.ap
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">    CamelContext camelctx = new DefaultCamelContext();
-    camelctx.addRoutes(new RouteBuilder() {
-        @Override
-        public void configure() throws Exception {
-            restConfiguration().component("servlet").contextPath("camel/rest").port(8080);
-            rest("/hello").get("/{name}").to("direct:hello");
-            from("direct:hello").transform(simple("Hello ${header.name}"));
-        }
-    });</code></pre>
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        restConfiguration().component("servlet").contextPath("camel/rest").port(8080);
+        rest("/hello").get("/{name}").to("direct:hello");
+        from("direct:hello").transform(simple("Hello ${header.name}"));
+    }
+});</code></pre>
 </div>
 </div>
 </div>
@@ -3164,17 +3188,17 @@ component allows you to define REST endpoints using the <a href="http://camel.ap
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">    CamelContext camelctx = new DefaultCamelContext();
-    camelctx.addRoutes(new RouteBuilder() {
-        public void configure() throws Exception {
-            from("rss://https://developer.jboss.org/blogs/feeds/posts?splitEntries=true&amp;consumer.initialDelay=200&amp;consumer.delay=1000")
-            .process(new Processor() {
-				public void process(Exchange exchange) throws Exception {
-					latch.countDown();
-				}})
-            .to("mock:result");
-        }
-    });</code></pre>
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+camelctx.addRoutes(new RouteBuilder() {
+    public void configure() throws Exception {
+        from("rss://https://developer.jboss.org/blogs/feeds/posts?splitEntries=true&amp;consumer.initialDelay=200&amp;consumer.delay=1000")
+        .process(new Processor() {
+			public void process(Exchange exchange) throws Exception {
+				latch.countDown();
+			}})
+        .to("mock:result");
+    }
+});</code></pre>
 </div>
 </div>
 </div>
@@ -3206,17 +3230,15 @@ component provides producer and consumer endpoints to communicate with <a href="
 <div class="paragraph">
 <p>You&#8217;ll want to generate the necessary Salesforce DTO objects before starting. This can be automated with the <a href="https://github.com/apache/camel/tree/master/components/camel-salesforce/camel-salesforce-maven-plugin" target="_blank">Camel Salesforce Maven plugin</a>.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>mvn camel-salesforce:generate -DcamelSalesforce.clientId=&lt;clientid&gt; -DcamelSalesforce.clientSecret=&lt;clientsecret&gt; -DcamelSalesforce.userName=&lt;username&gt; -DcamelSalesforce.password=&lt;password&gt;</code></pre>
-</div>
+<div class="paragraph">
+<p>mvn camel-salesforce:generate -DcamelSalesforce.clientId=&lt;clientid&gt; -DcamelSalesforce.clientSecret=&lt;clientsecret&gt; -DcamelSalesforce.userName=&lt;username&gt; -DcamelSalesforce.password=&lt;password&gt;</p>
 </div>
 <div class="paragraph">
 <p>This example queries Salesforce 'Opportunity' objects.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">SalesforceLoginConfig loginConfig = new SalesforceLoginConfig();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">SalesforceLoginConfig loginConfig = new SalesforceLoginConfig();
 loginConfig.setClientId("your-client-id");
 loginConfig.setPassword("your-password");
 loginConfig.setClientSecret("your-client-secret");
@@ -3302,16 +3324,16 @@ QueryRecordsOpportunity queryRecords = producer.requestBody("direct:query", null
 <div class="paragraph">
 <p>The file and directory structure for module <code>com.sap.conn.jco</code> should now look something like this:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>com/sap/conn/jco
+<pre>com/sap/conn/jco
 com/sap/conn/jco/main
 com/sap/conn/jco/main/sapidoc3.jar
 com/sap/conn/jco/main/sapjco3.jar
 com/sap/conn/jco/main/module.xml
 com/sap/conn/jco/main/lib
 com/sap/conn/jco/main/lib/linux-x86_64
-com/sap/conn/jco/main/lib/linux-x86_64/libsapjco3.so</code></pre>
+com/sap/conn/jco/main/lib/linux-x86_64/libsapjco3.so</pre>
 </div>
 </div>
 </div>
@@ -3335,8 +3357,7 @@ com/sap/conn/jco/main/lib/linux-x86_64/libsapjco3.so</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;module xmlns="urn:jboss:module:1.1" name="org.wildfly.camel.extras"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;module xmlns="urn:jboss:module:1.1" name="org.wildfly.camel.extras"&gt;
     &lt;dependencies&gt;
         &lt;module name="org.fusesource.camel.component.sap" export="true" services="export" /&gt;
     &lt;/dependencies&gt;
@@ -3361,7 +3382,7 @@ com/sap/conn/jco/main/lib/linux-x86_64/libsapjco3.so</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">DestinationData destinationData = new DestinationDataImpl();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">DestinationData destinationData = new DestinationDataImpl();
 destinationData.setAshost("example.com");
 destinationData.setSysnr("00");
 destinationData.setClient("000");
@@ -3378,7 +3399,7 @@ destinationDataStore.put("quickstartDest", destinationData);</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">SapConnectionConfiguration configuration = new SapConnectionConfiguration();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">SapConnectionConfiguration configuration = new SapConnectionConfiguration();
 configuration.setDestinationDataStore(destinationDataStore);</code></pre>
 </div>
 </div>
@@ -3387,7 +3408,7 @@ configuration.setDestinationDataStore(destinationDataStore);</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@ApplicationScoped
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@ApplicationScoped
 @ContextName("camel-sap-cdi-context")
 @Startup
 public class SAPRouteBuilder extends RouteBuilder {
@@ -3407,7 +3428,7 @@ public class SAPRouteBuilder extends RouteBuilder {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="ASCII"?&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="ASCII"?&gt;
 &lt;!-- NOTE: Replace 'XXX' with the SID of your SAP instance --&gt;
 &lt;BAPI_FLCUST_GETLIST:Request xmlns:BAPI_FLCUST_GETLIST="http://sap.fusesource.org/rfc/XXX/BAPI_FLCUST_GETLIST" CUSTOMER_NAME="*" MAX_ROWS="10" WEB_USER="*"/&gt;</code></pre>
 </div>
@@ -3418,8 +3439,7 @@ You should see an XML structure like the following containing customer records.<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="ASCII"?&gt;
-&lt;BAPI_FLCUST_GETLIST:Response xmlns:BAPI_FLCUST_GETLIST="http://sap.fusesource.org/rfc/JBF/BAPI_FLCUST_GETLIST"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;BAPI_FLCUST_GETLIST:Response xmlns:BAPI_FLCUST_GETLIST="http://sap.fusesource.org/rfc/JBF/BAPI_FLCUST_GETLIST"&gt;
 &lt;CUSTOMER_LIST&gt;
     &lt;row CUSTOMERID="00004715" CUSTNAME="Fred Flintstone" FORM="Mr." STREET="123 Flintstone Lane" POBOX="" POSTCODE="01234" CITY="Bedrock" COUNTR="US" COUNTR_ISO="US" REGION="" PHONE="800-555-1212" EMAIL=""/&gt;
     &lt;row CUSTOMERID="00004716" CUSTNAME="Wilma Flintstone" FORM="Mr." STREET="123 Flintstone Lane" POBOX="" POSTCODE="01234" CITY="Bedrock" COUNTR="US" COUNTR_ISO="US" REGION="" PHONE="800-555-1212" EMAIL=""/&gt;
@@ -3454,15 +3474,15 @@ or <a href="http://camel.apache.org/xml-configuration.html" target="_blank">Xml 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">    CamelContext camelctx = new DefaultCamelContext();
-    camelctx.addRoutes(new RouteBuilder() {
-        @Override
-        public void configure() throws Exception {
-            Namespaces ns = new Namespaces("ns", "http://org/wildfly/test/jaxb/model/Customer");
-            from("direct:start").transform().xquery("/ns:customer/ns:firstName", String.class, ns)
-            .to("mock:result");
-        }
-    });</code></pre>
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        Namespaces ns = new Namespaces("ns", "http://org/wildfly/test/jaxb/model/Customer");
+        from("direct:start").transform().xquery("/ns:customer/ns:firstName", String.class, ns)
+        .to("mock:result");
+    }
+});</code></pre>
 </div>
 </div>
 </div>
@@ -3476,15 +3496,15 @@ via the standard <a href="http://jcp.org/en/jsr/detail?id=223" target="_blank">J
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">    CamelContext camelctx = new DefaultCamelContext();
-    camelctx.addRoutes(new RouteBuilder() {
-        @Override
-        public void configure() throws Exception {
-            from("direct:start").choice()
-            .when(script("beanshell", "request.getHeaders().get(\"foo\").equals(\"bar\")")).to("mock:result")
-            .otherwise().transform(body().append(" unmatched")).to("mock:unmatched");
-        }
-    });</code></pre>
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        from("direct:start").choice()
+        .when(script("beanshell", "request.getHeaders().get(\"foo\").equals(\"bar\")")).to("mock:result")
+        .otherwise().transform(body().append(" unmatched")).to("mock:unmatched");
+    }
+});</code></pre>
 </div>
 </div>
 </div>
@@ -3503,19 +3523,19 @@ component provides HTTP based endpoints for consuming HTTP requests that arrive 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">    CamelContext camelctx = new DefaultCamelContext();
-    camelctx.addRoutes(new RouteBuilder() {
-        @Override
-        public void configure() throws Exception {
-            from("servlet://hello?servletName=CamelServletTest&amp;matchOnUriPrefix=true")
-            .process(new Processor() {
-                @Override
-                public void process(Exchange exchange) throws Exception {
-                    exchange.getOut().setBody("Hello Kermit");
-                }
-            });
-        }
-    });</code></pre>
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        from("servlet://hello?servletName=CamelServletTest&amp;matchOnUriPrefix=true")
+        .process(new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                exchange.getOut().setBody("Hello Kermit");
+            }
+        });
+    }
+});</code></pre>
 </div>
 </div>
 </div>
@@ -3534,7 +3554,7 @@ component provides HTTP based endpoints for consuming HTTP requests that arrive 
 <h4 id="_camel_spring_xml_example">6.54.1. Camel Spring XML example</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -3569,14 +3589,14 @@ component allows you to work with databases using <a href="http://camel.apache.o
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">    CamelContext camelctx = new DefaultCamelContext();
-    camelctx.addRoutes(new RouteBuilder() {
-        @Override
-        public void configure() throws Exception {
-            from("sql:select name from information_schema.users?dataSource=java:jboss/datasources/ExampleDS")
-            .to("direct:end");
-        }
-    });</code></pre>
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+camelctx.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        from("sql:select name from information_schema.users?dataSource=java:jboss/datasources/ExampleDS")
+        .to("direct:end");
+    }
+});</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -3599,7 +3619,7 @@ This example uses the <code>@Named</code> annotation so that Camel can discover 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class DatasourceProducer {
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">public class DatasourceProducer {
     @Resource(name = "java:jboss/datasources/ExampleDS")
     DataSource dataSource;
 
@@ -3616,7 +3636,7 @@ This example uses the <code>@Named</code> annotation so that Camel can discover 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@ApplicationScoped
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">@ApplicationScoped
 @ContextName("camel-sql-cdi-context")
 @Startup
 public class CdiRouteBuilder extends RouteBuilder {
@@ -3633,7 +3653,7 @@ public class CdiRouteBuilder extends RouteBuilder {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:jee="http://www.springframework.org/schema/jee"
        xsi:schemaLocation="
@@ -3659,10 +3679,15 @@ public class CdiRouteBuilder extends RouteBuilder {
 <p>Support for the following Spring JDBC XML configurations is supported</p>
 </div>
 <div class="paragraph">
-<p><em>jdbc:embedded-database</em></p>
+<p><strong>jdbc:embedded-database</strong></p>
 </div>
-<div class="quoteblock">
-<blockquote>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;jdbc:embedded-database id="datasource" type="H2"&gt;
+  &lt;jdbc:script location="db-schema.sql"/&gt;
+&lt;/jdbc:embedded-database&gt;</code></pre>
+</div>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -3670,27 +3695,20 @@ public class CdiRouteBuilder extends RouteBuilder {
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Only H2 databases are supported by default as WildFly has native support for this. If you want to use other embedded database providers, you will need
-to install the appropriate database driver.
+<div class="paragraph">
+<p>Only H2 databases are supported by default as WildFly has native support for this. If you want to use other embedded database providers, you will need
+to install the appropriate database driver.</p>
+</div>
 </td>
 </tr>
 </table>
 </div>
-</blockquote>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;jdbc:embedded-database id="datasource" type="H2"&gt;
-  &lt;jdbc:script location="db-schema.sql"/&gt;
-&lt;/jdbc:embedded-database&gt;</code></pre>
-</div>
-</div>
 <div class="paragraph">
-<p><em>jdbc:initialize-database</em></p>
+<p><strong>jdbc:initialize-database</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;jdbc:initialize-database data-source="datasource"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;jdbc:initialize-database data-source="datasource"&gt;
   &lt;jdbc:script location="classpath:db-init.sql"/&gt;
 &lt;/jdbc:initialize-database&gt;</code></pre>
 </div>
@@ -3711,7 +3729,7 @@ module is used for exposing the REST services and their APIs using <a href="http
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
 camelctx.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
@@ -3748,7 +3766,7 @@ component provides HTTP-based endpoints for consuming and producing HTTP request
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
 camelctx.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
@@ -3778,8 +3796,7 @@ component provides integration with the <a href="http://openweathermap.org/api" 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelContext = new DefaultCamelContext();
-
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelContext = new DefaultCamelContext();
 camelContext.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
@@ -3793,7 +3810,6 @@ camelContext.addRoutes(new RouteBuilder() {
             .to("direct:nothumid");
     }
 });
-
 camelContext.start();</code></pre>
 </div>
 </div>
@@ -3807,7 +3823,7 @@ which uses the <a href="http://x-stream.github.io/" target="_blank">XStream libr
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
 camelctx.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
@@ -3856,15 +3872,12 @@ component allows interaction with a <a href="http://hadoop.apache.org/zookeeper/
 </ul>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_adding_components">7. Adding Components</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_adding_components">6.66. Adding Components</h3>
 <div class="paragraph">
 <p>Adding support for additional Camel Components is easy</p>
 </div>
-<h3 id="_add_your_modules_xml_definition" class="discrete">Add your modules.xml definition</h3>
+<h4 id="_add_your_modules_xml_definition" class="discrete">Add your modules.xml definition</h4>
 <div class="paragraph">
 <p>A modules.xml descriptor defines the class loading behavior for your component. It should be placed together with the component&#8217;s jar in <code>modules/system/layers/fuse/org/apache/camel/component</code>. Module dependencies should be setup for direct compile time dependencies.</p>
 </div>
@@ -3873,7 +3886,7 @@ component allows interaction with a <a href="http://hadoop.apache.org/zookeeper/
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.ftp"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.ftp"&gt;
   &lt;resources&gt;
     &lt;resource-root path="camel-ftp-2.14.0.jar" /&gt;
   &lt;/resources&gt;
@@ -3889,26 +3902,25 @@ component allows interaction with a <a href="http://hadoop.apache.org/zookeeper/
 <div class="paragraph">
 <p>Please make sure you don&#8217;t duplicate modules that are already available in WildFly and can be reused.</p>
 </div>
-<h3 id="_add_a_reference_to_the_component" class="discrete">Add a reference to the component</h3>
+<h4 id="_add_a_reference_to_the_component" class="discrete">Add a reference to the component</h4>
 <div class="paragraph">
 <p>To make this module visible by default to arbitrary JavaEE deployments add a reference to <code>modules/system/layers/fuse/org/apache/camel/component/main/module.xml</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;module xmlns="urn:jboss:module:1.3" name="org.apache.camel.component"&gt;
-
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;module xmlns="urn:jboss:module:1.3" name="org.apache.camel.component"&gt;
   &lt;dependencies&gt;
     ...
     &lt;module name="org.apache.camel.component.ftp" export="true" services="export"/&gt;
   &lt;/dependencies&gt;
-
 &lt;/module&gt;</code></pre>
 </div>
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="_data_formats">8. Data Formats</h2>
+<h2 id="_data_formats">7. Data Formats</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following lists supported Data Formats</p>
@@ -3983,7 +3995,7 @@ component allows interaction with a <a href="http://hadoop.apache.org/zookeeper/
 </div>
 </div>
 <div class="sect1">
-<h2 id="_languages">9. Languages</h2>
+<h2 id="_languages">8. Languages</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following lists supported scripting languages</p>
@@ -4010,122 +4022,23 @@ component allows interaction with a <a href="http://hadoop.apache.org/zookeeper/
 </div>
 </div>
 <div class="sect1">
-<h2 id="_cloud_integration">10. Cloud Integration</h2>
+<h2 id="_cloud_integration">9. Cloud Integration</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This chapter details information about cloud integration</p>
 </div>
 <div class="sect2">
-<h3 id="_docker">10.1. Docker</h3>
+<h3 id="_openshift_local">9.1. OpenShift Local</h3>
 <div class="paragraph">
-<p>This chapter gets you started on WildFly-Camel on <a href="https://www.docker.com/" target="_blank">Docker</a></p>
-</div>
-<div class="sect3">
-<h4 id="_installing_docker">10.1.1. Installing Docker</h4>
-<div class="paragraph">
-<p>SSH into your instance and type</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>$ sudo yum install -y docker
-$ sudo service docker start</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>to install and start Docker.</p>
-</div>
-<div class="sect4">
-<h5 id="_giving_non_root_access">Giving non-root access</h5>
-<div class="paragraph">
-<p>The docker daemon always runs as the root user, and the docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user root, and so, by default, you can access it with sudo.</p>
-</div>
-<div class="paragraph">
-<p>If you have a Unix group called <code>docker</code> and add users to it, then the docker daemon will make the ownership of the Unix socket read/writable by the <code>docker</code> group when the daemon starts. The docker daemon must always run as the root user, but if you run the docker client as a user in the <code>docker</code> group then you don&#8217;t need to add sudo to all the client commands.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>$ sudo usermod -a -G docker ec2-user
-$ sudo service docker restart</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>You may have to logout/login for this change to take effect</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>In my case I also had to add a host mapping like this</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>[ec2-user@ip-172-30-0-233 ~]$ sudo cat /etc/hosts
-127.0.0.1       localhost localhost.localdomain
-172.30.0.233	ip-172-30-0-233</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>and make the docker daemon bind to a number of sockets</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>[ec2-user@ip-172-30-0-217 ~]$ cat /etc/sysconfig/docker
-# Additional startup options for the Docker daemon
-OPTIONS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock"</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_running_wildfly_camel">10.1.2. Running WildFly-Camel</h4>
-<div class="paragraph">
-<p>With every WildFly-Camel release we also publish the latest <a href="https://registry.hub.docker.com/u/wildflyext/wildfly-camel/" target="_blank">wildflyext/wildfly-camel</a> image.</p>
-</div>
-<div class="paragraph">
-<p>You can run the standalone container like this</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>$ docker run --rm -ti -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin -p 8080:8080 -p 9990:9990 wildflyext/wildfly-camel</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>and access the admin console like this: <a href="http://54.154.82.232:9990/console" class="bare">http://54.154.82.232:9990/console</a></p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/console-standalone.png" alt="console standalone">
-</div>
-</div>
-<div class="paragraph">
-<p>The Hawt.io console is available at: <a href="http://54.154.82.232:8080/hawtio" class="bare">http://54.154.82.232:8080/hawtio</a></p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/hawtio-camel-01.png" alt="hawtio camel 01">
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_openshift_origin">10.2. OpenShift Origin</h3>
-<div class="paragraph">
-<p>Here we follow the instructions on <a href="https://www.openshift.org" target="_blank">Try Origin</a>. We use the <a href="https://www.openshift.org/vm" target="_blank">all-in-one VM</a> approach through a Vagrant VirtualBox VM</p>
+<p>Here we follow the instructions on <a href="https://www.openshift.org" target="_blank">Try Origin</a>.
+We use the <a href="https://www.openshift.org/vm" target="_blank">all-in-one VM</a> approach through a Vagrant VirtualBox VM.</p>
 </div>
 <div class="paragraph">
 <p>After having installed Vagrant and VirtualBox, we run:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$ vagrant init openshift/origin-all-in-one
+<pre class="highlight nowrap"><code>$ vagrant init openshift/origin-all-in-one
 $ vagrant up --provider=virtualbox
 ...
 Successfully started and provisioned VM with 2 cores and 5 G of memory.
@@ -4133,15 +4046,15 @@ To modify the number of cores and/or available memory modify your local Vagrantf
 </div>
 </div>
 <div class="paragraph">
-<p>We can now access the OpenShift console on: <a href="https://10.2.2.2:8443/console" target="_blank">https://10.2.2.2:8443/console</a></p>
+<p>We can now access the OpenShift console on: <a href="https://10.2.2.2:8443/console" class="bare" target="_blank">https://10.2.2.2:8443/console</a></p>
 </div>
 <div class="paragraph">
 <p>Configured users are:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>admin/admin
-user/user</code></pre>
+<pre>admin/admin
+user/user</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4149,7 +4062,7 @@ user/user</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$ vagrant ssh
+<pre class="highlight nowrap"><code>$ vagrant ssh
 Last login: Mon Feb  8 09:06:26 2016 from 10.0.2.2</code></pre>
 </div>
 </div>
@@ -4157,13 +4070,13 @@ Last login: Mon Feb  8 09:06:26 2016 from 10.0.2.2</code></pre>
 <p>and use the OpenShift command line client.</p>
 </div>
 <div class="sect3">
-<h4 id="_client_tools">10.2.1. Client Tools</h4>
+<h4 id="_client_tools">9.1.1. Client Tools</h4>
 <div class="paragraph">
 <p>The client tools are available <a href="https://10.2.2.2:8443/console/command-line" target="_blank">from the console</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_docker_access">10.2.2. Docker access</h4>
+<h4 id="_docker_access">9.1.2. Docker access</h4>
 <div class="paragraph">
 <p>The docker deamon running in the Vagrant VM needs be exposed on the network.
 The easiest way to do this is to use the provided <a href="https://github.com/wildfly-extras/wildfly-camel/blob/master/Vagrantfile" target="_blank">Vagrantfile</a>.</p>
@@ -4173,44 +4086,74 @@ The easiest way to do this is to use the provided <a href="https://github.com/wi
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>  config.vm.network "forwarded_port", guest: 8080, host: 8080
+<pre class="highlight nowrap"><code>  config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "forwarded_port", guest: 8443, host: 8443
   config.vm.network "forwarded_port", guest: 2375, host: 2375</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>[vagrant@localhost ~]$ sudo vi /etc/sysconfig/docker
+<pre class="highlight nowrap"><code>[vagrant@localhost ~]$ sudo vi /etc/sysconfig/docker
 # Additional startup options for the Docker daemon
 OPTIONS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>[vagrant@localhost ~]$ sudo systemctl restart docker</code></pre>
+<pre class="highlight nowrap"><code>[vagrant@localhost ~]$ sudo systemctl restart docker</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>On you local machine, setup a route to the Vagrant VM</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>$ sudo cat /etc/hosts
-10.2.2.2    origin</code></pre>
+<pre>$ sudo cat /etc/hosts
+10.2.2.2    origin</pre>
 </div>
 </div>
 <div class="paragraph">
 <p>and export a few Docker related environment variables for maven builds.</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>export DOCKER_HOST=tcp://origin:2375
-export DOCKER_IP=origin</code></pre>
+<pre>export DOCKER_HOST=tcp://origin:2375
+export DOCKER_IP=origin</pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_create_an_openshift_project">10.2.3. Create an OpenShift project</h4>
+<h4 id="_running_wildfly_camel">9.1.3. Running WildFly-Camel</h4>
+<div class="paragraph">
+<p>With every WildFly-Camel release we also publish the latest <a href="https://registry.hub.docker.com/u/wildflyext/wildfly-camel/" target="_blank">wildflyext/wildfly-camel</a> image.</p>
+</div>
+<div class="paragraph">
+<p>You can run the standalone container like this</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ docker run --rm -ti -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin -p 8080:8080 -p 9990:9990 wildflyext/wildfly-camel</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and access the admin console like this: <a href="http://10.2.2.2:9990/console" class="bare" target="_blank">http://10.2.2.2:9990/console</a></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/console-standalone.png" alt="console standalone">
+</div>
+</div>
+<div class="paragraph">
+<p>The Hawt.io console is available at: <a href="http://10.2.2.2:8080/hawtio" class="bare" target="_blank">http://10.2.2.2:8080/hawtio</a></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/hawtio-camel-01.png" alt="hawtio camel 01">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_create_an_openshift_project">9.1.4. Create an OpenShift project</h4>
 <div class="paragraph">
 <p>Here we run a set of WildFly Camel servers on <a href="https://www.openshift.org" target="_blank">OpenShift Origin</a>.
 The target platform is the local OpenShift instance that we created above.</p>
@@ -4228,9 +4171,9 @@ that we access via <a href="https://github.com/GoogleCloudPlatform/kubernetes/bl
 <div class="paragraph">
 <p>A project allows us to create deployments, pods, services, routes, etc. under our own custom 'wildfly-camel' namespace.</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>$ oc new-project wildfly-camel</code></pre>
+<pre>$ oc new-project wildfly-camel</pre>
 </div>
 </div>
 <div class="sect4">
@@ -4238,17 +4181,17 @@ that we access via <a href="https://github.com/GoogleCloudPlatform/kubernetes/bl
 <div class="paragraph">
 <p>Now, lets create a new appliction from an existing wildfly-camel based image.</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>$ oc new-app wildflyext/example-camel-rest -l name=camel</code></pre>
+<pre>$ oc new-app wildflyext/example-camel-rest</pre>
 </div>
 </div>
 <div class="paragraph">
 <p>and scale it up</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>$ oc scale --replicas=3 dc example-camel-rest</code></pre>
+<pre>$ oc scale --replicas=3 dc example-camel-rest</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4268,9 +4211,9 @@ that we access via <a href="https://github.com/GoogleCloudPlatform/kubernetes/bl
 <div class="paragraph">
 <p>Now, lets expose the HTTP root context of the running wildlfy server.</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>$ oc expose service example-camel-rest -l name=camel</code></pre>
+<pre>$ oc expose service example-camel-rest</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4279,22 +4222,69 @@ that we access via <a href="https://github.com/GoogleCloudPlatform/kubernetes/bl
 <div class="paragraph">
 <p><a href="http://example-camel-rest-wildfly-camel.apps.10.2.2.2.xip.io/rest/greet/hello/Kermit" class="bare" target="_blank">http://example-camel-rest-wildfly-camel.apps.10.2.2.2.xip.io/rest/greet/hello/Kermit</a></p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="highlight"><code>Hello Kermit from 172.17.0.8</code></pre>
+<pre>Hello Kermit from 172.17.0.8</pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_source_to_image">10.3. Source To Image</h3>
+<h3 id="_openshift_on_ec2">9.2. OpenShift on EC2</h3>
+<div class="paragraph">
+<p>Here we follow the instructions on <a href="https://www.openshift.org" target="_blank">Try Origin</a>
+for <a href="https://github.com/openshift/origin/releases" target="_blank">binary releases VM</a>.</p>
+</div>
+<div class="paragraph">
+<p>After having launched an instance of RHEL7 on EC2 we can <code>ssh</code> into the box.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ ssh -i ~/.ssh/id_rsa_ec2.pem ec2-user@1.2.3.4</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then we <a href="https://docs.docker.com/engine/installation/linux/rhel" target="_blank">install Docker</a>
+and add the <code>ec2-user</code> to the docker group.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ curl -fsSL https://get.docker.com/ | sh
+$ sudo usermod -aG docker ec2-user
+$ sudo systemctl enable docker.service
+$ sudo systemctl start docker
+$ docker run hello-world
+...
+Hello from Docker!
+This message shows that your installation appears to be working correctly.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now download the OpenShift server and start it</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ curl -L https://github.com/openshift/origin/releases/download/v1.4.0-rc1/openshift-origin-server-v1.4.0-rc1.b4e0954-linux-64bit.tar.gz > openshift-origin-server-v1.4.0-rc1.tar.gz
+$ tar xzf openshift-origin-server-v1.4.0-rc1.tar.gz
+$ oc cluster up --public-hostname=ec2-1-2-3-4.eu-west-1.compute.amazonaws.com --routing-suffix=1.2.3.4.xip.io --skip-registry-check=true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can now access the OpenShift console on: <a href="https://1.2.3.4:8443/console" class="bare" target="_blank">https://1.2.3.4:8443/console</a></p>
+</div>
+<div class="paragraph">
+<p>The process of creating a project and application follows that of <a href="index.html#_openshift_local">OpenShift Local</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_source_to_image">9.3. Source To Image</h3>
 <div class="paragraph">
 <p>WildFly-Camel provides a <a href="https://docs.openshift.org/latest/architecture/core_concepts/builds_and_image_streams.html#source-build" target="_blank">Source-To-Image</a>
 (S2I) <a href="https://hub.docker.com/r/wildflyext/s2i-wildfly-camel/" target="_blank">Docker image</a> which enables you to build reproducable images from source.</p>
 </div>
 <div class="sect3">
-<h4 id="_example_s2i_build">10.3.1. Example S2I build</h4>
+<h4 id="_example_s2i_build">9.3.1. Example S2I build</h4>
 <div class="paragraph">
 <p>First you&#8217;ll need to download and install the S2I tooling from <a href="https://github.com/openshift/source-to-image" target="_blank">here</a>.</p>
 </div>
@@ -4303,14 +4293,24 @@ that we access via <a href="https://github.com/GoogleCloudPlatform/kubernetes/bl
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$ s2i build https://github.com/wildfly-extras/wildfly-camel-examples.git -r 4.4.0 --context-dir camel-cdi wildflyext/s2i-wildfly-camel:4.4.0 wildfly-camel-example-cdi
-
-$ docker run -p 8080:8080 wildfly-camel-example-cdi</code></pre>
+<pre class="highlight nowrap"><code>$ s2i build https://github.com/wildfly-extras/wildfly-camel-examples.git -r 4.3.0 --context-dir camel-cdi wildflyext/s2i-wildfly-camel:4.3.0 wildfly-camel-example-cdi
+$ docker run -ti -p 8080:8080 wildfly-camel-example-cdi</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>From a remote client, you should now be able to access the service like this</p>
+</div>
+<div class="paragraph">
+<p><a href="http://1.2.3.4:8080/example-camel-cdi?name=Kermit" class="bare" target="_blank">http://1.2.3.4:8080/example-camel-cdi?name=Kermit</a></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Hello Kermit</pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_s2i_with_openshift_origin">10.3.2. S2I with OpenShift Origin</h4>
+<h4 id="_s2i_with_openshift_origin">9.3.2. S2I with OpenShift Origin</h4>
 <div class="paragraph">
 <p>For convenience, WildFly-Camel provides an OpenShift <a href="sources/wildfly-camel-imagestreams.json" target="_blank">ImageStream</a>
 template and an <a href="sources/wildfly-camel-template.json" target="_blank">application template</a> which enable you to to perform S2I build and deployments in OpenShift origin.</p>
@@ -4320,7 +4320,7 @@ template and an <a href="sources/wildfly-camel-template.json" target="_blank">ap
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$ oc apply -f http://wildfly-extras.github.io/wildfly-camel/sources/wildfly-camel-image-streams.json</code></pre>
+<pre class="highlight nowrap"><code>$ oc apply -f http://wildfly-extras.github.io/wildfly-camel/sources/wildfly-camel-imagestreams.json</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4328,12 +4328,144 @@ template and an <a href="sources/wildfly-camel-template.json" target="_blank">ap
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$ oc apply -f http://wildfly-extras.github.io/wildfly-camel/sources/wildfly-camel-template.json</code></pre>
+<pre class="highlight nowrap"><code>$ oc apply -f http://wildfly-extras.github.io/wildfly-camel/sources/wildfly-camel-template.json</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>When you select 'Add to Project' in the OpenShift web console you should see a new catalog item named
-'s2i-wildfly-camel'. Choose this option, provide the required template parameters and click 'Create' to start the build process.</p>
+'wildfly-camel-s2i'. Choose this option, then provide the required template parameters:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter Name</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">APP_NAME</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of your application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wildfly-camel-app</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GIT_REPO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The URL of your application git repository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GIT_REF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A branch or tag name to reference in the git repository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">master</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONTEXT_DIR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path within the source tree to build from</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project root directory</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ARTIFACT_DIR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comma seperated list of directories where build artefacts are located</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;project-root&gt;/target</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HOSTNAME_HTTP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom hostname for http service route</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;application-name&gt;-&lt;project&gt;.&lt;default-domain-suffix&gt;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MYSQL_DATABASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of a pre-deployed MySQL database service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POSTGRESQL_DATABASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of a pre-deployed PostgreSQL database service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BUILDER_VERSION</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The version of the wildfly-camel S2I image to use</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">APP_VERSION</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The version of the built application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MAVEN_ARGS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Arguments passed to mvn in the build</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clean package -DskipTests -e</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MAVEN_ARGS_APPEND</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra arguments passed to mvn, e.g. for multi-module builds</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IMAGE_STREAM_NAMESPACE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace in which the WildFly-Camel ImageStreams are installed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Openshift</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>To build the latest release of the WildFly-Camel CDI example you would enter:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter Name</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GIT_REPO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/wildfly-extras/wildfly-camel-examples" class="bare">https://github.com/wildfly-extras/wildfly-camel-examples</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GIT_REF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.3.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONTEXT_DIR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">camel-cdi</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IMAGE_STREAM_NAMESPACE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the OpenShift project (namespace) where the WildFly-Camel imagestream is installed</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Click 'Create' to start the build process.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -4348,18 +4480,24 @@ template and an <a href="sources/wildfly-camel-template.json" target="_blank">ap
 <img src="images/wildfly-camel-s2i-deployed.png" alt="wildfly camel s2i deployed">
 </div>
 </div>
+<div class="paragraph">
+<p>Then to access the application you can browse to the route endpoint URL. For example:</p>
+</div>
+<div class="paragraph">
+<p><a href="http://wildfly-camel-app-default.192.168.42.162.xip.io/example-camel-cdi?name=Kermit" class="bare">http://wildfly-camel-app-default.192.168.42.162.xip.io/example-camel-cdi?name=Kermit</a></p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_security_6">11. Security</h2>
+<h2 id="_security_6">10. Security</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Security in WildFly is a broad topic. Both WildFly and Camel have well documented, stadardised methods of securing configuration, endpoints and payloads.</p>
 </div>
 <div class="sect2">
-<h3 id="_jax_rs_security">11.1. JAX-RS Security</h3>
+<h3 id="_jax_rs_security">10.1. JAX-RS Security</h3>
 <div class="paragraph">
 <p>The following topics explain how to secure JAX-RS endpoints.</p>
 </div>
@@ -4378,7 +4516,7 @@ template and an <a href="sources/wildfly-camel-template.json" target="_blank">ap
 </div>
 </div>
 <div class="sect2">
-<h3 id="_jax_ws_security">11.2. JAX-WS Security</h3>
+<h3 id="_jax_ws_security">10.2. JAX-WS Security</h3>
 <div class="paragraph">
 <p>The following topics explain how to secure JAX-WS endpoints.</p>
 </div>
@@ -4403,7 +4541,7 @@ template and an <a href="sources/wildfly-camel-template.json" target="_blank">ap
 </div>
 </div>
 <div class="sect2">
-<h3 id="_jms_security">11.3. JMS Security</h3>
+<h3 id="_jms_security">10.3. JMS Security</h3>
 <div class="paragraph">
 <p>The following topics explain how to secure JMS endpoints.</p>
 </div>
@@ -4428,12 +4566,12 @@ template and an <a href="sources/wildfly-camel-template.json" target="_blank">ap
 </div>
 </div>
 <div class="sect2">
-<h3 id="_route_policy">11.4. Route Policy</h3>
+<h3 id="_route_policy">10.4. Route Policy</h3>
 <div class="paragraph">
 <p>Camel supports the notion of <a href="http://camel.apache.org/routepolicy.html" target="_blank">RoutePolicies</a>, which can be used to integrate with the WildFly security system. There are currently two supported scenarios for security integration.</p>
 </div>
 <div class="sect3">
-<h4 id="_camel_calls_into_javaee">11.4.1. Camel calls into JavaEE</h4>
+<h4 id="_camel_calls_into_javaee">10.4.1. Camel calls into JavaEE</h4>
 <div class="paragraph">
 <p>When a camel route calls into a secured JavaEE component, it acts as a client and must provide appropriate credentials associated with the call.</p>
 </div>
@@ -4442,7 +4580,7 @@ template and an <a href="sources/wildfly-camel-template.json" target="_blank">ap
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
 camelctx.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
@@ -4461,7 +4599,7 @@ camelctx.addRoutes(new RouteBuilder() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">ProducerTemplate producer = camelctx.createProducerTemplate();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">ProducerTemplate producer = camelctx.createProducerTemplate();
 Subject subject = new Subject();
 subject.getPrincipals().add(new DomainPrincipal(domain));
 subject.getPrincipals().add(new EncodedUsernamePasswordPrincipal(username, password));
@@ -4473,13 +4611,13 @@ producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION,
 </div>
 </div>
 <div class="sect3">
-<h4 id="_securing_a_camel_route">11.4.2. Securing a Camel Route</h4>
+<h4 id="_securing_a_camel_route">10.4.2. Securing a Camel Route</h4>
 <div class="paragraph">
 <p>In order to secure a Camel Route, we can associate a <code>DomainAuthorizationPolicy</code> with the route. This policy requires a successful authentication against the given security domain and authorization for "Role2".</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">CamelContext camelctx = new DefaultCamelContext();
 camelctx.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
@@ -4496,7 +4634,7 @@ camelctx.start();</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">ProducerTemplate producer = camelctx.createProducerTemplate();
+<pre class="highlight nowrap"><code class="language-java" data-lang="java">ProducerTemplate producer = camelctx.createProducerTemplate();
 Subject subject = new Subject();
 subject.getPrincipals().add(new DomainPrincipal(domain));
 subject.getPrincipals().add(new EncodedUsernamePasswordPrincipal(username, password));
@@ -4508,7 +4646,7 @@ producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION,
 </div>
 </div>
 <div class="sect1">
-<h2 id="_developer_info">12. Developer Info</h2>
+<h2 id="_developer_info">11. Developer Info</h2>
 <div class="sectionbody">
 <h3 id="_source" class="discrete">Source</h3>
 <div class="paragraph">
@@ -4536,7 +4674,7 @@ producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION,
 <div id="footer">
 <div id="footer-text">
 Version 4.4.0-SNAPSHOT<br>
-Last updated 2016-11-29 10:48:30 CET
+Last updated 2016-12-05 12:47:33 CET
 </div>
 </div>
 </body>
