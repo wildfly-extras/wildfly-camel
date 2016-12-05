@@ -45,7 +45,7 @@ public class NettyIntegrationTest {
     private static final int SOCKET_PORT = 7998;
 
     @Deployment
-    public static WebArchive createdeployment() {
+    public static WebArchive createDeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-netty-test.war");
         archive.addAsWebResource("netty/netty-camel-context.xml");
         return archive;
@@ -59,8 +59,8 @@ public class NettyIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("netty4:tcp://" + SOCKET_HOST + ":" + SOCKET_PORT + "?textline=true")
-                        .transform(simple("Hello ${body}"))
-                        .to("seda:end");
+                .transform(simple("Hello ${body}"))
+                .inOnly("seda:end");
             }
         });
 

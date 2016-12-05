@@ -30,6 +30,7 @@
       <transform>
         <simple>Hello ${body}</simple>
       </transform>
+      <setExchangePattern pattern="InOnly"/>
       <to uri="seda:end"/>
     </route>
   </camelContext>
