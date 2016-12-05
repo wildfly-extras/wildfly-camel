@@ -1,5 +1,61 @@
 ### Changelog
 
+#### WildFly-Camel 4.4.0
+
+**Features**
+
+* [#1380][1380] Provide docs in asciidoctor
+* [#1387][1387] Provide a catalog for wildfly supported components
+
+For details see [4.4.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.4.0"+label%3Afeature)
+
+**Tasks**
+
+* [#554][554] Investigate Arquillian Cube for integration testing 
+* [#1329][1329] Provide CI testing for camel-nats
+* [#1330][1330] Provide CI testing for camel-twitter
+* [#1362][1362] Do not expose port 9999 in docker containers
+* [#1368][1368] How to setup OpenShift on EC2
+* [#1369][1369] Upgrade to camel-2.18.1
+* [#1371][1371] Remove domain setup from docker docs
+* [#1372][1372] Upgrade to OpenShift V3
+* [#1373][1373] Remove Beanstalk from cloud docs
+* [#1378][1378] Exclude project related jars from modulelist
+* [#1379][1379] Investigate Arquillian enableThreadContextClassLoader=false
+* [#1381][1381] Link to wildfly provided fasterxml
+* [#1383][1383] Investigate removing camel-restlet
+* [#1385][1385] Prioritize unsupported camel components 
+* [#1393][1393] Improve camel-salesforce integration test
+* [#1497][1497] Create GitHub issues from [planned] roadmap items
+
+For details see [4.4.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.4.0"+label%3Atask)
+
+**Bugs**
+
+* [#1501][1501] Docker image does not run OpenShift
+
+For details see [4.4.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.4.0"+label%3Abug)
+
+[1380]: https://github.com/wildfly-extras/wildfly-camel/issues/1380
+[1387]: https://github.com/wildfly-extras/wildfly-camel/issues/1387
+[554]: https://github.com/wildfly-extras/wildfly-camel/issues/554
+[1329]: https://github.com/wildfly-extras/wildfly-camel/issues/1329
+[1330]: https://github.com/wildfly-extras/wildfly-camel/issues/1330
+[1362]: https://github.com/wildfly-extras/wildfly-camel/issues/1362
+[1368]: https://github.com/wildfly-extras/wildfly-camel/issues/1368
+[1369]: https://github.com/wildfly-extras/wildfly-camel/issues/1369
+[1371]: https://github.com/wildfly-extras/wildfly-camel/issues/1371
+[1372]: https://github.com/wildfly-extras/wildfly-camel/issues/1372
+[1373]: https://github.com/wildfly-extras/wildfly-camel/issues/1373
+[1378]: https://github.com/wildfly-extras/wildfly-camel/issues/1378
+[1379]: https://github.com/wildfly-extras/wildfly-camel/issues/1379
+[1381]: https://github.com/wildfly-extras/wildfly-camel/issues/1381
+[1383]: https://github.com/wildfly-extras/wildfly-camel/issues/1383
+[1385]: https://github.com/wildfly-extras/wildfly-camel/issues/1385
+[1393]: https://github.com/wildfly-extras/wildfly-camel/issues/1393
+[1497]: https://github.com/wildfly-extras/wildfly-camel/issues/1497
+[1501]: https://github.com/wildfly-extras/wildfly-camel/issues/1501
+
 #### WildFly-Camel 4.3.0
 
 **Features**
