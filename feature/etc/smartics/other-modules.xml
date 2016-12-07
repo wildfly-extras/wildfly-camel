@@ -38,21 +38,21 @@
         </dependencies>
     </module>
     
-    <module name="com.fasterxml.jackson.dataformat.cbor">
+    <module name="com.fasterxml.jackson.dataformat.cbor" inherit-slot="false" slot="2.8">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-dataformat-cbor" />
     </module>
 
-    <module name="com.fasterxml.jackson.dataformat.smile">
+    <module name="com.fasterxml.jackson.dataformat.smile" inherit-slot="false" slot="2.8">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-dataformat-smile" />
     </module>
 
-    <module name="com.fasterxml.jackson.dataformat.xml">
+    <module name="com.fasterxml.jackson.dataformat.xml" inherit-slot="false" slot="2.8">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
@@ -62,14 +62,14 @@
         <include artifact=":jackson-dataformat-xml" />
     </module>
 
-    <module name="com.fasterxml.jackson.dataformat.yaml">
+    <module name="com.fasterxml.jackson.dataformat.yaml" inherit-slot="false" slot="2.8">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-dataformat-yaml" />
     </module>
 
-    <module name="com.fasterxml.jackson.datatype.joda">
+    <module name="com.fasterxml.jackson.datatype.joda" inherit-slot="false" slot="2.8">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
