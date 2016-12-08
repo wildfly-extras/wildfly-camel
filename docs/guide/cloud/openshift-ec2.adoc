@@ -8,6 +8,8 @@ After having launched an instance of RHEL7 on EC2 we can `ssh` into the box.
 [source,subs="attributes"]
 $ ssh -i ~/.ssh/id_rsa_ec2.pem ec2-user@{ec2-pub-ip}
 
+#### Install Docker 
+
 Then we https://docs.docker.com/engine/installation/linux/rhel[install Docker,window=_blank]
 and add the `ec2-user` to the docker group.
 
@@ -21,12 +23,59 @@ $ docker run hello-world
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
 
-Now download the OpenShift server and start it
+#### Download & Install OpenShift
 
+Now download the OpenShift server and start it
+ 
 [source,subs="attributes",options="nowrap"]
 $ curl -L https://github.com/openshift/origin/releases/download/v1.4.0-rc1/openshift-origin-server-v1.4.0-rc1.b4e0954-linux-64bit.tar.gz > openshift-origin-server-v1.4.0-rc1.tar.gz
 $ tar xzf openshift-origin-server-v1.4.0-rc1.tar.gz 
-$ oc cluster up --public-hostname=ec2-{ec2-pub-ip-dash}.eu-west-1.compute.amazonaws.com --routing-suffix={ec2-pub-ip}.xip.io --skip-registry-check=true
+$ oc cluster up --public-hostname=ec2-{ec2-pub-ip-dash}.eu-west-1.compute.amazonaws.com --routing-suffix={ec2-pub-ip}.xip.io
+
+[NOTE]
+====
+If you see a failure during startup like this, follow the instructions below for Docker deamon configuration. 
+[source,options="nowrap"]
+----
+-- Checking Docker daemon configuration ... FAIL
+   Error: did not detect an --insecure-registry argument on the Docker daemon
+   Solution:
+
+     Ensure that the Docker daemon is running with the following argument:
+     	--insecure-registry 172.30.0.0/16
+----
+====
+
+#### Registry Security
+
+The Docker registry may need to be https://docs.docker.com/engine/admin/[marked,window=_blank] as insecure.  
+
+1. Create the /etc/systemd/system/docker.service.d directory.
+
+ $ sudo mkdir /etc/systemd/system/docker.service.d
+ 
+2. Create/Edit the /etc/systemd/system/docker.service.d/docker.conf file.
+
++ 
+Override the ExecStart configuration from your docker.service file to customize the docker daemon. 
+To modify the ExecStart configuration you have to specify an empty configuration followed by a new one as follows:
++
+
+ $ sudo vi /etc/systemd/system/docker.service.d/docker.conf
+ [Service]
+ ExecStart=
+ ExecStart=/usr/bin/dockerd --insecure-registry 172.30.0.0/16
+ 
+3. Restart the docker daemon.
+ 
+ $ sudo systemctl daemon-reload; sudo systemctl restart docker
+
+4. Restart the OpenShift cluster
+ 
+[source,subs="attributes",options="nowrap"]
+$ oc cluster up --public-hostname=ec2-{ec2-pub-ip-dash}.eu-west-1.compute.amazonaws.com --routing-suffix={ec2-pub-ip}.xip.io
+
+#### Access the Console
 
 We can now access the OpenShift console on: https://{ec2-pub-ip}:8443/console[,window=_blank]
 

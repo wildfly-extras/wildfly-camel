@@ -32,6 +32,11 @@
     <artifactId>wildfly-camel-docs</artifactId>
     <packaging>pom</packaging>
 
+    <properties>
+        <ec2-pub-ip-dash>1-2-3-4</ec2-pub-ip-dash>
+        <ec2-pub-ip>1.2.3.4</ec2-pub-ip>
+    </properties>
+    
     <build>
         <plugins>
             <plugin>
@@ -51,8 +56,8 @@
                             <doctype>book</doctype>
                             <attributes>
                                 <version>${project.version}</version>
-                                <ec2-pub-ip-dash>1-2-3-4</ec2-pub-ip-dash>
-                                <ec2-pub-ip>1.2.3.4</ec2-pub-ip>
+                                <ec2-pub-ip-dash>${ec2-pub-ip-dash}</ec2-pub-ip-dash>
+                                <ec2-pub-ip>${ec2-pub-ip}</ec2-pub-ip>
                             </attributes>
                         </configuration>
                     </execution>

@@ -51,7 +51,7 @@ image::wildfly-camel-s2i-builder02.png[]
 
 Then to access the application you can browse to the route endpoint URL. For example:
 
-http://camel-cdi-wildfly-camel.apps.10.2.2.2.xip.io/example-camel-cdi?name=Kermit
+http://camel-cdi-wildfly-camel.{ec2-pub-ip}.xip.io/example-camel-cdi?name=Kermit[,window=_blank]
 
  Hello Kermit
 
