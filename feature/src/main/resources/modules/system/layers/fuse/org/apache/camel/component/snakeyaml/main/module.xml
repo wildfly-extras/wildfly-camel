@@ -5,8 +5,8 @@
   </resources>
   <dependencies>
     <module name="org.slf4j" />
+    <module name="org.yaml.snakeyaml" export="true" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.yaml.snakeyaml" />
   </dependencies>
 </module>

@@ -22,6 +22,8 @@ package org.wildfly.camel.test.yaml;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.snakeyaml.SnakeYAMLDataFormat;
+import org.apache.camel.component.snakeyaml.TypeFilters;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.model.dataformat.YAMLLibrary;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -69,12 +71,16 @@ public class YamlDataFormatIntegrationTest {
 
     @Test
     public void testUnmarshalYaml() throws Exception {
+        
+        SnakeYAMLDataFormat yaml = new SnakeYAMLDataFormat();
+        yaml.addTypeFilters(TypeFilters.types(Customer.class));
+        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .unmarshal().yaml(YAMLLibrary.SnakeYAML);
+                .unmarshal(yaml);
             }
         });
 
