@@ -5,11 +5,16 @@ exchangeProperty
 file
 groovy
 header
+javaScript
 mvel
 ognl
+php
+python
 ref
+ruby
 simple
 spel
+terser
 tokenize
 xpath
 xquery

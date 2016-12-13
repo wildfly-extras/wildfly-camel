@@ -1,0 +1,34 @@
+{
+ "dataformat": {
+    "name": "json-jackson",
+    "kind": "dataformat",
+    "modelName": "json",
+    "title": "JSon Jackson",
+    "description": "Camel Jackson support",
+    "label": "dataformat,transformation,json",
+    "javaType": "org.apache.camel.component.jackson.JacksonDataFormat",
+    "modelJavaType": "org.apache.camel.model.dataformat.JsonDataFormat",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-jackson",
+    "version": "2.18.1"
+  },
+  "properties": {
+    "objectMapper": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Lookup and use the existing ObjectMapper with the given id when using Jackson." },
+    "prettyPrint": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "To enable pretty printing output nicely formatted. Is by default false." },
+    "library": { "kind": "attribute", "required": "false", "type": "string", "javaType": "org.apache.camel.model.dataformat.JsonLibrary", "enum": [ "Gson", "Jackson", "Johnzon", "XStream" ], "deprecated": "false", "secret": "false", "defaultValue": "Jackson", "description": "Which json library to use." },
+    "unmarshalTypeName": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Class name of the java type to use when unarmshalling" },
+    "jsonView": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.Class<?>", "deprecated": "false", "secret": "false", "description": "When marshalling a POJO to JSON you might want to exclude certain fields from the JSON output. With Jackson you can use JSON views to accomplish this. This option is to refer to the class which has JsonView annotations" },
+    "include": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "If you want to marshal a pojo to JSON and the pojo has some fields with null values. And you want to skip these null values you can set this option to NOT_NULL" },
+    "allowJmsType": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Used for JMS users to allow the JMSType header from the JMS spec to specify a FQN classname to use to unmarshal to." },
+    "collectionTypeName": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Refers to a custom collection type to lookup in the registry to use. This option should rarely be used but allows to use different collection types than java.util.Collection based as default." },
+    "useList": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "To unarmshal to a List of Map or a List of Pojo." },
+    "enableJaxbAnnotationModule": { "kind": "attribute", "required": "false", "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Whether to enable the JAXB annotations module when using jackson. When enabled then JAXB annotations can be used by Jackson." },
+    "moduleClassNames": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "To use custom Jackson modules com.fasterxml.jackson.databind.Module specified as a String with FQN class names. Multiple classes can be separated by comma." },
+    "moduleRefs": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "To use custom Jackson modules referred from the Camel registry. Multiple modules can be separated by comma." },
+    "enableFeatures": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Set of features to enable on the Jackson com.fasterxml.jackson.databind.ObjectMapper. The features should be a name that matches a enum from com.fasterxml.jackson.databind.SerializationFeature com.fasterxml.jackson.databind.DeserializationFeature or com.fasterxml.jackson.databind.MapperFeature Multiple features can be separated by comma" },
+    "disableFeatures": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Set of features to disable on the Jackson com.fasterxml.jackson.databind.ObjectMapper. The features should be a name that matches a enum from com.fasterxml.jackson.databind.SerializationFeature com.fasterxml.jackson.databind.DeserializationFeature or com.fasterxml.jackson.databind.MapperFeature Multiple features can be separated by comma" },
+    "permissions": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Adds permissions that controls which Java packages and classes XStream is allowed to use during unmarshal from xml/json to Java beans. A permission must be configured either here or globally using a JVM system property. The permission can be specified in a syntax where a plus sign is allow and minus sign is deny. Wildcards is supported by using . as prefix. For example to allow com.foo and all subpackages then specfy com.foo.. Multiple permissions can be configured separated by comma such as com.foo.-com.foo.bar.MySecretBean. The following default permission is always included: -java.lang.java.util. unless its overridden by specifying a JVM system property with they key org.apache.camel.xstream.permissions." },
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+
