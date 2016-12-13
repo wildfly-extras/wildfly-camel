@@ -47,6 +47,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -85,7 +89,7 @@
                         </goals>
                         <configuration>
                             <includeGroupIds>org.apache.camel</includeGroupIds>
-                            <includes>org/apache/camel/**/*.json</includes>
+                            <includes>org/apache/camel/**/*.json,org/apache/camel/**/*.class</includes>
                         </configuration>
                     </execution>
                 </executions>

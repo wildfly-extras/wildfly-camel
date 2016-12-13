@@ -5,37 +5,38 @@ bindy-csv
 bindy-fixed
 bindy-kvp
 castor
+crypto
 csv
 flatpack
+gzip
+hl7
+jaxb
+json-jackson
 json-xstream
 mime-multipart
+pgp
 protobuf
 rss
 secureXML
+serialization
 soapjaxb
+string
+syslog
 tidyMarkup
+xmlBeans
 xstream
+yaml-snakeyaml
+zip
 zipfile
 
 [planned]
 avro
 beanio
-crypto
-hl7
 jacksonxml
-jaxb
 json-gson
-json-jackson
-pgp
-syslog
 tarfile
-yaml-snakeyaml
 
 [undecided]
-gzip
-serialization
-string
-zip
 
 [rejected]
 boon
@@ -47,6 +48,6 @@ lzf
 univocity-csv
 univocity-fixed
 univocity-tsv
-xmlBeans
 xmljson
 xmlrpc
+

@@ -1,0 +1,19 @@
+{
+ "dataformat": {
+    "name": "gzip",
+    "kind": "dataformat",
+    "modelName": "gzip",
+    "title": "GZip",
+    "description": "GZip compression data format",
+    "label": "dataformat,transformation",
+    "javaType": "org.apache.camel.impl.GzipDataFormat",
+    "modelJavaType": "org.apache.camel.model.dataformat.GzipDataFormat",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-core",
+    "version": "2.18.1"
+  },
+  "properties": {
+    "id": { "kind": "attribute", "required": "false", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "Sets the value of the id property." }
+  }
+}
+
