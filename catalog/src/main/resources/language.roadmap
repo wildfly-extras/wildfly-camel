@@ -5,27 +5,27 @@ exchangeProperty
 file
 groovy
 header
+javaScript
 mvel
 ognl
+php
+python
 ref
+ruby
 simple
 spel
+terser
 tokenize
 xpath
 xquery
 xtokenize
 
 [planned]
-javaScript
 jsonpath
-php
-python
-terser
 
 [undecided]
 
 [rejected]
 el
 jxpath
-ruby
 sql

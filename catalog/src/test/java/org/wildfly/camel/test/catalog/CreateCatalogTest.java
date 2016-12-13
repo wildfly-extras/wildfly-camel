@@ -22,6 +22,7 @@ package org.wildfly.camel.test.catalog;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,6 +34,7 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -40,24 +42,17 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public final class CreateCatalogTest {
 
+    List<String> kinds = Arrays.asList("component", "dataformat", "language");
     Path outdir = Paths.get("src/main/resources");
     
-    Set<Path> availablePaths = new LinkedHashSet<>();
-    
-    Set<Path> components = new LinkedHashSet<>();
-    Set<Path> dataformats = new LinkedHashSet<>();
-    Set<Path> languages = new LinkedHashSet<>();
-
-    RoadMap componentRM = new RoadMap(outdir.resolve("component.roadmap"));
-    RoadMap dataformatRM = new RoadMap(outdir.resolve("dataformat.roadmap"));
-    RoadMap languageRM = new RoadMap(outdir.resolve("language.roadmap"));
-
     static class RoadMap {
         public final Path outpath;
         public String type;
-        public Set<String> available = new LinkedHashSet<>();
         public Set<String> supported = new LinkedHashSet<>();
         public Set<String> planned = new LinkedHashSet<>();
         public Set<String> undecided = new LinkedHashSet<>();
@@ -66,20 +61,70 @@ public final class CreateCatalogTest {
             this.outpath = outpath;
             type = outpath.getFileName().toString();
             type = type.substring(0, type.indexOf('.'));
+            
+            Set<String> collection = null;
+            File file = outpath.toFile();
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line = br.readLine();
+                while (line != null) {
+                    if (line.length() > 0 && !line.startsWith("#")) {
+                        if (line.equals("[planned]")) {
+                            collection = planned;
+                        } else if (line.equals("[rejected]")) {
+                            collection = rejected;
+                        } else if (line.startsWith("[")) {
+                            collection = null;
+                        } else if (collection != null) {
+                            collection.add(line);
+                        }
+                    }
+                    line = br.readLine();
+                }
+            } catch (IOException ex) {
+                throw new IllegalStateException(ex);
+            }
         }
     }
+    
+    RoadMap componentRM = new RoadMap(outdir.resolve("component.roadmap"));
+    RoadMap dataformatRM = new RoadMap(outdir.resolve("dataformat.roadmap"));
+    RoadMap languageRM = new RoadMap(outdir.resolve("language.roadmap"));
+
+    class Item {
+        Path path;
+        String kind;
+        String javaType;
+        RoadMap roadmap;
+        Item(Path path, String kind, String javaType) {
+            this.path = path;
+            this.kind = kind;
+            this.javaType = javaType;
+            
+        }
+        RoadMap roadmap() {
+            if ("dataformat".equals(kind)) {
+                return dataformatRM;
+            } else if ("language".equals(kind)) {
+                return languageRM;
+            } else {
+                return componentRM;
+            }
+        }
+    }
+    
+    Set<Item> available = new LinkedHashSet<>();
     
     @Test
     public void createCatalog() throws Exception {
 
         cleanOutputDir();
         
-        collectAvailablePaths();
-        collectSupportedPaths();
+        collectAvailable();
+        collectSupported();
         
-        generateProperties(components, "components.properties");
-        generateProperties(dataformats, "dataformats.properties");
-        generateProperties(languages, "languages.properties");
+        generateProperties(componentRM, "components.properties");
+        generateProperties(dataformatRM, "dataformats.properties");
+        generateProperties(languageRM, "languages.properties");
 
         generateRoadmap(componentRM);
         generateRoadmap(dataformatRM);
@@ -89,7 +134,7 @@ public final class CreateCatalogTest {
     private void cleanOutputDir() throws IOException {
         Files.walkFileTree(outdir, new SimpleFileVisitor<Path>() {
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-                if (path.toString().endsWith(".json")) {
+                if (path.toString().endsWith(".json") || path.toString().endsWith(".properties")) {
                     path.toFile().delete();
                 }
                 return FileVisitResult.CONTINUE;
@@ -103,21 +148,17 @@ public final class CreateCatalogTest {
         });
     }
 
-    private void collectAvailablePaths() throws IOException {
+    private void collectAvailable() throws IOException {
         Path rootPath = Paths.get("target", "camel-catalog");
         Files.walkFileTree(rootPath, new SimpleFileVisitor<Path>() {
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-                path = rootPath.relativize(path);
                 if (path.toString().endsWith(".json")) {
-                    if (path.startsWith("org/apache/camel/catalog/components")) {
-                        componentRM.available.add(simpleName(path));
-                        availablePaths.add(path);
-                    } else if (path.startsWith("org/apache/camel/catalog/dataformats")) {
-                        dataformatRM.available.add(simpleName(path));
-                        availablePaths.add(path);
-                    } else if (path.startsWith("org/apache/camel/catalog/languages")) {
-                        languageRM.available.add(simpleName(path));
-                        availablePaths.add(path);
+                    ObjectMapper mapper = new ObjectMapper();
+                    JsonNode tree = mapper.readTree(path.toFile());
+                    String kind = tree.findValue("kind").textValue();
+                    String javaType = tree.findValue("javaType").textValue();
+                    if (kinds.contains(kind) && javaType != null) {
+                        available.add(new Item(rootPath.relativize(path), kind, javaType));
                     }
                 }
                 return FileVisitResult.CONTINUE;
@@ -125,54 +166,34 @@ public final class CreateCatalogTest {
         });
     }
 
-    private void collectSupportedPaths() throws IOException {
+    private void collectSupported() throws IOException {
         Path rootPath = Paths.get("target", "dependency");
-        Files.walkFileTree(rootPath, new SimpleFileVisitor<Path>() {
-            public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-                path = rootPath.relativize(path);
-                if (path.toString().endsWith(".json")) {
-                    if (path.startsWith("org/apache/camel/component")) {
-                        supportedPath(components, Paths.get("org/apache/camel/catalog/components"), path);
-                    } else if (path.startsWith("org/apache/camel/dataformat")) {
-                        supportedPath(dataformats, Paths.get("org/apache/camel/catalog/dataformats"), path);
-                    } else if (path.startsWith("org/apache/camel/language")) {
-                        supportedPath(languages, Paths.get("org/apache/camel/catalog/languages"), path);
-                    }
-                }
-                return FileVisitResult.CONTINUE;
+        for(Item item : available) {
+            String name = simpleName(item.path);
+            
+            RoadMap roadmap = item.roadmap();
+            if (!roadmap.planned.contains(name) && !roadmap.rejected.contains(name)) {
+                roadmap.undecided.add(name);
             }
-
-            void supportedPath(Set<Path> collection, Path parent, Path source) throws IOException {
-                Path target = parent.resolve(source.getFileName());
-                if (availablePaths.contains(target)) {
-                    target = outdir.resolve(target);
-                    target.getParent().toFile().mkdirs();
-                    Files.copy(rootPath.resolve(source), target, StandardCopyOption.REPLACE_EXISTING);
-                    collection.add(target);
-                    
-                    if (collection == components) {
-                        componentRM.supported.add(simpleName(target));
-                    } else if (collection == dataformats) {
-                        dataformatRM.supported.add(simpleName(target));
-                    } else if (collection == languages) {
-                        languageRM.supported.add(simpleName(target));
-                    }
-                }
+            
+            Path javaType = Paths.get(item.javaType.replace('.', '/') + ".class");
+            if (rootPath.resolve(javaType).toFile().isFile()) {
+                Path target = outdir.resolve(item.path);
+                Path source = Paths.get("target", "camel-catalog").resolve(item.path);
+                target.getParent().toFile().mkdirs();
+                Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+                roadmap.supported.add(name);
+                roadmap.planned.remove(name);
+                roadmap.undecided.remove(name);
+                roadmap.rejected.remove(name);
             }
-        });
+        }
     }
 
-    private void generateProperties(Set<Path> collection, String filename) throws IOException {
-        
-        List<String> names = new ArrayList<>();
-        for (Path path : collection) {
-            names.add(simpleName(path));
-        }
-        Collections.sort(names);
-        
+    private void generateProperties(RoadMap roadmap, String filename) throws IOException {
         File outfile = outdir.resolve("org/apache/camel/catalog/" + filename).toFile();
         try (PrintWriter pw = new PrintWriter(outfile)) {
-            for (String name : names) {
+            for (String name : sorted(roadmap.supported)) {
                 pw.println(name);
             }
         }
@@ -185,34 +206,8 @@ public final class CreateCatalogTest {
 
     private void generateRoadmap(RoadMap roadmap) throws IOException {
         
-        Set<String> collection = null;
-        File file = roadmap.outpath.toFile();
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line = br.readLine();
-            while (line != null) {
-                if (line.length() > 0 && !line.startsWith("#")) {
-                    if (line.equals("[planned]")) {
-                        collection = roadmap.planned;
-                    } else if (line.equals("[rejected]")) {
-                        collection = roadmap.rejected;
-                    } else if (line.startsWith("[")) {
-                        collection = null;
-                    } else if (collection != null && roadmap.available.contains(line)) {
-                        collection.add(line);
-                    }
-                }
-                line = br.readLine();
-            }
-        }
         
-        for (String entry : roadmap.available) {
-            if (!roadmap.supported.contains(entry) && !roadmap.planned.contains(entry) && !roadmap.rejected.contains(entry)) {
-                roadmap.undecided.add(entry);
-                
-            }
-        }
-
-        try (PrintWriter pw = new PrintWriter(file)) {
+        try (PrintWriter pw = new PrintWriter(roadmap.outpath.toFile())) {
             pw.println("[supported]");
             for (String entry : sorted(roadmap.supported)) {
                 pw.println(entry);
@@ -235,7 +230,7 @@ public final class CreateCatalogTest {
         }
     }
     
-    List<String> sorted(Set<String> set) {
+    private List<String> sorted(Set<String> set) {
         List<String> result = new ArrayList<>(set);
         Collections.sort(result);
         return result; 
