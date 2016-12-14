@@ -66,6 +66,7 @@
         <module name="org.apache.camel.component.jmx" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jpa" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jsch" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.jsonpath" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.kafka" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.ldap" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.linkedin" export="true" services="export" optional="true" />

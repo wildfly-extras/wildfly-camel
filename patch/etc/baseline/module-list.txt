@@ -80,6 +80,10 @@
 /org/apache/camel/component/jmx/main/camel-jmx-2.18.1.jar
 /org/apache/camel/component/jpa/main/camel-jpa-2.18.1.jar
 /org/apache/camel/component/jsch/main/camel-jsch-2.18.1.jar
+/org/apache/camel/component/jsonpath/main/accessors-smart-1.1.jar
+/org/apache/camel/component/jsonpath/main/camel-jsonpath-2.18.1.jar
+/org/apache/camel/component/jsonpath/main/json-path-2.1.0.jar
+/org/apache/camel/component/jsonpath/main/json-smart-2.2.1.jar
 /org/apache/camel/component/kafka/main/camel-kafka-2.18.1.jar
 /org/apache/camel/component/ldap/main/camel-ldap-2.18.1.jar
 /org/apache/camel/component/linkedin/main/camel-linkedin-2.18.1.jar

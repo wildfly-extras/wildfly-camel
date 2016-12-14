@@ -666,6 +666,23 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.jsonpath">
+        <include artifact="org.apache.camel:camel-jsonpath" />
+        <include artifact="com.jayway.jsonpath:json-path" />
+        <include artifact="net.minidev:accessors-smart" />
+        <include artifact="net.minidev:json-smart" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+            <include module="org.ow2.asm" />
+        </apply-to-dependencies>
+        <exports>
+            <exclude path="com/jayway**" />
+            <exclude path="net/minidev**" />
+            <exclude path="org/objectweb**" />
+        </exports>
+    </module>
+    
     <module name="org.apache.camel.component.kafka">
         <include artifact="org.apache.camel:camel-kafka" />
         <apply-to-dependencies skip="true">

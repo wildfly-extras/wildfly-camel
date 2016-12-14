@@ -720,6 +720,7 @@ org/apache/camel/groovy/dataformat
 org/apache/camel/groovy/extend
 org/apache/camel/http
 org/apache/camel/http/common
+org/apache/camel/jsonpath
 org/apache/camel/language
 org/apache/camel/language/groovy
 org/apache/camel/language/mvel
