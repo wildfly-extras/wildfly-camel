@@ -34,7 +34,7 @@ include::components/index.adoc[]
 
 include::dataformats/index.adoc[]
 
-include::scripting/index.adoc[]
+include::languages/index.adoc[]
 
 include::cloud/index.adoc[]
 

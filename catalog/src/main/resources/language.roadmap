@@ -6,6 +6,7 @@ file
 groovy
 header
 javaScript
+jsonpath
 mvel
 ognl
 php
@@ -21,7 +22,6 @@ xquery
 xtokenize
 
 [planned]
-jsonpath
 
 [undecided]
 
