@@ -51,7 +51,8 @@ public class ServiceNowIntegrationTest {
         SERVICENOW_USERNAME("userName"),
         SERVICENOW_PASSWORD("password"),
         SERVICENOW_CLIENT_ID("oauthClientId"),
-        SERVICENOW_CLIENT_SECRET("oauthClientSecret");
+        SERVICENOW_CLIENT_SECRET("oauthClientSecret"),
+        SERVICENOW_RELEASE("release");
 
         private String configPropertyName;
 
@@ -84,6 +85,7 @@ public class ServiceNowIntegrationTest {
                     + "&password={{env:SERVICENOW_PASSWORD}}"
                     + "&oauthClientId={{env:SERVICENOW_CLIENT_ID}}"
                     + "&oauthClientSecret={{env:SERVICENOW_CLIENT_SECRET}}"
+                    + "&release={{env:SERVICENOW_RELEASE}}"
                     + "&model.incident=org.wildfly.camel.test.servicenow.subA.Incident");
             }
         });
@@ -93,8 +95,7 @@ public class ServiceNowIntegrationTest {
             Map<String, Object> headers = new HashMap<>();
             headers.put(ServiceNowConstants.RESOURCE, "table");
             headers.put(ServiceNowConstants.ACTION, ServiceNowConstants.ACTION_RETRIEVE);
-            headers.put(ServiceNowParams.SYSPARM_LIMIT.getId(), "10");
-            headers.put(ServiceNowParams.PARAM_TABLE_NAME.getId(), "incident");
+            headers.put(ServiceNowParams.PARAM_TABLE_NAME.getHeader(), "incident");
 
             ProducerTemplate producer = camelctx.createProducerTemplate();
             List<Incident> result = producer.requestBodyAndHeaders("direct:start", null, headers, List.class);
