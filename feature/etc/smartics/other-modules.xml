@@ -230,6 +230,13 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.commons.compress">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-compress" />
+    </module>
+
     <module name="org.apache.commons.configuration">
         <properties>
             <property name="jboss.api" value="private"/>

@@ -1171,6 +1171,15 @@
         </exports>
     </module>
     
+    <module name="org.apache.camel.component.tarfile">
+        <include artifact="org.apache.camel:camel-tarfile" />
+        <include artifact=":tagsoup" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+    </module>
+    
     <module name="org.apache.camel.component.twitter">
         <include artifact="org.apache.camel:camel-twitter" />
         <include artifact=":twitter4j-core" />

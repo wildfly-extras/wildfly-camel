@@ -18,11 +18,12 @@
  * #L%
  */
 
-package org.wildfly.camel.test.zipfile;
+package org.wildfly.camel.test.tarfile;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.dataformat.tarfile.TarFileDataFormat;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -35,24 +36,25 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class GZipIntegrationTest {
+public class TarFileIntegrationTest {
 
     @Deployment
-    public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "gzip-dataformat-tests");
-        return archive;
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class, "tarfile-tests");
     }
 
     @Test
     public void testMarshalUnmarshall() throws Exception {
 
+        TarFileDataFormat tar = new TarFileDataFormat();
+        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .marshal().gzip()
-                .unmarshal().gzip();
+                .marshal(tar)
+                .unmarshal(tar);
             }
         });
 
@@ -65,5 +67,4 @@ public class GZipIntegrationTest {
             camelctx.stop();
         }
     }
-
 }

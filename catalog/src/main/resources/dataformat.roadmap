@@ -22,6 +22,7 @@ serialization
 soapjaxb
 string
 syslog
+tarfile
 tidyMarkup
 xmlBeans
 xstream
@@ -34,7 +35,6 @@ avro
 beanio
 jacksonxml
 json-gson
-tarfile
 
 [undecided]
 

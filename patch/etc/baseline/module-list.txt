@@ -135,6 +135,7 @@
 /org/apache/camel/component/syslog/main/camel-syslog-2.18.1.jar
 /org/apache/camel/component/tagsoup/main/camel-tagsoup-2.18.1.jar
 /org/apache/camel/component/tagsoup/main/tagsoup-1.2.1.jar
+/org/apache/camel/component/tarfile/main/camel-tarfile-2.18.1.jar
 /org/apache/camel/component/twitter/main/camel-twitter-2.18.1.jar
 /org/apache/camel/component/twitter/main/twitter4j-core-4.0.5.jar
 /org/apache/camel/component/twitter/main/twitter4j-stream-4.0.5.jar
@@ -162,6 +163,7 @@
 /org/apache/camel/script/rhino/main/livetribe-jsr223-2.0.3.jar
 /org/apache/camel/script/rhino/main/scriptengines-javascript-1.1.1.jar
 /org/apache/camel/spring/main/camel-spring-2.18.1.jar
+/org/apache/commons/compress/main/commons-compress-1.12.jar
 /org/apache/commons/configuration/main/commons-configuration-1.8.jar
 /org/apache/commons/csv/main/commons-csv-1.4.jar
 /org/apache/commons/httpclient/main/commons-httpclient-3.1.jar

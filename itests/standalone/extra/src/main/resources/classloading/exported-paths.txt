@@ -711,6 +711,7 @@ org/apache/camel/dataformat/rss
 org/apache/camel/dataformat/soap
 org/apache/camel/dataformat/soap/name
 org/apache/camel/dataformat/tagsoup
+org/apache/camel/dataformat/tarfile
 org/apache/camel/dataformat/xmlsecurity
 org/apache/camel/dataformat/xstream
 org/apache/camel/dataformat/zipfile
@@ -732,6 +733,7 @@ org/apache/camel/processor
 org/apache/camel/processor/aggregate
 org/apache/camel/processor/aggregate/cassandra
 org/apache/camel/processor/aggregate/jdbc
+org/apache/camel/processor/aggregate/tarfile
 org/apache/camel/processor/aggregate/zipfile
 org/apache/camel/processor/idempotent
 org/apache/camel/processor/idempotent/cassandra

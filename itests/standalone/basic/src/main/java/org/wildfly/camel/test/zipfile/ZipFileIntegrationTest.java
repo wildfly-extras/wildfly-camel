@@ -44,7 +44,7 @@ import org.apache.camel.model.dataformat.ZipFileDataFormat;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,9 +57,8 @@ public class ZipFileIntegrationTest {
     private String datadir = System.getProperty("jboss.server.data.dir");
 
     @Deployment
-    public static WebArchive createDeployment() {
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "zipfile-tests.war");
-        return archive;
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class, "zipfile-tests");
     }
 
     @Test
