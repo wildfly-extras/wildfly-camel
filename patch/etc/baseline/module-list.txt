@@ -73,6 +73,7 @@
 /org/apache/camel/component/irc/main/camel-irc-2.18.1.jar
 /org/apache/camel/component/irc/main/irclib-1.10.jar
 /org/apache/camel/component/jackson/main/camel-jackson-2.18.1.jar
+/org/apache/camel/component/jacksonxml/main/camel-jacksonxml-2.18.1.jar
 /org/apache/camel/component/jasypt/main/camel-jasypt-2.18.1.jar
 /org/apache/camel/component/jaxb/main/camel-jaxb-2.18.1.jar
 /org/apache/camel/component/jdbc/main/camel-jdbc-2.18.1.jar

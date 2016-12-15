@@ -56,10 +56,13 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
+        <include artifact=":jackson-dataformat-xml" />
         <apply-to-dependencies skip="true">
             <include module="org.codehaus.woodstox.core" />
         </apply-to-dependencies>
-        <include artifact=":jackson-dataformat-xml" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
     </module>
 
     <module name="com.fasterxml.jackson.dataformat.yaml">
@@ -97,15 +100,15 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <apply-to-dependencies skip="true">
-            <include module="com.fasterxml.jackson.afterburner" />
-        </apply-to-dependencies>
         <include artifact="com.netflix.archaius:archaius-core" />
         <include artifact="com.netflix.hystrix:hystrix-core" />
         <include artifact="com.netflix.hystrix:hystrix-metrics-event-stream" />
         <include artifact="com.netflix.hystrix:hystrix-serialization" />
         <include artifact="io.reactivex:rxjava" />
         <include artifact="org.hdrhistogram:HdrHistogram" />
+        <apply-to-dependencies skip="true">
+            <include module="com.fasterxml.jackson.afterburner" />
+        </apply-to-dependencies>
     </module>
 
     <module name="com.rometools.rome">
@@ -163,6 +166,9 @@
     </module>
 
     <module name="net.sourceforge.cssparser">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="net.sourceforge.cssparser:(.*)"/>
         <dependencies>
             <module name="javax.api"/>
@@ -170,6 +176,9 @@
     </module>
 
     <module name="net.sourceforge.nekohtml">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="net.sourceforge.nekohtml:(.*)"/>
         <dependencies>
             <module name="javax.api"/>
@@ -178,6 +187,9 @@
     </module>
 
     <module name="net.sourceforge.htmlunit">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="net.sourceforge.htmlunit:(.*)"/>
         <dependencies>
             <module name="javax.api"/>

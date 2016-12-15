@@ -10,6 +10,7 @@ csv
 flatpack
 gzip
 hl7
+jacksonxml
 jaxb
 json-gson
 json-jackson
@@ -34,7 +35,6 @@ zipfile
 [planned]
 avro
 beanio
-jacksonxml
 
 [undecided]
 

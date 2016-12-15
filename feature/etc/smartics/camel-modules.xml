@@ -564,6 +564,18 @@
         </dependencies>
     </module>
     
+    <module name="org.apache.camel.component.jacksonxml">
+        <include artifact="org.apache.camel:camel-jacksonxml" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+    
     <module name="org.apache.camel.component.jasypt">
         <include artifact="org.apache.camel:camel-jasypt" />
         <apply-to-dependencies skip="true">

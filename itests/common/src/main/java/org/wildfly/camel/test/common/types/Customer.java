@@ -25,8 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@XmlRootElement(name = "Customer")
 @JsonRootName("Customer")
+@XmlRootElement(name = "Customer")
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 7301753065476408128L;
