@@ -576,6 +576,7 @@ org/apache/camel/component/file
 org/apache/camel/component/file/remote
 org/apache/camel/component/file/remote/strategy
 org/apache/camel/component/flatpack
+org/apache/camel/component/gson
 org/apache/camel/component/hl7
 org/apache/camel/component/http4
 org/apache/camel/component/http4/helper

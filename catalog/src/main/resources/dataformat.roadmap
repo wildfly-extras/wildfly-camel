@@ -11,6 +11,7 @@ flatpack
 gzip
 hl7
 jaxb
+json-gson
 json-jackson
 json-xstream
 mime-multipart
@@ -34,7 +35,6 @@ zipfile
 avro
 beanio
 jacksonxml
-json-gson
 
 [undecided]
 
