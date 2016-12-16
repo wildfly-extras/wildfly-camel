@@ -39,6 +39,8 @@
 /org/apache/camel/component/barcode/main/javase-3.2.1.jar
 /org/apache/camel/component/base64/main/camel-base64-2.18.1.jar
 /org/apache/camel/component/bean/validator/main/camel-bean-validator-2.18.1.jar
+/org/apache/camel/component/beanio/main/beanio-2.1.0.jar
+/org/apache/camel/component/beanio/main/camel-beanio-2.18.1.jar
 /org/apache/camel/component/bindy/main/camel-bindy-2.18.1.jar
 /org/apache/camel/component/braintree/main/braintree-java-2.63.0.jar
 /org/apache/camel/component/braintree/main/camel-braintree-2.18.1.jar

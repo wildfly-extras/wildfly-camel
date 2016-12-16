@@ -1,0 +1,14 @@
+<beanio xmlns="http://www.beanio.org/2012/03" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.beanio.org/2012/03 http://www.beanio.org/2012/03/mapping.xsd">
+
+  <stream name="customerStream" format="csv" >
+    <record name="customer" class="org.wildfly.camel.test.beanio.subA.Customer">
+      <field name="firstName" />
+      <field name="lastName" />
+      <field name="street" />
+      <field name="zip" />
+    </record>
+  </stream>
+    
+</beanio>

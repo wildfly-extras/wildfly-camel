@@ -26,6 +26,7 @@
         <module name="org.apache.camel.component.atom" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.barcode" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.base64" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.beanio" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.bean.validator" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.bindy" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.braintree" export="true" services="export" optional="true" />
