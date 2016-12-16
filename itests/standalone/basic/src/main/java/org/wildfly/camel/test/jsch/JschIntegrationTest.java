@@ -57,7 +57,7 @@ public class JschIntegrationTest {
     @Deployment
     public static WebArchive createDeployment() {
         File[] libraryDependencies = Maven.configureResolverViaPlugin().
-            resolve("org.apache.sshd:sshd-sftp").
+            resolve("org.apache.sshd:sshd-core").
             withTransitivity().
             asFile();
 

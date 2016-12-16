@@ -24,10 +24,10 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
 
-import org.apache.sshd.SshServer;
-import org.apache.sshd.server.command.ScpCommandFactory;
+import org.apache.sshd.server.SshServer;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
-import org.apache.sshd.server.sftp.SftpSubsystem;
+import org.apache.sshd.server.scp.ScpCommandFactory;
+import org.apache.sshd.server.subsystem.sftp.SftpSubsystemFactory;
 import org.wildfly.camel.test.common.utils.TestUtils;
 
 import com.jcraft.jsch.JSch;
@@ -45,11 +45,13 @@ public class EmbeddedSSHServer {
         this.port = TestUtils.getAvailablePort();
         this.sshServer.setPort(this.port);
         this.sshServer.setKeyPairProvider(new SimpleGeneratorHostKeyProvider());
-        this.sshServer.setSubsystemFactories(Arrays.asList(new SftpSubsystem.Factory()));
         this.sshServer.setCommandFactory(new ScpCommandFactory());
         this.sshServer.setPasswordAuthenticator((username, password, serverSession) -> username.equals("admin") && password.equals("admin"));
         this.sshServer.setPublickeyAuthenticator((s, publicKey, serverSession) -> true);
         this.homeDir = homeDir;
+
+        SftpSubsystemFactory factory = new SftpSubsystemFactory.Builder().build();
+        this.sshServer.setSubsystemFactories(Arrays.asList(factory));
     }
 
     public void start() throws IOException {
@@ -59,7 +61,7 @@ public class EmbeddedSSHServer {
         }
     }
 
-    public void stop() throws InterruptedException {
+    public void stop() throws IOException {
         if (this.sshServer != null) {
             this.sshServer.stop();
         }

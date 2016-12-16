@@ -57,7 +57,7 @@ public class SftpIntegrationTest {
     @Deployment
     public static WebArchive createDeployment() throws IOException {
         File[] libraryDependencies = Maven.configureResolverViaPlugin().
-                resolve("org.apache.sshd:sshd-sftp").
+                resolve("org.apache.sshd:sshd-core").
                 withTransitivity().
                 asFile();
 
