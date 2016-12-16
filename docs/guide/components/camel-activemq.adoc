@@ -6,7 +6,7 @@ The component can be configured to work with an embedded or external broker. For
 
 #### WildFly ActiveMQ resource adapter configuration
 
-Dowonload the https://repository.apache.org/content/repositories/releases/org/apache/activemq/activemq-rar/5.11.1/activemq-rar-5.11.1.rar[ActiveMQ resource adapter rar file,window=_blank]. The following steps outline how to configure the ActiveMQ resource adapter.
+Download the https://repository.apache.org/content/repositories/releases/org/apache/activemq/activemq-rar/5.11.1/activemq-rar-5.11.1.rar[ActiveMQ resource adapter rar file,window=_blank]. The following steps outline how to configure the ActiveMQ resource adapter.
 
 __1)__ Make sure your WildFly instance is stopped.
 

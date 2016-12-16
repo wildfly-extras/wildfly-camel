@@ -36,13 +36,13 @@ import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.ssh.EmbeddedSSHServer;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -56,18 +56,12 @@ public class SftpIntegrationTest {
 
     @Deployment
     public static WebArchive createDeployment() throws IOException {
-        File[] libraryDependencies = Maven.configureResolverViaPlugin().
-                resolve("org.apache.sshd:sshd-core").
-                withTransitivity().
-                asFile();
-
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-ftp-tests.war");
-        archive.addClasses(EmbeddedSSHServer.class, TestUtils.class);
+        archive.addClasses(EmbeddedSSHServer.class, TestUtils.class, EnvironmentUtils.class);
         archive.addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR);
-        archive.addAsLibraries(libraryDependencies);
         archive.setManifest(() -> {
             ManifestBuilder builder = new ManifestBuilder();
-            builder.addManifestHeader("Dependencies", "com.jcraft.jsch");
+            builder.addManifestHeader("Dependencies", "com.jcraft.jsch,org.apache.sshd");
             return builder.openStream();
         });
         return archive;

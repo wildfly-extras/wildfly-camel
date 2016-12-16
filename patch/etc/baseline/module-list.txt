@@ -135,6 +135,7 @@
 /org/apache/camel/component/soap/main/camel-soap-2.18.1.jar
 /org/apache/camel/component/spring/security/main/camel-spring-security-2.18.1.jar
 /org/apache/camel/component/sql/main/camel-sql-2.18.1.jar
+/org/apache/camel/component/ssh/main/camel-ssh-2.18.1.jar
 /org/apache/camel/component/stream/main/camel-stream-2.18.1.jar
 /org/apache/camel/component/swagger/main/camel-swagger-java-2.18.1.jar
 /org/apache/camel/component/swagger/main/reflections-0.9.10.jar
@@ -222,6 +223,7 @@
 /org/apache/pdfbox/main/fontbox-1.8.12.jar
 /org/apache/pdfbox/main/jempbox-1.8.12.jar
 /org/apache/pdfbox/main/pdfbox-1.8.12.jar
+/org/apache/sshd/main/sshd-core-0.14.0.jar
 /org/apache/ws/commons/axiom/axiom-api/main/axiom-api-1.2.14.jar
 /org/apache/ws/commons/axiom/axiom-impl/main/axiom-impl-1.2.14.jar
 /org/apache/xbean/spring/main/xbean-spring-4.5.jar

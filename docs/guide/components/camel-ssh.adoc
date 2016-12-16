@@ -1,0 +1,3 @@
+### camel-ssh
+
+The http://camel.apache.org/ssh.html[camel-ssh,window=_blank] component provides the capability to interact with SSH servers.

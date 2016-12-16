@@ -683,6 +683,7 @@ org/apache/camel/component/sql/stored
 org/apache/camel/component/sql/stored/template
 org/apache/camel/component/sql/stored/template/ast
 org/apache/camel/component/sql/stored/template/generated
+org/apache/camel/component/ssh
 org/apache/camel/component/stream
 org/apache/camel/component/syslog
 org/apache/camel/component/syslog/netty

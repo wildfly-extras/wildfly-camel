@@ -20,14 +20,16 @@
 package org.wildfly.camel.test.common.ssh;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.EnumSet;
 
-import org.apache.sshd.server.SshServer;
+import org.apache.sshd.SshServer;
+import org.apache.sshd.server.command.ScpCommandFactory;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
-import org.apache.sshd.server.scp.ScpCommandFactory;
-import org.apache.sshd.server.subsystem.sftp.SftpSubsystemFactory;
+import org.apache.sshd.server.sftp.SftpSubsystem;
+import org.apache.sshd.server.shell.ProcessShellFactory;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.common.utils.TestUtils;
 
 import com.jcraft.jsch.JSch;
@@ -44,24 +46,32 @@ public class EmbeddedSSHServer {
         this.sshServer = SshServer.setUpDefaultServer();
         this.port = TestUtils.getAvailablePort();
         this.sshServer.setPort(this.port);
+        this.sshServer.setCommandFactory(new ScpCommandFactory(command -> new ProcessShellFactory(command.split(" ")).create()));
+        this.sshServer.setSubsystemFactories(Arrays.asList(new SftpSubsystem.Factory()));
         this.sshServer.setKeyPairProvider(new SimpleGeneratorHostKeyProvider());
-        this.sshServer.setCommandFactory(new ScpCommandFactory());
         this.sshServer.setPasswordAuthenticator((username, password, serverSession) -> username.equals("admin") && password.equals("admin"));
         this.sshServer.setPublickeyAuthenticator((s, publicKey, serverSession) -> true);
         this.homeDir = homeDir;
 
-        SftpSubsystemFactory factory = new SftpSubsystemFactory.Builder().build();
-        this.sshServer.setSubsystemFactories(Arrays.asList(factory));
+
+        if (EnvironmentUtils.isWindows()) {
+            this.sshServer.setShellFactory(new ProcessShellFactory(new String[] { "cmd.exe " }, EnumSet.of(
+                ProcessShellFactory.TtyOptions.Echo, ProcessShellFactory.TtyOptions.ICrNl,
+                ProcessShellFactory.TtyOptions.ONlCr)));
+        } else {
+            this.sshServer.setShellFactory(new ProcessShellFactory(new String[] { "/bin/sh", "-i", "-s" }, EnumSet
+                .of(ProcessShellFactory.TtyOptions.ONlCr)));
+        }
     }
 
-    public void start() throws IOException {
+    public void start() throws Exception {
         if (this.sshServer != null) {
             this.sshServer.start();
             setupKnownHosts();
         }
     }
 
-    public void stop() throws IOException {
+    public void stop() throws Exception {
         if (this.sshServer != null) {
             this.sshServer.stop();
         }

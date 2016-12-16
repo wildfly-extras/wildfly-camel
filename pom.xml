@@ -62,7 +62,6 @@
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
         <version.apache.httpcomponents>4.5.2</version.apache.httpcomponents>
         <version.apache.karaf>2.4.3</version.apache.karaf>
-        <version.apache.sshd>1.3.0</version.apache.sshd>
         <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
         <version.arquillian.cube>1.0.0.Alpha15</version.arquillian.cube>
         <version.betamax>2.0.0</version.betamax>
@@ -373,13 +372,6 @@
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-utils</artifactId>
                 <version>${version.codehaus.plexus.utils}</version>
-            </dependency>
-
-            <!-- SFTP -->
-            <dependency>
-                <groupId>org.apache.sshd</groupId>
-                <artifactId>sshd-core</artifactId>
-                <version>${version.apache.sshd}</version>
             </dependency>
 
             <!-- WildFly -->

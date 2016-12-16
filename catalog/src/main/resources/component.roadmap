@@ -76,6 +76,7 @@ smtps
 spring-event
 sql
 sql-stored
+ssh
 stream
 stub
 test
@@ -154,7 +155,6 @@ spring-integration
 spring-ldap
 spring-redis
 spring-ws
-ssh
 stax
 websocket
 

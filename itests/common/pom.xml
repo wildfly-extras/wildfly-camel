@@ -47,12 +47,12 @@
             <artifactId>camel-jsch</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka_2.11</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-ssh</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.sshd</groupId>
-            <artifactId>sshd-core</artifactId>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.11</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
