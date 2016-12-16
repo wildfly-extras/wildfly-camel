@@ -1,6 +1,7 @@
 [supported]
 barcode
 base64
+beanio
 bindy-csv
 bindy-fixed
 bindy-kvp
@@ -34,7 +35,6 @@ zipfile
 
 [planned]
 avro
-beanio
 
 [undecided]
 
