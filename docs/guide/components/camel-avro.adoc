@@ -1,0 +1,6 @@
+### camel-avro
+
+The http://camel.apache.org/avro.html[camel-avro,window=_blank] component provides a dataformat for avro, 
+which allows serialization and deserialization of messages using Apache Avro's binary dataformat. 
+Moreover, it provides support for Apache Avro's rpc, by providing producers and consumers endpoint for using avro over netty or http.
+

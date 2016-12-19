@@ -4,6 +4,7 @@ This chapter details information about supported camel components
 
 include::camel-activemq.adoc[]
 include::camel-atom.adoc[]
+include::camel-avro.adoc[]
 include::camel-bean-validator.adoc[]
 include::camel-bindy.adoc[]
 include::camel-braintree.adoc[]
