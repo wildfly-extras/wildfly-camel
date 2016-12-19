@@ -155,6 +155,39 @@
     <!-- Profiles -->
     <profiles>
         <profile>
+            <id>debug</id>
+            <activation>
+                <property>
+                    <name>debug</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <echo message="Setting log level to DEBUG" />
+                                        <replaceregexp file="${jboss.home}/standalone/configuration/${server.config}"
+                                            match="INFO"
+                                            replace="DEBUG"
+                                            byline="true"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>no.ts.smoke</id>
             <activation>
                 <property>
