@@ -1,5 +1,6 @@
 [supported]
 atom
+avro
 bean
 bean-validator
 binding
@@ -92,7 +93,6 @@ ahc-ws
 ahc-wss
 amqp
 atmosphere-websocket
-avro
 aws-cw
 aws-ddb
 aws-ddbstream

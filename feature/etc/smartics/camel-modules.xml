@@ -114,6 +114,19 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.avro">
+        <include artifact="org.apache.camel:camel-avro" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.avro.ipc" />
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+            <include module="io.netty.parts" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.apache.avro" export="true"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.barcode">
         <include artifact="com.google.zxing:core" />
         <include artifact="com.google.zxing:javase" />

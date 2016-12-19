@@ -14,6 +14,7 @@
 	^org/apache/abdera(.*)
 	^org/apache/activemq
 	^org/apache/activemq/camel(.*)
+	^org/apache/avro(.*)
 	^org/apache/camel(.*)
 	^org/apache/cxf
 	^org/apache/cxf/binding(.*)

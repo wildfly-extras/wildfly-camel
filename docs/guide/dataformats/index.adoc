@@ -2,6 +2,7 @@
 
 The following lists supported Data Formats
 
+* http://camel.apache.org/avro.html[Avro,window=_blank]
 * http://camel.apache.org/barcode-data-format.html[Barcode,window=_blank]
 * http://camel.apache.org/base64.html[Base64,window=_blank]
 * http://camel.apache.org/beanio.html[BeanIO,window=_blank]

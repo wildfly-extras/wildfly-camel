@@ -137,6 +137,10 @@
         <include artifact="org.apache.aries.blueprint:(.*)" />
     </module>
     
+    <module name="org.apache.avro.ipc" skip="true">
+        <include artifact="org.apache.avro:avro-ipc" />
+    </module>
+
     <module name="org.apache.camel.apt" skip="true">
         <include artifact="org.apache.camel:apt" />
     </module>

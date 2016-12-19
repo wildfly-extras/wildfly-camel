@@ -162,7 +162,7 @@
     </module>
 
     <module name="org.apache.avro" skip="true">
-        <include artifact=":avro"/>
+        <include artifact="org.apache.avro:avro"/>
     </module>
 
     <module name="org.apache.commons.beanutils" skip="true">
