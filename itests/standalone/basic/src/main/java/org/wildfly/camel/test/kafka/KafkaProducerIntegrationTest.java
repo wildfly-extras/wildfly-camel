@@ -48,6 +48,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.kafka.EmbeddedKafkaCluster;
@@ -59,6 +60,7 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
+@Ignore("[#1536] Disable camel-kafka component")
 public class KafkaProducerIntegrationTest {
 
     private static final String TOPIC_STRINGS = "test";
