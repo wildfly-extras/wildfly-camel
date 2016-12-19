@@ -34,6 +34,9 @@
 /org/apache/activemq/main/activemq-spring-5.14.0.jar
 /org/apache/camel/component/activemq/main/activemq-camel-5.14.0.jar
 /org/apache/camel/component/atom/main/camel-atom-2.18.1.jar
+/org/apache/camel/component/avro/main/avro-1.8.1.jar
+/org/apache/camel/component/avro/main/avro-ipc-1.8.1.jar
+/org/apache/camel/component/avro/main/camel-avro-2.18.1.jar
 /org/apache/camel/component/barcode/main/camel-barcode-2.18.1.jar
 /org/apache/camel/component/barcode/main/core-3.2.1.jar
 /org/apache/camel/component/barcode/main/javase-3.2.1.jar
@@ -189,7 +192,7 @@
 /org/apache/httpcomponents/4.5.2/httpmime-4.5.2.jar
 /org/apache/kafka/clients/main/kafka-clients-0.10.0.1.jar
 /org/apache/kafka/clients/main/lz4-1.3.0.jar
-/org/apache/kafka/clients/main/snappy-java-1.1.2.6.jar
+/org/apache/kafka/clients/main/snappy-java-1.1.1.3.jar
 /org/apache/kafka/main/jopt-simple-4.9.jar
 /org/apache/kafka/main/kafka_2.11-0.10.0.1.jar
 /org/apache/kafka/main/metrics-core-2.2.0.jar

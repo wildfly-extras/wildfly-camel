@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.avro">
+  <resources>
+    <artifact name="${org.apache.camel:camel-avro}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.avro" export="true" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.codehaus.jackson.jackson-core-asl" />
+    <module name="org.codehaus.jackson.jackson-mapper-asl" />
+  </dependencies>
+</module>
