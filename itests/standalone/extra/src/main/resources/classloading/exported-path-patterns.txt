@@ -46,7 +46,6 @@
 	^schema/(.*)
 	^schemas/(.*)
 	^twitter4j/(.*)
-	^w3c/xslt3
 	^META-INF/cxf(.*)
 	^META-INF/services(.*)
 	

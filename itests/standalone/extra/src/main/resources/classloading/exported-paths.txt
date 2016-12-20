@@ -651,6 +651,10 @@ org/apache/camel/component/salesforce/api/dto/analytics
 org/apache/camel/component/salesforce/api/dto/analytics/reports
 org/apache/camel/component/salesforce/api/dto/bulk
 org/apache/camel/component/salesforce/api/utils
+org/apache/camel/component/schematron
+org/apache/camel/component/schematron/constant
+org/apache/camel/component/schematron/exception
+org/apache/camel/component/schematron/processor
 org/apache/camel/component/scp
 org/apache/camel/component/servicenow
 org/apache/camel/component/servicenow/auth
@@ -1705,5 +1709,4 @@ twitter4j/json
 twitter4j/management
 twitter4j/util
 twitter4j/util/function
-w3c/xslt3
 

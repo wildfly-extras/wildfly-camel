@@ -608,6 +608,20 @@
         </exports>
     </module>
 
+    <module name="net.sf.saxon">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="net.sf.saxon:Saxon-HE" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+        <exports>
+            <exclude path="net/sf" />
+            <exclude path="w3c**" />
+        </exports>
+    </module>
+
     <module name="org.scala.library">
         <properties>
             <property name="jboss.api" value="private"/>

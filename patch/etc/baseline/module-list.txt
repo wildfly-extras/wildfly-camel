@@ -18,6 +18,7 @@
 /com/thoughtworks/xstream/main/xstream-1.4.9.jar
 /io/netty/4.1/netty-all-4.1.5.Final.jar
 /net/sf/dozer/main/dozer-5.5.1.jar
+/net/sf/saxon/main/Saxon-HE-9.7.0-8.jar
 /net/sourceforge/cssparser/main/cssparser-0.9.19.jar
 /net/sourceforge/htmlunit/main/htmlunit-2.22.jar
 /net/sourceforge/htmlunit/main/htmlunit-core-js-2.22.jar
@@ -34,8 +35,6 @@
 /org/apache/activemq/main/activemq-spring-5.14.0.jar
 /org/apache/camel/component/activemq/main/activemq-camel-5.14.0.jar
 /org/apache/camel/component/atom/main/camel-atom-2.18.1.jar
-/org/apache/camel/component/avro/main/avro-1.8.1.jar
-/org/apache/camel/component/avro/main/avro-ipc-1.8.1.jar
 /org/apache/camel/component/avro/main/camel-avro-2.18.1.jar
 /org/apache/camel/component/barcode/main/camel-barcode-2.18.1.jar
 /org/apache/camel/component/barcode/main/core-3.2.1.jar
@@ -120,8 +119,8 @@
 /org/apache/camel/component/salesforce/main/camel-salesforce-2.18.1.jar
 /org/apache/camel/component/salesforce/main/cometd-java-client-3.0.10.jar
 /org/apache/camel/component/salesforce/main/cometd-java-common-3.0.10.jar
-/org/apache/camel/component/saxon/main/Saxon-HE-9.7.0-8.jar
 /org/apache/camel/component/saxon/main/camel-saxon-2.18.1.jar
+/org/apache/camel/component/schematron/main/camel-schematron-2.18.1.jar
 /org/apache/camel/component/script/main/camel-script-2.18.1.jar
 /org/apache/camel/component/servicenow/main/camel-servicenow-2.18.1.jar
 /org/apache/camel/component/servlet/main/camel-servlet-2.18.1.jar

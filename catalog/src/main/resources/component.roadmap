@@ -59,6 +59,7 @@ rest-api
 rss
 salesforce
 scheduler
+schematron
 scp
 seda
 servicenow
@@ -144,7 +145,6 @@ optaplanner
 paho
 rabbitmq
 sap-netweaver
-schematron
 sjms
 sjms-batch
 snmp
