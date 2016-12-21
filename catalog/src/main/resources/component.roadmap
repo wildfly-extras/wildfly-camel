@@ -24,7 +24,9 @@ file
 flatpack
 ftp
 ftps
+http
 http4
+https
 imap
 imaps
 infinispan
@@ -58,6 +60,7 @@ rest
 rest-api
 rss
 salesforce
+sap-netweaver
 scheduler
 schematron
 scp
@@ -127,8 +130,6 @@ hazelcast
 hbase
 hdfs
 hdfs2
-http
-https
 ibatis
 influxdb
 jbpm
@@ -144,7 +145,6 @@ netty4-http
 optaplanner
 paho
 rabbitmq
-sap-netweaver
 sjms
 sjms-batch
 snmp

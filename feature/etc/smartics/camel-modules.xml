@@ -1013,6 +1013,20 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.sap.netweaver">
+        <include artifact="org.apache.camel:camel-sap-netweaver" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.apache.camel.http" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.camel.component.http4" />
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.saxon">
         <include artifact="org.apache.camel:camel-saxon" />
         <apply-to-dependencies skip="true">

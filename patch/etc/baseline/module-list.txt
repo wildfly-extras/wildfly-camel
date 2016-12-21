@@ -119,6 +119,7 @@
 /org/apache/camel/component/salesforce/main/camel-salesforce-2.18.1.jar
 /org/apache/camel/component/salesforce/main/cometd-java-client-3.0.10.jar
 /org/apache/camel/component/salesforce/main/cometd-java-common-3.0.10.jar
+/org/apache/camel/component/sap/netweaver/main/camel-sap-netweaver-2.18.1.jar
 /org/apache/camel/component/saxon/main/camel-saxon-2.18.1.jar
 /org/apache/camel/component/schematron/main/camel-schematron-2.18.1.jar
 /org/apache/camel/component/script/main/camel-script-2.18.1.jar

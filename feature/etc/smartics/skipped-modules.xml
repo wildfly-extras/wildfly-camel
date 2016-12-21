@@ -148,11 +148,15 @@
     <module name="org.apache.camel.blueprint" skip="true">
         <include artifact="org.apache.camel:camel-blueprint" />
     </module>
-    
+
+    <module name="org.apache.camel.http" skip="true">
+        <include artifact="org.apache.camel:camel-http" />
+    </module>
+
     <module name="org.apache.camel.spi-annotations" skip="true">
         <include artifact="org.apache.camel:spi-annotations" />
     </module>
-    
+
     <module name="org.apache.felix" skip="true">
         <include artifact="org.apache.felix:org.apache.felix.http.proxy" />
         <include artifact="org.apache.felix:org.apache.felix.gogo.runtime" />

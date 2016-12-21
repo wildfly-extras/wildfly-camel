@@ -651,6 +651,8 @@ org/apache/camel/component/salesforce/api/dto/analytics
 org/apache/camel/component/salesforce/api/dto/analytics/reports
 org/apache/camel/component/salesforce/api/dto/bulk
 org/apache/camel/component/salesforce/api/utils
+org/apache/camel/component/sap
+org/apache/camel/component/sap/netweaver
 org/apache/camel/component/schematron
 org/apache/camel/component/schematron/constant
 org/apache/camel/component/schematron/exception

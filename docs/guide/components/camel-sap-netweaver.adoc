@@ -1,0 +1,9 @@
+### camel-sap-netweaver
+
+The http://camel.apache.org/sap-netweaver.html[camel-sap-netweaver,window=_blank]
+component integrates with the https://www.sap.com/community/topic/gateway.html[SAP Gateway,window=_blank].
+
+[NOTE]
+====
+You will need a valid SAP account in order to use this component. You can sign up https://www.sap.com/community/topic/gateway.html[here,window=_blank].
+====
