@@ -125,6 +125,7 @@
 /org/apache/camel/component/script/main/camel-script-2.18.1.jar
 /org/apache/camel/component/servicenow/main/camel-servicenow-2.18.1.jar
 /org/apache/camel/component/servlet/main/camel-servlet-2.18.1.jar
+/org/apache/camel/component/sjms/main/camel-sjms-2.18.1.jar
 /org/apache/camel/component/smpp/main/camel-smpp-2.18.1.jar
 /org/apache/camel/component/smpp/main/jsmpp-2.3.0.jar
 /org/apache/camel/component/snakeyaml/main/camel-snakeyaml-2.18.1.jar

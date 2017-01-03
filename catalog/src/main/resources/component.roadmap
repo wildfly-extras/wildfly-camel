@@ -66,6 +66,8 @@ seda
 servicenow
 servlet
 sftp
+sjms
+sjms-batch
 smpp
 smpps
 smtp
@@ -143,8 +145,6 @@ netty4-http
 optaplanner
 paho
 rabbitmq
-sjms
-sjms-batch
 snmp
 spark
 spark-rest

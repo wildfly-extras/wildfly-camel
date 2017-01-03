@@ -665,6 +665,13 @@ org/apache/camel/component/servicenow/releases/fuji
 org/apache/camel/component/servicenow/releases/helsinki
 org/apache/camel/component/servlet
 org/apache/camel/component/servlet/osgi
+org/apache/camel/component/sjms
+org/apache/camel/component/sjms/batch
+org/apache/camel/component/sjms/consumer
+org/apache/camel/component/sjms/jms
+org/apache/camel/component/sjms/producer
+org/apache/camel/component/sjms/taskmanager
+org/apache/camel/component/sjms/tx
 org/apache/camel/component/smpp
 org/apache/camel/component/snakeyaml
 org/apache/camel/component/spring
