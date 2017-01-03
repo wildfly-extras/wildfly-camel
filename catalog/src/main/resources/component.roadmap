@@ -24,9 +24,7 @@ file
 flatpack
 ftp
 ftps
-http
 http4
-https
 imap
 imaps
 infinispan
@@ -161,7 +159,9 @@ stax
 websocket
 
 [undecided]
+http
 http4s
+https
 
 [rejected]
 apns
