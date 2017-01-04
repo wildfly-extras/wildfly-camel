@@ -159,9 +159,7 @@ stax
 websocket
 
 [undecided]
-http
 http4s
-https
 
 [rejected]
 apns
@@ -187,6 +185,8 @@ grape
 gridfs
 guava-eventbus
 hipchat
+http
+https
 ironmq
 javaspace
 jcr
