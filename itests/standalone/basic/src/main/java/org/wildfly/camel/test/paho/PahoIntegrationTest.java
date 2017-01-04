@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.mqtt;
+package org.wildfly.camel.test.paho;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,11 +34,12 @@ import org.apache.camel.PollingConsumer;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.fusesource.mqtt.client.BlockingConnection;
-import org.fusesource.mqtt.client.MQTT;
-import org.fusesource.mqtt.client.Message;
-import org.fusesource.mqtt.client.QoS;
-import org.fusesource.mqtt.client.Topic;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.arquillian.api.ServerSetup;
@@ -55,8 +56,8 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-@ServerSetup({ MQTTIntegrationTest.BrokerSetup.class })
-public class MQTTIntegrationTest {
+@ServerSetup({ PahoIntegrationTest.BrokerSetup.class })
+public class PahoIntegrationTest {
 
     static class BrokerSetup implements ServerSetupTask {
 
@@ -90,13 +91,13 @@ public class MQTTIntegrationTest {
     }
 
     @Test
-    public void testMQTTConsumer() throws Exception {
+    public void testPahoConsumer() throws Exception {
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("mqtt:bar?subscribeTopicName=" + BrokerSetup.TEST_TOPIC + "&host=" + getConnection()).
+                from("paho:" + BrokerSetup.TEST_TOPIC + "?brokerUrl=" + getConnection()).
                 transform(body().prepend("Hello ")).to("seda:end");
             }
         });
@@ -107,14 +108,18 @@ public class MQTTIntegrationTest {
         consumer.start();
 
         try {
-            MQTT mqtt = new MQTT();
-            mqtt.setHost(getConnection());
-            BlockingConnection connection = mqtt.blockingConnection();
-            Topic topic = new Topic(BrokerSetup.TEST_TOPIC, QoS.AT_MOST_ONCE);
-
-            connection.connect();
-            connection.publish(topic.name().toString(), "Kermit".getBytes(), QoS.AT_LEAST_ONCE, false);
-
+            MqttClient client = null;
+            try {
+                client = new MqttClient(getConnection(), "MqttClient", new MemoryPersistence());
+                MqttConnectOptions opts = new MqttConnectOptions();
+                opts.setCleanSession(true);
+                client.connect(opts);
+                MqttMessage message = new MqttMessage("Kermit".getBytes());
+                message.setQos(2);
+                client.publish(BrokerSetup.TEST_TOPIC, message);
+            } finally {
+                client.disconnect();
+            }
             String result = consumer.receive(3000).getIn().getBody(String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
@@ -131,36 +136,36 @@ public class MQTTIntegrationTest {
             public void configure() throws Exception {
                 from("direct:start").
                 transform(body().prepend("Hello ")).
-                to("mqtt:foo?publishTopicName=" + BrokerSetup.TEST_TOPIC + "&host=" + getConnection());
+                to("paho:" + BrokerSetup.TEST_TOPIC + "?brokerUrl=" + getConnection());
             }
         });
 
         camelctx.start();
         
-        MQTT mqtt = new MQTT();
-        mqtt.setHost(getConnection());
-        final BlockingConnection connection = mqtt.blockingConnection();
-        connection.connect();
-        Topic topic = new Topic(BrokerSetup.TEST_TOPIC, QoS.AT_MOST_ONCE);
-        Topic[] topics = {topic};
-        connection.subscribe(topics);
+        MqttClient client = new MqttClient(getConnection(), "MqttClient", new MemoryPersistence());
+        MqttConnectOptions opts = new MqttConnectOptions();
+        opts.setCleanSession(true);
+        client.connect(opts);
+        client.subscribe(BrokerSetup.TEST_TOPIC, 2);
 
         final List<String> result = new ArrayList<>();
         final CountDownLatch latch = new CountDownLatch(1);
 
-        Thread thread = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Message message = connection.receive();
-                    result.add(new String (message.getPayload()));
-                    message.ack();
-                    latch.countDown();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        client.setCallback(new MqttCallback() {
+
+            @Override
+            public void connectionLost(Throwable cause) {
             }
-        });
-        thread.start();
+
+            @Override
+            public void messageArrived(String topic, MqttMessage message) throws Exception {
+                result.add(new String (message.getPayload()));
+                latch.countDown();
+            }
+
+            @Override
+            public void deliveryComplete(IMqttDeliveryToken token) {
+            }});
 
         ProducerTemplate producer = camelctx.createProducerTemplate();
         producer.asyncSendBody("direct:start", "Kermit");

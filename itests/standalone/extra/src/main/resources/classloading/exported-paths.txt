@@ -640,6 +640,7 @@ org/apache/camel/component/olingo2
 org/apache/camel/component/olingo2/api
 org/apache/camel/component/olingo2/api/batch
 org/apache/camel/component/olingo2/api/impl
+org/apache/camel/component/paho
 org/apache/camel/component/pdf
 org/apache/camel/component/pdf/text
 org/apache/camel/component/quartz2
@@ -983,6 +984,12 @@ org/codehaus/groovy/vmplugin/v5
 org/codehaus/groovy/vmplugin/v6
 org/codehaus/groovy/vmplugin/v7
 org/dozer/util
+org/eclipse/paho
+org/eclipse/paho/client
+org/eclipse/paho/client/mqttv3
+org/eclipse/paho/client/mqttv3/logging
+org/eclipse/paho/client/mqttv3/persist
+org/eclipse/paho/client/mqttv3/util
 org/elasticsearch
 org/elasticsearch/action
 org/elasticsearch/action/admin
@@ -1462,6 +1469,12 @@ org/elasticsearch/transport/netty
 org/elasticsearch/transport/support
 org/elasticsearch/tribe
 org/elasticsearch/watcher
+org/fusesource/hawtbuf
+org/fusesource/hawtbuf/codec
+org/fusesource/mqtt
+org/fusesource/mqtt/cli
+org/fusesource/mqtt/client
+org/fusesource/mqtt/codec
 org/infinispan
 org/infinispan/affinity
 org/infinispan/affinity/impl

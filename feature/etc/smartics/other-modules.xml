@@ -535,6 +535,9 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.fusesource.hawtbuf:hawtbuf" />
+        <exports>
+            <exclude path="org/fusesource" />
+        </exports>
     </module>
 
     <module name="org.fusesource.hawtdispatch">
@@ -546,13 +549,6 @@
         <dependencies>
             <module name="org.fusesource.hawtbuf"/>
         </dependencies>
-    </module>
-
-    <module name="org.fusesource.mqtt">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.fusesource.mqtt-client:mqtt-client" />
     </module>
 
     <module name="org.infinispan.query.dsl" >

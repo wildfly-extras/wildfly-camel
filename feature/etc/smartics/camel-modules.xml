@@ -83,7 +83,6 @@
     <module name="org.apache.camel.component.activemq">
         <include artifact="org.apache.activemq:activemq-camel" />
         <apply-to-dependencies skip="true">
-            <include module="org.apache.activemq" />
             <include module="org.apache.camel.apt" />
         </apply-to-dependencies>
         <dependencies>
@@ -297,8 +296,6 @@
             <include module="org.apache.aries.blueprint" />
             <include module="org.apache.camel.apt" />
             <include module="org.apache.camel.blueprint" />
-            <include module="org.apache.cxf.ext" />
-            <include module="org.apache.cxf.impl" />
             <include module="org.springframework.*" />
             <include module="org.osgi.compendium" />
             <include module="org.osgi.core" />
@@ -853,16 +850,19 @@
 
     <module name="org.apache.camel.component.mqtt">
         <include artifact="org.apache.camel:camel-mqtt" />
+        <include artifact="org.fusesource.mqtt-client:mqtt-client" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.fusesource.hawtbuf" />
-            <module name="org.fusesource.hawtdispatch" />
+            <module name="org.fusesource.hawtbuf" export="true"/>
             <module name="org.slf4j"/>
         </dependencies>
+        <exports>
+            <exclude path="org/fusesource" />
+        </exports>
     </module>
 
     <module name="org.apache.camel.component.mvel">
@@ -937,6 +937,23 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.paho">
+        <include artifact="org.apache.camel:camel-paho" />
+        <include artifact="org.eclipse.paho:org.eclipse.paho.client.mqttv3" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="org/eclipse" />
+            <exclude path="org/eclipse/paho/client/mqttv3/internal**" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.pdf">
         <include artifact="org.apache.camel:camel-pdf" />
         <apply-to-dependencies skip="true">
@@ -967,7 +984,6 @@
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
-            <include module="org.quartz" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
@@ -1147,7 +1163,6 @@
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
-            <include module="org.springframework.security" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
@@ -1419,7 +1434,6 @@
         <apply-to-dependencies skip="true">
             <include module="io.netty.parts" />
             <include module="org.apache.camel.apt" />
-            <include module="org.apache.zookeeper" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>

@@ -48,6 +48,7 @@ mqtt
 mvel
 nats
 netty4
+paho
 pdf
 pop3
 pop3s
@@ -143,7 +144,6 @@ mybatis
 nagios
 netty4-http
 optaplanner
-paho
 rabbitmq
 snmp
 spark

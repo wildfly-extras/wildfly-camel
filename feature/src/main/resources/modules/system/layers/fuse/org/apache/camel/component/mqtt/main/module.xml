@@ -2,14 +2,17 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.mqtt">
   <resources>
     <artifact name="${org.apache.camel:camel-mqtt}" />
+    <artifact name="${org.fusesource.mqtt-client:mqtt-client}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="org.fusesource.hawtbuf" />
-    <module name="org.fusesource.hawtdispatch" />
+    <module name="org.fusesource.hawtbuf" export="true" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.fusesource.mqtt" />
+    <module name="org.fusesource.hawtdispatch" />
   </dependencies>
+  <exports>
+    <exclude path="org/fusesource" />
+  </exports>
 </module>

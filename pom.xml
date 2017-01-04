@@ -52,6 +52,8 @@
         <version.apache.camel>2.18.1</version.apache.camel>
 
         <!-- Other versions -->
+        <!-- [#1558] Remove explicit version for ActiveMQ -->
+        <version.apache.activemq>5.14.3</version.apache.activemq>
         <version.apache.felix.configadmin>1.8.8</version.apache.felix.configadmin>
         <version.apache.felix.log>1.0.1</version.apache.felix.log>
         <version.apache.felix.metatype>1.0.8</version.apache.felix.metatype>
@@ -132,6 +134,13 @@
     <!-- DependencyManagement -->
     <dependencyManagement>
         <dependencies>
+            
+            <!-- ActiveMQ -->
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-mqtt</artifactId>
+                <version>${version.apache.activemq}</version>
+            </dependency>
             
             <!-- Aether -->
             <dependency>

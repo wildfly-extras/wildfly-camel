@@ -103,6 +103,7 @@
 /org/apache/camel/component/mongodb/main/camel-mongodb-2.18.1.jar
 /org/apache/camel/component/mongodb/main/mongo-java-driver-3.3.0.jar
 /org/apache/camel/component/mqtt/main/camel-mqtt-2.18.1.jar
+/org/apache/camel/component/mqtt/main/mqtt-client-1.14.jar
 /org/apache/camel/component/mvel/main/camel-mvel-2.18.1.jar
 /org/apache/camel/component/nats/main/camel-nats-2.18.1.jar
 /org/apache/camel/component/nats/main/jnats-0.5.3.jar
@@ -110,6 +111,8 @@
 /org/apache/camel/component/ognl/main/camel-ognl-2.18.1.jar
 /org/apache/camel/component/olingo2/main/camel-olingo2-2.18.1.jar
 /org/apache/camel/component/olingo2/main/camel-olingo2-api-2.18.1.jar
+/org/apache/camel/component/paho/main/camel-paho-2.18.1.jar
+/org/apache/camel/component/paho/main/org.eclipse.paho.client.mqttv3-1.0.2.jar
 /org/apache/camel/component/pdf/main/camel-pdf-2.18.1.jar
 /org/apache/camel/component/protobuf/main/camel-protobuf-2.18.1.jar
 /org/apache/camel/component/protobuf/main/protobuf-java-3.1.0.jar
@@ -249,7 +252,6 @@
 /org/fusesource/hawtbuf/main/hawtbuf-1.11.jar
 /org/fusesource/hawtdispatch/main/hawtdispatch-1.22.jar
 /org/fusesource/hawtdispatch/main/hawtdispatch-transport-1.22.jar
-/org/fusesource/mqtt/main/mqtt-client-1.14.jar
 /org/infinispan/query/dsl/main/infinispan-query-dsl-8.2.4.Final.jar
 /org/jboss/gravia/main/gravia-resource-1.3.1.jar
 /org/jboss/gravia/main/gravia-runtime-api-1.3.1.jar
