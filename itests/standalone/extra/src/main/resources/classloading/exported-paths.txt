@@ -1471,10 +1471,6 @@ org/elasticsearch/tribe
 org/elasticsearch/watcher
 org/fusesource/hawtbuf
 org/fusesource/hawtbuf/codec
-org/fusesource/mqtt
-org/fusesource/mqtt/cli
-org/fusesource/mqtt/client
-org/fusesource/mqtt/codec
 org/infinispan
 org/infinispan/affinity
 org/infinispan/affinity/impl

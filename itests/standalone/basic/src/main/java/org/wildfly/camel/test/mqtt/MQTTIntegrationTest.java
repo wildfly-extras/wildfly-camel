@@ -23,9 +23,6 @@ package org.wildfly.camel.test.mqtt;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.activemq.broker.BrokerService;
@@ -44,6 +41,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
+import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -86,6 +84,11 @@ public class MQTTIntegrationTest {
     public static JavaArchive deployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "mqtt-tests");
         archive.addAsResource(new StringAsset(BrokerSetup.TCP_CONNECTION), "tcp-connection");
+        archive.setManifest(() -> {
+            ManifestBuilder builder = new ManifestBuilder();
+            builder.addManifestHeader("Dependencies", "org.fusesource.mqtt");
+            return builder.openStream();
+        });
         return archive;
     }
 
@@ -113,7 +116,11 @@ public class MQTTIntegrationTest {
             Topic topic = new Topic(BrokerSetup.TEST_TOPIC, QoS.AT_MOST_ONCE);
 
             connection.connect();
-            connection.publish(topic.name().toString(), "Kermit".getBytes(), QoS.AT_LEAST_ONCE, false);
+            try {
+                connection.publish(topic.name().toString(), "Kermit".getBytes(), QoS.AT_LEAST_ONCE, false);
+            } finally {
+                connection.disconnect();
+            }
 
             String result = consumer.receive(3000).getIn().getBody(String.class);
             Assert.assertEquals("Hello Kermit", result);
@@ -136,38 +143,30 @@ public class MQTTIntegrationTest {
         });
 
         camelctx.start();
-        
-        MQTT mqtt = new MQTT();
-        mqtt.setHost(getConnection());
-        final BlockingConnection connection = mqtt.blockingConnection();
-        connection.connect();
-        Topic topic = new Topic(BrokerSetup.TEST_TOPIC, QoS.AT_MOST_ONCE);
-        Topic[] topics = {topic};
-        connection.subscribe(topics);
+        try {
+            MQTT mqtt = new MQTT();
+            mqtt.setHost(getConnection());
+            BlockingConnection connection = mqtt.blockingConnection();
+            
+            connection.connect();
+            try {
+                Topic topic = new Topic(BrokerSetup.TEST_TOPIC, QoS.AT_MOST_ONCE);
+                connection.subscribe(new Topic[] { topic });
 
-        final List<String> result = new ArrayList<>();
-        final CountDownLatch latch = new CountDownLatch(1);
+                ProducerTemplate producer = camelctx.createProducerTemplate();
+                producer.asyncSendBody("direct:start", "Kermit");
 
-        Thread thread = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Message message = connection.receive();
-                    result.add(new String (message.getPayload()));
-                    message.ack();
-                    latch.countDown();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Message message = connection.receive(10, TimeUnit.SECONDS);
+                message.ack();
+                
+                String result = new String(message.getPayload());
+                Assert.assertEquals("Hello Kermit", result);
+            } finally {
+                connection.disconnect();
             }
-        });
-        thread.start();
-
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        producer.asyncSendBody("direct:start", "Kermit");
-
-        Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
-        Assert.assertEquals("One message", 1, result.size());
-        Assert.assertEquals("Hello Kermit", result.get(0));
+        } finally {
+            camelctx.stop();
+        }
     }
 
     private String getConnection() throws IOException {

@@ -103,11 +103,10 @@ public class PahoIntegrationTest {
         });
 
         camelctx.start();
-
-        PollingConsumer consumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
-        consumer.start();
-
         try {
+            PollingConsumer consumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
+            consumer.start();
+            
             MqttClient client = null;
             try {
                 client = new MqttClient(getConnection(), "MqttClient", new MemoryPersistence());
@@ -141,38 +140,41 @@ public class PahoIntegrationTest {
         });
 
         camelctx.start();
-        
-        MqttClient client = new MqttClient(getConnection(), "MqttClient", new MemoryPersistence());
-        MqttConnectOptions opts = new MqttConnectOptions();
-        opts.setCleanSession(true);
-        client.connect(opts);
-        client.subscribe(BrokerSetup.TEST_TOPIC, 2);
+        try {
+            MqttClient client = new MqttClient(getConnection(), "MqttClient", new MemoryPersistence());
+            MqttConnectOptions opts = new MqttConnectOptions();
+            opts.setCleanSession(true);
+            client.connect(opts);
+            client.subscribe(BrokerSetup.TEST_TOPIC, 2);
 
-        final List<String> result = new ArrayList<>();
-        final CountDownLatch latch = new CountDownLatch(1);
+            final List<String> result = new ArrayList<>();
+            final CountDownLatch latch = new CountDownLatch(1);
 
-        client.setCallback(new MqttCallback() {
+            client.setCallback(new MqttCallback() {
 
-            @Override
-            public void connectionLost(Throwable cause) {
-            }
+                @Override
+                public void connectionLost(Throwable cause) {
+                }
 
-            @Override
-            public void messageArrived(String topic, MqttMessage message) throws Exception {
-                result.add(new String (message.getPayload()));
-                latch.countDown();
-            }
+                @Override
+                public void messageArrived(String topic, MqttMessage message) throws Exception {
+                    result.add(new String (message.getPayload()));
+                    latch.countDown();
+                }
 
-            @Override
-            public void deliveryComplete(IMqttDeliveryToken token) {
-            }});
+                @Override
+                public void deliveryComplete(IMqttDeliveryToken token) {
+                }});
 
-        ProducerTemplate producer = camelctx.createProducerTemplate();
-        producer.asyncSendBody("direct:start", "Kermit");
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            producer.asyncSendBody("direct:start", "Kermit");
 
-        Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
-        Assert.assertEquals("One message", 1, result.size());
-        Assert.assertEquals("Hello Kermit", result.get(0));
+            Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
+            Assert.assertEquals("One message", 1, result.size());
+            Assert.assertEquals("Hello Kermit", result.get(0));
+        } finally {
+            camelctx.stop();
+        }
     }
 
     private String getConnection() throws IOException {

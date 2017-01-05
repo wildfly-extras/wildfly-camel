@@ -40,7 +40,6 @@
 	^org/eclipse/paho(.*)
 	^org/elasticsearch(.*)
 	^org/fusesource/hawtbuf(.*)
-	^org/fusesource/mqtt(.*)
 	^org/quartz(.*)
 	^org/infinispan(.*)
 	^org/springframework(.*)

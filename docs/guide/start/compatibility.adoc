@@ -5,7 +5,7 @@ The WildFly compatibility matrix
 [cols="2*",width="60%"]
 |===
 | **10.1.0.Final** 
-| 4.3
+| 4.3, 4.4, 4.5
 
 | **10.0.0.Final**
 | 4.0, 4.1, 4.2
