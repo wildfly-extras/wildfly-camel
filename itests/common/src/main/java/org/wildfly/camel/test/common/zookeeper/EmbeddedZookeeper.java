@@ -37,7 +37,7 @@ import org.apache.zookeeper.server.ZooKeeperServer;
 import org.apache.zookeeper.server.persistence.FileTxnSnapLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 
 public class EmbeddedZookeeper {
 
@@ -49,7 +49,7 @@ public class EmbeddedZookeeper {
     private final int port;
 
     public EmbeddedZookeeper() throws Exception {
-        this(TestUtils.getAvailablePort(), Files.createTempDirectory(Paths.get("target").toAbsolutePath(), "zktemp"));
+        this(AvailablePortFinder.getNextAvailable(), Files.createTempDirectory(Paths.get("target").toAbsolutePath(), "zktemp"));
     }
 
     public EmbeddedZookeeper(int port, Path baseDir) throws Exception {

@@ -42,8 +42,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.ssh.EmbeddedSSHServer;
+import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
-import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -57,7 +57,7 @@ public class JschIntegrationTest {
     @Deployment
     public static WebArchive createDeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive .class, "camel-jsch-tests.war");
-        archive.addClasses(EmbeddedSSHServer.class, TestUtils.class, EnvironmentUtils.class);
+        archive.addClasses(EmbeddedSSHServer.class, AvailablePortFinder.class, EnvironmentUtils.class);
         archive.addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR);
         archive.setManifest(() -> {
             ManifestBuilder builder = new ManifestBuilder();

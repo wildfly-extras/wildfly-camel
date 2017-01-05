@@ -28,6 +28,7 @@ import kafka.server.KafkaConfig;
 import kafka.server.KafkaServer;
 import kafka.utils.ZkUtils;
 
+import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 import org.wildfly.camel.test.common.utils.TestUtils;
 
 import scala.Option;
@@ -83,7 +84,7 @@ public class EmbeddedKafkaCluster {
 
     private int resolvePort(int port) {
         if (port == -1) {
-            return TestUtils.getAvailablePort();
+            return AvailablePortFinder.getNextAvailable();
         }
         return port;
     }

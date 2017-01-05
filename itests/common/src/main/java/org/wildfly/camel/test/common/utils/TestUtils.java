@@ -18,8 +18,6 @@ package org.wildfly.camel.test.common.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.ServerSocket;
 import java.util.Random;
 
 public final class TestUtils {
@@ -35,19 +33,6 @@ public final class TestUtils {
         }
         file.deleteOnExit();
         return file;
-    }
-
-    public static int getAvailablePort() {
-        try {
-            ServerSocket socket = new ServerSocket(0);
-            try {
-                return socket.getLocalPort();
-            } finally {
-                socket.close();
-            }
-        } catch (IOException e) {
-            throw new IllegalStateException("Cannot find available port: " + e.getMessage(), e);
-        }
     }
 
     public static boolean deleteFile(File path) throws FileNotFoundException {

@@ -29,8 +29,8 @@ import org.apache.sshd.server.command.ScpCommandFactory;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
 import org.apache.sshd.server.sftp.SftpSubsystem;
 import org.apache.sshd.server.shell.ProcessShellFactory;
+import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
-import org.wildfly.camel.test.common.utils.TestUtils;
 
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
@@ -40,12 +40,14 @@ public class EmbeddedSSHServer {
 
     private SshServer sshServer;
     private Path homeDir;
-    private int port;
 
     public EmbeddedSSHServer(Path homeDir) {
+        this(homeDir, AvailablePortFinder.getNextAvailable());
+    }
+    
+    public EmbeddedSSHServer(Path homeDir, int port) {
         this.sshServer = SshServer.setUpDefaultServer();
-        this.port = TestUtils.getAvailablePort();
-        this.sshServer.setPort(this.port);
+        this.sshServer.setPort(port);
         this.sshServer.setCommandFactory(new ScpCommandFactory(command -> new ProcessShellFactory(command.split(" ")).create()));
         this.sshServer.setSubsystemFactories(Arrays.asList(new SftpSubsystem.Factory()));
         this.sshServer.setKeyPairProvider(new SimpleGeneratorHostKeyProvider());
@@ -53,32 +55,27 @@ public class EmbeddedSSHServer {
         this.sshServer.setPublickeyAuthenticator((s, publicKey, serverSession) -> true);
         this.homeDir = homeDir;
 
-
         if (EnvironmentUtils.isWindows()) {
-            this.sshServer.setShellFactory(new ProcessShellFactory(new String[] { "cmd.exe " }, EnumSet.of(
+            sshServer.setShellFactory(new ProcessShellFactory(new String[] { "cmd.exe " }, EnumSet.of(
                 ProcessShellFactory.TtyOptions.Echo, ProcessShellFactory.TtyOptions.ICrNl,
                 ProcessShellFactory.TtyOptions.ONlCr)));
         } else {
-            this.sshServer.setShellFactory(new ProcessShellFactory(new String[] { "/bin/sh", "-i", "-s" }, EnumSet
+            sshServer.setShellFactory(new ProcessShellFactory(new String[] { "/bin/sh", "-i", "-s" }, EnumSet
                 .of(ProcessShellFactory.TtyOptions.ONlCr)));
         }
     }
 
     public void start() throws Exception {
-        if (this.sshServer != null) {
-            this.sshServer.start();
-            setupKnownHosts();
-        }
+        sshServer.start();
+        setupKnownHosts();
     }
 
     public void stop() throws Exception {
-        if (this.sshServer != null) {
-            this.sshServer.stop();
-        }
+        sshServer.stop();
     }
 
     public String getConnection() {
-        return String.format("localhost:%d", this.port);
+        return String.format("localhost:%d", sshServer.getPort());
     }
 
     private void setupKnownHosts() {

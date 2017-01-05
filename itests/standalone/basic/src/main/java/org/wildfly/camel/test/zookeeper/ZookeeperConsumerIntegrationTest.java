@@ -38,7 +38,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 import org.wildfly.camel.test.common.zookeeper.EmbeddedZookeeper;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -51,7 +51,7 @@ public class ZookeeperConsumerIntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "zookeeper-integration-tests");
-        archive.addClasses(EmbeddedZookeeper.class, TestUtils.class);
+        archive.addClasses(EmbeddedZookeeper.class, AvailablePortFinder.class);
         return archive;
     }
 

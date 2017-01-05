@@ -37,7 +37,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -50,7 +50,7 @@ public class SyslogDataFormatTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-syslog-tests.jar")
-            .addClass(TestUtils.class);
+            .addClass(AvailablePortFinder.class);
     }
 
     @Test
@@ -86,7 +86,7 @@ public class SyslogDataFormatTest {
 
     @Test
     public void testSyslogUnmarshal() throws Exception {
-        int port = TestUtils.getAvailablePort();
+        int port = AvailablePortFinder.getNextAvailable();
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {

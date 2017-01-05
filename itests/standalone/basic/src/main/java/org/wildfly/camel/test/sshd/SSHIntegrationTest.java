@@ -20,8 +20,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.ssh.EmbeddedSSHServer;
+import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
-import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -34,7 +34,7 @@ public class SSHIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "sshd-tests.jar")
-            .addClasses(EmbeddedSSHServer.class, TestUtils.class, EnvironmentUtils.class)
+            .addClasses(EmbeddedSSHServer.class, AvailablePortFinder.class, EnvironmentUtils.class)
             .setManifest(() -> {
                 ManifestBuilder builder = new ManifestBuilder();
                 builder.addManifestHeader("Dependencies", "com.jcraft.jsch,org.apache.sshd");
@@ -44,7 +44,7 @@ public class SSHIntegrationTest {
 
     @Before
     public void setUp() throws Exception {
-        sshServer = new EmbeddedSSHServer(SSHD_ROOT_DIR);
+        sshServer = new EmbeddedSSHServer(SSHD_ROOT_DIR, AvailablePortFinder.getNextAvailable());
         sshServer.start();
     }
 
@@ -70,8 +70,8 @@ public class SSHIntegrationTest {
         try {
             MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:end", MockEndpoint.class);
             mockEndpoint.expectedMessageCount(1);
+            mockEndpoint.setAssertPeriod(100);
             mockEndpoint.expectedBodiesReceived("Hello Kermit" + System.lineSeparator());
-            mockEndpoint.assertIsSatisfied(5000);
         } finally {
             camelctx.stop();
         }

@@ -55,7 +55,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -65,7 +65,7 @@ public class FtpIntegrationTest {
     private static final String FILE_BASEDIR = "basedir.txt";
     private static final Path FTP_ROOT_DIR = Paths.get(System.getProperty("jboss.server.data.dir") + "/ftp");
     private static final Path USERS_FILE = Paths.get(System.getProperty("jboss.server.config.dir") + "/users.properties");
-    private static final int PORT = TestUtils.getAvailablePort();
+    private static final int PORT = AvailablePortFinder.getNextAvailable();
 
     private FtpServer ftpServer;
 
@@ -78,7 +78,7 @@ public class FtpIntegrationTest {
 
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-ftp-tests.war");
         archive.addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR);
-        archive.addClasses(TestUtils.class);
+        archive.addClasses(AvailablePortFinder.class);
         archive.addAsLibraries(libraryDependencies);
         return archive;
     }
