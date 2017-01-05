@@ -47,7 +47,6 @@
         
         <!-- Camel versions -->
         <version.apache.camel>2.18.2</version.apache.camel>
-        <version.apache.activemq>5.14.3</version.apache.activemq>
 
         <!-- WildFly versions -->
         <version.wildfly>10.1.0.Final</version.wildfly>
@@ -134,13 +133,6 @@
     <!-- DependencyManagement -->
     <dependencyManagement>
         <dependencies>
-            
-            <!-- ActiveMQ -->
-            <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-mqtt</artifactId>
-                <version>${version.apache.activemq}</version>
-            </dependency>
             
             <!-- Aether -->
             <dependency>
