@@ -83,7 +83,6 @@ public class JschIntegrationTest {
     @Test
     public void testScpFile() throws Exception {
         File testFile = resolvePath(SSHD_ROOT_DIR).resolve("test.txt").toFile();
-
         CamelContext camelctx = new DefaultCamelContext();
         try {
             Endpoint endpoint = camelctx.getEndpoint(getScpEndpointUri());
@@ -106,6 +105,6 @@ public class JschIntegrationTest {
 
     private String getScpEndpointUri() {
         return String.format("scp://%s/%s?username=admin&password=admin&knownHostsFile=%s", sshServer.getConnection(),
-            SSHD_ROOT_DIR.toFile().getPath(), KNOWN_HOSTS.toAbsolutePath());
+            SSHD_ROOT_DIR, KNOWN_HOSTS);
     }
 }

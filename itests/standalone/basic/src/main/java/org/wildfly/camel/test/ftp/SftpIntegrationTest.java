@@ -52,6 +52,7 @@ public class SftpIntegrationTest {
 
     private static final String FILE_BASEDIR = "basedir.txt";
     private static final Path FTP_ROOT_DIR = Paths.get("target/sftp");
+    private static final Path KNOWN_HOSTS = FTP_ROOT_DIR.resolve("known_hosts");
     private EmbeddedSSHServer sshServer;
 
     @Deployment
@@ -83,12 +84,10 @@ public class SftpIntegrationTest {
 
     @Test
     public void testSendFile() throws Exception {
-
         File testFile = resolvePath(FTP_ROOT_DIR).resolve("test.txt").toFile();
-
         CamelContext camelctx = new DefaultCamelContext();
         try {
-            Endpoint endpoint = camelctx.getEndpoint("sftp://" + sshServer.getConnection() + "/target/sftp?username=admin&password=admin");
+            Endpoint endpoint = camelctx.getEndpoint(getSftpEndpointUri());
             Assert.assertFalse(testFile.exists());
             camelctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFileName", "test.txt");
             Assert.assertTrue(testFile.exists());
@@ -118,5 +117,10 @@ public class SftpIntegrationTest {
         } finally {
             reader.close();
         }
+    }
+
+    private String getSftpEndpointUri() {
+        return String.format("sftp://%s/target/sftp?username=admin&password=admin&knownHostsFile=%s",
+            sshServer.getConnection(), KNOWN_HOSTS);
     }
 }
