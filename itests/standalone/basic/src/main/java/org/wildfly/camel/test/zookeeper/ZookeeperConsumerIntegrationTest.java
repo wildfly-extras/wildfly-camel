@@ -23,18 +23,15 @@ package org.wildfly.camel.test.zookeeper;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.Exchange;
-import org.apache.camel.PollingConsumer;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.ExchangeBuilder;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -75,23 +72,22 @@ public class ZookeeperConsumerIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("zookeeper://" + server.getConnection() + "/somenode")
-                .to("seda:end");
+                .to("mock:end");
             }
         });
 
-        PollingConsumer pollingConsumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
-        pollingConsumer.start();
-
         camelctx.start();
         try {
+            MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:end", MockEndpoint.class);
+            mockEndpoint.expectedMessageCount(1);
+            mockEndpoint.expectedBodiesReceived("Kermit");
+
             // Write payload to znode
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            Exchange exchange = ExchangeBuilder.anExchange(camelctx).withBody("Kermit").build();
-            producer.send("zookeeper://" + server.getConnection() + "/somenode?create=true", exchange);
+            producer.sendBody("zookeeper://" + server.getConnection() + "/somenode?create=true", "Kermit");
 
             // Read back from the znode
-            String result = pollingConsumer.receive(3000).getIn().getBody(String.class);
-            Assert.assertEquals("Kermit", result);
+            mockEndpoint.assertIsSatisfied(5000);
         } finally {
             camelctx.stop();
         }
