@@ -7,6 +7,8 @@
     <artifact name="${org.kie:kie-internal}" />
   </resources>
   <dependencies>
+    <module name="org.drools.compiler" />
+    <module name="org.drools.core" />
     <module name="com.thoughtworks.xstream" />
     <module name="javax.enterprise.api" />
     <module name="javax.xml.bind.api" />

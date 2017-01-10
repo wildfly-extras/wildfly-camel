@@ -207,6 +207,10 @@
         </dependencies>
     </module>
     
+    <module name="org.antlr.runtime">
+        <include artifact="org.antlr:antlr-runtime"/>
+    </module>
+
     <module name="org.apache.abdera.core">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -289,6 +293,13 @@
         <dependencies>
             <module name="javax.api" />
         </dependencies>
+    </module>
+
+    <module name="org.apache.commons.math3">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.commons:commons-math3" />
     </module>
 
     <module name="org.apache.commons.pool2">
@@ -483,6 +494,40 @@
         </dependencies>
     </module>
 
+    <module name="org.drools.compiler">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.drools:drools-compiler" />
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.codemodel" />
+            <include module="com.sun.xml.bind.jaxb.xjc" />
+            <include module="org.osgi.compendium" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.antlr.runtime" />
+        </dependencies>
+    </module>
+
+    <module name="org.drools.core">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.drools:drools-core" />
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.xml.bind.jaxb.xjc" />
+            <include module="org.osgi.compendium" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.thoughtworks.xstream" />
+        </dependencies>
+    </module>
+
+    <module name="org.eclipse.jdt.compiler">
+        <include artifact="org.eclipse.jdt.core.compiler:ecj" />
+    </module>
+    
     <module name="org.eclipse.jetty">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -524,7 +569,7 @@
         <include artifact="org.elasticsearch:securesm" />
         <apply-to-dependencies skip="true">
             <include module="io.netty.parts" />
-            <include module="org.antlr.antlr-runtime"/>
+            <include module="org.antlr"/>
             <include module="org.apache.commons.cli" />
             <include module="org.hdrhistogram" />
             <include module="org.joda.convert" />
@@ -616,6 +661,10 @@
         <apply-to-dependencies skip="true">
             <include module="org.osgi.compendium" />
         </apply-to-dependencies>
+        <dependencies>
+            <module name="org.drools.compiler" />
+            <module name="org.drools.core" />
+        </dependencies>
     </module>
     
     <module name="org.kie.internal">
@@ -627,6 +676,10 @@
             <include module="com.sun.xml.bind.jaxb.xjc" />
             <include module="org.osgi.compendium" />
         </apply-to-dependencies>
+        <dependencies>
+            <module name="org.drools.compiler" />
+            <module name="org.drools.core" />
+        </dependencies>
     </module>
     
     <module name="org.kie.remote" >
@@ -673,6 +726,16 @@
             <exclude path="com/mchange**" />
             <exclude path="org/terracotta**" />
         </exports>
+    </module>
+
+    <module name="org.reflections">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.reflections:reflections" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
     </module>
 
     <module name="net.sf.saxon">

@@ -1080,6 +1080,21 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.optaplanner">
+        <include artifact="org.apache.camel:camel-optaplanner" />
+        <include artifact="org.optaplanner:optaplanner-core" />
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.codemodel" />
+            <include module="com.sun.xml.bind.jaxb.xjc" />
+            <include module="org.antlr" />
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <exports>
+            <exclude path="org/optaplanner/core/impl**" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.paho">
         <include artifact="org.apache.camel:camel-paho" />
         <include artifact="org.eclipse.paho:org.eclipse.paho.client.mqttv3" />
@@ -1400,10 +1415,8 @@
     <module name="org.apache.camel.component.swagger">
         <include artifact="org.apache.camel:camel-swagger-java" />
         <include artifact="io.swagger:swagger-(.*)" />
-        <include artifact="org.reflections:reflections" />
         <apply-to-dependencies skip="true">
             <include module="ch.qos.logback" />
-            <include module="com.google.code.findbugs" />
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
@@ -1414,7 +1427,6 @@
         </dependencies>
         <exports>
             <exclude path="io/swagger" />
-            <exclude path="org/reflections**" />
         </exports>
     </module>
 

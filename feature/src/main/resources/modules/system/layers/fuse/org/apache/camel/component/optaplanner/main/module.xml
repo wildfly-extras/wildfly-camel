@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.optaplanner">
+  <resources>
+    <artifact name="${org.apache.camel:camel-optaplanner}" />
+    <artifact name="${org.optaplanner:optaplanner-core}" />
+  </resources>
+  <dependencies>
+    <module name="com.google.guava" />
+    <module name="com.thoughtworks.xstream" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.io" />
+    <module name="org.apache.commons.lang3" />
+    <module name="org.apache.commons.math3" />
+    <module name="org.drools.compiler" />
+    <module name="org.drools.core" />
+    <module name="org.kie.api" />
+    <module name="org.kie.internal" />
+    <module name="org.reflections" />
+    <module name="org.slf4j" />
+  </dependencies>
+  <exports>
+    <exclude path="org/optaplanner/core/impl**" />
+  </exports>
+</module>

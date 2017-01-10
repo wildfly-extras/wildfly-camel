@@ -1,0 +1,6 @@
+### camel-optaplanner
+
+The http://camel.apache.org/optaplanner.html[camel-optaplanner,window=_blank] component 
+solves the planning problem contained in a message with http://www.optaplanner.org[OptaPlanner,window=_blank].
+
+

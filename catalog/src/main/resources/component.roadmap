@@ -57,6 +57,7 @@ mvel
 mybatis
 nats
 netty4
+optaplanner
 paho
 pdf
 pop3
@@ -145,7 +146,6 @@ kubernetes
 mina
 nagios
 netty4-http
-optaplanner
 rabbitmq
 snmp
 spark

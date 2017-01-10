@@ -2,7 +2,6 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.swagger">
   <resources>
     <artifact name="${org.apache.camel:camel-swagger-java}" />
-    <artifact name="${org.reflections:reflections}" />
     <artifact name="${io.swagger:swagger-annotations}" />
     <artifact name="${io.swagger:swagger-core}" />
     <artifact name="${io.swagger:swagger-jaxrs}" />
@@ -27,11 +26,10 @@
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.io" />
     <module name="org.apache.commons.lang3" />
-    <module name="org.javassist" />
+    <module name="org.reflections" />
     <module name="org.slf4j.ext" />
   </dependencies>
   <exports>
     <exclude path="io/swagger" />
-    <exclude path="org/reflections**" />
   </exports>
 </module>
