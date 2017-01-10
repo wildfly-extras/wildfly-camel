@@ -24,6 +24,7 @@ file
 flatpack
 ftp
 ftps
+git
 http4
 imap
 imaps
@@ -123,7 +124,6 @@ exec
 facebook
 flink
 freemarker
-git
 github
 google-calendar
 google-drive

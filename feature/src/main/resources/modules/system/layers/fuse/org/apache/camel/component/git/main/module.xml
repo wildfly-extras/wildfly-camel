@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.git">
+  <resources>
+    <artifact name="${com.googlecode.javaewah:JavaEWAH}" />
+    <artifact name="${org.apache.camel:camel-git}" />
+    <artifact name="${org.eclipse.jgit:org.eclipse.jgit}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="com.jcraft.jsch" />
+    <module name="javax.servlet.api" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.httpcomponents" slot="4.5.2" />
+  </dependencies>
+  <exports>
+    <exclude path="com/googlecode**" />
+    <exclude path="org/eclipse" />
+    <exclude path="org/eclipse/jgit/internal**" />
+    <exclude path="org/eclipse/jgit/gitrepo/internal**" />
+    <exclude path="org/eclipse/jgit/ignore/internal**" />
+  </exports>
+</module>

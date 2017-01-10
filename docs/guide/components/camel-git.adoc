@@ -1,0 +1,4 @@
+### camel-git
+
+The http://camel.apache.org/git.html[camel-git,window=_blank]
+component enables you to interact with https://git-scm.com/[Git,window=_blank] repositories.

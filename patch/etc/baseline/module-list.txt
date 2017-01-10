@@ -64,6 +64,9 @@
 /org/apache/camel/component/flatpack/main/camel-flatpack-2.18.1.jar
 /org/apache/camel/component/flatpack/main/flatpack-3.4.3.jar
 /org/apache/camel/component/ftp/main/camel-ftp-2.18.1.jar
+/org/apache/camel/component/git/main/JavaEWAH-0.7.9.jar
+/org/apache/camel/component/git/main/camel-git-2.18.1.jar
+/org/apache/camel/component/git/main/org.eclipse.jgit-4.5.0.201609210915-r.jar
 /org/apache/camel/component/groovy/main/camel-groovy-2.18.1.jar
 /org/apache/camel/component/gson/main/camel-gson-2.18.1.jar
 /org/apache/camel/component/hl7/main/camel-hl7-2.18.1.jar
