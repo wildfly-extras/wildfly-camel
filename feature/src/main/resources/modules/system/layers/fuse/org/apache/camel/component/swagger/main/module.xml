@@ -12,6 +12,7 @@
   <dependencies>
     <module name="javax.api" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.fasterxml.jackson.dataformat.xml" />
@@ -27,7 +28,6 @@
     <module name="org.apache.commons.io" />
     <module name="org.apache.commons.lang3" />
     <module name="org.javassist" />
-    <module name="org.slf4j" />
     <module name="org.slf4j.ext" />
   </dependencies>
   <exports>

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.smpp">
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.mybatis">
   <resources>
-    <artifact name="${org.apache.camel:camel-smpp}" />
-    <artifact name="${org.jsmpp:jsmpp}" />
+    <artifact name="${org.apache.camel:camel-mybatis}" />
+    <artifact name="${org.mybatis:mybatis}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.commons.codec" />
   </dependencies>
   <exports>
-    <exclude path="org/jsmpp**" />
+    <exclude path="org/apache/ibatis/ognl/internal" />
   </exports>
 </module>

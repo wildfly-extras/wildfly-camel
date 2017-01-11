@@ -47,6 +47,7 @@ mock
 mongodb
 mqtt
 mvel
+mybatis
 nats
 netty4
 paho
@@ -141,7 +142,6 @@ jira
 kubernetes
 mina
 mllp
-mybatis
 nagios
 netty4-http
 optaplanner
