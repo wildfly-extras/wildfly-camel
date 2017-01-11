@@ -21,7 +21,11 @@
                     9990/tcp
                 ]
                 await:
-                    strategy: org.wildfly.camel.test.docker.WildFlyAwaitStrategy
+                    strategy: log
+                    match: 'WFLYSRV0025'
+                    stdOut: true
+                    stdErr: true
+                    timeout: 15
         </property>
         <property name="tlsVerify">false</property>
     </extension>
