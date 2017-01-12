@@ -595,6 +595,8 @@ org/apache/camel/component/ejb
 org/apache/camel/component/elasticsearch
 org/apache/camel/component/elasticsearch/aggregation
 org/apache/camel/component/elasticsearch/converter
+org/apache/camel/component/exec
+org/apache/camel/component/exec/impl
 org/apache/camel/component/feed
 org/apache/camel/component/file
 org/apache/camel/component/file/remote

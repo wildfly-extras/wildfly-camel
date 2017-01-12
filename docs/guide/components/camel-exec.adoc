@@ -1,0 +1,4 @@
+### camel-exec
+
+The http://camel.apache.org/exec.html[camel-exec,window=_blank]
+component enables you to execute system commands.
