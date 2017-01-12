@@ -103,6 +103,7 @@
 /org/apache/camel/component/metrics/main/metrics-core-3.1.2.jar
 /org/apache/camel/component/metrics/main/metrics-json-3.1.2.jar
 /org/apache/camel/component/mina2/main/camel-mina2-2.18.1.jar
+/org/apache/camel/component/mllp/main/camel-mllp-2.18.1.jar
 /org/apache/camel/component/mongodb/main/camel-mongodb-2.18.1.jar
 /org/apache/camel/component/mongodb/main/mongo-java-driver-3.3.0.jar
 /org/apache/camel/component/mqtt/main/camel-mqtt-2.18.1.jar

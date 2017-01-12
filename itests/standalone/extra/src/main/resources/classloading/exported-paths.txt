@@ -627,6 +627,8 @@ org/apache/camel/component/metrics/messagehistory
 org/apache/camel/component/metrics/routepolicy
 org/apache/camel/component/metrics/spi
 org/apache/camel/component/mina2
+org/apache/camel/component/mllp
+org/apache/camel/component/mllp/impl
 org/apache/camel/component/mongodb
 org/apache/camel/component/mongodb/converters
 org/apache/camel/component/mongodb/processor
@@ -776,6 +778,7 @@ org/apache/camel/processor/interceptor
 org/apache/camel/processor/interceptor/jpa
 org/apache/camel/processor/lucene
 org/apache/camel/processor/lucene/support
+org/apache/camel/processor/mllp
 org/apache/camel/routepolicy
 org/apache/camel/routepolicy/quartz2
 org/apache/camel/script

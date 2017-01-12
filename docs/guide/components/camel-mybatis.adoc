@@ -1,7 +1,5 @@
 ### camel-mybatis
 
-The http://camel.apache.org/mvel-component.html[camel-mvel,window=_blank] 
-component allows you to process a message using an https://github.com/mvel/mvel[MVEL,window=_blank] template.
-
 The http://camel.apache.org/mybatis.html[camel-mybatis,window=_blank] component allows you to query, poll, insert, update and delete data 
 in a relational database using http://mybatis.org[MyBatis,window=_blank].
+

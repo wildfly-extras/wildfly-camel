@@ -43,6 +43,7 @@ log
 lucene
 metrics
 mina2
+mllp
 mock
 mongodb
 mqtt
@@ -141,7 +142,6 @@ jclouds
 jira
 kubernetes
 mina
-mllp
 nagios
 netty4-http
 optaplanner
