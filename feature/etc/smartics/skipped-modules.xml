@@ -213,6 +213,11 @@
         <include artifact="org.glassfish.web:javax.el" />
     </module>
     
+    <module name="org.infinispan.cdi" skip="true">
+        <include artifact="org.infinispan:infinispan-cdi-common" />
+        <include artifact="org.infinispan:infinispan-cdi-embedded" />
+    </module>
+    
     <module name="org.joda.convert" skip="true">
         <include artifact=":joda-convert" />
     </module>

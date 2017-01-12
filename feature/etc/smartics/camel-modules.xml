@@ -673,6 +673,25 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.jcache">
+        <include artifact="org.apache.camel:camel-jcache" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.apache.servicemix.bundles" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="javax.cache.api" export="true"/>
+            <module name="org.infinispan.jcache" export="true" services="export">
+                <exports>
+                    <exclude path="OSGI-INF/blueprint" />
+                </exports>
+            </module>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.jdbc">
         <include artifact="org.apache.camel:camel-jdbc" />
         <apply-to-dependencies skip="true">
