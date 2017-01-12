@@ -87,7 +87,7 @@ public class ZookeeperConsumerIntegrationTest {
             producer.sendBody("zookeeper://" + server.getConnection() + "/somenode?create=true", "Kermit");
 
             // Read back from the znode
-            mockEndpoint.assertIsSatisfied(5000);
+            mockEndpoint.assertIsSatisfied(10000);
         } finally {
             camelctx.stop();
         }

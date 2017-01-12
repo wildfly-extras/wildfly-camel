@@ -367,6 +367,11 @@ com/mongodb/management
 com/mongodb/operation
 com/mongodb/selector
 com/mongodb/util
+freemarker/cache
+freemarker/core
+freemarker/log
+freemarker/template
+freemarker/template/utility
 groovy/beans
 groovy/grape
 groovy/inspect
@@ -586,6 +591,7 @@ org/apache/camel/component/file
 org/apache/camel/component/file/remote
 org/apache/camel/component/file/remote/strategy
 org/apache/camel/component/flatpack
+org/apache/camel/component/freemarker
 org/apache/camel/component/git
 org/apache/camel/component/git/consumer
 org/apache/camel/component/git/producer

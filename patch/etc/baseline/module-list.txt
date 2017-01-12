@@ -63,6 +63,8 @@
 /org/apache/camel/component/elasticsearch/main/camel-elasticsearch-2.18.1.jar
 /org/apache/camel/component/flatpack/main/camel-flatpack-2.18.1.jar
 /org/apache/camel/component/flatpack/main/flatpack-3.4.3.jar
+/org/apache/camel/component/freemarker/main/camel-freemarker-2.18.1.jar
+/org/apache/camel/component/freemarker/main/freemarker-2.3.23.jar
 /org/apache/camel/component/ftp/main/camel-ftp-2.18.1.jar
 /org/apache/camel/component/git/main/JavaEWAH-0.7.9.jar
 /org/apache/camel/component/git/main/camel-git-2.18.1.jar

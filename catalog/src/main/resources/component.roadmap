@@ -22,6 +22,7 @@ ejb
 elasticsearch
 file
 flatpack
+freemarker
 ftp
 ftps
 git
@@ -125,7 +126,6 @@ etcd
 exec
 facebook
 flink
-freemarker
 github
 google-calendar
 google-drive

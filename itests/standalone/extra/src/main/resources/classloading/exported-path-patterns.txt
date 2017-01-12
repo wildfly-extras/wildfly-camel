@@ -41,6 +41,7 @@
 	^org/eclipse/jgit(.*)
 	^org/eclipse/paho(.*)
 	^org/elasticsearch(.*)
+    ^freemarker(.*)
 	^org/fusesource/hawtbuf(.*)
 	^org/quartz(.*)
 	^org/infinispan(.*)
