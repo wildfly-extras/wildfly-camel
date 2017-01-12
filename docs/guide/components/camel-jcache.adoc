@@ -1,0 +1,5 @@
+### camel-jcache
+
+The http://camel.apache.org/jcache.html[camel-jcache,window=_blank] component enables you to perform caching operations 
+using JCache (JSR-107) as the Cache Implementation. 
+

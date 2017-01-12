@@ -7,9 +7,10 @@
 	^com/google/protobuf
 	^com/mongodb(.*)
 	^groovy(.*)
-  	^io/nats(.*)
+	^io/nats(.*)
 	^io/swagger(.*)
 	^io/vertx/core(.*)
+	^javax/cache(.*)
 	^net/sf/saxon(.*)
 	^org/apache/abdera(.*)
 	^org/apache/activemq
@@ -19,9 +20,9 @@
 	^org/apache/cxf
 	^org/apache/cxf/binding(.*)
 	^org/apache/cxf/bus(.*)
-    ^org/apache/cxf/headers(.*)
+	^org/apache/cxf/headers(.*)
 	^org/apache/cxf/interceptor(.*)
-    ^org/apache/cxf/message(.*)
+	^org/apache/cxf/message(.*)
 	^org/apache/cxf/sts(.*)
 	^org/apache/cxf/transport
 	^org/apache/cxf/transport/http(.*)
@@ -31,7 +32,7 @@
 	^org/apache/ibatis(.*)
 	# [FIXME #1547] Re-enable camel-kafka component
 	# ^org/apache/kafka(.*)
-    ^org/apache/olingo(.*)
+	^org/apache/olingo(.*)
 	^org/apache/xmlbeans
 	^org/apache/xmlbeans/impl/schema
 	^org/apache/xmlbeans/impl/values
@@ -45,7 +46,7 @@
 	^org/quartz(.*)
 	^org/infinispan(.*)
 	^org/springframework(.*)
-    ^org/xbill(.*)
+	^org/xbill(.*)
 	^org/xmlsoap(.*)
 	^schema/(.*)
 	^schemas/(.*)

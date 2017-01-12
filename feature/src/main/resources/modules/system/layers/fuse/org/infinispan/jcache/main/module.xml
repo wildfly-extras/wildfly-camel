@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.infinispan.jcache">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.infinispan:infinispan-jcache}" />
+    <artifact name="${org.infinispan:infinispan-jcache-commons}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.jboss.logging" />
+    <module name="javax.cache.api" />
+    <module name="javax.enterprise.api" />
+    <module name="org.infinispan" />
+    <module name="org.infinispan.commons" />
+  </dependencies>
+</module>

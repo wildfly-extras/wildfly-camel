@@ -30,6 +30,7 @@ imap
 imaps
 infinispan
 irc
+jcache
 jdbc
 jgroups
 jms
@@ -137,7 +138,6 @@ hdfs2
 ibatis
 influxdb
 jbpm
-jcache
 jclouds
 jira
 kubernetes

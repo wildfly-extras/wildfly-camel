@@ -65,6 +65,7 @@
         <module name="org.apache.camel.component.jacksonxml" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jasypt" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jaxb" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.jcache" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jdbc" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jgroups" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jms" export="true" services="export" optional="true" />

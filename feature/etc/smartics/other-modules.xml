@@ -148,6 +148,10 @@
         </dependencies>
     </module>
 
+    <module name="javax.cache.api" >
+        <include artifact="javax.cache:cache-api" />
+    </module>
+
     <module name="net.sf.dozer">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -571,6 +575,22 @@
         <include artifact="org.fusesource.mqtt-client:mqtt-client" />
         <dependencies>
             <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="org.infinispan.jcache" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.infinispan:infinispan-jcache" />
+        <include artifact="org.infinispan:infinispan-jcache-commons" />
+        <apply-to-dependencies skip="true">
+            <include module="org.jboss.logging.processor" />
+            <include module="org.infinispan.cdi" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.jboss.logging"/>
         </dependencies>
     </module>
 
