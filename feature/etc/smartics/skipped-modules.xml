@@ -47,6 +47,10 @@
         <include artifact="c3p0:c3p0" />
     </module>
     
+    <module name="cglib.nodep" skip="true">
+        <include artifact=":cglib-nodep" />
+    </module>
+
     <module name="ch.qos.logback" skip="true">
         <include artifact="ch.qos.logback:logback-classic" />
         <include artifact="ch.qos.logback:logback-core" />
@@ -107,6 +111,10 @@
     
     <module name="com.sun.mail" skip="true">
         <include artifact="com.sun.mail:javax.mail" />
+    </module>
+    
+    <module name="com.sun.xml.bind.jaxb.xjc" skip="true">
+        <include artifact="com.sun.xml.bind:jaxb-xjc" />
     </module>
     
     <module name="jexcelapi" skip="true">

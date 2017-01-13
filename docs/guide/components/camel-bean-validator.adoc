@@ -1,5 +1,5 @@
 ### camel-bean-validator
 
-The http://camel.apache.org/bean-validation.html[camel-bean-validator,window=_blank] 
+The http://camel.apache.org/bean-validation.html[bean-validator,window=_blank] 
 component provides support for message body validation using the http://jcp.org/en/jsr/detail?id=303[Java Bean Validation API,window=_blank].
 

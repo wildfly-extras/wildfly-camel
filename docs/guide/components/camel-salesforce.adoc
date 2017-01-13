@@ -1,6 +1,6 @@
 ### camel-salesforce
 
-The http://camel.apache.org/salesforce.html[camel-salesforce,window=_blank] 
+The http://camel.apache.org/salesforce.html[salesforce,window=_blank] 
 component provides producer and consumer endpoints to communicate with http://www.salesforce.com/[Salesforce,window=_blank].
 
 In order to use the component, you will need a valid Salesforce account together with credentials for accessing the Salesforce API:

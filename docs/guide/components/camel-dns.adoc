@@ -1,6 +1,6 @@
 ### camel-dns
 
-The http://camel.apache.org/dns.html[camel-dns,window=_blank] component provides the ability to:
+The http://camel.apache.org/dns.html[dns,window=_blank] component provides the ability to:
 
 * Resolve a domain by its ip
 * Lookup information about a domain

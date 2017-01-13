@@ -1,6 +1,6 @@
 ### JAX-WS
 
-WebService support is provided through the http://camel.apache.org/cxf.html[camel-cxf,window=_blank] 
+WebService support is provided through the http://camel.apache.org/cxf.html[cxf,window=_blank] 
 component which integrates with the WildFly WebServices subsystem that also uses http://cxf.apache.org/[Apache CXF,window=_blank].
 
 

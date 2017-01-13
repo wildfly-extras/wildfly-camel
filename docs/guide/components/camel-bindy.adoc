@@ -1,6 +1,6 @@
 ### camel-bindy
 
-The goal of http://camel.apache.org/bindy.html[camel-bindy,window=_blank] is to allow the parsing/binding of non-structured data to/from Java Beans that have binding mappings defined with annotations.
+The goal of http://camel.apache.org/bindy.html[bindy,window=_blank] is to allow the parsing/binding of non-structured data to/from Java Beans that have binding mappings defined with annotations.
 
 Here we have a annotated domain model class
 

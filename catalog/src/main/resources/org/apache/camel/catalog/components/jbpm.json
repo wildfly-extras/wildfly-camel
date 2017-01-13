@@ -1,0 +1,48 @@
+{
+ "component": {
+    "kind": "component",
+    "scheme": "jbpm",
+    "syntax": "jbpm:connectionURL",
+    "title": "JBPM",
+    "description": "The jbpm component provides integration with jBPM (Business Process Management).",
+    "label": "process",
+    "deprecated": "false",
+    "async": "false",
+    "producerOnly": "true",
+    "javaType": "org.apache.camel.component.jbpm.JBPMComponent",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-jbpm",
+    "version": "2.18.1"
+  },
+  "componentProperties": {
+  },
+  "properties": {
+    "connectionURL": { "kind": "path", "group": "producer", "required": "true", "type": "string", "javaType": "java.net.URL", "deprecated": "false", "secret": "false", "description": "The URL to the jBPM server." },
+    "attachmentId": { "kind": "parameter", "group": "producer", "type": "integer", "javaType": "java.lang.Long", "deprecated": "false", "secret": "false", "description": "attachId to use when retrieving attachments" },
+    "contentId": { "kind": "parameter", "group": "producer", "type": "integer", "javaType": "java.lang.Long", "deprecated": "false", "secret": "false", "description": "contentId to use when retrieving attachments" },
+    "deploymentId": { "kind": "parameter", "group": "producer", "required": "true", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The id of the deployment" },
+    "event": { "kind": "parameter", "group": "producer", "type": "object", "javaType": "java.lang.Object", "deprecated": "false", "secret": "false", "description": "the data associated with this event when signalEvent operation is performed" },
+    "eventType": { "kind": "parameter", "group": "producer", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "the type of event to use when signalEvent operation is performed" },
+    "identifier": { "kind": "parameter", "group": "producer", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "identifier the global identifier" },
+    "language": { "kind": "parameter", "group": "producer", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The language to use when filtering user tasks" },
+    "maxNumber": { "kind": "parameter", "group": "producer", "type": "integer", "javaType": "java.lang.Integer", "deprecated": "false", "secret": "false", "description": "the maximum number of rules that should be fired" },
+    "operation": { "kind": "parameter", "group": "producer", "label": "producer", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "defaultValue": "startProcess", "description": "The operation to perform" },
+    "processId": { "kind": "parameter", "group": "producer", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "the id of the process that should be acted upon" },
+    "processInstanceId": { "kind": "parameter", "group": "producer", "type": "integer", "javaType": "java.lang.Long", "deprecated": "false", "secret": "false", "description": "the id of the process instance" },
+    "targetUserId": { "kind": "parameter", "group": "producer", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "The targetUserId used when delegating a task" },
+    "task": { "kind": "parameter", "group": "producer", "type": "object", "javaType": "org.kie.api.task.model.Task", "deprecated": "false", "secret": "false", "description": "The task instance to use with task operations" },
+    "taskId": { "kind": "parameter", "group": "producer", "type": "integer", "javaType": "java.lang.Long", "deprecated": "false", "secret": "false", "description": "the id of the task" },
+    "timeout": { "kind": "parameter", "group": "producer", "type": "integer", "javaType": "java.lang.Integer", "deprecated": "false", "secret": "false", "description": "A timeout value" },
+    "userId": { "kind": "parameter", "group": "producer", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "false", "description": "userId to use with task operations" },
+    "value": { "kind": "parameter", "group": "producer", "type": "object", "javaType": "java.lang.Object", "deprecated": "false", "secret": "false", "description": "the value to assign to the global identifier" },
+    "workItemId": { "kind": "parameter", "group": "producer", "type": "integer", "javaType": "java.lang.Long", "deprecated": "false", "secret": "false", "description": "the id of the work item" },
+    "entities": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "array", "javaType": "java.util.List<org.kie.api.task.model.OrganizationalEntity>", "deprecated": "false", "secret": "false", "description": "The potentialOwners when nominateTask operation is performed" },
+    "extraJaxbClasses": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "string", "javaType": "java.lang.Class[]", "deprecated": "false", "secret": "false", "description": "To load additional classes when working with XML" },
+    "parameters": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "object", "javaType": "java.util.Map<java.lang.String,java.lang.Object>", "deprecated": "false", "secret": "false", "description": "the variables that should be set for various operations" },
+    "synchronous": { "kind": "parameter", "group": "advanced", "label": "advanced", "type": "boolean", "javaType": "boolean", "deprecated": "false", "secret": "false", "defaultValue": "false", "description": "Sets whether synchronous processing should be strictly used or Camel is allowed to use asynchronous processing (if supported)." },
+    "statuses": { "kind": "parameter", "group": "filter", "label": "filter", "type": "array", "javaType": "java.util.List<org.kie.api.task.model.Status>", "deprecated": "false", "secret": "false", "description": "The list of status to use when filtering tasks" },
+    "password": { "kind": "parameter", "group": "security", "label": "security", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "true", "description": "Password for authentication" },
+    "userName": { "kind": "parameter", "group": "security", "label": "security", "type": "string", "javaType": "java.lang.String", "deprecated": "false", "secret": "true", "description": "Username for authentication" }
+  }
+}
+

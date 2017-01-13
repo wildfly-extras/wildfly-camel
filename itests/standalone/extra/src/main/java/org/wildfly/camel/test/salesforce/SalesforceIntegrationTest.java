@@ -59,7 +59,6 @@ public class SalesforceIntegrationTest {
         Endpoint endpoint = camelctx.getEndpoint("salesforce:getVersions");
         Assert.assertNotNull(endpoint);
         Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.salesforce.SalesforceEndpoint");
-        camelctx.stop();
     }
 
     @Test
@@ -85,7 +84,6 @@ public class SalesforceIntegrationTest {
         });
 
         camelctx.start();
-
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             QueryRecordsOpportunity queryRecords = producer.requestBody("direct:query", null, QueryRecordsOpportunity.class);

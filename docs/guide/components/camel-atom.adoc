@@ -1,6 +1,6 @@
 ### camel-atom
 
-Atom feed consumption in Camel is provided by the http://camel.apache.org/atom.html[camel-atom,window=_blank] component.
+Atom feed consumption in Camel is provided by the http://camel.apache.org/atom.html[atom,window=_blank] component.
 
 The following example configures an Atom endpoint to consume the recent activity GitHub feed of user 'wildflyext'. The raw content of each feed entry is then written out as a file within directory 'feed/entries'.
 

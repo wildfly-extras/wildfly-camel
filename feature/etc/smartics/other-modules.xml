@@ -20,13 +20,6 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="cglib.cglib-nodep">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":cglib-nodep" />
-    </module>
-
     <module name="com.codahale.metrics">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -616,6 +609,34 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.json4s:json4s-(.*)" />
+    </module>
+
+    <module name="org.kie.api">
+        <include artifact="org.kie:kie-api" />
+        <apply-to-dependencies skip="true">
+            <include module="org.osgi.compendium" />
+        </apply-to-dependencies>
+    </module>
+    
+    <module name="org.kie.internal">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.kie:kie-internal" />
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.xml.bind.jaxb.xjc" />
+            <include module="org.osgi.compendium" />
+        </apply-to-dependencies>
+    </module>
+    
+    <module name="org.kie.remote" >
+        <include artifact="org.kie.remote:(.*)" />
+        <include artifact="org.kie.remote.ws:(.*)" />
+        <dependencies>
+            <module name="com.sun.xml.bind"/>
+            <module name="javax.api"/>
+            <module name="javax.jms.api"/>
+        </dependencies>
     </module>
 
     <module name="org.osgi.core">

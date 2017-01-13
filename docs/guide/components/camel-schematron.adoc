@@ -1,6 +1,6 @@
 ### camel-schematron
 
-The http://camel.apache.org/schematron.html[camel-schematron,window=_blank]
+The http://camel.apache.org/schematron.html[schematron,window=_blank]
 component utilises http://schematron.com/[Schematron,window=_blank] to make assertions
 about the presence or absence of patterns in XML documents.
 

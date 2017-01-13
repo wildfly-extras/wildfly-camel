@@ -1,6 +1,6 @@
 ### camel-mllp
 
-The http://camel.apache.org/mllp.html[camel-mllp,window=_blank] component is specifically designed to handle the nuances 
+The http://camel.apache.org/mllp.html[mllp,window=_blank] component is specifically designed to handle the nuances 
 of the MLLP protocol and provide the functionality required by Healthcare providers to communicate with other systems using 
 the MLLP protocol. The MLLP component  provides a simple configuration URI, automated HL7 acknowledgment generation and 
 automatic acknowledgement interrogation.

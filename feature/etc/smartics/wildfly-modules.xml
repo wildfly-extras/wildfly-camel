@@ -102,6 +102,7 @@
 
     <module name="javax.jms.api" skip="true">
         <include artifact=":geronimo-jms_1.1_spec" />
+        <include artifact=":jboss-jms-api_1.1_spec" />
         <include artifact=":jms-api" />
     </module>
 
@@ -146,6 +147,7 @@
 
     <module name="javax.ws.rs.api" skip="true">
         <include artifact=":javax.ws.rs-api" />
+        <include artifact=":jaxrs-api" />
         <include artifact=":jsr311-api" />
     </module>
 
@@ -153,12 +155,18 @@
         <include artifact=":jaxb-api" />
         <include artifact=":jaxb-core" />
         <include artifact=":jaxb-impl" />
+        <include artifact=":jboss-jaxb-api_2.2_spec" />
     </module>
 
     <module name="javax.xml.stream.api" skip="true">
         <include artifact=":geronimo-stax-api_1.0_spec" />
         <include artifact=":stax-api" />
         <include artifact=":stax" />
+    </module>
+
+    <module name="javax.xml.ws.api" skip="true">
+        <include artifact=":org.apache.servicemix.specs.jaxws-api-2.2" />
+        <include artifact=":jboss-jaxws-api_2.2_spec" />
     </module>
 
     <module name="org.apache.avro" skip="true">
@@ -198,6 +206,7 @@
     </module>
 
     <module name="org.apache.cxf" skip="true">
+        <include artifact=":cxf-api" />
         <include artifact=":cxf-core" />
     </module>
     
@@ -285,8 +294,16 @@
         <include artifact=":jackson-core-asl" />
     </module>
     
+    <module name="org.codehaus.jackson.jackson-jaxrs" skip="true">
+        <include artifact=":jackson-jaxrs" />
+    </module>
+    
     <module name="org.codehaus.jackson.jackson-mapper-asl" skip="true">
         <include artifact=":jackson-mapper-asl" />
+    </module>
+    
+    <module name="org.codehaus.jackson.jackson-xc" skip="true">
+        <include artifact=":jackson-xc" />
     </module>
     
     <module name="org.codehaus.jettison" skip="true">
@@ -386,6 +403,10 @@
 
     <module name="org.joda.time" skip="true">
         <include artifact=":joda-time" />
+    </module>
+
+    <module name="org.jsoup" skip="true">
+        <include artifact=":jsoup" />
     </module>
 
     <module name="org.slf4j" skip="true">

@@ -1,5 +1,5 @@
 ### camel-pdf
 
-The http://camel.apache.org/pdf.html[camel-pdf,window=_blank] 
+The http://camel.apache.org/pdf.html[pdf,window=_blank] 
 component provides the ability to create, modify or extract content from PDF documents. This component uses https://pdfbox.apache.org/[Apache PDFBox,window=_blank] as underlying library to work with PDF documents.
 

@@ -1,6 +1,6 @@
 ### camel-activemq
 
-Camel ActiveMQ integration is provided by the http://camel.apache.org/activemq.html[camel-activemq,window=_blank] component.
+Camel ActiveMQ integration is provided by the http://camel.apache.org/activemq.html[activemq,window=_blank] component.
 
 The component can be configured to work with an embedded or external broker. For Wildfly / EAP container managed connection pools and XA-Transaction support, the http://activemq.apache.org/resource-adapter.html[ActiveMQ Resource Adapter,window=_blank] can be configured into the container configuration file.
 
