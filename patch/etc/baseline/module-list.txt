@@ -148,6 +148,7 @@
 /org/apache/camel/component/spring/security/main/camel-spring-security-2.18.1.jar
 /org/apache/camel/component/sql/main/camel-sql-2.18.1.jar
 /org/apache/camel/component/ssh/main/camel-ssh-2.18.1.jar
+/org/apache/camel/component/stax/main/camel-stax-2.18.1.jar
 /org/apache/camel/component/stream/main/camel-stream-2.18.1.jar
 /org/apache/camel/component/swagger/main/camel-swagger-java-2.18.1.jar
 /org/apache/camel/component/swagger/main/reflections-0.9.10.jar
