@@ -1,6 +1,6 @@
 ### camel-braintree
 
-The http://camel.apache.org/braintree.html[camel-braintree,window=_blank] component provides access to Braintree Payments trough through their 
+The http://camel.apache.org/braintree.html[braintree,window=_blank] component provides access to Braintree Payments trough through their 
 https://developers.braintreepayments.com/start/hello-server/java[Java SDK,window=_blank].
 
 [source,java,options="nowrap"]

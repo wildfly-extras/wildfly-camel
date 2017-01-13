@@ -1,6 +1,6 @@
 ### camel-rss
 
-The http://camel.apache.org/rss.html[camel-rss,window=_blank] component is used for polling RSS feeds.
+The http://camel.apache.org/rss.html[rss,window=_blank] component is used for polling RSS feeds.
 
 [source,java,options="nowrap"]
 CamelContext camelctx = new DefaultCamelContext();

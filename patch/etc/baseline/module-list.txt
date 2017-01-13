@@ -87,6 +87,7 @@
 /org/apache/camel/component/jacksonxml/main/camel-jacksonxml-2.18.1.jar
 /org/apache/camel/component/jasypt/main/camel-jasypt-2.18.1.jar
 /org/apache/camel/component/jaxb/main/camel-jaxb-2.18.1.jar
+/org/apache/camel/component/jbpm/main/camel-jbpm-2.18.1.jar
 /org/apache/camel/component/jcache/main/camel-jcache-2.18.1.jar
 /org/apache/camel/component/jdbc/main/camel-jdbc-2.18.1.jar
 /org/apache/camel/component/jgroups/main/camel-jgroups-2.18.1.jar
@@ -276,6 +277,12 @@
 /org/jboss/gravia/main/org.apache.felix.log-1.0.1.jar
 /org/jboss/gravia/main/org.apache.felix.metatype-1.0.8.jar
 /org/jboss/gravia/main/org.apache.felix.scr-1.6.2.jar
+/org/kie/api/main/kie-api-6.4.0.Final.jar
+/org/kie/internal/main/kie-internal-6.4.0.Final.jar
+/org/kie/remote/main/kie-remote-client-6.4.0.Final.jar
+/org/kie/remote/main/kie-remote-common-6.4.0.Final.jar
+/org/kie/remote/main/kie-remote-jaxb-6.4.0.Final.jar
+/org/kie/remote/main/kie-remote-ws-common-6.4.0.Final.jar
 /org/mvel/mvel2/main/mvel2-2.3.1.Final.jar
 /org/osgi/core/main/org.osgi.core-5.0.0.jar
 /org/osgi/enterprise/main/org.osgi.enterprise-5.0.0.jar

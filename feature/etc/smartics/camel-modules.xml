@@ -685,6 +685,18 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.jbpm">
+        <include artifact="org.apache.camel:camel-jbpm" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.kie.api" />
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.jcache">
         <include artifact="org.apache.camel:camel-jcache" />
         <apply-to-dependencies skip="true">

@@ -626,6 +626,7 @@ org/apache/camel/component/jackson/converter
 org/apache/camel/component/jacksonxml
 org/apache/camel/component/jacksonxml/converter
 org/apache/camel/component/jasypt
+org/apache/camel/component/jbpm
 org/apache/camel/component/jcache
 org/apache/camel/component/jcache/osgi
 org/apache/camel/component/jcache/processor

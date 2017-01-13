@@ -1,6 +1,6 @@
 ### camel-spring
 
-Camel contexts can be configured with Spring via the http://camel.apache.org/spring.html[camel-spring,window=_blank] component.
+Camel contexts can be configured with Spring via the http://camel.apache.org/spring.html[spring,window=_blank] component.
 
 #### Camel Spring XML example
 

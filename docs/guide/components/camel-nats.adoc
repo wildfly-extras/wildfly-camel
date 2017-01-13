@@ -1,6 +1,6 @@
 ### camel-nats
 
-The http://camel.apache.org/nats.html[camel-nats,window=_blank] 
+The http://camel.apache.org/nats.html[nats,window=_blank] 
 component is used for communicating with the http://nats.io/[NATS,window=_blank] messaging platform.
 
 

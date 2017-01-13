@@ -1,6 +1,6 @@
 ### camel-metrics
 
-The http://camel.apache.org/metrics-component.html[camel-metrics,window=_blank] component allows you to define, publish and collect metrics from Camel routes.
+The http://camel.apache.org/metrics-component.html[metrics,window=_blank] component allows you to define, publish and collect metrics from Camel routes.
 
 [source,java,options="nowrap"]
 from("direct:start")

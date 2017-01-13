@@ -1,6 +1,6 @@
 ### camel-swagger
 
-The http://camel.apache.org/swagger-java.html[camel-swagger,window=_blank] 
+The http://camel.apache.org/swagger-java.html[swagger,window=_blank] 
 module is used for exposing the REST services and their APIs using http://swagger.io/[Swagger,window=_blank].
 
 [source,java,options="nowrap"]

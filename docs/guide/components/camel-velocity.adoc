@@ -1,6 +1,6 @@
 ### camel-velocity
 
-The http://camel.apache.org/velocity.html[camel-velocity,window=_blank] component allows you to process a message using an Apache Velocity template. 
+The http://camel.apache.org/velocity.html[velocity,window=_blank] component allows you to process a message using an Apache Velocity template. 
 
 [source,java,options="nowrap"]
 CamelContext camelctx = new DefaultCamelContext();

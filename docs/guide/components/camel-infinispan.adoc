@@ -1,6 +1,6 @@
 ### camel-infinispan
 
-This http://camel.apache.org/infinispan.html[camel-infinispan,window=_blank] 
+This http://camel.apache.org/infinispan.html[infinispan,window=_blank] 
 component allows you to interact with http://infinispan.org[Infinispan,window=_blank] distributed data grid / caches.
 
 You can interact with container managed Infinispan caches by referring to their JNDI lookup within your Camel route. For example, to write a cache entry.

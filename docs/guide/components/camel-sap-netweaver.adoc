@@ -1,6 +1,6 @@
 ### camel-sap-netweaver
 
-The http://camel.apache.org/sap-netweaver.html[camel-sap-netweaver,window=_blank]
+The http://camel.apache.org/sap-netweaver.html[sap-netweaver,window=_blank]
 component integrates with the https://www.sap.com/community/topic/gateway.html[SAP Gateway,window=_blank].
 
 [NOTE]

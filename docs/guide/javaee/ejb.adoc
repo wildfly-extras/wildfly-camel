@@ -1,6 +1,6 @@
 ### EJB
 
-Management support is provided through the http://camel.apache.org/jmx.html[camel-ejb,window=_blank] component which integrates with the EJB3 subsystem.
+Management support is provided through the http://camel.apache.org/jmx.html[ejb,window=_blank] component which integrates with the EJB3 subsystem.
 
 [source,java,options="nowrap"]
 CamelContext camelctx = new DefaultCamelContext();

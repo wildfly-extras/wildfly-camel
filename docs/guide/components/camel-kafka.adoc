@@ -1,5 +1,5 @@
 ### camel-kafka
 
-The http://camel.apache.org/kafka.html[camel-kafka,window=_blank] 
+The http://camel.apache.org/kafka.html[kafka,window=_blank] 
 component is used for communicating with http://kafka.apache.org/[Apache Kafka,window=_blank] message broker.
 

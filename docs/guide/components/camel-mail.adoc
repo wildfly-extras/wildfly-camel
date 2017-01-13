@@ -1,6 +1,6 @@
 ### camel-mail
 
-Interaction with email is provided by the http://camel.apache.org/mail.html[camel-mail,window=_blank] component.
+Interaction with email is provided by the http://camel.apache.org/mail.html[mail,window=_blank] component.
 
 By default, Camel will create its own mail session and use this to interact with your mail server. Since WildFly already provides a mail subsystem with all of the relevant support for secure connections, username / password encryption etc, it is recommended to configure your mail sessions within the WildFly configuration and use JNDI to wire them into your Camel endpoints.
 
@@ -125,7 +125,7 @@ Writing passwords in clear text within configuration files is never a good idea 
 
 ##### Camel security
 
-Camel endpoint security documentation can be found on the http://camel.apache.org/mail.html[camel-mail,window=_blank] 
+Camel endpoint security documentation can be found on the http://camel.apache.org/mail.html[mail,window=_blank] 
 component guide. Camel also has a http://camel.apache.org/security.html[security summary,window=_blank] page.
 
 

@@ -1,6 +1,6 @@
 ### camel-ognl
 
-OGNL expression support in Camel is provided by the http://camel.apache.org/ognl.html[camel-ognl,window=_blank] component.
+OGNL expression support in Camel is provided by the http://camel.apache.org/ognl.html[ognl,window=_blank] component.
 
 
 #### Simple Camel OGNL Use Case

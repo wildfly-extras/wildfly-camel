@@ -1,5 +1,5 @@
 ### camel-paho
 
-The http://camel.apache.org/paho.html[camel-paho,window=_blank]
+The http://camel.apache.org/paho.html[paho,window=_blank]
 component provides connector for the MQTT messaging protocol using the https://eclipse.org/paho[Eclipse Paho,window=_blank] library.
 

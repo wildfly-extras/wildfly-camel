@@ -1,6 +1,6 @@
 ### camel-olingo2
 
-The http://camel.apache.org/olingo2.html[camel-olingo2,window=_blank] 
+The http://camel.apache.org/olingo2.html[olingo2,window=_blank] 
 component provides the capability to interact with http://www.odata.org/[OData,window=_blank] 
 2.0 and 3.0 compliant services via http://olingo.apache.org/[Apache Olingo,window=_blank].
 

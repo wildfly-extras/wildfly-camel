@@ -1,6 +1,6 @@
 ### camel-ftp
 
-The http://camel.apache.org/ftp2.html[camel-ftp,window=_blank] component provides access to remote file systems over the FTP and SFTP protocols.
+The http://camel.apache.org/ftp2.html[ftp,window=_blank] component provides access to remote file systems over the FTP and SFTP protocols.
 
 [source,java,options="nowrap"]
 CamelContext camelctx = new DefaultCamelContext();

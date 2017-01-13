@@ -1,4 +1,5 @@
 ### camel-freemarker
 
-The http://camel.apache.org/freemarker.html[camel-freemarker,window=_blank]
+The http://camel.apache.org/freemarker.html[freemarker,window=_blank]
 component enables you to use http://freemarker.org/[FreeMarker,window=_blank] templates in your camel routes.
+

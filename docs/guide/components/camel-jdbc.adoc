@@ -1,4 +1,4 @@
 ### camel-jdbc
 
-The http://camel.apache.org/jdbc.html[camel-jdbc,window=_blank] component provides access to SQL databases via JDBC.
+The http://camel.apache.org/jdbc.html[jdbc,window=_blank] component provides access to SQL databases via JDBC.
 

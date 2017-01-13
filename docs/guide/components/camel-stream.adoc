@@ -1,5 +1,5 @@
 ### camel-stream
 
-The http://camel.apache.org/stream.html[camel-stream,window=_blank] component provides access to the `System.in`, `System.out` and `System.err` streams as well as allowing streaming of file and URL.
+The http://camel.apache.org/stream.html[stream,window=_blank] component provides access to the `System.in`, `System.out` and `System.err` streams as well as allowing streaming of file and URL.
 
 

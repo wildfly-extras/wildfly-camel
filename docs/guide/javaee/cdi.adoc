@@ -1,6 +1,6 @@
 ### CDI
 
-CDI integration is provided by http://camel.apache.org/cdi.html[camel-cdi,window=_blank].
+CDI integration is provided by http://camel.apache.org/cdi.html[cdi,window=_blank].
 
 A Context with an associated route can be provided like this
 
