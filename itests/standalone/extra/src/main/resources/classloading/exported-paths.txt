@@ -569,6 +569,7 @@ org/apache/camel/component/bean
 org/apache/camel/component/bean/validator
 org/apache/camel/component/braintree
 org/apache/camel/component/cassandra
+org/apache/camel/component/context
 org/apache/camel/component/crypto
 org/apache/camel/component/crypto/processor
 org/apache/camel/component/cxf

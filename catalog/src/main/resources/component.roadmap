@@ -7,6 +7,7 @@ binding
 braintree
 browse
 class
+context
 controlbus
 cql
 crypto
@@ -119,7 +120,6 @@ aws-swf
 beanstalk
 box
 coap
-context
 couchdb
 docker
 dropbox

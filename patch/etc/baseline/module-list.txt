@@ -53,6 +53,7 @@
 /org/apache/camel/component/castor/main/castor-core-1.3.3.jar
 /org/apache/camel/component/castor/main/castor-xml-1.3.3.jar
 /org/apache/camel/component/cdi/main/camel-cdi-2.18.1.jar
+/org/apache/camel/component/context/main/camel-context-2.18.1.jar
 /org/apache/camel/component/crypto/main/camel-crypto-2.18.1.jar
 /org/apache/camel/component/csv/main/camel-csv-2.18.1.jar
 /org/apache/camel/component/cxf/main/camel-cxf-2.18.1.jar
