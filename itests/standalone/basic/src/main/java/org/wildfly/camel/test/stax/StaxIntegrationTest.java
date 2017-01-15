@@ -37,7 +37,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.types.Record;
 import org.wildfly.camel.test.common.types.Records;
-import org.wildfly.camel.test.common.utils.XMLUtils;
 import org.wildfly.camel.test.stax.subA.ElementCountingHandler;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -52,7 +51,7 @@ public class StaxIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-stax-tests.jar")
-            .addClasses(ElementCountingHandler.class, XMLUtils.class, Record.class, Records.class)
+            .addClasses(ElementCountingHandler.class, Record.class, Records.class)
             .addAsResource("stax/" + RECORDS_XML, RECORDS_XML)
             .setManifest(() -> {
                 ManifestBuilder builder = new ManifestBuilder();
