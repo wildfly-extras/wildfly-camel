@@ -208,6 +208,7 @@ org/springframework/mail/javamail
 org/springframework/objenesis
 org/springframework/objenesis/instantiator
 org/springframework/objenesis/instantiator/android
+org/springframework/objenesis/instantiator/annotations
 org/springframework/objenesis/instantiator/basic
 org/springframework/objenesis/instantiator/gcj
 org/springframework/objenesis/instantiator/perc

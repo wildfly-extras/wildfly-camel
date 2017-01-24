@@ -46,7 +46,7 @@
     <properties>
         
         <!-- Camel versions -->
-        <version.apache.camel>2.18.2</version.apache.camel>
+        <version.apache.camel>2.18.3</version.apache.camel>
 
         <!-- WildFly versions -->
         <version.wildfly>10.1.0.Final</version.wildfly>
