@@ -21,6 +21,7 @@ dns
 dozer
 ejb
 elasticsearch
+elsql
 exec
 file
 flatpack
@@ -125,7 +126,6 @@ coap
 couchdb
 docker
 dropbox
-elsql
 etcd
 facebook
 flink

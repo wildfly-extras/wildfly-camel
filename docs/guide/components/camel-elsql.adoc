@@ -1,0 +1,5 @@
+### camel-elsql
+
+The http://camel.apache.org/elsql.html[ElSql,window=_blank]
+component enables you to write SQL queries through https://github.com/OpenGamma/ElSql[ElSql,window=_blank].
+

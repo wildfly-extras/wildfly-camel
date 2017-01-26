@@ -6,6 +6,7 @@
 	^com/github/kristofa/brave(.*)
 	^com/google/protobuf
 	^com/mongodb(.*)
+	^com/opengamma(.*)
 	^groovy(.*)
 	^io/nats(.*)
 	^io/swagger(.*)

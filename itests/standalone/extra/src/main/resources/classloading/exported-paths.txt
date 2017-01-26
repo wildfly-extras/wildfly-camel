@@ -367,6 +367,7 @@ com/mongodb/management
 com/mongodb/operation
 com/mongodb/selector
 com/mongodb/util
+com/opengamma/elsql
 freemarker/cache
 freemarker/core
 freemarker/log
@@ -596,6 +597,7 @@ org/apache/camel/component/ejb
 org/apache/camel/component/elasticsearch
 org/apache/camel/component/elasticsearch/aggregation
 org/apache/camel/component/elasticsearch/converter
+org/apache/camel/component/elsql
 org/apache/camel/component/exec
 org/apache/camel/component/exec/impl
 org/apache/camel/component/feed
