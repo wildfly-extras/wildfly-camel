@@ -18,7 +18,6 @@ package org.wildfly.camel.test.config;
 import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_CAMEL;
 import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAINS;
 import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_SECURITY;
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_WELD;
 
 import java.net.URL;
 import java.nio.file.Paths;
@@ -59,14 +58,9 @@ public class StandaloneConfigTest {
         element = ConfigSupport.findElementWithAttributeValue(element, "property", "name", "hawtio.realm", NS_DOMAINS);
         Assert.assertNotNull("property not null", element);
 
-        // Verify weld
+        // Verify camel
         List<Element> profiles = ConfigSupport.findProfileElements(doc, NS_DOMAINS);
         Assert.assertEquals("One profile", 1, profiles.size());
-        element = profiles.get(0).getChild("subsystem", NS_WELD);
-        Assert.assertNotNull("weld not null", element);
-        Assert.assertEquals("true", element.getAttribute("require-bean-descriptor").getValue());
-
-        // Verify camel
         element = profiles.get(0).getChild("subsystem", NS_CAMEL);
         Assert.assertNotNull("camel not null", element);
 

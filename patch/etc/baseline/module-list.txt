@@ -63,6 +63,8 @@
 /org/apache/camel/component/dozer/main/camel-dozer-2.18.1.jar
 /org/apache/camel/component/ejb/main/camel-ejb-2.18.1.jar
 /org/apache/camel/component/elasticsearch/main/camel-elasticsearch-2.18.1.jar
+/org/apache/camel/component/elsql/main/camel-elsql-2.18.1.jar
+/org/apache/camel/component/elsql/main/elsql-1.2.jar
 /org/apache/camel/component/exec/main/camel-exec-2.18.1.jar
 /org/apache/camel/component/flatpack/main/camel-flatpack-2.18.1.jar
 /org/apache/camel/component/flatpack/main/flatpack-3.4.3.jar
