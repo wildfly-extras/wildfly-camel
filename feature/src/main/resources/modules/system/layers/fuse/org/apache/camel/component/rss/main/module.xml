@@ -4,14 +4,21 @@
     <artifact name="${org.apache.camel:camel-rss}" />
   </resources>
   <dependencies>
+    <module name="com.rometools.rome" export="true">
+      <exports>
+        <include path="com/sun/syndication/feed" />
+        <include path="com/sun/syndication/feed/atom" />
+        <include path="com/sun/syndication/feed/module" />
+        <include path="com/sun/syndication/feed/rss" />
+        <include path="com/sun/syndication/feed/synd" />
+        <exclude path="com/sun**" />
+      </exports>
+    </module>
     <module name="javax.api" />
+    <module name="org.apache.commons.codec" />
     <module name="org.slf4j" />
-    <module name="com.rometools.rome" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.component.atom" />
     <module name="org.apache.camel.core" />
   </dependencies>
-  <exports>
-    <exclude path="com/sun**" />
-  </exports>
 </module>

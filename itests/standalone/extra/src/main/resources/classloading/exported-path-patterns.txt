@@ -7,6 +7,7 @@
 	^com/google/protobuf
 	^com/mongodb(.*)
 	^com/opengamma(.*)
+	^com/sun/syndication(.*)
 	^groovy(.*)
 	^io/nats(.*)
 	^io/swagger(.*)

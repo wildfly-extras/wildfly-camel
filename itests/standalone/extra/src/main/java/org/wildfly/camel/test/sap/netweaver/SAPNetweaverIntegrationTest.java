@@ -19,7 +19,10 @@
  */
 package org.wildfly.camel.test.sap.netweaver;
 
+import com.sun.syndication.feed.synd.SyndEntry;
+import com.sun.syndication.feed.synd.SyndFeed;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.sap.netweaver.NetWeaverConstants;
@@ -45,7 +48,6 @@ import org.wildfly.extension.camel.CamelAware;
 public class SAPNetweaverIntegrationTest {
 
     private static final String SAP_GATEWAY_URL = "https4://sapes4.sapdevcenter.com/sap/opu/odata/IWFND/RMTSAMPLEFLIGHT";
-    private static final String SAP_COMMAND = "FlightCollection(carrid='AA',connid='0017',fldate=datetime'2016-04-20T00%3A00%3A00')";
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -70,9 +72,20 @@ public class SAPNetweaverIntegrationTest {
 
         camelctx.start();
         try {
-            ProducerTemplate template = camelctx.createProducerTemplate();
-            String result = template.requestBodyAndHeader("direct:start", null, NetWeaverConstants.COMMAND, SAP_COMMAND, String.class);
-            Assert.assertTrue(result.contains("PRICE=422.94, CURRENCY=USD"));
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            ConsumerTemplate consumer = camelctx.createConsumerTemplate();
+
+            // Flight data is constantly updated, so fetch a valid flight from the flight collection feed
+            String sapRssFeedUri = String.format("rss:%s/%s?username=%s&password=%s", SAP_GATEWAY_URL.replace("https4", "https"),
+                "FlightCollection", username, password);
+            SyndFeed feed = consumer.receiveBody(sapRssFeedUri, SyndFeed.class);
+            Assert.assertNotNull(feed);
+            Assert.assertTrue(feed.getEntries().size() > 0);
+
+            SyndEntry entry = (SyndEntry) feed.getEntries().get(0);
+            String sapCommand = entry.getTitle();
+            String result = producer.requestBodyAndHeader("direct:start", null, NetWeaverConstants.COMMAND, sapCommand, String.class);
+            Assert.assertFalse(result.isEmpty());
         } finally {
             camelctx.stop();
         }

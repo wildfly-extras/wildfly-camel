@@ -368,6 +368,11 @@ com/mongodb/operation
 com/mongodb/selector
 com/mongodb/util
 com/opengamma/elsql
+com/sun/syndication/feed
+com/sun/syndication/feed/atom
+com/sun/syndication/feed/module
+com/sun/syndication/feed/rss
+com/sun/syndication/feed/synd
 freemarker/cache
 freemarker/core
 freemarker/log
