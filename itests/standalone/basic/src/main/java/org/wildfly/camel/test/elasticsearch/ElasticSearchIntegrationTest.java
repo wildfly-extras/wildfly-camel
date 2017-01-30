@@ -23,11 +23,11 @@ import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashMap;
 import java.util.Map;
+import javax.inject.Inject;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -38,33 +38,39 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.settings.Settings.Builder;
-import org.elasticsearch.node.Node;
-import org.elasticsearch.node.NodeBuilder;
+import org.elasticsearch.client.Client;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.elasticsearch.subA.ElasticSearchClientProducer;
 import org.wildfly.extension.camel.CamelAware;
+
+import static org.wildfly.camel.test.elasticsearch.subA.ElasticSearchClientProducer.DATA_PATH;
 
 @CamelAware
 @RunWith(Arquillian.class)
 public class ElasticSearchIntegrationTest {
 
-    private static final Path DATA_PATH = Paths.get("target", "elasticsearch", "data");
-    private static final Path HOME_PATH = Paths.get("target", "elasticsearch", "home");
+    @Inject
+    private Client client;
 
     @Deployment
     public static JavaArchive createDeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-elasticsearch-tests.jar");
-        return archive;
+        return ShrinkWrap.create(JavaArchive.class, "camel-elasticsearch-tests.jar")
+            .addClass(ElasticSearchClientProducer.class)
+            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
-    static Node node;
+    @BeforeClass
+    public static void beforeClass() throws IOException {
+        deleteDataDirectory();
+    }
 
     @Test
     public void testIndexContentUsingHeaders() throws Exception {
@@ -77,8 +83,7 @@ public class ElasticSearchIntegrationTest {
             }
         });
 
-        initEleasticSearchClient(camelctx);
-
+        camelctx.getComponent("elasticsearch", ElasticsearchComponent.class).setClient(client);
         camelctx.start();
         try {
             Map<String, String> indexedData = new HashMap<>();
@@ -109,8 +114,7 @@ public class ElasticSearchIntegrationTest {
             }
         });
 
-        initEleasticSearchClient(camelctx);
-
+        camelctx.getComponent("elasticsearch", ElasticsearchComponent.class).setClient(client);
         camelctx.start();
         try {
             Map<String, String> indexedData = new HashMap<>();
@@ -143,8 +147,7 @@ public class ElasticSearchIntegrationTest {
             }
         });
 
-        initEleasticSearchClient(camelctx);
-
+        camelctx.getComponent("elasticsearch", ElasticsearchComponent.class).setClient(client);
         camelctx.start();
         try {
             Map<String, String> indexedData = new HashMap<>();
@@ -185,8 +188,7 @@ public class ElasticSearchIntegrationTest {
             }
         });
 
-        initEleasticSearchClient(camelctx);
-
+        camelctx.getComponent("elasticsearch", ElasticsearchComponent.class).setClient(client);
         camelctx.start();
         try {
             Map<String, String> indexedData = new HashMap<>();
@@ -211,15 +213,6 @@ public class ElasticSearchIntegrationTest {
         } finally {
             camelctx.stop();
         }
-    }
-
-    private void initEleasticSearchClient(CamelContext camelctx) throws IOException {
-        if (node == null) {
-            deleteDataDirectory();
-            Builder settings = Settings.settingsBuilder().put("http.enabled", false).put("path.data", DATA_PATH).put("path.home", HOME_PATH);
-            node = NodeBuilder.nodeBuilder().local(true).settings(settings).node();
-        }
-        camelctx.getComponent("elasticsearch", ElasticsearchComponent.class).setClient(node.client());
     }
 
     private static void deleteDataDirectory() throws IOException {
