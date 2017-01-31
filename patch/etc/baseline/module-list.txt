@@ -25,6 +25,7 @@
 /net/sourceforge/htmlunit/main/htmlunit-core-js-2.22.jar
 /net/sourceforge/htmlunit/main/neko-htmlunit-2.21.jar
 /ognl/main/ognl-3.1.10.jar
+/org/antlr/runtime/main/antlr-runtime-3.5.jar
 /org/apache/abdera/core/main/abdera-core-1.1.3.jar
 /org/apache/abdera/i18n/main/abdera-i18n-1.1.3.jar
 /org/apache/abdera/parser/main/abdera-parser-1.1.3.jar
@@ -125,6 +126,8 @@
 /org/apache/camel/component/ognl/main/camel-ognl-2.18.2.jar
 /org/apache/camel/component/olingo2/main/camel-olingo2-2.18.2.jar
 /org/apache/camel/component/olingo2/main/camel-olingo2-api-2.18.2.jar
+/org/apache/camel/component/optaplanner/main/camel-optaplanner-2.18.2.jar
+/org/apache/camel/component/optaplanner/main/optaplanner-core-6.4.0.Final.jar
 /org/apache/camel/component/paho/main/camel-paho-2.18.2.jar
 /org/apache/camel/component/paho/main/org.eclipse.paho.client.mqttv3-1.0.2.jar
 /org/apache/camel/component/pdf/main/camel-pdf-2.18.2.jar
@@ -153,7 +156,6 @@
 /org/apache/camel/component/stax/main/camel-stax-2.18.2.jar
 /org/apache/camel/component/stream/main/camel-stream-2.18.2.jar
 /org/apache/camel/component/swagger/main/camel-swagger-java-2.18.2.jar
-/org/apache/camel/component/swagger/main/reflections-0.9.10.jar
 /org/apache/camel/component/swagger/main/swagger-annotations-1.5.12.jar
 /org/apache/camel/component/swagger/main/swagger-core-1.5.12.jar
 /org/apache/camel/component/swagger/main/swagger-jaxrs-1.5.12.jar
@@ -196,6 +198,7 @@
 /org/apache/commons/exec/main/commons-exec-1.3.jar
 /org/apache/commons/httpclient/main/commons-httpclient-3.1.jar
 /org/apache/commons/lang3/main/commons-lang3-3.4.jar
+/org/apache/commons/math3/main/commons-math3-3.4.1.jar
 /org/apache/commons/net/main/commons-net-3.3.jar
 /org/apache/commons/pool2/main/commons-pool2-2.4.2.jar
 /org/apache/cxf/ext/main/cxf-rt-frontend-jaxrs-3.1.9.jar
@@ -247,12 +250,15 @@
 /org/apache/zookeeper/main/zookeeper-3.4.9.jar
 /org/beanshell/main/bsh-2.0b6.jar
 /org/bouncycastle/ext/main/bcpg-jdk15on-1.55.jar
+/org/drools/compiler/main/drools-compiler-6.4.0.Final.jar
+/org/drools/core/main/drools-core-6.4.0.Final.jar
 /org/eclipse/aether/main/aether-api-1.0.2.v20150114.jar
 /org/eclipse/aether/main/aether-connector-basic-1.0.2.v20150114.jar
 /org/eclipse/aether/main/aether-impl-1.0.2.v20150114.jar
 /org/eclipse/aether/main/aether-transport-file-1.0.2.v20150114.jar
 /org/eclipse/aether/main/aether-transport-http-1.0.2.v20150114.jar
 /org/eclipse/aether/main/maven-aether-provider-3.3.3.jar
+/org/eclipse/jdt/compiler/main/ecj-4.5.1.jar
 /org/eclipse/jetty/main/jetty-client-9.2.19.v20160908.jar
 /org/eclipse/jetty/main/jetty-http-9.2.19.v20160908.jar
 /org/eclipse/jetty/main/jetty-io-9.2.19.v20160908.jar
@@ -293,6 +299,7 @@
 /org/quartz/main/c3p0-0.9.5.2.jar
 /org/quartz/main/mchange-commons-java-0.2.11.jar
 /org/quartz/main/quartz-2.2.3.jar
+/org/reflections/main/reflections-0.9.10.jar
 /org/scala/library/main/scala-library-2.11.7.jar
 /org/scala/modules/main/scala-parser-combinators_2.11-1.0.4.jar
 /org/springframework/aop/main/spring-aop-4.3.5.RELEASE.jar

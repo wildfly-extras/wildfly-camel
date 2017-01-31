@@ -32,8 +32,7 @@
 	^org/apache/cxf/ws/discovery(.*)
 	^org/apache/cxf/ws/security(.*)
 	^org/apache/ibatis(.*)
-	# [FIXME #1547] Re-enable camel-kafka component
-	# ^org/apache/kafka(.*)
+	^org/apache/kafka(.*)
 	^org/apache/olingo(.*)
 	^org/apache/xmlbeans
 	^org/apache/xmlbeans/impl/schema
