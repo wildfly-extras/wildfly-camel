@@ -18,8 +18,12 @@ package org.wildfly.camel.test.common.utils;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.net.UnknownHostException;
+import java.util.HashSet;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 /**
  * Finds currently available server ports.
@@ -37,11 +41,22 @@ public final class AvailablePortFinder {
      */
     public static final int MAX_PORT_NUMBER = 65535;
 
+    // Note, this is scoped on the ClassLoader
+    private static Set<Integer> alreadyUsed = new HashSet<>();
+    
     /**
-     * Creates a new instance.
+     * Gets the next available port on localhost starting at the lowest port number.
+     *
+     * @throws NoSuchElementException if there are no ports available
      */
-    private AvailablePortFinder() {
-        // Do nothing
+    public static int getNextAvailable() {
+        InetAddress addr;
+        try {
+            addr = InetAddress.getLocalHost();
+        } catch (UnknownHostException ex) {
+            throw new IllegalStateException(ex);
+        }
+        return getNextAvailable(addr, MIN_PORT_NUMBER);
     }
 
     /**
@@ -49,8 +64,8 @@ public final class AvailablePortFinder {
      *
      * @throws NoSuchElementException if there are no ports available
      */
-    public static int getNextAvailable() {
-        return getNextAvailable(MIN_PORT_NUMBER);
+    public static int getNextAvailable(InetAddress addr) {
+        return getNextAvailable(addr, MIN_PORT_NUMBER);
     }
 
     /**
@@ -59,13 +74,12 @@ public final class AvailablePortFinder {
      * @param fromPort the port to scan for availability
      * @throws NoSuchElementException if there are no ports available
      */
-    public static int getNextAvailable(int fromPort) {
-        if (fromPort < MIN_PORT_NUMBER || fromPort > MAX_PORT_NUMBER) {
+    public static int getNextAvailable(InetAddress addr, int fromPort) {
+        if (fromPort < MIN_PORT_NUMBER || fromPort > MAX_PORT_NUMBER) 
             throw new IllegalArgumentException("Invalid start port: " + fromPort);
-        }
 
         for (int i = fromPort; i <= MAX_PORT_NUMBER; i++) {
-            if (available(i)) {
+            if (available(addr, i)) {
                 return i;
             }
         }
@@ -78,35 +92,18 @@ public final class AvailablePortFinder {
      *
      * @param port the port to check for availability
      */
-    public static boolean available(int port) {
-        if (port < MIN_PORT_NUMBER || port > MAX_PORT_NUMBER) {
-            throw new IllegalArgumentException("Invalid start port: " + port);
-        }
+    public synchronized static boolean available(InetAddress addr, int port) {
 
-        ServerSocket ss = null;
-        DatagramSocket ds = null;
-        try {
-            ss = new ServerSocket(port);
-            ss.setReuseAddress(true);
-            ds = new DatagramSocket(port);
-            ds.setReuseAddress(true);
-            return true;
+        try (ServerSocket ss = new ServerSocket(port, 0, addr)) {
         } catch (IOException e) {
-            // Do nothing
-        } finally {
-            if (ds != null) {
-                ds.close();
-            }
-
-            if (ss != null) {
-                try {
-                    ss.close();
-                } catch (IOException e) {
-                    /* should not be thrown */
-                }
-            }
+            return false;
         }
-
-        return false;
+        
+        try (DatagramSocket ds = new DatagramSocket(port, addr)) {
+        } catch (IOException e) {
+            return false;
+        }
+        
+        return alreadyUsed.add(port);
     }
 }
