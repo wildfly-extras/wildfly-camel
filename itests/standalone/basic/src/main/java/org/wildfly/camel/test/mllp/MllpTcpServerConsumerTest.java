@@ -65,7 +65,7 @@ public class MllpTcpServerConsumerTest {
             public void configure() throws Exception {
                 String routeId = "mllp-test-receiver-route";
 
-                fromF("mllp://%s:%d?autoAck=true&connectTimeout=%d&receiveTimeout=%d",
+                fromF("mllp://%s:%d?autoAck=true&connectTimeout=%d&receiveTimeout=%d&reuseAddress=true",
                         mllpClient.getMllpHost(), mllpClient.getMllpPort(), connectTimeout, responseTimeout)
                         .routeId(routeId)
                         .log(LoggingLevel.INFO, routeId, "Test route received message")
