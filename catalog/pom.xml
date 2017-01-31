@@ -41,10 +41,8 @@
             <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.mylyn.github</groupId>
-            <artifactId>org.eclipse.egit.github.core</artifactId>
-            <version>${version.eclipse.egit.github}</version>
-            <scope>test</scope>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-catalog</artifactId>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -95,11 +93,26 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <classesDirectory>src/main/resources</classesDirectory>
-                </configuration>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <mainClass>org.apache.camel.catalog.wildfly.WildFlyCatalogCreator</mainClass>
+                            <systemProperties>
+                                <property>
+                                    <key>basedir</key>
+                                    <value>${basedir}</value>
+                                </property>
+                            </systemProperties>  
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
