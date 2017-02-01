@@ -2,9 +2,9 @@
   "kind": "ImageStreamList",
   "apiVersion": "v1",
   "metadata": {
-      "name": "wildfly-camel-image-streams",
+      "name": "wildfly-camel-imagestreams",
       "annotations": {
-          "description": "ImageStream definitions for Camel on WildFly"
+          "description": "ImageStream definition for Camel on WildFly"
       }
     },
     "items": [
@@ -12,14 +12,15 @@
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "wildfly-camel-openshift"
+        "name": "WildFly-Camel",
+        "version": "4.4.0"
       },
       "spec": {
         "tags": [
           {
             "name": "latest",
             "annotations": {
-              "description": "Build and run Camel applications on Wildfly",
+              "description": "Build and run Camel applications on WildFly",
               "iconClass": "icon-wildfly",
               "tags": "builder,wildfly,wildfly-camel,camel,java",
               "supports":"jee,java",
@@ -33,7 +34,7 @@
           {
             "name": "4.4.0",
             "annotations": {
-              "description": "Build and run Camel applications on Wildfly",
+              "description": "Build and run Camel applications on WildFly",
               "iconClass": "icon-wildfly",
               "tags": "builder,wildfly,java",
               "supports":"jee,java",
