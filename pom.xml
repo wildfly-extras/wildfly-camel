@@ -543,7 +543,7 @@
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${version-maven-release-plugin}</version>
                     <configuration>
-                        <arguments>-Dts.all -Ddocker</arguments>
+                        <arguments>-Dts.all -Ddocker -DskipTests</arguments>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                         <preparationGoals>clean install</preparationGoals>
                         <tagNameFormat>@{project.version}</tagNameFormat>

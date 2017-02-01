@@ -2,4 +2,3 @@
 
 The http://camel.apache.org/stax.html[StAX,window=_blank] component enables messages to be passed
 through a SAX ContentHandler. It can also iterate over JAXB records using StAX.
-

@@ -86,12 +86,7 @@
     <!-- Generate the changelog -->
     <profiles>
         <profile>
-            <id>changelog</id>
-            <activation>
-                <property>
-                    <name>changelog</name>
-                </property>
-            </activation>
+            <id>release</id>
             <build>
                 <plugins>
                     <plugin>
