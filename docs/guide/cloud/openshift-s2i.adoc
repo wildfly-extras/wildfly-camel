@@ -10,7 +10,7 @@ First you'll need to download and install the S2I tooling from https://github.co
 Then you can build and run a Docker image from source. For example, to build the WildFly-Camel CDI quickstart:
 
 [source,options="nowrap",subs="attributes"]
-$ s2i build https://github.com/wildfly-extras/wildfly-camel-examples.git -r 4.4.0 --context-dir camel-cdi wildflyext/s2i-wildfly-camel:4.4.0 wildfly-camel-example-cdi
+$ s2i build https://github.com/wildfly-extras/wildfly-camel-examples.git -r {version} --context-dir camel-cdi wildflyext/s2i-wildfly-camel:{version} wildfly-camel-example-cdi
 $ docker run -ti -p 8080:8080 wildfly-camel-example-cdi
 
 From a remote client, you should now be able to access the service like this
@@ -39,7 +39,7 @@ To build the latest release of the WildFly-Camel CDI example you would enter:
 |=======
 |**Name**| camel-cdi
 |**Git Repository URL**| https://github.com/wildfly-extras/wildfly-camel-examples
-|**Git Reference**| 4.4.0
+|**Git Reference**| {version}
 |**Context Dir**| camel-cdi
 |=======
 

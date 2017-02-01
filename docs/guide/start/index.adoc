@@ -75,19 +75,19 @@ To get started with writing Camel JEE applications, there are two Maven archetyp
 
 To generate a Camel CDI application, run the following from the command line.
 
-[source,options="nowrap"]
+[source,options="nowrap",subs="attributes"]
 mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
                        -DarchetypeArtifactId=wildfly-camel-archetype-cdi \
-                       -DarchetypeVersion=4.4.0 \
+                       -DarchetypeVersion={version} \
                        -DgroupId=com.mycompany \
                        -DartifactId=my-camel-cdi-application
 
 To generate a Camel Spring XML application, run the following from the command line.
 
-[source,options="nowrap"]
+[source,options="nowrap",subs="attributes"]
 mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
                        -DarchetypeArtifactId=wildfly-camel-archetype-spring \
-                       -DarchetypeVersion=4.4.0 \
+                       -DarchetypeVersion={version} \
                        -DgroupId=com.mycompany \
                        -DartifactId=my-camel-spring-application
 
