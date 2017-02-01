@@ -676,7 +676,7 @@ Processing config for: camel
 <div class="content">
 <pre class="highlight nowrap"><code>mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
                        -DarchetypeArtifactId=wildfly-camel-archetype-cdi \
-                       -DarchetypeVersion=4.4.0 \
+                       -DarchetypeVersion=4.5.0 \
                        -DgroupId=com.mycompany \
                        -DartifactId=my-camel-cdi-application</code></pre>
 </div>
@@ -688,7 +688,7 @@ Processing config for: camel
 <div class="content">
 <pre class="highlight nowrap"><code>mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
                        -DarchetypeArtifactId=wildfly-camel-archetype-spring \
-                       -DarchetypeVersion=4.4.0 \
+                       -DarchetypeVersion=4.5.0 \
                        -DgroupId=com.mycompany \
                        -DartifactId=my-camel-spring-application</code></pre>
 </div>
@@ -4549,7 +4549,7 @@ ExecStart=/usr/bin/dockerd --insecure-registry 172.30.0.0/16</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ s2i build https://github.com/wildfly-extras/wildfly-camel-examples.git -r 4.4.0 --context-dir camel-cdi wildflyext/s2i-wildfly-camel:4.4.0 wildfly-camel-example-cdi
+<pre class="highlight nowrap"><code>$ s2i build https://github.com/wildfly-extras/wildfly-camel-examples.git -r 4.5.0 --context-dir camel-cdi wildflyext/s2i-wildfly-camel:4.5.0 wildfly-camel-example-cdi
 $ docker run -ti -p 8080:8080 wildfly-camel-example-cdi</code></pre>
 </div>
 </div>
@@ -4606,7 +4606,7 @@ $ docker run -ti -p 8080:8080 wildfly-camel-example-cdi</code></pre>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Git Reference</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4.4.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.5.0</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Context Dir</strong></p></td>
@@ -4824,7 +4824,7 @@ producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION,
 <div id="footer">
 <div id="footer-text">
 Version 4.5.0<br>
-Last updated 2017-01-17 10:48:36 CET
+Last updated 2017-02-01 14:35:25 GMT
 </div>
 </div>
 </body>
