@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # publish-docker-images.sh
 #
@@ -116,8 +116,9 @@ function pushImages() {
     read
   fi
 }
+
 function getImageSelection() {
-  while [[ ! ${IMAGE_SELECTION} =~ ^[0-9]+(,[0-9]+)?+$ ]]
+  while [[ ! ${IMAGE_SELECTION} =~ ^[0-9]+(,[0-9]+)? ]]
   do
     displayImages
 
