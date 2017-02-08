@@ -716,6 +716,7 @@ org/apache/camel/component/sjms/taskmanager
 org/apache/camel/component/sjms/tx
 org/apache/camel/component/smpp
 org/apache/camel/component/snakeyaml
+org/apache/camel/component/snmp
 org/apache/camel/component/splunk
 org/apache/camel/component/splunk/event
 org/apache/camel/component/splunk/support
@@ -1955,6 +1956,18 @@ org/quartz/utils/counter
 org/quartz/utils/counter/sampled
 org/quartz/utils/weblogic
 org/quartz/xml
+org/snmp4j
+org/snmp4j/asn1
+org/snmp4j/event
+org/snmp4j/mp
+org/snmp4j/security
+org/snmp4j/security/nonstandard
+org/snmp4j/smi
+org/snmp4j/transport
+org/snmp4j/transport/ssh
+org/snmp4j/transport/tls
+org/snmp4j/uri
+org/snmp4j/version
 org/springframework
 org/springframework/orm/jpa
 org/springframework/security

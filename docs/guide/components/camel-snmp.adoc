@@ -1,0 +1,4 @@
+### camel-snmp
+
+The http://camel.apache.org/snmp.html[snmp,window=_blank] component enables you to poll https://en.wikipedia.org/wiki/Simple_Network_Management_Protocol[SNMP,window=_blank] enabled devices or configure an SNMP trap.
+

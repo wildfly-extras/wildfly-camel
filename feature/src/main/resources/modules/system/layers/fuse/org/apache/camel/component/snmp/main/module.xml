@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.snmp">
+  <resources>
+    <artifact name="${org.apache.camel:camel-snmp}" />
+    <artifact name="${org.apache.servicemix.bundles:org.apache.servicemix.bundles.snmp4j}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+  <exports>
+    <exclude path="org/snmp4j/asn1/doc-files" />
+    <exclude path="org/snmp4j/doc-files" />
+    <exclude path="org/snmp4j/log" />
+    <exclude path="org/snmp4j/mp/doc-files" />
+    <exclude path="org/snmp4j/security/doc-files" />
+    <exclude path="org/snmp4j/smi/doc-files" />
+    <exclude path="org/snmp4j/test" />
+    <exclude path="org/snmp4j/tools**" />
+    <exclude path="org/snmp4j/transport/doc-files" />
+    <exclude path="org/snmp4j/util**" />
+  </exports>
+</module>

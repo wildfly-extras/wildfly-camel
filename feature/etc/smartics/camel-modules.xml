@@ -1398,6 +1398,31 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.snmp">
+        <include artifact="org.apache.camel:camel-snmp" />
+        <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.snmp4j" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="org/snmp4j/asn1/doc-files" />
+            <exclude path="org/snmp4j/doc-files" />
+            <exclude path="org/snmp4j/log" />
+            <exclude path="org/snmp4j/mp/doc-files" />
+            <exclude path="org/snmp4j/security/doc-files" />
+            <exclude path="org/snmp4j/smi/doc-files" />
+            <exclude path="org/snmp4j/test" />
+            <exclude path="org/snmp4j/tools**" />
+            <exclude path="org/snmp4j/transport/doc-files" />
+            <exclude path="org/snmp4j/util**" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.ssh">
         <include artifact="org.apache.camel:camel-ssh" />
         <apply-to-dependencies skip="true">

@@ -149,6 +149,8 @@
 /org/apache/camel/component/smpp/main/camel-smpp-2.18.2.jar
 /org/apache/camel/component/smpp/main/jsmpp-2.3.2.jar
 /org/apache/camel/component/snakeyaml/main/camel-snakeyaml-2.18.2.jar
+/org/apache/camel/component/snmp/main/camel-snmp-2.18.2.jar
+/org/apache/camel/component/snmp/main/org.apache.servicemix.bundles.snmp4j-2.3.4_1.jar
 /org/apache/camel/component/soap/main/camel-soap-2.18.2.jar
 /org/apache/camel/component/splunk/main/camel-splunk-2.18.2.jar
 /org/apache/camel/component/splunk/main/org.apache.servicemix.bundles.splunk-1.5.0.0_1.jar

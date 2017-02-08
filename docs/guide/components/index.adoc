@@ -136,6 +136,8 @@ include::camel-servlet.adoc[]
 
 include::camel-smpp.adoc[]
 
+include::camel-snmp.adoc[]
+
 include::camel-spring.adoc[]
 
 include::camel-sjms.adoc[]

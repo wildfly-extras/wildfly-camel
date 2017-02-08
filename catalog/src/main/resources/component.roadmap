@@ -83,6 +83,7 @@ smpp
 smpps
 smtp
 smtps
+snmp
 splunk
 spring-event
 sql
@@ -147,7 +148,6 @@ kubernetes
 mina
 nagios
 rabbitmq
-snmp
 spring-batch
 spring-integration
 spring-ldap
