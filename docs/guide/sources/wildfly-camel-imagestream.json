@@ -24,7 +24,9 @@
               "iconClass": "icon-wildfly",
               "tags": "builder,wildfly,wildfly-camel,camel,java",
               "supports":"jee,java",
-              "sampleRepo": "https://github.com/wildfly-extras/wildfly-camel-examples.git"
+              "sampleRepo": "https://github.com/wildfly-extras/wildfly-camel-examples.git",
+              "sampleContextDir": "camel-cdi",
+              "sampleRef": "{version}"
             },
             "from": {
               "kind": "ImageStreamTag",
@@ -39,7 +41,9 @@
               "tags": "builder,wildfly,java",
               "supports":"jee,java",
               "version": "{version}",
-              "sampleRepo": "https://github.com/wildfly-extras/wildfly-camel-examples.git"
+              "sampleRepo": "https://github.com/wildfly-extras/wildfly-camel-examples.git",
+              "sampleContextDir": "camel-cdi",
+              "sampleRef": "{version}"
             },
             "from": {
               "kind": "DockerImage",
