@@ -71,7 +71,7 @@ public class ZookeeperConsumerIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("zookeeper://" + server.getConnection() + "/somenode")
+                from("zookeeper://" + server.getConnection() + "/somenode?create=true")
                 .to("mock:end");
             }
         });
