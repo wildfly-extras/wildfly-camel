@@ -14,41 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.catalog.wildfly;
+package org.wildfly.camel.catalog;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.CatalogHelper;
+import org.apache.camel.catalog.DefaultRuntimeProvider;
 import org.apache.camel.catalog.RuntimeProvider;
 
 /**
  * A WildFly based {@link RuntimeProvider} which only includes the supported Camel components, data formats, and languages
  * for WildFly.
  */
-public class WildFlyRuntimeProvider implements RuntimeProvider {
+public class WildFlyRuntimeProvider extends DefaultRuntimeProvider {
 
-    private static final String COMPONENT_DIR = "org/apache/camel/catalog/components";
-    private static final String DATAFORMAT_DIR = "org/apache/camel/catalog/dataformats";
-    private static final String LANGUAGE_DIR = "org/apache/camel/catalog/languages";
-    private static final String COMPONENTS_CATALOG = "org/apache/camel/catalog/components.properties";
-    private static final String DATA_FORMATS_CATALOG = "org/apache/camel/catalog/dataformats.properties";
-    private static final String LANGUAGE_CATALOG = "org/apache/camel/catalog/languages.properties";
-
-    private CamelCatalog camelCatalog;
-
-    @Override
-    public CamelCatalog getCamelCatalog() {
-        return camelCatalog;
-    }
-
-    @Override
-    public void setCamelCatalog(CamelCatalog camelCatalog) {
-        this.camelCatalog = camelCatalog;
-    }
+    private static final String COMPONENT_DIR = "org/wildfly/camel/catalog/components";
+    private static final String DATAFORMAT_DIR = "org/wildfly/camel/catalog/dataformats";
+    private static final String LANGUAGE_DIR = "org/wildfly/camel/catalog/languages";
+    private static final String COMPONENTS_CATALOG = "org/wildfly/camel/catalog/components.properties";
+    private static final String DATA_FORMATS_CATALOG = "org/wildfly/camel/catalog/dataformats.properties";
+    private static final String LANGUAGE_CATALOG = "org/wildfly/camel/catalog/languages.properties";
 
     @Override
     public String getProviderName() {
@@ -73,7 +61,7 @@ public class WildFlyRuntimeProvider implements RuntimeProvider {
     @Override
     public List<String> findComponentNames() {
         List<String> names = new ArrayList<String>();
-        InputStream is = camelCatalog.getVersionManager().getResourceAsStream(COMPONENTS_CATALOG);
+        InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(COMPONENTS_CATALOG);
         if (is != null) {
             try {
                 CatalogHelper.loadLines(is, names);
@@ -87,7 +75,7 @@ public class WildFlyRuntimeProvider implements RuntimeProvider {
     @Override
     public List<String> findDataFormatNames() {
         List<String> names = new ArrayList<String>();
-        InputStream is = camelCatalog.getVersionManager().getResourceAsStream(DATA_FORMATS_CATALOG);
+        InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(DATA_FORMATS_CATALOG);
         if (is != null) {
             try {
                 CatalogHelper.loadLines(is, names);
@@ -101,7 +89,7 @@ public class WildFlyRuntimeProvider implements RuntimeProvider {
     @Override
     public List<String> findLanguageNames() {
         List<String> names = new ArrayList<String>();
-        InputStream is = camelCatalog.getVersionManager().getResourceAsStream(LANGUAGE_CATALOG);
+        InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(LANGUAGE_CATALOG);
         if (is != null) {
             try {
                 CatalogHelper.loadLines(is, names);
