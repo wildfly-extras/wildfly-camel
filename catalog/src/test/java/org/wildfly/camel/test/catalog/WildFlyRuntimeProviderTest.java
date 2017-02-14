@@ -20,10 +20,10 @@ import java.util.List;
 
 import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.DefaultCamelCatalog;
-import org.apache.camel.catalog.wildfly.WildFlyRuntimeProvider;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.wildfly.camel.catalog.WildFlyRuntimeProvider;
 
 public class WildFlyRuntimeProviderTest {
 
@@ -61,6 +61,8 @@ public class WildFlyRuntimeProviderTest {
         Assert.assertTrue(names.contains("ftp"));
         Assert.assertTrue(names.contains("jms"));
         Assert.assertTrue(names.contains("ejb"));
+
+        Assert.assertFalse(names.contains("apns"));
     }
 
     @Test
@@ -73,6 +75,8 @@ public class WildFlyRuntimeProviderTest {
         Assert.assertTrue(names.contains("bindy-csv"));
         Assert.assertTrue(names.contains("zip"));
         Assert.assertTrue(names.contains("zipfile"));
+
+        Assert.assertFalse(names.contains("boon"));
     }
 
     @Test
@@ -85,6 +89,8 @@ public class WildFlyRuntimeProviderTest {
         Assert.assertTrue(names.contains("simple"));
         Assert.assertTrue(names.contains("spel"));
         Assert.assertTrue(names.contains("xpath"));
+
+        Assert.assertFalse(names.contains("sql"));
     }
 
     @Test

@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.apache.camel.catalog.wildfly;
+package org.wildfly.camel.catalog;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -180,7 +180,8 @@ public final class WildFlyCatalogCreator {
             for (Item item : roadmap.items.values()) {
                 Path javaType = Paths.get(item.javaType.replace('.', '/') + ".class");
                 if (rootPath.resolve(javaType).toFile().isFile()) {
-                    Path target = outdir.resolve(item.path);
+                    String targetPath = item.path.toString().replace("org/apache", "org/wildfly");
+                    Path target = outdir.resolve(Paths.get(targetPath));
                     Path source = srcdir.resolve(item.path);
                     target.getParent().toFile().mkdirs();
                     Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
@@ -192,7 +193,7 @@ public final class WildFlyCatalogCreator {
 
     private void generateProperties() throws IOException {
         for (RoadMap roadmap : roadmaps.values()) {
-            File outfile = outdir.resolve("org/apache/camel/catalog/" + roadmap.kind + "s.properties").toFile();
+            File outfile = outdir.resolve("org/wildfly/camel/catalog/" + roadmap.kind + "s.properties").toFile();
             try (PrintWriter pw = new PrintWriter(outfile)) {
                 for (String name : roadmap.sortedNames(State.supported)) {
                     pw.println(name);

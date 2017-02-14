@@ -103,7 +103,7 @@
                         </goals>
                         <phase>process-classes</phase>
                         <configuration>
-                            <mainClass>org.apache.camel.catalog.wildfly.WildFlyCatalogCreator</mainClass>
+                            <mainClass>org.wildfly.camel.catalog.WildFlyCatalogCreator</mainClass>
                             <systemProperties>
                                 <property>
                                     <key>basedir</key>

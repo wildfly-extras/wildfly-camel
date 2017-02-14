@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.catalog.wildfly;
+package org.wildfly.camel.catalog;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,12 +31,12 @@ import org.apache.camel.catalog.RuntimeProvider;
  */
 public class WildFlyRuntimeProvider implements RuntimeProvider {
 
-    private static final String COMPONENT_DIR = "org/apache/camel/catalog/components";
-    private static final String DATAFORMAT_DIR = "org/apache/camel/catalog/dataformats";
-    private static final String LANGUAGE_DIR = "org/apache/camel/catalog/languages";
-    private static final String COMPONENTS_CATALOG = "org/apache/camel/catalog/components.properties";
-    private static final String DATA_FORMATS_CATALOG = "org/apache/camel/catalog/dataformats.properties";
-    private static final String LANGUAGE_CATALOG = "org/apache/camel/catalog/languages.properties";
+    private static final String COMPONENT_DIR = "org/wildfly/camel/catalog/components";
+    private static final String DATAFORMAT_DIR = "org/wildfly/camel/catalog/dataformats";
+    private static final String LANGUAGE_DIR = "org/wildfly/camel/catalog/languages";
+    private static final String COMPONENTS_CATALOG = "org/wildfly/camel/catalog/components.properties";
+    private static final String DATA_FORMATS_CATALOG = "org/wildfly/camel/catalog/dataformats.properties";
+    private static final String LANGUAGE_CATALOG = "org/wildfly/camel/catalog/languages.properties";
 
     private CamelCatalog camelCatalog;
 
