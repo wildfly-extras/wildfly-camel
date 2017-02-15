@@ -782,7 +782,6 @@
                 <module>archetypes</module>
                 <module>docs</module>
                 <module>patch</module>
-                <module>compatibility</module>
             </modules>
         </profile>
     </profiles>
