@@ -180,8 +180,9 @@ public final class WildFlyCatalogCreator {
             for (Item item : roadmap.items.values()) {
                 Path javaType = Paths.get(item.javaType.replace('.', '/') + ".class");
                 if (rootPath.resolve(javaType).toFile().isFile()) {
-                    String targetPath = item.path.toString().replace("org/apache", "org/wildfly");
-                    Path target = outdir.resolve(Paths.get(targetPath));
+                    Path subpath = item.path.subpath(2, item.path.getNameCount());
+                    Path targetPath = Paths.get("org", "wildfly").resolve(subpath);
+                    Path target = outdir.resolve(targetPath);
                     Path source = srcdir.resolve(item.path);
                     target.getParent().toFile().mkdirs();
                     Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
