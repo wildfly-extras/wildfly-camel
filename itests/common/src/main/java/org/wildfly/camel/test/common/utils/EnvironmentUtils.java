@@ -24,11 +24,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Locale;
 
-import org.jboss.modules.Module;
-import org.jboss.modules.ModuleIdentifier;
-import org.jboss.modules.ModuleLoadException;
-import org.jboss.modules.ModuleLoader;
-
 /**
  * Collection of Environment utilities
  *
@@ -64,16 +59,6 @@ public final class EnvironmentUtils {
 
     // hide ctor
     private EnvironmentUtils() {
-    }
-
-    public static boolean switchyardSupport() {
-        try {
-            ModuleLoader moduleLoader = Module.getCallerModuleLoader();
-            moduleLoader.loadModule(ModuleIdentifier.create("org.switchyard.runtime"));
-            return true;
-        } catch (ModuleLoadException ex) {
-            return false;
-        }
     }
 
     public static boolean isLinux() {

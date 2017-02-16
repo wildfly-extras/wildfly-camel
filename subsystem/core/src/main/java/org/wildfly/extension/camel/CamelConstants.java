@@ -53,9 +53,6 @@ public interface CamelConstants {
     /** This file hold the components to use. */
     String CAMEL_COMPONENTS_FILE_NAME = "META-INF/jboss-camel-components.properties";
 
-    /** The Switchyard marker file */
-    String SWITCHYARD_MARKER_FILE = "META-INF/switchyard.xml";
-
     /** The deployment names for repository content deployments */
     String REPOSITORY_CONTENT_FILE_SUFFIX = "-repository-content.xml";
     String REPOSITORY_CONTENT_FILE_NAME = "META-INF/jboss-repository-content.xml";

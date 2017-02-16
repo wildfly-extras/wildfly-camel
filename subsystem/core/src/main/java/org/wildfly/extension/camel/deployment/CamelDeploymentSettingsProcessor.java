@@ -19,6 +19,8 @@
  */
 package org.wildfly.extension.camel.deployment;
 
+import static org.wildfly.extension.camel.CamelLogger.LOGGER;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,10 +34,6 @@ import org.jboss.as.server.deployment.annotation.CompositeIndex;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.DotName;
-import org.jboss.vfs.VirtualFile;
-import org.wildfly.extension.camel.CamelConstants;
-
-import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
 public final class CamelDeploymentSettingsProcessor implements DeploymentUnitProcessor {
 
@@ -93,12 +91,6 @@ public final class CamelDeploymentSettingsProcessor implements DeploymentUnitPro
     private boolean isDeploymentValid(final DeploymentUnit depUnit) {
 
         boolean result = true;
-
-        // Skip wiring wfc for SwitchYard deployments
-        VirtualFile rootFile = depUnit.getAttachment(Attachments.DEPLOYMENT_ROOT).getRoot();
-        if (rootFile.getChild(CamelConstants.SWITCHYARD_MARKER_FILE).exists()) {
-            result = false;
-        }
 
         // Skip wiring wfc for hawtio and resource adapter deployments
         String runtimeName = depUnit.getName();
