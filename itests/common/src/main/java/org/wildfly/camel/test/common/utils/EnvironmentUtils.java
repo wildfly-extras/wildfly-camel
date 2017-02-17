@@ -32,6 +32,7 @@ import java.util.Locale;
  */
 public final class EnvironmentUtils {
 
+    private static final boolean AIX;
     private static final boolean LINUX;
     private static final boolean MAC;
     private static final boolean WINDOWS;
@@ -40,6 +41,7 @@ public final class EnvironmentUtils {
 
     static {
         final String os = System.getProperty("os.name").toLowerCase(Locale.ROOT);
+        AIX = os.equals("aix");
         LINUX = os.equals("linux");
         MAC = os.startsWith("mac");
         WINDOWS = os.contains("win");
@@ -59,6 +61,10 @@ public final class EnvironmentUtils {
 
     // hide ctor
     private EnvironmentUtils() {
+    }
+
+    public static boolean isAix() {
+        return AIX;
     }
 
     public static boolean isLinux() {
