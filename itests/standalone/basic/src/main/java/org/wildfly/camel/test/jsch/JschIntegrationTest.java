@@ -38,6 +38,7 @@ import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -69,8 +70,10 @@ public class JschIntegrationTest {
 
     @Before
     public void setUp() throws Exception {
-        sshServer = new EmbeddedSSHServer(SSHD_ROOT_DIR);
-        sshServer.start();
+        if (!EnvironmentUtils.isAIX()) {
+            sshServer = new EmbeddedSSHServer(SSHD_ROOT_DIR);
+            sshServer.start();
+        }
     }
 
     @After
@@ -82,6 +85,9 @@ public class JschIntegrationTest {
 
     @Test
     public void testScpFile() throws Exception {
+
+        Assume.assumeFalse("[ENTESB-6589] JschIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+
         File testFile = resolvePath(SSHD_ROOT_DIR).resolve("test.txt").toFile();
         CamelContext camelctx = new DefaultCamelContext();
         try {

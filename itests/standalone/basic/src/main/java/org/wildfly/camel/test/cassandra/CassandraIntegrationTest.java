@@ -57,7 +57,7 @@ public class CassandraIntegrationTest {
 
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
-            if (!EnvironmentUtils.isAix()) {
+            if (!EnvironmentUtils.isAIX()) {
                 EmbeddedCassandraServerHelper.startEmbeddedCassandra("/camel-cassandra.yaml", "target/camel-cassandra", 30000);
                 new LoadableCassandraCQLUnit(new ClassPathCQLDataSet("cassandra/BasicDataSet.cql", KEYSPACE), "/camel-cassandra.yaml").setup();
             }
@@ -65,7 +65,7 @@ public class CassandraIntegrationTest {
 
         @Override
         public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
-            if (!EnvironmentUtils.isAix()) {
+            if (!EnvironmentUtils.isAIX()) {
                 EmbeddedCassandraServerHelper.cleanEmbeddedCassandra();
             }
         }
@@ -91,7 +91,7 @@ public class CassandraIntegrationTest {
     @Test
     public void testConsumeAll() throws Exception {
 
-        Assume.assumeFalse("[#1622] Cassandra crashes build on AIX", EnvironmentUtils.isAix());
+        Assume.assumeFalse("[#1622] Cassandra crashes build on AIX", EnvironmentUtils.isAIX());
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {

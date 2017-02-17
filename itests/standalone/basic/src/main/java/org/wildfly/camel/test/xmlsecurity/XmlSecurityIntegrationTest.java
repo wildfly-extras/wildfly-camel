@@ -33,10 +33,12 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.w3c.dom.Node;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 import javax.naming.InitialContext;
@@ -65,6 +67,7 @@ public class XmlSecurityIntegrationTest {
     @Deployment
     public static WebArchive createDeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-test.war");
+        archive.addClasses(EnvironmentUtils.class);
         return archive;
     }
 
@@ -83,8 +86,10 @@ public class XmlSecurityIntegrationTest {
 
     @Test
     public void testXmlSigning() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
 
+        Assume.assumeFalse("[ENTESB-6596] XmlSecurityIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -108,8 +113,10 @@ public class XmlSecurityIntegrationTest {
 
     @Test
     public void testXmlVerifySigning() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
 
+        Assume.assumeFalse("[ENTESB-6596] XmlSecurityIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

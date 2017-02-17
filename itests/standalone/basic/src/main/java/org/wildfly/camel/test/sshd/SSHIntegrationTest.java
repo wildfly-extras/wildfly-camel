@@ -15,6 +15,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -44,8 +45,10 @@ public class SSHIntegrationTest {
 
     @Before
     public void setUp() throws Exception {
-        sshServer = new EmbeddedSSHServer(SSHD_ROOT_DIR, AvailablePortFinder.getNextAvailable());
-        sshServer.start();
+        if (!EnvironmentUtils.isAIX()) {
+            sshServer = new EmbeddedSSHServer(SSHD_ROOT_DIR, AvailablePortFinder.getNextAvailable());
+            sshServer.start();
+        }
     }
 
     @After
@@ -57,6 +60,9 @@ public class SSHIntegrationTest {
 
     @Test
     public void testSSHConsumer() throws Exception {
+
+        Assume.assumeFalse("[ENTESB-6595] SSHIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

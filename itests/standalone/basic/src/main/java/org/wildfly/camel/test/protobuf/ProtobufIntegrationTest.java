@@ -32,8 +32,10 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.protobuf.model.AddressBookProtos;
 import org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person;
 import org.wildfly.extension.camel.CamelAware;
@@ -45,13 +47,15 @@ public class ProtobufIntegrationTest {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "protobuf-tests");
-        archive.addClasses(AddressBookProtos.class);
+        archive.addClasses(AddressBookProtos.class, EnvironmentUtils.class);
         return archive;
     }
 
     @Test
     public void testMarshall() throws Exception {
 
+        Assume.assumeFalse("[ENTESB-6593] ProtobufIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        
         final ProtobufDataFormat format = new ProtobufDataFormat(Person.getDefaultInstance());
 
         CamelContext camelctx = new DefaultCamelContext();
@@ -77,6 +81,8 @@ public class ProtobufIntegrationTest {
     @Test
     public void testUnmarshall() throws Exception {
 
+        Assume.assumeFalse("[ENTESB-6593] ProtobufIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        
         final ProtobufDataFormat format = new ProtobufDataFormat(Person.getDefaultInstance());
 
         CamelContext camelctx = new DefaultCamelContext();

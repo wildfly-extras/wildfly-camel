@@ -63,7 +63,7 @@ public final class EnvironmentUtils {
     private EnvironmentUtils() {
     }
 
-    public static boolean isAix() {
+    public static boolean isAIX() {
         return AIX;
     }
 

@@ -38,6 +38,7 @@ import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,9 +71,11 @@ public class SftpIntegrationTest {
 
     @Before
     public void setUp() throws Exception {
-        recursiveDelete(resolvePath(FTP_ROOT_DIR).toFile());
-        sshServer = new EmbeddedSSHServer(FTP_ROOT_DIR);
-        sshServer.start();
+        if (!EnvironmentUtils.isAIX()) {
+            recursiveDelete(resolvePath(FTP_ROOT_DIR).toFile());
+            sshServer = new EmbeddedSSHServer(FTP_ROOT_DIR);
+            sshServer.start();
+        }
     }
 
     @After
@@ -84,6 +87,9 @@ public class SftpIntegrationTest {
 
     @Test
     public void testSendFile() throws Exception {
+
+        Assume.assumeFalse("[ENTESB-6588] SftpIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+
         File testFile = resolvePath(FTP_ROOT_DIR).resolve("test.txt").toFile();
         CamelContext camelctx = new DefaultCamelContext();
         try {

@@ -37,10 +37,12 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 import com.mongodb.BasicDBObject;
@@ -62,51 +64,62 @@ public class MongoDBIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-mongodb-tests")
-            .addClass(EmbeddedMongoServer.class);
+            .addClasses(EmbeddedMongoServer.class, EnvironmentUtils.class);
     }
 
     @BeforeClass
     public static void beforeClass() throws Exception {
-        if (mongoServer == null) {
-            mongoServer = new EmbeddedMongoServer(PORT);
+        if (!EnvironmentUtils.isAIX()) {
+            if (mongoServer == null) {
+                mongoServer = new EmbeddedMongoServer(PORT);
+            }
+            mongoServer.start();
         }
-        mongoServer.start();
     }
 
     @AfterClass
     public static void afterClass() {
-        mongoServer.stop();
+        if (mongoServer != null) 
+            mongoServer.stop();
     }
 
     @Before
     public void setUp() throws Exception {
-        MongoClient client = new MongoClient("localhost", PORT);
-        MongoDatabase db = client.getDatabase("test");
+        if (!EnvironmentUtils.isAIX()) {
+            MongoClient client = new MongoClient("localhost", PORT);
+            MongoDatabase db = client.getDatabase("test");
 
-        InitialContext context = new InitialContext();
-        context.bind("mongoConnection", client);
+            InitialContext context = new InitialContext();
+            context.bind("mongoConnection", client);
 
-        String testCollectionName = "camelTest";
-        testCollection = db.getCollection(testCollectionName, BasicDBObject.class);
-        testCollection.drop();
-        testCollection = db.getCollection(testCollectionName, BasicDBObject.class);
+            String testCollectionName = "camelTest";
+            testCollection = db.getCollection(testCollectionName, BasicDBObject.class);
+            testCollection.drop();
+            testCollection = db.getCollection(testCollectionName, BasicDBObject.class);
 
-        String dynamicCollectionName = testCollectionName.concat("Dynamic");
-        dynamicCollection = db.getCollection(dynamicCollectionName, BasicDBObject.class);
-        dynamicCollection.drop();
-        dynamicCollection = db.getCollection(dynamicCollectionName, BasicDBObject.class);
+            String dynamicCollectionName = testCollectionName.concat("Dynamic");
+            dynamicCollection = db.getCollection(dynamicCollectionName, BasicDBObject.class);
+            dynamicCollection.drop();
+            dynamicCollection = db.getCollection(dynamicCollectionName, BasicDBObject.class);
 
-        setupTestData();
+            setupTestData();
+        }
     }
 
     @After
     public void tearDown() throws Exception {
-        InitialContext context = new InitialContext();
-        context.unbind("mongoConnection");
+        if (!EnvironmentUtils.isAIX()) {
+            InitialContext context = new InitialContext();
+            context.unbind("mongoConnection");
+        }
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testMongoFindAll() throws Exception {
+
+        Assume.assumeFalse("[ENTESB-6590] MongoDBIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

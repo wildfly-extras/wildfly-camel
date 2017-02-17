@@ -43,6 +43,7 @@ import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 import com.braintreegateway.Customer;
@@ -78,11 +79,15 @@ public class BraintreeIntegrationTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-braintree-tests");
+        return ShrinkWrap.create(JavaArchive.class, "camel-braintree-tests")
+                .addClasses(EnvironmentUtils.class);
     }
 
     @Test
     public void testBraintreeClientTokenGateway() throws Exception {
+
+        Assume.assumeFalse("[#1698] BraintreeIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        
         Map<String, Object> braintreeOptions = createBraintreeOptions();
 
         // Do nothing if the required credentials are not present
@@ -123,6 +128,9 @@ public class BraintreeIntegrationTest {
 
     @Test
     public void testBraintreeCustomerGateway() throws Exception {
+
+        Assume.assumeFalse("[#1698] BraintreeIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        
         Map<String, Object> braintreeOptions = createBraintreeOptions();
 
         // Do nothing if the required credentials are not present
