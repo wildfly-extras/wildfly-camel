@@ -31,8 +31,10 @@ import org.jboss.gravia.utils.IOUtils;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -45,11 +47,15 @@ public class SchematronIntegrationTest {
             .addAsResource("schematron/person.sch", "schematron/person.sch")
             .addAsResource("schematron/person.xsd", "schematron/person.xsd")
             .addAsResource("schematron/person-invalid.xml", "schematron/person-invalid.xml")
-            .addAsResource("schematron/person-valid.xml", "schematron/person-valid.xml");
+            .addAsResource("schematron/person-valid.xml", "schematron/person-valid.xml")
+            .addClasses(EnvironmentUtils.class);
     }
 
     @Test
     public void testSchematronValidation() throws Exception {
+
+        Assume.assumeFalse("[#1629] SchematronIntegrationTest fails on Windows", EnvironmentUtils.isWindows());
+        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
