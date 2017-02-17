@@ -29,7 +29,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
@@ -47,9 +46,6 @@ public class ExecIntegrationTest {
 
     @Test
     public void testExecProducer() throws Exception {
-        
-        Assume.assumeFalse("[#1628] ExecIntegrationTest fails on Windows", EnvironmentUtils.isWindows());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -63,7 +59,7 @@ public class ExecIntegrationTest {
             }
 
             private String getArgs() {
-                return EnvironmentUtils.isWindows() ? "/C echo Hello Kermit" + System.lineSeparator() : "-n Hello Kermit";
+                return EnvironmentUtils.isWindows() ? "/C echo|set /p=\"Hello Kermit\"" : "-n Hello Kermit";
             }
         });
 
