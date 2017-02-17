@@ -29,7 +29,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
@@ -48,8 +47,6 @@ public class ExecIntegrationTest {
     @Test
     public void testExecProducer() throws Exception {
 
-        Assume.assumeFalse("[ENTESB-6585] ExecIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -63,7 +60,7 @@ public class ExecIntegrationTest {
             }
 
             private String getArgs() {
-                return EnvironmentUtils.isWindows() ? "/C echo|set /p=\"Hello Kermit\"" : "-n Hello Kermit";
+                return EnvironmentUtils.isWindows() ? "/C echo Hello Kermit" : "Hello Kermit";
             }
         });
 
@@ -71,7 +68,7 @@ public class ExecIntegrationTest {
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
             String result = template.requestBody("direct:start", null, String.class);
-            Assert.assertEquals("Hello Kermit", result);
+            Assert.assertEquals("Hello Kermit" + System.getProperty("line.separator"), result);
         } finally {
             camelctx.stop();
         }
