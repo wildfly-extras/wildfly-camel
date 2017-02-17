@@ -26,10 +26,12 @@ import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.optaplanner.examples.cloudbalancing.domain.CloudBalance;
 import org.optaplanner.examples.cloudbalancing.persistence.CloudBalancingGenerator;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -39,6 +41,7 @@ public class OptaPlannerIntegrationTest  {
     @Deployment
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-optaplanner-tests");
+        archive.addClasses(EnvironmentUtils.class);
         archive.addPackages(true, "org.optaplanner.examples.common.app");
         archive.addPackages(true, "org.optaplanner.examples.common.domain");
         archive.addPackages(true, "org.optaplanner.examples.common.persistence");
@@ -56,6 +59,8 @@ public class OptaPlannerIntegrationTest  {
 
     @Test
     public void testSynchronousProblemSolving() throws Exception {
+        
+        Assume.assumeFalse("[ENTESB-6591] OptaPlannerIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         
         CloudBalancingGenerator generator = new CloudBalancingGenerator(true);
         final CloudBalance planningProblem = generator.createCloudBalance(4, 12);

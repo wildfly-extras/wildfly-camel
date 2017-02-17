@@ -66,7 +66,7 @@ public class ElasticSearchIntegrationTest {
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-elasticsearch-tests.jar");
         archive.addClasses(EnvironmentUtils.class);
-        if (!EnvironmentUtils.isAix()) {
+        if (!EnvironmentUtils.isAIX()) {
             archive.addClasses(ElasticSearchClientProducer.class);
             archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         }
@@ -81,7 +81,7 @@ public class ElasticSearchIntegrationTest {
     @Test
     public void testIndexContentUsingHeaders() throws Exception {
 
-        Assume.assumeFalse("[#1632] SegmentationError with elasticsearch on AIX", EnvironmentUtils.isAix());
+        Assume.assumeFalse("[#1632] SegmentationError with elasticsearch on AIX", EnvironmentUtils.isAIX());
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -114,7 +114,7 @@ public class ElasticSearchIntegrationTest {
     @Test
     public void testGetContent() throws Exception {
 
-        Assume.assumeFalse("[#1632] SegmentationError with elasticsearch on AIX", EnvironmentUtils.isAix());
+        Assume.assumeFalse("[#1632] SegmentationError with elasticsearch on AIX", EnvironmentUtils.isAIX());
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -149,7 +149,7 @@ public class ElasticSearchIntegrationTest {
     @Test
     public void testDeleteContent() throws Exception {
 
-        Assume.assumeFalse("[#1632] SegmentationError with elasticsearch on AIX", EnvironmentUtils.isAix());
+        Assume.assumeFalse("[#1632] SegmentationError with elasticsearch on AIX", EnvironmentUtils.isAIX());
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -194,7 +194,7 @@ public class ElasticSearchIntegrationTest {
     @Test
     public void testSearchContent() throws Exception {
 
-        Assume.assumeFalse("[#1632] SegmentationError with elasticsearch on AIX", EnvironmentUtils.isAix());
+        Assume.assumeFalse("[#1632] SegmentationError with elasticsearch on AIX", EnvironmentUtils.isAIX());
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {

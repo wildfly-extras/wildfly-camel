@@ -29,6 +29,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
@@ -46,6 +47,9 @@ public class ExecIntegrationTest {
 
     @Test
     public void testExecProducer() throws Exception {
+
+        Assume.assumeFalse("[ENTESB-6585] ExecIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

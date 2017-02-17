@@ -51,8 +51,10 @@ import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.common.utils.JMSUtils;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -82,12 +84,15 @@ public class SJMSIntegrationTest {
 
     @Deployment
     public static JavaArchive createdeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-jms-tests");
+        return ShrinkWrap.create(JavaArchive.class, "camel-jms-tests")
+                .addClasses(EnvironmentUtils.class);
     }
 
     @Test
     public void testMessageConsumerRoute() throws Exception {
 
+        Assume.assumeFalse("[ENTESB-6594] SJMSIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -121,6 +126,8 @@ public class SJMSIntegrationTest {
     @Test
     public void testMessageProviderRoute() throws Exception {
 
+        Assume.assumeFalse("[ENTESB-6594] SJMSIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

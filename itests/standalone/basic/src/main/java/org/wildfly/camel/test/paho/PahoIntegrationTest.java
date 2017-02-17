@@ -49,9 +49,11 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -86,12 +88,15 @@ public class PahoIntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "mqtt-tests");
+        archive.addClasses(EnvironmentUtils.class);
         archive.addAsResource(new StringAsset(BrokerSetup.TCP_CONNECTION), "tcp-connection");
         return archive;
     }
 
     @Test
     public void testPahoConsumer() throws Exception {
+        
+        Assume.assumeFalse("[ENTESB-6592] PahoIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -128,6 +133,8 @@ public class PahoIntegrationTest {
 
     @Test
     public void testMQTTProducer() throws Exception {
+        
+        Assume.assumeFalse("[ENTESB-6592] PahoIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
