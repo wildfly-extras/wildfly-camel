@@ -36,7 +36,6 @@
 
     <properties>
         <wildfly.patch>${project.build.directory}/${project.artifactId}-${project.version}</wildfly.patch>
-        <wildfly.module.dir>${project.build.directory}/wildfly-${version.wildfly}/modules/system/layers/base</wildfly.module.dir>
         <smartics.module.dir>${project.build.directory}/wildfly-patch/modules/system/layers/fuse</smartics.module.dir>
     </properties>
     
@@ -742,22 +741,6 @@
                         <phase>compile</phase>
                         <configuration>
                             <config-file>scripts/feature-pack-build.xml</config-file>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>groovy-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>module-check</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>verify</phase>
-                        <configuration>
-                            <source>${project.basedir}/scripts/module-checker.groovy</source>
                         </configuration>
                     </execution>
                 </executions>

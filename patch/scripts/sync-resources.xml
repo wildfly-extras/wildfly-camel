@@ -24,7 +24,7 @@
     <!-- Setup                                                              -->
     <!-- ================================================================== -->
     <property name="output.dir" value="${basedir}/target" />
-    <property name="wildfly.home.dir" value="${output.dir}/wildfly-camel-${version.wildfly}" />
+    <property name="wildfly.home.dir" value="${output.dir}/wildfly-patch" />
     <property name="wildfly.config.dir" value="${wildfly.home.dir}/standalone/configuration" />
 
     <!-- ================================================================== -->

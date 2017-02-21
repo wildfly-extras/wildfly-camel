@@ -17,7 +17,7 @@
     <module name="org.antlr" />
     <module name="org.apache.camel.component.protobuf" />
     <module name="org.drools.core" />
-    <module name="org.eclipse.jdt.compiler" />
+    <module name="org.eclipse.jdt.ecj" />
     <module name="org.kie.api" />
     <module name="org.kie.internal" />
     <module name="org.mvel.mvel2" />

@@ -258,6 +258,7 @@
 /org/eclipse/aether/main/aether-transport-file-1.0.2.v20150114.jar
 /org/eclipse/aether/main/aether-transport-http-1.0.2.v20150114.jar
 /org/eclipse/aether/main/maven-aether-provider-3.3.3.jar
+<<<<<<< HEAD
 /org/eclipse/jdt/compiler/main/ecj-4.5.1.jar
 /org/eclipse/jetty/main/jetty-client-9.2.19.v20160908.jar
 /org/eclipse/jetty/main/jetty-http-9.2.19.v20160908.jar
@@ -267,6 +268,16 @@
 /org/eclipse/jetty/websocket/main/websocket-api-9.2.17.v20160517.jar
 /org/eclipse/jetty/websocket/main/websocket-client-9.2.17.v20160517.jar
 /org/eclipse/jetty/websocket/main/websocket-common-9.2.17.v20160517.jar
+=======
+/org/eclipse/jetty/main/jetty-client-9.3.14.v20161028.jar
+/org/eclipse/jetty/main/jetty-http-9.3.14.v20161028.jar
+/org/eclipse/jetty/main/jetty-io-9.3.14.v20161028.jar
+/org/eclipse/jetty/main/jetty-util-9.3.14.v20161028.jar
+/org/eclipse/jetty/main/jetty-util-ajax-9.3.14.v20161028.jar
+/org/eclipse/jetty/websocket/main/websocket-api-9.2.18.v20160721.jar
+/org/eclipse/jetty/websocket/main/websocket-client-9.2.18.v20160721.jar
+/org/eclipse/jetty/websocket/main/websocket-common-9.2.18.v20160721.jar
+>>>>>>> 1dbdd51... [ENTESB-6606] Duplicate dependency ecj
 /org/elasticsearch/main/compress-lzf-1.0.2.jar
 /org/elasticsearch/main/elasticsearch-2.3.5.jar
 /org/elasticsearch/main/hppc-0.7.1.jar

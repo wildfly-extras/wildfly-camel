@@ -28,7 +28,7 @@
 
     <fileSets>
         <fileSet>
-            <directory>target/wildfly-camel-${version.wildfly}</directory>
+            <directory>target/wildfly-patch</directory>
             <outputDirectory>/</outputDirectory>
             <excludes>
                 <exclude>standalone/configuration/*.bak</exclude>
