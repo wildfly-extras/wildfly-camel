@@ -524,10 +524,6 @@
         </dependencies>
     </module>
 
-    <module name="org.eclipse.jdt.compiler">
-        <include artifact="org.eclipse.jdt.core.compiler:ecj" />
-    </module>
-    
     <module name="org.eclipse.jetty">
         <properties>
             <property name="jboss.api" value="private"/>

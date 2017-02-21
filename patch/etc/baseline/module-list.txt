@@ -258,7 +258,6 @@
 /org/eclipse/aether/main/aether-transport-file-1.0.2.v20150114.jar
 /org/eclipse/aether/main/aether-transport-http-1.0.2.v20150114.jar
 /org/eclipse/aether/main/maven-aether-provider-3.3.3.jar
-/org/eclipse/jdt/compiler/main/ecj-4.5.1.jar
 /org/eclipse/jetty/main/jetty-client-9.2.19.v20160908.jar
 /org/eclipse/jetty/main/jetty-http-9.2.19.v20160908.jar
 /org/eclipse/jetty/main/jetty-io-9.2.19.v20160908.jar

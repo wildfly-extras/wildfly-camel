@@ -319,6 +319,10 @@
         <include artifact=":dom4j" />
     </module>
 
+    <module name="org.eclipse.jdt.ecj" skip="true">
+        <include artifact="org.eclipse.jdt.core.compiler:ecj" />
+    </module>
+    
     <module name="org.hibernate" skip="true">
         <include artifact=":hibernate-core" />
     </module>

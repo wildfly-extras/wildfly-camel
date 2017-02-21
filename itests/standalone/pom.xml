@@ -100,10 +100,10 @@
                     <executions>
                         <execution>
                             <id>server-provisioning</id>
+                            <phase>generate-resources</phase>
                             <goals>
                                 <goal>build</goal>
                             </goals>
-                            <phase>generate-resources</phase>
                             <configuration>
                                 <config-file>src/main/resources/server-provisioning.xml</config-file>
                                 <server-name>wildfly-${version.wildfly}</server-name>
@@ -117,10 +117,10 @@
                     <executions>
                         <execution>
                             <id>run-fuseconfig</id>
+                            <phase>generate-resources</phase>
                             <goals>
                                 <goal>exec</goal>
                             </goals>
-                            <phase>generate-resources</phase>
                             <configuration>
                                 <executable>java</executable>
                                 <environmentVariables>

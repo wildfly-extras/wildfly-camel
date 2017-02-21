@@ -36,7 +36,10 @@
 	
     <!-- Properties -->
     <properties>
-        <jboss.home>${project.build.directory}/wildfly-camel-${version.wildfly}</jboss.home>
+    	<jboss.server.name>wildfly-${version.wildfly}</jboss.server.name>
+        <jboss.home>${project.build.directory}/wildfly-patch</jboss.home>
+        <wildfly.module.dir>${project.build.directory}/${jboss.server.name}/modules/system/layers/base</wildfly.module.dir>
+        <smartics.module.dir>${jboss.home}/modules/system/layers/fuse</smartics.module.dir>
     </properties>
     
     <!-- Dependencies -->
@@ -68,7 +71,7 @@
                         <phase>generate-resources</phase>
                         <configuration>
                             <config-file>scripts/wildfly-provisioning.xml</config-file>
-                            <server-name>wildfly-${version.wildfly}</server-name>
+                            <server-name>${jboss.server.name}</server-name>
                         </configuration>
                     </execution>
                     <execution>
@@ -79,7 +82,7 @@
                         <phase>generate-resources</phase>
                         <configuration>
                             <config-file>scripts/wildfly-camel-provisioning.xml</config-file>
-                            <server-name>wildfly-camel-${version.wildfly}</server-name>
+                            <server-name>wildfly-patch</server-name>
                         </configuration>
                     </execution>
                 </executions>
@@ -123,11 +126,21 @@
                 <artifactId>groovy-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>module-list-generate</id>
+                        <id>module-check</id>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
+                        <configuration>
+                            <source>${project.basedir}/scripts/module-checker.groovy</source>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>module-list-generate</id>
                         <phase>verify</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
                         <configuration>
                             <source>${project.basedir}/scripts/module-list-generate.groovy</source>
                         </configuration>
