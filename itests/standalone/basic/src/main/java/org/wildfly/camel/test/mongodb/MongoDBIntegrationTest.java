@@ -118,7 +118,7 @@ public class MongoDBIntegrationTest {
     @SuppressWarnings("unchecked")
     public void testMongoFindAll() throws Exception {
 
-        Assume.assumeFalse("[ENTESB-6590] MongoDBIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        Assume.assumeFalse("[#1646] MongoDBIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {

@@ -86,7 +86,7 @@ public class JschIntegrationTest {
     @Test
     public void testScpFile() throws Exception {
 
-        Assume.assumeFalse("[ENTESB-6589] JschIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        Assume.assumeFalse("[#1645] JschIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
 
         File testFile = resolvePath(SSHD_ROOT_DIR).resolve("test.txt").toFile();
         CamelContext camelctx = new DefaultCamelContext();

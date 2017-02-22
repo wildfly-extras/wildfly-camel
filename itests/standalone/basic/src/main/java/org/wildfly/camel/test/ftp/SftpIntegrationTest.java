@@ -88,7 +88,7 @@ public class SftpIntegrationTest {
     @Test
     public void testSendFile() throws Exception {
 
-        Assume.assumeFalse("[ENTESB-6588] SftpIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        Assume.assumeFalse("[#1644] SftpIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
 
         File testFile = resolvePath(FTP_ROOT_DIR).resolve("test.txt").toFile();
         CamelContext camelctx = new DefaultCamelContext();

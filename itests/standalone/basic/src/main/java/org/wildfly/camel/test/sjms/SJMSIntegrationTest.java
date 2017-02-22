@@ -91,7 +91,7 @@ public class SJMSIntegrationTest {
     @Test
     public void testMessageConsumerRoute() throws Exception {
 
-        Assume.assumeFalse("[ENTESB-6594] SJMSIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        Assume.assumeFalse("[#1650] SJMSIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -126,7 +126,7 @@ public class SJMSIntegrationTest {
     @Test
     public void testMessageProviderRoute() throws Exception {
 
-        Assume.assumeFalse("[ENTESB-6594] SJMSIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        Assume.assumeFalse("[#1650] SJMSIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {

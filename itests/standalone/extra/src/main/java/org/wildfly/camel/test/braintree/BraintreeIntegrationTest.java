@@ -86,7 +86,7 @@ public class BraintreeIntegrationTest {
     @Test
     public void testBraintreeClientTokenGateway() throws Exception {
 
-        Assume.assumeFalse("[#1698] BraintreeIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        Assume.assumeFalse("[#1653] BraintreeIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         
         Map<String, Object> braintreeOptions = createBraintreeOptions();
 

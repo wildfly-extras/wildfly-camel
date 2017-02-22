@@ -53,7 +53,7 @@ public class CastorIntegrationTest {
     @Test
     public void testMarshal() throws Exception {
 
-        Assume.assumeFalse("[ENTESB-6586] CastorIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        Assume.assumeFalse("[#1642] CastorIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {

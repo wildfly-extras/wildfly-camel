@@ -61,7 +61,7 @@ public class DOMRegistryTest {
     @Test
     public void testDeploymentClassloader() throws Exception {
 
-        Assume.assumeFalse("[ENTESB-6587] DOMRegistryTest fails on AIX", EnvironmentUtils.isAIX());
+        Assume.assumeFalse("[#1643] DOMRegistryTest fails on AIX", EnvironmentUtils.isAIX());
         
         ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         try {
@@ -78,7 +78,7 @@ public class DOMRegistryTest {
     @Test
     public void testDefaultClassloader() throws Exception {
         
-        Assume.assumeFalse("[ENTESB-6587] DOMRegistryTest fails on AIX", EnvironmentUtils.isAIX());
+        Assume.assumeFalse("[#1643] DOMRegistryTest fails on AIX", EnvironmentUtils.isAIX());
         
         DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
         DOMImplementation domImpl = registry.getDOMImplementation("LS 3.0");

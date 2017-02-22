@@ -61,7 +61,7 @@ public class SSHIntegrationTest {
     @Test
     public void testSSHConsumer() throws Exception {
 
-        Assume.assumeFalse("[ENTESB-6595] SSHIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        Assume.assumeFalse("[#1651] SSHIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {

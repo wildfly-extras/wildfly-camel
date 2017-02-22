@@ -60,7 +60,7 @@ public class OptaPlannerIntegrationTest  {
     @Test
     public void testSynchronousProblemSolving() throws Exception {
         
-        Assume.assumeFalse("[ENTESB-6591] OptaPlannerIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        Assume.assumeFalse("[#1647] OptaPlannerIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         
         CloudBalancingGenerator generator = new CloudBalancingGenerator(true);
         final CloudBalance planningProblem = generator.createCloudBalance(4, 12);

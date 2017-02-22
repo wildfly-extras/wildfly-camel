@@ -54,7 +54,7 @@ public class ProtobufIntegrationTest {
     @Test
     public void testMarshall() throws Exception {
 
-        Assume.assumeFalse("[ENTESB-6593] ProtobufIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        Assume.assumeFalse("[#1649] ProtobufIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         
         final ProtobufDataFormat format = new ProtobufDataFormat(Person.getDefaultInstance());
 
@@ -81,7 +81,7 @@ public class ProtobufIntegrationTest {
     @Test
     public void testUnmarshall() throws Exception {
 
-        Assume.assumeFalse("[ENTESB-6593] ProtobufIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        Assume.assumeFalse("[#1649] ProtobufIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         
         final ProtobufDataFormat format = new ProtobufDataFormat(Person.getDefaultInstance());
 

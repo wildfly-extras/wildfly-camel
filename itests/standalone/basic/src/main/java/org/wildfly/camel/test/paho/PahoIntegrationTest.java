@@ -96,7 +96,7 @@ public class PahoIntegrationTest {
     @Test
     public void testPahoConsumer() throws Exception {
         
-        Assume.assumeFalse("[ENTESB-6592] PahoIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        Assume.assumeFalse("[#1648] PahoIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -134,7 +134,7 @@ public class PahoIntegrationTest {
     @Test
     public void testMQTTProducer() throws Exception {
         
-        Assume.assumeFalse("[ENTESB-6592] PahoIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        Assume.assumeFalse("[#1648] PahoIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
