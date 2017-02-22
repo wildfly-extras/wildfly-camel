@@ -32,16 +32,14 @@
     <name>Wildfly Camel :: Patch</name>
 
     <artifactId>wildfly-camel-patch</artifactId>
-	<packaging>pom</packaging>
-	
+    <packaging>pom</packaging>
+
     <!-- Properties -->
     <properties>
-    	<jboss.server.name>wildfly-${version.wildfly}</jboss.server.name>
+        <jboss.server.name>wildfly-${version.wildfly}</jboss.server.name>
         <jboss.home>${project.build.directory}/wildfly-patch</jboss.home>
-        <wildfly.module.dir>${project.build.directory}/${jboss.server.name}/modules/system/layers/base</wildfly.module.dir>
-        <smartics.module.dir>${jboss.home}/modules/system/layers/fuse</smartics.module.dir>
     </properties>
-    
+
     <!-- Dependencies -->
     <dependencies>
         <dependency>
@@ -55,7 +53,7 @@
             <artifactId>wildfly-camel-config</artifactId>
         </dependency>
     </dependencies>
-    
+
     <!-- Build -->
     <build>
         <plugins>
@@ -125,16 +123,6 @@
                 <groupId>org.codehaus.gmaven</groupId>
                 <artifactId>groovy-maven-plugin</artifactId>
                 <executions>
-                    <execution>
-                        <id>module-check</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <source>${project.basedir}/scripts/module-checker.groovy</source>
-                        </configuration>
-                    </execution>
                     <execution>
                         <id>module-list-generate</id>
                         <phase>verify</phase>

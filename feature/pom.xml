@@ -35,8 +35,9 @@
     <packaging>pom</packaging>
 
     <properties>
-        <wildfly.patch>${project.build.directory}/${project.artifactId}-${project.version}</wildfly.patch>
         <smartics.module.dir>${project.build.directory}/wildfly-patch/modules/system/layers/fuse</smartics.module.dir>
+        <wildfly.module.dir>${project.build.directory}/wildfly-${version.wildfly}/modules/system/layers/base</wildfly.module.dir>
+        <wildfly.camel.module.dir>${project.build.directory}/${project.artifactId}-${project.version}/modules/system/layers/fuse</wildfly.camel.module.dir>
     </properties>
     
     <dependencies>
@@ -707,24 +708,21 @@
                             </artifactItems>
                         </configuration>
                     </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.wildfly.build</groupId>
+                <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
+                <executions>
                     <execution>
-                        <id>unpack-wildfly</id>
+                        <id>server-provisioning</id>
                         <goals>
-                            <goal>unpack</goal>
+                            <goal>build</goal>
                         </goals>
-                        <phase>verify</phase>
-                        <inherited>false</inherited>
+                        <phase>compile</phase>
                         <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.wildfly</groupId>
-                                    <artifactId>wildfly-dist</artifactId>
-                                    <version>${version.wildfly}</version>
-                                    <type>tar.gz</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
+                            <config-file>src/main/resources/wildfly-provisioning.xml</config-file>
+                            <server-name>wildfly-${version.wildfly}</server-name>
                         </configuration>
                     </execution>
                 </executions>
@@ -741,6 +739,22 @@
                         <phase>compile</phase>
                         <configuration>
                             <config-file>scripts/feature-pack-build.xml</config-file>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>module-check</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <source>${project.basedir}/scripts/module-checker.groovy</source>
                         </configuration>
                     </execution>
                 </executions>

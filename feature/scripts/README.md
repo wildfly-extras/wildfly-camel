@@ -17,24 +17,3 @@ The script does the following....
 3. Checks for duplicated dependencies between WildFly-Camel and WildFly app server modules
 
 4. Outputs any identified problems and fails the build
-
-## Ignoring dependencies
-
-For some scenarios, it may be necessary to ignore duplicated dependencies and allow the build to proceed. To do this,
-add an 'ignoredDependencies' section to the groovy-maven-plugin configuration with the dependency owning module / slot, together 
-with the resource name and (optional) version prefix.
-
-For example, to ignore lucene-core 4.10.4 in module org.apache.lucene, slot 4.10.4:
-
-    <defaults>
-        <ignoredDependencies>
-        <![CDATA[
-            <dependencies>
-                <dependency>
-                    <module>org.apache.lucene:4.10.4</module>
-                    <resource>lucene-core-4.10.4</resource>
-                </dependency>
-            </dependencies>
-        ]]>
-        </ignoredDependencies>
-    </defaults>
