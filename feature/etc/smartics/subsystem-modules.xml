@@ -73,6 +73,7 @@
             <module name="org.wildfly.extension.camel.security" export="true" services="export" optional="true"/>
             <module name="org.wildfly.extension.camel.undertow" services="export" optional="true"/>
             <module name="org.slf4j"/>
+            <module name="ibm.jdk.ext" export="true" />
             <module name="sun.jdk.ext" export="true" />
         </dependencies>
     </module>

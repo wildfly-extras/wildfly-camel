@@ -247,6 +247,7 @@
         <dependencies>
             <module name="javax.api" />
             <module name="org.slf4j" />
+            <module name="ibm.jdk.ext" />
             <module name="sun.jdk.ext" />
         </dependencies>
         <exports>

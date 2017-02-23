@@ -8,6 +8,7 @@
   <dependencies>
     <module name="javax.api" />
     <module name="org.slf4j" />
+    <module name="ibm.jdk.ext" />
     <module name="sun.jdk.ext" />
     <module name="javax.inject.api" />
     <module name="javax.xml.bind.api" />

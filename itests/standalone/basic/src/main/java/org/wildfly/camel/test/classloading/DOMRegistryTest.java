@@ -25,12 +25,10 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
-import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -39,9 +37,7 @@ public class DOMRegistryTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "dom-registry-tests");
-        archive.addClasses(EnvironmentUtils.class);
-        return archive;
+        return ShrinkWrap.create(JavaArchive.class, "dom-registry-tests");
     }
 
     @Test
@@ -53,6 +49,7 @@ public class DOMRegistryTest {
             DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
             DOMImplementation domImpl = registry.getDOMImplementation("LS 3.0");
             Assert.assertNotNull("DOMImplementation not null", domImpl);
+            Assert.assertEquals(domImpl.getClass().getName(), getExpectedDOMImplClassName());
         } finally {
             Thread.currentThread().setContextClassLoader(tccl);
         }
@@ -60,9 +57,6 @@ public class DOMRegistryTest {
 
     @Test
     public void testDeploymentClassloader() throws Exception {
-
-        Assume.assumeFalse("[#1643] DOMRegistryTest fails on AIX", EnvironmentUtils.isAIX());
-        
         ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         try {
             ClassLoader classLoader = DOMRegistryTest.class.getClassLoader();
@@ -70,6 +64,7 @@ public class DOMRegistryTest {
             DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
             DOMImplementation domImpl = registry.getDOMImplementation("LS 3.0");
             Assert.assertNotNull("DOMImplementation not null", domImpl);
+            Assert.assertEquals(domImpl.getClass().getName(), getExpectedDOMImplClassName());
         } finally {
             Thread.currentThread().setContextClassLoader(tccl);
         }
@@ -77,11 +72,17 @@ public class DOMRegistryTest {
 
     @Test
     public void testDefaultClassloader() throws Exception {
-        
-        Assume.assumeFalse("[#1643] DOMRegistryTest fails on AIX", EnvironmentUtils.isAIX());
-        
         DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
         DOMImplementation domImpl = registry.getDOMImplementation("LS 3.0");
         Assert.assertNotNull("DOMImplementation not null", domImpl);
+        Assert.assertEquals(domImpl.getClass().getName(), getExpectedDOMImplClassName());
+    }
+
+    private String getExpectedDOMImplClassName() {
+        if (System.getProperty("java.vendor").startsWith("IBM")) {
+            return "org.apache.xerces.dom.CoreDOMImplementationImpl";
+        }
+
+        return "com.sun.org.apache.xerces.internal.dom.CoreDOMImplementationImpl";
     }
 }
