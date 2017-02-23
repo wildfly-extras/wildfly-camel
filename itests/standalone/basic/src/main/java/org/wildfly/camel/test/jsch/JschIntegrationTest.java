@@ -32,61 +32,50 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.resource.ManifestBuilder;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Assume;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.ssh.EmbeddedSSHServer;
-import org.wildfly.camel.test.common.utils.AvailablePortFinder;
-import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
+@ServerSetup({ JschIntegrationTest.SSHServerSetupTask.class })
 public class JschIntegrationTest {
     private static final String FILE_BASEDIR = "basedir.txt";
     private static final Path SSHD_ROOT_DIR = Paths.get("target/sshd");
     private static final Path KNOWN_HOSTS = SSHD_ROOT_DIR.resolve("known_hosts");
-    private EmbeddedSSHServer sshServer;
 
-    @Deployment
-    public static WebArchive createDeployment() {
-        final WebArchive archive = ShrinkWrap.create(WebArchive .class, "camel-jsch-tests.war");
-        archive.addClasses(EmbeddedSSHServer.class, AvailablePortFinder.class, EnvironmentUtils.class);
-        archive.addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR);
-        archive.setManifest(() -> {
-            ManifestBuilder builder = new ManifestBuilder();
-            builder.addManifestHeader("Dependencies", "com.jcraft.jsch,org.apache.sshd");
-            return builder.openStream();
-        });
-        return archive;
-    }
+    static class SSHServerSetupTask implements ServerSetupTask {
 
-    @Before
-    public void setUp() throws Exception {
-        if (!EnvironmentUtils.isAIX()) {
-            sshServer = new EmbeddedSSHServer(SSHD_ROOT_DIR);
+        static final EmbeddedSSHServer sshServer = new EmbeddedSSHServer(Paths.get("target/sshd"));
+
+        @Override
+        public void setup(ManagementClient managementClient, String containerId) throws Exception {
             sshServer.start();
         }
-    }
 
-    @After
-    public void tearDown() throws Exception {
-        if (sshServer != null) {
+        @Override
+        public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
             sshServer.stop();
         }
     }
 
+    @Deployment
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class, "camel-jsch-tests.jar")
+            .addAsResource(new StringAsset(JschIntegrationTest.SSHServerSetupTask.sshServer.getConnection()), "jsch-connection")
+            .addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR);
+    }
+
     @Test
     public void testScpFile() throws Exception {
-
-        Assume.assumeFalse("[#1645] JschIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
 
         File testFile = resolvePath(SSHD_ROOT_DIR).resolve("test.txt").toFile();
         CamelContext camelctx = new DefaultCamelContext();
@@ -100,17 +89,22 @@ public class JschIntegrationTest {
         }
     }
 
-    private Path resolvePath(Path other) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + FILE_BASEDIR)));
-        try {
-            return Paths.get(reader.readLine()).resolve(other);
-        } finally {
-            reader.close();
-        }
+    private String getScpEndpointUri() throws IOException {
+        return String.format("scp://%s/%s?username=admin&password=admin&knownHostsFile=%s", getConnection(),
+            SSHD_ROOT_DIR, KNOWN_HOSTS);
     }
 
-    private String getScpEndpointUri() {
-        return String.format("scp://%s/%s?username=admin&password=admin&knownHostsFile=%s", sshServer.getConnection(),
-            SSHD_ROOT_DIR, KNOWN_HOSTS);
+    private Path resolvePath(Path other) throws IOException {
+        return Paths.get(readResourceString(FILE_BASEDIR)).resolve(other);
+    }
+
+    private String getConnection() throws IOException {
+        return readResourceString("jsch-connection");
+    }
+
+    private String readResourceString(String resource) throws IOException {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + resource)))) {
+            return br.readLine();
+        }
     }
 }
