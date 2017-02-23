@@ -1,6 +1,8 @@
 package org.wildfly.camel.test.sshd;
 
-import java.nio.file.Path;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Paths;
 
 import org.apache.camel.CamelContext;
@@ -10,64 +12,53 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.resource.ManifestBuilder;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Assume;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.ssh.EmbeddedSSHServer;
-import org.wildfly.camel.test.common.utils.AvailablePortFinder;
-import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
+@ServerSetup({SSHIntegrationTest.SSHServerSetupTask.class})
 public class SSHIntegrationTest {
 
-    private static final Path SSHD_ROOT_DIR = Paths.get("target/sshd");
-    private EmbeddedSSHServer sshServer;
+    static class SSHServerSetupTask implements ServerSetupTask {
+
+        static final EmbeddedSSHServer sshServer = new EmbeddedSSHServer(Paths.get("target/sshd"));
+
+        @Override
+        public void setup(ManagementClient managementClient, String containerId) throws Exception {
+            sshServer.start();
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
+            sshServer.stop();
+        }
+    }
 
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "sshd-tests.jar")
-            .addClasses(EmbeddedSSHServer.class, AvailablePortFinder.class, EnvironmentUtils.class)
-            .setManifest(() -> {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "com.jcraft.jsch,org.apache.sshd");
-                return builder.openStream();
-            });
-    }
-
-    @Before
-    public void setUp() throws Exception {
-        if (!EnvironmentUtils.isAIX()) {
-            sshServer = new EmbeddedSSHServer(SSHD_ROOT_DIR, AvailablePortFinder.getNextAvailable());
-            sshServer.start();
-        }
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        if (sshServer != null) {
-            sshServer.stop();
-        }
+            .addAsResource(new StringAsset(SSHServerSetupTask.sshServer.getConnection()), "ssh-connection");
     }
 
     @Test
     public void testSSHConsumer() throws Exception {
 
-        Assume.assumeFalse("[#1651] SSHIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("ssh://admin@" + sshServer.getConnection() + "?username=admin&password=admin&pollCommand=echo Hello Kermit")
+                fromF("ssh://admin@%s?username=admin&password=admin&pollCommand=echo Hello Kermit", getConnection())
                 .to("mock:end");
             }
         });
@@ -91,7 +82,7 @@ public class SSHIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .to("ssh://admin@" + sshServer.getConnection() + "?username=admin&password=admin");
+                .toF("ssh://admin@%s?username=admin&password=admin", getConnection());
             }
         });
 
@@ -102,6 +93,12 @@ public class SSHIntegrationTest {
             Assert.assertEquals("Hello Kermit" + System.lineSeparator(), result);
         } finally {
             camelctx.stop();
+        }
+    }
+
+    private String getConnection() throws IOException {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/ssh-connection")))) {
+            return br.readLine();
         }
     }
 }
