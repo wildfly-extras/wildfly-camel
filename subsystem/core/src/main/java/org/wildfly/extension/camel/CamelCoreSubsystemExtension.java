@@ -75,6 +75,7 @@ public class CamelCoreSubsystemExtension implements CamelSubsytemExtension {
         ServiceController<?> controller;
         synchronized (contexts) {
             controller = contexts.get(camelctx);
+            contexts.remove(camelctx);
         }
         if (controller != null) {
             controller.setMode(Mode.REMOVE);
