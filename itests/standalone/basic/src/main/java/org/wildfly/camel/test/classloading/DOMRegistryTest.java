@@ -29,6 +29,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -37,7 +38,8 @@ public class DOMRegistryTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        return ShrinkWrap.create(JavaArchive.class, "dom-registry-tests");
+        return ShrinkWrap.create(JavaArchive.class, "dom-registry-tests")
+            .addClass(EnvironmentUtils.class);
     }
 
     @Test
@@ -79,7 +81,7 @@ public class DOMRegistryTest {
     }
 
     private String getExpectedDOMImplClassName() {
-        if (System.getProperty("java.vendor").startsWith("IBM")) {
+        if (EnvironmentUtils.isIbmJDK()) {
             return "org.apache.xerces.dom.CoreDOMImplementationImpl";
         }
 
