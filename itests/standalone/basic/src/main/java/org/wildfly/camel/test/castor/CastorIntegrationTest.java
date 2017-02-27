@@ -20,6 +20,10 @@
 
 package org.wildfly.camel.test.castor;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -28,9 +32,12 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.After;
 import org.junit.Assert;
-import org.junit.Assume;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.types.Customer;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
@@ -42,6 +49,9 @@ public class CastorIntegrationTest {
 
     private static final String CUSTOMER_XML = "<customer><last-name>Doe</last-name><first-name>John</first-name></customer>";
 
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "castor-dataformat-tests");
@@ -50,11 +60,28 @@ public class CastorIntegrationTest {
         return archive;
     }
 
+    @Before
+    public void setUp() throws IOException {
+        if (EnvironmentUtils.isIbmJDK()) {
+            File castorProperties = new File(folder.getRoot(), "castor.properties");
+            try (FileWriter fw = new FileWriter(castorProperties)) {
+                fw.write("org.exolab.castor.xml.serializer.factory=org.exolab.castor.xml.XercesXMLSerializerFactory");
+                fw.flush();
+            }
+            System.setProperty("org.castor.user.properties.location", castorProperties.getPath());
+        }
+    }
+
+    @After
+    public void tearDown() {
+        if (EnvironmentUtils.isIbmJDK()) {
+            System.clearProperty("org.castor.user.properties.location");
+        }
+    }
+
     @Test
     public void testMarshal() throws Exception {
 
-        Assume.assumeFalse("[#1642] CastorIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
