@@ -5,6 +5,11 @@
     <artifact name="${com.google.protobuf:protobuf-java}" />
   </resources>
   <dependencies>
+    <module name="sun.jdk">
+      <imports>
+        <include path="sun/misc/Unsafe" />
+      </imports>
+    </module>
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>

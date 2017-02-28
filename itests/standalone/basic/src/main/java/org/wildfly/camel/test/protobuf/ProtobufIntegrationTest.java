@@ -32,7 +32,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
@@ -54,8 +53,6 @@ public class ProtobufIntegrationTest {
     @Test
     public void testMarshall() throws Exception {
 
-        Assume.assumeFalse("[#1649] ProtobufIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
-        
         final ProtobufDataFormat format = new ProtobufDataFormat(Person.getDefaultInstance());
 
         CamelContext camelctx = new DefaultCamelContext();
@@ -81,8 +78,6 @@ public class ProtobufIntegrationTest {
     @Test
     public void testUnmarshall() throws Exception {
 
-        Assume.assumeFalse("[#1649] ProtobufIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
-        
         final ProtobufDataFormat format = new ProtobufDataFormat(Person.getDefaultInstance());
 
         CamelContext camelctx = new DefaultCamelContext();
