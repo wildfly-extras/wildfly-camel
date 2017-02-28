@@ -39,8 +39,10 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Assume;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
@@ -80,14 +82,26 @@ public class BraintreeIntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-braintree-tests")
-                .addClasses(EnvironmentUtils.class);
+            .addClasses(EnvironmentUtils.class);
+    }
+
+    @Before
+    public void setUp() {
+        if (EnvironmentUtils.isIbmJDK()) {
+            System.setProperty("https.protocols", "TLSv1.2");
+        }
+    }
+
+    @After
+    public void tearDown() {
+        if (EnvironmentUtils.isIbmJDK()) {
+            System.clearProperty("https.protocols");
+        }
     }
 
     @Test
     public void testBraintreeClientTokenGateway() throws Exception {
 
-        Assume.assumeFalse("[#1653] BraintreeIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
-        
         Map<String, Object> braintreeOptions = createBraintreeOptions();
 
         // Do nothing if the required credentials are not present
@@ -129,8 +143,6 @@ public class BraintreeIntegrationTest {
     @Test
     public void testBraintreeCustomerGateway() throws Exception {
 
-        Assume.assumeFalse("[#1698] BraintreeIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
-        
         Map<String, Object> braintreeOptions = createBraintreeOptions();
 
         // Do nothing if the required credentials are not present
