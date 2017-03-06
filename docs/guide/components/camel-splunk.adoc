@@ -1,0 +1,3 @@
+### camel-splunk
+
+The http://camel.apache.org/splunk.html[splunk,window=_blank] component provides access to http://docs.splunk.com/Documentation/Splunk/latest[Splunk,window=_blank], via the Splunk provided client Rest API, allowing you to publish and search for events in Splunk.

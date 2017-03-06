@@ -140,6 +140,8 @@ include::camel-spring.adoc[]
 
 include::camel-sjms.adoc[]
 
+include::camel-splunk.adoc[]
+
 include::camel-sql.adoc[]
 
 include::camel-ssh.adoc[]
