@@ -66,7 +66,7 @@ public class AtomIntegrationTest {
 
         camelctx.start();
         try {
-            Entry result = pollingConsumer.receive(3000).getIn().getBody(Entry.class);
+            Entry result = pollingConsumer.receive(5000).getIn().getBody(Entry.class);
 
             Assert.assertEquals(FeedConstants.ENTRY_TITLE, result.getTitle());
             Assert.assertEquals(FeedConstants.ENTRY_CONTENT, result.getContent());
