@@ -47,6 +47,7 @@
         
         <!-- Camel versions -->
         <version.apache.camel>2.18.2</version.apache.camel>
+        <version.splunk>1.5.0.0_1</version.splunk>
 
         <!-- WildFly versions -->
         <version.wildfly>10.1.0.Final</version.wildfly>

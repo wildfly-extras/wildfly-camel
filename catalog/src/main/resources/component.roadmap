@@ -83,6 +83,7 @@ smpp
 smpps
 smtp
 smtps
+splunk
 spring-event
 sql
 sql-stored
@@ -148,7 +149,6 @@ nagios
 netty4-http
 rabbitmq
 snmp
-splunk
 spring-batch
 spring-integration
 spring-ldap

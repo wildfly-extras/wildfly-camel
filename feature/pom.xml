@@ -418,6 +418,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-splunk</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-soap</artifactId>
         </dependency>
         <dependency>
@@ -531,6 +535,17 @@
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka_2.11</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.splunk</artifactId>
+            <version>${version.splunk}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>splunk</artifactId>
+                    <groupId>com.splunk</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache-extras.beanshell</groupId>

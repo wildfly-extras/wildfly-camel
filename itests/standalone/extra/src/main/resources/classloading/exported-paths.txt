@@ -368,6 +368,8 @@ com/mongodb/operation
 com/mongodb/selector
 com/mongodb/util
 com/opengamma/elsql
+com/splunk
+com/splunk/modularinput
 com/sun/syndication/feed
 com/sun/syndication/feed/atom
 com/sun/syndication/feed/module
@@ -714,6 +716,9 @@ org/apache/camel/component/sjms/taskmanager
 org/apache/camel/component/sjms/tx
 org/apache/camel/component/smpp
 org/apache/camel/component/snakeyaml
+org/apache/camel/component/splunk
+org/apache/camel/component/splunk/event
+org/apache/camel/component/splunk/support
 org/apache/camel/component/spring
 org/apache/camel/component/spring/security
 org/apache/camel/component/spring/security/config
