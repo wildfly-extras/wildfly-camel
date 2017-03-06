@@ -148,8 +148,6 @@ nagios
 netty4-http
 rabbitmq
 snmp
-spark
-spark-rest
 splunk
 spring-batch
 spring-integration
@@ -216,6 +214,8 @@ slack
 solr
 solrCloud
 solrs
+spark
+spark-rest
 stomp
 string-template
 telegram
