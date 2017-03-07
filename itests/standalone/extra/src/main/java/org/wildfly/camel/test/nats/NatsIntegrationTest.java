@@ -34,6 +34,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,6 +55,7 @@ public class NatsIntegrationTest {
         .executable(String.format("%s/gnatsd", resolveExecutableName()))
         .args("-DV -a 127.0.0.1")
         .waitForPort(4222)
+        .managed(false)
         .build();
 
     @Deployment
@@ -72,8 +74,13 @@ public class NatsIntegrationTest {
 
     @Test
     public void testNatsRoutes() throws Exception {
+        // There is no gnatsd binary for AIX
+        Assume.assumeFalse("[#1684] NatsIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+
         CamelContext camelctx = new DefaultCamelContext();
         try {
+            nats.startProcess();
+
             camelctx.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
@@ -110,6 +117,7 @@ public class NatsIntegrationTest {
 
         } finally {
             camelctx.stop();
+            nats.stopProcess();
         }
     }
 

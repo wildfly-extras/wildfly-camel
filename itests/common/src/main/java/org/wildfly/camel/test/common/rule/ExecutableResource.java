@@ -37,6 +37,7 @@ public class ExecutableResource extends ExternalResource {
     private String downloadFrom;
     private String args;
     private int waitForPort;
+    private boolean managed = true;
     private Process process;
 
     public ExecutableResource() {
@@ -46,12 +47,17 @@ public class ExecutableResource extends ExternalResource {
     protected void before() throws Throwable {
         Assume.assumeFalse("Unknown environment: " + EnvironmentUtils.getOSName(), EnvironmentUtils.isUnknown());
         downloadExecutable();
-        startProcess();
+
+        if (isManaged()) {
+            startProcess();
+        }
     }
 
     @Override
     protected void after() {
-        stopProcess();
+        if (isManaged()) {
+            stopProcess();
+        }
     }
 
     private void downloadExecutable() throws IOException {
@@ -76,7 +82,7 @@ public class ExecutableResource extends ExternalResource {
         }
     }
 
-    private void startProcess() throws Exception {
+    public void startProcess() throws Exception {
         File file;
         if (this.executable == "java") {
             file = EnvironmentUtils.getJavaExecutablePath().toFile();
@@ -116,7 +122,7 @@ public class ExecutableResource extends ExternalResource {
         }
     }
 
-    private void stopProcess() {
+    public void stopProcess() {
         if (process != null) {
             LOG.info("Terminating process");
             process.destroy();
@@ -208,11 +214,20 @@ public class ExecutableResource extends ExternalResource {
         this.executable = executable;
     }
 
+    public boolean isManaged() {
+        return managed;
+    }
+
+    public void setManaged(boolean managed) {
+        this.managed = managed;
+    }
+
     public class ExecutableResourceBuilder {
         private String executable;
         private String downloadFrom;
         private String args;
         private int waitForPort;
+        private boolean managed;
 
         public ExecutableResourceBuilder executable(String executable) {
             String fileSuffix = "";
@@ -238,12 +253,18 @@ public class ExecutableResource extends ExternalResource {
             return this;
         }
 
+        public ExecutableResourceBuilder managed(boolean managed) {
+            this.managed = managed;
+            return this;
+        }
+
         public ExecutableResource build() {
             ExecutableResource resource = new ExecutableResource();
             resource.setExecutable(this.executable);
             resource.setDownloadFrom(this.downloadFrom);
             resource.setArgs(this.args);
             resource.setWaitForPort(this.waitForPort);
+            resource.setManaged(this.managed);
             return resource;
         }
     }
