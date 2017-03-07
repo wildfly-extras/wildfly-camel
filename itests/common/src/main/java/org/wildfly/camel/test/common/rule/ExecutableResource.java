@@ -44,9 +44,7 @@ public class ExecutableResource extends ExternalResource {
 
     @Override
     protected void before() throws Throwable {
-        // Don't run on platforms that we don't recognise
-        Assume.assumeFalse(EnvironmentUtils.isUnknown());
-
+        Assume.assumeFalse("Unknown environment: " + EnvironmentUtils.getOSName(), EnvironmentUtils.isUnknown());
         downloadExecutable();
         startProcess();
     }

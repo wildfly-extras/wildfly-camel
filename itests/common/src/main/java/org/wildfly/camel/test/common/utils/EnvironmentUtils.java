@@ -41,7 +41,7 @@ public final class EnvironmentUtils {
     private static final Path JAVA_HOME;
 
     static {
-        final String os = System.getProperty("os.name").toLowerCase(Locale.ROOT);
+        final String os = getOSName();
         AIX = os.equals("aix");
         LINUX = os.equals("linux");
         MAC = os.startsWith("mac");
@@ -60,6 +60,10 @@ public final class EnvironmentUtils {
             javaHome = System.getProperty("java.home");
         }
         JAVA_HOME = Paths.get(javaHome);
+    }
+
+    public static String getOSName() {
+        return System.getProperty("os.name").toLowerCase(Locale.ROOT);
     }
 
     // hide ctor
@@ -83,7 +87,7 @@ public final class EnvironmentUtils {
     }
 
     public static boolean isUnknown() {
-        return !LINUX && !MAC && !WINDOWS;
+        return !AIX && !LINUX && !MAC && !WINDOWS;
     }
 
     public static boolean isIbmJDK() {

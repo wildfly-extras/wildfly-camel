@@ -43,6 +43,9 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 public class IRCIntegrationTest {
 
+    static final String IRC_HOST = System.getenv("IRC_HOST");
+    static final String IRC_CHANNEL = System.getenv("IRC_CHANNEL");
+    
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-irc-tests");
@@ -50,17 +53,14 @@ public class IRCIntegrationTest {
 
     @Test
     public void testIRCComponent() throws Exception {
-        String ircHost = System.getenv("IRC_HOST");
-        String ircChannel = System.getenv("IRC_CHANNEL");
         
-        // [#1327] Provide CI testing for camel-irc
-        Assume.assumeNotNull(ircHost, ircChannel);
+        Assume.assumeNotNull("[#1678] Enable IRC testing in Jenkins", IRC_HOST, IRC_CHANNEL);
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("irc:kermit@" + ircHost + "/#" + ircChannel)
+                from("irc:kermit@" + IRC_HOST + "/#" + IRC_CHANNEL)
                 .to("mock:messages");
             }
         });
@@ -74,7 +74,7 @@ public class IRCIntegrationTest {
         camelctx.start();
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
-            template.requestBody("irc:piggy@" + ircHost + "/#" + ircChannel, "Hello Kermit!");
+            template.requestBody("irc:piggy@" + IRC_HOST + "/#" + IRC_CHANNEL, "Hello Kermit!");
             endpoint.assertIsSatisfied(5000);
         } finally {
             camelctx.stop();

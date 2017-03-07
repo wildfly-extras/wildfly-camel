@@ -52,8 +52,8 @@ public class LinkedInIntegrationTest {
     public void testSearchCompanies() throws Exception {
         Map<String, Object> linkedInOptions = createLinkedInOptions();
 
-        // [#1328] Provide CI testing for camel-linkedin
-        Assume.assumeTrue(linkedInOptions.size() == LinkedInOption.values().length);
+        Assume.assumeTrue("[#1677] Enable LinkedIn testing in Jenkins", 
+                linkedInOptions.size() == LinkedInOption.values().length);
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {

@@ -63,9 +63,7 @@ public class TwitterIntegrationTest {
             }
         });
         
-        // Assume that the twitter credentials are available
-        // https://apps.twitter.com/app/12618845/keys
-        Assume.assumeTrue(twitter.hasUriTokens());
+        Assume.assumeTrue("[#1672] Enable Twitter testing in Jenkins", twitter.hasUriTokens());
         
         camelctx.start();
         try {

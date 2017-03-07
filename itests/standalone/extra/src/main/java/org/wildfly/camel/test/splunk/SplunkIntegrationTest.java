@@ -50,7 +50,7 @@ public class SplunkIntegrationTest {
 
         String SPLUNK_USERNAME = System.getenv("SPLUNK_USERNAME");
         String SPLUNK_PASSWORD = System.getenv("SPLUNK_PASSWORD");
-        Assume.assumeNotNull(SPLUNK_USERNAME, SPLUNK_PASSWORD);
+        Assume.assumeNotNull("[#1673] Enable Splunk testing in Jenkins", SPLUNK_USERNAME, SPLUNK_PASSWORD);
         
         SplunkEvent splunkEvent = new SplunkEvent();
         splunkEvent.addPair("key1", "value1");

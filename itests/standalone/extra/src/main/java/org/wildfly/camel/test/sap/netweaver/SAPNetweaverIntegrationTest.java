@@ -47,7 +47,10 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 public class SAPNetweaverIntegrationTest {
 
-    private static final String SAP_GATEWAY_URL = "https4://sapes4.sapdevcenter.com/sap/opu/odata/IWFND/RMTSAMPLEFLIGHT";
+    static final String SAP_GATEWAY_URL = "https4://sapes4.sapdevcenter.com/sap/opu/odata/IWFND/RMTSAMPLEFLIGHT";
+    
+    static final String SAP_USERNAME = System.getenv("SAP_USERNAME");
+    static final String SAP_PASSWORD = System.getenv("SAP_PASSWORD");
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -56,17 +59,15 @@ public class SAPNetweaverIntegrationTest {
 
     @Test
     public void testSAPNetweaverEndpoint() throws Exception {
-        String username = System.getenv("SAP_USERNAME");
-        String password = System.getenv("SAP_PASSWORD");
 
-        Assume.assumeTrue(username != null && password != null);
+        Assume.assumeTrue("[#1675] Enable SAP testing in Jenkins", SAP_USERNAME != null && SAP_PASSWORD != null);
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .toF("sap-netweaver:%s?username=%s&password=%s", SAP_GATEWAY_URL, username, password);
+                .toF("sap-netweaver:%s?username=%s&password=%s", SAP_GATEWAY_URL, SAP_USERNAME, SAP_PASSWORD);
             }
         });
 
@@ -77,7 +78,7 @@ public class SAPNetweaverIntegrationTest {
 
             // Flight data is constantly updated, so fetch a valid flight from the flight collection feed
             String sapRssFeedUri = String.format("rss:%s/%s?username=%s&password=%s", SAP_GATEWAY_URL.replace("https4", "https"),
-                "FlightCollection", username, password);
+                "FlightCollection", SAP_USERNAME, SAP_PASSWORD);
             SyndFeed feed = consumer.receiveBody(sapRssFeedUri, SyndFeed.class);
             Assert.assertNotNull(feed);
             Assert.assertTrue(feed.getEntries().size() > 0);

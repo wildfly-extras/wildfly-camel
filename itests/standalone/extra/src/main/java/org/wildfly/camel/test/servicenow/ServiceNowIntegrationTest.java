@@ -68,12 +68,13 @@ public class ServiceNowIntegrationTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     @Betamax(tape="servicenow-search-incidents")
     public void testSearchIncidents() throws Exception {
         Map<String, Object> serviceNowOptions = createServiceNowOptions();
 
-        // Do nothing if the required options are not present
-        Assume.assumeTrue(serviceNowOptions.size() == ServiceNowIntegrationTest.ServiceNowOption.values().length);
+        Assume.assumeTrue("[#1674] Enable ServiceNow testing in Jenkins", 
+                serviceNowOptions.size() == ServiceNowIntegrationTest.ServiceNowOption.values().length);
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
