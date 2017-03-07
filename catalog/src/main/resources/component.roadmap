@@ -146,7 +146,6 @@ jira
 kubernetes
 mina
 nagios
-netty4-http
 rabbitmq
 snmp
 spring-batch
@@ -200,6 +199,7 @@ msv
 mustache
 netty
 netty-http
+netty4-http
 openshift
 paxlogging
 pgevent
