@@ -143,7 +143,6 @@ hdfs2
 ibatis
 influxdb
 jclouds
-jira
 kubernetes
 mina
 nagios
@@ -189,6 +188,7 @@ javaspace
 jcr
 jetty
 jing
+jira
 jolt
 jt400
 kestrel
