@@ -144,7 +144,6 @@ ibatis
 influxdb
 jclouds
 kubernetes
-mina
 nagios
 rabbitmq
 spring-batch
@@ -195,6 +194,7 @@ kestrel
 krati
 lpr
 lumberjack
+mina
 msv
 mustache
 netty
