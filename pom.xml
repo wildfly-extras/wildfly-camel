@@ -93,7 +93,7 @@
         <version-groovy-maven-plugin>2.0</version-groovy-maven-plugin>
         <version-license-maven-plugin>1.8</version-license-maven-plugin>
         <version-maven-antrun-plugin>1.7</version-maven-antrun-plugin>
-        <version-maven-archetype-plugin>2.2</version-maven-archetype-plugin>
+        <version-maven-archetype-plugin>3.0.0</version-maven-archetype-plugin>
         <version-maven-assembly-plugin>2.4</version-maven-assembly-plugin>
         <version-maven-changes-plugin>2.11</version-maven-changes-plugin>
         <version-maven-compiler-plugin>3.1</version-maven-compiler-plugin>
