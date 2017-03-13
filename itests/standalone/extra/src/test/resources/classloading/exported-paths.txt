@@ -981,7 +981,6 @@ org/apache/camel/component/jcache/processor
 org/apache/camel/component/jcache/processor/aggregate
 org/apache/camel/component/jcache/processor/idempotent
 org/apache/camel/component/jdbc
-org/apache/camel/component/jgroups
 org/apache/camel/component/jms
 org/apache/camel/component/jms/reply
 org/apache/camel/component/jmx
