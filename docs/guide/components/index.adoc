@@ -140,6 +140,8 @@ include::camel-snmp.adoc[]
 
 include::camel-spring.adoc[]
 
+include::camel-spring-batch.adoc[]
+
 include::camel-sjms.adoc[]
 
 include::camel-splunk.adoc[]

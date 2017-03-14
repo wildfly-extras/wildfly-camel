@@ -1,0 +1,3 @@
+### camel-spring-batch
+
+The http://camel.apache.org/springbatch.html[spring-batch,window=_blank] component and support classes provide integration bridge between Camel and Spring Batch infrastructure.

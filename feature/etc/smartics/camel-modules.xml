@@ -1337,6 +1337,27 @@
         </exports>
     </module>
     
+    <module name="org.apache.camel.component.spring.batch">
+        <include artifact="org.apache.camel:camel-spring-batch" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+            <module name="org.springframework.batch" export="true" services="export" >
+                <imports>
+                    <include path="META-INF" />
+                </imports>
+                <exports>
+                    <include path="META-INF" />
+                </exports>
+            </module>
+            <module name="org.springframework.beans" />
+        </dependencies>
+    </module>
+    
     <module name="org.apache.camel.component.spring.security">
         <include artifact="org.apache.camel:camel-spring-security" />
         <apply-to-dependencies skip="true">

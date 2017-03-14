@@ -85,6 +85,7 @@ smtp
 smtps
 snmp
 splunk
+spring-batch
 spring-event
 sql
 sql-stored
@@ -146,7 +147,6 @@ jclouds
 kubernetes
 nagios
 rabbitmq
-spring-batch
 spring-integration
 spring-ldap
 spring-redis
