@@ -80,7 +80,11 @@
     <module name="com.google.auto.value" skip="true">
         <include artifact="com.google.auto.value:auto-value" />
     </module>
-    
+
+    <module name="com.ibm.jbatch.tck" skip="true">
+        <include artifact="com.ibm.jbatch:com.ibm.jbatch-tck-spi" />
+    </module>
+
     <module name="io.netty.parts" skip="true">
         <include artifact="io.netty:netty" />
         <include artifact="io.netty:netty-buffer" />

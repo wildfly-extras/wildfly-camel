@@ -154,6 +154,7 @@
 /org/apache/camel/component/soap/main/camel-soap-2.18.3.jar
 /org/apache/camel/component/splunk/main/camel-splunk-2.18.3.jar
 /org/apache/camel/component/splunk/main/org.apache.servicemix.bundles.splunk-1.5.0.0_1.jar
+/org/apache/camel/component/spring/batch/main/camel-spring-batch-2.18.3.jar
 /org/apache/camel/component/spring/security/main/camel-spring-security-2.18.3.jar
 /org/apache/camel/component/sql/main/camel-sql-2.18.3.jar
 /org/apache/camel/component/ssh/main/camel-ssh-2.18.3.jar
@@ -306,6 +307,8 @@
 /org/scala/library/main/scala-library-2.11.7.jar
 /org/scala/modules/main/scala-parser-combinators_2.11-1.0.4.jar
 /org/springframework/aop/main/spring-aop-4.3.7.RELEASE.jar
+/org/springframework/batch/main/spring-batch-core-3.0.7.RELEASE.jar
+/org/springframework/batch/main/spring-batch-infrastructure-3.0.7.RELEASE.jar
 /org/springframework/beans/main/spring-beans-4.3.7.RELEASE.jar
 /org/springframework/context-support/main/spring-context-support-4.3.7.RELEASE.jar
 /org/springframework/context/main/spring-context-4.3.7.RELEASE.jar
@@ -314,6 +317,7 @@
 /org/springframework/jdbc/main/spring-jdbc-4.3.7.RELEASE.jar
 /org/springframework/jms/main/spring-jms-4.3.7.RELEASE.jar
 /org/springframework/orm/main/spring-orm-4.3.7.RELEASE.jar
+/org/springframework/retry/main/spring-retry-1.1.0.RELEASE.jar
 /org/springframework/security/main/spring-security-config-4.0.4.RELEASE.jar
 /org/springframework/security/main/spring-security-core-4.0.4.RELEASE.jar
 /org/springframework/tx/main/spring-tx-4.3.7.RELEASE.jar

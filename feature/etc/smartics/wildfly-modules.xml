@@ -71,6 +71,10 @@
         <include artifact=":geronimo-annotation_1.1_spec" />
     </module>
 
+    <module name="javax.batch.api" skip="true">
+        <include artifact="javax.batch:javax.batch-api" />
+    </module>
+
     <module name="javax.ejb.api" skip="true">
         <include artifact="javax.ejb:ejb" />
     </module>

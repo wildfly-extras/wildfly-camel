@@ -20,15 +20,31 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <!-- needed by org.springframework.context -->
     <module name="org.springframework.aop">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":spring-aop" />
+        <dependencies>
+            <module name="org.apache.commons.logging" />
+        </dependencies>
+    </module>
+    
+    <module name="org.springframework.batch">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":spring-batch-infrastructure" />
+        <include artifact=":spring-batch-core" />
         <apply-to-dependencies skip="true">
-            <include module="aopalliance" />
+            <include module="com.ibm.jbatch.tck" />
         </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.batch.api" />
+            <module name="org.apache.commons.logging" />
+            <module name="org.springframework.aop" />
+        </dependencies>
     </module>
     
     <module name="org.springframework.beans">
@@ -79,6 +95,8 @@
         <dependencies>
             <module name="javax.api" />
             <module name="org.jboss.vfs" />
+            <module name="org.springframework.aop" export="true" />
+            <module name="org.springframework.batch" optional="true" />
         </dependencies>
         <exports>
             <exclude path="org/springframework/cglib/core/internal" />
@@ -140,6 +158,15 @@
         </dependencies>
     </module>
     
+    <module name="org.springframework.retry">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":spring-retry" />
+        <dependencies>
+        </dependencies>
+    </module>
+    
     <module name="org.springframework.security">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -163,11 +190,12 @@
         <include artifact=":spring-tx" />
         <dependencies>
             <module name="javax.api" />
+            <module name="javax.transaction.api" />
             <module name="org.apache.commons.logging" />
+            <module name="org.springframework.aop" />
             <module name="org.springframework.core" />
             <module name="org.springframework.beans" />
             <module name="org.springframework.context" />
-            <module name="javax.transaction.api" />
         </dependencies>
     </module>
     
