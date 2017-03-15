@@ -142,6 +142,8 @@ include::camel-spring.adoc[]
 
 include::camel-spring-batch.adoc[]
 
+include::camel-spring-integration.adoc[]
+
 include::camel-sjms.adoc[]
 
 include::camel-splunk.adoc[]

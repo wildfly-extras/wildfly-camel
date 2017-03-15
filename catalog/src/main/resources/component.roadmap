@@ -87,6 +87,7 @@ snmp
 splunk
 spring-batch
 spring-event
+spring-integration
 sql
 sql-stored
 ssh
@@ -147,7 +148,6 @@ jclouds
 kubernetes
 nagios
 rabbitmq
-spring-integration
 spring-ldap
 spring-redis
 spring-ws

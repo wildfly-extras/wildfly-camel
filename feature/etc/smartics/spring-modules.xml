@@ -114,6 +114,19 @@
         </dependencies>
     </module>
     
+    <module name="org.springframework.integration">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":spring-integration-core" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.commons.logging" />
+            <module name="org.springframework.beans" />
+            <module name="org.springframework.expression" />
+        </dependencies>
+    </module>
+    
     <module name="org.springframework.jdbc">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -132,18 +145,21 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":spring-jms" />
-        <apply-to-dependencies skip="true">
-            <include module="org.springframework.aop" />
-            <include module="org.springframework.messaging" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />
         </dependencies>
     </module>
     
-    <module name="org.springframework.messaging" skip="true">
+    <module name="org.springframework.messaging">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":spring-messaging" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.commons.logging" />
+        </dependencies>
     </module>
     
     <module name="org.springframework.orm">
@@ -174,7 +190,6 @@
         <include artifact=":spring-security-config" />
         <include artifact=":spring-security-core" />
         <apply-to-dependencies skip="true">
-            <include module="org.springframework.aop" />
             <include module="aopalliance" />
         </apply-to-dependencies>
         <dependencies>

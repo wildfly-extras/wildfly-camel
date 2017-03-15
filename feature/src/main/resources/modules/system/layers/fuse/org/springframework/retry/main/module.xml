@@ -6,7 +6,5 @@
   <resources>
     <artifact name="${org.springframework.retry:spring-retry}" />
   </resources>
-  <dependencies>
-    <module name="org.springframework.context" />
-  </dependencies>
+  <dependencies />
 </module>
