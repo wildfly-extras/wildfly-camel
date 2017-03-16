@@ -1292,6 +1292,18 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.sjms">
+        <include artifact="org.apache.camel:camel-sjms" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+    
     <module name="org.apache.camel.component.smpp">
         <include artifact="org.apache.camel:camel-smpp" />
         <include artifact="org.jsmpp:jsmpp" />
@@ -1337,6 +1349,19 @@
         </exports>
     </module>
     
+    <module name="org.apache.camel.component.splunk">
+        <include artifact="org.apache.camel:camel-splunk" />
+        <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.splunk" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.spring.batch">
         <include artifact="org.apache.camel:camel-spring-batch" />
         <apply-to-dependencies skip="true">
@@ -1379,6 +1404,20 @@
         </dependencies>
     </module>
     
+    <module name="org.apache.camel.component.spring.ldap">
+        <include artifact="org.apache.camel:camel-spring-ldap" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+            <include module="org.springframework.skip" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+            <module name="org.springframework.ldap" export="true" />
+        </dependencies>
+    </module>
+    
     <module name="org.apache.camel.component.spring.security">
         <include artifact="org.apache.camel:camel-spring-security" />
         <apply-to-dependencies skip="true">
@@ -1401,31 +1440,6 @@
         </dependencies>
     </module>
     
-    <module name="org.apache.camel.component.sjms">
-        <include artifact="org.apache.camel:camel-sjms" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-    
-    <module name="org.apache.camel.component.splunk">
-        <include artifact="org.apache.camel:camel-splunk" />
-        <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.splunk" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
     <module name="org.apache.camel.component.sql">
         <include artifact="org.apache.camel:camel-sql" />
         <apply-to-dependencies skip="true">

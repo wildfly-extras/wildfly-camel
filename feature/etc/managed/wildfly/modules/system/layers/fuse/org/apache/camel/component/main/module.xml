@@ -128,6 +128,14 @@
                 <include path="META-INF" />
             </exports>
         </module>
+        <module name="org.apache.camel.component.spring.ldap" export="true" services="export" optional="true" >
+            <imports>
+                <include path="META-INF" />
+            </imports>
+            <exports>
+                <include path="META-INF" />
+            </exports>
+        </module>
         <module name="org.apache.camel.component.spring.security" export="true" services="export" optional="true" >
             <imports>
                 <include path="META-INF" />

@@ -151,6 +151,21 @@
         </dependencies>
     </module>
     
+    <module name="org.springframework.ldap">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":spring-ldap-core" />
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.ldapbp" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.commons.logging" />
+            <module name="sun.jdk" />
+        </dependencies>
+    </module>
+    
     <module name="org.springframework.messaging">
         <properties>
             <property name="jboss.api" value="private"/>

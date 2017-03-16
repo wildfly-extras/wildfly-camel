@@ -156,6 +156,7 @@
 /org/apache/camel/component/splunk/main/org.apache.servicemix.bundles.splunk-1.5.0.0_1.jar
 /org/apache/camel/component/spring/batch/main/camel-spring-batch-2.18.3.jar
 /org/apache/camel/component/spring/integration/main/camel-spring-integration-2.18.3.jar
+/org/apache/camel/component/spring/ldap/main/camel-spring-ldap-2.18.3.jar
 /org/apache/camel/component/spring/security/main/camel-spring-security-2.18.3.jar
 /org/apache/camel/component/sql/main/camel-sql-2.18.3.jar
 /org/apache/camel/component/ssh/main/camel-ssh-2.18.3.jar
@@ -318,6 +319,7 @@
 /org/springframework/integration/main/spring-integration-core-4.3.7.RELEASE.jar
 /org/springframework/jdbc/main/spring-jdbc-4.3.7.RELEASE.jar
 /org/springframework/jms/main/spring-jms-4.3.7.RELEASE.jar
+/org/springframework/ldap/main/spring-ldap-core-2.0.4.RELEASE.jar
 /org/springframework/messaging/main/spring-messaging-4.3.7.RELEASE.jar
 /org/springframework/orm/main/spring-orm-4.3.7.RELEASE.jar
 /org/springframework/retry/main/spring-retry-1.1.3.RELEASE.jar

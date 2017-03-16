@@ -117,6 +117,10 @@
         <include artifact="com.sun.codemodel:codemodel" />
     </module>
     
+    <module name="com.sun.ldapbp" skip="true">
+        <include artifact="com.sun:ldapbp" />
+    </module>
+    
     <module name="com.sun.mail" skip="true">
         <include artifact="com.sun.mail:javax.mail" />
     </module>
@@ -295,9 +299,15 @@
     </module>
 
     <module name="org.springframework.boot" skip="true">
-        <include artifact="org.springframework.boot:spring-boot" />
-        <include artifact="org.springframework.boot:spring-boot-autoconfigure" />
-        <include artifact="org.springframework.boot:spring-boot-configuration-processor" />
+        <include artifact=":spring-boot" />
+        <include artifact=":spring-boot-autoconfigure" />
+        <include artifact=":spring-boot-configuration-processor" />
     </module>
 
+    <module name="org.springframework.skip" skip="true">
+        <include artifact=":spring-ldap-ldif-batch" />
+        <include artifact=":spring-ldap-ldif-core" />
+        <include artifact=":spring-ldap-odm" />
+    </module>
+    
 </modules>
