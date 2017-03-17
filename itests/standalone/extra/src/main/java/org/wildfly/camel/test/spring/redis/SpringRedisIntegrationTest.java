@@ -63,7 +63,7 @@ public class SpringRedisIntegrationTest {
         @Override
         public void setup(final ManagementClient managementClient, String containerId) throws Exception {
             int port = AvailablePortFinder.getNextAvailable(6379);
-            AvailablePortFinder.storePortInfo("redis-port", port);
+            AvailablePortFinder.storeServerData("redis-port", port);
             redisServer = new RedisServer(port);
             redisServer.start();
         }
@@ -102,9 +102,9 @@ public class SpringRedisIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                int redisPort = AvailablePortFinder.readPortInfo("redis-port");
+                int port = Integer.parseInt(AvailablePortFinder.readServerData("redis-port"));
                 from("direct:start")
-                .to("spring-redis://localhost:" + redisPort + "?redisTemplate=#redisTemplate");
+                .to("spring-redis://localhost:" + port + "?redisTemplate=#redisTemplate");
             }
         });
 

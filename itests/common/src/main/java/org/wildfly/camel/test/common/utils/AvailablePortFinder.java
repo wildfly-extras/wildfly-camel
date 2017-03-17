@@ -88,7 +88,7 @@ public final class AvailablePortFinder {
         return alreadyUsed.add(port);
     }
     
-    public static Path storePortInfo(String filename, int port) {
+    public static Path storeServerData(String filename, Object port) {
         String jbossHome = System.getProperty("jboss.home");
         IllegalStateAssertion.assertNotNull(jbossHome, "Property 'jboss.home' not set");
         IllegalStateAssertion.assertTrue(new File(jbossHome).isDirectory(), "Not a directory: " + jbossHome);
@@ -101,14 +101,14 @@ public final class AvailablePortFinder {
         return filePath;
     }
 
-    public static int readPortInfo(String filename) {
+    public static String readServerData(String filename) {
         String dataDir = System.getProperty("jboss.server.data.dir");
         IllegalStateAssertion.assertNotNull(dataDir, "Property 'jboss.server.data.dir' not set");
         IllegalStateAssertion.assertTrue(new File(dataDir).isDirectory(), "Not a directory: " + dataDir);
         Path filePath = Paths.get(dataDir, filename);
         try {
             try (BufferedReader fw = new BufferedReader(new FileReader(filePath.toFile()))) {
-                return Integer.parseInt(fw.readLine());
+                return fw.readLine().trim();
             }
         } catch (Exception ex) {
             throw new IllegalStateException(ex);

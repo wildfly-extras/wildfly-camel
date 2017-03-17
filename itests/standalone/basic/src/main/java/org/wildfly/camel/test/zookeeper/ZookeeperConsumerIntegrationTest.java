@@ -29,11 +29,11 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
@@ -42,54 +42,62 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
+@ServerSetup({ ZookeeperConsumerIntegrationTest.EmbeddedZookeeperSetupTask.class })
 public class ZookeeperConsumerIntegrationTest {
 
-    static EmbeddedZookeeper server;
+
+    static class EmbeddedZookeeperSetupTask implements ServerSetupTask {
+
+        EmbeddedZookeeper server;
+        
+        @Override
+        public void setup(final ManagementClient managementClient, String containerId) throws Exception {
+            server = new EmbeddedZookeeper().startup(10, TimeUnit.SECONDS);
+            AvailablePortFinder.storeServerData("zkcon", server.getConnection());
+        }
+
+        @Override
+        public void tearDown(final ManagementClient managementClient, String containerId) throws Exception {
+            if (server != null) {
+                server.shutdown();
+            }
+        }
+    }
 
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "zookeeper-integration-tests");
-        archive.addClasses(EmbeddedZookeeper.class, AvailablePortFinder.class);
+        archive.addClasses(AvailablePortFinder.class);
         return archive;
     }
-
-    @Before
-    public void before() throws Exception {
-        server = new EmbeddedZookeeper().startup(1, TimeUnit.SECONDS);
-    }
-
-    @After
-    public void after() throws Exception {
-        if (server != null) {
-            server.shutdown();
-        }
-    }
-
+    
     @Test
-    @Ignore("[#1506] NullPointerException thrown from ZookeeperConsumerIntegrationTest")
     public void testZookeeperConsumer() throws Exception {
 
+        String zkcon = AvailablePortFinder.readServerData("zkcon");
+        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("zookeeper://" + server.getConnection() + "/somenode")
+                from("direct:start")
+                .to("zookeeper://" + zkcon + "/somenode")
                 .to("mock:end");
             }
         });
 
+        MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:end", MockEndpoint.class);
+        mockEndpoint.expectedBodiesReceived("Kermit");
+        mockEndpoint.expectedMessageCount(1);
+
         camelctx.start();
         try {
-            MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:end", MockEndpoint.class);
-            mockEndpoint.expectedMessageCount(1);
-            mockEndpoint.expectedBodiesReceived("Kermit");
-
             // Write payload to znode
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            producer.sendBody("zookeeper://" + server.getConnection() + "/somenode?create=true", "Kermit");
+            producer.sendBody("direct:start", "Kermit");
 
             // Read back from the znode
-            mockEndpoint.assertIsSatisfied(10000);
+            mockEndpoint.assertIsSatisfied(5000);
         } finally {
             camelctx.stop();
         }

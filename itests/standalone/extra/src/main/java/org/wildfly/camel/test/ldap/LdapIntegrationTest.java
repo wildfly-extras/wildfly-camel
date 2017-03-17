@@ -80,7 +80,7 @@ public class LdapIntegrationTest {
         public void setup(final ManagementClient managementClient, String containerId) throws Exception {
             setupResult = DirectoryServiceBuilder.setupDirectoryService(LdapServerSetupTask.class);
             int port = setupResult.getLdapServer().getPort();
-            AvailablePortFinder.storePortInfo("ldap-port", port);
+            AvailablePortFinder.storeServerData("ldap-port", port);
         }
 
         @Override
@@ -111,7 +111,7 @@ public class LdapIntegrationTest {
     @SuppressWarnings("unchecked")
     public void testLdapRouteStandard() throws Exception {
 
-        int ldapPort = AvailablePortFinder.readPortInfo("ldap-port");
+        int ldapPort = Integer.parseInt(AvailablePortFinder.readServerData("ldap-port"));
         SimpleRegistry reg = new SimpleRegistry();
         reg.put("localhost:" + ldapPort, getWiredContext(ldapPort));
         
