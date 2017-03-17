@@ -115,7 +115,6 @@ ahc
 ahc-ws
 ahc-wss
 amqp
-atmosphere-websocket
 aws-cw
 aws-ddb
 aws-ddbstream
@@ -159,6 +158,7 @@ http4s
 apns
 asterisk
 atmos
+atmosphere-websocket
 cache
 chronicle-engine
 chunk
