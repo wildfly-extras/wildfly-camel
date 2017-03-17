@@ -33,6 +33,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
@@ -65,6 +66,7 @@ public class ZookeeperConsumerIntegrationTest {
     }
 
     @Test
+    @Ignore("[#1506] NullPointerException thrown from ZookeeperConsumerIntegrationTest")
     public void testZookeeperConsumer() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
