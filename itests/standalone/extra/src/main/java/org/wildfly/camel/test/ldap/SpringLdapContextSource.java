@@ -18,31 +18,19 @@
  */
 package org.wildfly.camel.test.ldap;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import org.springframework.ldap.core.support.LdapContextSource;
+import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 
 public class SpringLdapContextSource extends LdapContextSource {
 
     public SpringLdapContextSource() {
         try {
-            setUrl("ldap://" + InetAddress.getLocalHost().getHostName() + ":" + getLdapPort());
+            int port = AvailablePortFinder.readPortInfo("ldap-port");
+            setUrl("ldap://" + InetAddress.getLocalHost().getHostName() + ":" + port);
         } catch (UnknownHostException ex) {
-            throw new IllegalStateException(ex);
-        }
-    }
-
-    static int getLdapPort() {
-        try {
-            File ldapPortFile = new File (System.getProperty("jboss.server.data.dir"), "ldap-port");
-            try (BufferedReader fw = new BufferedReader(new FileReader(ldapPortFile))) {
-                return Integer.parseInt(fw.readLine());
-            }
-        } catch (Exception ex) {
             throw new IllegalStateException(ex);
         }
     }

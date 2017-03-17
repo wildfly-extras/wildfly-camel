@@ -36,12 +36,15 @@
     <!-- Properties -->
     <properties>
         <server.config>standalone-extra.xml</server.config>
-        <version.apache.ds>2.0.0-M21</version.apache.ds>
-        <version.apache.ds.codec>1.0.0-M33</version.apache.ds.codec>
     </properties>
     
     <!-- Dependencies -->
     <dependencies>
+        <dependency>
+            <groupId>com.github.kstyrc</groupId>
+            <artifactId>embedded-redis</artifactId>
+            <version>${version.redis.embedded}</version>
+        </dependency>
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>

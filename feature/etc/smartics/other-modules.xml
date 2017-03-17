@@ -114,6 +114,23 @@
         </dependencies>
     </module>
     
+    <module name="com.querydsl">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":querydsl-core" />
+        <dependencies>
+        </dependencies>
+    </module>
+    
+    <module name="com.querydsl.skip" skip="true">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":querydsl-apt" />
+        <include artifact=":querydsl-codegen" />
+    </module>
+    
     <module name="com.thoughtworks.xstream">
         <properties>
             <property name="jboss.api" value="private"/>

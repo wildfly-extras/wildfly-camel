@@ -55,6 +55,8 @@
         <version.wildfly.infinispan>8.2.4.Final</version.wildfly.infinispan>
         
         <!-- Other versions -->
+        <version.apache.ds>2.0.0-M21</version.apache.ds>
+        <version.apache.ds.codec>1.0.0-M33</version.apache.ds.codec>
         <version.apache.felix.configadmin>1.8.8</version.apache.felix.configadmin>
         <version.apache.felix.log>1.0.1</version.apache.felix.log>
         <version.apache.felix.metatype>1.0.8</version.apache.felix.metatype>
@@ -83,6 +85,7 @@
         <version.maven.archetype.packaging>2.3</version.maven.archetype.packaging>
         <version.maven.invoker>2.2</version.maven.invoker>
         <version.osgi>5.0.0</version.osgi>
+        <version.redis.embedded>0.6</version.redis.embedded>
 
         <!-- Plugin versions -->
         <version-apache-scr-plugin>1.21.0</version-apache-scr-plugin>

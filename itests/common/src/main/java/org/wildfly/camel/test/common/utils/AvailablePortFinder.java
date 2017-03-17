@@ -16,64 +16,53 @@
  */
 package org.wildfly.camel.test.common.utils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.UnknownHostException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
+
+import org.jboss.gravia.utils.IllegalStateAssertion;
 
 /**
  * Finds currently available server ports.
  */
 public final class AvailablePortFinder {
 
-    /**
-     * The minimum server currentMinPort number for IPv4.
-     * Set at 1100 to avoid returning privileged currentMinPort numbers.
-     */
     public static final int MIN_PORT_NUMBER = 1100;
-
-    /**
-     * The maximum server currentMinPort number for IPv4.
-     */
     public static final int MAX_PORT_NUMBER = 65535;
 
     // Note, this is scoped on the ClassLoader
     private static Set<Integer> alreadyUsed = new HashSet<>();
     
-    /**
-     * Gets the next available port on localhost starting at the lowest port number.
-     *
-     * @throws NoSuchElementException if there are no ports available
-     */
     public static int getNextAvailable() {
+        return getNextAvailable(MIN_PORT_NUMBER);
+    }
+
+    public static int getNextAvailable(int fromPort) {
         InetAddress addr;
         try {
             addr = InetAddress.getLocalHost();
         } catch (UnknownHostException ex) {
             throw new IllegalStateException(ex);
         }
-        return getNextAvailable(addr, MIN_PORT_NUMBER);
+        return getNextAvailable(addr, fromPort);
     }
 
-    /**
-     * Gets the next available port starting at the lowest port number.
-     *
-     * @throws NoSuchElementException if there are no ports available
-     */
     public static int getNextAvailable(InetAddress addr) {
         return getNextAvailable(addr, MIN_PORT_NUMBER);
     }
 
-    /**
-     * Gets the next available port starting at a port.
-     *
-     * @param fromPort the port to scan for availability
-     * @throws NoSuchElementException if there are no ports available
-     */
     public static int getNextAvailable(InetAddress addr, int fromPort) {
         if (fromPort < MIN_PORT_NUMBER || fromPort > MAX_PORT_NUMBER) 
             throw new IllegalArgumentException("Invalid start port: " + fromPort);
@@ -87,11 +76,6 @@ public final class AvailablePortFinder {
         throw new NoSuchElementException("Could not find an available port above " + fromPort);
     }
 
-    /**
-     * Checks to see if a specific port is available.
-     *
-     * @param port the port to check for availability
-     */
     public synchronized static boolean available(InetAddress addr, int port) {
 
         try (ServerSocket ss = new ServerSocket()) {
@@ -102,5 +86,32 @@ public final class AvailablePortFinder {
         }
         
         return alreadyUsed.add(port);
+    }
+    
+    public static Path storePortInfo(String filename, int port) {
+        String jbossHome = System.getProperty("jboss.home");
+        IllegalStateAssertion.assertNotNull(jbossHome, "Property 'jboss.home' not set");
+        IllegalStateAssertion.assertTrue(new File(jbossHome).isDirectory(), "Not a directory: " + jbossHome);
+        Path filePath = Paths.get(jbossHome, "standalone", "data", filename);
+        try (PrintWriter fw = new PrintWriter(new FileWriter(filePath.toFile()))) {
+            fw.println("" + port);
+        } catch (IOException ex) {
+            throw new IllegalStateException(ex);
+        }
+        return filePath;
+    }
+
+    public static int readPortInfo(String filename) {
+        String dataDir = System.getProperty("jboss.server.data.dir");
+        IllegalStateAssertion.assertNotNull(dataDir, "Property 'jboss.server.data.dir' not set");
+        IllegalStateAssertion.assertTrue(new File(dataDir).isDirectory(), "Not a directory: " + dataDir);
+        Path filePath = Paths.get(dataDir, filename);
+        try {
+            try (BufferedReader fw = new BufferedReader(new FileReader(filePath.toFile()))) {
+                return Integer.parseInt(fw.readLine());
+            }
+        } catch (Exception ex) {
+            throw new IllegalStateException(ex);
+        }
     }
 }

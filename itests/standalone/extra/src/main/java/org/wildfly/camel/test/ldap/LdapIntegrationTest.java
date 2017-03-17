@@ -19,11 +19,7 @@
 package org.wildfly.camel.test.ldap;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.net.InetAddress;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -61,6 +57,7 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 import org.wildfly.camel.test.ldap.DirectoryServiceBuilder.SetupResult;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextRegistry;
@@ -83,10 +80,7 @@ public class LdapIntegrationTest {
         public void setup(final ManagementClient managementClient, String containerId) throws Exception {
             setupResult = DirectoryServiceBuilder.setupDirectoryService(LdapServerSetupTask.class);
             int port = setupResult.getLdapServer().getPort();
-            Path filePath = Paths.get(System.getProperty("jboss.home"), "standalone", "data", "ldap-port");
-            try (PrintWriter fw = new PrintWriter(new FileWriter(filePath.toFile()))) {
-                fw.println("" + port);
-            }
+            AvailablePortFinder.storePortInfo("ldap-port", port);
         }
 
         @Override
@@ -107,8 +101,8 @@ public class LdapIntegrationTest {
                 .withTransitivity().asFile();
 
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-ldap-tests.war");
+        archive.addClasses(SpringLdapContextSource.class, AvailablePortFinder.class);
         archive.addAsResource("spring/ldap/producer-camel-context.xml");
-        archive.addClasses(SpringLdapContextSource.class);
         archive.addAsLibraries(libs);
         return archive;
     }
@@ -117,7 +111,7 @@ public class LdapIntegrationTest {
     @SuppressWarnings("unchecked")
     public void testLdapRouteStandard() throws Exception {
 
-        int ldapPort = SpringLdapContextSource.getLdapPort();
+        int ldapPort = AvailablePortFinder.readPortInfo("ldap-port");
         SimpleRegistry reg = new SimpleRegistry();
         reg.put("localhost:" + ldapPort, getWiredContext(ldapPort));
         

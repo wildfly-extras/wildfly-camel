@@ -1,0 +1,3 @@
+### camel-spring-ldap
+
+The http://camel.apache.org/spring-ldap.html[spring-ldap,window=_blank] component provides a Camel wrapper for http://www.springsource.org/ldap[Spring LDAP,window=_blank].

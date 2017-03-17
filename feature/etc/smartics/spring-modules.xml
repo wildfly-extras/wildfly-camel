@@ -65,28 +65,18 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":spring-context" />
+        <include artifact=":spring-context-support" />
         <dependencies>
             <module name="javax.api" />
             <module name="javax.annotation.api" />
             <module name="org.apache.commons.logging" />
             <module name="org.springframework.core" />
-        </dependencies>
-    </module>
-
-    <module name="org.springframework.context-support">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":spring-context-support" />
-        <dependencies>
-            <module name="javax.api" />
-            <module name="org.apache.commons.logging" />
             <module name="org.springframework.tx" optional="true" />
             <module name="org.springframework.jdbc" optional="true" />
             <module name="org.quartz" optional="true" />
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.core">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -101,6 +91,41 @@
         <exports>
             <exclude path="org/springframework/cglib/core/internal" />
         </exports>
+    </module>
+    
+    <module name="org.springframework.data.commons">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":spring-data-commons" />
+        <apply-to-dependencies skip="true">
+            <include module="javax.servlet.api" />
+            <include module="com.querydsl.skip" />
+        </apply-to-dependencies>
+        <dependencies>
+        </dependencies>
+    </module>
+    
+    <module name="org.springframework.data.redis">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":spring-data-redis" />
+        <include artifact="redis.clients:jedis" />
+        <dependencies>
+            <module name="org.apache.commons.logging" />
+            <module name="org.springframework.core" />
+            <module name="org.springframework.beans" />
+        </dependencies>
+    </module>
+    
+    <module name="org.springframework.data.keyvalue">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":spring-data-keyvalue" />
+        <dependencies>
+        </dependencies>
     </module>
     
     <module name="org.springframework.expression">
@@ -185,6 +210,16 @@
         <dependencies>
             <module name="javax.api" />
             <module name="javax.persistence.api" />
+            <module name="org.apache.commons.logging" />
+        </dependencies>
+    </module>
+    
+    <module name="org.springframework.oxm">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":spring-oxm" />
+        <dependencies>
             <module name="org.apache.commons.logging" />
         </dependencies>
     </module>

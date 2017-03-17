@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.springframework.data.redis">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${redis.clients:jedis}" />
+    <artifact name="${org.springframework.data:spring-data-redis}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.commons.logging" />
+    <module name="org.springframework.core" />
+    <module name="org.springframework.beans" />
+    <module name="org.apache.commons.pool2" />
+    <module name="org.slf4j" />
+    <module name="org.springframework.aop" />
+    <module name="org.springframework.context" />
+    <module name="org.springframework.data.keyvalue" />
+    <module name="org.springframework.oxm" />
+    <module name="org.springframework.tx" />
+  </dependencies>
+</module>

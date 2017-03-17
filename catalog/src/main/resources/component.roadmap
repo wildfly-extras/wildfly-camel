@@ -89,6 +89,7 @@ spring-batch
 spring-event
 spring-integration
 spring-ldap
+spring-redis
 sql
 sql-stored
 ssh
@@ -149,7 +150,6 @@ jclouds
 kubernetes
 nagios
 rabbitmq
-spring-redis
 spring-ws
 websocket
 
