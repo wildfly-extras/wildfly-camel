@@ -150,7 +150,6 @@ jclouds
 kubernetes
 nagios
 rabbitmq
-spring-ws
 websocket
 
 [undecided]
@@ -216,6 +215,7 @@ solrCloud
 solrs
 spark
 spark-rest
+spring-ws
 stomp
 string-template
 telegram
