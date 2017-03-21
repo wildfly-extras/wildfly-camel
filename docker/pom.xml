@@ -126,13 +126,12 @@
                                             <tag>${project.version}</tag>
                                         </tags>
                                         <runCmds>
-                                            <run>usermod -g root jboss</run>
                                             <run>chmod -R g+rw /opt/jboss/wildfly</run>
                                         </runCmds>
                                         <assembly>
                                             <basedir>/opt/jboss/wildfly</basedir>
                                             <descriptor>${project.basedir}/standalone/assembly-artifacts.xml</descriptor>
-                                            <user>jboss:root:root</user>
+                                            <user>jboss:0:0</user>
                                         </assembly>
                                         <user>jboss</user>
                                         <!--  
