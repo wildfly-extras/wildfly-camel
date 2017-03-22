@@ -1,0 +1,7 @@
+### camel-sjms-batch
+
+The http://camel.apache.org/sjms-batch.html[sjms-batch,window=_blank] SJMS Batch component
+is a specialized component for highly performant, transactional batch
+consumption from a JMS queue.
+
+

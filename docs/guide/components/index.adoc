@@ -150,6 +150,8 @@ include::camel-spring-redis.adoc[]
 
 include::camel-sjms.adoc[]
 
+include::camel-sjms-batch.adoc[]
+
 include::camel-splunk.adoc[]
 
 include::camel-sql.adoc[]

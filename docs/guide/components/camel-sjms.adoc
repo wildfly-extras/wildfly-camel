@@ -1,6 +1,6 @@
 ### camel-sjms
 
-The http://camel.apache.org/sql-component.html[sql,window=_blank] component, or SJMS, 
+The http://camel.apache.org/sjms.html[sjms,window=_blank] component, or SJMS,
 is a JMS client for use with Camel that uses well known best practices when it comes to JMS client creation and configuration.
 
 

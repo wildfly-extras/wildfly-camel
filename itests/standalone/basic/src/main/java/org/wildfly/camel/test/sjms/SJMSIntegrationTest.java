@@ -84,8 +84,8 @@ public class SJMSIntegrationTest {
 
     @Deployment
     public static JavaArchive createdeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-jms-tests")
-                .addClasses(EnvironmentUtils.class);
+        return ShrinkWrap.create(JavaArchive.class, "camel-sjms-tests")
+            .addClasses(EnvironmentUtils.class);
     }
 
     @Test
