@@ -144,7 +144,6 @@ hazelcast
 hbase
 hdfs
 hdfs2
-ibatis
 influxdb
 jclouds
 kubernetes
@@ -181,6 +180,7 @@ guava-eventbus
 hipchat
 http
 https
+ibatis
 ironmq
 javaspace
 jcr
