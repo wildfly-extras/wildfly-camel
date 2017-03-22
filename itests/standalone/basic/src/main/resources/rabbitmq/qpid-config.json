@@ -1,0 +1,44 @@
+{
+  "name": "Embedded Test Broker",
+  "modelVersion": "6.1",
+  "authenticationproviders": [
+    {
+      "name": "password",
+      "type": "Plain",
+      "secureOnlyMechanisms": [],
+      "users": [
+        {
+          "name": "${qpid.user}",
+          "password": "${qpid.password}",
+          "type": "managed"
+        }
+      ]
+    }
+  ],
+  "ports": [
+    {
+      "name": "AMQP",
+      "port": "${qpid.amqp_port}",
+      "authenticationProvider": "password",
+      "protocols": [
+        "AMQP_0_9_1"
+      ],
+      "transports": [
+        "TCP"
+      ],
+      "virtualhostaliases": [
+        {
+          "name": "default",
+          "type": "nameAlias"
+        }
+      ]
+    }
+  ],
+  "virtualhostnodes": [
+    {
+      "name": "default",
+      "type": "JSON",
+      "virtualHostInitialConfiguration": "{ \"type\" : \"Memory\" }"
+    }
+  ]
+}
