@@ -134,6 +134,8 @@
 /org/apache/camel/component/protobuf/main/camel-protobuf-2.18.3.jar
 /org/apache/camel/component/protobuf/main/protobuf-java-3.1.0.jar
 /org/apache/camel/component/quartz2/main/camel-quartz2-2.18.3.jar
+/org/apache/camel/component/rabbitmq/main/amqp-client-3.6.5.jar
+/org/apache/camel/component/rabbitmq/main/camel-rabbitmq-2.18.3.jar
 /org/apache/camel/component/rss/main/camel-rss-2.18.3.jar
 /org/apache/camel/component/salesforce/main/bayeux-api-3.0.10.jar
 /org/apache/camel/component/salesforce/main/camel-salesforce-2.18.3.jar

@@ -114,6 +114,8 @@ include::camel-pdf.adoc[]
 
 include::camel-quartz2.adoc[]
 
+include::camel-rabbitmq.adoc[]
+
 include::camel-rest.adoc[]
 
 include::camel-rss.adoc[]

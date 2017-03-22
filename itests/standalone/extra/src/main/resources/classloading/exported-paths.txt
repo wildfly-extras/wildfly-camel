@@ -387,6 +387,7 @@ com/mongodb/operation
 com/mongodb/selector
 com/mongodb/util
 com/opengamma/elsql
+com/rabbitmq/client
 com/splunk
 com/splunk/modularinput
 com/sun/syndication/feed
@@ -704,6 +705,9 @@ org/apache/camel/component/paho
 org/apache/camel/component/pdf
 org/apache/camel/component/pdf/text
 org/apache/camel/component/quartz2
+org/apache/camel/component/rabbitmq
+org/apache/camel/component/rabbitmq/pool
+org/apache/camel/component/rabbitmq/reply
 org/apache/camel/component/redis
 org/apache/camel/component/redis/processor
 org/apache/camel/component/redis/processor/idempotent

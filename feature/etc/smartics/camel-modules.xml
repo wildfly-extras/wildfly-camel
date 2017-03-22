@@ -1181,6 +1181,26 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.rabbitmq">
+        <include artifact="org.apache.camel:camel-rabbitmq" />
+        <include artifact="com.rabbitmq:amqp-client" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.slf4j" />
+        </dependencies>
+        <exports>
+            <exclude path="com/rabbitmq" />
+            <exclude path="com/rabbitmq/client/impl**" />
+            <exclude path="com/rabbitmq/client/test**" />
+            <exclude path="com/rabbitmq/tools**" />
+            <exclude path="com/rabbitmq/utility**" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.salesforce">
         <include artifact="org.apache.camel:camel-salesforce" />
         <include artifact=":bayeux-api" />

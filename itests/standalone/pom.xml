@@ -143,6 +143,7 @@
                     </environmentVariables>
                     <systemPropertyVariables>
                         <jboss.home>${jboss.home}</jboss.home>
+                        <derby.stream.error.file>${project.build.directory}/derby.log</derby.stream.error.file>
                     </systemPropertyVariables>
                     <testSourceDirectory>${basedir}/src/main/java/</testSourceDirectory>
                     <testClassesDirectory>${project.build.directory}/classes/</testClassesDirectory>

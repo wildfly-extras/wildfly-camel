@@ -64,6 +64,7 @@ pop3
 pop3s
 properties
 quartz2
+rabbitmq
 ref
 rest
 rest-api
@@ -148,7 +149,6 @@ influxdb
 jclouds
 kubernetes
 nagios
-rabbitmq
 websocket
 
 [undecided]

@@ -1,0 +1,5 @@
+### camel-rabbitmq
+
+The http://camel.apache.org/rabbitmq.html[rabbitmq,window=_blank] component enables you to produce and consume messages
+from http://www.rabbitmq.com/[RabbitMQ,window=_blank] instances.
+

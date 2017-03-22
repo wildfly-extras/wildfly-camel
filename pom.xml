@@ -63,6 +63,7 @@
         <version.apache.felix.scr>1.6.2</version.apache.felix.scr>
         <version.apache.felix.scr.ds.annotations>1.2.4</version.apache.felix.scr.ds.annotations>
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
+        <version.apache.qpid>6.1.2</version.apache.qpid>
         <version.apache.httpcomponents>4.5.2</version.apache.httpcomponents>
         <version.apache.karaf>2.4.3</version.apache.karaf>
         <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
@@ -382,6 +383,13 @@
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-utils</artifactId>
                 <version>${version.codehaus.plexus.utils}</version>
+            </dependency>
+
+            <!-- Qpid -->
+            <dependency>
+                <groupId>org.apache.qpid</groupId>
+                <artifactId>qpid-broker</artifactId>
+                <version>${version.apache.qpid}</version>
             </dependency>
 
             <!-- WildFly -->
