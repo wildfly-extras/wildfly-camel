@@ -142,7 +142,6 @@ google-drive
 google-mail
 hazelcast
 hbase
-hdfs
 hdfs2
 influxdb
 jclouds
@@ -177,6 +176,7 @@ gora
 grape
 gridfs
 guava-eventbus
+hdfs
 hipchat
 http
 https
