@@ -86,7 +86,6 @@
         <version.junit>4.12</version.junit>
         <version.maven.aether.provider>3.2.5</version.maven.aether.provider>
         <version.maven.archetype.packaging>2.3</version.maven.archetype.packaging>
-        <version.maven.invoker>2.2</version.maven.invoker>
         <version.osgi>5.0.0</version.osgi>
         <version.redis.embedded>0.6</version.redis.embedded>
 
@@ -515,13 +514,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-archetype-plugin</artifactId>
                     <version>${version-maven-archetype-plugin}</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.apache.maven.shared</groupId>
-                            <artifactId>maven-invoker</artifactId>
-                            <version>${version.maven.invoker}</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
