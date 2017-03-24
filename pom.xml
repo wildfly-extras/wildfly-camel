@@ -47,6 +47,7 @@
         
         <!-- Camel versions -->
         <version.apache.camel>2.18.3</version.apache.camel>
+        <version.apache.activemq>5.14.3</version.apache.activemq>
 
         <!-- WildFly versions -->
         <version.wildfly>10.1.0.Final</version.wildfly>
@@ -64,6 +65,7 @@
         <version.apache.felix.scr.ds.annotations>1.2.4</version.apache.felix.scr.ds.annotations>
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
         <version.apache.qpid>6.1.2</version.apache.qpid>
+        <version.apache.qpid.proton>0.16.0</version.apache.qpid.proton>
         <version.apache.httpcomponents>4.5.2</version.apache.httpcomponents>
         <version.apache.karaf>2.4.3</version.apache.karaf>
         <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
@@ -137,6 +139,14 @@
     <!-- DependencyManagement -->
     <dependencyManagement>
         <dependencies>
+
+            <!-- ActiveMQ -->
+            <!-- [FIXME #1713] Remove explicit version for ActiveMQ -->
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-amqp</artifactId>
+                <version>${version.apache.activemq}</version>
+            </dependency>
             
             <!-- Aether -->
             <dependency>
@@ -383,6 +393,14 @@
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-utils</artifactId>
                 <version>${version.codehaus.plexus.utils}</version>
+            </dependency>
+
+            <!-- Proton -->
+            <!-- [FIXME #1712] Use WildFly provided org.apache.qpid.proton module -->
+            <dependency>
+                <groupId>org.apache.qpid</groupId>
+                <artifactId>proton-j</artifactId>
+                <version>${version.apache.qpid.proton}</version>
             </dependency>
 
             <!-- Qpid -->

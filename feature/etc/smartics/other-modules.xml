@@ -430,6 +430,28 @@
         <include artifact="org.apache.pdfbox:pdfbox" />
     </module>
 
+    <module name="org.apache.qpid">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.qpid:qpid-jms-client" />
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.parts" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="io.netty" />
+            <module name="javax.api" />
+            <module name="javax.xml.bind.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.qpid.proton" slot="0.16">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.qpid:proton-(.*)" />
+    </module>
+
     <module name="org.apache.sshd">
         <properties>
             <property name="jboss.api" value="private"/>

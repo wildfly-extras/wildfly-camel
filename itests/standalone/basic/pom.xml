@@ -54,6 +54,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-mqtt</artifactId>
         </dependency>
         <dependency>

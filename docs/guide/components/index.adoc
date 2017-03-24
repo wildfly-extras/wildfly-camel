@@ -4,6 +4,8 @@ This chapter details information about supported camel components
 
 include::camel-activemq.adoc[]
 
+include::camel-amqp.adoc[]
+
 include::camel-atom.adoc[]
 
 include::camel-avro.adoc[]

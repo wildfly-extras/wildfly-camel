@@ -23,6 +23,7 @@
 
     <dependencies>
         <module name="org.apache.camel.component.activemq" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.amqp" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.atom" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.avro" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.barcode" export="true" services="export" optional="true" />

@@ -591,6 +591,7 @@ org/apache/camel
 org/apache/camel/builder
 org/apache/camel/builder/script
 org/apache/camel/component
+org/apache/camel/component/amqp
 org/apache/camel/component/atom
 org/apache/camel/component/avro
 org/apache/camel/component/bean

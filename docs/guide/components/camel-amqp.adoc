@@ -1,0 +1,6 @@
+### camel-amqp
+
+The http://camel.apache.org/amqp.html[amqp,window=_blank] component supports the
+http://www.amqp.org/[AMQP 1.0,window=_blank] protocol using the JMS client of the
+http://qpid.apache.org/[Qpid,window=_blank] project.
+
