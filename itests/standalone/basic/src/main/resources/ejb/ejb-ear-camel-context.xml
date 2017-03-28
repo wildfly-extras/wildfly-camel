@@ -27,7 +27,7 @@
   <camelContext id="ejb-ear-context">
     <route>
       <from uri="direct:start"/>
-      <to uri="ejb:java:global/camel-ejb-ear/camel-ejb-jar/HelloBean"/>
+      <to uri="ejb:java:global/camel-ejb-ear/camel-ejb-sub-deployment/HelloBean"/>
     </route>
   </camelContext>
   
