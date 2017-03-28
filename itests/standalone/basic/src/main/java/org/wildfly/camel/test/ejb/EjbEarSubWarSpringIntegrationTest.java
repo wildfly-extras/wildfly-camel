@@ -25,13 +25,13 @@ import javax.naming.InitialContext;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.ServiceStatus;
-import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,35 +41,17 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class EjbEarIntegrationTest {
+public class EjbEarSubWarSpringIntegrationTest {
 
-    static final String SIMPLE_JAR = "camel-ejb-jar.jar";
+    static final String SIMPLE_WAR = "camel-ejb-sub-deployment.war";
     static final String SIMPLE_EAR = "camel-ejb-ear.ear";
-
-    @ArquillianResource
-    Deployer deployer;
 
     @ArquillianResource
     CamelContextRegistry contextRegistry;
 
     @Deployment
-    public static JavaArchive createdeployment() {
+    public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-ejb-ear-tests");
-    }
-
-    @Test
-    public void testEjbJarDeployment() throws Exception {
-        CamelContext camelctx = contextRegistry.getCamelContext("ejb-jar-context");
-        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
-        assertContextAccess(camelctx);
-    }
-
-    @Test
-    public void testEjbJarContextLookup() throws Exception {
-        InitialContext inicxt = new InitialContext();
-        CamelContext camelctx = (CamelContext) inicxt.lookup("java:jboss/camel/context/ejb-jar-context");
-        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
-        assertContextAccess(camelctx);
     }
 
     @Test
@@ -93,22 +75,15 @@ public class EjbEarIntegrationTest {
         Assert.assertEquals("Hello Kermit", result);
     }
 
-    @Deployment(name = SIMPLE_JAR, managed = true, testable = false)
-    public static JavaArchive createJarDeployment() {
-        return getEjbModule("ejb/ejb-jar-camel-context.xml");
-    }
-
     @Deployment(name = SIMPLE_EAR, managed = true, testable = false)
     public static EnterpriseArchive createEarDeployment() {
-        EnterpriseArchive ear = ShrinkWrap.create(EnterpriseArchive.class, SIMPLE_EAR);
-        ear.addAsModule(getEjbModule("ejb/ejb-ear-camel-context.xml"));
-        return ear;
+        return ShrinkWrap.create(EnterpriseArchive.class, SIMPLE_EAR)
+            .addAsModule(getEjbModule("ejb/ejb-ear-camel-context.xml"));
     }
 
-    private static JavaArchive getEjbModule(String descriptorName) {
-        JavaArchive jar = ShrinkWrap.create(JavaArchive.class, SIMPLE_JAR);
-        jar.addAsManifestResource(descriptorName, "ejb-camel-context.xml");
-        jar.addClasses(HelloBean.class);
-        return jar;
+    private static WebArchive getEjbModule(String descriptorName) {
+        return ShrinkWrap.create(WebArchive.class, SIMPLE_WAR)
+            .addAsWebInfResource(descriptorName, "ejb-camel-context.xml")
+            .addClasses(HelloBean.class);
     }
 }

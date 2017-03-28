@@ -42,6 +42,11 @@ final class CDIBeanArchiveProcessor implements DeploymentUnitProcessor {
                     bda.addBeanDeploymentArchive(topLevelBda);
                 }
             }
+
+            for (DeploymentUnit subDepUnit : subDeployments) {
+                BeanDeploymentArchive subBda = subDepUnit.getAttachment(WeldAttachments.DEPLOYMENT_ROOT_BEAN_DEPLOYMENT_ARCHIVE);
+                bda.addBeanDeploymentArchive(subBda);
+            }
         }
     }
 
