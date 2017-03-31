@@ -24,7 +24,7 @@ The docs are generated using [Asciidoctor](http://asciidoctor.org/docs).
 To generate an update of the docs use:
 
 ```
-$ asciidoctor -a version=4.4.0-SNAPSHOT docs/guide/index.adoc 
+$ mvn clean install -f docs 
 ```
 
 If you like to contribute to the docs, please file a [pull request](https://github.com/wildfly-extras/wildfly-camel) against the master branch.
@@ -64,7 +64,7 @@ If you like to contribute to the project, please file a [pull request](https://g
 
 ### Install
 
-Simply apply the [wildfly-camel-patch](https://github.com/wildfly-extras/wildfly-camel/releases) to a [compatible wildfly](http://wildflyext.gitbooks.io/wildfly-camel/content/start/compatibility.html) version.
+Simply apply the [wildfly-camel-patch](https://github.com/wildfly-extras/wildfly-camel/releases) to a [compatible wildfly](https://github.com/wildfly-extras/wildfly-camel/blob/master/docs/guide/start/compatibility.adoc) version.
 
 ### Run
 
@@ -76,7 +76,7 @@ $ bin/standalone.sh -c standalone-camel.xml
 
 ### Docker
 
-To setup OpenShift Origin with an integrated Docker environment, follow the instructions [here](https://github.com/wildfly-extras/wildfly-camel/wiki/OpenShift-Origin).
+To setup OpenShift Origin with an integrated Docker environment, follow the instructions [here](http://wildfly-extras.github.io/wildfly-camel/#_openshift_local).
 
 Then simply run the docker image like this ...
 
@@ -84,4 +84,4 @@ Then simply run the docker image like this ...
 $ docker run --rm -ti -p 9990:9990 -p 8080:8080 -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin wildflyext/wildfly-camel
 ```
 
-Access WildFly Management Console at http://vagrant.origin:9990 and the Hawtio console at http://vagrant.origin:8080/hawtio
+Access WildFly Management Console at https://10.2.2.2:8443/console and the Hawtio console at http://10.2.2.2:8080/hawtio

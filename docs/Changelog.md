@@ -1,5 +1,137 @@
 ### Changelog
 
+#### WildFly-Camel 4.6.0
+
+**Features**
+
+* [#1405][1405] Add support for component amqp
+* [#1463][1463] Add support for component rabbitmq
+* [#1467][1467] Add support for component sjms-batch
+* [#1468][1468] Add support for component snmp
+* [#1471][1471] Add support for component splunk
+* [#1472][1472] Add support for component spring-batch
+* [#1473][1473] Add support for component spring-integration
+* [#1474][1474] Add support for component spring-ldap
+* [#1475][1475] Add support for component spring-redis
+
+For details see [4.6.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.6.0"+label%3Afeature)
+
+**Tasks**
+
+* [#1406][1406] Reject support for component atmosphere-websocket
+* [#1442][1442] Reject support for component hdfs
+* [#1446][1446] Reject support for component ibatis
+* [#1451][1451] Reject support for component jira
+* [#1453][1453] Reject support for component mina
+* [#1459][1459] Reject support for component netty4-http
+* [#1469][1469] Reject support for component spark
+* [#1476][1476] Reject support for component spring-ws
+* [#1583][1583] Upgrade to OpenShift 3.4
+* [#1584][1584] Upgrade to camel-2.18.3
+* [#1603][1603] Add intellij import ordering spec
+* [#1610][1610] Add GitHub topics to the project repository
+* [#1611][1611] Remove support for domain configuration
+* [#1612][1612] Add additional sample annotations to WildFly-Camel OpenShift image streams
+* [#1618][1618] Remove Karaf compatible deployments
+* [#1626][1626] Remove support for switchyard deployments
+* [#1634][1634] Remove arguments to echo command in ExecIntegrationTest
+* [#1638][1638] Modify module checker to work with feature packs
+* [#1656][1656] Switch to /dev/urandom for seeding SecureRandom
+* [#1659][1659] Upgrade to hawtio 1.5.0
+* [#1674][1674] Enable ServiceNow testing in Jenkins
+* [#1675][1675] Enable SAP testing in Jenkins
+* [#1676][1676] Enable Salesforce testing in Jenkins
+* [#1679][1679] Enable Braintree testing in Jenkins
+* [#1680][1680] Add issue references to test assumptions
+* [#1687][1687] Upgrade archetype plugin to 3.0.0
+* [#1692][1692] Upgrade wildfly-maven-plugin to 1.2.0.Alpha3
+* [#1715][1715] Remove maven-invoker dependency override
+
+For details see [4.6.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.6.0"+label%3Atask)
+
+**Bugs**
+
+* [#1506][1506] NPE thrown from ZookeeperConsumerIntegrationTest
+* [#1510][1510] S2I templates use hardcoded version 4.4.0
+* [#1604][1604] Docker upload script does not work on OS X
+* [#1613][1613] WildFly-Camel image stream name is invalid
+* [#1616][1616] Catalog reports unsupported items
+* [#1623][1623] Cannot build component catalog on Windows
+* [#1628][1628] ExecIntegrationTest fails on Windows
+* [#1637][1637] Module checker misses duplicate dependency ecj
+* [#1642][1642] CastorIntegrationTest fails on AIX
+* [#1643][1643] DOMRegistryTest fails on AIX
+* [#1644][1644] SftpIntegrationTest fails on AIX
+* [#1645][1645] JschIntegrationTest fails on AIX
+* [#1649][1649] ProtobufIntegrationTest fails on AIX
+* [#1651][1651] SSHIntegrationTest fails on AIX
+* [#1653][1653] BraintreeIntegrationTest fails on AIX
+* [#1660][1660] Memory leak in CamelCoreSubsystemExtension
+* [#1666][1666] AtomIntegrationTest fails intermittently
+* [#1684][1684] NatsIntegrationTest fails on AIX 
+* [#1705][1705] wildflyext/wildfly-camel fails on OpenShift
+* [#1717][1717] Route not started when deployed in WAR sub module
+
+For details see [4.6.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.6.0"+label%3Abug)
+
+[1405]: https://github.com/wildfly-extras/wildfly-camel/issues/1405
+[1463]: https://github.com/wildfly-extras/wildfly-camel/issues/1463
+[1467]: https://github.com/wildfly-extras/wildfly-camel/issues/1467
+[1468]: https://github.com/wildfly-extras/wildfly-camel/issues/1468
+[1471]: https://github.com/wildfly-extras/wildfly-camel/issues/1471
+[1472]: https://github.com/wildfly-extras/wildfly-camel/issues/1472
+[1473]: https://github.com/wildfly-extras/wildfly-camel/issues/1473
+[1474]: https://github.com/wildfly-extras/wildfly-camel/issues/1474
+[1475]: https://github.com/wildfly-extras/wildfly-camel/issues/1475
+[1406]: https://github.com/wildfly-extras/wildfly-camel/issues/1406
+[1442]: https://github.com/wildfly-extras/wildfly-camel/issues/1442
+[1446]: https://github.com/wildfly-extras/wildfly-camel/issues/1446
+[1451]: https://github.com/wildfly-extras/wildfly-camel/issues/1451
+[1453]: https://github.com/wildfly-extras/wildfly-camel/issues/1453
+[1459]: https://github.com/wildfly-extras/wildfly-camel/issues/1459
+[1469]: https://github.com/wildfly-extras/wildfly-camel/issues/1469
+[1476]: https://github.com/wildfly-extras/wildfly-camel/issues/1476
+[1583]: https://github.com/wildfly-extras/wildfly-camel/issues/1583
+[1584]: https://github.com/wildfly-extras/wildfly-camel/issues/1584
+[1603]: https://github.com/wildfly-extras/wildfly-camel/issues/1603
+[1610]: https://github.com/wildfly-extras/wildfly-camel/issues/1610
+[1611]: https://github.com/wildfly-extras/wildfly-camel/issues/1611
+[1612]: https://github.com/wildfly-extras/wildfly-camel/issues/1612
+[1618]: https://github.com/wildfly-extras/wildfly-camel/issues/1618
+[1626]: https://github.com/wildfly-extras/wildfly-camel/issues/1626
+[1634]: https://github.com/wildfly-extras/wildfly-camel/issues/1634
+[1638]: https://github.com/wildfly-extras/wildfly-camel/issues/1638
+[1656]: https://github.com/wildfly-extras/wildfly-camel/issues/1656
+[1659]: https://github.com/wildfly-extras/wildfly-camel/issues/1659
+[1674]: https://github.com/wildfly-extras/wildfly-camel/issues/1674
+[1675]: https://github.com/wildfly-extras/wildfly-camel/issues/1675
+[1676]: https://github.com/wildfly-extras/wildfly-camel/issues/1676
+[1679]: https://github.com/wildfly-extras/wildfly-camel/issues/1679
+[1680]: https://github.com/wildfly-extras/wildfly-camel/issues/1680
+[1687]: https://github.com/wildfly-extras/wildfly-camel/issues/1687
+[1692]: https://github.com/wildfly-extras/wildfly-camel/issues/1692
+[1715]: https://github.com/wildfly-extras/wildfly-camel/issues/1715
+[1506]: https://github.com/wildfly-extras/wildfly-camel/issues/1506
+[1510]: https://github.com/wildfly-extras/wildfly-camel/issues/1510
+[1604]: https://github.com/wildfly-extras/wildfly-camel/issues/1604
+[1613]: https://github.com/wildfly-extras/wildfly-camel/issues/1613
+[1616]: https://github.com/wildfly-extras/wildfly-camel/issues/1616
+[1623]: https://github.com/wildfly-extras/wildfly-camel/issues/1623
+[1628]: https://github.com/wildfly-extras/wildfly-camel/issues/1628
+[1637]: https://github.com/wildfly-extras/wildfly-camel/issues/1637
+[1642]: https://github.com/wildfly-extras/wildfly-camel/issues/1642
+[1643]: https://github.com/wildfly-extras/wildfly-camel/issues/1643
+[1644]: https://github.com/wildfly-extras/wildfly-camel/issues/1644
+[1645]: https://github.com/wildfly-extras/wildfly-camel/issues/1645
+[1649]: https://github.com/wildfly-extras/wildfly-camel/issues/1649
+[1651]: https://github.com/wildfly-extras/wildfly-camel/issues/1651
+[1653]: https://github.com/wildfly-extras/wildfly-camel/issues/1653
+[1660]: https://github.com/wildfly-extras/wildfly-camel/issues/1660
+[1666]: https://github.com/wildfly-extras/wildfly-camel/issues/1666
+[1684]: https://github.com/wildfly-extras/wildfly-camel/issues/1684
+[1705]: https://github.com/wildfly-extras/wildfly-camel/issues/1705
+[1717]: https://github.com/wildfly-extras/wildfly-camel/issues/1717
+
 #### WildFly-Camel 4.5.0
 
 **Features**
@@ -56,7 +188,6 @@ For details see [4.5.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 * [#1361][1361] CDI may not detect an implicit bean archive WAR
 * [#1483][1483] Roadmap does not show supported dataformat hl7
 * [#1505][1505] NullPointerException thrown from JschIntegrationTest
-* [#1510][1510] S2I templates use hardcoded version 4.4.0
 * [#1523][1523] OpenShift S2I cannot push image on EC2
 * [#1530][1530] yaml dataformat cannot find constructor any more
 * [#1532][1532] ServiceNowIntegrationTest throws CamelExecutionException
@@ -113,7 +244,6 @@ For details see [4.5.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 [1361]: https://github.com/wildfly-extras/wildfly-camel/issues/1361
 [1483]: https://github.com/wildfly-extras/wildfly-camel/issues/1483
 [1505]: https://github.com/wildfly-extras/wildfly-camel/issues/1505
-[1510]: https://github.com/wildfly-extras/wildfly-camel/issues/1510
 [1523]: https://github.com/wildfly-extras/wildfly-camel/issues/1523
 [1530]: https://github.com/wildfly-extras/wildfly-camel/issues/1530
 [1532]: https://github.com/wildfly-extras/wildfly-camel/issues/1532
