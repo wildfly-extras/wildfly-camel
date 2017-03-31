@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel</artifactId>
-        <version>4.6.0-SNAPSHOT</version>
+        <version>4.6.0</version>
     </parent>
 
     <name>Wildfly Camel :: Docs</name>
@@ -74,10 +74,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <replaceregexp file="${project.build.directory}/generated-docs/sources/wildfly-camel-imagestream.json"
-                                               match="\{version\}"
-                                               replace="${project.version}"
-                                               byline="true" />
+                                <replaceregexp file="${project.build.directory}/generated-docs/sources/wildfly-camel-imagestream.json" match="\{version\}" replace="${project.version}" byline="true" />
                             </target>
                         </configuration>
                     </execution>
