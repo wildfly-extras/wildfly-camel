@@ -20,10 +20,6 @@
 
 package org.wildfly.camel.test.rss;
 
-import software.betamax.junit.Betamax;
-import software.betamax.junit.RecorderRule;
-
-import java.io.File;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -35,10 +31,8 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
@@ -47,32 +41,20 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 public class RSSIntegrationTest {
 
-    @Rule
-    public RecorderRule recorder = new RecorderRule();
-
     @Deployment
-    public static WebArchive deployment() {
-        File[] libraryDependencies = Maven.configureResolverViaPlugin().
-            resolve("software.betamax:betamax-junit").
-            withTransitivity().
-            asFile();
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "rss-tests.war");
-        archive.addAsLibraries(libraryDependencies);
-        archive.addAsResource("betamax.properties","betamax.properties");
-        return archive;
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class, "rss-tests.jar");
     }
 
     @Test
-    @Betamax(tape="redhat-rss")
     public void testEndpointClass() throws Exception {
-
     	final CountDownLatch latch = new CountDownLatch(1);
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("rss://http://www.redhat.com/en/rss/press-releases?splitEntries=true&consumer.initialDelay=200&consumer.delay=1000")
+                from("rss://https://www.redhat.com/en/rss/press-releases?splitEntries=true&consumer.initialDelay=200&consumer.delay=1000")
                 .process(new Processor() {
 					@Override
 					public void process(Exchange exchange) throws Exception {

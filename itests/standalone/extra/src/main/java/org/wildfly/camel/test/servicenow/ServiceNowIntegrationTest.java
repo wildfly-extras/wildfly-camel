@@ -39,7 +39,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.servicenow.subA.Incident;
 import org.wildfly.extension.camel.CamelAware;
-import software.betamax.junit.Betamax;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -69,7 +68,6 @@ public class ServiceNowIntegrationTest {
 
     @Test
     @SuppressWarnings("unchecked")
-    @Betamax(tape="servicenow-search-incidents")
     public void testSearchIncidents() throws Exception {
         Map<String, Object> serviceNowOptions = createServiceNowOptions();
 

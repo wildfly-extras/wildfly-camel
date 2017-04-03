@@ -96,10 +96,6 @@
             <artifactId>jboss-ejb3-ext-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>software.betamax</groupId>
-            <artifactId>betamax-junit</artifactId>
-        </dependency>
-        <dependency>
             <groupId>xalan</groupId>
             <artifactId>xalan</artifactId>
         </dependency>

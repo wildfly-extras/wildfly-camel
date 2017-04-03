@@ -20,64 +20,38 @@
 
 package org.wildfly.camel.test.weather;
 
-import java.io.File;
-
 import org.apache.camel.CamelContext;
-import org.apache.camel.Endpoint;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Rule;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
-
-import software.betamax.junit.Betamax;
-import software.betamax.junit.RecorderRule;
 
 @CamelAware
 @RunWith(Arquillian.class)
 public class WeatherIntegrationTest {
 
-    @Rule
-    public RecorderRule recorder = new RecorderRule();
+    private static String OPENWEATHER_APP_ID = System.getenv("OPENWEATHER_APP_ID");
 
     @Deployment
-    public static WebArchive createDeployment() throws Exception {
-        File[] libraryDependencies = Maven.configureResolverViaPlugin().
-            resolve("software.betamax:betamax-junit").
-            withTransitivity().
-            asFile();
-
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-weather-tests.war");
-        archive.addAsLibraries(libraryDependencies);
-        archive.addAsResource("betamax.properties","betamax.properties");
-        return archive;
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class, "camel-weather-tests.jar");
     }
 
     @Test
-    public void testComponentLoads() throws Exception {
+    public void testGetWeather() {
+        Assume.assumeNotNull(OPENWEATHER_APP_ID);
 
-        CamelContext camelctx = new DefaultCamelContext();
-        Endpoint endpoint = camelctx.getEndpoint("weather:foo?location=Madrid,Spain&period=7 days");
-        Assert.assertNotNull(endpoint);
-        Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.weather.WeatherEndpoint");
-        camelctx.stop();
-    }
-
-    @Test
-    @Betamax(tape="madrid-weather-report")
-    public void testGetWeather() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
         ProducerTemplate template = camelctx.createProducerTemplate();
-        String response = template.requestBody("weather:foo?location=Madrid,Spain&period=7 days&proxyHost=localhost&proxyPort=1337", null, String.class);
+        String response = template.requestBody("weather:foo?location=Madrid,Spain&period=7 days&appid=" + OPENWEATHER_APP_ID, null, String.class);
         Assert.assertNotNull(response);
         Assert.assertTrue("Contains ", response.contains(",\"name\":\"Madrid\","));
-        camelctx.stop();
     }
 }

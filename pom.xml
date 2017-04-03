@@ -70,7 +70,6 @@
         <version.apache.karaf>2.4.3</version.apache.karaf>
         <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
         <version.arquillian.cube>1.0.0.Alpha16</version.arquillian.cube>
-        <version.betamax>2.0.0</version.betamax>
         <version.codehaus.plexus.utils>3.0.15</version.codehaus.plexus.utils>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
         <version.flapdoodle.embed.mongo>1.50.1</version.flapdoodle.embed.mongo>
@@ -181,13 +180,6 @@
                 <groupId>org.arquillian.cube</groupId>
                 <artifactId>arquillian-cube-docker</artifactId>
                 <version>${version.arquillian.cube}</version>
-            </dependency>
-
-            <!-- Betamax -->
-            <dependency>
-                <groupId>software.betamax</groupId>
-                <artifactId>betamax-junit</artifactId>
-                <version>${version.betamax}</version>
             </dependency>
 
             <!-- Camel -->
