@@ -32,5 +32,23 @@
             <property name="allowConnectingToRunningServer">true</property>
         </configuration>
     </container>
-    
+
+    <extension qualifier="docker">
+        <property name="autoStartContainers">[none]</property>
+        <property name="definitionFormat">CUBE</property>
+        <property name="dockerContainers">
+            nats:
+                image: nats:0.9.6
+                portBindings: [
+                    4222->4222/tcp
+                ]
+                await:
+                    strategy: log
+                    match: 'Server is ready'
+                    stdOut: true
+                    stdErr: true
+                    timeout: 15
+        </property>
+        <property name="tlsVerify">false</property>
+    </extension>
 </arquillian>

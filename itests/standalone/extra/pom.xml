@@ -84,6 +84,14 @@
             <version>${version.apache.ds.codec}</version>
         </dependency>
         <dependency>
+            <groupId>org.arquillian.cube</groupId>
+            <artifactId>arquillian-cube-docker</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.arquillian.cube</groupId>
+            <artifactId>arquillian-cube-requirement</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.jboss.spec.javax.enterprise.concurrent</groupId>
             <artifactId>jboss-concurrency-api_1.0_spec</artifactId>
         </dependency>
@@ -105,6 +113,13 @@
             <artifactId>wildfly-camel-feature-pack</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
+            <!-- Avoid clash with Arquillian Cube Jersey dependencies -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

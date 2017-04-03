@@ -23,11 +23,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jboss.dmr.ModelNode;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.ALLOW_RESOURCE_SERVICE_RESTART;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.OPERATION_HEADERS;
 
 public class DMRUtils {
 
     private static Pattern HANDLER_PATTERN = Pattern.compile(".*handler=(.*)");
-    
+
     public static ModelNode createOpNode(String address, String operation) {
         ModelNode op = new ModelNode();
 
@@ -87,6 +89,30 @@ public class DMRUtils {
             comp.get("steps").add(step);
         }
         return comp;
+    }
+
+    public static ModelNode createSecurityDomainAddOperation(String name, String userProperties, String roleProperties) {
+        ModelNode securityDomainOpAdd = createOpNode("subsystem=security/security-domain=" + name, "add");
+        ModelNode securityDomainContent = createOpNode("subsystem=security/security-domain=" + name + "/authentication=classic", "add");
+
+        ModelNode loginModules = securityDomainContent.get("login-modules");
+
+        ModelNode userRoles = new ModelNode();
+        userRoles.get("code").set("UsersRoles");
+        userRoles.get("flag").set("required");
+
+        ModelNode moduleOptions = userRoles.get("module-options");
+        moduleOptions.get("usersProperties").set(userProperties);
+        moduleOptions.get("rolesProperties").set(roleProperties);
+        loginModules.add(userRoles);
+
+        return createCompositeNode(new ModelNode[] {securityDomainOpAdd, securityDomainContent});
+    }
+
+    public static ModelNode createSecurityDomainRemoveOperation(String name) {
+        ModelNode securityDomainOpRemove = DMRUtils.createOpNode("subsystem=security/security-domain=" + name, "remove");
+        securityDomainOpRemove.get(OPERATION_HEADERS, ALLOW_RESOURCE_SERVICE_RESTART).set(true);
+        return securityDomainOpRemove;
     }
 
     public static BatchNodeBuilder batchNode() {

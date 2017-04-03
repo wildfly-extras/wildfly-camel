@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.cxf;
+package org.wildfly.camel.test.cxf.ws;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,17 +35,36 @@ import org.apache.cxf.interceptor.security.JAASLoginInterceptor;
 import org.apache.cxf.message.Message;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.types.Endpoint;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
+@ServerSetup({ CXFWSJAASAuthenticationIntegrationTest.SecurityDomainSetup.class })
 public class CXFWSJAASAuthenticationIntegrationTest {
+
+    static class SecurityDomainSetup implements ServerSetupTask {
+        private static final String USER_PROPERTIES = "application-users.properties";
+
+        @Override
+        public void setup(ManagementClient managementClient, String containerId) throws Exception {
+            TestUtils.addUser("user1", "ca9f7f650a6c1a1250859648d9bf5ca7", USER_PROPERTIES);
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
+            TestUtils.removeUser("user1", USER_PROPERTIES);
+        }
+    }
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -76,8 +95,7 @@ public class CXFWSJAASAuthenticationIntegrationTest {
             Assert.fail("Expected CamelExecutionException");
         } catch (CamelExecutionException e) {
             Assert.assertTrue(e.getCause().getMessage().startsWith("Authentication failed"));
-        }
-        finally {
+        } finally {
             camelctx.stop();
         }
     }

@@ -19,9 +19,6 @@
  */
 package org.wildfly.camel.test.cxf.ws;
 
-import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.ALLOW_RESOURCE_SERVICE_RESTART;
-import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.OPERATION_HEADERS;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.ProducerTemplate;
@@ -62,37 +59,21 @@ public class CXFWSSecureProducerIntegrationTest {
     ManagementClient managementClient;
 
     static class SecurityDomainSetup implements ServerSetupTask {
+        private static final String SECURITY_DOMAIN = "cxf-security-domain";
+        private static final String USER_PROPERTIES = "cxf-users.properties";
+        private static final String ROLE_PROPERTIES = "cxf-roles.properties";
 
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
-            // Set up a security domain for our tests to authenticate against
-            ModelNode securityDomainOpAdd = DMRUtils.createOpNode("subsystem=security/security-domain=cxf-security-domain", "add");
-            ModelNode securityDomainContent = DMRUtils.createOpNode("subsystem=security/security-domain=cxf-security-domain/authentication=classic", "add");
-
-            ModelNode loginModules = securityDomainContent.get("login-modules");
-
-            ModelNode userRoles = new ModelNode();
-            userRoles.get("code").set("UsersRoles");
-            userRoles.get("flag").set("required");
-
-            ModelNode moduleOptions = userRoles.get("module-options");
-            moduleOptions.get("usersProperties").set("cxf-users.properties");
-            moduleOptions.get("rolesProperties").set("cxf-roles.properties");
-            loginModules.add(userRoles);
-
-            ModelNode result = managementClient.getControllerClient().execute(DMRUtils.createCompositeNode(new ModelNode[]{securityDomainOpAdd, securityDomainContent}));
-
-            // Make sure the commands worked before proceeding
+            ModelNode modelNode = DMRUtils.createSecurityDomainAddOperation(SECURITY_DOMAIN, USER_PROPERTIES, ROLE_PROPERTIES);
+            ModelNode result = managementClient.getControllerClient().execute(modelNode);
             Assert.assertEquals("success", result.get("outcome").asString());
         }
 
         @Override
         public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
-            // Remove the test security domain after each test
-            ModelNode securityDomainOpRemove = DMRUtils.createOpNode("subsystem=security/security-domain=cxf-security-domain", "remove");
-            securityDomainOpRemove.get(OPERATION_HEADERS, ALLOW_RESOURCE_SERVICE_RESTART).set(true);
-
-            ModelNode result = managementClient.getControllerClient().execute(securityDomainOpRemove);
+            ModelNode modelNode = DMRUtils.createSecurityDomainRemoveOperation(SECURITY_DOMAIN);
+            ModelNode result = managementClient.getControllerClient().execute(modelNode);
             Assert.assertEquals("success", result.get("outcome").asString());
         }
     }
@@ -113,7 +94,7 @@ public class CXFWSSecureProducerIntegrationTest {
                 @Override
                 public void configure() throws Exception {
                     from("direct:start")
-                            .to("cxf://" + getEndpointAddress("/simple", "cxfuser", "cxfpassword"));
+                    .to("cxf://" + getEndpointAddress("/simple", "cxfuser", "cxfpassword"));
                 }
             });
 
@@ -139,12 +120,12 @@ public class CXFWSSecureProducerIntegrationTest {
                 @Override
                 public void configure() throws Exception {
                     from("direct:start")
-                            .doTry()
-                            .to("cxf://" + getEndpointAddress("/simple", "baduser", "badpassword"))
-                            .doCatch(Exception.class)
-                            .setBody(exceptionMessage())
-                            .to("direct:error")
-                            .end();
+                    .doTry()
+                        .to("cxf://" + getEndpointAddress("/simple", "baduser", "badpassword"))
+                    .doCatch(Exception.class)
+                        .setBody(exceptionMessage())
+                        .to("direct:error")
+                    .end();
                 }
             });
 
