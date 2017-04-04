@@ -69,6 +69,7 @@
         <version.apache.httpcomponents>4.5.2</version.apache.httpcomponents>
         <version.apache.karaf>2.4.3</version.apache.karaf>
         <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
+        <version.args4j>2.0.31</version.args4j>
         <version.arquillian.cube>1.0.1</version.arquillian.cube>
         <version.codehaus.plexus.utils>3.0.15</version.codehaus.plexus.utils>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
@@ -130,6 +131,7 @@
         <module>cxfhttp</module>
         <module>feature</module>
         <module>subsystem</module>
+        <module>swarm</module>
         <module>testenricher</module>
         <module>itests</module>
     </modules>
@@ -138,6 +140,12 @@
     <dependencyManagement>
         <dependencies>
 
+            <dependency>
+                <groupId>args4j</groupId>
+                <artifactId>args4j</artifactId>
+                <version>${version.args4j}</version>
+            </dependency>
+            
             <!-- ActiveMQ -->
             <!-- [FIXME #1713] Remove explicit version for ActiveMQ -->
             <dependency>
