@@ -11,6 +11,7 @@
     <module name="org.apache.camel.core" />
   </dependencies>
   <exports>
-    <exclude path="org/schwering**" />
+    <exclude path="org/schwering" />
+    <exclude path="org/schwering/irc" />
   </exports>
 </module>

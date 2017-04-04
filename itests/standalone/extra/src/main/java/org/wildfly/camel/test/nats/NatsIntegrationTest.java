@@ -30,8 +30,8 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.nats.NatsConsumer;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.arquillian.cube.CubeController;
-import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
 import org.arquillian.cube.requirement.ArquillianConditionalRunner;
+import org.arquillian.cube.requirement.RequiresEnvironmentVariable;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -40,11 +40,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(ArquillianConditionalRunner.class)
-@RequiresDocker
+@RequiresEnvironmentVariable({"DOCKER_HOST"})
 public class NatsIntegrationTest {
 
     private static final String CONTAINER_NATS = "nats";
@@ -54,7 +55,8 @@ public class NatsIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-nats-tests.jar");
+        return ShrinkWrap.create(JavaArchive.class, "camel-nats-tests.jar")
+            .addClass(TestUtils.class);
     }
 
     @Before
@@ -76,7 +78,7 @@ public class NatsIntegrationTest {
             camelctx.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
-                    from("nats://localhost:4222?topic=test").id("nats-route")
+                    from("nats://" + TestUtils.getDockerHost() + ":4222?topic=test").id("nats-route")
                     .to("mock:result");
                 }
             });

@@ -676,7 +676,8 @@
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
-            <exclude path="org/schwering**" />
+            <exclude path="org/schwering"/>
+            <exclude path="org/schwering/irc"/>
         </exports>
     </module>
 
