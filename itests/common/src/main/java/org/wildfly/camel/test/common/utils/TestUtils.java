@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.net.InetAddress;
+import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
@@ -138,5 +140,15 @@ public final class TestUtils {
         }
 
         return Paths.get(jbossHome,"standalone", "configuration");
+    }
+
+    public static String getDockerHost() throws Exception {
+        String dockerHost = System.getenv("DOCKER_HOST");
+        if (dockerHost == null) {
+            return InetAddress.getLocalHost().getHostName();
+        }
+
+        URI uri = new URI(dockerHost);
+        return uri.getHost();
     }
 }

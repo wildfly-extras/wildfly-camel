@@ -51,6 +51,7 @@
 	^org/quartz(.*)
 	^org/infinispan(.*)
 	^org/optaplanner(.*)
+	^org.schwering(.*)
 	^org/snmp4j(.*)
 	^org/springframework(.*)
 	^org/xbill(.*)

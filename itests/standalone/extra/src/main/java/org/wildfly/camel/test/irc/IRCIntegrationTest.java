@@ -20,47 +20,72 @@
 
 package org.wildfly.camel.test.irc;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.irc.IrcComponent;
+import org.apache.camel.component.irc.IrcEndpoint;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.arquillian.cube.CubeController;
+import org.arquillian.cube.requirement.ArquillianConditionalRunner;
+import org.arquillian.cube.requirement.RequiresEnvironmentVariable;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assume;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.schwering.irc.lib.IRCConnection;
+import org.schwering.irc.lib.IRCEventListener;
+import org.schwering.irc.lib.IRCModeParser;
+import org.schwering.irc.lib.IRCUser;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
-/**
- * To enable tests, set environment variables for your IRC host:
- *  IRC_HOST=irc.host.org:6667
- *  IRC_CHANNEL=wfc-test
- */
 @CamelAware
-@RunWith(Arquillian.class)
+@RunWith(ArquillianConditionalRunner.class)
+@RequiresEnvironmentVariable({"DOCKER_HOST"})
 public class IRCIntegrationTest {
 
-    static final String IRC_HOST = System.getenv("IRC_HOST");
-    static final String IRC_CHANNEL = System.getenv("IRC_CHANNEL");
-    
+    private static final String CONTAINER_IRCD = "ircd";
+
+    @ArquillianResource
+    private CubeController cubeController;
+
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-irc-tests");
+        return ShrinkWrap.create(JavaArchive.class, "camel-irc-tests")
+            .addClass(TestUtils.class);
+    }
+
+    @Before
+    public void setUp() {
+        cubeController.create(CONTAINER_IRCD);
+        cubeController.start(CONTAINER_IRCD);
+    }
+
+    @After
+    public void tearDown() {
+        cubeController.stop(CONTAINER_IRCD);
+        cubeController.destroy(CONTAINER_IRCD);
     }
 
     @Test
     public void testIRCComponent() throws Exception {
-        
-        Assume.assumeNotNull("[#1678] Enable IRC testing in Jenkins", IRC_HOST, IRC_CHANNEL);
+        String uri = "irc:kermit@" + TestUtils.getDockerHost() + "/#wfctest";
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("irc:kermit@" + IRC_HOST + "/#" + IRC_CHANNEL)
+                from(uri)
                 .to("mock:messages");
             }
         });
@@ -71,13 +96,106 @@ public class IRCIntegrationTest {
         // Expect a JOIN message for each user connection, followed by the actual IRC message
         endpoint.expectedBodiesReceived("JOIN", "JOIN", "Hello Kermit!");
 
+        CountDownLatch latch = new CountDownLatch(1);
+
+        IrcComponent component = camelctx.getComponent("irc", IrcComponent.class);
+        IrcEndpoint ircEndpoint = camelctx.getEndpoint(uri, IrcEndpoint.class);
+
+        IRCConnection ircConnection = component.getIRCConnection(ircEndpoint.getConfiguration());
+        ircConnection.addIRCEventListener(new ChannelJoinListener(latch));
+
         camelctx.start();
         try {
+            Assert.assertTrue("Gave up waiting for user to join IRC channel", latch.await(15, TimeUnit.SECONDS));
+
             ProducerTemplate template = camelctx.createProducerTemplate();
-            template.requestBody("irc:piggy@" + IRC_HOST + "/#" + IRC_CHANNEL, "Hello Kermit!");
-            endpoint.assertIsSatisfied(5000);
+            template.sendBody("irc:piggy@" + TestUtils.getDockerHost() + "/#wfctest", "Hello Kermit!");
+
+            endpoint.assertIsSatisfied(10000);
         } finally {
             camelctx.stop();
+        }
+    }
+
+    private class ChannelJoinListener implements IRCEventListener {
+
+        private final CountDownLatch latch;
+
+        private ChannelJoinListener(CountDownLatch latch) {
+            this.latch = latch;
+        }
+
+        @Override
+        public void onJoin(String chan, IRCUser user) {
+            latch.countDown();
+        }
+
+        @Override
+        public void onRegistered() {
+        }
+
+        @Override
+        public void onDisconnected() {
+        }
+
+        @Override
+        public void onError(String msg) {
+        }
+
+        @Override
+        public void onError(int num, String msg) {
+        }
+
+        @Override
+        public void onInvite(String chan, IRCUser user, String passiveNick) {
+        }
+
+        @Override
+        public void onKick(String chan, IRCUser user, String passiveNick, String msg) {
+        }
+
+        @Override
+        public void onMode(String chan, IRCUser user, IRCModeParser modeParser) {
+        }
+
+        @Override
+        public void onMode(IRCUser user, String passiveNick, String mode) {
+        }
+
+        @Override
+        public void onNick(IRCUser user, String newNick) {
+        }
+
+        @Override
+        public void onNotice(String target, IRCUser user, String msg) {
+        }
+
+        @Override
+        public void onPart(String chan, IRCUser user, String msg) {
+        }
+
+        @Override
+        public void onPing(String ping) {
+        }
+
+        @Override
+        public void onPrivmsg(String target, IRCUser user, String msg) {
+        }
+
+        @Override
+        public void onQuit(IRCUser user, String msg) {
+        }
+
+        @Override
+        public void onReply(int num, String value, String msg) {
+        }
+
+        @Override
+        public void onTopic(String chan, IRCUser user, String topic) {
+        }
+
+        @Override
+        public void unknown(String prefix, String command, String middle, String trailing) {
         }
     }
 }

@@ -37,6 +37,17 @@
         <property name="autoStartContainers">[none]</property>
         <property name="definitionFormat">CUBE</property>
         <property name="dockerContainers">
+            ircd:
+                image: wildflyext/ircd:23
+                portBindings: [
+                    6667->6667/tcp
+                ]
+                await:
+                    strategy: log
+                    match: 'Now listening'
+                    stdOut: true
+                    stdErr: true
+                    timeout: 15
             nats:
                 image: nats:0.9.6
                 portBindings: [
