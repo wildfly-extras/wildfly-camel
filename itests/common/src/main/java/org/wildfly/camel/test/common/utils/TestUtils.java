@@ -18,13 +18,7 @@ package org.wildfly.camel.test.common.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Properties;
 import java.util.Random;
-import java.util.StringJoiner;
 
 public final class TestUtils {
     private static final Random RANDOM = new Random();
@@ -52,91 +46,5 @@ public final class TestUtils {
             }
         }
         return ret && path.delete();
-    }
-
-    public static void addUser(String user, String password, String configFile) throws Exception {
-        Path configPath = getStandaloneConfiguratonPath();
-        File userConfig = configPath.resolve(configFile).toFile();
-        Properties properties = new Properties();
-
-        if (!userConfig.exists()) {
-            userConfig.createNewFile();
-        } else {
-            try (FileReader fr = new FileReader(userConfig)) {
-                properties.load(fr);
-            }
-        }
-
-        properties.put(user, password);
-
-        try (FileWriter fw = new FileWriter(userConfig)) {
-            properties.store(fw, null);
-        }
-    }
-
-    public static void removeUser(String user, String configFile) throws Exception {
-        Path configPath = getStandaloneConfiguratonPath();
-        File userConfig = configPath.resolve(configFile).toFile();
-        Properties properties = new Properties();
-
-        try (FileReader fr = new FileReader(userConfig)) {
-            properties.load(fr);
-        }
-
-        properties.remove(user);
-
-        try (FileWriter fw = new FileWriter(userConfig)) {
-            properties.store(fw, null);
-        }
-    }
-
-    public static void addUserRoles(String user, String configFile, String... roles) throws Exception {
-        Path configPath = getStandaloneConfiguratonPath();
-        File roleConfig = configPath.resolve(configFile).toFile();
-        Properties properties = new Properties();
-
-        if (!roleConfig.exists()) {
-            roleConfig.createNewFile();
-        } else {
-            try (FileReader fr = new FileReader(roleConfig)) {
-                properties.load(fr);
-            }
-        }
-
-        StringJoiner joiner = new StringJoiner(",");
-        for (String role : roles) {
-            joiner.add(role);
-        }
-
-        properties.put(user, joiner.toString());
-
-        try (FileWriter fw = new FileWriter(roleConfig)) {
-            properties.store(fw, null);
-        }
-    }
-
-    public static void removeUserRoles(String user, String configFile) throws Exception {
-        Path configPath = getStandaloneConfiguratonPath();
-        File roleConfig = configPath.resolve(configFile).toFile();
-        Properties properties = new Properties();
-
-        try (FileReader fr = new FileReader(roleConfig)) {
-            properties.load(fr);
-        }
-
-        properties.remove(user);
-
-        try (FileWriter fw = new FileWriter(roleConfig)) {
-            properties.store(fw, null);
-        }
-    }
-
-    public static Path getStandaloneConfiguratonPath() {
-        String jbossHome = System.getProperty("jboss.home");
-        if (jbossHome == null) {
-            throw new IllegalStateException("Unable to determine server configuration path. Please define jboss.home");
-        }
-
-        return Paths.get(jbossHome,"standalone", "configuration");
     }
 }

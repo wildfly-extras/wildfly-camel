@@ -19,60 +19,68 @@
  */
 package org.wildfly.camel.test.nats;
 
-import io.nats.client.Connection;
-import io.nats.client.ConnectionFactory;
-
 import java.util.Properties;
 
+import io.nats.client.Connection;
+import io.nats.client.ConnectionFactory;
 import org.apache.camel.CamelContext;
+import org.apache.camel.Endpoint;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.nats.NatsConsumer;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.arquillian.cube.CubeController;
-import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
-import org.arquillian.cube.requirement.ArquillianConditionalRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Assert;
+import org.junit.Assume;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.rule.ExecutableResource;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
-@RunWith(ArquillianConditionalRunner.class)
-@RequiresDocker
+@RunWith(Arquillian.class)
 public class NatsIntegrationTest {
 
-    private static final String CONTAINER_NATS = "nats";
+    private static final String NATS_DOWNLOAD_BASE_URL = "https://github.com/nats-io/gnatsd/releases/download";
+    private static final String NATS_VERSION = "v0.9.4";
 
-    @ArquillianResource
-    private CubeController cubeController;
+    @Rule
+    public ExecutableResource nats = new ExecutableResource().builder()
+        .downloadFrom(resolveDownloadURL())
+        .executable(String.format("%s/gnatsd", resolveExecutableName()))
+        .args("-DV -a 127.0.0.1")
+        .waitForPort(4222)
+        .managed(false)
+        .build();
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-nats-tests.jar");
+        return ShrinkWrap.create(JavaArchive.class, "camel-nats-tests.jar")
+            .addClasses(EnvironmentUtils.class, ExecutableResource.class);
     }
 
-    @Before
-    public void setUp() {
-        cubeController.create(CONTAINER_NATS);
-        cubeController.start(CONTAINER_NATS);
-    }
-
-    @After
-    public void tearDown() {
-        cubeController.stop(CONTAINER_NATS);
-        cubeController.destroy(CONTAINER_NATS);
+    @Test
+    public void testNatsComponent() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        Endpoint endpoint = camelctx.getEndpoint("nats://localhost:4222?topic=test");
+        Assert.assertNotNull(endpoint);
+        Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.nats.NatsEndpoint");
     }
 
     @Test
     public void testNatsRoutes() throws Exception {
+        // There is no gnatsd binary for AIX
+        Assume.assumeFalse("[#1684] NatsIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+
         CamelContext camelctx = new DefaultCamelContext();
         try {
+            nats.startProcess();
+
             camelctx.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
@@ -109,6 +117,21 @@ public class NatsIntegrationTest {
 
         } finally {
             camelctx.stop();
+            nats.stopProcess();
         }
+    }
+
+    private static String resolveDownloadURL() {
+        return String.format("%s/%s/%s.zip", NATS_DOWNLOAD_BASE_URL, NATS_VERSION, resolveExecutableName());
+    }
+
+    private static String resolveExecutableName() {
+        String osName = "linux";
+        if (EnvironmentUtils.isMac()) {
+            osName = "darwin";
+        } else if (EnvironmentUtils.isWindows()) {
+            osName = "windows";
+        }
+        return String.format("gnatsd-%s-%s-amd64", NATS_VERSION, osName);
     }
 }

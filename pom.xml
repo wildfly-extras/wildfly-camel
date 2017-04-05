@@ -70,7 +70,7 @@
         <version.apache.karaf>2.4.3</version.apache.karaf>
         <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
         <version.args4j>2.0.31</version.args4j>
-        <version.arquillian.cube>1.0.1</version.arquillian.cube>
+        <version.arquillian.cube>1.0.0.Alpha16</version.arquillian.cube>
         <version.codehaus.plexus.utils>3.0.15</version.codehaus.plexus.utils>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
         <version.flapdoodle.embed.mongo>1.50.1</version.flapdoodle.embed.mongo>
@@ -187,11 +187,6 @@
             <dependency>
                 <groupId>org.arquillian.cube</groupId>
                 <artifactId>arquillian-cube-docker</artifactId>
-                <version>${version.arquillian.cube}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.arquillian.cube</groupId>
-                <artifactId>arquillian-cube-requirement</artifactId>
                 <version>${version.arquillian.cube}</version>
             </dependency>
 
