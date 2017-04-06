@@ -25,6 +25,7 @@ import java.net.URL;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
+import org.arquillian.cube.HostIp;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
@@ -39,6 +40,9 @@ import org.wildfly.camel.test.common.types.Endpoint;
 @RunWith(Arquillian.class)
 public class CXFEndpointTest {
 
+    @HostIp
+    private String wildflyIp;
+
     @Deployment(testable = false)
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-ws-consumer.jar");
@@ -51,7 +55,7 @@ public class CXFEndpointTest {
     public void testEndpoint() throws Exception {
 
         QName qname = new QName("http://wildfly.camel.test.cxf", "EndpointService");
-        Service service = Service.create(new URL("http://localhost:8080/EndpointService/EndpointPort?wsdl"), qname);
+        Service service = Service.create(new URL("http://" + wildflyIp + ":8080/EndpointService/EndpointPort?wsdl"), qname);
         Endpoint endpoint = service.getPort(Endpoint.class);
         Assert.assertNotNull("Endpoint not null", endpoint);
 

@@ -32,6 +32,7 @@ import java.net.URLConnection;
 
 import javax.xml.bind.DatatypeConverter;
 
+import org.arquillian.cube.HostIp;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
@@ -44,10 +45,13 @@ public class HawtIOAccessTest {
     private static final String USERNAME = "admin";
     private static final String PASSWORD = "admin";
 
+    @HostIp
+    private String wildflyIp;
+
     @Test
     public void testAccessHawtIO() throws Exception {
 
-        URL url = new URL("http://localhost:8080/hawtio/jolokia/read/java.lang:type=Memory/HeapMemoryUsage/used");
+        URL url = new URL("http://" + wildflyIp + ":8080/hawtio/jolokia/read/java.lang:type=Memory/HeapMemoryUsage/used");
         URLConnection conn = url.openConnection();
         try {
             // Accessing hawtio requires an admin id/password.
@@ -73,7 +77,7 @@ public class HawtIOAccessTest {
     @Test
     public void testUnauthedAccessHawtIO() throws Exception {
 
-        URL url = new URL("http://localhost:8080/hawtio/jolokia/read/java.lang:type=Memory/HeapMemoryUsage/used");
+        URL url = new URL("http://" + wildflyIp + ":8080/hawtio/jolokia/read/java.lang:type=Memory/HeapMemoryUsage/used");
         URLConnection conn = url.openConnection();
         try {
             // Accessing hawtio requires an admin id/password since none is

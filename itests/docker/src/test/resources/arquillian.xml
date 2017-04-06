@@ -27,7 +27,6 @@
                     stdErr: true
                     timeout: 15
         </property>
-        <property name="tlsVerify">false</property>
     </extension>
 
     <container qualifier="wildfly" default="true">
