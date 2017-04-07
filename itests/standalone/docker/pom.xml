@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Wildfly Camel Testsuite
+  %%
+  Copyright (C) 2013 - 2014 RedHat
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.wildfly.camel</groupId>
+        <artifactId>wildfly-camel-itests-standalone</artifactId>
+        <version>4.7.0-SNAPSHOT</version>
+    </parent>
+
+    <name>Wildfly Camel :: Testsuite :: Standalone :: Docker</name>
+    <artifactId>wildfly-camel-itests-standalone-docker</artifactId>
+
+    <!-- Properties -->
+    <properties>
+        <server.config>standalone-full.xml</server.config>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.arquillian.cube</groupId>
+            <artifactId>arquillian-cube-docker</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.arquillian.cube</groupId>
+            <artifactId>arquillian-cube-requirement</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-feature-pack</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+            <!-- Avoid clashes with Arquillian Cube Jersey JAX-RS provider -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>arquillian.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>arquillian.xml</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.wildfly.build</groupId>
+                <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <source>
+                        import java.nio.file.Files
+                        import java.nio.file.Paths
+                        import java.util.regex.Matcher
+
+                        // Pull before tests run inside of the container due to: https://issues.jboss.org/browse/ARQ-688
+                        boolean dockerAvailable = System.getenv("DOCKER_HOST") != null || Files.exists(Paths.get("/var/run/docker.sock"))
+                        if (dockerAvailable) {
+                            def images = []
+                            def cubeSpec = new File(project.basedir.path + "/src/main/resources/arquillian.xml").text
+                            Matcher matcher = cubeSpec =~ /.*image: (.*)/
+                            while (matcher.find()) {
+                                images.add(matcher.group(1))
+                            }
+
+                            images.each { image ->
+                                if ("docker images -q ${image}".execute().text.isEmpty()) {
+                                    println "[DOCKER] Pulling Docker image: ${image}"
+                                    "docker pull ${image}".execute().waitForProcessOutput(System.out, System.err)
+                                }
+                            }
+                        }
+                    </source>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

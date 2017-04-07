@@ -18,6 +18,8 @@ package org.wildfly.camel.test.common.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.InetAddress;
+import java.net.URI;
 import java.util.Random;
 
 public final class TestUtils {
@@ -46,5 +48,15 @@ public final class TestUtils {
             }
         }
         return ret && path.delete();
+    }
+
+    public static String getDockerHost() throws Exception {
+        String dockerHost = System.getenv("DOCKER_HOST");
+        if (dockerHost == null) {
+            return InetAddress.getLocalHost().getHostName();
+        }
+
+        URI uri = new URI(dockerHost);
+        return uri.getHost();
     }
 }

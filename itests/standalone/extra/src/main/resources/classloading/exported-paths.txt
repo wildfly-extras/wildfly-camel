@@ -1990,6 +1990,8 @@ org/quartz/utils/counter
 org/quartz/utils/counter/sampled
 org/quartz/utils/weblogic
 org/quartz/xml
+org/schwering/irc/lib
+org/schwering/irc/lib/ssl
 org/snmp4j
 org/snmp4j/asn1
 org/snmp4j/event
