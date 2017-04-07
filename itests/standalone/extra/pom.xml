@@ -115,7 +115,6 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>arquillian.xml</include>
-                    <include>betamax.properties</include>
                 </includes>
             </resource>
             <resource>
@@ -123,7 +122,6 @@
                 <filtering>false</filtering>
                 <excludes>
                     <exclude>arquillian.xml</exclude>
-                    <exclude>betamax.properties</exclude>
                 </excludes>
             </resource>
         </resources>

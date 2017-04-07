@@ -8,6 +8,7 @@
 	^com/mongodb(.*)
     ^com/opengamma(.*)
     ^com/rabbitmq(.*)
+    ^org.schwering(.*)
     ^com/splunk(.*)
 	^com/sun/syndication(.*)
 	^groovy(.*)
