@@ -61,11 +61,13 @@ public final class WildFlyCatalogCreator {
         final Kind kind;
         final String name;
         final String javaType;
+        final boolean deprecated;
         State state = State.undecided;
-        Item(Path path, Kind kind, String javaType) {
+        Item(Path path, Kind kind, String javaType, boolean deprecated) {
             this.path = path;
             this.kind = kind;
             this.javaType = javaType;
+            this.deprecated = deprecated;
             String nspec = path.getFileName().toString();
             nspec = nspec.substring(0, nspec.indexOf("."));
             this.name = nspec;
@@ -124,12 +126,14 @@ public final class WildFlyCatalogCreator {
         Files.walkFileTree(srcdir, new SimpleFileVisitor<Path>() {
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
                 if (path.toString().endsWith(".json")) {
+                    Path relpath = srcdir.relativize(path);
                     ObjectMapper mapper = new ObjectMapper();
                     JsonNode tree = mapper.readTree(path.toFile());
                     String kind = tree.findValue("kind").textValue();
                     String javaType = tree.findValue("javaType").textValue();
+                    boolean deprecated = Boolean.parseBoolean(tree.findValue("deprecated").textValue());
                     if (validKind(kind) && javaType != null) {
-                        Item item = new Item(srcdir.relativize(path), Kind.valueOf(kind), javaType);
+                        Item item = new Item(relpath, Kind.valueOf(kind), javaType, deprecated);
                         roadmaps.get(item.kind).add(item);
                    }
                 }
@@ -160,7 +164,8 @@ public final class WildFlyCatalogCreator {
                         } else if (line.startsWith("[")) {
                             state = null;
                         } else if (state != null) {
-                            Item item = roadmap.item(line.trim());
+                            String name = line.trim().split(" ")[0];
+                            Item item = roadmap.item(name);
                             if (item != null) {
                                 item.state = state;
                             }
@@ -209,7 +214,8 @@ public final class WildFlyCatalogCreator {
                 for (State state : State.values()) {
                     pw.println("[" + state + "]");
                     for (String entry : roadmap.sortedNames(state)) {
-                        pw.println(entry);
+                        Item item = roadmap.item(entry);
+                        pw.println(item.name + (item.deprecated ? " (deprecated)" : ""));
                     }
                     pw.println();
                 }

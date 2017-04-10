@@ -8,7 +8,7 @@ binding
 braintree
 browse
 class
-context
+context (deprecated)
 controlbus
 cql
 crypto
@@ -157,7 +157,7 @@ apns
 asterisk
 atmos
 atmosphere-websocket
-cache
+cache (deprecated)
 chronicle-engine
 chunk
 cm-sms
@@ -176,37 +176,37 @@ gora
 grape
 gridfs
 guava-eventbus
-hdfs
+hdfs (deprecated)
 hipchat
 http
 https
-ibatis
+ibatis (deprecated)
 ironmq
-javaspace
+javaspace (deprecated)
 jcr
 jetty
 jing
 jira
 jolt
 jt400
-kestrel
+kestrel (deprecated)
 krati
 lpr
 lumberjack
-mina
+mina (deprecated)
 msv
 mustache
-netty
-netty-http
+netty (deprecated)
+netty-http (deprecated)
 netty4-http
-openshift
+openshift (deprecated)
 paxlogging
 pgevent
-quartz
+quartz (deprecated)
 quickfix
 restlet
 rmi
-routebox
+routebox (deprecated)
 sip
 sips
 slack
