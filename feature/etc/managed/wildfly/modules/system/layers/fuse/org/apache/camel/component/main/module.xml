@@ -65,6 +65,7 @@
         <module name="org.apache.camel.component.http4" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.hystrix" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.infinispan" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.influxdb" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.irc" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jackson" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jacksonxml" export="true" services="export" optional="true" />

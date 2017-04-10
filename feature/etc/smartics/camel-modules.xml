@@ -664,6 +664,22 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.influxdb">
+        <include artifact="org.apache.camel:camel-influxdb"/>
+        <include artifact="org.influxdb:influxdb-java"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="org/influxdb/impl**" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.irc">
         <include artifact="org.apache.camel:camel-irc" />
         <include artifact="org.schwering:irclib" />

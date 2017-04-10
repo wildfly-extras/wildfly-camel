@@ -281,6 +281,7 @@
 
     <module name="org.apache.xerces" skip="true">
         <include artifact="xerces:xercesImpl"/>
+        <include artifact="xerces:xmlParserAPIs"/>
         <include artifact="xml-apis:xml-apis"/>
     </module>
 

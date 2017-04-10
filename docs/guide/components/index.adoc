@@ -54,6 +54,8 @@ include::camel-hystrix.adoc[]
 
 include::camel-infinispan.adoc[]
 
+include::camel-influxdb.adoc[]
+
 include::camel-irc.adoc[]
 
 include::camel-jasypt.adoc[]

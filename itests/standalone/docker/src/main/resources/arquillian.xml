@@ -37,6 +37,19 @@
         <property name="autoStartContainers">[none]</property>
         <property name="definitionFormat">CUBE</property>
         <property name="dockerContainers">
+            influxdb:
+                image: influxdb:1.1-alpine
+                env: [
+                    INFLUXDB_REPORTING_DISABLED=true
+                ]
+                portBindings: [
+                    8086->8086/tcp
+                ]
+                await:
+                    strategy: http
+                    url: http://dockerHost:8086/ping
+                    responseCode: 204
+                    iterations: 15
             ircd:
                 image: wildflyext/ircd:23
                 portBindings: [
@@ -45,8 +58,6 @@
                 await:
                     strategy: log
                     match: 'Now listening'
-                    stdOut: true
-                    stdErr: true
                     timeout: 15
             nats:
                 image: nats:0.9.6
@@ -56,8 +67,6 @@
                 await:
                     strategy: log
                     match: 'Server is ready'
-                    stdOut: true
-                    stdErr: true
                     timeout: 15
         </property>
     </extension>

@@ -651,6 +651,8 @@ org/apache/camel/component/infinispan/processor
 org/apache/camel/component/infinispan/processor/aggregate
 org/apache/camel/component/infinispan/processor/idempotent
 org/apache/camel/component/infinispan/remote
+org/apache/camel/component/influxdb
+org/apache/camel/component/influxdb/converters
 org/apache/camel/component/irc
 org/apache/camel/component/jackson
 org/apache/camel/component/jackson/converter
@@ -1889,6 +1891,8 @@ org/infinispan/util/stream
 org/infinispan/xsite
 org/infinispan/xsite/statetransfer
 org/infinispan/xsite/status
+org/influxdb
+org/influxdb/dto
 org/optaplanner
 org/optaplanner/core
 org/optaplanner/core/api

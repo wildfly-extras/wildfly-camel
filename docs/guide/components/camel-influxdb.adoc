@@ -1,0 +1,4 @@
+### camel-influxdb
+
+The https://github.com/apache/camel/blob/master/components/camel-influxdb/src/main/docs/influxdb-component.adoc[influxdb,window=_blank] component enables you to interact with https://influxdata.com/time-series-platform/influxdb/[InfluxDB,window=_blank]
+

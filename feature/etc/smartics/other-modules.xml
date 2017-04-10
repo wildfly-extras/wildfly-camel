@@ -104,6 +104,23 @@
         </apply-to-dependencies>
     </module>
 
+    <module name="com.querydsl">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":querydsl-core" />
+        <dependencies>
+        </dependencies>
+    </module>
+
+    <module name="com.querydsl.skip" skip="true">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":querydsl-apt" />
+        <include artifact=":querydsl-codegen" />
+    </module>
+
     <module name="com.rometools.rome">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -113,24 +130,38 @@
             <module name="javax.api" />
         </dependencies>
     </module>
-    
-    <module name="com.querydsl">
+
+    <module name="com.squareup.okhttp">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact=":querydsl-core" />
+        <include artifact="com.squareup.okhttp:okhttp"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.google.android"/>
+        </apply-to-dependencies>
         <dependencies>
+            <module name="javax.api"/>
         </dependencies>
     </module>
-    
-    <module name="com.querydsl.skip" skip="true">
+
+    <module name="com.squareup.okio">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact=":querydsl-apt" />
-        <include artifact=":querydsl-codegen" />
+        <include artifact="com.squareup.okio:okio"/>
     </module>
-    
+
+    <module name="com.squareup.retrofit">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.squareup.retrofit:retrofit"/>
+        <dependencies>
+            <module name="com.squareup.okio"/>
+            <module name="com.squareup.okhttp"/>
+        </dependencies>
+    </module>
+
     <module name="com.thoughtworks.xstream">
         <properties>
             <property name="jboss.api" value="private"/>

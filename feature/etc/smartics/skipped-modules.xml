@@ -72,7 +72,11 @@
         <include artifact="com.github.jnr:jnr-(.*)" />
         <include artifact="com.github.jnr:jffi" />
     </module>
-    
+
+    <module name="com.google.android" skip="true">
+        <include artifact="com.google.android:android"/>
+    </module>
+
     <module name="com.google.code.findbugs" skip="true">
         <include artifact="com.google.code.findbugs:(.*)" />
     </module>
