@@ -128,7 +128,6 @@ aws-ses
 aws-sns
 aws-sqs
 aws-swf
-beanstalk
 box
 coap
 couchdb
@@ -155,6 +154,7 @@ apns
 asterisk
 atmos
 atmosphere-websocket
+beanstalk
 cache (deprecated)
 chronicle-engine
 chunk
