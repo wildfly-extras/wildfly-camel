@@ -146,7 +146,6 @@ hbase
 hdfs2
 jclouds
 kubernetes
-nagios
 websocket
 
 [undecided]
@@ -196,6 +195,7 @@ lumberjack
 mina (deprecated)
 msv
 mustache
+nagios
 netty (deprecated)
 netty-http (deprecated)
 netty4-http
