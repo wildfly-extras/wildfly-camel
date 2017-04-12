@@ -1,0 +1,3 @@
+### camel-aws-ec2
+
+The http://camel.apache.org/aws-ec2.html[AWS EC2,window=_blank] component supports create, run, start, stop and terminate https://aws.amazon.com/it/ec2[AWS EC2,window=_blank] instances.

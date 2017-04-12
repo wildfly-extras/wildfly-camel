@@ -16,6 +16,8 @@ include::camel-aws-ddb.adoc[]
 
 include::camel-aws-ddbstream.adoc[]
 
+include::camel-aws-ec2.adoc[]
+
 include::camel-aws-s3.adoc[]
 
 include::camel-bean-validator.adoc[]
