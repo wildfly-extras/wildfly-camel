@@ -78,11 +78,9 @@ public class JAXBIntegrationTest {
             }
         });
 
-        InputStream input = getClass().getResourceAsStream("/customer.xml");
-        String expected = XMLUtils.compactXML(input);
-
         camelctx.start();
-        try {
+        try (InputStream input = getClass().getResourceAsStream("/customer.xml")) {
+            String expected = XMLUtils.compactXML(input);
             ProducerTemplate producer = camelctx.createProducerTemplate();
             Customer customer = new Customer("John", "Doe");
             String result = producer.requestBody("direct:start", customer, String.class);
@@ -107,10 +105,8 @@ public class JAXBIntegrationTest {
             }
         });
 
-        InputStream input = getClass().getResourceAsStream("/customer.xml");
-
         camelctx.start();
-        try {
+        try (InputStream input = getClass().getResourceAsStream("/customer.xml")) {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             Customer customer = producer.requestBody("direct:start", input, Customer.class);
             Assert.assertEquals("John", customer.getFirstName());

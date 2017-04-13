@@ -20,10 +20,8 @@
 
 package org.wildfly.camel.test.jsch;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -42,6 +40,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.ssh.EmbeddedSSHServer;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -71,7 +70,8 @@ public class JschIntegrationTest {
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-jsch-tests.jar")
             .addAsResource(new StringAsset(JschIntegrationTest.SSHServerSetupTask.sshServer.getConnection()), "jsch-connection")
-            .addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR);
+            .addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR)
+            .addClasses(TestUtils.class);
     }
 
     @Test
@@ -90,21 +90,11 @@ public class JschIntegrationTest {
     }
 
     private String getScpEndpointUri() throws IOException {
-        return String.format("scp://%s/%s?username=admin&password=admin&knownHostsFile=%s", getConnection(),
-            SSHD_ROOT_DIR, KNOWN_HOSTS);
+        String conUrl = TestUtils.getResourceValue(getClass(), "/jsch-connection");
+        return String.format("scp://%s/%s?username=admin&password=admin&knownHostsFile=%s", conUrl, SSHD_ROOT_DIR, KNOWN_HOSTS);
     }
 
     private Path resolvePath(Path other) throws IOException {
-        return Paths.get(readResourceString(FILE_BASEDIR)).resolve(other);
-    }
-
-    private String getConnection() throws IOException {
-        return readResourceString("jsch-connection");
-    }
-
-    private String readResourceString(String resource) throws IOException {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + resource)))) {
-            return br.readLine();
-        }
+        return Paths.get(TestUtils.getResourceValue(getClass(), "/" + FILE_BASEDIR)).resolve(other);
     }
 }

@@ -19,7 +19,7 @@
  */
 package org.wildfly.camel.test.schematron;
 
-import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -27,7 +27,6 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.utils.IOUtils;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -35,6 +34,7 @@ import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -48,7 +48,7 @@ public class SchematronIntegrationTest {
             .addAsResource("schematron/person.xsd", "schematron/person.xsd")
             .addAsResource("schematron/person-invalid.xml", "schematron/person-invalid.xml")
             .addAsResource("schematron/person-valid.xml", "schematron/person-valid.xml")
-            .addClasses(EnvironmentUtils.class);
+            .addClasses(EnvironmentUtils.class, TestUtils.class);
     }
 
     @Test
@@ -83,9 +83,7 @@ public class SchematronIntegrationTest {
         }
     }
 
-    private String readResource(String resource) throws Exception {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        IOUtils.copyStream(getClass().getResourceAsStream("/schematron/" + resource), out);
-        return new String(out.toByteArray());
+    private String readResource(String resource) throws IOException {
+        return TestUtils.getResourceValue(getClass(), "/schematron/" + resource);
     }
 }

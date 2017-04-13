@@ -52,6 +52,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -74,6 +75,7 @@ public class ExportedPathsTest {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "exported-paths-tests");
         archive.addAsResource("classloading/" + FILE_EXPORTED_PATH_PATTERNS, FILE_EXPORTED_PATH_PATTERNS);
         archive.addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR);
+        archive.addClasses(TestUtils.class);
         return archive;
     }
 
@@ -216,12 +218,7 @@ public class ExportedPathsTest {
     }
 
     private Path resolvePath(Path other) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + FILE_BASEDIR)));
-        try {
-            return Paths.get(reader.readLine()).resolve(other);
-        } finally {
-            reader.close();
-        }
+        return Paths.get(TestUtils.getResourceValue(getClass(), "/" + FILE_BASEDIR)).resolve(other);
     }
 
     private List<String> getDependentModuleNames(ModuleLoaderMXBean mbean) {

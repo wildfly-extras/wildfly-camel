@@ -35,12 +35,12 @@ import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.utils.IOUtils;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.camel.test.xslt.subA.OrderBean;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -54,7 +54,7 @@ public class XSLTIntegrationTest {
         archive.addAsResource("xslt/customer-nons.xml", "customer-nons.xml");
         archive.addAsResource("xslt/customer.xml", "customer.xml");
         archive.addAsResource("xslt/transform.xsl", "transform.xsl");
-        archive.addClasses(OrderBean.class);
+        archive.addClasses(OrderBean.class, TestUtils.class);
         return archive;
     }
 
@@ -156,8 +156,6 @@ public class XSLTIntegrationTest {
     }
 
     private String readCustomerXml(String xmlpath) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        IOUtils.copyStream(getClass().getResourceAsStream(xmlpath), out);
-        return new String(out.toByteArray());
+        return TestUtils.getResourceValue(getClass(), xmlpath);
     }
 }

@@ -70,11 +70,9 @@ public class FlatpackIntegrationTest {
             }
         });
 
-        InputStream input = getClass().getClassLoader().getResourceAsStream(FLATPACK_INPUT_TXT);
-        Assert.assertNotNull("Input not null", input);
-
         camelctx.start();
-        try {
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream(FLATPACK_INPUT_TXT)) {
+            Assert.assertNotNull("Input not null", input);
             ProducerTemplate producer = camelctx.createProducerTemplate();
             List<Map<String, String>> result = producer.requestBody("direct:start", input, List.class);
             Assert.assertEquals("Expected size 4: " + result, 4, result.size());

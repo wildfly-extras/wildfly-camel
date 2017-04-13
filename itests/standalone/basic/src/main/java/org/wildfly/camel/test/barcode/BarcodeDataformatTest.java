@@ -21,7 +21,6 @@ package org.wildfly.camel.test.barcode;
 
 import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.InputStream;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -84,10 +83,8 @@ public class BarcodeDataformatTest {
         });
 
         camelctx.start();
-        try {
-            InputStream resource = getClass().getClassLoader().getResourceAsStream("barcode.png");
-            BufferedInputStream bis = new BufferedInputStream(resource);
-
+        try (BufferedInputStream bis = new BufferedInputStream(getClass().getClassLoader().getResourceAsStream("barcode.png"))) {
+            
             ProducerTemplate template = camelctx.createProducerTemplate();
             String result = template.requestBody("direct:start", bis, String.class);
 

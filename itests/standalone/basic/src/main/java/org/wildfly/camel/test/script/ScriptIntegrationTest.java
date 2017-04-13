@@ -22,9 +22,7 @@ package org.wildfly.camel.test.script;
 
 import static org.apache.camel.builder.script.ScriptBuilder.script;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -32,12 +30,12 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.utils.IOUtils;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -58,6 +56,7 @@ public class ScriptIntegrationTest {
         archive.addAsResource("script/" + JAVA_SCRIPT, JAVA_SCRIPT);
         archive.addAsResource("script/" + PYTHON_SCRIPT, PYTHON_SCRIPT);
         archive.addAsResource("script/" + RUBY_SCRIPT, RUBY_SCRIPT);
+        archive.addClasses(TestUtils.class);
         return archive;
     }
 
@@ -105,9 +104,6 @@ public class ScriptIntegrationTest {
     }
 
     private String scriptSource(String resource) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        InputStream input = getClass().getResourceAsStream("/" + resource);
-        IOUtils.copyStream(input, baos);
-        return new String(baos.toByteArray());
+        return TestUtils.getResourceValue(getClass(), "/" + resource);
     }
 }

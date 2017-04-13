@@ -72,8 +72,7 @@ public class StaxIntegrationTest {
         });
 
         camelctx.start();
-        try {
-            InputStream input = getClass().getResourceAsStream("/" + RECORDS_XML);
+        try (InputStream input = getClass().getResourceAsStream("/" + RECORDS_XML)) {
             ProducerTemplate template = camelctx.createProducerTemplate();
             ElementCountingHandler handler = template.requestBody("direct:start", input, ElementCountingHandler.class);
             Assert.assertEquals(6, handler.getCount());
@@ -99,8 +98,7 @@ public class StaxIntegrationTest {
         mockEndpoint.allMessages().body().isInstanceOf(Record.class);
 
         camelctx.start();
-        try {
-            InputStream input = getClass().getResourceAsStream("/" + RECORDS_XML);
+        try (InputStream input = getClass().getResourceAsStream("/" + RECORDS_XML)) {
             ProducerTemplate template = camelctx.createProducerTemplate();
             template.sendBody("direct:start", input);
             mockEndpoint.assertIsSatisfied();

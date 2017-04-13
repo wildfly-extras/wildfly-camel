@@ -20,7 +20,6 @@
 
 package org.wildfly.camel.test.xmlbeans;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -31,12 +30,12 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.utils.IOUtils;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.camel.xmlbeans.Customer;
 import org.wildfly.camel.xmlbeans.LineItem;
 import org.wildfly.camel.xmlbeans.PurchaseOrderDocument;
@@ -58,6 +57,7 @@ public class XmlBeansIntegrationTest {
         archive.addAsResource(new File("target/generated-classes/xmlbeans/schemaorg_apache_xmlbeans"));
         archive.addPackage(PurchaseOrderDocument.class.getPackage());
         archive.addPackage(PurchaseOrderDocumentImpl.class.getPackage());
+        archive.addClasses(TestUtils.class);
         return archive;
     }
 
@@ -142,8 +142,6 @@ public class XmlBeansIntegrationTest {
     }
 
     private String readPurchaseOrderXml() throws Exception {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        IOUtils.copyStream(getClass().getResourceAsStream("/purchaseOrder.xml"), out);
-        return new String(out.toByteArray());
+        return TestUtils.getResourceValue(getClass(), "/purchaseOrder.xml");
     }
 }

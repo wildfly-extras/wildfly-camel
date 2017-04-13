@@ -20,10 +20,8 @@
 
 package org.wildfly.camel.test.ftp;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -56,6 +54,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -78,7 +77,7 @@ public class FtpIntegrationTest {
 
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-ftp-tests.war");
         archive.addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR);
-        archive.addClasses(AvailablePortFinder.class);
+        archive.addClasses(AvailablePortFinder.class, TestUtils.class);
         archive.addAsLibraries(libraryDependencies);
         return archive;
     }
@@ -183,11 +182,6 @@ public class FtpIntegrationTest {
     }
 
     private Path resolvePath(Path other) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + FILE_BASEDIR)));
-        try {
-            return Paths.get(reader.readLine()).resolve(other);
-        } finally {
-            reader.close();
-        }
+        return Paths.get(TestUtils.getResourceValue(getClass(), "/" + FILE_BASEDIR)).resolve(other);
     }
 }

@@ -16,11 +16,17 @@
  */
 package org.wildfly.camel.test.common.utils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.URI;
 import java.util.Random;
+
+import org.jboss.gravia.utils.IOUtils;
+import org.jboss.gravia.utils.IllegalStateAssertion;
 
 public final class TestUtils {
     private static final Random RANDOM = new Random();
@@ -58,5 +64,14 @@ public final class TestUtils {
 
         URI uri = new URI(dockerHost);
         return uri.getHost();
+    }
+
+    public static String getResourceValue (Class<?> clazz, String resname) throws IOException {
+        try (InputStream in = clazz.getResourceAsStream(resname)) {
+            IllegalStateAssertion.assertNotNull(in, "Cannot find resource: " + resname);
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            IOUtils.copyStream(in, out);
+            return new String(out.toByteArray());
+        }
     }
 }

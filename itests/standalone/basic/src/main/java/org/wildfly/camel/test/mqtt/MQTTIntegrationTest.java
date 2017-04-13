@@ -20,9 +20,6 @@
 
 package org.wildfly.camel.test.mqtt;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.activemq.broker.BrokerService;
@@ -49,6 +46,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -84,6 +82,7 @@ public class MQTTIntegrationTest {
     public static JavaArchive deployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "mqtt-tests");
         archive.addAsResource(new StringAsset(BrokerSetup.TCP_CONNECTION), "tcp-connection");
+        archive.addClasses(TestUtils.class);
         archive.setManifest(() -> {
             ManifestBuilder builder = new ManifestBuilder();
             builder.addManifestHeader("Dependencies", "org.fusesource.mqtt");
@@ -95,11 +94,13 @@ public class MQTTIntegrationTest {
     @Test
     public void testMQTTConsumer() throws Exception {
         
+        String conUrl = TestUtils.getResourceValue(getClass(), "/tcp-connection");
+        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("mqtt:bar?subscribeTopicName=" + BrokerSetup.TEST_TOPIC + "&host=" + getConnection()).
+                from("mqtt:bar?subscribeTopicName=" + BrokerSetup.TEST_TOPIC + "&host=" + conUrl).
                 transform(body().prepend("Hello ")).to("seda:end");
             }
         });
@@ -111,7 +112,7 @@ public class MQTTIntegrationTest {
 
         try {
             MQTT mqtt = new MQTT();
-            mqtt.setHost(getConnection());
+            mqtt.setHost(conUrl);
             BlockingConnection connection = mqtt.blockingConnection();
             Topic topic = new Topic(BrokerSetup.TEST_TOPIC, QoS.AT_MOST_ONCE);
 
@@ -132,20 +133,22 @@ public class MQTTIntegrationTest {
     @Test
     public void testMQTTProducer() throws Exception {
         
+        String conUrl = TestUtils.getResourceValue(getClass(), "/tcp-connection");
+        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start").
                 transform(body().prepend("Hello ")).
-                to("mqtt:foo?publishTopicName=" + BrokerSetup.TEST_TOPIC + "&host=" + getConnection());
+                to("mqtt:foo?publishTopicName=" + BrokerSetup.TEST_TOPIC + "&host=" + conUrl);
             }
         });
 
         camelctx.start();
         try {
             MQTT mqtt = new MQTT();
-            mqtt.setHost(getConnection());
+            mqtt.setHost(conUrl);
             BlockingConnection connection = mqtt.blockingConnection();
             
             connection.connect();
@@ -166,12 +169,6 @@ public class MQTTIntegrationTest {
             }
         } finally {
             camelctx.stop();
-        }
-    }
-
-    private String getConnection() throws IOException {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/tcp-connection")))) {
-            return br.readLine();
         }
     }
 }
