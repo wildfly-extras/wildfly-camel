@@ -23,31 +23,11 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
-/*
-    Create the test bucket
-    $ aws s3 mb s3://wfc-test
-
-    Assign this bucket policy
-    {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": [
-                "s3:DeleteObject",
-                "s3:GetObject",
-                "s3:PutObject"
-            ],
-            "Resource": "arn:aws:s3:::wfc-test/*"
-        }
-    ]
-    }
-*/
 @CamelAware
 @RunWith(Arquillian.class)
 public class S3IntegrationTest {
 
+    static final String BUCKET_NAME = "wfc-aws-s3-bucket";
     static final String OBJECT_KEY = "content.txt";
 
     @Deployment
@@ -68,7 +48,7 @@ public class S3IntegrationTest {
             @Override
             public void configure() throws Exception {
                 String clientref = "amazonS3Client=#s3Client";
-                from("direct:upload").to("aws-s3://wfc-test?" + clientref);
+                from("direct:upload").to("aws-s3://" + BUCKET_NAME + "?" + clientref);
             }
         });
 
@@ -78,24 +58,27 @@ public class S3IntegrationTest {
 
         camelctx.getNamingContext().bind("s3Client", client);
         
-        camelctx.start();
+        client.createBucket(BUCKET_NAME);
         try {
-            
-            // Put object
-            Map<String, Object> headers = new HashMap<>();
-            headers.put(S3Constants.KEY, OBJECT_KEY);
-            
-            ProducerTemplate template = camelctx.createProducerTemplate();
-            String content = "My bucket content";
-            String result = template.requestBodyAndHeaders("direct:upload", content, headers, String.class);
-            Assert.assertEquals(content, result);
-            
+            camelctx.start();
+            try {
+                
+                // Put object
+                Map<String, Object> headers = new HashMap<>();
+                headers.put(S3Constants.KEY, OBJECT_KEY);
+                
+                ProducerTemplate template = camelctx.createProducerTemplate();
+                String content = "My bucket content";
+                String result = template.requestBodyAndHeaders("direct:upload", content, headers, String.class);
+                Assert.assertEquals(content, result);
+                
+            } finally {
+                camelctx.stop();
+            }
         } finally {
-            camelctx.stop();
+            client.deleteObject(BUCKET_NAME, OBJECT_KEY);
+            client.deleteBucket(BUCKET_NAME);
         }
-        
-        // Delete Object
-        client.deleteObject("wfc-test", OBJECT_KEY);
     }
 
     static class BasicCredentialsProvider implements AWSCredentialsProvider {
