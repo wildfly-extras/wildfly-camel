@@ -79,11 +79,9 @@ public class SOAPIntegrationTest {
             }
         });
 
-        InputStream input = getClass().getResourceAsStream("/envelope.xml");
-        String expected = XMLUtils.compactXML(input);
-
         camelctx.start();
-        try {
+        try (InputStream input = getClass().getResourceAsStream("/envelope.xml")) {
+            String expected = XMLUtils.compactXML(input);
             ProducerTemplate producer = camelctx.createProducerTemplate();
             Customer customer = new Customer("John", "Doe");
             String customerXML = producer.requestBody("direct:start", customer, String.class);
@@ -108,10 +106,8 @@ public class SOAPIntegrationTest {
             }
         });
 
-        InputStream input = getClass().getResourceAsStream("/envelope.xml");
-
         camelctx.start();
-        try {
+        try (InputStream input = getClass().getResourceAsStream("/envelope.xml")) {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             Element response = producer.requestBody("direct:start", input, Element.class);
             Assert.assertEquals("Customer", response.getLocalName());

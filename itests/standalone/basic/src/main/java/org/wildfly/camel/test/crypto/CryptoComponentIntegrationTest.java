@@ -123,8 +123,9 @@ public class CryptoComponentIntegrationTest {
 
     private KeyStore loadKeystore() throws Exception {
         KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
-        InputStream in = getClass().getResourceAsStream("/" + KEYSTORE);
-        keystore.load(in, KEYSTORE_PASSWORD.toCharArray());
+        try (InputStream in = getClass().getResourceAsStream("/" + KEYSTORE)) {
+            keystore.load(in, KEYSTORE_PASSWORD.toCharArray());
+        }
         return keystore;
     }
 }

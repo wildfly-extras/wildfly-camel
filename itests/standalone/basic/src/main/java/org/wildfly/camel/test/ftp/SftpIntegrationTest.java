@@ -20,10 +20,8 @@
 
 package org.wildfly.camel.test.ftp;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -42,6 +40,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.ssh.EmbeddedSSHServer;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -72,7 +71,8 @@ public class SftpIntegrationTest {
     public static JavaArchive createDeployment() throws IOException {
         return ShrinkWrap.create(JavaArchive.class, "camel-ftp-tests.jar")
             .addAsResource(new StringAsset(SftpIntegrationTest.SSHServerSetupTask.sshServer.getConnection()), "sftp-connection")
-            .addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR);
+            .addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR)
+            .addClasses(TestUtils.class);
     }
 
     @Test
@@ -106,21 +106,11 @@ public class SftpIntegrationTest {
     }
 
     private Path resolvePath(Path other) throws IOException {
-        return Paths.get(readResourceString(FILE_BASEDIR)).resolve(other);
-    }
-
-    private String getConnection() throws IOException {
-        return readResourceString("sftp-connection");
+        return Paths.get(TestUtils.getResourceValue(getClass(), "/" + FILE_BASEDIR)).resolve(other);
     }
 
     private String getSftpEndpointUri() throws IOException {
-        return String.format("sftp://%s/target/sftp?username=admin&password=admin&knownHostsFile=%s", getConnection(), KNOWN_HOSTS);
+        String conUrl = TestUtils.getResourceValue(getClass(), "/sftp-connection");
+        return String.format("sftp://%s/target/sftp?username=admin&password=admin&knownHostsFile=%s", conUrl, KNOWN_HOSTS);
     }
-
-    private String readResourceString(String resource) throws IOException {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + resource)))) {
-            return br.readLine();
-        }
-    }
-
 }

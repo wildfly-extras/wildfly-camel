@@ -20,9 +20,6 @@
 
 package org.wildfly.camel.test.paho;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -54,6 +51,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -88,7 +86,7 @@ public class PahoIntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "mqtt-tests");
-        archive.addClasses(EnvironmentUtils.class);
+        archive.addClasses(EnvironmentUtils.class, TestUtils.class);
         archive.addAsResource(new StringAsset(BrokerSetup.TCP_CONNECTION), "tcp-connection");
         return archive;
     }
@@ -97,12 +95,13 @@ public class PahoIntegrationTest {
     public void testPahoConsumer() throws Exception {
         
         Assume.assumeFalse("[#1648] PahoIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        String conUrl = TestUtils.getResourceValue(getClass(), "/tcp-connection");
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("paho:" + BrokerSetup.TEST_TOPIC + "?brokerUrl=" + getConnection()).
+                from("paho:" + BrokerSetup.TEST_TOPIC + "?brokerUrl=" + conUrl).
                 transform(body().prepend("Hello ")).to("seda:end");
             }
         });
@@ -114,7 +113,7 @@ public class PahoIntegrationTest {
             
             MqttClient client = null;
             try {
-                client = new MqttClient(getConnection(), "MqttClient", new MemoryPersistence());
+                client = new MqttClient(conUrl, "MqttClient", new MemoryPersistence());
                 MqttConnectOptions opts = new MqttConnectOptions();
                 opts.setCleanSession(true);
                 client.connect(opts);
@@ -135,6 +134,7 @@ public class PahoIntegrationTest {
     public void testMQTTProducer() throws Exception {
         
         Assume.assumeFalse("[#1648] PahoIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        String conUrl = TestUtils.getResourceValue(getClass(), "/tcp-connection");
         
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -142,13 +142,13 @@ public class PahoIntegrationTest {
             public void configure() throws Exception {
                 from("direct:start").
                 transform(body().prepend("Hello ")).
-                to("paho:" + BrokerSetup.TEST_TOPIC + "?brokerUrl=" + getConnection());
+                to("paho:" + BrokerSetup.TEST_TOPIC + "?brokerUrl=" + conUrl);
             }
         });
 
         camelctx.start();
         try {
-            MqttClient client = new MqttClient(getConnection(), "MqttClient", new MemoryPersistence());
+            MqttClient client = new MqttClient(conUrl, "MqttClient", new MemoryPersistence());
             MqttConnectOptions opts = new MqttConnectOptions();
             opts.setCleanSession(true);
             client.connect(opts);
@@ -181,12 +181,6 @@ public class PahoIntegrationTest {
             Assert.assertEquals("Hello Kermit", result.get(0));
         } finally {
             camelctx.stop();
-        }
-    }
-
-    private String getConnection() throws IOException {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/tcp-connection")))) {
-            return br.readLine();
         }
     }
 }

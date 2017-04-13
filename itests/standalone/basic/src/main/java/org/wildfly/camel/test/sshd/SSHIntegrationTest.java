@@ -1,8 +1,5 @@
 package org.wildfly.camel.test.sshd;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Paths;
 
 import org.apache.camel.CamelContext;
@@ -23,6 +20,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.ssh.EmbeddedSSHServer;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -48,17 +46,20 @@ public class SSHIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "sshd-tests.jar")
-            .addAsResource(new StringAsset(SSHServerSetupTask.sshServer.getConnection()), "ssh-connection");
+            .addAsResource(new StringAsset(SSHServerSetupTask.sshServer.getConnection()), "ssh-connection")
+            .addClasses(TestUtils.class);
     }
 
     @Test
     public void testSSHConsumer() throws Exception {
 
+        String conUrl = TestUtils.getResourceValue(getClass(), "/ssh-connection");
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                fromF("ssh://admin@%s?username=admin&password=admin&pollCommand=echo Hello Kermit", getConnection())
+                fromF("ssh://admin@%s?username=admin&password=admin&pollCommand=echo Hello Kermit", conUrl)
                 .to("mock:end");
             }
         });
@@ -77,12 +78,15 @@ public class SSHIntegrationTest {
     @Test
     @Ignore("[#1564] SSH producer test frequently swallows the output")
     public void testSSHProducer() throws Exception {
+        
+        String conUrl = TestUtils.getResourceValue(getClass(), "/ssh-connection");
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .toF("ssh://admin@%s?username=admin&password=admin", getConnection());
+                .toF("ssh://admin@%s?username=admin&password=admin", conUrl);
             }
         });
 
@@ -93,12 +97,6 @@ public class SSHIntegrationTest {
             Assert.assertEquals("Hello Kermit" + System.lineSeparator(), result);
         } finally {
             camelctx.stop();
-        }
-    }
-
-    private String getConnection() throws IOException {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/ssh-connection")))) {
-            return br.readLine();
         }
     }
 }
