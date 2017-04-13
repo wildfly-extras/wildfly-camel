@@ -1,5 +1,6 @@
 [includes]
 	^ca/uhn/hl7v2(.*)    
+	^com/amazonaws(.*)
 	^com/braintreegateway(.*)
 	^com/datastax(.*)
 	^com/codahale(.*)

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.amazon.aws">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${com.amazonaws:aws-java-sdk}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-acm}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-api-gateway}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-applicationautoscaling}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-autoscaling}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-cloudformation}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-cloudfront}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-cloudhsm}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-cloudsearch}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-cloudtrail}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-cloudwatch}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-cloudwatchmetrics}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-codecommit}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-codedeploy}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-codepipeline}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-cognitoidentity}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-cognitoidp}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-cognitosync}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-config}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-core}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-datapipeline}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-devicefarm}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-directconnect}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-directory}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-discovery}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-dms}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-dynamodb}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-ec2}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-ecr}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-ecs}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-efs}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-elasticache}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-elasticbeanstalk}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-elasticloadbalancing}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-elasticsearch}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-elastictranscoder}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-emr}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-events}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-gamelift}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-glacier}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-iam}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-importexport}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-inspector}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-iot}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-kinesis}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-kms}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-lambda}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-logs}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-machinelearning}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-marketplacecommerceanalytics}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-marketplacemeteringservice}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-opsworks}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-rds}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-redshift}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-route53}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-s3}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-servicecatalog}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-ses}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-simpledb}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-simpleworkflow}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-sns}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-sqs}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-ssm}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-storagegateway}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-sts}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-support}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-swf-libraries}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-waf}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-workspaces}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.xml.bind.api" />
+    <module name="com.fasterxml.jackson.core.jackson-annotations" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.fasterxml.jackson.dataformat.cbor" />
+    <module name="org.apache.commons.logging" />
+    <module name="org.apache.httpcomponents" slot="4.5.2" />
+    <module name="org.joda.time" />
+  </dependencies>
+</module>

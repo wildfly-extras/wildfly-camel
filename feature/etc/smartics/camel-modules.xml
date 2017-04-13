@@ -144,6 +144,40 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.aws">
+        <include artifact="org.apache.camel:camel-aws" />
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.mail" />
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.amazon.aws" export="true" >
+                <exports>
+                    <exclude path="com/amazonaws/auth/internal" />
+                    <exclude path="com/amazonaws/auth/policy/internal" />
+                    <exclude path="com/amazonaws/auth/profile/internal**" />
+                    <exclude path="com/amazonaws/http**" />
+                    <exclude path="com/amazonaws/internal**" />
+                    <exclude path="com/amazonaws/metrics/internal**" />
+                    <exclude path="com/amazonaws/retry/internal" />
+                    <exclude path="com/amazonaws/services/apigateway/internal" />
+                    <exclude path="com/amazonaws/services/dynamodbv2/document/internal" />
+                    <exclude path="com/amazonaws/services/glacier/internal" />
+                    <exclude path="com/amazonaws/services/logs/internal" />
+                    <exclude path="com/amazonaws/services/machinelearning/internal" />
+                    <exclude path="com/amazonaws/services/route53/internal" />
+                    <exclude path="com/amazonaws/services/s3/internal**" />
+                    <exclude path="com/amazonaws/services/s3/transfer/internal" />
+                    <exclude path="com/amazonaws/services/securitytoken/internal" />
+                    <exclude path="com/amazonaws/services/simpledb/internal" />
+                    <exclude path="com/amazonaws/services/sqs/internal" />
+                </exports>
+            </module>
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.barcode">
         <include artifact="com.google.zxing:core" />
         <include artifact="com.google.zxing:javase" />

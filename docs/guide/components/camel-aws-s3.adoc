@@ -1,0 +1,3 @@
+### camel-aws-s3
+
+The http://camel.apache.org/aws-s3.html[AWS S3,window=_blank] component supports storing and retrieving objetcs from/to http://camel.apache.org/aws-s3.html[Amazon's S3,window=_blank] service.
