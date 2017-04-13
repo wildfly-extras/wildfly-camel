@@ -20,6 +20,19 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="com.amazon.aws">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.amazonaws:" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.xml.bind.api" />
+            <module name="com.fasterxml.jackson.core.jackson-annotations" />
+            <module name="com.fasterxml.jackson.core.jackson-core" />
+        </dependencies>
+    </module>
+    
     <module name="com.codahale.metrics">
         <properties>
             <property name="jboss.api" value="private"/>

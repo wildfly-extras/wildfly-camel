@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.aws">
+  <resources>
+    <artifact name="${org.apache.camel:camel-aws}" />
+  </resources>
+  <dependencies>
+    <module name="com.amazon.aws" export="true">
+      <exports>
+        <exclude path="com/amazonaws/auth/internal" />
+        <exclude path="com/amazonaws/auth/policy/internal" />
+        <exclude path="com/amazonaws/auth/profile/internal**" />
+        <exclude path="com/amazonaws/http**" />
+        <exclude path="com/amazonaws/internal**" />
+        <exclude path="com/amazonaws/metrics/internal**" />
+        <exclude path="com/amazonaws/retry/internal" />
+        <exclude path="com/amazonaws/services/apigateway/internal" />
+        <exclude path="com/amazonaws/services/dynamodbv2/document/internal" />
+        <exclude path="com/amazonaws/services/glacier/internal" />
+        <exclude path="com/amazonaws/services/logs/internal" />
+        <exclude path="com/amazonaws/services/machinelearning/internal" />
+        <exclude path="com/amazonaws/services/route53/internal" />
+        <exclude path="com/amazonaws/services/s3/internal**" />
+        <exclude path="com/amazonaws/services/s3/transfer/internal" />
+        <exclude path="com/amazonaws/services/securitytoken/internal" />
+        <exclude path="com/amazonaws/services/simpledb/internal" />
+        <exclude path="com/amazonaws/services/sqs/internal" />
+      </exports>
+    </module>
+    <module name="org.slf4j" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.logging" />
+    <module name="org.apache.httpcomponents" slot="4.5.2" />
+    <module name="org.joda.time" />
+  </dependencies>
+</module>

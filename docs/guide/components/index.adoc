@@ -10,6 +10,8 @@ include::camel-atom.adoc[]
 
 include::camel-avro.adoc[]
 
+include::camel-aws-s3.adoc[]
+
 include::camel-bean-validator.adoc[]
 
 include::camel-bindy.adoc[]
