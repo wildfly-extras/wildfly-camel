@@ -1,8 +1,9 @@
-package org.wildfly.camel.test.aws.ec2;
+package org.wildfly.camel.test.aws;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.s3.S3Constants;
@@ -49,11 +50,13 @@ public class S3IntegrationTest {
             public void configure() throws Exception {
                 String clientref = "amazonS3Client=#s3Client";
                 from("direct:upload").to("aws-s3://" + BUCKET_NAME + "?" + clientref);
+                from("aws-s3://" + BUCKET_NAME + "?" + clientref).to("seda:read");
             }
         });
 
         AmazonS3 client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new BasicCredentialsProvider(accessId, secretKey))
+                .withRegion("eu-west-1")
                 .build();
 
         camelctx.getNamingContext().bind("s3Client", client);
@@ -67,11 +70,14 @@ public class S3IntegrationTest {
                 Map<String, Object> headers = new HashMap<>();
                 headers.put(S3Constants.KEY, OBJECT_KEY);
                 
-                ProducerTemplate template = camelctx.createProducerTemplate();
+                ProducerTemplate producer = camelctx.createProducerTemplate();
                 String content = "My bucket content";
-                String result = template.requestBodyAndHeaders("direct:upload", content, headers, String.class);
-                Assert.assertEquals(content, result);
+                String result1 = producer.requestBodyAndHeaders("direct:upload", content, headers, String.class);
+                Assert.assertEquals(content, result1);
                 
+                ConsumerTemplate consumer = camelctx.createConsumerTemplate();
+                String result2 = consumer.receiveBody("seda:read", String.class);
+                Assert.assertEquals(content, result2);
             } finally {
                 camelctx.stop();
             }
