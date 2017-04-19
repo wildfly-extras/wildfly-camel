@@ -21,6 +21,7 @@ browse
 class
 context (deprecated)
 controlbus
+couchdb
 cql
 crypto
 cxf
@@ -132,7 +133,6 @@ ahc-ws
 ahc-wss
 box
 coap
-couchdb
 docker
 etcd
 facebook

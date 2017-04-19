@@ -1,0 +1,5 @@
+### camel-couchdb
+
+The http://camel.apache.org/couchdb.html[couchdb,window=_blank] component enables you to
+treat http://couchdb.apache.org/[CouchDB,window=_blank] instances as a producer or consumer of messages.
+

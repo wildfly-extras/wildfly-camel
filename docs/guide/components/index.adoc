@@ -24,6 +24,8 @@ include::camel-cdi.adoc[]
 
 include::camel-context.adoc[]
 
+include::camel-couchdb.adoc[]
+
 include::camel-crypto.adoc[]
 
 include::camel-cxf.adoc[]

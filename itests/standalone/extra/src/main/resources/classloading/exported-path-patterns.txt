@@ -6,6 +6,7 @@
 	^com/dropbox/core(.*)
 	^com/codahale(.*)
 	^com/github/kristofa/brave(.*)
+    ^com/google/gson(.*)
 	^com/google/protobuf
 	^com/mongodb(.*)
     ^com/opengamma(.*)
@@ -54,6 +55,7 @@
 	^org/quartz(.*)
 	^org/infinispan(.*)
 	^org/influxdb(.*)
+	^org/lightcouch(.*)
 	^org/optaplanner(.*)
     ^org.schwering(.*)
 	^org/snmp4j(.*)
