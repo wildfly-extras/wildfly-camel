@@ -289,6 +289,13 @@
                 <version>${version.fusepatch}</version>
                 <type>zip</type>
             </dependency>
+
+            <!-- GitHub -->
+            <dependency>
+                <groupId>org.eclipse.mylyn.github</groupId>
+                <artifactId>org.eclipse.egit.github.core</artifactId>
+                <version>${version.eclipse.egit.github}</version>
+            </dependency>
             
             <!-- Gravia -->
             <dependency>

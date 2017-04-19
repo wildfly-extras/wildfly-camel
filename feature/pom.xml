@@ -224,6 +224,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-github</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-groovy</artifactId>
         </dependency>
         <dependency>
@@ -575,6 +579,10 @@
         <dependency>
             <groupId>org.apache-extras.beanshell</groupId>
             <artifactId>bsh</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.mylyn.github</groupId>
+            <artifactId>org.eclipse.egit.github.core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.infinispan</groupId>

@@ -41,6 +41,7 @@ freemarker
 ftp
 ftps
 git
+github
 http4
 imap
 imaps
@@ -136,7 +137,6 @@ dropbox
 etcd
 facebook
 flink
-github
 google-calendar
 google-drive
 google-mail

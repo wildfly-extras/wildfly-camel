@@ -44,6 +44,7 @@
 	^org/apache/zookeeper(.*)
 	^org/codehaus/groovy(.*)
 	^org/dozer(.*)
+	^org/eclipse/egit/github/core(.*)
 	^org/eclipse/jgit(.*)
 	^org/eclipse/paho(.*)
 	^org/elasticsearch(.*)

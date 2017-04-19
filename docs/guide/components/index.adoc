@@ -48,6 +48,8 @@ include::camel-ftp.adoc[]
 
 include::camel-git.adoc[]
 
+include::camel-github.adoc[]
+
 include::camel-hl7.adoc[]
 
 include::camel-http4.adoc[]

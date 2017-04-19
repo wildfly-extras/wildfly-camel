@@ -1,0 +1,5 @@
+### camel-github
+
+The http://camel.apache.org/github.html[github,window=_blank]
+component enables you to interact with the https://developer.github.com/v3/[GitHub API,window=_blank].
+

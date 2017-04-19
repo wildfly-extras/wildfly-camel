@@ -931,6 +931,9 @@ org/apache/camel/component/freemarker
 org/apache/camel/component/git
 org/apache/camel/component/git/consumer
 org/apache/camel/component/git/producer
+org/apache/camel/component/github
+org/apache/camel/component/github/consumer
+org/apache/camel/component/github/producer
 org/apache/camel/component/gson
 org/apache/camel/component/hl7
 org/apache/camel/component/http4
@@ -1462,6 +1465,8 @@ org/codehaus/groovy/vmplugin/v5
 org/codehaus/groovy/vmplugin/v6
 org/codehaus/groovy/vmplugin/v7
 org/dozer/util
+org/eclipse/egit/github/core
+org/eclipse/egit/github/core/util
 org/eclipse/jgit
 org/eclipse/jgit/annotations
 org/eclipse/jgit/api

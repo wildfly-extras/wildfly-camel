@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.github">
+  <resources>
+    <artifact name="${org.apache.camel:camel-github}" />
+    <artifact name="${org.eclipse.mylyn.github:org.eclipse.egit.github.core}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="com.google.code.gson" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.codec" />
+  </dependencies>
+  <exports>
+    <exclude path="org/eclipse" />
+    <exclude path="org/eclipse/egit" />
+    <exclude path="org/eclipse/egit/github" />
+    <exclude path="org/eclipse/egit/github/core/client**" />
+    <exclude path="org/eclipse/egit/github/core/event**" />
+    <exclude path="org/eclipse/egit/github/core/service**" />
+  </exports>
+</module>
