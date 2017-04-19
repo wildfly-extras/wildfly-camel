@@ -32,6 +32,8 @@ include::camel-dns.adoc[]
 
 include::camel-dozer.adoc[]
 
+include::camel-dropbox.adoc[]
+
 include::camel-ejb.adoc[]
 
 include::camel-elasticsearch.adoc[]

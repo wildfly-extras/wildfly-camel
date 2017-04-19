@@ -3,6 +3,7 @@
 	^com/amazonaws(.*)
 	^com/braintreegateway(.*)
 	^com/datastax(.*)
+	^com/dropbox/core(.*)
 	^com/codahale(.*)
 	^com/github/kristofa/brave(.*)
 	^com/google/protobuf

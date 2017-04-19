@@ -640,6 +640,10 @@ com/datastax/driver/core/policies
 com/datastax/driver/core/querybuilder
 com/datastax/driver/core/schemabuilder
 com/datastax/driver/core/utils
+com/dropbox/core
+com/dropbox/core/http
+com/dropbox/core/json
+com/dropbox/core/util
 com/github/kristofa/brave
 com/github/kristofa/brave/scribe
 com/google/protobuf
@@ -915,6 +919,14 @@ org/apache/camel/component/dns/processor
 org/apache/camel/component/dns/processor/remote
 org/apache/camel/component/dns/types
 org/apache/camel/component/dozer
+org/apache/camel/component/dropbox
+org/apache/camel/component/dropbox/core
+org/apache/camel/component/dropbox/dto
+org/apache/camel/component/dropbox/integration
+org/apache/camel/component/dropbox/integration/consumer
+org/apache/camel/component/dropbox/integration/producer
+org/apache/camel/component/dropbox/util
+org/apache/camel/component/dropbox/validator
 org/apache/camel/component/ejb
 org/apache/camel/component/elasticsearch
 org/apache/camel/component/elasticsearch/aggregation

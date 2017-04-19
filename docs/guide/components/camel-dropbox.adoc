@@ -1,0 +1,6 @@
+### camel-dropbox
+
+The http://camel.apache.org/dropbox.html[Dropbox,window=_blank]
+component enables you to integrate with the https://www.dropbox.com[Dropbox API,window=_blank] in order to
+download, upload and manipulate files.
+
