@@ -646,6 +646,7 @@ com/dropbox/core/json
 com/dropbox/core/util
 com/github/kristofa/brave
 com/github/kristofa/brave/scribe
+com/google/gson
 com/google/protobuf
 com/mongodb
 com/mongodb/annotations
@@ -897,6 +898,7 @@ org/apache/camel/component/bean/validator
 org/apache/camel/component/braintree
 org/apache/camel/component/cassandra
 org/apache/camel/component/context
+org/apache/camel/component/couchdb
 org/apache/camel/component/crypto
 org/apache/camel/component/crypto/processor
 org/apache/camel/component/cxf
@@ -2204,6 +2206,7 @@ org/infinispan/xsite/statetransfer
 org/infinispan/xsite/status
 org/influxdb
 org/influxdb/dto
+org/lightcouch
 org/optaplanner
 org/optaplanner/core
 org/optaplanner/core/api

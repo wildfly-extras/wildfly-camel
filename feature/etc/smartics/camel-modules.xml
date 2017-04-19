@@ -334,6 +334,27 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.couchdb">
+        <include artifact="org.apache.camel:camel-couchdb" />
+        <include artifact="org.lightcouch:lightcouch" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.google.code.gson" export="true">
+                <exports>
+                    <include path="com/google/gson" />
+                    <exclude path="com/google**" />
+                </exports>
+            </module>
+            <module name="javax.api" />
+            <module name="org.apache.commons.logging" />
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+
+
     <module name="org.apache.camel.component.crypto">
         <include artifact="org.apache.camel:camel-crypto" />
         <apply-to-dependencies skip="true">

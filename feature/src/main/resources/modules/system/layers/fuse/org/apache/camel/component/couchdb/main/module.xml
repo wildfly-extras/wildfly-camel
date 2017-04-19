@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.couchdb">
+  <resources>
+    <artifact name="${org.apache.camel:camel-couchdb}" />
+    <artifact name="${org.lightcouch:lightcouch}" />
+  </resources>
+  <dependencies>
+    <module name="com.google.code.gson" export="true">
+      <exports>
+        <include path="com/google/gson" />
+        <exclude path="com/google**" />
+      </exports>
+    </module>
+    <module name="javax.api" />
+    <module name="org.apache.commons.logging" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.httpcomponents" slot="4.5.2" />
+  </dependencies>
+</module>
