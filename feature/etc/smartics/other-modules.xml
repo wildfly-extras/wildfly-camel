@@ -607,6 +607,13 @@
         </dependencies>
     </module>
 
+    <module name="org.eclipse.californium">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.eclipse.californium:" />
+    </module>
+
     <module name="org.eclipse.jetty">
         <properties>
             <property name="jboss.api" value="private"/>

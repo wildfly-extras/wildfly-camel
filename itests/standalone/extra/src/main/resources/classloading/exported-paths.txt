@@ -876,6 +876,7 @@ org/apache/avro/util
 org/apache/camel
 org/apache/camel/builder
 org/apache/camel/builder/script
+org/apache/camel/coap
 org/apache/camel/component
 org/apache/camel/component/amqp
 org/apache/camel/component/atom

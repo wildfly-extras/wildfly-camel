@@ -19,6 +19,7 @@ binding
 braintree
 browse
 class
+coap
 context (deprecated)
 controlbus
 couchdb
@@ -132,7 +133,6 @@ ahc
 ahc-ws
 ahc-wss
 box
-coap
 docker
 etcd
 facebook
