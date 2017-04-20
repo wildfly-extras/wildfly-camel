@@ -129,6 +129,8 @@
 /org/apache/camel/component/castor/main/castor-xml-1.3.3.jar
 /org/apache/camel/component/cdi/main/camel-cdi-2.18.3.jar
 /org/apache/camel/component/context/main/camel-context-2.18.3.jar
+/org/apache/camel/component/couchdb/main/camel-couchdb-2.18.3.jar
+/org/apache/camel/component/couchdb/main/lightcouch-0.1.8.jar
 /org/apache/camel/component/crypto/main/camel-crypto-2.18.3.jar
 /org/apache/camel/component/csv/main/camel-csv-2.18.3.jar
 /org/apache/camel/component/cxf/main/camel-cxf-2.18.3.jar
@@ -136,6 +138,8 @@
 /org/apache/camel/component/dns/main/camel-dns-2.18.3.jar
 /org/apache/camel/component/dns/main/dnsjava-2.1.7.jar
 /org/apache/camel/component/dozer/main/camel-dozer-2.18.3.jar
+/org/apache/camel/component/dropbox/main/camel-dropbox-2.18.3.jar
+/org/apache/camel/component/dropbox/main/dropbox-core-sdk-1.8.2.jar
 /org/apache/camel/component/ejb/main/camel-ejb-2.18.3.jar
 /org/apache/camel/component/elasticsearch/main/camel-elasticsearch-2.18.3.jar
 /org/apache/camel/component/elsql/main/camel-elsql-2.18.3.jar
@@ -149,6 +153,8 @@
 /org/apache/camel/component/git/main/JavaEWAH-0.7.9.jar
 /org/apache/camel/component/git/main/camel-git-2.18.3.jar
 /org/apache/camel/component/git/main/org.eclipse.jgit-4.5.0.201609210915-r.jar
+/org/apache/camel/component/github/main/camel-github-2.18.3.jar
+/org/apache/camel/component/github/main/org.eclipse.egit.github.core-2.1.5.jar
 /org/apache/camel/component/groovy/main/camel-groovy-2.18.3.jar
 /org/apache/camel/component/gson/main/camel-gson-2.18.3.jar
 /org/apache/camel/component/hl7/main/camel-hl7-2.18.3.jar

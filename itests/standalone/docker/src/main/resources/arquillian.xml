@@ -82,6 +82,17 @@
                     strategy: log
                     match: 'Server is ready'
                     timeout: 15
+            smpp_simulator:
+                image: wildflyext/smppsimulator:2.6.11
+                portBindings: [
+                    2775->2775/tcp,
+                    8888->88/tcp
+                ]
+                await:
+                    strategy: http
+                    url: http://dockerHost:8888
+                    responseCode: 200
+                    iterations: 15
         </property>
     </extension>
 </arquillian>

@@ -11,7 +11,4 @@
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.codec" />
   </dependencies>
-  <exports>
-    <exclude path="org/jsmpp**" />
-  </exports>
 </module>

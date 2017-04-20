@@ -2206,6 +2206,14 @@ org/infinispan/xsite/statetransfer
 org/infinispan/xsite/status
 org/influxdb
 org/influxdb/dto
+org/jsmpp
+org/jsmpp/bean
+org/jsmpp/extra
+org/jsmpp/session
+org/jsmpp/session/connection
+org/jsmpp/session/connection/socket
+org/jsmpp/session/state
+org/jsmpp/util
 org/lightcouch
 org/optaplanner
 org/optaplanner/core

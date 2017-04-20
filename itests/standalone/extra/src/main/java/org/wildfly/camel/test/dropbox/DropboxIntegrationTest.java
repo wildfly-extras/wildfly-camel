@@ -45,7 +45,7 @@ public class DropboxIntegrationTest {
     }
 
     @Test
-    public void testDropboxConsumer() throws Exception {
+    public void testDropboxProducer() throws Exception {
         Assume.assumeNotNull("DROPBOX_ACCESS_TOKEN is null", DROPBOX_ACCESS_TOKEN);
 
         DefaultCamelContext camelctx = new DefaultCamelContext();
@@ -68,7 +68,7 @@ public class DropboxIntegrationTest {
     }
 
     @Test
-    public void testDropboxProducer() throws Exception {
+    public void testDropboxConsumer() throws Exception {
         Assume.assumeNotNull("DROPBOX_ACCESS_TOKEN is null", DROPBOX_ACCESS_TOKEN);
 
         DefaultCamelContext camelctx = new DefaultCamelContext();

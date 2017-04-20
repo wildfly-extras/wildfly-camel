@@ -1460,9 +1460,6 @@
             <module name="javax.api"/>
             <module name="org.slf4j" />
         </dependencies>
-        <exports>
-            <exclude path="org/jsmpp**" />
-        </exports>
     </module>
 
     <module name="org.apache.camel.component.snakeyaml">

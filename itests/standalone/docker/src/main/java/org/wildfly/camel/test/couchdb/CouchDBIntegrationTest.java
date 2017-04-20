@@ -139,7 +139,6 @@ public class CouchDBIntegrationTest {
         }
     }
 
-
     private String getJSONString() {
         return "{ \"randomString\" : \"" + UUID.randomUUID() + "\" }";
     }
