@@ -44,7 +44,6 @@ public class LuceneIntegrationTest {
 
     @Test
     public void testComponentLoads() throws Exception {
-
         CamelContext ctx = new DefaultCamelContext();
         Endpoint endpoint = ctx.getEndpoint("lucene:searchIndex:query?maxHits=20");
         Assert.assertNotNull(endpoint);

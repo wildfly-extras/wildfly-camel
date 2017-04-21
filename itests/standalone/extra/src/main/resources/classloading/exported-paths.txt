@@ -937,6 +937,9 @@ org/apache/camel/component/elasticsearch/converter
 org/apache/camel/component/elsql
 org/apache/camel/component/exec
 org/apache/camel/component/exec/impl
+org/apache/camel/component/facebook
+org/apache/camel/component/facebook/config
+org/apache/camel/component/facebook/data
 org/apache/camel/component/feed
 org/apache/camel/component/file
 org/apache/camel/component/file/remote

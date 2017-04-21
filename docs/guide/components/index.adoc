@@ -46,6 +46,8 @@ include::camel-elsql.adoc[]
 
 include::camel-exec.adoc[]
 
+include::camel-facebook.adoc[]
+
 include::camel-file2.adoc[]
 
 include::camel-freemarker.adoc[]

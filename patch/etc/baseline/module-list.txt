@@ -146,6 +146,8 @@
 /org/apache/camel/component/elsql/main/camel-elsql-2.18.3.jar
 /org/apache/camel/component/elsql/main/elsql-1.2.jar
 /org/apache/camel/component/exec/main/camel-exec-2.18.3.jar
+/org/apache/camel/component/facebook/main/camel-facebook-2.18.3.jar
+/org/apache/camel/component/facebook/main/facebook4j-core-2.4.6.jar
 /org/apache/camel/component/flatpack/main/camel-flatpack-2.18.3.jar
 /org/apache/camel/component/flatpack/main/flatpack-3.4.3.jar
 /org/apache/camel/component/freemarker/main/camel-freemarker-2.18.3.jar

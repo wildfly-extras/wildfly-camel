@@ -1,0 +1,6 @@
+### camel-facebook
+
+The http://camel.apache.org/facebook.html[Facebook,window=_blank]
+component provides access to all of the Facebook APIs. You will require a valid
+developer account in order to use it.
+

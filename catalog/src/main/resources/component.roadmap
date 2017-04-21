@@ -38,6 +38,7 @@ ejb
 elasticsearch
 elsql
 exec
+facebook
 file
 flatpack
 freemarker
@@ -135,7 +136,6 @@ ahc-wss
 box
 docker
 etcd
-facebook
 flink
 google-calendar
 google-drive

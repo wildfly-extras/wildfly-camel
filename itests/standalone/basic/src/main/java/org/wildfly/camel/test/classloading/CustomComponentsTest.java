@@ -63,7 +63,6 @@ public class CustomComponentsTest {
         Endpoint endpoint = camelctx.getEndpoint("ftp://localhost/foo");
         Assert.assertNotNull(endpoint);
         Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.file.remote.FtpEndpoint");
-        camelctx.stop();
     }
 
     @Test
@@ -72,6 +71,5 @@ public class CustomComponentsTest {
         Endpoint endpoint = camelctx.getEndpoint("rss://https://developer.jboss.org/blogs/feeds/posts?splitEntries=true");
         Assert.assertNotNull(endpoint);
         Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.rss.RssEndpoint");
-        camelctx.stop();
     }
 }

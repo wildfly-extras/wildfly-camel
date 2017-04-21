@@ -158,13 +158,9 @@ public class FtpIntegrationTest {
     @Test
     public void testComponentLoads() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
-        try {
-            Endpoint endpoint = camelctx.getEndpoint("ftp://localhost/foo");
-            Assert.assertNotNull(endpoint);
-            Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.file.remote.FtpEndpoint");
-        } finally {
-            camelctx.stop();
-        }
+        Endpoint endpoint = camelctx.getEndpoint("ftp://localhost/foo");
+        Assert.assertNotNull(endpoint);
+        Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.file.remote.FtpEndpoint");
     }
 
     private void recursiveDelete(File file) {
