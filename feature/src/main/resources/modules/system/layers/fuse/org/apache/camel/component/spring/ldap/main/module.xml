@@ -6,6 +6,7 @@
   <dependencies>
     <module name="javax.api" />
     <module name="org.slf4j" />
+    <module name="org.apache.commons.lang" />
     <module name="org.springframework.ldap" export="true" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />

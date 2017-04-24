@@ -41,6 +41,7 @@
         <include artifact=":oauth-provider"/>
         <dependencies>
             <module name="javax.api" />
+            <module name="javax.servlet.api" />
             <module name="javax.xml.bind.api" />
         </dependencies>
         <exports>

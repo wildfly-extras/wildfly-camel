@@ -10,16 +10,13 @@
     <artifact name="${org.apache.cxf:cxf-rt-rs-json-basic}" />
     <artifact name="${org.apache.cxf:cxf-rt-rs-security-jose}" />
     <artifact name="${org.apache.cxf:cxf-rt-rs-security-jose-jaxrs}" />
-    <artifact name="${org.apache.cxf:cxf-rt-rs-security-oauth}" />
     <artifact name="${org.apache.cxf:cxf-rt-rs-security-oauth2}" />
-    <artifact name="${net.oauth.core:oauth}" />
-    <artifact name="${net.oauth.core:oauth-provider}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="javax.servlet.api" />
     <module name="javax.xml.bind.api" />
     <module name="javax.annotation.api" />
-    <module name="javax.servlet.api" />
     <module name="javax.ws.rs.api" />
     <module name="org.apache.cxf" />
     <module name="org.apache.cxf.impl" />

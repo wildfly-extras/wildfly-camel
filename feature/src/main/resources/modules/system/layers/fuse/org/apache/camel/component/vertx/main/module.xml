@@ -16,6 +16,6 @@
   </dependencies>
   <exports>
     <exclude path="io/vertx" />
-    <exclude path="vertx-java/template" />
+    <exclude path="vertx-core/template" />
   </exports>
 </module>

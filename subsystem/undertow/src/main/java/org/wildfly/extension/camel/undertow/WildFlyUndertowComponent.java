@@ -30,6 +30,7 @@ import org.apache.camel.component.undertow.UndertowComponent;
 import org.apache.camel.component.undertow.UndertowConsumer;
 import org.apache.camel.component.undertow.UndertowEndpoint;
 import org.apache.camel.component.undertow.UndertowHost;
+import org.apache.camel.component.undertow.UndertowHostKey;
 import org.jboss.gravia.runtime.ServiceLocator;
 import org.wildfly.extension.camel.parser.SubsystemState.RuntimeState;
 
@@ -53,8 +54,8 @@ public class WildFlyUndertowComponent extends UndertowComponent {
     }
 
     @Override
-    public void startServer(UndertowConsumer consumer) {
-        // do nothing
+    protected UndertowHost createUndertowHost(UndertowHostKey key) {
+        return ServiceLocator.getRequiredService(UndertowHost.class);
     }
 
     class WildFlyUndertowEndpoint extends UndertowEndpoint {
@@ -81,11 +82,6 @@ public class WildFlyUndertowComponent extends UndertowComponent {
         }
 
         @Override
-        protected UndertowHost createUndertowHost() {
-            return ServiceLocator.getRequiredService(UndertowHost.class);
-        }
-
-        @Override
         protected void doStart() throws Exception {
             super.doStart();
             URI httpUri = getEndpoint().getHttpURI();
@@ -94,7 +90,7 @@ public class WildFlyUndertowComponent extends UndertowComponent {
         }
 
         @Override
-        protected void doStop() {
+        protected void doStop() throws Exception {
             URI httpUri = getEndpoint().getHttpURI();
             String contextPath = httpUri.getPath();
             runtimeState.removeHttpContext(contextPath);

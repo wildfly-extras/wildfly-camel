@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.kafka.KafkaComponent;
 import org.apache.camel.component.kafka.KafkaConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -44,7 +45,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.kafka.EmbeddedKafkaCluster;
+import org.wildfly.camel.test.common.kafka.EmbeddedKafkaBroker;
 import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.camel.test.common.zookeeper.EmbeddedZookeeper;
 import org.wildfly.extension.camel.CamelAware;
@@ -57,12 +58,12 @@ public class KafkaConsumerIntegrationTest {
     public static final String TOPIC = "test";
 
     static EmbeddedZookeeper embeddedZookeeper;
-    static EmbeddedKafkaCluster embeddedKafkaCluster;
+    static EmbeddedKafkaBroker embeddedKafkaCluster;
 
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "kafka-consumer-tests.jar");
-        archive.addPackage(EmbeddedKafkaCluster.class.getPackage());
+        archive.addPackage(EmbeddedKafkaBroker.class.getPackage());
         archive.addPackage(EmbeddedZookeeper.class.getPackage());
         archive.addClass(TestUtils.class);
         archive.setManifest(new Asset() {
@@ -80,7 +81,7 @@ public class KafkaConsumerIntegrationTest {
     public static void before() throws Exception {
         embeddedZookeeper = new EmbeddedZookeeper();
         List<Integer> kafkaPorts = Collections.singletonList(KAFKA_PORT);
-        embeddedKafkaCluster = new EmbeddedKafkaCluster(embeddedZookeeper.getConnection(), new Properties(), kafkaPorts);
+        embeddedKafkaCluster = new EmbeddedKafkaBroker(embeddedZookeeper.getConnection(), new Properties(), kafkaPorts);
 
         embeddedZookeeper.startup(1, TimeUnit.SECONDS);
         System.out.println("### Embedded Zookeeper connection: " + embeddedZookeeper.getConnection());
@@ -102,14 +103,15 @@ public class KafkaConsumerIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("kafka:localhost:" + KAFKA_PORT + "?topic=" + TOPIC
-                        + "&groupId=group1&autoOffsetReset=earliest&keyDeserializer=org.apache.kafka.common.serialization.StringDeserializer&"
-                        + "valueDeserializer=org.apache.kafka.common.serialization.StringDeserializer"
-                        + "&autoCommitIntervalMs=1000&sessionTimeoutMs=30000&autoCommitEnable=true")
+                from("kafka:" + TOPIC + "?groupId=group1&autoOffsetReset=earliest&autoCommitEnable=true")
                 .to("mock:result");
             }
         });
 
+        KafkaComponent kafka = new KafkaComponent();
+        kafka.setBrokers("localhost:" + KAFKA_PORT);
+        camelctx.addComponent("kafka", kafka);
+        
         MockEndpoint to = camelctx.getEndpoint("mock:result", MockEndpoint.class);
         to.expectedBodiesReceivedInAnyOrder("message-0", "message-1", "message-2", "message-3", "message-4");
         to.expectedMessageCount(5);

@@ -7,6 +7,7 @@ aws-ddb
 aws-ddbstream
 aws-ec2
 aws-kinesis
+aws-kinesis-firehose
 aws-s3
 aws-sdb
 aws-ses
@@ -20,7 +21,7 @@ braintree
 browse
 class
 coap
-context (deprecated)
+context
 controlbus
 couchdb
 cql
@@ -75,6 +76,7 @@ mvel
 mybatis
 nats
 netty4
+olingo2
 optaplanner
 paho
 pdf
@@ -147,7 +149,41 @@ kubernetes
 websocket
 
 [undecided]
+azure-blob
+azure-queue
+bonita
+couchbase
+digitalocean
+drill
+elasticsearch5
+google-pubsub
+grpc
 http4s
+ignite-cache
+ignite-compute
+ignite-events
+ignite-idgen
+ignite-messaging
+ignite-queue
+ignite-set
+milo-client
+milo-server
+mongodb-gridfs
+mongodb3
+olingo4
+openstack-cinder
+openstack-glance
+openstack-keystone
+openstack-neutron
+openstack-nova
+openstack-swift
+pubnub
+reactive-streams
+rest-swagger
+sjms2
+tika
+zendesk
+zookeeper-master
 
 [rejected]
 apns
@@ -155,7 +191,7 @@ asterisk
 atmos
 atmosphere-websocket
 beanstalk
-cache (deprecated)
+cache
 chronicle-engine
 chunk
 cm-sms
@@ -172,41 +208,40 @@ ganglia
 geocoder
 gora
 grape
-gridfs
 guava-eventbus
 hazelcast
-hdfs (deprecated)
+hdfs
 hipchat
 http
 https
-ibatis (deprecated)
+ibatis
 ironmq
-javaspace (deprecated)
+javaspace
 jcr
 jetty
 jing
 jira
 jolt
 jt400
-kestrel (deprecated)
+kestrel
 krati
 lpr
 lumberjack
-mina (deprecated)
+mina
 msv
 mustache
 nagios
-netty (deprecated)
-netty-http (deprecated)
+netty
+netty-http
 netty4-http
-openshift (deprecated)
+openshift
 paxlogging
 pgevent
-quartz (deprecated)
+quartz
 quickfix
 restlet
 rmi
-routebox (deprecated)
+routebox
 sip
 sips
 slack

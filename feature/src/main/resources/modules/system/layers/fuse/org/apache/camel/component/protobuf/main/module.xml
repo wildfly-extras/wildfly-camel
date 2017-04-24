@@ -3,6 +3,7 @@
   <resources>
     <artifact name="${org.apache.camel:camel-protobuf}" />
     <artifact name="${com.google.protobuf:protobuf-java}" />
+    <artifact name="${com.google.protobuf:protobuf-java-util}" />
   </resources>
   <dependencies>
     <module name="sun.jdk">
@@ -10,8 +11,11 @@
         <include path="sun/misc/Unsafe" />
       </imports>
     </module>
+    <module name="com.google.code.gson" />
+    <module name="com.google.guava" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.io" />
   </dependencies>
   <exports>
     <exclude path="com/google" />

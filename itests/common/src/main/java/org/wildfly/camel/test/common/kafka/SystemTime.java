@@ -16,7 +16,7 @@
  */
 package org.wildfly.camel.test.common.kafka;
 
-import kafka.utils.Time;
+import org.apache.kafka.common.utils.Time;
 
 class SystemTime implements Time {
 

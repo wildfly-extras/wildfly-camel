@@ -35,7 +35,7 @@ import org.wildfly.camel.test.common.utils.TestUtils;
 import scala.Option;
 import scala.collection.mutable.Buffer;
 
-public class EmbeddedKafkaCluster {
+public class EmbeddedKafkaBroker {
     private final List<Integer> ports;
     private final String zkConnection;
     private final Properties baseProperties;
@@ -45,15 +45,15 @@ public class EmbeddedKafkaCluster {
     private final List<KafkaServer> brokers;
     private final List<File> logDirs;
 
-    public EmbeddedKafkaCluster(String zkConnection) {
+    public EmbeddedKafkaBroker(String zkConnection) {
         this(zkConnection, new Properties());
     }
 
-    public EmbeddedKafkaCluster(String zkConnection, Properties baseProperties) {
+    public EmbeddedKafkaBroker(String zkConnection, Properties baseProperties) {
         this(zkConnection, baseProperties, Collections.singletonList(-1));
     }
 
-    public EmbeddedKafkaCluster(String zkConnection, Properties baseProperties, List<Integer> ports) {
+    public EmbeddedKafkaBroker(String zkConnection, Properties baseProperties, List<Integer> ports) {
         this.zkConnection = zkConnection;
         this.ports = resolvePorts(ports);
         this.baseProperties = baseProperties;

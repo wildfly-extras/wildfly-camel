@@ -68,6 +68,10 @@
         <include artifact=":jackson-module-scala(.*)" />
     </module>
     
+    <module name="com.github.jai-imageio" skip="true">
+        <include artifact="com.github.jai-imageio:(.*)" />
+    </module>
+    
     <module name="com.github.jnr" skip="true">
         <include artifact="com.github.jnr:jnr-(.*)" />
         <include artifact="com.github.jnr:jffi" />
@@ -312,6 +316,10 @@
         <include artifact=":spring-ldap-ldif-batch" />
         <include artifact=":spring-ldap-ldif-core" />
         <include artifact=":spring-ldap-odm" />
+    </module>
+    
+    <module name="software.amazon.ion.ion-java" skip="true">
+        <include artifact="software.amazon.ion:ion-java" />
     </module>
     
 </modules>

@@ -7,7 +7,7 @@
 	^com/codahale(.*)
 	^com/github/kristofa/brave(.*)
     ^com/google/gson(.*)
-	^com/google/protobuf
+	^com/google/protobuf(.*)
 	^com/mongodb(.*)
     ^com/opengamma(.*)
     ^com/rabbitmq(.*)
@@ -16,6 +16,7 @@
 	^groovy(.*)
 	^io/nats(.*)
 	^io/swagger(.*)
+    ^io/undertow/client(.*)
 	^io/vertx/core(.*)
 	^javax/cache(.*)
 	^net/sf/saxon(.*)
@@ -25,6 +26,7 @@
 	^org/apache/activemq/camel(.*)
 	^org/apache/avro(.*)
 	^org/apache/camel(.*)
+	^org/apache/curator(.*)
 	^org/apache/cxf
 	^org/apache/cxf/binding(.*)
 	^org/apache/cxf/bus(.*)

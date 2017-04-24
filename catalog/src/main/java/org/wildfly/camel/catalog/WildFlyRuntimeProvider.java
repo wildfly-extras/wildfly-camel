@@ -16,12 +16,6 @@
  */
 package org.wildfly.camel.catalog;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.camel.catalog.CatalogHelper;
 import org.apache.camel.catalog.DefaultRuntimeProvider;
 import org.apache.camel.catalog.RuntimeProvider;
 
@@ -59,45 +53,17 @@ public class WildFlyRuntimeProvider extends DefaultRuntimeProvider {
     }
 
     @Override
-    public List<String> findComponentNames() {
-        List<String> names = new ArrayList<String>();
-        InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(COMPONENTS_CATALOG);
-        if (is != null) {
-            try {
-                CatalogHelper.loadLines(is, names);
-            } catch (IOException e) {
-                // ignore
-            }
-        }
-        return names;
+    protected String getComponentsCatalog() {
+        return COMPONENTS_CATALOG;
     }
 
     @Override
-    public List<String> findDataFormatNames() {
-        List<String> names = new ArrayList<String>();
-        InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(DATA_FORMATS_CATALOG);
-        if (is != null) {
-            try {
-                CatalogHelper.loadLines(is, names);
-            } catch (IOException e) {
-                // ignore
-            }
-        }
-        return names;
+    protected String getDataFormatsCatalog() {
+        return DATA_FORMATS_CATALOG;
     }
 
     @Override
-    public List<String> findLanguageNames() {
-        List<String> names = new ArrayList<String>();
-        InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(LANGUAGE_CATALOG);
-        if (is != null) {
-            try {
-                CatalogHelper.loadLines(is, names);
-            } catch (IOException e) {
-                // ignore
-            }
-        }
-        return names;
+    protected String getLanguageCatalog() {
+        return LANGUAGE_CATALOG;
     }
-
 }

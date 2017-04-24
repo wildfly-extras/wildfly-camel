@@ -43,24 +43,24 @@ import org.wildfly.extension.camel.EndpointRegistryClient;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class UndertowProducerIntegrationTest {
+public class UndertowLoadBalanceIntegrationTest {
 
     @ArquillianResource
     ManagementClient managementClient;
 
     @Deployment
     public static WebArchive createDeployment() {
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "undertow-producer.war");
+        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "undertow-load-balance.war");
         archive.addClasses(MyServlet.class);
         return archive;
     }
 
     @Test
-    public void testHttpProducer() throws Exception {
+    public void testUndertowLoadBalance() throws Exception {
 
         // Obtain the endpoint URL from the management model
         EndpointRegistryClient registryClient = new EndpointRegistryClient(managementClient.getControllerClient());
-        final String[] endpoints = wrapEndpoints(registryClient.getRegisteredEndpoints("/undertow-producer"));
+        final String[] endpoints = wrapEndpoints(registryClient.getRegisteredEndpoints("/undertow-load-balance"));
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {

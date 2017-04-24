@@ -54,6 +54,7 @@ public class InfinispanIntegrationTest {
 
     private CacheContainer cacheContainer;
     private WildFlyCamelContext camelctx;
+    private String cacheName;
 
     @Deployment
     public static JavaArchive deployment() {
@@ -64,6 +65,7 @@ public class InfinispanIntegrationTest {
     public void setUp() throws Exception {
         camelctx = new WildFlyCamelContext();
         cacheContainer = (CacheContainer) camelctx.getNamingContext().lookup(CONTAINER_NAME);
+        cacheName = cacheContainer.getCache().getName();
     }
 
     @Test
@@ -73,7 +75,7 @@ public class InfinispanIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:get")
-                .to("infinispan://localhost?cacheContainer=#" + CONTAINER_NAME + "&command=GET")
+                .to("infinispan://" + cacheName + "?cacheContainer=#" + CONTAINER_NAME + "&command=GET")
                 .transform(simple("${headers.CamelInfinispanOperationResult}"))
                 .to("mock:end");
             }
@@ -102,7 +104,7 @@ public class InfinispanIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:put")
-                .to("infinispan://localhost?cacheContainer=#" + CONTAINER_NAME + "&command=PUT");
+                .to("infinispan://" + cacheName + "?cacheContainer=#" + CONTAINER_NAME + "&command=PUT");
             }
         });
 
@@ -129,7 +131,7 @@ public class InfinispanIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:remove")
-                .to("infinispan://localhost?cacheContainer=#" + CONTAINER_NAME + "&command=REMOVE");
+                .to("infinispan://" + cacheName + "?cacheContainer=#" + CONTAINER_NAME + "&command=REMOVE");
             }
         });
 
@@ -157,7 +159,7 @@ public class InfinispanIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("infinispan://localhost?cacheContainer=#" + CONTAINER_NAME + "&sync=false&eventTypes=CACHE_ENTRY_CREATED")
+                from("infinispan://" + cacheName + "?cacheContainer=#" + CONTAINER_NAME + "&sync=false&eventTypes=CACHE_ENTRY_CREATED")
                 .to("mock:result");
             }
         });
@@ -198,7 +200,7 @@ public class InfinispanIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("infinispan://localhost?cacheContainer=#" + CONTAINER_NAME + "&sync=false&eventTypes=CACHE_ENTRY_REMOVED")
+                from("infinispan://" + cacheName + "?cacheContainer=#" + CONTAINER_NAME + "&sync=false&eventTypes=CACHE_ENTRY_REMOVED")
                 .to("mock:result");
             }
         });
@@ -235,7 +237,7 @@ public class InfinispanIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("infinispan://localhost?cacheContainer=#" + CONTAINER_NAME + "&sync=false&eventTypes=CACHE_ENTRY_MODIFIED")
+                from("infinispan://" + cacheName + "?cacheContainer=#" + CONTAINER_NAME + "&sync=false&eventTypes=CACHE_ENTRY_MODIFIED")
                 .to("mock:result");
             }
         });

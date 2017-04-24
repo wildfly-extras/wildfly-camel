@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="com.squareup.okhttp">
+<module xmlns="urn:jboss:module:1.1" name="com.squareup.okhttp3">
   <properties>
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${com.squareup.okhttp:okhttp}" />
+    <artifact name="${com.squareup.okhttp3:logging-interceptor}" />
+    <artifact name="${com.squareup.okhttp3:okhttp}" />
   </resources>
   <dependencies>
     <module name="javax.api" />

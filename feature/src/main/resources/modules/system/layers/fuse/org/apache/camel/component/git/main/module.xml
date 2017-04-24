@@ -9,7 +9,6 @@
     <module name="javax.api" />
     <module name="org.slf4j" />
     <module name="com.jcraft.jsch" />
-    <module name="javax.servlet.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.httpcomponents" slot="4.5.2" />

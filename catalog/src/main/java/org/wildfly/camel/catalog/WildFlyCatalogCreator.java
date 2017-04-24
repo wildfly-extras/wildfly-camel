@@ -129,8 +129,10 @@ public final class WildFlyCatalogCreator {
                     Path relpath = srcdir.relativize(path);
                     ObjectMapper mapper = new ObjectMapper();
                     JsonNode tree = mapper.readTree(path.toFile());
-                    String kind = tree.findValue("kind").textValue();
-                    String javaType = tree.findValue("javaType").textValue();
+                    JsonNode findNode = tree.findValue("kind");
+                    String kind = findNode != null ? findNode.textValue() : null;
+                    findNode = tree.findValue("javaType");
+                    String javaType = findNode != null ? findNode.textValue() : null;
                     boolean deprecated = Boolean.parseBoolean(tree.findValue("deprecated").textValue());
                     if (validKind(kind) && javaType != null) {
                         Item item = new Item(relpath, Kind.valueOf(kind), javaType, deprecated);

@@ -46,8 +46,12 @@
     <properties>
         
         <!-- Camel versions -->
-        <version.apache.camel>2.18.3</version.apache.camel>
-        <version.apache.activemq>5.14.3</version.apache.activemq>
+        <version.apache.camel>2.19.0</version.apache.camel>
+        <version.apache.activemq>5.14.5</version.apache.activemq>
+        <version.apache.lucene>5.5.2</version.apache.lucene>
+
+        <!-- [#1702] Upgrade to netty-4.1.9 -->
+        <version.io.netty>4.1.8.Final</version.io.netty> 
 
         <!-- WildFly versions -->
         <version.wildfly>10.1.0.Final</version.wildfly>
@@ -381,6 +385,68 @@
                 <version>${version.junit}</version>
             </dependency>
 
+            <!-- Lucene -->
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-analyzers-common</artifactId>
+                <version>${version.apache.lucene}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-backward-codecs</artifactId>
+                <version>${version.apache.lucene}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-core</artifactId>
+                <version>${version.apache.lucene}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-highlighter</artifactId>
+                <version>${version.apache.lucene}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-join</artifactId>
+                <version>${version.apache.lucene}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-memory</artifactId>
+                <version>${version.apache.lucene}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-misc</artifactId>
+                <version>${version.apache.lucene}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-queries</artifactId>
+                <version>${version.apache.lucene}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-queryparser</artifactId>
+                <version>${version.apache.lucene}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-sandbox</artifactId>
+                <version>${version.apache.lucene}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-spatial</artifactId>
+                <version>${version.apache.lucene}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-suggest</artifactId>
+                <version>${version.apache.lucene}</version>
+            </dependency>
+            
             <!-- Mongo Embedded -->
             <dependency>
                 <groupId>de.flapdoodle.embed</groupId>
@@ -388,6 +454,13 @@
                 <version>${version.flapdoodle.embed.mongo}</version>
             </dependency>
 
+            <!-- Netty -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${version.io.netty}</version>
+            </dependency>
+            
             <!-- OSGi -->
             <dependency>
                 <groupId>org.osgi</groupId>
@@ -494,7 +567,7 @@
                 <artifactId>xmlbeans</artifactId>
                 <version>${version.apache.xmlbeans}</version>
             </dependency>
-
+            
         </dependencies>
     </dependencyManagement>
 

@@ -13,7 +13,6 @@
     <module name="javax.api" />
     <module name="org.scala.library" />
     <module name="org.apache.kafka.clients" />
-    <module name="org.apache.log4j" />
     <module name="org.apache.zookeeper" />
     <module name="org.scala.modules" />
     <module name="org.slf4j" />

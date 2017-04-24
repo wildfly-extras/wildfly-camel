@@ -25,12 +25,36 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.amazonaws:" />
+        <apply-to-dependencies skip="true">
+            <include module="software.amazon.ion.ion-java" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="javax.xml.bind.api" />
             <module name="com.fasterxml.jackson.core.jackson-annotations" />
             <module name="com.fasterxml.jackson.core.jackson-core" />
         </dependencies>
+        <exports>
+            <exclude path="com/amazonaws/auth/internal" />
+            <exclude path="com/amazonaws/auth/policy/internal" />
+            <exclude path="com/amazonaws/auth/profile/internal**" />
+            <exclude path="com/amazonaws/internal**" />
+            <exclude path="com/amazonaws/metrics/internal**" />
+            <exclude path="com/amazonaws/protocol/json/internal" />
+            <exclude path="com/amazonaws/retry/internal" />
+            <exclude path="com/amazonaws/services/apigateway/internal" />
+            <exclude path="com/amazonaws/services/dynamodbv2/document/internal" />
+            <exclude path="com/amazonaws/services/glacier/internal" />
+            <exclude path="com/amazonaws/services/logs/internal" />
+            <exclude path="com/amazonaws/services/machinelearning/internal" />
+            <exclude path="com/amazonaws/services/route53/internal" />
+            <exclude path="com/amazonaws/services/s3/internal**" />
+            <exclude path="com/amazonaws/services/s3/transfer/internal" />
+            <exclude path="com/amazonaws/services/securitytoken/internal" />
+            <exclude path="com/amazonaws/services/simpledb/internal" />
+            <exclude path="com/amazonaws/services/sqs/internal" />
+            <exclude path="com/amazonaws/services/stepfunctions/builder/internal**" />
+        </exports>
     </module>
     
     <module name="com.codahale.metrics">
@@ -90,6 +114,13 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.google.code.gson:gson" />
+        <dependencies>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc/Unsafe" />
+                </imports>
+            </module>
+        </dependencies>
     </module>
 
     <module name="com.jcraft.jsch">
@@ -144,11 +175,22 @@
         </dependencies>
     </module>
 
-    <module name="com.squareup.okhttp">
+    <module name="com.squareup.moshi">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="com.squareup.okhttp:okhttp"/>
+        <include artifact="com.squareup.moshi:"/>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="com.squareup.okio"/>
+        </dependencies>
+    </module>
+
+    <module name="com.squareup.okhttp3">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.squareup.okhttp3:"/>
         <apply-to-dependencies skip="true">
             <include module="com.google.android"/>
         </apply-to-dependencies>
@@ -164,14 +206,14 @@
         <include artifact="com.squareup.okio:okio"/>
     </module>
 
-    <module name="com.squareup.retrofit">
+    <module name="com.squareup.retrofit2">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="com.squareup.retrofit:retrofit"/>
+        <include artifact="com.squareup.retrofit2:"/>
         <dependencies>
             <module name="com.squareup.okio"/>
-            <module name="com.squareup.okhttp"/>
+            <module name="com.squareup.okhttp3"/>
         </dependencies>
     </module>
 
@@ -554,6 +596,9 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.zookeeper:zookeeper" />
+        <include artifact="org.apache.curator:curator-client" />
+        <include artifact="org.apache.curator:curator-framework" />
+        <include artifact="org.apache.curator:curator-recipes" />
         <apply-to-dependencies skip="true">
             <include module="io.netty.parts" />
             <include module="jline" />
@@ -603,6 +648,7 @@
             <include module="org.osgi.compendium" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="javax.api" />
             <module name="com.thoughtworks.xstream" />
         </dependencies>
     </module>

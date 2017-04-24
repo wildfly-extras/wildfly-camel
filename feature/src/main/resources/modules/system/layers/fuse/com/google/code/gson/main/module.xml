@@ -6,5 +6,11 @@
   <resources>
     <artifact name="${com.google.code.gson:gson}" />
   </resources>
-  <dependencies />
+  <dependencies>
+    <module name="sun.jdk">
+      <imports>
+        <include path="sun/misc/Unsafe" />
+      </imports>
+    </module>
+  </dependencies>
 </module>

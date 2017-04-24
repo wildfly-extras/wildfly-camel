@@ -34,6 +34,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.kafka.KafkaComponent;
 import org.apache.camel.component.kafka.KafkaConstants;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -50,7 +51,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.kafka.EmbeddedKafkaCluster;
+import org.wildfly.camel.test.common.kafka.EmbeddedKafkaBroker;
 import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.camel.test.common.zookeeper.EmbeddedZookeeper;
 import org.wildfly.camel.test.kafka.subA.SimpleKafkaPartitioner;
@@ -66,12 +67,12 @@ public class KafkaProducerIntegrationTest {
     private static final int KAFKA_PORT = 9092;
 
     static EmbeddedZookeeper embeddedZookeeper;
-    static EmbeddedKafkaCluster embeddedKafkaCluster;
+    static EmbeddedKafkaBroker embeddedKafkaCluster;
 
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "kafka-producer-tests.jar");
-        archive.addPackage(EmbeddedKafkaCluster.class.getPackage());
+        archive.addPackage(EmbeddedKafkaBroker.class.getPackage());
         archive.addPackage(EmbeddedZookeeper.class.getPackage());
         archive.addClasses(SimpleKafkaSerializer.class, SimpleKafkaPartitioner.class, TestUtils.class);
         archive.setManifest(new Asset() {
@@ -89,7 +90,7 @@ public class KafkaProducerIntegrationTest {
     public static void before() throws Exception {
         embeddedZookeeper = new EmbeddedZookeeper();
         List<Integer> kafkaPorts = Collections.singletonList(KAFKA_PORT);
-        embeddedKafkaCluster = new EmbeddedKafkaCluster(embeddedZookeeper.getConnection(), new Properties(), kafkaPorts);
+        embeddedKafkaCluster = new EmbeddedKafkaBroker(embeddedZookeeper.getConnection(), new Properties(), kafkaPorts);
 
         embeddedZookeeper.startup(1, TimeUnit.SECONDS);
         System.out.println("### Embedded Zookeeper connection: " + embeddedZookeeper.getConnection());
@@ -115,7 +116,7 @@ public class KafkaProducerIntegrationTest {
     @Test
     public void producedStringMessageIsReceivedByKafka() throws Exception {
 
-        String epuri = "kafka:localhost:" + KAFKA_PORT + "?topic=" + TOPIC_STRINGS + "&requestRequiredAcks=-1";
+        String epuri = "kafka:" + TOPIC_STRINGS + "?requestRequiredAcks=-1";
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -125,6 +126,10 @@ public class KafkaProducerIntegrationTest {
             }
         });
 
+        KafkaComponent kafka = new KafkaComponent();
+        kafka.setBrokers("localhost:" + KAFKA_PORT);
+        camelctx.addComponent("kafka", kafka);
+        
         camelctx.start();
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
@@ -150,7 +155,7 @@ public class KafkaProducerIntegrationTest {
     public void testCustomKafkaSerializer() throws Exception {
 
         String serializer = "&serializerClass=" + SimpleKafkaSerializer.class.getName();
-        String epuri = "kafka:localhost:" + KAFKA_PORT + "?topic=" + TOPIC_STRINGS + "&requestRequiredAcks=-1" + serializer;
+        String epuri = "kafka:" + TOPIC_STRINGS + "?requestRequiredAcks=-1" + serializer;
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -160,6 +165,10 @@ public class KafkaProducerIntegrationTest {
             }
         });
 
+        KafkaComponent kafka = new KafkaComponent();
+        kafka.setBrokers("localhost:" + KAFKA_PORT);
+        camelctx.addComponent("kafka", kafka);
+        
         camelctx.start();
         try {
             Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
@@ -172,7 +181,7 @@ public class KafkaProducerIntegrationTest {
     public void testCustomKafkaPartitioner() throws Exception {
 
         String partitioner = "&partitioner=" + SimpleKafkaPartitioner.class.getName();
-        String epuri = "kafka:localhost:" + KAFKA_PORT + "?topic=" + TOPIC_STRINGS + "&requestRequiredAcks=-1" + partitioner;
+        String epuri = "kafka:" + TOPIC_STRINGS + "?requestRequiredAcks=-1" + partitioner;
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -182,6 +191,10 @@ public class KafkaProducerIntegrationTest {
             }
         });
 
+        KafkaComponent kafka = new KafkaComponent();
+        kafka.setBrokers("localhost:" + KAFKA_PORT);
+        camelctx.addComponent("kafka", kafka);
+        
         camelctx.start();
         try {
             Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
@@ -209,6 +222,7 @@ public class KafkaProducerIntegrationTest {
         }
     }
 
+    @SuppressWarnings("unused")
     private void consumeKafkaMessages(KafkaConsumer<String, String> consumerConn, String topic, String topicInHeader, CountDownLatch messagesLatch) {
         consumerConn.subscribe(Arrays.asList(topic, topicInHeader));
         boolean run = true;

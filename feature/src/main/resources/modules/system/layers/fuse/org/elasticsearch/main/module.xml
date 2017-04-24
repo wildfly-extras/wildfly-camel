@@ -27,6 +27,7 @@
     <module name="com.netflix.hystrix" />
     <module name="org.apache.lucene" slot="5.5" />
     <module name="org.joda.time" />
+    <module name="org.yaml.snakeyaml" />
   </dependencies>
   <exports>
     <exclude path="com/carrotsearch**" />
