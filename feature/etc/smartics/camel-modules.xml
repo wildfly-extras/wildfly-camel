@@ -1512,6 +1512,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
+            <module name="javax.jws.api" />
             <module name="javax.xml.ws.api"/>
             <module name="org.slf4j"/>
         </dependencies>

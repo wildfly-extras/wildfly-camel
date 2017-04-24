@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:Envelope xmlns:ns2="http://schemas.xmlsoap.org/soap/envelope/">
+    <ns2:Body>
+        <input>
+            <firstName>Kermit</firstName>
+            <lastName>The Frog</lastName>
+        </input>
+    </ns2:Body>
+</ns2:Envelope>
