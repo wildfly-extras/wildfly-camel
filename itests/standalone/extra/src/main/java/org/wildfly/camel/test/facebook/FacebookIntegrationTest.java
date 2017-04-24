@@ -19,7 +19,7 @@
  */
 package org.wildfly.camel.test.facebook;
 
-import facebook4j.Page;
+import facebook4j.PagableList;
 
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -38,10 +38,8 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 public class FacebookIntegrationTest {
 
-    private static final String REDHAT_PAGE_ID = "112169325462421";
     private static String FACEBOOK_APP_ID = System.getenv("FACEBOOK_APP_ID");
     private static String FACEBOOK_APP_SECRET = System.getenv("FACEBOOK_APP_SECRET");
-    private static String FACEBOOK_ACCESS_TOKEN = System.getenv("FACEBOOK_ACCESS_TOKEN");
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -50,25 +48,23 @@ public class FacebookIntegrationTest {
 
     @Test
     public void testFacebookComponent() throws Exception {
-        Assume.assumeNotNull("Facebook credentials are null", FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, FACEBOOK_ACCESS_TOKEN);
+        Assume.assumeNotNull("Facebook credentials are null", FACEBOOK_APP_ID, FACEBOOK_APP_SECRET);
 
         DefaultCamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .toF("facebook://getPage?oAuthAppId=%s&oAuthAppSecret=%s&oAuthAccessToken=%s&pageId=%s", FACEBOOK_APP_ID,
-                    FACEBOOK_APP_SECRET, FACEBOOK_ACCESS_TOKEN, REDHAT_PAGE_ID);
+                .toF("facebook://getTestUsers?oAuthAppId=%s&oAuthAppSecret=%s&appId=%s", FACEBOOK_APP_ID,
+                    FACEBOOK_APP_SECRET, FACEBOOK_APP_ID);
             }
         });
 
         camelctx.start();
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
-            Page page = template.requestBody("direct:start", (Object)null, Page.class);
-
-            Assert.assertNotNull("RedHat Facebook page response is null", page);
-            Assert.assertEquals("Red Hat", page.getName());
+            PagableList testUserList = template.requestBody("direct:start", (Object)null, PagableList.class);
+            Assert.assertNotNull("Facebook app test user list was null", testUserList);
         } finally {
             camelctx.stop();
         }
