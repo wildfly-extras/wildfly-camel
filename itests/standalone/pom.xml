@@ -229,6 +229,16 @@
                 <module>smoke</module>
                 <module>basic</module>
                 <module>extra</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>docker</id>
+            <activation>
+                <property>
+                    <name>docker</name>
+                </property>
+            </activation>
+            <modules>
                 <module>docker</module>
             </modules>
         </profile>

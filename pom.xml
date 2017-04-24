@@ -94,7 +94,7 @@
         <version-apache-scr-plugin>1.21.0</version-apache-scr-plugin>
         <version-asciidoctor-maven-plugin>1.5.3</version-asciidoctor-maven-plugin>
         <version-build-helper-plugin>1.9.1</version-build-helper-plugin>
-        <version-docker-maven-plugin>0.18.1</version-docker-maven-plugin>
+        <version-docker-maven-plugin>0.20.1</version-docker-maven-plugin>
         <version-exec-maven-plugin>1.4.0</version-exec-maven-plugin>
         <version-groovy-maven-plugin>2.0</version-groovy-maven-plugin>
         <version-license-maven-plugin>1.8</version-license-maven-plugin>
