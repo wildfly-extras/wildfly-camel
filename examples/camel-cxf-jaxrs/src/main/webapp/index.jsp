@@ -26,7 +26,7 @@
 <div class="container">
     <div class="page-header">
         <h1>Send A Greeting</h1>
-        <form action="/example-camel-cxf/cxf" method="post">
+        <form action="/example-camel-cxfrs/cxf/" method="post">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" name="name"/>

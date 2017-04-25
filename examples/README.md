@@ -16,3 +16,9 @@ can be accessed by changing into the example source directory, building the proj
 to a running application server `mvn install -Pdeploy`.
 
 Examples can be undeployed from a running application server by running `mvn clean -Pdeploy`.
+
+### Reporting Issues
+
+Please report any issues via the WildFly-Camel project issue tracker:
+
+https://github.com/wildfly-extras/wildfly-camel/issues
