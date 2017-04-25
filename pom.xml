@@ -816,6 +816,7 @@
                 <module>archetypes</module>
                 <module>docs</module>
                 <module>patch</module>
+                <module>examples</module>
             </modules>
         </profile>
     </profiles>

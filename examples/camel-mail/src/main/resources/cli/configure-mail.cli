@@ -1,0 +1,12 @@
+batch
+
+# Configure SMTP / POP3 socket bindings
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-smtp:add(host=localhost, port=10025)
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-pop3:add(host=localhost, port=10110)
+/subsystem=mail/mail-session=greenmail:add(jndi-name="java:jboss/mail/greenmail")
+
+# Configure mail sessions
+/subsystem=mail/mail-session=greenmail/server=smtp:add(outbound-socket-binding-ref=mail-greenmail-smtp, username=user1, password=password)
+/subsystem=mail/mail-session=greenmail/server=pop3:add(outbound-socket-binding-ref=mail-greenmail-pop3, username=user2, password=password2)
+
+run-batch
