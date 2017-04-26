@@ -30,18 +30,10 @@ import org.wildfly.extras.config.LayerConfig;
 
 public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
 
-    public static final Namespace NS_DOMAIN_40 = Namespace.getNamespace("urn:jboss:domain:4.0");
-    public static final Namespace NS_DOMAIN_41 = Namespace.getNamespace("urn:jboss:domain:4.1");
-    public static final Namespace NS_DOMAIN_42 = Namespace.getNamespace("urn:jboss:domain:4.2");
-
-    public static final Namespace[] NS_DOMAINS = { 
-            NS_DOMAIN_42, 
-            NS_DOMAIN_41, 
-            NS_DOMAIN_40 };
+    public static final Namespace NS_DOMAIN = Namespace.getNamespace("urn:jboss:domain:4.2");
+    public static final Namespace NS_SECURITY = Namespace.getNamespace("urn:jboss:domain:security:1.2");
 
     public static final Namespace NS_CAMEL = Namespace.getNamespace("urn:jboss:domain:camel:1.0");
-    public static final Namespace NS_LOGGING = Namespace.getNamespace("urn:jboss:domain:logging:3.0");
-    public static final Namespace NS_SECURITY = Namespace.getNamespace("urn:jboss:domain:security:1.2");
 
     @Override
     public String getConfigName() {
@@ -66,11 +58,11 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
     }
 
     private static void updateExtension(ConfigContext context, boolean enable) {
-        Element extensions = ConfigSupport.findChildElement(context.getDocument().getRootElement(), "extensions", NS_DOMAINS);
+        Element extensions = ConfigSupport.findChildElement(context.getDocument().getRootElement(), "extensions", NS_DOMAIN);
         ConfigSupport.assertExists(extensions, "Did not find the <extensions> element");
         Namespace namespace = extensions.getNamespace();
 
-        Element element = ConfigSupport.findElementWithAttributeValue(extensions, "extension", "module", "org.wildfly.extension.camel", NS_DOMAINS);
+        Element element = ConfigSupport.findElementWithAttributeValue(extensions, "extension", "module", "org.wildfly.extension.camel", NS_DOMAIN);
         if (enable && element == null) {
             extensions.addContent(new Text("    "));
             extensions.addContent(new Element("extension", namespace).setAttribute("module", "org.wildfly.extension.camel"));
@@ -84,11 +76,11 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
     @SuppressWarnings("unchecked")
     private static void updateSystemProperties(ConfigContext context, boolean enable) {
         Element rootElement = context.getDocument().getRootElement();
-        Element extensions = ConfigSupport.findChildElement(rootElement, "extensions", NS_DOMAINS);
+        Element extensions = ConfigSupport.findChildElement(rootElement, "extensions", NS_DOMAIN);
         ConfigSupport.assertExists(extensions, "Did not find the <extensions> element");
         Namespace namespace = extensions.getNamespace();
 
-        Element element = ConfigSupport.findChildElement(rootElement, "system-properties", NS_DOMAINS);
+        Element element = ConfigSupport.findChildElement(rootElement, "system-properties", NS_DOMAIN);
         if (element == null) {
             element = new Element("system-properties", namespace);
             element.addContent(new Text("\n    "));
@@ -112,7 +104,7 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
     }
 
     private static void updateSubsystem(ConfigContext context, boolean enable) {
-        List<Element> profiles = ConfigSupport.findProfileElements(context.getDocument(), NS_DOMAINS);
+        List<Element> profiles = ConfigSupport.findProfileElements(context.getDocument(), new Namespace[] { NS_DOMAIN });
         for (Element profile : profiles) {
             Element element = profile.getChild("subsystem", NS_CAMEL);
             if (enable && element == null) {
@@ -128,7 +120,7 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
     }
 
     private static void updateSecurityDomain(ConfigContext context, boolean enable) {
-        List<Element> profiles = ConfigSupport.findProfileElements(context.getDocument(), NS_DOMAINS);
+        List<Element> profiles = ConfigSupport.findProfileElements(context.getDocument(), new Namespace[] { NS_DOMAIN });
         for (Element profile : profiles) {
             Element security = profile.getChild("subsystem", NS_SECURITY);
             if (security != null) {

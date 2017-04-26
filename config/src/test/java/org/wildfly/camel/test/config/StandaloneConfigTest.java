@@ -16,7 +16,7 @@
 package org.wildfly.camel.test.config;
 
 import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_CAMEL;
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAINS;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAIN;
 import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_SECURITY;
 
 import java.net.URL;
@@ -49,17 +49,17 @@ public class StandaloneConfigTest {
         plugin.applyStandaloneConfigChange(context, true);
 
         // Verify extension
-        Element element = ConfigSupport.findElementWithAttributeValue(doc.getRootElement(), "extension", "module", "org.wildfly.extension.camel", NS_DOMAINS);
+        Element element = ConfigSupport.findElementWithAttributeValue(doc.getRootElement(), "extension", "module", "org.wildfly.extension.camel", NS_DOMAIN);
         Assert.assertNotNull("Extension not null", element);
 
         // Verify system-properties
-        element = ConfigSupport.findChildElement(doc.getRootElement(), "system-properties", NS_DOMAINS);
+        element = ConfigSupport.findChildElement(doc.getRootElement(), "system-properties", NS_DOMAIN);
         Assert.assertNotNull("system-properties not null", element);
-        element = ConfigSupport.findElementWithAttributeValue(element, "property", "name", "hawtio.realm", NS_DOMAINS);
+        element = ConfigSupport.findElementWithAttributeValue(element, "property", "name", "hawtio.realm", NS_DOMAIN);
         Assert.assertNotNull("property not null", element);
 
         // Verify camel
-        List<Element> profiles = ConfigSupport.findProfileElements(doc, NS_DOMAINS);
+        List<Element> profiles = ConfigSupport.findProfileElements(doc, NS_DOMAIN);
         Assert.assertEquals("One profile", 1, profiles.size());
         element = profiles.get(0).getChild("subsystem", NS_CAMEL);
         Assert.assertNotNull("camel not null", element);
