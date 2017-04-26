@@ -31,16 +31,11 @@ import org.wildfly.extras.config.LayerConfig;
 public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
 
     public static final Namespace NS_DOMAIN_40 = Namespace.getNamespace("urn:jboss:domain:4.0");
-    public static final Namespace NS_DOMAIN_41 = Namespace.getNamespace("urn:jboss:domain:4.1");
     public static final Namespace NS_DOMAIN_42 = Namespace.getNamespace("urn:jboss:domain:4.2");
 
-    public static final Namespace[] NS_DOMAINS = { 
-            NS_DOMAIN_42, 
-            NS_DOMAIN_41, 
-            NS_DOMAIN_40 };
+    public static final Namespace[] NS_DOMAINS = { NS_DOMAIN_42, NS_DOMAIN_40 };
 
     public static final Namespace NS_CAMEL = Namespace.getNamespace("urn:jboss:domain:camel:1.0");
-    public static final Namespace NS_LOGGING = Namespace.getNamespace("urn:jboss:domain:logging:3.0");
     public static final Namespace NS_SECURITY = Namespace.getNamespace("urn:jboss:domain:security:1.2");
 
     @Override
