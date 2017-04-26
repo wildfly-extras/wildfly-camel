@@ -35,7 +35,7 @@
 
     <!-- Properties -->
     <properties>
-        <server.config>standalone-extra.xml</server.config>
+        <server.config>standalone.xml</server.config>
     </properties>
     
     <!-- Dependencies -->
@@ -109,22 +109,6 @@
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>arquillian.xml</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>false</filtering>
-                <excludes>
-                    <exclude>arquillian.xml</exclude>
-                </excludes>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.wildfly.build</groupId>
@@ -145,7 +129,7 @@
                             <goal>xmlbeans</goal>
                         </goals>
                         <configuration>
-                            <schemaDirectory>src/main/resources/xmlbeans/xsd</schemaDirectory>
+                            <schemaDirectory>src/test/resources/xmlbeans/xsd</schemaDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -156,7 +140,7 @@
                 <executions>
                     <execution>
                         <id>copy-server-config</id>
-                        <phase>generate-resources</phase>
+                        <phase>generate-test-resources</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
@@ -165,7 +149,7 @@
                             <overwrite>true</overwrite>
                             <resources>
                                 <resource>
-                                    <directory>src/main/resources/configuration</directory>
+                                    <directory>src/test/resources/configuration</directory>
                                 </resource>
                             </resources>
                         </configuration>
@@ -184,6 +168,39 @@
                         <org.jboss.remoting-jmx.timeout>300</org.jboss.remoting-jmx.timeout>
                     </systemPropertyVariables>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <replace file="${jboss.home}/standalone/configuration/standalone.xml">
+                                <replacetoken><![CDATA[</security-domains>]]></replacetoken>
+                                <replacevalue><![CDATA[
+                                <security-domain name="user-domain" cache-type="default">
+                                    <authentication>
+                                        <login-module code="UsersRoles" flag="required">
+                                            <module-option name="usersProperties" value="${jboss.server.config.dir}/application-users2.properties"/>
+                                            <module-option name="rolesProperties" value="${jboss.server.config.dir}/application-roles2.properties"/>
+                                        </login-module>
+                                    </authentication>
+                                </security-domain>
+                                </security-domains>]]></replacevalue>
+                                </replace>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

@@ -63,22 +63,6 @@
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>arquillian.xml</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>false</filtering>
-                <excludes>
-                    <exclude>arquillian.xml</exclude>
-                </excludes>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.wildfly.build</groupId>
@@ -93,7 +77,7 @@
                 <artifactId>groovy-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>process-resources</phase>
+                        <phase>process-test-resources</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
@@ -109,7 +93,7 @@
                         boolean dockerAvailable = System.getenv("DOCKER_HOST") != null || Files.exists(Paths.get("/var/run/docker.sock"))
                         if (dockerAvailable) {
                             def images = []
-                            def cubeSpec = new File(project.basedir.path + "/src/main/resources/arquillian.xml").text
+                            def cubeSpec = new File(project.basedir.path + "/src/test/resources/arquillian.xml").text
                             Matcher matcher = cubeSpec =~ /.*image: (.*)/
                             while (matcher.find()) {
                                 images.add(matcher.group(1))

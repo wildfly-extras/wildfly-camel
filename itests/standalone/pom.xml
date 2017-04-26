@@ -76,22 +76,22 @@
     </dependencies>
     
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
                 <filtering>true</filtering>
                 <includes>
                     <include>arquillian.xml</include>
                 </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
                 <filtering>false</filtering>
                 <excludes>
                     <exclude>arquillian.xml</exclude>
                 </excludes>
-            </resource>
-        </resources>
+            </testResource>
+        </testResources>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -100,12 +100,12 @@
                     <executions>
                         <execution>
                             <id>server-provisioning</id>
-                            <phase>generate-resources</phase>
+                            <phase>generate-test-resources</phase>
                             <goals>
                                 <goal>build</goal>
                             </goals>
                             <configuration>
-                                <config-file>src/main/resources/server-provisioning.xml</config-file>
+                                <config-file>src/test/resources/server-provisioning.xml</config-file>
                                 <server-name>wildfly-${version.wildfly}</server-name>
                             </configuration>
                         </execution>
@@ -117,7 +117,7 @@
                     <executions>
                         <execution>
                             <id>run-fuseconfig</id>
-                            <phase>generate-resources</phase>
+                            <phase>generate-test-resources</phase>
                             <goals>
                                 <goal>exec</goal>
                             </goals>
@@ -145,8 +145,6 @@
                         <jboss.home>${jboss.home}</jboss.home>
                         <derby.stream.error.file>${project.build.directory}/derby.log</derby.stream.error.file>
                     </systemPropertyVariables>
-                    <testSourceDirectory>${basedir}/src/main/java/</testSourceDirectory>
-                    <testClassesDirectory>${project.build.directory}/classes/</testClassesDirectory>
                     <redirectTestOutputToFile>false</redirectTestOutputToFile>
                 </configuration>
             </plugin>

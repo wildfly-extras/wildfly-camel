@@ -61,7 +61,7 @@ public class ExportedPathsTest {
 
     private static final String FILE_BASEDIR = "basedir.txt";
     private static final String FILE_EXPORTED_PATH_PATTERNS = "exported-path-patterns.txt";
-    private static final String BASELINE_EXPORTED_PATHS_TXT = "src/main/resources/classloading/exported-paths.txt";
+    private static final String BASELINE_EXPORTED_PATHS_TXT = "src/test/resources/classloading/exported-paths.txt";
     private static final Path FILE_EXPORTED_PATHS = Paths.get(System.getProperty("exportedPathsTxt", BASELINE_EXPORTED_PATHS_TXT));
     private static final Path FILE_MODULE_INFOS = Paths.get("target/module-infos.txt");
 
