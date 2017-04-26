@@ -425,8 +425,11 @@
                     <include path="org/apache/cxf/binding/**" />
                     <include path="org/apache/cxf/bus**" />
                     <include path="org/apache/cxf/headers" />
+                    <include path="org/apache/cxf/helpers" />
                     <include path="org/apache/cxf/interceptor**" />
+                    <include path="org/apache/cxf/io" />
                     <include path="org/apache/cxf/message" />
+                    <include path="org/apache/cxf/phase" />
                     <include path="org/apache/cxf/sts" />
                     <include path="org/apache/cxf/transport/http**" />
                     <include path="org/apache/cxf/ws/discovery" />

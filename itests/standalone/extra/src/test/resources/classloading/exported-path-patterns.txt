@@ -29,8 +29,11 @@
 	^org/apache/cxf/binding(.*)
 	^org/apache/cxf/bus(.*)
 	^org/apache/cxf/headers(.*)
+    ^org/apache/cxf/helpers(.*)
 	^org/apache/cxf/interceptor(.*)
+    ^org/apache/cxf/io(.*)
 	^org/apache/cxf/message(.*)
+    ^org/apache/cxf/phase(.*)
 	^org/apache/cxf/sts(.*)
 	^org/apache/cxf/transport
 	^org/apache/cxf/transport/http(.*)
