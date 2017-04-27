@@ -41,7 +41,7 @@
         <docker.image.from>jboss/wildfly:${version.wildfly}</docker.image.from>
 
         <!-- S2I image properties -->
-        <docker.image.s2i.from>openshift/wildfly-101-centos7</docker.image.s2i.from>
+        <docker.image.s2i.from>openshift/wildfly-101-centos7:latest</docker.image.s2i.from>
         <docker.image.s2i.name>wildflyext/s2i-wildfly-camel</docker.image.s2i.name>
 
         <docker.image.maintainer>Thomas Diesler tdiesler@redhat.com</docker.image.maintainer>
@@ -97,6 +97,7 @@
                             <goal>build</goal>
                         </goals>
                         <configuration>
+                            <autoPull>always</autoPull>
                             <images>
                                 <image>
                                     <name>${docker.image.name}</name>

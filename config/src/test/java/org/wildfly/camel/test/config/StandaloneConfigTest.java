@@ -16,60 +16,139 @@
 package org.wildfly.camel.test.config;
 
 import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_CAMEL;
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAINS;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAIN;
 import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_SECURITY;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin;
 import org.wildfly.extras.config.ConfigContext;
+import org.wildfly.extras.config.ConfigException;
 import org.wildfly.extras.config.ConfigPlugin;
 import org.wildfly.extras.config.ConfigSupport;
 
-public class StandaloneConfigTest {
+public class StandaloneConfigTest extends ConfigTestSupport {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void testStandaloneConfig() throws Exception {
-
         URL resurl = StandaloneConfigTest.class.getResource("/standalone.xml");
         SAXBuilder jdom = new SAXBuilder();
         Document doc = jdom.build(resurl);
 
-        ConfigContext context = ConfigSupport.createContext(null, Paths.get(resurl.toURI()), doc);
         ConfigPlugin plugin = new WildFlyCamelConfigPlugin();
+        ConfigContext context = ConfigSupport.createContext(null, Paths.get(resurl.toURI()), doc);
         plugin.applyStandaloneConfigChange(context, true);
 
         // Verify extension
-        Element element = ConfigSupport.findElementWithAttributeValue(doc.getRootElement(), "extension", "module", "org.wildfly.extension.camel", NS_DOMAINS);
-        Assert.assertNotNull("Extension not null", element);
+        assertElementWithAttributeValueNotNull(doc.getRootElement(), "extension", "module", "org.wildfly.extension.camel", NS_DOMAIN);
 
         // Verify system-properties
-        element = ConfigSupport.findChildElement(doc.getRootElement(), "system-properties", NS_DOMAINS);
+        Element element = ConfigSupport.findChildElement(doc.getRootElement(), "system-properties", NS_DOMAIN);
         Assert.assertNotNull("system-properties not null", element);
-        element = ConfigSupport.findElementWithAttributeValue(element, "property", "name", "hawtio.realm", NS_DOMAINS);
-        Assert.assertNotNull("property not null", element);
+        assertElementWithAttributeValueNotNull(element, "property", "name", "hawtio.realm", NS_DOMAIN);
 
         // Verify camel
-        List<Element> profiles = ConfigSupport.findProfileElements(doc, NS_DOMAINS);
+        List<Element> profiles = ConfigSupport.findProfileElements(doc, new Namespace[] { NS_DOMAIN });
         Assert.assertEquals("One profile", 1, profiles.size());
-        element = profiles.get(0).getChild("subsystem", NS_CAMEL);
-        Assert.assertNotNull("camel not null", element);
+        assertElementNotNull(profiles.get(0), "subsystem", NS_CAMEL);
 
         // Verify hawtio-domain
-        element = ConfigSupport.findElementWithAttributeValue(doc.getRootElement(), "security-domain", "name", "hawtio-domain", NS_SECURITY);
-        Assert.assertNotNull("hawtio-domain not null", element);
+        assertElementWithAttributeValueNotNull(doc.getRootElement(), "security-domain", "name", "hawtio-domain", NS_SECURITY);
 
-        XMLOutputter output = new XMLOutputter();
-        output.setFormat(Format.getRawFormat());
-        //System.out.println(output.outputString(doc));
+        //outputDocumentContent(doc, System.out);
+    }
+
+    @Test
+    public void testUnsupportedNamespaceVersion() throws Exception {
+        URL resurl = StandaloneConfigTest.class.getResource("/standalone.xml");
+        SAXBuilder jdom = new SAXBuilder();
+        Document doc = jdom.build(resurl);
+
+        doc.getRootElement().getChild("extensions", NS_DOMAIN).setNamespace(Namespace.getNamespace("urn:jboss:domain:99.99"));
+
+        File modifiedConfig = new File("target/standalone-modified.xml");
+        outputDocumentContent(doc, new FileOutputStream(modifiedConfig));
+
+        jdom = new SAXBuilder();
+        doc = jdom.build(modifiedConfig);
+
+        ConfigContext context = ConfigSupport.createContext(null, modifiedConfig.toPath(), doc);
+        ConfigPlugin plugin = new WildFlyCamelConfigPlugin();
+
+        expectedException.expect(ConfigException.class);
+
+        plugin.applyStandaloneConfigChange(context, true);
+    }
+
+    @Test
+    public void testApplyConfigMultipleTimes() throws Exception {
+        URL resurl = StandaloneConfigTest.class.getResource("/standalone.xml");
+        SAXBuilder jdom = new SAXBuilder();
+        Document doc = jdom.build(resurl);
+
+        ConfigPlugin plugin = new WildFlyCamelConfigPlugin();
+
+        ConfigContext context = ConfigSupport.createContext(null, Paths.get(resurl.toURI()), doc);
+
+        for (int i = 0; i < 5; i++) {
+            plugin.applyStandaloneConfigChange(context, true);
+        }
+
+        Assert.assertEquals(1, getElementCount(doc, "extension", null, new Attribute("module", "org.wildfly.extension.camel")));
+        Assert.assertEquals(1, getElementCount(doc, "system-properties", null, null));
+        Assert.assertEquals(1, getElementCount(doc, "security-domain", null, new Attribute("name", "hawtio-domain")));
+        Assert.assertEquals(1, getElementCount(doc, "subsystem", NS_CAMEL, null));
+    }
+
+    @Test
+    public void testRemoveConfig() throws Exception {
+        URL resurl = StandaloneConfigTest.class.getResource("/standalone.xml");
+        SAXBuilder jdom = new SAXBuilder();
+        Document doc = jdom.build(resurl);
+
+        File modifiedConfig = new File("target/standalone-modified.xml");
+        outputDocumentContent(doc, new FileOutputStream(modifiedConfig));
+
+        jdom = new SAXBuilder();
+        doc = jdom.build(modifiedConfig);
+
+        ConfigPlugin plugin = new WildFlyCamelConfigPlugin();
+
+        ConfigContext context = ConfigSupport.createContext(null, Paths.get(resurl.toURI()), doc);
+        plugin.applyStandaloneConfigChange(context, false);
+
+        // Verify extension removed
+        assertElementWithAttributeValueNull(doc.getRootElement(), "extension", "module", "org.wildfly.extension.camel", NS_DOMAIN);
+
+        // Verify system-properties removed
+        Element element = ConfigSupport.findChildElement(doc.getRootElement(), "system-properties", NS_DOMAIN);
+        Assert.assertNotNull("system-properties not null", element);
+        assertElementWithAttributeValueNull(element, "property", "name", "hawtio.realm", NS_DOMAIN);
+        assertElementWithAttributeValueNull(element, "property", "name", "hawtio.offline", NS_DOMAIN);
+        assertElementWithAttributeValueNull(element, "property", "name", "hawtio.authenticationEnabled", NS_DOMAIN);
+
+        List<Element> profiles = ConfigSupport.findProfileElements(doc, new Namespace[] { NS_DOMAIN });
+
+        // Verify camel removed
+        assertElementNull(profiles.get(0), "subsystem", NS_CAMEL);
+
+        // Verify hawtio-domain removed
+        assertElementWithAttributeValueNull(doc.getRootElement(), "security-domain", "name", "hawtio-domain", NS_SECURITY);
     }
 }
