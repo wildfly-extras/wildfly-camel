@@ -184,8 +184,8 @@
                         </goals>
                         <configuration>
                             <target>
-                                <replace file="${jboss.home}/standalone/configuration/standalone.xml">
-                                <replacetoken><![CDATA[</security-domains>]]></replacetoken>
+                                <replace file="${jboss.home}/standalone/configuration/${server.config}">
+                                <replacetoken><![CDATA[<security-domain name="hawtio-domain"]]></replacetoken>
                                 <replacevalue><![CDATA[
                                 <security-domain name="user-domain" cache-type="default">
                                     <authentication>
@@ -195,7 +195,7 @@
                                         </login-module>
                                     </authentication>
                                 </security-domain>
-                                </security-domains>]]></replacevalue>
+                                <security-domain name="hawtio-domain"]]></replacevalue>
                                 </replace>
                             </target>
                         </configuration>

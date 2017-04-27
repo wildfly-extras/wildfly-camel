@@ -11,16 +11,16 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Assume;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.aws.subA.BasicCredentialsProvider;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.WildFlyCamelContext;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
@@ -31,18 +31,40 @@ public class S3IntegrationTest {
     static final String BUCKET_NAME = "wfc-aws-s3-bucket";
     static final String OBJECT_KEY = "content.txt";
 
+    private AmazonS3 client;
+    
     @Deployment
     public static JavaArchive deployment() {
-        return ShrinkWrap.create(JavaArchive.class, "aws-s3-tests");
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "aws-s3-tests");
+        archive.addClasses(BasicCredentialsProvider.class);
+        return archive;
     }
 
-    @Test
-    public void testBucketOperations() throws Exception {
-
+    @Before
+    public void before() throws Exception {
+        
         String accessId = System.getenv("AWSAccessId");
         String secretKey = System.getenv("AWSSecretKey");
         Assume.assumeNotNull("AWSAccessId not null", accessId);
         Assume.assumeNotNull("AWSSecretKey not null", secretKey);
+        
+        client = AmazonS3ClientBuilder.standard()
+                .withCredentials(new BasicCredentialsProvider(accessId, secretKey))
+                .withRegion("eu-west-1")
+                .build();
+
+        client.createBucket(BUCKET_NAME);
+    }
+    
+    @After
+    public void after() throws Exception {
+        client.deleteBucket(BUCKET_NAME);
+    }
+    
+    @Test
+    public void testBucketOperations() throws Exception {
+
+        Assume.assumeNotNull("AWS client not null", client);
         
         WildFlyCamelContext camelctx = new WildFlyCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -53,15 +75,8 @@ public class S3IntegrationTest {
                 from("aws-s3://" + BUCKET_NAME + "?" + clientref).to("seda:read");
             }
         });
-
-        AmazonS3 client = AmazonS3ClientBuilder.standard()
-                .withCredentials(new BasicCredentialsProvider(accessId, secretKey))
-                .withRegion("eu-west-1")
-                .build();
-
         camelctx.getNamingContext().bind("s3Client", client);
         
-        client.createBucket(BUCKET_NAME);
         try {
             camelctx.start();
             try {
@@ -83,27 +98,6 @@ public class S3IntegrationTest {
             }
         } finally {
             client.deleteObject(BUCKET_NAME, OBJECT_KEY);
-            client.deleteBucket(BUCKET_NAME);
-        }
-    }
-
-    static class BasicCredentialsProvider implements AWSCredentialsProvider {
-
-        final String accessId;
-        final String secretKey;
-
-        BasicCredentialsProvider(String accessId, String secretKey) {
-            this.accessId = accessId;
-            this.secretKey = secretKey;
-        }
-
-        @Override
-        public AWSCredentials getCredentials() {
-            return new BasicAWSCredentials(accessId, secretKey);
-        }
-
-        @Override
-        public void refresh() {
         }
     }
 }
