@@ -19,8 +19,8 @@ import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.aws.subA.BasicCredentialsProvider;
-import org.wildfly.camel.test.aws.subA.S3ClientProducer;
-import org.wildfly.camel.test.aws.subA.S3ClientProducer.AWSClientProvider;
+import org.wildfly.camel.test.aws.subA.AmazonS3Utils;
+import org.wildfly.camel.test.aws.subA.AmazonS3Utils.AWSClientProvider;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.WildFlyCamelContext;
 
@@ -39,7 +39,7 @@ public class S3IntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "aws-s3-tests.jar");
-        archive.addClasses(S3ClientProducer.class, BasicCredentialsProvider.class);
+        archive.addClasses(AmazonS3Utils.class, BasicCredentialsProvider.class);
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }

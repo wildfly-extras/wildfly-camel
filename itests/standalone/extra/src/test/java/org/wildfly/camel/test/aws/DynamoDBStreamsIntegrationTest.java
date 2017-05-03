@@ -1,11 +1,11 @@
 package org.wildfly.camel.test.aws;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.PollingConsumer;
 import org.apache.camel.builder.RouteBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -14,85 +14,63 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Assume;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.aws.subA.AmazonDynamoDBUtils;
 import org.wildfly.camel.test.aws.subA.AmazonDynamoDBUtils.DynamoDBClientProvider;
+import org.wildfly.camel.test.aws.subA.AmazonDynamoDBUtils.DynamoDBStreamsClientProvider;
 import org.wildfly.camel.test.aws.subA.BasicCredentialsProvider;
-import org.wildfly.camel.test.aws.subA.CatalogItem;
-import org.wildfly.camel.test.aws.subA.TableNameProvider;
+import org.wildfly.camel.test.aws.subA.TableNameStreamsProvider;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.WildFlyCamelContext;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.Record;
+import com.amazonaws.services.dynamodbv2.model.StreamRecord;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class DynamoDBIntegrationTest {
+public class DynamoDBStreamsIntegrationTest {
 
     @Inject
     private String tableName;
 
     @Inject
-    private DynamoDBClientProvider provider;
+    private DynamoDBClientProvider ddbProvider;
+    
+    @Inject
+    private DynamoDBStreamsClientProvider dbsProvider;
     
     @Deployment
     public static JavaArchive deployment() {
-        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "aws-ddb-tests.jar");
-        archive.addClasses(AmazonDynamoDBUtils.class, BasicCredentialsProvider.class, CatalogItem.class, TableNameProvider.class);
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "aws-ddb-streams-tests.jar");
+        archive.addClasses(AmazonDynamoDBUtils.class, BasicCredentialsProvider.class, TableNameStreamsProvider.class);
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }
     
     @Test
-    @Ignore("[#1778] Add support for DynamoDB mapper")
-    public void testMapperOperations() throws Exception {
-
-        AmazonDynamoDBClient client = provider.getClient();
-        Assume.assumeNotNull("AWS client not null", client);
-
-        DynamoDBMapper mapper = new DynamoDBMapper(client);
-
-        CatalogItem item = new CatalogItem();
-        item.setId(102);
-        item.setTitle("Book 102 Title");
-        item.setISBN("222-2222222222");
-        item.setBookAuthors(new HashSet<String>(Arrays.asList("Author 1", "Author 2")));
-        item.setSomeProp("Test");
-
-        mapper.save(item);
-
-        item = new CatalogItem();
-        item.setId(102);
-
-        DynamoDBQueryExpression<CatalogItem> exp = new DynamoDBQueryExpression<CatalogItem>().withHashKeyValues(item);
-
-        List<CatalogItem> result = mapper.query(CatalogItem.class, exp);
-        Assert.assertEquals(1, result.size());
-        Assert.assertEquals(new Integer(102), result.get(0).getId());
-        Assert.assertEquals("Book 102 Title", result.get(0).getTitle());
-    }
-
-    @Test
     public void testKeyValueOperations() throws Exception {
         
-        AmazonDynamoDBClient client = provider.getClient();
-        Assume.assumeNotNull("AWS client not null", client);
+        AmazonDynamoDBClient ddbClient = ddbProvider.getClient();
+        Assume.assumeNotNull("AWS client not null", ddbClient);
         
         WildFlyCamelContext camelctx = new WildFlyCamelContext();
-        camelctx.getNamingContext().bind("ddbClientA", client);
+        camelctx.getNamingContext().bind("ddbClientB", ddbClient);
+        camelctx.getNamingContext().bind("dbsClientB", dbsProvider.getClient());
         
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").to("aws-ddb://" + tableName + "?amazonDDBClient=#ddbClientA");
+                from("direct:start").to("aws-ddb://" + tableName + "?amazonDDBClient=#ddbClientB");
+                from("aws-ddbstream://" + tableName + "?amazonDynamoDbStreamsClient=#dbsClientB").to("seda:end");
             }
         });
 
+        PollingConsumer pollingConsumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
+        pollingConsumer.start();
+            
         camelctx.start();
         try {
             AmazonDynamoDBUtils.putItem(camelctx, "Book 103 Title");
@@ -100,11 +78,21 @@ public class DynamoDBIntegrationTest {
             String result = ((AttributeValue) AmazonDynamoDBUtils.getItem(camelctx).get("Title")).getS();
             Assert.assertEquals("Book 103 Title", result);
 
+            Exchange exchange = pollingConsumer.receive(3000);
+            Assert.assertNull(exchange);
+            
             AmazonDynamoDBUtils.updItem(camelctx, "Book 103 Update");
 
             result = ((AttributeValue) AmazonDynamoDBUtils.getItem(camelctx).get("Title")).getS();
             Assert.assertEquals("Book 103 Update", result);
                 
+            exchange = pollingConsumer.receive(3000);
+            StreamRecord record = exchange.getIn().getBody(Record.class).getDynamodb();
+            Map<String, AttributeValue> oldImage = record.getOldImage();
+            Map<String, AttributeValue> newImage = record.getNewImage();
+            Assert.assertEquals("Book 103 Title", oldImage.get("Title").getS());
+            Assert.assertEquals("Book 103 Update", newImage.get("Title").getS());
+            
         } finally {
             camelctx.stop();
         }

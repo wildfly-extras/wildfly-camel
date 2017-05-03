@@ -16,7 +16,8 @@
 package org.wildfly.camel.test.config;
 
 import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_CAMEL;
-import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAIN;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAIN_42;
+import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_DOMAINS;
 import static org.wildfly.extension.camel.config.WildFlyCamelConfigPlugin.NS_SECURITY;
 
 import java.io.File;
@@ -56,15 +57,15 @@ public class StandaloneConfigTest extends ConfigTestSupport {
         plugin.applyStandaloneConfigChange(context, true);
 
         // Verify extension
-        assertElementWithAttributeValueNotNull(doc.getRootElement(), "extension", "module", "org.wildfly.extension.camel", NS_DOMAIN);
+        assertElementWithAttributeValueNotNull(doc.getRootElement(), "extension", "module", "org.wildfly.extension.camel", NS_DOMAINS);
 
         // Verify system-properties
-        Element element = ConfigSupport.findChildElement(doc.getRootElement(), "system-properties", NS_DOMAIN);
+        Element element = ConfigSupport.findChildElement(doc.getRootElement(), "system-properties", NS_DOMAINS);
         Assert.assertNotNull("system-properties not null", element);
-        assertElementWithAttributeValueNotNull(element, "property", "name", "hawtio.realm", NS_DOMAIN);
+        assertElementWithAttributeValueNotNull(element, "property", "name", "hawtio.realm", NS_DOMAINS);
 
         // Verify camel
-        List<Element> profiles = ConfigSupport.findProfileElements(doc, new Namespace[] { NS_DOMAIN });
+        List<Element> profiles = ConfigSupport.findProfileElements(doc, NS_DOMAINS );
         Assert.assertEquals("One profile", 1, profiles.size());
         assertElementNotNull(profiles.get(0), "subsystem", NS_CAMEL);
 
@@ -80,7 +81,7 @@ public class StandaloneConfigTest extends ConfigTestSupport {
         SAXBuilder jdom = new SAXBuilder();
         Document doc = jdom.build(resurl);
 
-        doc.getRootElement().getChild("extensions", NS_DOMAIN).setNamespace(Namespace.getNamespace("urn:jboss:domain:99.99"));
+        doc.getRootElement().getChild("extensions", NS_DOMAIN_42).setNamespace(Namespace.getNamespace("urn:jboss:domain:99.99"));
 
         File modifiedConfig = new File("target/standalone-modified.xml");
         outputDocumentContent(doc, new FileOutputStream(modifiedConfig));
@@ -134,16 +135,16 @@ public class StandaloneConfigTest extends ConfigTestSupport {
         plugin.applyStandaloneConfigChange(context, false);
 
         // Verify extension removed
-        assertElementWithAttributeValueNull(doc.getRootElement(), "extension", "module", "org.wildfly.extension.camel", NS_DOMAIN);
+        assertElementWithAttributeValueNull(doc.getRootElement(), "extension", "module", "org.wildfly.extension.camel", NS_DOMAINS);
 
         // Verify system-properties removed
-        Element element = ConfigSupport.findChildElement(doc.getRootElement(), "system-properties", NS_DOMAIN);
+        Element element = ConfigSupport.findChildElement(doc.getRootElement(), "system-properties", NS_DOMAINS);
         Assert.assertNotNull("system-properties not null", element);
-        assertElementWithAttributeValueNull(element, "property", "name", "hawtio.realm", NS_DOMAIN);
-        assertElementWithAttributeValueNull(element, "property", "name", "hawtio.offline", NS_DOMAIN);
-        assertElementWithAttributeValueNull(element, "property", "name", "hawtio.authenticationEnabled", NS_DOMAIN);
+        assertElementWithAttributeValueNull(element, "property", "name", "hawtio.realm", NS_DOMAINS);
+        assertElementWithAttributeValueNull(element, "property", "name", "hawtio.offline", NS_DOMAINS);
+        assertElementWithAttributeValueNull(element, "property", "name", "hawtio.authenticationEnabled", NS_DOMAINS);
 
-        List<Element> profiles = ConfigSupport.findProfileElements(doc, new Namespace[] { NS_DOMAIN });
+        List<Element> profiles = ConfigSupport.findProfileElements(doc, NS_DOMAINS );
 
         // Verify camel removed
         assertElementNull(profiles.get(0), "subsystem", NS_CAMEL);
