@@ -1,0 +1,3 @@
+### camel-aws-ddbstream
+
+The http://camel.apache.org/aws-ddbstream.html[AWS DynamoDB Stream,window=_blank] component supports receiving messages from http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html[Amazon DynamoDB Stream,window=_blank] service.
