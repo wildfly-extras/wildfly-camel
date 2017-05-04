@@ -19,15 +19,13 @@
  */
 package org.wildfly.camel.examples.mail;
 
-import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.wildfly.extension.camel.CamelAware;
+import org.apache.camel.cdi.ContextName;
 
-@Startup
-@CamelAware
 @ApplicationScoped
+@ContextName("camel-mail-context")
 public class MailRouteBuilder extends RouteBuilder {
 
     @Override

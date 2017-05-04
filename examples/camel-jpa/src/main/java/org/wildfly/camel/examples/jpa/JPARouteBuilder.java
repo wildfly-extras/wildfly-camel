@@ -19,15 +19,13 @@
  */
 package org.wildfly.camel.examples.jpa;
 
-import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.wildfly.extension.camel.CamelAware;
+import org.apache.camel.cdi.ContextName;
 
-@Startup
-@CamelAware
 @ApplicationScoped
+@ContextName("camel-jpa-context")
 public class JPARouteBuilder extends RouteBuilder {
 
     @Override

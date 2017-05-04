@@ -19,16 +19,14 @@
  */
 package org.wildfly.camel.examples.activemq;
 
-import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.activemq.camel.component.ActiveMQComponent;
 import org.apache.camel.builder.RouteBuilder;
-import org.wildfly.extension.camel.CamelAware;
+import org.apache.camel.cdi.ContextName;
 
-@Startup
-@CamelAware
 @ApplicationScoped
+@ContextName("camel-activemq-context")
 public class ActiveMQRouteBuilder extends RouteBuilder {
 
     private static String BROKER_URL = "vm://localhost?broker.persistent=false&broker.useJmx=false&broker.useShutdownHook=false";

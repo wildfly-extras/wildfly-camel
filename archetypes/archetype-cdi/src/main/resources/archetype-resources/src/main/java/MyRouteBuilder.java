@@ -19,16 +19,13 @@
  */
 package ${package};
 
-import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.cdi.ContextName;
 
-import org.wildfly.extension.camel.CamelAware;
-
-@Startup
-@CamelAware
 @ApplicationScoped
+@ContextName("camel-cdi-context")
 public class MyRouteBuilder extends RouteBuilder {
 
     @Override

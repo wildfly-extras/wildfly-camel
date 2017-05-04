@@ -42,7 +42,6 @@
         <version.apache.camel>${version-apache-camel}</version.apache.camel>
         <version.jboss.arquillian>${version-jboss-arquillian}</version.jboss.arquillian>
         <version.junit>${version-junit}</version.junit>
-        <version.wildfly.camel>${version-wildfly-camel}</version.wildfly.camel>
 
         <!-- Plugin versions -->
         <version.maven.compiler.plugin>${version-maven-compiler-plugin}</version.maven.compiler.plugin>
@@ -82,12 +81,6 @@
     <!-- Dependencies -->
     <dependencies>
         <!-- Provided -->
-        <dependency>
-            <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-subsystem-core</artifactId>
-            <version>${version.wildfly.camel}</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cdi</artifactId>

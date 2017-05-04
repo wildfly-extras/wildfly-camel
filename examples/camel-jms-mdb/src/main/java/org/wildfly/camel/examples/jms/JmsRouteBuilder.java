@@ -1,8 +1,8 @@
 /*
  * #%L
- * Wildfly Camel :: Example :: Camel JMS
+ * Wildfly Camel :: Example :: Camel JMS MDB
  * %%
- * Copyright (C) 2013 - 2014 RedHat
+ * Copyright (C) 2013 - 2017 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,16 +19,20 @@
  */
 package org.wildfly.camel.examples.jms;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.jms.ConnectionFactory;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.cdi.ContextName;
 import org.apache.camel.component.jms.JmsComponent;
 
 @ApplicationScoped
-@ContextName("camel-jms-context")
+@ContextName("camel-jms-mdb-context")
 public class JmsRouteBuilder extends RouteBuilder {
 
     @Resource(mappedName = "java:jboss/DefaultJMSConnectionFactory")
@@ -46,31 +50,26 @@ public class JmsRouteBuilder extends RouteBuilder {
         getContext().addComponent("jms", component);
 
         /**
-         * This route reads files placed within JBOSS_HOME/standalone/data/orders
-         * and places them onto JMS queue 'ordersQueue' within the WildFly
-         * internal ActiveMQ Artemis broker.
+         * This route uses the timer component to generate a message which is sent to
+         * the JMS OrdersQueue
          */
-        from("file://{{jboss.server.data.dir}}/orders")
-        .convertBodyTo(String.class)
-        // Remove headers to ensure we end up with unique file names being generated in the next route
-        .removeHeaders("*")
+        from("timer:produceJMSMessage?period=5000")
+        .process(new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                Integer count = exchange.getProperty(Exchange.TIMER_COUNTER, Integer.class);
+                Date date = exchange.getProperty(Exchange.TIMER_FIRED_TIME, Date.class);
+
+                exchange.getOut().setBody(String.format("Message %d created at %s", count, date.toString()));
+            }
+        })
         .to("jms:queue:OrdersQueue");
 
         /**
-         * This route consumes messages from the 'ordersQueue'. Then, based on the
-         * message payload XML content it uses a content based router to output
-         * orders into appropriate country directories
+         * This route is invoked by the {@link MessageDrivenBean} message consumer and outputs
+         * the message payload to the console log
          */
-        from("jms:queue:OrdersQueue")
-            .choice()
-                .when(xpath("/order/customer/country = 'UK'"))
-                    .log("Sending order ${file:name} to the UK")
-                    .to("file:{{jboss.server.data.dir}}/orders/processed/UK")
-                .when(xpath("/order/customer/country = 'US'"))
-                    .log("Sending order ${file:name} to the US")
-                    .to("file:{{jboss.server.data.dir}}/orders/processed/US")
-                .otherwise()
-                    .log("Sending order ${file:name} to another country")
-                    .to("file://{{jboss.server.data.dir}}/orders/processed/others");
+        from("direct:jmsIn")
+        .log("Received message: ${body}");
     }
 }

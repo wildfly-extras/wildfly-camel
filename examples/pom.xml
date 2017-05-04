@@ -53,10 +53,11 @@
         <module>camel-cdi</module>
         <module>camel-cxf-jaxrs</module>
         <module>camel-cxf-jaxws</module>
-        <module>camel-mail</module>
         <module>camel-jms</module>
+        <module>camel-jms-mdb</module>
         <module>camel-jms-tx</module>
         <module>camel-jpa</module>
+        <module>camel-mail</module>
         <module>itests</module>
     </modules>
 

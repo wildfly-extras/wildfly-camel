@@ -35,15 +35,13 @@
  */
 package org.wildfly.camel.examples.cdi;
 
-import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.wildfly.extension.camel.CamelAware;
+import org.apache.camel.cdi.ContextName;
 
-@Startup
-@CamelAware
 @ApplicationScoped
+@ContextName("camel-cdi-context")
 public class MyRouteBuilder extends RouteBuilder {
 
     @Override

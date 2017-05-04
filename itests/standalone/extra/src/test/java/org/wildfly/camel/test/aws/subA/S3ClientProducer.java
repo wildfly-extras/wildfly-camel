@@ -43,7 +43,9 @@ public class S3ClientProducer {
     @Singleton
     public AWSClientProvider getClientProvider() throws Exception {
         AmazonS3Client client = S3Utils.getAmazonS3Client();
-        S3Utils.createBucket(client);
+        if (client != null) {
+            S3Utils.createBucket(client);
+        }
         return new AWSClientProvider(client);
     }
 
