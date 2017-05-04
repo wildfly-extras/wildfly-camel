@@ -19,40 +19,29 @@
  */
 package org.wildfly.camel.test.aws.subA;
 
-import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 
-import org.wildfly.camel.test.common.aws.S3Utils;
+import org.wildfly.camel.test.common.aws.CloudWatchUtils;
 
-import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.cloudwatch.AmazonCloudWatchClient;
 
-public class S3ClientProducer {
+public class CloudWatchClientProducer {
 
-    public class S3ClientProvider {
-        private final AmazonS3Client client;
-        S3ClientProvider(AmazonS3Client client) {
+    public class CloudWatchClientProvider {
+        private final AmazonCloudWatchClient client;
+        CloudWatchClientProvider(AmazonCloudWatchClient client) {
             this.client = client;
         }
-        public AmazonS3Client getClient() {
+        public AmazonCloudWatchClient getClient() {
             return client;
         }
     }
     
     @Produces
     @Singleton
-    public S3ClientProvider getClientProvider() throws Exception {
-        AmazonS3Client client = S3Utils.createS3Client();
-        if (client != null) {
-            S3Utils.createBucket(client);
-        }
-        return new S3ClientProvider(client);
-    }
-
-    public void close(@Disposes S3ClientProvider provider) throws Exception {
-        AmazonS3Client client = provider.getClient();
-        if (client != null) {
-            S3Utils.deleteBucket(client);
-        }
+    public CloudWatchClientProvider getClientProvider() throws Exception {
+        AmazonCloudWatchClient client = CloudWatchUtils.createCloudWatchClient();
+        return new CloudWatchClientProvider(client);
     }
 }

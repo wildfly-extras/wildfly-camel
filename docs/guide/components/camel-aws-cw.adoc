@@ -1,0 +1,3 @@
+### camel-aws-cw
+
+The http://camel.apache.org/aws-cw.html[AWS CloudWatch,window=_blank] component allows messages to be sent to an http://aws.amazon.com/cloudwatch[Amazon CloudWatch,window=_blank] metrics.

@@ -19,28 +19,18 @@
  */
 package org.wildfly.camel.test.common.aws;
 
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.cloudwatch.AmazonCloudWatchClient;
+import com.amazonaws.services.cloudwatch.AmazonCloudWatchClientBuilder;
 
-public class S3Utils {
+public class CloudWatchUtils {
 
-    public static final String BUCKET_NAME = "wfc-aws-s3-bucket";
-    
-    public static AmazonS3Client createS3Client() {
+    public static AmazonCloudWatchClient createCloudWatchClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
-        AmazonS3Client client = !credentials.isValid() ? null : (AmazonS3Client) 
-                AmazonS3ClientBuilder.standard()
+        AmazonCloudWatchClient client = !credentials.isValid() ? null : (AmazonCloudWatchClient) 
+                AmazonCloudWatchClientBuilder.standard()
                 .withCredentials(credentials)
                 .withRegion("eu-west-1")
                 .build();
         return client;
-    }
-
-    public static void createBucket(AmazonS3Client client) {
-        client.createBucket(BUCKET_NAME);
-    }
-
-    public static void deleteBucket(AmazonS3Client client) {
-        client.deleteBucket(BUCKET_NAME);
     }
 }

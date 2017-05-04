@@ -19,7 +19,7 @@ import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.aws.subA.S3ClientProducer;
-import org.wildfly.camel.test.aws.subA.S3ClientProducer.AWSClientProvider;
+import org.wildfly.camel.test.aws.subA.S3ClientProducer.S3ClientProvider;
 import org.wildfly.camel.test.common.aws.BasicCredentialsProvider;
 import org.wildfly.camel.test.common.aws.S3Utils;
 import org.wildfly.extension.camel.CamelAware;
@@ -34,7 +34,7 @@ public class S3IntegrationTest {
     public static final String OBJECT_KEY = "content.txt";
 
     @Inject
-    private AWSClientProvider provider;
+    private S3ClientProvider provider;
     
     @Deployment
     public static JavaArchive deployment() {
