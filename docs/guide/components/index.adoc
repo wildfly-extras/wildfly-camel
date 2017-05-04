@@ -10,6 +10,8 @@ include::camel-atom.adoc[]
 
 include::camel-avro.adoc[]
 
+include::camel-aws-cw.adoc[]
+
 include::camel-aws-ddb.adoc[]
 
 include::camel-aws-ddbstream.adoc[]

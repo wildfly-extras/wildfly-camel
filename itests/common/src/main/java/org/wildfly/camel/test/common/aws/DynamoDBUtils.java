@@ -50,28 +50,22 @@ import com.amazonaws.services.dynamodbv2.model.TableDescription;
 public class DynamoDBUtils {
 
     public static AmazonDynamoDBClient createDynamoDBClient() {
-        AmazonDynamoDBClient client = null;
-        String accessId = System.getenv("AWSAccessId");
-        String secretKey = System.getenv("AWSSecretKey");
-        if (accessId != null && secretKey != null) {
-            client = (AmazonDynamoDBClient) AmazonDynamoDBClientBuilder.standard()
-                    .withCredentials(new BasicCredentialsProvider(accessId, secretKey))
-                    .withRegion("eu-west-1")
-                    .build();
-        }
+        BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
+        AmazonDynamoDBClient client = !credentials.isValid() ? null : (AmazonDynamoDBClient) 
+                AmazonDynamoDBClientBuilder.standard()
+                .withCredentials(credentials)
+                .withRegion("eu-west-1")
+                .build();
         return client;
     }
 
     public static AmazonDynamoDBStreamsClient createDynamoDBStreamsClient() {
-        AmazonDynamoDBStreamsClient client = null;
-        String accessId = System.getenv("AWSAccessId");
-        String secretKey = System.getenv("AWSSecretKey");
-        if (accessId != null && secretKey != null) {
-            client = (AmazonDynamoDBStreamsClient) AmazonDynamoDBStreamsClientBuilder.standard()
-                    .withCredentials(new BasicCredentialsProvider(accessId, secretKey))
-                    .withRegion("eu-west-1")
-                    .build();
-        }
+        BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
+        AmazonDynamoDBStreamsClient client = !credentials.isValid() ? null : (AmazonDynamoDBStreamsClient) 
+                AmazonDynamoDBStreamsClientBuilder.standard()
+                .withCredentials(credentials)
+                .withRegion("eu-west-1")
+                .build();
         return client;
     }
 

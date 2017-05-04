@@ -27,7 +27,7 @@ public class S3IntegrationTest {
     
     @BeforeClass
     public static void beforeClass() throws Exception {
-        s3Client = S3Utils.getAmazonS3Client();
+        s3Client = S3Utils.createS3Client();
         if (s3Client != null) {
             S3Utils.createBucket(s3Client);
         }
