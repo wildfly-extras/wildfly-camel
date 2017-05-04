@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.camel.elasticsearch;
+package org.wildfly.camel.test.plain.elasticsearch;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;

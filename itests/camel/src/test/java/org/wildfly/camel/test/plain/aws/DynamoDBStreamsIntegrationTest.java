@@ -1,71 +1,67 @@
-package org.wildfly.camel.test.aws;
+package org.wildfly.camel.test.plain.aws;
 
 import java.util.Map;
 
-import javax.inject.Inject;
-
+import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.builder.RouteBuilder;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.SimpleRegistry;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Assume;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.wildfly.camel.test.aws.subA.DynamoDBClientProducer;
-import org.wildfly.camel.test.aws.subA.DynamoDBClientProducer.DynamoDBClientProvider;
-import org.wildfly.camel.test.aws.subA.DynamoDBClientProducer.DynamoDBStreamsClientProvider;
-import org.wildfly.camel.test.common.aws.BasicCredentialsProvider;
 import org.wildfly.camel.test.common.aws.DynamoDBUtils;
 import org.wildfly.camel.test.common.types.TableNameProviderB;
-import org.wildfly.extension.camel.CamelAware;
-import org.wildfly.extension.camel.WildFlyCamelContext;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBStreamsClient;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.Record;
 import com.amazonaws.services.dynamodbv2.model.StreamRecord;
+import com.amazonaws.services.dynamodbv2.model.TableDescription;
 
-@CamelAware
-@RunWith(Arquillian.class)
 public class DynamoDBStreamsIntegrationTest {
 
-    @Inject
-    private String tableName;
+    public static String tableName = TableNameProviderB.TABLE_NAME;
 
-    @Inject
-    private DynamoDBClientProvider ddbProvider;
+    private static AmazonDynamoDBClient ddbClient;
+    private static AmazonDynamoDBStreamsClient dbsClient;
     
-    @Inject
-    private DynamoDBStreamsClientProvider dbsProvider;
+    @BeforeClass
+    public static void beforeClass() throws Exception {
+        ddbClient = DynamoDBUtils.createDynamoDBClient();
+        if (ddbClient != null) {
+            TableDescription description = DynamoDBUtils.createTable(ddbClient, tableName);
+            Assert.assertEquals("ACTIVE", description.getTableStatus());
+        }
+        dbsClient = DynamoDBUtils.createDynamoDBStreamsClient();
+    }
     
-    @Deployment
-    public static JavaArchive deployment() {
-        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "aws-ddb-streams-tests.jar");
-        archive.addClasses(DynamoDBClientProducer.class, DynamoDBUtils.class, BasicCredentialsProvider.class, TableNameProviderB.class);
-        archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-        return archive;
+    @AfterClass
+    public static void afterClass() throws Exception {
+        if (ddbClient != null) {
+            DynamoDBUtils.deleteTable(ddbClient, tableName);
+        }
     }
     
     @Test
     public void testKeyValueOperations() throws Exception {
         
-        AmazonDynamoDBClient ddbClient = ddbProvider.getClient();
         Assume.assumeNotNull("AWS client not null", ddbClient);
         
-        WildFlyCamelContext camelctx = new WildFlyCamelContext();
-        camelctx.getNamingContext().bind("ddbClientB", ddbClient);
-        camelctx.getNamingContext().bind("dbsClientB", dbsProvider.getClient());
+        SimpleRegistry registry = new SimpleRegistry();
+        registry.put("ddbClient", ddbClient);
+        registry.put("dbsClient", dbsClient);
         
+        CamelContext camelctx = new DefaultCamelContext(registry);
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").to("aws-ddb://" + tableName + "?amazonDDBClient=#ddbClientB");
-                from("aws-ddbstream://" + tableName + "?amazonDynamoDbStreamsClient=#dbsClientB").to("seda:end");
+                from("direct:start").to("aws-ddb://" + tableName + "?amazonDDBClient=#ddbClient");
+                from("aws-ddbstream://" + tableName + "?amazonDynamoDbStreamsClient=#dbsClient").to("seda:end");
             }
         });
 

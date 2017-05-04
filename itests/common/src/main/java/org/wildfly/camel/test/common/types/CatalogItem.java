@@ -1,4 +1,4 @@
-package org.wildfly.camel.test.aws.subA;
+package org.wildfly.camel.test.common.types;
 
 import java.util.Set;
 

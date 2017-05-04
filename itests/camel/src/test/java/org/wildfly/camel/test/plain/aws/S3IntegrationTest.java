@@ -1,56 +1,55 @@
-package org.wildfly.camel.test.aws;
+package org.wildfly.camel.test.plain.aws;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-
+import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.s3.S3Constants;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.SimpleRegistry;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Assume;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.wildfly.camel.test.aws.subA.S3ClientProducer;
-import org.wildfly.camel.test.aws.subA.S3ClientProducer.AWSClientProvider;
-import org.wildfly.camel.test.common.aws.BasicCredentialsProvider;
 import org.wildfly.camel.test.common.aws.S3Utils;
-import org.wildfly.extension.camel.CamelAware;
-import org.wildfly.extension.camel.WildFlyCamelContext;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 
-@CamelAware
-@RunWith(Arquillian.class)
 public class S3IntegrationTest {
 
     public static final String OBJECT_KEY = "content.txt";
 
-    @Inject
-    private AWSClientProvider provider;
+    private static AmazonS3Client s3Client;
     
-    @Deployment
-    public static JavaArchive deployment() {
-        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "aws-s3-tests.jar");
-        archive.addClasses(S3ClientProducer.class, S3Utils.class, BasicCredentialsProvider.class);
-        archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-        return archive;
+    @BeforeClass
+    public static void beforeClass() throws Exception {
+        s3Client = S3Utils.getAmazonS3Client();
+        if (s3Client != null) {
+            S3Utils.createBucket(s3Client);
+        }
     }
+    
+    @AfterClass
+    public static void afterClass() throws Exception {
+        if (s3Client != null) {
+            S3Utils.deleteBucket(s3Client);
+        }
+    }
+    
     
     @Test
     public void testBucketOperations() throws Exception {
 
-        AmazonS3Client s3Client = provider.getClient();
         Assume.assumeNotNull("AWS client not null", s3Client);
         
-        WildFlyCamelContext camelctx = new WildFlyCamelContext();
+        SimpleRegistry registry = new SimpleRegistry();
+        registry.put("s3Client", s3Client);
+        
+        CamelContext camelctx = new DefaultCamelContext(registry);
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -59,7 +58,6 @@ public class S3IntegrationTest {
                 from("aws-s3://" + S3Utils.BUCKET_NAME + "?" + clientref).to("seda:read");
             }
         });
-        camelctx.getNamingContext().bind("s3Client", s3Client);
         
         try {
             camelctx.start();

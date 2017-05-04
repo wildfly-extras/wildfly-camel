@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.camel.kafka;
+package org.wildfly.camel.test.plain.kafka;
 
 import java.util.Arrays;
 import java.util.Collections;

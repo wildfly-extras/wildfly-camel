@@ -23,12 +23,11 @@ import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 
-import org.wildfly.camel.test.aws.S3IntegrationTest;
+import org.wildfly.camel.test.common.aws.S3Utils;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
-public class AmazonS3Utils {
+public class S3ClientProducer {
 
     public class AWSClientProvider {
         private final AmazonS3Client client;
@@ -43,23 +42,15 @@ public class AmazonS3Utils {
     @Produces
     @Singleton
     public AWSClientProvider getClientProvider() throws Exception {
-        AmazonS3Client client = null;
-        String accessId = System.getenv("AWSAccessId");
-        String secretKey = System.getenv("AWSSecretKey");
-        if (accessId != null && secretKey != null) {
-            client = (AmazonS3Client) AmazonS3ClientBuilder.standard()
-                    .withCredentials(new BasicCredentialsProvider(accessId, secretKey))
-                    .withRegion("eu-west-1")
-                    .build();
-
-            client.createBucket(S3IntegrationTest.BUCKET_NAME);
-        }
+        AmazonS3Client client = S3Utils.getAmazonS3Client();
+        S3Utils.createBucket(client);
         return new AWSClientProvider(client);
     }
 
     public void close(@Disposes AWSClientProvider provider) throws Exception {
-        if (provider.getClient() != null) {
-            provider.getClient().deleteBucket(S3IntegrationTest.BUCKET_NAME);
+        AmazonS3Client client = provider.getClient();
+        if (client != null) {
+            S3Utils.deleteBucket(client);
         }
     }
 }

@@ -17,15 +17,10 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.aws.subA;
+package org.wildfly.camel.test.common.aws;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.enterprise.inject.Disposes;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -52,34 +47,9 @@ import com.amazonaws.services.dynamodbv2.model.StreamSpecification;
 import com.amazonaws.services.dynamodbv2.model.StreamViewType;
 import com.amazonaws.services.dynamodbv2.model.TableDescription;
 
-public class AmazonDynamoDBUtils {
+public class DynamoDBUtils {
 
-    @Inject
-    private String tableName;
-    
-    public class DynamoDBClientProvider {
-        private final AmazonDynamoDBClient client;
-        DynamoDBClientProvider(AmazonDynamoDBClient client) {
-            this.client = client;
-        }
-        public AmazonDynamoDBClient getClient() {
-            return client;
-        }
-    }
-    
-    public class DynamoDBStreamsClientProvider {
-        private final AmazonDynamoDBStreamsClient client;
-        DynamoDBStreamsClientProvider(AmazonDynamoDBStreamsClient client) {
-            this.client = client;
-        }
-        public AmazonDynamoDBStreamsClient getClient() {
-            return client;
-        }
-    }
-    
-    @Produces
-    @Singleton
-    public DynamoDBClientProvider getDynamoDBClientProvider() throws Exception {
+    public static AmazonDynamoDBClient createDynamoDBClient() {
         AmazonDynamoDBClient client = null;
         String accessId = System.getenv("AWSAccessId");
         String secretKey = System.getenv("AWSSecretKey");
@@ -88,16 +58,11 @@ public class AmazonDynamoDBUtils {
                     .withCredentials(new BasicCredentialsProvider(accessId, secretKey))
                     .withRegion("eu-west-1")
                     .build();
-
-            TableDescription createTable = createTable(client);
-            Assert.assertEquals("ACTIVE", createTable.getTableStatus());
         }
-        return new DynamoDBClientProvider(client);
+        return client;
     }
 
-    @Produces
-    @Singleton
-    public DynamoDBStreamsClientProvider getDynamoDBStreamsClientProvider() throws Exception {
+    public static AmazonDynamoDBStreamsClient createDynamoDBStreamsClient() {
         AmazonDynamoDBStreamsClient client = null;
         String accessId = System.getenv("AWSAccessId");
         String secretKey = System.getenv("AWSSecretKey");
@@ -107,13 +72,7 @@ public class AmazonDynamoDBUtils {
                     .withRegion("eu-west-1")
                     .build();
         }
-        return new DynamoDBStreamsClientProvider(client);
-    }
-
-    public void close(@Disposes DynamoDBClientProvider provider) throws Exception {
-        if (provider.getClient() != null) {
-            deleteTable(provider.getClient());
-        }
+        return client;
     }
 
     public static void putItem(CamelContext camelctx, String title) {
@@ -164,8 +123,7 @@ public class AmazonDynamoDBUtils {
         return exchange.getIn().getHeader(DdbConstants.ATTRIBUTES, Map.class);
     }
 
-    private TableDescription createTable(AmazonDynamoDB client) throws InterruptedException {
-
+    public static TableDescription createTable(AmazonDynamoDB client, String tableName) throws InterruptedException {
         CreateTableRequest tableReq = new CreateTableRequest().withTableName(tableName)
                 .withKeySchema(new KeySchemaElement("Id", KeyType.HASH))
                 .withAttributeDefinitions(new AttributeDefinition("Id", ScalarAttributeType.N))
@@ -175,17 +133,17 @@ public class AmazonDynamoDBUtils {
         return awaitStatus(client, client.createTable(tableReq).getTableDescription(), "ACTIVE");
     }
 
-    private void deleteTable(AmazonDynamoDB client) throws InterruptedException {
+    public static void deleteTable(AmazonDynamoDB client, String tableName) throws InterruptedException {
         TableDescription description = client.describeTable(tableName).getTable();
         awaitStatus(client, description, "ACTIVE");
         client.deleteTable(tableName);
     }
 
-    private TableDescription awaitStatus(AmazonDynamoDB client, TableDescription description, String status) throws InterruptedException {
+    private static TableDescription awaitStatus(AmazonDynamoDB client, TableDescription description, String status) throws InterruptedException {
         int retries = 20;
         while (--retries > 0 && !description.getTableStatus().equals(status)) {
             Thread.sleep(500);
-            description = client.describeTable(tableName).getTable();
+            description = client.describeTable(description.getTableName()).getTable();
         }
         return description;
     }

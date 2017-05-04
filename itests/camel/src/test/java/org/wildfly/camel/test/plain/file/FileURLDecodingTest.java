@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.camel.file;
+package org.wildfly.camel.test.plain.file;
 
 import java.io.BufferedReader;
 import java.io.File;

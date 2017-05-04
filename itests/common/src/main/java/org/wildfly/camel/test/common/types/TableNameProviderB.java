@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.aws.subA;
+package org.wildfly.camel.test.common.types;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
@@ -25,12 +25,8 @@ import javax.inject.Singleton;
 
 public class TableNameProviderB {
 
-    private static final String TABLE_NAME = "ProductCatalogB";
-
     @Produces
     @Singleton
     @Named("tableName")
-    public String getTableName() {
-        return TABLE_NAME;
-    }
+    public static final String TABLE_NAME = "ProductCatalogB";
 }

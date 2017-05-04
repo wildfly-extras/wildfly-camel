@@ -1,62 +1,58 @@
-package org.wildfly.camel.test.aws;
+package org.wildfly.camel.test.plain.aws;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import javax.inject.Inject;
-
+import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.SimpleRegistry;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Assume;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.wildfly.camel.test.aws.subA.DynamoDBClientProducer;
-import org.wildfly.camel.test.aws.subA.DynamoDBClientProducer.DynamoDBClientProvider;
-import org.wildfly.camel.test.common.aws.BasicCredentialsProvider;
 import org.wildfly.camel.test.common.aws.DynamoDBUtils;
 import org.wildfly.camel.test.common.types.CatalogItem;
 import org.wildfly.camel.test.common.types.TableNameProviderA;
-import org.wildfly.extension.camel.CamelAware;
-import org.wildfly.extension.camel.WildFlyCamelContext;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.TableDescription;
 
-@CamelAware
-@RunWith(Arquillian.class)
 public class DynamoDBIntegrationTest {
 
-    @Inject
-    private String tableName;
+    public static String tableName = TableNameProviderA.TABLE_NAME;
 
-    @Inject
-    private DynamoDBClientProvider provider;
+    private static AmazonDynamoDBClient ddbClient;
     
-    @Deployment
-    public static JavaArchive deployment() {
-        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "aws-ddb-tests.jar");
-        archive.addClasses(DynamoDBClientProducer.class, DynamoDBUtils.class, BasicCredentialsProvider.class, CatalogItem.class, TableNameProviderA.class);
-        archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-        return archive;
+    @BeforeClass
+    public static void beforeClass() throws Exception {
+        ddbClient = DynamoDBUtils.createDynamoDBClient();
+        if (ddbClient != null) {
+            TableDescription description = DynamoDBUtils.createTable(ddbClient, tableName);
+            Assert.assertEquals("ACTIVE", description.getTableStatus());
+        }
+    }
+    
+    @AfterClass
+    public static void afterClass() throws Exception {
+        if (ddbClient != null) {
+            DynamoDBUtils.deleteTable(ddbClient, tableName);
+        }
     }
     
     @Test
     @Ignore("[#1778] Add support for DynamoDB mapper")
     public void testMapperOperations() throws Exception {
 
-        AmazonDynamoDBClient client = provider.getClient();
-        Assume.assumeNotNull("AWS client not null", client);
+        Assume.assumeNotNull("AWS client not null", ddbClient);
 
-        DynamoDBMapper mapper = new DynamoDBMapper(client);
+        DynamoDBMapper mapper = new DynamoDBMapper(ddbClient);
 
         CatalogItem item = new CatalogItem();
         item.setId(102);
@@ -81,16 +77,16 @@ public class DynamoDBIntegrationTest {
     @Test
     public void testKeyValueOperations() throws Exception {
         
-        AmazonDynamoDBClient client = provider.getClient();
-        Assume.assumeNotNull("AWS client not null", client);
+        Assume.assumeNotNull("AWS client not null", ddbClient);
         
-        WildFlyCamelContext camelctx = new WildFlyCamelContext();
-        camelctx.getNamingContext().bind("ddbClientA", client);
+        SimpleRegistry registry = new SimpleRegistry();
+        registry.put("ddbClient", ddbClient);
         
+        CamelContext camelctx = new DefaultCamelContext(registry);
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").to("aws-ddb://" + tableName + "?amazonDDBClient=#ddbClientA");
+                from("direct:start").to("aws-ddb://" + tableName + "?amazonDDBClient=#ddbClient");
             }
         });
 

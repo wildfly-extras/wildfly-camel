@@ -1,4 +1,4 @@
-package org.wildfly.camel.test.aws.subA;
+package org.wildfly.camel.test.common.aws;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;

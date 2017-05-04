@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.camel.xslt;
+package org.wildfly.camel.test.plain.xslt;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
