@@ -58,6 +58,7 @@
         <module>camel-jms-tx</module>
         <module>camel-jpa</module>
         <module>camel-mail</module>
+        <module>camel-mail-spring</module>
         <module>itests</module>
     </modules>
 

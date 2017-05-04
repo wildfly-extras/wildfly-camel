@@ -2,7 +2,7 @@
  * #%L
  * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2013 - 2015 RedHat
+ * Copyright (C) 2013 - 2017 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,9 +32,9 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 @ServerSetup({ AbstractMailExampleTest.MailSessionSetupTask.class })
 @CamelAware
-public class MailExampleTest extends AbstractMailExampleTest {
+public class MailSpringExampleTest extends AbstractMailExampleTest {
 
-    private static final String CONTEXT_PATH = "example-camel-mail";
+    private static final String CONTEXT_PATH = "example-camel-mail-spring";
     private static final String EXAMPLE_CAMEL_MAIL_WAR = CONTEXT_PATH + ".war";
 
     @Deployment(managed = false, testable = false, name = EXAMPLE_CAMEL_MAIL_WAR)

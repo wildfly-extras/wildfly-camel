@@ -1,0 +1,12 @@
+batch
+
+# Remove mail sessions
+/subsystem=mail/mail-session=greenmail/server=smtp:remove
+/subsystem=mail/mail-session=greenmail/server=pop3:remove
+/subsystem=mail/mail-session=greenmail:remove
+
+# Remove SMTP / POP3 socket bindings
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-smtp:remove
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=mail-greenmail-pop3:remove
+
+run-batch

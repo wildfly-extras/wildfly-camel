@@ -1,7 +1,7 @@
-camel-mail example
-------------------
+Camel Mail Spring example
+-------------------------
 
-This example demonstrates using the camel-mail component with WildFly Camel susbsystem to send and receive email.
+This example demonstrates using the camel-mail component with Spring and the WildFly Camel susbsystem to send and receive email.
 
 The example uses [Greenmail](http://www.icegreen.com/greenmail/) to configure a local mail server on your machine. This eliminates the need to
 use external mail services. The configuration for the WildFly mail subsystem can be found within CLI scripts at `src/main/resources/cli`.
@@ -29,15 +29,24 @@ There are also some custom socket bindings to ensure that the mail session can c
 </outbound-socket-binding>
 ```
 
-The Greenmail `mail-session` is discovered from the Camel CDI bean registry by referencing it by name on the camel-mail endpoint configuration.
-See class `MailSessionProducer` for further details.
+The Greenmail `mail-session` is discovered from the Camel Spring bean registry by referencing it by name on the camel-mail endpoint configuration.
+
+```xml
+<jee:jndi-lookup id="mailSession" jndi-name="java:jboss/mail/greenmail"/>
+```
 
 Two Camel mail endpoints are configured. One to send email via SMTP and another to receive email with POP3.
 
-```java
-from("direct:sendmail").to("smtp://localhost:10025?session=#mailSession");
+```xml
+<route>
+    <from uri="direct:sendmail" />
+    <to uri="smtp://localhost:10025?session=#mailSession" />
+</route>
 
-from("pop3://user2@localhost:10110?consumer.delay=30000&session=#mailSession").to("log:emails?showAll=true&multiline=true");
+<route>
+    <from uri="pop3://user2@localhost:10110?consumer.delay=30000&amp;session=#mailSession" />
+    <to uri="log:emails?showAll=true&amp;multiline=true" />
+</route>
 ```
 
 Prerequisites
@@ -53,7 +62,7 @@ To run the example.
 
 1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
 2. Build and deploy the project `mvn install -Pdeploy`
-3. Browse to http://localhost:8080/example-camel-mail/
+3. Browse to http://localhost:8080/example-camel-mail-spring/
 
 You should see a form from which you can test sending emails with Camel.
 
