@@ -74,11 +74,9 @@ public class SMPPIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .to("smpp://smppuser@" + TestUtils.getDockerHost() + ":2775?password=password&enquireLinkTimer=60000"
-                    + "&transactionTimer=60000&systemType=producer");
+                .to("smpp://smppuser@" + TestUtils.getDockerHost() + ":2775?password=password&systemType=producer");
 
-                from("smpp://smppuser@" + TestUtils.getDockerHost() + ":2775?password=password&enquireLinkTimer=60000"
-                    + "&transactionTimer=60000&systemType=consumer")
+                from("smpp://smppuser@" + TestUtils.getDockerHost() + ":2775?password=password&systemType=consumer")
                 .setBody(simple("Hello ${body}"))
                 .to("mock:result");
             }

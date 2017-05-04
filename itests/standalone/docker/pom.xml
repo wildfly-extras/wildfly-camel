@@ -92,18 +92,12 @@
                         // Pull before tests run inside of the container due to: https://issues.jboss.org/browse/ARQ-688
                         boolean dockerAvailable = System.getenv("DOCKER_HOST") != null || Files.exists(Paths.get("/var/run/docker.sock"))
                         if (dockerAvailable) {
-                            def images = []
                             def cubeSpec = new File(project.basedir.path + "/src/test/resources/arquillian.xml").text
                             Matcher matcher = cubeSpec =~ /.*image: (.*)/
                             while (matcher.find()) {
-                                images.add(matcher.group(1))
-                            }
-
-                            images.each { image ->
-                                if ("docker images -q ${image}".execute().text.isEmpty()) {
-                                    println "[DOCKER] Pulling Docker image: ${image}"
-                                    "docker pull ${image}".execute().waitForProcessOutput(System.out, System.err)
-                                }
+                                def image = matcher.group(1)
+                                println "[DOCKER] Pulling Docker image: ${image}"
+                                "docker pull ${image}".execute().waitForProcessOutput(System.out, System.err)
                             }
                         }
                     </source>
