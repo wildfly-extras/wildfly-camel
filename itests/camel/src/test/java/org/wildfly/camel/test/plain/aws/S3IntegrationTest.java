@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.s3.S3Constants;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.SimpleRegistry;
@@ -50,14 +49,7 @@ public class S3IntegrationTest {
         registry.put("s3Client", s3Client);
         
         CamelContext camelctx = new DefaultCamelContext(registry);
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                String clientref = "amazonS3Client=#s3Client";
-                from("direct:upload").to("aws-s3://" + S3Utils.BUCKET_NAME + "?" + clientref);
-                from("aws-s3://" + S3Utils.BUCKET_NAME + "?" + clientref).to("seda:read");
-            }
-        });
+        S3Utils.addRoutes(camelctx);
         
         try {
             camelctx.start();

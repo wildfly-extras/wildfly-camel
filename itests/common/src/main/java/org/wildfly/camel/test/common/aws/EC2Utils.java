@@ -22,18 +22,16 @@ package org.wildfly.camel.test.common.aws;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 
-public class S3Utils {
+public class EC2Utils {
 
-    public static final String BUCKET_NAME = "wfc-aws-s3-bucket";
-    
-    // Attach Policy: AmazonS3FullAccess
-    public static AmazonS3Client createS3Client() {
+    // Attach Policy: AmazonEC2FullAccess
+    public static AmazonEC2Client createEC2Client() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
-        AmazonS3Client client = !credentials.isValid() ? null : (AmazonS3Client) 
-                AmazonS3ClientBuilder.standard()
+        AmazonEC2Client client = !credentials.isValid() ? null : (AmazonEC2Client) 
+                AmazonEC2ClientBuilder.standard()
                 .withCredentials(credentials)
                 .withRegion("eu-west-1")
                 .build();
@@ -44,19 +42,9 @@ public class S3Utils {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                String clientref = "amazonS3Client=#s3Client";
-                from("direct:upload").to("aws-s3://" + BUCKET_NAME + "?" + clientref);
-                from("aws-s3://" + BUCKET_NAME + "?" + clientref).to("seda:read");
+                from("direct:createAndRun").to("aws-ec2://TestDomain?amazonEc2Client=#ec2Client&operation=createAndRunInstances");
+                from("direct:terminate").to("aws-ec2://TestDomain?amazonEc2Client=#ec2Client&operation=terminateInstances");
             }
         });
     }
-
-    public static void createBucket(AmazonS3Client client) {
-        client.createBucket(BUCKET_NAME);
-    }
-
-    public static void deleteBucket(AmazonS3Client client) {
-        client.deleteBucket(BUCKET_NAME);
-    }
-
 }
