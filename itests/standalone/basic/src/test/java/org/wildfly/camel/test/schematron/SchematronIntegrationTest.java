@@ -30,7 +30,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
@@ -54,8 +53,6 @@ public class SchematronIntegrationTest {
     @Test
     public void testSchematronValidation() throws Exception {
 
-        Assume.assumeFalse("[#1629] SchematronIntegrationTest fails on Windows", EnvironmentUtils.isWindows());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
