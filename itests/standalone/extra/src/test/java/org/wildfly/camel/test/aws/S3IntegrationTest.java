@@ -7,7 +7,6 @@ import javax.inject.Inject;
 
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.s3.S3Constants;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -51,15 +50,8 @@ public class S3IntegrationTest {
         Assume.assumeNotNull("AWS client not null", s3Client);
         
         WildFlyCamelContext camelctx = new WildFlyCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                String clientref = "amazonS3Client=#s3Client";
-                from("direct:upload").to("aws-s3://" + S3Utils.BUCKET_NAME + "?" + clientref);
-                from("aws-s3://" + S3Utils.BUCKET_NAME + "?" + clientref).to("seda:read");
-            }
-        });
         camelctx.getNamingContext().bind("s3Client", s3Client);
+        S3Utils.addRoutes(camelctx);
         
         try {
             camelctx.start();

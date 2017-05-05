@@ -49,6 +49,7 @@ import com.amazonaws.services.dynamodbv2.model.TableDescription;
 
 public class DynamoDBUtils {
 
+    // Attach Policy: AmazonDynamoDBFullAccess
     public static AmazonDynamoDBClient createDynamoDBClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
         AmazonDynamoDBClient client = !credentials.isValid() ? null : (AmazonDynamoDBClient) 

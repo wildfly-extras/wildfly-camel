@@ -18,69 +18,48 @@
  * #L%
  */
 
-package org.wildfly.camel.test.aws;
+package org.wildfly.camel.test.plain.aws;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.ec2.EC2Constants;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.SimpleRegistry;
 import org.junit.Assert;
 import org.junit.Assume;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.wildfly.extension.camel.CamelAware;
-import org.wildfly.extension.camel.WildFlyCamelContext;
+import org.wildfly.camel.test.common.aws.EC2Utils;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.ec2.AmazonEC2;
-import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
+import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.TerminateInstancesResult;
 
-@CamelAware
-@RunWith(Arquillian.class)
 public class EC2IntegrationTest {
 
-    @Deployment
-    public static JavaArchive deployment() {
-        return ShrinkWrap.create(JavaArchive.class, "aws-ec2-tests");
+    private static AmazonEC2Client ec2Client;
+    
+    @BeforeClass
+    public static void beforeClass() throws Exception {
+        ec2Client = EC2Utils.createEC2Client();
     }
-
+    
     @Test
     public void testCreateInstance() throws Exception {
 
-        String accessId = System.getenv("AWS_ACCESS_ID");
-        String secretKey = System.getenv("AWS_SECRET_KEY");
-        Assume.assumeNotNull("AWS_ACCESS_ID not null", accessId);
-        Assume.assumeNotNull("AWS_SECRET_KEY not null", secretKey);
-
-        WildFlyCamelContext camelctx = new WildFlyCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                String clientref = "amazonEc2Client=#ec2Client";
-                from("direct:createAndRun").to("aws-ec2://TestDomain?" + clientref + "&operation=createAndRunInstances");
-                from("direct:terminate").to("aws-ec2://TestDomain?" + clientref + "&operation=terminateInstances");
-            }
-        });
-
-        AmazonEC2 client = AmazonEC2ClientBuilder.standard()
-                .withCredentials(new StaticCredentialsProvider(new BasicAWSCredentials(accessId, secretKey)))
-                .withRegion("eu-west-1")
-                .build();
+        Assume.assumeNotNull("AWS client not null", ec2Client);
         
-        camelctx.getNamingContext().bind("ec2Client", client);
+        SimpleRegistry registry = new SimpleRegistry();
+        registry.put("ec2Client", ec2Client);
         
+        CamelContext camelctx = new DefaultCamelContext(registry);
+        EC2Utils.addRoutes(camelctx);
+
         camelctx.start();
         try {
 
@@ -105,24 +84,6 @@ public class EC2IntegrationTest {
             Assert.assertEquals(instanceId, result2.getTerminatingInstances().get(0).getInstanceId());
         } finally {
             camelctx.stop();
-        }
-    }
-    
-    static class StaticCredentialsProvider implements AWSCredentialsProvider {
-
-        private final AWSCredentials credentials;
-
-        public StaticCredentialsProvider(AWSCredentials credentials) {
-            this.credentials = credentials;
-        }
-
-        @Override
-        public AWSCredentials getCredentials() {
-            return credentials;
-        }
-
-        @Override
-        public void refresh() {
         }
     }
 }
