@@ -2,7 +2,7 @@
  * #%L
  * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2013 - 2014 RedHat
+ * Copyright (C) 2013 - 2017 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,32 +17,17 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.jms.tx;
+package org.wildfly.camel.test.jms;
 
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.FileConsumingTestSupport;
 import org.wildfly.camel.test.common.http.HttpRequest;
-import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
 import org.wildfly.camel.test.common.utils.JMSUtils;
 
-@RunAsClient
-@RunWith(Arquillian.class)
-@ServerSetup({ TransactedJMSExampleTest.JmsQueueSetup.class })
-public class TransactedJMSExampleTest extends FileConsumingTestSupport {
+public abstract class AbstractJMSExampleTest extends FileConsumingTestSupport {
 
     private static String ORDERS_QUEUE = "OrdersQueue";
     private static String ORDERS_QUEUE_JNDI = "java:/jms/queue/OrdersQueue";
@@ -60,24 +45,13 @@ public class TransactedJMSExampleTest extends FileConsumingTestSupport {
         }
     }
 
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/examples/example-camel-jms-tx.war"));
-    }
-
     @Test
     public void testFileToJmsRoute() throws Exception {
-        HttpResponse result = HttpRequest.get("http://localhost:8080/example-camel-jms-tx/orders").getResponse();
-        Assert.assertTrue(result.getBody().contains("Test Product"));
+        HttpRequest.HttpResponse result = HttpRequest.get("http://localhost:8080/" + getContextPath() + "/orders").getResponse();
+        String body = result.getBody();
+        Assert.assertTrue("Unexpected response body: " + body, body.contains(getExpectedResponseText()));
     }
 
-    @Override
-    protected String sourceFilename() {
-        return "order.xml";
-    }
-
-    @Override
-    protected Path destinationPath() {
-        return Paths.get(System.getProperty("jboss.home") + "/standalone/data/orders");
-    }
+    abstract String getContextPath();
+    abstract String getExpectedResponseText();
 }

@@ -27,48 +27,21 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.arquillian.api.ServerSetup;
-import org.jboss.as.arquillian.api.ServerSetupTask;
-import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.FileConsumingTestSupport;
-import org.wildfly.camel.test.common.http.HttpRequest;
-import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
-import org.wildfly.camel.test.common.utils.JMSUtils;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-@ServerSetup({ JMSExampleTest.JmsQueueSetup.class })
-public class JMSExampleTest extends FileConsumingTestSupport {
+@ServerSetup({ AbstractJMSExampleTest.JmsQueueSetup.class })
+public class JMSExampleTest extends AbstractJMSExampleTest {
 
-    private static String ORDERS_QUEUE = "OrdersQueue";
-    private static String ORDERS_QUEUE_JNDI = "java:/jms/queue/OrdersQueue";
-
-    static class JmsQueueSetup implements ServerSetupTask {
-
-        @Override
-        public void setup(ManagementClient managementClient, String containerId) throws Exception {
-            JMSUtils.createJmsQueue(ORDERS_QUEUE, ORDERS_QUEUE_JNDI, managementClient.getControllerClient());
-        }
-
-        @Override
-        public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
-            JMSUtils.removeJmsQueue(ORDERS_QUEUE, managementClient.getControllerClient());
-        }
-    }
+    private static final String CONTEXT_PATH = "example-camel-jms";
+    private static final String EXAMPLE_CAMEL_JMS_WAR = CONTEXT_PATH + ".war";
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        return ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/examples/example-camel-jms.war"));
-    }
-
-    @Test
-    public void testFileToJmsRoute() throws Exception {
-        HttpResponse result = HttpRequest.get("http://localhost:8080/example-camel-jms/orders").getResponse();
-        Assert.assertTrue(result.getBody().contains("UK: 1"));
+        return ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/examples/" + EXAMPLE_CAMEL_JMS_WAR));
     }
 
     @Override
@@ -79,5 +52,20 @@ public class JMSExampleTest extends FileConsumingTestSupport {
     @Override
     protected Path destinationPath() {
         return Paths.get(System.getProperty("jboss.home") + "/standalone/data/orders");
+    }
+
+    @Override
+    protected Path processedPath() {
+        return destinationPath().resolve("processed/UK");
+    }
+
+    @Override
+    String getContextPath() {
+        return CONTEXT_PATH;
+    }
+
+    @Override
+    String getExpectedResponseText() {
+        return "UK: 1";
     }
 }

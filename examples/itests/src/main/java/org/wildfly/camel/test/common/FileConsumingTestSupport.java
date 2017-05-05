@@ -19,10 +19,7 @@
  */
 package org.wildfly.camel.test.common;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileVisitResult;
@@ -30,8 +27,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 
 public abstract class FileConsumingTestSupport {
 
@@ -44,26 +43,7 @@ public abstract class FileConsumingTestSupport {
         Files.copy(input, destinationPath().resolve(sourceFileName));
         input.close();
 
-        CountDownLatch latch = new CountDownLatch(1);
-        Path processedFile = destinationPath().resolve(".camel/" + sourceFilename());
-
-        new Thread(() -> {
-            int count = 0;
-
-            while (count < 5) {
-                count++;
-                if (Files.exists(processedFile)) {
-                    latch.countDown();
-                    return;
-                }
-                try {
-                    Thread.sleep(1000L);
-                } catch (InterruptedException e) {
-                }
-            }
-        }).start();
-
-        boolean await = latch.await(5, TimeUnit.SECONDS);
+        boolean await = awaitFileProcessed();
         Assert.assertTrue("Gave up waiting for file to be processed", await);
     }
 
@@ -92,6 +72,27 @@ public abstract class FileConsumingTestSupport {
         });
     }
 
+    private boolean awaitFileProcessed() throws Exception {
+        long start = System.currentTimeMillis();
+        long timeout = 15000;
+        do {
+            File file = processedPath().toFile();
+            if (file.exists()) {
+                if ((file.isDirectory() && file.list().length > 0) || (file.isFile())) {
+                    return true;
+                }
+            }
+            try {
+                Thread.sleep(100L);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return false;
+            }
+        } while (!((System.currentTimeMillis() - start) >= timeout));
+        return false;
+    }
+
     protected abstract String sourceFilename();
     protected abstract Path destinationPath();
+    protected abstract Path processedPath();
 }

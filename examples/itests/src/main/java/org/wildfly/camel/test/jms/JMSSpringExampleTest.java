@@ -2,7 +2,7 @@
  * #%L
  * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2013 - 2014 RedHat
+ * Copyright (C) 2013 - 2017 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.activemq;
+package org.wildfly.camel.test.jms;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -26,28 +26,22 @@ import java.nio.file.Paths;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.FileConsumingTestSupport;
-import org.wildfly.camel.test.common.http.HttpRequest;
-import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class ActiveMQExampleTest extends FileConsumingTestSupport {
+@ServerSetup({ AbstractJMSExampleTest.JmsQueueSetup.class })
+public class JMSSpringExampleTest extends AbstractJMSExampleTest {
+
+    private static final String CONTEXT_PATH = "example-camel-jms-spring";
+    private static final String EXAMPLE_CAMEL_JMS_WAR = CONTEXT_PATH + ".war";
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        return ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/examples/example-camel-activemq.war"));
-    }
-
-    @Test
-    public void testFileToActiveMQRoute() throws Exception {
-        HttpResponse result = HttpRequest.get("http://localhost:8080/example-camel-activemq/orders").getResponse();
-        Assert.assertTrue(result.getBody().contains("UK: 1"));
+        return ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/examples/" + EXAMPLE_CAMEL_JMS_WAR));
     }
 
     @Override
@@ -63,5 +57,15 @@ public class ActiveMQExampleTest extends FileConsumingTestSupport {
     @Override
     protected Path processedPath() {
         return destinationPath().resolve("processed/UK");
+    }
+
+    @Override
+    String getContextPath() {
+        return CONTEXT_PATH;
+    }
+
+    @Override
+    String getExpectedResponseText() {
+        return "UK: 1";
     }
 }

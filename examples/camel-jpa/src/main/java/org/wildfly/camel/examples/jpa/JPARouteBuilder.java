@@ -38,6 +38,7 @@ public class JPARouteBuilder extends RouteBuilder {
         from("file://{{jboss.server.data.dir}}/customers")
         .unmarshal("jaxb")
         .to("jpa:org.wildfly.camel.examples.jpa.model.Customer")
-        .to("log:input?showAll=true");
+        .to("log:input?showAll=true")
+        .to("file://{{jboss.server.data.dir}}/customers/processed");
     }
 }

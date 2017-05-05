@@ -1,0 +1,5 @@
+batch
+
+/subsystem=messaging-activemq/server=default/jms-queue=OrdersQueue:add(entries=["java:/jms/queue/OrdersQueue"])
+
+run-batch

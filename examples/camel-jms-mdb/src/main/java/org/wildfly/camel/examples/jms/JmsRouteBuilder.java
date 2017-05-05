@@ -53,7 +53,7 @@ public class JmsRouteBuilder extends RouteBuilder {
          * This route uses the timer component to generate a message which is sent to
          * the JMS OrdersQueue
          */
-        from("timer:produceJMSMessage?period=5000")
+        from("timer:produceJMSMessage?period=5000&delay=-1")
         .process(new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {

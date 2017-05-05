@@ -59,4 +59,9 @@ public class JPAExampleTest extends FileConsumingTestSupport {
     protected Path destinationPath() {
         return Paths.get(System.getProperty("jboss.home") + "/standalone/data/customers");
     }
+
+    @Override
+    protected Path processedPath() {
+        return destinationPath().resolve("processed");
+    }
 }

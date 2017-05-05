@@ -55,6 +55,7 @@
         <module>camel-cxf-jaxws</module>
         <module>camel-jms</module>
         <module>camel-jms-mdb</module>
+        <module>camel-jms-spring</module>
         <module>camel-jms-tx</module>
         <module>camel-jpa</module>
         <module>camel-mail</module>

@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.jms.mdb;
+package org.wildfly.camel.test.jms;
 
 import java.io.File;
 import java.io.IOException;

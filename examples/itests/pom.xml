@@ -105,6 +105,12 @@
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
+            <artifactId>example-camel-jms-spring</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
             <artifactId>example-camel-jms-mdb</artifactId>
             <version>${project.version}</version>
             <type>war</type>
