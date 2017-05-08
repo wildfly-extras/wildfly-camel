@@ -41,7 +41,7 @@ public class SESClientProducer {
     @Produces
     @Singleton
     public SESClientProvider getClientProvider() throws Exception {
-        AmazonSimpleEmailServiceClient client = SESUtils.createSimpleEmailClient();
+        AmazonSimpleEmailServiceClient client = SESUtils.createEmailClient();
         return new SESClientProvider(client);
     }
 }

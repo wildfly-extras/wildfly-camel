@@ -35,7 +35,7 @@ public class SWFUtils {
     public static final String DOMAIN = "wfcdomain";
 
     // Attach Policy: SimpleWorkflowFullAccess
-    public static AmazonSimpleWorkflowClient createSimpleWorkflowClient() {
+    public static AmazonSimpleWorkflowClient createWorkflowClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
         AmazonSimpleWorkflowClient client = !credentials.isValid() ? null : (AmazonSimpleWorkflowClient) 
                 AmazonSimpleWorkflowClientBuilder.standard()

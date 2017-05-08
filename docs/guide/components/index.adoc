@@ -22,6 +22,8 @@ include::camel-aws-s3.adoc[]
 
 include::camel-aws-ses.adoc[]
 
+include::camel-aws-sns.adoc[]
+
 include::camel-aws-swf.adoc[]
 
 include::camel-bean-validator.adoc[]

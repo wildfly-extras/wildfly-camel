@@ -40,7 +40,7 @@ public class SESIntegrationTest {
     
     @BeforeClass
     public static void beforeClass() throws Exception {
-        sesClient = SESUtils.createSimpleEmailClient();
+        sesClient = SESUtils.createEmailClient();
     }
     
     @Test

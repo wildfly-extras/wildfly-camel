@@ -1,0 +1,3 @@
+### camel-aws-sns
+
+The http://camel.apache.org/aws-sns.html[AWS SNS,window=_blank] component allows messages to be sent to an http://aws.amazon.com/sns[Amazon Simple Notification,window=_blank] Topic.

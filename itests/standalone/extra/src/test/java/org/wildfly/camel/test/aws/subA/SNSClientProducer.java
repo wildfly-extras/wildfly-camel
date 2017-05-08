@@ -22,29 +22,26 @@ package org.wildfly.camel.test.aws.subA;
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 
-import org.wildfly.camel.test.common.aws.SWFUtils;
+import org.wildfly.camel.test.common.aws.SNSUtils;
 
-import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClient;
+import com.amazonaws.services.sns.AmazonSNSClient;
 
-public class SWFClientProducer {
+public class SNSClientProducer {
 
-    public class SWFClientProvider {
-        private final AmazonSimpleWorkflowClient client;
-        SWFClientProvider(AmazonSimpleWorkflowClient client) {
+    public class SNSClientProvider {
+        private final AmazonSNSClient client;
+        SNSClientProvider(AmazonSNSClient client) {
             this.client = client;
         }
-        public AmazonSimpleWorkflowClient getClient() {
+        public AmazonSNSClient getClient() {
             return client;
         }
     }
     
     @Produces
     @Singleton
-    public SWFClientProvider getClientProvider() throws Exception {
-        AmazonSimpleWorkflowClient client = SWFUtils.createWorkflowClient();
-        if (client != null) {
-            SWFUtils.registerDomain(client);
-        }
-        return new SWFClientProvider(client);
+    public SNSClientProvider getClientProvider() throws Exception {
+        AmazonSNSClient client = SNSUtils.createNotificationClient();
+        return new SNSClientProvider(client);
     }
 }
