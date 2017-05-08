@@ -515,7 +515,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="net.sf.dozer" export="true">
+            <module name="org.dozer.mapper" export="true">
                 <exports>
                     <include path="org/dozer/util**" />
                     <exclude path="org/dozer**" />
@@ -801,6 +801,7 @@
         <include artifact="org.apache.camel:camel-infinispan"/>
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt"/>
+            <include module="org.infinispan.skipped" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
@@ -2077,6 +2078,7 @@
         <include artifact="io.zipkin.reporter:zipkin-reporter" />
         <apply-to-dependencies skip="true">
             <include module="com.google.auto.value" />
+            <include module="com.google.code.findbugs" />
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>

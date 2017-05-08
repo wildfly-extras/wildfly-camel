@@ -13,6 +13,7 @@ zipkin
 kura
 leveldb
 opentracing
+reactor
 ribbon
 shiro
 spring-cloud

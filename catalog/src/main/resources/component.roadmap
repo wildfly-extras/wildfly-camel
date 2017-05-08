@@ -129,6 +129,10 @@ stub
 test
 timer
 twitter
+twitter-directmessage
+twitter-search
+twitter-streaming
+twitter-timeline
 undertow
 validator
 velocity
@@ -184,6 +188,17 @@ zendesk
 zookeeper-master
 
 [undecided]
+hazelcast-atomicvalue
+hazelcast-instance
+hazelcast-list
+hazelcast-map
+hazelcast-multimap
+hazelcast-queue
+hazelcast-replicatedmap
+hazelcast-ringbuffer
+hazelcast-seda
+hazelcast-set
+hazelcast-topic
 
 [rejected]
 apns
@@ -209,7 +224,6 @@ geocoder
 gora
 grape
 guava-eventbus
-hazelcast
 hdfs
 hipchat
 http

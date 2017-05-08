@@ -121,6 +121,10 @@
         <include artifact="com.sun.xml.bind:jaxb-xjc" />
     </module>
 
+    <module name="com.zaxxer" skip="true">
+        <include artifact="com.zaxxer:HikariCP-java6" />
+    </module>
+
     <module name="io.sundr.builder.annotations" skip="true">
         <include artifact="io.sundr:builder-annotations" />
     </module>
@@ -233,9 +237,10 @@
         <include artifact="org.glassfish.web:javax.el" />
     </module>
     
-    <module name="org.infinispan.cdi" skip="true">
+    <module name="org.infinispan.skipped" skip="true">
         <include artifact="org.infinispan:infinispan-cdi-common" />
         <include artifact="org.infinispan:infinispan-cdi-embedded" />
+        <include artifact="org.infinispan:infinispan-remote-query-client" />
     </module>
     
     <module name="org.joda.convert" skip="true">

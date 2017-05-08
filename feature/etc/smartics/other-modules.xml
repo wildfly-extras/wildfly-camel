@@ -83,6 +83,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-codecommit" />
         <include artifact="com.amazonaws:aws-java-sdk-codedeploy" />
         <include artifact="com.amazonaws:aws-java-sdk-codepipeline" />
+        <include artifact="com.amazonaws:aws-java-sdk-codestar" />
         <include artifact="com.amazonaws:aws-java-sdk-cognitoidentity" />
         <include artifact="com.amazonaws:aws-java-sdk-cognitoidp" />
         <include artifact="com.amazonaws:aws-java-sdk-cognitosync" />
@@ -115,6 +116,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-kms" />
         <include artifact="com.amazonaws:aws-java-sdk-lambda" />
         <include artifact="com.amazonaws:aws-java-sdk-lex" />
+        <include artifact="com.amazonaws:aws-java-sdk-lexmodelbuilding" />
         <include artifact="com.amazonaws:aws-java-sdk-lightsail" />
         <include artifact="com.amazonaws:aws-java-sdk-logs" />
         <include artifact="com.amazonaws:aws-java-sdk-machinelearning" />
@@ -130,6 +132,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-rds" />
         <include artifact="com.amazonaws:aws-java-sdk-redshift" />
         <include artifact="com.amazonaws:aws-java-sdk-rekognition" />
+        <include artifact="com.amazonaws:aws-java-sdk-resourcegroupstaggingapi" />
         <include artifact="com.amazonaws:aws-java-sdk-route53" />
         <include artifact="com.amazonaws:aws-java-sdk-servermigration" />
         <include artifact="com.amazonaws:aws-java-sdk-servicecatalog" />
@@ -450,23 +453,6 @@
 
     <module name="javax.cache.api" >
         <include artifact="javax.cache:cache-api" />
-    </module>
-
-    <module name="net.sf.dozer">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="net.sf.dozer:dozer" />
-        <apply-to-dependencies skip="true">
-            <include module="org.hibernate" />
-            <include module="org.osgi.core" />
-            <include module="junit" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <!-- circular dependency to allow dozer to load camel-dozer types -->
-            <module name="org.apache.camel.component.dozer"/>
-        </dependencies>
     </module>
 
     <module name="net.sourceforge.cssparser">
@@ -856,6 +842,21 @@
         <include artifact="org.bitbucket.b_c:jose4j" />
     </module>
 
+    <module name="org.dozer.mapper">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.github.dozermapper:dozer-core" />
+        <apply-to-dependencies skip="true">
+            <include module="org.osgi.core" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <!-- circular dependency to allow dozer to load camel-dozer types -->
+            <module name="org.apache.camel.component.dozer"/>
+        </dependencies>
+    </module>
+
     <module name="org.drools.compiler">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -997,7 +998,7 @@
         <include artifact="org.infinispan:infinispan-jcache-commons" />
         <apply-to-dependencies skip="true">
             <include module="org.jboss.logging.processor" />
-            <include module="org.infinispan.cdi" />
+            <include module="org.infinispan.skipped" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
@@ -1084,6 +1085,7 @@
         <include artifact="com.mchange:c3p0" />
         <apply-to-dependencies skip="true">
             <include module="c3p0" />
+            <include module="com.zaxxer" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>

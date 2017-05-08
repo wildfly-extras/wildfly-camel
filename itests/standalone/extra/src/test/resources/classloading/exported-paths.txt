@@ -2243,6 +2243,7 @@ org/quartz/listeners
 org/quartz/management
 org/quartz/plugins
 org/quartz/plugins/history
+org/quartz/plugins/interrupt
 org/quartz/plugins/management
 org/quartz/plugins/xml
 org/quartz/simpl
@@ -2457,10 +2458,6 @@ org/springframework/ldap/pool2
 org/springframework/ldap/pool2/factory
 org/springframework/ldap/pool2/validation
 org/springframework/ldap/query
-org/springframework/ldap/repository
-org/springframework/ldap/repository/config
-org/springframework/ldap/repository/query
-org/springframework/ldap/repository/support
 org/springframework/ldap/support
 org/springframework/ldap/transaction
 org/springframework/ldap/transaction/compensating
