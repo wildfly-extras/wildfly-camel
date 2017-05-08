@@ -1,0 +1,3 @@
+### camel-aws-ses
+
+The http://camel.apache.org/aws-ses.html[AWS Simple Email Service,window=_blank] component supports sending emails with from http://aws.amazon.com/ses[Amazon's SES,window=_blank] service.

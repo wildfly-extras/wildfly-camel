@@ -157,6 +157,7 @@
                     <exclude path="com/amazonaws/http**" />
                 </exports>
             </module>
+            <module name="javax.mail.api" />
             <module name="org.slf4j" />
         </dependencies>
     </module>

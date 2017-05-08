@@ -20,6 +20,8 @@ include::camel-aws-ec2.adoc[]
 
 include::camel-aws-s3.adoc[]
 
+include::camel-aws-ses.adoc[]
+
 include::camel-aws-swf.adoc[]
 
 include::camel-bean-validator.adoc[]
