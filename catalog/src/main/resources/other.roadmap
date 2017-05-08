@@ -18,6 +18,7 @@ shiro
 spring-cloud
 spring-cloud-netflix
 spring-javaconfig
+test
 
 [rejected]
 bam (deprecated)
@@ -34,7 +35,6 @@ servletlistener (deprecated)
 spring-boot
 spring-dm (deprecated)
 swagger (deprecated)
-test
 test-blueprint
 test-cdi
 test-karaf
