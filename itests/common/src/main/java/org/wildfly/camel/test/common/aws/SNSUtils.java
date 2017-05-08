@@ -19,20 +19,18 @@
  */
 package org.wildfly.camel.test.common.aws;
 
-import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient;
-import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
+import com.amazonaws.services.sns.AmazonSNSClient;
+import com.amazonaws.services.sns.AmazonSNSClientBuilder;
 
-public class SESUtils {
+public class SNSUtils {
 
-    public static final String SUBJECT = "[wfc-aws-ses] Test Subject";
-    public static final String FROM = "tdiesler@redhat.com";
-    public static final String TO = "tdiesler@redhat.com";
-    
-    // Attach Policy: AmazonSESFullAccess
-    public static AmazonSimpleEmailServiceClient createEmailClient() {
+    public static final String TOPIC_NAME = "MyNewTopic";
+
+    // Attach Policy: AmazonSNSFullAccess
+    public static AmazonSNSClient createNotificationClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
-        AmazonSimpleEmailServiceClient client = !credentials.isValid() ? null : (AmazonSimpleEmailServiceClient) 
-                AmazonSimpleEmailServiceClientBuilder.standard()
+        AmazonSNSClient client = !credentials.isValid() ? null : (AmazonSNSClient) 
+                AmazonSNSClientBuilder.standard()
                 .withCredentials(credentials)
                 .withRegion("eu-west-1")
                 .build();

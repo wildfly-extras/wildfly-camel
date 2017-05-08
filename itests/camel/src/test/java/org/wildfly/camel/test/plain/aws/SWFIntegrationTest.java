@@ -36,7 +36,7 @@ public class SWFIntegrationTest {
     
     @BeforeClass
     public static void beforeClass() throws Exception {
-        swfClient = SWFUtils.createSimpleWorkflowClient();
+        swfClient = SWFUtils.createWorkflowClient();
         if (swfClient != null) {
             SWFUtils.registerDomain(swfClient);
         }
