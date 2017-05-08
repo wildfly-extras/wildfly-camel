@@ -1003,6 +1003,40 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.kubernetes">
+        <include artifact="org.apache.camel:camel-kubernetes" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="io.fabric8.kubernetes.client" export="true">
+                <exports>
+                    <exclude path="io/fabric8" />
+                    <exclude path="io/fabric8/kubernetes/client/dsl/internal**" />
+                    <exclude path="io/fabric8/kubernetes/client/internal**" />
+                    <exclude path="io/fabric8/kubernetes/client/osgi**" />
+                </exports>
+            </module>
+            <module name="io.fabric8.kubernetes.model" export="true">
+                <exports>
+                    <exclude path="io/fabric8" />
+                    <exclude path="io/fabric8/kubernetes/internal**" />
+                </exports>
+            </module>
+            <module name="io.fabric8.openshift.client" export="true">
+                <exports>
+                    <exclude path="io/fabric8" />
+                    <exclude path="io/fabric8/openshift/client/dsl/internal**" />
+                    <exclude path="io/fabric8/openshift/client/internal**" />
+                    <exclude path="io/fabric8/openshift/client/osgi**" />
+                </exports>
+            </module>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.ldap">
         <include artifact="org.apache.camel:camel-ldap" />
         <apply-to-dependencies skip="true">

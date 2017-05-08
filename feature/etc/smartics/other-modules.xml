@@ -109,6 +109,13 @@
         <include artifact=":jackson-datatype-joda" />
     </module>
 
+    <module name="com.github.generex">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.github.mifmif:generex" />
+    </module>
+
     <module name="com.google.code.gson">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -230,6 +237,57 @@
         </dependencies>
     </module>
 
+    <module name="dk.brics.automaton">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="dk.brics.automaton:automaton" />
+    </module>
+
+    <module name="io.fabric8.kubernetes.model">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.fabric8:kubernetes-model" />
+        <apply-to-dependencies skip="true">
+            <include module="io.sundr.builder.annotations" />
+            <include module="org.projectlombok" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.fasterxml.jackson.core.jackson-annotations" />
+            <module name="com.fasterxml.jackson.core.jackson-core" />
+            <module name="com.fasterxml.jackson.core.jackson-databind" />
+        </dependencies>
+    </module>
+
+    <module name="io.fabric8.kubernetes.client">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.fabric8:kubernetes-client" />
+        <dependencies>
+            <module name="com.squareup.okio" />
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="io.fabric8.openshift.client">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.fabric8:openshift-client" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="io.fabric8.zjsonpatch">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.fabric8:zjsonpatch" />
+    </module>
+
     <module name="io.netty" inherit-slot="false" slot="4.1">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -242,6 +300,17 @@
             <module name="javax.api"/>
             <module name="sun.jdk"/>
         </dependencies>
+    </module>
+
+    <module name="io.sundr">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.sundr:sundr-core" />
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.tools" />
+            <include module="io.sundr.codegen" />
+        </apply-to-dependencies>
     </module>
 
     <module name="javax.cache.api" >

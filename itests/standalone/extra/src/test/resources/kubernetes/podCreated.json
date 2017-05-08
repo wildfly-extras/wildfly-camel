@@ -1,0 +1,56 @@
+{
+  "kind": "Pod",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "wildfly-camel-test",
+    "namespace": "default",
+    "selfLink": "/api/v1/namespaces/default/pods/wildfly-camel-test",
+    "uid": "d027bad6-0a2e-11e7-b5af-0e4d75d66c88",
+    "resourceVersion": "4011",
+    "creationTimestamp": "2017-03-16T09:56:23Z"
+  },
+  "spec": {
+    "volumes": [
+      {
+        "name": "default-token-7t5vi",
+        "secret": {
+          "secretName": "default-token-7t5vi"
+        }
+      }
+    ],
+    "containers": [
+      {
+        "name": "wildfly-camel-test",
+        "image": "docker.io/wildflyext/wildfly-camel:latest",
+        "ports": [
+          {
+            "hostPort": 8080,
+            "containerPort": 8080,
+            "protocol": "TCP",
+            "hostIP": "0.0.0.0"
+          }
+        ],
+        "resources": {},
+        "volumeMounts": [
+          {
+            "name": "default-token-7t5vi",
+            "readOnly": true,
+            "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+          }
+        ],
+        "terminationMessagePath": "/dev/termination-log",
+        "imagePullPolicy": "Always"
+      }
+    ],
+    "restartPolicy": "Always",
+    "terminationGracePeriodSeconds": 30,
+    "dnsPolicy": "ClusterFirst",
+    "serviceAccountName": "default",
+    "serviceAccount": "default",
+    "securityContext": {},
+    "hostname": "localhost"
+  },
+  "status": {
+    "phase": "Pending"
+  }
+}

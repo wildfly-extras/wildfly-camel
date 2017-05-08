@@ -14,6 +14,8 @@
     ^com/splunk(.*)
 	^com/sun/syndication(.*)
 	^groovy(.*)
+	^io/fabric8/kubernetes(.*)
+ 	^io/fabric8/openshift(.*)
 	^io/nats(.*)
 	^io/swagger(.*)
     ^io/undertow/client(.*)

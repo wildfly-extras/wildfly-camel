@@ -1,0 +1,113 @@
+{
+  "kind": "PodList",
+  "apiVersion": "v1",
+  "metadata": {
+    "selfLink": "/api/v1/pods",
+    "resourceVersion": "3330"
+  },
+  "items": [
+    {
+      "metadata": {
+        "name": "wildfly-camel-ifa33",
+        "generateName": "wildfly-camel-",
+        "namespace": "default",
+        "selfLink": "/api/v1/namespaces/default/pods/wildfly-camel-ifa33",
+        "uid": "a01d4e66-08c3-11e7-87c7-ee5413371fc6",
+        "resourceVersion": "894",
+        "creationTimestamp": "2017-03-14T14:36:35Z",
+        "labels": {
+          "app": "wildfly-camel"
+        },
+        "annotations": {
+          "kubernetes.io/created-by": "{\"kind\":\"SerializedReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"ReplicationController\",\"namespace\":\"default\",\"name\":\"wildfly-camel\",\"uid\":\"a01cdf63-08c3-11e7-87c7-ee5413371fc6\",\"apiVersion\":\"v1\",\"resourceVersion\":\"70\"}}\n"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "default-token-7t5vi",
+            "secret": {
+              "secretName": "default-token-7t5vi"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "wildfly-camel",
+            "image": "wildflyext/wildfly-camel",
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "default-token-7t5vi",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "Always",
+            "securityContext": {
+              "privileged": false
+            }
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "serviceAccountName": "default",
+        "serviceAccount": "default",
+        "nodeName": "minikube",
+        "securityContext": {}
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2017-03-14T14:36:35Z"
+          },
+          {
+            "type": "Ready",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2017-03-15T09:08:13Z"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2017-03-14T14:36:35Z"
+          }
+        ],
+        "hostIP": "192.168.42.111",
+        "podIP": "172.17.0.2",
+        "startTime": "2017-03-14T14:36:35Z",
+        "containerStatuses": [
+          {
+            "name": "wildfly-camel",
+            "state": {
+              "running": {
+                "startedAt": "2017-03-15T09:08:12Z"
+              }
+            },
+            "lastState": {
+              "terminated": {
+                "exitCode": 0,
+                "reason": "Completed",
+                "startedAt": "2017-03-14T16:29:51Z",
+                "finishedAt": "2017-03-15T09:07:58Z",
+                "containerID": "docker://bf122dbc452e691ed6076376aa0213690a342e4c483ebd3bbfca248710e0c150"
+              }
+            },
+            "ready": true,
+            "restartCount": 3,
+            "image": "wildflyext/wildfly-camel",
+            "imageID": "docker://sha256:b898de57441b78cd79137faa510e9d1a700426fa6a323fa971e7ca1d1a47785b",
+            "containerID": "docker://d9cce849a915a644f4f9c757c3f55e611020217292e1670d4f53a90a7fd68e66"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="io.fabric8.kubernetes.client">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${io.fabric8:kubernetes-client}" />
+  </resources>
+  <dependencies>
+    <module name="com.squareup.okio" />
+    <module name="javax.api" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.fasterxml.jackson.dataformat.yaml" />
+    <module name="com.github.generex" />
+    <module name="com.squareup.okhttp3" />
+    <module name="io.fabric8.kubernetes.model" />
+    <module name="io.fabric8.zjsonpatch" />
+    <module name="org.jboss.logging.jul-to-slf4j-stub" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

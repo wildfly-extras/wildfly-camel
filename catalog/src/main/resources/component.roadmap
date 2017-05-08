@@ -61,6 +61,7 @@ jms
 jmx
 jpa
 kafka
+kubernetes
 language
 ldap
 linkedin
@@ -145,7 +146,6 @@ google-mail
 hbase
 hdfs2
 jclouds
-kubernetes
 websocket
 
 [undecided]

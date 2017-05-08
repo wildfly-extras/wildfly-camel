@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.kubernetes">
+  <resources>
+    <artifact name="${org.apache.camel:camel-kubernetes}" />
+  </resources>
+  <dependencies>
+    <module name="io.fabric8.kubernetes.client" export="true">
+      <exports>
+        <exclude path="io/fabric8" />
+        <exclude path="io/fabric8/kubernetes/client/dsl/internal**" />
+        <exclude path="io/fabric8/kubernetes/client/internal**" />
+        <exclude path="io/fabric8/kubernetes/client/osgi**" />
+      </exports>
+    </module>
+    <module name="io.fabric8.kubernetes.model" export="true">
+      <exports>
+        <exclude path="io/fabric8" />
+        <exclude path="io/fabric8/kubernetes/internal**" />
+      </exports>
+    </module>
+    <module name="io.fabric8.openshift.client" export="true">
+      <exports>
+        <exclude path="io/fabric8" />
+        <exclude path="io/fabric8/openshift/client/dsl/internal**" />
+        <exclude path="io/fabric8/openshift/client/internal**" />
+        <exclude path="io/fabric8/openshift/client/osgi**" />
+      </exports>
+    </module>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>

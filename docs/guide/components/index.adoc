@@ -104,6 +104,8 @@ include::camel-jsch.adoc[]
 
 include::camel-kafka.adoc[]
 
+include::camel-kubernetes.adoc[]
+
 include::camel-ldap.adoc[]
 
 include::camel-linkedin.adoc[]

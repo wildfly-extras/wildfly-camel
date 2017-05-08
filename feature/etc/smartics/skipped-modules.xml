@@ -71,7 +71,11 @@
     <module name="com.github.jai-imageio" skip="true">
         <include artifact="com.github.jai-imageio:(.*)" />
     </module>
-    
+
+    <module name="com.github.javaparser" skip="true">
+        <include artifact="com.github.javaparser:javaparser-core" />
+    </module>
+
     <module name="com.github.jnr" skip="true">
         <include artifact="com.github.jnr:jnr-(.*)" />
         <include artifact="com.github.jnr:jffi" />
@@ -91,22 +95,6 @@
 
     <module name="com.ibm.jbatch.tck" skip="true">
         <include artifact="com.ibm.jbatch:com.ibm.jbatch-tck-spi" />
-    </module>
-
-    <module name="io.netty.parts" skip="true">
-        <include artifact="io.netty:netty" />
-        <include artifact="io.netty:netty-buffer" />
-        <include artifact="io.netty:netty-codec" />
-        <include artifact="io.netty:netty-codec-dns" />
-        <include artifact="io.netty:netty-codec-http" />
-        <include artifact="io.netty:netty-codec-http2" />
-        <include artifact="io.netty:netty-codec-socks" />
-        <include artifact="io.netty:netty-common" />
-        <include artifact="io.netty:netty-handler" />
-        <include artifact="io.netty:netty-handler-proxy" />
-        <include artifact="io.netty:netty-resolver" />
-        <include artifact="io.netty:netty-resolver-dns" />
-        <include artifact="io.netty:netty-transport" />
     </module>
 
     <module name="com.headius" skip="true">
@@ -132,11 +120,39 @@
     <module name="com.sun.mail" skip="true">
         <include artifact="com.sun.mail:javax.mail" />
     </module>
+
+    <module name="com.sun.tools" skip="true">
+        <include artifact="com.sun:tools" />
+    </module>
     
     <module name="com.sun.xml.bind.jaxb.xjc" skip="true">
         <include artifact="com.sun.xml.bind:jaxb-xjc" />
     </module>
-    
+
+    <module name="io.netty.parts" skip="true">
+        <include artifact="io.netty:netty" />
+        <include artifact="io.netty:netty-buffer" />
+        <include artifact="io.netty:netty-codec" />
+        <include artifact="io.netty:netty-codec-dns" />
+        <include artifact="io.netty:netty-codec-http" />
+        <include artifact="io.netty:netty-codec-http2" />
+        <include artifact="io.netty:netty-codec-socks" />
+        <include artifact="io.netty:netty-common" />
+        <include artifact="io.netty:netty-handler" />
+        <include artifact="io.netty:netty-handler-proxy" />
+        <include artifact="io.netty:netty-resolver" />
+        <include artifact="io.netty:netty-resolver-dns" />
+        <include artifact="io.netty:netty-transport" />
+    </module>
+
+    <module name="io.sundr.builder.annotations" skip="true">
+        <include artifact="io.sundr:builder-annotations" />
+    </module>
+
+    <module name="io.sundr.codegen" skip="true">
+        <include artifact="io.sundr:sundr-codegen" />
+    </module>
+
     <module name="jexcelapi" skip="true">
         <include artifact="jexcelapi:jxl" />
     </module>
@@ -261,7 +277,11 @@
     <module name="org.jctools" skip="true">
         <include artifact="org.jctools:(.*)" />
     </module>
-    
+
+    <module name="org.projectlombok" skip="true">
+        <include artifact="org.projectlombok:lombok" />
+    </module>
+
     <module name="org.jruby" skip="true">
         <include artifact="org.jruby:jruby" />
         <include artifact="org.jruby:jruby-core" />

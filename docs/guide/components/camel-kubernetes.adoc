@@ -1,0 +1,5 @@
+### camel-kubernetes
+
+The http://camel.apache.org/kubernetes.html[ldap,window=_blank] component provides the capability to integrate
+with Kubernetes and OpenShift clusters to create, read, update & delete resources.
+
