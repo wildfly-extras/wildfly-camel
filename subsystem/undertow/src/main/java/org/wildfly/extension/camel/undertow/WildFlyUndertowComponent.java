@@ -31,6 +31,7 @@ import org.apache.camel.component.undertow.UndertowConsumer;
 import org.apache.camel.component.undertow.UndertowEndpoint;
 import org.apache.camel.component.undertow.UndertowHost;
 import org.apache.camel.component.undertow.UndertowHostKey;
+import org.apache.camel.component.undertow.UndertowHttpBinding;
 import org.jboss.gravia.runtime.ServiceLocator;
 import org.wildfly.extension.camel.parser.SubsystemState.RuntimeState;
 
@@ -78,6 +79,11 @@ public class WildFlyUndertowComponent extends UndertowComponent {
             String host = uri.getHost();
             if (!"localhost".equals(host)) {
                 LOGGER.warn("Ignoring configured host: {}", uri);
+            }
+
+            // [#1809] Reenable undertow consumer prefix paths
+            if (endpoint.getUndertowHttpBinding() instanceof UndertowHttpBinding && endpoint.getMatchOnUriPrefix()) {
+                LOGGER.warn("Ignoring URI path prefix matches for {}", uri.getPath());
             }
         }
 

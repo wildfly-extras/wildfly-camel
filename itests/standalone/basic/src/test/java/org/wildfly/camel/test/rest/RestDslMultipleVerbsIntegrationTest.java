@@ -40,22 +40,33 @@ public class RestDslMultipleVerbsIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-rest-dsl-verbs");
-        archive.addClasses(HttpRequest.class);
-        return archive;
+        return ShrinkWrap.create(JavaArchive.class, "camel-rest-dsl-verbs")
+            .addClasses(HttpRequest.class);
     }
 
     @Test
-    public void testRestDsl() throws Exception {
+    public void testRestDslMultipleVerbs() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                restConfiguration().component("undertow").contextPath("camel/rest").host("localhost").port(8080);
-                rest("/hello").get("/{name}").to("direct:get").post("/{name}").to("direct:post").put("/{name}").to("direct:put");
-                from("direct:get").transform(simple("GET ${header.name}"));
-                from("direct:post").transform(simple("POST ${header.name}"));
-                from("direct:put").transform(simple("PUT ${header.name}"));
+                restConfiguration()
+                    .component("undertow")
+                    .contextPath("camel/rest")
+                    .host("localhost")
+                    .port(8080);
+
+                rest("/hello")
+                    .get("/{name}")
+                        .to("direct:get")
+                            .post("/{name}")
+                            .to("direct:post")
+                    .put("/{name}")
+                        .to("direct:put");
+
+                from("direct:get").setBody(simple("GET ${header.name}"));
+                from("direct:post").setBody(simple("POST ${header.name}"));
+                from("direct:put").setBody(simple("PUT ${header.name}"));
             }
         });
 

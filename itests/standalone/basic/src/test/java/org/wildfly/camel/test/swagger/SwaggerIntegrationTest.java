@@ -20,10 +20,8 @@
 
 package org.wildfly.camel.test.swagger;
 
-import java.lang.management.ManagementFactory;
 import java.net.HttpURLConnection;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
+
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.builder.RouteBuilder;
@@ -45,13 +43,12 @@ public class SwaggerIntegrationTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "swagger-tests.war");
-        archive.addClasses(HttpRequest.class, User.class);
-        return archive;
+        return ShrinkWrap.create(WebArchive.class, "swagger-tests.war")
+            .addClasses(HttpRequest.class, User.class);
     }
 
     @Test
-    public void testRestDsl() throws Exception {
+    public void testSwagger() throws Exception {
         DefaultCamelContext camelctx = new DefaultCamelContext();
         camelctx.setName("swagger-test");
         camelctx.addRoutes(new RouteBuilder() {
@@ -62,7 +59,8 @@ public class SwaggerIntegrationTest {
                     .host("localhost")
                     .port(8080)
                     .apiContextPath("/api-doc")
-                    .apiProperty("api.title", "User API").apiProperty("api.version", "1.2.3")
+                    .apiProperty("api.title", "User API")
+                    .apiProperty("api.version", "1.2.3")
                     .apiProperty("cors", "true");
                 rest("/hello")
                     .get("/{name}").description("A user object").outType(User.class).to("direct:hello")
@@ -76,12 +74,6 @@ public class SwaggerIntegrationTest {
         try {
             HttpRequest.HttpResponse result = HttpRequest.get("http://localhost:8080/swagger-tests/rest/hello/Kermit").getResponse();
             Assert.assertEquals("Hello Kermit", result.getBody());
-
-            MBeanServer server = ManagementFactory.getPlatformMBeanServer();
-            for (ObjectName oname : server.queryNames(new ObjectName("*:type=context,*"), null)) {
-                Object jmxret = server.invoke(oname, "dumpRestsAsXml", null, null);
-                System.out.println(oname + ": " + jmxret);
-            }
 
             result = HttpRequest.get("http://localhost:8080/swagger-tests/rest/api-doc").getResponse();
             Assert.assertEquals(HttpURLConnection.HTTP_OK, result.getStatusCode());

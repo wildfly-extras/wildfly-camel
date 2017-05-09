@@ -27,7 +27,10 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 import org.apache.camel.component.undertow.HttpHandlerRegistrationInfo;
 import org.apache.camel.component.undertow.UndertowHost;
@@ -57,9 +60,10 @@ import org.wildfly.extension.undertow.UndertowService;
 import io.undertow.Handlers;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
-import io.undertow.server.handlers.PathTemplateHandler;
+import io.undertow.server.RoutingHandler;
 import io.undertow.servlet.api.Deployment;
-import io.undertow.util.HttpString;
+import io.undertow.util.PathTemplate;
+import io.undertow.util.URLUtils;
 
 /**
  * The {@link UndertowHost} service
@@ -135,7 +139,8 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
     class WildFlyUndertowHost implements UndertowHost {
         private static final String REST_PATH_PLACEHOLDER = "{";
-        private final Map<String, DelegatingHttpHandler> handlers = new HashMap<>();
+        private static final String DEFAULT_METHODS = "GET,HEAD,POST,PUT,DELETE,TRACE,OPTIONS,CONNECT,PATCH";
+        private final Map<String, DelegatingRoutingHandler> handlers = new HashMap<>();
         private final Host defaultHost;
 
         WildFlyUndertowHost(Host host) {
@@ -159,81 +164,171 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
                     }
                 }
             }
-            
-            if (!"localhost".equals(httpURI.getHost())) 
-                LOGGER.warn("Cannot bind to host other than 'localhost': {}", httpURI);
-            if (!portMatched) 
-                LOGGER.warn("Cannot bind to specific port: {}", httpURI);
+
+            if (!"localhost".equals(httpURI.getHost())) {
+                LOGGER.debug("Cannot bind to host other than 'localhost': {}", httpURI);
+            }
+            if (!portMatched) {
+                LOGGER.debug("Cannot bind to specific port: {}", httpURI);
+            }
         }
 
         @Override
 		public void registerHandler(HttpHandlerRegistrationInfo reginfo, HttpHandler handler) {
-        	String path = reginfo.getUri().getPath();
-            if (path.contains(REST_PATH_PLACEHOLDER)) {
-                String pathPrefix = path.substring(0, path.indexOf(REST_PATH_PLACEHOLDER));
-                String remaining = path.substring(path.indexOf(REST_PATH_PLACEHOLDER));
 
-                PathTemplateHandler pathTemplateHandler = Handlers.pathTemplate();
-                pathTemplateHandler.add(remaining, handler);
+            String contextPath = getContextPath(reginfo);
+            IllegalStateAssertion.assertFalse(contextPath.equals("/"), "Cannot register a HTTP handler to a path of /");
+            LOGGER.debug("Using context path {}" , contextPath);
 
-                handler = pathTemplateHandler;
-                path = pathPrefix;
-            } else if (!reginfo.isMatchOnUriPrefix()) {
-                handler = Handlers.path(handler);
+            String relativePath = getRelativePath(reginfo);
+            LOGGER.debug("Using relative path {}" , relativePath);
+
+            DelegatingRoutingHandler routingHandler = handlers.get(contextPath);
+            if (routingHandler == null) {
+                routingHandler = new DelegatingRoutingHandler();
+                handlers.put(contextPath, routingHandler);
+                LOGGER.debug("Created new DelegatingRoutingHandler {}" ,routingHandler);
             }
-            DelegatingHttpHandler delhandler = handlers.get(path);
-            if (delhandler == null) {
-                delhandler = new DelegatingHttpHandler();
-                defaultHost.registerHandler(path, delhandler);
-                handlers.put(path, delhandler);
+
+            String methods = reginfo.getMethodRestrict() == null ? DEFAULT_METHODS : reginfo.getMethodRestrict();
+            LOGGER.debug("Using methods {}" , methods);
+
+            for (String method : methods.split(",")) {
+                LOGGER.debug("Adding {}: {} for handler {}", method, relativePath, handler);
+                routingHandler.add(method, relativePath, handler);
             }
-            delhandler.addDelegate(reginfo, handler);
+
+            LOGGER.debug("Registering DelegatingRoutingHandler on path {}", contextPath);
+            defaultHost.registerHandler(contextPath, routingHandler);
         }
 
 		@Override
 		public void unregisterHandler(HttpHandlerRegistrationInfo reginfo) {
-        	String path = reginfo.getUri().getPath();
-            if (path.contains(REST_PATH_PLACEHOLDER)) {
-                path = path.substring(0, path.indexOf(REST_PATH_PLACEHOLDER));
+            String contextPath = getContextPath(reginfo);
+            LOGGER.debug("unregisterHandler {}", contextPath);
+
+            DelegatingRoutingHandler routingHandler = handlers.get(contextPath);
+            if (routingHandler != null) {
+                String methods = reginfo.getMethodRestrict() == null ? DEFAULT_METHODS : reginfo.getMethodRestrict();
+                for (String method : methods.split(",")) {
+                    String relativePath = getRelativePath(reginfo);
+                    routingHandler.remove(method, relativePath);
+                    LOGGER.debug("Unregistered {}: {}", method, relativePath);
+                }
+
+                // No paths remain registered so remove the base handler
+                if (!routingHandler.hasRegisteredPaths()) {
+                    defaultHost.unregisterHandler(contextPath);
+                    handlers.remove(contextPath);
+                    LOGGER.debug("Unregistered root handler from {}", contextPath);
+                }
             }
-            // This will remove the handlers for all methods
-            defaultHost.unregisterHandler(path);
-            handlers.remove(path);
+        }
+
+        private String getBasePath(HttpHandlerRegistrationInfo reginfo) {
+            String path = reginfo.getUri().getPath();
+            if (path.contains(REST_PATH_PLACEHOLDER)) {
+                path = PathTemplate.create(path).getBase();
+            }
+            return URLUtils.normalizeSlashes(path);
+        }
+
+        private String getContextPath(HttpHandlerRegistrationInfo reginfo) {
+            String path = getBasePath(reginfo);
+            String[] pathElements = path.replaceFirst("^/", "").split("/");
+            return "/" + pathElements[0];
+        }
+
+        private String getRelativePath(HttpHandlerRegistrationInfo reginfo) {
+            String path = reginfo.getUri().getPath();
+            String contextPath = getContextPath(reginfo);
+            return URLUtils.normalizeSlashes(path.substring(contextPath.length()));
         }
     }
 
-    class DelegatingHttpHandler implements HttpHandler {
-        
-        private Map<String, HttpHandler> delegates = new HashMap<>();
-        
-        void addDelegate(HttpHandlerRegistrationInfo reginfo, HttpHandler handler) {
-            String methodRestrict = reginfo.getMethodRestrict();
-            if (methodRestrict != null) {
-                for (String method: methodRestrict.split(",")) {
-                    checkedPut(method.trim(), handler);
-                }
-            } else {
-                checkedPut("ALL", handler);
-            }
+    class DelegatingRoutingHandler implements HttpHandler {
+
+        private final List<MethodPathMapping> paths = new CopyOnWriteArrayList<>();
+        private final RoutingHandler delegate = Handlers.routing();
+
+        DelegatingRoutingHandler add(String method, String path, HttpHandler handler) {
+            MethodPathMapping mapping = new MethodPathMapping(method, path);
+            IllegalStateAssertion.assertFalse(paths.contains(mapping), "Cannot register duplicate handler for " + mapping);
+
+            LOGGER.debug("Registered paths {}", this.toString());
+            delegate.add(method, path, handler);
+            paths.add(mapping);
+            return this;
         }
 
-        private void checkedPut(String method, HttpHandler handler) {
-            HttpHandler prev = delegates.put(method, handler);
-            IllegalStateAssertion.assertNull(prev, "Handler for " + method + " already registered");
+        void remove(String method, String path) {
+            // There is currently no way to remove paths from a RoutingHandler so set them to null
+            // https://issues.jboss.org/browse/UNDERTOW-1073
+            delegate.add(method, path, null);
+            paths.remove(new MethodPathMapping(method, path));
         }
-        
+
+        boolean hasRegisteredPaths() {
+            return !paths.isEmpty();
+        }
+
         @Override
         public void handleRequest(HttpServerExchange exchange) throws Exception {
-            HttpString method = exchange.getRequestMethod();
-            HttpHandler delegate = delegates.get(method.toString());
-            if (delegate == null) {
-                delegate = delegates.get("ALL");
+            if (exchange.getRelativePath().isEmpty()) {
+                exchange.setRelativePath("/");
             }
-            IllegalStateAssertion.assertNotNull(delegate, "Cannot obtain handler for method: " + method);
             delegate.handleRequest(exchange);
         }
+
+        @Override
+        public String toString() {
+            String formattedPaths = paths.stream()
+                .map(methodPathMapping -> methodPathMapping.toString())
+                .collect(Collectors.joining(", "));
+
+            return String.format("DelegatingRoutingHandler [%s]", formattedPaths);
+        }
     }
-    
+
+    class MethodPathMapping {
+        private String method;
+        private String path;
+
+        MethodPathMapping(String method, String path) {
+            this.method = method;
+            this.path = path;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            MethodPathMapping that = (MethodPathMapping) o;
+
+            if (method != null ? !method.equals(that.method) : that.method != null) {
+                return false;
+            }
+            return path != null ? path.equals(that.path) : that.path == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = method != null ? method.hashCode() : 0;
+            result = 31 * result + (path != null ? path.hashCode() : 0);
+            return result;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%s: %s", method, path);
+        }
+    }
+
     class CamelUndertowEventListener implements UndertowEventListener {
 
         @Override

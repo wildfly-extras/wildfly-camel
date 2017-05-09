@@ -27,7 +27,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -61,6 +63,10 @@ public final class HttpRequest {
 
     public static HttpRequestBuilder delete(String url) {
         return new HttpRequestBuilder(url, "DELETE");
+    }
+
+    public static HttpRequestBuilder options(String url) {
+        return new HttpRequestBuilder(url, "OPTIONS");
     }
 
     public static final class HttpRequestBuilder {
@@ -153,6 +159,12 @@ public final class HttpRequest {
                             HttpResponse httpResult = new HttpResponse();
                             httpResult.setStatusCode(HttpURLConnection.HTTP_NOT_FOUND);
                             return httpResult;
+                        } else if (lastCause instanceof IOException) {
+                            if (lastCause.getMessage().contains("405")) {
+                                HttpResponse httpResult = new HttpResponse();
+                                httpResult.setStatusCode(HttpURLConnection.HTTP_BAD_METHOD);
+                                return httpResult;
+                            }
                         } else {
                             continue;
                         }
@@ -195,6 +207,12 @@ public final class HttpRequest {
                 HttpResponse result = new HttpResponse();
                 result.setStatusCode(responseCode);
                 result.setBody(read(in));
+
+                Map<String, List<String>> headerFields = conn.getHeaderFields();
+                for (String headerName : headerFields.keySet()) {
+                    result.addHeader(headerName, conn.getHeaderField(headerName));
+                }
+
                 return result;
             } finally {
                 in.close();
@@ -205,6 +223,7 @@ public final class HttpRequest {
     public static class HttpResponse {
         private int statusCode;
         private String body;
+        private Map<String, String> headers = new HashMap<>();
 
         public int getStatusCode() {
             return statusCode;
@@ -220,6 +239,18 @@ public final class HttpRequest {
 
         public void setBody(String body) {
             this.body = body;
+        }
+
+        public Map<String, String> getHeaders() {
+            return Collections.unmodifiableMap(headers);
+        }
+
+        public String getHeader(String headerName) {
+            return headers.get(headerName);
+        }
+
+        void addHeader(String header, String value) {
+            headers.put(header, value);
         }
 
         public String toString() {
