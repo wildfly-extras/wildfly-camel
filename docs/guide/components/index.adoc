@@ -20,6 +20,8 @@ include::camel-aws-ec2.adoc[]
 
 include::camel-aws-s3.adoc[]
 
+include::camel-aws-sdb.adoc[]
+
 include::camel-aws-ses.adoc[]
 
 include::camel-aws-sns.adoc[]

@@ -1,0 +1,3 @@
+### camel-aws-sdb
+
+The http://camel.apache.org/aws-sdb.html[AWS SDB,window=_blank] component storing and retrieving data from/to http://aws.amazon.com/sdb[Amazon's SDB,window=_blank] service.
