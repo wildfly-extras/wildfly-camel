@@ -56,6 +56,13 @@
             <exclude path="com/amazonaws/services/stepfunctions/builder/internal**" />
         </exports>
     </module>
+
+    <module name="com.box">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.box:box-java-sdk" />
+    </module>
     
     <module name="com.codahale.metrics">
         <properties>
@@ -67,6 +74,14 @@
             <module name="sun.jdk" />
         </dependencies>
     </module>
+
+    <module name="com.eclipsesource.minimal.json">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.eclipsesource.minimal-json:minimal-json" />
+    </module>
+
     
     <module name="com.fasterxml.jackson.dataformat.cbor">
         <properties>
@@ -689,6 +704,13 @@
         <dependencies>
             <module name="javax.api" />
         </dependencies>
+    </module>
+
+    <module name="org.bitbucket.jose4j">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.bitbucket.b_c:jose4j" />
     </module>
 
     <module name="org.drools.compiler">

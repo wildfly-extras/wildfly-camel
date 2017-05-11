@@ -92,6 +92,8 @@
 /com/amazon/aws/main/aws-java-sdk-workspaces-1.11.108.jar
 /com/amazon/aws/main/aws-java-sdk-xray-1.11.108.jar
 /com/amazon/aws/main/jmespath-java-1.11.108.jar
+/com/box/main/box-java-sdk-2.1.1.jar
+/com/eclipsesource/minimal/json/main/minimal-json-0.9.1.jar
 /com/fasterxml/jackson/dataformat/cbor/main/jackson-dataformat-cbor-2.7.4.jar
 /com/fasterxml/jackson/dataformat/smile/main/jackson-dataformat-smile-2.7.4.jar
 /com/fasterxml/jackson/dataformat/xml/main/jackson-dataformat-xml-2.7.4.jar
@@ -153,6 +155,8 @@
 /org/apache/camel/component/beanio/main/beanio-2.1.0.jar
 /org/apache/camel/component/beanio/main/camel-beanio-2.19.0.jar
 /org/apache/camel/component/bindy/main/camel-bindy-2.19.0.jar
+/org/apache/camel/component/box/main/camel-box-2.19.0.jar
+/org/apache/camel/component/box/main/camel-box-api-2.19.0.jar
 /org/apache/camel/component/braintree/main/braintree-java-2.63.0.jar
 /org/apache/camel/component/braintree/main/camel-braintree-2.19.0.jar
 /org/apache/camel/component/cassandra/main/camel-cassandraql-2.19.0.jar
@@ -383,6 +387,7 @@
 /org/apache/zookeeper/main/curator-recipes-2.11.1.jar
 /org/apache/zookeeper/main/zookeeper-3.4.10.jar
 /org/beanshell/main/bsh-2.0b6.jar
+/org/bitbucket/jose4j/main/jose4j-0.4.4.jar
 /org/bouncycastle/ext/main/bcpg-jdk15on-1.55.jar
 /org/drools/compiler/main/drools-compiler-6.5.0.Final.jar
 /org/drools/core/main/drools-core-6.5.0.Final.jar

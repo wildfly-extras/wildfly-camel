@@ -17,6 +17,7 @@ aws-swf
 bean
 bean-validator
 binding
+box
 braintree
 browse
 class
@@ -136,7 +137,6 @@ zookeeper
 ahc
 ahc-ws
 ahc-wss
-box
 docker
 etcd
 flink

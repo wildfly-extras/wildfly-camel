@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.box">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${com.box:box-java-sdk}" />
+    <artifact name="${com.box:box-java-sdk}" />
+  </resources>
+  <dependencies>
+    <module name="com.eclipsesource.minimal.json" />
+    <module name="org.bitbucket.jose4j" />
+    <module name="org.bouncycastle" />
+  </dependencies>
+</module>

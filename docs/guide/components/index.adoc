@@ -36,6 +36,8 @@ include::camel-bean-validator.adoc[]
 
 include::camel-bindy.adoc[]
 
+include::camel-box.adoc[]
+
 include::camel-braintree.adoc[]
 
 include::camel-cassandra.adoc[]
