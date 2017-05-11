@@ -73,8 +73,8 @@ public class SQSIntegrationTest {
             }
         });
         
-        MockEndpoint result = camelctx.getEndpoint("mock:result", MockEndpoint.class);
-        result.expectedMessageCount(1);
+        MockEndpoint mockep = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+        mockep.expectedMessageCount(1);
         
         camelctx.start();
         try {
@@ -86,9 +86,9 @@ public class SQSIntegrationTest {
                 }
             });
             
-            result.assertIsSatisfied();
+            mockep.assertIsSatisfied();
             
-            Exchange exchange = result.getExchanges().get(0);
+            Exchange exchange = mockep.getExchanges().get(0);
             Assert.assertEquals("This is my message text.", exchange.getIn().getBody());
             Assert.assertNotNull(exchange.getIn().getHeader(SqsConstants.MESSAGE_ID));
             Assert.assertNotNull(exchange.getIn().getHeader(SqsConstants.RECEIPT_HANDLE));

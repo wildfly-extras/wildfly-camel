@@ -26,6 +26,7 @@ public class SQSUtils {
 
     public static final String QUEUE_NAME = "MyNewCamelQueue" + SQSUtils.class.hashCode();
 
+    // Attach Policy: AmazonSQSFullAccess
     public static AmazonSQSClient createSQSClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
         AmazonSQSClient client = !credentials.isValid() ? null : (AmazonSQSClient) 

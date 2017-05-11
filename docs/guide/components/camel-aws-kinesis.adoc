@@ -1,0 +1,3 @@
+### camel-aws-kinesis
+
+The http://camel.apache.org/aws-kinesis.html[AWS CloudWatch,window=_blank] component supports receiving messages from and sending messages to https://aws.amazon.com/kinesis[Amazon Kinesis,window=_blank] service.
