@@ -52,8 +52,10 @@ public class SDBUtils {
      */
     public static AmazonSimpleDBClient createDBClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
-        AmazonSimpleDBClient client = !credentials.isValid() ? null
-                : (AmazonSimpleDBClient) AmazonSimpleDBClientBuilder.standard().withCredentials(credentials).withRegion("eu-west-1").build();
+        AmazonSimpleDBClient client = !credentials.isValid() ? null : (AmazonSimpleDBClient) 
+                AmazonSimpleDBClientBuilder.standard()
+                .withCredentials(credentials)
+                .withRegion("eu-west-1").build();
         return client;
     }
 

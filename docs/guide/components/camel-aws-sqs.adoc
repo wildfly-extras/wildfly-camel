@@ -1,0 +1,3 @@
+### camel-aws-sqs
+
+The http://camel.apache.org/aws-sqs.html[AWS SQS,window=_blank] component sending and receiving messages to http://aws.amazon.com/sdb[Amazon's SQS,window=_blank] service.
