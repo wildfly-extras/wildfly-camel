@@ -41,22 +41,26 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public final class WildFlyCatalogCreator {
+public final class CatalogCreator {
 
-    final Path basedir = Paths.get(System.getProperty("basedir"));
-    final Path resdir = basedir.resolve(Paths.get("src/main/resources"));
-    final Path srcdir = basedir.resolve(Paths.get("target/camel-catalog"));
-    final Path outdir = basedir.resolve(Paths.get("target/classes"));
+    public static Path basedir() {
+        String basedir = System.getProperty("basedir");
+        return Paths.get(basedir != null ? basedir : ".");
+    }
     
-    enum Kind {
+    static final Path resdir = basedir().resolve(Paths.get("src/main/resources"));
+    static final Path srcdir = basedir().resolve(Paths.get("target/camel-catalog"));
+    static final Path outdir = basedir().resolve(Paths.get("target/classes"));
+    
+    public static enum Kind {
         component, dataformat, language;
     }
     
-    enum State {
+    public static enum State {
         supported, planned, undecided, rejected
     }
     
-    class Item {
+    public static class Item {
         final Path path;
         final Kind kind;
         final String name;
@@ -74,7 +78,7 @@ public final class WildFlyCatalogCreator {
         }
     }
     
-    class RoadMap {
+    public static class RoadMap {
         final Kind kind;
         final Path outpath;
         final Map<String, Item> items = new HashMap<>();
@@ -85,10 +89,16 @@ public final class WildFlyCatalogCreator {
         void add(Item item) {
             items.put(item.name, item);
         }
-        Item item(String name) {
+        public Kind getKind() {
+            return kind;
+        }
+        public Path getOutpath() {
+            return outpath;
+        }
+        public Item item(String name) {
             return items.get(name);
         }
-        List<String> sortedNames(State state) {
+        public List<String> sortedNames(State state) {
             List<String> result = new ArrayList<>();
             for (Item item : items.values()) {
                 if (item.state == state) {
@@ -100,15 +110,15 @@ public final class WildFlyCatalogCreator {
         }
     }
     
-    Map<Kind, RoadMap> roadmaps = new HashMap<>();
-    {
-        roadmaps.put(Kind.component, new RoadMap(Kind.component));
-        roadmaps.put(Kind.dataformat, new RoadMap(Kind.dataformat));
-        roadmaps.put(Kind.language, new RoadMap(Kind.language));
+    public static Map<Kind, RoadMap> ROAD_MAPS = new HashMap<>();
+    static {
+        ROAD_MAPS.put(Kind.component, new RoadMap(Kind.component));
+        ROAD_MAPS.put(Kind.dataformat, new RoadMap(Kind.dataformat));
+        ROAD_MAPS.put(Kind.language, new RoadMap(Kind.language));
     }
 
     public static void main(String[] args) throws Exception {
-        new WildFlyCatalogCreator().createCatalog();
+        new CatalogCreator().createCatalog();
     }
     
     private void createCatalog() throws Exception {
@@ -136,7 +146,7 @@ public final class WildFlyCatalogCreator {
                     boolean deprecated = Boolean.parseBoolean(tree.findValue("deprecated").textValue());
                     if (validKind(kind) && javaType != null) {
                         Item item = new Item(relpath, Kind.valueOf(kind), javaType, deprecated);
-                        roadmaps.get(item.kind).add(item);
+                        ROAD_MAPS.get(item.kind).add(item);
                    }
                 }
                 return FileVisitResult.CONTINUE;
@@ -152,7 +162,7 @@ public final class WildFlyCatalogCreator {
         });
         
         // Change state when planned or rejected 
-        for (RoadMap roadmap : roadmaps.values()) {
+        for (RoadMap roadmap : ROAD_MAPS.values()) {
             State state = null;
             File file = roadmap.outpath.toFile();
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -182,8 +192,8 @@ public final class WildFlyCatalogCreator {
     }
 
     private void collectSupported() throws IOException {
-        Path rootPath = basedir.resolve(Paths.get("target", "dependency"));
-        for (RoadMap roadmap : roadmaps.values()) {
+        Path rootPath = basedir().resolve(Paths.get("target", "dependency"));
+        for (RoadMap roadmap : ROAD_MAPS.values()) {
             for (Item item : roadmap.items.values()) {
                 Path javaType = Paths.get(item.javaType.replace('.', '/') + ".class");
                 if (rootPath.resolve(javaType).toFile().isFile()) {
@@ -200,7 +210,7 @@ public final class WildFlyCatalogCreator {
     }
 
     private void generateProperties() throws IOException {
-        for (RoadMap roadmap : roadmaps.values()) {
+        for (RoadMap roadmap : ROAD_MAPS.values()) {
             File outfile = outdir.resolve("org/wildfly/camel/catalog/" + roadmap.kind + "s.properties").toFile();
             try (PrintWriter pw = new PrintWriter(outfile)) {
                 for (String name : roadmap.sortedNames(State.supported)) {
@@ -211,7 +221,7 @@ public final class WildFlyCatalogCreator {
     }
 
     private void generateRoadmaps() throws IOException {
-        for (RoadMap roadmap : roadmaps.values()) {
+        for (RoadMap roadmap : ROAD_MAPS.values()) {
             try (PrintWriter pw = new PrintWriter(roadmap.outpath.toFile())) {
                 for (State state : State.values()) {
                     pw.println("[" + state + "]");
