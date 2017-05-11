@@ -10,7 +10,6 @@
         <exclude path="com/amazonaws/http**" />
       </exports>
     </module>
-    <module name="com.fasterxml.jackson.dataformat.cbor" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" />

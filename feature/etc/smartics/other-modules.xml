@@ -24,8 +24,22 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="com.amazonaws:" />
+        <include artifact="com.amazonaws:aws-java-sdk" />
+        <include artifact="com.amazonaws:aws-java-sdk-cloudfront" />
+        <include artifact="com.amazonaws:aws-java-sdk-cloudwatch" />
+        <include artifact="com.amazonaws:aws-java-sdk-core" />
+        <include artifact="com.amazonaws:aws-java-sdk-dynamodb" />
+        <include artifact="com.amazonaws:aws-java-sdk-ec2" />
+        <include artifact="com.amazonaws:aws-java-sdk-kinesis" />
+        <include artifact="com.amazonaws:aws-java-sdk-s3" />
+        <include artifact="com.amazonaws:aws-java-sdk-ses" />
+        <include artifact="com.amazonaws:aws-java-sdk-simpledb" />
+        <include artifact="com.amazonaws:aws-java-sdk-simpleworkflow" />
+        <include artifact="com.amazonaws:aws-java-sdk-sns" />
+        <include artifact="com.amazonaws:aws-java-sdk-sqs" />
+        <include artifact="com.amazonaws:aws-java-sdk-swf-libraries" />
         <apply-to-dependencies skip="true">
+            <include module="com.amazon.aws.skipped" />
             <include module="software.amazon.ion.ion-java" />
         </apply-to-dependencies>
         <dependencies>
@@ -33,6 +47,7 @@
             <module name="javax.xml.bind.api" />
             <module name="com.fasterxml.jackson.core.jackson-annotations" />
             <module name="com.fasterxml.jackson.core.jackson-core" />
+            <module name="com.fasterxml.jackson.dataformat.cbor" />
         </dependencies>
         <exports>
             <exclude path="com/amazonaws/auth/internal" />
@@ -42,18 +57,11 @@
             <exclude path="com/amazonaws/metrics/internal**" />
             <exclude path="com/amazonaws/protocol/json/internal" />
             <exclude path="com/amazonaws/retry/internal" />
-            <exclude path="com/amazonaws/services/apigateway/internal" />
             <exclude path="com/amazonaws/services/dynamodbv2/document/internal" />
-            <exclude path="com/amazonaws/services/glacier/internal" />
-            <exclude path="com/amazonaws/services/logs/internal" />
-            <exclude path="com/amazonaws/services/machinelearning/internal" />
-            <exclude path="com/amazonaws/services/route53/internal" />
             <exclude path="com/amazonaws/services/s3/internal**" />
             <exclude path="com/amazonaws/services/s3/transfer/internal" />
-            <exclude path="com/amazonaws/services/securitytoken/internal" />
             <exclude path="com/amazonaws/services/simpledb/internal" />
             <exclude path="com/amazonaws/services/sqs/internal" />
-            <exclude path="com/amazonaws/services/stepfunctions/builder/internal**" />
         </exports>
     </module>
 

@@ -158,7 +158,6 @@
                     <exclude path="com/amazonaws/http**" />
                 </exports>
             </module>
-            <module name="com.fasterxml.jackson.dataformat.cbor" />
             <module name="org.slf4j" />
         </dependencies>
     </module>
