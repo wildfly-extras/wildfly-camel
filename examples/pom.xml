@@ -60,6 +60,7 @@
         <module>camel-jpa</module>
         <module>camel-mail</module>
         <module>camel-mail-spring</module>
+        <module>camel-rest-swagger</module>
         <module>itests</module>
     </modules>
 

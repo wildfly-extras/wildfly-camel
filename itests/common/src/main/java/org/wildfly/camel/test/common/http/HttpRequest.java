@@ -39,6 +39,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -109,7 +111,7 @@ public final class HttpRequest {
             return this;
         }
 
-        public HttpResponse getResponse() throws TimeoutException, IOException {
+        public HttpResponse getResponse() throws TimeoutException, IOException, ExecutionException {
             Callable<HttpResponse> task = new Callable<HttpResponse>() {
                 @Override
                 public HttpResponse call() throws Exception {
@@ -140,43 +142,29 @@ public final class HttpRequest {
             return executeRequest(task, timeout, timeUnit);
         }
 
-        private HttpResponse executeRequest(final Callable<HttpResponse> task, final long timeout, final TimeUnit unit) throws TimeoutException, IOException {
+        private HttpResponse executeRequest(final Callable<HttpResponse> task, final long timeout, final TimeUnit unit)
+                throws TimeoutException, IOException, ExecutionException {
             ExecutorService executor = Executors.newSingleThreadExecutor();
+            Future<HttpResponse> result = executor.submit(task);
             try {
-                Throwable lastCause = null;
-                long endTime = System.currentTimeMillis() + unit.toMillis(timeout);
-                while (System.currentTimeMillis() < endTime) {
-                    Future<HttpResponse> result = executor.submit(task);
-                    try {
-                        return result.get(timeout, unit);
-                    } catch (InterruptedException ex) {
-                        throw new IllegalStateException(ex);
-                    } catch (ExecutionException ex) {
-                        lastCause = ex.getCause();
-
-                        // HttpURLConnection throws FileNotFoundException on 404 so handle this
-                        if (lastCause instanceof FileNotFoundException) {
-                            HttpResponse httpResult = new HttpResponse();
-                            httpResult.setStatusCode(HttpURLConnection.HTTP_NOT_FOUND);
-                            return httpResult;
-                        } else if (lastCause instanceof IOException) {
-                            if (lastCause.getMessage().contains("405")) {
-                                HttpResponse httpResult = new HttpResponse();
-                                httpResult.setStatusCode(HttpURLConnection.HTTP_BAD_METHOD);
-                                return httpResult;
-                            }
-                        } else {
-                            continue;
-                        }
-                    }
-                }
-                TimeoutException toex = new TimeoutException();
-                if (lastCause != null) {
-                    toex.initCause(lastCause);
-                }
-                throw toex;
+                return result.get(timeout, unit);
+            } catch (TimeoutException e) {
+                e.printStackTrace();
+                result.cancel(true);
+                throw e;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                throw new IllegalStateException(e);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+                throw e;
             } finally {
                 executor.shutdownNow();
+                try {
+                    executor.awaitTermination(timeout, unit);
+                } catch (InterruptedException e) {
+                    // Ignored
+                }
             }
         }
 
@@ -189,34 +177,48 @@ public final class HttpRequest {
             return out.toString();
         }
 
-        private HttpResponse processResponse(HttpURLConnection conn) throws IOException {
-            int responseCode = conn.getResponseCode();
+        private HttpResponse processResponse(HttpURLConnection conn) {
+            final HttpResponse response = new HttpResponse();
 
-            if (throwExceptionOnFailure && responseCode != HttpURLConnection.HTTP_OK) {
-                final InputStream err = conn.getErrorStream();
-                if (err != null) {
-                    try {
-                        throw new IOException(read(err));
-                    } finally {
-                        err.close();
-                    }
-                }
-            }
-            final InputStream in = conn.getInputStream();
             try {
-                HttpResponse result = new HttpResponse();
-                result.setStatusCode(responseCode);
-                result.setBody(read(in));
+                int responseCode = conn.getResponseCode();
+                response.setStatusCode(responseCode);
 
                 Map<String, List<String>> headerFields = conn.getHeaderFields();
                 for (String headerName : headerFields.keySet()) {
-                    result.addHeader(headerName, conn.getHeaderField(headerName));
+                    response.addHeader(headerName, conn.getHeaderField(headerName));
                 }
 
-                return result;
-            } finally {
-                in.close();
+                if (throwExceptionOnFailure && responseCode != HttpURLConnection.HTTP_OK) {
+                    final InputStream err = conn.getErrorStream();
+                    if (err != null) {
+                        try {
+                            response.setBody(read(err));
+                            return response;
+                        } finally {
+                            err.close();
+                        }
+                    }
+                }
+
+                final InputStream in = conn.getInputStream();
+                try {
+                    response.setBody(read(in));
+                } finally {
+                    in.close();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                response.setStatusCode(HttpURLConnection.HTTP_NOT_FOUND);
+            } catch (IOException e) {
+                Pattern pattern = Pattern.compile(".*?([0-9]{3}).*");
+                Matcher matcher = pattern.matcher(e.getMessage());
+                if (matcher.matches()) {
+                    response.setStatusCode(Integer.parseInt(matcher.group(1)));
+                }
             }
+
+            return response;
         }
     }
 
@@ -229,7 +231,7 @@ public final class HttpRequest {
             return statusCode;
         }
 
-        public void setStatusCode(int statusCode) {
+        void setStatusCode(int statusCode) {
             this.statusCode = statusCode;
         }
 
@@ -237,7 +239,7 @@ public final class HttpRequest {
             return body;
         }
 
-        public void setBody(String body) {
+        void setBody(String body) {
             this.body = body;
         }
 
@@ -253,8 +255,9 @@ public final class HttpRequest {
             headers.put(header, value);
         }
 
+        @Override
         public String toString() {
-            return "HttpResponse{status=" + statusCode + "}";
+            return "HttpResponse{" + "statusCode=" + statusCode + ", body='" + body + '\'' + ", headers=" + headers + '}';
         }
     }
 }

@@ -66,8 +66,8 @@ To run the example.
 
 You should see a form from which you can test sending emails with Camel.
 
-Testing Camel email
--------------------
+Testing Camel Mail Spring
+-------------------------
 
 Enter a 'from' address, subject and email message body and click the 'send button'. Note that the pop3 mail endpoint was configured
 to retrieve mail from the mailbox of 'user2@localhost'. Therefore the web UI is hard coded to route mail to this address.

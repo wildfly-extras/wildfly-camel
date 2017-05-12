@@ -253,7 +253,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
         DelegatingRoutingHandler add(String method, String path, HttpHandler handler) {
             MethodPathMapping mapping = new MethodPathMapping(method, path);
-            IllegalStateAssertion.assertFalse(paths.contains(mapping), "Cannot register duplicate handler for " + mapping);
+            IllegalStateAssertion.assertFalse(paths.contains(mapping) && !method.equals("OPTIONS"), "Cannot register duplicate handler for " + mapping);
 
             LOGGER.debug("Registered paths {}", this.toString());
             delegate.add(method, path, handler);
