@@ -65,6 +65,88 @@
         </exports>
     </module>
 
+    <module name="com.amazon.aws.skipped" skip="true">
+        <include artifact="com.amazonaws:aws-java-sdk-acm" />
+        <include artifact="com.amazonaws:aws-java-sdk-api-gateway" />
+        <include artifact="com.amazonaws:aws-java-sdk-applicationautoscaling" />
+        <include artifact="com.amazonaws:aws-java-sdk-appstream" />
+        <include artifact="com.amazonaws:aws-java-sdk-autoscaling" />
+        <include artifact="com.amazonaws:aws-java-sdk-batch" />
+        <include artifact="com.amazonaws:aws-java-sdk-budgets" />
+        <include artifact="com.amazonaws:aws-java-sdk-clouddirectory" />
+        <include artifact="com.amazonaws:aws-java-sdk-cloudformation" />
+        <include artifact="com.amazonaws:aws-java-sdk-cloudhsm" />
+        <include artifact="com.amazonaws:aws-java-sdk-cloudsearch" />
+        <include artifact="com.amazonaws:aws-java-sdk-cloudtrail" />
+        <include artifact="com.amazonaws:aws-java-sdk-cloudwatchmetrics" />
+        <include artifact="com.amazonaws:aws-java-sdk-codebuild" />
+        <include artifact="com.amazonaws:aws-java-sdk-codecommit" />
+        <include artifact="com.amazonaws:aws-java-sdk-codedeploy" />
+        <include artifact="com.amazonaws:aws-java-sdk-codepipeline" />
+        <include artifact="com.amazonaws:aws-java-sdk-cognitoidentity" />
+        <include artifact="com.amazonaws:aws-java-sdk-cognitoidp" />
+        <include artifact="com.amazonaws:aws-java-sdk-cognitosync" />
+        <include artifact="com.amazonaws:aws-java-sdk-config" />
+        <include artifact="com.amazonaws:aws-java-sdk-costandusagereport" />
+        <include artifact="com.amazonaws:aws-java-sdk-datapipeline" />
+        <include artifact="com.amazonaws:aws-java-sdk-devicefarm" />
+        <include artifact="com.amazonaws:aws-java-sdk-directconnect" />
+        <include artifact="com.amazonaws:aws-java-sdk-directory" />
+        <include artifact="com.amazonaws:aws-java-sdk-discovery" />
+        <include artifact="com.amazonaws:aws-java-sdk-dms" />
+        <include artifact="com.amazonaws:aws-java-sdk-ecr" />
+        <include artifact="com.amazonaws:aws-java-sdk-ecs" />
+        <include artifact="com.amazonaws:aws-java-sdk-efs" />
+        <include artifact="com.amazonaws:aws-java-sdk-elasticache" />
+        <include artifact="com.amazonaws:aws-java-sdk-elasticbeanstalk" />
+        <include artifact="com.amazonaws:aws-java-sdk-elasticloadbalancing" />
+        <include artifact="com.amazonaws:aws-java-sdk-elasticloadbalancingv2" />
+        <include artifact="com.amazonaws:aws-java-sdk-elasticsearch" />
+        <include artifact="com.amazonaws:aws-java-sdk-elastictranscoder" />
+        <include artifact="com.amazonaws:aws-java-sdk-emr" />
+        <include artifact="com.amazonaws:aws-java-sdk-events" />
+        <include artifact="com.amazonaws:aws-java-sdk-gamelift" />
+        <include artifact="com.amazonaws:aws-java-sdk-glacier" />
+        <include artifact="com.amazonaws:aws-java-sdk-health" />
+        <include artifact="com.amazonaws:aws-java-sdk-iam" />
+        <include artifact="com.amazonaws:aws-java-sdk-importexport" />
+        <include artifact="com.amazonaws:aws-java-sdk-inspector" />
+        <include artifact="com.amazonaws:aws-java-sdk-iot" />
+        <include artifact="com.amazonaws:aws-java-sdk-kms" />
+        <include artifact="com.amazonaws:aws-java-sdk-lambda" />
+        <include artifact="com.amazonaws:aws-java-sdk-lex" />
+        <include artifact="com.amazonaws:aws-java-sdk-lightsail" />
+        <include artifact="com.amazonaws:aws-java-sdk-logs" />
+        <include artifact="com.amazonaws:aws-java-sdk-machinelearning" />
+        <include artifact="com.amazonaws:aws-java-sdk-marketplacecommerceanalytics" />
+        <include artifact="com.amazonaws:aws-java-sdk-marketplacemeteringservice" />
+        <include artifact="com.amazonaws:aws-java-sdk-mechanicalturkrequester" />
+        <include artifact="com.amazonaws:aws-java-sdk-models" />
+        <include artifact="com.amazonaws:aws-java-sdk-opsworks" />
+        <include artifact="com.amazonaws:aws-java-sdk-opsworkscm" />
+        <include artifact="com.amazonaws:aws-java-sdk-organizations" />
+        <include artifact="com.amazonaws:aws-java-sdk-pinpoint" />
+        <include artifact="com.amazonaws:aws-java-sdk-polly" />
+        <include artifact="com.amazonaws:aws-java-sdk-rds" />
+        <include artifact="com.amazonaws:aws-java-sdk-redshift" />
+        <include artifact="com.amazonaws:aws-java-sdk-rekognition" />
+        <include artifact="com.amazonaws:aws-java-sdk-route53" />
+        <include artifact="com.amazonaws:aws-java-sdk-servermigration" />
+        <include artifact="com.amazonaws:aws-java-sdk-servicecatalog" />
+        <include artifact="com.amazonaws:aws-java-sdk-shield" />
+        <include artifact="com.amazonaws:aws-java-sdk-snowball" />
+        <include artifact="com.amazonaws:aws-java-sdk-ssm" />
+        <include artifact="com.amazonaws:aws-java-sdk-stepfunctions" />
+        <include artifact="com.amazonaws:aws-java-sdk-storagegateway" />
+        <include artifact="com.amazonaws:aws-java-sdk-sts" />
+        <include artifact="com.amazonaws:aws-java-sdk-support" />
+        <include artifact="com.amazonaws:aws-java-sdk-waf" />
+        <include artifact="com.amazonaws:aws-java-sdk-workdocs" />
+        <include artifact="com.amazonaws:aws-java-sdk-workspaces" />
+        <include artifact="com.amazonaws:aws-java-sdk-xray" />
+        <include artifact="com.amazonaws:jmespath-java" />
+    </module>
+    
     <module name="com.box">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -132,6 +214,10 @@
         <include artifact=":jackson-datatype-joda" />
     </module>
 
+    <module name="com.fasterxml.jackson.skipped" skip="true">
+        <include artifact=":jackson-module-afterburner" />
+    </module>
+    
     <module name="com.github.generex">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -174,7 +260,7 @@
         <include artifact="io.reactivex:rxjava" />
         <include artifact="org.hdrhistogram:HdrHistogram" />
         <apply-to-dependencies skip="true">
-            <include module="com.fasterxml.jackson.afterburner" />
+            <include module="com.fasterxml.jackson.skipped" />
         </apply-to-dependencies>
     </module>
 
@@ -315,7 +401,19 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="io.netty:netty-all" />
+        <include artifact="io.netty:netty" />
+        <include artifact="io.netty:netty-buffer" />
+        <include artifact="io.netty:netty-codec" />
+        <include artifact="io.netty:netty-codec-dns" />
+        <include artifact="io.netty:netty-codec-http" />
+        <include artifact="io.netty:netty-codec-http2" />
+        <include artifact="io.netty:netty-codec-socks" />
+        <include artifact="io.netty:netty-common" />
+        <include artifact="io.netty:netty-handler" />
+        <include artifact="io.netty:netty-handler-proxy" />
+        <include artifact="io.netty:netty-resolver" />
+        <include artifact="io.netty:netty-resolver-dns" />
+        <include artifact="io.netty:netty-transport" />
         <apply-to-dependencies skip="true">
             <include module="org.jctools" />
         </apply-to-dependencies>
@@ -323,6 +421,10 @@
             <module name="javax.api"/>
             <module name="sun.jdk"/>
         </dependencies>
+    </module>
+
+    <module name="io.netty.skipped" skip="true">
+        <include artifact="io.netty:netty-all" />
     </module>
 
     <module name="io.sundr">
@@ -614,7 +716,7 @@
         </properties>
         <include artifact="org.apache.qpid:qpid-jms-client" />
         <apply-to-dependencies skip="true">
-            <include module="io.netty.parts" />
+            <include module="io.netty.skipped" />
         </apply-to-dependencies>
         <dependencies>
             <module name="io.netty" />
@@ -692,7 +794,7 @@
         <include artifact="org.apache.curator:curator-framework" />
         <include artifact="org.apache.curator:curator-recipes" />
         <apply-to-dependencies skip="true">
-            <include module="io.netty.parts" />
+            <include module="io.netty.skipped" />
             <include module="jline" />
         </apply-to-dependencies>
         <dependencies>
@@ -799,7 +901,7 @@
         <include artifact="org.elasticsearch:elasticsearch" />
         <include artifact="org.elasticsearch:securesm" />
         <apply-to-dependencies skip="true">
-            <include module="io.netty.parts" />
+            <include module="io.netty.skipped" />
             <include module="org.antlr"/>
             <include module="org.apache.commons.cli" />
             <include module="org.hdrhistogram" />

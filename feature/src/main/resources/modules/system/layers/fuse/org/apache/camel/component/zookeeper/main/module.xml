@@ -7,6 +7,7 @@
     <module name="javax.api" />
     <module name="org.apache.zookeeper" export="true" />
     <module name="org.slf4j" />
+    <module name="io.netty" slot="4.1" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
