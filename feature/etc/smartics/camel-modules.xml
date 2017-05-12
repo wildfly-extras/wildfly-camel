@@ -99,6 +99,20 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.ahc">
+        <include artifact="org.apache.camel:camel-ahc" />
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped" />
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.asynchttpclient" export="true"/>
+            <module name="io.netty" slot="4.1"/>
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.amqp">
         <include artifact="org.apache.camel:camel-amqp" />
         <apply-to-dependencies skip="true">

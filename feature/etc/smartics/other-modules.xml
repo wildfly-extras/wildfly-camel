@@ -425,6 +425,7 @@
 
     <module name="io.netty.skipped" skip="true">
         <include artifact="io.netty:netty-all" />
+        <include artifact="io.netty:netty-transport-native-epoll" />
     </module>
 
     <module name="io.sundr">
@@ -803,6 +804,31 @@
         </dependencies>
         <exports>
             <exclude path="org/apache/jute**" />
+        </exports>
+    </module>
+
+    <module name="org.asynchttpclient">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.typesafe.netty:netty-reactive-streams" />
+        <include artifact="org.asynchttpclient:async-http-client" />
+        <include artifact="org.asynchttpclient:async-http-client-netty-utils" />
+        <include artifact="org.asynchttpclient:netty-codec-dns" />
+        <include artifact="org.asynchttpclient:netty-resolver" />
+        <include artifact="org.asynchttpclient:netty-resolver-dns" />
+        <include artifact="org.reactivestreams:reactive-streams" />
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="io.netty" slot="4.1"/>
+        </dependencies>
+        <exports>
+            <exclude path="io/netty**" />
+            <exclude path="com/typesafe**" />
+            <exclude path="org/reactivestreams" />
         </exports>
     </module>
 

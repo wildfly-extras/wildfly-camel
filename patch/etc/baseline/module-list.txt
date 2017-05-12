@@ -76,6 +76,7 @@
 /org/apache/activemq/main/activemq-pool-5.14.5.jar
 /org/apache/activemq/main/activemq-spring-5.14.5.jar
 /org/apache/camel/component/activemq/main/activemq-camel-5.14.5.jar
+/org/apache/camel/component/ahc/main/camel-ahc-2.19.0.jar
 /org/apache/camel/component/amqp/main/camel-amqp-2.19.0.jar
 /org/apache/camel/component/atom/main/camel-atom-2.19.0.jar
 /org/apache/camel/component/avro/main/camel-avro-2.19.0.jar
@@ -319,6 +320,13 @@
 /org/apache/zookeeper/main/curator-framework-2.11.1.jar
 /org/apache/zookeeper/main/curator-recipes-2.11.1.jar
 /org/apache/zookeeper/main/zookeeper-3.4.10.jar
+/org/asynchttpclient/main/async-http-client-2.0.32.jar
+/org/asynchttpclient/main/async-http-client-netty-utils-2.0.32.jar
+/org/asynchttpclient/main/netty-codec-dns-2.0.32.jar
+/org/asynchttpclient/main/netty-reactive-streams-1.0.8.jar
+/org/asynchttpclient/main/netty-resolver-2.0.32.jar
+/org/asynchttpclient/main/netty-resolver-dns-2.0.32.jar
+/org/asynchttpclient/main/reactive-streams-1.0.0.jar
 /org/beanshell/main/bsh-2.0b6.jar
 /org/bitbucket/jose4j/main/jose4j-0.4.4.jar
 /org/bouncycastle/ext/main/bcpg-jdk15on-1.55.jar

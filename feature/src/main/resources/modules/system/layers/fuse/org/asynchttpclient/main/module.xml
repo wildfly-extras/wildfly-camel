@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.asynchttpclient">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.asynchttpclient:async-http-client}" />
+    <artifact name="${org.asynchttpclient:async-http-client-netty-utils}" />
+    <artifact name="${org.asynchttpclient:netty-codec-dns}" />
+    <artifact name="${com.typesafe.netty:netty-reactive-streams}" />
+    <artifact name="${org.asynchttpclient:netty-resolver}" />
+    <artifact name="${org.asynchttpclient:netty-resolver-dns}" />
+    <artifact name="${org.reactivestreams:reactive-streams}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="io.netty" slot="4.1" />
+    <module name="org.slf4j" />
+  </dependencies>
+  <exports>
+    <exclude path="io/netty**" />
+    <exclude path="com/typesafe**" />
+    <exclude path="org/reactivestreams" />
+  </exports>
+</module>
