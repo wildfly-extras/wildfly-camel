@@ -21,9 +21,11 @@ package org.wildfly.camel.test.common.aws;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
+import org.junit.Assert;
 
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
+import com.amazonaws.services.ec2.model.Subnet;
 
 public class EC2Utils {
 
@@ -46,5 +48,17 @@ public class EC2Utils {
                 from("direct:terminate").to("aws-ec2://TestDomain?amazonEc2Client=#ec2Client&operation=terminateInstances");
             }
         });
+    }
+
+    public static String getSubnetId(AmazonEC2Client ec2Client) {
+        Subnet subnet = null;
+        for (Subnet aux : ec2Client.describeSubnets().getSubnets()) {
+            System.out.println();
+            if (aux.getState().equals("available") && aux.getAvailabilityZone().equals("eu-west-1a")) {
+                subnet = aux;
+            }
+        }
+        Assert.assertNotNull("Subnet not null", subnet);
+        return subnet.getSubnetId();
     }
 }
