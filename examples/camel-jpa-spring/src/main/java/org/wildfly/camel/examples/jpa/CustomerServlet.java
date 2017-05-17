@@ -1,8 +1,8 @@
 /*
  * #%L
- * Wildfly Camel :: Example :: Camel JPA
+ * Wildfly Camel :: Example :: Camel JPA Spring
  * %%
- * Copyright (C) 2013 - 2014 RedHat
+ * Copyright (C) 2013 - 2017 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,23 +20,28 @@
 package org.wildfly.camel.examples.jpa;
 
 import java.io.IOException;
-import java.util.List;
 
-import javax.inject.Inject;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.component.jpa.JpaComponent;
 import org.wildfly.camel.examples.jpa.model.Customer;
 
 @SuppressWarnings("serial")
 @WebServlet(name = "HttpServiceServlet", urlPatterns = { "/customers/*" }, loadOnStartup = 1)
-public class SimpleServlet extends HttpServlet {
+public class CustomerServlet extends HttpServlet {
 
-    @Inject
-    private CustomerRepository customerRepository;
+    @Resource(name = "java:jboss/camel/context/jpa-camel-context")
+    private CamelContext camelContext;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,9 +49,16 @@ public class SimpleServlet extends HttpServlet {
          * Simple servlet to retrieve all customers from the in memory database for
          * output and display on customers.jsp
          */
-        List<Customer> customers = customerRepository.findAllCustomers();
+        JpaComponent component = camelContext.getComponent("jpa", JpaComponent.class);
+        EntityManagerFactory entityManagerFactory = component.getEntityManagerFactory();
 
-        request.setAttribute("customers", customers);
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Customer> query = criteriaBuilder.createQuery(Customer.class);
+        query.select(query.from(Customer.class));
+
+        request.setAttribute("customers", em.createQuery(query).getResultList());
         request.getRequestDispatcher("customers.jsp").forward(request, response);
     }
 }

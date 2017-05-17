@@ -2,7 +2,7 @@
  * #%L
  * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2013 - 2014 RedHat
+ * Copyright (C) 2013 - 2017 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,9 +30,9 @@ import org.junit.runner.RunWith;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class JPAExampleTest extends AbstractJPAExampleTest {
+public class JPASpringExampleTest extends AbstractJPAExampleTest {
 
-    private static final String CONTEXT_PATH = "example-camel-jpa";
+    private static final String CONTEXT_PATH = "example-camel-jpa-spring";
     private static final String EXAMPLE_CAMEL_JPA_WAR = CONTEXT_PATH + ".war";
 
     @Deployment(testable = false)

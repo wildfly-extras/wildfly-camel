@@ -22,7 +22,7 @@ To run the example.
 2. Build and deploy the project `mvn install -Pdeploy`
 3. Browse to http://localhost:8080/example-camel-jpa/customers
 
-Testing Camel JMS
+Testing Camel JPA
 -----------------
 
 There are some example customer XML files within the `src/main/resources/customers` directory. To make Camel
