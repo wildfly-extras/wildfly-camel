@@ -758,6 +758,7 @@ org/apache/camel/coap
 org/apache/camel/component
 org/apache/camel/component/ahc
 org/apache/camel/component/ahc/helper
+org/apache/camel/component/ahc/ws
 org/apache/camel/component/amqp
 org/apache/camel/component/atom
 org/apache/camel/component/avro

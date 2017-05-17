@@ -6,6 +6,8 @@ include::camel-activemq.adoc[]
 
 include::camel-ahc.adoc[]
 
+include::camel-ahc-ws.adoc[]
+
 include::camel-amqp.adoc[]
 
 include::camel-atom.adoc[]

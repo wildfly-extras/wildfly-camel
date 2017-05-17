@@ -1,0 +1,3 @@
+### camel-ahc-ws
+
+The http://camel.apache.org/ahc-ws.html[ahc-ws,window=_blank] component provides Websocket based endpoints for a client communicating with external servers over Websocket. The component uses the link:index.html#_camel_ahc[ahc] component that in turn uses the https://github.com/AsyncHttpClient/async-http-client[Async Http Client,window=_blank] library.

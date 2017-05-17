@@ -1,5 +1,7 @@
 [supported]
 ahc
+ahc-ws
+ahc-wss
 amqp
 atom
 avro
@@ -135,8 +137,6 @@ xslt
 zookeeper
 
 [planned]
-ahc-ws
-ahc-wss
 azure-blob
 azure-queue
 bonita

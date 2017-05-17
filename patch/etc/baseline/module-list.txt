@@ -76,6 +76,7 @@
 /org/apache/activemq/main/activemq-pool-5.14.5.jar
 /org/apache/activemq/main/activemq-spring-5.14.5.jar
 /org/apache/camel/component/activemq/main/activemq-camel-5.14.5.jar
+/org/apache/camel/component/ahc-ws/main/camel-ahc-ws-2.19.0.jar
 /org/apache/camel/component/ahc/main/camel-ahc-2.19.0.jar
 /org/apache/camel/component/amqp/main/camel-amqp-2.19.0.jar
 /org/apache/camel/component/atom/main/camel-atom-2.19.0.jar
