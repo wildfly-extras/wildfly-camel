@@ -67,14 +67,14 @@ public class EC2IntegrationTest {
             Map<String, Object> headers = new HashMap<>();
             headers.put(EC2Constants.IMAGE_ID, "ami-02ace471");
             headers.put(EC2Constants.INSTANCE_TYPE, InstanceType.T2Micro);
-            headers.put(EC2Constants.SUBNET_ID, "subnet-4a8b2f3d");
+            headers.put(EC2Constants.SUBNET_ID, EC2Utils.getSubnetId(ec2Client));
             headers.put(EC2Constants.INSTANCE_MIN_COUNT, 1);
             headers.put(EC2Constants.INSTANCE_MAX_COUNT, 1);
             
             ProducerTemplate template = camelctx.createProducerTemplate();
             RunInstancesResult result1 = template.requestBodyAndHeaders("direct:createAndRun", null, headers, RunInstancesResult.class);
             String instanceId = result1.getReservation().getInstances().get(0).getInstanceId();
-            System.out.println(instanceId);
+            System.out.println("InstanceId: " + instanceId);
             
             // Terminate the instance 
             headers = new HashMap<>();
