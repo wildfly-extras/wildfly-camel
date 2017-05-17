@@ -38,6 +38,7 @@ import org.wildfly.camel.test.common.aws.EC2Utils;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
+import com.amazonaws.services.ec2.model.Subnet;
 import com.amazonaws.services.ec2.model.TerminateInstancesResult;
 
 public class EC2IntegrationTest {
@@ -60,6 +61,16 @@ public class EC2IntegrationTest {
         CamelContext camelctx = new DefaultCamelContext(registry);
         EC2Utils.addRoutes(camelctx);
 
+        // Select the subnet
+        Subnet subnet = null;
+        for (Subnet aux : ec2Client.describeSubnets().getSubnets()) {
+            System.out.println();
+            if (aux.getState().equals("available") && aux.getAvailabilityZone().equals("eu-west-1a")) {
+                subnet = aux;
+            }
+        }
+        Assert.assertNotNull("Subnet not null", subnet);
+        
         camelctx.start();
         try {
 
@@ -67,14 +78,14 @@ public class EC2IntegrationTest {
             Map<String, Object> headers = new HashMap<>();
             headers.put(EC2Constants.IMAGE_ID, "ami-02ace471");
             headers.put(EC2Constants.INSTANCE_TYPE, InstanceType.T2Micro);
-            headers.put(EC2Constants.SUBNET_ID, "subnet-4a8b2f3d");
+            headers.put(EC2Constants.SUBNET_ID, subnet.getSubnetId());
             headers.put(EC2Constants.INSTANCE_MIN_COUNT, 1);
             headers.put(EC2Constants.INSTANCE_MAX_COUNT, 1);
             
             ProducerTemplate template = camelctx.createProducerTemplate();
             RunInstancesResult result1 = template.requestBodyAndHeaders("direct:createAndRun", null, headers, RunInstancesResult.class);
             String instanceId = result1.getReservation().getInstances().get(0).getInstanceId();
-            System.out.println(instanceId);
+            System.out.println("InstanceId: " + instanceId);
             
             // Terminate the instance 
             headers = new HashMap<>();
