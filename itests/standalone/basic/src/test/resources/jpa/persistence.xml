@@ -5,10 +5,12 @@
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
     <persistence-unit name="camel">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
         <class>org.wildfly.camel.test.jpa.subA.Account</class>
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.transaction.jta.platform" value="JBossAS" />
         </properties>
     </persistence-unit>
 </persistence>

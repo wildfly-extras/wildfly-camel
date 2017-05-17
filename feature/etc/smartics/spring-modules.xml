@@ -212,6 +212,8 @@
             <module name="javax.api" />
             <module name="javax.persistence.api" />
             <module name="org.apache.commons.logging" />
+            <module name="org.hibernate" />
+            <module name="org.springframework.context" />
         </dependencies>
     </module>
     

@@ -46,7 +46,7 @@ public class JPATransactionManagerIntegrationTest {
     public static JavaArchive deployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-jpa-tests.jar");
         archive.addClass(Account.class);
-        archive.addAsResource("jpa/persistence-local.xml", "META-INF/persistence.xml");
+        archive.addAsResource("jpa/persistence.xml", "META-INF/persistence.xml");
         archive.addAsResource("jpa/jpa-camel-context.xml", "META-INF/jboss-camel-context.xml");
         return archive;
     }
@@ -66,10 +66,7 @@ public class JPATransactionManagerIntegrationTest {
 
         // Read the saved entity back from the database
         EntityManager em = entityManagerFactory.createEntityManager();
-        em.getTransaction().begin();
         Account result = em.getReference(Account.class, 1);
-        em.getTransaction().commit();
-
         Assert.assertEquals(account, result);
     }
 
