@@ -33,13 +33,13 @@
         <property name="transactionManager" ref="transactionManager" />
     </bean>
 
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="camel"/>
+    </bean>
+
     <bean id="jpa" class="org.apache.camel.component.jpa.JpaComponent">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
         <property name="transactionManager" ref="jtaTransactionManager" />
-    </bean>
-
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="camel"/>
     </bean>
 
     <!--

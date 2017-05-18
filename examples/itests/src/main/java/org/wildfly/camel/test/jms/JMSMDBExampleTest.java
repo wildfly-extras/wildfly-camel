@@ -64,7 +64,7 @@ public class JMSMDBExampleTest {
 
     @Test
     public void testJMSMDBRoute() throws IOException {
-        boolean logMessagePresent = ServerLogReader.awaitLogMessage("Received message", 10000);
+        boolean logMessagePresent = ServerLogReader.awaitLogMessage(".*Received message: Message [0-9].*", 10000);
         Assert.assertTrue("Message 'Received message' not found in server log", logMessagePresent);
     }
 }

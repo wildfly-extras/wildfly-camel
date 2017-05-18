@@ -4,5 +4,5 @@
            xsi:schemaLocation="http://org/wildfly/camel/examples/jms/transacted/Order">
     <ord:productName>Test Product</ord:productName>
     <ord:productSku>Test</ord:productSku>
-    <ord:quantity>1</ord:quantity>
+    <ord:quantity>20</ord:quantity>
 </ord:order>

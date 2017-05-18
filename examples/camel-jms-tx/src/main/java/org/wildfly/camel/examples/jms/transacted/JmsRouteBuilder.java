@@ -1,15 +1,9 @@
 package org.wildfly.camel.examples.jms.transacted;
 
-import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.jms.ConnectionFactory;
-import javax.persistence.EntityManager;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.cdi.ContextName;
-import org.apache.camel.component.jms.JmsComponent;
-import org.apache.camel.component.jpa.JpaComponent;
 import org.apache.camel.model.dataformat.JaxbDataFormat;
 import org.wildfly.camel.examples.jms.transacted.model.Order;
 
@@ -17,37 +11,8 @@ import org.wildfly.camel.examples.jms.transacted.model.Order;
 @ContextName("camel-jms-tx-context")
 public class JmsRouteBuilder extends RouteBuilder {
 
-    /**
-     * Inject the resources required to configure the JMS and JPA Camel
-     * components. The JPA EntityManager, JMS TransactionManager and a JMS
-     * ConnectionFactory bound to the JNDI name java:/JmsXA
-     */
-    @Inject
-    private EntityManager entityManager;
-
-    @Inject
-    private JmsTransactionManager transactionManager;
-
-    @Resource(mappedName = "java:/JmsXA")
-    private ConnectionFactory connectionFactory;
-
     @Override
     public void configure() throws Exception {
-        /**
-         * Create an instance of the Camel JmsComponent and configure it to support JMS
-         * transactions.
-         */
-        JmsComponent jmsComponent = JmsComponent.jmsComponentTransacted(connectionFactory, transactionManager);
-        getContext().addComponent("jms", jmsComponent);
-
-        /**
-         * Create an instance of the Camel JpaComponent and configure it to support transactions.
-         */
-        JpaComponent jpaComponent = new JpaComponent();
-        jpaComponent.setEntityManagerFactory(entityManager.getEntityManagerFactory());
-        jpaComponent.setTransactionManager(transactionManager);
-        getContext().addComponent("jpa", jpaComponent);
-
         /**
          * Configure JAXB so that it can discover model classes.
          */
@@ -88,7 +53,7 @@ public class JmsRouteBuilder extends RouteBuilder {
                 .choice()
                 .when(simple("${body.quantity} > 10"))
                     .log("Order quantity is greater than 10 - rolling back transaction!")
-                    .throwException(new IllegalStateException())
+                    .throwException(new IllegalStateException("Invalid quantity"))
                 .otherwise()
                     .log("Order processed successfully");
 

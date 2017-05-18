@@ -37,7 +37,7 @@ public class ServerLogReader {
         do {
             try {
                 List<String> logLines = Files.readAllLines(SERVER_LOG);
-                if (logLines.stream().filter(line -> line.contains(message)).count() > 0) {
+                if (logLines.stream().filter(line -> line.matches(message)).count() > 0) {
                     return true;
                 }
             } catch (Exception e) {

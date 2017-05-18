@@ -17,31 +17,14 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.examples.jms.transacted;
+package org.wildfly.camel.examples.jms.transacted.util;
 
-import org.wildfly.camel.examples.jms.transacted.model.Order;
-
-import javax.inject.Inject;
+import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import java.util.List;
+import javax.persistence.PersistenceContext;
 
-public class OrderRepository {
-    
-    @Inject
+public class Resources {
+    @Produces
+    @PersistenceContext
     private EntityManager entityManager;
-
-    /**
-     * Find all customer records
-     *
-     * @return A list of customers
-     */
-    public List<Order> findAllOrders() {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Order> query = criteriaBuilder.createQuery(Order.class);
-        query.select(query.from(Order.class));
-
-        return entityManager.createQuery(query).getResultList();
-    }
 }

@@ -2,7 +2,7 @@
  * #%L
  * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2013 - 2014 RedHat
+ * Copyright (C) 2013 - 2017 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,6 @@
  */
 package org.wildfly.camel.test.jms;
 
-import groovy.transform.ToString;
-
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,7 +30,6 @@ import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.ServerLogReader;
 import org.wildfly.camel.test.common.http.HttpRequest;
@@ -40,9 +37,9 @@ import org.wildfly.camel.test.common.http.HttpRequest;
 @RunAsClient
 @RunWith(Arquillian.class)
 @ServerSetup({ AbstractJMSExampleTest.JmsQueueSetup.class })
-public class TransactedJMSExampleTest extends AbstractJMSExampleTest {
+public class TransactedJMSSpringExampleTest extends AbstractJMSExampleTest {
 
-    private static final String CONTEXT_PATH = "example-camel-jms-tx";
+    private static final String CONTEXT_PATH = "example-camel-jms-tx-spring";
     private static final String EXAMPLE_CAMEL_JMS_WAR = CONTEXT_PATH + ".war";
 
     @Deployment(testable = false)

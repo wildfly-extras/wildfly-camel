@@ -57,6 +57,7 @@
         <module>camel-jms-mdb</module>
         <module>camel-jms-spring</module>
         <module>camel-jms-tx</module>
+        <module>camel-jms-tx-spring</module>
         <module>camel-jpa</module>
         <module>camel-jpa-spring</module>
         <module>camel-mail</module>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 #%L
-Wildfly Camel :: Example :: Camel Transacted JMS
+Wildfly Camel :: Example :: Camel Transacted JMS Spring
 %%
-Copyright (C) 2013 - 2014 RedHat
+Copyright (C) 2013 - 2017 RedHat
 %%
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,11 +24,13 @@ limitations under the License.
         http://java.sun.com/xml/ns/persistence
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
     <persistence-unit name="camel">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
         <class>org.wildfly.camel.examples.jms.transacted.model.Order</class>
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.transaction.jta.platform" value="JBossAS" />
         </properties>
     </persistence-unit>
 </persistence>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ord:order xmlns:ord="http://org/wildfly/camel/examples/jms/transacted/model/Order"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://org/wildfly/camel/examples/jms/transacted/Order">
+    <ord:productName>Wireless Keyboard</ord:productName>
+    <ord:productSku>12345</ord:productSku>
+    <ord:quantity>4</ord:quantity>
+</ord:order>

@@ -1,0 +1,9 @@
+batch
+
+# Configure max-delivery-attempts
+/subsystem=messaging-activemq/server=default/address-setting=jms.queue.OrdersQueue:add(max-delivery-attempts=1)
+
+# Configure the JMS test queue
+/subsystem=messaging-activemq/server=default/jms-queue=OrdersQueue:add(entries=["java:/jms/queue/OrdersQueue"])
+
+run-batch

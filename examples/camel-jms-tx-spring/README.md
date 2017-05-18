@@ -1,7 +1,7 @@
-Camel Transacted JMS example
-----------------------------
+Camel Transacted JMS Spring example
+-----------------------------------
 
-This example demonstrates using the camel-jms component with WildFly Camel susbsystem to produce and consume JMS messages in a transacted session.
+This example demonstrates using the camel-jms component with Spring and the WildFly Camel susbsystem to produce and consume JMS messages in a transacted session.
 
 In this example, a Camel route consumes files from ${JBOSS_JOME}/standalone/data/orders and places their contents onto an in-memory ActiveMQ Artemis JMS queue
 named 'OrdersQueue'. A second route consumes any messages from 'OrdersQueue', converts the message body to an 'Order' entity and persists it
@@ -25,13 +25,13 @@ To run the example.
 
 1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
 2. Build and deploy the project `mvn install -Pdeploy`
-3. When the WildFly server has started, browse to http://localhost:8080/example-camel-jms-tx/orders
+3. When the WildFly server has started, browse to http://localhost:8080/example-camel-jms-tx-spring/orders
 
 You should see a page titled 'Orders Received'. As we send orders to the example application, a list
 of processed orders will be listed on this page.
 
-Testing Camel Transacted JMS
-----------------------------
+Testing Camel Transacted JMS Spring
+-----------------------------------
 
 There are some example order XML files within the `src/main/resources/orders` directory.
 
@@ -50,7 +50,7 @@ For Windows users:
 
     copy src\main\resources\orders\*.xml %JBOSS_HOME%\standalone\data\orders\
 
-Once the files have been consumed, you can return to http://localhost:8080/example-camel-jms-tx/orders. You should see that only the wireless keyboard
+Once the files have been consumed, you can return to http://localhost:8080/example-camel-jms-tx-spring/orders. You should see that only the wireless keyboard
 and HDMI cable product orders were processed. What happened to the order contained within order-2.xml for the wireless mouse?
 
 Look at the WildFly server console output. The output should show a sequence of events similar to the following.
