@@ -32,7 +32,7 @@ import java.util.Map;
 
 @SuppressWarnings("serial")
 @WebServlet(name = "HttpServiceServlet", urlPatterns = {"/orders/*"}, loadOnStartup = 1)
-public class SimpleServlet extends HttpServlet {
+public class OrdersServlet extends HttpServlet {
 
     private static final String[] COUNTRIES = {"UK", "US", "Others"};
 

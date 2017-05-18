@@ -69,6 +69,11 @@
             <type>pom</type>
         </dependency>
         <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-rar</artifactId>
+            <type>rar</type>
+        </dependency>
+        <dependency>
             <groupId>com.icegreen</groupId>
             <artifactId>greenmail-webapp</artifactId>
             <type>war</type>
@@ -191,8 +196,8 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeGroupIds>org.wildfly.camel,com.icegreen</includeGroupIds>
-                            <includeTypes>war</includeTypes>
+                            <includeGroupIds>org.apache.activemq,org.wildfly.camel,com.icegreen</includeGroupIds>
+                            <includeTypes>rar,war</includeTypes>
                             <stripVersion>true</stripVersion>
                             <outputDirectory>${project.build.directory}/examples</outputDirectory>
                         </configuration>

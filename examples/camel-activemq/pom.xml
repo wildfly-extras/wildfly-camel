@@ -34,12 +34,22 @@
     <artifactId>example-camel-activemq</artifactId>
     <packaging>war</packaging>
 
+    <!-- Properties -->
+    <properties>
+        <deploy-rar.skip>true</deploy-rar.skip>
+    </properties>
+
     <dependencies>
         <!-- Provided -->
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-camel</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-rar</artifactId>
+            <type>rar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -74,6 +84,24 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <id>deploy-activemq</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>deploy-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>org.apache.activemq</groupId>
+                            <artifactId>activemq-rar</artifactId>
+                            <name>activemq-rar.rar</name>
+                            <afterDeployment>
+                                <scripts>
+                                    <script>${project.basedir}/src/main/resources/cli/configure-resource-adapter.cli</script>
+                                </scripts>
+                            </afterDeployment>
+                            <skip>${deploy-rar.skip}</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>wildfly-deploy</id>
                         <phase>install</phase>
                         <goals>
@@ -87,6 +115,21 @@
                             <goal>undeploy</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>undeploy-activemq-rar</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>undeploy</goal>
+                        </goals>
+                        <configuration>
+                            <name>activemq-rar.rar</name>
+                            <beforeDeployment>
+                                <scripts>
+                                    <script>${project.basedir}/src/main/resources/cli/unconfigure-resource-adapter.cli</script>
+                                </scripts>
+                            </beforeDeployment>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
@@ -98,6 +141,12 @@
             <id>deploy</id>
             <properties>
                 <deploy.skip>false</deploy.skip>
+            </properties>
+        </profile>
+        <profile>
+            <id>deploy-rar</id>
+            <properties>
+                <deploy-rar.skip>false</deploy-rar.skip>
             </properties>
         </profile>
     </profiles>

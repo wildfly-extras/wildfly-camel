@@ -1,0 +1,3 @@
+if (outcome == success) of /subsystem=resource-adapters/resource-adapter=amq-ra.rar/:read-resource
+    /subsystem=resource-adapters/resource-adapter=amq-ra.rar/:remove
+end-if

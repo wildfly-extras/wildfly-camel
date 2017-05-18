@@ -7,20 +7,26 @@ In this example, a Camel route consumes files from ${JBOSS_JOME}/standalone/data
 named 'OrdersQueue'. A second route consumes any messages from 'OrdersQueue' and through a simple [content based router](http://camel.apache.org/content-based-router.html)
 sorts the orders into individual country directories within JBOSS_JOME/standalone/data/orders/processed.
 
+CLI scripts automatically configure the ActiveMQ resource adapter. These scripts are located within the `src/main/resources/cli` directory.
+
 Prerequisites
 -------------
 
 * Maven
 * An application server with the wildfly-camel subsystem installed
+* An ActiveMQ broker
 
 Running the example
 -------------------
 
 To run the example.
 
-1. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
-2. Build and deploy the project `mvn install -Pdeploy`
-3. Browse to http://localhost:8080/example-camel-activemq/orders
+1. Ensure your ActiveMQ broker instance is running. By default, this example expects the broker to be accessible on localhost. This can be changed by editing `src/main/resources/cli/configure-resource-adapter.cli` and modifying the `ServerUrl` attribute from `tcp://127.0.0.1:61616` to your desired host name or IP address
+2. Start the application server in standalone mode `${JBOSS_HOME}/bin/standalone.sh -c standalone-full-camel.xml`
+3. Deploy the ActiveMQ resource adapter `mvn install -Pdeploy-rar`
+4. Restart the application server for the resource adapter configuration to take effect
+5. Build and deploy the project `mvn install -Pdeploy`
+6. Browse to http://localhost:8080/example-camel-activemq/orders
 
 You should see a page titled 'Orders Received'. As we send orders to the example application, a list
 of orders per country will be listed on this page.
@@ -63,8 +69,4 @@ Undeploy
 
 To undeploy the example run `mvn clean -Pdeploy`.
 
-Learn more
-----------
-
-Additional camel-activemq documentation can be
-found at the [WildFly Camel User Guide](http://wildfly-extras.github.io/wildfly-camel/#_camel_activemq) site.
+This step removes the ActiveMQ resource adapter configuration but this will not take effect until the application server has been restarted.

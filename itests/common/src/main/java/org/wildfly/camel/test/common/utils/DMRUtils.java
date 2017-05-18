@@ -65,10 +65,13 @@ public class DMRUtils {
                             }
                         } else {
                             String[] argElements = argSegment.split("(?!=>)=");
-                            if (argElements[0].trim().equals("handlers")) {
+                            String nodeName = argElements[0].trim();
+                            if (argElements.length > 2) {
+                                op.get(nodeName).set(argSegment.replace(nodeName + "=", ""));
+                            } else if (nodeName.equals("handlers")) {
                                 op.add(argElements[1].trim());
                             } else {
-                                op.get(argElements[0].trim()).set(argElements[1].trim());
+                                op.get(nodeName).set(argElements[1].trim());
                             }
                         }
                     }
