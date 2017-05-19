@@ -1,7 +1,8 @@
 ### Source to Image
 
-WildFly-Camel provides a https://docs.openshift.org/latest/architecture/core_concepts/builds_and_image_streams.html#source-build[Source-To-Image,window=_blank]
-(S2I) https://hub.docker.com/r/wildflyext/s2i-wildfly-camel/[Docker image,window=_blank] which enables you to build reproducable images from source.
+The WildFly-Camel https://hub.docker.com/r/wildflyext/wildfly-camel/[Docker image,window=_blank] is capabale of performing https://docs.openshift.org/latest/architecture/core_concepts/builds_and_image_streams.html#source-build[Source-To-Image,window=_blank] builds.
+
+This enables you to build reproducable images from source.
 
 #### Example S2I build
 
@@ -10,7 +11,7 @@ First you'll need to download and install the S2I tooling from https://github.co
 Then you can build and run a Docker image from source. For example, to build the WildFly-Camel CDI quickstart:
 
 [source,options="nowrap",subs="attributes"]
-$ s2i build https://github.com/wildfly-extras/wildfly-camel-examples.git -r {version} --context-dir camel-cdi wildflyext/s2i-wildfly-camel:{version} wildfly-camel-example-cdi
+$ s2i build https://github.com/wildfly-extras/wildfly-camel-examples.git -r {version} --context-dir camel-cdi wildflyext/wildfly-camel:{version} wildfly-camel-example-cdi
 $ docker run -ti -p 8080:8080 wildfly-camel-example-cdi
 
 From a remote client, you should now be able to access the service like this

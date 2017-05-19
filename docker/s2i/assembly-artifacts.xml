@@ -33,7 +33,7 @@
             <includes>
                 <include>org.wildfly.camel:wildfly-camel-patch:tar.gz</include>
             </includes>
-            <outputDirectory>.</outputDirectory>
+            <outputDirectory>wildfly</outputDirectory>
             <scope>provided</scope>
             <unpack>true</unpack>
             <unpackOptions>
@@ -44,4 +44,15 @@
             </unpackOptions>
         </dependencySet>
     </dependencySets>
+
+    <fileSets>
+        <fileSet>
+            <outputDirectory>usr/libexec/s2i</outputDirectory>
+            <directory>s2i/bin</directory>
+            <includes>
+                <include>run</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
 </assembly>

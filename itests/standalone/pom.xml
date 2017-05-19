@@ -167,7 +167,7 @@
                         <artifactId>maven-antrun-plugin</artifactId>
                         <executions>
                             <execution>
-                                <phase>process-resources</phase>
+                                <phase>process-test-resources</phase>
                                 <goals>
                                     <goal>run</goal>
                                 </goals>

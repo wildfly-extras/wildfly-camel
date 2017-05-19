@@ -145,7 +145,7 @@
                                             <build>
                                                 <from>wildflyext/wildfly-camel</from>
                                                 <assembly>
-                                                    <basedir>/opt/jboss/wildfly/standalone/deployments</basedir>
+                                                    <basedir>/wildfly/standalone/deployments</basedir>
                                                     <descriptorRef>artifact</descriptorRef>
                                                 </assembly>
                                             </build>

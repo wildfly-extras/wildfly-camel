@@ -47,7 +47,7 @@
             },
             "from": {
               "kind": "DockerImage",
-              "name": "wildflyext/s2i-wildfly-camel:{version}"
+              "name": "wildflyext/wildfly-camel:{version}"
             }
           }
         ]

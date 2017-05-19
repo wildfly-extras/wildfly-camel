@@ -58,10 +58,6 @@ and access the admin console like this: http://192.168.99.100:9990/console[,wind
 
 image::console-standalone.png[]
 
-The Hawt.io console is available at: http://192.168.99.100:8080/hawtio[,window=_blank]
-
-image::hawtio-camel-01.png[]
-
 #### Create an OpenShift project
 
 Here we run a set of WildFly Camel servers on https://www.openshift.org[OpenShift Origin,window=_blank]. 
