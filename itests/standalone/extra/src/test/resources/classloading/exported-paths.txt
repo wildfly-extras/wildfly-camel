@@ -918,6 +918,8 @@ org/apache/camel/component/rabbitmq/reply
 org/apache/camel/component/redis
 org/apache/camel/component/redis/processor
 org/apache/camel/component/redis/processor/idempotent
+org/apache/camel/component/rest
+org/apache/camel/component/rest/swagger
 org/apache/camel/component/rss
 org/apache/camel/component/salesforce
 org/apache/camel/component/salesforce/api

@@ -1,0 +1,9 @@
+### camel-rest-swagger
+
+The https://github.com/apache/camel/blob/master/components/camel-rest-swagger/src/main/docs/rest-swagger-component.adoc[rest-swagger,window=_blank]
+component can configure REST producers from a http://swagger.io/[Swagger,window=_blank] document and
+delegate to a component implementing the `RestProducerFactory` interface such as:
+
+* link:index.html#_camel_http4[camel-http4]
+
+* link:index.html#_camel_undertow[camel-undertow]
