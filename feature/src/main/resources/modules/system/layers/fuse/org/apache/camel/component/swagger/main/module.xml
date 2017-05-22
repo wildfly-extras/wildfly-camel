@@ -27,7 +27,6 @@
     <module name="org.apache.commons.io" />
     <module name="org.apache.commons.lang3" />
     <module name="org.reflections" />
-    <module name="org.slf4j.ext" />
   </dependencies>
   <exports>
     <exclude path="io/swagger" />

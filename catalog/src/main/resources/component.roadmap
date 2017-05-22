@@ -93,6 +93,7 @@ rabbitmq
 ref
 rest
 rest-api
+rest-swagger
 rss
 salesforce
 sap-netweaver
@@ -176,7 +177,6 @@ openstack-nova
 openstack-swift
 pubnub
 reactive-streams
-rest-swagger
 sjms2
 tika
 websocket

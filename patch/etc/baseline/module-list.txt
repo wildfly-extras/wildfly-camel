@@ -195,6 +195,7 @@
 /org/apache/camel/component/quartz2/main/camel-quartz2-2.19.0.jar
 /org/apache/camel/component/rabbitmq/main/amqp-client-4.1.0.jar
 /org/apache/camel/component/rabbitmq/main/camel-rabbitmq-2.19.0.jar
+/org/apache/camel/component/rest/swagger/main/camel-rest-swagger-2.19.0.jar
 /org/apache/camel/component/rss/main/camel-rss-2.19.0.jar
 /org/apache/camel/component/salesforce/main/bayeux-api-3.0.10.jar
 /org/apache/camel/component/salesforce/main/camel-salesforce-2.19.0.jar
