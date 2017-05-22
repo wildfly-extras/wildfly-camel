@@ -200,33 +200,6 @@ public class RestDslIntegrationTest {
         }
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void testRestDslServerRootContext() throws Exception {
-        DefaultCamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                restConfiguration()
-                    .component("undertow")
-                    .host("localhost")
-                    .port(8080)
-                    .contextPath("/");
-
-                rest()
-                    .get("/")
-                        .route()
-                            .setBody(constant("GET: /"))
-                        .endRest();
-            }
-        });
-
-        try {
-            camelctx.start();
-        } finally {
-            camelctx.stop();
-        }
-    }
-
     @Test
     public void testRestDslRequestWithInvalidMethod() throws Exception {
         DefaultCamelContext camelctx = new DefaultCamelContext();

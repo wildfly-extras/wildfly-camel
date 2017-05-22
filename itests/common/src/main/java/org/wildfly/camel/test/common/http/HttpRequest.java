@@ -149,14 +149,11 @@ public final class HttpRequest {
             try {
                 return result.get(timeout, unit);
             } catch (TimeoutException e) {
-                e.printStackTrace();
                 result.cancel(true);
                 throw e;
             } catch (InterruptedException e) {
-                e.printStackTrace();
                 throw new IllegalStateException(e);
             } catch (ExecutionException e) {
-                e.printStackTrace();
                 throw e;
             } finally {
                 executor.shutdownNow();
@@ -208,7 +205,6 @@ public final class HttpRequest {
                     in.close();
                 }
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
                 response.setStatusCode(HttpURLConnection.HTTP_NOT_FOUND);
             } catch (IOException e) {
                 Pattern pattern = Pattern.compile(".*?([0-9]{3}).*");

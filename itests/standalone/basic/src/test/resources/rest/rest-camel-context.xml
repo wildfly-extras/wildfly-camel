@@ -25,7 +25,9 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
     <camelContext id="rest-context">
-        <restConfiguration component="undertow" />
+        <restConfiguration component="undertow"
+                           host="localhost"
+                           port="8080"/>
 
         <rest path="/say">
             <get uri="/hello">

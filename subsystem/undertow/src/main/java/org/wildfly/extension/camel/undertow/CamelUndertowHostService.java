@@ -177,7 +177,6 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 		public void registerHandler(HttpHandlerRegistrationInfo reginfo, HttpHandler handler) {
 
             String contextPath = getContextPath(reginfo);
-            IllegalStateAssertion.assertFalse(contextPath.equals("/"), "Cannot register a HTTP handler to a path of /");
             LOGGER.debug("Using context path {}" , contextPath);
 
             String relativePath = getRelativePath(reginfo);

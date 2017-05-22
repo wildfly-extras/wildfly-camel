@@ -26,12 +26,12 @@ import java.net.URISyntaxException;
 
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
+import org.apache.camel.component.undertow.RestUndertowHttpBinding;
 import org.apache.camel.component.undertow.UndertowComponent;
 import org.apache.camel.component.undertow.UndertowConsumer;
 import org.apache.camel.component.undertow.UndertowEndpoint;
 import org.apache.camel.component.undertow.UndertowHost;
 import org.apache.camel.component.undertow.UndertowHostKey;
-import org.apache.camel.component.undertow.UndertowHttpBinding;
 import org.jboss.gravia.runtime.ServiceLocator;
 import org.wildfly.extension.camel.parser.SubsystemState.RuntimeState;
 
@@ -82,7 +82,7 @@ public class WildFlyUndertowComponent extends UndertowComponent {
             }
 
             // [#1809] Reenable undertow consumer prefix paths
-            if (endpoint.getUndertowHttpBinding() instanceof UndertowHttpBinding && endpoint.getMatchOnUriPrefix()) {
+            if (!(endpoint.getUndertowHttpBinding() instanceof RestUndertowHttpBinding) && endpoint.getMatchOnUriPrefix()) {
                 LOGGER.warn("Ignoring URI path prefix matches for {}", uri.getPath());
             }
         }
