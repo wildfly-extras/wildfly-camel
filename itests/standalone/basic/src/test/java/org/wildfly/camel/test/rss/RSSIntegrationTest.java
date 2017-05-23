@@ -30,11 +30,13 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.rss.subA.RSSFeedServlet;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -42,8 +44,14 @@ import org.wildfly.extension.camel.CamelAware;
 public class RSSIntegrationTest {
 
     @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "rss-tests.jar");
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "rss-tests.war")
+            .addClass(RSSFeedServlet.class)
+            .setManifest(() -> {
+                ManifestBuilder builder = new ManifestBuilder();
+                builder.addManifestHeader("Dependencies", "com.rometools.rome");
+                return builder.openStream();
+            });
     }
 
     @Test
@@ -54,7 +62,7 @@ public class RSSIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("rss://https://www.redhat.com/en/rss/press-releases?splitEntries=true&consumer.initialDelay=200&consumer.delay=1000")
+                from("rss://http://localhost:8080/rss-tests?splitEntries=true&consumer.initialDelay=200&consumer.delay=1000")
                 .process(new Processor() {
 					@Override
 					public void process(Exchange exchange) throws Exception {
