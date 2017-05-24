@@ -20,23 +20,17 @@
 
 package org.wildfly.camel.test.ahc;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.ahc.ws.WsComponent;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.asynchttpclient.AsyncHttpClient;
-import org.asynchttpclient.DefaultAsyncHttpClient;
-import org.asynchttpclient.ws.DefaultWebSocketListener;
-import org.asynchttpclient.ws.WebSocket;
-import org.asynchttpclient.ws.WebSocketTextListener;
-import org.asynchttpclient.ws.WebSocketUpgradeHandler;
+import org.apache.camel.util.jsse.KeyManagersParameters;
+import org.apache.camel.util.jsse.KeyStoreParameters;
+import org.apache.camel.util.jsse.SSLContextParameters;
+import org.apache.camel.util.jsse.TrustManagersParameters;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -47,56 +41,46 @@ import org.junit.runner.RunWith;
 import org.wildfly.camel.test.ahc.subA.WebSocketServerEndpoint;
 import org.wildfly.extension.camel.CamelAware;
 
+/*
+    $ keytool -genkey -alias server -keyalg RSA -keystore application.keystore -validity 10950
+    Enter keystore password: password
+*/
+
 @CamelAware
 @RunWith(Arquillian.class)
-public class AhcWSIntegrationTest {
+public class AhcWSSIntegrationTest {
 
-    private static final String WEBSOCKET_ENDPOINT = "localhost:8080/ahc-ws-test/echo";
+    private static final String WEBSOCKET_ENDPOINT = "localhost:8443/ahc-wss-test/echo";
+
+    private static final String KEYSTORE = "application.keystore";
+    private static final String KEYSTORE_PASSWORD="password";
 
     @Deployment
     public static WebArchive createdeployment() {
-        WebArchive archive = ShrinkWrap.create(WebArchive.class, "ahc-ws-test.war");
+        WebArchive archive = ShrinkWrap.create(WebArchive.class, "ahc-wss-test.war");
         archive.addClasses(WebSocketServerEndpoint.class);
+        archive.addAsResource("ahc/application.keystore", "application.keystore");
+        archive.addAsWebResource("ahc/websocket.js", "websocket.js");
+        archive.addAsWebResource("ahc/index.jsp", "index.jsp");
+        archive.addAsWebInfResource("ahc/web.xml", "web.xml");
         return archive;
     }
 
     @Test
-    public void testAsyncHttpClient() throws Exception {
-
-        final List<String> messages = new ArrayList<>();
-        final CountDownLatch latch = new CountDownLatch(1);
-
-        WebSocketTextListener listener = new DefaultWebSocketListener() {
-            @Override
-            public void onMessage(String message) {
-                System.out.println("onMessage: " + message);
-                messages.add(message);
-                latch.countDown();
-            }
-        };
-        
-        try (AsyncHttpClient client = new DefaultAsyncHttpClient()) {
-            WebSocketUpgradeHandler handler = new WebSocketUpgradeHandler.Builder().addWebSocketListener(listener).build();
-            WebSocket websocket = client.prepareGet("ws://" + WEBSOCKET_ENDPOINT).execute(handler).get();
-            websocket.sendMessage("Kermit");
-            
-            Assert.assertTrue(latch.await(1, TimeUnit.SECONDS));
-            Assert.assertEquals("Hello Kermit", messages.get(0));
-        }
-    }
-
-    @Test
-    public void testAsyncWsRoute() throws Exception {
+    public void testAsyncWssRoute() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").to("ahc-ws:" + WEBSOCKET_ENDPOINT);
-                from("ahc-ws:" + WEBSOCKET_ENDPOINT).to("seda:end");
+                from("direct:start").to("ahc-wss:" + WEBSOCKET_ENDPOINT);
+                from("ahc-wss:" + WEBSOCKET_ENDPOINT).to("seda:end");
             }
         });
 
+        WsComponent wsComponent = (WsComponent) camelctx.getComponent("ahc-wss");
+        wsComponent.setSslContextParameters(defineSSLContextClientParameters());
+        
         PollingConsumer consumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
         consumer.start();
         
@@ -111,5 +95,25 @@ public class AhcWSIntegrationTest {
         } finally {
             camelctx.stop();
         }
+    }
+
+    private static SSLContextParameters defineSSLContextClientParameters() {
+        
+        KeyStoreParameters ksp = new KeyStoreParameters();
+        ksp.setResource("/" + KEYSTORE);
+        ksp.setPassword(KEYSTORE_PASSWORD);
+
+        KeyManagersParameters kmp = new KeyManagersParameters();
+        kmp.setKeyPassword(KEYSTORE_PASSWORD);
+        kmp.setKeyStore(ksp);
+
+        TrustManagersParameters tmp = new TrustManagersParameters();
+        tmp.setKeyStore(ksp);
+
+        SSLContextParameters scp = new SSLContextParameters();
+        scp.setKeyManagers(kmp);
+        scp.setTrustManagers(tmp);
+
+        return scp;
     }
 }

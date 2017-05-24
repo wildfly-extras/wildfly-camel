@@ -180,6 +180,9 @@
                         </goals>
                         <configuration>
                             <target>
+                                <!-- Copy the websocket keystore -->
+                                <copy file="src/test/resources/ahc/application.keystore" todir="${jboss.home}/standalone/configuration" />
+                                <!-- Add additional security domains -->
                                 <replace file="${jboss.home}/standalone/configuration/${server.config}">
                                 <replacetoken><![CDATA[<security-domain name="hawtio-domain"]]></replacetoken>
                                 <replacevalue><![CDATA[
