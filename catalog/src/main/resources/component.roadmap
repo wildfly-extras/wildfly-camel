@@ -107,6 +107,7 @@ servlet
 sftp
 sjms
 sjms-batch
+sjms2
 smpp
 smpps
 smtp
@@ -177,7 +178,6 @@ openstack-neutron
 openstack-nova
 openstack-swift
 pubnub
-sjms2
 tika
 websocket
 zendesk

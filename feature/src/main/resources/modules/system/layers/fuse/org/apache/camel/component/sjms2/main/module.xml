@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.sjms2">
+  <resources>
+    <artifact name="${org.apache.camel:camel-sjms2}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="javax.annotation.api" />
+    <module name="javax.jms.api" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.component.sjms" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.pool" />
+  </dependencies>
+</module>

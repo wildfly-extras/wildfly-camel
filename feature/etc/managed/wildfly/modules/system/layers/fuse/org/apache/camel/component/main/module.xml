@@ -163,6 +163,7 @@
             </exports>
         </module>
         <module name="org.apache.camel.component.sjms" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.sjms2" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.sql" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.ssh" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.stax" export="true" services="export" optional="true" />

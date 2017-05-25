@@ -209,6 +209,7 @@
 /org/apache/camel/component/servicenow/main/camel-servicenow-2.19.0.jar
 /org/apache/camel/component/servlet/main/camel-servlet-2.19.0.jar
 /org/apache/camel/component/sjms/main/camel-sjms-2.19.0.jar
+/org/apache/camel/component/sjms2/main/camel-sjms2-2.19.0.jar
 /org/apache/camel/component/smpp/main/camel-smpp-2.19.0.jar
 /org/apache/camel/component/smpp/main/jsmpp-2.3.4.jar
 /org/apache/camel/component/snakeyaml/main/camel-snakeyaml-2.19.0.jar

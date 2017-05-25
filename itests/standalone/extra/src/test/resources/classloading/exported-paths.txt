@@ -957,6 +957,8 @@ org/apache/camel/component/sjms/jms
 org/apache/camel/component/sjms/producer
 org/apache/camel/component/sjms/taskmanager
 org/apache/camel/component/sjms/tx
+org/apache/camel/component/sjms2
+org/apache/camel/component/sjms2/jms
 org/apache/camel/component/smpp
 org/apache/camel/component/snakeyaml
 org/apache/camel/component/snmp

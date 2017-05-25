@@ -1637,7 +1637,19 @@
             <module name="org.slf4j"/>
         </dependencies>
     </module>
-    
+
+    <module name="org.apache.camel.component.sjms2">
+        <include artifact="org.apache.camel:camel-sjms2" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.smpp">
         <include artifact="org.apache.camel:camel-smpp" />
         <include artifact="org.jsmpp:jsmpp" />

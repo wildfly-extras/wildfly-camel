@@ -106,6 +106,7 @@
 
     <module name="javax.jms.api" skip="true">
         <include artifact=":geronimo-jms_1.1_spec" />
+        <include artifact=":geronimo-jms_2.0_spec" />
         <include artifact=":jboss-jms-api_1.1_spec" />
         <include artifact=":jms-api" />
     </module>
