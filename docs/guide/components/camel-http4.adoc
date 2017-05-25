@@ -12,3 +12,8 @@ camelctx.addRoutes(new RouteBuilder() {
     }
 });
 
+For secure communication over SSL/TLS, you can use the https4 endpoint:
+
+[source,java,options="nowrap"]
+to("https4://somehost:443/simple/myservlet");
+
