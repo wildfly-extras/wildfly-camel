@@ -295,6 +295,7 @@ META-INF/services/org/apache/camel/dataformat
 META-INF/services/org/apache/camel/language
 META-INF/services/org/apache/camel/language/resolver
 META-INF/services/org/apache/camel/model
+META-INF/services/org/apache/camel/reactive-streams
 META-INF/services/org/apache/camel/rest
 META-INF/services/org/apache/camel/restapi
 ca/uhn/hl7v2
@@ -915,6 +916,11 @@ org/apache/camel/component/quartz2
 org/apache/camel/component/rabbitmq
 org/apache/camel/component/rabbitmq/pool
 org/apache/camel/component/rabbitmq/reply
+org/apache/camel/component/reactive
+org/apache/camel/component/reactive/streams
+org/apache/camel/component/reactive/streams/api
+org/apache/camel/component/reactive/streams/engine
+org/apache/camel/component/reactive/streams/util
 org/apache/camel/component/redis
 org/apache/camel/component/redis/processor
 org/apache/camel/component/redis/processor/idempotent
@@ -2280,6 +2286,7 @@ org/quartz/utils/counter
 org/quartz/utils/counter/sampled
 org/quartz/utils/weblogic
 org/quartz/xml
+org/reactivestreams
 org/schwering/irc/lib
 org/schwering/irc/lib/ssl
 org/snmp4j

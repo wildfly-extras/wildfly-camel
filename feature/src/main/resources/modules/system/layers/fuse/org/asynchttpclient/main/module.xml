@@ -10,16 +10,15 @@
     <artifact name="${com.typesafe.netty:netty-reactive-streams}" />
     <artifact name="${org.asynchttpclient:netty-resolver}" />
     <artifact name="${org.asynchttpclient:netty-resolver-dns}" />
-    <artifact name="${org.reactivestreams:reactive-streams}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
     <module name="io.netty" slot="4.1" />
+    <module name="org.reactivestreams" />
     <module name="org.slf4j" />
   </dependencies>
   <exports>
     <exclude path="io/netty**" />
     <exclude path="com/typesafe**" />
-    <exclude path="org/reactivestreams" />
   </exports>
 </module>

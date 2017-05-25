@@ -817,7 +817,6 @@
         <include artifact="org.asynchttpclient:netty-codec-dns" />
         <include artifact="org.asynchttpclient:netty-resolver" />
         <include artifact="org.asynchttpclient:netty-resolver-dns" />
-        <include artifact="org.reactivestreams:reactive-streams" />
         <apply-to-dependencies skip="true">
             <include module="io.netty.skipped" />
         </apply-to-dependencies>
@@ -828,7 +827,6 @@
         <exports>
             <exclude path="io/netty**" />
             <exclude path="com/typesafe**" />
-            <exclude path="org/reactivestreams" />
         </exports>
     </module>
 
@@ -1085,6 +1083,13 @@
             <exclude path="com/mchange**" />
             <exclude path="org/terracotta**" />
         </exports>
+    </module>
+
+    <module name="org.reactivestreams">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.reactivestreams:reactive-streams" />
     </module>
 
     <module name="org.reflections">

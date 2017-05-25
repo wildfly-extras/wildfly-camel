@@ -1,6 +1,6 @@
 ### camel-coap
 
-The https://github.com/apache/camel/blob/master/components/camel-coap/src/main/docs/coap-component.adoc[coap,window=_blank] component enables you work
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-coap/src/main/docs/coap-component.adoc[coap,window=_blank] component enables you work
 with the http://coap.technology/[CoAP protocol,window=_blank]. The protocol is designed for machine-to-machine (M2M) applications
 and is suitable for IoT devices.
 

@@ -90,6 +90,7 @@ pop3s
 properties
 quartz2
 rabbitmq
+reactive-streams
 ref
 rest
 rest-api
@@ -176,7 +177,6 @@ openstack-neutron
 openstack-nova
 openstack-swift
 pubnub
-reactive-streams
 sjms2
 tika
 websocket

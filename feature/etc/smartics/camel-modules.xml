@@ -1383,6 +1383,39 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.rabbitmq">
+        <include artifact="org.apache.camel:camel-rabbitmq" />
+        <include artifact="com.rabbitmq:amqp-client" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.slf4j" />
+        </dependencies>
+        <exports>
+            <exclude path="com/rabbitmq" />
+            <exclude path="com/rabbitmq/client/impl**" />
+            <exclude path="com/rabbitmq/client/test**" />
+            <exclude path="com/rabbitmq/tools**" />
+            <exclude path="com/rabbitmq/utility**" />
+        </exports>
+    </module>
+
+    <module name="org.apache.camel.component.reactive.streams">
+        <include artifact="org.apache.camel:camel-reactive-streams" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.reactivestreams" export="true"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.rest.swagger">
         <include artifact="org.apache.camel:camel-rest-swagger" />
         <apply-to-dependencies skip="true">
@@ -1419,26 +1452,6 @@
             <module name="org.apache.commons.codec" />
             <module name="org.slf4j"/>
         </dependencies>
-    </module>
-
-    <module name="org.apache.camel.component.rabbitmq">
-        <include artifact="org.apache.camel:camel-rabbitmq" />
-        <include artifact="com.rabbitmq:amqp-client" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api" />
-            <module name="org.slf4j" />
-        </dependencies>
-        <exports>
-            <exclude path="com/rabbitmq" />
-            <exclude path="com/rabbitmq/client/impl**" />
-            <exclude path="com/rabbitmq/client/test**" />
-            <exclude path="com/rabbitmq/tools**" />
-            <exclude path="com/rabbitmq/utility**" />
-        </exports>
     </module>
 
     <module name="org.apache.camel.component.salesforce">

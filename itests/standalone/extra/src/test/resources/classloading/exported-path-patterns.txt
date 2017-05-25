@@ -67,6 +67,7 @@
 	^org/lightcouch(.*)
 	^org/jsmpp(.*)
 	^org/optaplanner(.*)
+	^org/reactivestreams(.*)
     ^org.schwering(.*)
 	^org/snmp4j(.*)
 	^org/springframework(.*)

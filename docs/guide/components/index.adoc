@@ -160,6 +160,8 @@ include::camel-quartz2.adoc[]
 
 include::camel-rabbitmq.adoc[]
 
+include::camel-reactive-streams.adoc[]
+
 include::camel-rest.adoc[]
 
 include::camel-rest-swagger.adoc[]

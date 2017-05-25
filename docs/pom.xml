@@ -55,9 +55,10 @@
                             <backend>html</backend>
                             <doctype>book</doctype>
                             <attributes>
-                                <version>${project.version}</version>
-                                <ec2-pub-ip-dash>${ec2-pub-ip-dash}</ec2-pub-ip-dash>
+                                <camel-version>${version.apache.camel}</camel-version>
                                 <ec2-pub-ip>${ec2-pub-ip}</ec2-pub-ip>
+                                <ec2-pub-ip-dash>${ec2-pub-ip-dash}</ec2-pub-ip-dash>
+                                <version>${project.version}</version>
                             </attributes>
                         </configuration>
                     </execution>

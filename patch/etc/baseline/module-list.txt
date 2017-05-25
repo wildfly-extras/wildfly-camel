@@ -195,6 +195,7 @@
 /org/apache/camel/component/quartz2/main/camel-quartz2-2.19.0.jar
 /org/apache/camel/component/rabbitmq/main/amqp-client-4.1.0.jar
 /org/apache/camel/component/rabbitmq/main/camel-rabbitmq-2.19.0.jar
+/org/apache/camel/component/reactive/streams/main/camel-reactive-streams-2.19.0.jar
 /org/apache/camel/component/rest/swagger/main/camel-rest-swagger-2.19.0.jar
 /org/apache/camel/component/rss/main/camel-rss-2.19.0.jar
 /org/apache/camel/component/salesforce/main/bayeux-api-3.0.10.jar
@@ -328,7 +329,6 @@
 /org/asynchttpclient/main/netty-reactive-streams-1.0.8.jar
 /org/asynchttpclient/main/netty-resolver-2.0.32.jar
 /org/asynchttpclient/main/netty-resolver-dns-2.0.32.jar
-/org/asynchttpclient/main/reactive-streams-1.0.0.jar
 /org/beanshell/main/bsh-2.0b6.jar
 /org/bitbucket/jose4j/main/jose4j-0.4.4.jar
 /org/bouncycastle/ext/main/bcpg-jdk15on-1.55.jar
@@ -382,6 +382,7 @@
 /org/quartz/main/c3p0-0.9.5.2.jar
 /org/quartz/main/mchange-commons-java-0.2.11.jar
 /org/quartz/main/quartz-2.2.3.jar
+/org/reactivestreams/main/reactive-streams-1.0.0.jar
 /org/reflections/main/reflections-0.9.10.jar
 /org/scala/library/main/scala-library-2.11.7.jar
 /org/scala/modules/main/scala-parser-combinators_2.11-1.0.4.jar
