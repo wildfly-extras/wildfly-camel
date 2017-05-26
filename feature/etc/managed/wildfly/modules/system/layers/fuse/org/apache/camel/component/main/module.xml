@@ -23,8 +23,10 @@
 
     <dependencies>
         <module name="org.apache.camel.component.activemq" export="true" services="export" optional="true" />
+        <!-- [#1886] async-http-client depends on unstable Netty APIs
         <module name="org.apache.camel.component.ahc" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.ahc-ws" export="true" services="export" optional="true" />
+        -->
         <module name="org.apache.camel.component.amqp" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.atom" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.avro" export="true" services="export" optional="true" />

@@ -25,7 +25,7 @@
     <module name="com.fasterxml.jackson.dataformat.yaml" />
     <module name="com.google.guava" />
     <module name="com.netflix.hystrix" />
-    <module name="io.netty" slot="4.1" />
+    <module name="io.netty" slot="3.10" />
     <module name="org.apache.lucene" slot="5.5" />
     <module name="org.joda.time" />
     <module name="org.yaml.snakeyaml" />

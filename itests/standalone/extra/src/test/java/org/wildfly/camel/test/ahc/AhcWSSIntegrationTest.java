@@ -36,6 +36,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.ahc.subA.WebSocketServerEndpoint;
@@ -48,6 +49,7 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
+@Ignore("[#1886] async-http-client depends on unstable Netty APIs")
 public class AhcWSSIntegrationTest {
 
     private static final String WEBSOCKET_ENDPOINT = "localhost:8443/ahc-wss-test/echo";

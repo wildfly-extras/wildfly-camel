@@ -4,7 +4,6 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${io.netty:netty}" />
     <artifact name="${io.netty:netty-buffer}" />
     <artifact name="${io.netty:netty-codec}" />
     <artifact name="${io.netty:netty-codec-dns}" />
