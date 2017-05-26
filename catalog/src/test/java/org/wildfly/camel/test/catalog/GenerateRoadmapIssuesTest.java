@@ -44,7 +44,7 @@ import org.wildfly.camel.catalog.CatalogCreator;
 import org.wildfly.camel.catalog.CatalogCreator.RoadMap;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public final class UndecidedComponentsTest {
+public final class GenerateRoadmapIssuesTest {
 
     private static final String MILESTONE = "4.8.0";
     private static final Label LABEL = new Label().setName("feature");
@@ -54,8 +54,10 @@ public final class UndecidedComponentsTest {
     @Test
     public void createIssuesStepA() throws Exception {
         
+        CatalogCreator creator = new CatalogCreator().collect();
+        
         List<String> collection = new ArrayList<>();
-        for (RoadMap rm : CatalogCreator.ROAD_MAPS.values()) {
+        for (RoadMap rm : creator.getRoadmaps()) {
             String prefix = null;
             File file = rm.getOutpath().toFile();
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {

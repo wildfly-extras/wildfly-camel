@@ -35,6 +35,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +54,7 @@ public final class CatalogCreator {
     static final Path outdir = basedir().resolve(Paths.get("target/classes"));
     
     public static enum Kind {
-        component, dataformat, language;
+        component, dataformat, language, other;
     }
     
     public static enum State {
@@ -64,13 +65,13 @@ public final class CatalogCreator {
         final Path path;
         final Kind kind;
         final String name;
-        final String javaType;
+        final String artifactId;
         final boolean deprecated;
         State state = State.undecided;
-        Item(Path path, Kind kind, String javaType, boolean deprecated) {
+        Item(Path path, Kind kind, String artifactId, boolean deprecated) {
             this.path = path;
             this.kind = kind;
-            this.javaType = javaType;
+            this.artifactId = artifactId;
             this.deprecated = deprecated;
             String nspec = path.getFileName().toString();
             nspec = nspec.substring(0, nspec.indexOf("."));
@@ -110,26 +111,39 @@ public final class CatalogCreator {
         }
     }
     
-    public static Map<Kind, RoadMap> ROAD_MAPS = new HashMap<>();
-    static {
+    private Map<Kind, RoadMap> ROAD_MAPS = new LinkedHashMap<>();
+    
+    public CatalogCreator() {
         ROAD_MAPS.put(Kind.component, new RoadMap(Kind.component));
         ROAD_MAPS.put(Kind.dataformat, new RoadMap(Kind.dataformat));
         ROAD_MAPS.put(Kind.language, new RoadMap(Kind.language));
+        ROAD_MAPS.put(Kind.other, new RoadMap(Kind.other));
     }
 
     public static void main(String[] args) throws Exception {
-        new CatalogCreator().createCatalog();
+        new CatalogCreator().collect().generate();
     }
     
-    private void createCatalog() throws Exception {
-
+    public CatalogCreator collect() throws Exception {
         collectAvailable();
         collectSupported();
-        
-        generateProperties();
-        generateRoadmaps();
+        return this;
     }
 
+    public CatalogCreator generate() throws Exception {
+        generateProperties();
+        generateRoadmaps();
+        return this;
+    }
+
+    public RoadMap getRoadmap(Kind kind) {
+        return ROAD_MAPS.get(kind);
+    }
+    
+    public List<RoadMap> getRoadmaps() {
+        return new ArrayList<>(ROAD_MAPS.values());
+    }
+    
     private void collectAvailable() throws IOException {
         
         // Walk the available camel catalog items
@@ -138,24 +152,29 @@ public final class CatalogCreator {
                 if (path.toString().endsWith(".json")) {
                     Path relpath = srcdir.relativize(path);
                     ObjectMapper mapper = new ObjectMapper();
-                    JsonNode tree = mapper.readTree(path.toFile());
-                    JsonNode findNode = tree.findValue("kind");
-                    String kind = findNode != null ? findNode.textValue() : null;
-                    findNode = tree.findValue("javaType");
-                    String javaType = findNode != null ? findNode.textValue() : null;
-                    boolean deprecated = Boolean.parseBoolean(tree.findValue("deprecated").textValue());
-                    if (validKind(kind) && javaType != null) {
-                        Item item = new Item(relpath, Kind.valueOf(kind), javaType, deprecated);
+                    JsonNode treeNode = mapper.readTree(path.toFile());
+                    JsonNode valnode = treeNode.findValue("kind");
+                    String kind = valnode != null ? valnode.textValue() : null;
+                    valnode = treeNode.findValue("artifactId");
+                    String artifactId = valnode != null ? valnode.textValue() : null;
+                    boolean deprecated = Boolean.parseBoolean(treeNode.findValue("deprecated").textValue());
+                    if (validKind(kind, treeNode)) {
+                        Item item = new Item(relpath, Kind.valueOf(kind), artifactId, deprecated);
                         ROAD_MAPS.get(item.kind).add(item);
                    }
                 }
                 return FileVisitResult.CONTINUE;
             }
-            boolean validKind(String kind) {
+            boolean validKind(String kind, JsonNode node) {
+                JsonNode valnode = node.findValue("name");
+                String name = valnode != null ? valnode.textValue() : null;
                 try {
                     Kind.valueOf(kind);
                     return true;
                 } catch (IllegalArgumentException e) {
+                    if (name != null && name.contains("opentracing")) {
+                        System.out.println(node);
+                    }
                     return false;
                 }
             }
@@ -195,8 +214,7 @@ public final class CatalogCreator {
         Path rootPath = basedir().resolve(Paths.get("target", "dependency"));
         for (RoadMap roadmap : ROAD_MAPS.values()) {
             for (Item item : roadmap.items.values()) {
-                Path javaType = Paths.get(item.javaType.replace('.', '/') + ".class");
-                if (rootPath.resolve(javaType).toFile().isFile()) {
+                if (rootPath.resolve(item.artifactId + ".jar").toFile().isFile()) {
                     Path subpath = item.path.subpath(2, item.path.getNameCount());
                     Path targetPath = Paths.get("org", "wildfly").resolve(subpath);
                     Path target = outdir.resolve(targetPath);

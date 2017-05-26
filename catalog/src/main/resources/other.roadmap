@@ -1,0 +1,44 @@
+[supported]
+cdi
+cxf-transport
+hystrix
+jasypt
+spring-security
+swagger-java
+zipkin
+
+[planned]
+
+[undecided]
+kura
+leveldb
+opentracing
+ribbon
+shiro
+spring-cloud
+spring-cloud-netflix
+spring-javaconfig
+
+[rejected]
+bam (deprecated)
+blueprint
+eclipse (deprecated)
+groovy-dsl (deprecated)
+guice (deprecated)
+hawtdb (deprecated)
+ruby (deprecated)
+rx (deprecated)
+scala (deprecated)
+scr (deprecated)
+servletlistener (deprecated)
+spring-boot
+spring-dm (deprecated)
+swagger (deprecated)
+test
+test-blueprint
+test-cdi
+test-karaf
+test-spring
+testng (deprecated)
+urlrewrite (deprecated)
+

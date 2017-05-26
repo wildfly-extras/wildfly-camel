@@ -52,6 +52,7 @@ ftps
 git
 github
 http4
+http4s
 imap
 imaps
 infinispan
@@ -157,7 +158,6 @@ google-pubsub
 grpc
 hbase
 hdfs2
-http4s
 ignite-cache
 ignite-compute
 ignite-events

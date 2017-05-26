@@ -80,14 +80,14 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>unpack-dependencies</id>
+                        <id>copy-dependencies</id>
                         <phase>process-resources</phase>
                         <goals>
-                            <goal>unpack-dependencies</goal>
+                            <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
                             <includeGroupIds>org.apache.camel</includeGroupIds>
-                            <includes>org/apache/camel/**/*.json,org/apache/camel/**/*.class</includes>
+                            <stripVersion>true</stripVersion>
                         </configuration>
                     </execution>
                 </executions>
