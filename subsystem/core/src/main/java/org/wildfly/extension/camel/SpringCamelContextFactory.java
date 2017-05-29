@@ -92,6 +92,7 @@ public final class SpringCamelContextFactory {
 
         SpringCamelContext.setNoStart(true);
         appContext.refresh();
+        SpringCamelContext.setNoStart(false);
 
         List<SpringCamelContext> result = new ArrayList<>();
         for (String name : appContext.getBeanNamesForType(SpringCamelContext.class)) {
