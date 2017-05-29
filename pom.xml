@@ -51,7 +51,8 @@
         <version.asynchttpclient>2.0.32</version.asynchttpclient>
 
         <!-- [#1702] Upgrade to netty-4.1.9 -->
-        <version.io.netty>4.1.8.Final</version.io.netty> 
+        <version.io.netty40>4.0.45.Final</version.io.netty40> 
+        <version.io.netty41>4.1.8.Final</version.io.netty41> 
 
         <!-- WildFly versions -->
         <version.wildfly>10.1.0.Final</version.wildfly>
@@ -431,7 +432,7 @@
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
-                <version>${version.io.netty}</version>
+                <version>${version.io.netty41}</version>
             </dependency>
             
             <!-- OSGi -->
@@ -495,43 +496,6 @@
                 <groupId>org.wildfly.arquillian</groupId>
                 <artifactId>wildfly-arquillian-protocol-jmx</artifactId>
                 <version>${version.wildfly.arquillian}</version>
-            </dependency>
-
-            <!-- WildFly Camel -->
-            <dependency>
-                <groupId>org.wildfly.camel</groupId>
-                <artifactId>wildfly-camel-config</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.camel</groupId>
-                <artifactId>wildfly-camel-cxf-undertow</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.camel</groupId>
-                <artifactId>wildfly-camel-itests-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.camel</groupId>
-                <artifactId>wildfly-camel-subsystem-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.camel</groupId>
-                <artifactId>wildfly-camel-subsystem-cdi</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.camel</groupId>
-                <artifactId>wildfly-camel-subsystem-security</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.camel</groupId>
-                <artifactId>wildfly-camel-subsystem-undertow</artifactId>
-                <version>${project.version}</version>
             </dependency>
 
             <!-- XMLBeans -->
