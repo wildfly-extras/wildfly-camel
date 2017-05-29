@@ -45,6 +45,7 @@
 /io/fabric8/openshift/client/main/openshift-client-2.2.14.jar
 /io/fabric8/zjsonpatch/main/zjsonpatch-0.3.0.jar
 /io/netty/3.10/netty-3.10.6.Final.jar
+/io/netty/4.0/netty-all-4.0.45.Final.jar
 /io/netty/4.1/netty-buffer-4.1.8.Final.jar
 /io/netty/4.1/netty-codec-4.1.8.Final.jar
 /io/netty/4.1/netty-codec-dns-4.1.8.Final.jar

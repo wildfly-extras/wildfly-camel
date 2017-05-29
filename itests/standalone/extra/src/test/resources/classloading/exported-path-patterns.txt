@@ -52,8 +52,7 @@
 	^org/apache/xmlbeans/impl/schema
 	^org/apache/xmlbeans/impl/values
 	^org/apache/zookeeper(.*)
-	# [#1886] async-http-client depends on unstable Netty APIs
-	# ^org/asynchttpclient(.*)
+	^org/asynchttpclient(.*)
 	^org/codehaus/groovy(.*)
 	^org/dozer(.*)
 	^org/eclipse/egit/github/core(.*)

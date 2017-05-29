@@ -1,0 +1,1142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Wildfly Camel Patch
+  %%
+  Copyright (C) 2013 - 2014 RedHat
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+<modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
+
+    <module name="com.amazon.aws">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.amazonaws:aws-java-sdk" />
+        <include artifact="com.amazonaws:aws-java-sdk-cloudfront" />
+        <include artifact="com.amazonaws:aws-java-sdk-cloudwatch" />
+        <include artifact="com.amazonaws:aws-java-sdk-core" />
+        <include artifact="com.amazonaws:aws-java-sdk-dynamodb" />
+        <include artifact="com.amazonaws:aws-java-sdk-ec2" />
+        <include artifact="com.amazonaws:aws-java-sdk-kinesis" />
+        <include artifact="com.amazonaws:aws-java-sdk-s3" />
+        <include artifact="com.amazonaws:aws-java-sdk-ses" />
+        <include artifact="com.amazonaws:aws-java-sdk-simpledb" />
+        <include artifact="com.amazonaws:aws-java-sdk-simpleworkflow" />
+        <include artifact="com.amazonaws:aws-java-sdk-sns" />
+        <include artifact="com.amazonaws:aws-java-sdk-sqs" />
+        <include artifact="com.amazonaws:aws-java-sdk-swf-libraries" />
+        <apply-to-dependencies skip="true">
+            <include module="com.amazon.aws.skipped" />
+            <include module="software.amazon.ion.ion-java" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.xml.bind.api" />
+            <module name="com.fasterxml.jackson.core.jackson-annotations" />
+            <module name="com.fasterxml.jackson.core.jackson-core" />
+            <module name="com.fasterxml.jackson.dataformat.cbor" />
+        </dependencies>
+        <exports>
+            <exclude path="com/amazonaws/auth/internal" />
+            <exclude path="com/amazonaws/auth/policy/internal" />
+            <exclude path="com/amazonaws/auth/profile/internal**" />
+            <exclude path="com/amazonaws/internal**" />
+            <exclude path="com/amazonaws/metrics/internal**" />
+            <exclude path="com/amazonaws/protocol/json/internal" />
+            <exclude path="com/amazonaws/retry/internal" />
+            <exclude path="com/amazonaws/services/dynamodbv2/document/internal" />
+            <exclude path="com/amazonaws/services/s3/internal**" />
+            <exclude path="com/amazonaws/services/s3/transfer/internal" />
+            <exclude path="com/amazonaws/services/simpledb/internal" />
+            <exclude path="com/amazonaws/services/sqs/internal" />
+        </exports>
+    </module>
+
+    <module name="com.amazon.aws.skipped" skip="true">
+        <include artifact="com.amazonaws:aws-java-sdk-acm" />
+        <include artifact="com.amazonaws:aws-java-sdk-api-gateway" />
+        <include artifact="com.amazonaws:aws-java-sdk-applicationautoscaling" />
+        <include artifact="com.amazonaws:aws-java-sdk-appstream" />
+        <include artifact="com.amazonaws:aws-java-sdk-autoscaling" />
+        <include artifact="com.amazonaws:aws-java-sdk-batch" />
+        <include artifact="com.amazonaws:aws-java-sdk-budgets" />
+        <include artifact="com.amazonaws:aws-java-sdk-clouddirectory" />
+        <include artifact="com.amazonaws:aws-java-sdk-cloudformation" />
+        <include artifact="com.amazonaws:aws-java-sdk-cloudhsm" />
+        <include artifact="com.amazonaws:aws-java-sdk-cloudsearch" />
+        <include artifact="com.amazonaws:aws-java-sdk-cloudtrail" />
+        <include artifact="com.amazonaws:aws-java-sdk-cloudwatchmetrics" />
+        <include artifact="com.amazonaws:aws-java-sdk-codebuild" />
+        <include artifact="com.amazonaws:aws-java-sdk-codecommit" />
+        <include artifact="com.amazonaws:aws-java-sdk-codedeploy" />
+        <include artifact="com.amazonaws:aws-java-sdk-codepipeline" />
+        <include artifact="com.amazonaws:aws-java-sdk-cognitoidentity" />
+        <include artifact="com.amazonaws:aws-java-sdk-cognitoidp" />
+        <include artifact="com.amazonaws:aws-java-sdk-cognitosync" />
+        <include artifact="com.amazonaws:aws-java-sdk-config" />
+        <include artifact="com.amazonaws:aws-java-sdk-costandusagereport" />
+        <include artifact="com.amazonaws:aws-java-sdk-datapipeline" />
+        <include artifact="com.amazonaws:aws-java-sdk-devicefarm" />
+        <include artifact="com.amazonaws:aws-java-sdk-directconnect" />
+        <include artifact="com.amazonaws:aws-java-sdk-directory" />
+        <include artifact="com.amazonaws:aws-java-sdk-discovery" />
+        <include artifact="com.amazonaws:aws-java-sdk-dms" />
+        <include artifact="com.amazonaws:aws-java-sdk-ecr" />
+        <include artifact="com.amazonaws:aws-java-sdk-ecs" />
+        <include artifact="com.amazonaws:aws-java-sdk-efs" />
+        <include artifact="com.amazonaws:aws-java-sdk-elasticache" />
+        <include artifact="com.amazonaws:aws-java-sdk-elasticbeanstalk" />
+        <include artifact="com.amazonaws:aws-java-sdk-elasticloadbalancing" />
+        <include artifact="com.amazonaws:aws-java-sdk-elasticloadbalancingv2" />
+        <include artifact="com.amazonaws:aws-java-sdk-elasticsearch" />
+        <include artifact="com.amazonaws:aws-java-sdk-elastictranscoder" />
+        <include artifact="com.amazonaws:aws-java-sdk-emr" />
+        <include artifact="com.amazonaws:aws-java-sdk-events" />
+        <include artifact="com.amazonaws:aws-java-sdk-gamelift" />
+        <include artifact="com.amazonaws:aws-java-sdk-glacier" />
+        <include artifact="com.amazonaws:aws-java-sdk-health" />
+        <include artifact="com.amazonaws:aws-java-sdk-iam" />
+        <include artifact="com.amazonaws:aws-java-sdk-importexport" />
+        <include artifact="com.amazonaws:aws-java-sdk-inspector" />
+        <include artifact="com.amazonaws:aws-java-sdk-iot" />
+        <include artifact="com.amazonaws:aws-java-sdk-kms" />
+        <include artifact="com.amazonaws:aws-java-sdk-lambda" />
+        <include artifact="com.amazonaws:aws-java-sdk-lex" />
+        <include artifact="com.amazonaws:aws-java-sdk-lightsail" />
+        <include artifact="com.amazonaws:aws-java-sdk-logs" />
+        <include artifact="com.amazonaws:aws-java-sdk-machinelearning" />
+        <include artifact="com.amazonaws:aws-java-sdk-marketplacecommerceanalytics" />
+        <include artifact="com.amazonaws:aws-java-sdk-marketplacemeteringservice" />
+        <include artifact="com.amazonaws:aws-java-sdk-mechanicalturkrequester" />
+        <include artifact="com.amazonaws:aws-java-sdk-models" />
+        <include artifact="com.amazonaws:aws-java-sdk-opsworks" />
+        <include artifact="com.amazonaws:aws-java-sdk-opsworkscm" />
+        <include artifact="com.amazonaws:aws-java-sdk-organizations" />
+        <include artifact="com.amazonaws:aws-java-sdk-pinpoint" />
+        <include artifact="com.amazonaws:aws-java-sdk-polly" />
+        <include artifact="com.amazonaws:aws-java-sdk-rds" />
+        <include artifact="com.amazonaws:aws-java-sdk-redshift" />
+        <include artifact="com.amazonaws:aws-java-sdk-rekognition" />
+        <include artifact="com.amazonaws:aws-java-sdk-route53" />
+        <include artifact="com.amazonaws:aws-java-sdk-servermigration" />
+        <include artifact="com.amazonaws:aws-java-sdk-servicecatalog" />
+        <include artifact="com.amazonaws:aws-java-sdk-shield" />
+        <include artifact="com.amazonaws:aws-java-sdk-snowball" />
+        <include artifact="com.amazonaws:aws-java-sdk-ssm" />
+        <include artifact="com.amazonaws:aws-java-sdk-stepfunctions" />
+        <include artifact="com.amazonaws:aws-java-sdk-storagegateway" />
+        <include artifact="com.amazonaws:aws-java-sdk-sts" />
+        <include artifact="com.amazonaws:aws-java-sdk-support" />
+        <include artifact="com.amazonaws:aws-java-sdk-waf" />
+        <include artifact="com.amazonaws:aws-java-sdk-workdocs" />
+        <include artifact="com.amazonaws:aws-java-sdk-workspaces" />
+        <include artifact="com.amazonaws:aws-java-sdk-xray" />
+        <include artifact="com.amazonaws:jmespath-java" />
+    </module>
+    
+    <module name="com.box">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.box:box-java-sdk" />
+    </module>
+    
+    <module name="com.codahale.metrics">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.codahale.metrics:metrics-core" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="sun.jdk" />
+        </dependencies>
+    </module>
+
+    <module name="com.eclipsesource.minimal.json">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.eclipsesource.minimal-json:minimal-json" />
+    </module>
+
+    
+    <module name="com.fasterxml.jackson.dataformat.cbor">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-dataformat-cbor" />
+    </module>
+
+    <module name="com.fasterxml.jackson.dataformat.smile">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-dataformat-smile" />
+    </module>
+
+    <module name="com.fasterxml.jackson.dataformat.xml">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-dataformat-xml" />
+        <apply-to-dependencies skip="true">
+            <include module="org.codehaus.woodstox.core" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="com.fasterxml.jackson.dataformat.yaml">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-dataformat-yaml" />
+    </module>
+
+    <module name="com.fasterxml.jackson.datatype.joda">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-datatype-joda" />
+    </module>
+
+    <module name="com.fasterxml.jackson.skipped" skip="true">
+        <include artifact=":jackson-module-afterburner" />
+    </module>
+    
+    <module name="com.github.generex">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.github.mifmif:generex" />
+    </module>
+
+    <module name="com.google.code.gson">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.google.code.gson:gson" />
+        <dependencies>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc/Unsafe" />
+                </imports>
+            </module>
+        </dependencies>
+    </module>
+
+    <module name="com.jcraft.jsch">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jsch" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="com.netflix.hystrix">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.netflix.archaius:archaius-core" />
+        <include artifact="com.netflix.hystrix:hystrix-core" />
+        <include artifact="com.netflix.hystrix:hystrix-metrics-event-stream" />
+        <include artifact="com.netflix.hystrix:hystrix-serialization" />
+        <include artifact="io.reactivex:rxjava" />
+        <include artifact="org.hdrhistogram:HdrHistogram" />
+        <apply-to-dependencies skip="true">
+            <include module="com.fasterxml.jackson.skipped" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="com.querydsl">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":querydsl-core" />
+        <dependencies>
+        </dependencies>
+    </module>
+
+    <module name="com.querydsl.skip" skip="true">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":querydsl-apt" />
+        <include artifact=":querydsl-codegen" />
+    </module>
+
+    <module name="com.rometools.rome">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="rome:rome" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="com.squareup.moshi">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.squareup.moshi:"/>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="com.squareup.okio"/>
+        </dependencies>
+    </module>
+
+    <module name="com.squareup.okhttp3">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.squareup.okhttp3:"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.google.android"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="com.squareup.okio">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.squareup.okio:okio"/>
+    </module>
+
+    <module name="com.squareup.retrofit2">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.squareup.retrofit2:"/>
+        <dependencies>
+            <module name="com.squareup.okio"/>
+            <module name="com.squareup.okhttp3"/>
+        </dependencies>
+    </module>
+
+    <module name="com.thoughtworks.xstream">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.thoughtworks.xstream:xstream" />
+        <include artifact="xmlpull:xmlpull" />
+        <include artifact="xpp3:xpp3_min" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.xml.stream.api"/>
+        </dependencies>
+    </module>
+
+    <module name="dk.brics.automaton">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="dk.brics.automaton:automaton" />
+    </module>
+
+    <module name="io.fabric8.kubernetes.model">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.fabric8:kubernetes-model" />
+        <apply-to-dependencies skip="true">
+            <include module="io.sundr.builder.annotations" />
+            <include module="org.projectlombok" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.fasterxml.jackson.core.jackson-annotations" />
+            <module name="com.fasterxml.jackson.core.jackson-core" />
+            <module name="com.fasterxml.jackson.core.jackson-databind" />
+        </dependencies>
+    </module>
+
+    <module name="io.fabric8.kubernetes.client">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.fabric8:kubernetes-client" />
+        <dependencies>
+            <module name="com.squareup.okio" />
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="io.fabric8.openshift.client">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.fabric8:openshift-client" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="io.fabric8.zjsonpatch">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.fabric8:zjsonpatch" />
+    </module>
+
+    <module name="io.netty" inherit-slot="false" slot="4.1">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.netty:netty-buffer" />
+        <include artifact="io.netty:netty-codec" />
+        <include artifact="io.netty:netty-codec-dns" />
+        <include artifact="io.netty:netty-codec-http" />
+        <include artifact="io.netty:netty-codec-http2" />
+        <include artifact="io.netty:netty-codec-socks" />
+        <include artifact="io.netty:netty-common" />
+        <include artifact="io.netty:netty-handler" />
+        <include artifact="io.netty:netty-handler-proxy" />
+        <include artifact="io.netty:netty-resolver" />
+        <include artifact="io.netty:netty-resolver-dns" />
+        <include artifact="io.netty:netty-transport" />
+        <apply-to-dependencies skip="true">
+            <include module="org.jctools" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="sun.jdk"/>
+        </dependencies>
+    </module>
+
+    <module name="io.netty" inherit-slot="false" slot="3.10">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.netty:netty" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="io.netty.skipped" skip="true">
+        <include artifact="io.netty:netty-all" />
+        <include artifact="io.netty:netty-transport-native-epoll" />
+    </module>
+
+    <module name="io.sundr">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.sundr:sundr-core" />
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.tools" />
+            <include module="io.sundr.codegen" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="javax.cache.api" >
+        <include artifact="javax.cache:cache-api" />
+    </module>
+
+    <module name="net.sf.dozer">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="net.sf.dozer:dozer" />
+        <apply-to-dependencies skip="true">
+            <include module="org.hibernate" />
+            <include module="org.osgi.core" />
+            <include module="junit" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <!-- circular dependency to allow dozer to load camel-dozer types -->
+            <module name="org.apache.camel.component.dozer"/>
+        </dependencies>
+    </module>
+
+    <module name="net.sourceforge.cssparser">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="net.sourceforge.cssparser:(.*)"/>
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="net.sourceforge.nekohtml">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="net.sourceforge.nekohtml:(.*)"/>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.xerces"/>
+        </dependencies>
+    </module>
+
+    <module name="net.sourceforge.htmlunit">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="net.sourceforge.htmlunit:(.*)"/>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.w3c.css.sac"/>
+        </dependencies>
+    </module>
+
+    <module name="ognl">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":ognl" />
+        <apply-to-dependencies skip="true">
+            <include module=".*" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.javassist"/>
+        </dependencies>
+    </module>
+    
+    <module name="org.antlr.runtime">
+        <include artifact="org.antlr:antlr-runtime"/>
+    </module>
+
+    <module name="org.apache.abdera.core">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.abdera:abdera-core" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.abdera.i18n">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.abdera:abdera-i18n" />
+        <dependencies>
+            <module name="org.apache.abdera.core"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.abdera.parser">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.abdera:abdera-parser" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="javax.activation.api"/>
+            <module name="org.apache.abdera.i18n"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.commons.compress">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-compress" />
+    </module>
+
+    <module name="org.apache.commons.configuration">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-configuration" />
+    </module>
+
+    <module name="org.apache.commons.csv">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-csv" />
+    </module>
+
+    <module name="org.apache.commons.exec">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-exec" />
+    </module>
+    
+    <module name="org.apache.commons.httpclient">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="commons-httpclient:commons-httpclient" />
+    </module>
+    
+    <module name="org.apache.commons.lang3">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.commons:commons-lang3" />
+    </module>
+    
+    <module name="org.apache.commons.net">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="commons.net:commons.net" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.commons.math3">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.commons:commons-math3" />
+    </module>
+
+    <module name="org.apache.commons.pool2">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.commons:commons-pool2" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <!-- [FIXME #1357] Integrate with httpclient 4.5.2 when provided by WildFly -->
+    <module name="org.apache.httpcomponents" slot="4.5.2" inherit-slot="false">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.httpcomponents:httpclient" />
+        <include artifact="org.apache.httpcomponents:httpcore" />
+        <include artifact="org.apache.httpcomponents:httpmime" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.james.mime4j"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.kafka">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.kafka:kafka_2.11" />
+        <include artifact="com.yammer.metrics:metrics-core" />
+        <include artifact="net.sf.jopt-simple:jopt-simple" />
+        <include artifact="com.101tec:zkclient" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.scala.library" />
+        </dependencies>
+        <exports>
+            <exclude path="com/yammer**" />
+            <exclude path="joptsimple**" />
+            <exclude path="org/I0Itec**" />
+        </exports>
+    </module>
+    
+    <module name="org.apache.kafka.clients">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.kafka:kafka-clients" />
+        <include artifact="org.xerial.snappy:snappy-java" />
+        <include artifact="net.jpountz.lz4:lz4" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+        <exports>
+            <exclude path="darwin/*" />
+            <exclude path="linux/*" />
+            <exclude path="win32/*" />
+            <exclude path="net/jpountz**" />
+            <exclude path="org/xerial**" />
+        </exports>
+    </module>
+
+    <module name="org.apache.lucene" slot="5.5">
+        <include artifact="org.apache.lucene:lucene-analyzers-common" />
+        <include artifact="org.apache.lucene:lucene-backward-codecs" />
+        <include artifact="org.apache.lucene:lucene-core" />
+        <include artifact="org.apache.lucene:lucene-facet" />
+        <include artifact="org.apache.lucene:lucene-queries" />
+        <include artifact="org.apache.lucene:lucene-queryparser" />
+        <include artifact="org.apache.lucene:lucene-grouping" />
+        <include artifact="org.apache.lucene:lucene-highlighter" />
+        <include artifact="org.apache.lucene:lucene-join" />
+        <include artifact="org.apache.lucene:lucene-memory" />
+        <include artifact="org.apache.lucene:lucene-misc" />
+        <include artifact="org.apache.lucene:lucene-sandbox" />
+        <include artifact="org.apache.lucene:lucene-spatial" />
+        <include artifact="org.apache.lucene:lucene-spatial3d" />
+        <include artifact="org.apache.lucene:lucene-suggest" />
+        <include artifact="com.spatial4j:spatial4j" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.mina.$1">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":mina-(.*)" />
+    </module>
+
+    <module name="org.apache.olingo">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":olingo-(.*)" />
+        <dependencies>
+            <module name="javax.ws.rs.api" />
+            <module name="javax.xml.stream.api"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.pdfbox">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.pdfbox:fontbox" />
+        <include artifact="org.apache.pdfbox:jempbox" />
+        <include artifact="org.apache.pdfbox:pdfbox" />
+    </module>
+
+    <module name="org.apache.qpid">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.qpid:qpid-jms-client" />
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="io.netty" />
+            <module name="javax.api" />
+            <module name="javax.xml.bind.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.qpid.proton" slot="0.16">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.qpid:proton-(.*)" />
+    </module>
+
+    <module name="org.apache.sshd">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.sshd:sshd-core" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+    
+    <module name="org.apache.ws.commons.axiom.axiom-impl">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.ws.commons.axiom:axiom-impl" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.commons.logging"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.ws.commons.axiom.axiom-api">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.ws.commons.axiom:axiom-api" />
+        <apply-to-dependencies skip="true">
+            <include module="org.osgi.compendium" />
+            <include module="org.osgi.core" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.commons.logging"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.xbean.$1">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.xbean:xbean-(.*)" />
+    </module>
+
+    <module name="org.apache.xmlbeans">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.xmlbeans:xmlbeans" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.zookeeper">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.zookeeper:zookeeper" />
+        <include artifact="org.apache.curator:curator-client" />
+        <include artifact="org.apache.curator:curator-framework" />
+        <include artifact="org.apache.curator:curator-recipes" />
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped" />
+            <include module="jline" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.log4j" />
+        </dependencies>
+        <exports>
+            <exclude path="org/apache/jute**" />
+        </exports>
+    </module>
+
+    <module name="org.asynchttpclient">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.typesafe.netty:netty-reactive-streams" />
+        <include artifact="org.asynchttpclient:async-http-client" />
+        <include artifact="org.asynchttpclient:async-http-client-netty-utils" />
+        <include artifact="org.asynchttpclient:netty-codec-dns" />
+        <include artifact="org.asynchttpclient:netty-resolver" />
+        <include artifact="org.asynchttpclient:netty-resolver-dns" />
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="io.netty" slot="4.0"/>
+        </dependencies>
+        <exports>
+            <exclude path="io/netty**" />
+            <exclude path="com/typesafe**" />
+        </exports>
+    </module>
+
+    <module name="org.beanshell">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache-extras.beanshell:bsh" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.bitbucket.jose4j">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.bitbucket.b_c:jose4j" />
+    </module>
+
+    <module name="org.drools.compiler">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.drools:drools-compiler" />
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.codemodel" />
+            <include module="com.sun.xml.bind.jaxb.xjc" />
+            <include module="org.osgi.compendium" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.antlr.runtime" />
+        </dependencies>
+    </module>
+
+    <module name="org.drools.core">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.drools:drools-core" />
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.xml.bind.jaxb.xjc" />
+            <include module="org.osgi.compendium" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="com.thoughtworks.xstream" />
+        </dependencies>
+    </module>
+
+    <module name="org.eclipse.californium">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.eclipse.californium:" />
+    </module>
+
+    <module name="org.eclipse.jetty">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.eclipse.jetty:jetty-client" />
+        <include artifact="org.eclipse.jetty:jetty-http" />
+        <include artifact="org.eclipse.jetty:jetty-io" />
+        <include artifact="org.eclipse.jetty:jetty-util" />
+        <include artifact="org.eclipse.jetty:jetty-util-ajax" />
+        <include artifact="org.eclipse.jetty:jetty-websocket" />
+        <apply-to-dependencies skip="true">
+            <include module="org.eclipse.jetty.orbit" />
+            <include module="org.eclipse.jetty.server" />
+            <include module="org.mortbay.jetty" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.eclipse.jetty.websocket">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.eclipse.jetty.websocket:websocket-api" />
+        <include artifact="org.eclipse.jetty.websocket:websocket-client" />
+        <include artifact="org.eclipse.jetty.websocket:websocket-common" />
+    </module>
+
+    <module name="org.elasticsearch">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.carrotsearch:hppc" />
+        <include artifact="com.ning:compress-lzf" />
+        <include artifact="com.tdunning:t-digest" />
+        <include artifact="com.twitter:jsr166e" />
+        <include artifact="org.elasticsearch:elasticsearch" />
+        <include artifact="org.elasticsearch:securesm" />
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped" />
+            <include module="org.antlr"/>
+            <include module="org.apache.commons.cli" />
+            <include module="org.hdrhistogram" />
+            <include module="org.joda.convert" />
+            <include module="org.ow2.asm"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc/Unsafe" />
+                </imports>
+            </module>
+        </dependencies>
+        <exports>
+            <exclude path="com/carrotsearch**" />
+            <exclude path="com/ning**" />
+            <exclude path="com/tdunning**" />
+            <exclude path="com/twitter**" />
+        </exports>
+    </module>
+    
+    <module name="org.fusesource.hawtbuf">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.fusesource.hawtbuf:hawtbuf" />
+        <exports>
+            <exclude path="org/fusesource" />
+        </exports>
+    </module>
+
+    <module name="org.fusesource.hawtdispatch">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.fusesource.hawtdispatch:hawtdispatch" />
+        <include artifact="org.fusesource.hawtdispatch:hawtdispatch-transport" />
+        <dependencies>
+            <module name="org.fusesource.hawtbuf"/>
+        </dependencies>
+    </module>
+
+    <module name="org.fusesource.mqtt">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.fusesource.mqtt-client:mqtt-client" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="org.infinispan.jcache" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.infinispan:infinispan-jcache" />
+        <include artifact="org.infinispan:infinispan-jcache-commons" />
+        <apply-to-dependencies skip="true">
+            <include module="org.jboss.logging.processor" />
+            <include module="org.infinispan.cdi" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.jboss.logging"/>
+        </dependencies>
+    </module>
+
+    <module name="org.infinispan.query.dsl" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.infinispan:infinispan-query-dsl" />
+        <apply-to-dependencies skip="true">
+            <include module="org.jboss.logging.processor" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="org.json4s">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.json4s:json4s-(.*)" />
+    </module>
+
+    <module name="org.kie.api">
+        <include artifact="org.kie:kie-api" />
+        <apply-to-dependencies skip="true">
+            <include module="org.osgi.compendium" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.drools.compiler" />
+            <module name="org.drools.core" />
+        </dependencies>
+    </module>
+    
+    <module name="org.kie.internal">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.kie:kie-internal" />
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.xml.bind.jaxb.xjc" />
+            <include module="org.osgi.compendium" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.drools.compiler" />
+            <module name="org.drools.core" />
+        </dependencies>
+    </module>
+    
+    <module name="org.kie.remote" >
+        <include artifact="org.kie.remote:(.*)" />
+        <include artifact="org.kie.remote.ws:(.*)" />
+        <dependencies>
+            <module name="com.sun.xml.bind"/>
+            <module name="javax.api"/>
+            <module name="javax.jms.api"/>
+        </dependencies>
+    </module>
+
+    <module name="org.osgi.core">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":org.osgi.core" />
+    </module>
+
+    <module name="org.osgi.enterprise">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":org.osgi.enterprise" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="org.quartz">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.quartz-scheduler:quartz" />
+        <include artifact="com.mchange:mchange-commons-java" />
+        <include artifact="com.mchange:c3p0" />
+        <apply-to-dependencies skip="true">
+            <include module="c3p0" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+        <exports>
+            <exclude path="com/mchange**" />
+            <exclude path="org/terracotta**" />
+        </exports>
+    </module>
+
+    <module name="org.reactivestreams">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.reactivestreams:reactive-streams" />
+    </module>
+
+    <module name="org.reflections">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.reflections:reflections" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="net.sf.saxon">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="net.sf.saxon:Saxon-HE" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+        <exports>
+            <exclude path="net/sf" />
+            <exclude path="w3c**" />
+        </exports>
+    </module>
+
+    <module name="org.scala.library">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.scala-lang:scala-library" />
+    </module>
+    
+    <module name="org.scala.modules">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.scala-lang.modules:(.*)" />
+    </module>
+    
+</modules>
