@@ -33,6 +33,7 @@
     <artifactId>wildfly-camel-swarm</artifactId>
     
     <properties>
+        <version.wildfly.swarm>2017.6.0-SNAPSHOT</version.wildfly.swarm>
         <outdir>${basedir}/target/generated</outdir>
     </properties>
 
