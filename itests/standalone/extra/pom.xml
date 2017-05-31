@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel-itests-standalone</artifactId>
-        <version>4.7.0-SNAPSHOT</version>
+        <version>4.7.0</version>
     </parent>
 
     <name>Wildfly Camel :: Testsuite :: Standalone :: Extra</name>
@@ -189,8 +189,8 @@
                                 <security-domain name="user-domain" cache-type="default">
                                     <authentication>
                                         <login-module code="UsersRoles" flag="required">
-                                            <module-option name="usersProperties" value="${jboss.server.config.dir}/application-users2.properties"/>
-                                            <module-option name="rolesProperties" value="${jboss.server.config.dir}/application-roles2.properties"/>
+                                            <module-option name="usersProperties" value="${jboss.server.config.dir}/application-users2.properties" />
+                                            <module-option name="rolesProperties" value="${jboss.server.config.dir}/application-roles2.properties" />
                                         </login-module>
                                     </authentication>
                                 </security-domain>

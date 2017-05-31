@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel-example</artifactId>
-        <version>4.7.0-SNAPSHOT</version>
+        <version>4.7.0</version>
     </parent>
 
     <name>Wildfly Camel :: Example :: Camel REST Swagger</name>
@@ -104,15 +104,13 @@
                         </goals>
                         <configuration>
                             <target>
-                                <replaceregexp match="http://petstore.swagger.io/v2/swagger.json"
-                                               replace="http://localhost:8080/rest/api/swagger"
-                                               byline="true">
+                                <replaceregexp match="http://petstore.swagger.io/v2/swagger.json" replace="http://localhost:8080/rest/api/swagger" byline="true">
                                     <fileset dir="${project.build.directory}/swagger-ui-${swagger.ui.version}/dist">
-                                        <include name="*.html"/>
-                                        <include name="*.js"/>
+                                        <include name="*.html" />
+                                        <include name="*.js" />
                                     </fileset>
                                     <fileset dir="${project.build.directory}/swagger-ui-${swagger.ui.version}/dist/lang">
-                                        <include name="*.js"/>
+                                        <include name="*.js" />
                                     </fileset>
                                 </replaceregexp>
                             </target>
