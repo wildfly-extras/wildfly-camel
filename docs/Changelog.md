@@ -1,5 +1,191 @@
 ### Changelog
 
+#### WildFly-Camel 4.7.0
+
+**Features**
+
+* [#1402][1402] Add support for component ahc
+* [#1403][1403] Add support for component ahc-ws
+* [#1404][1404] Add support for component ahc-wss
+* [#1408][1408] Add support for component aws-cw
+* [#1409][1409] Add support for component aws-ddb
+* [#1410][1410] Add support for component aws-ddbstream
+* [#1411][1411] Add support for component aws-ec2
+* [#1412][1412] Add support for component aws-kinesis
+* [#1413][1413] Add support for component aws-s3
+* [#1414][1414] Add support for component aws-sdb
+* [#1415][1415] Add support for component aws-ses
+* [#1416][1416] Add support for component aws-sns
+* [#1417][1417] Add support for component aws-sqs
+* [#1418][1418] Add support for component aws-swf
+* [#1420][1420] Add support for component box
+* [#1421][1421] Add support for component coap
+* [#1423][1423] Add support for component couchdb
+* [#1425][1425] Add support for component dropbox
+* [#1429][1429] Add support for component facebook
+* [#1434][1434] Add support for component github
+* [#1447][1447] Add support for component influxdb
+* [#1452][1452] Add support for component kubernetes
+* [#1827][1827] Add support for component http4s
+* [#1847][1847] Add support for component reactive-streams
+* [#1848][1848] Add support for component rest-swagger
+* [#1849][1849] Add support for component sjms2
+
+For details see [4.7.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.7.0"+label%3Afeature)
+
+**Tasks**
+
+* [#1327][1327] Provide CI testing for camel-irc
+* [#1359][1359] Provide CI testing for camel-smpp
+* [#1370][1370] Upgrade to camel-2.19.0
+* [#1419][1419] Reject support for component beanstalk
+* [#1440][1440] Reject support for component hazelcast
+* [#1456][1456] Reject support for component nagios
+* [#1502][1502] Provide image that supports both s2i and plain docker
+* [#1621][1621] Investigate missing components in catalog
+* [#1678][1678] Enable IRC testing in Jenkins
+* [#1713][1713] Remove explicit dependency on activemq-amqp
+* [#1719][1719] Remove betamax from the project
+* [#1720][1720] Add docker tests to itests extra module
+* [#1726][1726] Provide wildfly-swarm fraction generator
+* [#1729][1729] Upgrade to Arquillian Cube 1.1.0
+* [#1733][1733] Mark deprecated components in catalog
+* [#1742][1742] Unify the reading of data from test resources
+* [#1745][1745] Create and remove S3 bucket on demand
+* [#1748][1748] Enable Amazon S3 testing in Jenkins
+* [#1756][1756] Add test coverage for camel REST DSL with Spring
+* [#1758][1758] Remove dependence on camel-facebook itest oAuthAccessTokenURL property 
+* [#1760][1760] Upgrade docker maven plugin
+* [#1763][1763] Add examples to patch distribution
+* [#1766][1766] Remove usage of embedded ActiveMQ broker
+* [#1768][1768] Replace static test configuration in extras
+* [#1772][1772] Reduce set of domain namespaces
+* [#1777][1777] Reduce the number of included AWS jars
+* [#1781][1781] Add camel REST with swagger example
+* [#1782][1782] Add camel spring JMS example
+* [#1783][1783] Add camel spring transacted JMS example
+* [#1784][1784] Add camel spring JPA example
+* [#1785][1785] Add camel spring mail example
+* [#1786][1786] Add camel JMS MDB example
+* [#1792][1792] Provide a set of plain Camel AWS tests
+* [#1808][1808] Upgrade to HawtIO 1.5.1
+* [#1817][1817] Create issues for undecided roadmap items
+* [#1856][1856] Replace usage of netty-all with individual jars
+* [#1872][1872] Remove restriction on registering context path of '/' for REST DSL
+* [#1876][1876] Use local RSS feed for RSSIntegrationTest
+* [#1891][1891] Restore camel-ahc functionality
+* [#1893][1893] Restore properties-maven-plugin execution
+* [#1895][1895] Add support for wildfly-swarm-2017.6.0 
+
+For details see [4.7.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.7.0"+label%3Atask)
+
+**Bugs**
+
+* [#1609][1609] Embedded Cassandra Cluster is not shut down properly
+* [#1629][1629] SchematronIntegrationTest fails on Windows
+* [#1725][1725] RequiresDocker annotated tests fail on Windows
+* [#1738][1738] spring-aop cannot access org.w3c.dom.Element
+* [#1741][1741] Error while loading AWS partitions file
+* [#1747][1747] Unable to load region information for S3 client
+* [#1755][1755] SoapJaxbDataFormat throws NCDFE for javax/jws/WebMethod
+* [#1765][1765] CXF examples use incorrect form action URL
+* [#1769][1769] Unable to configure CXF interceptors
+* [#1775][1775] wildflyext/s2i-wildfly-camel uses outdated domain namespace 
+* [#1787][1787] AWS test fail when respective clients cannot be initialized
+* [#1789][1789] Unable to configure multiple paths for the same HTTP verb in camel REST DSL
+* [#1790][1790] DelegatingHttpHandler should return HTTP 405 when no matching handler is found
+* [#1797][1797] Intermittent failure of SMPPIntegrationTest
+* [#1860][1860] Opentracing component missing from roadmap 
+* [#1863][1863] AWS EC3 test uses hardcoded subnet Id
+* [#1885][1885] Module io.netty:4.1 contains incorrect Netty versions
+
+For details see [4.7.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.7.0"+label%3Abug)
+
+[1402]: https://github.com/wildfly-extras/wildfly-camel/issues/1402
+[1403]: https://github.com/wildfly-extras/wildfly-camel/issues/1403
+[1404]: https://github.com/wildfly-extras/wildfly-camel/issues/1404
+[1408]: https://github.com/wildfly-extras/wildfly-camel/issues/1408
+[1409]: https://github.com/wildfly-extras/wildfly-camel/issues/1409
+[1410]: https://github.com/wildfly-extras/wildfly-camel/issues/1410
+[1411]: https://github.com/wildfly-extras/wildfly-camel/issues/1411
+[1412]: https://github.com/wildfly-extras/wildfly-camel/issues/1412
+[1413]: https://github.com/wildfly-extras/wildfly-camel/issues/1413
+[1414]: https://github.com/wildfly-extras/wildfly-camel/issues/1414
+[1415]: https://github.com/wildfly-extras/wildfly-camel/issues/1415
+[1416]: https://github.com/wildfly-extras/wildfly-camel/issues/1416
+[1417]: https://github.com/wildfly-extras/wildfly-camel/issues/1417
+[1418]: https://github.com/wildfly-extras/wildfly-camel/issues/1418
+[1420]: https://github.com/wildfly-extras/wildfly-camel/issues/1420
+[1421]: https://github.com/wildfly-extras/wildfly-camel/issues/1421
+[1423]: https://github.com/wildfly-extras/wildfly-camel/issues/1423
+[1425]: https://github.com/wildfly-extras/wildfly-camel/issues/1425
+[1429]: https://github.com/wildfly-extras/wildfly-camel/issues/1429
+[1434]: https://github.com/wildfly-extras/wildfly-camel/issues/1434
+[1447]: https://github.com/wildfly-extras/wildfly-camel/issues/1447
+[1452]: https://github.com/wildfly-extras/wildfly-camel/issues/1452
+[1827]: https://github.com/wildfly-extras/wildfly-camel/issues/1827
+[1847]: https://github.com/wildfly-extras/wildfly-camel/issues/1847
+[1848]: https://github.com/wildfly-extras/wildfly-camel/issues/1848
+[1849]: https://github.com/wildfly-extras/wildfly-camel/issues/1849
+[1327]: https://github.com/wildfly-extras/wildfly-camel/issues/1327
+[1359]: https://github.com/wildfly-extras/wildfly-camel/issues/1359
+[1370]: https://github.com/wildfly-extras/wildfly-camel/issues/1370
+[1419]: https://github.com/wildfly-extras/wildfly-camel/issues/1419
+[1440]: https://github.com/wildfly-extras/wildfly-camel/issues/1440
+[1456]: https://github.com/wildfly-extras/wildfly-camel/issues/1456
+[1502]: https://github.com/wildfly-extras/wildfly-camel/issues/1502
+[1621]: https://github.com/wildfly-extras/wildfly-camel/issues/1621
+[1678]: https://github.com/wildfly-extras/wildfly-camel/issues/1678
+[1713]: https://github.com/wildfly-extras/wildfly-camel/issues/1713
+[1719]: https://github.com/wildfly-extras/wildfly-camel/issues/1719
+[1720]: https://github.com/wildfly-extras/wildfly-camel/issues/1720
+[1726]: https://github.com/wildfly-extras/wildfly-camel/issues/1726
+[1729]: https://github.com/wildfly-extras/wildfly-camel/issues/1729
+[1733]: https://github.com/wildfly-extras/wildfly-camel/issues/1733
+[1742]: https://github.com/wildfly-extras/wildfly-camel/issues/1742
+[1745]: https://github.com/wildfly-extras/wildfly-camel/issues/1745
+[1748]: https://github.com/wildfly-extras/wildfly-camel/issues/1748
+[1756]: https://github.com/wildfly-extras/wildfly-camel/issues/1756
+[1758]: https://github.com/wildfly-extras/wildfly-camel/issues/1758
+[1760]: https://github.com/wildfly-extras/wildfly-camel/issues/1760
+[1763]: https://github.com/wildfly-extras/wildfly-camel/issues/1763
+[1766]: https://github.com/wildfly-extras/wildfly-camel/issues/1766
+[1768]: https://github.com/wildfly-extras/wildfly-camel/issues/1768
+[1772]: https://github.com/wildfly-extras/wildfly-camel/issues/1772
+[1777]: https://github.com/wildfly-extras/wildfly-camel/issues/1777
+[1781]: https://github.com/wildfly-extras/wildfly-camel/issues/1781
+[1782]: https://github.com/wildfly-extras/wildfly-camel/issues/1782
+[1783]: https://github.com/wildfly-extras/wildfly-camel/issues/1783
+[1784]: https://github.com/wildfly-extras/wildfly-camel/issues/1784
+[1785]: https://github.com/wildfly-extras/wildfly-camel/issues/1785
+[1786]: https://github.com/wildfly-extras/wildfly-camel/issues/1786
+[1792]: https://github.com/wildfly-extras/wildfly-camel/issues/1792
+[1808]: https://github.com/wildfly-extras/wildfly-camel/issues/1808
+[1817]: https://github.com/wildfly-extras/wildfly-camel/issues/1817
+[1856]: https://github.com/wildfly-extras/wildfly-camel/issues/1856
+[1872]: https://github.com/wildfly-extras/wildfly-camel/issues/1872
+[1876]: https://github.com/wildfly-extras/wildfly-camel/issues/1876
+[1891]: https://github.com/wildfly-extras/wildfly-camel/issues/1891
+[1893]: https://github.com/wildfly-extras/wildfly-camel/issues/1893
+[1895]: https://github.com/wildfly-extras/wildfly-camel/issues/1895
+[1609]: https://github.com/wildfly-extras/wildfly-camel/issues/1609
+[1629]: https://github.com/wildfly-extras/wildfly-camel/issues/1629
+[1725]: https://github.com/wildfly-extras/wildfly-camel/issues/1725
+[1738]: https://github.com/wildfly-extras/wildfly-camel/issues/1738
+[1741]: https://github.com/wildfly-extras/wildfly-camel/issues/1741
+[1747]: https://github.com/wildfly-extras/wildfly-camel/issues/1747
+[1755]: https://github.com/wildfly-extras/wildfly-camel/issues/1755
+[1765]: https://github.com/wildfly-extras/wildfly-camel/issues/1765
+[1769]: https://github.com/wildfly-extras/wildfly-camel/issues/1769
+[1775]: https://github.com/wildfly-extras/wildfly-camel/issues/1775
+[1787]: https://github.com/wildfly-extras/wildfly-camel/issues/1787
+[1789]: https://github.com/wildfly-extras/wildfly-camel/issues/1789
+[1790]: https://github.com/wildfly-extras/wildfly-camel/issues/1790
+[1797]: https://github.com/wildfly-extras/wildfly-camel/issues/1797
+[1860]: https://github.com/wildfly-extras/wildfly-camel/issues/1860
+[1863]: https://github.com/wildfly-extras/wildfly-camel/issues/1863
+[1885]: https://github.com/wildfly-extras/wildfly-camel/issues/1885
+
 #### WildFly-Camel 4.6.0
 
 **Features**

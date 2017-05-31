@@ -1,6 +1,6 @@
 ### camel-http4
 
-The http://camel.apache.org/http4.html[http,window=_blank] component provides HTTP based endpoints for calling external HTTP resources.
+The http://camel.apache.org/http4.html[http4,window=_blank] component provides HTTP based endpoints for calling external HTTP resources.
 
 [source,java,options="nowrap"]
 CamelContext camelctx = new DefaultCamelContext();

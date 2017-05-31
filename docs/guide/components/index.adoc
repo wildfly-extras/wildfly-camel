@@ -202,6 +202,8 @@ include::camel-sjms.adoc[]
 
 include::camel-sjms-batch.adoc[]
 
+include::camel-sjms2.adoc[]
+
 include::camel-splunk.adoc[]
 
 include::camel-sql.adoc[]
