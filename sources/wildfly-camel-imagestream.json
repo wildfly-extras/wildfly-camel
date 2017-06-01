@@ -13,7 +13,7 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "wildfly-camel",
-        "version": "4.6.0"
+        "version": "4.7.0"
       },
       "spec": {
         "tags": [
@@ -26,28 +26,28 @@
               "supports":"jee,java",
               "sampleRepo": "https://github.com/wildfly-extras/wildfly-camel-examples.git",
               "sampleContextDir": "camel-cdi",
-              "sampleRef": "4.6.0"
+              "sampleRef": "4.7.0"
             },
             "from": {
               "kind": "ImageStreamTag",
-              "name": "4.6.0"
+              "name": "4.7.0"
             }
           },
           {
-            "name": "4.6.0",
+            "name": "4.7.0",
             "annotations": {
               "description": "Build and run Camel applications on WildFly",
               "iconClass": "icon-wildfly",
               "tags": "builder,wildfly,java",
               "supports":"jee,java",
-              "version": "4.6.0",
+              "version": "4.7.0",
               "sampleRepo": "https://github.com/wildfly-extras/wildfly-camel-examples.git",
               "sampleContextDir": "camel-cdi",
-              "sampleRef": "4.6.0"
+              "sampleRef": "4.7.0"
             },
             "from": {
               "kind": "DockerImage",
-              "name": "wildflyext/s2i-wildfly-camel:4.6.0"
+              "name": "wildflyext/wildfly-camel:4.7.0"
             }
           }
         ]
