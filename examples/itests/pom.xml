@@ -22,8 +22,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.wildfly.camel</groupId>
-        <artifactId>wildfly-camel-example</artifactId>
+        <groupId>org.wildfly.camel.example</groupId>
+        <artifactId>example-camel</artifactId>
         <version>4.8.0-SNAPSHOT</version>
     </parent>
 
@@ -44,12 +44,12 @@
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-itests-common</artifactId>
-            <version>${project.version}</version>
+            <version>${version.wildfly.camel}</version>
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-patch</artifactId>
-            <version>${project.version}</version>
+            <version>${version.wildfly.camel}</version>
             <scope>provided</scope>
             <type>pom</type>
         </dependency>
@@ -81,85 +81,85 @@
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
+            <groupId>org.wildfly.camel.example</groupId>
             <artifactId>example-camel-activemq</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
+            <groupId>org.wildfly.camel.example</groupId>
             <artifactId>example-camel-cdi</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
+            <groupId>org.wildfly.camel.example</groupId>
             <artifactId>example-camel-cxf-jaxrs</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
+            <groupId>org.wildfly.camel.example</groupId>
             <artifactId>example-camel-cxf-jaxws</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
+            <groupId>org.wildfly.camel.example</groupId>
             <artifactId>example-camel-jms</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
+            <groupId>org.wildfly.camel.example</groupId>
             <artifactId>example-camel-jms-spring</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
+            <groupId>org.wildfly.camel.example</groupId>
             <artifactId>example-camel-jms-mdb</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
+            <groupId>org.wildfly.camel.example</groupId>
             <artifactId>example-camel-jms-tx</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
+            <groupId>org.wildfly.camel.example</groupId>
             <artifactId>example-camel-jms-tx-spring</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
+            <groupId>org.wildfly.camel.example</groupId>
             <artifactId>example-camel-jpa</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
+            <groupId>org.wildfly.camel.example</groupId>
             <artifactId>example-camel-jpa-spring</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
+            <groupId>org.wildfly.camel.example</groupId>
             <artifactId>example-camel-mail</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
+            <groupId>org.wildfly.camel.example</groupId>
             <artifactId>example-camel-mail-spring</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.camel</groupId>
+            <groupId>org.wildfly.camel.example</groupId>
             <artifactId>example-camel-rest-swagger</artifactId>
             <version>${project.version}</version>
             <type>war</type>
@@ -234,7 +234,7 @@
                                 <artifactItem>
                                     <groupId>org.wildfly.camel</groupId>
                                     <artifactId>wildfly-camel-patch</artifactId>
-                                    <version>${project.version}</version>
+                                    <version>${version.wildfly.camel}</version>
                                     <type>tar.gz</type>
                                     <outputDirectory>${jboss.home}</outputDirectory>
                                     <overWrite>false</overWrite>

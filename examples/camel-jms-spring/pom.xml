@@ -22,8 +22,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.wildfly.camel</groupId>
-        <artifactId>wildfly-camel-example</artifactId>
+        <groupId>org.wildfly.camel.example</groupId>
+        <artifactId>example-camel</artifactId>
         <version>4.8.0-SNAPSHOT</version>
     </parent>
 

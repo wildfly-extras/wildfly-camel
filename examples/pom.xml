@@ -30,11 +30,13 @@
 
     <name>Wildfly Camel :: Example</name>
 
-    <artifactId>wildfly-camel-example</artifactId>
+    <groupId>org.wildfly.camel.example</groupId>
+    <artifactId>example-camel</artifactId>
     <packaging>pom</packaging>
     
     <!-- Properties -->
     <properties>
+        <version.wildfly.camel>${project.version}</version.wildfly.camel>
         <deploy.skip>true</deploy.skip>
     </properties>
 
@@ -43,7 +45,7 @@
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-subsystem-core</artifactId>
-            <version>${project.version}</version>
+            <version>${version.wildfly.camel}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
