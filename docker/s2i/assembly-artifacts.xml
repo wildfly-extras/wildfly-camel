@@ -33,7 +33,7 @@
             <includes>
                 <include>org.wildfly.camel:wildfly-camel-patch:tar.gz</include>
             </includes>
-            <outputDirectory>wildfly</outputDirectory>
+            <outputDirectory>${server.home}</outputDirectory>
             <scope>provided</scope>
             <unpack>true</unpack>
             <unpackOptions>

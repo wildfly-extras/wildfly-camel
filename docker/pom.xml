@@ -42,6 +42,7 @@
         <docker.image.version>latest</docker.image.version>
         <docker.removeAll>true</docker.removeAll>
         <server.config>standalone-camel.xml</server.config>
+        <server.home>/wildfly</server.home>
     </properties>
 	
     <!-- Dependencies -->
@@ -107,16 +108,16 @@
                                             </exec>
                                         </cmd>
                                         <env>
-                                            <JBOSS_HOME>/wildfly</JBOSS_HOME>
+                                            <JBOSS_HOME>${server.home}</JBOSS_HOME>
                                             <LAUNCH_JBOSS_IN_BACKGROUND>true</LAUNCH_JBOSS_IN_BACKGROUND>
                                         </env>
                                         <assembly>
                                             <basedir>/</basedir>
                                             <descriptor>${project.basedir}/s2i/assembly-artifacts.xml</descriptor>
-                                            <user>default:root:1001</user>
+                                            <user>default:root:default</user>
                                         </assembly>
                                         <runCmds>
-                                            <run>/wildfly/bin/fuseconfig.sh --configs camel --enable</run>
+                                            <run>${server.home}/bin/fuseconfig.sh --configs camel --enable</run>
                                         </runCmds>
                                         <optimise>true</optimise>
                                     </build>
