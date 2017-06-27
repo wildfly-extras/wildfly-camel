@@ -467,7 +467,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-rest-swagger</artifactId>
-            <version>${version.apache.camel}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
