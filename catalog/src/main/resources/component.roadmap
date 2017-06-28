@@ -52,7 +52,7 @@ ftps
 git
 github
 http4
-http4s
+https4
 imap
 imaps
 infinispan

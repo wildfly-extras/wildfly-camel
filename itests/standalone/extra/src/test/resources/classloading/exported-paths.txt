@@ -240,6 +240,7 @@ org/springframework/objenesis/instantiator/basic
 org/springframework/objenesis/instantiator/gcj
 org/springframework/objenesis/instantiator/perc
 org/springframework/objenesis/instantiator/sun
+org/springframework/objenesis/instantiator/util
 org/springframework/objenesis/strategy
 org/springframework/remoting
 org/springframework/remoting/rmi
