@@ -437,6 +437,11 @@
         <include artifact="io.netty:netty-transport-native-epoll" />
     </module>
 
+    <module name="io.opentracing">
+        <include artifact="io.opentracing:opentracing-(.*)" />
+        <include artifact="io.opentracing.contrib:opentracing-(.*)" />
+    </module>
+
     <module name="io.sundr">
         <properties>
             <property name="jboss.api" value="private"/>

@@ -23,6 +23,7 @@ package org.wildfly.camel.test.core;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
@@ -53,7 +54,7 @@ public class RecipientListTest {
 
         final CountDownLatch latch = new CountDownLatch(2);
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -89,7 +90,7 @@ public class RecipientListTest {
 
         final CountDownLatch latch = new CountDownLatch(2);
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

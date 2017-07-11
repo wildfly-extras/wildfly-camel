@@ -23,6 +23,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.apache.activemq.broker.BrokerService;
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.amqp.AMQPConnectionDetails;
@@ -96,7 +97,7 @@ public class AMQPIntegrationTest {
     public void testAMQPComponent() throws Exception {
         String[] messages = new String[] {"Message 1", "Message 2", "Message 3", "Message 4", "Message 5"};
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

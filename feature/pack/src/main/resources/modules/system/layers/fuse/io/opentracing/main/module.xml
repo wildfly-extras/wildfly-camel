@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="io.opentracing">
+  <resources>
+    <artifact name="${io.opentracing:opentracing-api}" />
+    <artifact name="${io.opentracing:opentracing-noop}" />
+    <artifact name="${io.opentracing.contrib:opentracing-tracerresolver}" />
+  </resources>
+  <dependencies>
+    <module name="javax.annotation.api" />
+  </dependencies>
+</module>

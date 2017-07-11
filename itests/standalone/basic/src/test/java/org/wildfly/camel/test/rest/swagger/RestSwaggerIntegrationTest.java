@@ -24,6 +24,7 @@ import java.net.URI;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonDataFormat;
@@ -64,7 +65,7 @@ public class RestSwaggerIntegrationTest {
         JAXBContext jaxbContext = JAXBContext.newInstance(Customer.class);
         JaxbDataFormat jaxb = new JaxbDataFormat(jaxbContext);
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -98,7 +99,7 @@ public class RestSwaggerIntegrationTest {
         JacksonDataFormat jacksonDataFormat = new JacksonDataFormat();
         jacksonDataFormat.setUnmarshalType(Customer.class);
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

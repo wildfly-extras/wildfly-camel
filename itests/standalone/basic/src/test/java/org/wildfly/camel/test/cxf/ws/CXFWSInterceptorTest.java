@@ -27,6 +27,7 @@ import java.util.concurrent.TimeUnit;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.cxf.CxfComponent;
 import org.apache.camel.component.cxf.CxfEndpoint;
@@ -60,7 +61,7 @@ public class CXFWSInterceptorTest {
     public void testCXFInterceptor() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
 
         CxfComponent component = new CxfComponent(camelctx);
         CxfEndpoint cxfEndpoint = new CxfEndpoint("http://localhost:8080/EndpointService/EndpointPort", component);

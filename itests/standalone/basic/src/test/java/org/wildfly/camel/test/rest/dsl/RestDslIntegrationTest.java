@@ -202,7 +202,7 @@ public class RestDslIntegrationTest {
 
     @Test
     public void testRestDslRequestWithInvalidMethod() throws Exception {
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -230,7 +230,7 @@ public class RestDslIntegrationTest {
 
     @Test(expected = IllegalStateException.class)
     public void testRestDslOverlappingPaths() throws Exception {
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -258,7 +258,7 @@ public class RestDslIntegrationTest {
 
     @Test
     public void testRestDslHandlerUnregistered() throws Exception {
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

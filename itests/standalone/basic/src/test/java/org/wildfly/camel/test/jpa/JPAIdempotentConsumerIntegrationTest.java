@@ -24,6 +24,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.transaction.UserTransaction;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -67,7 +68,7 @@ public class JPAIdempotentConsumerIntegrationTest {
 
         final JpaMessageIdRepository messageIdRepository = new JpaMessageIdRepository(entityManagerFactory, transactionTemplate, "myProcessorName");
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

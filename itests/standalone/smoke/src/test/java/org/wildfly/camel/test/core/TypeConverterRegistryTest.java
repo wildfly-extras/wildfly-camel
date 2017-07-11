@@ -20,6 +20,7 @@
 
 package org.wildfly.camel.test.core;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spi.TypeConverterRegistry;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -43,7 +44,7 @@ public class TypeConverterRegistryTest {
 
     @Test
     public void testRegistryContent() throws Exception {
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         TypeConverterRegistry registry = camelctx.getTypeConverterRegistry();
         Assert.assertTrue("More than 180 type converters", 180 <= registry.size());
     }

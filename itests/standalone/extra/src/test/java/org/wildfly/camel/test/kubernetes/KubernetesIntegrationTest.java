@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.kubernetes.KubernetesConstants;
@@ -70,7 +71,7 @@ public class KubernetesIntegrationTest {
     public void testKubernetesConsumer() throws Exception {
         String kubernetesConsumerURI = String.format("kubernetes:%s?category=pods", getKubernetesMaster());
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -114,7 +115,7 @@ public class KubernetesIntegrationTest {
     public void testKubernetesProducer() throws Exception {
         String kubernetesProducerURI = String.format("kubernetes:%s?category=pods&operation=createPod", getKubernetesMaster());
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

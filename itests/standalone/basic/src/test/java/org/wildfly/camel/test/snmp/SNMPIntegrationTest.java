@@ -20,6 +20,7 @@
 
 package org.wildfly.camel.test.snmp;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.snmp.SnmpMessage;
@@ -51,7 +52,7 @@ public class SNMPIntegrationTest {
     public void testSnmpEndpoint() throws Exception {
         int port = AvailablePortFinder.getNextAvailable();
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

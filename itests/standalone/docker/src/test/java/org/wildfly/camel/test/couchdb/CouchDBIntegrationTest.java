@@ -25,6 +25,7 @@ import java.util.UUID;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.couchdb.CouchDbConstants;
@@ -83,7 +84,7 @@ public class CouchDBIntegrationTest {
 
     @Test
     public void testCouchDBConsumer() throws Exception {
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -109,7 +110,7 @@ public class CouchDBIntegrationTest {
 
     @Test
     public void testCouchDBProducer() throws Exception {
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

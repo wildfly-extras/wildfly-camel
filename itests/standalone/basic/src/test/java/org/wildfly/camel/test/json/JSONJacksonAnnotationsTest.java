@@ -19,6 +19,7 @@
  */
 package org.wildfly.camel.test.json;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
@@ -49,7 +50,7 @@ public class JSONJacksonAnnotationsTest {
 
     @Test
     public void testJsonIgnore() throws Exception {
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

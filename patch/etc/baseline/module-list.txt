@@ -58,6 +58,9 @@
 /io/netty/4.1/netty-resolver-4.1.8.Final.jar
 /io/netty/4.1/netty-resolver-dns-4.1.8.Final.jar
 /io/netty/4.1/netty-transport-4.1.8.Final.jar
+/io/opentracing/main/opentracing-api-0.30.0.jar
+/io/opentracing/main/opentracing-noop-0.30.0.jar
+/io/opentracing/main/opentracing-tracerresolver-0.1.0.jar
 /javax/cache/api/main/cache-api-1.0.0.jar
 /net/sf/dozer/main/dozer-5.5.1.jar
 /net/sf/saxon/main/Saxon-HE-9.7.0-15.jar
@@ -185,6 +188,7 @@
 /org/apache/camel/component/ognl/main/camel-ognl-2.19.1.jar
 /org/apache/camel/component/olingo2/main/camel-olingo2-2.19.1.jar
 /org/apache/camel/component/olingo2/main/camel-olingo2-api-2.19.1.jar
+/org/apache/camel/component/opentracing/main/camel-opentracing-2.19.1.jar
 /org/apache/camel/component/optaplanner/main/camel-optaplanner-2.19.1.jar
 /org/apache/camel/component/optaplanner/main/optaplanner-core-6.5.0.Final.jar
 /org/apache/camel/component/paho/main/camel-paho-2.19.1.jar

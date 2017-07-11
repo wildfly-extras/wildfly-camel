@@ -1306,6 +1306,17 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.opentracing">
+        <include artifact="org.apache.camel:camel-opentracing" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.optaplanner">
         <include artifact="org.apache.camel:camel-optaplanner" />
         <include artifact="org.optaplanner:optaplanner-core" />

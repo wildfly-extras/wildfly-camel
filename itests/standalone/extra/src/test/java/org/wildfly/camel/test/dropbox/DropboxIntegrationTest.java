@@ -19,6 +19,7 @@
  */
 package org.wildfly.camel.test.dropbox;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -48,7 +49,7 @@ public class DropboxIntegrationTest {
     public void testDropboxProducer() throws Exception {
         Assume.assumeNotNull("DROPBOX_ACCESS_TOKEN is null", DROPBOX_ACCESS_TOKEN);
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -71,7 +72,7 @@ public class DropboxIntegrationTest {
     public void testDropboxConsumer() throws Exception {
         Assume.assumeNotNull("DROPBOX_ACCESS_TOKEN is null", DROPBOX_ACCESS_TOKEN);
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

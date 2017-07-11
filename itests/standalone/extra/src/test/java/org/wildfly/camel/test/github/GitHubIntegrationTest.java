@@ -19,6 +19,7 @@
  */
 package org.wildfly.camel.test.github;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -50,7 +51,7 @@ public class GitHubIntegrationTest {
         String oauthKey = System.getenv("CAMEL_GITHUB_OAUTH_KEY");
         Assume.assumeNotNull("CAMEL_GITHUB_OAUTH_KEY not null", oauthKey);
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

@@ -24,6 +24,7 @@ import java.util.Map;
 
 import com.box.sdk.BoxFolder;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.box.BoxComponent;
@@ -70,7 +71,7 @@ public class BoxIntegrationTest {
         // Do nothing if the required credentials are not present
         Assume.assumeTrue(boxOptions.size() == BoxOption.values().length);
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

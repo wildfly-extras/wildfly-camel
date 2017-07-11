@@ -21,6 +21,7 @@ package org.wildfly.camel.test.facebook;
 
 import facebook4j.PagableList;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -50,7 +51,7 @@ public class FacebookIntegrationTest {
     public void testFacebookComponent() throws Exception {
         Assume.assumeNotNull("Facebook credentials are null", FACEBOOK_APP_ID, FACEBOOK_APP_SECRET);
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

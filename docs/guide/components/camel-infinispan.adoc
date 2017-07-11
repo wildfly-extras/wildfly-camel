@@ -7,7 +7,7 @@ You can interact with container managed Infinispan caches by referring to their 
 
 [source,java,options="nowrap"]
 ----
-  DefaultCamelContext camelctx = new DefaultCamelContext();
+  CamelContext camelctx = new DefaultCamelContext();
   camelctx.addRoutes(new RouteBuilder() {
       @Override
       public void configure() throws Exception {
@@ -28,7 +28,7 @@ Or you can interact with external Infinispan caches.
 
 [source,java,options="nowrap"]
 ----
-  DefaultCamelContext camelctx = new DefaultCamelContext();
+  CamelContext camelctx = new DefaultCamelContext();
   camelctx.addRoutes(new RouteBuilder() {
       @Override
       public void configure() throws Exception {
