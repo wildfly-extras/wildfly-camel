@@ -3,9 +3,9 @@ Camel Activemq Example
 
 This example demonstrates using the camel-activemq component with WildFly Camel susbsystem to produce and consume JMS messages.
 
-In this example, a Camel route consumes files from ${JBOSS_JOME}/standalone/data/orders and places their contents onto an ActiveMQ embedded broker JMS queue
+In this example, a Camel route consumes files from ${JBOSS_HOME}/standalone/data/orders and places their contents onto an ActiveMQ embedded broker JMS queue
 named 'OrdersQueue'. A second route consumes any messages from 'OrdersQueue' and through a simple [content based router](http://camel.apache.org/content-based-router.html)
-sorts the orders into individual country directories within JBOSS_JOME/standalone/data/orders/processed.
+sorts the orders into individual country directories within JBOSS_HOME/standalone/data/orders/processed.
 
 CLI scripts automatically configure the ActiveMQ resource adapter. These scripts are located within the `src/main/resources/cli` directory.
 
@@ -60,9 +60,9 @@ received orders for each country should have been increased by 1.
 
 All processed orders will have been output to:
 
-    ${JBOSS_JOME}/standalone/data/orders/processed/uk
-    ${JBOSS_JOME}/standalone/data/orders/processed/us
-    ${JBOSS_JOME}/standalone/data/orders/processed/others
+    ${JBOSS_HOME}/standalone/data/orders/processed/uk
+    ${JBOSS_HOME}/standalone/data/orders/processed/us
+    ${JBOSS_HOME}/standalone/data/orders/processed/others
 
 Undeploy
 --------
