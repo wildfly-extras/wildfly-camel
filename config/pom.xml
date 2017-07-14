@@ -26,6 +26,10 @@
 
     <description>Wildfly Camel Default Configuration Utility</description>
 
+    <properties>
+        <config.dir>wildfly-${version.wildfly}/standalone/configuration</config.dir>
+    </properties>
+
     <dependencies>
 
         <dependency>
@@ -40,5 +44,56 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-wildfly-configuration</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.wildfly</groupId>
+                                    <artifactId>wildfly-dist</artifactId>
+                                    <version>${version.wildfly}</version>
+                                    <type>tar.gz</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
+                            <includes>${config.dir}/standalone.xml</includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-wildfly-configuration</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <tasks>
+                        <move todir="${project.build.testOutputDirectory}">
+                            <fileset dir="${project.build.testOutputDirectory}/${config.dir}"/>
+                            <mapper type="flatten"/>
+                        </move>
+                    </tasks>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
