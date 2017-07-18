@@ -27,7 +27,7 @@
     <description>Wildfly Camel Default Configuration Utility</description>
 
     <properties>
-        <config.dir>wildfly-${version.wildfly}/standalone/configuration</config.dir>
+        <jboss.server.name>wildfly-${version.wildfly}</jboss.server.name>
     </properties>
 
     <dependencies>
@@ -48,26 +48,18 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
+                <groupId>org.wildfly.build</groupId>
+                <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>unpack-wildfly-configuration</id>
-                        <phase>process-test-classes</phase>
+                        <id>wildfly</id>
                         <goals>
-                            <goal>unpack</goal>
+                            <goal>build</goal>
                         </goals>
+                        <phase>process-test-classes</phase>
                         <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.wildfly</groupId>
-                                    <artifactId>wildfly-dist</artifactId>
-                                    <version>${version.wildfly}</version>
-                                    <type>tar.gz</type>
-                                </artifactItem>
-                            </artifactItems>
-                            <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
-                            <includes>${config.dir}/standalone.xml</includes>
+                            <config-file>scripts/server-provisioning.xml</config-file>
+                            <server-name>${jboss.server.name}</server-name>
                         </configuration>
                     </execution>
                 </executions>
@@ -86,10 +78,8 @@
                 </executions>
                 <configuration>
                     <tasks>
-                        <move todir="${project.build.testOutputDirectory}">
-                            <fileset dir="${project.build.testOutputDirectory}/${config.dir}"/>
-                            <mapper type="flatten"/>
-                        </move>
+                        <copy file="${project.build.directory}/${jboss.server.name}/standalone/configuration/standalone.xml" 
+                            todir="${project.build.testOutputDirectory}" overwrite="true"/>
                     </tasks>
                 </configuration>
             </plugin>
