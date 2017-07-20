@@ -90,6 +90,7 @@
         <version.junit>4.12</version.junit>
         <version.maven.aether.provider>3.2.5</version.maven.aether.provider>
         <version.maven.archetype.packaging>2.3</version.maven.archetype.packaging>
+        <version.maven.invoker>2.2</version.maven.invoker>
         <version.osgi>5.0.0</version.osgi>
         <version.redis.embedded>0.6</version.redis.embedded>
 
@@ -103,7 +104,7 @@
         <version-groovy-maven-plugin>2.0</version-groovy-maven-plugin>
         <version-license-maven-plugin>1.8</version-license-maven-plugin>
         <version-maven-antrun-plugin>1.7</version-maven-antrun-plugin>
-        <version-maven-archetype-plugin>3.0.0</version-maven-archetype-plugin>
+        <version-maven-archetype-plugin>2.2</version-maven-archetype-plugin>
         <version-maven-assembly-plugin>2.4</version-maven-assembly-plugin>
         <version-maven-changes-plugin>2.11</version-maven-changes-plugin>
         <version-maven-compiler-plugin>3.1</version-maven-compiler-plugin>
@@ -533,6 +534,13 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-archetype-plugin</artifactId>
                     <version>${version-maven-archetype-plugin}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.shared</groupId>
+                            <artifactId>maven-invoker</artifactId>
+                            <version>${version.maven.invoker}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
