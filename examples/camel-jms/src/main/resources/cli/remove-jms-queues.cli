@@ -1,5 +1,0 @@
-batch
-
-/subsystem=messaging-activemq/server=default/jms-queue=OrdersQueue:remove
-
-run-batch

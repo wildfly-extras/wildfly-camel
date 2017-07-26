@@ -34,17 +34,6 @@
                 <exclude>standalone/configuration/*.bak</exclude>
             </excludes>
         </fileSet>
-        <fileSet>
-            <directory>../examples</directory>
-            <outputDirectory>quickstarts/camel</outputDirectory>
-            <excludes>
-                <exclude>**/.classpath</exclude>
-                <exclude>**/*.iml</exclude>
-                <exclude>**/.project</exclude>
-                <exclude>**/.settings/**</exclude>
-                <exclude>**/target/**</exclude>
-            </excludes>
-        </fileSet>
     </fileSets>
     
 </assembly>
