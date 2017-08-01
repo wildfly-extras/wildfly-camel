@@ -25,3 +25,16 @@ and consumed like this
 @ContextName("cdi-context")
 private CamelContext camelctx;
 
+
+#### Importing XML DSL configuration
+
+Camel CDI integration enables you to import existing XML DSL files via the `@ImportResource` annotation:
+
+[source,java,options="nowrap"]
+@ImportResource("camel-context.xml")
+class MyBean {
+}
+
+It's important to note that the location of the imported file must be present on the deployment classpath. Placing
+the file into locations such as `WEB-INF` will not work. However, `WEB-INF/classes` will work fine.
+
