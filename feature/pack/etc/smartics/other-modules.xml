@@ -223,6 +223,7 @@
 
     <module name="com.fasterxml.jackson.skipped" skip="true">
         <include artifact=":jackson-module-afterburner" />
+        <include artifact=":jackson-module-jsonSchema" />
     </module>
     
     <module name="com.github.generex">
@@ -650,7 +651,7 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <apply-to-dependencies skip="true">
-            <include module="findbugs" />
+            <include module="com.google.code.findbugs" />
         </apply-to-dependencies>
         <include artifact="org.apache.directory.api:api-asn1-api" />
         <include artifact="org.apache.directory.api:api-i18n" />
@@ -671,7 +672,7 @@
             <include module="com.google.inject.guice"/>
             <include module="com.google.inject.extensions"/>
             <include module="com.sun.jersey" />
-            <include module="findbugs" />
+            <include module="com.google.code.findbugs" />
             <include module="io.netty.skipped" />
             <include module="jdiff" />
             <include module="jdk.tools" />
@@ -707,7 +708,7 @@
         <include artifact="org.apache.hbase:hbase-common"/>
         <include artifact="org.apache.hbase:hbase-protocol"/>
         <apply-to-dependencies skip="true">
-            <include module="findbugs"/>
+            <include module="com.google.code.findbugs"/>
             <include module="io.netty.skipped" />
             <include module="junit"/>
             <include module="org.apache.camel.component.protobuf" />
@@ -1221,7 +1222,7 @@
         </properties>
         <include artifact="org.reflections:reflections" />
         <apply-to-dependencies skip="true">
-            <include module="findbugs" />
+            <include module="com.google.code.findbugs" />
         </apply-to-dependencies>
     </module>
 

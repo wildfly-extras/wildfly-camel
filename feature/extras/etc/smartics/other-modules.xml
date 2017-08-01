@@ -25,17 +25,12 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <apply-to-dependencies skip="true">
-            <include module="com.google.guava.skipped" />
+            <include module="com.google.code.findbugs" />
         </apply-to-dependencies>
         <include artifact="com.google.guava:guava" />
         <dependencies>
             <module name="javax.inject.api" />
         </dependencies>
-    </module>
-
-    <module name="com.google.guava.skipped" skip="true">
-        <include artifact="com.google.code.findbugs:(.*)" />
-        <include artifact="javax.inject:javax.inject" />
     </module>
 
     <module name="com.google.protobuf" inherit-slot="false" slot="2.5.0">
@@ -66,4 +61,21 @@
         </dependencies>
     </module>
     
+    <!-- ================================================ -->
+    <!-- Skipped modules                                  -->
+    <!-- ================================================ -->
+    
+    <module name="com.google.code.findbugs" skip="true">
+        <include artifact="com.google.code.findbugs:(.*)" />
+        <include artifact="findbugs:annotations" />
+    </module>
+
+    <!-- ================================================ -->
+    <!-- WildFly modules                                  -->
+    <!-- ================================================ -->
+    
+    <module name="javax.inject.api" skip="true">
+        <include artifact=":javax.inject" />
+    </module>
+
 </modules>

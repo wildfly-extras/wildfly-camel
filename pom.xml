@@ -46,7 +46,7 @@
     <properties>
         
         <!-- Camel versions -->
-        <version.apache.camel>2.19.2</version.apache.camel>
+        <version.apache.camel>2.19.3</version.apache.camel>
         <version.apache.lucene>5.5.2</version.apache.lucene>
 
         <!-- WildFly versions -->
