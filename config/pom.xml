@@ -18,7 +18,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel</artifactId>
-        <version>4.8.0-SNAPSHOT</version>
+        <version>4.8.0</version>
     </parent>
 
     <name>Wildfly Camel :: Config</name>
@@ -78,8 +78,7 @@
                 </executions>
                 <configuration>
                     <tasks>
-                        <copy file="${project.build.directory}/${jboss.server.name}/standalone/configuration/standalone.xml" 
-                            todir="${project.build.testOutputDirectory}" overwrite="true"/>
+                        <copy file="${project.build.directory}/${jboss.server.name}/standalone/configuration/standalone.xml" todir="${project.build.testOutputDirectory}" overwrite="true" />
                     </tasks>
                 </configuration>
             </plugin>
