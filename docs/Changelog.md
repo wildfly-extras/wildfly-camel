@@ -1,5 +1,63 @@
 ### Changelog
 
+#### WildFly-Camel 4.8.0
+
+**Features**
+
+* [#1915][1915] Add support for component opentracing
+
+For details see [4.8.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.8.0"+label%3Afeature)
+
+**Tasks**
+
+* [#1879][1879] Remove explicit version for camel-rest-swagger
+* [#1899][1899] Backport maven coordinates from examples
+* [#1901][1901] Expired password for Salesforce testing in Jenkins
+* [#1902][1902] Revisit docker image creation
+* [#1906][1906] Suppress pulling of Docker images when tests are skipped
+* [#1910][1910] Upgrade to Arquillian Cube 1.6.0
+* [#1912][1912] Upgrade to camel-2.19.2
+* [#1918][1918] Upgrade Wildfly Maven Plugin to version 1.2.0.Alpha6
+* [#1920][1920] Update readme files typos in examples
+* [#1922][1922] Remove static test configuration from config module
+* [#1926][1926] Downgrade maven-archetype-plugin to 2.2
+* [#1928][1928] Document usage of Camel CDI @ImportResource
+* [#1929][1929] Modify activemq example to work on OpenShift via a service 
+* [#1930][1930] Modify JPA example to work on OpenShift with MySQL
+* [#1931][1931] Migrate examples to wildfly-camel-examples project
+* [#1937][1937] Upgrade Hawtio to 1.5.3
+* [#1939][1939] Add support for wildfly-swarm-2017.9.0 
+
+For details see [4.8.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.8.0"+label%3Atask)
+
+**Bugs**
+
+* [#1908][1908] IRCIntegrationTest fails with Camel 2.20.x
+* [#1909][1909] JMS MDB example shuts down with inflight exchanges
+
+For details see [4.8.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.8.0"+label%3Abug)
+
+[1915]: https://github.com/wildfly-extras/wildfly-camel/issues/1915
+[1879]: https://github.com/wildfly-extras/wildfly-camel/issues/1879
+[1899]: https://github.com/wildfly-extras/wildfly-camel/issues/1899
+[1901]: https://github.com/wildfly-extras/wildfly-camel/issues/1901
+[1902]: https://github.com/wildfly-extras/wildfly-camel/issues/1902
+[1906]: https://github.com/wildfly-extras/wildfly-camel/issues/1906
+[1910]: https://github.com/wildfly-extras/wildfly-camel/issues/1910
+[1912]: https://github.com/wildfly-extras/wildfly-camel/issues/1912
+[1918]: https://github.com/wildfly-extras/wildfly-camel/issues/1918
+[1920]: https://github.com/wildfly-extras/wildfly-camel/issues/1920
+[1922]: https://github.com/wildfly-extras/wildfly-camel/issues/1922
+[1926]: https://github.com/wildfly-extras/wildfly-camel/issues/1926
+[1928]: https://github.com/wildfly-extras/wildfly-camel/issues/1928
+[1929]: https://github.com/wildfly-extras/wildfly-camel/issues/1929
+[1930]: https://github.com/wildfly-extras/wildfly-camel/issues/1930
+[1931]: https://github.com/wildfly-extras/wildfly-camel/issues/1931
+[1937]: https://github.com/wildfly-extras/wildfly-camel/issues/1937
+[1939]: https://github.com/wildfly-extras/wildfly-camel/issues/1939
+[1908]: https://github.com/wildfly-extras/wildfly-camel/issues/1908
+[1909]: https://github.com/wildfly-extras/wildfly-camel/issues/1909
+
 #### WildFly-Camel 4.7.0
 
 **Features**
