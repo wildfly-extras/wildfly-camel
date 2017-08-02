@@ -80,7 +80,7 @@
         <version.flapdoodle.embed.mongo>1.50.1</version.flapdoodle.embed.mongo>
         <version.fusepatch>2.6.0</version.fusepatch>
         <version.greenmail>1.4.0</version.greenmail>
-        <version.hawtio>1.5.1</version.hawtio>
+        <version.hawtio>1.5.3</version.hawtio>
         <version.javax.cache.api>1.0.0</version.javax.cache.api>
         <version.jboss.arquillian.core>1.1.10.Final</version.jboss.arquillian.core>
         <version.jboss.arquillian.osgi>2.1.0.Final</version.jboss.arquillian.osgi>
