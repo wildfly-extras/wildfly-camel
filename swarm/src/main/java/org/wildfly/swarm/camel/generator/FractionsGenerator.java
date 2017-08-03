@@ -233,6 +233,13 @@ public class FractionsGenerator {
                 components.add(comp);
             }
         }
+        for (String name : catalog.findOtherNames()) {
+            String schema = catalog.otherJSonSchema(name);
+            Component comp = getComponent(new ObjectMapper().readTree(schema).get("other"));
+            if (comp != null && !blacklist.contains(comp.compId)) {
+                components.add(comp);
+            }
+        }
         return components;
     }
 
