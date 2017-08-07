@@ -55,8 +55,10 @@ public class VersionsValidatorTest {
         mapping.put("version.camel.hadoop2", "hadoop2-version");
         mapping.put("version.camel.hadoop2.protobuf", "hadoop2-protobuf-version");
         mapping.put("version.camel.hbase", "hbase-version");
+        mapping.put("version.camel.netty41", "netty-version");
         mapping.put("version.camel.qpid.proton", "qpid-proton-j-version");
         mapping.put("version.wildfly.arquillian", "version.org.wildfly.arquillian");
+        mapping.put("version.wildfly.cxf", "version.org.apache.cxf");
         mapping.put("version.wildfly.fasterxml.jackson", "version.com.fasterxml.jackson");
         mapping.put("version.wildfly.infinispan", "version.org.infinispan");
     }
@@ -71,8 +73,10 @@ public class VersionsValidatorTest {
             String wfcKey = ((Element) child).getName();
             String wfcVal = ((Element) child).getText();
             String targetVal = getTargetValue(wfcKey);
-            if (targetVal != null && !wfcVal.equals(targetVal)) {
-                problems.add(wfcKey + ": " + wfcVal + " => " + targetVal);
+            if (targetVal != null) {
+                if (!targetVal.equals(wfcVal) && !targetVal.startsWith(wfcVal + ".redhat")) {
+                    problems.add(wfcKey + ": " + wfcVal + " => " + targetVal);
+                }
             }
         }
         for (String line : problems) {
@@ -101,7 +105,7 @@ public class VersionsValidatorTest {
         xpath.addNamespace(Namespace.getNamespace("ns", "http://maven.apache.org/POM/4.0.0"));
         Element propNode = (Element) xpath.selectSingleNode(rootNode);
         if (propNode == null) {
-            problems.add("Cannot target property: " + targetKey);
+            problems.add("Cannot obtain target property: " + targetKey);
             return null;
         }
         return propNode.getText();

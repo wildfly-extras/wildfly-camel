@@ -19,5 +19,6 @@
     <exclude path="org/eclipse/jgit/internal**" />
     <exclude path="org/eclipse/jgit/gitrepo/internal**" />
     <exclude path="org/eclipse/jgit/ignore/internal**" />
+    <exclude path="org/eclipse/jgit/lib/internal**" />
   </exports>
 </module>

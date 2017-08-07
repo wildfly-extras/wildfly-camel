@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="org.kie.remote">
+<module xmlns="urn:jboss:module:1.1" name="org.jbpm">
   <resources>
-    <artifact name="${org.kie.remote:kie-remote-client}" />
-    <artifact name="${org.kie.remote:kie-remote-common}" />
-    <artifact name="${org.kie.remote:kie-remote-jaxb}" />
-    <artifact name="${org.kie.remote.ws:kie-remote-ws-common}" />
+    <resource-root path="kie-api-6.5.0.Final.jar" />
+    <resource-root path="kie-internal-6.5.0.Final.jar" />
+    <resource-root path="kie-remote-client-6.5.0.Final.jar" />
+    <resource-root path="kie-remote-common-6.5.0.Final.jar" />
+    <resource-root path="kie-remote-jaxb-6.5.0.Final.jar" />
+    <resource-root path="kie-remote-ws-common-6.5.0.Final.jar" />
   </resources>
   <dependencies>
     <module name="com.sun.xml.bind" />
     <module name="javax.api" />
     <module name="javax.jms.api" />
+    <module name="org.slf4j" />
+    <module name="com.thoughtworks.xstream" />
+    <module name="javax.activation.api" />
+    <module name="javax.enterprise.api" />
     <module name="javax.ws.rs.api" />
     <module name="javax.xml.bind.api" />
+    <module name="javax.xml.stream.api" />
     <module name="javax.xml.ws.api" />
     <module name="org.apache.cxf" />
     <module name="org.apache.cxf.impl" />
@@ -20,8 +27,6 @@
     <module name="org.codehaus.jackson.jackson-mapper-asl" />
     <module name="org.codehaus.jackson.jackson-xc" />
     <module name="org.jsoup" />
-    <module name="org.kie.api" />
-    <module name="org.kie.internal" />
-    <module name="org.slf4j" />
+    <module name="org.osgi.core" />
   </dependencies>
 </module>

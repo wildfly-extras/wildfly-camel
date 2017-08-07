@@ -78,7 +78,6 @@ public class InfinispanIntegrationTest {
             public void configure() throws Exception {
                 from("direct:get")
                 .to("infinispan://" + cacheName + "?cacheContainer=#" + CONTAINER_NAME + "&command=GET")
-                .transform(simple("${headers.CamelInfinispanOperationResult}"))
                 .to("mock:end");
             }
         });

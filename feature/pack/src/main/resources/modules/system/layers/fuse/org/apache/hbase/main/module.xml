@@ -10,7 +10,7 @@
     <artifact name="${org.apache.hbase:hbase-protocol}" />
   </resources>
   <dependencies>
-    <module name="com.google.protobuf" slot="2.5.0" />
+    <module name="com.google.protobuf" slot="2.5" />
     <module name="com.google.guava" slot="14.0" />
     <module name="javax.api" />
     <module name="sun.jdk">

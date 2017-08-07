@@ -39,11 +39,8 @@ public class OptaPlannerIntegrationTest  {
     @Deployment
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-optaplanner-tests");
-        archive.addPackages(true, "org.optaplanner.examples.common.app");
-        archive.addPackages(true, "org.optaplanner.examples.common.domain");
-        archive.addPackages(true, "org.optaplanner.examples.common.persistence");
-        archive.addPackages(true, "org.optaplanner.examples.common.swingui");
         archive.addPackages(true, "org.optaplanner.examples.cloudbalancing");
+        archive.addPackages(true, "org.optaplanner.examples.common");
         archive.setManifest(() -> {
             ManifestBuilder builder = new ManifestBuilder();
             builder.addManifestHeader("Dependencies", "com.google.guava,org.apache.commons.lang3");
@@ -61,17 +58,13 @@ public class OptaPlannerIntegrationTest  {
         final CloudBalance planningProblem = generator.createCloudBalance(4, 12);
         Assert.assertNull(planningProblem.getScore());
         Assert.assertNull(planningProblem.getProcessList().get(0).getComputer());
-
+        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() {
                 from("direct:in").
                 to("optaplanner:optaplanner/solverConfig.xml");
-
-                from("optaplanner:optaplanner/solverConfig.xml").
-                to("log:com.mycompany.order?showAll=true&multiline=true").
-                to("mock:result");
             }
         });
 

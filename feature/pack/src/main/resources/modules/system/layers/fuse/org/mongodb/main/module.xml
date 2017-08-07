@@ -8,5 +8,6 @@
   </dependencies>
   <exports>
     <exclude path="com/mongodb/internal**" />
+    <exclude path="org/bson/internal" />
   </exports>
 </module>

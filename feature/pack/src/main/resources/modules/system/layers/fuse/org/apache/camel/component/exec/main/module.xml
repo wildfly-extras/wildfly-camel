@@ -10,6 +10,5 @@
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.exec" />
     <module name="org.apache.commons.io" />
-    <module name="org.apache.commons.lang" />
   </dependencies>
 </module>

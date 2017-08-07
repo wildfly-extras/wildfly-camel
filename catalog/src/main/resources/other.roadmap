@@ -15,6 +15,8 @@ zipkin
 [planned]
 
 [undecided]
+headersmap
+reactor
 
 [rejected]
 bam                 	#deprecated
@@ -32,7 +34,6 @@ servletlistener     	#deprecated
 spring-boot         	#2051 SpringBoot specific
 spring-cloud        	#2066 SpringBoot specific
 spring-cloud-netflix	#2067 SpringBoot specific
-spring-dm           	#deprecated
 swagger             	#deprecated
 test                	#2052 Testing utility
 test-blueprint      	#2053 Testing utility

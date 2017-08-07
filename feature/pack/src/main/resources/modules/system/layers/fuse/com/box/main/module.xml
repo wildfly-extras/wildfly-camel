@@ -12,4 +12,7 @@
     <module name="org.bitbucket.jose4j" />
     <module name="org.bouncycastle" />
   </dependencies>
+  <exports>
+    <exclude path="com/box/sdk/internal**" />
+  </exports>
 </module>

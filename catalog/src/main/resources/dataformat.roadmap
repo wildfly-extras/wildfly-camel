@@ -12,7 +12,7 @@ crypto
 csv
 flatpack
 gzip
-hessian
+hessian        	#deprecated
 hl7
 ical
 jacksonxml
@@ -37,7 +37,7 @@ tidyMarkup
 univocity-csv
 univocity-fixed
 univocity-tsv
-xmlBeans
+xmlBeans       	#deprecated
 xmljson
 xmlrpc
 xstream
@@ -48,6 +48,9 @@ zipfile
 [planned]
 
 [undecided]
+asn1
+json-fastjson
+thrift
 
 [rejected]
 

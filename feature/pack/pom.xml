@@ -54,7 +54,7 @@
     <dependencies>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-feature-modulesB</artifactId>
+            <artifactId>wildfly-camel-feature-modules</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
         </dependency>
@@ -106,7 +106,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>unpack-modulesA</id>
+                        <id>unpack-extrasA</id>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -116,7 +116,7 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>org.wildfly.camel</groupId>
-                                    <artifactId>wildfly-camel-feature-modulesA</artifactId>
+                                    <artifactId>wildfly-camel-feature-extrasA</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
                                     <overWrite>false</overWrite>
@@ -126,7 +126,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>unpack-modulesB</id>
+                        <id>unpack-modules</id>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -136,7 +136,7 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>org.wildfly.camel</groupId>
-                                    <artifactId>wildfly-camel-feature-modulesB</artifactId>
+                                    <artifactId>wildfly-camel-feature-modules</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
                                     <overWrite>false</overWrite>

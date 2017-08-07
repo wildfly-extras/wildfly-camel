@@ -116,9 +116,10 @@ public class EmbeddedKafkaBroker {
             properties.setProperty("log.dir", logDir.getAbsolutePath());
             properties.setProperty("num.partitions", String.valueOf(1));
             properties.setProperty("auto.create.topics.enable", String.valueOf(Boolean.TRUE));
-            System.out.println("EmbeddedKafkaCluster: local directory: " + logDir.getAbsolutePath());
+            System.out.println("EmbeddedKafkaBroker: local directory: " + logDir.getAbsolutePath());
             properties.setProperty("log.flush.interval.messages", String.valueOf(1));
-
+            properties.setProperty("offsets.topic.replication.factor", String.valueOf(1));
+            
             KafkaServer broker = startBroker(properties);
 
             brokers.add(broker);
@@ -174,7 +175,7 @@ public class EmbeddedKafkaBroker {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("EmbeddedKafkaCluster{");
+        final StringBuilder sb = new StringBuilder("EmbeddedKafkaBroker{");
         sb.append("brokerList='").append(brokerList).append('\'');
         sb.append('}');
         return sb.toString();

@@ -79,11 +79,13 @@
         <include artifact="com.amazonaws:aws-java-sdk-applicationautoscaling" />
         <include artifact="com.amazonaws:aws-java-sdk-appstream" />
         <include artifact="com.amazonaws:aws-java-sdk-autoscaling" />
+        <include artifact="com.amazonaws:aws-java-sdk-athena" />
         <include artifact="com.amazonaws:aws-java-sdk-batch" />
         <include artifact="com.amazonaws:aws-java-sdk-budgets" />
         <include artifact="com.amazonaws:aws-java-sdk-clouddirectory" />
         <include artifact="com.amazonaws:aws-java-sdk-cloudformation" />
         <include artifact="com.amazonaws:aws-java-sdk-cloudhsm" />
+        <include artifact="com.amazonaws:aws-java-sdk-cloudhsmv2" />
         <include artifact="com.amazonaws:aws-java-sdk-cloudsearch" />
         <include artifact="com.amazonaws:aws-java-sdk-cloudtrail" />
         <include artifact="com.amazonaws:aws-java-sdk-cloudwatchmetrics" />
@@ -91,12 +93,14 @@
         <include artifact="com.amazonaws:aws-java-sdk-codecommit" />
         <include artifact="com.amazonaws:aws-java-sdk-codedeploy" />
         <include artifact="com.amazonaws:aws-java-sdk-codepipeline" />
+        <include artifact="com.amazonaws:aws-java-sdk-codestar" />
         <include artifact="com.amazonaws:aws-java-sdk-cognitoidentity" />
         <include artifact="com.amazonaws:aws-java-sdk-cognitoidp" />
         <include artifact="com.amazonaws:aws-java-sdk-cognitosync" />
         <include artifact="com.amazonaws:aws-java-sdk-config" />
         <include artifact="com.amazonaws:aws-java-sdk-costandusagereport" />
         <include artifact="com.amazonaws:aws-java-sdk-datapipeline" />
+        <include artifact="com.amazonaws:aws-java-sdk-dax" />
         <include artifact="com.amazonaws:aws-java-sdk-devicefarm" />
         <include artifact="com.amazonaws:aws-java-sdk-directconnect" />
         <include artifact="com.amazonaws:aws-java-sdk-directory" />
@@ -115,6 +119,8 @@
         <include artifact="com.amazonaws:aws-java-sdk-events" />
         <include artifact="com.amazonaws:aws-java-sdk-gamelift" />
         <include artifact="com.amazonaws:aws-java-sdk-glacier" />
+        <include artifact="com.amazonaws:aws-java-sdk-glue" />
+        <include artifact="com.amazonaws:aws-java-sdk-greengrass" />
         <include artifact="com.amazonaws:aws-java-sdk-health" />
         <include artifact="com.amazonaws:aws-java-sdk-iam" />
         <include artifact="com.amazonaws:aws-java-sdk-importexport" />
@@ -123,12 +129,15 @@
         <include artifact="com.amazonaws:aws-java-sdk-kms" />
         <include artifact="com.amazonaws:aws-java-sdk-lambda" />
         <include artifact="com.amazonaws:aws-java-sdk-lex" />
+        <include artifact="com.amazonaws:aws-java-sdk-lexmodelbuilding" />
         <include artifact="com.amazonaws:aws-java-sdk-lightsail" />
         <include artifact="com.amazonaws:aws-java-sdk-logs" />
         <include artifact="com.amazonaws:aws-java-sdk-machinelearning" />
         <include artifact="com.amazonaws:aws-java-sdk-marketplacecommerceanalytics" />
+        <include artifact="com.amazonaws:aws-java-sdk-marketplaceentitlement" />
         <include artifact="com.amazonaws:aws-java-sdk-marketplacemeteringservice" />
         <include artifact="com.amazonaws:aws-java-sdk-mechanicalturkrequester" />
+        <include artifact="com.amazonaws:aws-java-sdk-migrationhub" />
         <include artifact="com.amazonaws:aws-java-sdk-models" />
         <include artifact="com.amazonaws:aws-java-sdk-opsworks" />
         <include artifact="com.amazonaws:aws-java-sdk-opsworkscm" />
@@ -138,6 +147,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-rds" />
         <include artifact="com.amazonaws:aws-java-sdk-redshift" />
         <include artifact="com.amazonaws:aws-java-sdk-rekognition" />
+        <include artifact="com.amazonaws:aws-java-sdk-resourcegroupstaggingapi" />
         <include artifact="com.amazonaws:aws-java-sdk-route53" />
         <include artifact="com.amazonaws:aws-java-sdk-servermigration" />
         <include artifact="com.amazonaws:aws-java-sdk-servicecatalog" />
@@ -159,6 +169,9 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.box:box-java-sdk" />
+        <exports>
+            <exclude path="com/box/sdk/internal**" />
+        </exports>
     </module>
 
     <module name="com.codahale.metrics">
@@ -474,6 +487,7 @@
         <include artifact="com.squareup.okhttp3:"/>
         <apply-to-dependencies skip="true">
             <include module="com.google.android"/>
+            <include module="com.google.code.findbugs" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
@@ -485,6 +499,9 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.squareup.okio:okio"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
     </module>
 
     <module name="com.squareup.retrofit2">
@@ -492,6 +509,9 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.squareup.retrofit2:"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="com.squareup.okio"/>
             <module name="com.squareup.okhttp3"/>
@@ -580,20 +600,6 @@
         </dependencies>
     </module>
 
-    <module name="io.netty" inherit-slot="false" slot="4.1">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="io.netty:netty-all" />
-        <apply-to-dependencies skip="true">
-            <include module="org.jctools" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="sun.jdk"/>
-        </dependencies>
-    </module>
-
     <module name="io.netty" inherit-slot="false" slot="3.10">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -601,6 +607,18 @@
         <include artifact="io.netty:netty" />
         <dependencies>
             <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="io.netty" inherit-slot="false" slot="4.1">
+        <include artifact="io.netty:netty-all" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc" />
+                </imports>
+            </module>
         </dependencies>
     </module>
 
@@ -624,6 +642,10 @@
         <include artifact="javax.cache:cache-api" />
     </module>
 
+    <module name="javax.json11.api" >
+        <include artifact=":geronimo-json_1.1_spec" />
+    </module>
+
     <module name="net.java.dev.msv">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -637,24 +659,8 @@
         </dependencies>
     </module>
 
-    <module name="net.sf.dozer">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="net.sf.dozer:dozer" />
-        <apply-to-dependencies skip="true">
-            <include module="org.hibernate" />
-            <include module="org.osgi.core" />
-            <include module="junit" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <!-- circular dependency to allow dozer to load camel-dozer types -->
-            <module name="org.apache.camel.component.dozer"/>
-        </dependencies>
-    </module>
-
-    <module name="net.sf.json"  skip="true">
+    <!-- skipped here, managed manually  -->
+    <module name="net.sf.json" skip="true">
         <include artifact="net.sf.ezmorph:ezmorph" />
         <include artifact="net.sf.json-lib:json-lib" />
     </module>
@@ -880,7 +886,7 @@
         <include artifact="org.apache.hadoop:hadoop-yarn-api"/>
         <include artifact="org.apache.hadoop:hadoop-yarn-common"/>
         <dependencies>
-            <module name="com.google.protobuf" slot="2.5.0" />
+            <module name="com.google.protobuf" slot="2.5" />
             <module name="org.apache.commons.configuration" />
             <module name="org.apache.commons.net" />
             <module name="ibm.jdk.ext" />
@@ -907,7 +913,7 @@
             <include module="org.osgi.core"/>
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.google.protobuf" slot="2.5.0" />
+            <module name="com.google.protobuf" slot="2.5" />
             <module name="com.google.guava" slot="14.0" />
             <module name="javax.api"/>
             <module name="sun.jdk">
@@ -1149,6 +1155,7 @@
         <include artifact="org.apache.curator:curator-client" />
         <include artifact="org.apache.curator:curator-framework" />
         <include artifact="org.apache.curator:curator-recipes" />
+        <include artifact="org.apache.curator:curator-x-discovery" />
         <apply-to-dependencies skip="true">
             <include module="io.netty.skipped" />
             <include module="jline" />
@@ -1158,6 +1165,7 @@
             <module name="org.apache.log4j" />
         </dependencies>
         <exports>
+            <exclude path="org/apache/curator/shaded/**" />
             <exclude path="org/apache/jute**" />
         </exports>
     </module>
@@ -1221,34 +1229,21 @@
         </apply-to-dependencies>
     </module>
 
-    <module name="org.drools.compiler">
+    <module name="org.dozer.mapper">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="org.drools:drools-compiler" />
+        <include artifact="com.github.dozermapper:dozer-core" />
+        <include artifact="com.github.dozermapper:dozer-schema" />
         <apply-to-dependencies skip="true">
-            <include module="com.sun.codemodel" />
-            <include module="com.sun.xml.bind.jaxb.xjc" />
-            <include module="org.osgi.compendium" />
+            <include module="org.osgi.core" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="javax.api" />
-            <module name="org.antlr.runtime" />
-        </dependencies>
-    </module>
-
-    <module name="org.drools.core">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.drools:drools-core" />
-        <apply-to-dependencies skip="true">
-            <include module="com.sun.xml.bind.jaxb.xjc" />
-            <include module="org.osgi.compendium" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api" />
-            <module name="com.thoughtworks.xstream" />
+            <module name="javax.api"/>
+            <module name="javax.el.api"/>
+            <module name="javax.xml.bind.api"/>
+            <!-- circular dependency to allow dozer to load camel-dozer types -->
+            <module name="org.apache.camel.component.dozer"/>
         </dependencies>
     </module>
 
@@ -1394,7 +1389,7 @@
         <include artifact="org.infinispan:infinispan-jcache-commons" />
         <apply-to-dependencies skip="true">
             <include module="org.jboss.logging.processor" />
-            <include module="org.infinispan.cdi" />
+            <include module="org.infinispan.skipped" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
@@ -1409,6 +1404,7 @@
         <include artifact="org.infinispan:infinispan-query-dsl" />
         <apply-to-dependencies skip="true">
             <include module="org.jboss.logging.processor" />
+            <include module="org.infinispan.skipped" />
         </apply-to-dependencies>
     </module>
 
@@ -1428,42 +1424,6 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.json4s:json4s-(.*)" />
-    </module>
-
-    <module name="org.kie.api">
-        <include artifact="org.kie:kie-api" />
-        <apply-to-dependencies skip="true">
-            <include module="org.osgi.compendium" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.drools.compiler" />
-            <module name="org.drools.core" />
-        </dependencies>
-    </module>
-
-    <module name="org.kie.internal">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.kie:kie-internal" />
-        <apply-to-dependencies skip="true">
-            <include module="com.sun.xml.bind.jaxb.xjc" />
-            <include module="org.osgi.compendium" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.drools.compiler" />
-            <module name="org.drools.core" />
-        </dependencies>
-    </module>
-
-    <module name="org.kie.remote" >
-        <include artifact="org.kie.remote:(.*)" />
-        <include artifact="org.kie.remote.ws:(.*)" />
-        <dependencies>
-            <module name="com.sun.xml.bind"/>
-            <module name="javax.api"/>
-            <module name="javax.jms.api"/>
-        </dependencies>
     </module>
 
     <module name="org.osgi.core">
@@ -1490,6 +1450,7 @@
         </dependencies>
         <exports>
             <exclude path="com/mongodb/internal**" />
+            <exclude path="org/bson/internal" />
         </exports>
     </module>
 
@@ -1502,6 +1463,7 @@
         <include artifact="com.mchange:c3p0" />
         <apply-to-dependencies skip="true">
             <include module="c3p0" />
+            <include module="com.zaxxer" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
