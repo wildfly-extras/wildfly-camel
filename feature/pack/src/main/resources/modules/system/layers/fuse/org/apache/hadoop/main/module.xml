@@ -13,7 +13,7 @@
     <artifact name="${org.apache.hadoop:hadoop-yarn-common}" />
   </resources>
   <dependencies>
-    <module name="com.google.protobuf" slot="2.5.0" />
+    <module name="com.google.protobuf" slot="2.5" />
     <module name="org.apache.commons.configuration" />
     <module name="org.apache.commons.net" />
     <module name="ibm.jdk.ext" />

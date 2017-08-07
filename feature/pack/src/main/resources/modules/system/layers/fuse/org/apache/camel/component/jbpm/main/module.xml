@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.jbpm">
   <resources>
-    <artifact name="${org.apache.camel:camel-jbpm}" />
+    <resource-root path="camel-jbpm-2.20.0.jar" />
   </resources>
   <dependencies>
-    <module name="org.kie.api" />
     <module name="org.slf4j" />
     <module name="javax.jms.api" />
     <module name="javax.xml.bind.api" />
     <module name="javax.xml.ws.api" />
     <module name="org.apache.camel.core" />
     <module name="org.jboss.logging" />
-    <module name="org.kie.remote" />
+    <module name="org.jbpm" />
   </dependencies>
 </module>

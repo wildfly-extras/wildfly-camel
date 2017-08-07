@@ -30,8 +30,8 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 
 import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.node.InternalSettingsPreparer;
 import org.elasticsearch.node.Node;
-import org.elasticsearch.node.internal.InternalSettingsPreparer;
 import org.elasticsearch.plugins.Plugin;
 import org.elasticsearch.transport.Netty4Plugin;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;

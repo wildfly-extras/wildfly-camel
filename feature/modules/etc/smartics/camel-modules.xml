@@ -108,6 +108,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="org.asynchttpclient" export="true"/>
+            <module name="io.netty" slot="4.1" />
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -555,7 +556,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="net.sf.dozer" export="true">
+            <module name="org.dozer.mapper" export="true">
                 <exports>
                     <include path="org/dozer/util**" />
                     <exclude path="org/dozer**" />
@@ -570,6 +571,7 @@
         <include artifact="org.apache.camel:camel-dropbox" />
         <include artifact="com.dropbox.core:dropbox-core-sdk" />
         <apply-to-dependencies skip="true">
+            <include module="com.google.android" />
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
@@ -763,6 +765,7 @@
             <exclude path="org/eclipse/jgit/internal**" />
             <exclude path="org/eclipse/jgit/gitrepo/internal**" />
             <exclude path="org/eclipse/jgit/ignore/internal**" />
+            <exclude path="org/eclipse/jgit/lib/internal**" />
         </exports>
     </module>
 
@@ -1018,6 +1021,7 @@
         <include artifact="org.apache.camel:camel-infinispan"/>
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt"/>
+            <include module="org.infinispan.skipped" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
@@ -1041,6 +1045,7 @@
             <include module="org.springframework.boot"/>
         </apply-to-dependencies>
         <dependencies>
+            <module name="com.squareup.moshi" />
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
@@ -1109,18 +1114,6 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
-    <module name="org.apache.camel.component.jbpm">
-        <include artifact="org.apache.camel:camel-jbpm" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.kie.api" />
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -1293,6 +1286,7 @@
         <include artifact="org.apache.camel:camel-jsonpath" />
         <include artifact="com.jayway.jsonpath:json-path" />
         <include artifact="net.minidev:accessors-smart" />
+        <include artifact="net.minidev:json-smart-action" />
         <include artifact="net.minidev:json-smart" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
@@ -1644,14 +1638,27 @@
     <module name="org.apache.camel.component.optaplanner">
         <include artifact="org.apache.camel:camel-optaplanner" />
         <include artifact="org.optaplanner:optaplanner-core" />
+        <include artifact="org.drools:drools-compiler" />
+        <include artifact="org.drools:drools-core" />
+        <include artifact="org.kie:kie-internal" />
+        <include artifact="org.kie:kie-api" />
+        <include artifact="org.uberfire:uberfire-maven-support" />
         <apply-to-dependencies skip="true">
             <include module="com.sun.codemodel" />
             <include module="com.sun.xml.bind.jaxb.xjc" />
             <include module="org.antlr" />
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
+            <include module="org.osgi.compendium" />
         </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
         <exports>
+            <exclude path="org/appformer**" />
+            <exclude path="org/drools**" />
+            <exclude path="org/kie**" />
             <exclude path="org/optaplanner/core/impl**" />
         </exports>
     </module>
@@ -2212,6 +2219,12 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="org.apache.sshd" export="true">
+                <exports>
+                    <include path="org/apache/sshd" />
+                    <exclude path="org/apache/sshd**" />
+                </exports>
+            </module>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -2389,8 +2402,8 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.slf4j"/>
             <module name="io.netty" slot="4.1"/>
+            <module name="org.slf4j"/>
         </dependencies>
         <exports>
             <exclude path="io/vertx" />
@@ -2537,7 +2550,9 @@
         <include artifact="io.zipkin.reporter:zipkin-reporter" />
         <apply-to-dependencies skip="true">
             <include module="com.google.auto.value" />
+            <include module="com.google.code.findbugs" />
             <include module="org.apache.camel.apt" />
+            <include module="org.apache.servicemix.bundles" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>

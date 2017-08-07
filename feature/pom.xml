@@ -36,8 +36,8 @@
 
     <modules>
         <module>common</module>
-        <module>modulesA</module>
-        <module>modulesB</module>
+        <module>extrasA</module>
+        <module>modules</module>
         <module>pack</module>
     </modules>
 

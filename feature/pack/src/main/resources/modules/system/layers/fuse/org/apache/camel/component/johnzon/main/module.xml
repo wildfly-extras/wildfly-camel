@@ -7,7 +7,7 @@
   </resources>
   <dependencies>
     <module name="org.slf4j" />
-    <module name="javax.json.api" />
+    <module name="javax.json11.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>

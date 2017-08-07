@@ -38,6 +38,14 @@
         <include artifact=":jackson-core" />
     </module>
     
+    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jdk8" skip="true">
+        <include artifact=":jackson-datatype-jdk8" />
+    </module>
+    
+    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jsr310" skip="true">
+        <include artifact=":jackson-datatype-jsr310" />
+    </module>
+    
     <module name="com.fasterxml.jackson.core.jackson-databind" skip="true">
         <include artifact=":jackson-databind" />
     </module>
@@ -89,6 +97,7 @@
     <module name="javax.el.api" skip="true">
         <include artifact=":geronimo-el_2.2_spec" />
         <include artifact=":javax.el-api" />
+        <include artifact=":javax.el" />
         <include artifact=":el-api" />
         <include artifact=":el-impl" />
     </module>
@@ -115,12 +124,8 @@
         <include artifact=":geronimo-jms_1.1_spec" />
         <include artifact=":geronimo-jms_2.0_spec" />
         <include artifact=":jboss-jms-api_1.1_spec" />
+        <include artifact=":jboss-jms-api_2.0_spec" />
         <include artifact=":jms-api" />
-    </module>
-
-    <module name="javax.json.api" skip="true">
-        <include artifact="org.glassfish:javax.json" />
-        <include artifact=":geronimo-json_1.0_spec" />
     </module>
 
     <module name="javax.management.j2ee.api" skip="true">
@@ -133,8 +138,8 @@
     </module>
 
     <module name="javax.persistence.api" skip="true">
-        <include artifact=":geronimo-jpa_2.0_spec" />
         <include artifact=":persistence-api" />
+        <include artifact=":geronimo-jpa_2.1_spec" />
     </module>
 
     <module name="javax.security.jacc.api" skip="true">
@@ -280,7 +285,8 @@
     </module>
     
     <module name="org.apache.velocity" skip="true">
-        <include artifact=":velocity" />
+        <include artifact="org.apache.velocity:velocity-engine-core" />
+        <include artifact="org.apache.velocity:velocity" />
     </module>
 
     <module name="org.apache.ws.security" skip="true">

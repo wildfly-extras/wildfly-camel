@@ -4,7 +4,7 @@
     <artifact name="${org.apache.camel:camel-dozer}" />
   </resources>
   <dependencies>
-    <module name="net.sf.dozer" export="true">
+    <module name="org.dozer.mapper" export="true">
       <exports>
         <include path="org/dozer/util**" />
         <exclude path="org/dozer**" />

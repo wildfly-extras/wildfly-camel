@@ -141,6 +141,11 @@
                 <type>war</type>
             </dependency>
             <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${version.camel.netty41}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.hawt</groupId>
                 <artifactId>hawtio-wildfly</artifactId>
                 <version>${version.hawtio}</version>
@@ -217,6 +222,51 @@
                 <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-sandbox</artifactId>
                 <version>${version.camel.lucene5}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-features-clustering</artifactId>
+                <version>${version.wildfly.cxf}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+                <version>${version.wildfly.cxf}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-client</artifactId>
+                <version>${version.wildfly.cxf}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-extension-providers</artifactId>
+                <version>${version.wildfly.cxf}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-json-basic</artifactId>
+                <version>${version.wildfly.cxf}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-security-jose</artifactId>
+                <version>${version.wildfly.cxf}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-security-jose-jaxrs</artifactId>
+                <version>${version.wildfly.cxf}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-security-oauth</artifactId>
+                <version>${version.wildfly.cxf}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-security-oauth2</artifactId>
+                <version>${version.wildfly.cxf}</version>
             </dependency>
             <dependency>
                 <groupId>org.arquillian.cube</groupId>

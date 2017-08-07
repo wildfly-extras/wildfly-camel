@@ -58,6 +58,7 @@ public class SftpIntegrationTest {
 
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
+            sshServer.setupSftp();
             sshServer.start();
         }
 

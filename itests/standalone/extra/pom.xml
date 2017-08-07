@@ -231,17 +231,25 @@
                                 <copy file="src/test/resources/ahc/application.keystore" todir="${jboss.home}/standalone/configuration" />
                                 <!-- Add additional security domains -->
                                 <replace file="${jboss.home}/standalone/configuration/${server.config}">
-                                <replacetoken><![CDATA[<security-domain name="hawtio-domain"]]></replacetoken>
-                                <replacevalue><![CDATA[
-                                <security-domain name="user-domain" cache-type="default">
-                                    <authentication>
-                                        <login-module code="UsersRoles" flag="required">
-                                            <module-option name="usersProperties" value="${jboss.server.config.dir}/application-users2.properties" />
-                                            <module-option name="rolesProperties" value="${jboss.server.config.dir}/application-roles2.properties" />
-                                        </login-module>
-                                    </authentication>
-                                </security-domain>
-                                <security-domain name="hawtio-domain"]]></replacevalue>
+                                    <replacetoken><![CDATA[<system-properties>]]></replacetoken>
+                                    <replacevalue><![CDATA[
+                                    <system-properties>
+                                        <property name="es.set.netty.runtime.available.processors" value="false" />]]>
+                                    </replacevalue>
+                                </replace>
+                                <replace file="${jboss.home}/standalone/configuration/${server.config}">
+                                    <replacetoken><![CDATA[<security-domain name="hawtio-domain"]]></replacetoken>
+                                    <replacevalue><![CDATA[
+                                    <security-domain name="user-domain" cache-type="default">
+                                        <authentication>
+                                            <login-module code="UsersRoles" flag="required">
+                                                <module-option name="usersProperties" value="${jboss.server.config.dir}/application-users2.properties" />
+                                                <module-option name="rolesProperties" value="${jboss.server.config.dir}/application-roles2.properties" />
+                                            </login-module>
+                                        </authentication>
+                                    </security-domain>
+                                    <security-domain name="hawtio-domain"]]>
+                                    </replacevalue>
                                 </replace>
                             </target>
                         </configuration>

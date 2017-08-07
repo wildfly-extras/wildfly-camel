@@ -101,6 +101,7 @@ public final class SpringCamelContextFactory {
                 return null;
             }
         }, classLoader);
+        SpringCamelContext.setNoStart(false);
 
         List<SpringCamelContext> result = new ArrayList<>();
         for (String name : appContext.getBeanNamesForType(SpringCamelContext.class)) {

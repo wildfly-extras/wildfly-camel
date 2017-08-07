@@ -57,6 +57,7 @@ public class JschIntegrationTest {
 
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
+            sshServer.setupSftp();
             sshServer.start();
         }
 
