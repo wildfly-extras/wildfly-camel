@@ -58,7 +58,7 @@ public class KafkaConsumerIntegrationTest {
     public static final String TOPIC = "test";
 
     static EmbeddedZookeeper embeddedZookeeper;
-    static EmbeddedKafkaBroker embeddedKafkaCluster;
+    static EmbeddedKafkaBroker embeddedKafkaBroker;
 
     @Deployment
     public static JavaArchive deployment() {
@@ -81,18 +81,18 @@ public class KafkaConsumerIntegrationTest {
     public static void before() throws Exception {
         embeddedZookeeper = new EmbeddedZookeeper();
         List<Integer> kafkaPorts = Collections.singletonList(KAFKA_PORT);
-        embeddedKafkaCluster = new EmbeddedKafkaBroker(embeddedZookeeper.getConnection(), new Properties(), kafkaPorts);
+        embeddedKafkaBroker = new EmbeddedKafkaBroker(embeddedZookeeper.getConnection(), new Properties(), kafkaPorts);
 
         embeddedZookeeper.startup(1, TimeUnit.SECONDS);
         System.out.println("### Embedded Zookeeper connection: " + embeddedZookeeper.getConnection());
 
-        embeddedKafkaCluster.startup();
-        System.out.println("### Embedded Kafka cluster broker list: " + embeddedKafkaCluster.getBrokerList());
+        embeddedKafkaBroker.startup();
+        System.out.println("### Embedded Kafka cluster broker list: " + embeddedKafkaBroker.getBrokerList());
     }
 
     @AfterClass
     public static void after() throws Exception {
-        embeddedKafkaCluster.shutdown();
+        embeddedKafkaBroker.shutdown();
         embeddedZookeeper.shutdown();
     }
 

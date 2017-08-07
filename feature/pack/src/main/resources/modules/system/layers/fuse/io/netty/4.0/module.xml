@@ -4,7 +4,7 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="netty-all-4.0.45.Final.jar" />
+    <resource-root path="netty-all-4.0.51.Final.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />

@@ -5,11 +5,15 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="org.apache.sshd" export="true">
+      <exports>
+        <include path="org/apache/sshd" />
+        <exclude path="org/apache/sshd**" />
+      </exports>
+    </module>
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.mina.core" />
-    <module name="org.apache.sshd" />
     <module name="org.bouncycastle" />
     <module name="org.bouncycastle.ext" />
   </dependencies>

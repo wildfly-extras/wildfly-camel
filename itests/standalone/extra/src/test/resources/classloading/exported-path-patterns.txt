@@ -60,6 +60,7 @@
 	^org/apache/johnzon(.*)
 	^org/apache/kafka(.*)
 	^org/apache/olingo(.*)
+    ^org/apache/sshd
 	^org/apache/xmlbeans
 	^org/apache/xmlbeans/impl/schema
 	^org/apache/xmlbeans/impl/values

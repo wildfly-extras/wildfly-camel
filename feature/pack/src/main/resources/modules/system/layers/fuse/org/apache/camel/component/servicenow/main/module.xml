@@ -11,6 +11,8 @@
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jdk8" />
+    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jsr310" />
     <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />

@@ -5,9 +5,9 @@
     <artifact name="${org.influxdb:influxdb-java}" />
   </resources>
   <dependencies>
+    <module name="com.squareup.moshi" />
     <module name="javax.api" />
     <module name="org.slf4j" />
-    <module name="com.google.guava" />
     <module name="com.squareup.okhttp3" />
     <module name="com.squareup.retrofit2" />
     <module name="javax.xml.bind.api" />

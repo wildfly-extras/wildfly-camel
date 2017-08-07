@@ -16,7 +16,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.ssh.EmbeddedSSHServer;
@@ -76,7 +75,6 @@ public class SSHIntegrationTest {
     }
 
     @Test
-    @Ignore("[#1564] SSH producer test frequently swallows the output")
     public void testSSHProducer() throws Exception {
         
         String conUrl = TestUtils.getResourceValue(getClass(), "/ssh-connection");
@@ -94,7 +92,7 @@ public class SSHIntegrationTest {
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
             String result = template.requestBody("direct:start", "echo Hello Kermit", String.class);
-            Assert.assertEquals("Hello Kermit" + System.lineSeparator(), result);
+            Assert.assertEquals("Running command: echo Hello Kermit", result);
         } finally {
             camelctx.stop();
         }

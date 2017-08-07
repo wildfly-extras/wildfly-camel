@@ -19,13 +19,13 @@ aws-sqs
 aws-swf
 bean
 bean-validator
-binding             	#deprecated
+binding                             	#deprecated
 box
 braintree
 browse
 class
 coap
-context             	#deprecated
+context                             	#deprecated
 controlbus
 couchdb
 cql
@@ -75,7 +75,21 @@ jmx
 jolt
 jpa
 kafka
-kubernetes
+kubernetes                          	#deprecated
+kubernetes-build-configs
+kubernetes-builds
+kubernetes-config-maps
+kubernetes-deployments
+kubernetes-namespaces
+kubernetes-nodes
+kubernetes-persistent-volumes
+kubernetes-persistent-volumes-claims
+kubernetes-pods
+kubernetes-replication-controllers
+kubernetes-resources-quota
+kubernetes-secrets
+kubernetes-service-accounts
+kubernetes-services
 language
 ldap
 linkedin
@@ -139,7 +153,11 @@ string-template
 stub
 test
 timer
-twitter
+twitter                             	#deprecated
+twitter-directmessage
+twitter-search
+twitter-streaming
+twitter-timeline
 undertow
 validator
 velocity
@@ -154,107 +172,132 @@ zendesk
 zookeeper
 
 [planned]
-azure-blob          	#1818
-azure-queue         	#1819
-couchbase           	#1821
-digitalocean        	#1822
-docker              	#1424
-drill               	#1823
-elasticsearch5      	#1824
-etcd                	#1827
-flink               	#1430
-google-calendar     	#1437
-google-drive        	#1438
-google-mail         	#1439
-grpc                	#1826
-jclouds             	#1450
-milo-client         	#1835
-milo-server         	#1836
-mongodb3            	#1838
-olingo4             	#1839
-openstack-cinder    	#1840
-openstack-glance    	#1841
-openstack-keystone  	#1842
-openstack-neutron   	#1843
-openstack-nova      	#1844
-openstack-swift     	#1845
-pubnub              	#1846
-tika                	#1850
-websocket           	#1479
-zookeeper-master    	#1852
+azure-blob                          	#1818
+azure-queue                         	#1819
+couchbase                           	#1821
+digitalocean                        	#1822
+docker                              	#1424
+drill                               	#1823
+elasticsearch5                      	#1824
+etcd                                	#1827
+flink                               	#1430
+google-calendar                     	#1437
+google-drive                        	#1438
+google-mail                         	#1439
+grpc                                	#1826
+jclouds                             	#1450
+milo-client                         	#1835
+milo-server                         	#1836
+mongodb3                            	#1838
+olingo4                             	#1839
+openstack-cinder                    	#1840
+openstack-glance                    	#1841
+openstack-keystone                  	#1842
+openstack-neutron                   	#1843
+openstack-nova                      	#1844
+openstack-swift                     	#1845
+pubnub                              	#1846
+tika                                	#1850
+websocket                           	#1479
+zookeeper-master                    	#1852
 
 [undecided]
-apns                	#1982
-asterisk            	#1983
-atmos               	#1984
-atmosphere-websocket	#1406
-beanstalk           	#1419
-chronicle-engine    	#1986
-chunk               	#1987
-cm-sms              	#1988
-cmis                	#1989
-cometd              	#1990
-cometds             	#1991
-consul              	#1992
-ehcache             	#1995
-ganglia             	#1998
-grape               	#2001
-guava-eventbus      	#2002
-hazelcast           	#1440
-hipchat             	#2003
-jcr                 	#2008
-jt400               	#2012
-lpr                 	#2015
-lumberjack          	#2016
-mongodb-gridfs      	#1837
-msv                 	#2017
-nagios              	#1456
-pgevent             	#2021
-quickfix            	#2023
-restlet             	#2024
-rmi                 	#2025
-sip                 	#2027
-sips                	#2028
-slack               	#2029
-solr                	#2030
-solrCloud           	#2031
-solrs               	#2032
-spark               	#1469
-spark-rest          	#1470
-spring-ws           	#1476
-stomp               	#2033
-telegram            	#2035
-xmpp                	#2037
-yammer              	#2038
+ldif
 
 [rejected]
-bonita              	#1820 We don't want another BPM engine
-cache               	#deprecated
-eventadmin          	#1996 OSGi specific
-gora                	#2000 Competitor to JDG
-hdfs                	#deprecated
-http                	#deprecated
-https               	#deprecated
-ibatis              	#deprecated
-ignite-cache        	#1828 Competitor to JDG
-ignite-compute      	#1829 Competitor to JDG
-ignite-events       	#1830 Competitor to JDG
-ignite-idgen        	#1831 Competitor to JDG
-ignite-messaging    	#1832 Competitor to JDG
-ignite-queue        	#1833 Competitor to JDG
-ignite-set          	#1834 Competitor to JDG
-ironmq              	#2006 Not another messaging system
-javaspace           	#deprecated
-jetty               	#2009 Cannot have alternative HTTP engine in EAP
-jira                	#1451 Only available from Atlassian
-kestrel             	#deprecated
-krati               	#deprecated
-mina                	#deprecated
-netty               	#deprecated
-netty-http          	#deprecated
-netty4-http         	#1459 Cannot have alternative HTTP engine in EAP
-openshift           	#deprecated
-paxlogging          	#2020 OSGi specific
-quartz              	#deprecated
-routebox            	#deprecated
+apns
+asterisk
+atmos
+atmosphere-websocket
+atomix-map
+atomix-messaging
+atomix-multimap
+atomix-queue
+atomix-set
+atomix-value
+beanstalk
+bonita                              	#1820 We don't want another BPM engine
+cache                               	#deprecated
+caffeine-cache
+caffeine-loadcache
+chronicle-engine
+chunk
+cm-sms
+cmis
+cometd
+cometds
+consul
+crypto-cms
+ehcache
+eventadmin
+ganglia
+google-bigquery
+gora
+grape
+guava-eventbus
+hazelcast-atomicvalue
+hazelcast-instance
+hazelcast-list
+hazelcast-map
+hazelcast-multimap
+hazelcast-queue
+hazelcast-replicatedmap
+hazelcast-ringbuffer
+hazelcast-seda
+hazelcast-set
+hazelcast-topic
+hdfs                                	#deprecated
+hipchat
+http                                	#deprecated
+https                               	#deprecated
+ibatis                              	#deprecated
+iec60870-client
+iec60870-server
+ignite-cache                        	#1828 Competitor to JDG
+ignite-compute                      	#1829 Competitor to JDG
+ignite-events                       	#1830 Competitor to JDG
+ignite-idgen                        	#1831 Competitor to JDG
+ignite-messaging                    	#1832 Competitor to JDG
+ignite-queue                        	#1833 Competitor to JDG
+ignite-set                          	#1834 Competitor to JDG
+ironmq
+javaspace                           	#deprecated
+jcr
+jetty
+jira
+jt400
+kestrel                             	#deprecated
+krati                               	#deprecated
+lpr
+lumberjack
+mina                                	#deprecated
+mongodb-gridfs
+msv
+nagios
+netty                               	#deprecated
+netty-http                          	#deprecated
+netty4-http
+openshift                           	#deprecated
+paxlogging
+pgevent
+quartz                              	#deprecated
+quickfix
+restlet
+rmi
+routebox                            	#deprecated
+sip
+sips
+slack
+solr
+solrCloud
+solrs
+spark
+spark-rest
+spring-ws
+stomp
+telegram
+thrift
+twilio
+xmpp
+yammer
 
