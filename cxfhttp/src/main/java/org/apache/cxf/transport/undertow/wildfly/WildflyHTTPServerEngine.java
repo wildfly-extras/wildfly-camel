@@ -20,6 +20,7 @@
 package org.apache.cxf.transport.undertow.wildfly;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.URL;
 
 import javax.servlet.ServletException;
@@ -37,7 +38,11 @@ import io.undertow.server.HttpHandler;
 import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.DeploymentManager;
+import io.undertow.servlet.api.SecurityConstraint;
+import io.undertow.servlet.api.SecurityInfo;
 import io.undertow.servlet.api.ServletInfo;
+import io.undertow.servlet.api.TransportGuaranteeType;
+import io.undertow.servlet.api.WebResourceCollection;
 import io.undertow.servlet.core.ManagedServlet;
 
 class WildflyHTTPServerEngine extends AbstractHTTPServerEngine {
@@ -55,14 +60,29 @@ class WildflyHTTPServerEngine extends AbstractHTTPServerEngine {
         ServletInfo servletInfo = Servlets.servlet("DefaultServlet", DefaultServlet.class).addMapping("/*");
 
         DeploymentInfo servletBuilder = Servlets.deployment()
-                .setClassLoader(WildflyHTTPServerEngine.class.getClassLoader())
-                .setContextPath(nurl.getPath())
-                .setDeploymentName("cxfdestination.war")
-                .addServlets(servletInfo);
+            .setClassLoader(WildflyHTTPServerEngine.class.getClassLoader())
+            .setContextPath(nurl.getPath())
+            .setDeploymentName("cxfdestination.war")
+            .addServlets(servletInfo);
+
+        if (nurl.getProtocol().equals("https")) {
+            SecurityConstraint securityConstraint = new SecurityConstraint();
+            WebResourceCollection webResourceCollection = new WebResourceCollection();
+            webResourceCollection.addUrlPattern("/*");
+
+            securityConstraint.addWebResourceCollection(webResourceCollection);
+            securityConstraint.setTransportGuaranteeType(TransportGuaranteeType.CONFIDENTIAL);
+            securityConstraint.setEmptyRoleSemantic(SecurityInfo.EmptyRoleSemantic.PERMIT);
+
+            servletBuilder.addSecurityConstraint(securityConstraint);
+            servletBuilder.setConfidentialPortManager(exchange -> {
+                int port = exchange.getConnection().getLocalAddress(InetSocketAddress.class).getPort();
+                return defaultHost.getServer().getValue().lookupSecurePort(port);
+            });
+        }
 
         manager = Servlets.defaultContainer().addDeployment(servletBuilder);
         manager.deploy();
-
 
         try {
             HttpHandler servletHandler = manager.start();

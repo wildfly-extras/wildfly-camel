@@ -34,12 +34,10 @@ public abstract class AbstractHTTPServerEngineFactory implements HttpServerEngin
 
     @Override
     public HttpServerEngine getHTTPServerEngine(String host, int port, String protocol) {
-        if (!"http".equals(protocol))
-            throw new IllegalArgumentException("Unsupported protocol: " + protocol);
-
         synchronized (registry) {
-            if (registry.get(port) != null)
+            if (registry.get(port) != null) {
                 throw new IllegalStateException("Server engine already crated for port: " + port);
+            }
 
             AbstractHTTPServerEngine engine = createHTTPServerEngine(host, port, protocol);
             registry.put(port, engine);
