@@ -27,15 +27,16 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.classloading.subB.CdiRouteBuilder;
 
 @RunWith(Arquillian.class)
-public class JBossAllCamelEnablementWithContextDescriptorTest {
+public class JBossAllCamelDisabledWithAnnotationTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "no-camel-with-spring-context");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "no-camel-with-annotation");
         archive.addAsResource("classloading/jboss-all-no-camel.xml", "META-INF/jboss-all.xml");
-        archive.addAsResource("classloading/spring-camel-context.xml");
+        archive.addClass(CdiRouteBuilder.class);
         return archive;
     }
 

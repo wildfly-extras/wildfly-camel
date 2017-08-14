@@ -37,6 +37,8 @@ import org.jboss.jandex.DotName;
 
 public final class CamelDeploymentSettingsProcessor implements DeploymentUnitProcessor {
 
+    private static final String[] ACTIVATION_ANNOTATIONS = { "org.wildfly.extension.camel.CamelAware", "org.apache.camel.cdi.ContextName",
+            "org.apache.camel.cdi.Uri", "org.apache.camel.cdi.ImportResource" };
     private static Map<String, CamelDeploymentSettings> deploymentSettingsMap = new HashMap<>();
 
     public static CamelDeploymentSettings getDeploymentSettings(String name) {
@@ -105,24 +107,26 @@ public final class CamelDeploymentSettingsProcessor implements DeploymentUnitPro
 
         boolean result = false;
 
-        // Search for CamelAware annotations
-        AnnotationInstance annotation = getAnnotation(depUnit, "org.wildfly.extension.camel.CamelAware");
-        if (annotation != null) {
-            LOGGER.debug("@CamelAware annotation found");
-            AnnotationValue value = annotation.value();
-            result = value != null ? value.asBoolean() : true;
-        }
-
-        // Search for Camel CDI component annotations
-        List<AnnotationInstance> annotations = getAnnotations(depUnit, "org.apache.camel.cdi.ContextName");
-        if (!annotations.isEmpty()) {
-            LOGGER.debug("@ContextName annotation found");
-            result = true;
-        }
-        annotations = getAnnotations(depUnit, "org.apache.camel.cdi.Uri");
-        if (!annotations.isEmpty()) {
-            LOGGER.debug("@Uri annotation found");
-            result = true;
+        // Search for Camel activation annotations
+        for (String annotationClassName : ACTIVATION_ANNOTATIONS) {
+            if (annotationClassName.equals("org.wildfly.extension.camel.CamelAware")) {
+                AnnotationInstance annotation = getAnnotation(depUnit, annotationClassName);
+                if (annotation != null) {
+                    LOGGER.debug("@CamelAware annotation found");
+                    AnnotationValue value = annotation.value();
+                    result = value != null ? value.asBoolean() : true;
+                    if (result) {
+                        break;
+                    }
+                }
+            } else {
+                List<AnnotationInstance> annotations = getAnnotations(depUnit, annotationClassName);
+                if (!annotations.isEmpty()) {
+                    LOGGER.debug("{} annotation found", annotations.get(0).toString(true));
+                    result = true;
+                    break;
+                }
+            }
         }
 
         return result;

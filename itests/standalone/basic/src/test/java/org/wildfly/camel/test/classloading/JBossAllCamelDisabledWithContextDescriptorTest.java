@@ -28,17 +28,14 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/**
- * Verify that a deployment with a META-INF/jboss-all.xml file
- * can disable camel from being added to your deployment.
- */
 @RunWith(Arquillian.class)
-public class JBossAllCamelEnablementTest {
+public class JBossAllCamelDisabledWithContextDescriptorTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "no-camel-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "no-camel-with-spring-context");
         archive.addAsResource("classloading/jboss-all-no-camel.xml", "META-INF/jboss-all.xml");
+        archive.addAsResource("classloading/spring-camel-context.xml");
         return archive;
     }
 
