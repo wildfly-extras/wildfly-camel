@@ -168,7 +168,6 @@ ignite-set
 jclouds
 milo-client
 milo-server
-mongodb-gridfs
 mongodb3
 olingo4
 openstack-cinder
@@ -228,6 +227,7 @@ krati
 lpr
 lumberjack
 mina
+mongodb-gridfs
 msv
 mustache
 nagios
