@@ -8,6 +8,7 @@
   <dependencies>
     <module name="javax.api" />
     <module name="javax.ws.rs.api" />
+    <module name="org.apache.commons.lang3" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="javax.xml.bind.api" />

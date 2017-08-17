@@ -1107,6 +1107,7 @@
         <dependencies>
             <module name="javax.api" />
             <module name="javax.ws.rs.api"/>
+            <module name="org.apache.commons.lang3"/>
             <module name="org.slf4j" />
         </dependencies>
         <exports>
