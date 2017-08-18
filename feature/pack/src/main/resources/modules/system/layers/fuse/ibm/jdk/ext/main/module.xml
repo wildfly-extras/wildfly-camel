@@ -26,9 +26,10 @@
             <paths>
                 <!-- default DOM impl lookup -->
                 <path name="org/apache/xerces/dom" />
-
                 <!-- needed by castor -->
                 <path name="org/apache/xml/serialize" />
+                <!-- needed by hadoop -->
+                <path name="com/ibm/security/auth/module"/>
             </paths>
         </system>
     </dependencies>

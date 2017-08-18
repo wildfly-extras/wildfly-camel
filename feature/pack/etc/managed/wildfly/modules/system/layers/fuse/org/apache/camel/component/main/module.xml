@@ -70,6 +70,7 @@
         <module name="org.apache.camel.component.github" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.groovy" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.gson" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.hdfs2" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.hl7" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.http4" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.hystrix" export="true" services="export" optional="true" />

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.directory">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.apache.directory.server:apacheds-i18n}" />
+    <artifact name="${org.apache.directory.server:apacheds-kerberos-codec}" />
+    <artifact name="${org.apache.directory.api:api-asn1-api}" />
+    <artifact name="${org.apache.directory.api:api-util}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

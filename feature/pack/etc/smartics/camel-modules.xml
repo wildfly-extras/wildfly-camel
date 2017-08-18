@@ -733,6 +733,29 @@
         </apply-to-dependencies>
     </module>
 
+    <module name="org.apache.camel.component.hdfs2">
+        <include artifact="org.apache.camel:camel-hdfs2" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.hadoop" export="true" services="export">
+                <exports>
+                    <exclude path="org/apache/hadoop/log**" />
+                    <exclude path="org/apache/hadoop/jmx**" />
+                    <exclude path="org/apache/hadoop/metrics**" />
+                    <exclude path="org/apache/hadoop/service**" />
+                    <exclude path="org/apache/hadoop/tools**" />
+                    <exclude path="org/apache/hadoop/tracing**" />
+                    <exclude path="org/apache/hadoop/util**" />
+                </exports>
+            </module>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.hl7">
         <include artifact="org.apache.camel:camel-hl7" />
         <include artifact="ca.uhn.hapi:hapi-base" />

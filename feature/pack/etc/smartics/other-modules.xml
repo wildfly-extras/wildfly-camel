@@ -20,6 +20,13 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="ch.qos.cal10n">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="ch.qos.cal10n:cal10n-api" />
+    </module>
+
     <module name="com.amazon.aws">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -237,6 +244,13 @@
                 </imports>
             </module>
         </dependencies>
+    </module>
+
+    <module name="com.jamesmurty.utils.java.xmlbuilder">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.jamesmurty.utils:java-xmlbuilder"/>
     </module>
 
     <module name="com.jcraft.jsch">
@@ -622,6 +636,57 @@
         <dependencies>
             <module name="javax.api" />
         </dependencies>
+    </module>
+
+    <module name="org.apache.directory">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <apply-to-dependencies skip="true">
+            <include module="findbugs" />
+        </apply-to-dependencies>
+        <include artifact="org.apache.directory.api:api-asn1-api" />
+        <include artifact="org.apache.directory.api:api-i18n" />
+        <include artifact="org.apache.directory.api:api-util" />
+        <include artifact="org.apache.directory.server:apacheds-i18n" />
+        <include artifact="org.apache.directory.server:apacheds-kerberos-codec" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.hadoop">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <apply-to-dependencies skip="true">
+            <include module="ant" />
+            <include module="com.sun.jersey" />
+            <include module="findbugs" />
+            <include module="io.netty.skipped" />
+            <include module="jdiff" />
+            <include module="jdk.tools" />
+            <include module="net.java.dev.jets3t" />
+            <include module="org.apache.commons.daemon" />
+            <include module="org.fusesource.leveldbjni" />
+            <include module="org.mortbay.jetty" />
+        </apply-to-dependencies>
+        <include artifact="org.apache.hadoop:hadoop-annotations" />
+        <include artifact="org.apache.hadoop:hadoop-auth" />
+        <include artifact="org.apache.hadoop:hadoop-common" />
+        <include artifact="org.apache.hadoop:hadoop-hdfs" />
+        <dependencies>
+            <module name="ibm.jdk.ext" />
+            <module name="javax.api" />
+            <module name="sun.jdk.ext" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.htrace">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.htrace:htrace-core" />
     </module>
 
     <!-- [FIXME #1357] Integrate with httpclient 4.5.2 when provided by WildFly -->
@@ -1112,8 +1177,12 @@
         </properties>
         <include artifact="org.reflections:reflections" />
         <apply-to-dependencies skip="true">
-            <include module="com.google.code.findbugs" />
+            <include module="findbugs" />
         </apply-to-dependencies>
+    </module>
+
+    <module name="net.java.dev.jets3t" skip="true">
+        <include artifact="net.java.dev.jets3t:jets3t" />
     </module>
 
     <module name="net.sf.saxon">
@@ -1143,5 +1212,11 @@
         </properties>
         <include artifact="org.scala-lang.modules:(.*)" />
     </module>
-    
+
+    <module name="xmlenc">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="xmlenc:xmlenc" />
+    </module>
 </modules>

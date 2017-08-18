@@ -45,6 +45,7 @@
 	^org/apache/cxf/transport/undertow(.*)
 	^org/apache/cxf/ws/discovery(.*)
 	^org/apache/cxf/ws/security(.*)
+	^org/apache/hadoop(.*)
 	^org/apache/ibatis(.*)
 	^org/apache/kafka(.*)
 	^org/apache/olingo(.*)

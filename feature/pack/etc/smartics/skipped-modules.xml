@@ -77,8 +77,9 @@
         <include artifact="com.google.android:android"/>
     </module>
 
-    <module name="com.google.code.findbugs" skip="true">
+    <module name="findbugs" skip="true">
         <include artifact="com.google.code.findbugs:(.*)" />
+        <include artifact="findbugs:annotations" />
     </module>
     
     <module name="com.google.auto.value" skip="true">
@@ -104,7 +105,13 @@
     <module name="com.sun.codemodel" skip="true">
         <include artifact="com.sun.codemodel:codemodel" />
     </module>
-    
+
+    <module name="com.sun.jersey" skip="true">
+        <include artifact="com.sun.jersey:jersey-core"/>
+        <include artifact="com.sun.jersey:jersey-json"/>
+        <include artifact="com.sun.jersey:jersey-server"/>
+    </module>
+
     <module name="com.sun.ldapbp" skip="true">
         <include artifact="com.sun:ldapbp" />
     </module>
@@ -132,7 +139,11 @@
     <module name="jexcelapi" skip="true">
         <include artifact="jexcelapi:jxl" />
     </module>
-    
+
+    <module name="jdiff" skip="true">
+        <include artifact="jdiff:jdiff" />
+    </module>
+
     <module name="jline" skip="true">
         <include artifact=":jline" />
     </module>
@@ -140,7 +151,7 @@
     <module name="junit" skip="true">
         <include artifact=":junit" />
     </module>
-    
+
     <module name="net.jcip" skip="true">
         <include artifact="net.jcip:jcip-annotations" />
     </module>
@@ -177,6 +188,13 @@
         <include artifact="org.apache.camel:spi-annotations" />
     </module>
 
+    <module name="org.apache.commons.daemon" skip="true">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-daemon"/>
+    </module>
+
     <module name="org.apache.felix" skip="true">
         <include artifact="org.apache.felix:org.apache.felix.http.proxy" />
         <include artifact="org.apache.felix:org.apache.felix.gogo.runtime" />
@@ -208,7 +226,19 @@
     <module name="org.codehaus.woodstox.core" skip="true">
         <include artifact=":woodstox-core" />
     </module>
-    
+
+    <module name="org.fusesource.hawtjni" skip="true">
+        <include artifact="org.fusesource.hawtjni:hawtjni-runtime" />
+    </module>
+
+    <module name="org.fusesource.leveldbjni" skip="true">
+        <include artifact="org.fusesource.leveldbjni:leveldbjni-all" />
+    </module>
+
+    <module name="org.iq80.leveldb" skip="true">
+        <include artifact="org.iq80.leveldb:leveldb-api" />
+    </module>
+
     <module name="org.jasypt" skip="true">
         <include artifact="org.jasypt:jasypt" />
     </module>
@@ -237,7 +267,13 @@
         <include artifact="org.infinispan:infinispan-cdi-common" />
         <include artifact="org.infinispan:infinispan-cdi-embedded" />
     </module>
-    
+
+    <module name="org.jboss.interceptor" skip="true">
+        <include artifact="org.jboss.interceptor:jboss-interceptor-core" />
+        <include artifact="org.jboss.interceptor:jboss-interceptor-spi" />
+        <include artifact="org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.1_spec" />
+    </module>
+
     <module name="org.joda.convert" skip="true">
         <include artifact=":joda-convert" />
     </module>

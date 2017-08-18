@@ -67,6 +67,8 @@
 
     <module name="javax.annotation.api" skip="true">
         <include artifact=":javax.annotation-api" />
+        <include artifact=":javax.annotation" />
+        <include artifact=":jsr250-api" />
         <include artifact=":geronimo-annotation_1.0_spec" />
         <include artifact=":geronimo-annotation_1.1_spec" />
     </module>
@@ -77,6 +79,7 @@
 
     <module name="javax.ejb.api" skip="true">
         <include artifact="javax.ejb:ejb" />
+        <include artifact="org.glassfish:javax.ejb" />
     </module>
 
     <module name="javax.el.api" skip="true">
@@ -122,6 +125,7 @@
 
     <module name="javax.persistence.api" skip="true">
         <include artifact=":geronimo-jpa_2.0_spec" />
+        <include artifact=":persistence-api" />
     </module>
 
     <module name="javax.security.jacc.api" skip="true">
@@ -135,11 +139,16 @@
         <include artifact=":servlet-api" />
     </module>
 
+    <module name="javax.servlet.jsp.api" skip="true">
+        <include artifact=":jsp-api" />
+    </module>
+
     <module name="javax.transaction.api" skip="true">
         <include artifact=":geronimo-jta_1.0.1B_spec" />
         <include artifact=":geronimo-jta_1.1_spec" />
         <include artifact=":geronimo-transaction" />
         <include artifact=":jboss-transaction-api_1.1_spec" />
+        <include artifact=":javax.transaction" />
     </module>
 
     <module name="javax.validation.api" skip="true">
@@ -376,6 +385,8 @@
     <module name="org.jboss.as.weld" skip="true">
         <include artifact=":wildfly-weld" />
         <include artifact=":weld-api" />
+        <include artifact=":weld-core" />
+        <include artifact=":weld-osgi-bundle" />
         <include artifact=":weld-spi" />
     </module>
     
@@ -422,6 +433,7 @@
     <module name="org.slf4j" skip="true">
         <include artifact=":jcl-over-slf4j" />
         <include artifact=":slf4j-api" />
+        <include artifact=":slf4j-jdk14" />
         <include artifact=":slf4j-log4j12" />
         <include artifact=":slf4j-simple" />
     </module>

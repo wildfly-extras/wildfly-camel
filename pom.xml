@@ -70,6 +70,7 @@
         <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
         <version.apache.qpid>6.1.2</version.apache.qpid>
         <version.apache.qpid.proton>0.16.0</version.apache.qpid.proton>
+        <version.apache.hadoop>2.7.2</version.apache.hadoop>
         <version.apache.httpcomponents>4.5.2</version.apache.httpcomponents>
         <version.apache.karaf>2.4.3</version.apache.karaf>
         <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
@@ -301,7 +302,21 @@
                 <version>${version.greenmail}</version>
                 <type>war</type>
             </dependency>
-            
+
+            <!-- Hadoop test support -->
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-common</artifactId>
+                <version>${version.apache.hadoop}</version>
+                <type>test-jar</type>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-hdfs</artifactId>
+                <version>${version.apache.hadoop}</version>
+                <type>test-jar</type>
+            </dependency>
+
             <!-- Hawt.io -->
             <dependency>
                 <groupId>io.hawt</groupId>

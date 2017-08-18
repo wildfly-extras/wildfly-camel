@@ -99,6 +99,22 @@
             <artifactId>ftplet-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <type>test-jar</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-hdfs</artifactId>
+            <type>test-jar</type>
+        </dependency>
+        <dependency>
             <groupId>org.apache.qpid</groupId>
             <artifactId>qpid-broker</artifactId>
         </dependency>
@@ -148,7 +164,7 @@
             <groupId>xalan</groupId>
             <artifactId>xalan</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-feature-pack</artifactId>
