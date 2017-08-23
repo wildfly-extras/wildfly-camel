@@ -37,9 +37,11 @@ import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -53,31 +55,37 @@ public class Hdfs2IntegrationTest {
 
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
-            String dataDir = Paths.get(System.getProperty("jboss.home"), "standalone", "data", "hadoop").toString();
+            if (!EnvironmentUtils.isAIX()) {
+                String dataDir = Paths.get(System.getProperty("jboss.home"), "standalone", "data", "hadoop").toString();
 
-            Configuration configuration = new Configuration();
-            configuration.set(MiniDFSCluster.HDFS_MINIDFS_BASEDIR, dataDir);
+                Configuration configuration = new Configuration();
+                configuration.set(MiniDFSCluster.HDFS_MINIDFS_BASEDIR, dataDir);
 
-            MiniDFSCluster.Builder builder = new MiniDFSCluster.Builder(configuration);
-            hdfsCluster = builder.build();
+                MiniDFSCluster.Builder builder = new MiniDFSCluster.Builder(configuration);
+                hdfsCluster = builder.build();
 
-            AvailablePortFinder.storeServerData("hdfs-port", hdfsCluster.getNameNodePort());
+                AvailablePortFinder.storeServerData("hdfs-port", hdfsCluster.getNameNodePort());
+            }
         }
 
         @Override
         public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
-            hdfsCluster.shutdown(true);
+            if (!EnvironmentUtils.isAIX()) {
+                hdfsCluster.shutdown(true);
+            }
         }
     }
 
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-hdfs2-tests.jar")
-            .addClass(AvailablePortFinder.class);
+            .addClasses(AvailablePortFinder.class, EnvironmentUtils.class);
     }
 
     @Test
     public void testHdfs2Component() throws Exception {
+        Assume.assumeFalse("[#1961] Hdfs2IntegrationTest causes build to hang on AIX", EnvironmentUtils.isAIX());
+
         String dataDir = Paths.get(System.getProperty("jboss.server.data.dir"), "hadoop").toString();
         String port = AvailablePortFinder.readServerData("hdfs-port");
 
