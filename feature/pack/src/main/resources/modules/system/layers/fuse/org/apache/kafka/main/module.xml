@@ -6,19 +6,18 @@
   <resources>
     <artifact name="${net.sf.jopt-simple:jopt-simple}" />
     <artifact name="${org.apache.kafka:kafka_2.11}" />
-    <artifact name="${com.yammer.metrics:metrics-core}" />
     <artifact name="${com.101tec:zkclient}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
     <module name="org.scala.library" />
+    <module name="com.yammer.metrics" />
     <module name="org.apache.kafka.clients" />
     <module name="org.apache.zookeeper" />
     <module name="org.scala.modules" />
     <module name="org.slf4j" />
   </dependencies>
   <exports>
-    <exclude path="com/yammer**" />
     <exclude path="joptsimple**" />
     <exclude path="org/I0Itec**" />
   </exports>

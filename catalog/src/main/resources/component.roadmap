@@ -51,6 +51,7 @@ ftp
 ftps
 git
 github
+hbase
 hdfs2
 http4
 https4
@@ -157,7 +158,6 @@ google-drive
 google-mail
 google-pubsub
 grpc
-hbase
 ignite-cache
 ignite-compute
 ignite-events

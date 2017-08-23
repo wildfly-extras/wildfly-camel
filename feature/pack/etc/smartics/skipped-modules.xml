@@ -79,11 +79,20 @@
 
     <module name="findbugs" skip="true">
         <include artifact="com.google.code.findbugs:(.*)" />
+        <include artifact="com.github.stephenc.findbugs:findbugs-annotations" />
         <include artifact="findbugs:annotations" />
     </module>
     
     <module name="com.google.auto.value" skip="true">
         <include artifact="com.google.auto.value:auto-value" />
+    </module>
+
+    <module name="com.google.inject.guice" skip="true">
+        <include artifact="com.google.inject:guice"/>
+    </module>
+
+    <module name="com.google.inject.extensions" skip="true">
+        <include artifact="com.google.inject.extensions:guice-servlet"/>
     </module>
 
     <module name="com.ibm.jbatch.tck" skip="true">
@@ -107,9 +116,11 @@
     </module>
 
     <module name="com.sun.jersey" skip="true">
+        <include artifact="com.sun.jersey:jersey-client" />
         <include artifact="com.sun.jersey:jersey-core"/>
         <include artifact="com.sun.jersey:jersey-json"/>
         <include artifact="com.sun.jersey:jersey-server"/>
+        <include artifact="com.sun.jersey.contribs:jersey-guice" />
     </module>
 
     <module name="com.sun.ldapbp" skip="true">
@@ -142,6 +153,10 @@
 
     <module name="jdiff" skip="true">
         <include artifact="jdiff:jdiff" />
+    </module>
+
+    <module name="jdk.tools" skip="true">
+        <include artifact="jdk.tools:jdk.tools"/>
     </module>
 
     <module name="jline" skip="true">

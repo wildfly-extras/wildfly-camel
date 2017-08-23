@@ -71,6 +71,9 @@
         <version.apache.qpid>6.1.2</version.apache.qpid>
         <version.apache.qpid.proton>0.16.0</version.apache.qpid.proton>
         <version.apache.hadoop>2.7.2</version.apache.hadoop>
+        <version.apache.hadoop.protobuf>2.5.0</version.apache.hadoop.protobuf>
+        <version.apache.hbase>1.2.1</version.apache.hbase>
+        <version.apache.hbase.guava>14.0</version.apache.hbase.guava>
         <version.apache.httpcomponents>4.5.2</version.apache.httpcomponents>
         <version.apache.karaf>2.4.3</version.apache.karaf>
         <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
@@ -315,6 +318,14 @@
                 <artifactId>hadoop-hdfs</artifactId>
                 <version>${version.apache.hadoop}</version>
                 <type>test-jar</type>
+            </dependency>
+
+            <!-- HBase test support -->
+            <dependency>
+                <groupId>org.apache.hbase</groupId>
+                <artifactId>hbase-testing-util</artifactId>
+                <version>${version.apache.hbase}</version>
+                <scope>test</scope>
             </dependency>
 
             <!-- Hawt.io -->

@@ -733,6 +733,27 @@
         </apply-to-dependencies>
     </module>
 
+    <module name="org.apache.camel.component.hbase">
+        <include artifact="org.apache.camel:camel-hbase"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.hbase" export="true" services="export">
+                <exports>
+                    <include path="org/apache/hadoop/hbase" />
+                    <include path="org/apache/hadoop/hbase/client" />
+                    <include path="org/apache/hadoop/hbase/filter**" />
+                    <exclude path="com/google**" />
+                    <exclude path="org/apache/hadoop/hbase**" />
+                </exports>
+            </module>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.hdfs2">
         <include artifact="org.apache.camel:camel-hdfs2" />
         <apply-to-dependencies skip="true">
@@ -743,13 +764,18 @@
             <module name="javax.api"/>
             <module name="org.apache.hadoop" export="true" services="export">
                 <exports>
-                    <exclude path="org/apache/hadoop/log**" />
-                    <exclude path="org/apache/hadoop/jmx**" />
-                    <exclude path="org/apache/hadoop/metrics**" />
-                    <exclude path="org/apache/hadoop/service**" />
-                    <exclude path="org/apache/hadoop/tools**" />
-                    <exclude path="org/apache/hadoop/tracing**" />
-                    <exclude path="org/apache/hadoop/util**" />
+                    <include path="org/apache/hadoop" />
+                    <include path="org/apache/hadoop/conf**" />
+                    <include path="org/apache/hadoop/crypto**" />
+                    <include path="org/apache/hadoop/fs**" />
+                    <include path="org/apache/hadoop/hdfs**" />
+                    <include path="org/apache/hadoop/http**" />
+                    <include path="org/apache/hadoop/io**" />
+                    <include path="org/apache/hadoop/ipc**" />
+                    <include path="org/apache/hadoop/net**" />
+                    <include path="org/apache/hadoop/security**" />
+                    <exclude path="org/apache/hadoop**" />
+                    <exclude path="webapps**" />
                 </exports>
             </module>
             <module name="org.slf4j"/>

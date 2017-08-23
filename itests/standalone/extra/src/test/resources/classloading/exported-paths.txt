@@ -838,6 +838,13 @@ org/apache/camel/component/github
 org/apache/camel/component/github/consumer
 org/apache/camel/component/github/producer
 org/apache/camel/component/gson
+org/apache/camel/component/hbase
+org/apache/camel/component/hbase/converter
+org/apache/camel/component/hbase/filters
+org/apache/camel/component/hbase/mapping
+org/apache/camel/component/hbase/model
+org/apache/camel/component/hbase/processor
+org/apache/camel/component/hbase/processor/idempotent
 org/apache/camel/component/hdfs2
 org/apache/camel/component/hdfs2/osgi
 org/apache/camel/component/hl7
@@ -1185,8 +1192,6 @@ org/apache/cxf/ws/security/wss4j
 org/apache/cxf/ws/security/wss4j/policyhandlers
 org/apache/cxf/ws/security/wss4j/policyvalidators
 org/apache/hadoop
-org/apache/hadoop/classification
-org/apache/hadoop/classification/tools
 org/apache/hadoop/conf
 org/apache/hadoop/crypto
 org/apache/hadoop/crypto/key
@@ -1200,9 +1205,9 @@ org/apache/hadoop/fs/permission
 org/apache/hadoop/fs/shell
 org/apache/hadoop/fs/shell/find
 org/apache/hadoop/fs/viewfs
-org/apache/hadoop/ha
-org/apache/hadoop/ha/proto
-org/apache/hadoop/ha/protocolPB
+org/apache/hadoop/hbase
+org/apache/hadoop/hbase/client
+org/apache/hadoop/hbase/filter
 org/apache/hadoop/hdfs
 org/apache/hadoop/hdfs/client
 org/apache/hadoop/hdfs/inotify
@@ -1273,11 +1278,6 @@ org/apache/hadoop/ipc/protobuf
 org/apache/hadoop/ipc/protocolPB
 org/apache/hadoop/net
 org/apache/hadoop/net/unix
-org/apache/hadoop/record
-org/apache/hadoop/record/compiler
-org/apache/hadoop/record/compiler/ant
-org/apache/hadoop/record/compiler/generated
-org/apache/hadoop/record/meta
 org/apache/hadoop/security
 org/apache/hadoop/security/alias
 org/apache/hadoop/security/authentication

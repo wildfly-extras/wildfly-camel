@@ -360,6 +360,13 @@
         </dependencies>
     </module>
 
+    <module name="com.yammer.metrics">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.yammer.metrics:metrics-core" />
+    </module>
+
     <module name="dk.brics.automaton">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -661,12 +668,15 @@
         </properties>
         <apply-to-dependencies skip="true">
             <include module="ant" />
+            <include module="com.google.inject.guice"/>
+            <include module="com.google.inject.extensions"/>
             <include module="com.sun.jersey" />
             <include module="findbugs" />
             <include module="io.netty.skipped" />
             <include module="jdiff" />
             <include module="jdk.tools" />
             <include module="net.java.dev.jets3t" />
+            <include module="org.apache.camel.component.protobuf" />
             <include module="org.apache.commons.daemon" />
             <include module="org.fusesource.leveldbjni" />
             <include module="org.mortbay.jetty" />
@@ -675,10 +685,46 @@
         <include artifact="org.apache.hadoop:hadoop-auth" />
         <include artifact="org.apache.hadoop:hadoop-common" />
         <include artifact="org.apache.hadoop:hadoop-hdfs" />
+        <include artifact="org.apache.hadoop:hadoop-mapreduce-client-core"/>
+        <include artifact="org.apache.hadoop:hadoop-yarn-api"/>
+        <include artifact="org.apache.hadoop:hadoop-yarn-common"/>
         <dependencies>
+            <module name="com.google.protobuf" slot="2.5.0" />
+            <module name="org.apache.commons.configuration" />
+            <module name="org.apache.commons.net" />
             <module name="ibm.jdk.ext" />
             <module name="javax.api" />
             <module name="sun.jdk.ext" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.hbase">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.hbase:hbase-annotations"/>
+        <include artifact="org.apache.hbase:hbase-client"/>
+        <include artifact="org.apache.hbase:hbase-common"/>
+        <include artifact="org.apache.hbase:hbase-protocol"/>
+        <apply-to-dependencies skip="true">
+            <include module="findbugs"/>
+            <include module="io.netty.skipped" />
+            <include module="junit"/>
+            <include module="org.apache.camel.component.protobuf" />
+            <include module="org.jruby.extras"/>
+            <include module="org.mortbay.jetty"/>
+            <include module="org.osgi.core"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.google.protobuf" slot="2.5.0" />
+            <module name="com.google.guava" slot="14.0" />
+            <module name="io.netty" slot="4.0" />
+            <module name="javax.api"/>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc/Unsafe"/>
+                </imports>
+            </module>
         </dependencies>
     </module>
 
@@ -708,7 +754,6 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.kafka:kafka_2.11" />
-        <include artifact="com.yammer.metrics:metrics-core" />
         <include artifact="net.sf.jopt-simple:jopt-simple" />
         <include artifact="com.101tec:zkclient" />
         <dependencies>
@@ -716,7 +761,6 @@
             <module name="org.scala.library" />
         </dependencies>
         <exports>
-            <exclude path="com/yammer**" />
             <exclude path="joptsimple**" />
             <exclude path="org/I0Itec**" />
         </exports>

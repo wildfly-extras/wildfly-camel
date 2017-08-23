@@ -7,13 +7,18 @@
     <module name="javax.api" />
     <module name="org.apache.hadoop" export="true" services="export">
       <exports>
-        <exclude path="org/apache/hadoop/log**" />
-        <exclude path="org/apache/hadoop/jmx**" />
-        <exclude path="org/apache/hadoop/metrics**" />
-        <exclude path="org/apache/hadoop/service**" />
-        <exclude path="org/apache/hadoop/tools**" />
-        <exclude path="org/apache/hadoop/tracing**" />
-        <exclude path="org/apache/hadoop/util**" />
+        <include path="org/apache/hadoop" />
+        <include path="org/apache/hadoop/conf**" />
+        <include path="org/apache/hadoop/crypto**" />
+        <include path="org/apache/hadoop/fs**" />
+        <include path="org/apache/hadoop/hdfs**" />
+        <include path="org/apache/hadoop/http**" />
+        <include path="org/apache/hadoop/io**" />
+        <include path="org/apache/hadoop/ipc**" />
+        <include path="org/apache/hadoop/net**" />
+        <include path="org/apache/hadoop/security**" />
+        <exclude path="org/apache/hadoop**" />
+        <exclude path="webapps**" />
       </exports>
     </module>
     <module name="org.slf4j" />

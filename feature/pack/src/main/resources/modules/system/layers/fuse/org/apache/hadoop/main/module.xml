@@ -8,8 +8,14 @@
     <artifact name="${org.apache.hadoop:hadoop-auth}" />
     <artifact name="${org.apache.hadoop:hadoop-common}" />
     <artifact name="${org.apache.hadoop:hadoop-hdfs}" />
+    <artifact name="${org.apache.hadoop:hadoop-mapreduce-client-core}" />
+    <artifact name="${org.apache.hadoop:hadoop-yarn-api}" />
+    <artifact name="${org.apache.hadoop:hadoop-yarn-common}" />
   </resources>
   <dependencies>
+    <module name="com.google.protobuf" slot="2.5.0" />
+    <module name="org.apache.commons.configuration" />
+    <module name="org.apache.commons.net" />
     <module name="ibm.jdk.ext" />
     <module name="javax.api" />
     <module name="sun.jdk.ext" />
@@ -19,19 +25,17 @@
     <module name="io.netty" slot="3.10" />
     <module name="javax.servlet.api" />
     <module name="javax.servlet.jsp.api" />
+    <module name="javax.xml.bind.api" />
     <module name="org.apache.avro" />
-    <module name="org.apache.camel.component.protobuf" />
     <module name="org.apache.commons.cli" />
     <module name="org.apache.commons.codec" />
     <module name="org.apache.commons.collections" />
     <module name="org.apache.commons.compress" />
-    <module name="org.apache.commons.configuration" />
     <module name="org.apache.commons.httpclient" />
     <module name="org.apache.commons.io" />
     <module name="org.apache.commons.lang" />
     <module name="org.apache.commons.logging" />
     <module name="org.apache.commons.math3" />
-    <module name="org.apache.commons.net" />
     <module name="org.apache.directory" />
     <module name="org.apache.htrace" />
     <module name="org.apache.httpcomponents" slot="4.5.2" />
@@ -39,7 +43,9 @@
     <module name="org.apache.xerces" />
     <module name="org.apache.zookeeper" />
     <module name="org.codehaus.jackson.jackson-core-asl" />
+    <module name="org.codehaus.jackson.jackson-jaxrs" />
     <module name="org.codehaus.jackson.jackson-mapper-asl" />
+    <module name="org.codehaus.jackson.jackson-xc" />
     <module name="org.slf4j" />
     <module name="xmlenc" />
   </dependencies>
