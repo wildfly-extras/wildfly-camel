@@ -41,11 +41,9 @@ import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.common.utils.JMSUtils;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -75,8 +73,7 @@ public class SJMSBatchIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-sjms-batch-tests")
-            .addClasses(EnvironmentUtils.class);
+        return ShrinkWrap.create(JavaArchive.class, "camel-sjms-batch-tests");
     }
 
     @Before
@@ -91,8 +88,6 @@ public class SJMSBatchIntegrationTest {
 
     @Test
     public void testBatchMessageConsumerRoute() throws Exception {
-
-        Assume.assumeFalse("[#1707] SJMSBatchIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
 
         int messageCount = 1000;
         int consumerCount = 5;
