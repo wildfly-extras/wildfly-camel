@@ -46,11 +46,9 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
-import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -86,7 +84,7 @@ public class PahoIntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "mqtt-tests");
-        archive.addClasses(EnvironmentUtils.class, TestUtils.class);
+        archive.addClasses(TestUtils.class);
         archive.addAsResource(new StringAsset(BrokerSetup.TCP_CONNECTION), "tcp-connection");
         return archive;
     }
@@ -94,7 +92,6 @@ public class PahoIntegrationTest {
     @Test
     public void testPahoConsumer() throws Exception {
         
-        Assume.assumeFalse("[#1648] PahoIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         String conUrl = TestUtils.getResourceValue(getClass(), "/tcp-connection");
         
         CamelContext camelctx = new DefaultCamelContext();
@@ -133,7 +130,6 @@ public class PahoIntegrationTest {
     @Test
     public void testMQTTProducer() throws Exception {
         
-        Assume.assumeFalse("[#1648] PahoIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
         String conUrl = TestUtils.getResourceValue(getClass(), "/tcp-connection");
         
         CamelContext camelctx = new DefaultCamelContext();
