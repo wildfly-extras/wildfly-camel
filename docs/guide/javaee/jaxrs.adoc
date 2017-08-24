@@ -73,8 +73,8 @@ public class RestConsumerRouteBuilder extends RouteBuilder {
   @Override
   public void configure() throws Exception {
   
-    // Use the camel-servlet component to provide REST integration
-    restConfiguration().component("servlet")
+    // Use the camel-undertow component to provide REST integration
+    restConfiguration().component("undertow")
       .contextPath("/rest").port(8080).bindingMode(RestBindingMode.json);
 
     rest("/customer")
@@ -101,7 +101,7 @@ public class RestConsumerRouteBuilder extends RouteBuilder {
 }
 ----
 
-Note that the REST DSL configuration starts with `restConfiguration().component("servlet")`. 
+Note that the REST DSL configuration starts with `restConfiguration().component("undertow")`.
 
 [CAUTION]
 ====
@@ -109,81 +109,6 @@ The WildFly Camel Subsystem only supports the camel-servlet and camel-undertow c
 ====
 
 By setting the binding mode, Camel can marshal and unmarshal JSON data either by specifying a 'produces()' or 'type()' configuration step.
-
-
-#### JAX-RS Consumer with CamelProxy
-
-JAX-RS consumer endpoints can be configured using the http://camel.apache.org/using-camelproxy.html[CamelProxy,window=_blank]. The proxy enables
-you to proxy a producer sending to an Endpoint by a regular interface. When clients invoke methods on this interface, the proxy performs a request / reply to a specified endpoint.
-
-Below is an example JAX-RS service interface and implementation.
-
-[source,java,options="nowrap"]
-----
-// Service interface
-@Path("/customer")
-public interface CustomerService {
-
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  Response getCustomers();
-
-  @PUT
-  Response updateCustomer();
-}
-----
-
-[source,java,options="nowrap"]
-----
-// Service implementation
-public class CustomerServiceImpl implements CustomerService {
-  @Inject
-  @ContextName("rest-camel-context")
-  private CamelContext context;
-
-  @Produce(uri="direct:rest")
-  private CustomerService customerServiceProxy;  
-
-  @Override
-  public Response getCustomers() {
-    return customerServiceProxy.getCustomers();
-  }
-
-  @Override
-  public Response updateCustomer(Customer customer) {
-    return customerServiceProxy.updateCustomer(customer);
-  }
-}
-----
-
-Notice in the above code example that `CustomerServiceImpl` delegates all method calls to a customerServiceProxy object which has been annotated
-with `@Produce`. This annotation is important as it configures a proxy for the `direct:rest` endpoint against the `CustomerService` interface. Whenever any of the REST service methods are invoked by clients, the `direct:rest` camel route is triggered.
-
-The RouteBuilder class implements logic for each REST service method invocation.
-
-[source,java,options="nowrap"]
-from("direct:rest")
-  .process(new Processor() {
-      @Override
-      public void process(Exchange exchange) throws Exception {
-        BeanInvocation beanInvocation = exchange.getIn().getBody(BeanInvocation.class);
-        String methodName = beanInvocation.getMethod().getName();
-
-        if (methodName.equals("getCustomers")) {
-          List<Customer> customers = customerService.findAllCustomers();
-          exchange.getOut().setBody(Response.ok(customers).build());
-        } else if(methodName.equals("updateCustomer")) {
-          Customer updatedCustomer = (Customer) beanInvocation.getArgs()[0];
-          customerService.updateCustomer(updatedCustomer);
-          exchange.getOut().setBody(Response.ok().build());
-        }
-      }
-  });
-
-In the above RouteBuilder a `Processor` handles REST service method invocations that have been proxied through the `direct:rest` endpoint.
-The exchange message body will be an instance of `BeanInvocation`. This can be used to determine which web service method was invoked and
-what arguments were passed to it. In this example some simple logic is used to return results to the client based on the name of the method that
-was called.
 
 #### Security
 
