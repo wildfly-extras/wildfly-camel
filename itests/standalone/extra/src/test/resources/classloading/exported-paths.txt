@@ -501,6 +501,8 @@ com/dropbox/core/json
 com/dropbox/core/util
 com/github/kristofa/brave
 com/github/kristofa/brave/scribe
+com/google/api/services/pubsub
+com/google/api/services/pubsub/model
 com/google/gson
 com/google/protobuf
 com/google/protobuf/util
@@ -837,6 +839,9 @@ org/apache/camel/component/git/producer
 org/apache/camel/component/github
 org/apache/camel/component/github/consumer
 org/apache/camel/component/github/producer
+org/apache/camel/component/google
+org/apache/camel/component/google/pubsub
+org/apache/camel/component/google/pubsub/consumer
 org/apache/camel/component/gson
 org/apache/camel/component/hbase
 org/apache/camel/component/hbase/converter

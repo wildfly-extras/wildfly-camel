@@ -51,6 +51,7 @@ ftp
 ftps
 git
 github
+google-pubsub
 hbase
 hdfs2
 http4
@@ -156,7 +157,6 @@ flink
 google-calendar
 google-drive
 google-mail
-google-pubsub
 grpc
 ignite-cache
 ignite-compute

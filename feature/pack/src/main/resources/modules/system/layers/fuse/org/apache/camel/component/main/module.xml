@@ -68,6 +68,7 @@
         <module name="org.apache.camel.component.freemarker" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.git" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.github" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.google.pubsub" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.groovy" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.gson" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.hbase" export="true" services="export" optional="true" />

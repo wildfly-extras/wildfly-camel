@@ -84,6 +84,8 @@ include::camel-git.adoc[]
 
 include::camel-github.adoc[]
 
+include::camel-google-pubsub.adoc[]
+
 include::camel-hbase.adoc[]
 
 include::camel-hdfs2.adoc[]

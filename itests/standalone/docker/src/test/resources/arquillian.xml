@@ -51,6 +51,19 @@
                     url: http://dockerHost:5984
                     responseCode: 200
                     iterations: 15
+            google_pubsub:
+                image: wildflyext/pubsub-emulator:2017.08.07
+                cmd: [
+                    "--host-port",
+                    "0.0.0.0:8590"
+                ]
+                portBindings: [
+                    8590->8590/tcp
+                ]
+                await:
+                    strategy: log
+                    match: 'Server started'
+                    timeout: 15
             influxdb:
                 image: influxdb:1.1-alpine
                 env: [

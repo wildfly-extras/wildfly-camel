@@ -77,6 +77,11 @@
         <include artifact="com.google.android:android"/>
     </module>
 
+    <module name="com.google.guava.skipped" skip="true">
+        <include artifact="com.google.guava:guava-bootstrap-jdk5" />
+        <include artifact="com.google.guava:guava-jdk5" />
+    </module>
+
     <module name="findbugs" skip="true">
         <include artifact="com.google.code.findbugs:(.*)" />
         <include artifact="com.github.stephenc.findbugs:findbugs-annotations" />

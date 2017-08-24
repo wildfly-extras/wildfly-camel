@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.google.pubsub">
+  <resources>
+    <artifact name="${org.apache.camel:camel-google-pubsub}" />
+    <artifact name="${com.google.api-client:google-api-client}" />
+    <artifact name="${com.google.apis:google-api-services-pubsub}" />
+    <artifact name="${com.google.http-client:google-http-client}" />
+    <artifact name="${com.google.http-client:google-http-client-jackson2}" />
+    <artifact name="${com.google.oauth-client:google-oauth-client}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.apache.httpcomponents" slot="4.5.2" />
+  </dependencies>
+  <exports>
+    <include path="com/google/api/services/pubsub**" />
+    <exclude path="com/google**" />
+  </exports>
+</module>

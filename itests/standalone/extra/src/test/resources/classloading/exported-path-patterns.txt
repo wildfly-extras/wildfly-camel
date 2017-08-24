@@ -7,6 +7,7 @@
 	^com/dropbox/core(.*)
 	^com/codahale(.*)
 	^com/github/kristofa/brave(.*)
+	^com/google/api/services/pubsub(.*)
     ^com/google/gson(.*)
 	^com/google/protobuf(.*)
 	^com/mongodb(.*)
