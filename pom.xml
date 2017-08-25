@@ -126,7 +126,7 @@
         <version-properties-maven-plugin>1.0.0</version-properties-maven-plugin>
         <version-smartics-maven-plugin>2.1.2</version-smartics-maven-plugin>
         <version-wildfly-build-tools>1.1.6.Final</version-wildfly-build-tools>
-        <version-wildfly-maven-plugin>1.2.0.Alpha6</version-wildfly-maven-plugin>
+        <version-wildfly-maven-plugin>1.2.0.Final</version-wildfly-maven-plugin>
         <version-xmlbeans-maven-plugin>2.3.3</version-xmlbeans-maven-plugin>
 
         <!-- GitHub -->
