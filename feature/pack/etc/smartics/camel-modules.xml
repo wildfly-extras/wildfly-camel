@@ -460,6 +460,7 @@
                     <include path="org/apache/cxf/io" />
                     <include path="org/apache/cxf/message" />
                     <include path="org/apache/cxf/phase" />
+                    <include path="org/apache/cxf/security/transport" />
                     <include path="org/apache/cxf/sts" />
                     <include path="org/apache/cxf/transport/http**" />
                     <include path="org/apache/cxf/ws/discovery" />
