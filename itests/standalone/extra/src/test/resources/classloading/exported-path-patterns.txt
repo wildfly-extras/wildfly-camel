@@ -40,6 +40,7 @@
     ^org/apache/cxf/io(.*)
 	^org/apache/cxf/message(.*)
     ^org/apache/cxf/phase(.*)
+    ^org/apache/cxf/security/transport(.*)
 	^org/apache/cxf/sts(.*)
 	^org/apache/cxf/transport
 	^org/apache/cxf/transport/http(.*)
