@@ -264,6 +264,10 @@
 /org/apache/camel/component/xmlbeans/main/camel-xmlbeans-2.19.2.jar
 /org/apache/camel/component/xmlsecurity/main/camel-xmlsecurity-2.19.2.jar
 /org/apache/camel/component/xstream/main/camel-xstream-2.19.2.jar
+/org/apache/camel/component/zendesk/main/async-http-client-1.9.31.jar
+/org/apache/camel/component/zendesk/main/camel-zendesk-2.19.2.jar
+/org/apache/camel/component/zendesk/main/handy-uri-templates-1.1.7.jar
+/org/apache/camel/component/zendesk/main/zendesk-java-client-0.5.4.jar
 /org/apache/camel/component/zipfile/main/camel-zipfile-2.19.2.jar
 /org/apache/camel/component/zipkin/main/brave-core-4.2.0.jar
 /org/apache/camel/component/zipkin/main/brave-spancollector-scribe-4.2.0.jar

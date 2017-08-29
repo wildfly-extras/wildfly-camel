@@ -94,7 +94,7 @@
                         import java.util.regex.Matcher
 
                         def skip = (System.getProperty("skipTests") != null || System.getProperty("skipDockerPull") != null)
-                        if (skip == null &amp;&amp; !skip) {
+                        if (!skip) {
                             // Pull before tests run inside of the container due to: https://issues.jboss.org/browse/ARQ-688
                             boolean dockerAvailable = System.getenv("DOCKER_HOST") != null || Files.exists(Paths.get("/var/run/docker.sock"))
                             if (dockerAvailable) {

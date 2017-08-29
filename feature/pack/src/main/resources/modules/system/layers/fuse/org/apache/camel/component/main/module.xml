@@ -184,6 +184,7 @@
         <module name="org.apache.camel.component.xmlbeans" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.xmlsecurity" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.xstream" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.zendesk" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.zipfile" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.zipkin" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.zookeeper" export="true" services="export" optional="true" />

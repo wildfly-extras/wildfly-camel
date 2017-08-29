@@ -236,6 +236,8 @@ include::camel-weather.adoc[]
 
 include::camel-xstream.adoc[]
 
+include::camel-zendesk.adoc[]
+
 include::camel-zipkin.adoc[]
 
 include::camel-zookeeper.adoc[]

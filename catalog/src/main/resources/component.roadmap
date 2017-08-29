@@ -141,6 +141,7 @@ weather
 xmlsecurity
 xquery
 xslt
+zendesk
 zookeeper
 
 [planned]
@@ -179,7 +180,6 @@ openstack-swift
 pubnub
 tika
 websocket
-zendesk
 zookeeper-master
 
 [undecided]

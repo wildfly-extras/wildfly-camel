@@ -1021,6 +1021,7 @@ org/apache/camel/component/xmlsecurity
 org/apache/camel/component/xmlsecurity/api
 org/apache/camel/component/xmlsecurity/processor
 org/apache/camel/component/xquery
+org/apache/camel/component/zendesk
 org/apache/camel/component/zookeeper
 org/apache/camel/component/zookeeper/operations
 org/apache/camel/component/zookeeper/policy
@@ -2666,6 +2667,14 @@ org/yaml/snakeyaml/scanner
 org/yaml/snakeyaml/serializer
 org/yaml/snakeyaml/tokens
 org/yaml/snakeyaml/util
+org/zendesk
+org/zendesk/client
+org/zendesk/client/v2
+org/zendesk/client/v2/model
+org/zendesk/client/v2/model/events
+org/zendesk/client/v2/model/hc
+org/zendesk/client/v2/model/schedules
+org/zendesk/client/v2/model/targets
 redis/clients
 redis/clients/jedis
 redis/clients/jedis/commands
