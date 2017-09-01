@@ -81,7 +81,7 @@ public class WildFlyUndertowComponent extends UndertowComponent {
                 LOGGER.warn("Ignoring configured host: {}", uri);
             }
 
-            // [#1809] Reenable undertow consumer prefix paths
+            // [#1809] Enable undertow consumer prefix paths
             if (!(endpoint.getUndertowHttpBinding() instanceof RestUndertowHttpBinding) && endpoint.getMatchOnUriPrefix()) {
                 LOGGER.warn("Ignoring URI path prefix matches for {}", uri.getPath());
             }

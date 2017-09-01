@@ -26,9 +26,10 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
@@ -62,6 +63,7 @@ import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.server.RoutingHandler;
 import io.undertow.servlet.api.Deployment;
+import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.util.PathTemplate;
 import io.undertow.util.URLUtils;
 
@@ -140,7 +142,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
     class WildFlyUndertowHost implements UndertowHost {
         private static final String REST_PATH_PLACEHOLDER = "{";
         private static final String DEFAULT_METHODS = "GET,HEAD,POST,PUT,DELETE,TRACE,OPTIONS,CONNECT,PATCH";
-        private final Map<String, DelegatingRoutingHandler> handlers = new HashMap<>();
+        private final Map<String, DelegatingRoutingHandler> handlers = new ConcurrentHashMap<>();
         private final Host defaultHost;
 
         WildFlyUndertowHost(Host host) {
@@ -149,6 +151,11 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
         @Override
         public void validateEndpointURI(URI httpURI) {
+            validateEndpointPort(httpURI);
+            validateEndpointContextPath(httpURI);
+        }
+
+        private void validateEndpointPort(URI httpURI) {
             // Camel HTTP endpoint port defaults are 0 or -1
             boolean portMatched = httpURI.getPort() == 0 || httpURI.getPort() == -1;
 
@@ -173,13 +180,26 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
             }
         }
 
+        private void validateEndpointContextPath(URI httpURI) {
+            // Make sure camel cannot overwrite HTTP handlers already deployed under the same context path
+            String undertowEndpointPath = getContextPath(httpURI);
+            Set<Deployment> deployments = defaultHost.getDeployments();
+            for (Deployment deployment : deployments) {
+                DeploymentInfo depInfo = deployment.getDeploymentInfo();
+                String contextPath = depInfo.getContextPath();
+                boolean contextPathExists = deployment.getHandler() != null && contextPath.equals(undertowEndpointPath);
+                IllegalStateAssertion.assertFalse(contextPathExists, "Cannot overwrite context path " + contextPath + " owned by " + depInfo.getDeploymentName());
+            }
+        }
+
         @Override
 		public void registerHandler(HttpHandlerRegistrationInfo reginfo, HttpHandler handler) {
+            URI httpURI = reginfo.getUri();
 
-            String contextPath = getContextPath(reginfo);
+            String contextPath = getContextPath(httpURI);
             LOGGER.debug("Using context path {}" , contextPath);
 
-            String relativePath = getRelativePath(reginfo);
+            String relativePath = getRelativePath(httpURI);
             LOGGER.debug("Using relative path {}" , relativePath);
 
             DelegatingRoutingHandler routingHandler = handlers.get(contextPath);
@@ -203,14 +223,15 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
 		@Override
 		public void unregisterHandler(HttpHandlerRegistrationInfo reginfo) {
-            String contextPath = getContextPath(reginfo);
+            URI httpURI = reginfo.getUri();
+            String contextPath = getContextPath(httpURI);
             LOGGER.debug("unregisterHandler {}", contextPath);
 
             DelegatingRoutingHandler routingHandler = handlers.get(contextPath);
             if (routingHandler != null) {
                 String methods = reginfo.getMethodRestrict() == null ? DEFAULT_METHODS : reginfo.getMethodRestrict();
                 for (String method : methods.split(",")) {
-                    String relativePath = getRelativePath(reginfo);
+                    String relativePath = getRelativePath(httpURI);
                     routingHandler.remove(method, relativePath);
                     LOGGER.debug("Unregistered {}: {}", method, relativePath);
                 }
@@ -224,23 +245,30 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
             }
         }
 
-        private String getBasePath(HttpHandlerRegistrationInfo reginfo) {
-            String path = reginfo.getUri().getPath();
+        private Set<String> getRegisteredPaths() {
+            return handlers.keySet();
+        }
+
+        private String getBasePath(URI httpURI) {
+            String path = httpURI.getPath();
             if (path.contains(REST_PATH_PLACEHOLDER)) {
                 path = PathTemplate.create(path).getBase();
             }
             return URLUtils.normalizeSlashes(path);
         }
 
-        private String getContextPath(HttpHandlerRegistrationInfo reginfo) {
-            String path = getBasePath(reginfo);
+        private String getContextPath(URI httpURI) {
+            String path = getBasePath(httpURI);
             String[] pathElements = path.replaceFirst("^/", "").split("/");
-            return "/" + pathElements[0];
+            if (pathElements.length > 1) {
+                return String.format("/%s/%s", pathElements[0], pathElements[1]);
+            }
+            return String.format("/%s", pathElements[0]);
         }
 
-        private String getRelativePath(HttpHandlerRegistrationInfo reginfo) {
-            String path = reginfo.getUri().getPath();
-            String contextPath = getContextPath(reginfo);
+        private String getRelativePath(URI httpURI) {
+            String path = httpURI.getPath();
+            String contextPath = getContextPath(httpURI);
             return URLUtils.normalizeSlashes(path.substring(contextPath.length()));
         }
     }
@@ -251,7 +279,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
         private final RoutingHandler delegate = Handlers.routing();
 
         DelegatingRoutingHandler add(String method, String path, HttpHandler handler) {
-            MethodPathMapping mapping = new MethodPathMapping(method, path);
+            MethodPathMapping mapping = MethodPathMapping.of(method, path);
             IllegalStateAssertion.assertFalse(paths.contains(mapping) && !method.equals("OPTIONS"), "Cannot register duplicate handler for " + mapping);
 
             LOGGER.debug("Registered paths {}", this.toString());
@@ -264,7 +292,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
             // There is currently no way to remove paths from a RoutingHandler so set them to null
             // https://issues.jboss.org/browse/UNDERTOW-1073
             delegate.add(method, path, null);
-            paths.remove(new MethodPathMapping(method, path));
+            paths.remove(MethodPathMapping.of(method, path));
         }
 
         boolean hasRegisteredPaths() {
@@ -289,13 +317,17 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
         }
     }
 
-    class MethodPathMapping {
+    static class MethodPathMapping {
         private String method;
         private String path;
 
-        MethodPathMapping(String method, String path) {
+        private MethodPathMapping(String method, String path) {
             this.method = method;
             this.path = path;
+        }
+
+        static MethodPathMapping of(String method, String path) {
+            return new MethodPathMapping(method, path);
         }
 
         @Override
@@ -332,12 +364,28 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
         @Override
         public void onDeploymentStart(Deployment dep, Host host) {
+            // Ensure that a deployment HttpHandler cannot overwrite handlers created by camel-undertow
+            checkForOverlappingContextPath(dep);
+
             runtimeState.addHttpContext(dep.getServletContext().getContextPath());
         }
 
         @Override
         public void onDeploymentStop(Deployment dep, Host host) {
             runtimeState.removeHttpContext(dep.getServletContext().getContextPath());
+        }
+
+        private void checkForOverlappingContextPath(Deployment dep) {
+            DeploymentInfo depInfo = dep.getDeploymentInfo();
+            if (dep.getHandler() != null) {
+                String contextPath = depInfo.getContextPath();
+                WildFlyUndertowHost wildFlyUndertowHost = (WildFlyUndertowHost) undertowHost;
+
+                boolean match = wildFlyUndertowHost.getRegisteredPaths()
+                    .stream()
+                    .anyMatch(path -> path.equals(contextPath));
+                IllegalStateAssertion.assertFalse(match, "Cannot overwrite context path " + contextPath + " owned by camel-undertow" + contextPath);
+            }
         }
     }
 }

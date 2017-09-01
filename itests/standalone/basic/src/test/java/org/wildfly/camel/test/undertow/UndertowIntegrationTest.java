@@ -20,33 +20,51 @@
 
 package org.wildfly.camel.test.undertow;
 
-import java.net.HttpURLConnection;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.http.HttpRequest;
 import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
 import org.wildfly.extension.camel.CamelAware;
+import static java.net.HttpURLConnection.HTTP_OK;
 
 @RunWith(Arquillian.class)
 @CamelAware
 public class UndertowIntegrationTest {
 
+    private static final String TEST_SERVLET_WAR = "test-servlet.war";
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
+    @ArquillianResource
+    private Deployer deployer;
+
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "undertow-tests")
             .addClasses(HttpRequest.class);
+    }
+
+    @Deployment(testable = false, managed = false, name = TEST_SERVLET_WAR)
+    public static WebArchive createFooDeployment() {
+        return ShrinkWrap.create(WebArchive.class, TEST_SERVLET_WAR)
+            .addClass(HttpRequest.class);
     }
 
     @Test
@@ -55,23 +73,58 @@ public class UndertowIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("undertow:http://localhost/myapp/serviceA")
-                .setBody(simple("Hello ${header.name}"));
+                from("undertow:http://localhost/myapp")
+                .setBody(simple("Hello ${header.name} from /"));
+
+                from("undertow:http://localhost/myapp/a")
+                .setBody(simple("Hello ${header.name} from /a"));
+
+                from("undertow:http://localhost/myapp/a/b")
+                .setBody(simple("Hello ${header.name} from /a/b"));
+
+                from("undertow:http://localhost/myapp/a/b/c")
+                .setBody(simple("Hello ${header.name} from /a/b/c"));
+
+                from("undertow:http://localhost/myapp/b")
+                .setBody(simple("Hello ${header.name} from /b"));
+
+                from("undertow:http://localhost/myapp/c")
+                .setBody(simple("Hello ${header.name} from /c"));
             }
         });
 
         camelctx.start();
         try {
-            HttpResponse response = HttpRequest.get("http://localhost:8080/myapp/serviceA?name=Kermit").getResponse();
-            Assert.assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
-            Assert.assertEquals("Hello Kermit", response.getBody());
+            HttpResponse response = HttpRequest.get("http://localhost:8080/myapp?name=Kermit").getResponse();
+            Assert.assertEquals(HTTP_OK, response.getStatusCode());
+            Assert.assertEquals("Hello Kermit from /", response.getBody());
+
+            response = HttpRequest.get("http://localhost:8080/myapp/a?name=Kermit").getResponse();
+            Assert.assertEquals(HTTP_OK, response.getStatusCode());
+            Assert.assertEquals("Hello Kermit from /a", response.getBody());
+
+            response = HttpRequest.get("http://localhost:8080/myapp/a/b?name=Kermit").getResponse();
+            Assert.assertEquals(HTTP_OK, response.getStatusCode());
+            Assert.assertEquals("Hello Kermit from /a/b", response.getBody());
+
+            response = HttpRequest.get("http://localhost:8080/myapp/a/b/c?name=Kermit").getResponse();
+            Assert.assertEquals(HTTP_OK, response.getStatusCode());
+            Assert.assertEquals("Hello Kermit from /a/b/c", response.getBody());
+
+            response = HttpRequest.get("http://localhost:8080/myapp/b?name=Kermit").getResponse();
+            Assert.assertEquals(HTTP_OK, response.getStatusCode());
+            Assert.assertEquals("Hello Kermit from /b", response.getBody());
+
+            response = HttpRequest.get("http://localhost:8080/myapp/c?name=Kermit").getResponse();
+            Assert.assertEquals(HTTP_OK, response.getStatusCode());
+            Assert.assertEquals("Hello Kermit from /c", response.getBody());
         } finally {
             camelctx.stop();
         }
     }
 
     @Test
-    @Ignore("[#1809] Reenable undertow consumer prefix paths")
+    @Ignore("[#1809] Enable undertow consumer prefix paths")
     public void testUndertowConsumerPrefixPath() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -116,6 +169,50 @@ public class UndertowIntegrationTest {
             Assert.assertEquals("Hello Kermit", result);
         } finally {
             camelctx.stop();
+        }
+    }
+
+    @Test
+    public void overwriteCamelUndertowContextPathTest() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("undertow:http://localhost/test-servlet")
+                .setBody(constant("Hello Kermit"));
+            }
+        });
+
+        camelctx.start();
+        try {
+            // WAR deployment should fail as the context path is already registered by camel-undertow
+            expectedException.expect(RuntimeException.class);
+            deployer.deploy(TEST_SERVLET_WAR);
+        } finally {
+            camelctx.stop();
+            deployer.undeploy(TEST_SERVLET_WAR);
+        }
+    }
+
+    @Test
+    public void overwriteDeploymentContextPathTest() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("undertow:http://localhost/test-servlet")
+                .setBody(constant("Hello Kermit"));
+            }
+        });
+
+        deployer.deploy(TEST_SERVLET_WAR);
+        try {
+            // Context start should fail as the undertow consumer path is already registered by test-servlet.war
+            expectedException.expect(IllegalStateException.class);
+            camelctx.start();
+        } finally {
+            camelctx.stop();
+            deployer.undeploy(TEST_SERVLET_WAR);
         }
     }
 }

@@ -55,7 +55,7 @@ public class SwaggerIntegrationTest {
             @Override
             public void configure() throws Exception {
                 restConfiguration().component("undertow")
-                    .contextPath("swagger-tests/rest")
+                    .contextPath("swagger-tests")
                     .host("localhost")
                     .port(8080)
                     .apiContextPath("/api-doc")
@@ -72,10 +72,10 @@ public class SwaggerIntegrationTest {
 
         camelctx.start();
         try {
-            HttpRequest.HttpResponse result = HttpRequest.get("http://localhost:8080/swagger-tests/rest/hello/Kermit").getResponse();
+            HttpRequest.HttpResponse result = HttpRequest.get("http://localhost:8080/swagger-tests/hello/Kermit").getResponse();
             Assert.assertEquals("Hello Kermit", result.getBody());
 
-            result = HttpRequest.get("http://localhost:8080/swagger-tests/rest/api-doc").getResponse();
+            result = HttpRequest.get("http://localhost:8080/swagger-tests/api-doc").getResponse();
             Assert.assertEquals(HttpURLConnection.HTTP_OK, result.getStatusCode());
             Assert.assertTrue("Contains substr: " + result.getBody(), result.getBody().contains("\"name\" : \"hello\""));
         } finally {
