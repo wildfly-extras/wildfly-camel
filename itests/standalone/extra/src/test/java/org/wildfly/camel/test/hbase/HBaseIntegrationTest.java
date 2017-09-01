@@ -41,9 +41,11 @@ import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -78,10 +80,12 @@ public class HBaseIntegrationTest {
 
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
-            testUtil.startMiniCluster(1);
-            testUtil.createTable(HBaseHelper.getHBaseFieldAsBytes(TABLE_PERSON), PERSON_DATA);
+            if (!EnvironmentUtils.isWindows()) {
+                testUtil.startMiniCluster(1);
+                testUtil.createTable(HBaseHelper.getHBaseFieldAsBytes(TABLE_PERSON), PERSON_DATA);
 
-            AvailablePortFinder.storeServerData("hbase-zk-port", testUtil.getZkCluster().getClientPortList().get(0));
+                AvailablePortFinder.storeServerData("hbase-zk-port", testUtil.getZkCluster().getClientPortList().get(0));
+            }
         }
 
         @Override
@@ -94,12 +98,14 @@ public class HBaseIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-hbase-tests.jar")
-            .addClass(AvailablePortFinder.class)
+            .addClasses(AvailablePortFinder.class, EnvironmentUtils.class)
             .addAsResource("hbase/hbase-site.xml", "hbase-site.xml");
     }
 
     @Test
     public void testHBaseComponent() throws Exception {
+        Assume.assumeFalse("[#1975] HBaseIntegrationTest fails on Windows", EnvironmentUtils.isWindows());
+
         System.setProperty("hbase.zk.clientPort", AvailablePortFinder.readServerData("hbase-zk-port"));
 
         CamelContext camelctx = new DefaultCamelContext();

@@ -62,7 +62,7 @@ public class UndertowIntegrationTest {
     }
 
     @Deployment(testable = false, managed = false, name = TEST_SERVLET_WAR)
-    public static WebArchive createFooDeployment() {
+    public static WebArchive createTestServletDeployment() {
         return ShrinkWrap.create(WebArchive.class, TEST_SERVLET_WAR)
             .addClass(HttpRequest.class);
     }
