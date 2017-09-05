@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.ignite">
+  <resources>
+    <artifact name="${org.apache.camel:camel-ignite}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.ignite">
+      <exports>
+        <include path="org/apache/ignite" />
+        <include path="org/apache/ignite/cache**" />
+        <include path="org/apache/ignite/compute**" />
+        <include path="org/apache/ignite/configuration" />
+        <include path="org/apache/ignite/events" />
+        <include path="org/apache/ignite/internal" />
+        <include path="org/apache/ignite/internal/binary" />
+        <include path="org/apache/ignite/internal/processors**" />
+        <include path="org/apache/ignite/internal/util**" />
+        <include path="org/apache/ignite/lang" />
+        <include path="org/apache/ignite/plugin" />
+        <include path="org/apache/ignite/spi**" />
+      </exports>
+    </module>
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>

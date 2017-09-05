@@ -30,11 +30,15 @@ import java.lang.management.ManagementFactory;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javax.management.JMX;
 import javax.management.MBeanServer;
@@ -58,6 +62,46 @@ import org.wildfly.extension.camel.CamelAware;
 @CamelAware
 @RunWith(Arquillian.class)
 public class ExportedPathsTest {
+
+    private static class PatternWithExceptions {
+        public static PatternWithExceptions parse(String rawPatternWithExceptions) {
+            final String DELIM = " except ";
+            final int delim = rawPatternWithExceptions.indexOf(DELIM);
+            final String pattern;
+            final List<Pattern> exceptionPatterns;
+            if (delim < 0) {
+                pattern = rawPatternWithExceptions;
+                exceptionPatterns = Collections.emptyList();
+            } else {
+                pattern = rawPatternWithExceptions.substring(0, delim);
+                exceptionPatterns = Arrays.stream(rawPatternWithExceptions.substring(delim + DELIM.length()).split(" ")).map(str -> Pattern.compile(str)).collect(Collectors.toList());
+            }
+            return new PatternWithExceptions(rawPatternWithExceptions, Pattern.compile(pattern), exceptionPatterns);
+        }
+        private final String rawPatternWithExceptions;
+        private final Pattern pattern;
+        private final List<Pattern> exceptPatterns;
+        public PatternWithExceptions(String rawPatternWithExceptions, Pattern pattern, List<Pattern> exceptPatterns) {
+            super();
+            this.rawPatternWithExceptions = rawPatternWithExceptions;
+            this.pattern = pattern;
+            this.exceptPatterns = exceptPatterns;
+        }
+        public boolean matches(String line) {
+            for (Pattern p : exceptPatterns) {
+                if (p.matcher(line).matches()) {
+                    return false;
+                }
+            }
+            return pattern.matcher(line).matches();
+        }
+
+        @Override
+        public String toString() {
+            return rawPatternWithExceptions;
+        }
+
+    }
 
     private static final String FILE_BASEDIR = "basedir.txt";
     private static final String FILE_EXPORTED_PATH_PATTERNS = "exported-path-patterns.txt";
@@ -152,9 +196,9 @@ public class ExportedPathsTest {
     public void testExportedPaths() throws Exception {
 
         // Build the patterns
-        List<Pattern> patterns = null;
-        List<Pattern> includePatterns = new ArrayList<>();
-        List<Pattern> excludePatterns = new ArrayList<>();
+        List<PatternWithExceptions> patterns = null;
+        List<PatternWithExceptions> includePatterns = new ArrayList<>();
+        List<PatternWithExceptions> excludePatterns = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + FILE_EXPORTED_PATH_PATTERNS)));
         try {
             String line = reader.readLine();
@@ -168,7 +212,7 @@ public class ExportedPathsTest {
                 } else if (line.startsWith("[excludes]")) {
                     patterns = excludePatterns;
                 } else if (line.length() > 0 && !line.startsWith("[")) {
-                    patterns.add(Pattern.compile(line));
+                    patterns.add(PatternWithExceptions.parse(line));
                 }
                 line = reader.readLine();
             }
@@ -176,7 +220,10 @@ public class ExportedPathsTest {
             reader.close();
         }
 
-        List<Pattern> usedPatterns = new ArrayList<>(includePatterns);
+        List<PatternWithExceptions> usedPatterns = new ArrayList<>(includePatterns);
+
+        // A map from exported paths to violated patterns
+        final Map<String, List<String>> violations = new LinkedHashMap<>();
 
         // Verify each line
         Path exportedPaths = resolvePath(FILE_EXPORTED_PATHS);
@@ -188,25 +235,35 @@ public class ExportedPathsTest {
                     boolean match = false;
 
                     // match include patterns
-                    for (Pattern pattern : includePatterns) {
-                        if (pattern.matcher(line).matches()) {
+                    for (PatternWithExceptions pattern : includePatterns) {
+                        if (pattern.matches(line)) {
                             usedPatterns.remove(pattern);
                             match = true;
                             break;
                         }
                     }
+                    if (!match) {
+                        violations.putIfAbsent(line, new ArrayList<>());
+                        violations.get(line).add("no matching include pattern");
+                    }
 
                     // match exclude patterns
-                    if (match) {
-                        for (Pattern pattern : excludePatterns) {
-                            if (pattern.matcher(line).matches()) {
-                                match = false;
-                                break;
-                            }
+                    for (PatternWithExceptions pattern : excludePatterns) {
+                        if (pattern.matches(line)) {
+                            violations.putIfAbsent(line, new ArrayList<>());
+                            violations.get(line).add("excluded by pattern "+ pattern);
                         }
                     }
 
-                    Assert.assertTrue("Matching path: " + line, match);
+                    if (!violations.isEmpty()) {
+                        StringBuilder msg = new StringBuilder(FILE_EXPORTED_PATHS.getFileName().toString()) //
+                                .append(" do not comply with ").append(FILE_EXPORTED_PATH_PATTERNS);
+                        for (Map.Entry<String, List<String>> en : violations.entrySet()) {
+                            msg.append("\n    path: ").append(en.getKey()) //
+                            .append(" violations: ").append(en.getValue().stream().collect(Collectors.joining(", ")));
+                        }
+                        Assert.fail(msg.toString());
+                    }
                 }
                 line = reader.readLine();
             }

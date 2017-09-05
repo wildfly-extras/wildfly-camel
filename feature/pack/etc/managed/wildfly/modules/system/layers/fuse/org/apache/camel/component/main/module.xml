@@ -8,9 +8,9 @@
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
-  
+
        http://www.apache.org/licenses/LICENSE-2.0
-  
+
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -76,6 +76,7 @@
         <module name="org.apache.camel.component.hl7" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.http4" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.hystrix" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.ignite" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.infinispan" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.influxdb" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.irc" export="true" services="export" optional="true" />
@@ -188,7 +189,7 @@
         <module name="org.apache.camel.component.zipfile" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.zipkin" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.zookeeper" export="true" services="export" optional="true" />
-        
+
         <module name="org.wildfly.camel.extras" export="true" services="export" optional="true" />
     </dependencies>
 

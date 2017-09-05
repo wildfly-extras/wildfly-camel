@@ -56,6 +56,13 @@ hbase
 hdfs2
 http4
 https4
+ignite-cache
+ignite-compute
+ignite-events
+ignite-idgen
+ignite-messaging
+ignite-queue
+ignite-set
 imap
 imaps
 infinispan
@@ -159,13 +166,6 @@ google-calendar
 google-drive
 google-mail
 grpc
-ignite-cache
-ignite-compute
-ignite-events
-ignite-idgen
-ignite-messaging
-ignite-queue
-ignite-set
 jclouds
 milo-client
 milo-server

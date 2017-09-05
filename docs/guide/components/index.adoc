@@ -96,6 +96,8 @@ include::camel-http4.adoc[]
 
 include::camel-hystrix.adoc[]
 
+include::camel-ignite.adoc[]
+
 include::camel-infinispan.adoc[]
 
 include::camel-influxdb.adoc[]

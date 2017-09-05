@@ -154,6 +154,7 @@
 /org/apache/camel/component/http/common/main/camel-http-common-2.19.2.jar
 /org/apache/camel/component/http4/main/camel-http4-2.19.2.jar
 /org/apache/camel/component/hystrix/main/camel-hystrix-2.19.2.jar
+/org/apache/camel/component/ignite/main/camel-ignite-2.19.2.jar
 /org/apache/camel/component/infinispan/main/camel-infinispan-2.19.2.jar
 /org/apache/camel/component/influxdb/main/camel-influxdb-2.19.2.jar
 /org/apache/camel/component/influxdb/main/influxdb-java-2.5.jar
@@ -321,6 +322,8 @@
 /org/apache/httpcomponents/4.5.2/httpclient-4.5.2.jar
 /org/apache/httpcomponents/4.5.2/httpcore-4.4.6.jar
 /org/apache/httpcomponents/4.5.2/httpmime-4.5.2.jar
+/org/apache/ignite/main/ignite-core-1.9.0.jar
+/org/apache/ignite/main/ignite-shmem-1.0.0.jar
 /org/apache/kafka/clients/main/kafka-clients-0.10.2.0.jar
 /org/apache/kafka/clients/main/lz4-1.3.0.jar
 /org/apache/kafka/clients/main/snappy-java-1.1.1.3.jar
@@ -406,6 +409,7 @@
 /org/jboss/gravia/main/org.apache.felix.log-1.0.1.jar
 /org/jboss/gravia/main/org.apache.felix.metatype-1.0.8.jar
 /org/jboss/gravia/main/org.apache.felix.scr-1.6.2.jar
+/org/jetbrains/annotations/main/annotations-13.0.jar
 /org/kie/api/main/kie-api-6.5.0.Final.jar
 /org/kie/internal/main/kie-internal-6.5.0.Final.jar
 /org/kie/remote/main/kie-remote-client-6.5.0.Final.jar
