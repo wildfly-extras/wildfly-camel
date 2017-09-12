@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.core;
+package org.wildfly.camel.test.logging;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;

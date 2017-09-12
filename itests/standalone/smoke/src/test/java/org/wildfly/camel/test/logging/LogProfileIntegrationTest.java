@@ -18,9 +18,8 @@
  * #L%
  */
 
-package org.wildfly.camel.test.core;
+package org.wildfly.camel.test.logging;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -101,7 +100,7 @@ public class LogProfileIntegrationTest {
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             producer.requestBody("direct:start", "Kermit");
-            assertLogFileContainsContent("camel-log-test.log", ".*LogProfileIntegrationTest.*Hello Kermit$");
+            assertLogFileContainsContent(".*LogProfileIntegrationTest.*Hello Kermit$");
         } finally {
             camelctx.stop();
         }
@@ -124,15 +123,15 @@ public class LogProfileIntegrationTest {
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             producer.requestBody("direct:start", "Kermit");
-            assertLogFileContainsContent("camel-log-test.log", ".*LogProfileIntegrationTest.*Goodbye Kermit$");
+            assertLogFileContainsContent(".*LogProfileIntegrationTest.*Goodbye Kermit$");
         } finally {
             camelctx.stop();
         }
     }
 
-    private void assertLogFileContainsContent(String logFileName, String assertion) throws IOException {
+    private void assertLogFileContainsContent(String assertion) {
         String logDir = System.getProperty("jboss.server.log.dir");
-        Path logFilePath = Paths.get(logDir, logFileName);
+        Path logFilePath = Paths.get(logDir, "camel-log-test.log");
         boolean logMessagePresent = LogUtils.awaitLogMessage(assertion, 5000, logFilePath);
         Assert.assertTrue("Gave up waiting to find matching log message" , logMessagePresent);
     }

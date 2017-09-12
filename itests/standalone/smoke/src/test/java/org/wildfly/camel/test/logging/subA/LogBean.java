@@ -17,16 +17,16 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.spring.subD;
+package org.wildfly.camel.test.logging.subA;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class LogBean {
 
+    private static final Logger log = LoggerFactory.getLogger("org.wildfly.camel.test.spring");
+
     public void log(String level, String message) {
-        // FIXME: Ideally this should be initialized as a class (static) instance variable but #1883 prohibits this
-        Logger log = LoggerFactory.getLogger(LogBean.class.getName());
 
         switch(level) {
             case "DEBUG":

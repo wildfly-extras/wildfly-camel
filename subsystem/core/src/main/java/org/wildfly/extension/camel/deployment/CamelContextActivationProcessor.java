@@ -26,13 +26,17 @@ import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import org.apache.camel.CamelContext;
+import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
 import org.jboss.as.server.deployment.DeploymentUnitProcessor;
+import org.jboss.modules.Module;
 import org.wildfly.extension.camel.CamelConstants;
+import org.wildfly.extension.camel.proxy.ProxyUtils;
 
 /**
  * Start/Stop the {@link CamelContext}
@@ -45,11 +49,19 @@ public class CamelContextActivationProcessor implements DeploymentUnitProcessor 
     @Override
     public void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
 
-        // Start the camel contexts
         DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
-        for (CamelContext camelctx : depUnit.getAttachmentList(CamelConstants.CAMEL_CONTEXT_KEY)) {
+        Module module = depUnit.getAttachment(Attachments.MODULE);
+
+        // Start the camel contexts
+        for (final CamelContext camelctx : depUnit.getAttachmentList(CamelConstants.CAMEL_CONTEXT_KEY)) {
             try {
-                camelctx.start();
+                ProxyUtils.invokeProxied(new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        camelctx.start();
+                        return null;
+                    }
+                }, module.getClassLoader());
             } catch (Exception ex) {
                 LOGGER.error("Cannot start camel context: " + camelctx.getName(), ex);
             }

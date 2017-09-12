@@ -24,6 +24,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.spring.SpringCamelContext;
@@ -36,6 +37,7 @@ import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.wildfly.extension.camel.proxy.ProxyUtils;
 
 /**
  * A {@link CamelContext} factory utility.
@@ -75,10 +77,11 @@ public final class SpringCamelContextFactory {
 
     private static List<SpringCamelContext> createCamelContextList(Resource resource, ClassLoader classLoader) throws Exception {
         
-        if (classLoader == null) 
+        if (classLoader == null) {
             classLoader = SpringCamelContextFactory.class.getClassLoader();
-        
-        GenericApplicationContext appContext = new GenericApplicationContext();
+        }
+
+        final GenericApplicationContext appContext = new GenericApplicationContext();
         appContext.setClassLoader(classLoader);
         
         XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(appContext) {
@@ -91,7 +94,13 @@ public final class SpringCamelContextFactory {
         xmlReader.loadBeanDefinitions(resource);
 
         SpringCamelContext.setNoStart(true);
-        appContext.refresh();
+        ProxyUtils.invokeProxied(new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                appContext.refresh();
+                return null;
+            }
+        }, classLoader);
 
         List<SpringCamelContext> result = new ArrayList<>();
         for (String name : appContext.getBeanNamesForType(SpringCamelContext.class)) {

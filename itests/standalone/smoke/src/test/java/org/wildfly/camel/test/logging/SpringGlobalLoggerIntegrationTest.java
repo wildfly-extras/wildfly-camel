@@ -18,9 +18,8 @@
  * #L%
  */
 
-package org.wildfly.camel.test.spring;
+package org.wildfly.camel.test.logging;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -41,16 +40,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.DMRUtils;
 import org.wildfly.camel.test.common.utils.LogUtils;
-import org.wildfly.camel.test.spring.subD.LogBean;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 @CamelAware
 @RunWith(Arquillian.class)
-@ServerSetup({SpringLogIntegrationTest.LogSetupTask.class})
-public class SpringLogIntegrationTest {
+@ServerSetup({SpringGlobalLoggerIntegrationTest.LogSetupTask.class})
+public class SpringGlobalLoggerIntegrationTest {
 
-    private static final Path CUSTOM_LOG_FILE = Paths.get(System.getProperty("jboss.server.log.dir"), "camel-log-test.log");
+    private static final Path CUSTOM_LOG_FILE = Paths.get(System.getProperty("jboss.server.log.dir"), "spring-global-log-test.log");
+    private static final String LOG_MESSAGE = String.format("Hello from %s", SpringGlobalLoggerIntegrationTest.class.getName());
+    private static final String LOG_DSL_REGEX = String.format(".*org.wildfly.camel.test.spring.*%s$", LOG_MESSAGE);
 
     static class LogSetupTask implements ServerSetupTask {
 
@@ -60,9 +60,9 @@ public class SpringLogIntegrationTest {
         public void setup(ManagementClient managementClient, String s) throws Exception {
             ModelNode batchNode = DMRUtils.batchNode()
                 .addStep(LOG_PROFILE_PREFIX, "add")
-                .addStep(LOG_PROFILE_PREFIX + "/file-handler=camel-log-file", "add(file={path=>camel-log-test.log,relative-to=>jboss.server.log.dir})")
+                .addStep(LOG_PROFILE_PREFIX + "/file-handler=camel-log-file", "add(file={path=>spring-global-log-test.log,relative-to=>jboss.server.log.dir})")
                 .addStep(LOG_PROFILE_PREFIX + "/file-handler=camel-log-file", "change-log-level(level=INFO))")
-                .addStep(LOG_PROFILE_PREFIX + "/logger=" + LogBean.class.getName(), "add(level=INFO,handlers=[handler=camel-log-file])")
+                .addStep(LOG_PROFILE_PREFIX + "/logger=org.wildfly.camel.test.spring", "add(level=INFO,handlers=[handler=camel-log-file])")
                 .build();
 
             ModelNode result = managementClient.getControllerClient().execute(batchNode);
@@ -81,27 +81,30 @@ public class SpringLogIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "spring-log-tests")
-            .addClasses(LogBean.class, LogUtils.class)
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "spring-global-logger-tests")
+            .addClass(LogUtils.class)
             .setManifest(() -> {
                 ManifestBuilder builder = new ManifestBuilder();
                 builder.addManifestHeader("Logging-Profile", "camel-logging-profile");
                 return builder.openStream();
             })
-            .addAsResource("spring/logging-camel-context.xml", "logging-camel-context.xml");
+            .addAsResource("logging/loggingC-camel-context.xml", "logging-camel-context.xml");
         return archive;
     }
 
     @Test
-    public void testBeanLogger() throws Exception {
-        CamelContext camelctx = contextRegistry.getCamelContext("spring-context");
+    public void testCamelGlobalLoggerForLoggingProfile() throws Exception {
+        CamelContext camelctx = contextRegistry.getCamelContext("spring-logging-context-c");
+        Assert.assertNotNull("spring-logging-context-c is null", camelctx);
+
         ProducerTemplate producer = camelctx.createProducerTemplate();
-        producer.requestBody("direct:start", "Hello Kermit");
-        assertLogFileContainsContent(".*" + LogBean.class.getName() + ".*Hello Kermit$");
+
+        producer.requestBody("direct:log-dsl", LOG_MESSAGE);
+        assertLogFileContainsContent();
     }
 
-    private void assertLogFileContainsContent(String assertion) throws IOException {
-        boolean logMessagePresent = LogUtils.awaitLogMessage(assertion, 5000, CUSTOM_LOG_FILE);
+    private void assertLogFileContainsContent() {
+        boolean logMessagePresent = LogUtils.awaitLogMessage(LOG_DSL_REGEX, 5000, CUSTOM_LOG_FILE);
         Assert.assertTrue("Gave up waiting to find matching log message", logMessagePresent);
     }
 }
