@@ -49,10 +49,6 @@
         <version.apache.camel>2.19.2</version.apache.camel>
         <version.apache.lucene>5.5.2</version.apache.lucene>
 
-        <!-- [#1702] Upgrade to netty-4.1.9 -->
-        <version.io.netty40>4.0.45.Final</version.io.netty40> 
-        <version.io.netty41>4.1.8.Final</version.io.netty41> 
-
         <!-- WildFly versions -->
         <version.wildfly>10.1.0.Final</version.wildfly>
         <version.wildfly.arquillian>1.0.2.Final</version.wildfly.arquillian>
@@ -85,6 +81,7 @@
         <version.fusepatch>2.6.0</version.fusepatch>
         <version.greenmail>1.4.0</version.greenmail>
         <version.hawtio>1.5.3</version.hawtio>
+        <version.io.netty40>4.0.45.Final</version.io.netty40>
         <version.javax.cache.api>1.0.0</version.javax.cache.api>
         <version.jboss.arquillian.core>1.1.10.Final</version.jboss.arquillian.core>
         <version.jboss.arquillian.osgi>2.1.0.Final</version.jboss.arquillian.osgi>
@@ -446,13 +443,6 @@
                 <version>${version.flapdoodle.embed.mongo}</version>
             </dependency>
 
-            <!-- Netty -->
-            <dependency>
-                <groupId>io.netty</groupId>
-                <artifactId>netty-all</artifactId>
-                <version>${version.io.netty41}</version>
-            </dependency>
-            
             <!-- OSGi -->
             <dependency>
                 <groupId>org.osgi</groupId>
