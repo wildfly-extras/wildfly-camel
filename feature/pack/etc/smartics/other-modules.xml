@@ -422,21 +422,7 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="io.netty:netty-buffer" />
-        <include artifact="io.netty:netty-codec" />
-        <include artifact="io.netty:netty-codec-dns" />
-        <include artifact="io.netty:netty-codec-http" />
-        <include artifact="io.netty:netty-codec-http2" />
-        <include artifact="io.netty:netty-codec-socks" />
-        <include artifact="io.netty:netty-common" />
-        <include artifact="io.netty:netty-handler" />
-        <include artifact="io.netty:netty-handler-proxy" />
-        <include artifact="io.netty:netty-resolver" />
-        <include artifact="io.netty:netty-resolver-dns" />
-        <include artifact="io.netty:netty-transport" />
-        <apply-to-dependencies skip="true">
-            <include module="org.jctools" />
-        </apply-to-dependencies>
+        <include artifact="io.netty:netty-all" />
         <dependencies>
             <module name="javax.api"/>
             <module name="sun.jdk"/>
@@ -454,8 +440,19 @@
     </module>
 
     <module name="io.netty.skipped" skip="true">
-        <include artifact="io.netty:netty-all" />
         <include artifact="io.netty:netty-transport-native-epoll" />
+        <include artifact="io.netty:netty-buffer" />
+        <include artifact="io.netty:netty-codec" />
+        <include artifact="io.netty:netty-codec-dns" />
+        <include artifact="io.netty:netty-codec-http" />
+        <include artifact="io.netty:netty-codec-http2" />
+        <include artifact="io.netty:netty-codec-socks" />
+        <include artifact="io.netty:netty-common" />
+        <include artifact="io.netty:netty-handler" />
+        <include artifact="io.netty:netty-handler-proxy" />
+        <include artifact="io.netty:netty-resolver" />
+        <include artifact="io.netty:netty-resolver-dns" />
+        <include artifact="io.netty:netty-transport" />
     </module>
 
     <module name="io.opentracing">
