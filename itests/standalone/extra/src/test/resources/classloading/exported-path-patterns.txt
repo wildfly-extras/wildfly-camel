@@ -1,5 +1,5 @@
 [includes]
-	^ca/uhn/hl7v2(.*)    
+	^ca/uhn/hl7v2(.*)
 	^com/amazonaws(.*)
 	^com/box(.*)
 	^com/braintreegateway(.*)
@@ -49,6 +49,18 @@
 	^org/apache/cxf/ws/security(.*)
 	^org/apache/hadoop(.*)
 	^org/apache/ibatis(.*)
+    ^org/apache/ignite
+    ^org/apache/ignite/cache(.*)
+    ^org/apache/ignite/compute(.*)
+    ^org/apache/ignite/configuration
+    ^org/apache/ignite/events
+    ^org/apache/ignite/internal
+    ^org/apache/ignite/internal/binary
+    ^org/apache/ignite/internal/processors(.*)
+    ^org/apache/ignite/internal/util(.*)
+    ^org/apache/ignite/lang
+    ^org/apache/ignite/plugin
+    ^org/apache/ignite/spi(.*)
 	^org/apache/kafka(.*)
 	^org/apache/olingo(.*)
 	^org/apache/xmlbeans
@@ -84,6 +96,7 @@
 	^twitter4j/(.*)
 	^META-INF/cxf(.*)
 	^META-INF/services(.*)
-	
+
 [excludes]
-	(.*)/internal
+	(.*)/internal except ^org/apache/ignite/internal.* ^org/apache/ignite/spi/discovery/tcp/internal.*
+

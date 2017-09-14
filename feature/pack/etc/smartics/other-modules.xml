@@ -153,14 +153,14 @@
         <include artifact="com.amazonaws:aws-java-sdk-xray" />
         <include artifact="com.amazonaws:jmespath-java" />
     </module>
-    
+
     <module name="com.box">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.box:box-java-sdk" />
     </module>
-    
+
     <module name="com.codahale.metrics">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -179,7 +179,7 @@
         <include artifact="com.eclipsesource.minimal-json:minimal-json" />
     </module>
 
-    
+
     <module name="com.fasterxml.jackson.dataformat.cbor">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -224,7 +224,7 @@
     <module name="com.fasterxml.jackson.skipped" skip="true">
         <include artifact=":jackson-module-afterburner" />
     </module>
-    
+
     <module name="com.github.generex">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -539,7 +539,7 @@
             <module name="org.javassist"/>
         </dependencies>
     </module>
-    
+
     <module name="org.antlr.runtime">
         <include artifact="org.antlr:antlr-runtime"/>
     </module>
@@ -603,21 +603,21 @@
         </properties>
         <include artifact=":commons-exec" />
     </module>
-    
+
     <module name="org.apache.commons.httpclient">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="commons-httpclient:commons-httpclient" />
     </module>
-    
+
     <module name="org.apache.commons.lang3">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.commons:commons-lang3" />
     </module>
-    
+
     <module name="org.apache.commons.net">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -749,6 +749,21 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.ignite">
+        <include artifact="org.apache.ignite:ignite-core" />
+        <include artifact="org.gridgain:ignite-shmem"/>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.jetbrains.annotations"/>
+            <module name="org.slf4j"/>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc/Unsafe" />
+                </imports>
+            </module>
+        </dependencies>
+    </module>
+
     <module name="org.apache.kafka">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -765,7 +780,7 @@
             <exclude path="org/I0Itec**" />
         </exports>
     </module>
-    
+
     <module name="org.apache.kafka.clients">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -865,7 +880,7 @@
             <module name="javax.api"/>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.ws.commons.axiom.axiom-impl">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1071,7 +1086,7 @@
             <exclude path="com/twitter**" />
         </exports>
     </module>
-    
+
     <module name="org.fusesource.hawtbuf">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1129,6 +1144,12 @@
         </apply-to-dependencies>
     </module>
 
+    <module name="org.jetbrains.annotations">
+        <resources>
+            <artifact name="${org.jetbrains:annotations}" />
+        </resources>
+    </module>
+
     <module name="org.json4s">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1146,7 +1167,7 @@
             <module name="org.drools.core" />
         </dependencies>
     </module>
-    
+
     <module name="org.kie.internal">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1161,7 +1182,7 @@
             <module name="org.drools.core" />
         </dependencies>
     </module>
-    
+
     <module name="org.kie.remote" >
         <include artifact="org.kie.remote:(.*)" />
         <include artifact="org.kie.remote.ws:(.*)" />
@@ -1249,7 +1270,7 @@
         </properties>
         <include artifact="org.scala-lang:scala-library" />
     </module>
-    
+
     <module name="org.scala.modules">
         <properties>
             <property name="jboss.api" value="private"/>
