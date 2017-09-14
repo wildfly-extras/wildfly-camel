@@ -32,7 +32,8 @@ import org.infinispan.manager.CacheContainer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,8 +58,11 @@ public class InfinispanIntegrationTest {
     private String cacheName;
 
     @Deployment
-    public static JavaArchive deployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-infinispan-test.jar");
+    public static WebArchive deployment() {
+        WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-infinispan-test.war");
+        // Add deployment dependency on relevant cache
+        archive.setWebXML(new StringAsset("<?xml version=\"1.0\" encoding=\"UTF-8\"?><web-app xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" version=\"3.1\"><resource-ref><res-ref-name>test-cache</res-ref-name><lookup-name>java:jboss/infinispan/cache/server/default</lookup-name></resource-ref></web-app>"));
+        return archive;
     }
 
     @Before
