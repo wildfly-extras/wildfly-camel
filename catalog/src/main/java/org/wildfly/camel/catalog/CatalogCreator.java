@@ -39,7 +39,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.BooleanNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public final class CatalogCreator {
@@ -48,26 +51,28 @@ public final class CatalogCreator {
         String basedir = System.getProperty("basedir");
         return Paths.get(basedir != null ? basedir : ".");
     }
-    
+
     static final Path resdir = basedir().resolve(Paths.get("src/main/resources"));
     static final Path srcdir = basedir().resolve(Paths.get("target/camel-catalog"));
     static final Path outdir = basedir().resolve(Paths.get("target/classes"));
-    
+
     public static enum Kind {
         component, dataformat, language, other;
     }
-    
+
     public static enum State {
         supported, planned, undecided, rejected
     }
-    
+
     public static class Item {
         final Path path;
         final Kind kind;
         final String name;
         final String artifactId;
         final boolean deprecated;
+        String comment;
         State state = State.undecided;
+
         Item(Path path, Kind kind, String artifactId, boolean deprecated) {
             this.path = path;
             this.kind = kind;
@@ -78,31 +83,37 @@ public final class CatalogCreator {
             this.name = nspec;
         }
     }
-    
+
     public static class RoadMap {
         final Kind kind;
         final Path outpath;
         final Map<String, Item> items = new HashMap<>();
+
         RoadMap(Kind kind) {
             this.outpath = resdir.resolve(kind + ".roadmap");
             this.kind = kind;
         }
+
         void add(Item item) {
             items.put(item.name, item);
         }
+
         public Kind getKind() {
             return kind;
         }
+
         public Path getOutpath() {
             return outpath;
         }
+
         public Item item(String name) {
             return items.get(name);
         }
+
         public List<String> sortedNames(State state) {
             List<String> result = new ArrayList<>();
             for (Item item : items.values()) {
-                if (item.state == state) {
+                if (state == null || item.state == state) {
                     result.add(item.name);
                 }
             }
@@ -110,9 +121,9 @@ public final class CatalogCreator {
             return result;
         }
     }
-    
+
     private Map<Kind, RoadMap> ROAD_MAPS = new LinkedHashMap<>();
-    
+
     public CatalogCreator() {
         ROAD_MAPS.put(Kind.component, new RoadMap(Kind.component));
         ROAD_MAPS.put(Kind.dataformat, new RoadMap(Kind.dataformat));
@@ -123,7 +134,7 @@ public final class CatalogCreator {
     public static void main(String[] args) throws Exception {
         new CatalogCreator().collect().generate();
     }
-    
+
     public CatalogCreator collect() throws Exception {
         collectAvailable();
         collectSupported();
@@ -139,13 +150,13 @@ public final class CatalogCreator {
     public RoadMap getRoadmap(Kind kind) {
         return ROAD_MAPS.get(kind);
     }
-    
+
     public List<RoadMap> getRoadmaps() {
         return new ArrayList<>(ROAD_MAPS.values());
     }
-    
+
     private void collectAvailable() throws IOException {
-        
+
         // Walk the available camel catalog items
         Files.walkFileTree(srcdir, new SimpleFileVisitor<Path>() {
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
@@ -157,14 +168,16 @@ public final class CatalogCreator {
                     String kind = valnode != null ? valnode.textValue() : null;
                     valnode = treeNode.findValue("artifactId");
                     String artifactId = valnode != null ? valnode.textValue() : null;
-                    boolean deprecated = Boolean.parseBoolean(treeNode.findValue("deprecated").textValue());
+                    valnode = treeNode.findValue("deprecated");
+                    boolean deprecated = valnode != null ? valnode.booleanValue() : false;
                     if (validKind(kind, treeNode)) {
                         Item item = new Item(relpath, Kind.valueOf(kind), artifactId, deprecated);
                         ROAD_MAPS.get(item.kind).add(item);
-                   }
+                    }
                 }
                 return FileVisitResult.CONTINUE;
             }
+
             boolean validKind(String kind, JsonNode node) {
                 JsonNode valnode = node.findValue("name");
                 String name = valnode != null ? valnode.textValue() : null;
@@ -172,34 +185,32 @@ public final class CatalogCreator {
                     Kind.valueOf(kind);
                     return true;
                 } catch (IllegalArgumentException e) {
-                    if (name != null && name.contains("opentracing")) {
-                        System.out.println(node);
+                    if (!kind.equals("model")) {
+                        System.err.println("Invalid kind for " + name + ": " + kind);
                     }
                     return false;
                 }
             }
         });
-        
+
         // Change state when planned or rejected 
         for (RoadMap roadmap : ROAD_MAPS.values()) {
             State state = null;
             File file = roadmap.outpath.toFile();
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String line = br.readLine();
+                String line = br.readLine().trim();
                 while (line != null) {
                     if (line.length() > 0 && !line.startsWith("#")) {
-                        if (line.equals("[" + State.planned + "]")) {
-                            state = State.planned;
-                        } else if (line.equals("[" + State.rejected + "]")) {
-                            state = State.rejected;
-                        } else if (line.startsWith("[")) {
-                            state = null;
-                        } else if (state != null) {
-                            String name = line.trim().split(" ")[0];
-                            Item item = roadmap.item(name);
-                            if (item != null) {
-                                item.state = state;
-                            }
+                        if (line.startsWith("[")) {
+                            state = State.valueOf(line.substring(1, line.length() - 1));
+                        }
+                        int idx = line.indexOf("#");
+                        String name = idx > 0 ? line.substring(0, idx).trim() : line;
+                        String comment = idx > 0 ? line.substring(idx).trim() : null;
+                        Item item = roadmap.item(name);
+                        if (item != null) {
+                            item.state = state;
+                            item.comment = comment;
                         }
                     }
                     line = br.readLine();
@@ -241,11 +252,22 @@ public final class CatalogCreator {
     private void generateRoadmaps() throws IOException {
         for (RoadMap roadmap : ROAD_MAPS.values()) {
             try (PrintWriter pw = new PrintWriter(roadmap.outpath.toFile())) {
+                int maxlength = 0;
+                for (String entry : roadmap.sortedNames(null)) {
+                    Item item = roadmap.item(entry);
+                    maxlength = Math.max(maxlength, item.name.length());
+                }
                 for (State state : State.values()) {
                     pw.println("[" + state + "]");
                     for (String entry : roadmap.sortedNames(state)) {
                         Item item = roadmap.item(entry);
-                        pw.println(item.name + (item.deprecated ? " (deprecated)" : ""));
+                        StringBuffer line = new StringBuffer(item.name);
+                        String comment = item.deprecated ? "#deprecated" : item.comment;
+                        if (comment != null) {
+                            line.append(StringUtils.repeat(" ", maxlength - line.length()));
+                            line.append("\t" + comment);
+                        }
+                        pw.println(line);
                     }
                     pw.println();
                 }

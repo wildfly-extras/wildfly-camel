@@ -39,15 +39,15 @@ zipfile
 [undecided]
 
 [rejected]
-boon
-hessian
-ical
-jibx
-json-johnzon
-lzf
-univocity-csv
-univocity-fixed
-univocity-tsv
-xmljson
-xmlrpc
+boon           	#2039
+hessian        	#2040
+ical           	#2041
+jibx           	#2042
+json-johnzon   	#2043
+lzf            	#2044
+univocity-csv  	#2045
+univocity-fixed	#2046
+univocity-tsv  	#2047
+xmljson        	#2048
+xmlrpc         	#2049
 
