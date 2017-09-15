@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.protobuf">
+<module xmlns="urn:jboss:module:1.3" name="org.apache.camel.component.protobuf">
   <resources>
     <artifact name="${org.apache.camel:camel-protobuf}" />
     <artifact name="${com.google.protobuf:protobuf-java}" />

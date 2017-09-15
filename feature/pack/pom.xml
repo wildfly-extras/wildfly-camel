@@ -829,6 +829,7 @@
                             <artifactId>okhttp</artifactId>
                         </exclude>
                     </dependencyExcludes>
+                    <targetNamespace>urn:jboss:module:1.3</targetNamespace>
                 </configuration>
             </plugin>
             <plugin>
