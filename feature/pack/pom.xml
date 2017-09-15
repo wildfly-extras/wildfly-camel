@@ -112,6 +112,11 @@
             <version>${version.wildfly.fasterxml.jackson}</version>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jsonSchema</artifactId>
+            <version>${version.wildfly.fasterxml.jackson}</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.code.scriptengines</groupId>
             <artifactId>scriptengines-javascript</artifactId>
         </dependency>
