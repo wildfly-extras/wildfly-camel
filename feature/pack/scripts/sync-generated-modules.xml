@@ -44,15 +44,18 @@
 		        <filter token="version.apache.felix.log" value="${version.apache.felix.log}"/>
 		        <filter token="version.apache.felix.metatype" value="${version.apache.felix.metatype}"/>
 		        <filter token="version.apache.felix.scr" value="${version.apache.felix.scr}"/>
-				<filter token="version.jboss.gravia" value="${version.jboss.gravia}" />
+                <filter token="version.jboss.gravia" value="${version.jboss.gravia}" />
+                <filter token="version.net.sf.json" value="${version.net.sf.json}" />
 			</filterset>
 		</copy>
 		
-		<property name="target.gravia.module.dir" value="${output.dir}/managed-jars/modules/system/layers/fuse/org/jboss/gravia/main" />
+        <property name="target.gravia.module.dir" value="${output.dir}/managed-jars/modules/system/layers/fuse/org/jboss/gravia/main" />
+        <property name="target.net.sf.json.module.dir" value="${output.dir}/managed-jars/modules/system/layers/fuse/net/sf/json/main" />
 		<copy file="${maven.dependency.org.apache.felix.org.apache.felix.configadmin.jar.path}" todir="${target.gravia.module.dir}" />
 		<copy file="${maven.dependency.org.apache.felix.org.apache.felix.log.jar.path}" todir="${target.gravia.module.dir}" />
 		<copy file="${maven.dependency.org.apache.felix.org.apache.felix.metatype.jar.path}" todir="${target.gravia.module.dir}" />
         <copy file="${maven.dependency.org.apache.felix.org.apache.felix.scr.jar.path}" todir="${target.gravia.module.dir}" />
+        <copy file="${maven.dependency.net.sf.json-lib.json-lib.jdk15.jar.path}" todir="${target.net.sf.json.module.dir}" />
         <copy todir="${output.dir}/managed-jars/modules" >
             <fileset dir="${target.patch.dir}/modules">
                 <include name="**/*.jar" />

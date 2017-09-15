@@ -1058,6 +1058,8 @@ org/apache/camel/dataformat/soap
 org/apache/camel/dataformat/soap/name
 org/apache/camel/dataformat/tagsoup
 org/apache/camel/dataformat/tarfile
+org/apache/camel/dataformat/xmljson
+org/apache/camel/dataformat/xmljson/converters
 org/apache/camel/dataformat/xmlrpc
 org/apache/camel/dataformat/xmlsecurity
 org/apache/camel/dataformat/xstream

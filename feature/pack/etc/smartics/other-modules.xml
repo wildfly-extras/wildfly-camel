@@ -502,6 +502,11 @@
         </dependencies>
     </module>
 
+    <module name="net.sf.json"  skip="true">
+        <include artifact="net.sf.ezmorph:ezmorph" />
+        <include artifact="net.sf.json-lib:json-lib" />
+    </module>
+
     <module name="net.sourceforge.cssparser">
         <properties>
             <property name="jboss.api" value="private"/>

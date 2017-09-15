@@ -29,6 +29,7 @@ syslog
 tarfile
 tidyMarkup
 xmlBeans
+xmljson        	#2048
 xmlrpc
 xstream
 yaml-snakeyaml
@@ -45,7 +46,6 @@ lzf            	#2044
 univocity-csv  	#2045
 univocity-fixed	#2046
 univocity-tsv  	#2047
-xmljson        	#2048
 
 [undecided]
 

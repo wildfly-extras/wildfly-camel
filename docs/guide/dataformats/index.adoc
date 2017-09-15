@@ -23,6 +23,7 @@ The following lists supported Data Formats
 * https://github.com/apache/camel/blob/master/components/camel-tarfile/src/main/docs/tarfile-dataformat.adoc[Tarfile,window=_blank]
 * http://camel.apache.org/tidymarkup.html[TidyMarkup,window=_blank]
 * http://camel.apache.org/xmlbeans.html[XmlBeans,window=_blank]
+* http://camel.apache.org/xmljson.html[XmlJson,window=_blank]
 * http://camel.apache.org/xmlrpc.html[XmlRpc,window=_blank]
 * http://camel.apache.org/xml-security-component.html[XMLSecurity,window=_blank]
 * http://camel.apache.org/xstream.html[XStream,window=_blank]
