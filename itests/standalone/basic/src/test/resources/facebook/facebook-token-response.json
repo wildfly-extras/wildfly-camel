@@ -1,0 +1,7 @@
+{
+  "access_token": "fake-token-12345",
+  "token_type": "fake-token",
+  "expires_in":  "1000",
+  "auth_type": "https",
+  "auth_nonce": "fake-auth-nonce"
+}

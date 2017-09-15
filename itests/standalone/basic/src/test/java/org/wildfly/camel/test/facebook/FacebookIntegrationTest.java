@@ -24,34 +24,48 @@ import facebook4j.PagableList;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.facebook.FacebookComponent;
+import org.apache.camel.component.facebook.config.FacebookConfiguration;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.facebook.subA.FakeFacebookAPIServlet;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
 public class FacebookIntegrationTest {
 
-    private static String FACEBOOK_APP_ID = System.getenv("FACEBOOK_APP_ID");
-    private static String FACEBOOK_APP_SECRET = System.getenv("FACEBOOK_APP_SECRET");
+    private static final String FACEBOOK_APP_ID = "fake-app";
+    private static final String FACEBOOK_APP_SECRET = "fake-secret";
 
     @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-facebook-tests.jar");
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "camel-facebook-tests.war")
+            .addClasses(FakeFacebookAPIServlet.class, TestUtils.class)
+            .addAsResource("facebook/facebook-token-response.json", "facebook-token.json")
+            .addAsResource("facebook/facebook-test-users-response.json", "facebook-test-users.json");
     }
 
     @Test
     public void testFacebookComponent() throws Exception {
-        Assume.assumeNotNull("Facebook credentials are null", FACEBOOK_APP_ID, FACEBOOK_APP_SECRET);
+        FacebookComponent component = new FacebookComponent();
+        FacebookConfiguration configuration = component.getConfiguration();
+
+        String baseURL = "http://localhost:8080/camel-facebook-tests/fake-facebook-api";
+        configuration.setClientURL(baseURL);
+        configuration.setOAuthAccessTokenURL(baseURL + "/oauth-token");
+        configuration.setRestBaseURL(baseURL + "/rest");
 
         CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addComponent("facebook", component);
+
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -64,7 +78,7 @@ public class FacebookIntegrationTest {
         camelctx.start();
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
-            PagableList testUserList = template.requestBody("direct:start", (Object)null, PagableList.class);
+            PagableList testUserList = template.requestBody("direct:start", null, PagableList.class);
             Assert.assertNotNull("Facebook app test user list was null", testUserList);
         } finally {
             camelctx.stop();

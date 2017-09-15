@@ -31,7 +31,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.TestUtils;
-import org.wildfly.camel.test.zendesk.subA.FakeZendeskServlet;
+import org.wildfly.camel.test.zendesk.subA.FakeZendeskAPIServlet;
 import org.wildfly.extension.camel.CamelAware;
 import org.zendesk.client.v2.model.Ticket;
 
@@ -43,7 +43,7 @@ public class ZendeskIntegrationTest {
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "camel-zendesk-tests.war")
             .addAsResource("zendesk/tickets.json", "tickets.json")
-            .addClasses(FakeZendeskServlet.class, TestUtils.class);
+            .addClasses(FakeZendeskAPIServlet.class, TestUtils.class);
     }
 
     @Test

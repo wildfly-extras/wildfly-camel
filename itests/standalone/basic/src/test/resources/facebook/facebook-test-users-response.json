@@ -1,0 +1,35 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "login_url": "https://developers.facebook.com/checkpoint/test-user-login/1/",
+      "access_token": "access-token"
+    },
+    {
+      "id": "2",
+      "login_url": "https://developers.facebook.com/checkpoint/test-user-login/2/",
+      "access_token": "access-token"
+    },
+    {
+      "id": "3",
+      "login_url": "https://developers.facebook.com/checkpoint/test-user-login/3/",
+      "access_token": "access-token"
+    },
+    {
+      "id": "4",
+      "login_url": "https://developers.facebook.com/checkpoint/test-user-login/4/",
+      "access_token": "access-token"
+    },
+    {
+      "id": "5",
+      "login_url": "https://developers.facebook.com/checkpoint/test-user-login/5/",
+      "access_token": "access-token"
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "foo",
+      "after": "bar"
+    }
+  }
+}
