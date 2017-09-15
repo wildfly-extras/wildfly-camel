@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.ws.commons.util">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.apache.ws.commons.util:ws-commons-util}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.xerces" />
+  </dependencies>
+</module>

@@ -29,14 +29,13 @@ syslog
 tarfile
 tidyMarkup
 xmlBeans
+xmlrpc
 xstream
 yaml-snakeyaml
 zip
 zipfile
 
 [planned]
-
-[undecided]
 boon           	#2039
 hessian        	#2040
 ical           	#2041
@@ -47,7 +46,8 @@ univocity-csv  	#2045
 univocity-fixed	#2046
 univocity-tsv  	#2047
 xmljson        	#2048
-xmlrpc         	#2049
+
+[undecided]
 
 [rejected]
 

@@ -182,6 +182,7 @@
         <module name="org.apache.camel.component.vertx" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.weather" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.xmlbeans" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.xmlrpc" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.xmlsecurity" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.xstream" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.zendesk" export="true" services="export" optional="true" />

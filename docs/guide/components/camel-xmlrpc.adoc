@@ -1,0 +1,5 @@
+### camel-xmlrpc
+
+The http://camel.apache.org/xmlrpc.html[xmlrpc,window=_blank] 
+component provides a dataformat for xml, which allows serialization and deserialization of request messages and response message using the https://ws.apache.org/xmlrpc[Apache XmlRpc,window=_blank] binary dataformat. You can also invoke the XMLRPC Service through the camel-xmlrpc producer.
+

@@ -1017,6 +1017,8 @@ org/apache/camel/component/vertx
 org/apache/camel/component/weather
 org/apache/camel/component/weather/geolocation
 org/apache/camel/component/weather/http
+org/apache/camel/component/xmlrpc
+org/apache/camel/component/xmlrpc/converter
 org/apache/camel/component/xmlsecurity
 org/apache/camel/component/xmlsecurity/api
 org/apache/camel/component/xmlsecurity/processor
@@ -1056,6 +1058,7 @@ org/apache/camel/dataformat/soap
 org/apache/camel/dataformat/soap/name
 org/apache/camel/dataformat/tagsoup
 org/apache/camel/dataformat/tarfile
+org/apache/camel/dataformat/xmlrpc
 org/apache/camel/dataformat/xmlsecurity
 org/apache/camel/dataformat/xstream
 org/apache/camel/dataformat/zipfile
@@ -1451,6 +1454,14 @@ org/apache/olingo/odata2/core/uri/expression
 org/apache/xmlbeans
 org/apache/xmlbeans/impl/schema
 org/apache/xmlbeans/impl/values
+org/apache/xmlrpc
+org/apache/xmlrpc/client
+org/apache/xmlrpc/client/util
+org/apache/xmlrpc/common
+org/apache/xmlrpc/jaxb
+org/apache/xmlrpc/parser
+org/apache/xmlrpc/serializer
+org/apache/xmlrpc/util
 org/apache/zookeeper
 org/apache/zookeeper/client
 org/apache/zookeeper/common

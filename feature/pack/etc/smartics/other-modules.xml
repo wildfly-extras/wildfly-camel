@@ -899,6 +899,19 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.ws.commons.util" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.ws.commons.util:ws-commons-util"/>
+        <apply-to-dependencies skip="true">
+            <include module="junit" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.xbean.$1">
         <properties>
             <property name="jboss.api" value="private"/>

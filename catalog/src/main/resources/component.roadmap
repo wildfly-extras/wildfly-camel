@@ -138,6 +138,7 @@ velocity
 vertx
 vm
 weather
+xmlrpc
 xmlsecurity
 xquery
 xslt
@@ -223,7 +224,6 @@ spring-ws           	#1476
 stomp               	#2033
 string-template     	#2034
 telegram            	#2035
-xmlrpc              	#2036
 xmpp                	#2037
 yammer              	#2038
 

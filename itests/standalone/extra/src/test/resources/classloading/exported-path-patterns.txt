@@ -55,6 +55,7 @@
 	^org/apache/xmlbeans/impl/schema
 	^org/apache/xmlbeans/impl/values
 	^org/apache/zookeeper(.*)
+    ^org/apache/xmlrpc(.*)
 	^org/asynchttpclient(.*)
 	^org/codehaus/groovy(.*)
 	^org/dozer(.*)

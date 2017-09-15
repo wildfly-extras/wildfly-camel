@@ -234,6 +234,8 @@ include::camel-vertx.adoc[]
 
 include::camel-weather.adoc[]
 
+include::camel-xmlrpc.adoc[]
+
 include::camel-xstream.adoc[]
 
 include::camel-zendesk.adoc[]
