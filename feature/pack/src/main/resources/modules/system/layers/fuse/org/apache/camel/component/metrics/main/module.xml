@@ -13,6 +13,7 @@
         <include path="sun/misc" />
       </imports>
     </module>
+    <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
