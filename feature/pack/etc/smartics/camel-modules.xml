@@ -1231,6 +1231,7 @@
                     <include path="sun/misc/Unsafe" />
                 </imports>
             </module>
+            <module name="com.fasterxml.jackson.core.jackson-core" />
         </dependencies>
     </module>
 
