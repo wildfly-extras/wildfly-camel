@@ -48,6 +48,7 @@
 /io/fabric8/kubernetes/model/main/kubernetes-model-1.0.72.jar
 /io/fabric8/openshift/client/main/openshift-client-2.2.14.jar
 /io/fabric8/zjsonpatch/main/zjsonpatch-0.3.0.jar
+/io/fastjson/boon/main/boon-0.34.jar
 /io/netty/3.10/netty-3.10.6.Final.jar
 /io/netty/4.0/netty-all-4.0.45.Final.jar
 /io/netty/4.1/netty-all-4.1.9.Final.jar
@@ -89,6 +90,7 @@
 /org/apache/camel/component/beanio/main/beanio-2.1.0.jar
 /org/apache/camel/component/beanio/main/camel-beanio-2.19.3.jar
 /org/apache/camel/component/bindy/main/camel-bindy-2.19.3.jar
+/org/apache/camel/component/boon/main/camel-boon-2.19.3.jar
 /org/apache/camel/component/box/main/camel-box-2.19.3.jar
 /org/apache/camel/component/box/main/camel-box-api-2.19.3.jar
 /org/apache/camel/component/braintree/main/braintree-java-2.63.0.jar

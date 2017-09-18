@@ -48,6 +48,7 @@
         <!-- Camel versions -->
         <version.apache.camel>2.19.3</version.apache.camel>
         <version.apache.lucene>5.5.2</version.apache.lucene>
+        <version.io.netty40>4.0.45.Final</version.io.netty40>
 
         <!-- WildFly versions -->
         <version.wildfly>10.1.0.Final</version.wildfly>
@@ -81,7 +82,6 @@
         <version.fusepatch>2.6.0</version.fusepatch>
         <version.greenmail>1.4.0</version.greenmail>
         <version.hawtio>1.5.3</version.hawtio>
-        <version.io.netty40>4.0.45.Final</version.io.netty40>
         <version.javax.cache.api>1.0.0</version.javax.cache.api>
         <version.jboss.arquillian.core>1.1.10.Final</version.jboss.arquillian.core>
         <version.jboss.arquillian.osgi>2.1.0.Final</version.jboss.arquillian.osgi>
