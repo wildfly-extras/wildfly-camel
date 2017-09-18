@@ -6,6 +6,7 @@
   <dependencies>
     <module name="javax.annotation.api" />
     <module name="javax.enterprise.api" />
+    <module name="javax.transaction.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core.xml" />
     <module name="org.jboss.weld.core" />
