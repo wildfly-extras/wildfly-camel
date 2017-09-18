@@ -222,6 +222,8 @@ include::camel-stax.adoc[]
 
 include::camel-stream.adoc[]
 
+include::camel-string-template.adoc[]
+
 include::camel-swagger.adoc[]
 
 include::camel-twitter.adoc[]

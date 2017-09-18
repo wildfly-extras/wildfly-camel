@@ -1982,7 +1982,18 @@
             <module name="org.slf4j"/>
         </dependencies>
     </module>
-    
+
+    <module name="org.apache.camel.component.stringtemplate">
+        <include artifact="org.apache.camel:camel-stringtemplate" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.swagger">
         <include artifact="org.apache.camel:camel-swagger-java" />
         <include artifact="io.swagger:swagger-(.*)" />

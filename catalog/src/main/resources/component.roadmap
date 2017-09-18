@@ -128,6 +128,7 @@ sql-stored
 ssh
 stax
 stream
+string-template
 stub
 test
 timer
@@ -222,7 +223,6 @@ spark               	#1469
 spark-rest          	#1470
 spring-ws           	#1476
 stomp               	#2033
-string-template     	#2034
 telegram            	#2035
 xmpp                	#2037
 yammer              	#2038

@@ -66,7 +66,8 @@
 /net/sourceforge/htmlunit/main/htmlunit-core-js-2.23.jar
 /net/sourceforge/htmlunit/main/neko-htmlunit-2.24.jar
 /ognl/main/ognl-3.1.12.jar
-/org/antlr/runtime/main/antlr-runtime-3.5.jar
+/org/antlr/runtime/main/antlr-runtime-3.5.2.jar
+/org/antlr/st4/main/ST4-4.0.8.jar
 /org/apache/abdera/core/main/abdera-core-1.1.3.jar
 /org/apache/abdera/i18n/main/abdera-i18n-1.1.3.jar
 /org/apache/abdera/parser/main/abdera-parser-1.1.3.jar
@@ -239,6 +240,7 @@
 /org/apache/camel/component/ssh/main/camel-ssh-2.19.3.jar
 /org/apache/camel/component/stax/main/camel-stax-2.19.3.jar
 /org/apache/camel/component/stream/main/camel-stream-2.19.3.jar
+/org/apache/camel/component/stringtemplate/main/camel-stringtemplate-2.19.3.jar
 /org/apache/camel/component/swagger/main/camel-swagger-java-2.19.3.jar
 /org/apache/camel/component/swagger/main/swagger-annotations-1.5.13.jar
 /org/apache/camel/component/swagger/main/swagger-core-1.5.13.jar
