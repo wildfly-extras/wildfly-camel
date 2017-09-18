@@ -6,7 +6,7 @@
   <dependencies>
     <module name="sun.jdk">
       <imports>
-        <include path="sun/misc/Unsafe" />
+        <include path="sun/misc" />
       </imports>
     </module>
   </dependencies>

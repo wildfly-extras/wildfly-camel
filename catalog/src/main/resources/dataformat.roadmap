@@ -12,6 +12,7 @@ crypto
 csv
 flatpack
 gzip
+hessian        	#2040
 hl7
 jacksonxml
 jaxb
@@ -38,7 +39,6 @@ zip
 zipfile
 
 [planned]
-hessian        	#2040
 ical           	#2041
 jibx           	#2042
 json-johnzon   	#2043
