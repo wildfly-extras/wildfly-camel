@@ -1,6 +1,0 @@
-### camel-context
-
-The http://camel.apache.org/context.html[context,window=_blank] component enables you to create new Camel components
-from the routes within another Camel context. This can then be treated as a black box, allowing you
-to refer to the local endpoints within the component from within the other Camel context.
-

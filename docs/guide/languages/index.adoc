@@ -5,6 +5,4 @@ The following lists supported scripting languages
 * http://camel.apache.org/beanshell.html[BeanShell,window=_blank]
 * http://camel.apache.org/groovy.html[Groovy,window=_blank]
 * http://camel.apache.org/jsonpath.html[JSonPath,window=_blank]
-* http://camel.apache.org/ruby.html[Ruby,window=_blank]
-* http://camel.apache.org/python.html[Python,window=_blank]
 * http://camel.apache.org/javascript.html[JavaScript,window=_blank]
