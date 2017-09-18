@@ -6,6 +6,7 @@ beanio
 bindy-csv
 bindy-fixed
 bindy-kvp
+boon
 castor
 crypto
 csv
@@ -29,7 +30,7 @@ syslog
 tarfile
 tidyMarkup
 xmlBeans
-xmljson        	#2048
+xmljson
 xmlrpc
 xstream
 yaml-snakeyaml
@@ -37,7 +38,6 @@ zip
 zipfile
 
 [planned]
-boon           	#2039
 hessian        	#2040
 ical           	#2041
 jibx           	#2042

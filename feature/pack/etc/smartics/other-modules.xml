@@ -425,6 +425,17 @@
         <include artifact="io.fabric8:zjsonpatch" />
     </module>
 
+    <module name="io.fastjson.boon">
+        <include artifact="io.fastjson:boon" />
+        <dependencies>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc/Unsafe" />
+                </imports>
+            </module>
+        </dependencies>
+    </module>
+
     <module name="io.netty" inherit-slot="false" slot="4.1">
         <properties>
             <property name="jboss.api" value="private"/>

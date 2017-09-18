@@ -62,6 +62,7 @@ public class WildFlyRuntimeProviderTest {
         Assert.assertTrue(names.contains("jms"));
         Assert.assertTrue(names.contains("ejb"));
 
+        // Test rejected
         Assert.assertFalse(names.contains("apns"));
     }
 
@@ -76,7 +77,8 @@ public class WildFlyRuntimeProviderTest {
         Assert.assertTrue(names.contains("zip"));
         Assert.assertTrue(names.contains("zipfile"));
 
-        Assert.assertFalse(names.contains("boon"));
+        // Test rejected
+        //Assert.assertFalse(names.contains("boon"));
     }
 
     @Test
@@ -90,6 +92,7 @@ public class WildFlyRuntimeProviderTest {
         Assert.assertTrue(names.contains("spel"));
         Assert.assertTrue(names.contains("xpath"));
 
+        // Test rejected
         Assert.assertFalse(names.contains("sql"));
     }
 

@@ -782,6 +782,7 @@ org/apache/camel/component/aws/sqs
 org/apache/camel/component/aws/swf
 org/apache/camel/component/bean
 org/apache/camel/component/bean/validator
+org/apache/camel/component/boon
 org/apache/camel/component/box
 org/apache/camel/component/box/api
 org/apache/camel/component/braintree
