@@ -1051,6 +1051,7 @@ org/apache/camel/dataformat/bindy/util
 org/apache/camel/dataformat/castor
 org/apache/camel/dataformat/csv
 org/apache/camel/dataformat/flatpack
+org/apache/camel/dataformat/hessian
 org/apache/camel/dataformat/mime
 org/apache/camel/dataformat/mime/multipart
 org/apache/camel/dataformat/protobuf

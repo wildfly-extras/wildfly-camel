@@ -820,6 +820,14 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.hessian">
+        <include artifact="org.apache.camel:camel-hessian" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+    </module>
+
     <module name="org.apache.camel.component.hl7">
         <include artifact="org.apache.camel:camel-hl7" />
         <include artifact="ca.uhn.hapi:hapi-base" />
@@ -1241,7 +1249,7 @@
             <module name="org.slf4j"/>
             <module name="sun.jdk">
                 <imports>
-                    <include path="sun/misc/Unsafe" />
+                    <include path="sun/misc" />
                 </imports>
             </module>
         </dependencies>
@@ -1460,7 +1468,7 @@
         <dependencies>
             <module name="sun.jdk">
                 <imports>
-                    <include path="sun/misc/Unsafe" />
+                    <include path="sun/misc" />
                 </imports>
             </module>
         </dependencies>

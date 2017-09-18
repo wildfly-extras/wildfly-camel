@@ -14,6 +14,7 @@
 /com/amazon/aws/main/aws-java-sdk-sqs-1.11.108.jar
 /com/amazon/aws/main/aws-java-sdk-swf-libraries-1.11.22.jar
 /com/box/main/box-java-sdk-2.1.1.jar
+/com/caucho/hessian/main/hessian-4.0.38.jar
 /com/eclipsesource/minimal/json/main/minimal-json-0.9.1.jar
 /com/fasterxml/jackson/dataformat/cbor/main/jackson-dataformat-cbor-2.7.4.jar
 /com/fasterxml/jackson/dataformat/smile/main/jackson-dataformat-smile-2.7.4.jar
@@ -141,6 +142,7 @@
 /org/apache/camel/component/gson/main/camel-gson-2.19.3.jar
 /org/apache/camel/component/hbase/main/camel-hbase-2.19.3.jar
 /org/apache/camel/component/hdfs2/main/camel-hdfs2-2.19.3.jar
+/org/apache/camel/component/hessian/main/camel-hessian-2.19.3.jar
 /org/apache/camel/component/hl7/main/camel-hl7-2.19.3.jar
 /org/apache/camel/component/hl7/main/hapi-base-2.2.jar
 /org/apache/camel/component/hl7/main/hapi-structures-v24-2.2.jar

@@ -57,4 +57,23 @@ public class Customer implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "[first=" + firstName + ",last=" + lastName + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Customer)) return false;
+        return toString().equals(obj.toString());
+    }
+
 }

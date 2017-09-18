@@ -172,6 +172,13 @@
         </dependencies>
     </module>
 
+    <module name="com.caucho.hessian">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.caucho:hessian" />
+    </module>
+
     <module name="com.eclipsesource.minimal.json">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -247,7 +254,7 @@
         <dependencies>
             <module name="sun.jdk">
                 <imports>
-                    <include path="sun/misc/Unsafe" />
+                    <include path="sun/misc" />
                 </imports>
             </module>
         </dependencies>
@@ -430,7 +437,7 @@
         <dependencies>
             <module name="sun.jdk">
                 <imports>
-                    <include path="sun/misc/Unsafe" />
+                    <include path="sun/misc" />
                 </imports>
             </module>
         </dependencies>
@@ -745,7 +752,7 @@
             <module name="javax.api"/>
             <module name="sun.jdk">
                 <imports>
-                    <include path="sun/misc/Unsafe"/>
+                    <include path="sun/misc"/>
                 </imports>
             </module>
         </dependencies>
@@ -1096,7 +1103,7 @@
             <module name="org.slf4j"/>
             <module name="sun.jdk">
                 <imports>
-                    <include path="sun/misc/Unsafe" />
+                    <include path="sun/misc" />
                 </imports>
             </module>
         </dependencies>
