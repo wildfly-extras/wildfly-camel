@@ -152,6 +152,9 @@
 /org/apache/camel/component/http/common/main/camel-http-common-2.19.3.jar
 /org/apache/camel/component/http4/main/camel-http4-2.19.3.jar
 /org/apache/camel/component/hystrix/main/camel-hystrix-2.19.3.jar
+/org/apache/camel/component/ical/main/backport-util-concurrent-3.1.jar
+/org/apache/camel/component/ical/main/camel-ical-2.19.3.jar
+/org/apache/camel/component/ical/main/ical4j-1.0.7.jar
 /org/apache/camel/component/infinispan/main/camel-infinispan-2.19.3.jar
 /org/apache/camel/component/influxdb/main/camel-influxdb-2.19.3.jar
 /org/apache/camel/component/influxdb/main/influxdb-java-2.5.jar

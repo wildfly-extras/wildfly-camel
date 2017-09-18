@@ -682,6 +682,15 @@ javax/cache/integration
 javax/cache/management
 javax/cache/processor
 javax/cache/spi
+net/fortuna/ical4j
+net/fortuna/ical4j/data
+net/fortuna/ical4j/filter
+net/fortuna/ical4j/model
+net/fortuna/ical4j/model/component
+net/fortuna/ical4j/model/parameter
+net/fortuna/ical4j/model/property
+net/fortuna/ical4j/transform
+net/fortuna/ical4j/util
 net/sf/saxon
 net/sf/saxon/dom
 net/sf/saxon/event
@@ -862,6 +871,7 @@ org/apache/camel/component/hystrix
 org/apache/camel/component/hystrix/metrics
 org/apache/camel/component/hystrix/metrics/servlet
 org/apache/camel/component/hystrix/processor
+org/apache/camel/component/ical
 org/apache/camel/component/infinispan
 org/apache/camel/component/infinispan/embedded
 org/apache/camel/component/infinispan/policy
@@ -2716,4 +2726,18 @@ twitter4j/json
 twitter4j/management
 twitter4j/util
 twitter4j/util/function
+zoneinfo/Africa
+zoneinfo/America
+zoneinfo/America/Argentina
+zoneinfo/America/Indiana
+zoneinfo/America/Kentucky
+zoneinfo/America/North_Dakota
+zoneinfo/Antarctica
+zoneinfo/Arctic
+zoneinfo/Asia
+zoneinfo/Atlantic
+zoneinfo/Australia
+zoneinfo/Europe
+zoneinfo/Indian
+zoneinfo/Pacific
 

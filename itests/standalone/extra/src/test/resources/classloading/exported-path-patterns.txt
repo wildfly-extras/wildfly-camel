@@ -23,6 +23,7 @@
     ^io/undertow/client(.*)
 	^io/vertx/core(.*)
 	^javax/cache(.*)
+	^net/fortuna/ical4j(.*)
 	^net/sf/saxon(.*)
     ^org/aopalliance(.*)
     ^org/apache/abdera(.*)
@@ -83,6 +84,7 @@
 	^schema/(.*)
 	^schemas/(.*)
 	^twitter4j/(.*)
+	^zoneinfo/(.*)
 	^META-INF/cxf(.*)
 	^META-INF/services(.*)
 	

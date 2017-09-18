@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.ical">
+  <resources>
+    <artifact name="${backport-util-concurrent:backport-util-concurrent}" />
+    <artifact name="${org.apache.camel:camel-ical}" />
+    <artifact name="${org.mnode.ical4j:ical4j}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.lang" />
+    <module name="org.apache.commons.logging" />
+  </dependencies>
+  <exports>
+    <exclude path="edu/emory" />
+    <exclude path="edu/emory/**" />
+    <exclude path="net/fortuna" />
+  </exports>
+</module>

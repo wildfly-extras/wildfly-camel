@@ -893,6 +893,26 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.ical">
+        <include artifact="org.apache.camel:camel-ical" />
+        <include artifact="org.mnode.ical4j:ical4j" />
+        <include artifact="backport-util-concurrent:backport-util-concurrent" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+            <include module="org.mnode.skipped" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j" />
+        </dependencies>
+        <exports>
+            <exclude path="edu/emory" />
+            <exclude path="edu/emory/**" />
+            <exclude path="net/fortuna" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.infinispan">
         <include artifact="org.apache.camel:camel-infinispan"/>
         <apply-to-dependencies skip="true">

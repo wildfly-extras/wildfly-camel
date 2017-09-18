@@ -248,12 +248,29 @@
         <include artifact=":woodstox-core" />
     </module>
 
+    <module name="org.eclipse.jetty.orbit" skip="true">
+        <include artifact="org.eclipse.jetty.orbit:javax.servlet" />
+    </module>
+
+    <module name="org.eclipse.jetty.server" skip="true">
+        <include artifact="org.eclipse.jetty:jetty-server" />
+    </module>
+    
     <module name="org.fusesource.hawtjni" skip="true">
         <include artifact="org.fusesource.hawtjni:hawtjni-runtime" />
     </module>
 
     <module name="org.fusesource.leveldbjni" skip="true">
         <include artifact="org.fusesource.leveldbjni:leveldbjni-all" />
+    </module>
+
+    <module name="org.glassfish.web" skip="true">
+        <include artifact="org.glassfish.web:javax.el" />
+    </module>
+    
+    <module name="org.infinispan.cdi" skip="true">
+        <include artifact="org.infinispan:infinispan-cdi-common" />
+        <include artifact="org.infinispan:infinispan-cdi-embedded" />
     </module>
 
     <module name="org.iq80.leveldb" skip="true">
@@ -272,23 +289,6 @@
         <include artifact="org.jboss.marshalling:jboss-marshalling-osgi" />
     </module>
     
-    <module name="org.eclipse.jetty.orbit" skip="true">
-        <include artifact="org.eclipse.jetty.orbit:javax.servlet" />
-    </module>
-
-    <module name="org.eclipse.jetty.server" skip="true">
-        <include artifact="org.eclipse.jetty:jetty-server" />
-    </module>
-    
-    <module name="org.glassfish.web" skip="true">
-        <include artifact="org.glassfish.web:javax.el" />
-    </module>
-    
-    <module name="org.infinispan.cdi" skip="true">
-        <include artifact="org.infinispan:infinispan-cdi-common" />
-        <include artifact="org.infinispan:infinispan-cdi-embedded" />
-    </module>
-
     <module name="org.jboss.interceptor" skip="true">
         <include artifact="org.jboss.interceptor:jboss-interceptor-core" />
         <include artifact="org.jboss.interceptor:jboss-interceptor-spi" />
@@ -309,10 +309,6 @@
     
     <module name="org.jctools" skip="true">
         <include artifact="org.jctools:(.*)" />
-    </module>
-
-    <module name="org.projectlombok" skip="true">
-        <include artifact="org.projectlombok:lombok" />
     </module>
 
     <module name="org.jruby" skip="true">
@@ -336,6 +332,10 @@
         <include artifact="org.linkedin:(.*)" />
     </module>
 
+    <module name="org.mnode.skipped" skip="true">
+        <include artifact="org.mnode:mnode-tools" />
+    </module>
+
     <module name="org.mortbay.jetty" skip="true">
         <include artifact="org.mortbay.jetty:(.*)" />
     </module>
@@ -351,6 +351,10 @@
     <module name="org.ow2.asm" skip="true">
         <include artifact="org.ow2.asm:asm"/>
         <include artifact="org.ow2.asm:asm-commons"/>
+    </module>
+
+    <module name="org.projectlombok" skip="true">
+        <include artifact="org.projectlombok:lombok" />
     </module>
 
     <module name="org.scala" skip="true">
