@@ -13,7 +13,6 @@ crypto
 csv
 flatpack
 gzip
-hessian             #deprecated
 hl7
 ical
 jacksonxml
@@ -52,5 +51,6 @@ zipfile
 [undecided]
 
 [rejected]
+hessian             #deprecated
 xmlBeans            #deprecated
 

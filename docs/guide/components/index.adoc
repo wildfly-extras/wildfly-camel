@@ -68,8 +68,6 @@ include::camel-coap.adoc[]
 
 include::camel-cometd.adoc[]
 
-include::camel-context.adoc[]
-
 include::camel-couchbase.adoc[]
 
 include::camel-couchdb.adoc[]

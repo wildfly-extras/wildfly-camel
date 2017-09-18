@@ -135,10 +135,6 @@
             <artifactId>scriptengines-javascript</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.google.code.scriptengines</groupId>
-            <artifactId>scriptengines-jruby</artifactId>
-        </dependency>
-        <dependency>
             <groupId>javax.cache</groupId>
             <artifactId>cache-api</artifactId>
         </dependency>
@@ -282,10 +278,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-connector</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-context</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -442,10 +434,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-hdfs2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-hessian</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -1005,16 +993,8 @@
             <artifactId>gravia-runtime-embedded</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jruby</groupId>
-            <artifactId>jruby-complete</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.python</groupId>
-            <artifactId>jython</artifactId>
         </dependency>
         <dependency>
             <groupId>org.scala-lang</groupId>

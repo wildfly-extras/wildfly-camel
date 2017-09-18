@@ -1551,7 +1551,6 @@ org/apache/camel/component/cm/validation
 org/apache/camel/component/cm/validation/constraints
 org/apache/camel/component/cometd
 org/apache/camel/component/connector
-org/apache/camel/component/context
 org/apache/camel/component/couchbase
 org/apache/camel/component/couchdb
 org/apache/camel/component/crypto
@@ -1956,7 +1955,6 @@ org/apache/camel/dataformat/bindy/util
 org/apache/camel/dataformat/castor
 org/apache/camel/dataformat/csv
 org/apache/camel/dataformat/flatpack
-org/apache/camel/dataformat/hessian
 org/apache/camel/dataformat/jibx
 org/apache/camel/dataformat/lzf
 org/apache/camel/dataformat/mime

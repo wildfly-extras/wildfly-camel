@@ -520,17 +520,6 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.context">
-        <include artifact="org.apache.camel:camel-context" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.slf4j" />
-        </dependencies>
-    </module>
-
     <module name="org.apache.camel.component.couchbase">
         <include artifact="org.apache.camel:camel-couchbase"/>
         <include artifact="com.couchbase.client:couchbase-client"/>
@@ -1235,17 +1224,6 @@
         <exports>
             <exclude path="com/cedarsoftware**" />
         </exports>
-    </module>
-
-    <module name="org.apache.camel.component.hessian">
-        <include artifact="org.apache.camel:camel-hessian" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.slf4j"/>
-        </dependencies>
     </module>
 
     <module name="org.apache.camel.component.hl7">
@@ -2435,8 +2413,6 @@
         <dependencies>
             <module name="javax.api"/>
             <module name="org.apache.camel.script.groovy" export="true" services="export"/>
-            <module name="org.apache.camel.script.jruby" services="export"/>
-            <module name="org.apache.camel.script.python" services="export"/>
             <module name="org.apache.camel.script.rhino" services="export"/>
             <module name="org.beanshell" services="export"/>
             <module name="org.osgi.core"/>
@@ -2461,17 +2437,6 @@
         </exports>
     </module>
 
-    <module name="org.apache.camel.script.python">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.python:jython" />
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
     <module name="org.apache.camel.script.rhino">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -2482,26 +2447,6 @@
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
-    <module name="org.apache.camel.script.jruby">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.jruby:jruby-complete" />
-        <include artifact=":scriptengines-jruby" />
-        <include artifact="bsf:bsf" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.script.rhino" />
-            <include module="org.jruby.extras" />
-            <include module="org.jruby" />
-            <include module="ant" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="org.slf4j"/>
-            <module name="sun.jdk"/>
         </dependencies>
     </module>
 

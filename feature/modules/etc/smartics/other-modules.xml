@@ -200,13 +200,6 @@
         </dependencies>
     </module>
 
-    <module name="com.caucho.hessian">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.caucho:hessian" />
-    </module>
-
     <module name="com.damnhandy">
         <include artifact="com.damnhandy:handy-uri-templates" />
     </module>

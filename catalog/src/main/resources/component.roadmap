@@ -42,7 +42,6 @@ cm-sms
 coap
 cometd
 cometds
-context                                             #deprecated
 controlbus
 couchbase
 couchdb
@@ -275,6 +274,7 @@ solrs                                               #2032 No test coverage for s
 [rejected]
 bonita                                              #1820 We don't want another BPM engine
 cache                                               #deprecated
+context                                             #deprecated
 eventadmin                                          #1996 OSGi specific
 gora                                                #2000 Competitor to JDG
 grape                                               #2001 Grape requires Groovy class loader

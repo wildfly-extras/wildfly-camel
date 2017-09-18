@@ -45,8 +45,6 @@ public class ScriptIntegrationTest {
     private static final String BEANSHELL_SCRIPT = "beanshell-script.bsh";
     private static final String GROOVY_SCRIPT = "groovy-script.grv";
     private static final String JAVA_SCRIPT = "java-script.js";
-    private static final String PYTHON_SCRIPT = "python-script.py";
-    private static final String RUBY_SCRIPT = "ruby-script.rb";
 
     @Deployment
     public static JavaArchive deployment() {
@@ -54,8 +52,6 @@ public class ScriptIntegrationTest {
         archive.addAsResource("script/" + BEANSHELL_SCRIPT, BEANSHELL_SCRIPT);
         archive.addAsResource("script/" + GROOVY_SCRIPT, GROOVY_SCRIPT);
         archive.addAsResource("script/" + JAVA_SCRIPT, JAVA_SCRIPT);
-        archive.addAsResource("script/" + PYTHON_SCRIPT, PYTHON_SCRIPT);
-        archive.addAsResource("script/" + RUBY_SCRIPT, RUBY_SCRIPT);
         archive.addClasses(TestUtils.class);
         return archive;
     }
@@ -63,16 +59,6 @@ public class ScriptIntegrationTest {
     @Test
     public void testBeanshell() throws Exception {
         scriptProcessing("beanshell", BEANSHELL_SCRIPT);
-    }
-
-    @Test
-    public void testPhyton() throws Exception {
-        scriptProcessing("python", PYTHON_SCRIPT);
-    }
-
-    @Test
-    public void testRuby() throws Exception {
-        scriptProcessing("ruby", RUBY_SCRIPT);
     }
 
     @Test
