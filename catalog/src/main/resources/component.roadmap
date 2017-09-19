@@ -37,6 +37,7 @@ dataset
 direct
 direct-vm
 disruptor
+disruptor-vm
 dns
 dozer
 dropbox
@@ -191,7 +192,6 @@ cmis                	#1989
 cometd              	#1990
 cometds             	#1991
 consul              	#1992
-disruptor-vm        	#1994
 ehcache             	#1995
 fop                 	#1997
 ganglia             	#1998
