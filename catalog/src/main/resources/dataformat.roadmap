@@ -17,6 +17,7 @@ hl7
 ical
 jacksonxml
 jaxb
+jibx
 json-gson
 json-jackson
 json-xstream
@@ -40,7 +41,6 @@ zip
 zipfile
 
 [planned]
-jibx           	#2042
 json-johnzon   	#2043
 lzf            	#2044
 univocity-csv  	#2045

@@ -92,6 +92,7 @@
         <!-- [#1689] Enable camel-groups to work with jgroups-4.0
         <module name="org.apache.camel.component.jgroups" export="true" services="export" optional="true" />
         -->
+        <module name="org.apache.camel.component.jibx" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jms" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jmx" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jpa" export="true" services="export" optional="true" />

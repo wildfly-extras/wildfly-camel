@@ -1065,6 +1065,7 @@ org/apache/camel/dataformat/castor
 org/apache/camel/dataformat/csv
 org/apache/camel/dataformat/flatpack
 org/apache/camel/dataformat/hessian
+org/apache/camel/dataformat/jibx
 org/apache/camel/dataformat/mime
 org/apache/camel/dataformat/mime/multipart
 org/apache/camel/dataformat/protobuf
@@ -2327,6 +2328,9 @@ org/infinispan/xsite/statetransfer
 org/infinispan/xsite/status
 org/influxdb
 org/influxdb/dto
+org/jibx
+org/jibx/runtime
+org/jibx/runtime/impl
 org/jsmpp
 org/jsmpp/bean
 org/jsmpp/extra

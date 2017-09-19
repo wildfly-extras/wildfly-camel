@@ -17,6 +17,7 @@ The following lists supported Data Formats
 * http://camel.apache.org/ical.html[iCal,window=_blank]
 * http://camel.apache.org/jaxb.html[JAXB,window=_blank]
 * http://camel.apache.org/jackson-xml.html[JacksonXML,window=_blank]
+* http://camel.apache.org/jibx.html[JiBX,window=_blank]
 * http://camel.apache.org/json.html[JSON,window=_blank]
 * http://camel.apache.org/protobuf.html[Protobuf,window=_blank]
 * http://camel.apache.org/soap.html[SOAP,window=_blank]
