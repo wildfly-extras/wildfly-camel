@@ -112,6 +112,8 @@
 /org/apache/camel/component/csv/main/camel-csv-2.19.3.jar
 /org/apache/camel/component/cxf/main/camel-cxf-2.19.3.jar
 /org/apache/camel/component/cxf/main/camel-cxf-transport-2.19.3.jar
+/org/apache/camel/component/disruptor/main/camel-disruptor-2.19.3.jar
+/org/apache/camel/component/disruptor/main/disruptor-3.3.6.jar
 /org/apache/camel/component/dns/main/camel-dns-2.19.3.jar
 /org/apache/camel/component/dns/main/dnsjava-2.1.8.jar
 /org/apache/camel/component/dozer/main/camel-dozer-2.19.3.jar

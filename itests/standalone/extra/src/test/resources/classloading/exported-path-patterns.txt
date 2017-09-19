@@ -10,6 +10,7 @@
 	^com/google/api/services/pubsub(.*)
     ^com/google/gson(.*)
 	^com/google/protobuf(.*)
+    ^com/lmax/disruptor(.*)
 	^com/mongodb(.*)
     ^com/opengamma(.*)
     ^com/rabbitmq(.*)
