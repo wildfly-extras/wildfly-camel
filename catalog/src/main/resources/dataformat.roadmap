@@ -22,6 +22,7 @@ json-gson
 json-jackson
 json-johnzon
 json-xstream
+lzf
 mime-multipart
 pgp
 protobuf
@@ -42,7 +43,6 @@ zip
 zipfile
 
 [planned]
-lzf            	#2044
 univocity-csv  	#2045
 univocity-fixed	#2046
 univocity-tsv  	#2047

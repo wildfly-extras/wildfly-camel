@@ -1277,6 +1277,18 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.lzf">
+        <include artifact="org.apache.camel:camel-lzf" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.ning.lzf" export="true"/>
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.mail">
         <include artifact="org.apache.camel:camel-mail" />
         <apply-to-dependencies skip="true">

@@ -532,6 +532,12 @@ com/mongodb/management
 com/mongodb/operation
 com/mongodb/selector
 com/mongodb/util
+com/ning/compress
+com/ning/compress/gzip
+com/ning/compress/lzf
+com/ning/compress/lzf/impl
+com/ning/compress/lzf/parallel
+com/ning/compress/lzf/util
 com/opengamma/elsql
 com/rabbitmq/client
 com/splunk
@@ -1067,6 +1073,7 @@ org/apache/camel/dataformat/csv
 org/apache/camel/dataformat/flatpack
 org/apache/camel/dataformat/hessian
 org/apache/camel/dataformat/jibx
+org/apache/camel/dataformat/lzf
 org/apache/camel/dataformat/mime
 org/apache/camel/dataformat/mime/multipart
 org/apache/camel/dataformat/protobuf

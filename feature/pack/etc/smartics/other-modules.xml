@@ -309,6 +309,20 @@
         <include artifact=":querydsl-codegen" />
     </module>
 
+    <module name="com.ning.lzf">
+        <include artifact="com.ning:compress-lzf" />
+        <dependencies>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc" />
+                </imports>
+            </module>
+        </dependencies>
+        <exports>
+            <exclude path="com/ning" />
+        </exports>
+    </module>
+    
     <module name="com.rometools.rome">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1095,7 +1109,6 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.carrotsearch:hppc" />
-        <include artifact="com.ning:compress-lzf" />
         <include artifact="com.tdunning:t-digest" />
         <include artifact="com.twitter:jsr166e" />
         <include artifact="org.elasticsearch:elasticsearch" />
@@ -1119,7 +1132,6 @@
         </dependencies>
         <exports>
             <exclude path="com/carrotsearch**" />
-            <exclude path="com/ning**" />
             <exclude path="com/tdunning**" />
             <exclude path="com/twitter**" />
         </exports>

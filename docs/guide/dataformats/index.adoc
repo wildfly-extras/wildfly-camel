@@ -20,6 +20,7 @@ The following lists supported Data Formats
 * http://camel.apache.org/jibx.html[JiBX,window=_blank]
 * http://camel.apache.org/json.html[JSON,window=_blank]
 * https://github.com/apache/camel/blob/master/components/camel-johnzon/src/main/docs/json-johnzon-dataformat.adoc[JSON-Johnzon,window=_blank]
+* http://camel.apache.org/lzf-data-format.html[LZF,window=_blank]
 * http://camel.apache.org/protobuf.html[Protobuf,window=_blank]
 * http://camel.apache.org/soap.html[SOAP,window=_blank]
 * http://camel.apache.org/serialization.html[Serialization,window=_blank]
