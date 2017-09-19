@@ -1,0 +1,3 @@
+### camel-mustache
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-mustache/src/main/docs/reactive-mustache.adoc[mustache,window=_blank] component allows for processing a message using a http://mustache.github.io/[Mustache,window=_blank] template.

@@ -912,6 +912,7 @@ org/apache/camel/component/mongodb/converters
 org/apache/camel/component/mongodb/processor
 org/apache/camel/component/mongodb/processor/idempotent
 org/apache/camel/component/mqtt
+org/apache/camel/component/mustache
 org/apache/camel/component/mvel
 org/apache/camel/component/mybatis
 org/apache/camel/component/nats
