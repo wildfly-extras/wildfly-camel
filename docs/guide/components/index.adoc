@@ -60,6 +60,8 @@ include::camel-cxf.adoc[]
 
 include::camel-disruptor.adoc[]
 
+include::camel-disruptor-vm.adoc[]
+
 include::camel-dns.adoc[]
 
 include::camel-dozer.adoc[]

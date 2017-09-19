@@ -1,0 +1,3 @@
+### camel-disruptor-vm
+
+The http://camel.apache.org/disruptor.html[Disruptor VM,window=_blank] component provides a https://github.com/LMAX-Exchange/disruptor[Disruptor,window=_blank] based alternative to http://camel.apache.org/vm.html[VM,window=_blank] endpoints.
