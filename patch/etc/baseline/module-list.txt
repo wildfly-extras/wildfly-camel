@@ -118,6 +118,8 @@
 /org/apache/camel/component/dns/main/camel-dns-2.19.3.jar
 /org/apache/camel/component/dns/main/dnsjava-2.1.8.jar
 /org/apache/camel/component/dozer/main/camel-dozer-2.19.3.jar
+/org/apache/camel/component/drill/main/camel-drill-2.19.3.jar
+/org/apache/camel/component/drill/main/drill-jdbc-all-1.10.0.jar
 /org/apache/camel/component/dropbox/main/camel-dropbox-2.19.3.jar
 /org/apache/camel/component/dropbox/main/dropbox-core-sdk-1.8.2.jar
 /org/apache/camel/component/ejb/main/camel-ejb-2.19.3.jar

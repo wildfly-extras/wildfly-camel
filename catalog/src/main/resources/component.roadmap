@@ -40,6 +40,7 @@ disruptor
 disruptor-vm
 dns
 dozer
+drill               	#1823
 dropbox
 ejb
 elasticsearch
@@ -155,7 +156,6 @@ azure-queue         	#1819
 couchbase           	#1821
 digitalocean        	#1822
 docker              	#1424
-drill               	#1823
 elasticsearch5      	#1824
 etcd                	#1827
 flink               	#1430

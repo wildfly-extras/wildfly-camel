@@ -829,6 +829,7 @@ org/apache/camel/component/dns
 org/apache/camel/component/dns/cloud
 org/apache/camel/component/dns/types
 org/apache/camel/component/dozer
+org/apache/camel/component/drill
 org/apache/camel/component/dropbox
 org/apache/camel/component/dropbox/core
 org/apache/camel/component/dropbox/dto
@@ -1230,6 +1231,7 @@ org/apache/cxf/ws/security/trust/delegation
 org/apache/cxf/ws/security/wss4j
 org/apache/cxf/ws/security/wss4j/policyhandlers
 org/apache/cxf/ws/security/wss4j/policyvalidators
+org/apache/drill/jdbc
 org/apache/hadoop
 org/apache/hadoop/conf
 org/apache/hadoop/crypto

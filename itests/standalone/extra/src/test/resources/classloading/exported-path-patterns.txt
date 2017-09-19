@@ -50,6 +50,7 @@
 	^org/apache/cxf/transport/undertow(.*)
 	^org/apache/cxf/ws/discovery(.*)
 	^org/apache/cxf/ws/security(.*)
+	^org/apache/drill/jdbc
 	^org/apache/hadoop(.*)
 	^org/apache/ibatis(.*)
 	^org/apache/johnzon(.*)

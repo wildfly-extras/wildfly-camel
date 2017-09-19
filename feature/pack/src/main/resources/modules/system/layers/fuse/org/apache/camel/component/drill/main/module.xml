@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.3" name="org.apache.camel.component.drill">
+  <resources>
+    <artifact name="${org.apache.camel:camel-drill}" />
+    <artifact name="${org.apache.drill.exec:drill-jdbc-all}">
+      <filter>
+        <exclude path="org/slf4j" />
+        <exclude path="org/slf4j/**" />
+      </filter>
+    </artifact>
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="org.springframework.jdbc" />
+    <module name="sun.jdk" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+  <exports>
+    <exclude path="nl/basjes**" />
+    <exclude path="oadd**" />
+    <exclude path="org/apache/drill" />
+    <exclude path="org/apache/drill/jdbc/impl" />
+    <exclude path="org/apache/drill/jdbc/proxy" />
+    <exclude path="org/apache/parquet**" />
+    <exclude path="org/w3c**" />
+    <exclude path="org/xml**" />
+  </exports>
+</module>

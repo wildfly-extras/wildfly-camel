@@ -8,9 +8,9 @@
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
-  
+
        http://www.apache.org/licenses/LICENSE-2.0
-  
+
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,7 +44,7 @@
 
     <!-- Properties -->
     <properties>
-        
+
         <!-- Camel versions -->
         <version.apache.camel>2.19.3</version.apache.camel>
         <version.apache.lucene>5.5.2</version.apache.lucene>
@@ -55,7 +55,7 @@
         <version.wildfly.arquillian>1.0.2.Final</version.wildfly.arquillian>
         <version.wildfly.fasterxml.jackson>2.7.4</version.wildfly.fasterxml.jackson>
         <version.wildfly.infinispan>8.2.4.Final</version.wildfly.infinispan>
-        
+
         <!-- Other versions -->
         <version.apache.ds>2.0.0-M21</version.apache.ds>
         <version.apache.ds.codec>1.0.0-M33</version.apache.ds.codec>
@@ -95,7 +95,7 @@
         <version.net.sf.json>2.4</version.net.sf.json>
         <version.osgi>5.0.0</version.osgi>
         <version.redis.embedded>0.6</version.redis.embedded>
-        
+
         <!-- Plugin versions -->
         <version-apache-scr-plugin>1.21.0</version-apache-scr-plugin>
         <version-asciidoctor-maven-plugin>1.5.3</version-asciidoctor-maven-plugin>
@@ -123,7 +123,7 @@
         <version-maven-surefire-plugin>2.18.1</version-maven-surefire-plugin>
         <version-maven-war-plugin>3.0.0</version-maven-war-plugin>
         <version-properties-maven-plugin>1.0.0</version-properties-maven-plugin>
-        <version-smartics-maven-plugin>2.1.3</version-smartics-maven-plugin>
+        <version-smartics-maven-plugin>2.1.4</version-smartics-maven-plugin>
         <version-wildfly-build-tools>1.1.6.Final</version-wildfly-build-tools>
         <version-wildfly-maven-plugin>1.2.0.Final</version-wildfly-maven-plugin>
         <version-xmlbeans-maven-plugin>2.3.3</version-xmlbeans-maven-plugin>
@@ -154,14 +154,14 @@
                 <artifactId>args4j</artifactId>
                 <version>${version.args4j}</version>
             </dependency>
-            
+
             <!-- Aether -->
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-aether-provider</artifactId>
                 <version>${version.maven.aether.provider}</version>
             </dependency>
-            
+
             <!-- Arquillian -->
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
@@ -232,7 +232,7 @@
                 <artifactId>org.apache.felix.scr.ds-annotations</artifactId>
                 <version>${version.apache.felix.scr.ds.annotations}</version>
             </dependency>
-                
+
             <!-- FTP Server -->
             <dependency>
                 <groupId>org.apache.ftpserver</groupId>
@@ -269,7 +269,7 @@
                 <artifactId>org.eclipse.egit.github.core</artifactId>
                 <version>${version.eclipse.egit.github}</version>
             </dependency>
-            
+
             <!-- Gravia -->
             <dependency>
                 <groupId>org.jboss.gravia</groupId>
@@ -361,7 +361,7 @@
                 <artifactId>cache-api</artifactId>
                 <version>${version.javax.cache.api}</version>
             </dependency>
-            
+
             <!-- JBoss -->
             <dependency>
                 <groupId>org.jboss.osgi.metadata</groupId>
@@ -437,7 +437,7 @@
                 <artifactId>lucene-suggest</artifactId>
                 <version>${version.apache.lucene}</version>
             </dependency>
-            
+
             <!-- Mongo Embedded -->
             <dependency>
                 <groupId>de.flapdoodle.embed</groupId>
@@ -514,7 +514,7 @@
                 <artifactId>xmlbeans</artifactId>
                 <version>${version.apache.xmlbeans}</version>
             </dependency>
-            
+
         </dependencies>
     </dependencyManagement>
 
@@ -756,7 +756,7 @@
                                 </requireJavaVersion>
                                 <requireMavenVersion>
                                     <version>3.2.3</version>
-                                </requireMavenVersion>                
+                                </requireMavenVersion>
                             </rules>
                         </configuration>
                     </execution>
@@ -799,7 +799,7 @@
         <system>GitHub</system>
         <url>https://github.com/${github.namespace}/${github.project}/issues</url>
     </issueManagement>
-    
+
     <!-- Repositories -->
     <repositories>
         <repository>

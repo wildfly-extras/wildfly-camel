@@ -1,0 +1,5 @@
+= Apache Drill Docker Image
+
+The image requires an interactive session (`-it`) and some ports need to be published:
+
+    docker run -it -p 8047:8047 -p 31010:31010 wildflyext/apache-drill:1.10.0
