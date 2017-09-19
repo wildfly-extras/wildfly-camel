@@ -35,6 +35,8 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBStreamsClient;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBStreamsClientBuilder;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.AttributeValueUpdate;
@@ -125,21 +127,15 @@ public class DynamoDBUtils {
                 .withProvisionedThroughput(new ProvisionedThroughput(10L, 10L))
                 .withStreamSpecification(new StreamSpecification().withStreamEnabled(true).withStreamViewType(StreamViewType.NEW_AND_OLD_IMAGES));
 
-        return awaitStatus(client, client.createTable(tableReq).getTableDescription(), "ACTIVE");
+        DynamoDB dynamoDB = new DynamoDB(client);
+        Table table = dynamoDB.createTable(tableReq);
+        return table.waitForActive();
     }
 
     public static void deleteTable(AmazonDynamoDB client, String tableName) throws InterruptedException {
-        TableDescription description = client.describeTable(tableName).getTable();
-        awaitStatus(client, description, "ACTIVE");
-        client.deleteTable(tableName);
-    }
-
-    private static TableDescription awaitStatus(AmazonDynamoDB client, TableDescription description, String status) throws InterruptedException {
-        int retries = 20;
-        while (--retries > 0 && !description.getTableStatus().equals(status)) {
-            Thread.sleep(500);
-            description = client.describeTable(description.getTableName()).getTable();
-        }
-        return description;
+        DynamoDB dynamoDB = new DynamoDB(client);
+        Table table = dynamoDB.getTable(tableName);
+        table.delete();
+        table.waitForDelete();
     }
 }

@@ -45,6 +45,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-sns" />
         <include artifact="com.amazonaws:aws-java-sdk-sqs" />
         <include artifact="com.amazonaws:aws-java-sdk-swf-libraries" />
+        <include artifact="com.amazonaws:jmespath-java" />
         <apply-to-dependencies skip="true">
             <include module="com.amazon.aws.skipped" />
             <include module="software.amazon.ion.ion-java" />
@@ -151,7 +152,6 @@
         <include artifact="com.amazonaws:aws-java-sdk-workdocs" />
         <include artifact="com.amazonaws:aws-java-sdk-workspaces" />
         <include artifact="com.amazonaws:aws-java-sdk-xray" />
-        <include artifact="com.amazonaws:jmespath-java" />
     </module>
     
     <module name="com.box">

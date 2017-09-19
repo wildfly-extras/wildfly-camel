@@ -366,6 +366,7 @@ com/amazonaws/client/builder
 com/amazonaws/event
 com/amazonaws/event/request
 com/amazonaws/handlers
+com/amazonaws/jmespath
 com/amazonaws/jmx
 com/amazonaws/jmx/spi
 com/amazonaws/log

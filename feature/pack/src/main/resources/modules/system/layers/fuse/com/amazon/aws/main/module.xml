@@ -18,6 +18,7 @@
     <artifact name="${com.amazonaws:aws-java-sdk-sns}" />
     <artifact name="${com.amazonaws:aws-java-sdk-sqs}" />
     <artifact name="${com.amazonaws:aws-java-sdk-swf-libraries}" />
+    <artifact name="${com.amazonaws:jmespath-java}" />
   </resources>
   <dependencies>
     <module name="javax.api" />

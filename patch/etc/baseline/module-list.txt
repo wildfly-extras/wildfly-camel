@@ -13,6 +13,7 @@
 /com/amazon/aws/main/aws-java-sdk-sns-1.11.108.jar
 /com/amazon/aws/main/aws-java-sdk-sqs-1.11.108.jar
 /com/amazon/aws/main/aws-java-sdk-swf-libraries-1.11.22.jar
+/com/amazon/aws/main/jmespath-java-1.11.108.jar
 /com/box/main/box-java-sdk-2.1.1.jar
 /com/caucho/hessian/main/hessian-4.0.38.jar
 /com/eclipsesource/minimal/json/main/minimal-json-0.9.1.jar
