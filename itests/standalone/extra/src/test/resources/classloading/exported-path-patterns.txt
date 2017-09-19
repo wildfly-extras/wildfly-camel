@@ -50,6 +50,7 @@
 	^org/apache/cxf/ws/security(.*)
 	^org/apache/hadoop(.*)
 	^org/apache/ibatis(.*)
+	^org/apache/johnzon(.*)
 	^org/apache/kafka(.*)
 	^org/apache/olingo(.*)
 	^org/apache/xmlbeans

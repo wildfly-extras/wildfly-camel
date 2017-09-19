@@ -192,4 +192,53 @@ public class JSONDataFormatTest {
             camelctx.stop();
         }
     }
+
+    @Test
+    public void testMarshalJohnzon() throws Exception {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .marshal().json(JsonLibrary.Johnzon);
+            }
+        });
+
+        String expected = "{'firstName':'John','lastName':'Doe'}";
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
+            Assert.assertEquals(expected.replace('\'', '"'), result);
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testUnmarshalJohnzon() throws Exception {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .unmarshal().json(JsonLibrary.Johnzon, Customer.class);
+            }
+        });
+
+        String input = "{'firstName':'John','lastName':'Doe'}";
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            Customer customer = producer.requestBody("direct:start", input.replace('\'', '"'), Customer.class);
+            Assert.assertEquals("John", customer.getFirstName());
+            Assert.assertEquals("Doe", customer.getLastName());
+        } finally {
+            camelctx.stop();
+        }
+    }
 }

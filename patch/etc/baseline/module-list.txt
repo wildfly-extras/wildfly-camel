@@ -173,6 +173,9 @@
 /org/apache/camel/component/jibx/main/xpp3-1.1.3.4.O.jar
 /org/apache/camel/component/jms/main/camel-jms-2.19.3.jar
 /org/apache/camel/component/jmx/main/camel-jmx-2.19.3.jar
+/org/apache/camel/component/johnzon/main/camel-johnzon-2.19.3.jar
+/org/apache/camel/component/johnzon/main/johnzon-core-1.0.0.jar
+/org/apache/camel/component/johnzon/main/johnzon-mapper-1.0.0.jar
 /org/apache/camel/component/jpa/main/camel-jpa-2.19.3.jar
 /org/apache/camel/component/jsch/main/camel-jsch-2.19.3.jar
 /org/apache/camel/component/jsonpath/main/accessors-smart-1.1.jar

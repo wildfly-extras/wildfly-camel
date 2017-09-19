@@ -20,6 +20,7 @@ jaxb
 jibx
 json-gson
 json-jackson
+json-johnzon
 json-xstream
 mime-multipart
 pgp
@@ -41,7 +42,6 @@ zip
 zipfile
 
 [planned]
-json-johnzon   	#2043
 lzf            	#2044
 univocity-csv  	#2045
 univocity-fixed	#2046
