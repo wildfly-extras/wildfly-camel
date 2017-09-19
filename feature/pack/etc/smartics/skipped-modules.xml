@@ -18,7 +18,7 @@
   limitations under the License.
   #L%
   -->
-  
+
 <!--
   This file holds all the module definitions that are generallly skipped.
 -->
@@ -27,11 +27,11 @@
     <module name="ant" skip="true">
         <include artifact=":ant" />
     </module>
-    
+
     <module name="aopalliance" skip="true">
         <include artifact="aopalliance" />
     </module>
-    
+
     <module name="asm.extras" skip="true">
         <include artifact="asm:asm-analysis" />
         <include artifact="asm:asm-commons" />
@@ -46,7 +46,7 @@
     <module name="c3p0" skip="true">
         <include artifact="c3p0:c3p0" />
     </module>
-    
+
     <module name="cglib.nodep" skip="true">
         <include artifact=":cglib-nodep" />
     </module>
@@ -107,15 +107,15 @@
     <module name="com.headius" skip="true">
         <include artifact="com.headius:(.*)" />
     </module>
-    
+
     <module name="com.jcraft.jzlib" skip="true">
         <include artifact="com.jcraft:jzlib" />
     </module>
-    
+
     <module name="com.martiansoftware" skip="true">
         <include artifact="com.martiansoftware:nailgun-server" />
     </module>
-    
+
     <module name="com.sun.codemodel" skip="true">
         <include artifact="com.sun.codemodel:codemodel" />
     </module>
@@ -131,7 +131,7 @@
     <module name="com.sun.ldapbp" skip="true">
         <include artifact="com.sun:ldapbp" />
     </module>
-    
+
     <module name="com.sun.mail" skip="true">
         <include artifact="com.sun.mail:javax.mail" />
     </module>
@@ -139,7 +139,7 @@
     <module name="com.sun.tools" skip="true">
         <include artifact="com.sun:tools" />
     </module>
-    
+
     <module name="com.sun.xml.bind.jaxb.xjc" skip="true">
         <include artifact="com.sun.xml.bind:jaxb-xjc" />
     </module>
@@ -171,7 +171,7 @@
     <module name="jline" skip="true">
         <include artifact=":jline" />
     </module>
-    
+
     <module name="junit" skip="true">
         <include artifact=":junit" />
     </module>
@@ -191,7 +191,7 @@
     <module name="org.apache.aries.blueprint" skip="true">
         <include artifact="org.apache.aries.blueprint:(.*)" />
     </module>
-    
+
     <module name="org.apache.avro.ipc" skip="true">
         <include artifact="org.apache.avro:avro-ipc" />
     </module>
@@ -199,7 +199,7 @@
     <module name="org.apache.camel.apt" skip="true">
         <include artifact="org.apache.camel:apt" />
     </module>
-    
+
     <module name="org.apache.camel.blueprint" skip="true">
         <include artifact="org.apache.camel:camel-blueprint" />
     </module>
@@ -214,6 +214,20 @@
 
     <module name="org.apache.commons.daemon" skip="true">
         <include artifact=":commons-daemon"/>
+    </module>
+
+    <module name="org.apache.drill" skip="true">
+        <include artifact="jmock:jmock" />
+        <include artifact="org.apache.drill:drill-common" />
+        <include artifact="org.apache.drill:drill-logical" />
+        <include artifact="org.apache.drill:drill-protocol" />
+        <include artifact="org.apache.drill.exec:drill-java-exec" />
+        <include artifact="org.apache.drill.exec:drill-rpc" />
+        <include artifact="org.apache.drill.exec:vector" />
+        <include artifact="org.apache.drill.memory:drill-memory-base" />
+        <include artifact="org.easymock:easymock" />
+        <include artifact="org.mockito:mockito-core" />
+        <include artifact="org.objenesis:objenesis" />
     </module>
 
     <module name="org.apache.felix" skip="true">
@@ -231,19 +245,19 @@
         <include artifact="org.apache.maven:maven-model" />
         <include artifact="org.apache.maven:maven-model-builder" />
     </module>
-    
+
     <module name="org.apache.servicemix.bundles" skip="true">
         <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.javax-cache-api" />
     </module>
-    
+
     <module name="org.apache.tomcat.embed" skip="true">
         <include artifact="org.apache.tomcat.embed:(.*)" />
     </module>
-    
+
     <module name="org.codehaus.plexus" skip="true">
         <include artifact="org.codehaus.plexus:(.*)" />
     </module>
-    
+
     <module name="org.codehaus.woodstox.core" skip="true">
         <include artifact=":woodstox-core" />
     </module>
@@ -255,7 +269,7 @@
     <module name="org.eclipse.jetty.server" skip="true">
         <include artifact="org.eclipse.jetty:jetty-server" />
     </module>
-    
+
     <module name="org.fusesource.hawtjni" skip="true">
         <include artifact="org.fusesource.hawtjni:hawtjni-runtime" />
     </module>
@@ -267,7 +281,7 @@
     <module name="org.glassfish.web" skip="true">
         <include artifact="org.glassfish.web:javax.el" />
     </module>
-    
+
     <module name="org.infinispan.cdi" skip="true">
         <include artifact="org.infinispan:infinispan-cdi-common" />
         <include artifact="org.infinispan:infinispan-cdi-embedded" />
@@ -280,15 +294,15 @@
     <module name="org.jasypt" skip="true">
         <include artifact="org.jasypt:jasypt" />
     </module>
-    
+
     <module name="org.jboss.logging.processor" skip="true">
         <include artifact="org.jboss.logging:jboss-logging-processor" />
     </module>
-    
+
     <module name="org.jboss.marshalling.osgi" skip="true">
         <include artifact="org.jboss.marshalling:jboss-marshalling-osgi" />
     </module>
-    
+
     <module name="org.jboss.interceptor" skip="true">
         <include artifact="org.jboss.interceptor:jboss-interceptor-core" />
         <include artifact="org.jboss.interceptor:jboss-interceptor-spi" />
@@ -298,15 +312,15 @@
     <module name="org.joda.convert" skip="true">
         <include artifact=":joda-convert" />
     </module>
-    
+
     <module name="org.json4s" skip="true">
         <include artifact="org.json4s:json4s-(.*)" />
     </module>
-    
+
     <module name="org.jboss.shrinkwrap" skip="true">
         <include artifact="org.jboss.shrinkwrap:(.*)" />
     </module>
-    
+
     <module name="org.jctools" skip="true">
         <include artifact="org.jctools:(.*)" />
     </module>
@@ -343,7 +357,7 @@
     <module name="org.ops4j" skip="true">
         <include artifact="org.ops4j.base:(.*)" />
     </module>
-    
+
     <module name="org.osgi.compendium" skip="true">
         <include artifact="org.osgi:org.osgi.compendium" />
     </module>
@@ -374,9 +388,9 @@
         <include artifact=":spring-ldap-ldif-core" />
         <include artifact=":spring-ldap-odm" />
     </module>
-    
+
     <module name="software.amazon.ion.ion-java" skip="true">
         <include artifact="software.amazon.ion:ion-java" />
     </module>
-    
+
 </modules>
