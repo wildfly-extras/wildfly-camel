@@ -1,0 +1,3 @@
+### camel-disruptor
+
+The http://camel.apache.org/disruptor.html[Disruptor,window=_blank] component provides asynchronous SEDA behavior much as the standard SEDA Component, but utilizes a https://github.com/LMAX-Exchange/disruptor[Disruptor,window=_blank] instead of a BlockingQueue.

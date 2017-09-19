@@ -507,6 +507,7 @@ com/google/api/services/pubsub/model
 com/google/gson
 com/google/protobuf
 com/google/protobuf/util
+com/lmax/disruptor
 com/mongodb
 com/mongodb/annotations
 com/mongodb/assertions
@@ -822,6 +823,8 @@ org/apache/camel/component/cxf/transport
 org/apache/camel/component/cxf/transport/blueprint
 org/apache/camel/component/cxf/transport/spring
 org/apache/camel/component/cxf/util
+org/apache/camel/component/disruptor
+org/apache/camel/component/disruptor/vm
 org/apache/camel/component/dns
 org/apache/camel/component/dns/cloud
 org/apache/camel/component/dns/types

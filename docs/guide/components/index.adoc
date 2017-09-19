@@ -58,6 +58,8 @@ include::camel-crypto.adoc[]
 
 include::camel-cxf.adoc[]
 
+include::camel-disruptor.adoc[]
+
 include::camel-dns.adoc[]
 
 include::camel-dozer.adoc[]
@@ -143,6 +145,8 @@ include::camel-mllp.adoc[]
 include::camel-mongodb.adoc[]
 
 include::camel-mqtt.adoc[]
+
+include::camel-mustache.adoc[]
 
 include::camel-mvel.adoc[]
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.disruptor">
+  <resources>
+    <artifact name="${org.apache.camel:camel-disruptor}" />
+    <artifact name="${com.lmax:disruptor}" />
+  </resources>
+  <dependencies>
+    <module name="org.slf4j" />
+    <module name="sun.jdk">
+      <imports>
+        <include path="sun/misc" />
+      </imports>
+    </module>
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+  <exports>
+    <include path="com/lmax/disruptor" />
+    <exclude path="com/lmax**" />
+  </exports>
+</module>

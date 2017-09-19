@@ -36,6 +36,7 @@ dataformat
 dataset
 direct
 direct-vm
+disruptor
 dns
 dozer
 dropbox
@@ -190,7 +191,6 @@ cmis                	#1989
 cometd              	#1990
 cometds             	#1991
 consul              	#1992
-disruptor           	#1993
 disruptor-vm        	#1994
 ehcache             	#1995
 fop                 	#1997
