@@ -98,6 +98,7 @@
 /org/apache/activemq/main/activemq-spring-5.15.1.jar
 /org/apache/avalon/framework/main/avalon-framework-api-4.3.1.jar
 /org/apache/avalon/framework/main/avalon-framework-impl-4.3.1.jar
+/org/apache/camel/catalog/main/camel-catalog-2.20.0.jar
 /org/apache/camel/component/activemq/main/activemq-camel-5.15.1.jar
 /org/apache/camel/component/ahc-ws/main/camel-ahc-ws-2.20.0.jar
 /org/apache/camel/component/ahc/main/camel-ahc-2.20.0.jar
@@ -126,6 +127,7 @@
 /org/apache/camel/component/cdi/main/camel-cdi-2.20.0.jar
 /org/apache/camel/component/coap/main/camel-coap-2.20.0.jar
 /org/apache/camel/component/cometd/main/camel-cometd-2.20.0.jar
+/org/apache/camel/component/connector/main/camel-connector-2.20.0.jar
 /org/apache/camel/component/context/main/camel-context-2.20.0.jar
 /org/apache/camel/component/couchdb/main/camel-couchdb-2.20.0.jar
 /org/apache/camel/component/couchdb/main/lightcouch-0.1.8.jar
