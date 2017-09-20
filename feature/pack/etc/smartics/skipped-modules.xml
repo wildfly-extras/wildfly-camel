@@ -191,7 +191,11 @@
     <module name="org.apache.aries.blueprint" skip="true">
         <include artifact="org.apache.aries.blueprint:(.*)" />
     </module>
-    
+
+    <module name="org.apache.avalon.logkit" skip="true">
+        <include artifact="org.apache.avalon.logkit:avalon-logkit" />
+    </module>
+
     <module name="org.apache.avro.ipc" skip="true">
         <include artifact="org.apache.avro:avro-ipc" />
     </module>
@@ -378,5 +382,9 @@
     <module name="software.amazon.ion.ion-java" skip="true">
         <include artifact="software.amazon.ion:ion-java" />
     </module>
-    
+
+    <module name="xml-apis" skip="true">
+        <include artifact=":xml-apis-ext" />
+    </module>
+
 </modules>

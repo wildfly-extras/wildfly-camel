@@ -80,6 +80,8 @@ include::camel-facebook.adoc[]
 
 include::camel-file2.adoc[]
 
+include::camel-fop.adoc[]
+
 include::camel-freemarker.adoc[]
 
 include::camel-ftp.adoc[]

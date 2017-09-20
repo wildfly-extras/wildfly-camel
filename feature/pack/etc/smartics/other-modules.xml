@@ -630,6 +630,20 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.avalon.framework">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.avalon.logkit" />
+        </apply-to-dependencies>
+        <include artifact="org.apache.avalon.framework:avalon-framework-api" />
+        <include artifact="org.apache.avalon.framework:avalon-framework-impl" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
     <module name="org.apache.commons.compress">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -973,6 +987,36 @@
         <include artifact="org.apache.xmlbeans:xmlbeans" />
         <dependencies>
             <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.xmlgraphics">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <apply-to-dependencies skip="true">
+            <include module="xml-apis" />
+        </apply-to-dependencies>
+        <include artifact="org.apache.xmlgraphics:batik-anim" />
+        <include artifact="org.apache.xmlgraphics:batik-awt-util" />
+        <include artifact="org.apache.xmlgraphics:batik-bridge" />
+        <include artifact="org.apache.xmlgraphics:batik-css" />
+        <include artifact="org.apache.xmlgraphics:batik-dom" />
+        <include artifact="org.apache.xmlgraphics:batik-ext" />
+        <include artifact="org.apache.xmlgraphics:batik-extension" />
+        <include artifact="org.apache.xmlgraphics:batik-gvt" />
+        <include artifact="org.apache.xmlgraphics:batik-parser" />
+        <include artifact="org.apache.xmlgraphics:batik-script" />
+        <include artifact="org.apache.xmlgraphics:batik-svg-dom" />
+        <include artifact="org.apache.xmlgraphics:batik-svggen" />
+        <include artifact="org.apache.xmlgraphics:batik-transcoder" />
+        <include artifact="org.apache.xmlgraphics:batik-util" />
+        <include artifact="org.apache.xmlgraphics:batik-xml" />
+        <include artifact="org.apache.xmlgraphics:fop" />
+        <include artifact="org.apache.xmlgraphics:xmlgraphics-commons" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.avalon.framework" />
         </dependencies>
     </module>
 

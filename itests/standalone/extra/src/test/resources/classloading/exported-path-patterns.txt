@@ -50,6 +50,7 @@
 	^org/apache/cxf/transport/undertow(.*)
 	^org/apache/cxf/ws/discovery(.*)
 	^org/apache/cxf/ws/security(.*)
+    ^org/apache/fop(.*)
 	^org/apache/hadoop(.*)
 	^org/apache/ibatis(.*)
 	^org/apache/johnzon(.*)
@@ -59,6 +60,7 @@
 	^org/apache/xmlbeans/impl/schema
 	^org/apache/xmlbeans/impl/values
 	^org/apache/zookeeper(.*)
+    ^org/apache/xmlgraphics(.*)
     ^org/apache/xmlrpc(.*)
 	^org/asynchttpclient(.*)
 	^org/codehaus/groovy(.*)

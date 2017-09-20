@@ -48,6 +48,7 @@ exec
 facebook
 file
 flatpack
+fop
 freemarker
 ftp
 ftps
@@ -193,7 +194,6 @@ cometd              	#1990
 cometds             	#1991
 consul              	#1992
 ehcache             	#1995
-fop                 	#1997
 ganglia             	#1998
 geocoder            	#1999
 grape               	#2001

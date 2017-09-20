@@ -1,0 +1,3 @@
+### camel-fop
+
+The http://camel.apache.org/fop.html[FOP,window=_blank] component allows you to render a message into different output formats using http://xmlgraphics.apache.org/fop/index.html[Apache FOP,window=_blank].

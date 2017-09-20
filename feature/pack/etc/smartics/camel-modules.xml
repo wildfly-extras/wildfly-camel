@@ -677,6 +677,27 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.fop">
+        <include artifact="org.apache.camel:camel-fop" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.xmlgraphics" export="true">
+                <exports>
+                    <exclude path="org/apache/batik**" />
+                    <exclude path="org/apache/fop/servlet**" />
+                    <exclude path="org/apache/fop/tools**" />
+                    <exclude path="org/apache/xmlgraphics/image/writer/internal**" />
+                    <exclude path="org/w3c**" />
+                </exports>
+            </module>
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.freemarker">
         <include artifact="org.apache.camel:camel-freemarker" />
         <include artifact="org.freemarker:freemarker" />

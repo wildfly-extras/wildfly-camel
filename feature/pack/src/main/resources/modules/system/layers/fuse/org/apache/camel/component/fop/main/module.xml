@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.fop">
+  <resources>
+    <artifact name="${org.apache.camel:camel-fop}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.xmlgraphics" export="true">
+      <exports>
+        <exclude path="org/apache/batik**" />
+        <exclude path="org/apache/fop/servlet**" />
+        <exclude path="org/apache/fop/tools**" />
+        <exclude path="org/apache/xmlgraphics/image/writer/internal**" />
+        <exclude path="org/w3c**" />
+      </exports>
+    </module>
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.avalon.framework" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>

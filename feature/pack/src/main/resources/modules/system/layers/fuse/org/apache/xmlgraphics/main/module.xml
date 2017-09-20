@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.xmlgraphics">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.apache.xmlgraphics:batik-anim}" />
+    <artifact name="${org.apache.xmlgraphics:batik-awt-util}" />
+    <artifact name="${org.apache.xmlgraphics:batik-bridge}" />
+    <artifact name="${org.apache.xmlgraphics:batik-css}" />
+    <artifact name="${org.apache.xmlgraphics:batik-dom}" />
+    <artifact name="${org.apache.xmlgraphics:batik-ext}" />
+    <artifact name="${org.apache.xmlgraphics:batik-extension}" />
+    <artifact name="${org.apache.xmlgraphics:batik-gvt}" />
+    <artifact name="${org.apache.xmlgraphics:batik-parser}" />
+    <artifact name="${org.apache.xmlgraphics:batik-script}" />
+    <artifact name="${org.apache.xmlgraphics:batik-svg-dom}" />
+    <artifact name="${org.apache.xmlgraphics:batik-svggen}" />
+    <artifact name="${org.apache.xmlgraphics:batik-transcoder}" />
+    <artifact name="${org.apache.xmlgraphics:batik-util}" />
+    <artifact name="${org.apache.xmlgraphics:batik-xml}" />
+    <artifact name="${org.apache.xmlgraphics:fop}" />
+    <artifact name="${org.apache.xmlgraphics:xmlgraphics-commons}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.avalon.framework" />
+    <module name="javax.servlet.api" />
+    <module name="org.apache.commons.io" />
+    <module name="org.apache.commons.logging" />
+    <module name="org.apache.xalan" />
+    <module name="org.apache.xerces" />
+  </dependencies>
+</module>
