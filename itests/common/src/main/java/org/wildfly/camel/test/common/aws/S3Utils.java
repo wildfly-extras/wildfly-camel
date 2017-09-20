@@ -19,15 +19,24 @@
  */
 package org.wildfly.camel.test.common.aws;
 
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.HeadBucketRequest;
+import com.amazonaws.waiters.NoOpWaiterHandler;
+import com.amazonaws.waiters.Waiter;
+import com.amazonaws.waiters.WaiterParameters;
 
 public class S3Utils {
 
-    public static final String BUCKET_NAME = "wfc-aws-s3-bucket";
+    private static final String SUFFIX = "-id" + S3Utils.class.getClassLoader().hashCode();
+    
+    public static final String BUCKET_NAME = "wfc-bucket" + SUFFIX;
     
     // Attach Policy: AmazonS3FullAccess
     public static AmazonS3Client createS3Client() {
@@ -51,12 +60,18 @@ public class S3Utils {
         });
     }
 
-    public static void createBucket(AmazonS3Client client) {
+    @SuppressWarnings("unchecked")
+    public static void createBucket(AmazonS3Client client) throws Exception {
+
         client.createBucket(BUCKET_NAME);
+        
+        HeadBucketRequest request = new HeadBucketRequest(BUCKET_NAME);
+        Waiter<HeadBucketRequest> waiter = client.waiters().bucketExists();
+        Future<Void> future = waiter.runAsync(new WaiterParameters<HeadBucketRequest>(request), new NoOpWaiterHandler());
+        future.get(1, TimeUnit.MINUTES);
     }
 
-    public static void deleteBucket(AmazonS3Client client) {
+    public static void deleteBucket(AmazonS3Client client) throws Exception {
         client.deleteBucket(BUCKET_NAME);
     }
-
 }

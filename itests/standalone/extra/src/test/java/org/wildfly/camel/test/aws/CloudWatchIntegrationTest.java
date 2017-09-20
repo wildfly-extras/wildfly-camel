@@ -1,5 +1,10 @@
 package org.wildfly.camel.test.aws;
 
+import static org.wildfly.camel.test.common.aws.CloudWatchUtils.DIM_NAME;
+import static org.wildfly.camel.test.common.aws.CloudWatchUtils.DIM_VALUE;
+import static org.wildfly.camel.test.common.aws.CloudWatchUtils.NAME;
+import static org.wildfly.camel.test.common.aws.CloudWatchUtils.NAMESPACE;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -35,11 +40,6 @@ import com.amazonaws.services.cloudwatch.model.Metric;
 @RunWith(Arquillian.class)
 public class CloudWatchIntegrationTest {
 
-    public static final String namespace = "MySpace";
-    public static final String name = "MyMetric";
-    public static final String dimName = "MyDimName";
-    public static final String dimValue = "MyDimValue";
-    
     @Inject
     private CloudWatchClientProvider provider;
     
@@ -63,21 +63,21 @@ public class CloudWatchIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:metrics").to("aws-cw://" + namespace + "?amazonCwClient=#cwClient");
+                from("direct:metrics").to("aws-cw://" + NAMESPACE + "?amazonCwClient=#cwClient");
             }
         });
 
         camelctx.start();
         try {
             Map<String, Object> headers = new HashMap<>();
-            headers.put(CwConstants.METRIC_NAME, name);
-            headers.put(CwConstants.METRIC_DIMENSION_NAME, dimName);
-            headers.put(CwConstants.METRIC_DIMENSION_VALUE, dimValue);
+            headers.put(CwConstants.METRIC_NAME, NAME);
+            headers.put(CwConstants.METRIC_DIMENSION_NAME, DIM_NAME);
+            headers.put(CwConstants.METRIC_DIMENSION_VALUE, DIM_VALUE);
 
             ListMetricsRequest request = new ListMetricsRequest()
-                    .withNamespace(namespace)
-                    .withMetricName(name)
-                    .withDimensions(new DimensionFilter().withName(dimName).withValue(dimValue));
+                    .withNamespace(NAMESPACE)
+                    .withMetricName(NAME)
+                    .withDimensions(new DimensionFilter().withName(DIM_NAME).withValue(DIM_VALUE));
 
             List<Metric> metrics = Collections.emptyList();
             ProducerTemplate producer = camelctx.createProducerTemplate();

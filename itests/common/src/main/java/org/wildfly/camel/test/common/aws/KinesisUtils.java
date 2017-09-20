@@ -19,15 +19,23 @@
  */
 package org.wildfly.camel.test.common.aws;
 
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Assert;
 
 import com.amazonaws.services.kinesis.AmazonKinesisClient;
 import com.amazonaws.services.kinesis.AmazonKinesisClientBuilder;
-import com.amazonaws.services.kinesis.model.StreamDescription;
+import com.amazonaws.services.kinesis.model.DescribeStreamRequest;
+import com.amazonaws.waiters.NoOpWaiterHandler;
+import com.amazonaws.waiters.Waiter;
+import com.amazonaws.waiters.WaiterParameters;
 
 public class KinesisUtils {
 
-    public static final String STREAM_NAME = "wfcStream";
+    private static final String SUFFIX = "-id" + KinesisUtils.class.getClassLoader().hashCode();
+    
+    public static final String STREAM_NAME = "wfcStream" + SUFFIX;
 
     // Attach Policy: AmazonKinesisFullAccess
     public static AmazonKinesisClient createKinesisClient() {
@@ -39,21 +47,18 @@ public class KinesisUtils {
         return client;
     }
 
-    public static void createStream(AmazonKinesisClient kinClient) throws Exception {
-        kinClient.createStream(STREAM_NAME, 1);
+    public static void createStream(AmazonKinesisClient client) throws Exception {
         
-        int retries = 40;
-        StreamDescription desc = kinClient.describeStream(STREAM_NAME).getStreamDescription();
-        while(!"ACTIVE".equals(desc.getStreamStatus()) && 0 < retries--) {
-            Thread.sleep(500);
-            desc = kinClient.describeStream(STREAM_NAME).getStreamDescription();
-            System.out.println(retries + ": " + desc.getStreamARN() + "," + desc.getStreamStatus());
-        }
-        Assert.assertEquals("ACTIVE", desc.getStreamStatus());
+        client.createStream(STREAM_NAME, 1);
+        
+        Waiter<DescribeStreamRequest> waiter = client.waiters().streamExists();
+        DescribeStreamRequest request = new DescribeStreamRequest().withStreamName(STREAM_NAME);
+        Assert.assertNotNull("Cannot obtain stream description", request);
+        Future<Void> future = waiter.runAsync(new WaiterParameters<DescribeStreamRequest>(request), new NoOpWaiterHandler());
+        future.get(1, TimeUnit.MINUTES);
     }
 
-    public static void deleteStream(AmazonKinesisClient kinClient) {
-        kinClient.deleteStream(STREAM_NAME);
+    public static void deleteStream(AmazonKinesisClient client) throws Exception {
+        client.deleteStream(STREAM_NAME);
     }
-
 }

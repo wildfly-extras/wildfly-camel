@@ -27,6 +27,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.ec2.EC2Constants;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -72,7 +73,13 @@ public class EC2IntegrationTest {
         
         WildFlyCamelContext camelctx = new WildFlyCamelContext();
         camelctx.getNamingContext().bind("ec2Client", ec2Client);
-        EC2Utils.addRoutes(camelctx);
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:createAndRun").to("aws-ec2://TestDomain?amazonEc2Client=#ec2Client&operation=createAndRunInstances");
+                from("direct:terminate").to("aws-ec2://TestDomain?amazonEc2Client=#ec2Client&operation=terminateInstances");
+            }
+        });
 
         camelctx.start();
         try {

@@ -19,8 +19,6 @@
  */
 package org.wildfly.camel.test.common.aws;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.builder.RouteBuilder;
 import org.junit.Assert;
 
 import com.amazonaws.services.ec2.AmazonEC2Client;
@@ -38,16 +36,6 @@ public class EC2Utils {
                 .withRegion("eu-west-1")
                 .build();
         return client;
-    }
-
-    public static void addRoutes(CamelContext camelctx) throws Exception {
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:createAndRun").to("aws-ec2://TestDomain?amazonEc2Client=#ec2Client&operation=createAndRunInstances");
-                from("direct:terminate").to("aws-ec2://TestDomain?amazonEc2Client=#ec2Client&operation=terminateInstances");
-            }
-        });
     }
 
     public static String getSubnetId(AmazonEC2Client ec2Client) {

@@ -23,10 +23,12 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import org.wildfly.camel.test.common.aws.DynamoDBUtils;
+
 public class TableNameProviderB {
 
     @Produces
     @Singleton
     @Named("tableName")
-    public static final String TABLE_NAME = "ProductCatalogB";
+    public static final String TABLE_NAME = "ProductCatalogB" + DynamoDBUtils.SUFFIX;
 }

@@ -24,7 +24,9 @@ import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 
 public class SQSUtils {
 
-    public static final String QUEUE_NAME = "MyNewCamelQueue" + SQSUtils.class.hashCode();
+    private static final String SUFFIX = "-id" + SQSUtils.class.getClassLoader().hashCode();
+    
+    public static final String QUEUE_NAME = "MyNewCamelQueue" + SUFFIX;
 
     // Attach Policy: AmazonSQSFullAccess
     public static AmazonSQSClient createSQSClient() {
@@ -36,11 +38,11 @@ public class SQSUtils {
         return client;
     }
 
-    public static void createQueue(AmazonSQSClient sqsClient) {
-        sqsClient.createQueue(QUEUE_NAME);
+    public static void createQueue(AmazonSQSClient client) {
+        client.createQueue(QUEUE_NAME);
     }
 
-    public static void deleteQueue(AmazonSQSClient sqsClient) {
-        sqsClient.deleteQueue(QUEUE_NAME);
+    public static void deleteQueue(AmazonSQSClient client) {
+        client.deleteQueue(QUEUE_NAME);
     }
 }

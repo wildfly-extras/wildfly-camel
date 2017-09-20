@@ -30,8 +30,10 @@ import com.amazonaws.services.simpledb.model.DeleteDomainRequest;
 
 public class SDBUtils {
 
-    public static final String DOMAIN_NAME = "TestDomain";
-    public static final String ITEM_NAME = "TestItem";
+    private static final String SUFFIX = "-id" + SDBUtils.class.getClassLoader().hashCode();
+    
+    public static final String DOMAIN_NAME = "TestDomain" + SUFFIX;
+    public static final String ITEM_NAME = "TestItem" + SUFFIX;
 
     /* Attach a policy like this: MySDBFullAccess
             {
@@ -50,6 +52,7 @@ public class SDBUtils {
                 ]
             }
      */
+    
     public static AmazonSimpleDBClient createDBClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
         AmazonSimpleDBClient client = !credentials.isValid() ? null : (AmazonSimpleDBClient) 
@@ -59,28 +62,21 @@ public class SDBUtils {
         return client;
     }
 
-    public static void createDomain(AmazonSimpleDBClient sdbClient) throws InterruptedException {
-        sdbClient.createDomain(new CreateDomainRequest(DOMAIN_NAME));
+    public static void createDomain(AmazonSimpleDBClient client) throws InterruptedException {
+        client.createDomain(new CreateDomainRequest(DOMAIN_NAME));
 
+        // Unfortunatly, there is no waiters for domain create
+        
         int retries = 10;
-        List<String> domainNames = sdbClient.listDomains().getDomainNames();
+        List<String> domainNames = client.listDomains().getDomainNames();
         while (!domainNames.contains(DOMAIN_NAME) && 0 < retries--) {
             Thread.sleep(500);
-            domainNames = sdbClient.listDomains().getDomainNames();
+            domainNames = client.listDomains().getDomainNames();
         }
         Assert.assertTrue(domainNames.contains(DOMAIN_NAME));
     }
 
-    public static void deleteDomain(AmazonSimpleDBClient sdbClient) throws InterruptedException {
-        sdbClient.deleteDomain(new DeleteDomainRequest(DOMAIN_NAME));
-
-        int retries = 10;
-        List<String> domainNames = sdbClient.listDomains().getDomainNames();
-        while (domainNames.contains(DOMAIN_NAME) && 0 < retries--) {
-            Thread.sleep(500);
-            domainNames = sdbClient.listDomains().getDomainNames();
-        }
-        Assert.assertFalse(domainNames.contains(DOMAIN_NAME));
+    public static void deleteDomain(AmazonSimpleDBClient client) throws InterruptedException {
+        client.deleteDomain(new DeleteDomainRequest(DOMAIN_NAME));
     }
-
 }

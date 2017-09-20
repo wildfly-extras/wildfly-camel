@@ -19,6 +19,7 @@ package org.wildfly.camel.test.aws;
 import javax.inject.Inject;
 
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.swf.SWFConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -62,7 +63,29 @@ public class SWFIntegrationTest {
         
         WildFlyCamelContext camelctx = new WildFlyCamelContext();
         camelctx.getNamingContext().bind("swfClient", swfClient);
-        SWFUtils.addRoutes(camelctx);
+        camelctx.addRoutes(new RouteBuilder() {
+            public void configure() {
+                String options = "amazonSWClient=#swfClient&domainName=" + SWFUtils.DOMAIN + "&activityList=swf-alist&workflowList=swf-wlist&version=1.0";
+                
+                from("aws-swf://activity?" + options + "&eventName=processActivities")
+                    .log("FOUND ACTIVITY TASK ${body}")
+                    .setBody(constant("1"))
+                    .to("mock:worker");
+                
+                from("aws-swf://workflow?" + options + "&eventName=processWorkflows")
+                    .log("FOUND WORKFLOW TASK ${body}").filter(header(SWFConstants.ACTION).isEqualTo(SWFConstants.EXECUTE_ACTION))
+                    .to("aws-swf://activity?" + options + "&eventName=processActivities")
+                    .setBody(constant("Message two"))
+                    .to("aws-swf://activity?" + options + "&eventName=processActivities")
+                    .log("SENT ACTIVITY TASK ${body}")
+                    .to("mock:decider");
+
+                from("direct:start")
+                    .to("aws-swf://workflow?" + options + "&eventName=processWorkflows")
+                    .log("SENT WORKFLOW TASK ${body}")
+                    .to("mock:starter");
+            }
+        });
         
         MockEndpoint decider = camelctx.getEndpoint("mock:decider", MockEndpoint.class);
         MockEndpoint worker = camelctx.getEndpoint("mock:worker", MockEndpoint.class);

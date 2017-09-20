@@ -51,6 +51,8 @@ import com.amazonaws.services.dynamodbv2.model.TableDescription;
 
 public class DynamoDBUtils {
 
+    public static final String SUFFIX = "-id" + DynamoDBUtils.class.getClassLoader().hashCode();
+    
     // Attach Policy: AmazonDynamoDBFullAccess
     public static AmazonDynamoDBClient createDynamoDBClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
@@ -133,9 +135,6 @@ public class DynamoDBUtils {
     }
 
     public static void deleteTable(AmazonDynamoDB client, String tableName) throws InterruptedException {
-        DynamoDB dynamoDB = new DynamoDB(client);
-        Table table = dynamoDB.getTable(tableName);
-        table.delete();
-        table.waitForDelete();
+        new DynamoDB(client).getTable(tableName).delete();
     }
 }

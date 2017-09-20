@@ -19,10 +19,6 @@
  */
 package org.wildfly.camel.test.common.aws;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.aws.swf.SWFConstants;
-
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClient;
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClientBuilder;
 import com.amazonaws.services.simpleworkflow.model.DomainInfo;
@@ -43,32 +39,6 @@ public class SWFUtils {
                 .withRegion("eu-west-1")
                 .build();
         return client;
-    }
-
-    public static void addRoutes(CamelContext camelctx) throws Exception {
-        camelctx.addRoutes(new RouteBuilder() {
-            public void configure() {
-                String options = "amazonSWClient=#swfClient&domainName=" + SWFUtils.DOMAIN + "&activityList=swf-alist&workflowList=swf-wlist&version=1.0";
-                
-                from("aws-swf://activity?" + options + "&eventName=processActivities")
-                    .log("FOUND ACTIVITY TASK ${body}")
-                    .setBody(constant("1"))
-                    .to("mock:worker");
-                
-                from("aws-swf://workflow?" + options + "&eventName=processWorkflows")
-                    .log("FOUND WORKFLOW TASK ${body}").filter(header(SWFConstants.ACTION).isEqualTo(SWFConstants.EXECUTE_ACTION))
-                    .to("aws-swf://activity?" + options + "&eventName=processActivities")
-                    .setBody(constant("Message two"))
-                    .to("aws-swf://activity?" + options + "&eventName=processActivities")
-                    .log("SENT ACTIVITY TASK ${body}")
-                    .to("mock:decider");
-
-                from("direct:start")
-                    .to("aws-swf://workflow?" + options + "&eventName=processWorkflows")
-                    .log("SENT WORKFLOW TASK ${body}")
-                    .to("mock:starter");
-            }
-        });
     }
 
     public static void registerDomain(AmazonSimpleWorkflowClient swfClient) {

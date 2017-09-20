@@ -24,6 +24,13 @@ import com.amazonaws.services.cloudwatch.AmazonCloudWatchClientBuilder;
 
 public class CloudWatchUtils {
 
+    private static final String SUFFIX = "-id" + CloudWatchUtils.class.getClassLoader().hashCode();
+    
+    public static final String NAMESPACE = "MySpace" + SUFFIX;
+    public static final String NAME = "MyMetric" + CloudWatchUtils.SUFFIX;
+    public static final String DIM_NAME = "MyDimName" + CloudWatchUtils.SUFFIX;
+    public static final String DIM_VALUE = "MyDimValue" + CloudWatchUtils.SUFFIX;
+
     public static AmazonCloudWatchClient createCloudWatchClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
         AmazonCloudWatchClient client = !credentials.isValid() ? null : (AmazonCloudWatchClient) 
