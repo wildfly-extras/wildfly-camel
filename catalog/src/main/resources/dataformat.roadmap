@@ -34,6 +34,9 @@ string
 syslog
 tarfile
 tidyMarkup
+univocity-csv
+univocity-fixed
+univocity-tsv
 xmlBeans
 xmljson
 xmlrpc
@@ -43,9 +46,6 @@ zip
 zipfile
 
 [planned]
-univocity-csv  	#2045
-univocity-fixed	#2046
-univocity-tsv  	#2047
 
 [undecided]
 

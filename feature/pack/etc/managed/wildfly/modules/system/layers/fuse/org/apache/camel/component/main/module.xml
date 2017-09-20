@@ -187,6 +187,7 @@
         <module name="org.apache.camel.component.tarfile" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.twitter" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.undertow" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.univocity" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.velocity" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.vertx" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.weather" export="true" services="export" optional="true" />

@@ -2187,6 +2187,18 @@
         </dependencies>
     </module>
     
+    <module name="org.apache.camel.component.univocity">
+        <include artifact="org.apache.camel:camel-univocity-parsers" />
+        <include artifact="com.univocity:univocity-parsers" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <exports>
+            <exclude path="com/univocity**" />
+        </exports>
+    </module>
+    
     <module name="org.apache.camel.component.velocity">
         <include artifact="org.apache.camel:camel-velocity" />
         <apply-to-dependencies skip="true">
