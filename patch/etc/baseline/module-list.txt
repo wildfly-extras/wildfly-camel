@@ -270,6 +270,8 @@
 /org/apache/camel/component/twitter/main/twitter4j-core-4.0.6.jar
 /org/apache/camel/component/twitter/main/twitter4j-stream-4.0.6.jar
 /org/apache/camel/component/undertow/main/camel-undertow-2.19.3.jar
+/org/apache/camel/component/univocity/main/camel-univocity-parsers-2.19.3.jar
+/org/apache/camel/component/univocity/main/univocity-parsers-2.3.1.jar
 /org/apache/camel/component/velocity/main/camel-velocity-2.19.3.jar
 /org/apache/camel/component/vertx/main/camel-vertx-2.19.3.jar
 /org/apache/camel/component/vertx/main/vertx-core-3.4.1.jar

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.univocity">
+  <resources>
+    <artifact name="${org.apache.camel:camel-univocity-parsers}" />
+    <artifact name="${com.univocity:univocity-parsers}" />
+  </resources>
+  <dependencies>
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+  <exports>
+    <exclude path="com/univocity**" />
+  </exports>
+</module>
