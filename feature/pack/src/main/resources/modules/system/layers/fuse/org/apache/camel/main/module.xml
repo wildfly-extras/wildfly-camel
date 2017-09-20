@@ -25,6 +25,7 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel">
 
     <dependencies>
+        <module name="org.apache.camel.catalog" export="true" />
         <module name="org.apache.camel.core" export="true" services="export" />
         <module name="org.apache.camel.spring" export="true" services="export">
             <imports>

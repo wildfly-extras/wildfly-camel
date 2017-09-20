@@ -1,0 +1,23 @@
+{
+  "baseScheme": "timer",
+  "baseGroupId": "org.apache.camel",
+  "baseArtifactId": "camel-core",
+  "baseVersion": "${version.apache.camel}",
+  "baseJavaType": "org.apache.camel.component.timer.TimerComponent",
+  "name": "Foo",
+  "scheme": "foo",
+  "javaType": "org.wildfly.camel.test.connector.foo.FooComponent",
+  "groupId": "org.foo",
+  "artifactId": "foo-connector",
+  "version": "${project.version}",
+  "description": "Something cool",
+  "labels": [ "foo", "timer" ],
+  "pattern": "From",
+  "inputDataType": "none",
+  "outputDataType": "none",
+  "endpointOptions": [ "timerName", "period", "repeatCount" ],
+  "endpointValues": {
+    "fixedRate": true,
+    "period": 5000
+  }
+}
