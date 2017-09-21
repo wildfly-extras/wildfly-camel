@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.geocoder">
+  <resources>
+    <artifact name="${org.apache.camel:camel-geocoder}" />
+    <artifact name="${com.google.code.geocoder-java:geocoder-java}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.commons.httpclient" export="true" />
+    <module name="org.slf4j" />
+    <module name="com.google.code.gson" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.codehaus.jackson.jackson-mapper-asl" />
+  </dependencies>
+  <exports>
+    <include path="com/google/code/geocoder/model" />
+    <exclude path="com/google**" />
+  </exports>
+</module>

@@ -86,6 +86,8 @@ include::camel-freemarker.adoc[]
 
 include::camel-ftp.adoc[]
 
+include::camel-geocoder.adoc[]
+
 include::camel-git.adoc[]
 
 include::camel-github.adoc[]

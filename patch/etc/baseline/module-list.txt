@@ -135,6 +135,8 @@
 /org/apache/camel/component/freemarker/main/camel-freemarker-2.19.3.jar
 /org/apache/camel/component/freemarker/main/freemarker-2.3.23.jar
 /org/apache/camel/component/ftp/main/camel-ftp-2.19.3.jar
+/org/apache/camel/component/geocoder/main/camel-geocoder-2.19.3.jar
+/org/apache/camel/component/geocoder/main/geocoder-java-0.16.jar
 /org/apache/camel/component/git/main/JavaEWAH-1.1.6.jar
 /org/apache/camel/component/git/main/camel-git-2.19.3.jar
 /org/apache/camel/component/git/main/org.eclipse.jgit-4.7.0.201704051617-r.jar

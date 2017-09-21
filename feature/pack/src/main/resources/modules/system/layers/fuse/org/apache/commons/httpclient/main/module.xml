@@ -10,4 +10,7 @@
     <module name="org.apache.commons.codec" />
     <module name="org.apache.commons.logging" />
   </dependencies>
+  <exports>
+    <exclude path="org/apache/commons" />
+  </exports>
 </module>

@@ -20,26 +20,34 @@
 
 package org.wildfly.camel.test.http4;
 
+import javax.naming.InitialContext;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.http4.HttpClientConfigurer;
 import org.apache.camel.http.common.HttpOperationFailedException;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.http4.subA.Http4ClientConfigurer;
 import org.wildfly.camel.test.http4.subA.MyServlet;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
 public class Http4IntegrationTest {
+
+    @ArquillianResource
+    private InitialContext initialContext;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -50,13 +58,15 @@ public class Http4IntegrationTest {
 
     @Test
     public void testHttpGetRequest() throws Exception {
+        HttpClientConfigurer configurer = new Http4ClientConfigurer();
+        initialContext.bind("httpClientConfigurer", configurer);
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .to("http4://localhost:8080/simple/myservlet");
+                .to("http4://localhost:8080/simple/myservlet?httpClientConfigurer=#httpClientConfigurer");
             }
         });
 
@@ -67,6 +77,7 @@ public class Http4IntegrationTest {
             Assert.assertEquals("Hello Kermit", result);
         } finally {
             camelctx.stop();
+            initialContext.unbind("httpClientConfigurer");
         }
     }
 

@@ -8,6 +8,7 @@
 	^com/codahale(.*)
 	^com/github/kristofa/brave(.*)
 	^com/google/api/services/pubsub(.*)
+    ^com/google/code/geocoder/model(.*)
     ^com/google/gson(.*)
 	^com/google/protobuf(.*)
     ^com/lmax/disruptor(.*)
@@ -33,6 +34,7 @@
 	^org/apache/activemq/camel(.*)
 	^org/apache/avro(.*)
 	^org/apache/camel(.*)
+	^org/apache/commons/httpclient(.*)
 	^org/apache/curator(.*)
 	^org/apache/cxf
 	^org/apache/cxf/binding(.*)
@@ -52,6 +54,7 @@
 	^org/apache/cxf/ws/security(.*)
     ^org/apache/fop(.*)
 	^org/apache/hadoop(.*)
+	^org/apache/http(.*)
 	^org/apache/ibatis(.*)
 	^org/apache/johnzon(.*)
 	^org/apache/kafka(.*)

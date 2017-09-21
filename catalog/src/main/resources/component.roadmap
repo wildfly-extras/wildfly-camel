@@ -52,6 +52,7 @@ fop
 freemarker
 ftp
 ftps
+geocoder
 git
 github
 google-pubsub
@@ -195,7 +196,6 @@ cometds             	#1991
 consul              	#1992
 ehcache             	#1995
 ganglia             	#1998
-geocoder            	#1999
 grape               	#2001
 guava-eventbus      	#2002
 hazelcast           	#1440
