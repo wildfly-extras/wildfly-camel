@@ -38,7 +38,7 @@
     <module name="org.apache.commons.math3" />
     <module name="org.apache.directory" />
     <module name="org.apache.htrace" />
-    <module name="org.apache.httpcomponents" slot="4.5.2" />
+    <module name="org.apache.httpcomponents" slot="4.5" />
     <module name="org.apache.log4j" />
     <module name="org.apache.xerces" />
     <module name="org.apache.zookeeper" />

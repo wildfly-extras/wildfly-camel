@@ -63,31 +63,24 @@
         <version.apache.felix.log>1.0.1</version.apache.felix.log>
         <version.apache.felix.metatype>1.0.8</version.apache.felix.metatype>
         <version.apache.felix.scr>1.6.2</version.apache.felix.scr>
-        <version.apache.felix.scr.ds.annotations>1.2.4</version.apache.felix.scr.ds.annotations>
-        <version.apache.ftpserver>1.0.6</version.apache.ftpserver>
-        <version.apache.qpid>6.1.2</version.apache.qpid>
-        <version.apache.qpid.proton>0.16.0</version.apache.qpid.proton>
         <version.apache.hadoop>2.7.2</version.apache.hadoop>
         <version.apache.hadoop.protobuf>2.5.0</version.apache.hadoop.protobuf>
         <version.apache.hbase>1.2.1</version.apache.hbase>
         <version.apache.hbase.guava>14.0</version.apache.hbase.guava>
-        <version.apache.httpcomponents>4.5.2</version.apache.httpcomponents>
-        <version.apache.karaf>2.4.3</version.apache.karaf>
+        <version.apache.lucene>5.5.2</version.apache.lucene>
+        <version.apache.qpid>6.1.2</version.apache.qpid>
+        <version.apache.qpid.proton>0.16.0</version.apache.qpid.proton>
         <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
         <version.args4j>2.0.31</version.args4j>
         <version.arquillian.cube>1.6.0</version.arquillian.cube>
-        <version.codehaus.plexus.utils>3.0.15</version.codehaus.plexus.utils>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
-        <version.flapdoodle.embed.mongo>1.50.1</version.flapdoodle.embed.mongo>
         <version.fusepatch>2.6.0</version.fusepatch>
         <version.greenmail>1.4.0</version.greenmail>
         <version.hawtio>1.5.3</version.hawtio>
         <version.javax.cache.api>1.0.0</version.javax.cache.api>
         <version.jboss.arquillian.core>1.1.10.Final</version.jboss.arquillian.core>
-        <version.jboss.arquillian.osgi>2.1.0.Final</version.jboss.arquillian.osgi>
         <version.jboss.gravia>1.3.1</version.jboss.gravia>
-        <version.jboss.osgi.metadata>4.0.0.CR1</version.jboss.osgi.metadata>
-        <version.jboss.shrinkwrap.resolver>2.2.0</version.jboss.shrinkwrap.resolver>
+        <version.jboss.shrinkwrap>1.2.2</version.jboss.shrinkwrap>
         <version.junit>4.12</version.junit>
         <version.maven.aether.provider>3.2.5</version.maven.aether.provider>
         <version.maven.archetype.packaging>2.3</version.maven.archetype.packaging>
@@ -123,6 +116,7 @@
         <version-maven-surefire-plugin>2.18.1</version-maven-surefire-plugin>
         <version-maven-war-plugin>3.0.0</version-maven-war-plugin>
         <version-properties-maven-plugin>1.0.0</version-properties-maven-plugin>
+        <version-shrinkwrap-resolver-maven-plugin>2.2.6</version-shrinkwrap-resolver-maven-plugin>
         <version-smartics-maven-plugin>2.1.3</version-smartics-maven-plugin>
         <version-wildfly-build-tools>1.1.6.Final</version-wildfly-build-tools>
         <version-wildfly-maven-plugin>1.2.0.Final</version-wildfly-maven-plugin>
@@ -135,388 +129,16 @@
 
     <!-- Modules -->
     <modules>
-        <module>catalog</module>
+        <module>bom</module>
         <module>config</module>
         <module>cxfhttp</module>
-        <module>feature</module>
         <module>subsystem</module>
+        <module>feature</module>
+        <module>catalog</module>
         <module>swarm</module>
         <module>testenricher</module>
         <module>itests</module>
     </modules>
-
-    <!-- DependencyManagement -->
-    <dependencyManagement>
-        <dependencies>
-
-            <dependency>
-                <groupId>args4j</groupId>
-                <artifactId>args4j</artifactId>
-                <version>${version.args4j}</version>
-            </dependency>
-            
-            <!-- Aether -->
-            <dependency>
-                <groupId>org.apache.maven</groupId>
-                <artifactId>maven-aether-provider</artifactId>
-                <version>${version.maven.aether.provider}</version>
-            </dependency>
-            
-            <!-- Arquillian -->
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <scope>import</scope>
-                <type>pom</type>
-                <version>${version.jboss.arquillian.core}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian.container</groupId>
-                <artifactId>arquillian-container-karaf-managed</artifactId>
-                <version>${version.jboss.arquillian.osgi}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian.osgi</groupId>
-                <artifactId>arquillian-osgi-bundle</artifactId>
-                <version>${version.jboss.arquillian.osgi}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian.testenricher</groupId>
-                <artifactId>arquillian-testenricher-osgi</artifactId>
-                <version>${version.jboss.arquillian.osgi}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.arquillian.cube</groupId>
-                <artifactId>arquillian-cube-docker</artifactId>
-                <version>${version.arquillian.cube}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.arquillian.cube</groupId>
-                <artifactId>arquillian-cube-requirement</artifactId>
-                <version>${version.arquillian.cube}</version>
-            </dependency>
-
-            <!-- Camel -->
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-parent</artifactId>
-                <version>${version.apache.camel}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-
-            <!-- Felix -->
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.log</artifactId>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.osgi</groupId>
-                        <artifactId>org.osgi.compendium</artifactId>
-                    </exclusion>
-                </exclusions>
-                <version>${version.apache.felix.log}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.metatype</artifactId>
-                <version>${version.apache.felix.metatype}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.scr</artifactId>
-                <version>${version.apache.felix.scr}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.scr.ds-annotations</artifactId>
-                <version>${version.apache.felix.scr.ds.annotations}</version>
-            </dependency>
-                
-            <!-- FTP Server -->
-            <dependency>
-                <groupId>org.apache.ftpserver</groupId>
-                <artifactId>ftpserver-core</artifactId>
-                <version>${version.apache.ftpserver}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.ftpserver</groupId>
-                <artifactId>ftplet-api</artifactId>
-                <version>${version.apache.ftpserver}</version>
-            </dependency>
-
-            <!-- Fuse Patch -->
-            <dependency>
-                <groupId>org.wildfly.extras.patch</groupId>
-                <artifactId>fuse-patch-config</artifactId>
-                <version>${version.fusepatch}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.extras.patch</groupId>
-                <artifactId>fuse-patch-core</artifactId>
-                <version>${version.fusepatch}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.extras.patch</groupId>
-                <artifactId>fuse-patch-feature-pack</artifactId>
-                <version>${version.fusepatch}</version>
-                <type>zip</type>
-            </dependency>
-
-            <!-- GitHub -->
-            <dependency>
-                <groupId>org.eclipse.mylyn.github</groupId>
-                <artifactId>org.eclipse.egit.github.core</artifactId>
-                <version>${version.eclipse.egit.github}</version>
-            </dependency>
-            
-            <!-- Gravia -->
-            <dependency>
-                <groupId>org.jboss.gravia</groupId>
-                <artifactId>gravia-container-wildfly-extension</artifactId>
-                <version>${version.jboss.gravia}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.gravia</groupId>
-                <artifactId>gravia-resource</artifactId>
-                <version>${version.jboss.gravia}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.gravia</groupId>
-                <artifactId>gravia-runtime-api</artifactId>
-                <version>${version.jboss.gravia}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.gravia</groupId>
-                <artifactId>gravia-runtime-embedded</artifactId>
-                <version>${version.jboss.gravia}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.gravia</groupId>
-                <artifactId>gravia-runtime-osgi</artifactId>
-                <version>${version.jboss.gravia}</version>
-            </dependency>
-
-            <!-- Greenmail -->
-            <dependency>
-                <groupId>com.icegreen</groupId>
-                <artifactId>greenmail-webapp</artifactId>
-                <version>${version.greenmail}</version>
-                <type>war</type>
-            </dependency>
-
-            <!-- Hadoop test support -->
-            <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-common</artifactId>
-                <version>${version.apache.hadoop}</version>
-                <type>test-jar</type>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-hdfs</artifactId>
-                <version>${version.apache.hadoop}</version>
-                <type>test-jar</type>
-            </dependency>
-
-            <!-- HBase test support -->
-            <dependency>
-                <groupId>org.apache.hbase</groupId>
-                <artifactId>hbase-testing-util</artifactId>
-                <version>${version.apache.hbase}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <!-- Hawt.io -->
-            <dependency>
-                <groupId>io.hawt</groupId>
-                <artifactId>hawtio-wildfly</artifactId>
-                <version>${version.hawtio}</version>
-                <type>war</type>
-            </dependency>
-
-            <!-- HttpComponents -->
-            <!-- [FIXME #1357] Integrate with httpclient 4.5.2 when provided by WildFly -->
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${version.apache.httpcomponents}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpmime</artifactId>
-                <version>${version.apache.httpcomponents}</version>
-            </dependency>
-
-            <!-- Infinispan -->
-            <dependency>
-                <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-jcache</artifactId>
-                <version>${version.wildfly.infinispan}</version>
-            </dependency>
-
-            <!-- Javax -->
-            <dependency>
-                <groupId>javax.cache</groupId>
-                <artifactId>cache-api</artifactId>
-                <version>${version.javax.cache.api}</version>
-            </dependency>
-            
-            <!-- JBoss -->
-            <dependency>
-                <groupId>org.jboss.osgi.metadata</groupId>
-                <artifactId>jbosgi-metadata</artifactId>
-                <version>${version.jboss.osgi.metadata}</version>
-            </dependency>
-
-            <!-- JUnit -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${version.junit}</version>
-            </dependency>
-
-            <!-- Lucene -->
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-analyzers-common</artifactId>
-                <version>${version.apache.lucene}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-backward-codecs</artifactId>
-                <version>${version.apache.lucene}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-core</artifactId>
-                <version>${version.apache.lucene}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-highlighter</artifactId>
-                <version>${version.apache.lucene}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-join</artifactId>
-                <version>${version.apache.lucene}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-memory</artifactId>
-                <version>${version.apache.lucene}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-misc</artifactId>
-                <version>${version.apache.lucene}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-queries</artifactId>
-                <version>${version.apache.lucene}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-queryparser</artifactId>
-                <version>${version.apache.lucene}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-sandbox</artifactId>
-                <version>${version.apache.lucene}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-spatial</artifactId>
-                <version>${version.apache.lucene}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-suggest</artifactId>
-                <version>${version.apache.lucene}</version>
-            </dependency>
-            
-            <!-- Mongo Embedded -->
-            <dependency>
-                <groupId>de.flapdoodle.embed</groupId>
-                <artifactId>de.flapdoodle.embed.mongo</artifactId>
-                <version>${version.flapdoodle.embed.mongo}</version>
-            </dependency>
-
-            <!-- OSGi -->
-            <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.core</artifactId>
-                <version>${version.osgi}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.enterprise</artifactId>
-                <version>${version.osgi}</version>
-            </dependency>
-
-            <!-- Plexus -->
-            <dependency>
-                <groupId>org.codehaus.plexus</groupId>
-                <artifactId>plexus-utils</artifactId>
-                <version>${version.codehaus.plexus.utils}</version>
-            </dependency>
-
-            <!-- Proton -->
-            <!-- [FIXME #1712] Use WildFly provided org.apache.qpid.proton module -->
-            <dependency>
-                <groupId>org.apache.qpid</groupId>
-                <artifactId>proton-j</artifactId>
-                <version>${version.apache.qpid.proton}</version>
-            </dependency>
-
-            <!-- Qpid -->
-            <dependency>
-                <groupId>org.apache.qpid</groupId>
-                <artifactId>qpid-broker</artifactId>
-                <version>${version.apache.qpid}</version>
-            </dependency>
-
-            <!-- WildFly -->
-            <dependency>
-                <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-parent</artifactId>
-                <version>${version.wildfly}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.arquillian</groupId>
-                <artifactId>wildfly-arquillian-container-domain-managed</artifactId>
-                <version>${version.wildfly.arquillian}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.arquillian</groupId>
-                <artifactId>wildfly-arquillian-container-managed</artifactId>
-                <version>${version.wildfly.arquillian}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.arquillian</groupId>
-                <artifactId>wildfly-arquillian-container-remote</artifactId>
-                <version>${version.wildfly.arquillian}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.arquillian</groupId>
-                <artifactId>wildfly-arquillian-protocol-jmx</artifactId>
-                <version>${version.wildfly.arquillian}</version>
-            </dependency>
-
-            <!-- XMLBeans -->
-            <dependency>
-                <groupId>org.apache.xmlbeans</groupId>
-                <artifactId>xmlbeans</artifactId>
-                <version>${version.apache.xmlbeans}</version>
-            </dependency>
-            
-        </dependencies>
-    </dependencyManagement>
 
     <!-- Build -->
     <build>
@@ -690,7 +312,7 @@
                 <plugin>
                     <groupId>org.jboss.shrinkwrap.resolver</groupId>
                     <artifactId>shrinkwrap-resolver-maven-plugin</artifactId>
-                    <version>${version.jboss.shrinkwrap.resolver}</version>
+                    <version>${version-shrinkwrap-resolver-maven-plugin}</version>
                     <executions>
                         <execution>
                             <goals>

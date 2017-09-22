@@ -30,8 +30,19 @@
         <jboss.server.name>wildfly-${version.wildfly}</jboss.server.name>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-bom</artifactId>
+                <version>${project.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
     <dependencies>
-
         <dependency>
             <groupId>org.wildfly.extras.patch</groupId>
             <artifactId>fuse-patch-config</artifactId>

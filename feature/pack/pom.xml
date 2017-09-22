@@ -40,6 +40,18 @@
         <wildfly.camel.module.dir>${project.build.directory}/${project.artifactId}-${project.version}/modules/system/layers/fuse</wildfly.camel.module.dir>
     </properties>
     
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-bom</artifactId>
+                <version>${project.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
     <dependencies>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
@@ -133,6 +145,10 @@
             <artifactId>json-lib</artifactId>
             <version>${version.net.sf.json}</version>
             <classifier>jdk15</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.apache-extras.beanshell</groupId>
+            <artifactId>bsh</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
@@ -735,8 +751,8 @@
             <artifactId>kafka_2.11</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache-extras.beanshell</groupId>
-            <artifactId>bsh</artifactId>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-sandbox</artifactId>
         </dependency>
         <dependency>
             <groupId>org.eclipse.mylyn.github</groupId>

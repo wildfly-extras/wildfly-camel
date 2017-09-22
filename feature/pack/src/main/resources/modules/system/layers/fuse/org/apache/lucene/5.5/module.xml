@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.lucene" slot="5.5">
   <resources>
+    <artifact name="${jakarta-regexp:jakarta-regexp}" />
     <artifact name="${org.apache.lucene:lucene-analyzers-common}" />
     <artifact name="${org.apache.lucene:lucene-backward-codecs}" />
     <artifact name="${org.apache.lucene:lucene-core}" />
@@ -13,9 +14,7 @@
     <artifact name="${org.apache.lucene:lucene-queryparser}" />
     <artifact name="${org.apache.lucene:lucene-sandbox}" />
     <artifact name="${org.apache.lucene:lucene-spatial}" />
-    <artifact name="${org.apache.lucene:lucene-spatial3d}" />
     <artifact name="${org.apache.lucene:lucene-suggest}" />
-    <artifact name="${com.spatial4j:spatial4j}" />
   </resources>
   <dependencies>
     <module name="javax.api" />

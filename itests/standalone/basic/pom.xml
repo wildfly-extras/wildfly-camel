@@ -42,6 +42,7 @@
         <dependency>
             <groupId>com.icegreen</groupId>
             <artifactId>greenmail-webapp</artifactId>
+            <version>${version.greenmail}</version>
             <type>war</type>
         </dependency>
         <dependency>
@@ -101,6 +102,7 @@
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>
+            <version>${version.apache.hadoop}</version>
             <type>test-jar</type>
             <exclusions>
                 <exclusion>
@@ -112,11 +114,13 @@
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-hdfs</artifactId>
+            <version>${version.apache.hadoop}</version>
             <type>test-jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.qpid</groupId>
             <artifactId>qpid-broker</artifactId>
+            <version>${version.apache.qpid}</version>
         </dependency>
         <dependency>
             <groupId>org.cassandraunit</groupId>

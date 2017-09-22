@@ -62,16 +62,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <scope>import</scope>
-                <type>pom</type>
-                <version>${version.jboss.arquillian}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-parent</artifactId>
-                <version>${version.wildfly}</version>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-bom</artifactId>
+                <version>${version-wildfly-camel}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>

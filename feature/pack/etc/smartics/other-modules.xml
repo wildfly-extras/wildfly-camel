@@ -807,7 +807,7 @@
     </module>
 
     <!-- [FIXME #1357] Integrate with httpclient 4.5.2 when provided by WildFly -->
-    <module name="org.apache.httpcomponents" slot="4.5.2" inherit-slot="false">
+    <module name="org.apache.httpcomponents" slot="4.5" inherit-slot="false">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
@@ -857,6 +857,7 @@
     </module>
 
     <module name="org.apache.lucene" slot="5.5">
+        <include artifact="jakarta-regexp:jakarta-regexp" />
         <include artifact="org.apache.lucene:lucene-analyzers-common" />
         <include artifact="org.apache.lucene:lucene-backward-codecs" />
         <include artifact="org.apache.lucene:lucene-core" />
@@ -870,9 +871,7 @@
         <include artifact="org.apache.lucene:lucene-misc" />
         <include artifact="org.apache.lucene:lucene-sandbox" />
         <include artifact="org.apache.lucene:lucene-spatial" />
-        <include artifact="org.apache.lucene:lucene-spatial3d" />
         <include artifact="org.apache.lucene:lucene-suggest" />
-        <include artifact="com.spatial4j:spatial4j" />
         <dependencies>
             <module name="javax.api" />
         </dependencies>

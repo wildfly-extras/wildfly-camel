@@ -33,10 +33,22 @@
     <artifactId>wildfly-camel-itests</artifactId>
     <packaging>pom</packaging>
 
-	<modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-bom</artifactId>
+                <version>${project.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
+    <modules>
         <module>common</module>
-		<module>standalone</module>
-	</modules>
+        <module>standalone</module>
+    </modules>
 
     <!-- Profiles -->
     <profiles>

@@ -62,6 +62,7 @@
         <dependency>
             <groupId>org.apache.xmlbeans</groupId>
             <artifactId>xmlbeans</artifactId>
+            <version>${version.apache.xmlbeans}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.directory.server</groupId>
@@ -96,6 +97,7 @@
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>
+            <version>${version.apache.hadoop}</version>
             <type>test-jar</type>
             <exclusions>
                 <exclusion>
@@ -107,11 +109,13 @@
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-hdfs</artifactId>
+            <version>${version.apache.hadoop}</version>
             <type>test-jar</type>
         </dependency>
         <dependency>
             <groupId>org.apache.hbase</groupId>
             <artifactId>hbase-testing-util</artifactId>
+            <version>${version.apache.hbase}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.hadoop</groupId>

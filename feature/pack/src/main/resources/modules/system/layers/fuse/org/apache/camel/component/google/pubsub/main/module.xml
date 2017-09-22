@@ -15,7 +15,7 @@
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.codec" />
-    <module name="org.apache.httpcomponents" slot="4.5.2" />
+    <module name="org.apache.httpcomponents" slot="4.5" />
   </dependencies>
   <exports>
     <include path="com/google/api/services/pubsub**" />
