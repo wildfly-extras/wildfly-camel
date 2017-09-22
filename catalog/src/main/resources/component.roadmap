@@ -69,6 +69,7 @@ jbpm
 jcache
 jdbc
 jgroups
+jing
 jms
 jmx
 jpa
@@ -201,7 +202,6 @@ guava-eventbus      	#2002
 hazelcast           	#1440
 hipchat             	#2003
 jcr                 	#2008
-jing                	#2010
 jolt                	#2011
 jt400               	#2012
 lpr                 	#2015

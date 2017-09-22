@@ -1,0 +1,6 @@
+### camel-jing
+
+The http://camel.apache.org/jing.html[jing,window=_blank] component uses http://www.thaiopensource.com/relaxng/jing.html[Jing,window=_blank] to perform XML validation on the message body using either:
+
+* http://relaxng.org/[RelaxNG XML syntax,window=_blank]
+* http://relaxng.org/compact-tutorial-20030326.html[RelaxNG Compact syntax,window=_blank]

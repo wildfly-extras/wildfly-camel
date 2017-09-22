@@ -122,6 +122,8 @@ include::camel-jdbc.adoc[]
 
 include::camel-jgroups.adoc[]
 
+include::camel-jing.adoc[]
+
 include::camel-jms.adoc[]
 
 include::camel-jmx.adoc[]

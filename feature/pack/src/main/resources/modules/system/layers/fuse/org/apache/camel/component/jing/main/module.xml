@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.jing">
+  <resources>
+    <artifact name="${org.apache.camel:camel-jing}" />
+    <artifact name="${thaiopensource:jing}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+  <exports>
+    <exclude path="com/thaiopensource**" />
+    <exclude path="org/relaxng**" />
+  </exports>
+</module>
