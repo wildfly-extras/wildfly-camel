@@ -41,12 +41,10 @@
         <dependency>
             <groupId>org.arquillian.cube</groupId>
             <artifactId>arquillian-cube-docker</artifactId>
-            <version>${version.arquillian.cube}</version>
         </dependency>
         <dependency>
             <groupId>org.arquillian.cube</groupId>
             <artifactId>arquillian-cube-requirement</artifactId>
-            <version>${version.arquillian.cube}</version>
         </dependency>
 
         <dependency>

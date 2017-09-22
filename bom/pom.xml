@@ -177,6 +177,16 @@
                 <version>${version.apache.qpid.proton}</version>
             </dependency>
             <dependency>
+                <groupId>org.arquillian.cube</groupId>
+                <artifactId>arquillian-cube-docker</artifactId>
+                <version>${version.arquillian.cube}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.arquillian.cube</groupId>
+                <artifactId>arquillian-cube-requirement</artifactId>
+                <version>${version.arquillian.cube}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.eclipse.mylyn.github</groupId>
                 <artifactId>org.eclipse.egit.github.core</artifactId>
                 <version>${version.eclipse.egit.github}</version>

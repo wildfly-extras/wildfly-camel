@@ -47,6 +47,7 @@
     
     <modules>
         <module>common</module>
+        <module>camel</module>
         <module>standalone</module>
     </modules>
 
@@ -62,17 +63,6 @@
             </activation>
             <modules>
                 <module>docker</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>ts.all</id>
-            <activation>
-                <property>
-                    <name>ts.all</name>
-                </property>
-            </activation>
-            <modules>
-                <module>camel</module>
             </modules>
         </profile>
     </profiles>
