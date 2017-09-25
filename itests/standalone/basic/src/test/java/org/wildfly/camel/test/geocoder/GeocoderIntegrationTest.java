@@ -19,12 +19,16 @@
  */
 package org.wildfly.camel.test.geocoder;
 
+import static com.google.code.geocoder.model.GeocoderStatus.OK;
+import static com.google.code.geocoder.model.GeocoderStatus.OVER_QUERY_LIMIT;
+
 import java.util.List;
 
 import javax.naming.InitialContext;
 
 import com.google.code.geocoder.model.GeocodeResponse;
 import com.google.code.geocoder.model.GeocoderResult;
+import com.google.code.geocoder.model.GeocoderStatus;
 import com.google.code.geocoder.model.LatLng;
 
 import org.apache.camel.CamelContext;
@@ -38,6 +42,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.geocoder.subA.GeocoderHttpClientConfigurer;
@@ -73,9 +78,25 @@ public class GeocoderIntegrationTest {
 
         camelctx.start();
         try {
-            ProducerTemplate template = camelctx.createProducerTemplate();
-            GeocodeResponse result = template.requestBody("direct:start", null, GeocodeResponse.class);
-            Assert.assertNotNull("Geocoder response is null", result);
+            // Geocoder API is sometimes flaky so retry the request if necessary
+            GeocodeResponse result = null;
+            int count = 0;
+            while (count < 5) {
+                ProducerTemplate template = camelctx.createProducerTemplate();
+                result = template.requestBody("direct:start", null, GeocodeResponse.class);
+                Assert.assertNotNull("Geocoder response is null", result);
+
+                // Skip further testing if we exceeded the API rate limit
+                GeocoderStatus status = result.getStatus();
+                Assume.assumeFalse("Geocoder API rate limit exceeded", status.equals(OVER_QUERY_LIMIT));
+
+                if (status.equals(OK)) {
+                    break;
+                }
+
+                Thread.sleep(1000);
+                count++;
+            }
 
             List<GeocoderResult> results = result.getResults();
             Assert.assertNotNull("Geocoder results is null", result);
