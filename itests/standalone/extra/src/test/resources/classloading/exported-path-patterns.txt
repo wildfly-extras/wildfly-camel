@@ -1,6 +1,7 @@
 [includes]
 	^ca/uhn/hl7v2(.*)    
 	^com/amazonaws(.*)
+    ^com/bazaarvoice(.*)
 	^com/box(.*)
 	^com/braintreegateway(.*)
 	^com/datastax(.*)

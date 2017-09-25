@@ -100,6 +100,7 @@
         <module name="org.apache.camel.component.jms" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jmx" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.johnzon" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.jolt" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jpa" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jsch" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jsonpath" export="true" services="export" optional="true" />

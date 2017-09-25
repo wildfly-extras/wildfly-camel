@@ -72,6 +72,7 @@ jgroups
 jing
 jms
 jmx
+jolt
 jpa
 kafka
 kubernetes
@@ -202,7 +203,6 @@ guava-eventbus      	#2002
 hazelcast           	#1440
 hipchat             	#2003
 jcr                 	#2008
-jolt                	#2011
 jt400               	#2012
 lpr                 	#2015
 lumberjack          	#2016

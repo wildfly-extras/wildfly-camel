@@ -1218,6 +1218,20 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.jolt">
+        <include artifact="com.bazaarvoice.jolt:jolt-core" />
+        <include artifact="com.bazaarvoice.jolt:json-utils" />
+        <include artifact="org.apache.camel:camel-jolt" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.jpa">
         <include artifact="org.apache.camel:camel-jpa" />
         <apply-to-dependencies skip="true">

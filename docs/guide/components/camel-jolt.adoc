@@ -1,0 +1,3 @@
+### camel-jolt
+
+The http://camel.apache.org/jolt.html[jolt,window=_blank] component allows you to process JSON messages using the http://bazaarvoice.github.io/jolt[JOLT,window=_blank] specification.
