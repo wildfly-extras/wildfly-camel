@@ -26,7 +26,7 @@ $ minishift start --vm-driver=virtualbox --memory 12048 --cpus 3
 The client tools are available from the Minishift installation.
 
 ----
-$ export PATH=$PATH:~/.minishift/cache/oc/v1.4.1
+$ export PATH=$PATH:~/.minishift/cache/oc/v3.6.0
 ----
 
 ==== Docker access 
