@@ -55,6 +55,12 @@
     <dependencies>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-bom</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-config</artifactId>
             <version>${project.version}</version>
         </dependency>
