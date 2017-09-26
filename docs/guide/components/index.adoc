@@ -156,6 +156,8 @@ include::camel-mongodb.adoc[]
 
 include::camel-mqtt.adoc[]
 
+include::camel-msv.adoc[]
+
 include::camel-mustache.adoc[]
 
 include::camel-mvel.adoc[]

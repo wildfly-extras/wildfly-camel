@@ -1066,6 +1066,7 @@ org/apache/camel/component/undertow/cloud
 org/apache/camel/component/undertow/handlers
 org/apache/camel/component/validator
 org/apache/camel/component/validator/jing
+org/apache/camel/component/validator/msv
 org/apache/camel/component/velocity
 org/apache/camel/component/vertx
 org/apache/camel/component/weather

@@ -1156,7 +1156,24 @@
             <exclude path="org/xmlpull**" />
         </exports>
     </module>
-    
+
+    <module name="org.apache.camel.component.jing">
+        <include artifact="org.apache.camel:camel-jing" />
+        <include artifact="thaiopensource:jing" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.slf4j" />
+        </dependencies>
+        <exports>
+            <exclude path="com/thaiopensource**" />
+            <exclude path="org/relaxng**" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.jms">
         <include artifact="org.apache.camel:camel-jms" />
         <apply-to-dependencies skip="true">
@@ -1182,23 +1199,6 @@
             <module name="javax.xml.bind.api" />
             <module name="org.slf4j"/>
         </dependencies>
-    </module>
-
-    <module name="org.apache.camel.component.jing">
-        <include artifact="org.apache.camel:camel-jing" />
-        <include artifact="thaiopensource:jing" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api" />
-            <module name="org.slf4j" />
-        </dependencies>
-        <exports>
-            <exclude path="com/thaiopensource**" />
-            <exclude path="org/relaxng**" />
-        </exports>
     </module>
 
     <module name="org.apache.camel.component.johnzon">
@@ -1475,6 +1475,18 @@
         <exports>
             <exclude path="org/fusesource" />
         </exports>
+    </module>
+
+    <module name="org.apache.camel.component.msv">
+        <include artifact="org.apache.camel:camel-msv"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
     </module>
 
     <module name="org.apache.camel.component.mustache">

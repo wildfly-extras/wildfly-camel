@@ -48,6 +48,10 @@
         <include artifact=":jackson-module-jaxb-annotations" />
     </module>
 
+    <module name="com.github.relaxng" skip="true">
+        <include artifact=":relaxngDatatype" />
+    </module>
+
     <module name="com.github.spullara.mustache" skip="true">
         <include artifact="com.github.spullara.mustache.java:compiler" />
     </module>

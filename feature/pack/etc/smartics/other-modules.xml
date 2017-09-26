@@ -517,6 +517,19 @@
         <include artifact="javax.cache:cache-api" />
     </module>
 
+    <module name="net.java.dev.msv">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.sun.xml.bind.jaxb:isorelax" />
+        <include artifact="net.java.dev.msv:msv-core" />
+        <include artifact="net.java.dev.msv:xsdlib" />
+        <include artifact="org.jopendocument:isorelax-jaxp-bridge-ILM" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
     <module name="net.sf.dozer">
         <properties>
             <property name="jboss.api" value="private"/>

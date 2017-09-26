@@ -87,6 +87,7 @@ mllp
 mock
 mongodb
 mqtt
+msv
 mustache
 mvel
 mybatis
@@ -207,7 +208,6 @@ jt400               	#2012
 lpr                 	#2015
 lumberjack          	#2016
 mongodb-gridfs      	#1837
-msv                 	#2017
 nagios              	#1456
 pgevent             	#2021
 quickfix            	#2023

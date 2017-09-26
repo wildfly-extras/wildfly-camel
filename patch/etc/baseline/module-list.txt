@@ -59,6 +59,10 @@
 /io/opentracing/main/opentracing-noop-0.30.0.jar
 /io/opentracing/main/opentracing-tracerresolver-0.1.0.jar
 /javax/cache/api/main/cache-api-1.0.0.jar
+/net/java/dev/msv/main/isorelax-20090621.jar
+/net/java/dev/msv/main/isorelax-jaxp-bridge-ILM-1.1.jar
+/net/java/dev/msv/main/msv-core-2013.6.1.jar
+/net/java/dev/msv/main/xsdlib-2013.6.1.jar
 /net/sf/dozer/main/dozer-5.5.1.jar
 /net/sf/json/main/ezmorph-1.0.6.jar
 /net/sf/json/main/json-lib-2.4-jdk15.jar
@@ -211,6 +215,7 @@
 /org/apache/camel/component/mongodb/main/camel-mongodb-2.19.3.jar
 /org/apache/camel/component/mongodb/main/mongo-java-driver-3.4.2.jar
 /org/apache/camel/component/mqtt/main/camel-mqtt-2.19.3.jar
+/org/apache/camel/component/msv/main/camel-msv-2.19.3.jar
 /org/apache/camel/component/mustache/main/camel-mustache-2.19.3.jar
 /org/apache/camel/component/mvel/main/camel-mvel-2.19.3.jar
 /org/apache/camel/component/mybatis/main/camel-mybatis-2.19.3.jar

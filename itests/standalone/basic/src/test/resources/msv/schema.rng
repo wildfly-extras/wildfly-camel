@@ -1,0 +1,8 @@
+<element xmlns="http://relaxng.org/ns/structure/1.0" ns="http://org.wildfly.camel.test.jing" name="order">
+    <element name="sku">
+        <text/>
+    </element>
+    <element name="quantity">
+        <text/>
+    </element>
+</element>

@@ -1,0 +1,3 @@
+### camel-msv
+
+The http://camel.apache.org/msv.html[msv,window=_blank] component performs XML validation of the message body using the MSV Library and any of the supported XML schema languages, such as http://www.w3.org/XML/Schema[XML Schema,window=_blank] or http://relaxng.org/[RelaxNG XML,window=_blank] Syntax.
