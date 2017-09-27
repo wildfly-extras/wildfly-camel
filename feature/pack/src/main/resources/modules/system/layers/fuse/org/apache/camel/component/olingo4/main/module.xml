@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.olingo4">
+  <resources>
+    <artifact name="${org.apache.camel:camel-olingo4}" />
+    <artifact name="${org.apache.camel:camel-olingo4-api}" />
+    <artifact name="${org.apache.camel:camel-olingo4-api}" />
+    <artifact name="${net.sf.jsignature.io-tools:easystream}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.olingo4" export="true" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.io" />
+    <module name="org.apache.commons.lang" />
+    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.olingo4.server" />
+  </dependencies>
+  <exports>
+    <exclude path="org/apache/camel/component/olingo4/internal" />
+    <exclude path="com/gc**" />
+  </exports>
+</module>

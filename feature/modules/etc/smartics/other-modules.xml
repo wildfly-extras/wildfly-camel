@@ -213,7 +213,17 @@
         </properties>
         <include artifact="com.eclipsesource.minimal-json:minimal-json" />
     </module>
-
+    
+    <module name="com.fasterxml.aalto">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.fasterxml:aalto-xml" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.xml.stream.api" />
+        </dependencies>
+    </module>
 
     <module name="com.fasterxml.jackson.dataformat.cbor">
         <properties>
@@ -1188,15 +1198,35 @@
         <include artifact="org.apache.mina:mina-core" />
     </module>
 
-    <module name="org.apache.olingo">
+    <module name="org.apache.olingo2">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact=":olingo-(.*)" />
+        <include artifact="org.apache.olingo:olingo-odata2-api" />
+        <include artifact="org.apache.olingo:olingo-odata2-core" />
         <dependencies>
             <module name="javax.ws.rs.api" />
             <module name="javax.xml.stream.api"/>
         </dependencies>
+    </module>
+
+    <module name="org.apache.olingo4">
+        <include artifact="org.apache.olingo:odata-client-api" />
+        <include artifact="org.apache.olingo:odata-client-core" />
+        <include artifact="org.apache.olingo:odata-commons-api" />
+        <include artifact="org.apache.olingo:odata-commons-core" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.xml.stream.api"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.olingo4.server">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.olingo:odata-server-api" />
+        <include artifact="org.apache.olingo:odata-server-core" />
     </module>
 
     <module name="org.apache.pdfbox">

@@ -7,10 +7,10 @@
   </resources>
   <dependencies>
     <module name="org.apache.httpcomponents" />
-    <module name="org.apache.olingo" export="true">
+    <module name="org.apache.olingo2" export="true">
       <exports>
         <include path="org/apache/olingo/odata2/api**" />
-        <exclude path="org/apacheolingo/odata2/core/rest**" />
+        <exclude path="org/apache/olingo/odata2/core/rest**" />
       </exports>
     </module>
     <module name="org.slf4j" />
@@ -19,6 +19,6 @@
     <module name="org.apache.commons.lang" />
   </dependencies>
   <exports>
-    <exclude path="org/apache/camel/component/olingo2/internal**" />
+    <exclude path="org/apache/camel/component/olingo2/internal" />
   </exports>
 </module>

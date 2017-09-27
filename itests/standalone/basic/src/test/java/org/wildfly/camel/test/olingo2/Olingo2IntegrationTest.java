@@ -54,7 +54,7 @@ public class Olingo2IntegrationTest {
         archive.addPackage(Olingo2TestServlet.class.getPackage());
         archive.setManifest(() -> {
             ManifestBuilder builder = new ManifestBuilder();
-            builder.addManifestHeader("Dependencies", "org.apache.cxf.ext,org.apache.olingo");
+            builder.addManifestHeader("Dependencies", "org.apache.cxf.ext,org.apache.olingo2");
             return builder.openStream();
         });
         return archive;

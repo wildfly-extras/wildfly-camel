@@ -1880,16 +1880,36 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="org.apache.httpcomponents" />
-            <module name="org.apache.olingo" export="true">
+            <module name="org.apache.olingo2" export="true">
                 <exports>
                     <include path="org/apache/olingo/odata2/api**" />
-                    <exclude path="org/apacheolingo/odata2/core/rest**" />
+                    <exclude path="org/apache/olingo/odata2/core/rest**" />
                 </exports>
             </module>
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
-            <exclude path="org/apache/camel/component/olingo2/internal**" />
+            <exclude path="org/apache/camel/component/olingo2/internal" />
+        </exports>
+    </module>
+
+    <module name="org.apache.camel.component.olingo4">
+        <include artifact="org.apache.camel:camel-olingo4" />
+        <include artifact="org.apache.camel:camel-olingo4-api" />
+        <include artifact="net.sf.jsignature.io-tools:easystream" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.apache.camel.spi-annotations" />
+            <include module="org.apache.olingo4.skipped" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.apache.olingo4" export="true"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="org/apache/camel/component/olingo4/internal" />
+            <exclude path="com/gc**" />
         </exports>
     </module>
 

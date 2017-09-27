@@ -18,6 +18,7 @@
 /com/box/main/box-java-sdk-2.8.1.jar
 /com/caucho/hessian/main/hessian-4.0.38.jar
 /com/eclipsesource/minimal/json/main/minimal-json-0.9.1.jar
+/com/fasterxml/aalto/main/aalto-xml-0.9.10.jar
 /com/fasterxml/jackson/dataformat/cbor/main/jackson-dataformat-cbor-2.8.9.jar
 /com/fasterxml/jackson/dataformat/smile/main/jackson-dataformat-smile-2.8.9.jar
 /com/fasterxml/jackson/dataformat/xml/main/jackson-dataformat-xml-2.8.9.jar
@@ -309,6 +310,9 @@
 /org/apache/camel/component/ognl/main/camel-ognl-2.20.0.jar
 /org/apache/camel/component/olingo2/main/camel-olingo2-2.20.0.jar
 /org/apache/camel/component/olingo2/main/camel-olingo2-api-2.20.0.jar
+/org/apache/camel/component/olingo4/main/camel-olingo4-2.20.0.jar
+/org/apache/camel/component/olingo4/main/camel-olingo4-api-2.20.0.jar
+/org/apache/camel/component/olingo4/main/easystream-1.2.15.jar
 /org/apache/camel/component/opentracing/main/camel-opentracing-2.20.0.jar
 /org/apache/camel/component/optaplanner/main/camel-optaplanner-2.20.0.jar
 /org/apache/camel/component/optaplanner/main/drools-compiler-7.3.0.Final.jar
@@ -500,8 +504,14 @@
 /org/apache/lucene/6.6/lucene-spatial3d-6.6.0.jar
 /org/apache/lucene/6.6/lucene-suggest-6.6.0.jar
 /org/apache/mina/core/main/mina-core-2.0.16.jar
-/org/apache/olingo/main/olingo-odata2-api-2.0.9.jar
-/org/apache/olingo/main/olingo-odata2-core-2.0.9.jar
+/org/apache/olingo2/main/olingo-odata2-api-2.0.9.jar
+/org/apache/olingo2/main/olingo-odata2-core-2.0.9.jar
+/org/apache/olingo4/main/odata-client-api-4.3.0.jar
+/org/apache/olingo4/main/odata-client-core-4.3.0.jar
+/org/apache/olingo4/main/odata-commons-api-4.3.0.jar
+/org/apache/olingo4/main/odata-commons-core-4.3.0.jar
+/org/apache/olingo4/server/main/odata-server-api-4.3.0.jar
+/org/apache/olingo4/server/main/odata-server-core-4.3.0.jar
 /org/apache/pdfbox/main/fontbox-1.8.13.jar
 /org/apache/pdfbox/main/jempbox-1.8.13.jar
 /org/apache/pdfbox/main/pdfbox-1.8.13.jar

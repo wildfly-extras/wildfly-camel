@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.olingo4">
+  <resources>
+    <artifact name="${org.apache.olingo:odata-client-api}" />
+    <artifact name="${org.apache.olingo:odata-client-core}" />
+    <artifact name="${org.apache.olingo:odata-commons-api}" />
+    <artifact name="${org.apache.olingo:odata-commons-core}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.xml.stream.api" />
+    <module name="com.fasterxml.aalto" />
+    <module name="com.fasterxml.jackson.core.jackson-annotations" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.fasterxml.jackson.dataformat.xml" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.io" />
+    <module name="org.apache.commons.lang3" />
+    <module name="org.apache.httpcomponents" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

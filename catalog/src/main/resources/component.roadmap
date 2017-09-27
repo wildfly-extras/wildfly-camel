@@ -148,6 +148,7 @@ mybatis
 nats
 netty4
 olingo2
+olingo4
 optaplanner
 paho
 pdf
@@ -266,7 +267,6 @@ zookeeper-master                                    #1852
 
 [undecided]
 ganglia                                             #1998 No test coverage for ganglia in camel
-olingo4                                             #1839 Blocked by wildfly-11.0.x
 pgevent                                             #2021 No test coverage for pgevent in camel
 solr                                                #2030 No test coverage for solr in camel
 solrCloud                                           #2031 No test coverage for solr in camel

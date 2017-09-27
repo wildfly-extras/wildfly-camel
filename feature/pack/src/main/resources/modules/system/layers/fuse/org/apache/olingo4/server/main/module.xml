@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.olingo4.server">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.apache.olingo:odata-server-api}" />
+    <artifact name="${org.apache.olingo:odata-server-core}" />
+  </resources>
+  <dependencies>
+    <module name="com.fasterxml.aalto" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="javax.servlet.api" />
+    <module name="org.apache.olingo4" />
+  </dependencies>
+</module>
