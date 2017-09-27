@@ -352,9 +352,6 @@
 /org/apache/hbase/main/hbase-common-1.2.1.jar
 /org/apache/hbase/main/hbase-protocol-1.2.1.jar
 /org/apache/htrace/main/htrace-core-3.1.0-incubating.jar
-/org/apache/httpcomponents/4.5/httpclient-4.5.3.jar
-/org/apache/httpcomponents/4.5/httpcore-4.4.6.jar
-/org/apache/httpcomponents/4.5/httpmime-4.5.3.jar
 /org/apache/kafka/clients/main/kafka-clients-0.10.2.0.jar
 /org/apache/kafka/clients/main/lz4-1.3.0.jar
 /org/apache/kafka/clients/main/snappy-java-1.1.1.3.jar

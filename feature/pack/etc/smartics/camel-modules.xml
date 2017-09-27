@@ -936,7 +936,7 @@
                     <include path="org/apache/camel/http/common" />
                 </exports>
             </module>
-            <module name="org.apache.httpcomponents" slot="4.5" export="true">
+            <module name="org.apache.httpcomponents" export="true">
                 <exports>
                     <include path="org/apache/http**" />
                     <exclude path="org/apache**" />
