@@ -46,6 +46,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -61,6 +62,7 @@ public class PubSubIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-google-pubsub-tests.jar")
+            .addClass(TestUtils.class)
             .addAsResource("google/pubsub.properties", "pubsub.properties");
     }
 
@@ -81,10 +83,15 @@ public class PubSubIntegrationTest {
         Properties properties = new Properties();
         properties.load(PubSubIntegrationTest.class.getResourceAsStream("/pubsub.properties"));
 
+        String serviceURL = properties.getProperty("test.serviceURL");
+        if (System.getenv("DOCKER_HOST") != null) {
+            serviceURL = String.format("http://%s:8590", TestUtils.getDockerHost());
+        }
+
         GooglePubsubConnectionFactory connectionFactory = new GooglePubsubConnectionFactory()
             .setServiceAccount(properties.getProperty("service.account"))
             .setServiceAccountKey(properties.getProperty("service.key"))
-            .setServiceURL(properties.getProperty("test.serviceURL"));
+            .setServiceURL(serviceURL);
 
         String topicFullName = String.format("projects/%s/topics/%s",
             properties.getProperty("project.id"),
