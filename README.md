@@ -15,7 +15,7 @@ Your Enterprise Integration Solution can be architected as a combination of Java
 
 ### Documentation
 
-The docs are generated using [Asciidoctor](http://asciidoctor.org/docs). 
+The docs are generated using [Asciidoctor](http://asciidoctor.org/docs).
 
 * [User Guide](http://wildfly-extras.github.io/wildfly-camel)
 * [JavaEE Integration](http://wildfly-extras.github.io/wildfly-camel/#_javaee_integration)
@@ -24,7 +24,7 @@ The docs are generated using [Asciidoctor](http://asciidoctor.org/docs).
 To generate an update of the docs use:
 
 ```
-$ mvn clean install -f docs 
+$ ./mvnw clean install -f docs
 ```
 
 If you like to contribute to the docs, please file a [pull request](https://github.com/wildfly-extras/wildfly-camel) against the master branch.
@@ -43,7 +43,8 @@ Minimum of Java 1.8, to run WildFly and Maven.
 
 #### Maven
 
-Minimum of Maven 3.2.3.
+Minimum of Maven 3.2.3. Note that there is also the `mvnw` (a.k.a. Maven Wrapper) script that installs
+(if necessary) and runs the right version of Maven for you.
 
 
 ### Build
@@ -51,13 +52,13 @@ Minimum of Maven 3.2.3.
 The default build is straight forward
 
 ```
-$ mvn clean install
+$ ./mvnw clean install
 ```
 
 The extended build includes the set of JavaEE integration examples
 
 ```
-$ mvn clean install -Dts.all
+$ ./mvnw clean install -Dts.all
 ```
 
 If you like to contribute to the project, please file a [pull request](https://github.com/wildfly-extras/wildfly-camel/pulls).
