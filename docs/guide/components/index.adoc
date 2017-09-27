@@ -68,6 +68,8 @@ include::camel-dozer.adoc[]
 
 include::camel-dropbox.adoc[]
 
+include::camel-ehcache.adoc[]
+
 include::camel-ejb.adoc[]
 
 include::camel-elasticsearch.adoc[]

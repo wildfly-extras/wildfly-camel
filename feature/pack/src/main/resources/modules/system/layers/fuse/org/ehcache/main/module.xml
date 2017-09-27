@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.ehcache">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.ehcache:ehcache}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.xml.bind.api" />
+    <module name="sun.jdk">
+      <imports>
+        <include path="sun/misc" />
+      </imports>
+    </module>
+    <module name="org.slf4j" />
+  </dependencies>
+  <exports>
+    <exclude path="org/ehcache/core/internal**" />
+    <exclude path="org/ehcache/impl/internal**" />
+    <exclude path="org/ehcache/jsr107**" />
+    <exclude path="org/terracotta**" />
+  </exports>
+</module>

@@ -578,6 +578,19 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.ehcache">
+        <include artifact="org.apache.camel:camel-ehcache" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.ehcache" export="true" />
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.ejb">
         <include artifact="org.apache.camel:camel-ejb" />
         <apply-to-dependencies skip="true">

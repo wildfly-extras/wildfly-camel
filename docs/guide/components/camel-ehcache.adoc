@@ -1,0 +1,3 @@
+### camel-ehcache
+
+The http://camel.apache.org/ehcache.html[ehcache,window=_blank] component enables you to perform caching operations using http://www.ehcache.org/[Ehcache 3,window=_blank] as the cache implementation.

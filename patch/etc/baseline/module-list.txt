@@ -126,6 +126,7 @@
 /org/apache/camel/component/dozer/main/camel-dozer-2.19.3.jar
 /org/apache/camel/component/dropbox/main/camel-dropbox-2.19.3.jar
 /org/apache/camel/component/dropbox/main/dropbox-core-sdk-1.8.2.jar
+/org/apache/camel/component/ehcache/main/camel-ehcache-2.19.3.jar
 /org/apache/camel/component/ejb/main/camel-ejb-2.19.3.jar
 /org/apache/camel/component/elasticsearch/main/camel-elasticsearch-2.19.3.jar
 /org/apache/camel/component/elsql/main/camel-elsql-2.19.3.jar
@@ -437,6 +438,7 @@
 /org/eclipse/jetty/websocket/main/websocket-api-9.2.20.v20161216.jar
 /org/eclipse/jetty/websocket/main/websocket-client-9.2.20.v20161216.jar
 /org/eclipse/jetty/websocket/main/websocket-common-9.2.20.v20161216.jar
+/org/ehcache/main/ehcache-3.3.1.jar
 /org/elasticsearch/main/elasticsearch-2.4.4.jar
 /org/elasticsearch/main/hppc-0.7.1.jar
 /org/elasticsearch/main/jsr166e-1.1.0.jar

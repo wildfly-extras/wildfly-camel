@@ -41,6 +41,7 @@ disruptor-vm
 dns
 dozer
 dropbox
+ehcache
 ejb
 elasticsearch
 elsql
@@ -197,7 +198,6 @@ cmis                	#1989
 cometd              	#1990
 cometds             	#1991
 consul              	#1992
-ehcache             	#1995
 ganglia             	#1998
 grape               	#2001
 guava-eventbus      	#2002

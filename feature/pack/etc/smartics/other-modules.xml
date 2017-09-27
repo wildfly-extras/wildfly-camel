@@ -1163,6 +1163,28 @@
         <include artifact="org.eclipse.jetty.websocket:websocket-common" />
     </module>
 
+    <module name="org.ehcache">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.ehcache:ehcache" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.xml.bind.api" />
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc" />
+                </imports>
+            </module>
+        </dependencies>
+        <exports>
+            <exclude path="org/ehcache/core/internal**" />
+            <exclude path="org/ehcache/impl/internal**" />
+            <exclude path="org/ehcache/jsr107**" />
+            <exclude path="org/terracotta**" />
+        </exports>
+    </module>
+
     <module name="org.elasticsearch">
         <properties>
             <property name="jboss.api" value="private"/>
