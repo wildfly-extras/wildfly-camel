@@ -25,6 +25,7 @@ braintree
 browse
 class
 coap
+consul
 context                             	#deprecated
 controlbus
 couchdb
@@ -226,7 +227,6 @@ cm-sms
 cmis
 cometd
 cometds
-consul
 crypto-cms
 ehcache
 eventadmin

@@ -8,9 +8,9 @@
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
-  
+
        http://www.apache.org/licenses/LICENSE-2.0
-  
+
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,7 @@
     </parent>
 
     <name>Wildfly Camel :: Feature Pack</name>
-    
+
     <artifactId>wildfly-camel-feature-pack</artifactId>
     <packaging>pom</packaging>
 
@@ -39,7 +39,7 @@
         <wildfly.module.dir>${project.build.directory}/wildfly-${version.wildfly}/modules/system/layers/base</wildfly.module.dir>
         <wildfly.camel.module.dir>${project.build.directory}/${project.artifactId}-${project.version}/modules/system/layers/fuse</wildfly.camel.module.dir>
     </properties>
-    
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -51,7 +51,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
@@ -89,7 +89,7 @@
             <artifactId>wildfly-camel-subsystem-undertow</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>ca.uhn.hapi</groupId>
             <artifactId>hapi-structures-v24</artifactId>
@@ -231,6 +231,10 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-coap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-consul</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>

@@ -1,5 +1,5 @@
 [includes]
-	^ca/uhn/hl7v2(.*)    
+	^ca/uhn/hl7v2(.*)
 	^com/amazonaws(.*)
     ^com/bazaarvoice(.*)
 	^com/box(.*)
@@ -16,6 +16,7 @@
 	^com/mongodb(.*)
 	^com/ning/compress(.*)
     ^com/opengamma(.*)
+    ^com/orbitz/consul(.*)
     ^com/rabbitmq(.*)
     ^com/splunk(.*)
 	^com/sun/syndication(.*)
@@ -98,6 +99,6 @@
 	^zoneinfo/(.*)
 	^META-INF/cxf(.*)
 	^META-INF/services(.*)
-	
+
 [excludes]
 	(.*)/internal
