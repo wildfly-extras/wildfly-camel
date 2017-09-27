@@ -163,7 +163,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-workspaces" />
         <include artifact="com.amazonaws:aws-java-sdk-xray" />
     </module>
-    
+
     <module name="com.box">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -173,7 +173,7 @@
             <exclude path="com/box/sdk/internal**" />
         </exports>
     </module>
-    
+
     <module name="com.codahale.metrics">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -199,7 +199,7 @@
         <include artifact="com.eclipsesource.minimal-json:minimal-json" />
     </module>
 
-    
+
     <module name="com.fasterxml.jackson.dataformat.cbor">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -241,6 +241,19 @@
         <include artifact=":jackson-datatype-joda" />
     </module>
 
+    <module name="com.fasterxml.jackson.datatype.jackson-datatype-guava">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.fasterxml.jackson.datatype:jackson-datatype-guava" />
+        <dependencies>
+          <module name="com.fasterxml.jackson.core.jackson-annotations" />
+          <module name="com.fasterxml.jackson.core.jackson-core" />
+          <module name="com.fasterxml.jackson.core.jackson-databind" />
+          <module name="com.google.guava" />
+        </dependencies>
+    </module>
+
     <module name="com.fasterxml.jackson.module.jsonSchema">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -251,7 +264,7 @@
     <module name="com.fasterxml.jackson.skipped" skip="true">
         <include artifact=":jackson-module-afterburner" />
     </module>
-    
+
     <module name="com.github.generex">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -335,7 +348,32 @@
             <exclude path="com/ning" />
         </exports>
     </module>
-    
+
+    <module name="com.orbitz.consul.consul-client">
+      <include artifact="com.orbitz.consul:consul-client">
+          <filter>
+              <exclude path="com/orbitz" />
+              <include path="com/orbitz/consul" />
+              <include path="com/orbitz/consul/**" />
+          </filter>
+      </include>
+      <apply-to-dependencies skip="true">
+          <include module="com.google.code.findbugs" />
+          <include module="org.immutables.value" />
+      </apply-to-dependencies>
+      <dependencies>
+          <module name="com.fasterxml.jackson.core.jackson-annotations" />
+          <module name="com.fasterxml.jackson.core.jackson-core" />
+          <module name="com.fasterxml.jackson.core.jackson-databind" />
+          <module name="com.fasterxml.jackson.datatype.jackson-datatype-guava" />
+          <module name="com.google.guava" />
+          <module name="com.squareup.retrofit2" />
+          <module name="com.squareup.okhttp3" />
+          <module name="org.apache.commons.lang3" />
+          <module name="org.slf4j" />
+      </dependencies>
+    </module>
+
     <module name="com.rometools.rome">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -590,7 +628,7 @@
             <module name="org.javassist"/>
         </dependencies>
     </module>
-    
+
     <module name="org.antlr.runtime">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -678,7 +716,7 @@
         </properties>
         <include artifact=":commons-exec" />
     </module>
-    
+
     <module name="org.apache.commons.httpclient">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -688,14 +726,14 @@
             <exclude path="org/apache/commons" />
         </exports>
     </module>
-    
+
     <module name="org.apache.commons.lang3">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.commons:commons-lang3" />
     </module>
-    
+
     <module name="org.apache.commons.net">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -843,7 +881,7 @@
             <exclude path="org/I0Itec**" />
         </exports>
     </module>
-    
+
     <module name="org.apache.kafka.clients">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -942,7 +980,7 @@
             <module name="javax.api"/>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.ws.commons.axiom.axiom-impl">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1209,7 +1247,7 @@
             <exclude path="com/twitter**" />
         </exports>
     </module>
-    
+
     <module name="org.fusesource.hawtbuf">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1285,7 +1323,7 @@
             <module name="org.drools.core" />
         </dependencies>
     </module>
-    
+
     <module name="org.kie.internal">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1300,7 +1338,7 @@
             <module name="org.drools.core" />
         </dependencies>
     </module>
-    
+
     <module name="org.kie.remote" >
         <include artifact="org.kie.remote:(.*)" />
         <include artifact="org.kie.remote.ws:(.*)" />
@@ -1389,7 +1427,7 @@
         </properties>
         <include artifact="org.scala-lang:scala-library" />
     </module>
-    
+
     <module name="org.scala.modules">
         <properties>
             <property name="jboss.api" value="private"/>

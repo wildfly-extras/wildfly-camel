@@ -33,7 +33,6 @@ shiro
 spring-boot
 spring-cloud
 spring-cloud-netflix
-spring-dm           	#deprecated
 spring-javaconfig
 swagger             	#deprecated
 test
