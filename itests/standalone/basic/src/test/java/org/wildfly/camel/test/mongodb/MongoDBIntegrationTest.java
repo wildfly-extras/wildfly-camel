@@ -30,6 +30,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.util.IOHelper;
+import org.bson.Document;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -56,6 +57,7 @@ import com.mongodb.util.JSON;
 @RunWith(Arquillian.class)
 public class MongoDBIntegrationTest {
 
+    private static final int ROWS = 20;
     private static final int PORT = 27017;
     private static EmbeddedMongoServer mongoServer;
     private MongoCollection<BasicDBObject> testCollection;
@@ -134,12 +136,12 @@ public class MongoDBIntegrationTest {
             ProducerTemplate template = camelctx.createProducerTemplate();
             List<DBObject> result = template.requestBody("direct:start", null, List.class);
 
-            Assert.assertEquals(1000, result.size());
+            Assert.assertEquals(ROWS, result.size());
 
-            for (DBObject dbObject : result) {
-                Assert.assertNotNull(dbObject.get("_id"));
-                Assert.assertNotNull(dbObject.get("scientist"));
-                Assert.assertNotNull(dbObject.get("fixedField"));
+            for (DBObject obj : result) {
+                Assert.assertNotNull(obj.get("_id"));
+                Assert.assertNotNull(obj.get("scientist"));
+                Assert.assertNotNull(obj.get("fixedField"));
             }
         } finally {
             testCollection.drop();
@@ -148,10 +150,43 @@ public class MongoDBIntegrationTest {
         }
     }
 
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testMongo3FindAll() throws Exception {
+
+        Assume.assumeFalse("[#1646] MongoDBIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+        
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .to("mongodb3:mongoConnection?database=test&collection=camelTest&operation=findAll&dynamicity=true");
+            }
+        });
+
+        camelctx.start();
+        try {
+            ProducerTemplate template = camelctx.createProducerTemplate();
+            List<Document> result = template.requestBody("direct:start", null, List.class);
+
+            Assert.assertEquals(ROWS, result.size());
+
+            for (Document obj : result) {
+                Assert.assertNotNull(obj.get("_id"));
+                Assert.assertNotNull(obj.get("scientist"));
+                Assert.assertNotNull(obj.get("fixedField"));
+            }
+        } finally {
+            testCollection.drop();
+            dynamicCollection.drop();
+            camelctx.stop();
+        }
+    }
 
     private void setupTestData() {
         String[] scientists = {"Einstein", "Darwin", "Copernicus", "Pasteur", "Curie", "Faraday", "Newton", "Bohr", "Galilei", "Maxwell"};
-        for (int i = 1; i <= 1000; i++) {
+        for (int i = 1; i <= ROWS; i++) {
             int index = i % scientists.length;
             Formatter f = new Formatter();
             String doc = f.format("{\"_id\":\"%d\", \"scientist\":\"%s\", \"fixedField\": \"fixedValue\"}", i, scientists[index]).toString();

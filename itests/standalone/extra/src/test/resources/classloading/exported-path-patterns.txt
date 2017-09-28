@@ -68,6 +68,7 @@
     ^org/apache/xmlgraphics(.*)
     ^org/apache/xmlrpc(.*)
 	^org/asynchttpclient(.*)
+	^org/bson(.*)
 	^org/codehaus/groovy(.*)
 	^org/dozer(.*)
 	^org/eclipse/egit/github/core(.*)

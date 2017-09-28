@@ -964,6 +964,10 @@ org/apache/camel/component/mongodb
 org/apache/camel/component/mongodb/converters
 org/apache/camel/component/mongodb/processor
 org/apache/camel/component/mongodb/processor/idempotent
+org/apache/camel/component/mongodb3
+org/apache/camel/component/mongodb3/converters
+org/apache/camel/component/mongodb3/processor
+org/apache/camel/component/mongodb3/processor/idempotent
 org/apache/camel/component/mqtt
 org/apache/camel/component/mustache
 org/apache/camel/component/mvel
@@ -1770,6 +1774,16 @@ org/asynchttpclient/uri
 org/asynchttpclient/util
 org/asynchttpclient/webdav
 org/asynchttpclient/ws
+org/bson
+org/bson/assertions
+org/bson/codecs
+org/bson/codecs/configuration
+org/bson/conversions
+org/bson/diagnostics
+org/bson/io
+org/bson/json
+org/bson/types
+org/bson/util
 org/codehaus/groovy
 org/codehaus/groovy/ant
 org/codehaus/groovy/antlr

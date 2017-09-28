@@ -1335,6 +1335,16 @@
         </dependencies>
     </module>
 
+    <module name="org.mongodb">
+        <include artifact="org.mongodb:mongo-java-driver" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+        <exports>
+            <exclude path="com/mongodb/internal**" />
+        </exports>
+    </module>
+
     <module name="org.quartz">
         <properties>
             <property name="jboss.api" value="private"/>

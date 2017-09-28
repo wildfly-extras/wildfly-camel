@@ -87,6 +87,7 @@ mina2
 mllp
 mock
 mongodb
+mongodb3
 mqtt
 msv
 mustache
@@ -172,7 +173,6 @@ grpc                	#1826
 jclouds             	#1450
 milo-client         	#1835
 milo-server         	#1836
-mongodb3            	#1838
 olingo4             	#1839
 openstack-cinder    	#1840
 openstack-glance    	#1841

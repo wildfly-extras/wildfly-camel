@@ -214,7 +214,7 @@
 /org/apache/camel/component/mina2/main/camel-mina2-2.19.3.jar
 /org/apache/camel/component/mllp/main/camel-mllp-2.19.3.jar
 /org/apache/camel/component/mongodb/main/camel-mongodb-2.19.3.jar
-/org/apache/camel/component/mongodb/main/mongo-java-driver-3.4.2.jar
+/org/apache/camel/component/mongodb3/main/camel-mongodb3-2.19.3.jar
 /org/apache/camel/component/mqtt/main/camel-mqtt-2.19.3.jar
 /org/apache/camel/component/msv/main/camel-msv-2.19.3.jar
 /org/apache/camel/component/mustache/main/camel-mustache-2.19.3.jar
@@ -464,6 +464,7 @@
 /org/kie/remote/main/kie-remote-common-6.5.0.Final.jar
 /org/kie/remote/main/kie-remote-jaxb-6.5.0.Final.jar
 /org/kie/remote/main/kie-remote-ws-common-6.5.0.Final.jar
+/org/mongodb/main/mongo-java-driver-3.4.2.jar
 /org/mvel/mvel2/main/mvel2-2.3.1.Final.jar
 /org/osgi/core/main/org.osgi.core-5.0.0.jar
 /org/osgi/enterprise/main/org.osgi.enterprise-5.0.0.jar
