@@ -12,7 +12,6 @@
   <dependencies>
     <module name="com.google.protobuf" slot="2.5.0" />
     <module name="com.google.guava" slot="14.0" />
-    <module name="io.netty" slot="4.0" />
     <module name="javax.api" />
     <module name="sun.jdk">
       <imports>
@@ -20,6 +19,7 @@
       </imports>
     </module>
     <module name="com.yammer.metrics" />
+    <module name="io.netty" slot="4.1" />
     <module name="org.apache.commons.codec" />
     <module name="org.apache.commons.collections" />
     <module name="org.apache.commons.io" />

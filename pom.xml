@@ -46,9 +46,8 @@
     <properties>
         
         <!-- Camel versions -->
-        <version.apache.camel>2.19.3</version.apache.camel>
-        <version.apache.lucene>5.5.2</version.apache.lucene>
-        <version.io.netty40>4.0.45.Final</version.io.netty40>
+        <version.camel>2.19.3</version.camel>
+        <version.camel.lucene>5.5.2</version.camel.lucene>
 
         <!-- WildFly versions -->
         <version.wildfly>10.1.0.Final</version.wildfly>

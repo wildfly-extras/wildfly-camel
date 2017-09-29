@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.google.protobuf">
+  <resources>
+    <artifact name="${com.google.protobuf:protobuf-java}" />
+    <artifact name="${com.google.protobuf:protobuf-java-util}" />
+  </resources>
+  <dependencies>
+    <module name="sun.jdk">
+      <imports>
+        <include path="sun/misc" />
+      </imports>
+    </module>
+    <module name="com.google.code.gson" />
+    <module name="com.google.guava" />
+  </dependencies>
+  <exports>
+    <exclude path="com/google" />
+    <exclude path="com/google/protobuf/compiler" />
+    <exclude path="google/protobuf**" />
+  </exports>
+</module>

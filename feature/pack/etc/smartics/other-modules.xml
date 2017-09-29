@@ -260,6 +260,23 @@
         </dependencies>
     </module>
 
+    <module name="com.google.protobuf">
+        <include artifact=":protobuf-java-util" />
+        <include artifact=":protobuf-java" />
+        <dependencies>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc" />
+                </imports>
+            </module>
+        </dependencies>
+        <exports>
+            <exclude path="com/google" />
+            <exclude path="com/google/protobuf/compiler" />
+            <exclude path="google/protobuf**" />
+        </exports>
+    </module>
+
     <module name="com.jamesmurty.utils.java.xmlbuilder">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -802,7 +819,6 @@
         <dependencies>
             <module name="com.google.protobuf" slot="2.5.0" />
             <module name="com.google.guava" slot="14.0" />
-            <module name="io.netty" slot="4.0" />
             <module name="javax.api"/>
             <module name="sun.jdk">
                 <imports>
@@ -1071,7 +1087,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
-            <module name="io.netty" slot="4.0"/>
+            <module name="io.netty" slot="4.1"/>
         </dependencies>
         <exports>
             <exclude path="io/netty**" />
