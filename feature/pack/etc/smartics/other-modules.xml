@@ -260,6 +260,23 @@
         </dependencies>
     </module>
 
+    <module name="com.google.protobuf">
+        <include artifact=":protobuf-java-util" />
+        <include artifact=":protobuf-java" />
+        <dependencies>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc" />
+                </imports>
+            </module>
+        </dependencies>
+        <exports>
+            <exclude path="com/google" />
+            <exclude path="com/google/protobuf/compiler" />
+            <exclude path="google/protobuf**" />
+        </exports>
+    </module>
+
     <module name="com.jamesmurty.utils.java.xmlbuilder">
         <properties>
             <property name="jboss.api" value="private"/>

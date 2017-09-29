@@ -56,7 +56,7 @@
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-parent</artifactId>
-                <version>${version.apache.camel}</version>
+                <version>${version.camel}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -138,62 +138,62 @@
             <dependency>
                 <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-analyzers-common</artifactId>
-                <version>${version.apache.lucene}</version>
+                <version>${version.camel.lucene}</version>
             </dependency>
            <dependency>
                 <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-backward-codecs</artifactId>
-                <version>${version.apache.lucene}</version>
+                <version>${version.camel.lucene}</version>
             </dependency>
              <dependency>
                 <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-core</artifactId>
-                <version>${version.apache.lucene}</version>
+                <version>${version.camel.lucene}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-highlighter</artifactId>
-                <version>${version.apache.lucene}</version>
+                <version>${version.camel.lucene}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-join</artifactId>
-                <version>${version.apache.lucene}</version>
+                <version>${version.camel.lucene}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-memory</artifactId>
-                <version>${version.apache.lucene}</version>
+                <version>${version.camel.lucene}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-misc</artifactId>
-                <version>${version.apache.lucene}</version>
+                <version>${version.camel.lucene}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-queries</artifactId>
-                <version>${version.apache.lucene}</version>
+                <version>${version.camel.lucene}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-queryparser</artifactId>
-                <version>${version.apache.lucene}</version>
+                <version>${version.camel.lucene}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-sandbox</artifactId>
-                <version>${version.apache.lucene}</version>
+                <version>${version.camel.lucene}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-spatial</artifactId>
-                <version>${version.apache.lucene}</version>
+                <version>${version.camel.lucene}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.lucene</groupId>
                 <artifactId>lucene-suggest</artifactId>
-                <version>${version.apache.lucene}</version>
+                <version>${version.camel.lucene}</version>
             </dependency>
            <dependency>
                 <groupId>org.apache.maven</groupId>
