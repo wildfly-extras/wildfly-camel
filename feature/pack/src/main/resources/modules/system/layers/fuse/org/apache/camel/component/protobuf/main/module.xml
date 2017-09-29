@@ -2,24 +2,11 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.protobuf">
   <resources>
     <artifact name="${org.apache.camel:camel-protobuf}" />
-    <artifact name="${com.google.protobuf:protobuf-java}" />
-    <artifact name="${com.google.protobuf:protobuf-java-util}" />
   </resources>
   <dependencies>
-    <module name="sun.jdk">
-      <imports>
-        <include path="sun/misc" />
-      </imports>
-    </module>
-    <module name="com.google.code.gson" />
-    <module name="com.google.guava" />
+    <module name="com.google.protobuf" export="true" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.io" />
   </dependencies>
-  <exports>
-    <exclude path="com/google" />
-    <exclude path="com/google/protobuf/compiler" />
-    <exclude path="google/protobuf**" />
-  </exports>
 </module>

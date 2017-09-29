@@ -1668,24 +1668,13 @@
 
     <module name="org.apache.camel.component.protobuf">
         <include artifact="org.apache.camel:camel-protobuf" />
-        <include artifact=":protobuf-java-util" />
-        <include artifact=":protobuf-java" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="sun.jdk">
-                <imports>
-                    <include path="sun/misc" />
-                </imports>
-            </module>
+            <module name="com.google.protobuf" export="true"/>
         </dependencies>
-        <exports>
-            <exclude path="com/google" />
-            <exclude path="com/google/protobuf/compiler" />
-            <exclude path="google/protobuf**" />
-        </exports>
     </module>
 
     <module name="org.apache.camel.component.quartz2">
