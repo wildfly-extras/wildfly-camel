@@ -47,20 +47,6 @@
         </dependencies>
     </module>
 
-    <module name="io.netty" inherit-slot="false" slot="4.0">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="io.netty:netty-all" />
-        <apply-to-dependencies skip="true">
-            <include module="org.jctools" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="sun.jdk"/>
-        </dependencies>
-    </module>
-    
     <!-- ================================================ -->
     <!-- Skipped modules                                  -->
     <!-- ================================================ -->

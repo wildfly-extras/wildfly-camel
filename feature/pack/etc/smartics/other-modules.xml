@@ -802,7 +802,6 @@
         <dependencies>
             <module name="com.google.protobuf" slot="2.5.0" />
             <module name="com.google.guava" slot="14.0" />
-            <module name="io.netty" slot="4.0" />
             <module name="javax.api"/>
             <module name="sun.jdk">
                 <imports>
@@ -1071,7 +1070,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
-            <module name="io.netty" slot="4.0"/>
+            <module name="io.netty" slot="4.1"/>
         </dependencies>
         <exports>
             <exclude path="io/netty**" />

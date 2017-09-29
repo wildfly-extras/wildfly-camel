@@ -53,7 +53,6 @@
 /io/fabric8/zjsonpatch/main/zjsonpatch-0.3.0.jar
 /io/fastjson/boon/main/boon-0.34.jar
 /io/netty/3.10/netty-3.10.6.Final.jar
-/io/netty/4.0/netty-all-4.0.45.Final.jar
 /io/netty/4.1/netty-all-4.1.9.Final.jar
 /io/opentracing/main/opentracing-api-0.30.0.jar
 /io/opentracing/main/opentracing-noop-0.30.0.jar

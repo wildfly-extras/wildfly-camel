@@ -37,12 +37,6 @@
             <version>${version.apache.hadoop.protobuf}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
-            <version>${version.io.netty40}</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>
