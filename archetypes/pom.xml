@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel</artifactId>
-        <version>4.9.0-SNAPSHOT</version>
+        <version>4.9.0</version>
     </parent>
 
     <name>Wildfly Camel :: Archetypes</name>
