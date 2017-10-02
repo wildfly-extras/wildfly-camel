@@ -69,6 +69,37 @@
             </dependency>
             
             <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-cxf-undertow</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-subsystem-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-subsystem-cdi</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-subsystem-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-subsystem-undertow</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <dependency>
                 <groupId>args4j</groupId>
                 <artifactId>args4j</artifactId>
                 <version>${version.args4j}</version>
@@ -102,6 +133,12 @@
                 <groupId>com.fasterxml.jackson.module</groupId>
                 <artifactId>jackson-module-jsonSchema</artifactId>
                 <version>${version.wildfly.fasterxml.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.icegreen</groupId>
+                <artifactId>greenmail-webapp</artifactId>
+                <version>${version.greenmail}</version>
+                <type>war</type>
             </dependency>
             <dependency>
                 <groupId>io.hawt</groupId>
