@@ -63,6 +63,7 @@
         <module name="org.apache.camel.component.ehcache" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.ejb" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.elasticsearch" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.elasticsearch5" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.elsql" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.exec" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.facebook" export="true" services="export" optional="true" />

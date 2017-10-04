@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.elasticsearch" slot="5.2">
+  <resources>
+    <resource-root path="elasticsearch-5.2.2.jar" />
+    <resource-root path="hppc-0.7.1.jar" />
+    <resource-root path="lang-mustache-client-5.2.2.jar" />
+    <resource-root path="percolator-client-5.2.2.jar" />
+    <resource-root path="reindex-client-5.2.2.jar" />
+    <resource-root path="rest-5.2.2.jar" />
+    <resource-root path="securesm-1.1.jar" />
+    <resource-root path="t-digest-3.0.jar" />
+    <resource-root path="transport-5.2.2.jar" />
+    <resource-root path="transport-netty4-client-5.2.2.jar" />
+  </resources>
+  <dependencies>
+    <module name="io.netty" slot="4.1" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.dataformat.cbor" />
+    <module name="com.fasterxml.jackson.dataformat.smile" />
+    <module name="com.fasterxml.jackson.dataformat.yaml" />
+    <module name="com.github.spullara.mustache" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.logging" />
+    <module name="org.apache.httpcomponents" slot="4.5" />
+    <module name="org.apache.logging.log4j" />
+    <module name="org.apache.lucene" slot="6.4" />
+    <module name="org.elasticsearch.transport.netty3" slot="5.2" />
+    <module name="org.joda.time" />
+    <module name="org.yaml.snakeyaml" />
+  </dependencies>
+</module>

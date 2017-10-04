@@ -411,6 +411,10 @@
         <include artifact=":jboss-logging"/>
     </module>
 
+    <module name="org.jboss.logging.jul-to-slf4j-stub"  skip="true">
+        <include artifact="org.slf4j:jul-to-slf4j" />
+    </module>
+
     <module name="org.jboss.logmanager" skip="true">
         <include artifact=":jboss-logmanager"/>
     </module>
@@ -459,16 +463,12 @@
         <include artifact=":slf4j-ext" />
     </module>
 
-    <module name="org.yaml.snakeyaml" skip="true">
-        <include artifact="org.yaml:snakeyaml" />
-    </module>
-    
     <module name="org.wildfly.extension.undertow" skip="true">
         <include artifact=":wildfly-undertow" />
     </module>
     
-    <module name="org.jboss.logging.jul-to-slf4j-stub"  skip="true">
-        <include artifact="org.slf4j:jul-to-slf4j" />
+    <module name="org.yaml.snakeyaml" skip="true">
+        <include artifact="org.yaml:snakeyaml" />
     </module>
-
+    
 </modules>

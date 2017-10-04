@@ -47,7 +47,8 @@
         
         <!-- Camel versions -->
         <version.apache.camel>2.19.3</version.apache.camel>
-        <version.camel.lucene>5.5.2</version.camel.lucene>
+        <version.camel.lucene5>5.5.2</version.camel.lucene5>
+        <version.camel.lucene6>6.4.1</version.camel.lucene6>
         <version.camel.hadoop2>2.7.2</version.camel.hadoop2>
         <version.camel.hadoop2.protobuf>2.5.0</version.camel.hadoop2.protobuf>
         <version.camel.hbase>1.2.1</version.camel.hbase>

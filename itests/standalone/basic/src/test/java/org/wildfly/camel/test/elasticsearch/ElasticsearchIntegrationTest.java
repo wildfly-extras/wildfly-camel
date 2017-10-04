@@ -19,14 +19,9 @@
  */
 package org.wildfly.camel.test.elasticsearch;
 
-import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.apache.camel.CamelContext;
@@ -41,21 +36,19 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.elasticsearch.subA.ElasticSearchClientProducer;
+import org.wildfly.camel.test.elasticsearch.subA.ElasticsearchClientProducer;
 import org.wildfly.extension.camel.CamelAware;
-
-import static org.wildfly.camel.test.elasticsearch.subA.ElasticSearchClientProducer.DATA_PATH;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class ElasticSearchIntegrationTest {
+public class ElasticsearchIntegrationTest {
 
     @Inject
     private Client client;
@@ -63,14 +56,14 @@ public class ElasticSearchIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-elasticsearch-tests.jar");
-        archive.addClasses(ElasticSearchClientProducer.class);
+        archive.addClasses(ElasticsearchClientProducer.class);
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        archive.setManifest(() -> {
+            ManifestBuilder builder = new ManifestBuilder();
+            builder.addManifestHeader("Dependencies", "org.elasticsearch");
+            return builder.openStream();
+        });
         return archive;
-    }
-
-    @BeforeClass
-    public static void beforeClass() throws IOException {
-        deleteDataDirectory();
     }
 
     @Test
@@ -219,30 +212,4 @@ public class ElasticSearchIntegrationTest {
         }
     }
 
-    private static void deleteDataDirectory() throws IOException {
-        // ES component currently has no method of configuring the data dir for a local server, hence manual cleanup
-        if (DATA_PATH.toFile().isDirectory()) {
-            Files.walkFileTree(DATA_PATH, new SimpleFileVisitor<Path>() {
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    Files.delete(file);
-                    return FileVisitResult.CONTINUE;
-                }
-
-                @Override
-                public FileVisitResult visitFileFailed(Path file, IOException exception) throws IOException {
-                    exception.printStackTrace();
-                    return FileVisitResult.CONTINUE;
-                }
-
-                @Override
-                public FileVisitResult postVisitDirectory(Path dir, IOException exception) throws IOException {
-                    if (exception == null) {
-                        Files.delete(dir);
-                    }
-                    return FileVisitResult.CONTINUE;
-                }
-            });
-        }
-    }
 }
