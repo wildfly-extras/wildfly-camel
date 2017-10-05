@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.netflix.ribbon.ribbon-loadbalancer">
+  <resources>
+    <artifact name="${com.netflix.ribbon:ribbon-loadbalancer}" />
+  </resources>
+  <dependencies>
+    <module name="com.google.guava" />
+    <module name="com.netflix.netflix-commons.netflix-commons-util" />
+    <module name="com.netflix.netflix-commons.netflix-statistics" />
+    <module name="com.netflix.ribbon.ribbon-core" />
+    <module name="com.netflix.servo" />
+    <module name="org.slf4j" />
+    <module name="com.netflix.archaius.archaius-core" />
+    <module name="com.netflix.hystrix" />
+  </dependencies>
+</module>

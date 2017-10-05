@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.netflix.ribbon.ribbon-core">
+  <resources>
+    <artifact name="${com.netflix.ribbon:ribbon-core}" />
+  </resources>
+  <dependencies>
+    <module name="com.google.guava" />
+    <module name="org.apache.commons.configuration" />
+    <module name="org.apache.commons.lang" />
+    <module name="org.slf4j" />
+    <module name="com.netflix.archaius.archaius-core" />
+  </dependencies>
+</module>

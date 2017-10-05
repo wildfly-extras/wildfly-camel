@@ -5,7 +5,6 @@
   </properties>
   <resources>
     <artifact name="${org.hdrhistogram:HdrHistogram}" />
-    <artifact name="${com.netflix.archaius:archaius-core}" />
     <artifact name="${com.netflix.hystrix:hystrix-core}" />
     <artifact name="${com.netflix.hystrix:hystrix-metrics-event-stream}" />
     <artifact name="${com.netflix.hystrix:hystrix-serialization}" />
@@ -15,8 +14,8 @@
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.netflix.archaius.archaius-core" />
     <module name="javax.servlet.api" />
-    <module name="org.apache.commons.configuration" />
     <module name="org.slf4j" />
   </dependencies>
 </module>

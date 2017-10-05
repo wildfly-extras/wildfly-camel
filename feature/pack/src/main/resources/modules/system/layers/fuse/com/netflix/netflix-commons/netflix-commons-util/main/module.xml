@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.netflix.netflix-commons.netflix-commons-util">
+  <resources>
+    <artifact name="${com.netflix.netflix-commons:netflix-commons-util}" />
+  </resources>
+  <dependencies>
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

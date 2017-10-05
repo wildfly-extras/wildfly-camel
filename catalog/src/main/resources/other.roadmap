@@ -4,6 +4,7 @@ cxf-transport
 hystrix
 jasypt
 opentracing
+ribbon              	#2064
 spring-security
 swagger-java
 zipkin
@@ -12,7 +13,6 @@ zipkin
 
 [undecided]
 leveldb             	#2063
-ribbon              	#2064
 shiro               	#2065
 spring-cloud        	#2066
 spring-cloud-netflix	#2067

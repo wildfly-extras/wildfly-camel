@@ -921,7 +921,7 @@
             <module name="org.slf4j"/>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.http4">
         <include artifact="org.apache.camel:camel-http4" />
         <apply-to-dependencies skip="true">
@@ -1043,7 +1043,7 @@
             <module name="org.slf4j"/>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.jacksonxml">
         <include artifact="org.apache.camel:camel-jacksonxml" />
         <apply-to-dependencies skip="true">
@@ -1055,7 +1055,7 @@
             <module name="org.slf4j"/>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.jasypt">
         <include artifact="org.apache.camel:camel-jasypt" />
         <apply-to-dependencies skip="true">
@@ -1069,7 +1069,7 @@
             <module name="org.slf4j"/>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.jaxb">
         <include artifact="org.apache.camel:camel-jaxb" />
         <apply-to-dependencies skip="true">
@@ -1136,7 +1136,7 @@
             <module name="org.slf4j"/>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.jibx">
         <include artifact="org.apache.camel:camel-jibx" />
         <include artifact="org.jibx:jibx-run" />
@@ -1186,7 +1186,7 @@
             <module name="org.slf4j"/>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.jmx">
         <include artifact="org.apache.camel:camel-jmx" />
         <apply-to-dependencies skip="true">
@@ -1280,7 +1280,7 @@
             <exclude path="org/objectweb**" />
         </exports>
     </module>
-    
+
     <module name="org.apache.camel.component.kafka">
         <include artifact="org.apache.camel:camel-kafka" />
         <apply-to-dependencies skip="true">
@@ -1563,7 +1563,7 @@
             <module name="org.slf4j" />
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.ognl">
         <include artifact="org.apache.camel:camel-ognl" />
         <apply-to-dependencies skip="true">
@@ -1726,6 +1726,17 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.ribbon">
+        <include artifact="org.apache.camel:camel-ribbon" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.rss">
         <include artifact="org.apache.camel:camel-rss" />
         <apply-to-dependencies skip="true">
@@ -1847,7 +1858,7 @@
             <exclude path="org/codehaus"/>
         </exports>
     </module>
-    
+
     <module name="org.apache.camel.script.python">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1858,7 +1869,7 @@
             <module name="org.slf4j"/>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.script.rhino">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1891,7 +1902,7 @@
             <module name="sun.jdk"/>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.servicenow">
         <include artifact="org.apache.camel:camel-servicenow"/>
         <apply-to-dependencies skip="true">
@@ -1971,7 +1982,7 @@
             <module name="org.yaml.snakeyaml" export="true"/>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.soap">
         <include artifact="org.apache.camel:camel-soap" />
         <apply-to-dependencies skip="true">
@@ -1988,7 +1999,7 @@
             <exclude path="org/w3**" />
         </exports>
     </module>
-    
+
     <module name="org.apache.camel.component.splunk">
         <include artifact="org.apache.camel:camel-splunk" />
         <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.splunk" />
@@ -2022,7 +2033,7 @@
             <module name="org.springframework.beans" />
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.spring.integration">
         <include artifact="org.apache.camel:camel-spring-integration" />
         <apply-to-dependencies skip="true">
@@ -2043,7 +2054,7 @@
             <module name="org.springframework.messaging" />
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.spring.ldap">
         <include artifact="org.apache.camel:camel-spring-ldap" />
         <apply-to-dependencies skip="true">
@@ -2058,7 +2069,7 @@
             <module name="org.springframework.ldap" export="true" />
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.spring.redis">
         <include artifact="org.apache.camel:camel-spring-redis" />
         <apply-to-dependencies skip="true">
@@ -2071,7 +2082,7 @@
             <module name="org.springframework.data.redis" export="true" />
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.spring.security">
         <include artifact="org.apache.camel:camel-spring-security" />
         <apply-to-dependencies skip="true">
@@ -2093,7 +2104,7 @@
             </module>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.sql">
         <include artifact="org.apache.camel:camel-sql" />
         <apply-to-dependencies skip="true">
@@ -2224,7 +2235,7 @@
             <exclude path="org/ccil**" />
         </exports>
     </module>
-    
+
     <module name="org.apache.camel.component.tarfile">
         <include artifact="org.apache.camel:camel-tarfile" />
         <include artifact=":tagsoup" />
@@ -2236,7 +2247,7 @@
             <module name="org.slf4j"/>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.twitter">
         <include artifact="org.apache.camel:camel-twitter" />
         <include artifact=":twitter4j-core" />
@@ -2250,7 +2261,7 @@
             <module name="org.slf4j"/>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.undertow">
         <include artifact="org.apache.camel:camel-undertow" />
         <apply-to-dependencies skip="true">
@@ -2271,7 +2282,7 @@
             <module name="org.slf4j" />
         </dependencies>
     </module>
-    
+
     <module name="org.apache.camel.component.univocity">
         <include artifact="org.apache.camel:camel-univocity-parsers" />
         <include artifact="com.univocity:univocity-parsers" />
@@ -2283,7 +2294,7 @@
             <exclude path="com/univocity**" />
         </exports>
     </module>
-    
+
     <module name="org.apache.camel.component.velocity">
         <include artifact="org.apache.camel:camel-velocity" />
         <apply-to-dependencies skip="true">
