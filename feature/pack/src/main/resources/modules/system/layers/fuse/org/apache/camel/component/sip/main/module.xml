@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.sip">
+  <resources>
+    <artifact name="${org.apache.camel:camel-sip}" />
+    <artifact name="${org.apache.servicemix.bundles:org.apache.servicemix.bundles.jain-sip-ri}" />
+    <artifact name="${org.opentelecoms.sip:sip-api-1.2}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.log4j" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+  <exports>
+    <exclude path="gov/nist**" />
+  </exports>
+</module>

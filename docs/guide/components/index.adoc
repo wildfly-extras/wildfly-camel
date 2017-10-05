@@ -238,6 +238,8 @@ include::camel-spring-ldap.adoc[]
 
 include::camel-spring-redis.adoc[]
 
+include::camel-sip.adoc[]
+
 include::camel-sjms.adoc[]
 
 include::camel-sjms-batch.adoc[]

@@ -260,7 +260,7 @@
         <include artifact="org.apache.maven:maven-model-builder" />
     </module>
 
-    <module name="org.apache.servicemix.bundles" skip="true">
+    <module name="org.apache.servicemix.skipped" skip="true">
         <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.javax-cache-api" />
     </module>
 

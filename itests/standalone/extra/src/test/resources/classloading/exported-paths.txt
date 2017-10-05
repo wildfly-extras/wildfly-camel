@@ -716,6 +716,11 @@ javax/cache/integration
 javax/cache/management
 javax/cache/processor
 javax/cache/spi
+javax/sdp
+javax/sip
+javax/sip/address
+javax/sip/header
+javax/sip/message
 net/fortuna/ical4j
 net/fortuna/ical4j/data
 net/fortuna/ical4j/filter
@@ -1037,6 +1042,8 @@ org/apache/camel/component/servlet
 org/apache/camel/component/servlet/osgi
 org/apache/camel/component/shiro
 org/apache/camel/component/shiro/security
+org/apache/camel/component/sip
+org/apache/camel/component/sip/listener
 org/apache/camel/component/sjms
 org/apache/camel/component/sjms/batch
 org/apache/camel/component/sjms/consumer

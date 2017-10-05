@@ -122,6 +122,8 @@ seda
 servicenow
 servlet
 sftp
+sip
+sips
 sjms
 sjms-batch
 sjms2
@@ -211,8 +213,6 @@ pubnub              	#1846
 quickfix            	#2023
 restlet             	#2024
 rmi                 	#2025
-sip                 	#2027
-sips                	#2028
 solr                	#2030
 solrCloud           	#2031
 solrs               	#2032

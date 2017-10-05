@@ -1,0 +1,5 @@
+### camel-ip
+
+The http://camel.apache.org/sip.html[sip,window=_blank] component is a communication component, based on the Jain SIP implementation (available under the JCP license).
+
+Session Initiation Protocol (SIP) is an IETF-defined signaling protocol, widely used for controlling multimedia communication sessions such as voice and video calls over Internet Protocol (IP).The SIP protocol is an Application Layer protocol designed to be independent of the underlying transport layer; it can run on Transmission Control Protocol (TCP), User Datagram Protocol (UDP) or Stream Control Transmission Protocol (SCTP).

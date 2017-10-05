@@ -1108,7 +1108,7 @@
         <include artifact="org.apache.camel:camel-jcache" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
-            <include module="org.apache.servicemix.bundles" />
+            <include module="org.apache.servicemix.skipped" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
@@ -1937,6 +1937,24 @@
             <module name="javax.api"/>
             <module name="org.slf4j"/>
         </dependencies>
+    </module>
+
+    <module name="org.apache.camel.component.sip">
+        <include artifact="org.apache.camel:camel-sip" />
+        <include artifact="org.opentelecoms.sip:sip-api-1.2" />
+        <include artifact=":org.apache.servicemix.bundles.jain-sip-ri" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.log4j"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="gov/nist**" />
+        </exports>
     </module>
 
     <module name="org.apache.camel.component.sjms">
