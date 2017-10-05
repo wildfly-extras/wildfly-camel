@@ -514,6 +514,7 @@
 /org/springframework/batch/main/spring-batch-core-3.0.7.RELEASE.jar
 /org/springframework/batch/main/spring-batch-infrastructure-3.0.7.RELEASE.jar
 /org/springframework/beans/main/spring-beans-4.3.10.RELEASE.jar
+/org/springframework/context/main/camel-spring-javaconfig-2.19.3.jar
 /org/springframework/context/main/spring-context-4.3.10.RELEASE.jar
 /org/springframework/context/main/spring-context-support-4.3.10.RELEASE.jar
 /org/springframework/core/main/spring-core-4.3.10.RELEASE.jar

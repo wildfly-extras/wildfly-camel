@@ -1,0 +1,3 @@
+### camel-spring-javaconfig
+
+The http://camel.apache.org/spring-java-config.html[spring-javaconfig,window=_blank] component provides Java instead of XML configuration capabilities for Spring camel contexts.

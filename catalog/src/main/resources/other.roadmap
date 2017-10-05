@@ -5,6 +5,7 @@ hystrix
 jasypt
 opentracing
 ribbon
+spring-javaconfig
 spring-security
 swagger-java
 zipkin
@@ -14,7 +15,6 @@ leveldb             	#2063
 shiro               	#2065
 spring-cloud        	#2066
 spring-cloud-netflix	#2067
-spring-javaconfig   	#2068
 
 [undecided]
 
