@@ -214,6 +214,8 @@ include::camel-servicenow.adoc[]
 
 include::camel-servlet.adoc[]
 
+include::camel-shiro.adoc[]
+
 include::camel-smpp.adoc[]
 
 include::camel-snmp.adoc[]

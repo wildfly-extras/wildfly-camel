@@ -60,7 +60,8 @@
 	^org/apache/ibatis(.*)
 	^org/apache/johnzon(.*)
 	^org/apache/kafka(.*)
-	^org/apache/olingo(.*)
+    ^org/apache/olingo(.*)
+    ^org/apache/shiro(.*)
 	^org/apache/xmlbeans
 	^org/apache/xmlbeans/impl/schema
 	^org/apache/xmlbeans/impl/values
