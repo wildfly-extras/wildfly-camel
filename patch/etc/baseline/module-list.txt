@@ -257,6 +257,8 @@
 /org/apache/camel/component/pdf/main/camel-pdf-2.20.0.jar
 /org/apache/camel/component/protobuf/main/camel-protobuf-2.20.0.jar
 /org/apache/camel/component/quartz2/main/camel-quartz2-2.20.0.jar
+/org/apache/camel/component/quickfix/main/camel-quickfix-2.20.0.jar
+/org/apache/camel/component/quickfix/main/quickfixj-all-1.6.3.jar
 /org/apache/camel/component/rabbitmq/main/amqp-client-4.2.1.jar
 /org/apache/camel/component/rabbitmq/main/camel-rabbitmq-2.20.0.jar
 /org/apache/camel/component/reactive/streams/main/camel-reactive-streams-2.20.0.jar

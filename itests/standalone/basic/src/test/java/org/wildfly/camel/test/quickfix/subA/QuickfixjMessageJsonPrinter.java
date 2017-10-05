@@ -14,11 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wildfly.camel.test.plain.rmi;
+package org.wildfly.camel.test.quickfix.subA;
 
-import java.rmi.Remote;
-import java.rmi.RemoteException;
+import org.apache.camel.Exchange;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public interface ISay extends Remote {
-    String say() throws RemoteException;
+import quickfix.ConfigError;
+
+public class QuickfixjMessageJsonPrinter {
+
+    private static final Logger LOG = LoggerFactory.getLogger(QuickfixjMessageJsonPrinter.class);
+    private QuickfixjEventJsonTransformer formatter;
+
+    public QuickfixjMessageJsonPrinter() throws ConfigError {
+        formatter = new QuickfixjEventJsonTransformer();
+    }
+    
+    public void print(Exchange exchange) {
+        LOG.info(formatter.transform(exchange));
+    }
 }

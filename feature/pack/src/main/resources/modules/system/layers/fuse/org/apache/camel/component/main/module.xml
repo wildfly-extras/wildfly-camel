@@ -138,6 +138,7 @@
         <module name="org.apache.camel.component.pdf" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.protobuf" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.quartz2" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.quickfix" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.rabbitmq" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.reactive.streams" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.rest.swagger" export="true" services="export" optional="true" />

@@ -196,6 +196,8 @@ include::camel-pdf.adoc[]
 
 include::camel-quartz2.adoc[]
 
+include::camel-quickfix.adoc[]
+
 include::camel-rabbitmq.adoc[]
 
 include::camel-reactive-streams.adoc[]
