@@ -1,0 +1,5 @@
+### camel-rmi
+
+The http://camel.apache.org/rmi.html[rmi,window=_blank] component binds Exchanges to the RMI protocol (JRMP).
+
+Since this binding is just using RMI, normal RMI rules still apply regarding what methods can be invoked. This component supports only Exchanges that carry a method invocation from an interface that extends the Remote interface. All parameters in the method should be either Serializable or Remote objects.

@@ -200,6 +200,8 @@ include::camel-rest.adoc[]
 
 include::camel-rest-swagger.adoc[]
 
+include::camel-rmi.adoc[]
+
 include::camel-rss.adoc[]
 
 include::camel-salesforce.adoc[]

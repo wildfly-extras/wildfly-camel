@@ -1016,6 +1016,7 @@ org/apache/camel/component/rest
 org/apache/camel/component/rest/swagger
 org/apache/camel/component/ribbon
 org/apache/camel/component/ribbon/cloud
+org/apache/camel/component/rmi
 org/apache/camel/component/rss
 org/apache/camel/component/salesforce
 org/apache/camel/component/salesforce/api
