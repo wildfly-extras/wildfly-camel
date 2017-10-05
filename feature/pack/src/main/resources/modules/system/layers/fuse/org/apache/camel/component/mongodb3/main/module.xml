@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-mongodb3}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="org.mongodb" export="true" />
     <module name="org.slf4j" />

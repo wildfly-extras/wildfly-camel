@@ -4,10 +4,9 @@
     <artifact name="${org.apache.camel:camel-amqp}" />
   </resources>
   <dependencies>
-    <module name="io.netty" />
-    <module name="javax.api" />
     <module name="javax.resource.api" />
     <module name="org.apache.camel.core" />
+    <module name="io.netty" />
     <module name="org.slf4j" />
     <module name="javax.jms.api" />
     <module name="javax.xml.bind.api" />

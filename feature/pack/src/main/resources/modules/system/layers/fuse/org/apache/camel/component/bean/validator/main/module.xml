@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-bean-validator}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="javax.validation.api" />
     <module name="org.hibernate.validator" />
     <module name="org.slf4j" />

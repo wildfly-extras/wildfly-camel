@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-jpa}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="org.hibernate" />
     <module name="org.javassist" />
     <module name="org.springframework.orm" export="true">

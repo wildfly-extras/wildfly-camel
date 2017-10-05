@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-hystrix}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="org.slf4j" />
     <module name="com.netflix.hystrix" />
     <module name="javax.servlet.api" />

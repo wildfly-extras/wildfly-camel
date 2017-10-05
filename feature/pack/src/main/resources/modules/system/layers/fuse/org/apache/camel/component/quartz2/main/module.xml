@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-quartz2}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="org.quartz" export="true" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />

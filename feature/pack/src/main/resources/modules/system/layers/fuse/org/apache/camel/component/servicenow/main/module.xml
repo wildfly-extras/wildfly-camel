@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-servicenow}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="javax.ws.rs.api" />
     <module name="org.apache.cxf.impl" />
     <module name="org.slf4j" />

@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-spring-batch}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="org.slf4j" />
     <module name="org.springframework.batch" export="true" services="export">
       <imports>

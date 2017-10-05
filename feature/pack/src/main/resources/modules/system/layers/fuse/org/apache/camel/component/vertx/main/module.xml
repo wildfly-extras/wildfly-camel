@@ -5,7 +5,6 @@
     <artifact name="${io.vertx:vertx-core}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="org.slf4j" />
     <module name="io.netty" slot="4.1" />
     <module name="com.fasterxml.jackson.core.jackson-core" />

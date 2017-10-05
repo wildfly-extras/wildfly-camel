@@ -7,8 +7,8 @@
     <artifact name="${com.cloudbees.thirdparty:zendesk-java-client}" />
   </resources>
   <dependencies>
-    <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="javax.api" />
+    <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />

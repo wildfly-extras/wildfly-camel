@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-zookeeper}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="org.apache.zookeeper" export="true" />
     <module name="org.slf4j" />
     <module name="io.netty" slot="3.10" />

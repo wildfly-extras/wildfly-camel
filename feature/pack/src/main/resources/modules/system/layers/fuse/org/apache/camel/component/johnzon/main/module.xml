@@ -6,7 +6,6 @@
     <artifact name="${org.apache.johnzon:johnzon-mapper}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="org.slf4j" />
     <module name="javax.json.api" />
     <module name="javax.xml.bind.api" />

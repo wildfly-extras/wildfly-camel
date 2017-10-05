@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-hbase}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="org.apache.hbase" export="true" services="export">
       <exports>
         <include path="org/apache/hadoop/hbase" />

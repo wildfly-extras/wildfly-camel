@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-mail}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="javax.activation.api" />
     <module name="javax.mail.api" />
     <module name="org.slf4j" />

@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-jcache}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="javax.cache.api" export="true" />
     <module name="org.infinispan.jcache" export="true" services="export">
       <exports>

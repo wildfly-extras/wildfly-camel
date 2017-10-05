@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-dozer}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="net.sf.dozer" export="true">
       <exports>
         <include path="org/dozer/util**" />

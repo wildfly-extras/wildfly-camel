@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-infinispan}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="org.infinispan" export="true">
       <exports>
         <exclude path="OSGI-INF/blueprint" />

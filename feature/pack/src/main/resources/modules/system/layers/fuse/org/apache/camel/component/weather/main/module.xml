@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-weather}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="org.apache.commons.httpclient" export="true" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />

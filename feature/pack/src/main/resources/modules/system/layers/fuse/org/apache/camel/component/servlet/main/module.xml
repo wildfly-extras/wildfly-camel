@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-servlet}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
     <module name="org.slf4j" />
     <module name="javax.servlet.api" />
     <module name="javax.xml.bind.api" />

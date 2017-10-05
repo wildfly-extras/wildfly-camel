@@ -14,7 +14,6 @@
         <exclude path="com/sun**" />
       </exports>
     </module>
-    <module name="javax.api" />
     <module name="org.apache.commons.codec" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
