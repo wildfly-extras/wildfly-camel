@@ -4,6 +4,7 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
+    <artifact name="${org.apache.camel:camel-spring-javaconfig}" />
     <artifact name="${org.springframework:spring-context}" />
     <artifact name="${org.springframework:spring-context-support}" />
   </resources>
@@ -15,6 +16,10 @@
     <module name="org.springframework.tx" optional="true" />
     <module name="org.springframework.jdbc" optional="true" />
     <module name="org.quartz" optional="true" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.camel.spring" />
     <module name="org.springframework.aop" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.expression" />

@@ -47,8 +47,8 @@
         <include artifact="c3p0:c3p0" />
     </module>
     
-    <module name="cglib.nodep" skip="true">
-        <include artifact=":cglib-nodep" />
+    <module name="cglib" skip="true">
+        <include artifact=":org.apache.servicemix.bundles.cglib" />
     </module>
 
     <module name="ch.qos.logback" skip="true">
