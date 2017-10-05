@@ -7,9 +7,9 @@
     <artifact name="${net.minidev:json-smart}" />
   </resources>
   <dependencies>
+    <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.slf4j" />
   </dependencies>
   <exports>
     <exclude path="com/jayway**" />

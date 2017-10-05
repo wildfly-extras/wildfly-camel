@@ -19,6 +19,7 @@
     ^com/google/gson(.*)
 	^com/google/protobuf(.*)
     ^com/google/thirdparty(.*)
+    ^com/ibm/as400(.*)
     ^com/lmax/disruptor(.*)
 	^com/mongodb(.*)
 	^com/ning/compress(.*)

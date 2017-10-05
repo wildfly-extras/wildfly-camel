@@ -628,6 +628,18 @@ com/google/protobuf
 com/google/protobuf/util
 com/google/thirdparty
 com/google/thirdparty/publicsuffix
+com/ibm/as400
+com/ibm/as400/access
+com/ibm/as400/access/jdbcClient
+com/ibm/as400/access/list
+com/ibm/as400/data
+com/ibm/as400/micro
+com/ibm/as400/resource
+com/ibm/as400/security
+com/ibm/as400/security/auth
+com/ibm/as400/util
+com/ibm/as400/util/commtrace
+com/ibm/as400/vaccess
 com/lmax/disruptor
 com/mongodb
 com/mongodb/annotations
@@ -1112,6 +1124,7 @@ org/apache/camel/component/jmx/jaxb
 org/apache/camel/component/johnzon
 org/apache/camel/component/jolt
 org/apache/camel/component/jpa
+org/apache/camel/component/jt400
 org/apache/camel/component/kafka
 org/apache/camel/component/kubernetes
 org/apache/camel/component/kubernetes/build_configs

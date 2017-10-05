@@ -154,6 +154,8 @@ include::camel-jpa.adoc[]
 
 include::camel-jsch.adoc[]
 
+include::camel-jt400.adoc[]
+
 include::camel-kafka.adoc[]
 
 include::camel-kubernetes.adoc[]

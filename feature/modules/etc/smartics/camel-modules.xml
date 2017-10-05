@@ -1378,10 +1378,29 @@
             <include module="org.springframework.boot" />
             <include module="org.ow2.asm" />
         </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
         <exports>
             <exclude path="com/jayway**" />
             <exclude path="net/minidev**" />
             <exclude path="org/objectweb**" />
+        </exports>
+    </module>
+
+    <module name="org.apache.camel.component.jt400">
+        <include artifact="org.apache.camel:camel-jt400" />
+        <include artifact="net.sf.jt400:jt400" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="com/ibm" />
         </exports>
     </module>
 

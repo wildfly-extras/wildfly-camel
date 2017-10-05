@@ -240,6 +240,8 @@
 /org/apache/camel/component/jsonpath/main/camel-jsonpath-2.20.0.jar
 /org/apache/camel/component/jsonpath/main/json-path-2.4.0.jar
 /org/apache/camel/component/jsonpath/main/json-smart-2.3.jar
+/org/apache/camel/component/jt400/main/camel-jt400-2.20.0.jar
+/org/apache/camel/component/jt400/main/jt400-9.3.jar
 /org/apache/camel/component/kafka/main/camel-kafka-2.20.0.jar
 /org/apache/camel/component/kubernetes/main/camel-kubernetes-2.20.0.jar
 /org/apache/camel/component/ldap/main/camel-ldap-2.20.0.jar
