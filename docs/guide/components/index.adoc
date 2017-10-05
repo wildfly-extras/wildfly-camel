@@ -256,6 +256,8 @@ include::camel-string-template.adoc[]
 
 include::camel-swagger.adoc[]
 
+include::camel-telegram.adoc[]
+
 include::camel-twitter.adoc[]
 
 include::camel-undertow.adoc[]

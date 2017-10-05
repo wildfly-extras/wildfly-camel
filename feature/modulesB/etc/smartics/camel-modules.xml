@@ -2246,6 +2246,21 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.telegram">
+        <include artifact="org.apache.camel:camel-telegram" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.ws.rs.api"/>
+            <module name="com.fasterxml.jackson.core.jackson-core"/>
+            <module name="com.fasterxml.jackson.core.jackson-databind"/>
+            <module name="org.apache.cxf.impl"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.twitter">
         <include artifact="org.apache.camel:camel-twitter" />
         <include artifact=":twitter4j-core" />

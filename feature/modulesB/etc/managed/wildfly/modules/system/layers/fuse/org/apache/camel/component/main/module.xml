@@ -198,6 +198,7 @@
         <module name="org.apache.camel.component.syslog" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.tagsoup" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.tarfile" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.telegram" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.twitter" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.undertow" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.univocity" export="true" services="export" optional="true" />

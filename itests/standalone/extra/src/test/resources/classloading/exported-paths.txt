@@ -1073,6 +1073,10 @@ org/apache/camel/component/stream
 org/apache/camel/component/stringtemplate
 org/apache/camel/component/syslog
 org/apache/camel/component/syslog/netty
+org/apache/camel/component/telegram
+org/apache/camel/component/telegram/model
+org/apache/camel/component/telegram/service
+org/apache/camel/component/telegram/util
 org/apache/camel/component/twitter
 org/apache/camel/component/twitter/consumer
 org/apache/camel/component/twitter/consumer/directmessage

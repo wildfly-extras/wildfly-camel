@@ -1,0 +1,3 @@
+### camel-telegram
+
+The http://camel.apache.org/telegram.html[telegram,window=_blank] component provides access to the https://core.telegram.org/bots/api[Telegram Bot API,window=_blank]. It allows a Camel-based application to send and receive messages by acting as a Bot, participating in direct conversations with normal users, private and public groups or channels.

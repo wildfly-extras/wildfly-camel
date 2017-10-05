@@ -292,6 +292,7 @@
 /org/apache/camel/component/tagsoup/main/camel-tagsoup-2.19.3.jar
 /org/apache/camel/component/tagsoup/main/tagsoup-1.2.1.jar
 /org/apache/camel/component/tarfile/main/camel-tarfile-2.19.3.jar
+/org/apache/camel/component/telegram/main/camel-telegram-2.19.3.jar
 /org/apache/camel/component/twitter/main/camel-twitter-2.19.3.jar
 /org/apache/camel/component/twitter/main/twitter4j-core-4.0.6.jar
 /org/apache/camel/component/twitter/main/twitter4j-stream-4.0.6.jar
