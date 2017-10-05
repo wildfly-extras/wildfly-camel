@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="javax.jcr">
+  <resources>
+    <artifact name="${javax.jcr:jcr}" />
+  </resources>
+  <dependencies />
+</module>

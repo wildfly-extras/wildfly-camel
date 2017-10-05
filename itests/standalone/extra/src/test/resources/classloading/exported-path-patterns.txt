@@ -36,6 +36,7 @@
     ^io/undertow/client(.*)
 	^io/vertx/core(.*)
     ^javax/cache(.*)
+    ^javax/jcr(.*)
     ^javax/sdp(.*)
     ^javax/sip(.*)
 	^net/fortuna/ical4j(.*)

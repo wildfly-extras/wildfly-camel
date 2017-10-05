@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.jackrabbit">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${concurrent:concurrent}" />
+    <artifact name="${org.apache.jackrabbit:jackrabbit-api}" />
+    <artifact name="${org.apache.jackrabbit:jackrabbit-core}" />
+    <artifact name="${org.apache.jackrabbit:jackrabbit-data}" />
+    <artifact name="${org.apache.jackrabbit:jackrabbit-jcr-commons}" />
+    <artifact name="${org.apache.jackrabbit:jackrabbit-spi}" />
+    <artifact name="${org.apache.jackrabbit:jackrabbit-spi-commons}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.lucene" slot="3.6" />
+    <module name="com.google.guava" />
+    <module name="javax.jcr" />
+    <module name="org.apache.commons.collections" />
+    <module name="org.apache.commons.dbcp" />
+    <module name="org.apache.commons.io" />
+    <module name="org.apache.derby" />
+    <module name="org.apache.tika" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

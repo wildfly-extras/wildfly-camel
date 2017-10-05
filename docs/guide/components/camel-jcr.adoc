@@ -1,0 +1,3 @@
+### camel-jcr
+
+The http://camel.apache.org/jcr.html[jsch,window=_blank] component allows you to add/read nodes to/from a JCR compliant content repository (e.g. http://jackrabbit.apache.org/[Apache Jackrabbit,window=_blank]) with its producer, or register an EventListener with the consumer.

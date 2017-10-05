@@ -703,6 +703,10 @@
         <include artifact="javax.cache:cache-api" />
     </module>
 
+    <module name="javax.jcr" >
+        <include artifact="javax.jcr:jcr" />
+    </module>
+
     <module name="javax.json11.api" >
         <include artifact=":geronimo-json_1.1_spec" />
     </module>
@@ -821,11 +825,11 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
+        <include artifact="org.apache.avalon.framework:avalon-framework-api" />
+        <include artifact="org.apache.avalon.framework:avalon-framework-impl" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.avalon.logkit" />
         </apply-to-dependencies>
-        <include artifact="org.apache.avalon.framework:avalon-framework-api" />
-        <include artifact="org.apache.avalon.framework:avalon-framework-impl" />
         <dependencies>
             <module name="javax.api" />
         </dependencies>
@@ -850,6 +854,17 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":commons-csv" />
+    </module>
+
+    <module name="org.apache.commons.dbcp">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-dbcp" />
+        <dependencies>
+            <module name="javax.sql.api" />
+            <module name="org.apache.derby" />
+        </dependencies>
     </module>
 
     <module name="org.apache.commons.exec">
@@ -903,18 +918,29 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.derby">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.derby:derby" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.sql.api" />
+        </dependencies>
+    </module>
+
     <module name="org.apache.directory">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <apply-to-dependencies skip="true">
-            <include module="com.google.code.findbugs" />
-        </apply-to-dependencies>
         <include artifact="org.apache.directory.api:api-asn1-api" />
         <include artifact="org.apache.directory.api:api-i18n" />
         <include artifact="org.apache.directory.api:api-util" />
         <include artifact="org.apache.directory.server:apacheds-i18n" />
         <include artifact="org.apache.directory.server:apacheds-kerberos-codec" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
         </dependencies>
@@ -924,6 +950,13 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
+        <include artifact="org.apache.hadoop:hadoop-annotations" />
+        <include artifact="org.apache.hadoop:hadoop-auth" />
+        <include artifact="org.apache.hadoop:hadoop-common" />
+        <include artifact="org.apache.hadoop:hadoop-hdfs" />
+        <include artifact="org.apache.hadoop:hadoop-mapreduce-client-core"/>
+        <include artifact="org.apache.hadoop:hadoop-yarn-api"/>
+        <include artifact="org.apache.hadoop:hadoop-yarn-common"/>
         <apply-to-dependencies skip="true">
             <include module="ant" />
             <include module="com.google.inject.guice"/>
@@ -939,13 +972,6 @@
             <include module="org.fusesource.leveldbjni" />
             <include module="org.mortbay.jetty" />
         </apply-to-dependencies>
-        <include artifact="org.apache.hadoop:hadoop-annotations" />
-        <include artifact="org.apache.hadoop:hadoop-auth" />
-        <include artifact="org.apache.hadoop:hadoop-common" />
-        <include artifact="org.apache.hadoop:hadoop-hdfs" />
-        <include artifact="org.apache.hadoop:hadoop-mapreduce-client-core"/>
-        <include artifact="org.apache.hadoop:hadoop-yarn-api"/>
-        <include artifact="org.apache.hadoop:hadoop-yarn-common"/>
         <dependencies>
             <module name="com.google.protobuf" slot="2.5" />
             <module name="org.apache.commons.configuration" />
@@ -1006,6 +1032,27 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.jackrabbit" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.jackrabbit:jackrabbit-api" />
+        <include artifact="org.apache.jackrabbit:jackrabbit-core" />
+        <include artifact="org.apache.jackrabbit:jackrabbit-data" />
+        <include artifact="org.apache.jackrabbit:jackrabbit-jcr-commons" />
+        <include artifact="org.apache.jackrabbit:jackrabbit-spi" />
+        <include artifact="org.apache.jackrabbit:jackrabbit-spi-commons" />
+        <include artifact="concurrent:concurrent" />
+        <apply-to-dependencies skip="true">
+            <include module="biz.aQute" />
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.lucene" slot="3.6"/>
+        </dependencies>
+    </module>
+    
     <module name="org.apache.kafka">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1111,6 +1158,7 @@
         </properties>
         <include artifact="org.apache.qpid:proton-(.*)" />
     </module>
+    
     <module name="org.apache.sshd">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1121,6 +1169,19 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.tika" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.tika:tika-core" />
+        <apply-to-dependencies skip="true">
+            <include module="biz.aQute" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+    
     <module name="org.apache.ws.commons.axiom.axiom-impl">
         <properties>
             <property name="jboss.api" value="private"/>

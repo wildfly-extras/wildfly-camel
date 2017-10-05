@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- #%L Wildfly Camel Enricher %% Copyright (C) 2013 - 2014 RedHat %% Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in 
+    compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, 
+    software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the 
+    specific language governing permissions and limitations under the License. #L% -->
+
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.wildfly.camel</groupId>
+        <artifactId>wildfly-camel-feature</artifactId>
+        <version>4.10.0-SNAPSHOT</version>
+    </parent>
+
+    <name>Wildfly Camel :: Feature :: ExtrasB</name>
+
+    <artifactId>wildfly-camel-feature-extrasB</artifactId>
+    <packaging>pom</packaging>
+
+    <properties>
+        <smartics.module.dir>${project.build.directory}/wildfly-patch/modules/system/layers/fuse</smartics.module.dir>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>${version.camel.lucene3}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>de.smartics.maven.plugin</groupId>
+                <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-modules-archive</id>
+                        <goals>
+                            <goal>create-modules-archive</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludeDependencyManagementDependenciesInPomProject>true</excludeDependencyManagementDependenciesInPomProject>
+                    <generateFeaturePackDefinition>false</generateFeaturePackDefinition>
+                    <targetFolder>${smartics.module.dir}</targetFolder>
+                    <ignoreOptionalDependencies>true</ignoreOptionalDependencies>
+                    <attach>false</attach>
+                    <modules>
+                        <dir>../common/etc/smartics</dir>
+                        <dir>etc/smartics</dir>
+                    </modules>
+                    <dependencyExcludes>
+                        <exclude>
+                            <groupId>xmlpull</groupId>
+                            <artifactId>xmlpull</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>xpp3</groupId>
+                            <artifactId>xpp3_min</artifactId>
+                        </exclude>
+                    </dependencyExcludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>scripts/assembly-feature-pack.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
