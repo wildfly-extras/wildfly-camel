@@ -1,0 +1,3 @@
+### camel-jt400
+
+The http://camel.apache.org/jt400.html[jsch,window=_blank] component allows you to exchanges messages with an AS/400 system using data queues.

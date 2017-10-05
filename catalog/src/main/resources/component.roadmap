@@ -86,6 +86,7 @@ jms
 jmx
 jolt
 jpa
+jt400
 kafka
 kubernetes                                          #deprecated
 kubernetes-build-configs
@@ -106,6 +107,7 @@ language
 ldap
 linkedin
 log
+lpr
 lucene
 lumberjack
 metrics
@@ -239,9 +241,7 @@ iec60870-client                                     #2179
 iec60870-server                                     #2179
 jclouds                                             #1450
 json-validator                                      #2180
-jt400                                               #2012
 ldif                                                #2181
-lpr                                                 #2015
 master                                              #2182
 milo-client                                         #1835
 milo-server                                         #1836

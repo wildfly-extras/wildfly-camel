@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.jt400">
+  <resources>
+    <artifact name="${org.apache.camel:camel-jt400}" />
+    <artifact name="${net.sf.jt400:jt400}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+  <exports>
+    <exclude path="com/ibm" />
+  </exports>
+</module>
