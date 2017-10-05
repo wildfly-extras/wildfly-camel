@@ -102,6 +102,7 @@
         <module name="org.apache.camel.component.jaxb" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jbpm" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jcache" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.jcr" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jdbc" export="true" services="export" optional="true" />
         <!-- [#1689] Enable camel-groups to work with jgroups-4.0
         <module name="org.apache.camel.component.jgroups" export="true" services="export" optional="true" />

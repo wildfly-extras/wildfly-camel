@@ -78,6 +78,7 @@ influxdb
 irc
 jbpm
 jcache
+jcr
 jdbc
 jgroups
 jing
@@ -237,7 +238,6 @@ hipchat                                             #2003
 iec60870-client                                     #2179
 iec60870-server                                     #2179
 jclouds                                             #1450
-jcr                                                 #2008
 json-validator                                      #2180
 jt400                                               #2012
 ldif                                                #2181

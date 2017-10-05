@@ -1211,6 +1211,18 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.jcr">
+        <include artifact="org.apache.camel:camel-jcr" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.jcr" export="true"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.jdbc">
         <include artifact="org.apache.camel:camel-jdbc" />
         <apply-to-dependencies skip="true">

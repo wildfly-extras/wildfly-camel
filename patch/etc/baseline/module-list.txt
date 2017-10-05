@@ -86,6 +86,7 @@
 /io/opentracing/main/opentracing-noop-0.30.0.jar
 /io/opentracing/main/opentracing-tracerresolver-0.1.0.jar
 /javax/cache/api/main/cache-api-1.0.0.jar
+/javax/jcr/main/jcr-2.0.jar
 /javax/json11/api/main/geronimo-json_1.1_spec-1.0.jar
 /net/java/dev/msv/main/isorelax-20090621.jar
 /net/java/dev/msv/main/isorelax-jaxp-bridge-ILM-1.1.jar
@@ -218,6 +219,7 @@
 /org/apache/camel/component/jaxb/main/camel-jaxb-2.20.0.jar
 /org/apache/camel/component/jbpm/main/camel-jbpm-2.20.0.jar
 /org/apache/camel/component/jcache/main/camel-jcache-2.20.0.jar
+/org/apache/camel/component/jcr/main/camel-jcr-2.20.0.jar
 /org/apache/camel/component/jdbc/main/camel-jdbc-2.20.0.jar
 /org/apache/camel/component/jgroups/main/camel-jgroups-2.20.0.jar
 /org/apache/camel/component/jibx/main/camel-jibx-2.20.0.jar
@@ -379,6 +381,7 @@
 /org/apache/commons/compress/main/commons-compress-1.14.jar
 /org/apache/commons/configuration/main/commons-configuration-1.9.jar
 /org/apache/commons/csv/main/commons-csv-1.5.jar
+/org/apache/commons/dbcp/main/commons-dbcp-1.4.jar
 /org/apache/commons/exec/main/commons-exec-1.3.jar
 /org/apache/commons/httpclient/main/commons-httpclient-3.1.jar
 /org/apache/commons/lang3/main/commons-lang3-3.6.jar
@@ -392,6 +395,7 @@
 /org/apache/cxf/ext/main/cxf-rt-rs-security-jose-3.1.6.jar
 /org/apache/cxf/ext/main/cxf-rt-rs-security-jose-jaxrs-3.1.6.jar
 /org/apache/cxf/ext/main/cxf-rt-rs-security-oauth2-3.1.6.jar
+/org/apache/derby/main/derby-10.11.1.1.jar
 /org/apache/directory/main/apacheds-i18n-2.0.0-M15.jar
 /org/apache/directory/main/apacheds-kerberos-codec-2.0.0-M15.jar
 /org/apache/directory/main/api-asn1-api-1.0.0-M20.jar
@@ -411,6 +415,13 @@
 /org/apache/httpcomponents/4.5/httpclient-4.5.3.jar
 /org/apache/httpcomponents/4.5/httpcore-4.4.7.jar
 /org/apache/httpcomponents/4.5/httpmime-4.5.3.jar
+/org/apache/jackrabbit/main/concurrent-1.3.4.jar
+/org/apache/jackrabbit/main/jackrabbit-api-2.15.6.jar
+/org/apache/jackrabbit/main/jackrabbit-core-2.15.6.jar
+/org/apache/jackrabbit/main/jackrabbit-data-2.15.6.jar
+/org/apache/jackrabbit/main/jackrabbit-jcr-commons-2.15.6.jar
+/org/apache/jackrabbit/main/jackrabbit-spi-2.15.6.jar
+/org/apache/jackrabbit/main/jackrabbit-spi-commons-2.15.6.jar
 /org/apache/kafka/clients/main/kafka-clients-0.11.0.1.jar
 /org/apache/kafka/clients/main/lz4-1.3.0.jar
 /org/apache/kafka/clients/main/snappy-java-1.1.1.3.jar
@@ -419,6 +430,7 @@
 /org/apache/kafka/main/zkclient-0.10.jar
 /org/apache/logging/log4j/main/log4j-api-2.8.2.jar
 /org/apache/logging/log4j/main/log4j-core-2.8.2.jar
+/org/apache/lucene/3.6/lucene-core-3.6.0.jar
 /org/apache/lucene/5.5/jakarta-regexp-1.4.jar
 /org/apache/lucene/5.5/lucene-analyzers-common-5.5.2.jar
 /org/apache/lucene/5.5/lucene-backward-codecs-5.5.2.jar
@@ -457,6 +469,7 @@
 /org/apache/qpid/main/qpid-jms-client-0.11.1.jar
 /org/apache/qpid/proton/0.16/proton-j-0.16.0.jar
 /org/apache/sshd/main/sshd-core-1.6.0.jar
+/org/apache/tika/main/tika-core-1.7.jar
 /org/apache/ws/commons/axiom/axiom-api/main/axiom-api-1.2.14.jar
 /org/apache/ws/commons/axiom/axiom-impl/main/axiom-impl-1.2.14.jar
 /org/apache/ws/commons/util/main/ws-commons-util-1.0.2.jar
