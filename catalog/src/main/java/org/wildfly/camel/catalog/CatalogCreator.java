@@ -257,6 +257,7 @@ public final class CatalogCreator {
                     Item item = roadmap.item(entry);
                     maxlength = Math.max(maxlength, item.name.length());
                 }
+                maxlength = (maxlength / 16) * 16 + 16;
                 for (State state : State.values()) {
                     pw.println("[" + state + "]");
                     for (String entry : roadmap.sortedNames(state)) {
@@ -265,7 +266,7 @@ public final class CatalogCreator {
                         String comment = item.deprecated ? "#deprecated" : item.comment;
                         if (comment != null) {
                             line.append(StringUtils.repeat(" ", maxlength - line.length()));
-                            line.append("\t" + comment);
+                            line.append(comment);
                         }
                         pw.println(line);
                     }

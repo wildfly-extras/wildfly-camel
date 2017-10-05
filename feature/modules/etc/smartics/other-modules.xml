@@ -1002,11 +1002,11 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.mina.$1">
+    <module name="org.apache.mina.core">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact=":mina-(.*)" />
+        <include artifact="org.apache.mina:mina-core" />
     </module>
 
     <module name="org.apache.olingo">

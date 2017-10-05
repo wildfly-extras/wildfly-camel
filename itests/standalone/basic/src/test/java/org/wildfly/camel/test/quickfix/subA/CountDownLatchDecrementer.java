@@ -14,28 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wildfly.camel.test.plain.rmi;
+package org.wildfly.camel.test.quickfix.subA;
 
-public class SayService implements ISay {
-    String message = "Hello";
+import java.util.concurrent.CountDownLatch;
 
-    public SayService() {
+import org.apache.camel.Exchange;
+import org.apache.camel.Handler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class CountDownLatchDecrementer {
+    private static final Logger LOG = LoggerFactory.getLogger(CountDownLatchDecrementer.class);
+
+    private String label;
+    private CountDownLatch latch;
+    
+    public CountDownLatchDecrementer(String label, CountDownLatch latch) {
+        this.label = label;
+        this.latch = latch;
     }
 
-    public SayService(String message) {
-        this.message = message;
+    @Handler
+    public void decrement(Exchange exchange) {
+        LOG.info("Decrementing latch count: " + label);
+        latch.countDown();
     }
-
-    public String say() {
-        return message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
 }

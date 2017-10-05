@@ -406,6 +406,13 @@
         <include artifact="org.projectlombok:lombok" />
     </module>
 
+    <module name="org.quickfix.skipped" skip="true">
+        <include artifact="org.quickfixj:quickfixj-codegenerator" />
+        <include artifact="org.quickfixj:quickfixj-core" />
+        <include artifact="org.quickfixj:quickfixj-dictgenerator" />
+        <include artifact="org.quickfixj:quickfixj-messages-all" />
+    </module>
+
     <module name="org.scala" skip="true">
         <include artifact="org.scala-lang:scala-compiler" />
         <include artifact="org.scala-lang:scala-reflect" />

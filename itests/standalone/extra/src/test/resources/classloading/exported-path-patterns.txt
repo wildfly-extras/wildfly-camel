@@ -99,6 +99,7 @@
 	^org/xmlsoap(.*)
     ^org/yaml(.*)
     ^org/zendesk(.*)
+    ^quickfix(.*)
     ^redis/clients(.*)
 	^schema/(.*)
 	^schemas/(.*)

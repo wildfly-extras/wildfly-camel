@@ -21,7 +21,7 @@ aws-sqs
 aws-swf
 bean
 bean-validator
-binding                             	#deprecated
+binding                                         #deprecated
 box
 braintree
 browse
@@ -29,7 +29,7 @@ class
 coap
 cometd
 cometds
-context                             	#deprecated
+context                                         #deprecated
 controlbus
 couchdb
 cql
@@ -82,7 +82,7 @@ jmx
 jolt
 jpa
 kafka
-kubernetes                          	#deprecated
+kubernetes                                      #deprecated
 kubernetes-build-configs
 kubernetes-builds
 kubernetes-config-maps
@@ -123,6 +123,7 @@ pop3
 pop3s
 properties
 quartz2
+quickfix
 rabbitmq
 reactive-streams
 ref
@@ -167,7 +168,7 @@ stub
 telegram
 test
 timer
-twitter                             	#deprecated
+twitter                                         #deprecated
 twitter-directmessage
 twitter-search
 twitter-streaming
@@ -187,61 +188,60 @@ zendesk
 zookeeper
 
 [planned]
-apns                                	#1982
-asterisk                            	#1983
-atmos                               	#1984
-azure-blob                          	#1818
-azure-queue                         	#1819
-beanstalk                           	#1419
-chronicle-engine                    	#1986
-chunk                               	#1987
-cm-sms                              	#1988
-cmis                                	#1989
-consul                              	#1992
-couchbase                           	#1821
-digitalocean                        	#1822
-docker                              	#1424
-drill                               	#1823
-elasticsearch5                      	#1824
-etcd                                	#1827
-flink                               	#1430
-ganglia                             	#1998
-google-calendar                     	#1437
-grape                               	#2001
-grpc                                	#1826
-guava-eventbus                      	#2002
-hipchat                             	#2003
-jclouds                             	#1450
-jcr                                 	#2008
-jt400                               	#2012
-lpr                                 	#2015
-lumberjack                          	#2016
-milo-client                         	#1835
-milo-server                         	#1836
-mongodb-gridfs                      	#1837
-nagios                              	#1456
-olingo4                             	#1839
-openstack-cinder                    	#1840
-openstack-glance                    	#1841
-openstack-keystone                  	#1842
-openstack-neutron                   	#1843
-openstack-nova                      	#1844
-openstack-swift                     	#1845
-pgevent                             	#2021
-pubnub                              	#1846
-quickfix                            	#2023
-restlet                             	#2024
-solr                                	#2030
-solrCloud                           	#2031
-solrs                               	#2032
-spark                               	#1469
-spark-rest                          	#1470
-spring-ws                           	#1476
-stomp                               	#2033
-tika                                	#1850
-websocket                           	#1479
-xmpp                                	#2037
-zookeeper-master                    	#1852
+apns                                            #1982
+asterisk                                        #1983
+atmos                                           #1984
+azure-blob                                      #1818
+azure-queue                                     #1819
+beanstalk                                       #1419
+chronicle-engine                                #1986
+chunk                                           #1987
+cm-sms                                          #1988
+cmis                                            #1989
+consul                                          #1992
+couchbase                                       #1821
+digitalocean                                    #1822
+docker                                          #1424
+drill                                           #1823
+elasticsearch5                                  #1824
+etcd                                            #1827
+flink                                           #1430
+ganglia                                         #1998
+google-calendar                                 #1437
+grape                                           #2001
+grpc                                            #1826
+guava-eventbus                                  #2002
+hipchat                                         #2003
+jclouds                                         #1450
+jcr                                             #2008
+jt400                                           #2012
+lpr                                             #2015
+lumberjack                                      #2016
+milo-client                                     #1835
+milo-server                                     #1836
+mongodb-gridfs                                  #1837
+nagios                                          #1456
+olingo4                                         #1839
+openstack-cinder                                #1840
+openstack-glance                                #1841
+openstack-keystone                              #1842
+openstack-neutron                               #1843
+openstack-nova                                  #1844
+openstack-swift                                 #1845
+pgevent                                         #2021
+pubnub                                          #1846
+restlet                                         #2024
+solr                                            #2030
+solrCloud                                       #2031
+solrs                                           #2032
+spark                                           #1469
+spark-rest                                      #1470
+spring-ws                                       #1476
+stomp                                           #2033
+tika                                            #1850
+websocket                                       #1479
+xmpp                                            #2037
+zookeeper-master                                #1852
 
 [undecided]
 atomix-map
@@ -274,33 +274,33 @@ thrift
 twilio
 
 [rejected]
-bonita                              	#1820 We don't want another BPM engine
-cache                               	#deprecated
-eventadmin                          	#1996 OSGi specific
-gora                                	#2000 Competitor to JDG
-hdfs                                	#deprecated
-http                                	#deprecated
-https                               	#deprecated
-ibatis                              	#deprecated
-ignite-cache                        	#1828 Competitor to JDG
-ignite-compute                      	#1829 Competitor to JDG
-ignite-events                       	#1830 Competitor to JDG
-ignite-idgen                        	#1831 Competitor to JDG
-ignite-messaging                    	#1832 Competitor to JDG
-ignite-queue                        	#1833 Competitor to JDG
-ignite-set                          	#1834 Competitor to JDG
-ironmq                              	#2006 Not another messaging system
-javaspace                           	#deprecated
-jetty                               	#2009 Cannot have alternative HTTP engine in EAP
-jira                                	#1451 Only available from Atlassian
-kestrel                             	#deprecated
-krati                               	#deprecated
-mina                                	#deprecated
-netty                               	#deprecated
-netty-http                          	#deprecated
-netty4-http                         	#1459 Cannot have alternative HTTP engine in EAP
-openshift                           	#deprecated
-paxlogging                          	#2020 OSGi specific
-quartz                              	#deprecated
-routebox                            	#deprecated
+bonita                                          #1820 We don't want another BPM engine
+cache                                           #deprecated
+eventadmin                                      #1996 OSGi specific
+gora                                            #2000 Competitor to JDG
+hdfs                                            #deprecated
+http                                            #deprecated
+https                                           #deprecated
+ibatis                                          #deprecated
+ignite-cache                                    #1828 Competitor to JDG
+ignite-compute                                  #1829 Competitor to JDG
+ignite-events                                   #1830 Competitor to JDG
+ignite-idgen                                    #1831 Competitor to JDG
+ignite-messaging                                #1832 Competitor to JDG
+ignite-queue                                    #1833 Competitor to JDG
+ignite-set                                      #1834 Competitor to JDG
+ironmq                                          #2006 Not another messaging system
+javaspace                                       #deprecated
+jetty                                           #2009 Cannot have alternative HTTP engine in EAP
+jira                                            #1451 Only available from Atlassian
+kestrel                                         #deprecated
+krati                                           #deprecated
+mina                                            #deprecated
+netty                                           #deprecated
+netty-http                                      #deprecated
+netty4-http                                     #1459 Cannot have alternative HTTP engine in EAP
+openshift                                       #deprecated
+paxlogging                                      #2020 OSGi specific
+quartz                                          #deprecated
+routebox                                        #deprecated
 

@@ -1,0 +1,3 @@
+### camel-quickfix
+
+The http://camel.apache.org/quickfix.html[quickfix,window=_blank] component adapts the http://www.quickfixj.org/[QuickFIX/J,window=_blank] engine for using in Camel. This component uses the standard http://www.fixprotocol.org/[Financial Interchange (FIX),window=_blank] protocol for message transport.
