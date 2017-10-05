@@ -280,6 +280,7 @@
 /org/apache/camel/component/paho/main/camel-paho-2.20.0.jar
 /org/apache/camel/component/paho/main/org.eclipse.paho.client.mqttv3-1.2.0.jar
 /org/apache/camel/component/pdf/main/camel-pdf-2.20.0.jar
+/org/apache/camel/component/printer/main/camel-printer-2.20.0.jar
 /org/apache/camel/component/protobuf/main/camel-protobuf-2.20.0.jar
 /org/apache/camel/component/pubnub/main/camel-pubnub-2.20.0.jar
 /org/apache/camel/component/pubnub/main/pubnub-gson-4.6.5.jar

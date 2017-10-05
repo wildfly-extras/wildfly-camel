@@ -206,6 +206,8 @@ include::camel-paho.adoc[]
 
 include::camel-pdf.adoc[]
 
+include::camel-printer.adoc[]
+
 include::camel-pubnub.adoc[]
 
 include::camel-quartz2.adoc[]
