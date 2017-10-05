@@ -952,6 +952,7 @@ org/apache/camel/component/kubernetes/consumer
 org/apache/camel/component/kubernetes/consumer/common
 org/apache/camel/component/kubernetes/producer
 org/apache/camel/component/ldap
+org/apache/camel/component/leveldb
 org/apache/camel/component/linkedin
 org/apache/camel/component/linkedin/api
 org/apache/camel/component/linkedin/api/model

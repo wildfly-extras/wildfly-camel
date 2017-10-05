@@ -17,43 +17,16 @@
 package org.wildfly.camel.test.common.utils;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.URI;
-import java.util.Random;
 
 import org.jboss.gravia.utils.IOUtils;
 import org.jboss.gravia.utils.IllegalStateAssertion;
 
 public final class TestUtils {
-    private static final Random RANDOM = new Random();
-
     private TestUtils() {
-    }
-
-    public static File constructTempDir(String dirPrefix) {
-        File file = new File(System.getProperty("java.io.tmpdir"), dirPrefix + RANDOM.nextInt(10000000));
-        if (!file.mkdirs()) {
-            throw new RuntimeException("could not create temp directory: " + file.getAbsolutePath());
-        }
-        file.deleteOnExit();
-        return file;
-    }
-
-    public static boolean deleteFile(File path) throws FileNotFoundException {
-        if (!path.exists()) {
-            throw new FileNotFoundException(path.getAbsolutePath());
-        }
-        boolean ret = true;
-        if (path.isDirectory()) {
-            for (File f : path.listFiles()) {
-                ret = ret && deleteFile(f);
-            }
-        }
-        return ret && path.delete();
     }
 
     public static String getDockerHost() throws Exception {

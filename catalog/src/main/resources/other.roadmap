@@ -3,6 +3,7 @@ cdi
 cxf-transport
 hystrix
 jasypt
+leveldb
 opentracing
 ribbon
 shiro
@@ -12,7 +13,6 @@ swagger-java
 zipkin
 
 [planned]
-leveldb             	#2063
 spring-cloud        	#2066
 spring-cloud-netflix	#2067
 

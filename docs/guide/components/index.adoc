@@ -142,6 +142,8 @@ include::camel-kubernetes.adoc[]
 
 include::camel-ldap.adoc[]
 
+include::camel-leveldb.adoc[]
+
 include::camel-linkedin.adoc[]
 
 include::camel-lucene.adoc[]

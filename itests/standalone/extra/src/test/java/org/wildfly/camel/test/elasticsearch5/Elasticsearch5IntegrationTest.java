@@ -46,6 +46,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
+import org.wildfly.camel.test.common.utils.FileUtils;
 import org.wildfly.camel.test.elasticsearch5.subA.ElasticsearchNodeProducer;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -65,7 +66,7 @@ public class Elasticsearch5IntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-elasticsearch5-tests.jar");
-        archive.addClasses(ElasticsearchNodeProducer.class, AvailablePortFinder.class);
+        archive.addClasses(ElasticsearchNodeProducer.class, AvailablePortFinder.class, FileUtils.class);
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         archive.setManifest(() -> {
             ManifestBuilder builder = new ManifestBuilder();

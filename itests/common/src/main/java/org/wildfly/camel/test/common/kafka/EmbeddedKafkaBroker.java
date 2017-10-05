@@ -30,7 +30,7 @@ import kafka.server.KafkaServer;
 import kafka.utils.ZkUtils;
 
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
-import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.common.utils.FileUtils;
 
 import scala.Option;
 import scala.collection.mutable.Buffer;
@@ -105,7 +105,7 @@ public class EmbeddedKafkaBroker {
     public void startup() {
         for (int i = 0; i < ports.size(); i++) {
             Integer port = ports.get(i);
-            File logDir = TestUtils.constructTempDir("kafka-local");
+            File logDir = FileUtils.constructTempDir("kafka-local");
 
             Properties properties = new Properties();
             properties.putAll(baseProperties);
@@ -165,7 +165,7 @@ public class EmbeddedKafkaBroker {
         }
         for (File logDir : logDirs) {
             try {
-                TestUtils.deleteFile(logDir);
+                FileUtils.deleteFile(logDir);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

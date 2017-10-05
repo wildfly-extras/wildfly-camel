@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.iq80.leveldb">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.iq80.leveldb:leveldb}" />
+    <artifact name="${org.iq80.leveldb:leveldb-api}" />
+  </resources>
+  <dependencies>
+    <module name="com.google.guava" />
+  </dependencies>
+</module>

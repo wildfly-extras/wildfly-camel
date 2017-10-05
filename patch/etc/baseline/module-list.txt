@@ -211,6 +211,7 @@
 /org/apache/camel/component/kafka/main/camel-kafka-2.19.3.jar
 /org/apache/camel/component/kubernetes/main/camel-kubernetes-2.19.3.jar
 /org/apache/camel/component/ldap/main/camel-ldap-2.19.3.jar
+/org/apache/camel/component/leveldb/main/camel-leveldb-2.19.3.jar
 /org/apache/camel/component/linkedin/main/camel-linkedin-2.19.3.jar
 /org/apache/camel/component/linkedin/main/camel-linkedin-api-2.19.3.jar
 /org/apache/camel/component/lucene/main/camel-lucene-2.19.3.jar
@@ -488,6 +489,8 @@
 /org/infinispan/jcache/main/infinispan-jcache-8.2.4.Final.jar
 /org/infinispan/jcache/main/infinispan-jcache-commons-8.2.4.Final.jar
 /org/infinispan/query/dsl/main/infinispan-query-dsl-8.2.6.Final.jar
+/org/iq80/leveldb/main/leveldb-0.9.jar
+/org/iq80/leveldb/main/leveldb-api-0.9.jar
 /org/jboss/gravia/main/gravia-resource-1.3.1.jar
 /org/jboss/gravia/main/gravia-runtime-api-1.3.1.jar
 /org/jboss/gravia/main/gravia-runtime-embedded-1.3.1.jar

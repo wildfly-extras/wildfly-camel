@@ -43,6 +43,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.FileUtils;
 import org.wildfly.camel.test.elasticsearch.subA.ElasticsearchClientProducer;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -56,7 +57,7 @@ public class ElasticsearchIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-elasticsearch-tests.jar");
-        archive.addClasses(ElasticsearchClientProducer.class);
+        archive.addClasses(ElasticsearchClientProducer.class, FileUtils.class);
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         archive.setManifest(() -> {
             ManifestBuilder builder = new ManifestBuilder();

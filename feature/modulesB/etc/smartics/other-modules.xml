@@ -1285,6 +1285,9 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.fusesource.hawtbuf:hawtbuf" />
+        <dependencies>
+            <module name="org.apache.camel.core"/>
+        </dependencies>
         <exports>
             <exclude path="org/fusesource" />
         </exports>
@@ -1334,6 +1337,17 @@
         <include artifact="org.infinispan:infinispan-query-dsl" />
         <apply-to-dependencies skip="true">
             <include module="org.jboss.logging.processor" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="org.iq80.leveldb">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.iq80.leveldb:leveldb-api" />
+        <include artifact="org.iq80.leveldb:leveldb" />
+        <apply-to-dependencies skip="true">
+            <include module="org.fusesource.leveldbjni" />
         </apply-to-dependencies>
     </module>
 

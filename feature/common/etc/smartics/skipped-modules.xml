@@ -297,10 +297,6 @@
         <include artifact="org.infinispan:infinispan-cdi-embedded" />
     </module>
 
-    <module name="org.iq80.leveldb" skip="true">
-        <include artifact="org.iq80.leveldb:leveldb-api" />
-    </module>
-
     <module name="org.jasypt" skip="true">
         <include artifact="org.jasypt:jasypt" />
     </module>

@@ -20,12 +20,8 @@
 package org.wildfly.camel.test.elasticsearch5.subA;
 
 import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -39,6 +35,7 @@ import org.elasticsearch.node.internal.InternalSettingsPreparer;
 import org.elasticsearch.plugins.Plugin;
 import org.elasticsearch.transport.Netty4Plugin;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
+import org.wildfly.camel.test.common.utils.FileUtils;
 
 public class ElasticsearchNodeProducer {
 
@@ -52,7 +49,7 @@ public class ElasticsearchNodeProducer {
     @SuppressWarnings("resource")
     public Node getElasticsearchNode() throws Exception {
         
-        deleteDirectory(DATA_PATH);
+        FileUtils.deleteDirectory(DATA_PATH);
         
         class PluginConfigurableNode extends Node {
             PluginConfigurableNode(Settings settings, Collection<Class<? extends Plugin>> classpathPlugins) {
@@ -71,31 +68,5 @@ public class ElasticsearchNodeProducer {
 
     public void close(@Disposes Node node) throws IOException {
         node.close();
-    }
-
-    private static void deleteDirectory(Path dirPath) throws IOException {
-        if (dirPath.toFile().isDirectory()) {
-            Files.walkFileTree(dirPath, new SimpleFileVisitor<Path>() {
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    Files.delete(file);
-                    return FileVisitResult.CONTINUE;
-                }
-
-                @Override
-                public FileVisitResult visitFileFailed(Path file, IOException exception) throws IOException {
-                    exception.printStackTrace();
-                    return FileVisitResult.CONTINUE;
-                }
-
-                @Override
-                public FileVisitResult postVisitDirectory(Path dir, IOException exception) throws IOException {
-                    if (exception == null) {
-                        Files.delete(dir);
-                    }
-                    return FileVisitResult.CONTINUE;
-                }
-            });
-        }
     }
 }

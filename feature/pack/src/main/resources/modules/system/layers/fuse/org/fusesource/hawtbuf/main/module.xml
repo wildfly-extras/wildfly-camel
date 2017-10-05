@@ -6,7 +6,9 @@
   <resources>
     <artifact name="${org.fusesource.hawtbuf:hawtbuf}" />
   </resources>
-  <dependencies />
+  <dependencies>
+    <module name="org.apache.camel.core" />
+  </dependencies>
   <exports>
     <exclude path="org/fusesource" />
   </exports>
