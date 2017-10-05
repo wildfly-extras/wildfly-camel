@@ -4,19 +4,19 @@ cxf-transport
 hystrix
 jasypt
 opentracing
-ribbon              	#2064
+ribbon
 spring-security
 swagger-java
 zipkin
 
 [planned]
-
-[undecided]
 leveldb             	#2063
 shiro               	#2065
 spring-cloud        	#2066
 spring-cloud-netflix	#2067
 spring-javaconfig   	#2068
+
+[undecided]
 
 [rejected]
 bam                 	#deprecated
