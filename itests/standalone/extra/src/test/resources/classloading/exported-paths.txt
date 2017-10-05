@@ -1103,6 +1103,8 @@ org/apache/camel/component/jcache/processor/aggregate
 org/apache/camel/component/jcache/processor/idempotent
 org/apache/camel/component/jcr
 org/apache/camel/component/jdbc
+org/apache/camel/component/jgroups
+org/apache/camel/component/jgroups/ha
 org/apache/camel/component/jms
 org/apache/camel/component/jms/reply
 org/apache/camel/component/jmx
@@ -1173,6 +1175,7 @@ org/apache/camel/component/optaplanner
 org/apache/camel/component/paho
 org/apache/camel/component/pdf
 org/apache/camel/component/pdf/text
+org/apache/camel/component/printer
 org/apache/camel/component/pubnub
 org/apache/camel/component/quartz2
 org/apache/camel/component/quickfixj

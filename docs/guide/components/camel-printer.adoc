@@ -1,0 +1,3 @@
+### camel-printer
+
+The http://camel.apache.org/printer.html[printer,window=_blank] component provides a way to direct payloads on a route to a printer. The objective is to be able to direct specific payloads as jobs to a line printer in a camel flow.
