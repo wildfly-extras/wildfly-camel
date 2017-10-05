@@ -1095,6 +1095,10 @@ org/apache/camel/component/xmlsecurity
 org/apache/camel/component/xmlsecurity/api
 org/apache/camel/component/xmlsecurity/processor
 org/apache/camel/component/xquery
+org/apache/camel/component/yammer
+org/apache/camel/component/yammer/model
+org/apache/camel/component/yammer/scribe
+org/apache/camel/component/yammer/utils
 org/apache/camel/component/zendesk
 org/apache/camel/component/zookeeper
 org/apache/camel/component/zookeeper/operations

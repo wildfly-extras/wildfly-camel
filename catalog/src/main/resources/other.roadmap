@@ -30,8 +30,8 @@ scala               	#deprecated
 scr                 	#deprecated
 servletlistener     	#deprecated
 spring-boot         	#2051 SpringBoot specific
-spring-cloud            #2066 SpringBoot specific
-spring-cloud-netflix    #2067 SpringBoot specific
+spring-cloud        	#2066 SpringBoot specific
+spring-cloud-netflix	#2067 SpringBoot specific
 spring-dm           	#deprecated
 swagger             	#deprecated
 test                	#2052 Testing utility

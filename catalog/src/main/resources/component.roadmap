@@ -153,6 +153,7 @@ xmlrpc
 xmlsecurity
 xquery
 xslt
+yammer
 zendesk
 zookeeper
 
@@ -222,7 +223,6 @@ telegram            	#2035
 tika                	#1850
 websocket           	#1479
 xmpp                	#2037
-yammer              	#2038
 zookeeper-master    	#1852
 
 [undecided]

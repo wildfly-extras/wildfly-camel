@@ -309,6 +309,7 @@
 /org/apache/camel/component/xmlrpc/main/xmlrpc-common-3.1.3.jar
 /org/apache/camel/component/xmlsecurity/main/camel-xmlsecurity-2.19.3.jar
 /org/apache/camel/component/xstream/main/camel-xstream-2.19.3.jar
+/org/apache/camel/component/yammer/main/camel-yammer-2.19.3.jar
 /org/apache/camel/component/zendesk/main/async-http-client-1.9.31.jar
 /org/apache/camel/component/zendesk/main/camel-zendesk-2.19.3.jar
 /org/apache/camel/component/zendesk/main/handy-uri-templates-1.1.7.jar
@@ -515,6 +516,7 @@
 /org/reflections/main/reflections-0.9.10.jar
 /org/scala/library/main/scala-library-2.11.7.jar
 /org/scala/modules/main/scala-parser-combinators_2.11-1.0.4.jar
+/org/scribe/main/scribe-1.3.7.jar
 /org/springframework/aop/main/spring-aop-4.3.10.RELEASE.jar
 /org/springframework/batch/main/spring-batch-core-3.0.7.RELEASE.jar
 /org/springframework/batch/main/spring-batch-infrastructure-3.0.7.RELEASE.jar

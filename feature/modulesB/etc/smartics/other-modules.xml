@@ -1457,6 +1457,13 @@
         </apply-to-dependencies>
     </module>
 
+    <module name="org.scribe">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.scribe:scribe" />
+    </module>
+
     <module name="net.java.dev.jets3t" skip="true">
         <include artifact="net.java.dev.jets3t:jets3t" />
     </module>

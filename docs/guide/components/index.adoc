@@ -268,6 +268,8 @@ include::camel-xmlrpc.adoc[]
 
 include::camel-xstream.adoc[]
 
+include::camel-yammer.adoc[]
+
 include::camel-zendesk.adoc[]
 
 include::camel-zipkin.adoc[]
