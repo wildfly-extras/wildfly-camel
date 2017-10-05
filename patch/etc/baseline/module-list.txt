@@ -259,6 +259,8 @@
 /org/apache/camel/component/script/main/camel-script-2.19.3.jar
 /org/apache/camel/component/servicenow/main/camel-servicenow-2.19.3.jar
 /org/apache/camel/component/servlet/main/camel-servlet-2.19.3.jar
+/org/apache/camel/component/shiro/main/camel-shiro-2.19.3.jar
+/org/apache/camel/component/shiro/main/shiro-core-1.3.2.jar
 /org/apache/camel/component/sjms/main/camel-sjms-2.19.3.jar
 /org/apache/camel/component/sjms2/main/camel-sjms2-2.19.3.jar
 /org/apache/camel/component/smpp/main/camel-smpp-2.19.3.jar

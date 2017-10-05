@@ -1,0 +1,5 @@
+### camel-shiro
+
+The http://camel.apache.org/shiro-security.html[ssh,window=_blank] component provides security, based on the https://shiro.apache.org/[Apache Shiro,window=_blank] security project.
+
+Apache Shiro is a powerful and flexible open-source security framework that cleanly handles authentication, authorization, enterprise session management and cryptography. The objective of the Apache Shiro project is to provide the most robust and comprehensive application security framework available while also being very easy to understand and extremely simple to use.
