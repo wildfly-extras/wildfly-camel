@@ -1061,6 +1061,8 @@ org/apache/camel/component/linkedin
 org/apache/camel/component/linkedin/api
 org/apache/camel/component/linkedin/api/model
 org/apache/camel/component/lucene
+org/apache/camel/component/lumberjack
+org/apache/camel/component/lumberjack/io
 org/apache/camel/component/mail
 org/apache/camel/component/metrics
 org/apache/camel/component/metrics/messagehistory

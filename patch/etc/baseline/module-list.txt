@@ -228,6 +228,7 @@
 /org/apache/camel/component/linkedin/main/camel-linkedin-2.20.0.jar
 /org/apache/camel/component/linkedin/main/camel-linkedin-api-2.20.0.jar
 /org/apache/camel/component/lucene/main/camel-lucene-2.20.0.jar
+/org/apache/camel/component/lumberjack/main/camel-lumberjack-2.20.0.jar
 /org/apache/camel/component/lzf/main/camel-lzf-2.20.0.jar
 /org/apache/camel/component/mail/main/camel-mail-2.20.0.jar
 /org/apache/camel/component/metrics/main/camel-metrics-2.20.0.jar

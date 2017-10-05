@@ -103,6 +103,7 @@ ldap
 linkedin
 log
 lucene
+lumberjack
 metrics
 mina2
 mllp
@@ -215,7 +216,6 @@ jclouds                                         #1450
 jcr                                             #2008
 jt400                                           #2012
 lpr                                             #2015
-lumberjack                                      #2016
 milo-client                                     #1835
 milo-server                                     #1836
 mongodb-gridfs                                  #1837

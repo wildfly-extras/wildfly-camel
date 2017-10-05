@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.lumberjack">
+  <resources>
+    <artifact name="${org.apache.camel:camel-lumberjack}" />
+  </resources>
+  <dependencies>
+    <module name="io.netty" />
+    <module name="org.slf4j" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>

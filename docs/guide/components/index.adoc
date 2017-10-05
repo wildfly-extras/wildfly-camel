@@ -158,6 +158,8 @@ include::camel-linkedin.adoc[]
 
 include::camel-lucene.adoc[]
 
+include::camel-lumberjack.adoc[]
+
 include::camel-mail.adoc[]
 
 include::camel-metrics.adoc[]
