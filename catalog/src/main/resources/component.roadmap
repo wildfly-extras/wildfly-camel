@@ -142,6 +142,7 @@ stax
 stream
 string-template
 stub
+telegram
 test
 timer
 twitter
@@ -219,7 +220,6 @@ spark               	#1469
 spark-rest          	#1470
 spring-ws           	#1476
 stomp               	#2033
-telegram            	#2035
 tika                	#1850
 websocket           	#1479
 xmpp                	#2037
