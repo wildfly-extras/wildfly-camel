@@ -82,8 +82,8 @@
     </module>
 
     <module name="com.google.code.findbugs" skip="true">
-        <include artifact="com.google.code.findbugs:(.*)" />
-        <include artifact="com.github.stephenc.findbugs:findbugs-annotations" />
+        <include artifact="com.google.code.findbugs:" />
+        <include artifact="com.github.stephenc.findbugs:" />
         <include artifact="findbugs:annotations" />
     </module>
 
@@ -144,6 +144,22 @@
         <include artifact="com.sun.xml.bind:jaxb-xjc" />
     </module>
 
+    <module name="io.netty.skipped" skip="true">
+        <include artifact="io.netty:netty-buffer" />
+        <include artifact="io.netty:netty-codec" />
+        <include artifact="io.netty:netty-codec-dns" />
+        <include artifact="io.netty:netty-codec-http" />
+        <include artifact="io.netty:netty-codec-http2" />
+        <include artifact="io.netty:netty-codec-socks" />
+        <include artifact="io.netty:netty-common" />
+        <include artifact="io.netty:netty-handler" />
+        <include artifact="io.netty:netty-handler-proxy" />
+        <include artifact="io.netty:netty-resolver" />
+        <include artifact="io.netty:netty-resolver-dns" />
+        <include artifact="io.netty:netty-transport" />
+        <include artifact="io.netty:netty-transport-native-epoll" />
+    </module>
+
     <module name="io.sundr.builder.annotations" skip="true">
         <include artifact="io.sundr:builder-annotations" />
     </module>
@@ -176,6 +192,10 @@
         <include artifact=":junit" />
     </module>
 
+    <module name="net.java.dev.jna" skip="true">
+        <include artifact="net.java.dev.jna:" />
+    </module>
+    
     <module name="net.jcip" skip="true">
         <include artifact="net.jcip:jcip-annotations" />
     </module>
@@ -386,5 +406,5 @@
     <module name="xml-apis" skip="true">
         <include artifact=":xml-apis-ext" />
     </module>
-
+    
 </modules>

@@ -55,7 +55,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.elasticsearch" slot="5.2"/>
+            <module name="org.elasticsearch5"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -78,7 +78,7 @@
         </dependencies>
     </module>
 
-    <module name="org.elasticsearch" inherit-slot="false" slot="5.2">
+    <module name="org.elasticsearch5" >
         <include artifact="org.elasticsearch:elasticsearch" />
         <include artifact="org.elasticsearch:securesm" />
         <include artifact="org.elasticsearch.client:rest" />
@@ -90,7 +90,7 @@
         <include artifact="com.carrotsearch:hppc" />
         <include artifact="com.tdunning:t-digest" />
         <apply-to-dependencies skip="true">
-            <include module="org.elasticsearch.skipped" />
+            <include module="org.elasticsearch5.skipped" />
             <include module="org.hdrhistogram" />
             <include module="io.netty.skipped" />
             <include module="net.java.dev.jna" />
@@ -101,82 +101,22 @@
         </dependencies>
     </module>
     
-    <module name="org.elasticsearch.transport.netty3" inherit-slot="false" slot="5.2">
+    <module name="org.elasticsearch5.transport.netty3" >
         <include artifact="org.elasticsearch.plugin:transport-netty3-client" />
         <apply-to-dependencies skip="true">
-            <include module="org.elasticsearch.skipped" />
-            <include module="io.netty.skipped" />
+            <include module="org.elasticsearch5.skipped" />
             <include module="net.java.dev.jna" />
         </apply-to-dependencies>
-        <dependencies>
-            <module name="io.netty" slot="3.10"/>
-        </dependencies>
     </module>
     
-    <module name="org.elasticsearch.skipped" skip="true">
+    <module name="org.elasticsearch5.skipped" skip="true">
         <include artifact="org.locationtech.spatial4j:spatial4j" />
         <include artifact="com.vividsolutions:jts" />
     </module>
     
     <!-- ================================================ -->
-    <!-- Skipped modules                                  -->
+    <!-- Skipp modules defined in other module sets       -->
     <!-- ================================================ -->
-    
-    <module name="com.google.code.findbugs" skip="true">
-        <include artifact="com.google.code.findbugs:(.*)" />
-        <include artifact="findbugs:annotations" />
-    </module>
-
-    <module name="io.netty.skipped" skip="true">
-        <include artifact="io.netty:netty" />
-        <include artifact="io.netty:netty-buffer" />
-        <include artifact="io.netty:netty-codec" />
-        <include artifact="io.netty:netty-codec-dns" />
-        <include artifact="io.netty:netty-codec-http" />
-        <include artifact="io.netty:netty-codec-http2" />
-        <include artifact="io.netty:netty-codec-socks" />
-        <include artifact="io.netty:netty-common" />
-        <include artifact="io.netty:netty-handler" />
-        <include artifact="io.netty:netty-handler-proxy" />
-        <include artifact="io.netty:netty-resolver" />
-        <include artifact="io.netty:netty-resolver-dns" />
-        <include artifact="io.netty:netty-transport" />
-        <include artifact="io.netty:netty-transport-native-epoll" />
-    </module>
-
-    <module name="org.apache.camel.apt" skip="true">
-        <include artifact="org.apache.camel:apt" />
-    </module>
-
-    <module name="org.apache.camel.core" skip="true">
-        <include artifact="org.apache.camel:camel-core"/>
-    </module>
-
-    <module name="org.apache.camel.spi-annotations" skip="true">
-        <include artifact="org.apache.camel:spi-annotations" />
-    </module>
-
-    <module name="org.apache.httpcomponents" slot="4.5" skip="true">
-        <include artifact="org.apache.httpcomponents:httpclient" />
-        <include artifact="org.apache.httpcomponents:httpcore" />
-        <include artifact="org.apache.httpcomponents:httpmime" />
-    </module>
-
-    <module name="org.osgi.core" skip="true">
-        <include artifact=":org.osgi.core" />
-    </module>
-
-    <!-- ================================================ -->
-    <!-- WildFly modules                                  -->
-    <!-- ================================================ -->
-    
-    <module name="com.fasterxml.jackson.core.jackson-core" skip="true">
-        <include artifact=":jackson-core" />
-    </module>
-    
-    <module name="com.fasterxml.jackson.core.jackson-databind" skip="true">
-        <include artifact=":jackson-databind" />
-    </module>
     
     <module name="com.fasterxml.jackson.dataformat.cbor" skip="true">
         <include artifact=":jackson-dataformat-cbor" />
@@ -190,52 +130,30 @@
         <include artifact=":jackson-dataformat-yaml" />
     </module>
 
-    <module name="com.github.spullara.mustache" skip="true">
-        <include artifact=":compiler" />
+    <module name="io.netty" slot="3.10" skip="true">
+        <include artifact="io.netty:netty" />
     </module>
 
-    <module name="javax.inject.api" skip="true">
-        <include artifact=":javax.inject" />
+    <module name="org.apache.camel.core" skip="true">
+        <include artifact="org.apache.camel:camel-core"/>
     </module>
 
-    <module name="javax.xml.bind.api" skip="true">
-        <include artifact=":jaxb-api" />
-        <include artifact=":jaxb-core" />
-        <include artifact=":jaxb-impl" />
-        <include artifact=":jboss-jaxb-api_2.2_spec" />
-    </module>
-
-    <module name="net.java.dev.jna" skip="true">
-        <include artifact="net.java.dev.jna:" />
-    </module>
-    
-    <module name="net.sf.jopt-simple" skip="true">
-        <include artifact="net.sf.jopt-simple:" />
-    </module>
-
-    <module name="org.apache.commons.codec" skip="true">
-        <include artifact=":commons-codec" />
-    </module>
-
-    <module name="org.apache.commons.logging" skip="true">
-        <include artifact=":commons-logging" />
-    </module>
-
-    <module name="org.apache.httpcomponents" skip="true">
-        <include artifact="org.apache.httpcomponents:httpasyncclient" />
-        <include artifact="org.apache.httpcomponents:httpcore-nio" />
+    <module name="org.apache.httpcomponents" slot="4.5" skip="true">
+        <include artifact="org.apache.httpcomponents:httpclient" />
+        <include artifact="org.apache.httpcomponents:httpcore" />
+        <include artifact="org.apache.httpcomponents:httpmime" />
     </module>
 
     <module name="org.hdrhistogram" skip="true">
         <include artifact="org.hdrhistogram:" />
     </module>
 
-    <module name="org.joda.time" skip="true">
-        <include artifact=":joda-time" />
+    <module name="org.osgi.core" skip="true">
+        <include artifact=":org.osgi.core" />
     </module>
 
-    <module name="org.yaml.snakeyaml" skip="true">
-        <include artifact="org.yaml:snakeyaml" />
+    <module name="net.sf.jopt-simple" skip="true">
+        <include artifact="net.sf.jopt-simple:" />
     </module>
-    
+
 </modules>

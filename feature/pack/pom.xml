@@ -890,6 +890,7 @@
                     <ignoreOptionalDependencies>true</ignoreOptionalDependencies>
                     <attach>false</attach>
                     <modules>
+                        <dir>../common/etc/smartics</dir>
                         <dir>etc/smartics</dir>
                     </modules>
                     <dependencyExcludes>

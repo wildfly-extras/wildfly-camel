@@ -498,22 +498,6 @@
         </dependencies>
     </module>
 
-    <module name="io.netty.skipped" skip="true">
-        <include artifact="io.netty:netty-buffer" />
-        <include artifact="io.netty:netty-codec" />
-        <include artifact="io.netty:netty-codec-dns" />
-        <include artifact="io.netty:netty-codec-http" />
-        <include artifact="io.netty:netty-codec-http2" />
-        <include artifact="io.netty:netty-codec-socks" />
-        <include artifact="io.netty:netty-common" />
-        <include artifact="io.netty:netty-handler" />
-        <include artifact="io.netty:netty-handler-proxy" />
-        <include artifact="io.netty:netty-resolver" />
-        <include artifact="io.netty:netty-resolver-dns" />
-        <include artifact="io.netty:netty-transport" />
-        <include artifact="io.netty:netty-transport-native-epoll" />
-    </module>
-
     <module name="io.opentracing">
         <include artifact="io.opentracing:opentracing-(.*)" />
         <include artifact="io.opentracing.contrib:opentracing-(.*)" />
