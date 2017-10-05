@@ -35,7 +35,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>extras</module>
+        <module>common</module>
+        <module>modulesA</module>
+        <module>modulesB</module>
         <module>pack</module>
     </modules>
 

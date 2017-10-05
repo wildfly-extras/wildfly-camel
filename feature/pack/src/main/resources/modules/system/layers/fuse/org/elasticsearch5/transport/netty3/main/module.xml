@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.elasticsearch5.transport.netty3">
+  <resources>
+    <resource-root path="transport-netty3-client-5.2.2.jar" />
+  </resources>
+  <dependencies>
+    <module name="io.netty" slot="3.10" />
+    <module name="org.apache.logging.log4j" />
+    <module name="org.elasticsearch5" />
+  </dependencies>
+</module>

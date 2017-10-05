@@ -33,22 +33,7 @@
 	<!-- ================================================================== -->
 	<target name="build">
 
-		<!-- Copy managed module.xml resources to patch -->
-		<copy todir="${target.patch.dir}" overwrite="true" filtering="true">
-			<fileset dir="${basedir}/etc/managed/wildfly" >
-				<include name="modules/**"/>
-		    </fileset>
-			<filterset>
-				<filter token="project.version" value="${project.version}" />
-		        <filter token="version.apache.felix.configadmin" value="${version.apache.felix.configadmin}"/>
-		        <filter token="version.apache.felix.log" value="${version.apache.felix.log}"/>
-		        <filter token="version.apache.felix.metatype" value="${version.apache.felix.metatype}"/>
-		        <filter token="version.apache.felix.scr" value="${version.apache.felix.scr}"/>
-                <filter token="version.jboss.gravia" value="${version.jboss.gravia}" />
-                <filter token="version.net.sf.json" value="${version.net.sf.json}" />
-			</filterset>
-		</copy>
-		
+		<!-- Copy managed jar resources to patch -->
         <property name="target.gravia.module.dir" value="${output.dir}/managed-jars/modules/system/layers/fuse/org/jboss/gravia/main" />
         <property name="target.net.sf.json.module.dir" value="${output.dir}/managed-jars/modules/system/layers/fuse/net/sf/json/main" />
 		<copy file="${maven.dependency.org.apache.felix.org.apache.felix.configadmin.jar.path}" todir="${target.gravia.module.dir}" />

@@ -69,7 +69,7 @@ public class Elasticsearch5IntegrationTest {
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         archive.setManifest(() -> {
             ManifestBuilder builder = new ManifestBuilder();
-            builder.addManifestHeader("Dependencies", "org.elasticsearch:5.2");
+            builder.addManifestHeader("Dependencies", "org.elasticsearch5");
             return builder.openStream();
         });
         return archive;
