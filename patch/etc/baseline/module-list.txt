@@ -192,6 +192,7 @@
 /org/apache/camel/component/groovy/main/camel-groovy-2.20.0.jar
 /org/apache/camel/component/grpc/main/camel-grpc-2.20.0.jar
 /org/apache/camel/component/gson/main/camel-gson-2.20.0.jar
+/org/apache/camel/component/guava/eventbus/main/camel-guava-eventbus-2.20.0.jar
 /org/apache/camel/component/hbase/main/camel-hbase-2.20.0.jar
 /org/apache/camel/component/hdfs2/main/camel-hdfs2-2.20.0.jar
 /org/apache/camel/component/hessian/main/camel-hessian-2.20.0.jar

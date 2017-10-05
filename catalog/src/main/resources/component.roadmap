@@ -66,6 +66,7 @@ google-drive
 google-mail
 google-pubsub
 grpc
+guava-eventbus
 hbase
 hdfs2
 http4
@@ -220,7 +221,6 @@ elasticsearch5                                      #1824
 etcd                                                #1827
 flink                                               #1430
 google-bigquery                                     #2177
-guava-eventbus                                      #2002
 hazelcast-atomicvalue                               #2178
 hazelcast-instance
 hazelcast-list

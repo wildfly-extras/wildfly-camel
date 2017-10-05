@@ -85,6 +85,7 @@
         <module name="org.apache.camel.component.grpc" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.groovy" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.gson" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.guava.eventbus" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.hbase" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.hdfs2" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.hessian" export="true" services="export" optional="true" />

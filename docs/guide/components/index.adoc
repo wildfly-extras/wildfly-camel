@@ -110,6 +110,8 @@ include::camel-google-pubsub.adoc[]
 
 include::camel-grpc.adoc[]
 
+include::camel-guava-eventbus.adoc[]
+
 include::camel-hbase.adoc[]
 
 include::camel-hdfs2.adoc[]

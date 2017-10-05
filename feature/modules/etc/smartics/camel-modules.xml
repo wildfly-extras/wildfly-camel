@@ -926,6 +926,26 @@
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.camel.component.guava.eventbus">
+        <include artifact="org.apache.camel:camel-guava-eventbus" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.google.guava" export="true" >
+                <exports>
+                    <exclude path="com/google"/>
+                    <exclude path="com/google/common/base/internal"/>
+                </exports>
+            </module>
+            <module name="org.slf4j"/>
+        </dependencies>
     </module>
 
     <module name="org.apache.camel.component.hbase">

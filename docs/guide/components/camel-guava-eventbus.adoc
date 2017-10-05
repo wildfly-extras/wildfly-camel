@@ -1,0 +1,3 @@
+### camel-guava-eventbus
+
+The http://camel.apache.org/guava-eventbus.htmlguava-eventbus,window=_blank] component provides integration bridge between Camel and http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/eventbus/package-summary.html[Google Guava EventBus,window=_blank] infrastructure.
