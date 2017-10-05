@@ -220,6 +220,8 @@ include::camel-servlet.adoc[]
 
 include::camel-shiro.adoc[]
 
+include::camel-slack.adoc[]
+
 include::camel-smpp.adoc[]
 
 include::camel-snmp.adoc[]

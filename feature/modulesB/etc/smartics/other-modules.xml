@@ -260,6 +260,16 @@
         </dependencies>
     </module>
 
+    <module name="com.google.code.json-simple">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.googlecode.json-simple:json-simple" />
+        <apply-to-dependencies skip="true">
+            <include module="junit" />
+        </apply-to-dependencies>
+    </module>
+
     <module name="com.google.api-client.google-api-client">
         <include artifact="com.google.api-client:google-api-client" />
         <apply-to-dependencies skip="true">

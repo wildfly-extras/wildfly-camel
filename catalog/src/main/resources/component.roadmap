@@ -58,7 +58,7 @@ ftps
 geocoder
 git
 github
-google-mail         	#1439
+google-mail
 google-pubsub
 hbase
 hdfs2
@@ -125,6 +125,7 @@ sftp
 sjms
 sjms-batch
 sjms2
+slack
 smpp
 smpps
 smtp
@@ -212,7 +213,6 @@ restlet             	#2024
 rmi                 	#2025
 sip                 	#2027
 sips                	#2028
-slack               	#2029
 solr                	#2030
 solrCloud           	#2031
 solrs               	#2032

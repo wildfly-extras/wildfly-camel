@@ -149,6 +149,7 @@
         <module name="org.apache.camel.component.servicenow" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.servlet" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.shiro" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.slack" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.smpp" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.snakeyaml" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.snmp" export="true" services="export" optional="true" />
