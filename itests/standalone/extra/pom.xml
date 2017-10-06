@@ -51,7 +51,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>${version.camel.hbase.guava}</version><!--$NO-MVN-MAN-VER$-->
+            <version>${version.hbase.guava}</version><!--$NO-MVN-MAN-VER$-->
         </dependency>
         <dependency>
             <groupId>com.github.kstyrc</groupId>

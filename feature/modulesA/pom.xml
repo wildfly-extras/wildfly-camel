@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>${version.camel.hbase.guava}</version>
+            <version>${version.hbase.guava}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

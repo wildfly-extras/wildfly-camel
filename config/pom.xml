@@ -50,6 +50,32 @@
 
         <!-- Test -->
         <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-parent</artifactId>
+            <version>${version.apache.camel}</version>
+            <scope>test</scope>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-parent</artifactId>
+            <version>${version.wildfly}</version>
+            <scope>test</scope>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -89,7 +115,16 @@
                 </executions>
                 <configuration>
                     <tasks>
-                        <copy file="${project.build.directory}/${jboss.server.name}/standalone/configuration/standalone.xml" todir="${project.build.testOutputDirectory}" overwrite="true" />
+                        <echo>${basedir}/../pom.xml</echo>
+                        <echo>${maven.dependency.org.apache.camel.camel-parent.pom.path}</echo>
+                        <echo>${maven.dependency.org.wildfly.wildfly-parent.pom.path}</echo>
+                        <propertyfile file="target/pom-paths.txt">
+                            <entry key="wildfly-camel" value="${basedir}/../pom.xml" />
+                            <entry key="camel-parent" value="${maven.dependency.org.apache.camel.camel-parent.pom.path}" />
+                            <entry key="wildfly-parent" value="${maven.dependency.org.wildfly.wildfly-parent.pom.path}" />
+                        </propertyfile>
+                        <copy file="${project.build.directory}/${jboss.server.name}/standalone/configuration/standalone.xml" 
+                            todir="${project.build.testOutputDirectory}" overwrite="true" />
                     </tasks>
                 </configuration>
             </plugin>

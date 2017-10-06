@@ -44,6 +44,7 @@ public class ConfigTestSupport {
         return ConfigSupport.findChildElement(parent, name, supportedNamespaces);
     }
 
+    @SuppressWarnings("unchecked")
     public int getElementCount(Document document, String elementName, Namespace namespace, Attribute attribute) {
         int elementCount = 0;
         ElementFilter filter;

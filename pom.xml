@@ -48,11 +48,9 @@
         <!-- Camel versions -->
         <version.apache.camel>2.19.3</version.apache.camel>
         <version.camel.lucene5>5.5.2</version.camel.lucene5>
-        <version.camel.lucene6>6.4.1</version.camel.lucene6>
         <version.camel.hadoop2>2.7.2</version.camel.hadoop2>
         <version.camel.hadoop2.protobuf>2.5.0</version.camel.hadoop2.protobuf>
         <version.camel.hbase>1.2.1</version.camel.hbase>
-        <version.camel.hbase.guava>14.0.1</version.camel.hbase.guava>
         <version.camel.qpid.proton>0.16.0</version.camel.qpid.proton>
 
         <!-- WildFly versions -->
@@ -75,6 +73,7 @@
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
         <version.fusepatch>2.6.0</version.fusepatch>
         <version.greenmail>1.4.0</version.greenmail>
+        <version.hbase.guava>14.0.1</version.hbase.guava>
         <version.hawtio>1.5.3</version.hawtio>
         <version.javax.cache.api>1.0.0</version.javax.cache.api>
         <version.jboss.arquillian.core>1.1.10.Final</version.jboss.arquillian.core>
