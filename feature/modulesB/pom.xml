@@ -93,6 +93,12 @@
             <version>${project.version}</version>
             <type>pom</type>
         </dependency>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-feature-modulesA</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
 
         <dependency>
             <groupId>org.wildfly.camel</groupId>
@@ -901,6 +907,10 @@
                         <exclude>
                             <groupId>org.wildfly</groupId>
                             <artifactId>wildfly-feature-pack</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.wildfly.camel</groupId>
+                            <artifactId>wildfly-camel-feature-modulesA</artifactId>
                         </exclude>
                         <exclude>
                             <groupId>org.wildfly.extras.patch</groupId>
