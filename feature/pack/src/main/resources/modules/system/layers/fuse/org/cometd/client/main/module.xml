@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.cometd.client">
+  <resources>
+    <artifact name="${org.cometd.java:cometd-java-client}" />
+    <artifact name="${org.cometd.java:cometd-java-common}" />
+  </resources>
+  <dependencies>
+    <module name="org.cometd.bayeux" />
+    <module name="org.eclipse.jetty" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

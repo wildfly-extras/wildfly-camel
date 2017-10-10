@@ -1,0 +1,3 @@
+### camel-cometd
+
+The http://camel.apache.org/cometd.html[cometd,window=_blank] component is a transport for working with the https://www.eclipse.org/jetty[Jetty,window=_blank] implementation of the cometd/bayeux protocol. Using this component in combination with the dojo toolkit library it's possible to push Camel messages directly into the browser using an AJAX based mechanism.

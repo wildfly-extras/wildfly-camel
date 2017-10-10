@@ -1158,6 +1158,25 @@
         <include artifact="org.bitbucket.b_c:jose4j" />
     </module>
 
+    <module name="org.cometd.bayeux">
+        <include artifact="org.cometd.java:bayeux-api" />
+        <exports>
+            <exclude path="org/cometd" />
+        </exports>
+    </module>
+
+    <module name="org.cometd.client">
+        <include artifact="org.cometd.java:cometd-java-client" />
+        <include artifact="org.cometd.java:cometd-java-common" />
+    </module>
+
+    <module name="org.cometd.server">
+        <include artifact="org.cometd.java:cometd-java-server" />
+        <apply-to-dependencies skip="true">
+            <include module="org.eclipse.jetty.skipped" />
+        </apply-to-dependencies>
+    </module>
+
     <module name="org.drools.compiler">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1205,15 +1224,24 @@
         <include artifact="org.eclipse.jetty:jetty-io" />
         <include artifact="org.eclipse.jetty:jetty-util" />
         <include artifact="org.eclipse.jetty:jetty-util-ajax" />
+        <include artifact="org.eclipse.jetty:jetty-security" />
+        <include artifact="org.eclipse.jetty:jetty-servlet" />
         <include artifact="org.eclipse.jetty:jetty-websocket" />
         <apply-to-dependencies skip="true">
-            <include module="org.eclipse.jetty.orbit" />
-            <include module="org.eclipse.jetty.server" />
+            <include module="org.eclipse.jetty.skipped" />
             <include module="org.mortbay.jetty" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
+            <module name="org.eclipse.jetty.server" />
         </dependencies>
+    </module>
+
+    <module name="org.eclipse.jetty.server">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.eclipse.jetty:jetty-server" />
     </module>
 
     <module name="org.eclipse.jetty.websocket">

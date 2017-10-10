@@ -829,6 +829,7 @@ org/apache/camel/component/box
 org/apache/camel/component/box/api
 org/apache/camel/component/braintree
 org/apache/camel/component/cassandra
+org/apache/camel/component/cometd
 org/apache/camel/component/context
 org/apache/camel/component/couchdb
 org/apache/camel/component/crypto
@@ -1902,6 +1903,9 @@ org/codehaus/groovy/vmplugin
 org/codehaus/groovy/vmplugin/v5
 org/codehaus/groovy/vmplugin/v6
 org/codehaus/groovy/vmplugin/v7
+org/cometd/bayeux
+org/cometd/bayeux/client
+org/cometd/bayeux/server
 org/dozer/util
 org/eclipse/egit/github/core
 org/eclipse/egit/github/core/util

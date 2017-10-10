@@ -50,6 +50,8 @@ include::camel-cdi.adoc[]
 
 include::camel-coap.adoc[]
 
+include::camel-cometd.adoc[]
+
 include::camel-context.adoc[]
 
 include::camel-couchdb.adoc[]

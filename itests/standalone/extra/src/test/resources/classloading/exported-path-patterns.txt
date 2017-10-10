@@ -71,6 +71,7 @@
 	^org/asynchttpclient(.*)
 	^org/bson(.*)
 	^org/codehaus/groovy(.*)
+	^org/cometd/bayeux(.*)
 	^org/dozer(.*)
 	^org/eclipse/egit/github/core(.*)
 	^org/eclipse/jgit(.*)

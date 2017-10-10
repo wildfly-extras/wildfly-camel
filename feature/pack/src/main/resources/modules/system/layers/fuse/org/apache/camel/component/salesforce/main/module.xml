@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.salesforce">
   <resources>
-    <artifact name="${org.cometd.java:bayeux-api}" />
     <artifact name="${org.apache.camel:camel-salesforce}" />
-    <artifact name="${org.cometd.java:cometd-java-client}" />
-    <artifact name="${org.cometd.java:cometd-java-common}" />
   </resources>
   <dependencies>
-    <module name="org.codehaus.jackson.jackson-core-asl" />
-    <module name="org.joda.time" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
@@ -18,11 +13,10 @@
     <module name="com.thoughtworks.xstream" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
+    <module name="org.cometd.client" />
     <module name="org.eclipse.jetty" />
   </dependencies>
   <exports>
     <exclude path="org/apache/camel/component/salesforce/internal**" />
-    <exclude path="org/eclipse**" />
-    <exclude path="org/cometd**" />
   </exports>
 </module>

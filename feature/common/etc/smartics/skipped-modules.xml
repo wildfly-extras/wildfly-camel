@@ -272,14 +272,14 @@
         <include artifact=":woodstox-core" />
     </module>
 
-    <module name="org.eclipse.jetty.orbit" skip="true">
+    <module name="org.eclipse.jetty.skipped" skip="true">
+        <include artifact="org.eclipse.jetty:jetty-continuation" />
+        <include artifact="org.eclipse.jetty:jetty-jmx" />
+        <include artifact="org.eclipse.jetty:jetty-servlets" />
+        <include artifact="org.eclipse.jetty:jetty-webapp" />
         <include artifact="org.eclipse.jetty.orbit:javax.servlet" />
     </module>
 
-    <module name="org.eclipse.jetty.server" skip="true">
-        <include artifact="org.eclipse.jetty:jetty-server" />
-    </module>
-    
     <module name="org.fusesource.hawtjni" skip="true">
         <include artifact="org.fusesource.hawtjni:hawtjni-runtime" />
     </module>

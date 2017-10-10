@@ -40,6 +40,7 @@
         <module name="org.apache.camel.component.cassandra" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.castor" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.coap" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.cometd" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.context" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.couchdb" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.crypto" export="true" services="export" optional="true" />

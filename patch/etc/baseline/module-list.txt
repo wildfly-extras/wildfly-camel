@@ -119,6 +119,7 @@
 /org/apache/camel/component/castor/main/castor-xml-1.3.3.jar
 /org/apache/camel/component/cdi/main/camel-cdi-2.19.3.jar
 /org/apache/camel/component/coap/main/camel-coap-2.19.3.jar
+/org/apache/camel/component/cometd/main/camel-cometd-2.19.3.jar
 /org/apache/camel/component/context/main/camel-context-2.19.3.jar
 /org/apache/camel/component/couchdb/main/camel-couchdb-2.19.3.jar
 /org/apache/camel/component/couchdb/main/lightcouch-0.1.8.jar
@@ -250,10 +251,7 @@
 /org/apache/camel/component/rest/swagger/main/camel-rest-swagger-2.19.3.jar
 /org/apache/camel/component/ribbon/main/camel-ribbon-2.19.3.jar
 /org/apache/camel/component/rss/main/camel-rss-2.19.3.jar
-/org/apache/camel/component/salesforce/main/bayeux-api-3.0.10.jar
 /org/apache/camel/component/salesforce/main/camel-salesforce-2.19.3.jar
-/org/apache/camel/component/salesforce/main/cometd-java-client-3.0.10.jar
-/org/apache/camel/component/salesforce/main/cometd-java-common-3.0.10.jar
 /org/apache/camel/component/sap/netweaver/main/camel-sap-netweaver-2.19.3.jar
 /org/apache/camel/component/saxon/main/camel-saxon-2.19.3.jar
 /org/apache/camel/component/schematron/main/camel-schematron-2.19.3.jar
@@ -448,6 +446,10 @@
 /org/beanshell/main/bsh-2.0b6.jar
 /org/bitbucket/jose4j/main/jose4j-0.4.4.jar
 /org/bouncycastle/ext/main/bcpg-jdk15on-1.55.jar
+/org/cometd/bayeux/main/bayeux-api-3.0.10.jar
+/org/cometd/client/main/cometd-java-client-3.0.10.jar
+/org/cometd/client/main/cometd-java-common-3.0.10.jar
+/org/cometd/server/main/cometd-java-server-3.0.10.jar
 /org/drools/compiler/main/drools-compiler-6.5.0.Final.jar
 /org/drools/core/main/drools-core-6.5.0.Final.jar
 /org/eclipse/aether/main/aether-api-1.0.2.v20150114.jar
@@ -461,8 +463,11 @@
 /org/eclipse/jetty/main/jetty-client-9.3.14.v20161028.jar
 /org/eclipse/jetty/main/jetty-http-9.3.14.v20161028.jar
 /org/eclipse/jetty/main/jetty-io-9.3.14.v20161028.jar
+/org/eclipse/jetty/main/jetty-security-9.3.14.v20161028.jar
+/org/eclipse/jetty/main/jetty-servlet-9.3.14.v20161028.jar
 /org/eclipse/jetty/main/jetty-util-9.3.14.v20161028.jar
 /org/eclipse/jetty/main/jetty-util-ajax-9.3.14.v20161028.jar
+/org/eclipse/jetty/server/main/jetty-server-9.3.14.v20161028.jar
 /org/eclipse/jetty/websocket/main/websocket-api-9.2.20.v20161216.jar
 /org/eclipse/jetty/websocket/main/websocket-client-9.2.20.v20161216.jar
 /org/eclipse/jetty/websocket/main/websocket-common-9.2.20.v20161216.jar
