@@ -2552,7 +2552,7 @@
             <include module="com.google.auto.value" />
             <include module="com.google.code.findbugs" />
             <include module="org.apache.camel.apt" />
-            <include module="org.apache.servicemix.bundles" />
+            <include module="org.apache.servicemix.skipped" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
