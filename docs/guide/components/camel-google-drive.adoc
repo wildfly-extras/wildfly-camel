@@ -1,0 +1,4 @@
+### camel-google-drive
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-google-drive/src/main/docs/google-drive-component.adoc[google-drive,window=_blank] component provides access to http://drive.google.com/[Google Drive] via
+the https://developers.google.com/drive/v2/reference/[Google Drive API v2].

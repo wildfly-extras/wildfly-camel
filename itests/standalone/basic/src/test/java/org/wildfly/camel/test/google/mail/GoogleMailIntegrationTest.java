@@ -24,7 +24,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.HashMap;
@@ -41,16 +40,13 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.google.mail.GoogleMailComponent;
-import org.apache.camel.component.google.mail.GoogleMailConfiguration;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.util.IntrospectionSupport;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.logging.Logger;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.google.GoogleApiEnv;
@@ -64,8 +60,7 @@ import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.Profile;
 
 /**
- * Read {@code google-api-testing.adoc} in the rood directory of the current Maven module to learn how to set up the
- * {@code google-oauth.properties} properly.
+ * Read {@code google-api-testing.adoc} in the rood directory of the current Maven module to learn how to set up the credentials used by this class.
  *
  * @author <a href="https://github.com/ppalaga">Peter Palaga</a>
  */
@@ -75,24 +70,6 @@ public class GoogleMailIntegrationTest {
     private static final Logger log = Logger.getLogger(GoogleMailIntegrationTest.class);
     // userid of the currently authenticated user
     public static final String CURRENT_USERID = "me";
-
-    private static void configure(GoogleMailComponent gMailComponent) throws Exception {
-        final GoogleMailConfiguration config = gMailComponent.getConfiguration();
-        Map<String, Object> map = GoogleApiEnv.byConfigPropertyName();
-        final boolean assumption = map.size() == GoogleApiEnv.values().length;
-        if (!assumption) {
-            final String msg = "Some or all of env vars "+ Arrays.asList(GoogleApiEnv.values()) +" are missing. You may want read google-api-testing.adoc in the rood directory of the current Maven module.";
-            log.warn(msg);
-            Assume.assumeTrue(msg, assumption);
-        }
-        map.entrySet().stream().forEach(en -> {
-            try {
-                IntrospectionSupport.setProperty(config, en.getKey(), en.getValue());
-            } catch (Exception e) {
-                throw new RuntimeException("Could not set " + config.getClass().getSimpleName() + "." + en.getKey(), e);
-            }
-        });
-    }
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -164,7 +141,7 @@ public class GoogleMailIntegrationTest {
         CamelContext camelctx = new DefaultCamelContext();
 
         GoogleMailComponent gMailComponent = camelctx.getComponent("google-mail", GoogleMailComponent.class);
-        configure(gMailComponent);
+        GoogleApiEnv.configure(gMailComponent.getConfiguration(), getClass(), log);
 
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -246,7 +223,7 @@ public class GoogleMailIntegrationTest {
         CamelContext camelctx = new DefaultCamelContext();
 
         GoogleMailComponent gMailComponent = camelctx.getComponent("google-mail", GoogleMailComponent.class);
-        configure(gMailComponent);
+        GoogleApiEnv.configure(gMailComponent.getConfiguration(), getClass(), log);
 
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -377,7 +354,7 @@ public class GoogleMailIntegrationTest {
         CamelContext camelctx = new DefaultCamelContext();
 
         GoogleMailComponent gMailComponent = camelctx.getComponent("google-mail", GoogleMailComponent.class);
-        configure(gMailComponent);
+        GoogleApiEnv.configure(gMailComponent.getConfiguration(), getClass(), log);
 
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -410,7 +387,7 @@ public class GoogleMailIntegrationTest {
         CamelContext camelctx = new DefaultCamelContext();
 
         GoogleMailComponent gMailComponent = camelctx.getComponent("google-mail", GoogleMailComponent.class);
-        configure(gMailComponent);
+        GoogleApiEnv.configure(gMailComponent.getConfiguration(), getClass(), log);
 
         camelctx.addRoutes(new RouteBuilder() {
             @Override

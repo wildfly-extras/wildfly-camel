@@ -786,6 +786,27 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.google.drive">
+        <include artifact="org.apache.camel:camel-google-drive" />
+        <include artifact="com.google.apis:google-api-services-drive" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.oauth-client.google-oauth-client-jetty" />
+            <include module="org.apache.camel.spi-annotations" />
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.google.http-client.google-http-client" export="true"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="org/apache/camel/component/google/drive/internal" />
+            <exclude path="com/google" />
+            <exclude path="com/google/api" />
+            <exclude path="com/google/api/services" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.google.mail">
         <include artifact="org.apache.camel:camel-google-mail" />
         <include artifact="com.google.apis:google-api-services-gmail" />

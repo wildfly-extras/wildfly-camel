@@ -161,6 +161,8 @@
 /org/apache/camel/component/git/main/org.eclipse.jgit-4.7.0.201704051617-r.jar
 /org/apache/camel/component/github/main/camel-github-2.19.3.jar
 /org/apache/camel/component/github/main/org.eclipse.egit.github.core-2.1.5.jar
+/org/apache/camel/component/google/drive/main/camel-google-drive-2.19.3.jar
+/org/apache/camel/component/google/drive/main/google-api-services-drive-v2-rev263-1.22.0.jar
 /org/apache/camel/component/google/mail/main/camel-google-mail-2.19.3.jar
 /org/apache/camel/component/google/mail/main/google-api-services-gmail-v1-rev63-1.22.0.jar
 /org/apache/camel/component/google/pubsub/main/camel-google-pubsub-2.19.3.jar

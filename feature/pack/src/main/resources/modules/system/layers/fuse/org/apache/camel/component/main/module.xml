@@ -75,6 +75,7 @@
         <module name="org.apache.camel.component.geocoder" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.git" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.github" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.google.drive" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.google.mail" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.google.pubsub" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.groovy" export="true" services="export" optional="true" />

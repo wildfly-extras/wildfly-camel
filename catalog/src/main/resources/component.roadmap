@@ -58,6 +58,7 @@ ftps
 geocoder
 git
 github
+google-drive
 google-mail
 google-pubsub
 hbase
@@ -187,7 +188,6 @@ etcd                	#1827
 flink               	#1430
 ganglia             	#1998
 google-calendar     	#1437
-google-drive        	#1438
 grape               	#2001
 grpc                	#1826
 guava-eventbus      	#2002
