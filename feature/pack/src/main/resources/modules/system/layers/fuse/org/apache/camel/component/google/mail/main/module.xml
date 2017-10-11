@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.google.mail">
+  <resources>
+    <artifact name="${org.apache.camel:camel-google-mail}" />
+    <artifact name="${com.google.apis:google-api-services-gmail}" />
+    <artifact name="${com.google.apis:google-api-services-gmail}" />
+  </resources>
+  <dependencies>
+    <module name="javax.mail.api" />
+    <module name="org.slf4j" />
+    <module name="com.google.api-client.google-api-client" />
+    <module name="com.google.http-client.google-http-client" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+  <exports>
+    <exclude path="org/apache/camel/component/google/mail/internal" />
+    <exclude path="com/google" />
+    <exclude path="com/google/api" />
+    <exclude path="com/google/api/services" />
+  </exports>
+</module>

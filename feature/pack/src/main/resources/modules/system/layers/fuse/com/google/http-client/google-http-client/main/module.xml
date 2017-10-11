@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.google.http-client.google-http-client">
+  <resources>
+    <artifact name="${com.google.http-client:google-http-client}" />
+    <artifact name="${com.google.http-client:google-http-client-jackson2}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.apache.httpcomponents" slot="4.5" />
+  </dependencies>
+</module>

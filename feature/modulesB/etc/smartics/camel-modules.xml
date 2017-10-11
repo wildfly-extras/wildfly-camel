@@ -786,13 +786,31 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.google.mail">
+        <include artifact="org.apache.camel:camel-google-mail" />
+        <include artifact="com.google.apis:google-api-services-gmail" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.oauth-client.google-oauth-client-jetty" />
+            <include module="com.sun.mail" />
+            <include module="org.apache.camel.spi-annotations" />
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.mail.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="org/apache/camel/component/google/mail/internal" />
+            <exclude path="com/google" />
+            <exclude path="com/google/api" />
+            <exclude path="com/google/api/services" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.google.pubsub">
-        <include artifact="com.google.api-client:google-api-client" />
-        <include artifact="com.google.apis:google-api-services-pubsub" />
-        <include artifact="com.google.http-client:google-http-client" />
-        <include artifact="com.google.http-client:google-http-client-jackson2" />
-        <include artifact="com.google.oauth-client:google-oauth-client" />
         <include artifact="org.apache.camel:camel-google-pubsub" />
+        <include artifact="com.google.apis:google-api-services-pubsub" />
         <apply-to-dependencies skip="true">
             <include module="com.google.android" />
             <include module="com.google.guava.skipped" />
@@ -801,6 +819,8 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="com.google.http-client.google-http-client"/>
+            <module name="org.apache.httpcomponents" slot="4.5" />
             <module name="javax.api"/>
             <module name="org.slf4j"/>
         </dependencies>

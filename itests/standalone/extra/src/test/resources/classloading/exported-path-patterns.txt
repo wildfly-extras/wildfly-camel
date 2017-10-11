@@ -1,5 +1,5 @@
 [includes]
-	^ca/uhn/hl7v2(.*)    
+	^ca/uhn/hl7v2(.*)
 	^com/amazonaws(.*)
     ^com/bazaarvoice(.*)
 	^com/box(.*)
@@ -9,6 +9,7 @@
 	^com/codahale(.*)
 	^com/github/kristofa/brave(.*)
 	^com/google/api/services/pubsub(.*)
+    ^com/google/api/services/gmail(.*)
     ^com/google/code/geocoder/model(.*)
     ^com/google/gson(.*)
 	^com/google/protobuf(.*)
@@ -100,6 +101,6 @@
 	^zoneinfo/(.*)
 	^META-INF/cxf(.*)
 	^META-INF/services(.*)
-	
+
 [excludes]
 	(.*)/internal

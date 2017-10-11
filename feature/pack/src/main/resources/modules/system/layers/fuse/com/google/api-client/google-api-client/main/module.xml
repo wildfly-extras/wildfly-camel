@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.google.api-client.google-api-client">
+  <resources>
+    <artifact name="${com.google.api-client:google-api-client}" />
+  </resources>
+  <dependencies>
+    <module name="com.google.oauth-client.google-oauth-client" export="true" />
+    <module name="com.google.http-client.google-http-client" />
+    <module name="org.apache.commons.codec" />
+  </dependencies>
+</module>

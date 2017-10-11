@@ -1,0 +1,4 @@
+### camel-google-mail
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-google-mail/src/main/docs/google-mail-component.adoc[google-mail,window=_blank] component provides access to http://gmail.com/[Gmail] via
+the https://developers.google.com/gmail/api/v1/reference/[Google Mail Web APIs].

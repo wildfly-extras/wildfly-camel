@@ -24,8 +24,12 @@
 /com/fasterxml/jackson/datatype/joda/main/jackson-datatype-joda-2.7.4.jar
 /com/fasterxml/jackson/module/jsonSchema/main/jackson-module-jsonSchema-2.7.4.jar
 /com/github/generex/main/generex-1.0.1.jar
+/com/google/api-client/google-api-client/main/google-api-client-1.22.0.jar
 /com/google/code/gson/main/gson-2.7.jar
 /com/google/guava/14.0/guava-14.0.1.jar
+/com/google/http-client/google-http-client/main/google-http-client-1.22.0.jar
+/com/google/http-client/google-http-client/main/google-http-client-jackson2-1.22.0.jar
+/com/google/oauth-client/google-oauth-client/main/google-oauth-client-1.22.0.jar
 /com/google/protobuf/2.5.0/protobuf-java-2.5.0.jar
 /com/google/protobuf/main/protobuf-java-3.1.0.jar
 /com/google/protobuf/main/protobuf-java-util-3.1.0.jar
@@ -156,12 +160,10 @@
 /org/apache/camel/component/git/main/org.eclipse.jgit-4.7.0.201704051617-r.jar
 /org/apache/camel/component/github/main/camel-github-2.19.3.jar
 /org/apache/camel/component/github/main/org.eclipse.egit.github.core-2.1.5.jar
+/org/apache/camel/component/google/mail/main/camel-google-mail-2.19.3.jar
+/org/apache/camel/component/google/mail/main/google-api-services-gmail-v1-rev63-1.22.0.jar
 /org/apache/camel/component/google/pubsub/main/camel-google-pubsub-2.19.3.jar
-/org/apache/camel/component/google/pubsub/main/google-api-client-1.22.0.jar
 /org/apache/camel/component/google/pubsub/main/google-api-services-pubsub-v1-rev12-1.22.0.jar
-/org/apache/camel/component/google/pubsub/main/google-http-client-1.22.0.jar
-/org/apache/camel/component/google/pubsub/main/google-http-client-jackson2-1.22.0.jar
-/org/apache/camel/component/google/pubsub/main/google-oauth-client-1.22.0.jar
 /org/apache/camel/component/groovy/main/camel-groovy-2.19.3.jar
 /org/apache/camel/component/gson/main/camel-gson-2.19.3.jar
 /org/apache/camel/component/hbase/main/camel-hbase-2.19.3.jar

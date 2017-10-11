@@ -260,6 +260,36 @@
         </dependencies>
     </module>
 
+    <module name="com.google.api-client.google-api-client">
+        <include artifact="com.google.api-client:google-api-client" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.guava.skipped" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.google.oauth-client.google-oauth-client" export="true"/>
+        </dependencies>
+    </module>
+
+    <module name="com.google.http-client.google-http-client">
+        <include artifact="com.google.http-client:google-http-client" />
+        <include artifact="com.google.http-client:google-http-client-jackson2" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.android" />
+            <include module="com.google.code.findbugs" />
+            <include module="com.google.guava.skipped" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="com.google.oauth-client.google-oauth-client">
+        <include artifact="com.google.oauth-client:google-oauth-client" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
+    </module>
+
     <module name="com.google.protobuf">
         <include artifact=":protobuf-java-util" />
         <include artifact=":protobuf-java" />

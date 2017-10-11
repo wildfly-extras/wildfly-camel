@@ -526,6 +526,8 @@ com/dropbox/core/json
 com/dropbox/core/util
 com/github/kristofa/brave
 com/github/kristofa/brave/scribe
+com/google/api/services/gmail
+com/google/api/services/gmail/model
 com/google/api/services/pubsub
 com/google/api/services/pubsub/model
 com/google/code/geocoder/model
@@ -896,6 +898,7 @@ org/apache/camel/component/github
 org/apache/camel/component/github/consumer
 org/apache/camel/component/github/producer
 org/apache/camel/component/google
+org/apache/camel/component/google/mail
 org/apache/camel/component/google/pubsub
 org/apache/camel/component/google/pubsub/consumer
 org/apache/camel/component/gson
