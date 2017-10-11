@@ -1,8 +1,0 @@
-activemq
-cdi
-hystrix
-jasypt
-olingo2
-spring-security
-swagger
-zipkin
