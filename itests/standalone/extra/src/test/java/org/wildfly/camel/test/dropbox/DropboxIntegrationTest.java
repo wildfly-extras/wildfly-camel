@@ -30,14 +30,12 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Assume;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-@Ignore("[#2135] Cannot access dropbox with retired API version")
 public class DropboxIntegrationTest {
 
     private static final String DROPBOX_ACCESS_TOKEN = System.getenv("DROPBOX_ACCESS_TOKEN");
