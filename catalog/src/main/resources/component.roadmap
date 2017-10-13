@@ -208,7 +208,6 @@ etcd                                            #1827
 flink                                           #1430
 ganglia                                         #1998
 google-calendar                                 #1437
-grape                                           #2001
 grpc                                            #1826
 guava-eventbus                                  #2002
 hipchat                                         #2003
@@ -278,6 +277,7 @@ bonita                                          #1820 We don't want another BPM 
 cache                                           #deprecated
 eventadmin                                      #1996 OSGi specific
 gora                                            #2000 Competitor to JDG
+grape                                           #2001 Grape requires Groovy class loader
 hdfs                                            #deprecated
 http                                            #deprecated
 https                                           #deprecated
