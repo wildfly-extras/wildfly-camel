@@ -27,6 +27,7 @@
 	^groovy(.*)
 	^io/fabric8/kubernetes(.*)
  	^io/fabric8/openshift(.*)
+    ^io/grpc(.*)
 	^io/nats(.*)
 	^io/swagger(.*)
     ^io/undertow/client(.*)

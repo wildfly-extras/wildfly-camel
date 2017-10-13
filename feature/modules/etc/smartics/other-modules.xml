@@ -284,6 +284,9 @@
     </module>
 
     <module name="com.google.api-client.google-api-client">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="com.google.api-client:google-api-client" />
         <apply-to-dependencies skip="true">
             <include module="com.google.guava.skipped" />
@@ -291,6 +294,21 @@
         <dependencies>
             <module name="com.google.oauth-client.google-oauth-client" export="true"/>
         </dependencies>
+    </module>
+
+    <module name="com.google.api.grpc.proto-google-common-protos">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.google.api.grpc:proto-google-common-protos" />
+    </module>
+
+    <module name="com.google.auth.google-auth-library-credentials">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.google.auth:google-auth-library-credentials" />
+        <include artifact="com.google.auth:google-auth-library-oauth2-http" />
     </module>
 
     <module name="com.google.http-client.google-http-client">
@@ -311,6 +329,9 @@
     </module>
 
     <module name="com.google.oauth-client.google-oauth-client">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="com.google.oauth-client:google-oauth-client" />
         <apply-to-dependencies skip="true">
             <include module="com.google.code.findbugs" />
@@ -318,6 +339,9 @@
     </module>
 
     <module name="com.google.protobuf">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact=":protobuf-java-util" />
         <include artifact=":protobuf-java" />
         <dependencies>
@@ -352,6 +376,9 @@
     </module>
 
     <module name="com.netflix.archaius.archaius-core">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="com.netflix.archaius:archaius-core" />
         <apply-to-dependencies skip="true">
             <include module="com.google.code.findbugs" />
@@ -381,6 +408,9 @@
     </module>
 
     <module name="com.netflix.netflix-commons.netflix-statistics">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="com.netflix.netflix-commons:netflix-statistics" />
         <apply-to-dependencies skip="true">
             <include module="com.google.code.findbugs" />
@@ -391,6 +421,9 @@
     </module>
 
     <module name="com.netflix.ribbon.ribbon-core">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="com.netflix.ribbon:ribbon-core" />
         <apply-to-dependencies skip="true">
             <include module="com.google.code.findbugs" />
@@ -404,6 +437,9 @@
     </module>
 
     <module name="com.netflix.ribbon.ribbon-loadbalancer">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="com.netflix.ribbon:ribbon-loadbalancer" />
         <dependencies>
             <module name="com.google.guava" />
@@ -416,6 +452,9 @@
     </module>
 
     <module name="com.netflix.servo">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="com.netflix.servo:servo-core" />
         <include artifact="com.netflix.servo:servo-internal" />
         <apply-to-dependencies skip="true">
@@ -446,6 +485,9 @@
     </module>
 
     <module name="com.ning.lzf">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="com.ning:compress-lzf" />
         <dependencies>
             <module name="sun.jdk">
@@ -597,6 +639,25 @@
                     <include path="sun/misc" />
                 </imports>
             </module>
+        </dependencies>
+    </module>
+
+    <module name="io.grpc">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.auth0:java-jwt"/>
+        <include artifact="com.google.instrumentation:instrumentation-api"/>
+        <include artifact="io.grpc:grpc-(.*)"/>
+        <include artifact="io.opencensus:opencensus-api"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs"/>
+            <include module="com.google.errorprone"/>
+            <include module="io.netty.skipped"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="io.netty" slot="4.1"/>
+            <module name="javax.api"/>
         </dependencies>
     </module>
 

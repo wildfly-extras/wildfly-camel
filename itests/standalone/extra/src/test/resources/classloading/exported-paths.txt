@@ -708,6 +708,14 @@ io/fabric8/openshift/client
 io/fabric8/openshift/client/dsl
 io/fabric8/openshift/client/dsl/buildconfig
 io/fabric8/openshift/client/handlers
+io/grpc
+io/grpc/auth
+io/grpc/inprocess
+io/grpc/netty
+io/grpc/protobuf
+io/grpc/protobuf/lite
+io/grpc/stub
+io/grpc/util
 io/nats
 io/nats/benchmark
 io/nats/client
@@ -986,6 +994,11 @@ org/apache/camel/component/google/drive
 org/apache/camel/component/google/mail
 org/apache/camel/component/google/pubsub
 org/apache/camel/component/google/pubsub/consumer
+org/apache/camel/component/grpc
+org/apache/camel/component/grpc/auth
+org/apache/camel/component/grpc/auth/jwt
+org/apache/camel/component/grpc/client
+org/apache/camel/component/grpc/server
 org/apache/camel/component/gson
 org/apache/camel/component/hbase
 org/apache/camel/component/hbase/converter

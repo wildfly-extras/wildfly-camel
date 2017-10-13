@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.grpc">
+  <resources>
+    <artifact name="${org.apache.camel:camel-grpc}" />
+  </resources>
+  <dependencies>
+    <module name="io.grpc" export="true" services="export">
+      <exports>
+        <exclude path="com/auth0**" />
+        <exclude path="com/google**" />
+        <exclude path="io/grpc/internal**" />
+        <exclude path="io/opencensus**" />
+      </exports>
+    </module>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="com.google.auth.google-auth-library-credentials" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.javassist" />
+  </dependencies>
+</module>
