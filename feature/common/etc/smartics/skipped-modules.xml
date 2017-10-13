@@ -124,6 +124,10 @@
         <include artifact="com.sun.codemodel:codemodel" />
     </module>
 
+    <module name="com.sun.grizzly" skip="true">
+        <include artifact="com.sun.grizzly:(.*)"/>
+    </module>
+
     <module name="com.sun.jersey" skip="true">
         <include artifact="com.sun.jersey:jersey-client" />
         <include artifact="com.sun.jersey:jersey-core"/>
@@ -269,8 +273,21 @@
         <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.jsr305" />
     </module>
 
+    <module name="org.apache.shiro.skipped" skip="true">
+        <include artifact="org.apache.shiro:shiro-web" />
+    </module>
+
     <module name="org.apache.tomcat.embed" skip="true">
         <include artifact="org.apache.tomcat.embed:(.*)" />
+    </module>
+
+    <module name="org.atmosphere.skipped" skip="true">
+        <include artifact="org.atmosphere:atmosphere-compat-jbossweb"/>
+        <include artifact="org.atmosphere:atmosphere-compat-tomcat"/>
+        <include artifact="org.atmosphere:atmosphere-compat-tomcat7"/>
+        <include artifact="org.atmosphere:atmosphere-compat-stubs"/>
+        <include artifact="org.atmosphere:atmosphere-stubs"/>
+        <include artifact="org.atmosphere.jboss.as:jboss-as-websockets"/>
     </module>
 
     <module name="org.codehaus.plexus" skip="true">
@@ -286,6 +303,7 @@
         <include artifact="org.eclipse.jetty:jetty-jmx" />
         <include artifact="org.eclipse.jetty:jetty-servlets" />
         <include artifact="org.eclipse.jetty:jetty-webapp" />
+        <include artifact="org.eclipse.jetty:jetty-websocket" />
         <include artifact="org.eclipse.jetty.orbit:javax.servlet" />
     </module>
 

@@ -102,6 +102,7 @@
 /org/apache/camel/component/ahc-ws/main/camel-ahc-ws-2.20.0.jar
 /org/apache/camel/component/ahc/main/camel-ahc-2.20.0.jar
 /org/apache/camel/component/amqp/main/camel-amqp-2.20.0.jar
+/org/apache/camel/component/atmosphere/websocket/main/camel-atmosphere-websocket-2.20.0.jar
 /org/apache/camel/component/atom/main/camel-atom-2.20.0.jar
 /org/apache/camel/component/avro/main/camel-avro-2.20.0.jar
 /org/apache/camel/component/aws/main/camel-aws-2.20.0.jar
@@ -461,6 +462,7 @@
 /org/asynchttpclient/main/netty-reactive-streams-1.0.8.jar
 /org/asynchttpclient/main/netty-resolver-2.0.36.jar
 /org/asynchttpclient/main/netty-resolver-dns-2.0.36.jar
+/org/atmosphere/main/atmosphere-runtime-2.4.14.jar
 /org/beanshell/main/bsh-2.0b6.jar
 /org/bitbucket/jose4j/main/jose4j-0.4.4.jar
 /org/bouncycastle/ext/main/bcpg-jdk15on-1.57.jar

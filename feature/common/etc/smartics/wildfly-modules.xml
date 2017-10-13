@@ -103,10 +103,11 @@
     </module>
 
     <module name="javax.enterprise.api" skip="true">
-        <include artifact=":geronimo-jcdi_1.0_spec" />
         <include artifact=":cdi-api" />
-        <include artifact="org.apache.openejb:javaee-api" />
+        <include artifact=":geronimo-jcdi_1.0_spec" />
         <include artifact=":geronimo-ejb_3.0_spec" />
+        <include artifact="javax:javaee-api" />
+        <include artifact="org.apache.openejb:javaee-api" />
     </module>
 
     <module name="javax.inject.api" skip="true">
@@ -157,6 +158,10 @@
         <include artifact=":jsp-api" />
     </module>
 
+    <module name="javax.servlet:jstl" skip="true">
+        <include artifact=":jstl" />
+    </module>
+
     <module name="javax.transaction.api" skip="true">
         <include artifact=":geronimo-jta_1.0.1B_spec" />
         <include artifact=":geronimo-jta_1.1_spec" />
@@ -169,8 +174,12 @@
         <include artifact=":validation-api" />
     </module>
 
+    <module name="javax.websocket.api" skip="true">
+        <include artifact="javax.websocket:javax.websocket-api"/>
+    </module>
+
     <module name="javax.wsdl4j.api" skip="true">
-        <include artifact="wsdl4j:wsdl4j" />
+        <include artifact="wsdl4j:wsdl4j"/>
     </module>
 
     <module name="javax.ws.rs.api" skip="true">
@@ -425,6 +434,10 @@
 
     <module name="org.jboss.modules" skip="true">
         <include artifact=":jboss-modules" />
+    </module>
+
+    <module name="org.jboss.vfs" skip="true">
+        <include artifact=":jboss-vfs"/>
     </module>
 
     <module name="org.jboss.xnio" skip="true">

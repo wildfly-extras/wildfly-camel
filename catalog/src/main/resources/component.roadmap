@@ -3,6 +3,7 @@ ahc
 ahc-ws
 ahc-wss
 amqp
+atmosphere-websocket
 atom
 avro
 aws-cw
@@ -189,7 +190,6 @@ zookeeper
 apns                                	#1982
 asterisk                            	#1983
 atmos                               	#1984
-atmosphere-websocket                	#1406
 azure-blob                          	#1818
 azure-queue                         	#1819
 beanstalk                           	#1419

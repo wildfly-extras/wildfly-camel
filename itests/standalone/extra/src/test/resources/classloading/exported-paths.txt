@@ -877,6 +877,8 @@ org/apache/camel/component/ahc
 org/apache/camel/component/ahc/helper
 org/apache/camel/component/ahc/ws
 org/apache/camel/component/amqp
+org/apache/camel/component/atmosphere
+org/apache/camel/component/atmosphere/websocket
 org/apache/camel/component/atom
 org/apache/camel/component/avro
 org/apache/camel/component/aws

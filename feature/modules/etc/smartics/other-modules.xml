@@ -1050,7 +1050,6 @@
         </properties>
         <include artifact="org.apache.qpid:proton-(.*)" />
     </module>
-
     <module name="org.apache.sshd">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1193,6 +1192,31 @@
         </exports>
     </module>
 
+    <module name="org.atmosphere">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.atmosphere:atmosphere-runtime"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.grizzly"/>
+            <include module="org.apache.camel.component.shiro" />
+            <include module="org.apache.shiro.skipped" />
+            <include module="org.atmosphere.skipped"/>
+            <include module="org.eclipse.jetty"/>
+            <include module="org.eclipse.jetty.server"/>
+            <include module="org.eclipse.jetty.skipped"/>
+            <include module="org.eclipse.jetty.websocket"/>
+            <include module="org.mortbay.jetty"/>
+            <include module="org.jboss.vfs"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.annotation.api"/>
+            <module name="javax.enterprise.api"/>
+            <module name="javax.servlet.api"/>
+            <module name="javax.websocket.api"/>
+        </dependencies>
+    </module>
+
     <module name="org.beanshell">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1265,7 +1289,6 @@
         <include artifact="org.eclipse.jetty:jetty-util-ajax" />
         <include artifact="org.eclipse.jetty:jetty-security" />
         <include artifact="org.eclipse.jetty:jetty-servlet" />
-        <include artifact="org.eclipse.jetty:jetty-websocket" />
         <apply-to-dependencies skip="true">
             <include module="org.eclipse.jetty.skipped" />
             <include module="org.mortbay.jetty" />

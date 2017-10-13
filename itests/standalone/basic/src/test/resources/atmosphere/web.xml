@@ -1,0 +1,15 @@
+<web-app>
+
+    <servlet>
+        <servlet-name>CamelWsServlet</servlet-name>
+        <display-name>Camel WebSocket Transport Servlet</display-name>
+        <servlet-class>org.apache.camel.component.atmosphere.websocket.CamelWebSocketServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CamelWsServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>
