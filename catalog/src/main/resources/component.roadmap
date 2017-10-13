@@ -61,6 +61,7 @@ ftps
 geocoder
 git
 github
+google-calendar
 google-drive
 google-mail
 google-pubsub
@@ -209,7 +210,6 @@ elasticsearch5                                  #1824
 etcd                                            #1827
 flink                                           #1430
 ganglia                                         #1998
-google-calendar                                 #1437
 guava-eventbus                                  #2002
 hipchat                                         #2003
 jclouds                                         #1450

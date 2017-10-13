@@ -1,0 +1,4 @@
+### camel-google-calendar
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-google-calendar/src/main/docs/google-calendar-component.adoc[google-calendar,window=_blank] component provides access to http://calendar.google.com/[Google Calendar] via
+the https://developers.google.com/google-apps/calendar/v3/reference/[Google Calendar API v3].
