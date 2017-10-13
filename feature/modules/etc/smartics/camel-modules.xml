@@ -1393,6 +1393,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="javax.api"/>
             <module name="javax.ws.rs.api"/>
             <module name="org.apache.commons.lang3"/>
             <module name="org.slf4j" />
