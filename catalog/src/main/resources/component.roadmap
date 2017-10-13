@@ -31,6 +31,7 @@ cometd
 cometds
 context                                         #deprecated
 controlbus
+couchbase
 couchdb
 cql
 crypto
@@ -199,7 +200,6 @@ chunk                                           #1987
 cm-sms                                          #1988
 cmis                                            #1989
 consul                                          #1992
-couchbase                                       #1821
 digitalocean                                    #1822
 docker                                          #1424
 drill                                           #1823

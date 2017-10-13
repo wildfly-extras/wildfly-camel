@@ -84,6 +84,7 @@
 /net/sourceforge/htmlunit/main/htmlunit-2.24.jar
 /net/sourceforge/htmlunit/main/htmlunit-core-js-2.23.jar
 /net/sourceforge/htmlunit/main/neko-htmlunit-2.24.jar
+/net/spy/spymemcached/main/spymemcached-2.12.3.jar
 /ognl/main/ognl-3.1.12.jar
 /org/antlr/runtime/main/antlr-runtime-3.5.2.jar
 /org/antlr/st4/main/ST4-4.0.8.jar
@@ -130,6 +131,8 @@
 /org/apache/camel/component/cometd/main/camel-cometd-2.20.0.jar
 /org/apache/camel/component/connector/main/camel-connector-2.20.0.jar
 /org/apache/camel/component/context/main/camel-context-2.20.0.jar
+/org/apache/camel/component/couchbase/main/camel-couchbase-2.20.0.jar
+/org/apache/camel/component/couchbase/main/couchbase-client-1.4.13.jar
 /org/apache/camel/component/couchdb/main/camel-couchdb-2.20.0.jar
 /org/apache/camel/component/couchdb/main/lightcouch-0.1.8.jar
 /org/apache/camel/component/crypto/main/camel-crypto-2.20.0.jar

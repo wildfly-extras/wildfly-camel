@@ -16,6 +16,15 @@ org/apache/camel/api/management
 org/apache/camel/api/management/mbean
 org/apache/camel/builder
 org/apache/camel/builder/xml
+org/apache/camel/catalog
+org/apache/camel/catalog/archetypes
+org/apache/camel/catalog/components
+org/apache/camel/catalog/dataformats
+org/apache/camel/catalog/docs
+org/apache/camel/catalog/languages
+org/apache/camel/catalog/models
+org/apache/camel/catalog/others
+org/apache/camel/catalog/schemas
 org/apache/camel/cloud
 org/apache/camel/com
 org/apache/camel/com/github
@@ -524,6 +533,7 @@ com/braintreegateway/util
 com/codahale
 com/codahale/metrics
 com/codahale/metrics/json
+com/couchbase
 com/datastax
 com/datastax/driver
 com/datastax/driver/core
@@ -904,7 +914,9 @@ org/apache/camel/component/box/api
 org/apache/camel/component/braintree
 org/apache/camel/component/cassandra
 org/apache/camel/component/cometd
+org/apache/camel/component/connector
 org/apache/camel/component/context
+org/apache/camel/component/couchbase
 org/apache/camel/component/couchdb
 org/apache/camel/component/crypto
 org/apache/camel/component/crypto/processor

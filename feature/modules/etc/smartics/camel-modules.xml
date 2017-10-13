@@ -392,6 +392,23 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.couchbase">
+        <include artifact="org.apache.camel:camel-couchbase"/>
+        <include artifact="com.couchbase.client:couchbase-client"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.httpcomponents"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="com/couchbase/client**"/>
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.couchdb">
         <include artifact="org.apache.camel:camel-couchdb" />
         <include artifact="org.lightcouch:lightcouch" />

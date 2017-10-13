@@ -37,6 +37,21 @@
         <property name="autoStartContainers">[none]</property>
         <property name="definitionFormat">CUBE</property>
         <property name="dockerContainers">
+            couchbase:
+                image: couchbase:community-3.1.3
+                portBindings: [
+                    8091->8091/tcp,
+                    8092->8092/tcp,
+                    8093->8093/tcp,
+                    8094->8094/tcp,
+                    11210->11210/tcp
+                ]
+                await:
+                    strategy: http
+                    url: http://dockerHost:8091/index.html
+                    responseCode: 200
+                    iterations: 30
+                    sleepPollingTime: 500 ms
             couchdb:
                 image: couchdb:1.6.1
                 env: [

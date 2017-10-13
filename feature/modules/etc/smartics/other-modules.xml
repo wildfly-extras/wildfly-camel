@@ -1553,6 +1553,16 @@
         <include artifact="org.scala-lang.modules:(.*)" />
     </module>
 
+    <module name="net.spy.spymemcached">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="net.spy:spymemcached"/>
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
     <module name="xmlenc">
         <properties>
             <property name="jboss.api" value="private"/>

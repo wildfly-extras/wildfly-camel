@@ -4,6 +4,7 @@
     ^com/bazaarvoice(.*)
 	^com/box(.*)
 	^com/braintreegateway(.*)
+	^com/couchbase(.*)
 	^com/datastax(.*)
 	^com/dropbox/core(.*)
 	^com/codahale(.*)

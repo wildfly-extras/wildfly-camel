@@ -1,0 +1,3 @@
+### camel-couchbase
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-influxdb/src/main/docs/couchbase-component.adoc[couchbase,window=_blank] component allows you to treat https://www.couchbase.com/[CouchBase,window=_blank] instances as a producer or consumer of messages.
