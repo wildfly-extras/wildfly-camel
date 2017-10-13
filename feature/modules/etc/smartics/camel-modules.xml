@@ -2299,6 +2299,9 @@
         <include artifact="org.optaplanner:optaplanner-core" />
         <include artifact="org.drools:drools-compiler" />
         <include artifact="org.drools:drools-core" />
+        <include artifact="org.kie:kie-api" />
+        <include artifact="org.kie:kie-internal" />
+        <include artifact="org.uberfire:uberfire-maven-support" />
         <apply-to-dependencies skip="true">
             <include module="antlr" />
             <include module="com.sun.codemodel" />
@@ -2315,6 +2318,7 @@
             <exclude path="org/appformer**" />
             <exclude path="org/drools**" />
             <exclude path="org/optaplanner/core/impl**" />
+            <exclude path="org/kie**" />
         </exports>
     </module>
 
@@ -2873,6 +2877,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="javax.api"/>
             <module name="org.slf4j"/>
         </dependencies>
         <exports>

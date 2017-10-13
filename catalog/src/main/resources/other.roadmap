@@ -17,6 +17,7 @@ zipkin
 [planned]
 
 [undecided]
+spring-dm
 
 [rejected]
 bam                                 #deprecated

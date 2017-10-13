@@ -8,7 +8,7 @@ bindy-csv
 bindy-fixed
 bindy-kvp
 boon
-castor
+castor              #deprecated
 crypto
 csv
 flatpack

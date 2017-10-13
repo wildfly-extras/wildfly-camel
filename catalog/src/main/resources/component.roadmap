@@ -265,6 +265,7 @@ tika                                                #1850
 websocket                                           #1479
 
 [undecided]
+elasticsearch5-rest
 ganglia                                             #1998 No test coverage for ganglia in camel
 pgevent                                             #2021 No test coverage for pgevent in camel
 solr                                                #2030 No test coverage for solr in camel
