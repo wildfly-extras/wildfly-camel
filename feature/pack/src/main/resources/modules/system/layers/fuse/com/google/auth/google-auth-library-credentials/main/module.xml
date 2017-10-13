@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.google.auth.google-auth-library-credentials">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${com.google.auth:google-auth-library-credentials}" />
+    <artifact name="${com.google.auth:google-auth-library-oauth2-http}" />
+  </resources>
+  <dependencies>
+    <module name="com.google.guava" />
+    <module name="com.google.http-client.google-http-client" />
+  </dependencies>
+</module>

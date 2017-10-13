@@ -25,6 +25,9 @@
 /com/fasterxml/jackson/module/jsonSchema/main/jackson-module-jsonSchema-2.7.4.jar
 /com/github/generex/main/generex-1.0.1.jar
 /com/google/api-client/google-api-client/main/google-api-client-1.22.0.jar
+/com/google/api/grpc/proto-google-common-protos/main/proto-google-common-protos-0.1.9.jar
+/com/google/auth/google-auth-library-credentials/main/google-auth-library-credentials-0.7.1.jar
+/com/google/auth/google-auth-library-credentials/main/google-auth-library-oauth2-http-0.7.1.jar
 /com/google/code/gson/main/gson-2.8.1.jar
 /com/google/code/json-simple/main/json-simple-1.1.1.jar
 /com/google/guava/14.0/guava-14.0.1.jar
@@ -66,6 +69,16 @@
 /io/fabric8/openshift/client/main/openshift-client-2.6.3.jar
 /io/fabric8/zjsonpatch/main/zjsonpatch-0.3.0.jar
 /io/fastjson/boon/main/boon-0.34.jar
+/io/grpc/main/grpc-auth-1.6.1.jar
+/io/grpc/main/grpc-context-1.6.1.jar
+/io/grpc/main/grpc-core-1.6.1.jar
+/io/grpc/main/grpc-netty-1.6.1.jar
+/io/grpc/main/grpc-protobuf-1.6.1.jar
+/io/grpc/main/grpc-protobuf-lite-1.6.1.jar
+/io/grpc/main/grpc-stub-1.6.1.jar
+/io/grpc/main/instrumentation-api-0.4.3.jar
+/io/grpc/main/java-jwt-3.2.0.jar
+/io/grpc/main/opencensus-api-0.5.1.jar
 /io/netty/3.10/netty-3.10.6.Final.jar
 /io/netty/4.1/netty-all-4.1.16.Final.jar
 /io/opentracing/main/opentracing-api-0.30.0.jar
@@ -175,6 +188,7 @@
 /org/apache/camel/component/google/pubsub/main/camel-google-pubsub-2.20.0.jar
 /org/apache/camel/component/google/pubsub/main/google-api-services-pubsub-v1-rev12-1.22.0.jar
 /org/apache/camel/component/groovy/main/camel-groovy-2.20.0.jar
+/org/apache/camel/component/grpc/main/camel-grpc-2.20.0.jar
 /org/apache/camel/component/gson/main/camel-gson-2.20.0.jar
 /org/apache/camel/component/hbase/main/camel-hbase-2.20.0.jar
 /org/apache/camel/component/hdfs2/main/camel-hdfs2-2.20.0.jar

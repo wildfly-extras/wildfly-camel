@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="io.grpc">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${io.grpc:grpc-auth}" />
+    <artifact name="${io.grpc:grpc-context}" />
+    <artifact name="${io.grpc:grpc-core}" />
+    <artifact name="${io.grpc:grpc-netty}" />
+    <artifact name="${io.grpc:grpc-protobuf}" />
+    <artifact name="${io.grpc:grpc-protobuf-lite}" />
+    <artifact name="${io.grpc:grpc-stub}" />
+    <artifact name="${com.google.instrumentation:instrumentation-api}" />
+    <artifact name="${com.auth0:java-jwt}" />
+    <artifact name="${io.opencensus:opencensus-api}" />
+  </resources>
+  <dependencies>
+    <module name="io.netty" slot="4.1" />
+    <module name="javax.api" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.google.api.grpc.proto-google-common-protos" />
+    <module name="com.google.auth.google-auth-library-credentials" />
+    <module name="com.google.guava" />
+    <module name="com.google.protobuf" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.bouncycastle" />
+  </dependencies>
+</module>

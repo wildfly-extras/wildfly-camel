@@ -128,6 +128,12 @@
             <artifactId>hadoop-hdfs</artifactId>
             <version>${version.camel.hadoop2}</version>
             <type>test-jar</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.protobuf</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.qpid</groupId>

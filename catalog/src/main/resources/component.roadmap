@@ -64,6 +64,7 @@ github
 google-drive
 google-mail
 google-pubsub
+grpc
 hbase
 hdfs2
 http4
@@ -209,7 +210,6 @@ etcd                                            #1827
 flink                                           #1430
 ganglia                                         #1998
 google-calendar                                 #1437
-grpc                                            #1826
 guava-eventbus                                  #2002
 hipchat                                         #2003
 jclouds                                         #1450

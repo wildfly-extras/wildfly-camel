@@ -879,6 +879,27 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.grpc">
+        <include artifact="org.apache.camel:camel-grpc"/>
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped"/>
+            <include module="org.apache.camel.apt"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="io.grpc" export="true" services="export">
+                <exports>
+                    <exclude path="com/auth0**"/>
+                    <exclude path="com/google**"/>
+                    <exclude path="io/grpc/internal**"/>
+                    <exclude path="io/opencensus**"/>
+                </exports>
+            </module>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.gson">
         <include artifact="org.apache.camel:camel-gson" />
         <apply-to-dependencies skip="true">

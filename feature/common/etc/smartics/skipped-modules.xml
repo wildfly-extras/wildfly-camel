@@ -81,6 +81,10 @@
         <include artifact="com.google.auto.value:auto-value" />
     </module>
 
+    <module name="com.google.errorprone" skip="true">
+        <include artifact="com.google.errorprone:error_prone_annotations" />
+    </module>
+
     <module name="com.google.code.findbugs" skip="true">
         <include artifact="com.google.code.findbugs:" />
         <include artifact="com.github.stephenc.findbugs:" />
@@ -168,6 +172,7 @@
         <include artifact="io.netty:netty-handler-proxy" />
         <include artifact="io.netty:netty-resolver" />
         <include artifact="io.netty:netty-resolver-dns" />
+        <include artifact="io.netty:netty-tcnative-boringssl-static" />
         <include artifact="io.netty:netty-transport" />
         <include artifact="io.netty:netty-transport-native-epoll" />
     </module>
