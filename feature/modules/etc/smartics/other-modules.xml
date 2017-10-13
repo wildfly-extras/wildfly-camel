@@ -1952,19 +1952,6 @@
         <include artifact="org.jxmpp:jxmpp-util-cache" />
     </module>
 
-    <module name="org.kie">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.kie:kie-internal" />
-        <include artifact="org.kie:kie-api" />
-        <include artifact="org.uberfire:uberfire-maven-support" />
-        <apply-to-dependencies skip="true">
-            <include module="com.sun.xml.bind.jaxb.xjc" />
-            <include module="org.osgi.compendium" />
-        </apply-to-dependencies>
-    </module>
-
     <module name="org.osgi.core">
         <properties>
             <property name="jboss.api" value="private"/>

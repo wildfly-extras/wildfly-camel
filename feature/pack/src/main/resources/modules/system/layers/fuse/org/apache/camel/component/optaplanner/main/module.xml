@@ -4,7 +4,10 @@
     <artifact name="${org.apache.camel:camel-optaplanner}" />
     <artifact name="${org.drools:drools-compiler}" />
     <artifact name="${org.drools:drools-core}" />
+    <artifact name="${org.kie:kie-api}" />
+    <artifact name="${org.kie:kie-internal}" />
     <artifact name="${org.optaplanner:optaplanner-core}" />
+    <artifact name="${org.uberfire:uberfire-maven-support}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
@@ -13,7 +16,9 @@
     <module name="com.google.protobuf" />
     <module name="com.thoughtworks.xstream" />
     <module name="javax.activation.api" />
+    <module name="javax.enterprise.api" />
     <module name="javax.inject.api" />
+    <module name="javax.jms.api" />
     <module name="javax.xml.bind.api" />
     <module name="javax.xml.stream.api" />
     <module name="org.antlr.runtime" />
@@ -22,7 +27,6 @@
     <module name="org.apache.commons.lang3" />
     <module name="org.apache.commons.math3" />
     <module name="org.eclipse.jdt.ecj" />
-    <module name="org.kie" />
     <module name="org.mvel.mvel2" />
     <module name="org.osgi.core" />
     <module name="org.reflections" />
@@ -31,5 +35,6 @@
     <exclude path="org/appformer**" />
     <exclude path="org/drools**" />
     <exclude path="org/optaplanner/core/impl**" />
+    <exclude path="org/kie**" />
   </exports>
 </module>
