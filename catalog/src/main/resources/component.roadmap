@@ -185,6 +185,7 @@ vm
 weather
 xmlrpc
 xmlsecurity
+xmpp
 xquery
 xslt
 yammer
@@ -261,7 +262,6 @@ thrift                                              #2183
 tika                                                #1850
 twilio                                              #2130
 websocket                                           #1479
-xmpp                                                #2037
 zookeeper-master                                    #1852
 
 [undecided]

@@ -220,6 +220,7 @@
         <module name="org.apache.camel.component.xmljson" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.xmlrpc" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.xmlsecurity" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.xmpp" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.xstream" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.yammer" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.zendesk" export="true" services="export" optional="true" />

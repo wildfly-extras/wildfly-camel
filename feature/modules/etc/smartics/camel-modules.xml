@@ -1217,7 +1217,6 @@
     <module name="org.apache.camel.component.jibx">
         <include artifact="org.apache.camel:camel-jibx" />
         <include artifact="org.jibx:jibx-run" />
-        <include artifact="xpp3:xpp3" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
@@ -1228,7 +1227,6 @@
         <exports>
             <exclude path="javax/xml" />
             <exclude path="javax/xml/namespace" />
-            <exclude path="org/xmlpull**" />
         </exports>
     </module>
 
@@ -2566,6 +2564,25 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.camel.component.xmpp">
+        <include artifact="org.apache.camel:camel-xmpp" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.igniterealtime" export="true">
+                <exports>
+                    <exclude path="org/jivesoftware/smack/debugger**"/>
+                    <exclude path="org/jivesoftware/smack/roster**"/>
+                    <exclude path="org/jivesoftware/smackx**"/>
+                </exports>
+            </module>
+            <module name="org.jxmpp" export="true"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>

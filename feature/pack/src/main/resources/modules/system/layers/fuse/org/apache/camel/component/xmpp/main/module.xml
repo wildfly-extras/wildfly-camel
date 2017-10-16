@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.xmpp">
+  <resources>
+    <artifact name="${org.apache.camel:camel-xmpp}" />
+  </resources>
+  <dependencies>
+    <module name="org.igniterealtime" export="true">
+      <exports>
+        <exclude path="org/jivesoftware/smack/debugger**" />
+        <exclude path="org/jivesoftware/smack/roster**" />
+        <exclude path="org/jivesoftware/smackx**" />
+      </exports>
+    </module>
+    <module name="org.jxmpp" export="true" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>

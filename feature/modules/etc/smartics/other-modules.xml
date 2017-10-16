@@ -1465,6 +1465,22 @@
         </dependencies>
     </module>
 
+    <module name="org.igniterealtime">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.igniterealtime.smack:smack-core" />
+        <include artifact="org.igniterealtime.smack:smack-extensions" />
+        <include artifact="org.igniterealtime.smack:smack-im" />
+        <include artifact="org.igniterealtime.smack:smack-java7" />
+        <include artifact="org.igniterealtime.smack:smack-resolver-javax" />
+        <include artifact="org.igniterealtime.smack:smack-sasl-javax" />
+        <include artifact="org.igniterealtime.smack:smack-tcp" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
     <module name="org.infinispan.jcache" >
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1508,6 +1524,15 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.json4s:json4s-(.*)" />
+    </module>
+
+    <module name="org.jxmpp">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.jxmpp:jxmpp-core" />
+        <include artifact="org.jxmpp:jxmpp-jid" />
+        <include artifact="org.jxmpp:jxmpp-util-cache" />
     </module>
 
     <module name="org.osgi.core">
@@ -1629,5 +1654,12 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="xmlenc:xmlenc" />
+    </module>
+
+    <module name="xpp3">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="xpp3:xpp3" />
     </module>
 </modules>

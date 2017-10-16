@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.jxmpp">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.jxmpp:jxmpp-core}" />
+    <artifact name="${org.jxmpp:jxmpp-jid}" />
+    <artifact name="${org.jxmpp:jxmpp-util-cache}" />
+  </resources>
+  <dependencies />
+</module>

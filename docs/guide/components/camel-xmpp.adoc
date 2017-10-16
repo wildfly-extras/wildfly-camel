@@ -1,0 +1,3 @@
+### camel-xmpp
+
+The http://camel.apache.org/xmpp.html[XMPP,window=_blank] component provides the capability to produce and consume https://xmpp.org/[XMPP,window=_blank] (Jabber) messages.

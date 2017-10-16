@@ -3,17 +3,16 @@
   <resources>
     <artifact name="${org.apache.camel:camel-jibx}" />
     <artifact name="${org.jibx:jibx-run}" />
-    <artifact name="${xpp3:xpp3}" />
   </resources>
   <dependencies>
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.joda.time" />
+    <module name="xpp3" />
   </dependencies>
   <exports>
     <exclude path="javax/xml" />
     <exclude path="javax/xml/namespace" />
-    <exclude path="org/xmlpull**" />
   </exports>
 </module>
