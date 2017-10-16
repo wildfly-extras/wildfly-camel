@@ -9,10 +9,10 @@ javaScript
 jsonpath
 mvel
 ognl
-php                             #deprecated
-python                          #deprecated
+php                                 #deprecated
+python                              #deprecated
 ref
-ruby                            #deprecated
+ruby                                #deprecated
 simple
 spel
 terser
@@ -26,7 +26,7 @@ xtokenize
 [undecided]
 
 [rejected]
-el                              #deprecated
-jxpath                          #deprecated
-sql                             #deprecated
+el                                  #deprecated
+jxpath                              #deprecated
+sql                                 #deprecated
 

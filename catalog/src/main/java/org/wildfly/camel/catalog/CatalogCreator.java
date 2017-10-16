@@ -257,7 +257,7 @@ public final class CatalogCreator {
                     Item item = roadmap.item(entry);
                     maxlength = Math.max(maxlength, item.name.length());
                 }
-                maxlength = (maxlength / 16) * 16 + 16;
+                maxlength = (maxlength / 16) * 16 + 20;
                 for (State state : State.values()) {
                     pw.println("[" + state + "]");
                     for (String entry : roadmap.sortedNames(state)) {
