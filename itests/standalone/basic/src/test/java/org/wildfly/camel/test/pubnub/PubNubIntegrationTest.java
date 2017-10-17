@@ -122,7 +122,7 @@ public class PubNubIntegrationTest {
             MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
 
             camelctx.startRoute("subscriber");
-            mockEndpoint.expectedMessageCount(1);
+            mockEndpoint.expectedMinimumMessageCount(1);
             mockEndpoint.expectedHeaderReceived(CHANNEL, "subscriberChannel");
             mockEndpoint.assertIsSatisfied();
         } finally {

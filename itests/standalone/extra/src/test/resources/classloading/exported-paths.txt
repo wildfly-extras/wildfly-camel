@@ -966,6 +966,7 @@ org/apache/camel/component/ahc
 org/apache/camel/component/ahc/helper
 org/apache/camel/component/ahc/ws
 org/apache/camel/component/amqp
+org/apache/camel/component/asterisk
 org/apache/camel/component/atmosphere
 org/apache/camel/component/atmosphere/websocket
 org/apache/camel/component/atom
@@ -2016,6 +2017,19 @@ org/apache/zookeeper/txn
 org/apache/zookeeper/util
 org/apache/zookeeper/version
 org/apache/zookeeper/version/util
+org/asteriskjava
+org/asteriskjava/config
+org/asteriskjava/config/dialplan
+org/asteriskjava/fastagi
+org/asteriskjava/fastagi/command
+org/asteriskjava/fastagi/reply
+org/asteriskjava/live
+org/asteriskjava/manager
+org/asteriskjava/manager/action
+org/asteriskjava/manager/event
+org/asteriskjava/manager/response
+org/asteriskjava/tools
+org/asteriskjava/util
 org/asynchttpclient
 org/asynchttpclient/channel
 org/asynchttpclient/config

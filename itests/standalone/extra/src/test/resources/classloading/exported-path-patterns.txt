@@ -82,6 +82,7 @@
 	^org/apache/zookeeper(.*)
     ^org/apache/xmlgraphics(.*)
     ^org/apache/xmlrpc(.*)
+    ^org/asteriskjava(.*)
 	^org/asynchttpclient(.*)
 	^org/bson(.*)
 	^org/codehaus/groovy(.*)
