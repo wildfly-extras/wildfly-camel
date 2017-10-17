@@ -21,6 +21,7 @@ import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -31,24 +32,15 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-@Ignore("[#1689] Enable camel-groups to work with jgroups-4.0")
 public class JGroupsIntegrationTest {
 
     String master;
-    int nominationCount;
-
-    String jgroupsEndpoint = String.format("jgroups:%s?enableViewMessages=true", UUID.randomUUID());
-    CountDownLatch latch = new CountDownLatch(1);
-
-    DefaultCamelContext camelcxt;
 
     @Deployment
     public static JavaArchive createdeployment() throws IOException {
@@ -56,13 +48,15 @@ public class JGroupsIntegrationTest {
         return archive;
     }
 
-    @Before
-    public void setUp() throws Exception {
+    @Test
+    public void testMasterElection() throws Exception {
 
-        class JGroupsRouteBuilder extends RouteBuilder {
-
-            @Override
+        final CountDownLatch latch = new CountDownLatch(1);
+        
+        CamelContext camelcxt = new DefaultCamelContext();
+        camelcxt.addRoutes(new RouteBuilder() {
             public void configure() throws Exception {
+                String jgroupsEndpoint = String.format("jgroups:%s?enableViewMessages=true", UUID.randomUUID());
                 from(jgroupsEndpoint).filter(JGroupsFilters.dropNonCoordinatorViews()).process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
@@ -70,29 +64,19 @@ public class JGroupsIntegrationTest {
                         if (!camelContextName.equals(master)) {
                             master = camelContextName;
                             System.out.println("ELECTED MASTER: " + master);
-                            nominationCount++;
                             latch.countDown();
                         }
                     }
                 });
             }
-        }
-
-        camelcxt = new DefaultCamelContext();
-        camelcxt.setName("firstNode");
-        camelcxt.addRoutes(new JGroupsRouteBuilder());
-    }
-
-    @Test
-    public void testMasterElection() throws Exception {
+        });
 
         camelcxt.start();
-        Assert.assertTrue(latch.await(3, TimeUnit.SECONDS));
-        latch = new CountDownLatch(1);
-        String firstMaster = master;
-
-        Assert.assertEquals(camelcxt.getName(), firstMaster);
-
-        camelcxt.stop();
+        try {
+            Assert.assertTrue(latch.await(3, TimeUnit.SECONDS));
+            Assert.assertEquals(camelcxt.getName(), master);
+        } finally {
+            camelcxt.stop();
+        }
     }
 }

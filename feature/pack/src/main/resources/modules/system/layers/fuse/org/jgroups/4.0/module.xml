@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.jgroups" slot="4.0">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.jgroups:jgroups}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+  </dependencies>
+</module>

@@ -579,6 +579,7 @@
 /org/jbpm/main/kie-remote-common-6.5.0.Final.jar
 /org/jbpm/main/kie-remote-jaxb-6.5.0.Final.jar
 /org/jbpm/main/kie-remote-ws-common-6.5.0.Final.jar
+/org/jgroups/4.0/jgroups-4.0.6.Final.jar
 /org/jxmpp/main/jxmpp-core-0.5.0.jar
 /org/jxmpp/main/jxmpp-jid-0.5.0.jar
 /org/jxmpp/main/jxmpp-util-cache-0.5.0.jar

@@ -314,6 +314,11 @@
                 <version>${version.jboss.gravia}</version>
             </dependency>
             <dependency>
+                <groupId>org.jgroups</groupId>
+                <artifactId>jgroups</artifactId>
+                <version>${version.camel.jgroups}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.osgi</groupId>
                 <artifactId>org.osgi.core</artifactId>
                 <version>${version.osgi}</version>

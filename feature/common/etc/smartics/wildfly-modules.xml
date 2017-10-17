@@ -448,10 +448,6 @@
         <include artifact=":jdom" />
     </module>
 
-    <module name="org.jgroups" skip="true">
-        <include artifact=":jgroups" />
-    </module>
-
     <module name="org.joda.time" skip="true">
         <include artifact=":joda-time" />
     </module>
