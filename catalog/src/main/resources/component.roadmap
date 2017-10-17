@@ -127,6 +127,7 @@ pdf
 pop3
 pop3s
 properties
+pubnub
 quartz2
 quickfix
 rabbitmq
@@ -252,7 +253,6 @@ openstack-keystone                                  #1842
 openstack-neutron                                   #1843
 openstack-nova                                      #1844
 openstack-swift                                     #1845
-pubnub                                              #1846
 restlet                                             #2024
 spark                                               #1469
 spark-rest                                          #1470

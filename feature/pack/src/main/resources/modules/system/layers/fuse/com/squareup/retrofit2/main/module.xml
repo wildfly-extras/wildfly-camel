@@ -4,12 +4,14 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
+    <artifact name="${com.squareup.retrofit2:converter-gson}" />
     <artifact name="${com.squareup.retrofit2:converter-moshi}" />
     <artifact name="${com.squareup.retrofit2:retrofit}" />
   </resources>
   <dependencies>
     <module name="com.squareup.okio" />
     <module name="com.squareup.okhttp3" />
+    <module name="com.google.code.gson" />
     <module name="com.squareup.moshi" />
   </dependencies>
 </module>

@@ -1,0 +1,3 @@
+### camel-pubnub
+
+The The https://github.com/apache/camel/blob/{camel-version}/components/camel-pubnub/src/main/docs/pubnub-component.adoc[PubNub,window=_blank] component allows you to communicate with the https://www.pubnub.com/[PubNub,window=_blank] data stream network for connected devices. This component uses PubNub https://github.com/pubnub/java[java library,window=_blank].
