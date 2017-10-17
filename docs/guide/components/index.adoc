@@ -10,6 +10,8 @@ include::camel-ahc-ws.adoc[]
 
 include::camel-amqp.adoc[]
 
+include::camel-asterisk.adoc[]
+
 include::camel-atomosphere-websocket.adoc[]
 
 include::camel-atom.adoc[]

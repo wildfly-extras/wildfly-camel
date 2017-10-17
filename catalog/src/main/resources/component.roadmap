@@ -3,6 +3,7 @@ ahc
 ahc-ws
 ahc-wss
 amqp
+asterisk
 atmosphere-websocket
 atom
 avro
@@ -197,7 +198,6 @@ zookeeper
 
 [planned]
 apns                                                #1982
-asterisk                                            #1983
 atmos                                               #1984
 atomix-map                                          #2174
 atomix-messaging

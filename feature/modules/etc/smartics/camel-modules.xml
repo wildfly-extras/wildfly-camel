@@ -113,6 +113,25 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.asterisk">
+        <include artifact="org.apache.camel:camel-asterisk"/>
+        <include artifact="org.asteriskjava:asterisk-java"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="org/asteriskjava/fastagi/internal**"/>
+            <exclude path="org/asteriskjava/live/internal**"/>
+            <exclude path="org/asteriskjava/manager/internal**"/>
+            <exclude path="org/asteriskjava/util/internal**"/>
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.atmosphere.websocket">
         <include artifact="org.apache.camel:camel-atmosphere-websocket"/>
         <apply-to-dependencies skip="true">

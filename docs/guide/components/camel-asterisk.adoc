@@ -1,0 +1,3 @@
+### camel-asterisk
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-asterisk/src/main/docs/asterisk-component.adoc[asterisk,window=_blank] component allows you to interface with an http://www.asterisk.org/[Asterisk,window=_blank] PBX Server using https://asterisk-java.org/[asterisk-java,window=_blank].
