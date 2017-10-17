@@ -119,6 +119,8 @@
 /org/apache/camel/component/ahc-ws/main/camel-ahc-ws-2.20.0.jar
 /org/apache/camel/component/ahc/main/camel-ahc-2.20.0.jar
 /org/apache/camel/component/amqp/main/camel-amqp-2.20.0.jar
+/org/apache/camel/component/asterisk/main/asterisk-java-1.0.0-final.jar
+/org/apache/camel/component/asterisk/main/camel-asterisk-2.20.0.jar
 /org/apache/camel/component/atmosphere/websocket/main/camel-atmosphere-websocket-2.20.0.jar
 /org/apache/camel/component/atom/main/camel-atom-2.20.0.jar
 /org/apache/camel/component/avro/main/camel-avro-2.20.0.jar
