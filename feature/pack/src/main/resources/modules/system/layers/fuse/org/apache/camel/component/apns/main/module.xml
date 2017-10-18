@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.apns">
+  <resources>
+    <artifact name="${com.notnoop.apns:apns}" />
+    <artifact name="${org.apache.camel:camel-apns}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.httpclient" />
+    <module name="org.codehaus.jackson.jackson-core-asl" />
+    <module name="org.codehaus.jackson.jackson-mapper-asl" />
+  </dependencies>
+  <exports>
+    <exclude path="com/notnoop" />
+    <exclude path="com/notnoop/apns/internal**" />
+  </exports>
+</module>

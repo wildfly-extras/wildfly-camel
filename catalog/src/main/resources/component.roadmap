@@ -3,6 +3,7 @@ ahc
 ahc-ws
 ahc-wss
 amqp
+apns
 asterisk
 atmosphere-websocket
 atom
@@ -199,7 +200,6 @@ zendesk
 zookeeper
 
 [planned]
-apns                                                #1982
 atmos                                               #1984
 atomix-map                                          #2174
 atomix-messaging

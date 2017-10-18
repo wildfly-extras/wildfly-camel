@@ -63,7 +63,7 @@ public class WildFlyRuntimeProviderTest {
         Assert.assertTrue(names.contains("ejb"));
 
         // Test rejected
-        Assert.assertFalse(names.contains("apns"));
+        Assert.assertFalse(names.contains("grape"));
     }
 
     @Test

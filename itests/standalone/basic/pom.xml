@@ -199,6 +199,12 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>com.notnoop.apns</groupId>
+            <artifactId>apns</artifactId>
+            <version>${version.camel.java.apns}</version>
+            <type>test-jar</type>
+        </dependency>
+        <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-undertow</artifactId>
         </dependency>

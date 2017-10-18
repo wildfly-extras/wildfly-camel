@@ -672,6 +672,8 @@ com/ning/compress/lzf
 com/ning/compress/lzf/impl
 com/ning/compress/lzf/parallel
 com/ning/compress/lzf/util
+com/notnoop/apns
+com/notnoop/exceptions
 com/opengamma/elsql
 com/pubnub
 com/pubnub/api
@@ -966,6 +968,10 @@ org/apache/camel/component/ahc
 org/apache/camel/component/ahc/helper
 org/apache/camel/component/ahc/ws
 org/apache/camel/component/amqp
+org/apache/camel/component/apns
+org/apache/camel/component/apns/factory
+org/apache/camel/component/apns/model
+org/apache/camel/component/apns/util
 org/apache/camel/component/asterisk
 org/apache/camel/component/atmosphere
 org/apache/camel/component/atmosphere/websocket

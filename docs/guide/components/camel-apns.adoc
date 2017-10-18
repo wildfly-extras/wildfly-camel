@@ -1,0 +1,3 @@
+### camel-apns
+
+The http://camel.apache.org/apns.html[apns,window=_blank] component is used for sending notifications to iOS devices. The apns components use https://github.com/notnoop/java-apns[javapns,window=_blank] library.

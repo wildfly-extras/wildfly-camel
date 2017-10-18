@@ -23,6 +23,7 @@
     ^com/lmax/disruptor(.*)
 	^com/mongodb(.*)
 	^com/ning/compress(.*)
+	^com/notnoop(.*)
     ^com/opengamma(.*)
     ^com/pubnub(.*)
     ^com/rabbitmq(.*)

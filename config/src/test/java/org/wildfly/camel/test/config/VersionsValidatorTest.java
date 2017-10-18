@@ -51,6 +51,7 @@ public class VersionsValidatorTest {
         wfcRoot = getRootNode("wildfly-camel");
         wfRoot = getRootNode("wildfly-parent");
 
+        mapping.put("version.camel.java.apns", "java-apns-version");
         mapping.put("version.camel.jgroups", "jgroups-version");
         mapping.put("version.camel.lucene3", "lucene3-version");
         mapping.put("version.camel.lucene5", "lucene-version");
