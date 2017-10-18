@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.rest.subA;
+package org.wildfly.camel.test.rest.dsl.subA;
 
 import java.io.IOException;
 

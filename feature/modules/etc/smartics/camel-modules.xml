@@ -2559,6 +2559,18 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.thrift">
+        <include artifact="org.apache.camel:camel-thrift" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.apache.thrift" export="true"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.twitter">
         <include artifact="org.apache.camel:camel-twitter" />
         <include artifact=":twitter4j-core" />
@@ -2786,7 +2798,6 @@
 
     <module name="org.apache.camel.component.zipkin">
         <include artifact="org.apache.camel:camel-zipkin" />
-        <include artifact="org.apache.thrift:libthrift" />
         <include artifact="io.zipkin.java:zipkin" />
         <include artifact="io.zipkin.brave:brave-core" />
         <include artifact="io.zipkin.brave:brave-spancollector-scribe" />
@@ -2806,7 +2817,6 @@
             <exclude path="com/github/kristofa" />
             <exclude path="com/github/kristofa/brave/internal**" />
             <exclude path="com/twitter**" />
-            <exclude path="org/apache/thrift**" />
             <exclude path="zipkin/**" />
         </exports>
     </module>

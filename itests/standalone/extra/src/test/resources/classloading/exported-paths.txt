@@ -1289,6 +1289,9 @@ org/apache/camel/component/telegram
 org/apache/camel/component/telegram/model
 org/apache/camel/component/telegram/service
 org/apache/camel/component/telegram/util
+org/apache/camel/component/thrift
+org/apache/camel/component/thrift/client
+org/apache/camel/component/thrift/server
 org/apache/camel/component/twitter
 org/apache/camel/component/twitter/consumer
 org/apache/camel/component/twitter/data
@@ -1360,6 +1363,7 @@ org/apache/camel/dataformat/soap
 org/apache/camel/dataformat/soap/name
 org/apache/camel/dataformat/tagsoup
 org/apache/camel/dataformat/tarfile
+org/apache/camel/dataformat/thrift
 org/apache/camel/dataformat/univocity
 org/apache/camel/dataformat/xmljson
 org/apache/camel/dataformat/xmljson/converters
@@ -1961,6 +1965,13 @@ org/apache/shiro/subject
 org/apache/shiro/subject/support
 org/apache/shiro/util
 org/apache/sshd
+org/apache/thrift
+org/apache/thrift/async
+org/apache/thrift/meta_data
+org/apache/thrift/protocol
+org/apache/thrift/scheme
+org/apache/thrift/server
+org/apache/thrift/transport
 org/apache/xmlbeans
 org/apache/xmlbeans/impl/schema
 org/apache/xmlbeans/impl/values

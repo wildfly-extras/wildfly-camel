@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.rest;
+package org.wildfly.camel.test.rest.dsl;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;

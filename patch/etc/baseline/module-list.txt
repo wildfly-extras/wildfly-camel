@@ -348,6 +348,7 @@
 /org/apache/camel/component/tagsoup/main/tagsoup-1.2.1.jar
 /org/apache/camel/component/tarfile/main/camel-tarfile-2.20.0.jar
 /org/apache/camel/component/telegram/main/camel-telegram-2.20.0.jar
+/org/apache/camel/component/thrift/main/camel-thrift-2.20.0.jar
 /org/apache/camel/component/twitter/main/camel-twitter-2.20.0.jar
 /org/apache/camel/component/twitter/main/twitter4j-core-4.0.6.jar
 /org/apache/camel/component/twitter/main/twitter4j-stream-4.0.6.jar
@@ -375,7 +376,6 @@
 /org/apache/camel/component/zipkin/main/brave-core-4.5.2.jar
 /org/apache/camel/component/zipkin/main/brave-spancollector-scribe-4.5.2.jar
 /org/apache/camel/component/zipkin/main/camel-zipkin-2.20.0.jar
-/org/apache/camel/component/zipkin/main/libthrift-0.9.3.jar
 /org/apache/camel/component/zipkin/main/zipkin-1.29.1.jar
 /org/apache/camel/component/zipkin/main/zipkin-reporter-1.0.1.jar
 /org/apache/camel/component/zookeeper/main/camel-zookeeper-2.20.0.jar
@@ -480,6 +480,7 @@
 /org/apache/qpid/main/qpid-jms-client-0.11.1.jar
 /org/apache/qpid/proton/0.16/proton-j-0.16.0.jar
 /org/apache/sshd/main/sshd-core-1.6.0.jar
+/org/apache/thrift/main/libthrift-0.10.0.jar
 /org/apache/tika/main/tika-core-1.7.jar
 /org/apache/ws/commons/axiom/axiom-api/main/axiom-api-1.2.14.jar
 /org/apache/ws/commons/axiom/axiom-impl/main/axiom-impl-1.2.14.jar

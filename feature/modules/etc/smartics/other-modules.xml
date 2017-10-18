@@ -1197,6 +1197,10 @@
         </dependencies>
     </module>
     
+    <module name="org.apache.thrift">
+        <include artifact="org.apache.thrift:libthrift" />
+    </module>
+
     <module name="org.apache.ws.commons.axiom.axiom-impl">
         <properties>
             <property name="jboss.api" value="private"/>
