@@ -1,3 +1,3 @@
 ### camel-ribbon
 
-The link:https://github.com/apache/camel/blob/master/components/camel-ribbon/src/main/docs/ribbon.adoc[ribbon,window=_blank] component provides use of Netflix Ribbon for client side load balancing.
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-ribbon/src/main/docs/ribbon.adoc[ribbon,window=_blank] component provides use of Netflix Ribbon for client side load balancing.

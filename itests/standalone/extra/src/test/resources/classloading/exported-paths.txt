@@ -1326,6 +1326,7 @@ org/apache/camel/converter/jaxb/mapper
 org/apache/camel/converter/saxon
 org/apache/camel/converter/xmlbeans
 org/apache/camel/dataformat
+org/apache/camel/dataformat/asn1
 org/apache/camel/dataformat/avro
 org/apache/camel/dataformat/barcode
 org/apache/camel/dataformat/base64

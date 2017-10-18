@@ -2,6 +2,7 @@
 
 The following lists supported Data Formats
 
+* https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-asn1/src/main/docs/asn1-dataformat.adoc[ASN.1,window=_blank]
 * http://camel.apache.org/avro.html[Avro,window=_blank]
 * http://camel.apache.org/barcode-data-format.html[Barcode,window=_blank]
 * http://camel.apache.org/base64.html[Base64,window=_blank]
@@ -19,13 +20,13 @@ The following lists supported Data Formats
 * http://camel.apache.org/jackson-xml.html[JacksonXML,window=_blank]
 * http://camel.apache.org/jibx.html[JiBX,window=_blank]
 * http://camel.apache.org/json.html[JSON,window=_blank]
-* https://github.com/apache/camel/blob/master/components/camel-johnzon/src/main/docs/json-johnzon-dataformat.adoc[JSON-Johnzon,window=_blank]
+* https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-johnzon/src/main/docs/json-johnzon-dataformat.adoc[JSON-Johnzon,window=_blank]
 * http://camel.apache.org/lzf-data-format.html[LZF,window=_blank]
 * http://camel.apache.org/protobuf.html[Protobuf,window=_blank]
 * http://camel.apache.org/soap.html[SOAP,window=_blank]
 * http://camel.apache.org/serialization.html[Serialization,window=_blank]
 * http://camel.apache.org/syslog.html[Syslog,window=_blank]
-* https://github.com/apache/camel/blob/master/components/camel-tarfile/src/main/docs/tarfile-dataformat.adoc[Tarfile,window=_blank]
+* https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-tarfile/src/main/docs/tarfile-dataformat.adoc[Tarfile,window=_blank]
 * http://camel.apache.org/tidymarkup.html[TidyMarkup,window=_blank]
 * http://camel.apache.org/univocity-parsers-formats.html[Univocity-CSV,window=_blank]
 * http://camel.apache.org/univocity-parsers-formats.html[Univocity-TSV,window=_blank]
