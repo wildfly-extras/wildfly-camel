@@ -298,6 +298,13 @@
         </apply-to-dependencies>
     </module>
 
+    <module name="com.google.code.libphonenumber">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.googlecode.libphonenumber:libphonenumber" />
+    </module>
+
     <module name="com.google.api-client.google-api-client">
         <properties>
             <property name="jboss.api" value="private"/>

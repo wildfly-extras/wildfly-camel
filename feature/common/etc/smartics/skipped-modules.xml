@@ -272,6 +272,10 @@
         <include artifact="org.apache.felix:org.apache.felix.scr.ds-annotations" />
     </module>
 
+    <module name="org.apache.httpcomponents.skipped" skip="true">
+        <include artifact="org.apache.httpcomponents:httpclient-osgi" />
+    </module>
+
     <module name="org.apache.maven" skip="true">
         <include artifact="org.apache.maven:maven-repository-metadata" />
         <include artifact="org.apache.maven:maven-model" />

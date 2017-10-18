@@ -398,6 +398,20 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.cm.sms">
+        <include artifact="org.apache.camel:camel-cm-sms"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt"/>
+            <include module="org.apache.httpcomponents.skipped"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.httpcomponents"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.coap">
         <include artifact="org.apache.camel:camel-coap" />
         <apply-to-dependencies skip="true">

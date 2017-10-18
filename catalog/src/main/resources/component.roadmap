@@ -28,6 +28,7 @@ box
 braintree
 browse
 class
+cm-sms
 coap
 cometd
 cometds
@@ -214,7 +215,6 @@ caffeine-cache                                      #2175
 caffeine-loadcache
 chronicle-engine                                    #1986
 chunk                                               #1987
-cm-sms                                              #1988
 cmis                                                #1989
 consul                                              #1992
 crypto-cms                                          #2176

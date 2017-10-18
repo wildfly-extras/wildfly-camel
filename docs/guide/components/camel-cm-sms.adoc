@@ -1,0 +1,3 @@
+### camel-cm-sms
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-cm-sms/src/main/docs/cm-sms-component.adoc[cm-sms,window=_blank] component enables you to integrate with the https://dashboard.onlinesmsgateway.com/docs[CM SMS API,window=_blank].

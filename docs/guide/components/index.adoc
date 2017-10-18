@@ -54,6 +54,8 @@ include::camel-cassandra.adoc[]
 
 include::camel-cdi.adoc[]
 
+include::camel-cm-sms.adoc[]
+
 include::camel-coap.adoc[]
 
 include::camel-cometd.adoc[]

@@ -999,6 +999,12 @@ org/apache/camel/component/box
 org/apache/camel/component/box/api
 org/apache/camel/component/braintree
 org/apache/camel/component/cassandra
+org/apache/camel/component/cm
+org/apache/camel/component/cm/client
+org/apache/camel/component/cm/exceptions
+org/apache/camel/component/cm/exceptions/cmresponse
+org/apache/camel/component/cm/validation
+org/apache/camel/component/cm/validation/constraints
 org/apache/camel/component/cometd
 org/apache/camel/component/connector
 org/apache/camel/component/context

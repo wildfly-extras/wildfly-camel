@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.cm.sms">
+  <resources>
+    <artifact name="${org.apache.camel:camel-cm-sms}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.apache.httpcomponents" />
+    <module name="org.slf4j" />
+    <module name="com.google.code.libphonenumber" />
+    <module name="javax.el.api" />
+    <module name="javax.validation.api" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.hibernate.validator" />
+    <module name="org.jsoup" />
+  </dependencies>
+</module>
