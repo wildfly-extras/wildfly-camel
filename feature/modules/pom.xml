@@ -99,6 +99,12 @@
             <version>${project.version}</version>
             <type>pom</type>
         </dependency>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-feature-extrasB</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
 
         <dependency>
             <groupId>org.wildfly.camel</groupId>
@@ -827,6 +833,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-thrift</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-twitter</artifactId>
         </dependency>
         <dependency>
@@ -1023,6 +1033,10 @@
                         <exclude>
                             <groupId>org.wildfly.camel</groupId>
                             <artifactId>wildfly-camel-feature-extrasA</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.wildfly.camel</groupId>
+                            <artifactId>wildfly-camel-feature-extrasB</artifactId>
                         </exclude>
                         <exclude>
                             <groupId>org.wildfly.extras.patch</groupId>

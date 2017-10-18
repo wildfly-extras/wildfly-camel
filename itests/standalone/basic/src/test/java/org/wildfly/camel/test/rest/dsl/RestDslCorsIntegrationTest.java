@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.rest;
+package org.wildfly.camel.test.rest.dsl;
 
 import java.util.Map;
 
