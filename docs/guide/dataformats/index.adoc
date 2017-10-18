@@ -29,6 +29,7 @@ The following lists supported Data Formats
 * http://camel.apache.org/syslog.html[Syslog,window=_blank]
 * https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-tarfile/src/main/docs/tarfile-dataformat.adoc[Tarfile,window=_blank]
 * http://camel.apache.org/tidymarkup.html[TidyMarkup,window=_blank]
+* https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-thrift/src/main/docs/thrift-dataformat.adoc[Thrift,window=_blank]
 * http://camel.apache.org/univocity-parsers-formats.html[Univocity-CSV,window=_blank]
 * http://camel.apache.org/univocity-parsers-formats.html[Univocity-TSV,window=_blank]
 * http://camel.apache.org/univocity-parsers-formats.html[Univocity-Fixed,window=_blank]

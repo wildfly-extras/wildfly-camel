@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.rest;
+package org.wildfly.camel.test.rest.dsl;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.http.HttpRequest;
 import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
-import org.wildfly.camel.test.rest.subA.ContextPathPrintingServlet;
+import org.wildfly.camel.test.rest.dsl.subA.ContextPathPrintingServlet;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware

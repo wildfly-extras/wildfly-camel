@@ -1,0 +1,3 @@
+### camel-thrift
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-thrift/src/main/docs/thrift-component.adoc[thrift,window=_blank] component allows you to call or expose Remote Procedure Call (RPC) services using https://thrift.apache.org[Apache Thrift,window=_blank] binary communication protocol and serialization mechanism.

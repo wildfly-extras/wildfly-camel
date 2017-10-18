@@ -35,6 +35,7 @@ soapjaxb
 string
 syslog
 tarfile
+thrift
 tidyMarkup
 univocity-csv
 univocity-fixed
@@ -48,7 +49,6 @@ zip
 zipfile
 
 [planned]
-thrift              #2183
 
 [undecided]
 

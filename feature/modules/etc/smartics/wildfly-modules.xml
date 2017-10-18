@@ -27,7 +27,7 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
     <module name="com.google.guava" skip="true">
-        <include artifact=":guava" />
+        <include artifact="com.google.guava:guava" />
     </module>
     
     <module name="org.apache.log4j" skip="true">

@@ -179,6 +179,7 @@ string-template
 stub
 telegram
 test
+thrift
 timer
 twitter                                             #deprecated
 twitter-directmessage
@@ -258,7 +259,6 @@ spark                                               #1469
 spark-rest                                          #1470
 spring-ws                                           #1476
 stomp                                               #2033
-thrift                                              #2183
 tika                                                #1850
 twilio                                              #2130
 websocket                                           #1479

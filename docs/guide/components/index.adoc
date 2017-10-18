@@ -296,6 +296,8 @@ include::camel-swagger.adoc[]
 
 include::camel-telegram.adoc[]
 
+include::camel-thrift.adoc[]
+
 include::camel-twitter.adoc[]
 
 include::camel-undertow.adoc[]
