@@ -160,6 +160,11 @@
         <include artifact="com.zaxxer:HikariCP-java6" />
     </module>
 
+    <module name="io.javaslang" skip="true">
+        <include artifact="io.javaslang:javaslang" />
+        <include artifact="io.javaslang:javaslang-match" />
+    </module>
+
     <module name="io.netty.skipped" skip="true">
         <include artifact="io.netty:netty-buffer" />
         <include artifact="io.netty:netty-codec" />
@@ -318,6 +323,16 @@
 
     <module name="org.fusesource.leveldbjni" skip="true">
         <include artifact="org.fusesource.leveldbjni:leveldbjni-all" />
+    </module>
+
+    <module name="org.glassfish.hk2" skip="true">
+        <include artifact="org.glassfish.hk2.external:" />
+        <include artifact="org.glassfish.hk2:" />
+    </module>
+
+    <module name="org.glassfish.jersey" skip="true">
+        <include artifact="org.glassfish.jersey.bundles.repackaged:jersey-guava" />
+        <include artifact="org.glassfish.jersey.core:jersey-common" />
     </module>
 
     <module name="org.glassfish.web" skip="true">

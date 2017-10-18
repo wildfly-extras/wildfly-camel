@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.alibaba.fastjson">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${com.alibaba:fastjson}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="com.squareup.okhttp3" />
+    <module name="com.squareup.retrofit2" />
+  </dependencies>
+</module>

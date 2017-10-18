@@ -27,6 +27,21 @@
         <include artifact="ch.qos.cal10n:cal10n-api" />
     </module>
 
+    <module name="com.alibaba.fastjson">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.alibaba:fastjson" />
+        <apply-to-dependencies skip="true">
+            <include module="io.javaslang" />
+            <include module="org.glassfish.hk2" />
+            <include module="org.glassfish.jersey" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
     <module name="com.amazon.aws">
         <properties>
             <property name="jboss.api" value="private"/>

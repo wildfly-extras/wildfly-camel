@@ -19,6 +19,7 @@ ical
 jacksonxml
 jaxb
 jibx
+json-fastjson
 json-gson
 json-jackson
 json-johnzon
@@ -47,7 +48,6 @@ zip
 zipfile
 
 [planned]
-json-fastjson       #2187
 thrift              #2183
 
 [undecided]

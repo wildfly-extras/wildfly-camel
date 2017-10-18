@@ -1,4 +1,5 @@
 /args4j/main/args4j-2.0.31.jar
+/com/alibaba/fastjson/main/fastjson-1.2.37.jar
 /com/amazon/aws/main/aws-java-sdk-1.11.186.jar
 /com/amazon/aws/main/aws-java-sdk-cloudfront-1.11.186.jar
 /com/amazon/aws/main/aws-java-sdk-cloudwatch-1.11.186.jar
@@ -174,6 +175,7 @@
 /org/apache/camel/component/exec/main/camel-exec-2.20.0.jar
 /org/apache/camel/component/facebook/main/camel-facebook-2.20.0.jar
 /org/apache/camel/component/facebook/main/facebook4j-core-2.4.10.jar
+/org/apache/camel/component/fastjson/main/camel-fastjson-2.20.0.jar
 /org/apache/camel/component/flatpack/main/camel-flatpack-2.20.0.jar
 /org/apache/camel/component/flatpack/main/flatpack-3.4.3.jar
 /org/apache/camel/component/fop/main/camel-fop-2.20.0.jar

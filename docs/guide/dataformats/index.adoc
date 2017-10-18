@@ -12,6 +12,7 @@ The following lists supported Data Formats
 * http://camel.apache.org/castor.html[Castor,window=_blank]
 * http://camel.apache.org/crypto.html[Crypto,window=_blank]
 * http://camel.apache.org/csv.html[CSV,window=_blank]
+* https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-fastjson/src/main/docs/json-fastjson-dataformat.adoc[Fastjson,window=_blank]
 * http://camel.apache.org/flatpack.html[Flatpack,window=_blank]
 * http://camel.apache.org/gzip-data-format.html[GZip,window=_blank]
 * http://camel.apache.org/hl7.html[HL7,window=_blank]
