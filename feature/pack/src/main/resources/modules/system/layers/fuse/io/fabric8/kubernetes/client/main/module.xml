@@ -7,8 +7,8 @@
     <artifact name="${io.fabric8:kubernetes-client}" />
   </resources>
   <dependencies>
-    <module name="com.squareup.okio" />
     <module name="javax.api" />
+    <module name="com.squareup.okio" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.fasterxml.jackson.dataformat.yaml" />

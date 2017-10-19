@@ -609,6 +609,48 @@
         <include artifact="dk.brics.automaton:automaton" />
     </module>
 
+    <module name="io.atomix">
+        <include artifact="io.atomix:atomix" />
+        <include artifact="io.atomix:atomix-collections" />
+        <include artifact="io.atomix:atomix-concurrent" />
+        <include artifact="io.atomix:atomix-groups" />
+        <include artifact="io.atomix:atomix-resource" />
+        <include artifact="io.atomix:atomix-resource-manager" />
+        <include artifact="io.atomix:atomix-variables" />
+        <include artifact="io.atomix.catalyst:catalyst-buffer" />
+        <include artifact="io.atomix.catalyst:catalyst-common" />
+        <include artifact="io.atomix.catalyst:catalyst-concurrent" />
+        <include artifact="io.atomix.catalyst:catalyst-local" />
+        <include artifact="io.atomix.catalyst:catalyst-netty" />
+        <include artifact="io.atomix.catalyst:catalyst-serializer" />
+        <include artifact="io.atomix.catalyst:catalyst-transport" />
+        <include artifact="io.atomix.copycat:copycat-client" />
+        <include artifact="io.atomix.copycat:copycat-protocol" />
+        <include artifact="io.atomix.copycat:copycat-server" />
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="io.netty" slot="4.1"/>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc" />
+                </imports>
+            </module>
+        </dependencies>
+        <exports>
+            <exclude path="io/atomix/collections/internal" />
+            <exclude path="io/atomix/concurrent/internal" />
+            <exclude path="io/atomix/group/election/internal" />
+            <exclude path="io/atomix/group/internal" />
+            <exclude path="io/atomix/group/messaging/internal" />
+            <exclude path="io/atomix/manager/internal" />
+            <exclude path="io/atomix/manager/resource/internal" />
+            <exclude path="io/atomix/resource/internal" />
+            <exclude path="io/atomix/variables/internal" />
+        </exports>
+    </module>
+
     <module name="io.fabric8.kubernetes.model">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -631,8 +673,8 @@
         </properties>
         <include artifact="io.fabric8:kubernetes-client" />
         <dependencies>
-            <module name="com.squareup.okio" />
             <module name="javax.api" />
+            <module name="com.squareup.okio" />
         </dependencies>
     </module>
 

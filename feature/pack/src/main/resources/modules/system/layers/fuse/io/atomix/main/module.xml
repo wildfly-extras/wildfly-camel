@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="io.atomix">
+  <resources>
+    <artifact name="${io.atomix:atomix}" />
+    <artifact name="${io.atomix:atomix-collections}" />
+    <artifact name="${io.atomix:atomix-concurrent}" />
+    <artifact name="${io.atomix:atomix-groups}" />
+    <artifact name="${io.atomix:atomix-resource}" />
+    <artifact name="${io.atomix:atomix-resource-manager}" />
+    <artifact name="${io.atomix:atomix-variables}" />
+    <artifact name="${io.atomix.catalyst:catalyst-buffer}" />
+    <artifact name="${io.atomix.catalyst:catalyst-common}" />
+    <artifact name="${io.atomix.catalyst:catalyst-concurrent}" />
+    <artifact name="${io.atomix.catalyst:catalyst-local}" />
+    <artifact name="${io.atomix.catalyst:catalyst-netty}" />
+    <artifact name="${io.atomix.catalyst:catalyst-serializer}" />
+    <artifact name="${io.atomix.catalyst:catalyst-transport}" />
+    <artifact name="${io.atomix.copycat:copycat-client}" />
+    <artifact name="${io.atomix.copycat:copycat-protocol}" />
+    <artifact name="${io.atomix.copycat:copycat-server}" />
+  </resources>
+  <dependencies>
+    <module name="io.netty" slot="4.1" />
+    <module name="sun.jdk">
+      <imports>
+        <include path="sun/misc" />
+      </imports>
+    </module>
+    <module name="org.slf4j" />
+  </dependencies>
+  <exports>
+    <exclude path="io/atomix/collections/internal" />
+    <exclude path="io/atomix/concurrent/internal" />
+    <exclude path="io/atomix/group/election/internal" />
+    <exclude path="io/atomix/group/internal" />
+    <exclude path="io/atomix/group/messaging/internal" />
+    <exclude path="io/atomix/manager/internal" />
+    <exclude path="io/atomix/manager/resource/internal" />
+    <exclude path="io/atomix/resource/internal" />
+    <exclude path="io/atomix/variables/internal" />
+  </exports>
+</module>

@@ -18,6 +18,8 @@ include::camel-atomosphere-websocket.adoc[]
 
 include::camel-atom.adoc[]
 
+include::camel-atomix.adoc[]
+
 include::camel-avro.adoc[]
 
 include::camel-aws-cw.adoc[]

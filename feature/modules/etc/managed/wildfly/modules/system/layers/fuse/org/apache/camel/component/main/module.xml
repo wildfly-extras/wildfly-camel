@@ -31,6 +31,7 @@
         <module name="org.apache.camel.component.asterisk" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.atmosphere.websocket" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.atom" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.atomix" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.avro" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.aws" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.barcode" export="true" services="export" optional="true" />
