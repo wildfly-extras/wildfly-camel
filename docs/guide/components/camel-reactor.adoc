@@ -1,0 +1,5 @@
+### camel-reactor
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-reactor/src/main/docs/reactive-streams-component.adoc[reactor,window=_blank] component integrates with https://projectreactor.io/[Project Reactor,window=_blank] a fully non-blocking foundation with efficient demand management. It directly interacts with Java 8 functional API, Completable Future, Stream and Duration.
+
+

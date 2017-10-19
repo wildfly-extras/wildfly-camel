@@ -113,6 +113,7 @@
     ^org/yaml(.*)
     ^org/zendesk(.*)
     ^quickfix(.*)
+    ^reactor(.*)
     ^redis/clients(.*)
 	^schema/(.*)
 	^schemas/(.*)

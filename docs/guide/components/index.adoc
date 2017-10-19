@@ -226,6 +226,8 @@ include::camel-rabbitmq.adoc[]
 
 include::camel-reactive-streams.adoc[]
 
+include::camel-reactor.adoc[]
+
 include::camel-ribbon.adoc[]
 
 include::camel-rest.adoc[]

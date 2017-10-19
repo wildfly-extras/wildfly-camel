@@ -1215,6 +1215,8 @@ org/apache/camel/component/reactive/streams
 org/apache/camel/component/reactive/streams/api
 org/apache/camel/component/reactive/streams/engine
 org/apache/camel/component/reactive/streams/util
+org/apache/camel/component/reactor
+org/apache/camel/component/reactor/engine
 org/apache/camel/component/redis
 org/apache/camel/component/redis/processor
 org/apache/camel/component/redis/processor/idempotent
@@ -2917,6 +2919,13 @@ quickfix/mina/acceptor
 quickfix/mina/initiator
 quickfix/mina/message
 quickfix/mina/ssl
+reactor/adapter
+reactor/core
+reactor/core/publisher
+reactor/core/scheduler
+reactor/util
+reactor/util/concurrent
+reactor/util/function
 redis/clients
 redis/clients/jedis
 redis/clients/jedis/exceptions
