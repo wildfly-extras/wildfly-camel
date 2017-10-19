@@ -7,6 +7,12 @@ apns
 asterisk
 atmosphere-websocket
 atom
+atomix-map
+atomix-messaging
+atomix-multimap
+atomix-queue
+atomix-set
+atomix-value
 avro
 aws-cw
 aws-ddb
@@ -203,12 +209,6 @@ zookeeper
 
 [planned]
 atmos                                               #1984
-atomix-map                                          #2174
-atomix-messaging
-atomix-multimap
-atomix-queue
-atomix-set
-atomix-value
 azure-blob                                          #1818
 azure-queue                                         #1819
 beanstalk                                           #1419

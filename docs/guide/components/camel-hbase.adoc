@@ -1,5 +1,5 @@
 ### camel-hbase
 
-The http://camel.apache.org/hbase.html[git,window=_blank]
+The http://camel.apache.org/hbase.html[hbase,window=_blank]
 component enables you to integrate with http://hbase.apache.org/[Apache HBase,window=_blank].
 

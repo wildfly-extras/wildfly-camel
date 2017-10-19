@@ -31,6 +31,7 @@
 	^com/sun/syndication(.*)
     ^freemarker(.*)
 	^groovy(.*)
+    ^io/atomix(.*)
 	^io/fabric8/kubernetes(.*)
  	^io/fabric8/openshift(.*)
     ^io/grpc(.*)

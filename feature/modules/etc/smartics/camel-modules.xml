@@ -183,11 +183,21 @@
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
-        <apply-to-dependencies export="true">
-            <include module="org.apache.abdera.core" />
-            <include module="org.apache.abdera.parser" />
+        <dependencies>
+            <module name="org.apache.abdera.core" export="true" />
+            <module name="org.apache.abdera.parser" export="true" />
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.camel.component.atomix">
+        <include artifact="org.apache.camel:camel-atomix" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="io.atomix" export="true"/>
             <module name="org.slf4j" />
         </dependencies>
     </module>
