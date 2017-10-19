@@ -70,6 +70,8 @@ include::camel-couchdb.adoc[]
 
 include::camel-crypto.adoc[]
 
+include::camel-crypto-cms.adoc[]
+
 include::camel-cxf.adoc[]
 
 include::camel-disruptor.adoc[]

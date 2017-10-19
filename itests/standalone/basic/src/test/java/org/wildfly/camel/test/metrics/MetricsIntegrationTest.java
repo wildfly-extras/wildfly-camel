@@ -44,7 +44,7 @@ public class MetricsIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "came-metrics-tests.jar");
+        return ShrinkWrap.create(JavaArchive.class, "camel-metrics-tests.jar");
     }
 
     @Test

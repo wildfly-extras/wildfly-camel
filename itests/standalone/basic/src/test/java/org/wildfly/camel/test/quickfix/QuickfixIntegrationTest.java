@@ -52,7 +52,7 @@ public class QuickfixIntegrationTest {
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "came-quickfix-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-quickfix-tests");
         archive.addPackage(QuickfixjMessageJsonPrinter.class.getPackage());
         archive.addAsResource("quickfix/inprocess.cfg");
         return archive;

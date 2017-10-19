@@ -518,6 +518,18 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.crypto.cms">
+        <include artifact="org.apache.camel:camel-crypto-cms" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.csv">
         <include artifact="org.apache.camel:camel-csv" />
         <apply-to-dependencies skip="true">
