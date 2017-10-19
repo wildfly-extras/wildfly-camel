@@ -55,22 +55,21 @@ import com.google.api.services.drive.model.File;
 @CamelAware
 @RunWith(Arquillian.class)
 public class GoogleDriveIntegrationTest {
-    private static final Logger log = Logger.getLogger(GoogleDriveIntegrationTest.class);
-    // userid of the currently authenticated user
-    public static final String CURRENT_USERID = "me";
+    private static final Logger LOG = Logger.getLogger(GoogleDriveIntegrationTest.class);
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-google-drive-tests.jar").addClass(GoogleApiEnv.class);
+        return ShrinkWrap.create(JavaArchive.class, "camel-google-drive-tests.jar")
+            .addClass(GoogleApiEnv.class);
     }
 
     @Test
-    public void files() throws Exception {
+    public void testGoogleDriveComponent() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
 
         GoogleDriveComponent gDriveComponent = camelctx.getComponent("google-drive", GoogleDriveComponent.class);
-        GoogleApiEnv.configure(gDriveComponent.getConfiguration(), getClass(), log);
+        GoogleApiEnv.configure(gDriveComponent.getConfiguration(), getClass(), LOG);
 
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -179,7 +178,7 @@ public class GoogleDriveIntegrationTest {
 
     }
 
-    protected static File uploadTestFile(ProducerTemplate template, String testName) {
+    private static File uploadTestFile(ProducerTemplate template, String testName) {
         File fileMetadata = new File();
         fileMetadata.setTitle(GoogleDriveIntegrationTest.class.getName()+"."+testName+"-"+ UUID.randomUUID().toString());
         final String content = "Camel rocks!\n" //
@@ -187,7 +186,7 @@ public class GoogleDriveIntegrationTest {
                 + "user: " + System.getProperty("user.name");
         HttpContent mediaContent = new ByteArrayContent("text/plain", content.getBytes(StandardCharsets.UTF_8));
 
-        final Map<String, Object> headers = new HashMap<String, Object>();
+        final Map<String, Object> headers = new HashMap<>();
         // parameter type is com.google.api.services.drive.model.File
         headers.put("CamelGoogleDrive.content", fileMetadata);
         // parameter type is com.google.api.client.http.AbstractInputStreamContent

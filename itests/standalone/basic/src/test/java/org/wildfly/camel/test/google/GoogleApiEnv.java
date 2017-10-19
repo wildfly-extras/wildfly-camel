@@ -31,9 +31,9 @@ import org.junit.Assume;
  * @author <a href="https://github.com/ppalaga">Peter Palaga</a>
  */
 public enum GoogleApiEnv {
-    GOOGLE_API_APPLICATION_NAME("applicationName"), //
-    GOOGLE_API_CLIENT_ID("clientId"), //
-    GOOGLE_API_CLIENT_SECRET("clientSecret"), //
+    GOOGLE_API_APPLICATION_NAME("applicationName"),
+    GOOGLE_API_CLIENT_ID("clientId"),
+    GOOGLE_API_CLIENT_SECRET("clientSecret"),
     GOOGLE_API_REFRESH_TOKEN("refreshToken");
 
     public static void configure(Object configuration, Class<?> testClass, Logger log) {
@@ -42,7 +42,9 @@ public enum GoogleApiEnv {
             final String val = System.getenv(googleApiEnv.name());
             final boolean assumption = val != null && !val.isEmpty();
             if (!assumption) {
-                final String msg = "Environment variable "+ googleApiEnv.name() +" not set - skipping "+ testClass.getSimpleName() +". You need to set all of "+  Arrays.asList(vals) +" to run it. You may want read google-api-testing.adoc in the rood directory of the current Maven module.";
+                final String msg = "Environment variable " + googleApiEnv.name() + " not set - skipping "+ testClass.getSimpleName() +
+                    ". You need to set all of " + Arrays.asList(vals) +
+                    " to run it. You may want read google-api-testing.adoc in the root directory of the current Maven module.";
                 log.warn(msg);
                 Assume.assumeTrue(msg, assumption);
             }
@@ -56,7 +58,7 @@ public enum GoogleApiEnv {
 
     private String configPropertyName;
 
-    private GoogleApiEnv(String configPropertyName) {
+    GoogleApiEnv(String configPropertyName) {
         this.configPropertyName = configPropertyName;
     }
 

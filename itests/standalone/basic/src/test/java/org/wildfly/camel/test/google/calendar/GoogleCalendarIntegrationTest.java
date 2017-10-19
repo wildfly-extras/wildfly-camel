@@ -51,13 +51,12 @@ import com.google.api.services.calendar.model.Events;
 @CamelAware
 @RunWith(Arquillian.class)
 public class GoogleCalendarIntegrationTest {
-    private static final Logger log = Logger.getLogger(GoogleCalendarIntegrationTest.class);
-    // userid of the currently authenticated user
-    public static final String CURRENT_USERID = "me";
+    private static final Logger LOG = Logger.getLogger(GoogleCalendarIntegrationTest.class);
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-google-calendar-tests.jar").addClass(GoogleApiEnv.class);
+        return ShrinkWrap.create(JavaArchive.class, "camel-google-calendar-tests.jar")
+            .addClass(GoogleApiEnv.class);
     }
 
     private static Calendar createTestCalendar(ProducerTemplate template, String testId) {
@@ -71,12 +70,12 @@ public class GoogleCalendarIntegrationTest {
 
     @SuppressWarnings("serial")
     @Test
-    public void events() throws Exception {
+    public void testGoogleCalendarComponent() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
 
         GoogleCalendarComponent gCalendarComponent = camelctx.getComponent("google-calendar", GoogleCalendarComponent.class);
-        GoogleApiEnv.configure(gCalendarComponent.getConfiguration(), getClass(), log);
+        GoogleApiEnv.configure(gCalendarComponent.getConfiguration(), getClass(), LOG);
 
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -126,7 +125,7 @@ public class GoogleCalendarIntegrationTest {
             ProducerTemplate template = camelctx.createProducerTemplate();
 
             final Calendar cal = createTestCalendar(template, testId);
-            log.infof("Created test calendar %s", cal.getSummary());
+            LOG.infof("Created test calendar %s", cal.getSummary());
 
             final String eventText = testId + " feed the camel";
 
@@ -136,7 +135,7 @@ public class GoogleCalendarIntegrationTest {
                 put("CamelGoogleCalendar.calendarId", cal.getId());
                 // parameter type is String
                 put("CamelGoogleCalendar.text", eventText);
-                }}, Event.class);
+            }}, Event.class);
             Assert.assertNotNull("quickAdd result", quickAddEvent);
 
             // Check if it is in the list of events for this calendar
@@ -151,11 +150,11 @@ public class GoogleCalendarIntegrationTest {
                 put("CamelGoogleCalendar.calendarId", cal.getId());
                 // parameter type is String
                 put("CamelGoogleCalendar.eventId", eventId);
-                }}, Event.class);
-            Assert.assertEquals(eventText, quickAddEvent.getSummary());
+            }}, Event.class);
+            Assert.assertEquals(eventText, completeEvent.getSummary());
 
             // Change the event
-            completeEvent.setSummary(testId + " feed the camel later");
+            completeEvent.setSummary("Feed the camel later");
             // parameter type is com.google.api.services.calendar.model.Event
             Event newResult = template.requestBodyAndHeaders("direct://UPDATE", null, new HashMap<String, Object>() {{
                 // parameter type is String
@@ -163,8 +162,8 @@ public class GoogleCalendarIntegrationTest {
                 // parameter type is String
                 put("CamelGoogleCalendar.eventId", eventId);
                 put("CamelGoogleCalendar.content", completeEvent);
-                }}, Event.class);
-            Assert.assertEquals("Feed the Camel later", newResult.getSummary());
+            }}, Event.class);
+            Assert.assertEquals("Feed the camel later", newResult.getSummary());
 
             // Delete the event
             template.requestBodyAndHeaders("direct://DELETE", null, new HashMap<String, Object>() {{
@@ -172,11 +171,11 @@ public class GoogleCalendarIntegrationTest {
                 put("CamelGoogleCalendar.calendarId", cal.getId());
                 // parameter type is String
                 put("CamelGoogleCalendar.eventId", eventId);
-                }}, Event.class);
+            }});
 
             // Check if it is NOT in the list of events for this calendar
             Events eventsAfterDeletion = template.requestBody("direct://LIST", cal.getId(), Events.class);
-            Assert.assertEquals(0, events.getItems().size());
+            Assert.assertEquals(0, eventsAfterDeletion.getItems().size());
 
         } finally {
             camelctx.stop();

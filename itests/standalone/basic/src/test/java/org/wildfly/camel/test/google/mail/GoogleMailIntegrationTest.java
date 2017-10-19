@@ -67,13 +67,14 @@ import com.google.api.services.gmail.model.Profile;
 @CamelAware
 @RunWith(Arquillian.class)
 public class GoogleMailIntegrationTest {
-    private static final Logger log = Logger.getLogger(GoogleMailIntegrationTest.class);
+    private static final Logger LOG = Logger.getLogger(GoogleMailIntegrationTest.class);
     // userid of the currently authenticated user
-    public static final String CURRENT_USERID = "me";
+    private static final String CURRENT_USERID = "me";
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-google-mail-tests.jar").addClass(GoogleApiEnv.class);
+        return ShrinkWrap.create(JavaArchive.class, "camel-google-mail-tests.jar")
+            .addClass(GoogleApiEnv.class);
     }
 
     private static Message createMessage(ProducerTemplate template, String subject)
@@ -104,7 +105,7 @@ public class GoogleMailIntegrationTest {
             message.setThreadId(previousThreadId);
         }
 
-        Map<String, Object> headers = new HashMap<String, Object>();
+        Map<String, Object> headers = new HashMap<>();
         // parameter type is String
         headers.put("CamelGoogleMail.userId", CURRENT_USERID);
         // parameter type is com.google.api.services.gmail.model.Message
@@ -136,12 +137,12 @@ public class GoogleMailIntegrationTest {
     }
 
     @Test
-    public void labels() throws Exception {
+    public void testGoogleMailLabels() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
 
         GoogleMailComponent gMailComponent = camelctx.getComponent("google-mail", GoogleMailComponent.class);
-        GoogleApiEnv.configure(gMailComponent.getConfiguration(), getClass(), log);
+        GoogleApiEnv.configure(gMailComponent.getConfiguration(), getClass(), LOG);
 
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -177,9 +178,9 @@ public class GoogleMailIntegrationTest {
 
             final String testLabel = getClass().getSimpleName() + ".labels " + UUID.randomUUID().toString();
 
-            String labelId = null;
+            String labelId;
             if (findLabel(labels, testLabel) == null) {
-                Map<String, Object> headers = new HashMap<String, Object>();
+                Map<String, Object> headers = new HashMap<>();
                 // parameter type is String
                 headers.put("CamelGoogleMail.userId", CURRENT_USERID);
                 Label label = new Label().setName(testLabel).setMessageListVisibility("show")
@@ -199,7 +200,7 @@ public class GoogleMailIntegrationTest {
             labels = template.requestBody("direct://LIST", CURRENT_USERID, ListLabelsResponse.class);
             Assert.assertTrue(findLabel(labels, testLabel) != null);
 
-            Map<String, Object> headers = new HashMap<String, Object>();
+            Map<String, Object> headers = new HashMap<>();
             // parameter type is String
             headers.put("CamelGoogleMail.userId", CURRENT_USERID);
             // parameter type is String
@@ -223,7 +224,7 @@ public class GoogleMailIntegrationTest {
         CamelContext camelctx = new DefaultCamelContext();
 
         GoogleMailComponent gMailComponent = camelctx.getComponent("google-mail", GoogleMailComponent.class);
-        GoogleApiEnv.configure(gMailComponent.getConfiguration(), getClass(), log);
+        GoogleApiEnv.configure(gMailComponent.getConfiguration(), getClass(), LOG);
 
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -282,7 +283,7 @@ public class GoogleMailIntegrationTest {
             final String subject = getClass().getSimpleName() + ".messages " + UUID.randomUUID().toString();
 
             Message testEmail = createMessage(template, subject);
-            Map<String, Object> headers = new HashMap<String, Object>();
+            Map<String, Object> headers = new HashMap<>();
             // parameter type is String
             headers.put("CamelGoogleMail.userId", CURRENT_USERID);
             // parameter type is com.google.api.services.gmail.model.Message
@@ -293,7 +294,7 @@ public class GoogleMailIntegrationTest {
             String testEmailId = result.getId();
 
             // ==== Search for message we just sent ====
-            headers = new HashMap<String, Object>();
+            headers = new HashMap<>();
             headers.put("CamelGoogleMail.q", "subject:\"" + subject + "\"");
             // using String message body for single parameter "userId"
             ListMessagesResponse listOfMessages = template.requestBody("direct://LIST", CURRENT_USERID,
@@ -301,7 +302,7 @@ public class GoogleMailIntegrationTest {
             Assert.assertTrue(idInList(testEmailId, listOfMessages));
 
             // ===== trash it ====
-            headers = new HashMap<String, Object>();
+            headers = new HashMap<>();
             // parameter type is String
             headers.put("CamelGoogleMail.userId", CURRENT_USERID);
             // parameter type is String
@@ -309,14 +310,14 @@ public class GoogleMailIntegrationTest {
             template.requestBodyAndHeaders("direct://TRASH", null, headers);
 
             // ==== Search for message we just trashed ====
-            headers = new HashMap<String, Object>();
+            headers = new HashMap<>();
             headers.put("CamelGoogleMail.q", "subject:\"" + subject + "\"");
             // using String message body for single parameter "userId"
             listOfMessages = template.requestBody("direct://LIST", CURRENT_USERID, ListMessagesResponse.class);
             Assert.assertFalse(idInList(testEmailId, listOfMessages));
 
             // ===== untrash it ====
-            headers = new HashMap<String, Object>();
+            headers = new HashMap<>();
             // parameter type is String
             headers.put("CamelGoogleMail.userId", CURRENT_USERID);
             // parameter type is String
@@ -324,14 +325,14 @@ public class GoogleMailIntegrationTest {
             template.requestBodyAndHeaders("direct://UNTRASH", null, headers);
 
             // ==== Search for message we just untrashed ====
-            headers = new HashMap<String, Object>();
+            headers = new HashMap<>();
             headers.put("CamelGoogleMail.q", "subject:\"" + subject + "\"");
             // using String message body for single parameter "userId"
             listOfMessages = template.requestBody("direct://LIST", CURRENT_USERID, ListMessagesResponse.class);
             Assert.assertTrue(idInList(testEmailId, listOfMessages));
 
             // ===== permanently delete it ====
-            headers = new HashMap<String, Object>();
+            headers = new HashMap<>();
             // parameter type is String
             headers.put("CamelGoogleMail.userId", CURRENT_USERID);
             // parameter type is String
@@ -339,7 +340,7 @@ public class GoogleMailIntegrationTest {
             template.requestBodyAndHeaders("direct://DELETE", null, headers);
 
             // ==== Search for message we just deleted ====
-            headers = new HashMap<String, Object>();
+            headers = new HashMap<>();
             headers.put("CamelGoogleMail.q", "subject:\"" + subject + "\"");
             // using String message body for single parameter "userId"
             listOfMessages = template.requestBody("direct://LIST", CURRENT_USERID, ListMessagesResponse.class);
@@ -354,7 +355,7 @@ public class GoogleMailIntegrationTest {
         CamelContext camelctx = new DefaultCamelContext();
 
         GoogleMailComponent gMailComponent = camelctx.getComponent("google-mail", GoogleMailComponent.class);
-        GoogleApiEnv.configure(gMailComponent.getConfiguration(), getClass(), log);
+        GoogleApiEnv.configure(gMailComponent.getConfiguration(), getClass(), LOG);
 
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -387,13 +388,13 @@ public class GoogleMailIntegrationTest {
         CamelContext camelctx = new DefaultCamelContext();
 
         GoogleMailComponent gMailComponent = camelctx.getComponent("google-mail", GoogleMailComponent.class);
-        GoogleApiEnv.configure(gMailComponent.getConfiguration(), getClass(), log);
+        GoogleApiEnv.configure(gMailComponent.getConfiguration(), getClass(), LOG);
 
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 final String pathPrefix = "threads";
-                ;
+
                 // test route for delete
                 from("direct://DELETE").to("google-mail://" + pathPrefix + "/delete");
 
@@ -471,6 +472,7 @@ public class GoogleMailIntegrationTest {
                             Thread.currentThread().interrupt();
                         }
                     }
+                    attemptCount++;
                 }
             }
 
