@@ -1074,6 +1074,11 @@ org/apache/camel/component/context
 org/apache/camel/component/couchbase
 org/apache/camel/component/couchdb
 org/apache/camel/component/crypto
+org/apache/camel/component/crypto/cms
+org/apache/camel/component/crypto/cms/common
+org/apache/camel/component/crypto/cms/crypt
+org/apache/camel/component/crypto/cms/exception
+org/apache/camel/component/crypto/cms/sig
 org/apache/camel/component/crypto/processor
 org/apache/camel/component/cxf
 org/apache/camel/component/cxf/blueprint

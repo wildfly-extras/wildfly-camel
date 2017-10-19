@@ -42,14 +42,14 @@ public class PDFIntegrationTest {
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "came-pdf-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-pdf-tests");
         return archive;
     }
 
     @Test
     public void testCreate() throws Exception {
 
-        final String datadir = System.getProperty("jboss.server.data.dir") + "/came-pdf-tests";
+        final String datadir = System.getProperty("jboss.server.data.dir") + "/camel-pdf-tests";
         Assert.assertNotNull("Directory name not nul", datadir);
         
         CamelContext camelctx = new DefaultCamelContext();

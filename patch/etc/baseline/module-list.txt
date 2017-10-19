@@ -177,6 +177,7 @@
 /org/apache/camel/component/couchbase/main/couchbase-client-1.4.13.jar
 /org/apache/camel/component/couchdb/main/camel-couchdb-2.20.0.jar
 /org/apache/camel/component/couchdb/main/lightcouch-0.1.8.jar
+/org/apache/camel/component/crypto/cms/main/camel-crypto-cms-2.20.0.jar
 /org/apache/camel/component/crypto/main/camel-crypto-2.20.0.jar
 /org/apache/camel/component/csv/main/camel-csv-2.20.0.jar
 /org/apache/camel/component/cxf/main/camel-cxf-2.20.0.jar

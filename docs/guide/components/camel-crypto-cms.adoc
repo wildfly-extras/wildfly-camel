@@ -1,0 +1,3 @@
+### camel-crypto-cms
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-crypto-cms/src/main/docs/crypto-cms-component.adoc[Crypto CMS,window=_blank] component supports the following parts of this standard: * Content Type "Enveloped Data" with Key Transport (asymmetric key), * Content Type "Signed Data". You can create CMS Enveloped Data instances, decrypt CMS Enveloped Data instances, create CMS Signed Data instances, and validate CMS Signed Data instances.
