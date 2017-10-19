@@ -1985,6 +1985,18 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.reactor">
+        <include artifact="org.apache.camel:camel-reactor" />
+        <include artifact="io.projectreactor:reactor-core" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.rest.swagger">
         <include artifact="org.apache.camel:camel-rest-swagger" />
         <apply-to-dependencies skip="true">

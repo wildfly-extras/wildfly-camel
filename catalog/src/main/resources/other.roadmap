@@ -5,6 +5,7 @@ hystrix
 jasypt
 leveldb
 opentracing
+reactor
 ribbon
 shiro
 spring-javaconfig
@@ -14,7 +15,6 @@ zipkin
 
 [planned]
 headersmap                          #2184
-reactor                             #2185
 
 [undecided]
 
