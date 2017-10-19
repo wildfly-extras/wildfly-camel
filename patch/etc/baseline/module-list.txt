@@ -302,6 +302,8 @@
 /org/apache/camel/component/rabbitmq/main/amqp-client-4.2.1.jar
 /org/apache/camel/component/rabbitmq/main/camel-rabbitmq-2.20.0.jar
 /org/apache/camel/component/reactive/streams/main/camel-reactive-streams-2.20.0.jar
+/org/apache/camel/component/reactor/main/camel-reactor-2.20.0.jar
+/org/apache/camel/component/reactor/main/reactor-core-3.0.7.RELEASE.jar
 /org/apache/camel/component/rest/swagger/main/camel-rest-swagger-2.20.0.jar
 /org/apache/camel/component/ribbon/main/camel-ribbon-2.20.0.jar
 /org/apache/camel/component/rmi/main/camel-rmi-2.20.0.jar
