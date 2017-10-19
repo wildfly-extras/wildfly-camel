@@ -1073,12 +1073,30 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.headersmap">
+        <include artifact="org.apache.camel:camel-headersmap" />
+        <include artifact="com.cedarsoftware:java-util" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="com/cedarsoftware**" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.hessian">
         <include artifact="org.apache.camel:camel-hessian" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
     </module>
 
     <module name="org.apache.camel.component.hl7">

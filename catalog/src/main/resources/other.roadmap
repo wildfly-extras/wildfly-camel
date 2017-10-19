@@ -1,6 +1,7 @@
 [supported]
 cdi
 cxf-transport
+headersmap
 hystrix
 jasypt
 leveldb
@@ -14,7 +15,6 @@ swagger-java
 zipkin
 
 [planned]
-headersmap                          #2184
 
 [undecided]
 
