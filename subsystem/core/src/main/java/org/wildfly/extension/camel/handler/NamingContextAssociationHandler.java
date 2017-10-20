@@ -214,6 +214,16 @@ public final class NamingContextAssociationHandler implements ContextCreateHandl
             return context.lookupLink(name);
         }
 
+        @Override
+        public void rebind(Name name, Object obj) throws NamingException {
+            context.rebind(name, obj);
+        }
+
+        @Override
+        public void rebind(String name, Object obj) throws NamingException {
+            context.rebind(name, obj);
+        }
+
         // Not supported opertations
 
         @Override
@@ -248,16 +258,6 @@ public final class NamingContextAssociationHandler implements ContextCreateHandl
 
         @Override
         public void destroySubcontext(String name) throws NamingException {
-            throw new OperationNotSupportedException();
-        }
-
-        @Override
-        public void rebind(Name name, Object obj) throws NamingException {
-            throw new OperationNotSupportedException();
-        }
-
-        @Override
-        public void rebind(String name, Object obj) throws NamingException {
             throw new OperationNotSupportedException();
         }
 

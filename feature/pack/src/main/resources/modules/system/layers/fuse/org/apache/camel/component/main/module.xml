@@ -42,6 +42,7 @@
         <module name="org.apache.camel.component.boon" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.box" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.braintree" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.caffeine" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.cassandra" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.castor" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.cm.sms" export="true" services="export" optional="true" />
