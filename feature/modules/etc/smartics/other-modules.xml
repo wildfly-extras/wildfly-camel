@@ -380,6 +380,27 @@
         </exports>
     </module>
 
+    <module name="com.hazelcast">
+        <include artifact="com.hazelcast:hazelcast"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+        <exports>
+            <exclude path="com/hazelcast/internal**" />
+        </exports>
+    </module>
+
+    <module name="com.hazelcast.client">
+        <include artifact="com.hazelcast:hazelcast-client"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+            <include module="com.hazelcast.skipped"/>
+        </apply-to-dependencies>
+    </module>
+
     <module name="com.jamesmurty.utils.java.xmlbuilder">
         <properties>
             <property name="jboss.api" value="private"/>

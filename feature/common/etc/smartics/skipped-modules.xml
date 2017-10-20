@@ -108,6 +108,10 @@
         <include artifact="com.google.oauth-client:google-oauth-client-jetty"/>
     </module>
 
+    <module name="com.hazelcast.skipped" skip="true">
+        <include artifact="com.hazelcast:hazelcast-client-protocol"/>
+    </module>
+
     <module name="com.ibm.jbatch.tck" skip="true">
         <include artifact="com.ibm.jbatch:com.ibm.jbatch-tck-spi" />
     </module>

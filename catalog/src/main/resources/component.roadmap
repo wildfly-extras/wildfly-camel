@@ -79,6 +79,17 @@ google-mail
 google-pubsub
 grpc
 guava-eventbus
+hazelcast-atomicvalue
+hazelcast-instance
+hazelcast-list
+hazelcast-map
+hazelcast-multimap
+hazelcast-queue
+hazelcast-replicatedmap
+hazelcast-ringbuffer
+hazelcast-seda
+hazelcast-set
+hazelcast-topic
 hbase
 hdfs2
 http4
@@ -226,17 +237,6 @@ elasticsearch5                                      #1824
 etcd                                                #1827
 flink                                               #1430
 google-bigquery                                     #2177
-hazelcast-atomicvalue                               #2178
-hazelcast-instance
-hazelcast-list
-hazelcast-map
-hazelcast-multimap
-hazelcast-queue
-hazelcast-replicatedmap
-hazelcast-ringbuffer
-hazelcast-seda
-hazelcast-set
-hazelcast-topic
 hipchat                                             #2003
 iec60870-client                                     #2179
 iec60870-server                                     #2179

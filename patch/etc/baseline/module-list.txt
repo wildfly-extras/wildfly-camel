@@ -39,6 +39,8 @@
 /com/google/protobuf/2.5/protobuf-java-2.5.0.jar
 /com/google/protobuf/main/protobuf-java-3.3.0.jar
 /com/google/protobuf/main/protobuf-java-util-3.3.0.jar
+/com/hazelcast/client/main/hazelcast-client-3.8.5.jar
+/com/hazelcast/main/hazelcast-3.8.5.jar
 /com/jcraft/jsch/main/jsch-0.1.54.jar
 /com/netflix/archaius/archaius-core/main/archaius-core-0.7.4.jar
 /com/netflix/hystrix/main/HdrHistogram-2.1.6.jar
@@ -226,6 +228,7 @@
 /org/apache/camel/component/grpc/main/camel-grpc-2.20.0.jar
 /org/apache/camel/component/gson/main/camel-gson-2.20.0.jar
 /org/apache/camel/component/guava/eventbus/main/camel-guava-eventbus-2.20.0.jar
+/org/apache/camel/component/hazelcast/main/camel-hazelcast-2.20.0.jar
 /org/apache/camel/component/hbase/main/camel-hbase-2.20.0.jar
 /org/apache/camel/component/hdfs2/main/camel-hdfs2-2.20.0.jar
 /org/apache/camel/component/headersmap/main/camel-headersmap-2.20.0.jar

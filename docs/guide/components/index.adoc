@@ -124,6 +124,8 @@ include::camel-grpc.adoc[]
 
 include::camel-guava-eventbus.adoc[]
 
+include::camel-hazelcast.adoc[]
+
 include::camel-hbase.adoc[]
 
 include::camel-hdfs2.adoc[]
