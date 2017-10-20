@@ -8,6 +8,7 @@
 	^com/datastax(.*)
 	^com/dropbox/core(.*)
 	^com/codahale(.*)
+	^com/github/benmanes/caffeine(.*)
 	^com/github/kristofa/brave(.*)
 	^com/google/api/client(.*)
     ^com/google/api/services/calendar(.*)

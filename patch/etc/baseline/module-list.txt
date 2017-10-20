@@ -162,6 +162,8 @@
 /org/apache/camel/component/box/main/camel-box-api-2.20.0.jar
 /org/apache/camel/component/braintree/main/braintree-java-2.63.0.jar
 /org/apache/camel/component/braintree/main/camel-braintree-2.20.0.jar
+/org/apache/camel/component/caffeine/main/caffeine-2.5.5.jar
+/org/apache/camel/component/caffeine/main/camel-caffeine-2.20.0.jar
 /org/apache/camel/component/cassandra/main/camel-cassandraql-2.20.0.jar
 /org/apache/camel/component/cassandra/main/cassandra-driver-core-3.3.0.jar
 /org/apache/camel/component/castor/main/camel-castor-2.20.0.jar

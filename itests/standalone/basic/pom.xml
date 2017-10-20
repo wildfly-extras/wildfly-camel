@@ -201,7 +201,7 @@
         <dependency>
             <groupId>com.notnoop.apns</groupId>
             <artifactId>apns</artifactId>
-            <version>${version.camel.java.apns}</version>
+            <version>${version.camel.apns}</version>
             <type>test-jar</type>
         </dependency>
         <dependency>

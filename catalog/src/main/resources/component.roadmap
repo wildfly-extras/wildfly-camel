@@ -33,6 +33,8 @@ binding                                             #deprecated
 box
 braintree
 browse
+caffeine-cache
+caffeine-loadcache
 class
 cm-sms
 coap
@@ -213,8 +215,6 @@ atmos                                               #1984
 azure-blob                                          #1818
 azure-queue                                         #1819
 beanstalk                                           #1419
-caffeine-cache                                      #2175
-caffeine-loadcache
 chronicle-engine                                    #1986
 chunk                                               #1987
 cmis                                                #1989

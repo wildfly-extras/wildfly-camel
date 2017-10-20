@@ -52,6 +52,8 @@ include::camel-box.adoc[]
 
 include::camel-braintree.adoc[]
 
+include::camel-caffeine.adoc[]
+
 include::camel-cassandra.adoc[]
 
 include::camel-cdi.adoc[]

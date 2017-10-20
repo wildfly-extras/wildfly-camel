@@ -566,6 +566,10 @@ com/dropbox/core/v2/teamlog
 com/dropbox/core/v2/teampolicies
 com/dropbox/core/v2/users
 com/dropbox/core/v2/userscommon
+com/github/benmanes/caffeine
+com/github/benmanes/caffeine/base
+com/github/benmanes/caffeine/cache
+com/github/benmanes/caffeine/cache/stats
 com/github/kristofa/brave
 com/github/kristofa/brave/scribe
 com/google/api/client
@@ -1061,6 +1065,12 @@ org/apache/camel/component/boon
 org/apache/camel/component/box
 org/apache/camel/component/box/api
 org/apache/camel/component/braintree
+org/apache/camel/component/caffeine
+org/apache/camel/component/caffeine/cache
+org/apache/camel/component/caffeine/load
+org/apache/camel/component/caffeine/processor
+org/apache/camel/component/caffeine/processor/aggregate
+org/apache/camel/component/caffeine/processor/idempotent
 org/apache/camel/component/cassandra
 org/apache/camel/component/cm
 org/apache/camel/component/cm/client

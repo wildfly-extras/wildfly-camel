@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.caffeine">
+  <resources>
+    <artifact name="${com.github.ben-manes.caffeine:caffeine}" />
+    <artifact name="${org.apache.camel:camel-caffeine}" />
+  </resources>
+  <dependencies>
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+  <exports>
+    <exclude path="com/github" />
+    <exclude path="com/github/benmanes" />
+  </exports>
+</module>
