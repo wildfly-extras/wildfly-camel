@@ -1366,6 +1366,7 @@ org/apache/camel/component/caffeine/processor
 org/apache/camel/component/caffeine/processor/aggregate
 org/apache/camel/component/caffeine/processor/idempotent
 org/apache/camel/component/cassandra
+org/apache/camel/component/chunk
 org/apache/camel/component/cm
 org/apache/camel/component/cm/client
 org/apache/camel/component/cm/exceptions

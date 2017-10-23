@@ -47,6 +47,25 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.chunk">
+        <include artifact="com.x5dev:chunk-templates"/>
+        <include artifact="net.minidev:json-smart"/>
+        <include artifact="org.apache.camel:camel-chunk"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.google.android"/>
+            <include module="org.apache.camel.apt"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="com/csvreader**"/>
+            <exclude path="com/x5**"/>
+            <exclude path="net/minidev**"/>
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.elasticsearch5">
         <include artifact="org.apache.camel:camel-elasticsearch5"/>
         <apply-to-dependencies skip="true">

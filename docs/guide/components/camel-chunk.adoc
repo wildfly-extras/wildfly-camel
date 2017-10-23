@@ -1,0 +1,3 @@
+### camel-chunk
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-chunk/src/main/docs/chunk-component.adoc[chunk,window=_blank] component allows for processing a message using a http://www.x5software.com/chunk[Chunk,window=_blank] template.

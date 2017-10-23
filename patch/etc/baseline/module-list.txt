@@ -172,6 +172,9 @@
 /org/apache/camel/component/castor/main/castor-core-1.3.3.jar
 /org/apache/camel/component/castor/main/castor-xml-1.3.3.jar
 /org/apache/camel/component/cdi/main/camel-cdi-2.20.0.jar
+/org/apache/camel/component/chunk/main/camel-chunk-2.20.0.jar
+/org/apache/camel/component/chunk/main/chunk-templates-3.2.4.jar
+/org/apache/camel/component/chunk/main/json-smart-1.1.1.jar
 /org/apache/camel/component/cm/sms/main/camel-cm-sms-2.20.0.jar
 /org/apache/camel/component/coap/main/camel-coap-2.20.0.jar
 /org/apache/camel/component/cometd/main/camel-cometd-2.20.0.jar

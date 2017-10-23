@@ -39,6 +39,12 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-chunk</artifactId>
+            <version>${version.apache.camel}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-elasticsearch5</artifactId>
             <version>${version.apache.camel}</version>
             <scope>provided</scope>
