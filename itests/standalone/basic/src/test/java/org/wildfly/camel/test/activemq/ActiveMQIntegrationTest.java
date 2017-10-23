@@ -20,6 +20,7 @@
 
 package org.wildfly.camel.test.activemq;
 
+import java.io.File;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -33,9 +34,10 @@ import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.camel.component.ActiveMQComponent;
+import org.apache.activemq.command.ActiveMQTextMessage;
 import org.apache.camel.CamelContext;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.ProducerTemplate;
@@ -43,42 +45,76 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
+import org.jboss.dmr.ModelNode;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.ResourceAdapterArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.jms.support.converter.MessageConversionException;
+import org.springframework.jms.support.converter.MessageConverter;
+import org.wildfly.camel.test.common.utils.DMRUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
+@ServerSetup({ActiveMQIntegrationTest.ActiveMQRarSetupTask.class})
 public class ActiveMQIntegrationTest {
 
-    static final String QUEUE_NAME = "testQueue";
+    private static final String ACTIVEMQ_RAR = "activemq-rar.rar";
+    private static final String QUEUE_NAME = "testQueue";
+
+    @ArquillianResource
+    private InitialContext context;
+
+    static class ActiveMQRarSetupTask implements ServerSetupTask {
+
+        @Override
+        public void setup(ManagementClient managementClient, String containerId) throws Exception {
+            ModelNode batchNode = DMRUtils.batchNode()
+                .addStep("subsystem=resource-adapters/resource-adapter=amq-ra.rar", "add(archive=activemq-rar.rar)")
+                .addStep("subsystem=resource-adapters/resource-adapter=amq-ra.rar", "write-attribute(name=transaction-support,value=NoTransaction)")
+                .addStep("subsystem=resource-adapters/resource-adapter=amq-ra.rar/connection-definitions=QueueConnectionFactory", "add(class-name=org.apache.activemq.ra.ActiveMQManagedConnectionFactory, jndi-name=java:/ActiveMQConnectionFactory)")
+                .addStep("subsystem=resource-adapters/resource-adapter=amq-ra.rar/connection-definitions=QueueConnectionFactory/config-properties=ServerUrl", "add(value=vm://localhost?broker.persistent=false&broker.useJmx=false&broker.useShutdownHook=false)")
+                .addStep("subsystem=resource-adapters/resource-adapter=amq-ra.rar/admin-objects=OrdersQueue", "add(class-name=org.apache.activemq.command.ActiveMQQueue, jndi-name=java:/OrdersQueue)")
+                .addStep("subsystem=resource-adapters/resource-adapter=amq-ra.rar/admin-objects=OrdersQueue/config-properties=PhysicalName", "add(value=OrdersQueue)")
+                .build();
+            managementClient.getControllerClient().execute(batchNode);
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
+            ModelNode batchNode = DMRUtils.batchNode()
+                .addStep("subsystem=resource-adapters/resource-adapter=amq-ra.rar", "remove")
+                .build();
+            managementClient.getControllerClient().execute(batchNode);
+        }
+    }
 
     @Deployment
-    public static WebArchive createdeployment() {
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-activemq-tests.war");
-        return archive;
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class, "camel-activemq-tests.jar");
+    }
+
+    @Deployment(name = ACTIVEMQ_RAR, testable = false, order = 1)
+    public static ResourceAdapterArchive createRarDeployment() {
+        return ShrinkWrap.createFromZipFile(ResourceAdapterArchive.class, new File("target/dependencies/" + ACTIVEMQ_RAR));
     }
 
     @Test
     public void testSendMessage() throws Exception {
-        // Create the CamelContext
         CamelContext camelctx = new DefaultCamelContext();
-
-        ConnectionFactory connectionFactory = createConnectionFactory();
-
-        ActiveMQComponent activeMQComponent = new ActiveMQComponent();
-        activeMQComponent.setConnectionFactory(connectionFactory);
-        camelctx.addComponent("activemq", activeMQComponent);
-
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("activemq:queue:" + QUEUE_NAME).
-                        transform(body().prepend("Hello ")).
-                        to("seda:end");
+                fromF("activemq:queue:%s?connectionFactory=java:/ActiveMQConnectionFactory", QUEUE_NAME).
+                transform(simple("Hello ${body}")).
+                to("seda:end");
             }
         });
 
@@ -87,6 +123,7 @@ public class ActiveMQIntegrationTest {
 
         camelctx.start();
         try {
+            ConnectionFactory connectionFactory = lookupConnectionFactory();
             Connection con = connectionFactory.createConnection();
             try {
                 sendMessage(con, "Kermit");
@@ -102,21 +139,13 @@ public class ActiveMQIntegrationTest {
 
     @Test
     public void testReceiveMessage() throws Exception {
-        // Create the CamelContext
         CamelContext camelctx = new DefaultCamelContext();
-
-        ConnectionFactory connectionFactory = createConnectionFactory();
-
-        ActiveMQComponent activeMQComponent = new ActiveMQComponent();
-        activeMQComponent.setConnectionFactory(connectionFactory);
-        camelctx.addComponent("activemq", activeMQComponent);
-
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start").
-                        transform(body().prepend("Hello ")).
-                        to("activemq:queue:" + QUEUE_NAME);
+                transform(simple("Hello ${body}")).
+                toF("activemq:queue:%s?connectionFactory=java:/ActiveMQConnectionFactory", QUEUE_NAME);
             }
         });
 
@@ -125,19 +154,17 @@ public class ActiveMQIntegrationTest {
 
         camelctx.start();
         try {
+            ConnectionFactory connectionFactory = lookupConnectionFactory();
             Connection con = connectionFactory.createConnection();
             try {
-                receiveMessage(con, new MessageListener() {
-                    @Override
-                    public void onMessage(Message message) {
-                        TextMessage text = (TextMessage) message;
-                        try {
-                            result.append(text.getText());
-                        } catch (JMSException ex) {
-                            result.append(ex.getMessage());
-                        }
-                        latch.countDown();
+                receiveMessage(con, message -> {
+                    TextMessage text = (TextMessage) message;
+                    try {
+                        result.append(text.getText());
+                    } catch (JMSException ex) {
+                        result.append(ex.getMessage());
                     }
+                    latch.countDown();
                 });
 
                 ProducerTemplate producer = camelctx.createProducerTemplate();
@@ -153,8 +180,56 @@ public class ActiveMQIntegrationTest {
         }
     }
 
-    private ActiveMQConnectionFactory createConnectionFactory() {
-        return new ActiveMQConnectionFactory("vm://localhost?broker.persistent=false&broker.useJmx=false");
+    @Test
+    public void testCustomMessageConverter() throws Exception {
+        MessageConverter converter = new MessageConverter() {
+            @Override
+            public Message toMessage(Object o, Session session) throws JMSException, MessageConversionException {
+                return null;
+            }
+
+            @Override
+            public Object fromMessage(Message message) throws JMSException, MessageConversionException {
+                TextMessage originalMessage = (TextMessage) message;
+                TextMessage modifiedMessage = new ActiveMQTextMessage();
+                modifiedMessage.setText(originalMessage.getText() + " Modified");
+                return modifiedMessage;
+            }
+        };
+        context.bind("messageConverter", converter);
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                fromF("activemq:queue:%s?connectionFactory=java:/ActiveMQConnectionFactory&messageConverter=#messageConverter", QUEUE_NAME).
+                transform(simple("Hello ${body.getText()}")).
+                to("seda:end");
+            }
+        });
+
+        PollingConsumer pollingConsumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
+        pollingConsumer.start();
+
+        camelctx.start();
+        try {
+            ConnectionFactory connectionFactory = lookupConnectionFactory();
+            Connection con = connectionFactory.createConnection();
+            try {
+                sendMessage(con, "Kermit");
+                String result = pollingConsumer.receive(3000).getIn().getBody(String.class);
+                Assert.assertEquals("Hello Kermit Modified", result);
+            } finally {
+                con.close();
+            }
+        } finally {
+            camelctx.stop();
+            context.unbind("messageConverter");
+        }
+    }
+
+    private ConnectionFactory lookupConnectionFactory() throws NamingException {
+        return (ConnectionFactory) context.lookup("java:/ActiveMQConnectionFactory");
     }
 
     private void sendMessage(Connection connection, String message) throws Exception {

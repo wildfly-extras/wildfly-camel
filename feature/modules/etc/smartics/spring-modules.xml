@@ -41,6 +41,7 @@
                     <exclude path="org/springframework/jdbc**" />
                 </exports>
             </module>
+            <module name="org.springframework.jms" export="true" />
             <module name="org.springframework.tx" export="true">
                 <exports>
                     <exclude path="org/springframework/dao**" />

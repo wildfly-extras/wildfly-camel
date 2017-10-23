@@ -49,8 +49,7 @@
 	^net/sf/saxon(.*)
     ^org/aopalliance(.*)
     ^org/apache/abdera(.*)
-	^org/apache/activemq
-	^org/apache/activemq/camel(.*)
+	^org/apache/activemq(.*)
 	^org/apache/avro(.*)
 	^org/apache/camel(.*)
 	^org/apache/commons/httpclient(.*)

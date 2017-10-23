@@ -66,6 +66,11 @@
             <artifactId>activemq-mqtt</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-rar</artifactId>
+            <type>rar</type>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cdi</artifactId>
         </dependency>
@@ -246,6 +251,24 @@
                         <org.wildfly.camel.google.api.oauth.properties.path>${org.wildfly.camel.google.api.oauth.properties.path}</org.wildfly.camel.google.api.oauth.properties.path>
                     </systemPropertyVariables>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-test-dependencies</id>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>org.apache.activemq,com.icegreen</includeGroupIds>
+                            <includeTypes>rar,war</includeTypes>
+                            <stripVersion>true</stripVersion>
+                            <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.jboss.shrinkwrap.resolver</groupId>

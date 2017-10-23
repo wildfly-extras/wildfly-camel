@@ -40,7 +40,6 @@ import org.jboss.dmr.ModelNode;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.DMRUtils;
@@ -94,11 +93,7 @@ public class MailIntegrationTest {
 
     @Deployment(managed = false, testable = false, name = GREENMAIL_WAR)
     public static WebArchive createGreenmailDeployment() {
-        File mailDependencies = Maven.configureResolverViaPlugin().
-            resolve("com.icegreen:greenmail-webapp:war:1.4.0").
-            withoutTransitivity().
-            asSingleFile();
-        return ShrinkWrap.createFromZipFile(WebArchive.class, mailDependencies);
+        return ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/dependencies/greenmail-webapp.war"));
     }
 
     @Test

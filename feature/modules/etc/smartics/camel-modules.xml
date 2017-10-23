@@ -63,7 +63,10 @@
             <module name="javax.jms.api" />
             <module name="org.apache.activemq" export="true">
                 <exports>
-                    <exclude path="org/apache/activemq/**" />
+                    <exclude path="org/apache/activemq/broker**" />
+                    <exclude path="org/apache/activemq/transport**" />
+                    <exclude path="org/apache/activemq/wireformat**" />
+                    <exclude path="org/apache/activemq/util/osgi/**" />
                 </exports>
             </module>
             <module name="org.apache.camel.core" />
