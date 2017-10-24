@@ -73,7 +73,6 @@
         <version.apache.felix.scr>1.6.2</version.apache.felix.scr>
         <version.apache.qpid>6.1.2</version.apache.qpid>
         <version.apache.vysper>0.7</version.apache.vysper>
-        <version.apache.xmlbeans>2.6.0</version.apache.xmlbeans>
         <version.args4j>2.0.31</version.args4j>
         <version.arquillian.cube>1.6.0</version.arquillian.cube>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
@@ -125,7 +124,6 @@
         <version-smartics-maven-plugin>2.1.3</version-smartics-maven-plugin>
         <version-wildfly-build-tools>1.1.6.Final</version-wildfly-build-tools>
         <version-wildfly-maven-plugin>1.2.0.Final</version-wildfly-maven-plugin>
-        <version-xmlbeans-maven-plugin>2.3.3</version-xmlbeans-maven-plugin>
 
         <!-- GitHub -->
         <github.namespace>wildfly-extras</github.namespace>
@@ -307,11 +305,6 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>properties-maven-plugin</artifactId>
                     <version>${version-properties-maven-plugin}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>xmlbeans-maven-plugin</artifactId>
-                    <version>${version-xmlbeans-maven-plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.jboss.shrinkwrap.resolver</groupId>

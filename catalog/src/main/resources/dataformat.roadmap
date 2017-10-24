@@ -40,7 +40,6 @@ tidyMarkup
 univocity-csv
 univocity-fixed
 univocity-tsv
-xmlBeans            #deprecated
 xmljson
 xmlrpc
 xstream
@@ -53,4 +52,5 @@ zipfile
 [undecided]
 
 [rejected]
+xmlBeans            #deprecated
 
