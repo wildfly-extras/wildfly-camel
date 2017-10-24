@@ -24,6 +24,7 @@
 /com/fasterxml/jackson/dataformat/xml/main/jackson-dataformat-xml-2.8.9.jar
 /com/fasterxml/jackson/dataformat/yaml/main/jackson-dataformat-yaml-2.8.9.jar
 /com/fasterxml/jackson/datatype/joda/main/jackson-datatype-joda-2.8.9.jar
+/com/fasterxml/jackson/module/afterburner/main/jackson-module-afterburner-2.8.9.jar
 /com/fasterxml/jackson/module/jsonSchema/main/jackson-module-jsonSchema-2.8.9.jar
 /com/github/generex/main/generex-1.0.1.jar
 /com/google/api-client/google-api-client/main/google-api-client-1.22.0.jar
@@ -202,6 +203,8 @@
 /org/apache/camel/component/elasticsearch5/main/camel-elasticsearch5-2.20.0.jar
 /org/apache/camel/component/elsql/main/camel-elsql-2.20.0.jar
 /org/apache/camel/component/elsql/main/elsql-1.2.jar
+/org/apache/camel/component/etcd/main/camel-etcd-2.20.0.jar
+/org/apache/camel/component/etcd/main/etcd4j-2.13.0.jar
 /org/apache/camel/component/exec/main/camel-exec-2.20.0.jar
 /org/apache/camel/component/facebook/main/camel-facebook-2.20.0.jar
 /org/apache/camel/component/facebook/main/facebook4j-core-2.4.10.jar

@@ -66,6 +66,25 @@
                     url: http://dockerHost:5984
                     responseCode: 200
                     iterations: 15
+            etcd:
+                image: quay.io/coreos/etcd:v2.2.5
+                cmd: [
+                    "-listen-client-urls",
+                    "http://0.0.0.0:2379,http://0.0.0.0:4001",
+                    "-listen-peer-urls",
+                    "http://0.0.0.0:2380",
+                    "-advertise-client-urls",
+                    "http://localhost:2379,http://localhost:4001"
+                ]
+                portBindings: [
+                    2379->2379/tcp,
+                    2380->2380/tcp,
+                    4001->4001/tcp
+                ]
+                await:
+                    strategy: log
+                    match: 'listening for client requests'
+                    timeout: 15
             google_pubsub:
                 image: wildflyext/pubsub-emulator:2017.08.07
                 cmd: [

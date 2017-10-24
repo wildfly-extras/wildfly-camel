@@ -1186,6 +1186,16 @@ javax/sip
 javax/sip/address
 javax/sip/header
 javax/sip/message
+mousio/client
+mousio/client/exceptions
+mousio/client/promises
+mousio/client/retry
+mousio/client/util
+mousio/etcd4j
+mousio/etcd4j/promises
+mousio/etcd4j/requests
+mousio/etcd4j/responses
+mousio/etcd4j/transport
 net/fortuna/ical4j
 net/fortuna/ical4j/data
 net/fortuna/ical4j/filter
@@ -1427,6 +1437,9 @@ org/apache/camel/component/elasticsearch5
 org/apache/camel/component/elasticsearch5/aggregation
 org/apache/camel/component/elasticsearch5/converter
 org/apache/camel/component/elsql
+org/apache/camel/component/etcd
+org/apache/camel/component/etcd/cloud
+org/apache/camel/component/etcd/policy
 org/apache/camel/component/exec
 org/apache/camel/component/exec/impl
 org/apache/camel/component/facebook

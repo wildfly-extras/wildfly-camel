@@ -14,7 +14,7 @@ include::camel-apns.adoc[]
 
 include::camel-asterisk.adoc[]
 
-include::camel-atomosphere-websocket.adoc[]
+include::camel-atmosphere-websocket.adoc[]
 
 include::camel-atom.adoc[]
 
@@ -95,6 +95,8 @@ include::camel-ejb.adoc[]
 include::camel-elasticsearch.adoc[]
 
 include::camel-elsql.adoc[]
+
+include::camel-etcd.adoc[]
 
 include::camel-exec.adoc[]
 

@@ -45,6 +45,7 @@
     ^javax/jcr(.*)
     ^javax/sdp(.*)
     ^javax/sip(.*)
+    ^mousio(.*)
 	^net/fortuna/ical4j(.*)
 	^net/sf/saxon(.*)
     ^org/aopalliance(.*)

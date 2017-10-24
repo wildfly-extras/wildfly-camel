@@ -63,6 +63,7 @@ ehcache
 ejb
 elasticsearch
 elsql
+etcd
 exec
 facebook
 file
@@ -235,7 +236,6 @@ digitalocean                                        #1822
 docker                                              #1424
 drill                                               #1823
 elasticsearch5                                      #1824
-etcd                                                #1827
 flink                                               #1430
 google-bigquery                                     #2177
 hipchat                                             #2003

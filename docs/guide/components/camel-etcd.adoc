@@ -1,0 +1,3 @@
+### camel-etcd
+
+The http://camel.apache.org/etcd.html[camel-etcd,window=_blank] component enables you to interact with https://coreos.com/etcd/[etcd,window=_blank] key/value store clusters.

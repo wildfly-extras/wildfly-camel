@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.etcd">
+  <resources>
+    <artifact name="${org.apache.camel:camel-etcd}" />
+    <artifact name="${org.mousio:etcd4j}" />
+  </resources>
+  <dependencies>
+    <module name="io.netty" />
+    <module name="org.slf4j" />
+    <module name="com.fasterxml.jackson.core.jackson-annotations" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.fasterxml.jackson.module.afterburner" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.lang3" />
+  </dependencies>
+</module>

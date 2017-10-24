@@ -266,15 +266,18 @@
         <include artifact=":jackson-datatype-joda" />
     </module>
 
+    <module name="com.fasterxml.jackson.module.afterburner">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-module-afterburner" />
+    </module>
+
     <module name="com.fasterxml.jackson.module.jsonSchema">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-module-jsonSchema"/>
-    </module>
-
-    <module name="com.fasterxml.jackson.skipped" skip="true">
-        <include artifact=":jackson-module-afterburner" />
     </module>
 
     <module name="com.github.generex">
