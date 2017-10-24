@@ -26,7 +26,6 @@ import java.net.URISyntaxException;
 
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
-import org.apache.camel.component.undertow.RestUndertowHttpBinding;
 import org.apache.camel.component.undertow.UndertowComponent;
 import org.apache.camel.component.undertow.UndertowConsumer;
 import org.apache.camel.component.undertow.UndertowEndpoint;
@@ -79,11 +78,6 @@ public class WildFlyUndertowComponent extends UndertowComponent {
             String host = uri.getHost();
             if (!"localhost".equals(host)) {
                 LOGGER.warn("Ignoring configured host: {}", uri);
-            }
-
-            // [#1809] Enable undertow consumer prefix paths
-            if (!(endpoint.getUndertowHttpBinding() instanceof RestUndertowHttpBinding) && endpoint.getMatchOnUriPrefix()) {
-                LOGGER.warn("Ignoring URI path prefix matches for {}", uri.getPath());
             }
         }
 

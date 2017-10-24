@@ -64,6 +64,7 @@ import io.undertow.server.HttpServerExchange;
 import io.undertow.server.RoutingHandler;
 import io.undertow.servlet.api.Deployment;
 import io.undertow.servlet.api.DeploymentInfo;
+import io.undertow.util.Methods;
 import io.undertow.util.PathTemplate;
 import io.undertow.util.URLUtils;
 
@@ -194,12 +195,13 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
         @Override
 		public void registerHandler(HttpHandlerRegistrationInfo reginfo, HttpHandler handler) {
+            boolean matchOnUriPrefix = reginfo.isMatchOnUriPrefix();
             URI httpURI = reginfo.getUri();
 
             String contextPath = getContextPath(httpURI);
             LOGGER.debug("Using context path {}" , contextPath);
 
-            String relativePath = getRelativePath(httpURI);
+            String relativePath = getRelativePath(httpURI, matchOnUriPrefix);
             LOGGER.debug("Using relative path {}" , relativePath);
 
             DelegatingRoutingHandler routingHandler = handlers.get(contextPath);
@@ -223,6 +225,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
 		@Override
 		public void unregisterHandler(HttpHandlerRegistrationInfo reginfo) {
+            boolean matchOnUriPrefix = reginfo.isMatchOnUriPrefix();
             URI httpURI = reginfo.getUri();
             String contextPath = getContextPath(httpURI);
             LOGGER.debug("unregisterHandler {}", contextPath);
@@ -231,7 +234,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
             if (routingHandler != null) {
                 String methods = reginfo.getMethodRestrict() == null ? DEFAULT_METHODS : reginfo.getMethodRestrict();
                 for (String method : methods.split(",")) {
-                    String relativePath = getRelativePath(httpURI);
+                    String relativePath = getRelativePath(httpURI, matchOnUriPrefix);
                     routingHandler.remove(method, relativePath);
                     LOGGER.debug("Unregistered {}: {}", method, relativePath);
                 }
@@ -266,10 +269,14 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
             return String.format("/%s", pathElements[0]);
         }
 
-        private String getRelativePath(URI httpURI) {
+        private String getRelativePath(URI httpURI, boolean matchOnUriPrefix) {
             String path = httpURI.getPath();
             String contextPath = getContextPath(httpURI);
-            return URLUtils.normalizeSlashes(path.substring(contextPath.length()));
+            String normalizedPath = URLUtils.normalizeSlashes(path.substring(contextPath.length()));
+            if (matchOnUriPrefix) {
+                normalizedPath += "*";
+            }
+            return normalizedPath;
         }
     }
 
@@ -289,9 +296,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
         }
 
         void remove(String method, String path) {
-            // There is currently no way to remove paths from a RoutingHandler so set them to null
-            // https://issues.jboss.org/browse/UNDERTOW-1073
-            delegate.add(method, path, null);
+            delegate.remove(Methods.fromString(method), path);
             paths.remove(MethodPathMapping.of(method, path));
         }
 
