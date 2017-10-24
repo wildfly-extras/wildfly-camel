@@ -192,6 +192,8 @@ include::camel-lumberjack.adoc[]
 
 include::camel-mail.adoc[]
 
+include::camel-master.adoc[]
+
 include::camel-metrics.adoc[]
 
 include::camel-mina2.adoc[]

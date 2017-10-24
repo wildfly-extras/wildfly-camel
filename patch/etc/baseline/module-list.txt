@@ -294,6 +294,7 @@
 /org/apache/camel/component/lumberjack/main/camel-lumberjack-2.20.0.jar
 /org/apache/camel/component/lzf/main/camel-lzf-2.20.0.jar
 /org/apache/camel/component/mail/main/camel-mail-2.20.0.jar
+/org/apache/camel/component/master/main/camel-master-2.20.0.jar
 /org/apache/camel/component/metrics/main/camel-metrics-2.20.0.jar
 /org/apache/camel/component/metrics/main/metrics-core-3.1.5.jar
 /org/apache/camel/component/metrics/main/metrics-json-3.1.5.jar

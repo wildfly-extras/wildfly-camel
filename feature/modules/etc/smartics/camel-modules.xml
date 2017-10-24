@@ -1711,6 +1711,17 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.master">
+        <include artifact="org.apache.camel:camel-master" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.metrics">
         <include artifact="org.apache.camel:camel-metrics" />
         <include artifact="io.dropwizard.metrics:metrics-core" />

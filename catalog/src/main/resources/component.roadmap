@@ -135,6 +135,7 @@ log
 lpr
 lucene
 lumberjack
+master
 metrics
 mina2
 mllp
@@ -244,7 +245,6 @@ iec60870-server                                     #2179
 jclouds                                             #1450
 json-validator                                      #2180
 ldif                                                #2181
-master                                              #2182
 milo-client                                         #1835
 milo-server                                         #1836
 mongodb-gridfs                                      #1837
