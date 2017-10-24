@@ -25,6 +25,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.jboss.gravia.utils.IllegalArgumentAssertion;
+import org.jboss.gravia.utils.IllegalStateAssertion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wildfly.camel.catalog.WildFlyRuntimeProvider;
@@ -110,7 +111,7 @@ public class FractionsGenerator {
     public FractionsGenerator(Path outpath) throws IOException {
         this.outpath = outpath;
 
-        try (InputStreamReader reader = new InputStreamReader(Main.class.getResourceAsStream("/fractions.config"))) {
+        try (InputStreamReader reader = new InputStreamReader(getResourceAsStream("fractions.config"))) {
             configs = new ObjectMapper().readValue(reader, new TypeReference<Map<String, Config>>() {
             });
         }
@@ -128,8 +129,7 @@ public class FractionsGenerator {
         context.put("components", components);
 
         String tmplPath = "templates/parent-pom.vm";
-        ClassLoader classLoader = Main.class.getClassLoader();
-        try (InputStreamReader reader = new InputStreamReader(classLoader.getResourceAsStream(tmplPath))) {
+        try (InputStreamReader reader = new InputStreamReader(getResourceAsStream(tmplPath))) {
             Path path = Paths.get("components", "pom.xml");
             FractionsGenerator.LOG.info("Generating: {}", path);
 
@@ -168,8 +168,7 @@ public class FractionsGenerator {
 
         // Write the component POM
         String tmplPath = "templates/pom.vm";
-        ClassLoader classLoader = Main.class.getClassLoader();
-        try (InputStreamReader reader = new InputStreamReader(classLoader.getResourceAsStream(tmplPath))) {
+        try (InputStreamReader reader = new InputStreamReader(getResourceAsStream(tmplPath))) {
             Path path = Paths.get("components", comp.compId, "pom.xml");
             FractionsGenerator.LOG.info("Generating: {}", path);
 
@@ -185,7 +184,7 @@ public class FractionsGenerator {
         File outfile = outpath.resolve(path).toFile();
         try (PrintWriter writer = new PrintWriter(new FileWriter(outfile))) {
             tmplPath = "templates/module.conf";
-            InputStream input = classLoader.getResourceAsStream(tmplPath);
+            InputStream input = getResourceAsStream(tmplPath);
             try (InputStreamReader reader = new InputStreamReader(input)) {
                 ve.evaluate(context, writer, tmplPath, reader);
             }
@@ -194,7 +193,7 @@ public class FractionsGenerator {
 
     private SortedSet<Component> getComponents() throws IOException {
         SortedSet<Component> components = new TreeSet<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(Main.class.getResourceAsStream("/whitelist.txt")))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(getResourceAsStream("whitelist.txt")))) {
             String line = reader.readLine();
             while (line != null) {
                 String compId = line.trim();
@@ -203,7 +202,7 @@ public class FractionsGenerator {
             }
         }
         List<String> blacklist = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(Main.class.getResourceAsStream("/blacklist.txt")))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(getResourceAsStream("blacklist.txt")))) {
             String line = reader.readLine();
             while (line != null) {
                 blacklist.add(line.trim());
@@ -214,30 +213,46 @@ public class FractionsGenerator {
         catalog.setRuntimeProvider(new WildFlyRuntimeProvider());
         for (String name : catalog.findComponentNames()) {
             String schema = catalog.componentJSonSchema(name);
-            Component comp = getComponent(new ObjectMapper().readTree(schema).get("component"));
-            if (comp != null && !blacklist.contains(comp.compId)) {
-                components.add(comp);
+            if (schema != null) {
+                Component comp = getComponent(new ObjectMapper().readTree(schema).get("component"));
+                if (comp != null && !blacklist.contains(comp.compId)) {
+                    components.add(comp);
+                } 
+            } else {
+                LOG.warn("Cannot obtain schema for: {}", name);
             }
         }
         for (String name : catalog.findDataFormatNames()) {
             String schema = catalog.dataFormatJSonSchema(name);
-            Component comp = getComponent(new ObjectMapper().readTree(schema).get("dataformat"));
-            if (comp != null && !blacklist.contains(comp.compId)) {
-                components.add(comp);
+            if (schema != null) {
+                Component comp = getComponent(new ObjectMapper().readTree(schema).get("dataformat"));
+                if (comp != null && !blacklist.contains(comp.compId)) {
+                    components.add(comp);
+                }
+            } else {
+                LOG.warn("Cannot obtain schema for: {}", name);
             }
         }
         for (String name : catalog.findLanguageNames()) {
             String schema = catalog.languageJSonSchema(name);
-            Component comp = getComponent(new ObjectMapper().readTree(schema).get("language"));
-            if (comp != null && !blacklist.contains(comp.compId)) {
-                components.add(comp);
+            if (schema != null) {
+                Component comp = getComponent(new ObjectMapper().readTree(schema).get("language"));
+                if (comp != null && !blacklist.contains(comp.compId)) {
+                    components.add(comp);
+                }
+            } else {
+                LOG.warn("Cannot obtain schema for: {}", name);
             }
         }
         for (String name : catalog.findOtherNames()) {
             String schema = catalog.otherJSonSchema(name);
-            Component comp = getComponent(new ObjectMapper().readTree(schema).get("other"));
-            if (comp != null && !blacklist.contains(comp.compId)) {
-                components.add(comp);
+            if (schema != null) {
+                Component comp = getComponent(new ObjectMapper().readTree(schema).get("other"));
+                if (comp != null && !blacklist.contains(comp.compId)) {
+                    components.add(comp);
+                }
+            } else {
+                LOG.warn("Cannot obtain schema for: {}", name);
             }
         }
         return components;
@@ -282,5 +297,11 @@ public class FractionsGenerator {
         ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         ve.init();
         return ve;
+    }
+
+    private InputStream getResourceAsStream(String resname) {
+        InputStream stream = getClass().getClassLoader().getResourceAsStream(resname);
+        IllegalStateAssertion.assertNotNull(stream, "Cannot obtain resource stream: " + resname);
+        return stream;
     }
 }

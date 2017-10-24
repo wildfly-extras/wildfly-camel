@@ -477,6 +477,7 @@
             </activation>
             <modules>
                 <module>archetypes</module>
+                <module>swarm</module>
                 <module>docs</module>
                 <module>patch</module>
             </modules>
