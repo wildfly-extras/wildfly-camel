@@ -2759,28 +2759,6 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.xmlbeans">
-        <include artifact="org.apache.camel:camel-xmlbeans" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="org.apache.xmlbeans" export="true">
-                <exports>
-                    <include path="org/apache/xmlbeans" />
-                    <include path="org/apache/xmlbeans/impl/values" />
-                    <include path="org/apache/xmlbeans/impl/schema" />
-                    <exclude path="org/apache/xmlbeans**" />
-                    <exclude path="org/w3c**" />
-                    <exclude path="schemaorg_apache_xmlbeans/**" />
-                </exports>
-            </module>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
     <module name="org.apache.camel.component.xmljson">
         <include artifact="org.apache.camel:camel-xmljson" />
         <apply-to-dependencies skip="true">

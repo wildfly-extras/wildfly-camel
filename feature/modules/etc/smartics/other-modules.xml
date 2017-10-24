@@ -1303,16 +1303,6 @@
         <include artifact="org.apache.xbean:xbean-(.*)" />
     </module>
 
-    <module name="org.apache.xmlbeans">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.apache.xmlbeans:xmlbeans" />
-        <dependencies>
-            <module name="javax.api" />
-        </dependencies>
-    </module>
-
     <module name="org.apache.xmlgraphics">
         <properties>
             <property name="jboss.api" value="private"/>

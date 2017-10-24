@@ -33,7 +33,6 @@ The following lists supported Data Formats
 * http://camel.apache.org/univocity-parsers-formats.html[Univocity-CSV,window=_blank]
 * http://camel.apache.org/univocity-parsers-formats.html[Univocity-TSV,window=_blank]
 * http://camel.apache.org/univocity-parsers-formats.html[Univocity-Fixed,window=_blank]
-* http://camel.apache.org/xmlbeans.html[XmlBeans,window=_blank]
 * http://camel.apache.org/xmljson.html[XmlJson,window=_blank]
 * http://camel.apache.org/xmlrpc.html[XmlRpc,window=_blank]
 * http://camel.apache.org/xml-security-component.html[XMLSecurity,window=_blank]

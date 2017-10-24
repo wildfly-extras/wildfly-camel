@@ -50,7 +50,7 @@ public class XSLTIntegrationTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "xquery-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-xslt-tests");
         archive.addAsResource("xslt/customer-nons.xml", "customer-nons.xml");
         archive.addAsResource("xslt/customer.xml", "customer.xml");
         archive.addAsResource("xslt/transform.xsl", "transform.xsl");
