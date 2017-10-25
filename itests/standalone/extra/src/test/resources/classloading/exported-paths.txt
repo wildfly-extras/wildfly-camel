@@ -1622,6 +1622,7 @@ org/apache/camel/component/jmx/jaxb
 org/apache/camel/component/johnzon
 org/apache/camel/component/jolt
 org/apache/camel/component/jpa
+org/apache/camel/component/jsonvalidator
 org/apache/camel/component/jt400
 org/apache/camel/component/kafka
 org/apache/camel/component/kubernetes

@@ -379,14 +379,6 @@
         <include artifact="org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.1_spec" />
     </module>
 
-    <module name="org.joda.convert" skip="true">
-        <include artifact=":joda-convert" />
-    </module>
-
-    <module name="org.json4s" skip="true">
-        <include artifact="org.json4s:json4s-(.*)" />
-    </module>
-
     <module name="org.jboss.shrinkwrap" skip="true">
         <include artifact="org.jboss.shrinkwrap:(.*)" />
     </module>
@@ -395,21 +387,26 @@
         <include artifact="org.jctools:(.*)" />
     </module>
 
+    <module name="org.joda.convert" skip="true">
+        <include artifact=":joda-convert" />
+    </module>
+
     <module name="org.jruby" skip="true">
+        <include artifact="org.jruby:joda-timezones" />
+        <include artifact="org.jruby.joni:joni" />
         <include artifact="org.jruby:jruby" />
         <include artifact="org.jruby:jruby-core" />
         <include artifact="org.jruby:jruby-stdlib" />
-    </module>
-
-    <module name="org.jruby.extras" skip="true">
-        <include artifact="org.jruby.ext.posix:jna-posix" />
+        <include artifact="org.jruby:yecht" />
         <include artifact="org.jruby.extras:bytelist" />
         <include artifact="org.jruby.extras:jna" />
         <include artifact="org.jruby.extras:jvyamlb" />
+        <include artifact="org.jruby.ext.posix:jna-posix" />
         <include artifact="org.jruby.jcodings:jcodings" />
-        <include artifact="org.jruby:joda-timezones" />
-        <include artifact="org.jruby.joni:joni" />
-        <include artifact="org.jruby:yecht" />
+    </module>
+
+    <module name="org.json4s" skip="true">
+        <include artifact="org.json4s:json4s-(.*)" />
     </module>
 
     <module name="org.linkedin" skip="true">

@@ -207,6 +207,10 @@
         <include artifact="com.caucho:hessian" />
     </module>
 
+    <module name="com.damnhandy">
+        <include artifact="com.damnhandy:handy-uri-templates" />
+    </module>
+
     <module name="com.eclipsesource.minimal.json">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1002,6 +1006,13 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.commons.digester">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-digester" />
+    </module>
+
     <module name="org.apache.commons.exec">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1051,6 +1062,13 @@
         <dependencies>
             <module name="javax.api" />
         </dependencies>
+    </module>
+
+    <module name="org.apache.commons.validator">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-validator" />
     </module>
 
     <module name="org.apache.derby">
@@ -1162,7 +1180,7 @@
             <include module="io.netty.skipped" />
             <include module="junit"/>
             <include module="org.apache.camel.component.protobuf" />
-            <include module="org.jruby.extras"/>
+            <include module="org.jruby"/>
             <include module="org.mortbay.jetty"/>
             <include module="org.osgi.core"/>
         </apply-to-dependencies>
@@ -1657,6 +1675,18 @@
             <exclude path="com/tdunning**" />
             <exclude path="com/twitter**" />
         </exports>
+    </module>
+
+    <module name="org.everit.json">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":org.everit.json.schema" />
+        <include artifact="org.json:json" />
+        <dependencies>
+            <module name="com.damnhandy"/>
+            <module name="org.apache.commons.collections"/>
+        </dependencies>
     </module>
 
     <module name="org.fusesource.hawtbuf">

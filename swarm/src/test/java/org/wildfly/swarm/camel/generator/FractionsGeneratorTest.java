@@ -27,7 +27,7 @@ import org.junit.Test;
 
 public class FractionsGeneratorTest {
 
-    @Test
+    //@Test
     public void generate() throws IOException {
         Path outdir = Paths.get("target/generated");
         FractionsGenerator tool = new FractionsGenerator(outdir);

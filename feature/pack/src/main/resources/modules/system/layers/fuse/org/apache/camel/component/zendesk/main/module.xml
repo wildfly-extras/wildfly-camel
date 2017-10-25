@@ -3,22 +3,20 @@
   <resources>
     <artifact name="${com.ning:async-http-client}" />
     <artifact name="${org.apache.camel:camel-zendesk}" />
-    <artifact name="${com.damnhandy:handy-uri-templates}" />
     <artifact name="${com.cloudbees.thirdparty:zendesk-java-client}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="org.slf4j" />
+    <module name="com.damnhandy" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="io.netty" slot="3.10" />
-    <module name="javax.ws.rs.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
   <exports>
-    <exclude path="com/damnhandy**" />
     <exclude path="com/ning**" />
     <exclude path="org/apache/camel/component/zendesk/internal" />
   </exports>

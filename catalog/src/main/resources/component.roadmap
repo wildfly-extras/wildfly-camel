@@ -112,6 +112,7 @@ jms
 jmx
 jolt
 jpa
+json-validator
 jt400
 kafka
 kubernetes                                          #deprecated
@@ -244,7 +245,6 @@ hipchat                                             #2003
 iec60870-client                                     #2179
 iec60870-server                                     #2179
 jclouds                                             #1450
-json-validator                                      #2180
 milo-client                                         #1835
 milo-server                                         #1836
 mongodb-gridfs                                      #1837

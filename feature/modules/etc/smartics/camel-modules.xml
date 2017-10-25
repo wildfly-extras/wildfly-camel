@@ -1554,6 +1554,17 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.json.validator">
+        <include artifact="org.apache.camel:camel-json-validator" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.jsonpath">
         <include artifact="org.apache.camel:camel-jsonpath" />
         <include artifact="com.jayway.jsonpath:json-path" />
@@ -2923,7 +2934,6 @@
 
     <module name="org.apache.camel.component.zendesk">
         <include artifact="com.cloudbees.thirdparty:zendesk-java-client" />
-        <include artifact="com.damnhandy:handy-uri-templates" />
         <include artifact="com.ning:async-http-client" />
         <include artifact="org.apache.camel:camel-zendesk" />
         <apply-to-dependencies skip="true">
@@ -2936,7 +2946,6 @@
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
-            <exclude path="com/damnhandy**" />
             <exclude path="com/ning**" />
             <exclude path="org/apache/camel/component/zendesk/internal" />
         </exports>

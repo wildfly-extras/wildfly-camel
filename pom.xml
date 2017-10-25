@@ -433,6 +433,11 @@
             <id>jboss-public-repository</id>
             <url>http://repository.jboss.org/nexus/content/groups/public/</url>
         </repository>
+        <repository>
+            <!-- everit is distributed in jitpack and not maven central -->
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <!-- Profiles -->
