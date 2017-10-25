@@ -58,6 +58,8 @@ include::camel-cassandra.adoc[]
 
 include::camel-cdi.adoc[]
 
+include::camel-chronicle-engine.adoc[]
+
 include::camel-chunk.adoc[]
 
 include::camel-cm-sms.adoc[]

@@ -47,6 +47,7 @@
     ^javax/sip(.*)
     ^mousio(.*)
 	^net/fortuna/ical4j(.*)
+	^net/openhft(.*)
 	^net/sf/saxon(.*)
     ^org/aopalliance(.*)
     ^org/apache/abdera(.*)

@@ -52,7 +52,9 @@ class Module {
         def duplicateResource = module.getResource(resource)
 
         if (duplicateResource != null ) {
-            if (module.isSameSlot(this)) {
+            if (resource.groupId != duplicateResource.groupId) {
+                return null
+            } else if (module.isSameSlot(this)) {
                 return duplicateResource
             } else if (!module.isSameSlot(this) && duplicateResource.version == resource.version) {
                 return duplicateResource

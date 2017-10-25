@@ -35,6 +35,7 @@ braintree
 browse
 caffeine-cache
 caffeine-loadcache
+chronicle-engine
 chunk
 class
 cm-sms
@@ -231,7 +232,6 @@ atmos                                               #1984
 azure-blob                                          #1818
 azure-queue                                         #1819
 beanstalk                                           #1419
-chronicle-engine                                    #1986
 cmis                                                #1989
 consul                                              #1992
 digitalocean                                        #1822

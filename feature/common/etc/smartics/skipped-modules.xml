@@ -159,6 +159,7 @@
 
     <module name="com.sun.tools" skip="true">
         <include artifact="com.sun:tools" />
+        <include artifact="com.sun.java:tools" />
     </module>
 
     <module name="com.sun.xml.bind.jaxb.xjc" skip="true">
