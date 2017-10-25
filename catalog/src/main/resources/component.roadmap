@@ -130,6 +130,7 @@ kubernetes-service-accounts
 kubernetes-services
 language
 ldap
+ldif
 linkedin
 log
 lpr
@@ -244,7 +245,6 @@ iec60870-client                                     #2179
 iec60870-server                                     #2179
 jclouds                                             #1450
 json-validator                                      #2180
-ldif                                                #2181
 milo-client                                         #1835
 milo-server                                         #1836
 mongodb-gridfs                                      #1837

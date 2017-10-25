@@ -1032,12 +1032,43 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.directory.api:api-asn1-api" />
+        <include artifact="org.apache.directory.api:api-asn1-ber" />
         <include artifact="org.apache.directory.api:api-i18n" />
+        <include artifact="org.apache.directory.api:api-ldap-client-api" />
+        <include artifact="org.apache.directory.api:api-ldap-codec-core" />
+        <include artifact="org.apache.directory.api:api-ldap-codec-standalone" />
+        <include artifact="org.apache.directory.api:api-ldap-extras-aci" />
+        <include artifact="org.apache.directory.api:api-ldap-extras-codec" />
+        <include artifact="org.apache.directory.api:api-ldap-extras-codec-api" />
+        <include artifact="org.apache.directory.api:api-ldap-extras-util" />
+        <include artifact="org.apache.directory.api:api-ldap-model" />
+        <include artifact="org.apache.directory.api:api-ldap-net-mina" />
+        <include artifact="org.apache.directory.api:api-ldap-schema-data" />
         <include artifact="org.apache.directory.api:api-util" />
+        <apply-to-dependencies skip="true">
+            <include module="antlr" />
+            <include module="com.google.code.findbugs" />
+            <include module="org.apache.servicemix.skipped" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+        <exports>
+            <exclude path="schema/ou=schema**" />
+        </exports>
+    </module>
+
+    <module name="org.apache.directory.server">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.directory.server:apacheds-core-api" />
+        <include artifact="org.apache.directory.server:apacheds-core-constants" />
         <include artifact="org.apache.directory.server:apacheds-i18n" />
         <include artifact="org.apache.directory.server:apacheds-kerberos-codec" />
         <apply-to-dependencies skip="true">
             <include module="com.google.code.findbugs" />
+            <include module="net.sf.ehcache" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
@@ -1067,6 +1098,7 @@
             <include module="net.java.dev.jets3t" />
             <include module="org.apache.camel.component.protobuf" />
             <include module="org.apache.commons.daemon" />
+            <include module="org.apache.directory.server" />
             <include module="org.fusesource.leveldbjni" />
             <include module="org.mortbay.jetty" />
         </apply-to-dependencies>
@@ -1567,8 +1599,8 @@
         <include artifact="org.elasticsearch:elasticsearch" />
         <include artifact="org.elasticsearch:securesm" />
         <apply-to-dependencies skip="true">
+            <include module="antlr"/>
             <include module="io.netty.skipped" />
-            <include module="org.antlr"/>
             <include module="org.apache.commons.cli" />
             <include module="org.hdrhistogram" />
             <include module="org.joda.convert" />

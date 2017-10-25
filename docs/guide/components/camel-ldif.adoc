@@ -1,0 +1,3 @@
+### camel-ldif
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-ldif/src/main/docs/ldif-component.adoc[ldif,window=_blank] component allows you to do updates on an LDAP server from a LDIF body content.

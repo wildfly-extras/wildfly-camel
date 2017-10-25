@@ -71,6 +71,7 @@
 	^org/apache/cxf/transport/undertow(.*)
 	^org/apache/cxf/ws/discovery(.*)
 	^org/apache/cxf/ws/security(.*)
+    ^org/apache/directory(.*)
     ^org/apache/fop(.*)
 	^org/apache/hadoop(.*)
 	^org/apache/http(.*)

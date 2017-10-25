@@ -28,6 +28,11 @@
         <include artifact=":ant" />
     </module>
 
+    <module name="antlr" skip="true">
+        <include artifact="org.antlr:antlr"/>
+        <include artifact="antlr:antlr"/>
+    </module>
+
     <module name="aopalliance" skip="true">
         <include artifact="aopalliance" />
     </module>
@@ -226,12 +231,12 @@
         <include artifact="net.jcip:jcip-annotations" />
     </module>
 
-    <module name="net.sf.kxml" skip="true">
-        <include artifact="net.sf.kxml:(.*)" />
+    <module name="net.sf.ehcache" skip="true">
+        <include artifact="net.sf.ehcache:ehcache" />
     </module>
 
-    <module name="org.antlr" skip="true">
-        <include artifact="org.antlr:antlr"/>
+    <module name="net.sf.kxml" skip="true">
+        <include artifact="net.sf.kxml:(.*)" />
     </module>
 
     <module name="org.apache.aries.blueprint" skip="true">
@@ -287,6 +292,7 @@
     </module>
 
     <module name="org.apache.servicemix.skipped" skip="true">
+        <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.antlr" />
         <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.javax-cache-api" />
         <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.jsr305" />
     </module>

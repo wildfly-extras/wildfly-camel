@@ -182,6 +182,8 @@ include::camel-kubernetes.adoc[]
 
 include::camel-ldap.adoc[]
 
+include::camel-ldif.adoc[]
+
 include::camel-leveldb.adoc[]
 
 include::camel-linkedin.adoc[]

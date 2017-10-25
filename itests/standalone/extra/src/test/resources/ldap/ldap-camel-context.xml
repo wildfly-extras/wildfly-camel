@@ -33,7 +33,7 @@
         <spring:property name="password" value="secret" />
     </spring:bean>
     
-    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+    <camelContext id="camel-ldap-ctx" xmlns="http://camel.apache.org/schema/spring">
         <route>
             <from uri="direct:start"/>
             <to uri="spring-ldap:ldapTemplate?operation=search"/>

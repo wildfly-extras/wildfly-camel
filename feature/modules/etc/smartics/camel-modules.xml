@@ -1626,6 +1626,20 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
+            <module name="org.apache.directory" export="true"/>
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.camel.component.ldif">
+        <include artifact="org.apache.camel:camel-ldif" />
+        <apply-to-dependencies skip="true">
+            <include module="antlr" />
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.apache.directory" export="true"/>
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -1958,9 +1972,9 @@
         <include artifact="org.kie:kie-api" />
         <include artifact="org.uberfire:uberfire-maven-support" />
         <apply-to-dependencies skip="true">
+            <include module="antlr" />
             <include module="com.sun.codemodel" />
             <include module="com.sun.xml.bind.jaxb.xjc" />
-            <include module="org.antlr" />
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
             <include module="org.osgi.compendium" />

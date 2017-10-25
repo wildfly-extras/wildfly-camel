@@ -78,21 +78,6 @@
             <version>${version.apache.ds}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.directory.api</groupId>
-            <artifactId>api-ldap-codec-core</artifactId>
-            <version>${version.apache.ds.codec}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.directory.api</groupId>
-            <artifactId>api-ldap-codec-standalone</artifactId>
-            <version>${version.apache.ds.codec}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.directory.api</groupId>
-            <artifactId>api-ldap-extras-util</artifactId>
-            <version>${version.apache.ds.codec}</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>
             <version>${version.camel.hadoop2}</version>

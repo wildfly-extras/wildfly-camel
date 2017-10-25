@@ -49,34 +49,9 @@
             </dependency>
 
             <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-analyzers-common</artifactId>
-                <version>${version.camel.lucene5}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-backward-codecs</artifactId>
-                <version>${version.camel.lucene5}</version>
-            </dependency>
-             <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-core</artifactId>
-                <version>${version.camel.lucene5}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-misc</artifactId>
-                <version>${version.camel.lucene5}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-queries</artifactId>
-                <version>${version.camel.lucene5}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-queryparser</artifactId>
-                <version>${version.camel.lucene5}</version>
+                <groupId>org.apache.directory.api</groupId>
+                <artifactId>api-ldap-codec-standalone</artifactId>
+                <version>${version.apache.ds.codec}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.lucene</groupId>
@@ -587,6 +562,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-ldif</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-leveldb</artifactId>
         </dependency>
         <dependency>
@@ -938,6 +917,10 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-zookeeper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.directory.api</groupId>
+            <artifactId>api-ldap-codec-standalone</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
