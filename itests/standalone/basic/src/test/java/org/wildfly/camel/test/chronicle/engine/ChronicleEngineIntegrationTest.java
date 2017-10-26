@@ -38,9 +38,11 @@ import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -75,11 +77,13 @@ public class ChronicleEngineIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-chronicle-engine-tests.jar")
-            .addClass(AvailablePortFinder.class);
+            .addClasses(AvailablePortFinder.class, EnvironmentUtils.class);
     }
 
     @Test
     public void testMapEvents() throws Exception {
+        Assume.assumeFalse("[#2240] ChronicleEngineIntegrationTest fails on IBM JDK", EnvironmentUtils.isIbmJDK());
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
