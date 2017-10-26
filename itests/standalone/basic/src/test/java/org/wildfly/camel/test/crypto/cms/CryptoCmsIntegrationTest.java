@@ -36,8 +36,10 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -50,12 +52,15 @@ public class CryptoCmsIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-crypto-cms-tests.jar")
+            .addClass(EnvironmentUtils.class)
             .addAsResource("crypto/cms/crypto.keystore", "crypto.keystore")
             .addAsResource("crypto/cms/signed.bin", "signed.bin");
     }
 
     @Test
     public void testCryptoCmsSignEncryptDecryptVerify() throws Exception {
+        Assume.assumeFalse("[#2241] CryptoCmsIntegrationTest fails on IBM JDK", EnvironmentUtils.isIbmJDK());
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -114,6 +119,8 @@ public class CryptoCmsIntegrationTest {
 
     @Test
     public void testCryptoCmsDecryptVerifyBinary() throws Exception {
+        Assume.assumeFalse("[#2241] CryptoCmsIntegrationTest fails on IBM JDK", EnvironmentUtils.isIbmJDK());
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
