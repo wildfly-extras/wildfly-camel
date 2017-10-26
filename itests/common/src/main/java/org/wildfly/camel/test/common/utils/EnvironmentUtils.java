@@ -36,7 +36,8 @@ public final class EnvironmentUtils {
     private static final boolean LINUX;
     private static final boolean MAC;
     private static final boolean WINDOWS;
-    private static final boolean VENDOR_IBM_JDK;
+    private static final boolean VM_IBM_JDK;
+    private static final boolean VM_OPEN_JDK;
     private static final String JAVA;
     private static final Path JAVA_HOME;
 
@@ -47,7 +48,8 @@ public final class EnvironmentUtils {
         MAC = os.startsWith("mac");
         WINDOWS = os.contains("win");
 
-        VENDOR_IBM_JDK = System.getProperty("java.vendor").startsWith("IBM");
+        VM_IBM_JDK = System.getProperty("java.vm.name").startsWith("IBM");
+        VM_OPEN_JDK = System.getProperty("java.vm.name").startsWith("OpenJDK");
 
         String javaExecutable = "java";
         if (WINDOWS) {
@@ -91,7 +93,11 @@ public final class EnvironmentUtils {
     }
 
     public static boolean isIbmJDK() {
-        return VENDOR_IBM_JDK;
+        return VM_IBM_JDK;
+    }
+
+    public static boolean isOpenJDK() {
+        return VM_OPEN_JDK;
     }
 
     public static Path getJavaExecutablePath() {
