@@ -615,6 +615,8 @@ com/google/api/client/testing/util
 com/google/api/client/util
 com/google/api/client/util/escape
 com/google/api/client/util/store
+com/google/api/services/bigquery
+com/google/api/services/bigquery/model
 com/google/api/services/calendar
 com/google/api/services/calendar/model
 com/google/api/services/drive
@@ -1544,6 +1546,7 @@ org/apache/camel/component/github
 org/apache/camel/component/github/consumer
 org/apache/camel/component/github/producer
 org/apache/camel/component/google
+org/apache/camel/component/google/bigquery
 org/apache/camel/component/google/calendar
 org/apache/camel/component/google/drive
 org/apache/camel/component/google/mail

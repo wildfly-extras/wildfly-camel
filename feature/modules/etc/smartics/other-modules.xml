@@ -361,10 +361,6 @@
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
-        <exports>
-            <exclude path="com/google" />
-            <exclude path="com/google/api" />
-        </exports>
     </module>
 
     <module name="com.google.oauth-client.google-oauth-client">

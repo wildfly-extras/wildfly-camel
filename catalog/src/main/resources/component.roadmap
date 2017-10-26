@@ -76,6 +76,7 @@ ftps
 geocoder
 git
 github
+google-bigquery
 google-calendar
 google-drive
 google-mail
@@ -242,7 +243,6 @@ docker                                              #1424
 drill                                               #1823
 elasticsearch5                                      #1824
 flink                                               #1430
-google-bigquery                                     #2177
 hipchat                                             #2003
 jclouds                                             #1450
 milo-client                                         #1835

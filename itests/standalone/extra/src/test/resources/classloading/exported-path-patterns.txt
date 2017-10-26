@@ -11,6 +11,7 @@
 	^com/github/benmanes/caffeine(.*)
 	^com/github/kristofa/brave(.*)
 	^com/google/api/client(.*)
+	^com/google/api/services/bigquery(.*)
     ^com/google/api/services/calendar(.*)
     ^com/google/api/services/drive(.*)
     ^com/google/api/services/gmail(.*)

@@ -10,8 +10,4 @@
     <module name="org.apache.commons.codec" />
     <module name="org.apache.httpcomponents" />
   </dependencies>
-  <exports>
-    <exclude path="com/google" />
-    <exclude path="com/google/api" />
-  </exports>
 </module>

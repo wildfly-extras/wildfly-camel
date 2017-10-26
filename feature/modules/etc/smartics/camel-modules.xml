@@ -961,6 +961,24 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.google.bigquery">
+        <include artifact="com.google.apis:google-api-services-bigquery"/>
+        <include artifact="org.apache.camel:camel-google-bigquery" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.google.http-client.google-http-client"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="com/google"/>
+            <exclude path="com/google/api"/>
+            <exclude path="com/google/api/services"/>
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.google.calendar">
         <include artifact="org.apache.camel:camel-google-calendar" />
         <include artifact="com.google.apis:google-api-services-calendar" />
@@ -991,7 +1009,12 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.google.http-client.google-http-client" export="true"/>
+            <module name="com.google.http-client.google-http-client" export="true">
+                <exports>
+                    <exclude path="com/google" />
+                    <exclude path="com/google/api" />
+                </exports>
+            </module>
             <module name="org.slf4j"/>
         </dependencies>
         <exports>

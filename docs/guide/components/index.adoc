@@ -118,6 +118,8 @@ include::camel-git.adoc[]
 
 include::camel-github.adoc[]
 
+include::camel-google-bigquery.adoc[]
+
 include::camel-google-calendar.adoc[]
 
 include::camel-google-drive.adoc[]

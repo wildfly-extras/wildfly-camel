@@ -89,6 +89,7 @@
         <module name="org.apache.camel.component.geocoder" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.git" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.github" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.google.bigquery" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.google.calendar" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.google.drive" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.google.mail" export="true" services="export" optional="true" />

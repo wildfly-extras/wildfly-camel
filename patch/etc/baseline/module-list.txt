@@ -236,6 +236,8 @@
 /org/apache/camel/component/git/main/org.eclipse.jgit-4.8.0.201706111038-r.jar
 /org/apache/camel/component/github/main/camel-github-2.20.0.jar
 /org/apache/camel/component/github/main/org.eclipse.egit.github.core-2.1.5.jar
+/org/apache/camel/component/google/bigquery/main/camel-google-bigquery-2.20.0.jar
+/org/apache/camel/component/google/bigquery/main/google-api-services-bigquery-v2-rev352-1.22.0.jar
 /org/apache/camel/component/google/calendar/main/camel-google-calendar-2.20.0.jar
 /org/apache/camel/component/google/calendar/main/google-api-services-calendar-v3-rev243-1.22.0.jar
 /org/apache/camel/component/google/drive/main/camel-google-drive-2.20.0.jar
