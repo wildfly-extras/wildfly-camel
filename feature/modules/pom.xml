@@ -935,9 +935,13 @@
             <artifactId>camel-zookeeper</artifactId>
         </dependency>
         <dependency>
-              <groupId>org.apache.curator</groupId>
-              <artifactId>curator-client</artifactId>
-              <version>${version.apache.curator}</version>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-zookeeper-master</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-client</artifactId>
+            <version>${version.apache.curator}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.directory.api</groupId>

@@ -1833,6 +1833,9 @@ org/apache/camel/component/zookeeper/cloud
 org/apache/camel/component/zookeeper/ha
 org/apache/camel/component/zookeeper/operations
 org/apache/camel/component/zookeeper/policy
+org/apache/camel/component/zookeepermaster
+org/apache/camel/component/zookeepermaster/group
+org/apache/camel/component/zookeepermaster/policy
 org/apache/camel/converter
 org/apache/camel/converter/crypto
 org/apache/camel/converter/dozer
@@ -1947,6 +1950,7 @@ org/apache/curator/framework/recipes/queue
 org/apache/curator/framework/recipes/shared
 org/apache/curator/framework/state
 org/apache/curator/retry
+org/apache/curator/shaded
 org/apache/curator/utils
 org/apache/curator/x
 org/apache/curator/x/discovery

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.zookeeper.master">
+  <resources>
+    <artifact name="${org.apache.camel:camel-zookeeper-master}" />
+  </resources>
+  <dependencies>
+    <module name="com.google.guava" />
+    <module name="org.slf4j" />
+    <module name="com.fasterxml.jackson.core.jackson-annotations" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="io.netty" slot="3.10" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.curator" />
+    <module name="org.apache.zookeeper" />
+  </dependencies>
+  <exports>
+    <exclude path="org/apache/camel/component/zookeepermaster/group/internal**" />
+  </exports>
+</module>

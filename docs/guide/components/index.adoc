@@ -352,6 +352,8 @@ include::camel-zipkin.adoc[]
 
 include::camel-zookeeper.adoc[]
 
+include::camel-zookeeper-master.adoc[]
+
 ### Adding Components
 
 Adding support for additional Camel Components is easy

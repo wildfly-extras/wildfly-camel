@@ -436,6 +436,7 @@
 /org/apache/camel/component/zipkin/main/zipkin-1.29.1.jar
 /org/apache/camel/component/zipkin/main/zipkin-reporter-1.0.1.jar
 /org/apache/camel/component/zookeeper/main/camel-zookeeper-2.20.0.jar
+/org/apache/camel/component/zookeeper/master/main/camel-zookeeper-master-2.20.0.jar
 /org/apache/camel/core/main/camel-core-2.20.0.jar
 /org/apache/camel/core/xml/main/camel-core-xml-2.20.0.jar
 /org/apache/camel/script/groovy/main/groovy-all-2.4.12.jar
