@@ -64,6 +64,9 @@
         <version.wildfly.fasterxml.jackson>2.8.9</version.wildfly.fasterxml.jackson>
         <version.wildfly.infinispan>8.2.8.Final</version.wildfly.infinispan>
         
+        <!--  [#2243] Inconsistent jar versions with apache curator -->
+        <version.apache.curator>2.12.0</version.apache.curator>
+        
         <!-- Other versions -->
         <version.apache.ds>2.0.0-M21</version.apache.ds>
         <version.apache.ds.codec>1.0.0-M33</version.apache.ds.codec>

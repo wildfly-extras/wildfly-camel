@@ -4,22 +4,14 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${org.apache.curator:curator-client}" />
-    <artifact name="${org.apache.curator:curator-framework}" />
-    <artifact name="${org.apache.curator:curator-recipes}" />
-    <artifact name="${org.apache.curator:curator-x-discovery}" />
     <artifact name="${org.apache.zookeeper:zookeeper}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="org.apache.log4j" />
-    <module name="com.google.guava" />
     <module name="io.netty" slot="3.10" />
-    <module name="org.codehaus.jackson.jackson-mapper-asl" />
     <module name="org.slf4j" />
   </dependencies>
   <exports>
-    <exclude path="org/apache/curator/shaded/**" />
     <exclude path="org/apache/jute**" />
   </exports>
 </module>

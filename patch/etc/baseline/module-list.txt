@@ -458,6 +458,10 @@
 /org/apache/commons/net/main/commons-net-3.6.jar
 /org/apache/commons/pool2/main/commons-pool2-2.4.2.jar
 /org/apache/commons/validator/main/commons-validator-1.6.jar
+/org/apache/curator/main/curator-client-2.12.0.jar
+/org/apache/curator/main/curator-framework-2.12.0.jar
+/org/apache/curator/main/curator-recipes-2.12.0.jar
+/org/apache/curator/main/curator-x-discovery-2.12.0.jar
 /org/apache/cxf/ext/main/cxf-rt-frontend-jaxrs-3.1.12.jar
 /org/apache/cxf/ext/main/cxf-rt-rs-client-3.1.12.jar
 /org/apache/cxf/ext/main/cxf-rt-rs-extension-providers-3.1.12.jar
@@ -579,10 +583,6 @@
 /org/apache/xmlgraphics/main/batik-xml-1.8.jar
 /org/apache/xmlgraphics/main/fop-2.1.jar
 /org/apache/xmlgraphics/main/xmlgraphics-commons-2.1.jar
-/org/apache/zookeeper/main/curator-client-2.7.1.jar
-/org/apache/zookeeper/main/curator-framework-2.12.0.jar
-/org/apache/zookeeper/main/curator-recipes-2.12.0.jar
-/org/apache/zookeeper/main/curator-x-discovery-2.12.0.jar
 /org/apache/zookeeper/main/zookeeper-3.4.10.jar
 /org/asynchttpclient/main/async-http-client-2.0.36.jar
 /org/asynchttpclient/main/async-http-client-netty-utils-2.0.36.jar

@@ -36,6 +36,7 @@
     <module name="org.apache.commons.lang" />
     <module name="org.apache.commons.logging" />
     <module name="org.apache.commons.math3" />
+    <module name="org.apache.curator" />
     <module name="org.apache.htrace" />
     <module name="org.apache.httpcomponents" />
     <module name="org.apache.log4j" />

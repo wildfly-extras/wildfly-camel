@@ -1067,6 +1067,16 @@
         <include artifact=":commons-validator" />
     </module>
 
+    <module name="org.apache.curator">
+        <include artifact="org.apache.curator:curator-client" />
+        <include artifact="org.apache.curator:curator-framework" />
+        <include artifact="org.apache.curator:curator-recipes" />
+        <include artifact="org.apache.curator:curator-x-discovery" />
+        <exports>
+            <exclude path="org/apache/curator/shaded/**" />
+        </exports>
+    </module>
+
     <module name="org.apache.derby">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1454,20 +1464,13 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.zookeeper:zookeeper" />
-        <include artifact="org.apache.curator:curator-client" />
-        <include artifact="org.apache.curator:curator-framework" />
-        <include artifact="org.apache.curator:curator-recipes" />
-        <include artifact="org.apache.curator:curator-x-discovery" />
         <apply-to-dependencies skip="true">
-            <include module="io.netty.skipped" />
             <include module="jline" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
-            <module name="org.apache.log4j" />
         </dependencies>
         <exports>
-            <exclude path="org/apache/curator/shaded/**" />
             <exclude path="org/apache/jute**" />
         </exports>
     </module>
