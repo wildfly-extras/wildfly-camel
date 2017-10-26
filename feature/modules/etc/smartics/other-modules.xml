@@ -1622,6 +1622,25 @@
         <include artifact="org.eclipse.jetty.websocket:websocket-common" />
     </module>
 
+    <module name="org.eclipse.neoscada.protocols">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.eclipse.neoscada.protocols:org.eclipse.neoscada.protocol.iec60870"/>
+        <include artifact="org.eclipse.neoscada.protocols:org.eclipse.neoscada.protocol.iec60870.client.data"/>
+        <include artifact="org.eclipse.neoscada.protocols:org.eclipse.neoscada.protocol.iec60870.client"/>
+        <include artifact="org.eclipse.neoscada.protocols:org.eclipse.neoscada.protocol.iec60870.server.data"/>
+        <include artifact="org.eclipse.neoscada.protocols:org.eclipse.neoscada.protocol.iec60870.server"/>
+        <include artifact="org.eclipse.neoscada.utils:org.eclipse.scada.utils"/>
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="io.netty"/>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
     <module name="org.ehcache">
         <properties>
             <property name="jboss.api" value="private"/>

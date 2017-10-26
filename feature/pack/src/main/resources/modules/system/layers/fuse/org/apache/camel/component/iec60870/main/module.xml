@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.iec60870">
+  <resources>
+    <artifact name="${org.apache.camel:camel-iec60870}" />
+  </resources>
+  <dependencies>
+    <module name="io.netty" />
+    <module name="org.eclipse.neoscada.protocols" export="true">
+      <exports>
+        <exclude path="org/eclipse" />
+        <exclude path="org/eclipse/neoscada" />
+        <exclude path="org/eclipse/neoscada/protocol" />
+        <exclude path="org/eclipse/scada" />
+        <exclude path="org/eclipse/scada/utils/concurrent/internal" />
+      </exports>
+    </module>
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>

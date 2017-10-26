@@ -144,6 +144,8 @@ include::camel-http4.adoc[]
 
 include::camel-hystrix.adoc[]
 
+include::camel-iec60870.adoc[]
+
 include::camel-infinispan.adoc[]
 
 include::camel-influxdb.adoc[]

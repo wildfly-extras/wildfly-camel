@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.eclipse.neoscada.protocols">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.eclipse.neoscada.protocols:org.eclipse.neoscada.protocol.iec60870}" />
+    <artifact name="${org.eclipse.neoscada.protocols:org.eclipse.neoscada.protocol.iec60870.client}" />
+    <artifact name="${org.eclipse.neoscada.protocols:org.eclipse.neoscada.protocol.iec60870.client.data}" />
+    <artifact name="${org.eclipse.neoscada.protocols:org.eclipse.neoscada.protocol.iec60870.server}" />
+    <artifact name="${org.eclipse.neoscada.protocols:org.eclipse.neoscada.protocol.iec60870.server.data}" />
+    <artifact name="${org.eclipse.neoscada.utils:org.eclipse.scada.utils}" />
+  </resources>
+  <dependencies>
+    <module name="io.netty" />
+    <module name="javax.api" />
+    <module name="com.google.guava" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

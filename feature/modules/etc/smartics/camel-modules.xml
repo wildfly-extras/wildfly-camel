@@ -1279,6 +1279,28 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.iec60870">
+        <include artifact="org.apache.camel:camel-iec60870"/>
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped"/>
+            <include module="org.apache.camel.apt"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="io.netty"/>
+            <module name="org.eclipse.neoscada.protocols" export="true">
+                <exports>
+                    <exclude path="org/eclipse"/>
+                    <exclude path="org/eclipse/neoscada"/>
+                    <exclude path="org/eclipse/neoscada/protocol"/>
+                    <exclude path="org/eclipse/scada"/>
+                    <exclude path="org/eclipse/scada/utils/concurrent/internal"/>
+                </exports>
+            </module>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.infinispan">
         <include artifact="org.apache.camel:camel-infinispan"/>
         <apply-to-dependencies skip="true">

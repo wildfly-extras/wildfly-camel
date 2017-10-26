@@ -1,0 +1,5 @@
+### camel-iec60870
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-iec60870/src/main/docs/iec60870-client-component.adoc[IEC 60870-5-104 Client,window=_blank] component provides access to IEC 60870 servers using the http://eclipse.org/eclipsescada[Eclipse NeoSCADA™,window=_blank] implementation.
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-iec60870/src/main/docs/iec60870-server-component.adoc[IEC 60870-5-104 Server,window=_blank] component provides access to IEC 60870 servers using the http://eclipse.org/eclipsescada[Eclipse NeoSCADA™,window=_blank] implementation.

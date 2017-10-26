@@ -97,6 +97,8 @@ hbase
 hdfs2
 http4
 https4
+iec60870-client
+iec60870-server
 imap
 imaps
 infinispan
@@ -242,8 +244,6 @@ elasticsearch5                                      #1824
 flink                                               #1430
 google-bigquery                                     #2177
 hipchat                                             #2003
-iec60870-client                                     #2179
-iec60870-server                                     #2179
 jclouds                                             #1450
 milo-client                                         #1835
 milo-server                                         #1836

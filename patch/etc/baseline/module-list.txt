@@ -264,6 +264,7 @@
 /org/apache/camel/component/ical/main/backport-util-concurrent-3.1.jar
 /org/apache/camel/component/ical/main/camel-ical-2.20.0.jar
 /org/apache/camel/component/ical/main/ical4j-1.0.7.jar
+/org/apache/camel/component/iec60870/main/camel-iec60870-2.20.0.jar
 /org/apache/camel/component/infinispan/main/camel-infinispan-2.20.0.jar
 /org/apache/camel/component/influxdb/main/camel-influxdb-2.20.0.jar
 /org/apache/camel/component/influxdb/main/influxdb-java-2.7.jar
@@ -616,6 +617,12 @@
 /org/eclipse/jetty/websocket/main/websocket-api-9.2.20.v20161216.jar
 /org/eclipse/jetty/websocket/main/websocket-client-9.2.20.v20161216.jar
 /org/eclipse/jetty/websocket/main/websocket-common-9.2.20.v20161216.jar
+/org/eclipse/neoscada/protocols/main/org.eclipse.neoscada.protocol.iec60870-0.4.0.jar
+/org/eclipse/neoscada/protocols/main/org.eclipse.neoscada.protocol.iec60870.client-0.4.0.jar
+/org/eclipse/neoscada/protocols/main/org.eclipse.neoscada.protocol.iec60870.client.data-0.4.0.jar
+/org/eclipse/neoscada/protocols/main/org.eclipse.neoscada.protocol.iec60870.server-0.4.0.jar
+/org/eclipse/neoscada/protocols/main/org.eclipse.neoscada.protocol.iec60870.server.data-0.4.0.jar
+/org/eclipse/neoscada/protocols/main/org.eclipse.scada.utils-0.4.0.jar
 /org/ehcache/main/ehcache-3.4.0.jar
 /org/elasticsearch/main/elasticsearch-2.4.4.jar
 /org/elasticsearch/main/hppc-0.7.1.jar
