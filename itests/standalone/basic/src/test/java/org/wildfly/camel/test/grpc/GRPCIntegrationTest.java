@@ -40,9 +40,11 @@ import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.grpc.subA.PingPongGrpc;
 import org.wildfly.camel.test.grpc.subA.PingRequest;
 import org.wildfly.camel.test.grpc.subA.PongResponse;
@@ -86,13 +88,15 @@ public class GRPCIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-grpc-tests.jar")
-            .addClass(AvailablePortFinder.class)
+            .addClasses(AvailablePortFinder.class, EnvironmentUtils.class)
             .addPackage(PingPongGrpc.class.getPackage())
             .addAsResource("grpc/pingpong.proto", "pingpong.proto");
     }
 
     @Test
     public void testGRPCSynchronousProducer() throws Exception {
+        Assume.assumeFalse("[#2242] GRPCIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+
         int port = Integer.parseInt(AvailablePortFinder.readServerData("grpc-port"));
 
         DefaultCamelContext camelctx = new DefaultCamelContext();
@@ -123,6 +127,8 @@ public class GRPCIntegrationTest {
 
     @Test
     public void testGRPCAsynchronousProducer() throws Exception {
+        Assume.assumeFalse("[#2242] GRPCIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
+
         int port = Integer.parseInt(AvailablePortFinder.readServerData("grpc-port"));
 
         DefaultCamelContext camelctx = new DefaultCamelContext();
