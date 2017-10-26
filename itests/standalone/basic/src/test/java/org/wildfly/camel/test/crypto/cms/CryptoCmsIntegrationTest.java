@@ -59,7 +59,7 @@ public class CryptoCmsIntegrationTest {
 
     @Test
     public void testCryptoCmsSignEncryptDecryptVerify() throws Exception {
-        Assume.assumeFalse("[#2241] CryptoCmsIntegrationTest fails on IBM JDK", EnvironmentUtils.isIbmJDK());
+        Assume.assumeFalse("[#2241] CryptoCmsIntegrationTest fails on IBM JDK", EnvironmentUtils.isIbmJDK() || EnvironmentUtils.isOpenJDK());
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -119,7 +119,7 @@ public class CryptoCmsIntegrationTest {
 
     @Test
     public void testCryptoCmsDecryptVerifyBinary() throws Exception {
-        Assume.assumeFalse("[#2241] CryptoCmsIntegrationTest fails on IBM JDK", EnvironmentUtils.isIbmJDK());
+        Assume.assumeFalse("[#2241] CryptoCmsIntegrationTest fails on IBM JDK", EnvironmentUtils.isIbmJDK() || EnvironmentUtils.isOpenJDK());
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
