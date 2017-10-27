@@ -21,6 +21,7 @@
     <module name="sun.jdk.ext" />
     <module name="com.google.code.gson" />
     <module name="com.google.guava" />
+    <module name="com.google.inject.guice" />
     <module name="com.jcraft.jsch" />
     <module name="io.netty" slot="3.10" />
     <module name="javax.servlet.api" />

@@ -1,3 +1,4 @@
+/aopalliance/main/aopalliance-1.0.jar
 /args4j/main/args4j-2.0.31.jar
 /com/alibaba/fastjson/main/fastjson-1.2.37.jar
 /com/amazon/aws/main/aws-java-sdk-1.11.186.jar
@@ -32,12 +33,16 @@
 /com/google/api/grpc/proto-google-common-protos/main/proto-google-common-protos-0.1.9.jar
 /com/google/auth/google-auth-library-credentials/main/google-auth-library-credentials-0.7.1.jar
 /com/google/auth/google-auth-library-credentials/main/google-auth-library-oauth2-http-0.7.1.jar
+/com/google/code/gson/2.5/gson-2.5.jar
 /com/google/code/gson/main/gson-2.8.1.jar
 /com/google/code/json-simple/main/json-simple-1.1.1.jar
 /com/google/code/libphonenumber/main/libphonenumber-8.8.0.jar
-/com/google/guava/14.0/guava-14.0.1.jar
+/com/google/guava/16.0/guava-16.0.1.jar
 /com/google/http-client/google-http-client/main/google-http-client-1.22.0.jar
 /com/google/http-client/google-http-client/main/google-http-client-jackson2-1.22.0.jar
+/com/google/inject/extensions/3.0/guice-assistedinject-3.0.jar
+/com/google/inject/guice/3.0/guice-3.0.jar
+/com/google/inject/guice/main/guice-4.0.jar
 /com/google/oauth-client/google-oauth-client/main/google-oauth-client-1.22.0.jar
 /com/google/protobuf/2.5/protobuf-java-2.5.0.jar
 /com/google/protobuf/main/protobuf-java-3.3.0.jar
@@ -278,6 +283,7 @@
 /org/apache/camel/component/jaxb/main/camel-jaxb-2.20.0.jar
 /org/apache/camel/component/jbpm/main/camel-jbpm-2.20.0.jar
 /org/apache/camel/component/jcache/main/camel-jcache-2.20.0.jar
+/org/apache/camel/component/jclouds/main/camel-jclouds-2.20.0.jar
 /org/apache/camel/component/jcr/main/camel-jcr-2.20.0.jar
 /org/apache/camel/component/jdbc/main/camel-jdbc-2.20.0.jar
 /org/apache/camel/component/jgroups/main/camel-jgroups-2.20.0.jar
@@ -508,6 +514,10 @@
 /org/apache/jackrabbit/main/jackrabbit-jcr-commons-2.15.6.jar
 /org/apache/jackrabbit/main/jackrabbit-spi-2.15.6.jar
 /org/apache/jackrabbit/main/jackrabbit-spi-commons-2.15.6.jar
+/org/apache/jclouds/main/jclouds-blobstore-2.0.2.jar
+/org/apache/jclouds/main/jclouds-compute-2.0.2.jar
+/org/apache/jclouds/main/jclouds-core-2.0.2.jar
+/org/apache/jclouds/main/jclouds-scriptbuilder-2.0.2.jar
 /org/apache/kafka/clients/main/kafka-clients-0.11.0.1.jar
 /org/apache/kafka/clients/main/lz4-1.3.0.jar
 /org/apache/kafka/clients/main/snappy-java-1.1.1.3.jar

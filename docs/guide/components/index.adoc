@@ -162,6 +162,8 @@ include::camel-jbpm.adoc[]
 
 include::camel-jcache.adoc[]
 
+include::camel-jclouds.adoc[]
+
 include::camel-jcr.adoc[]
 
 include::camel-jdbc.adoc[]

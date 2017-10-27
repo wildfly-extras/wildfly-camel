@@ -1,0 +1,8 @@
+### camel-jclouds
+
+The http://camel.apache.org/jclouds.html[camel-jclouds,window=_blank] component allows interaction with cloud provider key-value engines (blobstores) and compute services. The component uses http://code.google.com/p/jclouds[jclouds,window=_blank] which is
+a library that provides abstractions for blobstores and compute services.
+
+*ComputeService* simplifies the task of managing machines in the cloud. For example, you can use ComputeService to start 5 machines and install your software on them.
+
+*BlobStore* simplifies dealing with key-value providers such as Amazon S3. For example, BlobStore can give you a simple Map view of a container.

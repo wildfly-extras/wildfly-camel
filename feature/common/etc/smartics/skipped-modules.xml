@@ -33,10 +33,6 @@
         <include artifact="antlr:antlr"/>
     </module>
 
-    <module name="aopalliance" skip="true">
-        <include artifact="aopalliance" />
-    </module>
-
     <module name="asm.extras" skip="true">
         <include artifact="asm:asm-analysis" />
         <include artifact="asm:asm-commons" />
@@ -101,11 +97,7 @@
         <include artifact="com.google.guava:guava-jdk5" />
     </module>
 
-    <module name="com.google.inject.guice" skip="true">
-        <include artifact="com.google.inject:guice"/>
-    </module>
-
-    <module name="com.google.inject.extensions" skip="true">
+    <module name="com.google.inject.skipped" skip="true">
         <include artifact="com.google.inject.extensions:guice-servlet"/>
     </module>
 

@@ -107,6 +107,7 @@ influxdb
 irc
 jbpm
 jcache
+jclouds
 jcr
 jdbc
 jgroups
@@ -245,7 +246,6 @@ drill                                               #1823
 elasticsearch5                                      #1824
 flink                                               #1430
 hipchat                                             #2003
-jclouds                                             #1450
 milo-client                                         #1835
 milo-server                                         #1836
 mongodb-gridfs                                      #1837

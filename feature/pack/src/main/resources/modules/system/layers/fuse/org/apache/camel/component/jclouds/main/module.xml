@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.jclouds">
+  <resources>
+    <resource-root path="camel-jclouds-2.20.0.jar" />
+  </resources>
+  <dependencies>
+    <module name="com.google.guava" slot="16.0" />
+    <module name="com.google.inject.guice" slot="3.0" />
+    <module name="javax.api" />
+    <module name="org.apache.jclouds" export="true" services="export">
+      <exports>
+        <exclude path="org/jclouds/apis/internal" />
+        <exclude path="org/jclouds/blobstore/internal" />
+        <exclude path="org/jclouds/blobstore/domain/internal" />
+        <exclude path="org/jclouds/blobstore/strategy/internal" />
+        <exclude path="org/jclouds/blobstore/util/internal" />
+        <exclude path="org/jclouds/collect/internal" />
+        <exclude path="org/jclouds/compute/internal" />
+        <exclude path="org/jclouds/compute/domain/internal" />
+        <exclude path="org/jclouds/compute/extensions/internal" />
+        <exclude path="org/jclouds/compute/predicates/internal" />
+        <exclude path="org/jclouds/date/internal" />
+        <exclude path="org/jclouds/domain/internal" />
+        <exclude path="org/jclouds/encryption/internal" />
+        <exclude path="org/jclouds/http/internal" />
+        <exclude path="org/jclouds/internal" />
+        <exclude path="org/jclouds/io/internal" />
+        <exclude path="org/jclouds/json/internal" />
+        <exclude path="org/jclouds/logging/internal" />
+        <exclude path="org/jclouds/ovf/internal" />
+        <exclude path="org/jclouds/ovf/xml/internal" />
+        <exclude path="org/jclouds/predicates/internal" />
+        <exclude path="org/jclouds/providers/internal" />
+        <exclude path="org/jclouds/proxy/internal" />
+        <exclude path="org/jclouds/rest/internal" />
+        <exclude path="org/jclouds/ssh/internal" />
+        <exclude path="org/jclouds/strategy/internal" />
+        <exclude path="org/jclouds/util/internal" />
+        <exclude path="org/jclouds/xml/internal" />
+      </exports>
+    </module>
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>

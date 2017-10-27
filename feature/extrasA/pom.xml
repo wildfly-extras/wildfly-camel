@@ -26,12 +26,6 @@
     
     <dependencies>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${version.hbase.guava}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
             <version>${version.camel.hadoop2.protobuf}</version>
@@ -52,6 +46,12 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jbpm</artifactId>
+            <version>${version.apache.camel}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jclouds</artifactId>
             <version>${version.apache.camel}</version>
             <scope>provided</scope>
         </dependency>

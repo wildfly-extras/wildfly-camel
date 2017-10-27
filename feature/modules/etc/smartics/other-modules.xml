@@ -363,6 +363,16 @@
         </dependencies>
     </module>
 
+    <module name="com.google.inject.guice">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.google.inject:guice"/>
+        <dependencies>
+            <module name="com.google.guava" />
+        </dependencies>
+    </module>
+
     <module name="com.google.oauth-client.google-oauth-client">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1149,8 +1159,7 @@
         <include artifact="org.apache.hadoop:hadoop-yarn-common"/>
         <apply-to-dependencies skip="true">
             <include module="ant" />
-            <include module="com.google.inject.guice"/>
-            <include module="com.google.inject.extensions"/>
+            <include module="com.google.inject.skipped"/>
             <include module="com.sun.jersey" />
             <include module="com.google.code.findbugs" />
             <include module="io.netty.skipped" />
@@ -1192,7 +1201,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="com.google.protobuf" slot="2.5" />
-            <module name="com.google.guava" slot="14.0" />
+            <module name="com.google.guava" slot="16.0" />
             <module name="javax.api"/>
             <module name="sun.jdk">
                 <imports>
@@ -1229,7 +1238,7 @@
             <module name="org.apache.lucene" slot="3.6"/>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.kafka">
         <properties>
             <property name="jboss.api" value="private"/>
