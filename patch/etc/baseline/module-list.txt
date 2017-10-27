@@ -340,6 +340,9 @@
 /org/apache/camel/component/olingo4/main/camel-olingo4-2.20.0.jar
 /org/apache/camel/component/olingo4/main/camel-olingo4-api-2.20.0.jar
 /org/apache/camel/component/olingo4/main/easystream-1.2.15.jar
+/org/apache/camel/component/openstack/main/camel-openstack-2.20.0.jar
+/org/apache/camel/component/openstack/main/openstack4j-core-3.0.2.jar
+/org/apache/camel/component/openstack/main/openstack4j-okhttp-3.0.2.jar
 /org/apache/camel/component/opentracing/main/camel-opentracing-2.20.0.jar
 /org/apache/camel/component/optaplanner/main/camel-optaplanner-2.20.0.jar
 /org/apache/camel/component/optaplanner/main/drools-compiler-7.3.0.Final.jar

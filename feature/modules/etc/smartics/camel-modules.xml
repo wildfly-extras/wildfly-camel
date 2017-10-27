@@ -2109,6 +2109,38 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.openstack">
+        <include artifact="org.apache.camel:camel-openstack" />
+        <include artifact="org.pacesys.openstack4j.connectors:openstack4j-okhttp" />
+        <include artifact="org.pacesys:openstack4j-core" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="org/openstack4j/core/transport/internal" />
+            <exclude path="org/openstack4j/openstack/compute/internal**" />
+            <exclude path="org/openstack4j/openstack/gbp/internal" />
+            <exclude path="org/openstack4j/openstack/heat/internal" />
+            <exclude path="org/openstack4j/openstack/identity/internal" />
+            <exclude path="org/openstack4j/openstack/identity/v2/internal" />
+            <exclude path="org/openstack4j/openstack/identity/v3/internal" />
+            <exclude path="org/openstack4j/openstack/image/internal" />
+            <exclude path="org/openstack4j/openstack/internal" />
+            <exclude path="org/openstack4j/openstack/manila/internal" />
+            <exclude path="org/openstack4j/openstack/networking/internal**" />
+            <exclude path="org/openstack4j/openstack/sahara/internal" />
+            <exclude path="org/openstack4j/openstack/senlin/internal" />
+            <exclude path="org/openstack4j/openstack/storage/block/internal" />
+            <exclude path="org/openstack4j/openstack/storage/object/internal" />
+            <exclude path="org/openstack4j/openstack/telemetry/internal" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.opentracing">
         <include artifact="org.apache.camel:camel-opentracing" />
         <apply-to-dependencies skip="true">

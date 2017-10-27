@@ -236,6 +236,8 @@ include::camel-olingo2.adoc[]
 
 include::camel-olingo4.adoc[]
 
+include::camel-openstack.adoc[]
+
 include::camel-opentracing.adoc[]
 
 include::camel-optaplanner.adoc[]

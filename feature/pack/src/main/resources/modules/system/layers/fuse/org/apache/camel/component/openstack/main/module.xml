@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.openstack">
+  <resources>
+    <artifact name="${org.apache.camel:camel-openstack}" />
+    <artifact name="${org.pacesys:openstack4j-core}" />
+    <artifact name="${org.pacesys.openstack4j.connectors:openstack4j-okhttp}" />
+  </resources>
+  <dependencies>
+    <module name="org.slf4j" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.fasterxml.jackson.dataformat.yaml" />
+    <module name="com.google.guava" />
+    <module name="com.squareup.okhttp3" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+  <exports>
+    <exclude path="org/openstack4j/core/transport/internal" />
+    <exclude path="org/openstack4j/openstack/compute/internal**" />
+    <exclude path="org/openstack4j/openstack/gbp/internal" />
+    <exclude path="org/openstack4j/openstack/heat/internal" />
+    <exclude path="org/openstack4j/openstack/identity/internal" />
+    <exclude path="org/openstack4j/openstack/identity/v2/internal" />
+    <exclude path="org/openstack4j/openstack/identity/v3/internal" />
+    <exclude path="org/openstack4j/openstack/image/internal" />
+    <exclude path="org/openstack4j/openstack/internal" />
+    <exclude path="org/openstack4j/openstack/manila/internal" />
+    <exclude path="org/openstack4j/openstack/networking/internal**" />
+    <exclude path="org/openstack4j/openstack/sahara/internal" />
+    <exclude path="org/openstack4j/openstack/senlin/internal" />
+    <exclude path="org/openstack4j/openstack/storage/block/internal" />
+    <exclude path="org/openstack4j/openstack/storage/object/internal" />
+    <exclude path="org/openstack4j/openstack/telemetry/internal" />
+  </exports>
+</module>

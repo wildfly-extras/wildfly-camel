@@ -159,6 +159,12 @@ nats
 netty4
 olingo2
 olingo4
+openstack-cinder
+openstack-glance
+openstack-keystone
+openstack-neutron
+openstack-nova
+openstack-swift
 optaplanner
 paho
 pdf
@@ -251,12 +257,6 @@ milo-client                                         #1835
 milo-server                                         #1836
 mongodb-gridfs                                      #1837
 nagios                                              #1456
-openstack-cinder                                    #1840
-openstack-glance                                    #1841
-openstack-keystone                                  #1842
-openstack-neutron                                   #1843
-openstack-nova                                      #1844
-openstack-swift                                     #1845
 restlet                                             #2024
 spark                                               #1469
 spark-rest                                          #1470

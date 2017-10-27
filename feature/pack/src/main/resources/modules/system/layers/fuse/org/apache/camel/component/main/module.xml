@@ -158,6 +158,7 @@
         <module name="org.apache.camel.component.ognl" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.olingo2" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.olingo4" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.openstack" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.opentracing" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.optaplanner" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.paho" export="true" services="export" optional="true" />
