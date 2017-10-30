@@ -414,6 +414,9 @@
 /org/apache/camel/component/tarfile/main/camel-tarfile-2.20.0.jar
 /org/apache/camel/component/telegram/main/camel-telegram-2.20.0.jar
 /org/apache/camel/component/thrift/main/camel-thrift-2.20.0.jar
+/org/apache/camel/component/twilio/main/camel-twilio-2.20.0.jar
+/org/apache/camel/component/twilio/main/jjwt-0.4.jar
+/org/apache/camel/component/twilio/main/twilio-7.9.1.jar
 /org/apache/camel/component/twitter/main/camel-twitter-2.20.0.jar
 /org/apache/camel/component/twitter/main/twitter4j-core-4.0.6.jar
 /org/apache/camel/component/twitter/main/twitter4j-stream-4.0.6.jar

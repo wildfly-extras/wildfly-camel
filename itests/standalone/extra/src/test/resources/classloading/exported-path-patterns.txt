@@ -32,6 +32,7 @@
     ^com/rabbitmq(.*)
     ^com/splunk(.*)
 	^com/sun/syndication(.*)
+    ^com/twilio(.*)
     ^freemarker(.*)
 	^groovy(.*)
     ^io/atomix(.*)
@@ -130,4 +131,3 @@
 
 [excludes]
     (.*)/internal
-    

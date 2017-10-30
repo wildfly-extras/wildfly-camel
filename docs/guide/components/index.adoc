@@ -330,6 +330,8 @@ include::camel-telegram.adoc[]
 
 include::camel-thrift.adoc[]
 
+include::camel-twilio.adoc[]
+
 include::camel-twitter.adoc[]
 
 include::camel-undertow.adoc[]
