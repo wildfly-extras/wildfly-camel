@@ -4,7 +4,6 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${org.hdrhistogram:HdrHistogram}" />
     <artifact name="${com.netflix.hystrix:hystrix-core}" />
     <artifact name="${com.netflix.hystrix:hystrix-metrics-event-stream}" />
     <artifact name="${com.netflix.hystrix:hystrix-serialization}" />
@@ -17,6 +16,7 @@
     <module name="com.fasterxml.jackson.module.afterburner" />
     <module name="com.netflix.archaius.archaius-core" />
     <module name="javax.servlet.api" />
+    <module name="org.hdrhistogram" />
     <module name="org.slf4j" />
   </dependencies>
 </module>

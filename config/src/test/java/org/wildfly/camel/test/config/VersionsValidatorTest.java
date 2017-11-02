@@ -54,7 +54,6 @@ public class VersionsValidatorTest {
         mapping.put("version.camel.apns", "java-apns-version");
         mapping.put("version.camel.jgroups", "jgroups-version");
         mapping.put("version.camel.lucene3", "lucene3-version");
-        mapping.put("version.camel.lucene5", "lucene-version");
         mapping.put("version.camel.hadoop2", "hadoop2-version");
         mapping.put("version.camel.hadoop2.protobuf", "hadoop2-protobuf-version");
         mapping.put("version.camel.hbase", "hbase-version");

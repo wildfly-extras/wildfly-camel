@@ -63,6 +63,7 @@ dropbox
 ehcache
 ejb
 elasticsearch
+elasticsearch5
 elsql
 etcd
 exec
@@ -244,7 +245,6 @@ consul                                              #1992
 digitalocean                                        #1822
 docker                                              #1424
 drill                                               #1823
-elasticsearch5                                      #1824
 flink                                               #1430
 hipchat                                             #2003
 milo-client                                         #1835

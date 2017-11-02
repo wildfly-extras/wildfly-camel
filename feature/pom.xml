@@ -38,6 +38,8 @@
         <module>common</module>
         <module>extrasA</module>
         <module>extrasB</module>
+        <module>extrasC</module>
+        <module>extrasD</module>
         <module>modules</module>
         <module>pack</module>
     </modules>

@@ -4,14 +4,16 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${org.elasticsearch:elasticsearch}" />
-    <artifact name="${com.carrotsearch:hppc}" />
-    <artifact name="${com.twitter:jsr166e}" />
-    <artifact name="${org.elasticsearch:securesm}" />
-    <artifact name="${com.tdunning:t-digest}" />
+    <resource-root path="elasticsearch-2.4.4.jar" />
+    <resource-root path="hppc-0.7.1.jar" />
+    <resource-root path="jsr166e-1.1.0.jar" />
+    <resource-root path="securesm-1.0.jar" />
+    <resource-root path="t-digest-3.0.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="io.netty" slot="3.10" />
+    <module name="org.apache.lucene" slot="5.5" />
     <module name="org.slf4j" />
     <module name="sun.jdk">
       <imports>
@@ -23,10 +25,7 @@
     <module name="com.fasterxml.jackson.dataformat.smile" />
     <module name="com.fasterxml.jackson.dataformat.yaml" />
     <module name="com.google.guava" />
-    <module name="com.netflix.hystrix" />
     <module name="com.ning.lzf" />
-    <module name="io.netty" slot="3.10" />
-    <module name="org.apache.lucene" slot="5.5" />
     <module name="org.joda.time" />
     <module name="org.yaml.snakeyaml" />
   </dependencies>

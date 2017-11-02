@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.lucene" slot="5.5">
   <resources>
-    <artifact name="${jakarta-regexp:jakarta-regexp}" />
-    <artifact name="${org.apache.lucene:lucene-analyzers-common}" />
-    <artifact name="${org.apache.lucene:lucene-backward-codecs}" />
-    <artifact name="${org.apache.lucene:lucene-core}" />
-    <artifact name="${org.apache.lucene:lucene-grouping}" />
-    <artifact name="${org.apache.lucene:lucene-highlighter}" />
-    <artifact name="${org.apache.lucene:lucene-join}" />
-    <artifact name="${org.apache.lucene:lucene-memory}" />
-    <artifact name="${org.apache.lucene:lucene-misc}" />
-    <artifact name="${org.apache.lucene:lucene-queries}" />
-    <artifact name="${org.apache.lucene:lucene-queryparser}" />
-    <artifact name="${org.apache.lucene:lucene-sandbox}" />
-    <artifact name="${org.apache.lucene:lucene-spatial}" />
-    <artifact name="${org.apache.lucene:lucene-suggest}" />
+    <resource-root path="lucene-analyzers-common-5.5.2.jar" />
+    <resource-root path="lucene-backward-codecs-5.5.2.jar" />
+    <resource-root path="lucene-core-5.5.2.jar" />
+    <resource-root path="lucene-grouping-5.5.2.jar" />
+    <resource-root path="lucene-highlighter-5.5.2.jar" />
+    <resource-root path="lucene-join-5.5.2.jar" />
+    <resource-root path="lucene-memory-5.5.2.jar" />
+    <resource-root path="lucene-misc-5.5.2.jar" />
+    <resource-root path="lucene-queries-5.5.2.jar" />
+    <resource-root path="lucene-queryparser-5.5.2.jar" />
+    <resource-root path="lucene-sandbox-5.5.2.jar" />
+    <resource-root path="lucene-spatial-5.5.2.jar" />
+    <resource-root path="lucene-spatial3d-5.5.2.jar" />
+    <resource-root path="lucene-suggest-5.5.2.jar" />
+    <resource-root path="spatial4j-0.5.jar" />
   </resources>
   <dependencies>
     <module name="javax.api" />

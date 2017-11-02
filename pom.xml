@@ -50,7 +50,6 @@
         <version.camel.apns>1.0.0.Beta6</version.camel.apns>
         <version.camel.jgroups>4.0.6.Final</version.camel.jgroups>
         <version.camel.lucene3>3.6.0</version.camel.lucene3>
-        <version.camel.lucene5>5.5.2</version.camel.lucene5>
         <version.camel.hadoop2>2.7.4</version.camel.hadoop2>
         <version.camel.hadoop2.protobuf>2.5.0</version.camel.hadoop2.protobuf>
         <version.camel.hbase>1.2.6</version.camel.hbase>

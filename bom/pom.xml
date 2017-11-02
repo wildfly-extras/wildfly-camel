@@ -194,41 +194,6 @@
                 <version>${version.camel.qpid.proton}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-analyzers-common</artifactId>
-                <version>${version.camel.lucene5}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-backward-codecs</artifactId>
-                <version>${version.camel.lucene5}</version>
-            </dependency>
-             <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-core</artifactId>
-                <version>${version.camel.lucene5}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-misc</artifactId>
-                <version>${version.camel.lucene5}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-queries</artifactId>
-                <version>${version.camel.lucene5}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-queryparser</artifactId>
-                <version>${version.camel.lucene5}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.lucene</groupId>
-                <artifactId>lucene-sandbox</artifactId>
-                <version>${version.camel.lucene5}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-features-clustering</artifactId>
                 <version>${version.wildfly.cxf}</version>

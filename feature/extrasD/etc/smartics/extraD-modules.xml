@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Wildfly Camel Patch
+  %%
+  Copyright (C) 2013 - 2014 RedHat
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+<modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
+
+    <module name="org.apache.camel.component.elasticsearch5">
+        <include artifact="org.apache.camel:camel-elasticsearch5"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.elasticsearch5"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.logging.log4j" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.logging.log4j:log4j-api" />
+        <include artifact="org.apache.logging.log4j:log4j-core" />
+        <apply-to-dependencies skip="true">
+            <include module="org.osgi.core" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.lucene" inherit-slot="false" slot="6.6">
+        <include artifact=":lucene-analyzers-common" />
+        <include artifact=":lucene-backward-codecs" />
+        <include artifact=":lucene-core" />
+        <include artifact=":lucene-grouping" />
+        <include artifact=":lucene-highlighter" />
+        <include artifact=":lucene-join" />
+        <include artifact=":lucene-memory" />
+        <include artifact=":lucene-misc" />
+        <include artifact=":lucene-queries" />
+        <include artifact=":lucene-queryparser" />
+        <include artifact=":lucene-sandbox" />
+        <include artifact=":lucene-spatial" />
+        <include artifact=":lucene-spatial-extras" />
+        <include artifact=":lucene-spatial3d" />
+        <include artifact=":lucene-suggest" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.elasticsearch5" >
+        <include artifact="org.elasticsearch:elasticsearch" />
+        <include artifact="org.elasticsearch:securesm" />
+        <include artifact="org.elasticsearch.client:rest" />
+        <include artifact="org.elasticsearch.client:transport" />
+        <include artifact="org.elasticsearch.plugin:lang-mustache-client" />
+        <include artifact="org.elasticsearch.plugin:parent-join-client" />
+        <include artifact="org.elasticsearch.plugin:percolator-client" />
+        <include artifact="org.elasticsearch.plugin:reindex-client" />
+        <include artifact="org.elasticsearch.plugin:transport-netty4-client" />
+        <include artifact="com.carrotsearch:hppc" />
+        <include artifact="com.tdunning:t-digest" />
+        <apply-to-dependencies skip="true">
+            <include module="org.elasticsearch5.skipped" />
+            <include module="org.hdrhistogram" />
+            <include module="io.netty.skipped" />
+            <include module="net.java.dev.jna" />
+            <include module="net.sf.jopt-simple" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="io.netty"/>
+        </dependencies>
+    </module>
+    
+    <module name="org.elasticsearch5.transport.netty3" >
+        <include artifact="org.elasticsearch.plugin:transport-netty3-client" />
+        <apply-to-dependencies skip="true">
+            <include module="org.elasticsearch5.skipped" />
+            <include module="net.java.dev.jna" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="io.netty" slot="3.10"/>
+        </dependencies>
+    </module>
+    
+    <!-- ================================================ -->
+    <!-- Skipp modules defined in other module sets       -->
+    <!-- ================================================ -->
+    
+    <module name="com.fasterxml.jackson.dataformat.cbor" skip="true">
+        <include artifact=":jackson-dataformat-cbor" />
+    </module>
+
+    <module name="com.fasterxml.jackson.dataformat.smile" skip="true">
+        <include artifact=":jackson-dataformat-smile" />
+    </module>
+
+    <module name="com.fasterxml.jackson.dataformat.yaml" skip="true">
+        <include artifact=":jackson-dataformat-yaml" />
+    </module>
+
+    <module name="io.netty" slot="3.10" skip="true">
+        <include artifact="io.netty:netty" />
+    </module>
+
+    <module name="org.apache.camel.core" skip="true">
+        <include artifact="org.apache.camel:camel-core"/>
+    </module>
+
+    <module name="org.apache.logging.log4j" skip="true">
+        <include artifact="org.apache.logging.log4j:log4j-api" />
+        <include artifact="org.apache.logging.log4j:log4j-core" />
+    </module>
+
+    <module name="org.elasticsearch5.skipped" skip="true">
+        <include artifact="org.elasticsearch:jna" />
+        <include artifact="org.locationtech.spatial4j:spatial4j" />
+        <include artifact="com.vividsolutions:jts" />
+    </module>
+
+    <module name="org.hdrhistogram" skip="true">
+        <include artifact="org.hdrhistogram:HdrHistogram" />
+    </module>
+
+    <module name="net.sf.jopt-simple" skip="true">
+        <include artifact="net.sf.jopt-simple:" />
+    </module>
+
+</modules>

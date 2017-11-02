@@ -52,7 +52,6 @@
 /com/intellij/annotations/main/annotations-12.0.jar
 /com/jcraft/jsch/main/jsch-0.1.54.jar
 /com/netflix/archaius/archaius-core/main/archaius-core-0.7.4.jar
-/com/netflix/hystrix/main/HdrHistogram-2.1.6.jar
 /com/netflix/hystrix/main/hystrix-core-1.5.12.jar
 /com/netflix/hystrix/main/hystrix-metrics-event-stream-1.5.12.jar
 /com/netflix/hystrix/main/hystrix-serialization-1.5.12.jar
@@ -530,7 +529,6 @@
 /org/apache/logging/log4j/main/log4j-api-2.8.2.jar
 /org/apache/logging/log4j/main/log4j-core-2.8.2.jar
 /org/apache/lucene/3.6/lucene-core-3.6.0.jar
-/org/apache/lucene/5.5/jakarta-regexp-1.4.jar
 /org/apache/lucene/5.5/lucene-analyzers-common-5.5.2.jar
 /org/apache/lucene/5.5/lucene-backward-codecs-5.5.2.jar
 /org/apache/lucene/5.5/lucene-core-5.5.2.jar
@@ -543,7 +541,9 @@
 /org/apache/lucene/5.5/lucene-queryparser-5.5.2.jar
 /org/apache/lucene/5.5/lucene-sandbox-5.5.2.jar
 /org/apache/lucene/5.5/lucene-spatial-5.5.2.jar
+/org/apache/lucene/5.5/lucene-spatial3d-5.5.2.jar
 /org/apache/lucene/5.5/lucene-suggest-5.5.2.jar
+/org/apache/lucene/5.5/spatial4j-0.5.jar
 /org/apache/lucene/6.6/lucene-analyzers-common-6.6.0.jar
 /org/apache/lucene/6.6/lucene-backward-codecs-6.6.0.jar
 /org/apache/lucene/6.6/lucene-core-6.6.0.jar
@@ -663,6 +663,7 @@
 /org/fusesource/hawtdispatch/main/hawtdispatch-1.22.jar
 /org/fusesource/hawtdispatch/main/hawtdispatch-transport-1.22.jar
 /org/fusesource/mqtt/main/mqtt-client-1.14.jar
+/org/hdrhistogram/main/HdrHistogram-2.1.9.jar
 /org/igniterealtime/main/smack-core-4.2.1.jar
 /org/igniterealtime/main/smack-extensions-4.2.1.jar
 /org/igniterealtime/main/smack-im-4.2.1.jar

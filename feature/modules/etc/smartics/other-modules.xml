@@ -474,7 +474,6 @@
         <include artifact="com.netflix.hystrix:hystrix-metrics-event-stream" />
         <include artifact="com.netflix.hystrix:hystrix-serialization" />
         <include artifact="io.reactivex:rxjava" />
-        <include artifact="org.hdrhistogram:HdrHistogram" />
         <apply-to-dependencies skip="true">
             <include module="com.fasterxml.jackson.skipped" />
         </apply-to-dependencies>
@@ -540,23 +539,6 @@
         </dependencies>
     </module>
 
-    <module name="com.querydsl">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":querydsl-core" />
-        <dependencies>
-        </dependencies>
-    </module>
-
-    <module name="com.querydsl.skip" skip="true">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":querydsl-apt" />
-        <include artifact=":querydsl-codegen" />
-    </module>
-
     <module name="com.ning.lzf">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -572,6 +554,23 @@
         <exports>
             <exclude path="com/ning" />
         </exports>
+    </module>
+
+    <module name="com.querydsl">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":querydsl-core" />
+        <dependencies>
+        </dependencies>
+    </module>
+
+    <module name="com.querydsl.skip" skip="true">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":querydsl-apt" />
+        <include artifact=":querydsl-codegen" />
     </module>
 
     <module name="com.rometools.rome">
@@ -1275,27 +1274,6 @@
         </exports>
     </module>
 
-    <module name="org.apache.lucene" slot="5.5">
-        <include artifact="jakarta-regexp:jakarta-regexp" />
-        <include artifact="org.apache.lucene:lucene-analyzers-common" />
-        <include artifact="org.apache.lucene:lucene-backward-codecs" />
-        <include artifact="org.apache.lucene:lucene-core" />
-        <include artifact="org.apache.lucene:lucene-facet" />
-        <include artifact="org.apache.lucene:lucene-queries" />
-        <include artifact="org.apache.lucene:lucene-queryparser" />
-        <include artifact="org.apache.lucene:lucene-grouping" />
-        <include artifact="org.apache.lucene:lucene-highlighter" />
-        <include artifact="org.apache.lucene:lucene-join" />
-        <include artifact="org.apache.lucene:lucene-memory" />
-        <include artifact="org.apache.lucene:lucene-misc" />
-        <include artifact="org.apache.lucene:lucene-sandbox" />
-        <include artifact="org.apache.lucene:lucene-spatial" />
-        <include artifact="org.apache.lucene:lucene-suggest" />
-        <dependencies>
-            <module name="javax.api" />
-        </dependencies>
-    </module>
-
     <module name="org.apache.mina.core">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1671,39 +1649,6 @@
         </exports>
     </module>
 
-    <module name="org.elasticsearch">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.carrotsearch:hppc" />
-        <include artifact="com.tdunning:t-digest" />
-        <include artifact="com.twitter:jsr166e" />
-        <include artifact="org.elasticsearch:elasticsearch" />
-        <include artifact="org.elasticsearch:securesm" />
-        <apply-to-dependencies skip="true">
-            <include module="antlr"/>
-            <include module="io.netty.skipped" />
-            <include module="org.apache.commons.cli" />
-            <include module="org.hdrhistogram" />
-            <include module="org.joda.convert" />
-            <include module="org.ow2.asm"/>
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="org.slf4j"/>
-            <module name="sun.jdk">
-                <imports>
-                    <include path="sun/misc" />
-                </imports>
-            </module>
-        </dependencies>
-        <exports>
-            <exclude path="com/carrotsearch**" />
-            <exclude path="com/tdunning**" />
-            <exclude path="com/twitter**" />
-        </exports>
-    </module>
-
     <module name="org.everit.json">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1748,6 +1693,13 @@
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
+    </module>
+
+    <module name="org.hdrhistogram">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.hdrhistogram:HdrHistogram" />
     </module>
 
     <module name="org.igniterealtime">

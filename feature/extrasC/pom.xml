@@ -15,9 +15,9 @@
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
-    <name>Wildfly Camel :: Feature :: ExtrasA</name>
+    <name>Wildfly Camel :: Feature :: ExtrasC</name>
 
-    <artifactId>wildfly-camel-feature-extrasA</artifactId>
+    <artifactId>wildfly-camel-feature-extrasC</artifactId>
     <packaging>pom</packaging>
 
     <properties>
@@ -26,26 +26,8 @@
     
     <dependencies>
         <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-            <version>${version.camel.hadoop2.protobuf}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-chunk</artifactId>
-            <version>${version.apache.camel}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jbpm</artifactId>
-            <version>${version.apache.camel}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jclouds</artifactId>
+            <artifactId>camel-elasticsearch</artifactId>
             <version>${version.apache.camel}</version>
             <scope>provided</scope>
         </dependency>
