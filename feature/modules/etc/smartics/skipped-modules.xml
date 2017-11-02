@@ -26,6 +26,10 @@
 -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="org.apache.logging.log4j.core" skip="true">
+        <include artifact="org.apache.logging.log4j:log4j-core" />
+    </module>
+
     <module name="org.apache.lucene" slot="5.5" skip="true">
         <include artifact="org.apache.lucene:lucene-analyzers-common" />
         <include artifact="org.apache.lucene:lucene-core" />

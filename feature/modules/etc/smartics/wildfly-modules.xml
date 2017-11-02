@@ -31,7 +31,7 @@
     </module>
     
     <module name="org.apache.log4j" skip="true">
-        <include artifact="org.apache.logging.log4j:" />
+        <include artifact="org.apache.log4j:" />
         <include artifact="log4j:" />
     </module>
 

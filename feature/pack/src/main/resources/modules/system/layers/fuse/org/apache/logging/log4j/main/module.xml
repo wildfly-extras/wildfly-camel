@@ -4,10 +4,14 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="log4j-api-2.8.2.jar" />
-    <resource-root path="log4j-core-2.8.2.jar" />
+    <artifact name="${org.apache.logging.log4j:log4j-api}" />
+    <artifact name="${org.apache.logging.log4j:log4j-to-slf4j}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
+    <module name="org.slf4j" />
   </dependencies>
+  <exports>
+    <exclude path="org/apache/logging" />
+    <exclude path="org/apache/logging/slf4j" />
+  </exports>
 </module>

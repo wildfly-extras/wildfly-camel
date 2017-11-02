@@ -81,6 +81,7 @@
 	^org/apache/ibatis(.*)
 	^org/apache/johnzon(.*)
 	^org/apache/kafka(.*)
+    ^org/apache/logging/log4j(.*)
     ^org/apache/olingo(.*)
     ^org/apache/shiro(.*)
     ^org/apache/sshd

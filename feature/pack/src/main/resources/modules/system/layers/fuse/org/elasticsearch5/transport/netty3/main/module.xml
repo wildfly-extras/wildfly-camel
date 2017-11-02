@@ -5,7 +5,6 @@
   </resources>
   <dependencies>
     <module name="io.netty" slot="3.10" />
-    <module name="org.apache.logging.log4j" />
     <module name="org.elasticsearch5" />
   </dependencies>
 </module>

@@ -35,6 +35,7 @@
                 <include path="META-INF" />
             </exports>
         </module>
+        <module name="org.apache.logging.log4j" export="true" />
         <module name="org.springframework.spring" export="true">
             <imports>
                 <include path="META-INF" />

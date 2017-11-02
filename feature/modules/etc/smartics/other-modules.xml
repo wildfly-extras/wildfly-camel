@@ -1274,6 +1274,24 @@
         </exports>
     </module>
 
+    <module name="org.apache.logging.log4j" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.logging.log4j:log4j-api" />
+        <include artifact="org.apache.logging.log4j:log4j-to-slf4j" />
+        <apply-to-dependencies skip="true">
+            <include module="org.osgi.core" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j" />
+        </dependencies>
+        <exports>
+            <exclude path="org/apache/logging" />
+            <exclude path="org/apache/logging/slf4j" />
+        </exports>
+    </module>
+
     <module name="org.apache.mina.core">
         <properties>
             <property name="jboss.api" value="private"/>

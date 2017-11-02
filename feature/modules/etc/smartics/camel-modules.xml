@@ -1184,6 +1184,7 @@
         <include artifact="com.cedarsoftware:java-util" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
+            <include module="org.apache.logging.log4j.core" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
@@ -2879,6 +2880,7 @@
         <apply-to-dependencies skip="true">
             <include module="io.netty.skipped" />
             <include module="org.apache.camel.apt" />
+            <include module="org.apache.logging.log4j.core" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>

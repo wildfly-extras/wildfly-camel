@@ -33,20 +33,6 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.logging.log4j" >
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.apache.logging.log4j:log4j-api" />
-        <include artifact="org.apache.logging.log4j:log4j-core" />
-        <apply-to-dependencies skip="true">
-            <include module="org.osgi.core" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api" />
-        </dependencies>
-    </module>
-
     <module name="org.apache.lucene" inherit-slot="false" slot="6.6">
         <include artifact=":lucene-analyzers-common" />
         <include artifact=":lucene-backward-codecs" />
@@ -92,9 +78,25 @@
         </dependencies>
     </module>
     
+    <!-- elasticsearch5 has a direct dependency on log4j-core -->
+    <module name="org.elasticsearch5.log4j" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.logging.log4j:log4j-api" />
+        <include artifact="org.apache.logging.log4j:log4j-core" />
+        <apply-to-dependencies skip="true">
+            <include module="org.osgi.core" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
     <module name="org.elasticsearch5.transport.netty3" >
         <include artifact="org.elasticsearch.plugin:transport-netty3-client" />
         <apply-to-dependencies skip="true">
+            <include module="org.elasticsearch5.log4j" />
             <include module="org.elasticsearch5.skipped" />
             <include module="net.java.dev.jna" />
         </apply-to-dependencies>
@@ -127,11 +129,6 @@
         <include artifact="org.apache.camel:camel-core"/>
     </module>
 
-    <module name="org.apache.logging.log4j" skip="true">
-        <include artifact="org.apache.logging.log4j:log4j-api" />
-        <include artifact="org.apache.logging.log4j:log4j-core" />
-    </module>
-
     <module name="org.elasticsearch5.skipped" skip="true">
         <include artifact="org.elasticsearch:jna" />
         <include artifact="org.locationtech.spatial4j:spatial4j" />
@@ -140,6 +137,10 @@
 
     <module name="org.hdrhistogram" skip="true">
         <include artifact="org.hdrhistogram:HdrHistogram" />
+    </module>
+
+    <module name="org.osgi.core" skip="true">
+        <include artifact=":org.osgi.core" />
     </module>
 
     <module name="net.sf.jopt-simple" skip="true">

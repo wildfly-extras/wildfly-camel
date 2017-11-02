@@ -40,8 +40,8 @@ public class LogIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "log-tests")
-            .addClass(LogUtils.class);
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "log-tests");
+        return archive.addClass(LogUtils.class);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class LogIntegrationTest {
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             producer.requestBody("direct:start", "Hello Kermit", String.class);
-            Assert.assertTrue("Gave up waiting to find matching log message", LogUtils.awaitLogMessage(".*simple-log.*Hello Kermit]$", 5000));
+            Assert.assertTrue("Verify log message", LogUtils.awaitLogMessage(".*simple-log.*Hello Kermit]$", 5000));
         } finally {
             camelctx.stop();
         }

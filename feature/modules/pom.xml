@@ -53,6 +53,11 @@
                 <artifactId>api-ldap-codec-standalone</artifactId>
                 <version>${version.apache.ds.codec}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-to-slf4j</artifactId>
+                <version>${version.camel.log4j2}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -951,6 +956,10 @@
             <artifactId>kafka_2.11</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-to-slf4j</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.eclipse.mylyn.github</groupId>
             <artifactId>org.eclipse.egit.github.core</artifactId>
         </dependency>
@@ -1049,6 +1058,10 @@
                         <dir>etc/smartics</dir>
                     </modules>
                     <dependencyExcludes>
+                        <exclude>
+                            <groupId>org.apache.logging.log4j</groupId>
+                            <artifactId>log4j-api-java9</artifactId>
+                        </exclude>
                         <exclude>
                             <groupId>org.wildfly</groupId>
                             <artifactId>wildfly-feature-pack</artifactId>

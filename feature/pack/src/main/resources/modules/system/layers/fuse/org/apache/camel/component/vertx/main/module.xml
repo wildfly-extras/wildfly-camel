@@ -11,7 +11,7 @@
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.log4j" />
+    <module name="org.apache.logging.log4j" />
   </dependencies>
   <exports>
     <exclude path="io/vertx" />
