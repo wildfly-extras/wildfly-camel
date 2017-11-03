@@ -37,6 +37,9 @@ import org.apache.camel.Message;
 import org.apache.camel.Producer;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.openstack.common.OpenstackConstants;
+import org.apache.camel.component.openstack.keystone.KeystoneConstants;
+import org.apache.camel.component.openstack.keystone.KeystoneEndpoint;
+import org.apache.camel.component.openstack.keystone.producer.ProjectProducer;
 import org.apache.camel.component.openstack.neutron.NeutronConstants;
 import org.apache.camel.component.openstack.neutron.NeutronEndpoint;
 import org.apache.camel.component.openstack.neutron.producer.NetworkProducer;
@@ -66,6 +69,12 @@ import org.openstack4j.api.compute.ComputeService;
 import org.openstack4j.api.compute.FlavorService;
 import org.openstack4j.api.compute.KeypairService;
 import org.openstack4j.api.compute.ServerService;
+import org.openstack4j.api.identity.v3.DomainService;
+import org.openstack4j.api.identity.v3.GroupService;
+import org.openstack4j.api.identity.v3.IdentityService;
+import org.openstack4j.api.identity.v3.ProjectService;
+import org.openstack4j.api.identity.v3.RegionService;
+import org.openstack4j.api.identity.v3.UserService;
 import org.openstack4j.api.networking.NetworkService;
 import org.openstack4j.api.networking.NetworkingService;
 import org.openstack4j.api.networking.PortService;
@@ -76,6 +85,7 @@ import org.openstack4j.api.storage.ObjectStorageObjectService;
 import org.openstack4j.api.storage.ObjectStorageService;
 import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.compute.Keypair;
+import org.openstack4j.model.identity.v3.Project;
 import org.openstack4j.model.network.Network;
 import org.openstack4j.model.network.NetworkType;
 import org.openstack4j.model.storage.object.options.CreateUpdateContainerOptions;
@@ -110,6 +120,16 @@ public class OpenstackIntegrationTest {
     NetworkService networkService = Mockito.mock(NetworkService.class);
     Network testOSnetwork = Mockito.mock(Network.class);
     Network dummyNetwork = createNetwork();
+
+    // keystone
+    IdentityService identityService = Mockito.mock(IdentityService.class);
+    DomainService domainService = Mockito.mock(DomainService.class);
+    GroupService groupService = Mockito.mock(GroupService.class);
+    ProjectService projectService = Mockito.mock(ProjectService.class);
+    RegionService regionService = Mockito.mock(RegionService.class);
+    UserService userService = Mockito.mock(UserService.class);
+    Project testOSproject = Mockito.mock(Project.class);
+    Project dummyProject = createProject();
 
     OSClient.OSClientV3 client = Mockito.mock(OSClient.OSClientV3.class);
 
@@ -155,15 +175,34 @@ public class OpenstackIntegrationTest {
         when(networkService.create(any(Network.class))).thenReturn(testOSnetwork);
         when(networkService.get(anyString())).thenReturn(testOSnetwork);
 
-        List<Network> getAllList = new ArrayList<>();
-        getAllList.add(testOSnetwork);
-        getAllList.add(testOSnetwork);
-        doReturn(getAllList).when(networkService).list();
+        List<Network> networkList = new ArrayList<>();
+        networkList.add(testOSnetwork);
+        networkList.add(testOSnetwork);
+        doReturn(networkList).when(networkService).list();
 
         when(testOSnetwork.getName()).thenReturn(dummyNetwork.getName());
         when(testOSnetwork.getTenantId()).thenReturn(dummyNetwork.getTenantId());
         when(testOSnetwork.getNetworkType()).thenReturn(dummyNetwork.getNetworkType());
         when(testOSnetwork.getId()).thenReturn(UUID.randomUUID().toString());
+
+        // keystone
+        when(identityService.domains()).thenReturn(domainService);
+        when(identityService.groups()).thenReturn(groupService);
+        when(identityService.projects()).thenReturn(projectService);
+        when(identityService.regions()).thenReturn(regionService);
+        when(identityService.users()).thenReturn(userService);
+        when(client.identity()).thenReturn(identityService);
+
+        when(projectService.create(any(Project.class))).thenReturn(testOSproject);
+        when(projectService.get(anyString())).thenReturn(testOSproject);
+
+        List<Project> projectList = new ArrayList<>();
+        projectList.add(testOSproject);
+        projectList.add(testOSproject);
+        doReturn(projectList).when(projectService).list();
+
+        when(testOSproject.getName()).thenReturn(dummyProject.getName());
+        when(testOSproject.getDescription()).thenReturn(dummyProject.getDescription());
     }
 
     @Test
@@ -236,11 +275,11 @@ public class OpenstackIntegrationTest {
     public void createNeutronNetwork() throws Exception {
         CamelContext camelContext = Mockito.mock(CamelContext.class);
         when(camelContext.getHeadersMapFactory()).thenReturn(new DefaultHeadersMapFactory());
-        
+
         Message msg = new DefaultMessage(camelContext);
         Exchange exchange = Mockito.mock(Exchange.class);
         when(exchange.getIn()).thenReturn(msg);
-        
+
         msg.setHeader(OpenstackConstants.OPERATION, OpenstackConstants.CREATE);
         msg.setHeader(OpenstackConstants.NAME, dummyNetwork.getName());
         msg.setHeader(NeutronConstants.NETWORK_TYPE, dummyNetwork.getNetworkType());
@@ -258,6 +297,31 @@ public class OpenstackIntegrationTest {
     }
 
     @Test
+    public void createKeystoneProject() throws Exception {
+        CamelContext camelContext = Mockito.mock(CamelContext.class);
+        when(camelContext.getHeadersMapFactory()).thenReturn(new DefaultHeadersMapFactory());
+
+        Message msg = new DefaultMessage(camelContext);
+        Exchange exchange = Mockito.mock(Exchange.class);
+        when(exchange.getIn()).thenReturn(msg);
+
+        msg.setHeader(OpenstackConstants.OPERATION, OpenstackConstants.CREATE);
+        msg.setHeader(OpenstackConstants.NAME, dummyProject.getName());
+        msg.setHeader(KeystoneConstants.DESCRIPTION, dummyProject.getDescription());
+        msg.setHeader(KeystoneConstants.DOMAIN_ID, dummyProject.getDomainId());
+        msg.setHeader(KeystoneConstants.PARENT_ID, dummyProject.getParentId());
+
+        KeystoneEndpoint endpoint = Mockito.mock(KeystoneEndpoint.class);
+        Producer producer = new ProjectProducer(endpoint, client);
+        producer.process(exchange);
+
+        ArgumentCaptor<Project> captor = ArgumentCaptor.forClass(Project.class);
+        verify(projectService).create(captor.capture());
+
+        assertEqualsProject(dummyProject, captor.getValue());
+    }
+
+    @Test
     public void testEndpoints() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
@@ -266,6 +330,7 @@ public class OpenstackIntegrationTest {
                 from("direct:start").to("openstack-swift:localhost");
                 from("direct:start").to("openstack-nova:localhost");
                 from("direct:start").to("openstack-neutron:localhost");
+                from("direct:start").to("openstack-keystone:localhost");
             }
         });
 
@@ -277,6 +342,9 @@ public class OpenstackIntegrationTest {
 
         NeutronEndpoint neutronEndpoint = camelctx.getEndpoint("openstack-neutron:localhost", NeutronEndpoint.class);
         Assert.assertNotNull("NeutronEndpoint not null", neutronEndpoint);
+
+        KeystoneEndpoint keystoneEndpoint = camelctx.getEndpoint("openstack-keystone:localhost", KeystoneEndpoint.class);
+        Assert.assertNotNull("KeystoneEndpoint not null", keystoneEndpoint);
     }
 
     private NovaKeypair createKeypair() {
@@ -287,9 +355,20 @@ public class OpenstackIntegrationTest {
         return Builders.network().name("name").tenantId("tenantID").networkType(NetworkType.LOCAL).build();
     }
 
+    private Project createProject() {
+        return Builders.project().domainId("domain").description("desc").name("project Name").parentId("parent").build();
+    }
+
     private void assertEqualsNetwork(Network old, Network newNetwork) {
         assertEquals(old.getName(), newNetwork.getName());
         assertEquals(old.getTenantId(), newNetwork.getTenantId());
         assertEquals(old.getNetworkType(), newNetwork.getNetworkType());
     }
+
+    private void assertEqualsProject(Project old, Project newProject) {
+        assertEquals(old.getName(), newProject.getName());
+        assertEquals(old.getDescription(), newProject.getDescription());
+        assertEquals(old.getDomainId(), newProject.getDomainId());
+    }
+
 }
