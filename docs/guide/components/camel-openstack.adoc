@@ -4,3 +4,4 @@ The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-
 
 The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-openstack/src/main/docs/openstack-nova-component.adoc[openstack-nova,window=_blank] component allows messages to be sent to an OpenStack compute services.
 
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-openstack/src/main/docs/openstack-neutron-component.adoc[openstack-neutron,window=_blank] component allows messages to be sent to an OpenStack network services.
