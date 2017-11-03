@@ -102,6 +102,7 @@
 	^org/eclipse/scada/utils(.*)
     ^org/ehcache(.*)
 	^org/fusesource/hawtbuf(.*)
+    ^org/fusesource/stomp(.*)
 	^org/quartz(.*)
 	^org/infinispan(.*)
 	^org/influxdb(.*)

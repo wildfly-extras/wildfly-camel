@@ -55,6 +55,22 @@ public class JMSUtils {
         return modelNode;
     }
 
+    private static ModelNode createStompAcceptorNode(String operationName, String acceptorName, int port, ModelControllerClient client) {
+        ModelNode modelNode = new ModelNode();
+        modelNode.get("operation").set(operationName);
+
+        modelNode.get("address").add("subsystem", MessagingSubsystem.ACTIVEMQ_ARTEMIS.getSubsystemName());
+        modelNode.get("address").add(MessagingSubsystem.ACTIVEMQ_ARTEMIS.getServerName(), "default");
+        modelNode.get("address").add("acceptor", acceptorName);
+
+        modelNode.get("factory-class").set("org.apache.activemq.artemis.core.remoting.impl.netty.NettyAcceptorFactory");
+        modelNode.get("name").set(acceptorName);
+        modelNode.get("params").add("protocols", "STOMP");
+        modelNode.get("params").add("port", port);
+
+        return modelNode;
+    }
+
     private enum MessagingSubsystem {
         ACTIVEMQ_ARTEMIS("messaging-activemq", "server");
 

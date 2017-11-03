@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.stomp">
+  <resources>
+    <artifact name="${org.apache.camel:camel-stomp}" />
+    <artifact name="${org.fusesource.stompjms:stompjms-client}" />
+  </resources>
+  <dependencies>
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.fusesource.hawtbuf" />
+    <module name="org.fusesource.hawtdispatch" />
+  </dependencies>
+  <exports>
+    <exclude path="org/fusesource" />
+  </exports>
+</module>

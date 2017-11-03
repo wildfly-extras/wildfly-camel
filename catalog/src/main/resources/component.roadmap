@@ -212,6 +212,7 @@ sql
 sql-stored
 ssh
 stax
+stomp
 stream
 string-template
 stub
@@ -261,7 +262,6 @@ restlet                                             #2024
 spark                                               #1469
 spark-rest                                          #1470
 spring-ws                                           #1476
-stomp                                               #2033
 tika                                                #1850
 websocket                                           #1479
 

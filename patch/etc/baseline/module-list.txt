@@ -398,6 +398,8 @@
 /org/apache/camel/component/sql/main/camel-sql-2.20.0.jar
 /org/apache/camel/component/ssh/main/camel-ssh-2.20.0.jar
 /org/apache/camel/component/stax/main/camel-stax-2.20.0.jar
+/org/apache/camel/component/stomp/main/camel-stomp-2.20.0.jar
+/org/apache/camel/component/stomp/main/stompjms-client-1.19.jar
 /org/apache/camel/component/stream/main/camel-stream-2.20.0.jar
 /org/apache/camel/component/stringtemplate/main/camel-stringtemplate-2.20.0.jar
 /org/apache/camel/component/swagger/main/camel-swagger-java-2.20.0.jar

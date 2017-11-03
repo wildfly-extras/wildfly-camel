@@ -2820,6 +2820,21 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.stomp">
+        <include artifact="org.apache.camel:camel-stomp" />
+        <include artifact="org.fusesource.stompjms:stompjms-client"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="org/fusesource" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.stringtemplate">
         <include artifact="org.apache.camel:camel-stringtemplate" />
         <apply-to-dependencies skip="true">

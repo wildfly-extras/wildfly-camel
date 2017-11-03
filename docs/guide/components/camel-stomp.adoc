@@ -1,0 +1,5 @@
+### camel-stomp
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-stomp/src/main/docs/stomp-component.adoc[stomp,window=_blank]
+can be used for communicating with http://stomp.github.io/[Stomp] compliant message brokers, like http://activemq.apache.org[Apache ActiveMQ]
+or http://activemq.apache.org/apollo/[ActiveMQ Apollo].

@@ -229,6 +229,7 @@
         <module name="org.apache.camel.component.ssh" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.stax" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.stream" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.stomp" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.stringtemplate" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.swagger" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.syslog" export="true" services="export" optional="true" />

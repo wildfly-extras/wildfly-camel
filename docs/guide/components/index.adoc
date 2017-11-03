@@ -322,6 +322,8 @@ include::camel-ssh.adoc[]
 
 include::camel-stax.adoc[]
 
+include::camel-stomp.adoc[]
+
 include::camel-stream.adoc[]
 
 include::camel-string-template.adoc[]
