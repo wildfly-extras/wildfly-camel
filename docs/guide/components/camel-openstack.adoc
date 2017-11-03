@@ -1,5 +1,6 @@
 ### camel-openstack
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-openstack/src/main/docs/openstack-swift-component.adoc[openstack,window=_blank] component allows messages to be sent to an OpenStack object storage services.
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-openstack/src/main/docs/openstack-swift-component.adoc[openstack-swift,window=_blank] component allows messages to be sent to an OpenStack object storage services.
 
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-openstack/src/main/docs/openstack-nova-component.adoc[openstack-nova,window=_blank] component allows messages to be sent to an OpenStack compute services.
 
