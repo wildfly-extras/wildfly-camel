@@ -26,9 +26,9 @@
     
     <dependencies>
         <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-core</artifactId>
-            <version>${version.camel.lucene3}</version>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-elasticsearch</artifactId>
+            <version>${version.apache.camel}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

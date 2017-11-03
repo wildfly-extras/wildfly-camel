@@ -20,74 +20,90 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="org.apache.camel.component.elasticsearch">
-        <include artifact="org.apache.camel:camel-elasticsearch"/>
+    <!-- ================================================ -->
+    <!-- camel-elasticsearch5                             -->
+    <!-- ================================================ -->
+    
+    <module name="org.apache.camel.component.elasticsearch5.dummy">
+        <include artifact="org.apache.camel:camel-elasticsearch5"/>
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
-        <dependencies>
-            <module name="org.slf4j"/>
-        </dependencies>
     </module>
 
-    <module name="org.apache.lucene" inherit-slot="false" slot="5.5">
-        <include artifact="com.spatial4j:spatial4j" />
-        <include artifact="org.apache.lucene:lucene-analyzers-common" />
-        <include artifact="org.apache.lucene:lucene-backward-codecs" />
-        <include artifact="org.apache.lucene:lucene-core" />
-        <include artifact="org.apache.lucene:lucene-facet" />
-        <include artifact="org.apache.lucene:lucene-queries" />
-        <include artifact="org.apache.lucene:lucene-queryparser" />
-        <include artifact="org.apache.lucene:lucene-grouping" />
-        <include artifact="org.apache.lucene:lucene-highlighter" />
-        <include artifact="org.apache.lucene:lucene-join" />
-        <include artifact="org.apache.lucene:lucene-memory" />
-        <include artifact="org.apache.lucene:lucene-misc" />
-        <include artifact="org.apache.lucene:lucene-sandbox" />
-        <include artifact="org.apache.lucene:lucene-spatial" />
-        <include artifact="org.apache.lucene:lucene-spatial3d" />
-        <include artifact="org.apache.lucene:lucene-suggest" />
+    <module name="org.apache.lucene" inherit-slot="false" slot="6.6">
+        <include artifact=":lucene-analyzers-common" />
+        <include artifact=":lucene-backward-codecs" />
+        <include artifact=":lucene-core" />
+        <include artifact=":lucene-grouping" />
+        <include artifact=":lucene-highlighter" />
+        <include artifact=":lucene-join" />
+        <include artifact=":lucene-memory" />
+        <include artifact=":lucene-misc" />
+        <include artifact=":lucene-queries" />
+        <include artifact=":lucene-queryparser" />
+        <include artifact=":lucene-sandbox" />
+        <include artifact=":lucene-spatial" />
+        <include artifact=":lucene-spatial-extras" />
+        <include artifact=":lucene-spatial3d" />
+        <include artifact=":lucene-suggest" />
         <dependencies>
             <module name="javax.api" />
         </dependencies>
     </module>
 
-    <module name="org.elasticsearch">
+    <module name="org.elasticsearch5" >
+        <include artifact="org.elasticsearch:elasticsearch" />
+        <include artifact="org.elasticsearch:securesm" />
+        <include artifact="org.elasticsearch.client:rest" />
+        <include artifact="org.elasticsearch.client:transport" />
+        <include artifact="org.elasticsearch.plugin:lang-mustache-client" />
+        <include artifact="org.elasticsearch.plugin:parent-join-client" />
+        <include artifact="org.elasticsearch.plugin:percolator-client" />
+        <include artifact="org.elasticsearch.plugin:reindex-client" />
+        <include artifact="org.elasticsearch.plugin:transport-netty4-client" />
+        <include artifact="com.carrotsearch:hppc" />
+        <include artifact="com.tdunning:t-digest" />
+        <apply-to-dependencies skip="true">
+            <include module="org.elasticsearch5.skipped" />
+            <include module="org.hdrhistogram" />
+            <include module="io.netty.skipped" />
+            <include module="net.java.dev.jna" />
+            <include module="net.sf.jopt-simple" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="io.netty"/>
+        </dependencies>
+    </module>
+    
+    <!-- elasticsearch5 has a direct dependency on log4j-core -->
+    <module name="org.elasticsearch5.log4j" >
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="com.carrotsearch:hppc" />
-        <include artifact="com.tdunning:t-digest" />
-        <include artifact="com.twitter:jsr166e" />
-        <include artifact="org.elasticsearch:elasticsearch" />
-        <include artifact="org.elasticsearch:securesm" />
+        <include artifact="org.apache.logging.log4j:log4j-api" />
+        <include artifact="org.apache.logging.log4j:log4j-core" />
         <apply-to-dependencies skip="true">
-            <include module="antlr"/>
-            <include module="io.netty.skipped" />
-            <include module="org.apache.commons.cli" />
-            <include module="org.hdrhistogram" />
-            <include module="org.joda.convert" />
-            <include module="org.ow2.asm"/>
+            <include module="org.osgi.core" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="io.netty" slot="3.10" />
-            <module name="org.apache.lucene" slot="5.5" />
-            <module name="org.slf4j"/>
-            <module name="sun.jdk">
-                <imports>
-                    <include path="sun/misc" />
-                </imports>
-            </module>
         </dependencies>
-        <exports>
-            <exclude path="com/carrotsearch**" />
-            <exclude path="com/tdunning**" />
-            <exclude path="com/twitter**" />
-        </exports>
     </module>
 
+    <module name="org.elasticsearch5.transport.netty3" >
+        <include artifact="org.elasticsearch.plugin:transport-netty3-client" />
+        <apply-to-dependencies skip="true">
+            <include module="org.elasticsearch5.log4j" />
+            <include module="org.elasticsearch5.skipped" />
+            <include module="net.java.dev.jna" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="io.netty" slot="3.10"/>
+        </dependencies>
+    </module>
+    
     <!-- ================================================ -->
     <!-- Skipp modules defined in other module sets       -->
     <!-- ================================================ -->
@@ -104,14 +120,6 @@
         <include artifact=":jackson-dataformat-yaml" />
     </module>
 
-    <module name="com.google.guava" skip="true">
-        <include artifact="com.google.guava:guava" />
-    </module>
-    
-    <module name="com.ning.lzf" skip="true">
-        <include artifact="com.ning:compress-lzf" />
-    </module>
-
     <module name="io.netty" slot="3.10" skip="true">
         <include artifact="io.netty:netty" />
     </module>
@@ -120,8 +128,22 @@
         <include artifact="org.apache.camel:camel-core"/>
     </module>
 
+    <module name="org.elasticsearch5.skipped" skip="true">
+        <include artifact="org.elasticsearch:jna" />
+        <include artifact="org.locationtech.spatial4j:spatial4j" />
+        <include artifact="com.vividsolutions:jts" />
+    </module>
+
     <module name="org.hdrhistogram" skip="true">
         <include artifact="org.hdrhistogram:HdrHistogram" />
+    </module>
+
+    <module name="org.osgi.core" skip="true">
+        <include artifact=":org.osgi.core" />
+    </module>
+
+    <module name="net.sf.jopt-simple" skip="true">
+        <include artifact="net.sf.jopt-simple:" />
     </module>
 
 </modules>

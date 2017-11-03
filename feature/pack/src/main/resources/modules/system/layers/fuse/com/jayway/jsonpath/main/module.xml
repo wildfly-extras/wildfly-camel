@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.jayway.jsonpath">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${com.jayway.jsonpath:json-path}" />
+  </resources>
+  <dependencies>
+    <module name="net.minidev.smart" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

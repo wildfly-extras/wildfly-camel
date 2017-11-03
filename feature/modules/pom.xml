@@ -258,6 +258,15 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-chronicle</artifactId>
         </dependency>
+        <!-- jsonpath before chunk because of json-smart -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jsonpath</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-chunk</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cm-sms</artifactId>
@@ -329,6 +338,14 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-ejb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-elasticsearch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-elasticsearch5</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -438,8 +455,7 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-http4</artifactId>
         </dependency>
-
-        <!-- ribbon before hystrix so that we pull the newer archaius via ribbon -->
+        <!-- ribbon before hystrix because of archaius -->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-ribbon</artifactId>
@@ -488,9 +504,22 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jaxb</artifactId>
         </dependency>
+        <!-- optaplanner before jbpm because of kie -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-optaplanner</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jbpm</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jcache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jclouds</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -539,10 +568,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-json-validator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jsonpath</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -651,10 +676,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-olingo4</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-optaplanner</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -1061,6 +1082,14 @@
                         <exclude>
                             <groupId>org.apache.logging.log4j</groupId>
                             <artifactId>log4j-api-java9</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.elasticsearch.client</groupId>
+                            <artifactId>transport</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.elasticsearch</groupId>
+                            <artifactId>elasticsearch</artifactId>
                         </exclude>
                         <exclude>
                             <groupId>org.wildfly</groupId>

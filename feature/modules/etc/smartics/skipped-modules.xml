@@ -38,4 +38,11 @@
         <include artifact="org.apache.lucene:lucene-sandbox" />
     </module>
 
+    <module name="org.kie.remote" slot="6.5" skip="true">
+        <include artifact="org.kie.remote:kie-remote-client" />
+        <include artifact="org.kie.remote:kie-remote-common" />
+        <include artifact="org.kie.remote:kie-remote-jaxb" />
+        <include artifact="org.kie.remote.ws:kie-remote-ws-common" />
+    </module>
+
 </modules>
