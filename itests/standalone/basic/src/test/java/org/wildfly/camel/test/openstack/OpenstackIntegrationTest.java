@@ -23,6 +23,7 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -37,6 +38,9 @@ import org.apache.camel.Message;
 import org.apache.camel.Producer;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.openstack.common.OpenstackConstants;
+import org.apache.camel.component.openstack.glance.GlanceConstants;
+import org.apache.camel.component.openstack.glance.GlanceEndpoint;
+import org.apache.camel.component.openstack.glance.GlanceProducer;
 import org.apache.camel.component.openstack.keystone.KeystoneConstants;
 import org.apache.camel.component.openstack.keystone.KeystoneEndpoint;
 import org.apache.camel.component.openstack.keystone.producer.ProjectProducer;
@@ -75,6 +79,7 @@ import org.openstack4j.api.identity.v3.IdentityService;
 import org.openstack4j.api.identity.v3.ProjectService;
 import org.openstack4j.api.identity.v3.RegionService;
 import org.openstack4j.api.identity.v3.UserService;
+import org.openstack4j.api.image.ImageService;
 import org.openstack4j.api.networking.NetworkService;
 import org.openstack4j.api.networking.NetworkingService;
 import org.openstack4j.api.networking.PortService;
@@ -84,12 +89,17 @@ import org.openstack4j.api.storage.ObjectStorageContainerService;
 import org.openstack4j.api.storage.ObjectStorageObjectService;
 import org.openstack4j.api.storage.ObjectStorageService;
 import org.openstack4j.model.common.ActionResponse;
+import org.openstack4j.model.common.Payload;
 import org.openstack4j.model.compute.Keypair;
 import org.openstack4j.model.identity.v3.Project;
+import org.openstack4j.model.image.ContainerFormat;
+import org.openstack4j.model.image.DiskFormat;
+import org.openstack4j.model.image.Image;
 import org.openstack4j.model.network.Network;
 import org.openstack4j.model.network.NetworkType;
 import org.openstack4j.model.storage.object.options.CreateUpdateContainerOptions;
 import org.openstack4j.openstack.compute.domain.NovaKeypair;
+import org.openstack4j.openstack.image.domain.GlanceImage;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -130,6 +140,11 @@ public class OpenstackIntegrationTest {
     UserService userService = Mockito.mock(UserService.class);
     Project testOSproject = Mockito.mock(Project.class);
     Project dummyProject = createProject();
+
+    // glance
+    ImageService imageService = Mockito.mock(ImageService.class);
+    Image dummyImage = createImage();
+    Image osImage = spy(Builders.image().build());
 
     OSClient.OSClientV3 client = Mockito.mock(OSClient.OSClientV3.class);
 
@@ -203,6 +218,23 @@ public class OpenstackIntegrationTest {
 
         when(testOSproject.getName()).thenReturn(dummyProject.getName());
         when(testOSproject.getDescription()).thenReturn(dummyProject.getDescription());
+        
+        // glance 
+        when(imageService.get(anyString())).thenReturn(osImage);
+        when(imageService.create(any(org.openstack4j.model.image.Image.class), any(Payload.class))).thenReturn(osImage);
+        when(imageService.reserve(any(org.openstack4j.model.image.Image.class))).thenReturn(osImage);
+        when(imageService.upload(anyString(), any(Payload.class), any(GlanceImage.class))).thenReturn(osImage);
+        when(client.images()).thenReturn(imageService);
+
+        when(osImage.getContainerFormat()).thenReturn(ContainerFormat.BARE);
+        when(osImage.getDiskFormat()).thenReturn(DiskFormat.ISO);
+        when(osImage.getName()).thenReturn(dummyImage.getName());
+        when(osImage.getChecksum()).thenReturn(dummyImage.getChecksum());
+        when(osImage.getMinDisk()).thenReturn(dummyImage.getMinDisk());
+        when(osImage.getMinRam()).thenReturn(dummyImage.getMinRam());
+        when(osImage.getOwner()).thenReturn(dummyImage.getOwner());
+        when(osImage.getId()).thenReturn(UUID.randomUUID().toString());
+        
     }
 
     @Test
@@ -322,6 +354,31 @@ public class OpenstackIntegrationTest {
     }
 
     @Test
+    public void reserveGlanceImage() throws Exception {
+        CamelContext camelContext = Mockito.mock(CamelContext.class);
+        when(camelContext.getHeadersMapFactory()).thenReturn(new DefaultHeadersMapFactory());
+        
+        GlanceEndpoint endpoint = Mockito.mock(GlanceEndpoint.class);
+        when(endpoint.getOperation()).thenReturn(GlanceConstants.RESERVE);
+
+        Message msg = new DefaultMessage(camelContext);
+        msg.setBody(dummyImage);
+
+        Exchange exchange = Mockito.mock(Exchange.class);
+        when(exchange.getIn()).thenReturn(msg);
+        
+        Producer producer = new GlanceProducer(endpoint, client);
+        producer.process(exchange);
+        ArgumentCaptor<Image> captor = ArgumentCaptor.forClass(Image.class);
+        verify(imageService).reserve(captor.capture());
+        assertEquals(dummyImage, captor.getValue());
+
+        Image result = msg.getBody(Image.class);
+        assertNotNull(result.getId());
+        assertEqualsImages(dummyImage, result);
+    }
+
+    @Test
     public void testEndpoints() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
@@ -331,6 +388,7 @@ public class OpenstackIntegrationTest {
                 from("direct:start").to("openstack-nova:localhost");
                 from("direct:start").to("openstack-neutron:localhost");
                 from("direct:start").to("openstack-keystone:localhost");
+                from("direct:start").to("openstack-glance:localhost");
             }
         });
 
@@ -345,6 +403,9 @@ public class OpenstackIntegrationTest {
 
         KeystoneEndpoint keystoneEndpoint = camelctx.getEndpoint("openstack-keystone:localhost", KeystoneEndpoint.class);
         Assert.assertNotNull("KeystoneEndpoint not null", keystoneEndpoint);
+
+        GlanceEndpoint glanceEndpoint = camelctx.getEndpoint("openstack-glance:localhost", GlanceEndpoint.class);
+        Assert.assertNotNull("GlanceEndpoint not null", glanceEndpoint);
     }
 
     private NovaKeypair createKeypair() {
@@ -359,6 +420,11 @@ public class OpenstackIntegrationTest {
         return Builders.project().domainId("domain").description("desc").name("project Name").parentId("parent").build();
     }
 
+    private Image createImage() {
+        return Builders.image().name("Image Name").diskFormat(DiskFormat.ISO).containerFormat(ContainerFormat.BARE).checksum("checksum").minDisk(10L).minRam(5L)
+                .owner("owner").build();
+    }
+
     private void assertEqualsNetwork(Network old, Network newNetwork) {
         assertEquals(old.getName(), newNetwork.getName());
         assertEquals(old.getTenantId(), newNetwork.getTenantId());
@@ -371,4 +437,13 @@ public class OpenstackIntegrationTest {
         assertEquals(old.getDomainId(), newProject.getDomainId());
     }
 
+    private void assertEqualsImages(Image original, Image newImage) {
+        assertEquals(original.getContainerFormat(), newImage.getContainerFormat());
+        assertEquals(original.getDiskFormat(), newImage.getDiskFormat());
+        assertEquals(original.getChecksum(), newImage.getChecksum());
+        assertEquals(original.getMinDisk(), newImage.getMinDisk());
+        assertEquals(original.getMinRam(), newImage.getMinRam());
+        assertEquals(original.getOwner(), newImage.getOwner());
+        assertEquals(original.getName(), newImage.getName());
+    }
 }
