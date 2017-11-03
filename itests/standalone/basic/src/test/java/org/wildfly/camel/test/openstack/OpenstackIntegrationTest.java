@@ -37,6 +37,8 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Producer;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.openstack.cinder.CinderEndpoint;
+import org.apache.camel.component.openstack.cinder.producer.VolumeProducer;
 import org.apache.camel.component.openstack.common.OpenstackConstants;
 import org.apache.camel.component.openstack.glance.GlanceConstants;
 import org.apache.camel.component.openstack.glance.GlanceEndpoint;
@@ -85,6 +87,9 @@ import org.openstack4j.api.networking.NetworkingService;
 import org.openstack4j.api.networking.PortService;
 import org.openstack4j.api.networking.RouterService;
 import org.openstack4j.api.networking.SubnetService;
+import org.openstack4j.api.storage.BlockStorageService;
+import org.openstack4j.api.storage.BlockVolumeService;
+import org.openstack4j.api.storage.BlockVolumeSnapshotService;
 import org.openstack4j.api.storage.ObjectStorageContainerService;
 import org.openstack4j.api.storage.ObjectStorageObjectService;
 import org.openstack4j.api.storage.ObjectStorageService;
@@ -97,6 +102,8 @@ import org.openstack4j.model.image.DiskFormat;
 import org.openstack4j.model.image.Image;
 import org.openstack4j.model.network.Network;
 import org.openstack4j.model.network.NetworkType;
+import org.openstack4j.model.storage.block.Volume;
+import org.openstack4j.model.storage.block.builder.VolumeBuilder;
 import org.openstack4j.model.storage.object.options.CreateUpdateContainerOptions;
 import org.openstack4j.openstack.compute.domain.NovaKeypair;
 import org.openstack4j.openstack.image.domain.GlanceImage;
@@ -145,6 +152,13 @@ public class OpenstackIntegrationTest {
     ImageService imageService = Mockito.mock(ImageService.class);
     Image dummyImage = createImage();
     Image osImage = spy(Builders.image().build());
+
+    //cinder
+    BlockStorageService blockStorageService = Mockito.mock(BlockStorageService.class);
+    BlockVolumeService volumeService = Mockito.mock(BlockVolumeService.class);
+    BlockVolumeSnapshotService snapshotService = Mockito.mock(BlockVolumeSnapshotService.class);
+    Volume testOSVolume = Mockito.mock(Volume.class);
+    Volume dummyVolume = createTestVolume();
 
     OSClient.OSClientV3 client = Mockito.mock(OSClient.OSClientV3.class);
 
@@ -218,7 +232,7 @@ public class OpenstackIntegrationTest {
 
         when(testOSproject.getName()).thenReturn(dummyProject.getName());
         when(testOSproject.getDescription()).thenReturn(dummyProject.getDescription());
-        
+
         // glance 
         when(imageService.get(anyString())).thenReturn(osImage);
         when(imageService.create(any(org.openstack4j.model.image.Image.class), any(Payload.class))).thenReturn(osImage);
@@ -234,7 +248,21 @@ public class OpenstackIntegrationTest {
         when(osImage.getMinRam()).thenReturn(dummyImage.getMinRam());
         when(osImage.getOwner()).thenReturn(dummyImage.getOwner());
         when(osImage.getId()).thenReturn(UUID.randomUUID().toString());
-        
+
+        // cinder
+        when(blockStorageService.volumes()).thenReturn(volumeService);
+        when(blockStorageService.snapshots()).thenReturn(snapshotService);
+        when(client.blockStorage()).thenReturn(blockStorageService);
+
+        when(volumeService.create(Matchers.any(org.openstack4j.model.storage.block.Volume.class))).thenReturn(testOSVolume);
+        when(volumeService.get(Matchers.anyString())).thenReturn(testOSVolume);
+
+        when(testOSVolume.getId()).thenReturn(UUID.randomUUID().toString());
+        when(testOSVolume.getName()).thenReturn(dummyVolume.getName());
+        when(testOSVolume.getDescription()).thenReturn(dummyVolume.getDescription());
+        when(testOSVolume.getImageRef()).thenReturn(dummyVolume.getImageRef());
+        when(testOSVolume.getSize()).thenReturn(dummyVolume.getSize());
+        when(testOSVolume.getVolumeType()).thenReturn(dummyVolume.getVolumeType());
     }
 
     @Test
@@ -268,12 +296,10 @@ public class OpenstackIntegrationTest {
 
     @Test
     public void testNovaKeypair() throws Exception {
-        final String fingerPrint = "fp";
-        final String privatecKey = "prk";
         when(osTestKeypair.getName()).thenReturn(KEYPAIR_NAME);
         when(osTestKeypair.getPublicKey()).thenReturn(dummyKeypair.getPublicKey());
-        when(osTestKeypair.getFingerprint()).thenReturn(fingerPrint);
-        when(osTestKeypair.getPrivateKey()).thenReturn(privatecKey);
+        when(osTestKeypair.getFingerprint()).thenReturn("fp");
+        when(osTestKeypair.getPrivateKey()).thenReturn("prk");
 
         CamelContext camelContext = Mockito.mock(CamelContext.class);
         when(camelContext.getHeadersMapFactory()).thenReturn(new DefaultHeadersMapFactory());
@@ -297,8 +323,8 @@ public class OpenstackIntegrationTest {
         assertNull(keypairCaptor.getValue());
 
         Keypair result = msg.getBody(Keypair.class);
-        assertEquals(fingerPrint, result.getFingerprint());
-        assertEquals(privatecKey, result.getPrivateKey());
+        assertEquals("fp", result.getFingerprint());
+        assertEquals("prk", result.getPrivateKey());
         assertEquals(dummyKeypair.getName(), result.getName());
         assertEquals(dummyKeypair.getPublicKey(), result.getPublicKey());
     }
@@ -357,7 +383,7 @@ public class OpenstackIntegrationTest {
     public void reserveGlanceImage() throws Exception {
         CamelContext camelContext = Mockito.mock(CamelContext.class);
         when(camelContext.getHeadersMapFactory()).thenReturn(new DefaultHeadersMapFactory());
-        
+
         GlanceEndpoint endpoint = Mockito.mock(GlanceEndpoint.class);
         when(endpoint.getOperation()).thenReturn(GlanceConstants.RESERVE);
 
@@ -366,7 +392,7 @@ public class OpenstackIntegrationTest {
 
         Exchange exchange = Mockito.mock(Exchange.class);
         when(exchange.getIn()).thenReturn(msg);
-        
+
         Producer producer = new GlanceProducer(endpoint, client);
         producer.process(exchange);
         ArgumentCaptor<Image> captor = ArgumentCaptor.forClass(Image.class);
@@ -376,6 +402,24 @@ public class OpenstackIntegrationTest {
         Image result = msg.getBody(Image.class);
         assertNotNull(result.getId());
         assertEqualsImages(dummyImage, result);
+    }
+
+    @Test
+    public void createCinderVolume() throws Exception {
+        CamelContext camelContext = Mockito.mock(CamelContext.class);
+        when(camelContext.getHeadersMapFactory()).thenReturn(new DefaultHeadersMapFactory());
+
+        Message msg = new DefaultMessage(camelContext);
+        Exchange exchange = Mockito.mock(Exchange.class);
+        when(exchange.getIn()).thenReturn(msg);
+
+        CinderEndpoint endpoint = Mockito.mock(CinderEndpoint.class);
+        when(endpoint.getOperation()).thenReturn(OpenstackConstants.CREATE);
+        msg.setBody(dummyVolume);
+
+        Producer producer = new VolumeProducer(endpoint, client);
+        producer.process(exchange);
+        assertEqualVolumes(dummyVolume, msg.getBody(Volume.class));
     }
 
     @Test
@@ -389,6 +433,7 @@ public class OpenstackIntegrationTest {
                 from("direct:start").to("openstack-neutron:localhost");
                 from("direct:start").to("openstack-keystone:localhost");
                 from("direct:start").to("openstack-glance:localhost");
+                from("direct:start").to("openstack-cinder:localhost");
             }
         });
 
@@ -406,6 +451,9 @@ public class OpenstackIntegrationTest {
 
         GlanceEndpoint glanceEndpoint = camelctx.getEndpoint("openstack-glance:localhost", GlanceEndpoint.class);
         Assert.assertNotNull("GlanceEndpoint not null", glanceEndpoint);
+
+        CinderEndpoint cinderEndpoint = camelctx.getEndpoint("openstack-cinder:localhost", CinderEndpoint.class);
+        Assert.assertNotNull("cinderEndpoint not null", cinderEndpoint);
     }
 
     private NovaKeypair createKeypair() {
@@ -423,6 +471,11 @@ public class OpenstackIntegrationTest {
     private Image createImage() {
         return Builders.image().name("Image Name").diskFormat(DiskFormat.ISO).containerFormat(ContainerFormat.BARE).checksum("checksum").minDisk(10L).minRam(5L)
                 .owner("owner").build();
+    }
+
+    private Volume createTestVolume() {
+        VolumeBuilder builder = Builders.volume().name("name").description("description").imageRef("ref").size(20).volumeType("type");
+        return builder.build();
     }
 
     private void assertEqualsNetwork(Network old, Network newNetwork) {
@@ -445,5 +498,14 @@ public class OpenstackIntegrationTest {
         assertEquals(original.getMinRam(), newImage.getMinRam());
         assertEquals(original.getOwner(), newImage.getOwner());
         assertEquals(original.getName(), newImage.getName());
+    }
+
+    private void assertEqualVolumes(Volume old, Volume newVolume) {
+        assertEquals(old.getName(), newVolume.getName());
+        assertEquals(old.getDescription(), newVolume.getDescription());
+        assertEquals(old.getImageRef(), newVolume.getImageRef());
+        assertEquals(old.getSize(), newVolume.getSize());
+        assertEquals(old.getVolumeType(), newVolume.getVolumeType());
+        assertNotNull(newVolume.getId());
     }
 }
