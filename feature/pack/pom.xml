@@ -72,12 +72,6 @@
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-feature-extrasD</artifactId>
-            <version>${project.version}</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-feature-modules</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
@@ -181,26 +175,6 @@
                                 <artifactItem>
                                     <groupId>org.wildfly.camel</groupId>
                                     <artifactId>wildfly-camel-feature-extrasC</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>zip</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/wildfly-patch</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>unpack-extrasD</id>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <inherited>false</inherited>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.wildfly.camel</groupId>
-                                    <artifactId>wildfly-camel-feature-extrasD</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
                                     <overWrite>false</overWrite>

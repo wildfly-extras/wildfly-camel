@@ -4,7 +4,7 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <resource-root path="guice-assistedinject-3.0.jar" />
+    <artifact name="${com.google.inject.extensions:guice-assistedinject}" />
   </resources>
   <dependencies>
     <module name="com.google.inject.guice" slot="3.0" />

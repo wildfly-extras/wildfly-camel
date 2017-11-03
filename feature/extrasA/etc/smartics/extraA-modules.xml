@@ -20,11 +20,81 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="aopalliance">
+    <!-- ================================================ -->
+    <!-- camel-hdfs2                                     -->
+    <!-- ================================================ -->
+    
+    <module name="com.google.protobuf" inherit-slot="false" slot="2.5">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="aopalliance" />
+        <include artifact="com.google.protobuf:protobuf-java" />
+        <dependencies>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc/Unsafe" />
+                </imports>
+            </module>
+        </dependencies>
+    </module>
+
+    <!-- ================================================ -->
+    <!-- camel-jbpm                                       -->
+    <!-- ================================================ -->
+    
+    <module name="org.apache.camel.component.jbpm.dummy">
+        <include artifact="org.apache.camel:camel-jbpm" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="org.kie.remote" inherit-slot="false" slot="6.5">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.kie.remote:kie-remote-client" />
+        <include artifact="org.kie.remote:kie-remote-common" />
+        <include artifact="org.kie.remote:kie-remote-jaxb" />
+        <include artifact="org.kie.remote.ws:kie-remote-ws-common" />
+        <dependencies>
+            <module name="com.sun.xml.bind" />
+            <module name="javax.api"/>
+            <module name="javax.jms.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
+    <module name="org.kie" inherit-slot="false" slot="6.5">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.kie:kie-internal" />
+        <include artifact="org.kie:kie-api" />
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.xml.bind.jaxb.xjc" />
+            <include module="org.osgi.compendium" />
+        </apply-to-dependencies>
+    </module>
+
+    <!-- ================================================ -->
+    <!-- camel-jclouds                                    -->
+    <!-- ================================================ -->
+    
+    <module name="org.apache.camel.component.jclouds.dummy">
+        <include artifact="org.apache.camel:camel-jclouds"/>
+        <include artifact="org.apache.jclouds:jclouds-blobstore"/>
+        <include artifact="org.apache.jclouds:jclouds-compute"/>
+        <include artifact="org.apache.jclouds:jclouds-core"/>
+        <include artifact="org.apache.jclouds:jclouds-scriptbuilder"/>
+        <include artifact="com.google.inject.extensions:guice-assistedinject" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt"/>
+            <include module="org.osgi.compendium"/>
+            <include module="org.osgi.core"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
     </module>
 
     <module name="com.google.code.gson" inherit-slot="false" slot="2.5">
@@ -54,150 +124,22 @@
         </dependencies>
     </module>
 
-    <module name="com.google.inject.extensions" inherit-slot="false" slot="3.0">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.google.inject.extensions:guice-assistedinject" />
-        <dependencies>
-            <module name="com.google.inject.guice" slot="3.0"/>
-            <module name="javax.inject.api"/>
-        </dependencies>
-    </module>
-
-    <module name="com.google.protobuf" inherit-slot="false" slot="2.5">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.google.protobuf:protobuf-java" />
-        <dependencies>
-            <module name="sun.jdk">
-                <imports>
-                    <include path="sun/misc/Unsafe" />
-                </imports>
-            </module>
-        </dependencies>
-    </module>
-
-    <module name="org.apache.camel.component.chunk">
-        <include artifact="com.x5dev:chunk-templates"/>
-        <include artifact="net.minidev:json-smart"/>
-        <include artifact="org.apache.camel:camel-chunk"/>
-        <apply-to-dependencies skip="true">
-            <include module="com.google.android"/>
-            <include module="org.apache.camel.apt"/>
-            <include module="org.springframework.boot"/>
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.slf4j"/>
-        </dependencies>
-        <exports>
-            <exclude path="com/csvreader**"/>
-            <exclude path="com/x5**"/>
-            <exclude path="net/minidev**"/>
-        </exports>
-    </module>
-
-    <module name="org.apache.camel.component.jbpm">
-        <include artifact="org.apache.camel:camel-jbpm" />
+    <!-- ================================================ -->
+    <!-- camel-jcr                                        -->
+    <!-- ================================================ -->
+    
+    <module name="org.apache.camel.component.jcr.dummy">
+        <include artifact="org.apache.camel:camel-jcr" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
-        <dependencies>
-            <module name="org.slf4j"/>
-        </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.jclouds">
-        <include artifact="org.apache.camel:camel-jclouds"/>
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt"/>
-            <include module="org.springframework.boot"/>
-        </apply-to-dependencies>
+    <module name="org.apache.lucene" inherit-slot="false" slot="3.6">
+        <include artifact=":lucene-core" />
         <dependencies>
-            <module name="com.google.guava" slot="16.0" />
-            <module name="com.google.inject.guice" slot="3.0"/>
-            <module name="javax.api"/>
-            <module name="org.apache.jclouds" export="true" services="export">
-                <exports>
-                    <exclude path="org/jclouds/apis/internal"/>
-                    <exclude path="org/jclouds/blobstore/internal"/>
-                    <exclude path="org/jclouds/blobstore/domain/internal"/>
-                    <exclude path="org/jclouds/blobstore/strategy/internal"/>
-                    <exclude path="org/jclouds/blobstore/util/internal"/>
-                    <exclude path="org/jclouds/collect/internal"/>
-                    <exclude path="org/jclouds/compute/internal"/>
-                    <exclude path="org/jclouds/compute/domain/internal"/>
-                    <exclude path="org/jclouds/compute/extensions/internal"/>
-                    <exclude path="org/jclouds/compute/predicates/internal"/>
-                    <exclude path="org/jclouds/date/internal"/>
-                    <exclude path="org/jclouds/domain/internal"/>
-                    <exclude path="org/jclouds/encryption/internal"/>
-                    <exclude path="org/jclouds/http/internal"/>
-                    <exclude path="org/jclouds/internal"/>
-                    <exclude path="org/jclouds/io/internal"/>
-                    <exclude path="org/jclouds/json/internal"/>
-                    <exclude path="org/jclouds/logging/internal"/>
-                    <exclude path="org/jclouds/ovf/internal"/>
-                    <exclude path="org/jclouds/ovf/xml/internal"/>
-                    <exclude path="org/jclouds/predicates/internal"/>
-                    <exclude path="org/jclouds/providers/internal"/>
-                    <exclude path="org/jclouds/proxy/internal"/>
-                    <exclude path="org/jclouds/rest/internal"/>
-                    <exclude path="org/jclouds/ssh/internal"/>
-                    <exclude path="org/jclouds/strategy/internal"/>
-                    <exclude path="org/jclouds/util/internal"/>
-                    <exclude path="org/jclouds/xml/internal"/>
-                </exports>
-            </module>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
-    <module name="org.apache.jclouds">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.apache.jclouds:jclouds-blobstore"/>
-        <include artifact="org.apache.jclouds:jclouds-compute"/>
-        <include artifact="org.apache.jclouds:jclouds-core"/>
-        <include artifact="org.apache.jclouds:jclouds-scriptbuilder"/>
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt"/>
-            <include module="org.osgi.compendium"/>
-            <include module="org.osgi.core"/>
-            <include module="org.springframework.boot"/>
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="com.google.code.gson" slot="2.5"/>
-            <module name="com.google.guava" slot="16.0"/>
-            <module name="javax.api"/>
-            <module name="javax.xml.bind.api"/>
-        </dependencies>
-        <exports>
-            <exclude path="org/jclouds/javax**"/>
-            <exclude path="org/jclouds/osgi"/>
-            <exclude path="org/jclouds/scriptbuilder/functionloader/osgi"/>
-        </exports>
-    </module>
-
-    <module name="org.jbpm">
-        <include artifact="org.kie.remote:kie-remote-client" />
-        <include artifact="org.kie.remote:kie-remote-common" />
-        <include artifact="org.kie.remote:kie-remote-jaxb" />
-        <include artifact="org.kie.remote.ws:kie-remote-ws-common" />
-        <include artifact="org.kie:kie-internal" />
-        <include artifact="org.kie:kie-api" />
-        <apply-to-dependencies skip="true">
-            <include module="com.sun.xml.bind.jaxb.xjc" />
-            <include module="org.osgi.compendium" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="com.sun.xml.bind" />
-            <module name="javax.api"/>
-            <module name="javax.jms.api"/>
-            <module name="org.slf4j"/>
+            <module name="javax.api" />
         </dependencies>
     </module>
 
@@ -205,8 +147,22 @@
     <!-- Skipp modules defined in other module sets       -->
     <!-- ================================================ -->
     
+    <module name="com.rometools.rome" skip="true">
+        <include artifact="rome:rome" />
+    </module>
+
     <module name="org.apache.camel.core" skip="true">
         <include artifact="org.apache.camel:camel-core"/>
+    </module>
+
+    <module name="org.apache.jackrabbit" skip="true">
+        <include artifact="org.apache.jackrabbit:jackrabbit-api" />
+        <include artifact="org.apache.jackrabbit:jackrabbit-core" />
+        <include artifact="org.apache.jackrabbit:jackrabbit-data" />
+        <include artifact="org.apache.jackrabbit:jackrabbit-jcr-commons" />
+        <include artifact="org.apache.jackrabbit:jackrabbit-spi" />
+        <include artifact="org.apache.jackrabbit:jackrabbit-spi-commons" />
+        <include artifact="concurrent:concurrent" />
     </module>
 
     <module name="org.osgi.core" skip="true">

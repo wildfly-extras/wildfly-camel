@@ -194,6 +194,9 @@
             <module name="org.springframework.beans" />
             <module name="org.springframework.expression" />
         </dependencies>
+        <dependencies>
+            <module name="com.jayway.jsonpath" />
+        </dependencies>
     </module>
     
     <module name="org.springframework.jdbc">

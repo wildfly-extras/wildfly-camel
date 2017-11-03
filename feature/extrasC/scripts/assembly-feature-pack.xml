@@ -31,7 +31,8 @@
             <directory>target/wildfly-patch</directory>
             <outputDirectory>/</outputDirectory>
             <excludes>
-                <exclude>modules/system/layers/fuse/org/wildfly/**</exclude>
+                <exclude>modules/system/layers/fuse/org/apache/camel/component/**</exclude>
+                <exclude>modules/system/layers/fuse/org/wildfly/camel/**</exclude>
             </excludes>
         </fileSet>
     </fileSets>

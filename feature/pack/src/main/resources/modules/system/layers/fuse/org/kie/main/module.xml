@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.kie">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.kie:kie-api}" />
+    <artifact name="${org.kie:kie-internal}" />
+    <artifact name="${org.uberfire:uberfire-maven-support}" />
+  </resources>
+  <dependencies>
+    <module name="com.thoughtworks.xstream" />
+    <module name="javax.activation.api" />
+    <module name="javax.enterprise.api" />
+    <module name="javax.jms.api" />
+    <module name="javax.xml.bind.api" />
+    <module name="javax.xml.stream.api" />
+    <module name="org.osgi.core" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

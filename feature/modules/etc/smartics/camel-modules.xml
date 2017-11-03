@@ -468,6 +468,23 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.chunk">
+        <include artifact="com.x5dev:chunk-templates"/>
+        <include artifact="org.apache.camel:camel-chunk"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.google.android"/>
+            <include module="org.apache.camel.apt"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="com/csvreader**"/>
+            <exclude path="com/x5**"/>
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.coap">
         <include artifact="org.apache.camel:camel-coap" />
         <apply-to-dependencies skip="true">
@@ -751,6 +768,31 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.camel.component.elasticsearch">
+        <include artifact="org.apache.camel:camel-elasticsearch"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.elasticsearch"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.camel.component.elasticsearch5">
+        <include artifact="org.apache.camel:camel-elasticsearch5"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.elasticsearch5"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -1416,6 +1458,18 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.jbpm">
+        <include artifact="org.apache.camel:camel-jbpm" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.kie" slot="6.5"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.jcache">
         <include artifact="org.apache.camel:camel-jcache" />
         <apply-to-dependencies skip="true">
@@ -1428,6 +1482,52 @@
             <module name="org.infinispan.jcache" export="true" services="export">
                 <exports>
                     <exclude path="OSGI-INF/blueprint" />
+                </exports>
+            </module>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.camel.component.jclouds">
+        <include artifact="org.apache.camel:camel-jclouds"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.google.guava" slot="16.0" />
+            <module name="com.google.inject.guice" slot="3.0"/>
+            <module name="javax.api"/>
+            <module name="org.apache.jclouds" export="true" services="export">
+                <exports>
+                    <exclude path="org/jclouds/apis/internal"/>
+                    <exclude path="org/jclouds/blobstore/internal"/>
+                    <exclude path="org/jclouds/blobstore/domain/internal"/>
+                    <exclude path="org/jclouds/blobstore/strategy/internal"/>
+                    <exclude path="org/jclouds/blobstore/util/internal"/>
+                    <exclude path="org/jclouds/collect/internal"/>
+                    <exclude path="org/jclouds/compute/internal"/>
+                    <exclude path="org/jclouds/compute/domain/internal"/>
+                    <exclude path="org/jclouds/compute/extensions/internal"/>
+                    <exclude path="org/jclouds/compute/predicates/internal"/>
+                    <exclude path="org/jclouds/date/internal"/>
+                    <exclude path="org/jclouds/domain/internal"/>
+                    <exclude path="org/jclouds/encryption/internal"/>
+                    <exclude path="org/jclouds/http/internal"/>
+                    <exclude path="org/jclouds/internal"/>
+                    <exclude path="org/jclouds/io/internal"/>
+                    <exclude path="org/jclouds/json/internal"/>
+                    <exclude path="org/jclouds/logging/internal"/>
+                    <exclude path="org/jclouds/ovf/internal"/>
+                    <exclude path="org/jclouds/ovf/xml/internal"/>
+                    <exclude path="org/jclouds/predicates/internal"/>
+                    <exclude path="org/jclouds/providers/internal"/>
+                    <exclude path="org/jclouds/proxy/internal"/>
+                    <exclude path="org/jclouds/rest/internal"/>
+                    <exclude path="org/jclouds/ssh/internal"/>
+                    <exclude path="org/jclouds/strategy/internal"/>
+                    <exclude path="org/jclouds/util/internal"/>
+                    <exclude path="org/jclouds/xml/internal"/>
                 </exports>
             </module>
             <module name="org.slf4j"/>
@@ -1603,23 +1703,13 @@
 
     <module name="org.apache.camel.component.jsonpath">
         <include artifact="org.apache.camel:camel-jsonpath" />
-        <include artifact="com.jayway.jsonpath:json-path" />
-        <include artifact="net.minidev:accessors-smart" />
-        <include artifact="net.minidev:json-smart-action" />
-        <include artifact="net.minidev:json-smart" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
-            <include module="org.ow2.asm" />
         </apply-to-dependencies>
         <dependencies>
             <module name="org.slf4j"/>
         </dependencies>
-        <exports>
-            <exclude path="com/jayway**" />
-            <exclude path="net/minidev**" />
-            <exclude path="org/objectweb**" />
-        </exports>
     </module>
 
     <module name="org.apache.camel.component.jt400">
@@ -2035,9 +2125,6 @@
         <include artifact="org.optaplanner:optaplanner-core" />
         <include artifact="org.drools:drools-compiler" />
         <include artifact="org.drools:drools-core" />
-        <include artifact="org.kie:kie-internal" />
-        <include artifact="org.kie:kie-api" />
-        <include artifact="org.uberfire:uberfire-maven-support" />
         <apply-to-dependencies skip="true">
             <include module="antlr" />
             <include module="com.sun.codemodel" />
@@ -2053,7 +2140,6 @@
         <exports>
             <exclude path="org/appformer**" />
             <exclude path="org/drools**" />
-            <exclude path="org/kie**" />
             <exclude path="org/optaplanner/core/impl**" />
         </exports>
     </module>
