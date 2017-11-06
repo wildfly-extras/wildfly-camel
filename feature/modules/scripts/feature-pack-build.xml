@@ -26,7 +26,7 @@
     </dependencies>
 
     <copy-artifacts>
-        <copy-artifact artifact="io.hawt:hawtio-wildfly" to-location="standalone/deployments/"/>
+        <copy-artifact artifact="io.hawt:hawtio-wildfly:war" to-location="standalone/deployments/"/>
     </copy-artifacts>
 
 </build>

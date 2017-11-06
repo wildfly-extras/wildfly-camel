@@ -108,7 +108,7 @@ public class BeanValidatorXMLIntegrationTest {
             ConstraintViolation<Object> constraintViolation = constraintViolations.iterator().next();
             Assert.assertEquals("licensePlate", constraintViolation.getPropertyPath().toString());
             Assert.assertEquals(null, constraintViolation.getInvalidValue());
-            Assert.assertEquals("may not be null", constraintViolation.getMessage());
+            Assert.assertEquals("must not be null", constraintViolation.getMessage());
         } finally {
             camelctx.stop();
         }

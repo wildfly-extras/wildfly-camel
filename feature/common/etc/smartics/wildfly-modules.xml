@@ -56,6 +56,10 @@
         <include artifact=":jackson-module-jaxb-annotations" />
     </module>
 
+    <module name="com.github.ben-manes.caffeine" skip="true">
+        <include artifact="com.github.ben-manes.caffeine:caffeine" />
+    </module>
+
     <module name="com.github.relaxng" skip="true">
         <include artifact=":relaxngDatatype" />
     </module>
@@ -243,6 +247,10 @@
         <include artifact=":commons-io" />
     </module>
 
+    <module name="org.apache.commons.lang3" skip="true">
+        <include artifact="org.apache.commons:commons-lang3" />
+    </module>
+
     <module name="org.apache.commons.logging" skip="true">
         <include artifact=":commons-logging" />
     </module>
@@ -300,6 +308,10 @@
 
     <module name="org.apache.neethi" skip="true">
         <include artifact=":neethi" />
+    </module>
+
+    <module name="org.apache.qpid.proton" skip="true">
+        <include artifact="org.apache.qpid:proton-j" />
     </module>
 
     <module name="org.apache.santuario.xmlsec" skip="true">
@@ -467,6 +479,10 @@
 
     <module name="org.jsoup" skip="true">
         <include artifact=":jsoup" />
+    </module>
+
+    <module name="org.reactivestreams" skip="true">
+        <include artifact="org.reactivestreams:reactive-streams" />
     </module>
 
     <module name="org.slf4j" skip="true">

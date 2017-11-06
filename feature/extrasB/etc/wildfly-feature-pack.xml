@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version='1.0' encoding='UTF-8'?>
 
 <feature-pack xmlns="urn:wildfly:feature-pack:1.1">
     <dependencies>
@@ -6,10 +6,10 @@
     </dependencies>
     <artifact-versions>
         <artifact groupId="com.carrotsearch" artifactId="hppc" version="0.7.1"/>
-        <artifact groupId="com.fasterxml.jackson.core" artifactId="jackson-core" version="2.8.9"/>
-        <artifact groupId="com.fasterxml.jackson.dataformat" artifactId="jackson-dataformat-cbor" version="2.8.9"/>
-        <artifact groupId="com.fasterxml.jackson.dataformat" artifactId="jackson-dataformat-smile" version="2.8.9"/>
-        <artifact groupId="com.fasterxml.jackson.dataformat" artifactId="jackson-dataformat-yaml" version="2.8.9"/>
+        <artifact groupId="com.fasterxml.jackson.core" artifactId="jackson-core" version="2.9.4"/>
+        <artifact groupId="com.fasterxml.jackson.dataformat" artifactId="jackson-dataformat-cbor" version="2.9.4"/>
+        <artifact groupId="com.fasterxml.jackson.dataformat" artifactId="jackson-dataformat-smile" version="2.9.4"/>
+        <artifact groupId="com.fasterxml.jackson.dataformat" artifactId="jackson-dataformat-yaml" version="2.9.4"/>
         <artifact groupId="com.google.guava" artifactId="guava" version="18.0"/>
         <artifact groupId="com.ning" artifactId="compress-lzf" version="1.0.2"/>
         <artifact groupId="com.spatial4j" artifactId="spatial4j" version="0.5"/>
@@ -39,6 +39,6 @@
         <artifact groupId="org.hdrhistogram" artifactId="HdrHistogram" version="2.1.6"/>
         <artifact groupId="org.slf4j" artifactId="slf4j-api" version="1.7.22"/>
         <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-extrasA" version="5.2.0-SNAPSHOT" extension="zip"/>
-        <artifact groupId="org.yaml" artifactId="snakeyaml" version="1.17"/>
+        <artifact groupId="org.yaml" artifactId="snakeyaml" version="1.18"/>
     </artifact-versions>
 </feature-pack>

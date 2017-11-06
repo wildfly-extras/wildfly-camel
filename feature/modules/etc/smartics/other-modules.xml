@@ -1088,13 +1088,6 @@
         </exports>
     </module>
 
-    <module name="org.apache.commons.lang3">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.apache.commons:commons-lang3" />
-    </module>
-
     <module name="org.apache.commons.math3">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1323,13 +1316,6 @@
             <module name="javax.api" />
             <module name="javax.xml.bind.api" />
         </dependencies>
-    </module>
-
-    <module name="org.apache.qpid.proton" slot="0.16">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.apache.qpid:proton-(.*)" />
     </module>
 
     <module name="org.apache.sshd">
@@ -1837,13 +1823,6 @@
             <exclude path="com/mchange**" />
             <exclude path="org/terracotta**" />
         </exports>
-    </module>
-
-    <module name="org.reactivestreams">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.reactivestreams:reactive-streams" />
     </module>
 
     <module name="org.reflections">

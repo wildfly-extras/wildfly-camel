@@ -397,20 +397,19 @@
 
     <module name="org.apache.camel.component.caffeine">
         <include artifact="org.apache.camel:camel-caffeine" />
-        <include artifact="com.github.ben-manes.caffeine:caffeine" />
         <apply-to-dependencies skip="true">
-            <include module="com.google.code.findbugs" />
-            <include module="com.google.errorprone" />
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
             <module name="org.slf4j" />
+            <module name="com.github.ben-manes.caffeine" export="true">
+                <exports>
+                    <exclude path="com/github"/>
+                    <exclude path="com/github/benmanes"/>
+                </exports>
+            </module>
         </dependencies>
-        <exports>
-            <exclude path="com/github"/>
-            <exclude path="com/github/benmanes"/>
-        </exports>
     </module>
 
     <module name="org.apache.camel.component.cassandra">
@@ -1371,6 +1370,7 @@
         <dependencies>
             <module name="org.infinispan" export="true" >
                 <exports>
+                    <exclude path="org/infinispan/configuration/internal" />
                     <exclude path="OSGI-INF/blueprint" />
                 </exports>
             </module>

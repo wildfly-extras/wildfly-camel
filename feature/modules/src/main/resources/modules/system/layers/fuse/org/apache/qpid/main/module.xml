@@ -11,7 +11,7 @@
     <module name="javax.api" />
     <module name="javax.xml.bind.api" />
     <module name="javax.jms.api" />
-    <module name="org.apache.qpid.proton" slot="0.16" />
+    <module name="org.apache.qpid.proton" />
     <module name="org.slf4j" />
   </dependencies>
 </module>

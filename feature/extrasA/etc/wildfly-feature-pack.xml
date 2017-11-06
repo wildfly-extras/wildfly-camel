@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version='1.0' encoding='UTF-8'?>
 
 <feature-pack xmlns="urn:wildfly:feature-pack:1.1">
     <dependencies>
@@ -6,7 +6,6 @@
     </dependencies>
     <artifact-versions>
         <artifact groupId="aopalliance" artifactId="aopalliance" version="1.0"/>
-        <artifact groupId="asm" artifactId="asm" version="3.1"/>
         <artifact groupId="com.google.code.gson" artifactId="gson" version="2.2.4"/>
         <artifact groupId="com.google.guava" artifactId="guava" version="11.0.2"/>
         <artifact groupId="com.google.inject" artifactId="guice" version="3.0"/>
