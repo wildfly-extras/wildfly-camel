@@ -8,9 +8,9 @@
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
-  
+
        http://www.apache.org/licenses/LICENSE-2.0
-  
+
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,13 +30,13 @@
     </parent>
 
     <name>Wildfly Camel :: BOM</name>
-    
+
     <artifactId>wildfly-camel-bom</artifactId>
     <packaging>pom</packaging>
 
     <dependencyManagement>
         <dependencies>
-        
+
             <!-- Camel & WildFly define conflicting shrinkwrap versions, here we say which one we want -->
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
@@ -52,7 +52,7 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
-            
+
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-parent</artifactId>
@@ -67,7 +67,7 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
-            
+
             <dependency>
                 <groupId>org.wildfly.camel</groupId>
                 <artifactId>wildfly-camel-config</artifactId>
@@ -98,7 +98,7 @@
                 <artifactId>wildfly-camel-subsystem-undertow</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>args4j</groupId>
                 <artifactId>args4j</artifactId>
@@ -122,6 +122,11 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.dataformat</groupId>
                 <artifactId>jackson-dataformat-yaml</artifactId>
+                <version>${version.wildfly.fasterxml.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-guava</artifactId>
                 <version>${version.wildfly.fasterxml.jackson}</version>
             </dependency>
             <dependency>
@@ -317,5 +322,5 @@
 
         </dependencies>
     </dependencyManagement>
-    
+
 </project>

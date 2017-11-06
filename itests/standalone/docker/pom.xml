@@ -64,6 +64,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-consul</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -1,0 +1,4 @@
+### camel-consul
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-consul/src/main/docs/consul-component.adoc[consul,window=_blank] component allows you to work with Consul a distributed highly available datacenter-aware service discovery and configuration system.
+

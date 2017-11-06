@@ -50,6 +50,7 @@
         <module name="org.apache.camel.component.cm.sms" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.coap" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.cometd" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.consul" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.context" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.connector" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.couchbase" export="true" services="export" optional="true" />

@@ -520,6 +520,33 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.consul">
+        <include artifact="org.apache.camel:camel-consul" />
+        <include artifact="com.orbitz.consul:consul-client" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+            <include module="org.apache.camel.apt" />
+            <include module="org.immutables.value" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.fasterxml.jackson.core.jackson-annotations" />
+            <module name="com.fasterxml.jackson.core.jackson-core" />
+            <module name="com.fasterxml.jackson.core.jackson-databind" />
+            <module name="com.fasterxml.jackson.datatype.jackson-datatype-guava" />
+            <module name="com.google.guava" />
+            <module name="com.squareup.retrofit2" />
+            <module name="com.squareup.okhttp3" />
+            <module name="org.apache.commons.lang3" />
+            <module name="org.slf4j" />
+        </dependencies>
+        <exports>
+            <exclude path="com/orbitz" />
+            <include path="com/orbitz/consul" />
+            <include path="com/orbitz/consul/**" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.couchbase">
         <include artifact="org.apache.camel:camel-couchbase"/>
         <include artifact="com.couchbase.client:couchbase-client"/>

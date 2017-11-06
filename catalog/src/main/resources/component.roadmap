@@ -42,6 +42,7 @@ cm-sms
 coap
 cometd
 cometds
+consul
 controlbus
 couchbase
 couchdb
@@ -247,7 +248,6 @@ azure-blob                                          #1818
 azure-queue                                         #1819
 beanstalk                                           #1419
 cmis                                                #1989
-consul                                              #1992
 digitalocean                                        #1822
 docker                                              #1424
 drill                                               #1823
