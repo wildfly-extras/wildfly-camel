@@ -25,6 +25,7 @@ import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -40,7 +41,8 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 public class CamelLibraryFilterTest {
 
-    private static final String CAMEL_WAR = "camel.war";
+    private static final String CAMEL_WAR_A = "camel-a.war";
+    private static final String CAMEL_WAR_B = "camel-b.war";
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -53,21 +55,47 @@ public class CamelLibraryFilterTest {
         return ShrinkWrap.create(JavaArchive.class, "camel-library-filter-tests.jar");
     }
 
-    @Deployment(name = CAMEL_WAR, testable = false, managed = false)
-    public static WebArchive createCamelWar() {
+    @Deployment(name = CAMEL_WAR_A, testable = false, managed = false)
+    public static WebArchive createWarWithCamelLib() {
+        // Add a lib provided by WFC
         File[] libraryDependencies = Maven.configureResolverViaPlugin().
             resolve("org.apache.camel:camel-core").
             withTransitivity().
             asFile();
 
-        return ShrinkWrap.create(WebArchive.class, CAMEL_WAR)
+        return ShrinkWrap.create(WebArchive.class, CAMEL_WAR_A)
             .addAsManifestResource(EmptyAsset.INSTANCE, "spring/camel-context.xml")
             .addAsLibraries(libraryDependencies);
+    }
+
+    @Deployment(name = CAMEL_WAR_B, testable = false, managed = false)
+    public static WebArchive createWarWithCamelLibAndModuleDependency() {
+        // Add a camel lib that is not provided by WFC
+        File[] libraryDependencies = Maven.configureResolverViaPlugin().
+            resolve("org.apache.camel:camel-blueprint").
+            withoutTransitivity().
+            asFile();
+
+        return ShrinkWrap.create(WebArchive.class, CAMEL_WAR_B)
+            .addAsManifestResource(EmptyAsset.INSTANCE, "spring/camel-context.xml")
+            .addAsLibraries(libraryDependencies)
+            .setManifest(() -> {
+                ManifestBuilder builder = new ManifestBuilder();
+                builder.addManifestHeader("Dependencies", "org.apache.camel.core");
+                return builder.openStream();
+            });
     }
 
     @Test
     public void testCamelLibraryFilter() throws Exception {
         expectedException.expect(RuntimeException.class);
-        deployer.deploy(CAMEL_WAR);
+        deployer.deploy(CAMEL_WAR_A);
     }
+
+    @Test
+    public void testCamelLibraryFilterWithModuleDependency() throws Exception {
+        expectedException.expect(RuntimeException.class);
+        deployer.deploy(CAMEL_WAR_B);
+    }
+
 }
