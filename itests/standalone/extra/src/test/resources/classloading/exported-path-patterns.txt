@@ -98,6 +98,7 @@
 	^org/dozer(.*)
 	^org/eclipse/egit/github/core(.*)
 	^org/eclipse/jgit(.*)
+    ^org/eclipse/milo(.*)
 	^org/eclipse/neoscada/protocol/iec60870(.*)
 	^org/eclipse/paho(.*)
 	^org/eclipse/scada/utils(.*)

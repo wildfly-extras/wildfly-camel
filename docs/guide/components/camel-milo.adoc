@@ -1,0 +1,5 @@
+### camel-milo
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-milo/src/main/docs/milo-client-component.adoc[milo-client,window=_blank] component provides access to OPC UA servers using the http://eclipse.org/milo[Eclipse Milo™,window=_blank] implementation.
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-milo/src/main/docs/milo-server-component.adoc[milo-server,window=_blank] component component provides an OPC UA server using the http://eclipse.org/milo[Eclipse Milo™,window=_blank] implementation.

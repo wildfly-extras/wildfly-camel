@@ -96,6 +96,8 @@
 /io/atomix/main/copycat-client-1.2.8.jar
 /io/atomix/main/copycat-protocol-1.2.8.jar
 /io/atomix/main/copycat-server-1.2.8.jar
+/io/dropwizard/metrics/main/metrics-core-3.1.5.jar
+/io/dropwizard/metrics/main/metrics-json-3.1.5.jar
 /io/fabric8/kubernetes/client/main/kubernetes-client-2.6.3.jar
 /io/fabric8/kubernetes/model/main/kubernetes-model-1.1.4.jar
 /io/fabric8/openshift/client/main/openshift-client-2.6.3.jar
@@ -320,8 +322,7 @@
 /org/apache/camel/component/mail/main/camel-mail-2.20.0.jar
 /org/apache/camel/component/master/main/camel-master-2.20.0.jar
 /org/apache/camel/component/metrics/main/camel-metrics-2.20.0.jar
-/org/apache/camel/component/metrics/main/metrics-core-3.1.5.jar
-/org/apache/camel/component/metrics/main/metrics-json-3.1.5.jar
+/org/apache/camel/component/milo/main/camel-milo-2.20.0.jar
 /org/apache/camel/component/mina2/main/camel-mina2-2.20.0.jar
 /org/apache/camel/component/mllp/main/camel-mllp-2.20.0.jar
 /org/apache/camel/component/mongodb/main/camel-mongodb-2.20.0.jar
@@ -632,6 +633,14 @@
 /org/eclipse/jetty/websocket/main/websocket-api-9.2.20.v20161216.jar
 /org/eclipse/jetty/websocket/main/websocket-client-9.2.20.v20161216.jar
 /org/eclipse/jetty/websocket/main/websocket-common-9.2.20.v20161216.jar
+/org/eclipse/milo/client/main/protonpack-1.8.jar
+/org/eclipse/milo/client/main/sdk-client-0.1.4.jar
+/org/eclipse/milo/client/main/stack-client-0.1.4.jar
+/org/eclipse/milo/main/jool-0.9.10.jar
+/org/eclipse/milo/main/sdk-core-0.1.4.jar
+/org/eclipse/milo/main/stack-core-0.1.4.jar
+/org/eclipse/milo/server/main/sdk-server-0.1.4.jar
+/org/eclipse/milo/server/main/stack-server-0.1.4.jar
 /org/eclipse/neoscada/protocols/main/org.eclipse.neoscada.protocol.iec60870-0.4.0.jar
 /org/eclipse/neoscada/protocols/main/org.eclipse.neoscada.protocol.iec60870.client-0.4.0.jar
 /org/eclipse/neoscada/protocols/main/org.eclipse.neoscada.protocol.iec60870.client.data-0.4.0.jar

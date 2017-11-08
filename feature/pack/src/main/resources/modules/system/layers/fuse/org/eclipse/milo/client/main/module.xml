@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.eclipse.milo.client">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${com.codepoetics:protonpack}" />
+    <artifact name="${org.eclipse.milo:sdk-client}" />
+    <artifact name="${org.eclipse.milo:stack-client}" />
+  </resources>
+  <dependencies>
+    <module name="com.google.guava" />
+    <module name="io.netty" />
+    <module name="org.slf4j" />
+    <module name="org.eclipse.milo" />
+  </dependencies>
+</module>

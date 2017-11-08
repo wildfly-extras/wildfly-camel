@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.eclipse.milo">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.jooq:jool}" />
+    <artifact name="${org.eclipse.milo:sdk-core}" />
+    <artifact name="${org.eclipse.milo:stack-core}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="io.netty" />
+    <module name="org.slf4j" />
+    <module name="com.google.guava" />
+  </dependencies>
+  <exports>
+    <exclude path="org/eclipse" />
+  </exports>
+</module>

@@ -1900,22 +1900,35 @@
 
     <module name="org.apache.camel.component.metrics">
         <include artifact="org.apache.camel:camel-metrics" />
-        <include artifact="io.dropwizard.metrics:metrics-core" />
-        <include artifact="io.dropwizard.metrics:metrics-json" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="javax.api"/>
+            <module name="io.dropwizard.metrics" export="true"/>
             <module name="org.slf4j"/>
-            <module name="sun.jdk">
-                <imports>
-                    <include path="sun/misc" />
-                </imports>
-            </module>
-            <module name="com.fasterxml.jackson.core.jackson-core" />
         </dependencies>
+    </module>
+
+    <module name="org.apache.camel.component.milo">
+        <include artifact="org.apache.camel:camel-milo" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.google.guava"/>
+            <module name="org.eclipse.milo" export="true">
+                <exports>
+                    <exclude path="org/jooq**" />
+                </exports>
+            </module>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="org/apache/camel/component/milo/client/internal" />
+            <exclude path="org/apache/camel/component/milo/server/internal" />
+        </exports>
     </module>
 
     <module name="org.apache.camel.component.mina2">

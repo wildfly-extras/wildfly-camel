@@ -145,6 +145,8 @@ lucene
 lumberjack
 master
 metrics
+milo-client
+milo-server
 mina2
 mllp
 mock
@@ -253,8 +255,6 @@ docker                                              #1424
 drill                                               #1823
 flink                                               #1430
 hipchat                                             #2003
-milo-client                                         #1835
-milo-server                                         #1836
 mongodb-gridfs                                      #1837
 nagios                                              #1456
 restlet                                             #2024
