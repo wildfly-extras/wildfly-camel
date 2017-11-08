@@ -1,0 +1,4 @@
+### camel-azure
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-azure/src/main/docs/azure-blob-component.adoc[azure-blob,window=_blank] component supports storing and retrieving the blobs to/from https://azure.microsoft.com/services/storage/blobs/[Azure Storage Blob,window=_blank] service.
+

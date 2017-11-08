@@ -64,6 +64,10 @@
         <include artifact="com.github.spullara.mustache.java:compiler" />
     </module>
     
+    <module name="com.microsoft.azure.storage" skip="true">
+        <include artifact="com.microsoft.azure:azure-storage" />
+    </module>
+
     <module name="io.netty"  skip="true">
         <include artifact="io.netty:netty-all" />
     </module>

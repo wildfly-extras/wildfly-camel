@@ -175,6 +175,7 @@
 /org/apache/camel/component/atomix/main/camel-atomix-2.20.0.jar
 /org/apache/camel/component/avro/main/camel-avro-2.20.0.jar
 /org/apache/camel/component/aws/main/camel-aws-2.20.0.jar
+/org/apache/camel/component/azure/main/camel-azure-2.20.0.jar
 /org/apache/camel/component/barcode/main/camel-barcode-2.20.0.jar
 /org/apache/camel/component/barcode/main/core-3.3.0.jar
 /org/apache/camel/component/barcode/main/javase-3.3.0.jar

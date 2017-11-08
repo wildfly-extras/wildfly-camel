@@ -906,6 +906,14 @@ com/ibm/as400/util
 com/ibm/as400/util/commtrace
 com/ibm/as400/vaccess
 com/lmax/disruptor
+com/microsoft/azure
+com/microsoft/azure/storage
+com/microsoft/azure/storage/analytics
+com/microsoft/azure/storage/blob
+com/microsoft/azure/storage/core
+com/microsoft/azure/storage/file
+com/microsoft/azure/storage/queue
+com/microsoft/azure/storage/table
 com/mongodb
 com/mongodb/annotations
 com/mongodb/assertions
@@ -1544,6 +1552,10 @@ org/apache/camel/component/aws/ses
 org/apache/camel/component/aws/sns
 org/apache/camel/component/aws/sqs
 org/apache/camel/component/aws/swf
+org/apache/camel/component/azure
+org/apache/camel/component/azure/blob
+org/apache/camel/component/azure/common
+org/apache/camel/component/azure/queue
 org/apache/camel/component/bean
 org/apache/camel/component/bean/validator
 org/apache/camel/component/boon

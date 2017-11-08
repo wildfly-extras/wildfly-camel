@@ -34,6 +34,7 @@
         <module name="org.apache.camel.component.atomix" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.avro" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.aws" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.azure" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.barcode" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.base64" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.beanio" export="true" services="export" optional="true" />

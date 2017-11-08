@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.azure">
+  <resources>
+    <artifact name="${org.apache.camel:camel-azure}" />
+  </resources>
+  <dependencies>
+    <module name="com.microsoft.azure.storage" export="true">
+      <exports>
+        <exclude path="com/microsoft" />
+      </exports>
+    </module>
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>

@@ -27,6 +27,8 @@ aws-ses
 aws-sns
 aws-sqs
 aws-swf
+azure-blob
+azure-queue
 bean
 bean-validator
 binding                                             #deprecated
@@ -246,8 +248,6 @@ zookeeper-master
 
 [planned]
 atmos                                               #1984
-azure-blob                                          #1818
-azure-queue                                         #1819
 beanstalk                                           #1419
 cmis                                                #1989
 digitalocean                                        #1822
