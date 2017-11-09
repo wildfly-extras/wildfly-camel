@@ -73,6 +73,7 @@ exec
 facebook
 file
 flatpack
+flink
 fop
 freemarker
 ftp
@@ -253,7 +254,6 @@ beanstalk                                           #1419
 cmis                                                #1989
 docker                                              #1424
 drill                                               #1823
-flink                                               #1430
 hipchat                                             #2003
 mongodb-gridfs                                      #1837
 nagios                                              #1456

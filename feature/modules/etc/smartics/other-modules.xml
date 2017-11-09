@@ -2031,6 +2031,13 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.scala-lang:scala-library" />
+        <dependencies>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc" />
+                </imports>
+            </module>
+        </dependencies>
     </module>
 
     <module name="org.scala.modules">

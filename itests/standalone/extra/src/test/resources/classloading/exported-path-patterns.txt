@@ -1,5 +1,6 @@
 [includes]
-	^ca/uhn/hl7v2(.*)
+    ^akka(.*)
+    ^ca/uhn/hl7v2(.*)
 	^com/amazonaws(.*)
     ^com/bazaarvoice(.*)
 	^com/box(.*)
@@ -77,6 +78,9 @@
 	^org/apache/cxf/ws/discovery(.*)
 	^org/apache/cxf/ws/security(.*)
     ^org/apache/directory(.*)
+    ^org/apache/flink/annotation
+    ^org/apache/flink/api(.*)
+    ^org/apache/flink/streaming/api(.*)
     ^org/apache/fop(.*)
 	^org/apache/hadoop(.*)
 	^org/apache/http(.*)

@@ -61,6 +61,14 @@
         <include artifact="com.beust:jcommander" />
     </module>
 
+    <module name="com.data.artisans.skipped" skip="true">
+        <include artifact="com.data-artisans:flakka-actor_2.10" />
+        <include artifact="com.data-artisans:flakka-remote_2.10" />
+        <include artifact="com.data-artisans:flakka-slf4j_2.10" />
+        <include artifact="com.data-artisans:flakka-testkit_2.10" />
+        <include artifact="com.data-artisans:flakka-testkit_2.11" />
+    </module>
+
     <module name="com.github.jai-imageio" skip="true">
         <include artifact="com.github.jai-imageio:(.*)" />
     </module>
@@ -156,6 +164,11 @@
 
     <module name="com.sun.xml.bind.jaxb.xjc" skip="true">
         <include artifact="com.sun.xml.bind:jaxb-xjc" />
+    </module>
+
+    <module name="com.twitter.chill" skip="true">
+        <include artifact="com.twitter:chill_2.11" />
+        <include artifact="com.twitter:chill-java" />
     </module>
 
     <module name="com.zaxxer" skip="true">
@@ -274,6 +287,11 @@
         <include artifact="org.apache.felix:org.apache.felix.scr.ds-annotations" />
     </module>
 
+    <module name="org.apache.flink.skipped" skip="true">
+        <include artifact="org.apache.flink:flink-shaded-hadoop2" />
+        <include artifact="org.apache.flink:force-shading" />
+    </module>
+
     <module name="org.apache.httpcomponents.skipped" skip="true">
         <include artifact="org.apache.httpcomponents:httpclient-osgi" />
     </module>
@@ -288,6 +306,10 @@
         <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.antlr" />
         <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.javax-cache-api" />
         <include artifact="org.apache.servicemix.bundles:org.apache.servicemix.bundles.jsr305" />
+    </module>
+
+    <module name="org.apache.sling" skip="true">
+        <include artifact="org.apache.sling:org.apache.sling.commons.json" />
     </module>
 
     <module name="org.apache.shiro.skipped" skip="true">
@@ -421,6 +443,10 @@
         <include artifact="org.mortbay.jetty:(.*)" />
     </module>
 
+    <module name="org.objenisis" skip="true">
+        <include artifact="org.objenesis:objenesis" />
+    </module>
+
     <module name="org.ops4j" skip="true">
         <include artifact="org.ops4j.base:(.*)" />
     </module>
@@ -461,6 +487,10 @@
         <include artifact=":spring-ldap-ldif-batch" />
         <include artifact=":spring-ldap-ldif-core" />
         <include artifact=":spring-ldap-odm" />
+    </module>
+
+    <module name="org.uncommons.maths" skip="true">
+        <include artifact="org.uncommons.maths:uncommons-maths" />
     </module>
 
     <module name="software.amazon.ion.ion-java" skip="true">
