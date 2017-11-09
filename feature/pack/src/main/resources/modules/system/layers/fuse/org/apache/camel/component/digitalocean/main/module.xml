@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.digitalocean">
+  <resources>
+    <artifact name="${org.apache.camel:camel-digitalocean}" />
+    <artifact name="${com.myjeeva.digitalocean:digitalocean-api-client}" />
+  </resources>
+  <dependencies>
+    <module name="org.slf4j" />
+    <module name="com.google.code.gson" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.lang3" />
+    <module name="org.apache.httpcomponents" />
+  </dependencies>
+  <exports>
+    <exclude path="com/myjeeva" />
+    <exclude path="com/myjeeva/digitalocean/impl" />
+  </exports>
+</module>

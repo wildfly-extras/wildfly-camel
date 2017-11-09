@@ -82,6 +82,8 @@ include::camel-crypto-cms.adoc[]
 
 include::camel-cxf.adoc[]
 
+include::camel-digitalocean.adoc[]
+
 include::camel-disruptor.adoc[]
 
 include::camel-disruptor-vm.adoc[]

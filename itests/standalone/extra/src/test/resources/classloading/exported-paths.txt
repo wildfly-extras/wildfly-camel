@@ -939,6 +939,14 @@ com/mongodb/management
 com/mongodb/operation
 com/mongodb/selector
 com/mongodb/util
+com/myjeeva/digitalocean
+com/myjeeva/digitalocean/common
+com/myjeeva/digitalocean/exception
+com/myjeeva/digitalocean/http
+com/myjeeva/digitalocean/http/client
+com/myjeeva/digitalocean/http/client/methods
+com/myjeeva/digitalocean/pojo
+com/myjeeva/digitalocean/serializer
 com/ning/compress
 com/ning/compress/gzip
 com/ning/compress/lzf
@@ -1610,6 +1618,9 @@ org/apache/camel/component/cxf/transport
 org/apache/camel/component/cxf/transport/blueprint
 org/apache/camel/component/cxf/transport/spring
 org/apache/camel/component/cxf/util
+org/apache/camel/component/digitalocean
+org/apache/camel/component/digitalocean/constants
+org/apache/camel/component/digitalocean/producer
 org/apache/camel/component/disruptor
 org/apache/camel/component/disruptor/vm
 org/apache/camel/component/dns

@@ -16,19 +16,14 @@
  */
 package org.wildfly.camel.test.azure;
 
-import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.Properties;
 
 import javax.naming.Context;
-import javax.naming.InitialContext;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.JndiRegistry;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -38,6 +33,7 @@ import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
+import org.wildfly.extension.camel.WildFlyCamelContext;
 
 import com.microsoft.azure.storage.StorageCredentials;
 import com.microsoft.azure.storage.StorageCredentialsAccountAndKey;
@@ -46,9 +42,9 @@ import com.microsoft.azure.storage.blob.CloudBlob;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class AzureBlobIntegrationTest {
+public class AzureIntegrationTest {
 
-    private static final String AZURE_STORAGE_KEY = "AZURE_STORAGE_KEY";
+    private static final String AZURE_STORAGE_BLOB = "AZURE_STORAGE_BLOB";
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -56,22 +52,22 @@ public class AzureBlobIntegrationTest {
     }
 
     @Test
-    public void testGetAppendBlob() throws Exception {
+    public void testAppendBlob() throws Exception {
 
-        StorageCredentials credentials = getStorageCredentials();
-        Assume.assumeNotNull("Credentials not null", credentials);
+        StorageCredentials creds = getStorageCredentials("camelblob", System.getenv(AZURE_STORAGE_BLOB));
+        Assume.assumeNotNull("Credentials not null", creds);
         
-        CamelContext camelctx = createCamelContext(credentials);
+        CamelContext camelctx = createCamelContext(creds);
         camelctx.addRoutes(new RouteBuilder() {
             public void configure() throws Exception {
                 from("direct:start")
-                .to("azure-blob://camelazure/container1/blobAppend?credentials=#creds&operation=updateAppendBlob");
+                .to("azure-blob://camelblob/container1/blobAppend?credentials=#creds&operation=updateAppendBlob");
                 
-                from("azure-blob://camelazure/container1/blobAppend?credentials=#creds&blobType=appendblob")
+                from("azure-blob://camelblob/container1/blobAppend?credentials=#creds&blobType=appendblob")
                 .to("mock:read");
                 
                 from("direct:list")
-                .to("azure-blob://camelazure/container1?credentials=#creds&operation=listBlobs");
+                .to("azure-blob://camelblob/container1?credentials=#creds&operation=listBlobs");
             }
         });
 
@@ -103,20 +99,14 @@ public class AzureBlobIntegrationTest {
         }
     }
 
-    private StorageCredentials getStorageCredentials() {
-        String key = System.getenv(AZURE_STORAGE_KEY);
-        return key != null ? new StorageCredentialsAccountAndKey("camelazure", key) : null;
+    private StorageCredentials getStorageCredentials(String account, String key) {
+        return key != null ? new StorageCredentialsAccountAndKey(account, key) : null;
     }
 
-    private CamelContext createCamelContext(StorageCredentials credentials) throws Exception {
-        JndiRegistry registry = new JndiRegistry(createJndiContext());
-        registry.bind("creds", credentials);
-        return new DefaultCamelContext(registry);
-    }
-
-    private Context createJndiContext() throws Exception {
-        Properties properties = new Properties();
-        properties.put("java.naming.factory.initial", "org.apache.camel.util.jndi.CamelInitialContextFactory");
-        return new InitialContext(new Hashtable<Object, Object>(properties));
+    private CamelContext createCamelContext(StorageCredentials creds) throws Exception {
+        WildFlyCamelContext camelctx = new WildFlyCamelContext();
+        Context jndictx = camelctx.getNamingContext();
+        jndictx.rebind("creds", creds);
+        return camelctx;
     }
 }

@@ -215,6 +215,8 @@
 /org/apache/camel/component/csv/main/camel-csv-2.20.0.jar
 /org/apache/camel/component/cxf/main/camel-cxf-2.20.0.jar
 /org/apache/camel/component/cxf/main/camel-cxf-transport-2.20.0.jar
+/org/apache/camel/component/digitalocean/main/camel-digitalocean-2.20.0.jar
+/org/apache/camel/component/digitalocean/main/digitalocean-api-client-2.12.jar
 /org/apache/camel/component/disruptor/main/camel-disruptor-2.20.0.jar
 /org/apache/camel/component/disruptor/main/disruptor-3.3.6.jar
 /org/apache/camel/component/dns/main/camel-dns-2.20.0.jar

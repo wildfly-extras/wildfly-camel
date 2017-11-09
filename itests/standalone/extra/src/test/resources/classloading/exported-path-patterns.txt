@@ -115,6 +115,7 @@
     ^org/jivesoftware(.*)
     ^org/jsmpp(.*)
     ^org/jxmpp(.*)
+    ^com/myjeeva/digitalocean(.*)
     ^org/openstack(.*)
     ^org/optaplanner(.*)
 	^org/reactivestreams(.*)

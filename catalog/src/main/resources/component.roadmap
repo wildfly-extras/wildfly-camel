@@ -55,6 +55,7 @@ cxf
 cxfrs
 dataformat
 dataset
+digitalocean
 direct
 direct-vm
 disruptor
@@ -250,7 +251,6 @@ zookeeper-master
 atmos                                               #1984
 beanstalk                                           #1419
 cmis                                                #1989
-digitalocean                                        #1822
 docker                                              #1424
 drill                                               #1823
 flink                                               #1430
