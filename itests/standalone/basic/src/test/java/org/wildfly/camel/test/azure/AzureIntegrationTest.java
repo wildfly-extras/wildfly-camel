@@ -35,16 +35,20 @@ import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.WildFlyCamelContext;
 
+import com.microsoft.azure.storage.OperationContext;
 import com.microsoft.azure.storage.StorageCredentials;
 import com.microsoft.azure.storage.StorageCredentialsAccountAndKey;
 import com.microsoft.azure.storage.blob.CloudAppendBlob;
 import com.microsoft.azure.storage.blob.CloudBlob;
+import com.microsoft.azure.storage.queue.CloudQueue;
+import com.microsoft.azure.storage.queue.CloudQueueMessage;
 
 @CamelAware
 @RunWith(Arquillian.class)
 public class AzureIntegrationTest {
 
     private static final String AZURE_STORAGE_BLOB = "AZURE_STORAGE_BLOB";
+    private static final String AZURE_STORAGE_QUEUE = "AZURE_STORAGE_QUEUE";
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -98,6 +102,63 @@ public class AzureIntegrationTest {
             camelctx.stop();
         }
     }
+
+    @Test
+    public void testAppendQueue() throws Exception {
+
+        StorageCredentials creds = getStorageCredentials("camelqueue", System.getenv(AZURE_STORAGE_QUEUE));
+        Assume.assumeNotNull("Credentials not null", creds);
+
+        OperationContext.setLoggingEnabledByDefault(true);
+        
+        CamelContext camelctx = createCamelContext(creds);
+        camelctx.addRoutes(new RouteBuilder() {
+            public void configure() throws Exception {
+                from("direct:createQueue")
+                .to("azure-queue://camelqueue/queue1?credentials=#creds&operation=createQueue");
+
+                from("direct:listQueues")
+                .to("azure-queue://camelqueue?credentials=#creds&operation=listQueues");
+
+                from("direct:deleteQueue")
+                .to("azure-queue://camelqueue/queue1?credentials=#creds&operation=deleteQueue");
+
+                from("direct:addMessage")
+                .to("azure-queue://camelqueue/queue1?credentials=#creds&operation=addMessage");
+
+                from("direct:retrieveMessage")
+                .to("azure-queue://camelqueue/queue1?credentials=#creds&operation=retrieveMessage");
+            }
+        });
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            
+            Iterator<?> it = producer.requestBody("direct:listQueues", null, Iterable.class).iterator();
+            Assert.assertFalse("No more queues", it.hasNext());
+
+            producer.sendBody("direct:addMessage", "SomeMsg");
+            
+            it = producer.requestBody("direct:listQueues", null, Iterable.class).iterator();
+            Assert.assertTrue("Has queues", it.hasNext());
+            CloudQueue queue = (CloudQueue) it.next();
+            Assert.assertEquals("queue1", queue.getName());
+            Assert.assertFalse("No more queues", it.hasNext());
+            
+            try {
+                CloudQueueMessage msg = producer.requestBody("direct:retrieveMessage", null, CloudQueueMessage.class);
+                Assert.assertNotNull("Retrieve a message", msg);
+                Assert.assertEquals("SomeMsg", msg.getMessageContentAsString());
+            } finally {
+                queue.delete();
+            }
+            
+        } finally {
+            camelctx.stop();
+        }
+    }
+
 
     private StorageCredentials getStorageCredentials(String account, String key) {
         return key != null ? new StorageCredentialsAccountAndKey(account, key) : null;
