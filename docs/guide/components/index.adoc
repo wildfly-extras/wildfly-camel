@@ -90,6 +90,8 @@ include::camel-disruptor-vm.adoc[]
 
 include::camel-dns.adoc[]
 
+include::camel-docker.adoc[]
+
 include::camel-dozer.adoc[]
 
 include::camel-dropbox.adoc[]

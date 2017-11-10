@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.docker">
+  <resources>
+    <artifact name="${org.apache.camel:camel-docker}" />
+  </resources>
+  <dependencies>
+    <module name="com.github.docker.java" export="true">
+      <exports>
+        <exclude path="com/github" />
+        <exclude path="org/apache/http**" />
+        <exclude path="org/newsclub**" />
+      </exports>
+    </module>
+    <module name="javax.api" />
+    <module name="org.apache.commons.lang" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>

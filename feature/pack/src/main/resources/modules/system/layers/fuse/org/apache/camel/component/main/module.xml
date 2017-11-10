@@ -74,6 +74,7 @@
         <module name="org.apache.camel.component.digitalocean" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.disruptor" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.dns" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.docker" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.dozer" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.dropbox" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.ehcache" export="true" services="export" optional="true" />

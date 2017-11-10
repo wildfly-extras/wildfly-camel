@@ -195,6 +195,8 @@
         <include artifact="io.netty:netty-tcnative-boringssl-static" />
         <include artifact="io.netty:netty-transport" />
         <include artifact="io.netty:netty-transport-native-epoll" />
+        <include artifact="io.netty:netty-transport-native-kqueue" />
+        <include artifact="io.netty:netty-transport-native-unix-common" />
     </module>
 
     <module name="io.sundr.builder.annotations" skip="true">
@@ -361,6 +363,8 @@
 
     <module name="org.glassfish.jersey" skip="true">
         <include artifact="org.glassfish.jersey.bundles.repackaged:jersey-guava" />
+        <include artifact="org.glassfish.jersey.connectors:jersey-apache-connector" />
+        <include artifact="org.glassfish.jersey.core:jersey-client" />
         <include artifact="org.glassfish.jersey.core:jersey-common" />
     </module>
 

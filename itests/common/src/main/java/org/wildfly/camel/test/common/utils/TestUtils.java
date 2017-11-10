@@ -39,6 +39,16 @@ public final class TestUtils {
         return uri.getHost();
     }
 
+    public static Integer getDockerPort() throws Exception {
+        String dockerHost = System.getenv("DOCKER_HOST");
+        if (dockerHost == null) {
+            return 2376;
+        }
+
+        URI uri = new URI(dockerHost);
+        return uri.getPort();
+    }
+
     public static String getResourceValue (Class<?> clazz, String resname) throws IOException {
         try (InputStream in = clazz.getResourceAsStream(resname)) {
             IllegalStateAssertion.assertNotNull(in, "Cannot find resource: " + resname);

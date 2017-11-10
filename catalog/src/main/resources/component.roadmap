@@ -61,6 +61,7 @@ direct-vm
 disruptor
 disruptor-vm
 dns
+docker
 dozer
 dropbox
 ehcache
@@ -252,7 +253,6 @@ zookeeper-master
 atmos                                               #1984
 beanstalk                                           #1419
 cmis                                                #1989
-docker                                              #1424
 drill                                               #1823
 hipchat                                             #2003
 mongodb-gridfs                                      #1837

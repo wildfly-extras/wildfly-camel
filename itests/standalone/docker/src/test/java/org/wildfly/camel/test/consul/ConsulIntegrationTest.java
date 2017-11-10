@@ -59,9 +59,16 @@ import com.orbitz.consul.model.health.Node;
 @CamelAware
 @RunWith(ArquillianConditionalRunner.class)
 @RequiresDocker
-public class ConsulServiceDiscoveryTest {
-    public static final int CONSUL_PORT = 48802;
+public class ConsulIntegrationTest {
+
     private static final String CONTAINER_NAME = "consul";
+    private static final int CONSUL_PORT = 48802;
+
+    private String consulUrl;
+    private List<Registration> registrations;
+
+    @ArquillianResource
+    private CubeController cubeController;
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -69,39 +76,17 @@ public class ConsulServiceDiscoveryTest {
             .addClass(TestUtils.class);
     }
 
-    private static FluentProducerTemplate fluentTemplate(CamelContext camelctx) throws Exception {
-        FluentProducerTemplate fluentTemplate = camelctx.createFluentProducerTemplate();
-        fluentTemplate.start();
-        return fluentTemplate;
-    }
-
-    private String consulUrl;
-
-    @ArquillianResource
-    private CubeController cubeController;
-
-
-    private List<Registration> registrations;
-
-    private Consul getConsul() {
-        return Consul.builder().withUrl(consulUrl).build();
-    }
-
     @Before
     public void setUp() throws Exception {
         cubeController.create(CONTAINER_NAME);
         cubeController.start(CONTAINER_NAME);
-
         consulUrl = "http://"+ TestUtils.getDockerHost() +":"+ CONSUL_PORT;
-
     }
 
     @After
     public void tearDown() throws Exception {
-
         cubeController.stop(CONTAINER_NAME);
         cubeController.destroy(CONTAINER_NAME);
-
     }
 
     @Test
@@ -162,7 +147,6 @@ public class ConsulServiceDiscoveryTest {
         }
     }
 
-
     @Test
     public void testServiceDiscovery() throws Exception {
         final AgentClient client = getConsul().agentClient();
@@ -205,8 +189,15 @@ public class ConsulServiceDiscoveryTest {
                 registrations.forEach(r -> client.deregister(r.getId()));
             }
         }
-
     }
 
+    private FluentProducerTemplate fluentTemplate(CamelContext camelctx) throws Exception {
+        FluentProducerTemplate fluentTemplate = camelctx.createFluentProducerTemplate();
+        fluentTemplate.start();
+        return fluentTemplate;
+    }
 
+    private Consul getConsul() {
+        return Consul.builder().withUrl(consulUrl).build();
+    }
 }

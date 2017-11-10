@@ -28,6 +28,7 @@
 /com/fasterxml/jackson/datatype/joda/main/jackson-datatype-joda-2.8.9.jar
 /com/fasterxml/jackson/module/afterburner/main/jackson-module-afterburner-2.8.9.jar
 /com/fasterxml/jackson/module/jsonSchema/main/jackson-module-jsonSchema-2.8.9.jar
+/com/github/docker/java/main/docker-java-3.0.13.jar
 /com/github/generex/main/generex-1.0.1.jar
 /com/google/api-client/google-api-client/main/google-api-client-1.22.0.jar
 /com/google/api/grpc/proto-google-common-protos/main/proto-google-common-protos-0.1.9.jar
@@ -52,6 +53,9 @@
 /com/intellij/annotations/main/annotations-12.0.jar
 /com/jayway/jsonpath/main/json-path-2.4.0.jar
 /com/jcraft/jsch/main/jsch-0.1.54.jar
+/com/kohlschutter/junixsocket/main/junixsocket-common-2.0.4.jar
+/com/kohlschutter/junixsocket/main/junixsocket-native-common-2.0.4.jar
+/com/kohlschutter/junixsocket/main/native-lib-loader-2.0.2.jar
 /com/netflix/archaius/archaius-core/main/archaius-core-0.7.4.jar
 /com/netflix/hystrix/main/hystrix-core-1.5.12.jar
 /com/netflix/hystrix/main/hystrix-metrics-event-stream-1.5.12.jar
@@ -221,6 +225,7 @@
 /org/apache/camel/component/disruptor/main/disruptor-3.3.6.jar
 /org/apache/camel/component/dns/main/camel-dns-2.20.0.jar
 /org/apache/camel/component/dns/main/dnsjava-2.1.8.jar
+/org/apache/camel/component/docker/main/camel-docker-2.20.0.jar
 /org/apache/camel/component/dozer/main/camel-dozer-2.20.0.jar
 /org/apache/camel/component/dropbox/main/camel-dropbox-2.20.0.jar
 /org/apache/camel/component/dropbox/main/dropbox-core-sdk-3.0.4.jar

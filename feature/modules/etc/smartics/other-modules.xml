@@ -290,6 +290,26 @@
         <include artifact=":jackson-module-jsonSchema"/>
     </module>
 
+    <module name="com.github.docker.java">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.github.docker-java:docker-java"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs"/>
+            <include module="io.netty.skipped"/>
+            <include module="org.glassfish.hk2"/>
+            <include module="org.glassfish.jersey"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.fasterxml.jackson.core.jackson-annotations"/>
+            <module name="com.fasterxml.jackson.core.jackson-core"/>
+            <module name="com.fasterxml.jackson.core.jackson-databind"/>
+            <module name="io.netty"/>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
     <module name="com.github.generex">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -473,6 +493,15 @@
         <dependencies>
             <module name="javax.api" />
         </dependencies>
+    </module>
+
+    <module name="com.kohlschutter.junixsocket">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.kohlschutter.junixsocket:junixsocket-common"/>
+        <include artifact="com.kohlschutter.junixsocket:junixsocket-native-common"/>
+        <include artifact="org.scijava:native-lib-loader"/>
     </module>
 
     <module name="com.netflix.archaius.archaius-core">

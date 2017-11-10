@@ -1,0 +1,3 @@
+### camel-docker
+
+The http://camel.apache.org/docker.html[docker,window=_blank] component enables you to integrate with Docker APIs via the https://github.com/docker-java/docker-java[docker-java,window=_blank] client.
