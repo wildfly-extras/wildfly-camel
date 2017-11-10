@@ -32,7 +32,7 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class LoggerIntegrationTest {
+public class LoggingFrameworkIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
