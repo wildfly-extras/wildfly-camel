@@ -35,7 +35,7 @@
 
     <!-- Properties -->
     <properties>
-        <server.config>standalone-full.xml</server.config>
+        <server.config>standalone.xml</server.config>
     </properties>
 
     <!-- Dependencies -->
@@ -61,10 +61,6 @@
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-stomp</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.directory.server</groupId>
@@ -143,6 +139,7 @@
             <version>${project.version}</version>
             <type>pom</type>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -205,13 +202,13 @@
                                 <copy file="src/test/resources/ahc/application.keystore" todir="${jboss.home}/standalone/configuration" />
                                 <!-- Add additional security domains -->
                                 <replace file="${jboss.home}/standalone/configuration/${server.config}">
-                                    <replacetoken><![CDATA[<system-properties>]]></replacetoken>
-                                    <replacevalue><![CDATA[
-                                    <system-properties>
-                                        <property name="es.set.netty.runtime.available.processors" value="false" />]]>
-                                    </replacevalue>
-                                </replace>
-                                <replace file="${jboss.home}/standalone/configuration/${server.config}">
+                                    <replacefilter>
+                                        <replacetoken><![CDATA[<system-properties>]]></replacetoken>
+                                        <replacevalue><![CDATA[
+                                        <system-properties>
+                                            <property name="es.set.netty.runtime.available.processors" value="false" />]]>
+                                        </replacevalue>
+                                    </replacefilter>
                                     <replacefilter>
                                         <replacetoken><![CDATA[<security-domain name="hawtio-domain"]]></replacetoken>
                                         <replacevalue><![CDATA[
@@ -224,31 +221,6 @@
                                             </authentication>
                                         </security-domain>
                                         <security-domain name="hawtio-domain"]]></replacevalue>
-                                    </replacefilter>
-                                    <replacefilter>
-                                        <replacetoken><![CDATA[<in-vm-acceptor name="in-vm"]]></replacetoken>
-                                        <replacevalue><![CDATA[
-                                        <acceptor name="stomp-acceptor" factory-class="org.apache.activemq.artemis.core.remoting.impl.netty.NettyAcceptorFactory">
-                                            <param name="protocols" value="STOMP"/>
-                                            <param name="port" value="61613"/>
-                                        </acceptor>
-                                        <in-vm-acceptor name="in-vm"]]></replacevalue>
-                                    </replacefilter>
-                                    <replacefilter>
-                                        <replacetoken><![CDATA[<logger category="com.arjuna">]]></replacetoken>
-                                        <replacevalue><![CDATA[
-                                        <logger category="org.apache.activemq">
-                                            <level name="TRACE"/>
-                                        </logger>
-                                        <logger category="com.arjuna">]]></replacevalue>
-                                    </replacefilter>
-                                    <replacefilter>
-                                        <replacetoken><![CDATA[<role name="guest"]]></replacetoken>
-                                        <replacevalue><![CDATA[<role name="Role1"]]></replacevalue>
-                                    </replacefilter>
-                                    <replacefilter>
-                                        <replacetoken><![CDATA[<address-setting name="#"]]></replacetoken>
-                                        <replacevalue><![CDATA[<address-setting auto-create-jms-queues="true" name="#"]]></replacevalue>
                                     </replacefilter>
                                 </replace>
                             </target>
