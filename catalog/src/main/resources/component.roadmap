@@ -262,7 +262,6 @@ spark                                               #1469
 spark-rest                                          #1470
 spring-ws                                           #1476
 tika                                                #1850
-websocket                                           #1479
 
 [undecided]
 ganglia                                             #1998 No test coverage for ganglia in camel
@@ -303,4 +302,5 @@ openshift                                           #deprecated
 paxlogging                                          #2020 OSGi specific
 quartz                                              #deprecated
 routebox                                            #deprecated
+websocket                                           #1479 Cannot have alternative HTTP engine in EAP
 
