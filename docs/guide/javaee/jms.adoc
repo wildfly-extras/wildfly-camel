@@ -8,7 +8,7 @@ Integration with other JMS implementations is possible through configuration of 
 
 #### WildFly JMS configuration
 
-The WildFly https://docs.jboss.org/author/display/WFLY8/Messaging+configuration[messaging subsystem,window=_blank] can be configured from within the standard WildFly XML configuration files, standalone.xml or domain.xml.
+The WildFly https://docs.jboss.org/author/display/WFLY8/Messaging+configuration[messaging subsystem,window=_blank] can be configured from within the standard WildFly XML configuration files e.g. standalone.xml.
 
 For the examples that follow we use the embedded ActiveMQ Artemis in memory instance. We first configure a new JMS queue on the messaging subsystem by adding the following XML configuration to the jms-destinations section.
 

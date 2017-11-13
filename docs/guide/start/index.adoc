@@ -31,13 +31,6 @@ In your WildFly home directory run ...
  10:50:02,849 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: WildFly 8.1.0.Final "Kenny" started in 10804ms
 
 [discrete]
-### Domain Mode
-
-Similarly, for the WildFly Domain Mode run ...  
-
- $ bin/domain.sh -c domain-camel.xml
-
-[discrete]
 ### Enable Camel Subsystem
 
 The patch does not modify existing configuration files. Instead it comes with a number of additional configurations files that end in `-camel.xml`.
@@ -50,10 +43,7 @@ If you should want to add the Camel subsystem to existing configurations you can
     Writing 'layers=fuse' to: .../wildfly-9.0.0.CR1/modules/layers.conf
     Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone.xml
     Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone-full.xml
-    Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone-full-ha.xml
-    Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone-ha.xml
-    Enable camel configuration in: .../wildfly-9.0.0.CR1/domain/configuration/domain.xml
-
+    
 There are currently three triggers that can be used to enable Camel for a deployment
 
 1. a deployment that contains a *-camel-context.xml descriptor
