@@ -111,7 +111,7 @@ public class KafkaConsumerIntegrationTest {
         KafkaComponent kafka = new KafkaComponent();
         kafka.setBrokers("localhost:" + KAFKA_PORT);
         camelctx.addComponent("kafka", kafka);
-        
+
         MockEndpoint to = camelctx.getEndpoint("mock:result", MockEndpoint.class);
         to.expectedBodiesReceivedInAnyOrder("message-0", "message-1", "message-2", "message-3", "message-4");
         to.expectedMessageCount(5);
@@ -138,7 +138,7 @@ public class KafkaConsumerIntegrationTest {
         props.put(ProducerConfig.ACKS_CONFIG, "1");
         ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         try {
-            Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+            Thread.currentThread().setContextClassLoader(org.apache.kafka.clients.producer.KafkaProducer.class.getClassLoader());
             return new KafkaProducer<String, String>(props);
         } finally {
             Thread.currentThread().setContextClassLoader(tccl);

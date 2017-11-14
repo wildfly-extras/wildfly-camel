@@ -14,6 +14,7 @@
     <module name="org.slf4j" />
   </dependencies>
   <exports>
+    <exclude path="**/internals**" />
     <exclude path="darwin/*" />
     <exclude path="linux/*" />
     <exclude path="win32/*" />

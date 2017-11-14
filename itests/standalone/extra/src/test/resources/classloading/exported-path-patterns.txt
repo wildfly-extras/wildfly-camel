@@ -142,4 +142,5 @@
 	^META-INF/services(.*)
 
 [excludes]
-    (.*)/internal
+    (.*)/internal($|/.*)
+    (.*)/internals($|/.*)
