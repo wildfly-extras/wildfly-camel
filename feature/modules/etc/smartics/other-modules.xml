@@ -84,7 +84,7 @@
             <exclude path="com/amazonaws/services/s3/internal**" />
             <exclude path="com/amazonaws/services/s3/transfer/internal" />
             <exclude path="com/amazonaws/services/simpledb/internal" />
-            <exclude path="com/amazonaws/services/sqs/internal" />
+            <exclude path="com/amazonaws/services/sqs/internal**" />
         </exports>
     </module>
 
@@ -1370,6 +1370,7 @@
             <module name="javax.api"/>
         </dependencies>
         <exports>
+            <exclude path="**/internals**" />
             <exclude path="darwin/*" />
             <exclude path="linux/*" />
             <exclude path="win32/*" />

@@ -532,7 +532,6 @@ com/amazonaws/services/sns/model/transform
 com/amazonaws/services/sns/util
 com/amazonaws/services/sqs
 com/amazonaws/services/sqs/buffered
-com/amazonaws/services/sqs/internal/auth
 com/amazonaws/services/sqs/model
 com/amazonaws/services/sqs/model/transform
 com/amazonaws/transform
@@ -2784,9 +2783,7 @@ org/apache/kafka
 org/apache/kafka/clients
 org/apache/kafka/clients/admin
 org/apache/kafka/clients/consumer
-org/apache/kafka/clients/consumer/internals
 org/apache/kafka/clients/producer
-org/apache/kafka/clients/producer/internals
 org/apache/kafka/common
 org/apache/kafka/common/acl
 org/apache/kafka/common/annotation
@@ -2795,8 +2792,6 @@ org/apache/kafka/common/config
 org/apache/kafka/common/config/types
 org/apache/kafka/common/errors
 org/apache/kafka/common/header
-org/apache/kafka/common/header/internals
-org/apache/kafka/common/internals
 org/apache/kafka/common/metrics
 org/apache/kafka/common/metrics/stats
 org/apache/kafka/common/network
