@@ -26,13 +26,10 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.hbase.HBaseAttribute;
-import org.apache.camel.component.hbase.HBaseComponent;
 import org.apache.camel.component.hbase.HBaseConstants;
 import org.apache.camel.component.hbase.HBaseHelper;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HBaseTestingUtility;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -119,14 +116,6 @@ public class HBaseIntegrationTest {
                 .to("mock:result");
             }
         });
-
-        // [FIXME #1958] Unable to load custom HBase configuration files
-        Configuration configuration = HBaseConfiguration.create();
-        configuration.setClassLoader(HBaseIntegrationTest.class.getClassLoader());
-        HBaseConfiguration.addHbaseResources(configuration);
-
-        HBaseComponent component = camelctx.getComponent("hbase", HBaseComponent.class);
-        component.setConfiguration(configuration);
 
         MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
         mockEndpoint.expectedMessageCount(3);
