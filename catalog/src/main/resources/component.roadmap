@@ -250,10 +250,8 @@ zookeeper
 zookeeper-master
 
 [planned]
-atmos                                               #1984
 beanstalk                                           #1419
 cmis                                                #1989
-drill                                               #1823
 hipchat                                             #2003
 mongodb-gridfs                                      #1837
 nagios                                              #1456
@@ -271,12 +269,14 @@ solrCloud                                           #2031 No test coverage for s
 solrs                                               #2032 No test coverage for solr in camel
 
 [rejected]
-bonita                                              #1820 We don't want another BPM engine
+atmos                                               #1984 Jersey clashes with RestEasy
+bonita                                              #1820 Not another BPM engine
 cache                                               #deprecated
 context                                             #deprecated
+drill                                               #1823 Competitor to JDG
 eventadmin                                          #1996 OSGi specific
 gora                                                #2000 Competitor to JDG
-grape                                               #2001 Grape requires Groovy class loader
+grape                                               #2001 Requires Groovy class loading
 hdfs                                                #deprecated
 http                                                #deprecated
 https                                               #deprecated
@@ -290,17 +290,17 @@ ignite-queue                                        #1833 Competitor to JDG
 ignite-set                                          #1834 Competitor to JDG
 ironmq                                              #2006 Not another messaging system
 javaspace                                           #deprecated
-jetty                                               #2009 Cannot have alternative HTTP engine in EAP
-jira                                                #1451 Only available from Atlassian
+jetty                                               #2009 No alternative HTTP engine
+jira                                                #1451 Requires proprietary binary from Atlassian
 kestrel                                             #deprecated
 krati                                               #deprecated
 mina                                                #deprecated
 netty                                               #deprecated
 netty-http                                          #deprecated
-netty4-http                                         #1459 Cannot have alternative HTTP engine in EAP
+netty4-http                                         #1459 No alternative HTTP engine
 openshift                                           #deprecated
 paxlogging                                          #2020 OSGi specific
 quartz                                              #deprecated
 routebox                                            #deprecated
-websocket                                           #1479 Cannot have alternative HTTP engine in EAP
+websocket                                           #1479 No alternative HTTP engine
 
