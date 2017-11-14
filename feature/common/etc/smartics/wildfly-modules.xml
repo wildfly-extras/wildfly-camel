@@ -68,10 +68,6 @@
         <include artifact="com.microsoft.azure:azure-storage" />
     </module>
 
-    <module name="io.netty" skip="true">
-        <include artifact="io.netty:netty-all" />
-    </module>
-
     <module name="io.undertow.core" skip="true">
         <include artifact=":undertow-core" />
     </module>

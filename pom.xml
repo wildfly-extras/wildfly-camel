@@ -46,7 +46,7 @@
     <properties>
 
         <!-- Camel versions -->
-        <version.apache.camel>2.20.1</version.apache.camel>
+        <version.apache.camel>2.20.2</version.apache.camel>
         <version.camel.apns>1.0.0.Beta6</version.camel.apns>
         <version.camel.jgroups>4.0.6.Final</version.camel.jgroups>
         <version.camel.log4j2>2.9.1</version.camel.log4j2>

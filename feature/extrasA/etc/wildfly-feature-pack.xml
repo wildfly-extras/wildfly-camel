@@ -32,10 +32,10 @@
         <artifact groupId="javax.inject" artifactId="javax.inject" version="1"/>
         <artifact groupId="javax.jcr" artifactId="jcr" version="2.0"/>
         <artifact groupId="org.apache.avro" artifactId="avro" version="1.7.4"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-core" version="2.20.1"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-hdfs2" version="2.20.1"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jbpm" version="2.20.1"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jcr" version="2.20.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-core" version="2.20.2"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-hdfs2" version="2.20.2"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jbpm" version="2.20.2"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jcr" version="2.20.2"/>
         <artifact groupId="org.apache.commons" artifactId="commons-compress" version="1.4.1"/>
         <artifact groupId="org.apache.commons" artifactId="commons-math3" version="3.1.1"/>
         <artifact groupId="org.apache.curator" artifactId="curator-client" version="2.7.1"/>
