@@ -81,6 +81,7 @@
 	^org/apache/cxf/ws/security(.*)
     ^org/apache/directory(.*)
     ^org/apache/fop(.*)
+    ^org/apache/groovy(.*)
 	^org/apache/hadoop(.*)
 	^org/apache/http(.*)
 	^org/apache/ibatis(.*)

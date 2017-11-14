@@ -157,6 +157,11 @@
                 <type>war</type>
             </dependency>
             <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${version.camel.netty41}</version>
+            </dependency>
+            <dependency>
                 <groupId>javax.cache</groupId>
                 <artifactId>cache-api</artifactId>
                 <version>${version.javax.cache.api}</version>

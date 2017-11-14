@@ -7,11 +7,13 @@
     <artifact name="${org.apache.xmlgraphics:batik-anim}" />
     <artifact name="${org.apache.xmlgraphics:batik-awt-util}" />
     <artifact name="${org.apache.xmlgraphics:batik-bridge}" />
+    <artifact name="${org.apache.xmlgraphics:batik-constants}" />
     <artifact name="${org.apache.xmlgraphics:batik-css}" />
     <artifact name="${org.apache.xmlgraphics:batik-dom}" />
     <artifact name="${org.apache.xmlgraphics:batik-ext}" />
     <artifact name="${org.apache.xmlgraphics:batik-extension}" />
     <artifact name="${org.apache.xmlgraphics:batik-gvt}" />
+    <artifact name="${org.apache.xmlgraphics:batik-i18n}" />
     <artifact name="${org.apache.xmlgraphics:batik-parser}" />
     <artifact name="${org.apache.xmlgraphics:batik-script}" />
     <artifact name="${org.apache.xmlgraphics:batik-svg-dom}" />
@@ -28,6 +30,7 @@
     <module name="javax.servlet.api" />
     <module name="org.apache.commons.io" />
     <module name="org.apache.commons.logging" />
+    <module name="org.apache.pdfbox" />
     <module name="org.apache.xalan" />
     <module name="org.apache.xerces" />
   </dependencies>

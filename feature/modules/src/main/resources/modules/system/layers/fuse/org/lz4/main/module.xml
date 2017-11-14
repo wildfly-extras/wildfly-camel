@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="com.google.api.grpc.proto-google-common-protos">
+<module xmlns="urn:jboss:module:1.1" name="org.lz4">
   <properties>
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${com.google.api.grpc:proto-google-common-protos}" />
+    <artifact name="${org.lz4:lz4-java}" />
   </resources>
   <dependencies />
 </module>

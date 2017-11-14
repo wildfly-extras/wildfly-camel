@@ -5,10 +5,10 @@
   </properties>
   <resources>
     <artifact name="${org.apache.kafka:kafka-clients}" />
-    <artifact name="${net.jpountz.lz4:lz4}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="org.lz4" />
     <module name="org.slf4j" />
     <module name="org.xerial.snappy" />
   </dependencies>

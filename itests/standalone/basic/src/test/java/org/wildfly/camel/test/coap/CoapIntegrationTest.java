@@ -69,7 +69,7 @@ public class CoapIntegrationTest {
         camelctx.start();
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
-            String result = template.requestBody(coapConsumerUri + "?coapMethod=POST", "Kermit", String.class);
+            String result = template.requestBody(coapConsumerUri, "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
             camelctx.stop();

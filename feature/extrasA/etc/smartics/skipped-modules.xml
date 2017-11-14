@@ -52,6 +52,10 @@
         <include artifact="io.netty:netty" />
     </module>
 
+    <module name="io.netty" slot="4.1" skip="true">
+        <include artifact="io.netty:netty-all" />
+    </module>
+
     <module name="org.apache.camel.core" skip="true">
         <include artifact="org.apache.camel:camel-core" />
     </module>
@@ -126,6 +130,10 @@
 
     <module name="org.scala.lang" skip="true">
         <include artifact="org.scala-lang:scala-library" />
+    </module>
+
+    <module name="org.scala.modules">
+        <include artifact="org.scala-lang.modules:scala-parser-combinators_2.11" />
     </module>
 
     <module name="org.xerial.snappy" skip="true">

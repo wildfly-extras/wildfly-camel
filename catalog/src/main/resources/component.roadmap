@@ -65,8 +65,8 @@ dozer
 dropbox
 ehcache
 ejb
-elasticsearch
-elasticsearch5
+elasticsearch                                       #deprecated
+elasticsearch5                                      #deprecated
 elsql
 etcd
 exec
@@ -256,11 +256,13 @@ restlet                                             #2024 Blocked by camel-2.21.
 tika                                                #1850 Blocked by camel-2.21.x
 
 [undecided]
+elasticsearch5-rest
 ganglia                                             #1998 No test coverage for ganglia in camel
 pgevent                                             #2021 No test coverage for pgevent in camel
 solr                                                #2030 No test coverage for solr in camel
 solrCloud                                           #2031 No test coverage for solr in camel
 solrs                                               #2032 No test coverage for solr in camel
+yql
 
 [rejected]
 atmos                                               #1984 Jersey clashes with RestEasy
