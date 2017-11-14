@@ -39,7 +39,7 @@ tidyMarkup
 univocity-csv
 univocity-fixed
 univocity-tsv
-xmljson
+xmljson             #deprecated
 xmlrpc
 xstream
 yaml-snakeyaml
@@ -49,6 +49,8 @@ zipfile
 [planned]
 
 [undecided]
+fhirJson
+fhirXml
 
 [rejected]
 hessian             #deprecated

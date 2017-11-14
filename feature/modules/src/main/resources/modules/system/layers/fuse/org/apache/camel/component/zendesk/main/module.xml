@@ -9,7 +9,7 @@
     <module name="javax.api" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="org.slf4j" />
-    <module name="com.damnhandy" />
+    <module name="com.damnhandy.handy-uri-templates" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="io.netty" slot="3.10" />

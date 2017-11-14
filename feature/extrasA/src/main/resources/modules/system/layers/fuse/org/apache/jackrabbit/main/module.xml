@@ -15,7 +15,6 @@
   <dependencies>
     <module name="javax.api" />
     <module name="org.apache.lucene" slot="3.6" />
-    <module name="com.google.guava" slot="12.0" />
     <module name="javax.jcr" />
     <module name="org.apache.commons.collections" />
     <module name="org.apache.commons.dbcp" />

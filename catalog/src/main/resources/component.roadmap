@@ -20,7 +20,9 @@ aws-ddbstream
 aws-ec2
 aws-kinesis
 aws-kinesis-firehose
+aws-kms
 aws-lambda
+aws-mq
 aws-s3
 aws-sdb
 aws-ses
@@ -65,8 +67,8 @@ dozer
 dropbox
 ehcache
 ejb
-elasticsearch
-elasticsearch5
+elasticsearch                                       #deprecated
+elasticsearch5                                      #deprecated
 elsql
 etcd
 exec
@@ -124,8 +126,6 @@ json-validator
 jt400
 kafka
 kubernetes                                          #deprecated
-kubernetes-build-configs
-kubernetes-builds
 kubernetes-config-maps
 kubernetes-deployments
 kubernetes-namespaces
@@ -166,6 +166,8 @@ nats
 netty4
 olingo2
 olingo4
+openshift-build-configs
+openshift-builds
 openstack-cinder
 openstack-glance
 openstack-keystone
@@ -189,6 +191,7 @@ rest-api
 rest-swagger
 rmi
 rss
+saga
 salesforce
 sap-netweaver
 scheduler
@@ -256,11 +259,15 @@ restlet                                             #2024 Blocked by camel-2.21.
 tika                                                #1850 Blocked by camel-2.21.x
 
 [undecided]
+elasticsearch-rest
 ganglia                                             #1998 No test coverage for ganglia in camel
 pgevent                                             #2021 No test coverage for pgevent in camel
 solr                                                #2030 No test coverage for solr in camel
 solrCloud                                           #2031 No test coverage for solr in camel
 solrs                                               #2032 No test coverage for solr in camel
+wordpress
+xchange
+yql
 
 [rejected]
 atmos                                               #1984 Jersey clashes with RestEasy

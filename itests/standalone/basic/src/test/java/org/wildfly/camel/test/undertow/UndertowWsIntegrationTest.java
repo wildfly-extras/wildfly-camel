@@ -20,7 +20,6 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -28,7 +27,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
@@ -42,12 +40,6 @@ import org.apache.camel.component.undertow.UndertowConstants;
 import org.apache.camel.component.undertow.UndertowConstants.EventType;
 import org.apache.camel.converter.IOConverter;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.asynchttpclient.AsyncHttpClient;
-import org.asynchttpclient.DefaultAsyncHttpClient;
-import org.asynchttpclient.ws.DefaultWebSocketListener;
-import org.asynchttpclient.ws.WebSocket;
-import org.asynchttpclient.ws.WebSocketTextListener;
-import org.asynchttpclient.ws.WebSocketUpgradeHandler;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.logging.Logger;
@@ -95,33 +87,17 @@ public class UndertowWsIntegrationTest {
 
         camelctx.start();
         try {
-            AsyncHttpClient c = new DefaultAsyncHttpClient();
-
-            WebSocket websocket = c.prepareGet("ws://localhost:" + getPort() + "/app1")
-                    .execute(new WebSocketUpgradeHandler.Builder().addWebSocketListener(new DefaultWebSocketListener() {
-
-                        @Override
-                        public void onMessage(String message) {
-                            System.out.println("got message " + message);
-                        }
-
-                        @Override
-                        public void onError(Throwable t) {
-                            t.printStackTrace();
-                        }
-
-                    }).build()).get();
+            TestClient websocket = new TestClient("ws://localhost:" + getPort() + "/app1").connect();
 
             MockEndpoint result = camelctx.getEndpoint("mock:result1", MockEndpoint.class);
             result.expectedBodiesReceived("Test");
 
-            websocket.sendMessage("Test");
+            websocket.sendTextMessage("Test");
 
             result.await(60, TimeUnit.SECONDS);
             result.assertIsSatisfied();
 
             websocket.close();
-            c.close();
         } finally {
             camelctx.stop();
         }
@@ -141,27 +117,12 @@ public class UndertowWsIntegrationTest {
 
         camelctx.start();
         try {
-            AsyncHttpClient c = new DefaultAsyncHttpClient();
-
-            WebSocket websocket = c.prepareGet("ws://localhost:" + getPort() + "/app2")
-                    .execute(new WebSocketUpgradeHandler.Builder().addWebSocketListener(new DefaultWebSocketListener() {
-
-                        @Override
-                        public void onMessage(String message) {
-                            System.out.println("got message " + message);
-                        }
-
-                        @Override
-                        public void onError(Throwable t) {
-                            t.printStackTrace();
-                        }
-
-                    }).build()).get();
+            TestClient websocket = new TestClient("ws://localhost:" + getPort() + "/app2").connect();
 
             MockEndpoint result = camelctx.getEndpoint("mock:result2", MockEndpoint.class);
             result.expectedMessageCount(1);
 
-            websocket.sendMessage("Test");
+            websocket.sendTextMessage("Test");
 
             result.await(60, TimeUnit.SECONDS);
             List<Exchange> exchanges = result.getReceivedExchanges();
@@ -172,7 +133,6 @@ public class UndertowWsIntegrationTest {
             Assert.assertEquals("Test", IOConverter.toString(r));
 
             websocket.close();
-            c.close();
         } finally {
             camelctx.stop();
         }
@@ -192,32 +152,17 @@ public class UndertowWsIntegrationTest {
 
         camelctx.start();
         try {
-            AsyncHttpClient c = new DefaultAsyncHttpClient();
-
-            WebSocket websocket = c.prepareGet("ws://localhost:" + getPort() + "/app1")
-                    .execute(new WebSocketUpgradeHandler.Builder().addWebSocketListener(new DefaultWebSocketListener() {
-
-                        @Override
-                        public void onError(Throwable t) {
-                            t.printStackTrace();
-                        }
-
-                        @Override
-                        public void onMessage(byte[] message) {
-                            System.out.println("got byte[] message");
-                        }
-                    }).build()).get();
+            TestClient websocket = new TestClient("ws://localhost:" + getPort() + "/app1").connect();
 
             MockEndpoint result = camelctx.getEndpoint("mock:result1", MockEndpoint.class);
             final byte[] testmessage = "Test".getBytes("utf-8");
             result.expectedBodiesReceived(testmessage);
 
-            websocket.sendMessage(testmessage);
+            websocket.sendBytesMessage(testmessage);
 
             result.assertIsSatisfied();
 
             websocket.close();
-            c.close();
         } finally {
             camelctx.stop();
         }
@@ -236,28 +181,13 @@ public class UndertowWsIntegrationTest {
 
         camelctx.start();
         try {
-            AsyncHttpClient c = new DefaultAsyncHttpClient();
-
-            WebSocket websocket = c.prepareGet("ws://localhost:" + getPort() + "/app2")
-                    .execute(new WebSocketUpgradeHandler.Builder().addWebSocketListener(new DefaultWebSocketListener() {
-
-                        @Override
-                        public void onMessage(byte[] message) {
-                            System.out.println("got message " + message);
-                        }
-
-                        @Override
-                        public void onError(Throwable t) {
-                            t.printStackTrace();
-                        }
-
-                    }).build()).get();
+            TestClient websocket = new TestClient("ws://localhost:" + getPort() + "/app2").connect();
 
             MockEndpoint result = camelctx.getEndpoint("mock:result2", MockEndpoint.class);
             result.expectedMessageCount(1);
 
             final byte[] testmessage = "Test".getBytes("utf-8");
-            websocket.sendMessage(testmessage);
+            websocket.sendBytesMessage(testmessage);
 
             result.await(60, TimeUnit.SECONDS);
             List<Exchange> exchanges = result.getReceivedExchanges();
@@ -268,7 +198,6 @@ public class UndertowWsIntegrationTest {
             Assert.assertArrayEquals(testmessage, IOConverter.toBytes(in));
 
             websocket.close();
-            c.close();
         } finally {
             camelctx.stop();
         }
@@ -289,44 +218,14 @@ public class UndertowWsIntegrationTest {
 
         camelctx.start();
         try {
-            AsyncHttpClient c1 = new DefaultAsyncHttpClient();
-
-            WebSocket websocket1 = c1.prepareGet("ws://localhost:" + getPort() + "/app1")
-                    .execute(new WebSocketUpgradeHandler.Builder().addWebSocketListener(new DefaultWebSocketListener() {
-
-                        @Override
-                        public void onMessage(String message) {
-                            System.out.println("got message " + message);
-                        }
-
-                        @Override
-                        public void onError(Throwable t) {
-                            t.printStackTrace();
-                        }
-
-                    }).build()).get();
-            AsyncHttpClient c2 = new DefaultAsyncHttpClient();
-
-            WebSocket websocket2 = c2.prepareGet("ws://localhost:" + getPort() + "/app1")
-                    .execute(new WebSocketUpgradeHandler.Builder().addWebSocketListener(new DefaultWebSocketListener() {
-
-                        @Override
-                        public void onMessage(String message) {
-                            System.out.println("got message " + message);
-                        }
-
-                        @Override
-                        public void onError(Throwable t) {
-                            t.printStackTrace();
-                        }
-
-                    }).build()).get();
+            TestClient websocket1 = new TestClient("ws://localhost:" + getPort() + "/app1").connect();
+            TestClient websocket2 = new TestClient("ws://localhost:" + getPort() + "/app1").connect();
 
             MockEndpoint result = camelctx.getEndpoint("mock:result1", MockEndpoint.class);
             result.expectedMessageCount(2);
 
-            websocket1.sendMessage("Test1");
-            websocket2.sendMessage("Test2");
+            websocket1.sendTextMessage("Test1");
+            websocket2.sendTextMessage("Test2");
 
             result.await(60, TimeUnit.SECONDS);
             result.assertIsSatisfied();
@@ -338,8 +237,6 @@ public class UndertowWsIntegrationTest {
 
             websocket1.close();
             websocket2.close();
-            c1.close();
-            c2.close();
         } finally {
             camelctx.stop();
         }
@@ -360,48 +257,22 @@ public class UndertowWsIntegrationTest {
         camelctx.start();
         try {
 
-            final CountDownLatch latch = new CountDownLatch(1);
-            AsyncHttpClient c = new DefaultAsyncHttpClient();
-            final List<Object> received = Collections.synchronizedList(new ArrayList<Object>());
-
-            WebSocket websocket = c.prepareGet("ws://localhost:" + getPort() + "/shop")
-                    .execute(new WebSocketUpgradeHandler.Builder().addWebSocketListener(new WebSocketTextListener() {
-
-                        @Override
-                        public void onMessage(String message) {
-                            received.add(message);
-                            log.info("received --> " + message);
-                            latch.countDown();
-                        }
-
-                        @Override
-                        public void onOpen(WebSocket websocket) {
-                        }
-
-                        @Override
-                        public void onClose(WebSocket websocket) {
-                        }
-
-                        @Override
-                        public void onError(Throwable t) {
-                            t.printStackTrace();
-                        }
-                    }).build()).get();
+            TestClient websocket = new TestClient("ws://localhost:" + getPort() + "/shop", 1).connect();
 
             // Send message to the direct endpoint
             ProducerTemplate producer = camelctx.createProducerTemplate();
             producer.sendBodyAndHeader("direct:shop", "Beer on stock at Apache Mall", UndertowConstants.SEND_TO_ALL,
                     "true");
 
-            Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
+            Assert.assertTrue(websocket.await(10));
 
-            Assert.assertEquals(1, received.size());
+            List<Object> received = websocket.getReceived();
+            Assert.assertEquals(1, received .size());
             Object r = received.get(0);
             Assert.assertTrue(r instanceof String);
             Assert.assertEquals("Beer on stock at Apache Mall", r);
 
             websocket.close();
-            c.close();
         } finally {
             camelctx.stop();
         }

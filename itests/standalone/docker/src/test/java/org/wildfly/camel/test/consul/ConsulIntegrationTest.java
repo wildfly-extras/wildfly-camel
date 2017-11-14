@@ -33,7 +33,7 @@ import org.apache.camel.component.consul.ConsulComponent;
 import org.apache.camel.component.consul.ConsulConfiguration;
 import org.apache.camel.component.consul.ConsulConstants;
 import org.apache.camel.component.consul.cloud.ConsulServiceDiscovery;
-import org.apache.camel.component.consul.enpoint.ConsulCatalogActions;
+import org.apache.camel.component.consul.endpoint.ConsulCatalogActions;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.arquillian.cube.CubeController;
 import org.arquillian.cube.docker.impl.requirement.RequiresDocker;

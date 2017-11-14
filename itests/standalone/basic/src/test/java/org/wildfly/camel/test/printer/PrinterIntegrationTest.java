@@ -44,6 +44,8 @@ import org.mockito.Mockito;
 import org.objenesis.Objenesis;
 import org.wildfly.extension.camel.CamelAware;
 
+import net.bytebuddy.ByteBuddy;
+
 @CamelAware
 @RunWith(Arquillian.class)
 public class PrinterIntegrationTest {
@@ -51,7 +53,7 @@ public class PrinterIntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-lpr-tests");
-        archive.addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage());
+        archive.addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage(), ByteBuddy.class.getPackage());
         return archive;
     }
 

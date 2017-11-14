@@ -2,23 +2,17 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.hl7">
   <resources>
     <artifact name="${org.apache.camel:camel-hl7}" />
-    <artifact name="${ca.uhn.hapi:hapi-base}" />
-    <artifact name="${ca.uhn.hapi:hapi-structures-v24}" />
-    <artifact name="${ca.uhn.hapi:hapi-structures-v25}" />
   </resources>
   <dependencies>
     <module name="io.netty" slot="4.1" />
-    <module name="javax.api" />
-    <module name="javax.enterprise.api" />
-    <module name="javax.inject.api" />
-    <module name="javax.interceptor.api" />
     <module name="org.apache.camel.component.netty4" />
-    <module name="org.apache.mina.core" />
     <module name="org.slf4j" />
+    <module name="ca.uhn.hapi" export="true">
+      <exports>
+        <exclude path="ca/uhn" />
+      </exports>
+    </module>
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
-  <exports>
-    <exclude path="ca/uhn" />
-  </exports>
 </module>

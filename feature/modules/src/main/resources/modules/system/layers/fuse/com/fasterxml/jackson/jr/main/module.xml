@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.fasterxml.jackson.jr">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${com.fasterxml.jackson.jr:jackson-jr-objects}" />
+  </resources>
+  <dependencies>
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+  </dependencies>
+</module>

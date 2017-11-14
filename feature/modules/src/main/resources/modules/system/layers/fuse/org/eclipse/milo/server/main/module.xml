@@ -13,6 +13,5 @@
     <module name="org.slf4j" />
     <module name="io.dropwizard.metrics" />
     <module name="org.eclipse.milo" />
-    <module name="org.reflections" />
   </dependencies>
 </module>

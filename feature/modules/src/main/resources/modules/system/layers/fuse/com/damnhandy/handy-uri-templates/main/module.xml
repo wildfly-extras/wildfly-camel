@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="com.damnhandy">
+<module xmlns="urn:jboss:module:1.1" name="com.damnhandy.handy-uri-templates">
   <resources>
     <artifact name="${com.damnhandy:handy-uri-templates}" />
   </resources>
   <dependencies>
-    <module name="org.joda.time" />
+    <module name="javax.ws.rs.api" />
   </dependencies>
 </module>

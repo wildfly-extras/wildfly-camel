@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.eclipse.milo.bsd-parser-core">
+  <resources>
+    <artifact name="${org.eclipse.milo:bsd-parser-core}" />
+  </resources>
+  <dependencies>
+    <module name="com.google.code.gson" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.eclipse.milo" />
+  </dependencies>
+</module>

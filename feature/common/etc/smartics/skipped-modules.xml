@@ -457,6 +457,10 @@
         <include artifact="org.ops4j.base:(.*)" />
     </module>
 
+    <module name="org.osgi.annotation" skip="true">
+        <include artifact="org.osgi:org.osgi.annotation" />
+    </module>
+
     <module name="org.osgi.compendium" skip="true">
         <include artifact="org.osgi:org.osgi.compendium" />
     </module>

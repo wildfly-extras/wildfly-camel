@@ -8,6 +8,11 @@
     <artifact name="${org.iq80.leveldb:leveldb-api}" />
   </resources>
   <dependencies>
+    <module name="sun.jdk">
+      <imports>
+        <include path="sun/misc" />
+      </imports>
+    </module>
     <module name="com.google.guava" />
   </dependencies>
 </module>

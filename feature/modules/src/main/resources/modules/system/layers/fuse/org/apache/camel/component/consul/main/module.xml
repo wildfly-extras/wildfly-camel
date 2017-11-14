@@ -14,6 +14,7 @@
     <module name="com.squareup.okhttp3" />
     <module name="org.apache.commons.lang3" />
     <module name="org.slf4j" />
+    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jdk8" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>

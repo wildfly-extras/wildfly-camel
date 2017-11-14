@@ -43,6 +43,8 @@ import com.googlecode.jsendnsca.MessagePayload;
 import com.googlecode.jsendnsca.NagiosPassiveCheckSender;
 import com.googlecode.jsendnsca.PassiveCheckSender;
 
+import net.bytebuddy.ByteBuddy;
+
 @CamelAware
 @RunWith(Arquillian.class)
 public class NagiosIntegrationTest {
@@ -52,7 +54,7 @@ public class NagiosIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-nagios-test");
-        archive.addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage());
+        archive.addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage(), ByteBuddy.class.getPackage());
         return archive;
     }
 

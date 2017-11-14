@@ -13,5 +13,6 @@
     <module name="io.netty" />
     <module name="org.slf4j" />
     <module name="org.eclipse.milo" />
+    <module name="org.eclipse.milo.bsd-parser-core" />
   </dependencies>
 </module>

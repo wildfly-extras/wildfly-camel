@@ -31,23 +31,14 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.message.BasicStatusLine;
+import org.junit.Assert;
 
-public class HipchatEPSuccessTestSupport extends HipchatEndpoint {
-    public static class PostCallback {
-        public Map<String, String> called;
-        public void call(Map<String, String> postParam) {
-            this.called = postParam;
-        }
-    }
+class HipchatEPSuccessTestSupport extends HipchatEndpoint {
 
     private PostCallback callback;
     private CloseableHttpResponse closeableHttpResponse;
 
-    public HipchatEPSuccessTestSupport(
-            String uri,
-            HipchatComponent component,
-            PostCallback callback,
-            CloseableHttpResponse consumerResponse) {
+    HipchatEPSuccessTestSupport(String uri, HipchatComponent component, PostCallback callback, CloseableHttpResponse consumerResponse) {
         super(uri, component);
         this.callback = callback;
         this.closeableHttpResponse = consumerResponse;
@@ -71,5 +62,20 @@ public class HipchatEPSuccessTestSupport extends HipchatEndpoint {
                 return closeableHttpResponse;
             }
         };
+    }
+
+    static <T> T assertIsInstanceOf(Class<T> expectedType, Object value) {
+        Assert.assertNotNull("Expected an instance of type: " + expectedType.getName() + " but was null", value);
+        Assert.assertTrue("Object should be of type " + expectedType.getName() + " but was: " + value
+                + " with the type: " + value.getClass().getName(), expectedType.isInstance(value));
+        return expectedType.cast(value);
+    }
+
+    static class PostCallback {
+        public Map<String, String> called;
+
+        public void call(Map<String, String> postParam) {
+            this.called = postParam;
+        }
     }
 }

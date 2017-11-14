@@ -310,10 +310,6 @@
         <include artifact=":neethi" />
     </module>
 
-    <module name="org.apache.qpid.proton" skip="true">
-        <include artifact="org.apache.qpid:proton-j" />
-    </module>
-
     <module name="org.apache.santuario.xmlsec" skip="true">
         <include artifact="org.apache.santuario:xmlsec" />
     </module>
@@ -471,6 +467,10 @@
 
     <module name="org.jdom" skip="true">
         <include artifact=":jdom" />
+    </module>
+
+    <module name="org.jgroups" skip="true">
+        <include artifact=":jgroups" />
     </module>
 
     <module name="org.joda.time" skip="true">

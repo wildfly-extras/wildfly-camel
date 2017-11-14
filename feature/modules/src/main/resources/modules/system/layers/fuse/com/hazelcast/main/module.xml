@@ -14,5 +14,7 @@
   </dependencies>
   <exports>
     <exclude path="com/hazelcast/internal**" />
+    <exclude path="lib/linux-x86_64" />
+    <exclude path="lib/linux-x86" />
   </exports>
 </module>

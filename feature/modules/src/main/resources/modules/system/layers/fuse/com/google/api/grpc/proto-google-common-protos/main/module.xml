@@ -6,7 +6,5 @@
   <resources>
     <artifact name="${com.google.api.grpc:proto-google-common-protos}" />
   </resources>
-  <dependencies>
-    <module name="com.google.protobuf" />
-  </dependencies>
+  <dependencies />
 </module>

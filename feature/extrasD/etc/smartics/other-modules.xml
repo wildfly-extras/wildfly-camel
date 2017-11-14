@@ -66,6 +66,8 @@
         <include artifact="org.apache.jclouds:jclouds-core"/>
         <include artifact="org.apache.jclouds:jclouds-scriptbuilder"/>
         <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs"/>
+            <include module="com.google.errorprone"/>
             <include module="org.apache.camel.apt"/>
             <include module="org.osgi.compendium"/>
             <include module="org.osgi.core"/>

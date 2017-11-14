@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="ca.uhn.hapi">
+  <resources>
+    <artifact name="${ca.uhn.hapi:hapi-base}" />
+    <artifact name="${ca.uhn.hapi:hapi-structures-v21}" />
+    <artifact name="${ca.uhn.hapi:hapi-structures-v22}" />
+    <artifact name="${ca.uhn.hapi:hapi-structures-v23}" />
+    <artifact name="${ca.uhn.hapi:hapi-structures-v231}" />
+    <artifact name="${ca.uhn.hapi:hapi-structures-v24}" />
+    <artifact name="${ca.uhn.hapi:hapi-structures-v25}" />
+    <artifact name="${ca.uhn.hapi:hapi-structures-v251}" />
+    <artifact name="${ca.uhn.hapi:hapi-structures-v26}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.joda.time" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

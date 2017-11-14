@@ -132,6 +132,10 @@
         <include artifact="org.scala-lang:scala-library" />
     </module>
 
+    <module name="org.scala.modules">
+        <include artifact="org.scala-lang.modules:scala-parser-combinators_2.11" />
+    </module>
+
     <module name="org.xerial.snappy" skip="true">
         <include artifact="org.xerial.snappy:snappy-java" />
     </module>

@@ -46,18 +46,23 @@ import org.mockito.Mockito;
 import org.objenesis.Objenesis;
 import org.wildfly.extension.camel.CamelAware;
 
+import net.bytebuddy.ByteBuddy;
+
 /**
  * @author <a href="https://github.com/ppalaga">Peter Palaga</a>
  */
 @CamelAware
 @RunWith(Arquillian.class)
 public class HipchatConsumerIntegrationTest {
+
     private CloseableHttpResponse closeableHttpResponse = mock(CloseableHttpResponse.class);
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-hipchat-tests.jar") //
-                .addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage(), HipchatProducerIntegrationTest.class.getPackage());
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-hipchat-tests.jar");
+        archive.addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage(), ByteBuddy.class.getPackage());
+        archive.addClasses(HipchatEPSuccessTestSupport.class);
+        return archive;
     }
 
     private CamelContext createCamelContext() throws Exception {
@@ -125,7 +130,7 @@ public class HipchatConsumerIntegrationTest {
     }
 
     private void assertCommonResultExchange(Exchange resultExchange) {
-        HipchatProducerIntegrationTest.assertIsInstanceOf(String.class, resultExchange.getIn().getBody());
+        HipchatEPSuccessTestSupport.assertIsInstanceOf(String.class, resultExchange.getIn().getBody());
         Assert.assertEquals("Unit test Alert", resultExchange.getIn().getBody(String.class));
         Assert.assertEquals("@AUser", resultExchange.getIn().getHeader(HipchatConstants.FROM_USER));
         Assert.assertEquals("2015-01-19T22:07:11.030740+00:00",

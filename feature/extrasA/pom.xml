@@ -101,6 +101,10 @@
                     </modules>
                     <dependencyExcludes>
                         <exclude>
+                            <groupId>com.typesafe.akka</groupId>
+                            <artifactId>akka-testkit_2.11</artifactId>
+                        </exclude>
+                        <exclude>
                             <groupId>org.osgi</groupId>
                             <artifactId>osgi_R4_core</artifactId>
                         </exclude>

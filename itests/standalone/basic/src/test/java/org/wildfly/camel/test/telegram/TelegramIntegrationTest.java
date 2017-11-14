@@ -35,11 +35,14 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
+import org.objenesis.Objenesis;
 import org.wildfly.extension.camel.CamelAware;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import net.bytebuddy.ByteBuddy;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -48,8 +51,7 @@ public class TelegramIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-telegram-tests");
-        archive.addPackages(true, "org.mockito");
-        archive.addPackages(true, "org.objenesis");
+        archive.addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage(), ByteBuddy.class.getPackage());
         archive.addAsResource("telegram/updates-single.json");
         archive.addAsResource("telegram/updates-empty.json");
         return archive;
@@ -66,7 +68,7 @@ public class TelegramIntegrationTest {
         res2.getUpdates().get(0).getMessage().setText("message2");
 
         UpdateResult defaultRes = getJSONResource("telegram/updates-empty.json", UpdateResult.class);
-        Mockito.when(api.getUpdates(Matchers.any(), Matchers.any(), Matchers.any(), Matchers.any()))
+        Mockito.when(api.getUpdates(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
             .thenReturn(res1).thenReturn(res2).thenAnswer((i) -> defaultRes);
     }
 

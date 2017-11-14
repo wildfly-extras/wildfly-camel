@@ -157,6 +157,7 @@
         <apply-to-dependencies skip="true">
             <include module="biz.aQute" />
             <include module="com.google.code.findbugs" />
+            <include module="org.osgi.annotation" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
@@ -181,6 +182,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
+            <module name="javax.xml.bind.api"/>
         </dependencies>
     </module>
 
@@ -210,6 +212,11 @@
             <include module="com.sun.xml.bind.jaxb.xjc" />
             <include module="org.osgi.compendium" />
         </apply-to-dependencies>
+    </module>
+
+    <module name="org.scala.modules">
+        <include artifact="org.scala-lang.modules:scala-parser-combinators_2.11" />
+        <include artifact="org.scala-lang.modules:scala-java8-compat_2.11" />
     </module>
 
     <module name="xmlenc">

@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.file.ha.FileLockClusterService;
+import org.apache.camel.component.file.cluster.FileLockClusterService;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;

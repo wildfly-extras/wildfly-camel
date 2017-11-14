@@ -55,6 +55,8 @@ import org.wildfly.extension.camel.CamelAware;
 
 import com.surftools.BeanstalkClient.Client;
 
+import net.bytebuddy.ByteBuddy;
+
 @CamelAware
 @RunWith(Arquillian.class)
 public class BeanstalkIntegrationTest {
@@ -64,7 +66,7 @@ public class BeanstalkIntegrationTest {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-beanstalk-tests");
-        archive.addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage());
+        archive.addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage(), ByteBuddy.class.getPackage());
         return archive;
     }
 

@@ -5,7 +5,5 @@
     <artifact name="${io.opentracing:opentracing-noop}" />
     <artifact name="${io.opentracing.contrib:opentracing-tracerresolver}" />
   </resources>
-  <dependencies>
-    <module name="javax.annotation.api" />
-  </dependencies>
+  <dependencies />
 </module>

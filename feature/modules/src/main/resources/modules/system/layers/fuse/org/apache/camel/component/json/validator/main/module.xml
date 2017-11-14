@@ -4,9 +4,10 @@
     <artifact name="${org.apache.camel:camel-json-validator}" />
   </resources>
   <dependencies>
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="org.slf4j" />
+    <module name="com.networknt.json" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.everit.json" />
   </dependencies>
 </module>

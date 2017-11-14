@@ -21,6 +21,7 @@
 package org.wildfly.camel.test.ahc;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -33,9 +34,8 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
-import org.asynchttpclient.ws.DefaultWebSocketListener;
 import org.asynchttpclient.ws.WebSocket;
-import org.asynchttpclient.ws.WebSocketTextListener;
+import org.asynchttpclient.ws.WebSocketListener;
 import org.asynchttpclient.ws.WebSocketUpgradeHandler;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -44,12 +44,15 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.ahc.subA.WebSocketServerEndpoint;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
 public class AhcWSIntegrationTest {
+    private static final Logger log = LoggerFactory.getLogger(AhcWSIntegrationTest.class);
 
     private static final String WEBSOCKET_ENDPOINT = "localhost:8080/ahc-ws-test/echo";
 
@@ -66,19 +69,40 @@ public class AhcWSIntegrationTest {
         final List<String> messages = new ArrayList<>();
         final CountDownLatch latch = new CountDownLatch(1);
 
-        WebSocketTextListener listener = new DefaultWebSocketListener() {
+        WebSocketListener listener = new WebSocketListener() {
             @Override
-            public void onMessage(String message) {
-                System.out.println("onMessage: " + message);
+            public void onOpen(WebSocket websocket) {
+                log.info("[ws] opened");
+            }
+
+            @Override
+            public void onClose(WebSocket websocket, int code, String reason) {
+                log.info("[ws] closed, code " + code + " reason " + reason);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                log.error("[ws] error", t);
+            }
+
+            @Override
+            public void onBinaryFrame(byte[] message, boolean finalFragment, int rsv) {
+                log.info("[ws] received bytes --> " + Arrays.toString(message));
+            }
+
+            @Override
+            public void onTextFrame(String message, boolean finalFragment, int rsv) {
+                log.info("[ws] received --> " + message);
                 messages.add(message);
                 latch.countDown();
             }
+
         };
 
         try (AsyncHttpClient client = new DefaultAsyncHttpClient()) {
             WebSocketUpgradeHandler handler = new WebSocketUpgradeHandler.Builder().addWebSocketListener(listener).build();
             WebSocket websocket = client.prepareGet("ws://" + WEBSOCKET_ENDPOINT).execute(handler).get();
-            websocket.sendMessage("Kermit");
+            websocket.sendTextFrame("Kermit");
 
             Assert.assertTrue(latch.await(1, TimeUnit.SECONDS));
             Assert.assertEquals("Hello Kermit", messages.get(0));
