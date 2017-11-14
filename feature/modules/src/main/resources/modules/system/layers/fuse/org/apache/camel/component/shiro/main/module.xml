@@ -2,13 +2,12 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.shiro">
   <resources>
     <artifact name="${org.apache.camel:camel-shiro}" />
-    <artifact name="${org.apache.shiro:shiro-core}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="org.apache.shiro" export="true" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.commons.beanutils" />
   </dependencies>
 </module>

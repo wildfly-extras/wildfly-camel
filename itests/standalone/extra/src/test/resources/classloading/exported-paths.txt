@@ -26,6 +26,7 @@ org/apache/camel/catalog/models
 org/apache/camel/catalog/others
 org/apache/camel/catalog/schemas
 org/apache/camel/cloud
+org/apache/camel/cluster
 org/apache/camel/com
 org/apache/camel/com/github
 org/apache/camel/com/github/benmanes
@@ -48,7 +49,7 @@ org/apache/camel/component/extension
 org/apache/camel/component/extension/metadata
 org/apache/camel/component/extension/verifier
 org/apache/camel/component/file
-org/apache/camel/component/file/ha
+org/apache/camel/component/file/cluster
 org/apache/camel/component/file/strategy
 org/apache/camel/component/language
 org/apache/camel/component/log
@@ -71,12 +72,11 @@ org/apache/camel/core
 org/apache/camel/core/xml
 org/apache/camel/core/xml/util
 org/apache/camel/core/xml/util/jsse
-org/apache/camel/ha
 org/apache/camel/health
 org/apache/camel/impl
 org/apache/camel/impl/cloud
+org/apache/camel/impl/cluster
 org/apache/camel/impl/converter
-org/apache/camel/impl/ha
 org/apache/camel/impl/health
 org/apache/camel/impl/osgi
 org/apache/camel/impl/osgi/tracker
@@ -684,6 +684,7 @@ com/hazelcast/aggregation/impl
 com/hazelcast/cache
 com/hazelcast/cache/impl
 com/hazelcast/cache/impl/event
+com/hazelcast/cache/impl/journal
 com/hazelcast/cache/impl/maxsize
 com/hazelcast/cache/impl/maxsize/impl
 com/hazelcast/cache/impl/merge
@@ -691,6 +692,7 @@ com/hazelcast/cache/impl/merge/entry
 com/hazelcast/cache/impl/merge/policy
 com/hazelcast/cache/impl/operation
 com/hazelcast/cache/impl/record
+com/hazelcast/cache/journal
 com/hazelcast/cache/merge
 com/hazelcast/cardinality
 com/hazelcast/cardinality/impl
@@ -712,6 +714,7 @@ com/hazelcast/client/impl/protocol/task/cache
 com/hazelcast/client/impl/protocol/task/cardinality
 com/hazelcast/client/impl/protocol/task/condition
 com/hazelcast/client/impl/protocol/task/countdownlatch
+com/hazelcast/client/impl/protocol/task/dynamicconfig
 com/hazelcast/client/impl/protocol/task/executorservice
 com/hazelcast/client/impl/protocol/task/executorservice/durable
 com/hazelcast/client/impl/protocol/task/list
@@ -783,6 +786,7 @@ com/hazelcast/executor/impl
 com/hazelcast/executor/impl/operations
 com/hazelcast/hotrestart
 com/hazelcast/instance
+com/hazelcast/journal
 com/hazelcast/logging
 com/hazelcast/map
 com/hazelcast/map/eviction
@@ -791,6 +795,7 @@ com/hazelcast/map/impl/client
 com/hazelcast/map/impl/event
 com/hazelcast/map/impl/eviction
 com/hazelcast/map/impl/iterator
+com/hazelcast/map/impl/journal
 com/hazelcast/map/impl/mapstore
 com/hazelcast/map/impl/mapstore/writebehind
 com/hazelcast/map/impl/mapstore/writebehind/entry
@@ -813,6 +818,7 @@ com/hazelcast/map/impl/record
 com/hazelcast/map/impl/recordstore
 com/hazelcast/map/impl/tx
 com/hazelcast/map/impl/wan
+com/hazelcast/map/journal
 com/hazelcast/map/listener
 com/hazelcast/map/merge
 com/hazelcast/mapreduce
@@ -885,14 +891,14 @@ com/hazelcast/spi/impl/operationparker
 com/hazelcast/spi/impl/operationparker/impl
 com/hazelcast/spi/impl/operationservice
 com/hazelcast/spi/impl/operationservice/impl
+com/hazelcast/spi/impl/operationservice/impl/batching
 com/hazelcast/spi/impl/operationservice/impl/operations
 com/hazelcast/spi/impl/operationservice/impl/responses
 com/hazelcast/spi/impl/operationutil
-com/hazelcast/spi/impl/packetdispatcher
-com/hazelcast/spi/impl/packetdispatcher/impl
 com/hazelcast/spi/impl/proxyservice
 com/hazelcast/spi/impl/proxyservice/impl
 com/hazelcast/spi/impl/proxyservice/impl/operations
+com/hazelcast/spi/impl/sequence
 com/hazelcast/spi/impl/servicemanager
 com/hazelcast/spi/impl/servicemanager/impl
 com/hazelcast/spi/partition
@@ -949,6 +955,7 @@ com/mongodb/client/gridfs/codecs
 com/mongodb/client/gridfs/model
 com/mongodb/client/jndi
 com/mongodb/client/model
+com/mongodb/client/model/changestream
 com/mongodb/client/model/geojson
 com/mongodb/client/model/geojson/codecs
 com/mongodb/client/result
@@ -961,6 +968,7 @@ com/mongodb/gridfs
 com/mongodb/management
 com/mongodb/operation
 com/mongodb/selector
+com/mongodb/session
 com/mongodb/util
 com/myjeeva/digitalocean
 com/myjeeva/digitalocean/common
@@ -1022,6 +1030,7 @@ com/pubnub/api/models/consumer/push
 com/pubnub/api/models/server
 com/pubnub/api/models/server/access_manager
 com/pubnub/api/models/server/presence
+com/pubnub/api/services
 com/pubnub/api/vendor
 com/pubnub/api/workers
 com/rabbitmq/client
@@ -1207,6 +1216,7 @@ io/fabric8/kubernetes/api
 io/fabric8/kubernetes/api/builder
 io/fabric8/kubernetes/api/model
 io/fabric8/kubernetes/api/model/apiextensions
+io/fabric8/kubernetes/api/model/authentication
 io/fabric8/kubernetes/api/model/extensions
 io/fabric8/kubernetes/api/model/validators
 io/fabric8/kubernetes/client
@@ -1278,8 +1288,10 @@ io/vertx/core/file/impl
 io/vertx/core/http
 io/vertx/core/http/impl
 io/vertx/core/http/impl/cgbystrom
+io/vertx/core/http/impl/headers
 io/vertx/core/http/impl/ws
 io/vertx/core/impl
+io/vertx/core/impl/cpu
 io/vertx/core/impl/launcher
 io/vertx/core/impl/launcher/commands
 io/vertx/core/impl/resolver
@@ -1290,6 +1302,8 @@ io/vertx/core/metrics
 io/vertx/core/metrics/impl
 io/vertx/core/net
 io/vertx/core/net/impl
+io/vertx/core/net/impl/pkcs1
+io/vertx/core/net/impl/transport
 io/vertx/core/parsetools
 io/vertx/core/parsetools/impl
 io/vertx/core/shareddata
@@ -1426,10 +1440,31 @@ net/openhft/ticker/impl
 net/openhft/xstream
 net/openhft/xstream/converters
 net/sf/saxon
+net/sf/saxon/data
+net/sf/saxon/data/w3c
+net/sf/saxon/data/w3c/mathml
+net/sf/saxon/data/w3c/mathml/mathml1
+net/sf/saxon/data/w3c/mathml/mathml2
+net/sf/saxon/data/w3c/mathml/mathml2/html
+net/sf/saxon/data/w3c/mathml/mathml2/iso8879
+net/sf/saxon/data/w3c/mathml/mathml2/iso9573-13
+net/sf/saxon/data/w3c/mathml/mathml2/mathml
+net/sf/saxon/data/w3c/mathml/mathml3
+net/sf/saxon/data/w3c/rddl
+net/sf/saxon/data/w3c/svg10
+net/sf/saxon/data/w3c/svg11
+net/sf/saxon/data/w3c/svg11/templates
+net/sf/saxon/data/w3c/xhtml10
+net/sf/saxon/data/w3c/xhtml11
+net/sf/saxon/data/w3c/xlink
+net/sf/saxon/data/w3c/xmlschema10
+net/sf/saxon/data/w3c/xmlschema11
+net/sf/saxon/data/w3c/xmlspec
+net/sf/saxon/data/w3c/xslt3
 net/sf/saxon/dom
 net/sf/saxon/event
-net/sf/saxon/evpull
 net/sf/saxon/expr
+net/sf/saxon/expr/accum
 net/sf/saxon/expr/flwor
 net/sf/saxon/expr/instruct
 net/sf/saxon/expr/number
@@ -1437,6 +1472,7 @@ net/sf/saxon/expr/oper
 net/sf/saxon/expr/parser
 net/sf/saxon/expr/sort
 net/sf/saxon/functions
+net/sf/saxon/functions/registry
 net/sf/saxon/java
 net/sf/saxon/jaxp
 net/sf/saxon/lib
@@ -1450,6 +1486,7 @@ net/sf/saxon/pattern
 net/sf/saxon/pull
 net/sf/saxon/query
 net/sf/saxon/regex
+net/sf/saxon/regex/charclass
 net/sf/saxon/resource
 net/sf/saxon/s9api
 net/sf/saxon/serialize
@@ -1460,6 +1497,8 @@ net/sf/saxon/style
 net/sf/saxon/sxpath
 net/sf/saxon/trace
 net/sf/saxon/trans
+net/sf/saxon/trans/packages
+net/sf/saxon/trans/rules
 net/sf/saxon/tree
 net/sf/saxon/tree/iter
 net/sf/saxon/tree/linked
@@ -1554,7 +1593,7 @@ org/apache/camel/component/atomix/client/multimap
 org/apache/camel/component/atomix/client/queue
 org/apache/camel/component/atomix/client/set
 org/apache/camel/component/atomix/client/value
-org/apache/camel/component/atomix/ha
+org/apache/camel/component/atomix/cluster
 org/apache/camel/component/avro
 org/apache/camel/component/aws
 org/apache/camel/component/aws/common
@@ -1602,8 +1641,8 @@ org/apache/camel/component/cm/validation/constraints
 org/apache/camel/component/connector
 org/apache/camel/component/consul
 org/apache/camel/component/consul/cloud
-org/apache/camel/component/consul/enpoint
-org/apache/camel/component/consul/ha
+org/apache/camel/component/consul/cluster
+org/apache/camel/component/consul/endpoint
 org/apache/camel/component/consul/health
 org/apache/camel/component/consul/policy
 org/apache/camel/component/couchbase
@@ -1760,7 +1799,7 @@ org/apache/camel/component/jclouds
 org/apache/camel/component/jcr
 org/apache/camel/component/jdbc
 org/apache/camel/component/jgroups
-org/apache/camel/component/jgroups/ha
+org/apache/camel/component/jgroups/cluster
 org/apache/camel/component/jms
 org/apache/camel/component/jms/reply
 org/apache/camel/component/jmx
@@ -1775,12 +1814,12 @@ org/apache/camel/component/kubernetes
 org/apache/camel/component/kubernetes/build_configs
 org/apache/camel/component/kubernetes/builds
 org/apache/camel/component/kubernetes/cloud
+org/apache/camel/component/kubernetes/cluster
+org/apache/camel/component/kubernetes/cluster/lock
 org/apache/camel/component/kubernetes/config_maps
 org/apache/camel/component/kubernetes/consumer
 org/apache/camel/component/kubernetes/consumer/common
 org/apache/camel/component/kubernetes/deployments
-org/apache/camel/component/kubernetes/ha
-org/apache/camel/component/kubernetes/ha/lock
 org/apache/camel/component/kubernetes/namespaces
 org/apache/camel/component/kubernetes/nodes
 org/apache/camel/component/kubernetes/persistent_volumes
@@ -1997,7 +2036,7 @@ org/apache/camel/component/yammer/utils
 org/apache/camel/component/zendesk
 org/apache/camel/component/zookeeper
 org/apache/camel/component/zookeeper/cloud
-org/apache/camel/component/zookeeper/ha
+org/apache/camel/component/zookeeper/cluster
 org/apache/camel/component/zookeeper/operations
 org/apache/camel/component/zookeeper/policy
 org/apache/camel/component/zookeepermaster
@@ -2506,6 +2545,8 @@ org/apache/fop/traits
 org/apache/fop/util
 org/apache/fop/util/bitmap
 org/apache/fop/util/text
+org/apache/groovy
+org/apache/groovy/util
 org/apache/hadoop
 org/apache/hadoop/conf
 org/apache/hadoop/crypto
@@ -2761,6 +2802,7 @@ org/apache/kafka/common/config
 org/apache/kafka/common/config/types
 org/apache/kafka/common/errors
 org/apache/kafka/common/header
+org/apache/kafka/common/memory
 org/apache/kafka/common/metrics
 org/apache/kafka/common/metrics/stats
 org/apache/kafka/common/network
@@ -2898,7 +2940,6 @@ org/apache/shiro/dao
 org/apache/shiro/env
 org/apache/shiro/event
 org/apache/shiro/event/support
-org/apache/shiro/functor
 org/apache/shiro/io
 org/apache/shiro/jndi
 org/apache/shiro/ldap

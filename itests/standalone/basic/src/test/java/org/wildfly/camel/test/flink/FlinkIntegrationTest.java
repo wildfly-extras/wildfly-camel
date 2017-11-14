@@ -90,14 +90,10 @@ public class FlinkIntegrationTest {
         long linesCount = template.requestBodyAndHeader(flinkDataSetUri, null, FlinkConstants.FLINK_DATASET_CALLBACK_HEADER, new DataSetCallback() {
             @Override
             public Object onDataSet(DataSet ds, Object... payloads) {
-                ClassLoader tccl = Thread.currentThread().getContextClassLoader();
                 try {
-                    Thread.currentThread().setContextClassLoader(DataSet.class.getClassLoader());
                     return ds.count();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
-                } finally {
-                    Thread.currentThread().setContextClassLoader(tccl);
                 }
             }
         }, Long.class);
@@ -111,14 +107,10 @@ public class FlinkIntegrationTest {
         long linesCount = template.requestBodyAndHeader(flinkDataSetUri, 10, FlinkConstants.FLINK_DATASET_CALLBACK_HEADER, new DataSetCallback() {
             @Override
             public Object onDataSet(DataSet ds, Object... payloads) {
-                ClassLoader tccl = Thread.currentThread().getContextClassLoader();
                 try {
-                    Thread.currentThread().setContextClassLoader(DataSet.class.getClassLoader());
                     return ds.count() * (int) payloads[0];
                 } catch (Exception e) {
                     throw new RuntimeException(e);
-                } finally {
-                    Thread.currentThread().setContextClassLoader(tccl);
                 }
             }
         }, Long.class);
@@ -132,14 +124,10 @@ public class FlinkIntegrationTest {
         long linesCount = template.requestBodyAndHeader(flinkDataSetUri, Arrays.<Integer>asList(10, 10), FlinkConstants.FLINK_DATASET_CALLBACK_HEADER, new DataSetCallback() {
             @Override
             public Object onDataSet(DataSet ds, Object... payloads) {
-                ClassLoader tccl = Thread.currentThread().getContextClassLoader();
                 try {
-                    Thread.currentThread().setContextClassLoader(DataSet.class.getClassLoader());
                     return ds.count() * (int) payloads[0] * (int) payloads[1];
                 } catch (Exception e) {
                     throw new RuntimeException(e);
-                } finally {
-                    Thread.currentThread().setContextClassLoader(tccl);
                 }
             }
         }, Long.class);
@@ -163,14 +151,10 @@ public class FlinkIntegrationTest {
         template.sendBodyAndHeader(flinkDataSetUri, null, FlinkConstants.FLINK_DATASET_CALLBACK_HEADER, new VoidDataSetCallback() {
             @Override
             public void doOnDataSet(DataSet ds, Object... payloads) {
-                ClassLoader tccl = Thread.currentThread().getContextClassLoader();
                 try {
-                    Thread.currentThread().setContextClassLoader(DataSet.class.getClassLoader());
                     ds.writeAsText(output.getAbsolutePath());
                 } catch (Exception e) {
                     throw new RuntimeException(e);
-                } finally {
-                    Thread.currentThread().setContextClassLoader(tccl);
                 }
             }
         });
@@ -183,14 +167,10 @@ public class FlinkIntegrationTest {
         DataSetCallback dataSetCallback = new AnnotatedDataSetCallback(new Object() {
             @org.apache.camel.component.flink.annotations.DataSetCallback
             Long countLines(DataSet<String> textFile) {
-                ClassLoader tccl = Thread.currentThread().getContextClassLoader();
                 try {
-                    Thread.currentThread().setContextClassLoader(DataSet.class.getClassLoader());
                     return textFile.count();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
-                } finally {
-                    Thread.currentThread().setContextClassLoader(tccl);
                 }
             }
         });
@@ -209,14 +189,10 @@ public class FlinkIntegrationTest {
         DataSetCallback dataSetCallback = new AnnotatedDataSetCallback(new Object() {
             @org.apache.camel.component.flink.annotations.DataSetCallback
             void countLines(DataSet<String> textFile) {
-                ClassLoader tccl = Thread.currentThread().getContextClassLoader();
                 try {
-                    Thread.currentThread().setContextClassLoader(DataSet.class.getClassLoader());
                     textFile.writeAsText(output.getAbsolutePath());
                 } catch (Exception e) {
                     throw new RuntimeException(e);
-                } finally {
-                    Thread.currentThread().setContextClassLoader(tccl);
                 }
             }
         });
@@ -232,14 +208,10 @@ public class FlinkIntegrationTest {
         DataSetCallback dataSetCallback = new AnnotatedDataSetCallback(new Object() {
             @org.apache.camel.component.flink.annotations.DataSetCallback
             Long countLines(DataSet<String> textFile, int first, int second) {
-                ClassLoader tccl = Thread.currentThread().getContextClassLoader();
                 try {
-                    Thread.currentThread().setContextClassLoader(DataSet.class.getClassLoader());
                     return textFile.count() * first * second;
                 } catch (Exception e) {
                     throw new RuntimeException(e);
-                } finally {
-                    Thread.currentThread().setContextClassLoader(tccl);
                 }
             }
         });
@@ -259,14 +231,10 @@ public class FlinkIntegrationTest {
         template.sendBodyAndHeader(flinkDataStreamUri, null, FlinkConstants.FLINK_DATASTREAM_CALLBACK_HEADER, new VoidDataStreamCallback() {
             @Override
             public void doOnDataStream(DataStream ds, Object... payloads) throws Exception {
-                ClassLoader tccl = Thread.currentThread().getContextClassLoader();
                 try {
-                    Thread.currentThread().setContextClassLoader(DataSet.class.getClassLoader());
                     ds.writeAsText(output.getAbsolutePath());
                 } catch (Exception e) {
                     throw new RuntimeException(e);
-                } finally {
-                    Thread.currentThread().setContextClassLoader(tccl);
                 }
             }
         });
@@ -285,14 +253,10 @@ public class FlinkIntegrationTest {
         jndictx.rebind("countLinesContaining", new DataSetCallback() {
             @Override
             public Object onDataSet(DataSet ds, Object... payloads) {
-                ClassLoader tccl = Thread.currentThread().getContextClassLoader();
                 try {
-                    Thread.currentThread().setContextClassLoader(DataSet.class.getClassLoader());
                     return ds.count();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
-                } finally {
-                    Thread.currentThread().setContextClassLoader(tccl);
                 }
             }
         });

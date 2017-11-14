@@ -25,6 +25,8 @@ import com.google.api.services.bigquery.Bigquery;
 import com.google.api.services.bigquery.model.TableDataInsertAllRequest;
 import com.google.api.services.bigquery.model.TableDataInsertAllResponse;
 
+import net.bytebuddy.ByteBuddy;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
@@ -63,7 +65,7 @@ public class GoogleBigQueryIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-google-bigquery-tests.jar")
-            .addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage());
+            .addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage(), ByteBuddy.class.getPackage());
     }
 
     @Before

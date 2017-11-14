@@ -44,7 +44,7 @@
     <module name="org.elasticsearch5" >
         <include artifact="org.elasticsearch:elasticsearch" />
         <include artifact="org.elasticsearch:securesm" />
-        <include artifact="org.elasticsearch.client:rest" />
+        <include artifact="org.elasticsearch.client:elasticsearch-rest-client" />
         <include artifact="org.elasticsearch.client:transport" />
         <include artifact="org.elasticsearch.plugin:lang-mustache-client" />
         <include artifact="org.elasticsearch.plugin:parent-join-client" />

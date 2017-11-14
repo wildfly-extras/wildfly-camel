@@ -5,10 +5,10 @@
   </properties>
   <resources>
     <artifact name="${org.apache.pdfbox:fontbox}" />
-    <artifact name="${org.apache.pdfbox:jempbox}" />
     <artifact name="${org.apache.pdfbox:pdfbox}" />
   </resources>
   <dependencies>
+    <module name="javax.api" />
     <module name="org.apache.commons.logging" />
   </dependencies>
 </module>

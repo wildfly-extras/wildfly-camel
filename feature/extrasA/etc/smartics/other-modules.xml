@@ -228,6 +228,7 @@
         <apply-to-dependencies skip="true">
             <include module="biz.aQute" />
             <include module="com.google.code.findbugs" />
+            <include module="org.osgi.annotation" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />

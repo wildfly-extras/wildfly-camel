@@ -100,6 +100,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-api-gateway" />
         <include artifact="com.amazonaws:aws-java-sdk-applicationautoscaling" />
         <include artifact="com.amazonaws:aws-java-sdk-appstream" />
+        <include artifact="com.amazonaws:aws-java-sdk-appsync" />
         <include artifact="com.amazonaws:aws-java-sdk-autoscaling" />
         <include artifact="com.amazonaws:aws-java-sdk-athena" />
         <include artifact="com.amazonaws:aws-java-sdk-batch" />
@@ -121,6 +122,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-cognitosync" />
         <include artifact="com.amazonaws:aws-java-sdk-config" />
         <include artifact="com.amazonaws:aws-java-sdk-costandusagereport" />
+        <include artifact="com.amazonaws:aws-java-sdk-costexplorer" />
         <include artifact="com.amazonaws:aws-java-sdk-datapipeline" />
         <include artifact="com.amazonaws:aws-java-sdk-dax" />
         <include artifact="com.amazonaws:aws-java-sdk-devicefarm" />
@@ -143,6 +145,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-glacier" />
         <include artifact="com.amazonaws:aws-java-sdk-glue" />
         <include artifact="com.amazonaws:aws-java-sdk-greengrass" />
+        <include artifact="com.amazonaws:aws-java-sdk-guardduty" />
         <include artifact="com.amazonaws:aws-java-sdk-health" />
         <include artifact="com.amazonaws:aws-java-sdk-iam" />
         <include artifact="com.amazonaws:aws-java-sdk-importexport" />
@@ -159,13 +162,21 @@
         <include artifact="com.amazonaws:aws-java-sdk-marketplaceentitlement" />
         <include artifact="com.amazonaws:aws-java-sdk-marketplacemeteringservice" />
         <include artifact="com.amazonaws:aws-java-sdk-mechanicalturkrequester" />
+        <include artifact="com.amazonaws:aws-java-sdk-mediaconvert" />
+        <include artifact="com.amazonaws:aws-java-sdk-medialive" />
+        <include artifact="com.amazonaws:aws-java-sdk-mediapackage" />
+        <include artifact="com.amazonaws:aws-java-sdk-mediastore" />
+        <include artifact="com.amazonaws:aws-java-sdk-mediastoredata" />
         <include artifact="com.amazonaws:aws-java-sdk-migrationhub" />
+        <include artifact="com.amazonaws:aws-java-sdk-mobile" />
         <include artifact="com.amazonaws:aws-java-sdk-models" />
+        <include artifact="com.amazonaws:aws-java-sdk-mq" />
         <include artifact="com.amazonaws:aws-java-sdk-opsworks" />
         <include artifact="com.amazonaws:aws-java-sdk-opsworkscm" />
         <include artifact="com.amazonaws:aws-java-sdk-organizations" />
         <include artifact="com.amazonaws:aws-java-sdk-pinpoint" />
         <include artifact="com.amazonaws:aws-java-sdk-polly" />
+        <include artifact="com.amazonaws:aws-java-sdk-pricing" />
         <include artifact="com.amazonaws:aws-java-sdk-rds" />
         <include artifact="com.amazonaws:aws-java-sdk-redshift" />
         <include artifact="com.amazonaws:aws-java-sdk-rekognition" />
@@ -429,6 +440,8 @@
         </dependencies>
         <exports>
             <exclude path="com/hazelcast/internal**" />
+            <exclude path="lib/linux-x86_64" />
+            <exclude path="lib/linux-x86" />
         </exports>
     </module>
 
@@ -1021,6 +1034,9 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":commons-compress" />
+        <apply-to-dependencies skip="true">
+            <include module="org.objenesis" />
+        </apply-to-dependencies>
     </module>
 
     <module name="org.apache.commons.configuration">
@@ -1185,7 +1201,6 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.kafka:kafka-clients" />
-        <include artifact="net.jpountz.lz4:lz4" />
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
@@ -1284,6 +1299,9 @@
         <include artifact="org.apache.pdfbox:fontbox" />
         <include artifact="org.apache.pdfbox:jempbox" />
         <include artifact="org.apache.pdfbox:pdfbox" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
     </module>
 
     <module name="org.apache.qpid">
@@ -1306,6 +1324,24 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.qpid:proton-(.*)" />
+    </module>
+
+    <module name="org.apache.shiro">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.shiro:shiro-cache" />
+        <include artifact="org.apache.shiro:shiro-config-core" />
+        <include artifact="org.apache.shiro:shiro-config-ogdl" />
+        <include artifact="org.apache.shiro:shiro-core" />
+        <include artifact="org.apache.shiro:shiro-crypto-cipher" />
+        <include artifact="org.apache.shiro:shiro-crypto-core" />
+        <include artifact="org.apache.shiro:shiro-crypto-hash" />
+        <include artifact="org.apache.shiro:shiro-event" />
+        <include artifact="org.apache.shiro:shiro-lang" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
     </module>
 
     <module name="org.apache.sshd">
@@ -1378,11 +1414,13 @@
         <include artifact="org.apache.xmlgraphics:batik-anim" />
         <include artifact="org.apache.xmlgraphics:batik-awt-util" />
         <include artifact="org.apache.xmlgraphics:batik-bridge" />
+        <include artifact="org.apache.xmlgraphics:batik-constants" />
         <include artifact="org.apache.xmlgraphics:batik-css" />
         <include artifact="org.apache.xmlgraphics:batik-dom" />
         <include artifact="org.apache.xmlgraphics:batik-ext" />
         <include artifact="org.apache.xmlgraphics:batik-extension" />
         <include artifact="org.apache.xmlgraphics:batik-gvt" />
+        <include artifact="org.apache.xmlgraphics:batik-i18n" />
         <include artifact="org.apache.xmlgraphics:batik-parser" />
         <include artifact="org.apache.xmlgraphics:batik-script" />
         <include artifact="org.apache.xmlgraphics:batik-svg-dom" />
@@ -1444,7 +1482,6 @@
         <include artifact="org.atmosphere:atmosphere-runtime"/>
         <apply-to-dependencies skip="true">
             <include module="com.sun.grizzly"/>
-            <include module="org.apache.camel.component.shiro" />
             <include module="org.apache.shiro.skipped" />
             <include module="org.atmosphere.skipped"/>
             <include module="org.eclipse.jetty"/>
@@ -1764,6 +1801,13 @@
         <include artifact="org.jxmpp:jxmpp-core" />
         <include artifact="org.jxmpp:jxmpp-jid" />
         <include artifact="org.jxmpp:jxmpp-util-cache" />
+    </module>
+
+    <module name="org.lz4">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.lz4:lz4-java" />
     </module>
 
     <module name="org.osgi.core">

@@ -11,12 +11,12 @@
         <artifact groupId="com.google.inject" artifactId="guice" version="3.0"/>
         <artifact groupId="com.google.inject.extensions" artifactId="guice-assistedinject" version="3.0"/>
         <artifact groupId="javax.inject" artifactId="javax.inject" version="1"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-core" version="2.20.1"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jclouds" version="2.20.1"/>
-        <artifact groupId="org.apache.jclouds" artifactId="jclouds-blobstore" version="2.0.2"/>
-        <artifact groupId="org.apache.jclouds" artifactId="jclouds-compute" version="2.0.2"/>
-        <artifact groupId="org.apache.jclouds" artifactId="jclouds-core" version="2.0.2"/>
-        <artifact groupId="org.apache.jclouds" artifactId="jclouds-scriptbuilder" version="2.0.2"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-core" version="2.21.0-SNAPSHOT"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jclouds" version="2.21.0-SNAPSHOT"/>
+        <artifact groupId="org.apache.jclouds" artifactId="jclouds-blobstore" version="2.0.3"/>
+        <artifact groupId="org.apache.jclouds" artifactId="jclouds-compute" version="2.0.3"/>
+        <artifact groupId="org.apache.jclouds" artifactId="jclouds-core" version="2.0.3"/>
+        <artifact groupId="org.apache.jclouds" artifactId="jclouds-scriptbuilder" version="2.0.3"/>
         <artifact groupId="org.slf4j" artifactId="slf4j-api" version="1.7.22"/>
         <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-extrasC" version="5.1.0-SNAPSHOT" extension="zip"/>
     </artifact-versions>

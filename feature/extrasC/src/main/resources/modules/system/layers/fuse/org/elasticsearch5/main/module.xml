@@ -2,12 +2,12 @@
 <module xmlns="urn:jboss:module:1.1" name="org.elasticsearch5">
   <resources>
     <artifact name="${org.elasticsearch:elasticsearch}" />
+    <artifact name="${org.elasticsearch.client:elasticsearch-rest-client}" />
     <artifact name="${com.carrotsearch:hppc}" />
     <artifact name="${org.elasticsearch.plugin:lang-mustache-client}" />
     <artifact name="${org.elasticsearch.plugin:parent-join-client}" />
     <artifact name="${org.elasticsearch.plugin:percolator-client}" />
     <artifact name="${org.elasticsearch.plugin:reindex-client}" />
-    <artifact name="${org.elasticsearch.client:rest}" />
     <artifact name="${org.elasticsearch:securesm}" />
     <artifact name="${com.tdunning:t-digest}" />
     <artifact name="${org.elasticsearch.client:transport}" />

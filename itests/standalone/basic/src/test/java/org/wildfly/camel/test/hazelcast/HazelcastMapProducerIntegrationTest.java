@@ -52,6 +52,8 @@ import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
 import com.hazelcast.query.SqlPredicate;
 
+import net.bytebuddy.ByteBuddy;
+
 @CamelAware
 @RunWith(Arquillian.class)
 public class HazelcastMapProducerIntegrationTest {
@@ -65,7 +67,7 @@ public class HazelcastMapProducerIntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "hazelcast-map-producer-tests");
-        archive.addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage());
+        archive.addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage(), ByteBuddy.class.getPackage());
         return archive;
     }
 

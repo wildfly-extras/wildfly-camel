@@ -26,7 +26,7 @@
         <artifact groupId="com.sun.jersey" artifactId="jersey-json" version="1.9"/>
         <artifact groupId="com.typesafe" artifactId="config" version="1.2.1"/>
         <artifact groupId="commons-cli" artifactId="commons-cli" version="1.3.1"/>
-        <artifact groupId="commons-codec" artifactId="commons-codec" version="1.10"/>
+        <artifact groupId="commons-codec" artifactId="commons-codec" version="1.11"/>
         <artifact groupId="commons-collections" artifactId="commons-collections" version="3.2.2"/>
         <artifact groupId="commons-configuration" artifactId="commons-configuration" version="1.9"/>
         <artifact groupId="commons-dbcp" artifactId="commons-dbcp" version="1.3"/>
@@ -42,11 +42,11 @@
         <artifact groupId="javax.inject" artifactId="javax.inject" version="1"/>
         <artifact groupId="javax.jcr" artifactId="jcr" version="2.0"/>
         <artifact groupId="org.apache.avro" artifactId="avro" version="1.7.4"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-core" version="2.20.1"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-flink" version="2.20.1"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-hdfs2" version="2.20.1"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jbpm" version="2.20.1"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jcr" version="2.20.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-core" version="2.21.0-SNAPSHOT"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-flink" version="2.21.0-SNAPSHOT"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-hdfs2" version="2.21.0-SNAPSHOT"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jbpm" version="2.21.0-SNAPSHOT"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jcr" version="2.21.0-SNAPSHOT"/>
         <artifact groupId="org.apache.commons" artifactId="commons-compress" version="1.4.1"/>
         <artifact groupId="org.apache.commons" artifactId="commons-lang3" version="3.3.2"/>
         <artifact groupId="org.apache.commons" artifactId="commons-math3" version="3.5"/>
@@ -61,7 +61,7 @@
         <artifact groupId="org.apache.cxf" artifactId="cxf-rt-transports-http" version="2.7.18"/>
         <artifact groupId="org.apache.cxf" artifactId="cxf-rt-ws-addr" version="2.7.18"/>
         <artifact groupId="org.apache.cxf" artifactId="cxf-rt-ws-policy" version="2.7.18"/>
-        <artifact groupId="org.apache.derby" artifactId="derby" version="10.5.3.0_1"/>
+        <artifact groupId="org.apache.derby" artifactId="derby" version="10.14.1.0"/>
         <artifact groupId="org.apache.directory.api" artifactId="api-asn1-api" version="1.0.0-M20"/>
         <artifact groupId="org.apache.directory.api" artifactId="api-util" version="1.0.0-M20"/>
         <artifact groupId="org.apache.directory.server" artifactId="apacheds-i18n" version="2.0.0-M15"/>
@@ -83,12 +83,12 @@
         <artifact groupId="org.apache.htrace" artifactId="htrace-core" version="3.1.0-incubating"/>
         <artifact groupId="org.apache.httpcomponents" artifactId="httpclient" version="4.1.2"/>
         <artifact groupId="org.apache.httpcomponents" artifactId="httpcore" version="4.1.2"/>
-        <artifact groupId="org.apache.jackrabbit" artifactId="jackrabbit-api" version="2.15.6"/>
-        <artifact groupId="org.apache.jackrabbit" artifactId="jackrabbit-core" version="2.15.6"/>
-        <artifact groupId="org.apache.jackrabbit" artifactId="jackrabbit-data" version="2.15.6"/>
-        <artifact groupId="org.apache.jackrabbit" artifactId="jackrabbit-jcr-commons" version="2.15.6"/>
-        <artifact groupId="org.apache.jackrabbit" artifactId="jackrabbit-spi" version="2.15.6"/>
-        <artifact groupId="org.apache.jackrabbit" artifactId="jackrabbit-spi-commons" version="2.15.6"/>
+        <artifact groupId="org.apache.jackrabbit" artifactId="jackrabbit-api" version="2.16.0"/>
+        <artifact groupId="org.apache.jackrabbit" artifactId="jackrabbit-core" version="2.16.0"/>
+        <artifact groupId="org.apache.jackrabbit" artifactId="jackrabbit-data" version="2.16.0"/>
+        <artifact groupId="org.apache.jackrabbit" artifactId="jackrabbit-jcr-commons" version="2.16.0"/>
+        <artifact groupId="org.apache.jackrabbit" artifactId="jackrabbit-spi" version="2.16.0"/>
+        <artifact groupId="org.apache.jackrabbit" artifactId="jackrabbit-spi-commons" version="2.16.0"/>
         <artifact groupId="org.apache.lucene" artifactId="lucene-core" version="3.6.0"/>
         <artifact groupId="org.apache.neethi" artifactId="neethi" version="3.0.3"/>
         <artifact groupId="org.apache.tika" artifactId="tika-core" version="1.7"/>

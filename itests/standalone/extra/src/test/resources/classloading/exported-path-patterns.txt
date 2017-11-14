@@ -84,6 +84,7 @@
     ^org/apache/flink/api(.*)
     ^org/apache/flink/streaming/api(.*)
     ^org/apache/fop(.*)
+    ^org/apache/groovy(.*)
 	^org/apache/hadoop(.*)
 	^org/apache/http(.*)
 	^org/apache/ibatis(.*)
