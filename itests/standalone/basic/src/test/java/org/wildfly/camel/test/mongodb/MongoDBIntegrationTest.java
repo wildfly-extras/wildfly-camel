@@ -20,14 +20,19 @@
 
 package org.wildfly.camel.test.mongodb;
 
+import java.io.InputStream;
 import java.util.Formatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.InitialContext;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.util.IOHelper;
 import org.bson.Document;
@@ -51,6 +56,7 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.gridfs.GridFS;
 import com.mongodb.util.JSON;
 
 @CamelAware
@@ -60,9 +66,11 @@ public class MongoDBIntegrationTest {
     private static final int ROWS = 20;
     private static final int PORT = 27017;
     private static EmbeddedMongoServer mongoServer;
+    
     private MongoCollection<BasicDBObject> testCollection;
     private MongoCollection<BasicDBObject> dynamicCollection;
-
+    private MongoClient mongoClient;
+    
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-mongodb-tests")
@@ -88,11 +96,11 @@ public class MongoDBIntegrationTest {
     @Before
     public void setUp() throws Exception {
         if (!EnvironmentUtils.isAIX()) {
-            MongoClient client = new MongoClient("localhost", PORT);
-            MongoDatabase db = client.getDatabase("test");
+            mongoClient = new MongoClient("localhost", PORT);
+            MongoDatabase db = mongoClient.getDatabase("test");
 
             InitialContext context = new InitialContext();
-            context.bind("mongoConnection", client);
+            context.bind("mdb", mongoClient);
 
             String testCollectionName = "camelTest";
             testCollection = db.getCollection(testCollectionName, BasicDBObject.class);
@@ -112,7 +120,7 @@ public class MongoDBIntegrationTest {
     public void tearDown() throws Exception {
         if (!EnvironmentUtils.isAIX()) {
             InitialContext context = new InitialContext();
-            context.unbind("mongoConnection");
+            context.unbind("mdb");
         }
     }
 
@@ -127,7 +135,7 @@ public class MongoDBIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .to("mongodb:mongoConnection?database=test&collection=camelTest&operation=findAll&dynamicity=true");
+                .to("mongodb:mdb?database=test&collection=camelTest&operation=findAll&dynamicity=true");
             }
         });
 
@@ -161,7 +169,7 @@ public class MongoDBIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .to("mongodb3:mongoConnection?database=test&collection=camelTest&operation=findAll&dynamicity=true");
+                .to("mongodb3:mdb?database=test&collection=camelTest&operation=findAll&dynamicity=true");
             }
         });
 
@@ -184,6 +192,127 @@ public class MongoDBIntegrationTest {
         }
     }
 
+    @Test
+    public void testProducerOperations() throws Exception {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            public void configure() {
+                from("direct:create").to("mongodb-gridfs:mdb?database=testA&operation=create&bucket=" + getBucket());
+                from("direct:remove").to("mongodb-gridfs:mdb?database=testA&operation=remove&bucket=" + getBucket());
+                from("direct:findOne").to("mongodb-gridfs:mdb?database=testA&operation=findOne&bucket=" + getBucket());
+                from("direct:listAll").to("mongodb-gridfs:mdb?database=testA&operation=listAll&bucket=" + getBucket());
+                from("direct:count").to("mongodb-gridfs:mdb?database=testA&operation=count&bucket=" + getBucket());
+                from("direct:headerOp").to("mongodb-gridfs:mdb?database=testA&bucket=" + getBucket());
+            }
+        });
+
+        GridFS gridfs = new GridFS(mongoClient.getDB("testA"), getBucket());
+        
+        camelctx.start();
+        try {
+            Map<String, Object> headers = new HashMap<String, Object>();
+            String fn = "filename.for.db.txt";
+            Assert.assertEquals(0, gridfs.find(fn).size());
+
+            headers.put(Exchange.FILE_NAME, fn);
+            String data = "This is some stuff to go into the db";
+
+            ProducerTemplate template = camelctx.createProducerTemplate();
+            template.requestBodyAndHeaders("direct:create", data, headers);
+            Assert.assertEquals(1, gridfs.find(fn).size());
+            Assert.assertEquals(1, template.requestBodyAndHeaders("direct:count", null, headers));
+            InputStream ins = template.requestBodyAndHeaders("direct:findOne", null, headers, InputStream.class);
+            Assert.assertNotNull(ins);
+            byte b[] = new byte[2048];
+            int i = ins.read(b);
+            Assert.assertEquals(data, new String(b, 0, i, "utf-8"));
+
+            headers.put(Exchange.FILE_NAME, "2-" + fn);
+
+            template.requestBodyAndHeaders("direct:create", data + "data2", headers);
+            Assert.assertEquals(1, template.requestBodyAndHeaders("direct:count", null, headers));
+            Assert.assertEquals(2, template.requestBody("direct:count", null, Integer.class).intValue());
+
+            String s = template.requestBody("direct:listAll", null, String.class);
+            Assert.assertTrue(s.contains("2-" + fn));
+            template.requestBodyAndHeaders("direct:remove", null, headers);
+            Assert.assertEquals(1, template.requestBody("direct:count", null, Integer.class).intValue());
+            s = template.requestBody("direct:listAll", null, String.class);
+            Assert.assertFalse(s.contains("2-" + fn));
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testConsumerOperations() throws Exception {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            public void configure() {
+                
+                from("direct:create-a")
+                .to("mongodb-gridfs:mdb?database=testB&operation=create&bucket=" + getBucket("-a"));
+                
+                from("direct:create-b")
+                .to("mongodb-gridfs:mdb?database=testB&operation=create&bucket=" + getBucket("-b"));
+                
+                from("direct:create-c")
+                .to("mongodb-gridfs:mdb?database=testB&operation=create&bucket=" + getBucket("-c"));
+
+                from("mongodb-gridfs:mdb?database=testB&bucket=" + getBucket("-a"))
+                .convertBodyTo(String.class).to("mock:test");
+                
+                from("mongodb-gridfs:mdb?database=testB&bucket=" + getBucket("-b") + "&queryStrategy=FileAttribute")
+                .convertBodyTo(String.class).to("mock:test");
+                
+                from("mongodb-gridfs:mdb?database=testB&bucket=" + getBucket("-c") + "&queryStrategy=PersistentTimestamp")
+                .convertBodyTo(String.class).to("mock:test");
+            }
+        });
+
+        camelctx.start();
+        try {
+            runTest(camelctx, "direct:create-a", new GridFS(mongoClient.getDB("testB"), getBucket("-a")));
+            runTest(camelctx, "direct:create-b", new GridFS(mongoClient.getDB("testB"), getBucket("-b")));
+            runTest(camelctx, "direct:create-c", new GridFS(mongoClient.getDB("testB"), getBucket("-c")));
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    public void runTest(CamelContext camelctx, String target, GridFS gridfs) throws Exception {
+        
+        String data = "This is some stuff to go into the db";
+        MockEndpoint mock = camelctx.getEndpoint("mock:test", MockEndpoint.class);
+        mock.reset();
+        mock.expectedMessageCount(1);
+        mock.expectedBodiesReceived(data);
+        
+        Map<String, Object> headers = new HashMap<String, Object>();
+        String fn = "filename.for.db.txt";
+        Assert.assertEquals(0, gridfs.find(fn).size());
+        
+        headers.put(Exchange.FILE_NAME, fn);
+        ProducerTemplate template = camelctx.createProducerTemplate();
+        template.requestBodyAndHeaders(target, data, headers);
+        
+        mock.assertIsSatisfied();
+
+        mock.reset();
+        mock.expectedMessageCount(3);
+        mock.expectedBodiesReceived(data, data, data);
+        
+        headers.put(Exchange.FILE_NAME, fn + "_1");
+        template.requestBodyAndHeaders(target, data, headers);
+        headers.put(Exchange.FILE_NAME, fn + "_2");
+        template.requestBodyAndHeaders(target, data, headers);
+        headers.put(Exchange.FILE_NAME, fn + "_3");
+        template.requestBodyAndHeaders(target, data, headers);
+        mock.assertIsSatisfied();
+    }
+    
     private void setupTestData() {
         String[] scientists = {"Einstein", "Darwin", "Copernicus", "Pasteur", "Curie", "Faraday", "Newton", "Bohr", "Galilei", "Maxwell"};
         for (int i = 1; i <= ROWS; i++) {
@@ -191,7 +320,15 @@ public class MongoDBIntegrationTest {
             Formatter f = new Formatter();
             String doc = f.format("{\"_id\":\"%d\", \"scientist\":\"%s\", \"fixedField\": \"fixedValue\"}", i, scientists[index]).toString();
             IOHelper.close(f);
-            testCollection.insertOne((BasicDBObject) JSON.parse(doc));
+            testCollection.insertOne(BasicDBObject.parse(doc));
         }
+    }
+
+    private static String getBucket() {
+        return getBucket("");
+    }
+    
+    private static String getBucket(String suffix) {
+        return MongoDBIntegrationTest.class.getSimpleName() + suffix;
     }
 }

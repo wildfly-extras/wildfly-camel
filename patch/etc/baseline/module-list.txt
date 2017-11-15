@@ -350,6 +350,7 @@
 /org/apache/camel/component/milo/main/camel-milo-2.20.1.jar
 /org/apache/camel/component/mina2/main/camel-mina2-2.20.1.jar
 /org/apache/camel/component/mllp/main/camel-mllp-2.20.1.jar
+/org/apache/camel/component/mongodb/gridfs/main/camel-mongodb-gridfs-2.20.1.jar
 /org/apache/camel/component/mongodb/main/camel-mongodb-2.20.1.jar
 /org/apache/camel/component/mongodb3/main/camel-mongodb3-2.20.1.jar
 /org/apache/camel/component/mqtt/main/camel-mqtt-2.20.1.jar

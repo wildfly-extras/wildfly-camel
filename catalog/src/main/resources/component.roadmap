@@ -156,6 +156,7 @@ mina2
 mllp
 mock
 mongodb
+mongodb-gridfs
 mongodb3
 mqtt
 msv
@@ -253,7 +254,6 @@ zookeeper-master
 beanstalk                                           #1419
 cmis                                                #1989
 hipchat                                             #2003
-mongodb-gridfs                                      #1837
 nagios                                              #1456
 restlet                                             #2024
 spark                                               #1469

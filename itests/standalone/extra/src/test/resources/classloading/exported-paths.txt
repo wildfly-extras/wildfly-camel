@@ -1851,6 +1851,7 @@ org/apache/camel/component/mllp
 org/apache/camel/component/mllp/impl
 org/apache/camel/component/mongodb
 org/apache/camel/component/mongodb/converters
+org/apache/camel/component/mongodb/gridfs
 org/apache/camel/component/mongodb/processor
 org/apache/camel/component/mongodb/processor/idempotent
 org/apache/camel/component/mongodb3
