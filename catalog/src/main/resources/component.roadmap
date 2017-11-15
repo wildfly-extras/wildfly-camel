@@ -252,7 +252,6 @@ zookeeper-master
 [planned]
 beanstalk                                           #1419
 cmis                                                #1989
-drill                                               #1823
 hipchat                                             #2003
 mongodb-gridfs                                      #1837
 nagios                                              #1456
@@ -274,6 +273,7 @@ atmos                                               #1984 Jersey clashes with Re
 bonita                                              #1820 Not another BPM engine
 cache                                               #deprecated
 context                                             #deprecated
+drill                                               #1823 Competitor to JDG
 eventadmin                                          #1996 OSGi specific
 gora                                                #2000 Competitor to JDG
 grape                                               #2001 Requires Groovy class loading
