@@ -37,10 +37,8 @@ import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -57,17 +55,13 @@ public class CassandraIntegrationTest {
 
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
-            if (!EnvironmentUtils.isAIX()) {
-                EmbeddedCassandraServerHelper.startEmbeddedCassandra("/camel-cassandra.yaml", "target/camel-cassandra", 30000);
-                new LoadableCassandraCQLUnit(new ClassPathCQLDataSet("cassandra/BasicDataSet.cql", KEYSPACE), "/camel-cassandra.yaml").setup();
-            }
+            EmbeddedCassandraServerHelper.startEmbeddedCassandra("/camel-cassandra.yaml", "target/camel-cassandra", 30000);
+            new LoadableCassandraCQLUnit(new ClassPathCQLDataSet("cassandra/BasicDataSet.cql", KEYSPACE), "/camel-cassandra.yaml").setup();
         }
 
         @Override
         public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
-            if (!EnvironmentUtils.isAIX()) {
-                EmbeddedCassandraServerHelper.cleanEmbeddedCassandra();
-            }
+            EmbeddedCassandraServerHelper.cleanEmbeddedCassandra();
         }
 
         static class LoadableCassandraCQLUnit extends CassandraCQLUnit {
@@ -84,15 +78,12 @@ public class CassandraIntegrationTest {
 
     @Deployment
     public static JavaArchive createdeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "cassandra-tests")
-                .addClasses(EnvironmentUtils.class);
+        return ShrinkWrap.create(JavaArchive.class, "cassandra-tests");
     }
 
     @Test
     public void testConsumeAll() throws Exception {
 
-        Assume.assumeFalse("[#1622] Cassandra crashes build on AIX", EnvironmentUtils.isAIX());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

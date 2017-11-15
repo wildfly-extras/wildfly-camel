@@ -64,7 +64,7 @@ public class SpringRedisIntegrationTest {
         
         @Override
         public void setup(final ManagementClient managementClient, String containerId) throws Exception {
-            Assume.assumeFalse("[#1701] Cannot start Redis server on AIX/Windows", EnvironmentUtils.isAIX() || EnvironmentUtils.isWindows());
+            Assume.assumeFalse("[#1701] Cannot start Redis server on Windows", EnvironmentUtils.isWindows());
             int port = AvailablePortFinder.getNextAvailable(6379);
             AvailablePortFinder.storeServerData("redis-port", port);
             redisServer = new RedisServer(port);
@@ -90,7 +90,7 @@ public class SpringRedisIntegrationTest {
     @SuppressWarnings("rawtypes")
     public void testRedisRoute() throws Exception {
 
-        Assume.assumeFalse("[#1701] Cannot start Redis server on AIX/Windows", EnvironmentUtils.isAIX() || EnvironmentUtils.isWindows());
+        Assume.assumeFalse("[#1701] Cannot start Redis server on Windows", EnvironmentUtils.isWindows());
         
         JedisConnectionFactory connectionFactory = new JedisConnectionFactory();
         connectionFactory.afterPropertiesSet();

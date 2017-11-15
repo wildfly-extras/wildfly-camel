@@ -95,7 +95,6 @@ public class GRPCIntegrationTest {
 
     @Test
     public void testGRPCSynchronousProducer() throws Exception {
-        Assume.assumeFalse("[#2242] GRPCIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
 
         int port = Integer.parseInt(AvailablePortFinder.readServerData("grpc-port"));
 
@@ -127,7 +126,6 @@ public class GRPCIntegrationTest {
 
     @Test
     public void testGRPCAsynchronousProducer() throws Exception {
-        Assume.assumeFalse("[#2242] GRPCIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
 
         int port = Integer.parseInt(AvailablePortFinder.readServerData("grpc-port"));
 
