@@ -55,7 +55,7 @@ public class Hdfs2IntegrationTest {
 
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
-            if (!EnvironmentUtils.isAIX() && !EnvironmentUtils.isWindows()) {
+            if (!EnvironmentUtils.isWindows()) {
                 String dataDir = Paths.get(System.getProperty("jboss.home"), "standalone", "data", "hadoop").toString();
 
                 Configuration configuration = new Configuration();
@@ -70,7 +70,7 @@ public class Hdfs2IntegrationTest {
 
         @Override
         public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
-            if (!EnvironmentUtils.isAIX() && !EnvironmentUtils.isWindows()) {
+            if (!EnvironmentUtils.isWindows()) {
                 hdfsCluster.shutdown(true);
             }
         }
@@ -84,7 +84,7 @@ public class Hdfs2IntegrationTest {
 
     @Test
     public void testHdfs2Component() throws Exception {
-        Assume.assumeFalse("[#1961] Hdfs2IntegrationTest fails on Windows / AIX", EnvironmentUtils.isAIX() || EnvironmentUtils.isWindows());
+        Assume.assumeFalse("[#1961] Hdfs2IntegrationTest fails on Windows", EnvironmentUtils.isWindows());
 
         String dataDir = Paths.get(System.getProperty("jboss.server.data.dir"), "hadoop").toString();
         String port = AvailablePortFinder.readServerData("hdfs-port");

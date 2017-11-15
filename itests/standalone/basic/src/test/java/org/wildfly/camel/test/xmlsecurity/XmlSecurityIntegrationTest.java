@@ -87,8 +87,6 @@ public class XmlSecurityIntegrationTest {
     @Test
     public void testXmlSigning() throws Exception {
 
-        Assume.assumeFalse("[#1652] XmlSecurityIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -114,8 +112,6 @@ public class XmlSecurityIntegrationTest {
     @Test
     public void testXmlVerifySigning() throws Exception {
 
-        Assume.assumeFalse("[#1652] XmlSecurityIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

@@ -43,12 +43,10 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 import com.mongodb.BasicDBObject;
@@ -57,7 +55,6 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.gridfs.GridFS;
-import com.mongodb.util.JSON;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -74,17 +71,15 @@ public class MongoDBIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-mongodb-tests")
-            .addClasses(EmbeddedMongoServer.class, EnvironmentUtils.class);
+            .addClasses(EmbeddedMongoServer.class);
     }
 
     @BeforeClass
     public static void beforeClass() throws Exception {
-        if (!EnvironmentUtils.isAIX()) {
-            if (mongoServer == null) {
-                mongoServer = new EmbeddedMongoServer(PORT);
-            }
-            mongoServer.start();
+        if (mongoServer == null) {
+            mongoServer = new EmbeddedMongoServer(PORT);
         }
+        mongoServer.start();
     }
 
     @AfterClass
@@ -95,41 +90,35 @@ public class MongoDBIntegrationTest {
 
     @Before
     public void setUp() throws Exception {
-        if (!EnvironmentUtils.isAIX()) {
-            mongoClient = new MongoClient("localhost", PORT);
-            MongoDatabase db = mongoClient.getDatabase("test");
+        mongoClient = new MongoClient("localhost", PORT);
+        MongoDatabase db = mongoClient.getDatabase("test");
 
-            InitialContext context = new InitialContext();
-            context.bind("mdb", mongoClient);
+        InitialContext context = new InitialContext();
+        context.bind("mdb", mongoClient);
 
-            String testCollectionName = "camelTest";
-            testCollection = db.getCollection(testCollectionName, BasicDBObject.class);
-            testCollection.drop();
-            testCollection = db.getCollection(testCollectionName, BasicDBObject.class);
+        String testCollectionName = "camelTest";
+        testCollection = db.getCollection(testCollectionName, BasicDBObject.class);
+        testCollection.drop();
+        testCollection = db.getCollection(testCollectionName, BasicDBObject.class);
 
-            String dynamicCollectionName = testCollectionName.concat("Dynamic");
-            dynamicCollection = db.getCollection(dynamicCollectionName, BasicDBObject.class);
-            dynamicCollection.drop();
-            dynamicCollection = db.getCollection(dynamicCollectionName, BasicDBObject.class);
+        String dynamicCollectionName = testCollectionName.concat("Dynamic");
+        dynamicCollection = db.getCollection(dynamicCollectionName, BasicDBObject.class);
+        dynamicCollection.drop();
+        dynamicCollection = db.getCollection(dynamicCollectionName, BasicDBObject.class);
 
-            setupTestData();
-        }
+        setupTestData();
     }
 
     @After
     public void tearDown() throws Exception {
-        if (!EnvironmentUtils.isAIX()) {
-            InitialContext context = new InitialContext();
-            context.unbind("mdb");
-        }
+        InitialContext context = new InitialContext();
+        context.unbind("mdb");
     }
 
     @Test
     @SuppressWarnings("unchecked")
     public void testMongoFindAll() throws Exception {
 
-        Assume.assumeFalse("[#1646] MongoDBIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -162,8 +151,6 @@ public class MongoDBIntegrationTest {
     @SuppressWarnings("unchecked")
     public void testMongo3FindAll() throws Exception {
 
-        Assume.assumeFalse("[#1646] MongoDBIntegrationTest fails on AIX", EnvironmentUtils.isAIX());
-        
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
