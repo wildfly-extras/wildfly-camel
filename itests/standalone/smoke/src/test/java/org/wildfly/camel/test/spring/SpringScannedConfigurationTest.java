@@ -35,14 +35,14 @@ import org.wildfly.camel.test.spring.subD.MyRouteConfiguration;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
-public class SpringJavaConfigTest {
+public class SpringScannedConfigurationTest {
 
     @ArquillianResource
     CamelContextRegistry contextRegistry;
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-spring-java-config-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-spring-scanned-config-tests");
         archive.addAsResource("spring/context-scanD-camel-context.xml");
         archive.addClasses(MyRouteConfiguration.class);
         return archive;
