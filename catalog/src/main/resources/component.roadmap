@@ -216,6 +216,7 @@ spring-event
 spring-integration
 spring-ldap
 spring-redis
+spring-ws
 sql
 sql-stored
 ssh
@@ -258,7 +259,6 @@ nagios                                              #1456
 restlet                                             #2024
 spark                                               #1469
 spark-rest                                          #1470
-spring-ws                                           #1476
 tika                                                #1850
 
 [undecided]

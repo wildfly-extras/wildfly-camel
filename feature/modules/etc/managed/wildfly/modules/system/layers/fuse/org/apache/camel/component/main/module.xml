@@ -229,6 +229,7 @@
                 <include path="META-INF" />
             </exports>
         </module>
+        <module name="org.apache.camel.component.spring.ws" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.sjms" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.sjms2" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.sql" export="true" services="export" optional="true" />

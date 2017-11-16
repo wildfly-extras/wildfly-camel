@@ -487,10 +487,11 @@
         <include artifact=":spring-boot-configuration-processor" />
     </module>
 
-    <module name="org.springframework.skip" skip="true">
+    <module name="org.springframework.skipped" skip="true">
         <include artifact=":spring-ldap-ldif-batch" />
         <include artifact=":spring-ldap-ldif-core" />
         <include artifact=":spring-ldap-odm" />
+        <include artifact=":spring-webmvc" />
     </module>
 
     <module name="org.uncommons.maths" skip="true">

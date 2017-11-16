@@ -143,6 +143,7 @@
 
     <module name="javax.mail.api" skip="true">
         <include artifact="javax.mail:mail" />
+        <include artifact="javax.mail:javax.mail-api" />
         <include artifact=":geronimo-javamail_1.4_spec" />
     </module>
 

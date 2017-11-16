@@ -2823,7 +2823,7 @@
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
-            <include module="org.springframework.skip" />
+            <include module="org.springframework.skipped" />
         </apply-to-dependencies>
         <dependencies>
             <module name="org.slf4j"/>
@@ -2863,6 +2863,22 @@
                     <exclude path="org/springframework/security/**" />
                 </exports>
             </module>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.camel.component.spring.ws">
+        <include artifact="org.apache.camel:camel-spring-ws" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.skipped" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="javax.xml.bind.api" />
+            <module name="javax.xml.soap.api" />
+            <module name="org.springframework.core"/>
+            <module name="org.springframework.ws" export="true"/>
+            <module name="org.slf4j" />
         </dependencies>
     </module>
 

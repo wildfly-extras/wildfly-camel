@@ -23,6 +23,7 @@
     <module name="org.apache.camel.spring">
         <include artifact="org.apache.camel:camel-spring" />
         <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
@@ -310,6 +311,28 @@
             <module name="org.springframework.core" />
             <module name="org.springframework.beans" />
             <module name="org.springframework.context" />
+        </dependencies>
+    </module>
+    
+    <module name="org.springframework.web">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.springframework:spring-web" />
+    </module>
+    
+    <module name="org.springframework.ws">
+        <include artifact="org.springframework.ws:spring-ws-core" />
+        <include artifact="org.springframework.ws:spring-ws-support" />
+        <include artifact="org.springframework.ws:spring-xml" />
+        <apply-to-dependencies skip="true">
+            <include module="org.springframework.skipped" />
+            <include module="com.sun.mail" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.xml.bind.api" />
+            <module name="javax.xml.soap.api" />
         </dependencies>
     </module>
     

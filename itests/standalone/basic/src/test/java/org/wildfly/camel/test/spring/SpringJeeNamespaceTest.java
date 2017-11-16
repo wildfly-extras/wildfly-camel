@@ -30,7 +30,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleClassLoader;
-import org.jboss.modules.ModuleIdentifier;
 import org.jboss.modules.ModuleLoader;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -65,8 +64,7 @@ public class SpringJeeNamespaceTest {
     @Test
     public void testLoadHandlersFromSpringContext() throws Exception {
         ModuleLoader moduleLoader = Module.getCallerModuleLoader();
-        ModuleIdentifier modid = ModuleIdentifier.create("org.springframework.context");
-        ModuleClassLoader classLoader = moduleLoader.loadModule(modid).getClassLoader();
+        ModuleClassLoader classLoader = moduleLoader.loadModule("org.springframework.context").getClassLoader();
         URL resurl = classLoader.getResource("META-INF/spring.handlers");
         Assert.assertNotNull("URL not null", resurl);
     }
@@ -74,8 +72,7 @@ public class SpringJeeNamespaceTest {
     @Test
     public void testLoadHandlersFromCamel() throws Exception {
         ModuleLoader moduleLoader = Module.getCallerModuleLoader();
-        ModuleIdentifier modid = ModuleIdentifier.create("org.apache.camel");
-        ModuleClassLoader classLoader = moduleLoader.loadModule(modid).getClassLoader();
+        ModuleClassLoader classLoader = moduleLoader.loadModule("org.apache.camel").getClassLoader();
         URL resurl = classLoader.getResource("META-INF/spring.handlers");
         Assert.assertNotNull("URL not null", resurl);
     }
@@ -95,5 +92,11 @@ public class SpringJeeNamespaceTest {
         String result = producer.requestBody("direct:start", "Kermit", String.class);
         Assert.assertTrue("Starts with: Hello Kermit using =>" + result, result.startsWith("Hello Kermit using"));
         Assert.assertTrue("Contains: ConnectionFactory =>" + result, result.contains("ConnectionFactory"));
+    }
+
+    @Test
+    public void testLoadSaajSoapMessageFactory() throws Exception {
+        ClassLoader classLoader = getClass().getClassLoader();
+        classLoader.loadClass("org.springframework.ws.soap.saaj.SaajSoapMessageFactory");
     }
 }
