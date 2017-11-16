@@ -28,6 +28,9 @@
       </exports>
     </module>
     <module name="org.slf4j" />
+    <module name="org.apache.camel.core.xml" />
+    <module name="org.springframework.aop" />
+    <module name="org.springframework.expression" />
   </dependencies>
   <exports>
     <exclude path="org/apache/camel/spring/remoting" />

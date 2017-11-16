@@ -1,0 +1,3 @@
+### camel-spring-ws
+
+The http://camel.apache.org/spring-web-services.html[spring-ws,window=_blank] component allows you to integrate with http://static.springsource.org/spring-ws/sites/1.5/[Spring Web Services,window=_blank]. It offers both client-side support, for accessing web services, and server-side support for creating your own contract-first web services.

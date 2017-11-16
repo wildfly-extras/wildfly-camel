@@ -426,6 +426,7 @@
 /org/apache/camel/component/spring/ldap/main/camel-spring-ldap-2.20.1.jar
 /org/apache/camel/component/spring/redis/main/camel-spring-redis-2.20.1.jar
 /org/apache/camel/component/spring/security/main/camel-spring-security-2.20.1.jar
+/org/apache/camel/component/spring/ws/main/camel-spring-ws-2.20.1.jar
 /org/apache/camel/component/sql/main/camel-sql-2.20.1.jar
 /org/apache/camel/component/ssh/main/camel-ssh-2.20.1.jar
 /org/apache/camel/component/stax/main/camel-stax-2.20.1.jar
@@ -763,11 +764,15 @@
 /org/springframework/ldap/main/spring-ldap-core-2.3.1.RELEASE.jar
 /org/springframework/messaging/main/spring-messaging-4.3.12.RELEASE.jar
 /org/springframework/orm/main/spring-orm-4.3.12.RELEASE.jar
-/org/springframework/oxm/main/spring-oxm-4.3.10.RELEASE.jar
+/org/springframework/oxm/main/spring-oxm-4.0.9.RELEASE.jar
 /org/springframework/retry/main/spring-retry-1.1.3.RELEASE.jar
 /org/springframework/security/main/spring-security-config-4.2.3.RELEASE.jar
 /org/springframework/security/main/spring-security-core-4.2.3.RELEASE.jar
 /org/springframework/tx/main/spring-tx-4.3.12.RELEASE.jar
+/org/springframework/web/main/spring-web-4.3.12.RELEASE.jar
+/org/springframework/ws/main/spring-ws-core-2.3.0.RELEASE.jar
+/org/springframework/ws/main/spring-ws-support-2.3.0.RELEASE.jar
+/org/springframework/ws/main/spring-xml-2.3.0.RELEASE.jar
 /org/w3c/css/sac/main/sac-1.3.jar
 /org/wildfly/extension/camel/main/gravia-container-wildfly-extension-1.3.1.jar
 /org/wildfly/extras/config/main/fuse-patch-config-3.0.0.jar

@@ -167,6 +167,11 @@
                 <version>${version.javax.cache.api}</version>
             </dependency>
             <dependency>
+                <groupId>net.javacrumbs</groupId>
+                <artifactId>spring-ws-test</artifactId>
+                <version>${version.camel.javacrumbs}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>org.apache.felix.log</artifactId>
                 <exclusions>
