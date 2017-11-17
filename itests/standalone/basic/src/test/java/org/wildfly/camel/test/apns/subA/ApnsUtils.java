@@ -48,9 +48,6 @@ import org.apache.camel.util.jsse.TrustManagersParameters;
 
 public final class ApnsUtils {
 
-    public static final int TEST_GATEWAY_PORT = 7654;
-    public static final int TEST_FEEDBACK_PORT = 7843;
-    public static final String TEST_HOST = "localhost";
     private static Random random = new Random();
 
     private ApnsUtils() {
@@ -68,12 +65,11 @@ public final class ApnsUtils {
         return deviceToken;
     }
 
-    public static ApnsServerStub prepareAndStartServer(int gatePort, int feedPort) {
+    public static ApnsServerStub createServer(int gatePort, int feedPort) {
         InputStream stream = ApnsUtils.class.getResourceAsStream("/" + FixedCertificates.SERVER_STORE);
         SSLContext context = Utilities.newSSLContext(stream, FixedCertificates.SERVER_PASSWORD, "PKCS12", getAlgorithm());
 
         ApnsServerStub server = new ApnsServerStub(context.getServerSocketFactory(), gatePort, feedPort);
-        server.start();
         return server;
     }
 
@@ -130,11 +126,6 @@ public final class ApnsUtils {
 
     public static ApnsServiceFactory createDefaultTestConfiguration(CamelContext camelContext) throws Exception {
         ApnsServiceFactory apnsServiceFactory = new ApnsServiceFactory(camelContext);
-
-        apnsServiceFactory.setFeedbackHost("localhost");
-        apnsServiceFactory.setFeedbackPort(TEST_FEEDBACK_PORT);
-        apnsServiceFactory.setGatewayHost(TEST_HOST);
-        apnsServiceFactory.setGatewayPort(TEST_GATEWAY_PORT);
         apnsServiceFactory.setSslContextParameters(clientContext());
         return apnsServiceFactory;
     }

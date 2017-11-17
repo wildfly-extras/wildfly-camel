@@ -56,7 +56,7 @@ public class Hdfs2IntegrationTest {
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
             if (!EnvironmentUtils.isWindows()) {
-                String dataDir = Paths.get(System.getProperty("jboss.home"), "standalone", "data", "hadoop").toString();
+                String dataDir = Paths.get(System.getProperty("jboss.home.dir"), "standalone", "data", "hadoop").toString();
 
                 Configuration configuration = new Configuration();
                 configuration.set(MiniDFSCluster.HDFS_MINIDFS_BASEDIR, dataDir);

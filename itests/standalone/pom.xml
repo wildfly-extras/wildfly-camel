@@ -139,7 +139,7 @@
                         <JBOSS_HOME>${jboss.home}</JBOSS_HOME>
                     </environmentVariables>
                     <systemPropertyVariables>
-                        <jboss.home>${jboss.home}</jboss.home>
+                        <jboss.home.dir>${jboss.home}</jboss.home.dir>
                         <derby.stream.error.file>${project.build.directory}/derby.log</derby.stream.error.file>
                     </systemPropertyVariables>
                     <redirectTestOutputToFile>false</redirectTestOutputToFile>

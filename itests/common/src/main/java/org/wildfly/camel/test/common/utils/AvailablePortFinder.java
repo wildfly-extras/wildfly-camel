@@ -89,8 +89,8 @@ public final class AvailablePortFinder {
     }
     
     public static Path storeServerData(String filename, Object port) {
-        String jbossHome = System.getProperty("jboss.home");
-        IllegalStateAssertion.assertNotNull(jbossHome, "Property 'jboss.home' not set");
+        String jbossHome = System.getProperty("jboss.home.dir");
+        IllegalStateAssertion.assertNotNull(jbossHome, "Property 'jboss.home.dir' not set");
         IllegalStateAssertion.assertTrue(new File(jbossHome).isDirectory(), "Not a directory: " + jbossHome);
         Path filePath = Paths.get(jbossHome, "standalone", "data", filename);
         try (PrintWriter fw = new PrintWriter(new FileWriter(filePath.toFile()))) {

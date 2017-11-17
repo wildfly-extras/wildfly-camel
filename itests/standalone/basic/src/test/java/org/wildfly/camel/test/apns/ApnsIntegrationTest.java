@@ -39,11 +39,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.apns.subA.ApnsUtils;
+import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 import org.wildfly.extension.camel.CamelAware;
-
 import static org.apache.camel.component.apns.model.ApnsConstants.HEADER_TOKENS;
-import static org.wildfly.camel.test.apns.subA.ApnsUtils.TEST_FEEDBACK_PORT;
-import static org.wildfly.camel.test.apns.subA.ApnsUtils.TEST_GATEWAY_PORT;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -55,7 +53,7 @@ public class ApnsIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-apns-tests.jar")
-            .addClass(ApnsUtils.class)
+            .addClasses(AvailablePortFinder.class, ApnsUtils.class)
             // Add required apns test-jar packages for ApnsServerStub
             .addPackages(true, "com.notnoop.apns.internal", "com.notnoop.apns.utils", "com.notnoop.exceptions")
             .addAsResource("clientStore.p12", "clientStore.p12")
@@ -64,7 +62,14 @@ public class ApnsIntegrationTest {
 
     @Before
     public void setUp() {
-        server = ApnsUtils.prepareAndStartServer(TEST_GATEWAY_PORT, TEST_FEEDBACK_PORT);
+        int feedbackPort = AvailablePortFinder.getNextAvailable();
+        int gatewayPort = AvailablePortFinder.getNextAvailable();
+
+        AvailablePortFinder.storeServerData("apns-feedback-port.txt", feedbackPort);
+        AvailablePortFinder.storeServerData("apns-gateway-port.txt", gatewayPort);
+
+        server = ApnsUtils.createServer(gatewayPort, feedbackPort);
+        server.start();
     }
 
     @After
@@ -85,7 +90,15 @@ public class ApnsIntegrationTest {
             }
         });
 
+        int gatewayPort = getPortNumber("apns-feedback-port.txt");
+        int feedbackPort = getPortNumber("apns-gateway-port.txt");
+
         ApnsServiceFactory apnsServiceFactory = ApnsUtils.createDefaultTestConfiguration(camelctx);
+        apnsServiceFactory.setFeedbackHost("localhost");
+        apnsServiceFactory.setFeedbackPort(gatewayPort);
+        apnsServiceFactory.setGatewayHost("localhost");
+        apnsServiceFactory.setGatewayPort(feedbackPort);
+
         ApnsService apnsService = apnsServiceFactory.getApnsService();
         ApnsComponent apnsComponent = new ApnsComponent(apnsService);
         camelctx.addComponent("apns", apnsComponent);
@@ -101,7 +114,7 @@ public class ApnsIntegrationTest {
             byte[] feedBackBytes = ApnsUtils.generateFeedbackBytes(deviceTokenBytes);
             server.getToSend().write(feedBackBytes);
 
-            mockEndpoint.assertIsSatisfied();
+            mockEndpoint.assertIsSatisfied(5000);
 
             InactiveDevice inactiveDevice = (InactiveDevice)mockEndpoint.getExchanges().get(0).getIn().getBody();
             Assert.assertNotNull(inactiveDevice);
@@ -125,7 +138,15 @@ public class ApnsIntegrationTest {
             }
         });
 
+        int gatewayPort = getPortNumber("apns-feedback-port.txt");
+        int feedbackPort = getPortNumber("apns-gateway-port.txt");
+
         ApnsServiceFactory apnsServiceFactory = ApnsUtils.createDefaultTestConfiguration(camelctx);
+        apnsServiceFactory.setFeedbackHost("localhost");
+        apnsServiceFactory.setFeedbackPort(gatewayPort);
+        apnsServiceFactory.setGatewayHost("localhost");
+        apnsServiceFactory.setGatewayPort(feedbackPort);
+
         ApnsService apnsService = apnsServiceFactory.getApnsService();
         ApnsComponent apnsComponent = new ApnsComponent(apnsService);
         camelctx.addComponent("apns", apnsComponent);
@@ -146,5 +167,9 @@ public class ApnsIntegrationTest {
         } finally {
             camelctx.stop();
         }
+    }
+
+    private Integer getPortNumber(String portFile) {
+        return Integer.parseInt(AvailablePortFinder.readServerData(portFile));
     }
 }
