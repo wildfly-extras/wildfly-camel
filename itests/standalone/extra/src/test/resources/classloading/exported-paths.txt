@@ -4207,6 +4207,7 @@ org/springframework/xml/validation
 org/springframework/xml/xpath
 org/springframework/xml/xsd
 org/springframework/xml/xsd/commons
+org/w3/_2003/_05/soap_envelope
 org/xbill
 org/xbill/DNS
 org/xmlsoap

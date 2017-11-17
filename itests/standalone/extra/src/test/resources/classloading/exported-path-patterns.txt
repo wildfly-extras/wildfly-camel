@@ -127,6 +127,7 @@
     ^org/schwering(.*)
 	^org/snmp4j(.*)
 	^org/springframework(.*)
+    ^org/w3/_2003/_05/soap_envelope(.*)
 	^org/xbill(.*)
 	^org/xmlsoap(.*)
     ^org/yaml(.*)

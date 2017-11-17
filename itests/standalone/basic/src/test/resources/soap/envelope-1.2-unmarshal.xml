@@ -1,0 +1,1 @@
+<ns2:Envelope xmlns:ns2="http://www.w3.org/2003/05/soap-envelope" xmlns:ns3="http://org/wildfly/test/jaxb/model/Customer"><ns2:Body><ns3:Customer><ns3:firstName>John</ns3:firstName><ns3:lastName>Doe</ns3:lastName></ns3:Customer></ns2:Body></ns2:Envelope>

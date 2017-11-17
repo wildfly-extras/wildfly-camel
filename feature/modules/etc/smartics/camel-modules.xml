@@ -2762,6 +2762,7 @@
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
+            <include path="org/w3/_2003/_05/soap_envelope" />
             <exclude path="org/w3**" />
         </exports>
     </module>

@@ -31,7 +31,6 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -48,20 +47,18 @@ public class SOAPIntegrationTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "soap-dataformat-tests");
-        archive.addPackage(Customer.class.getPackage());
-        archive.addClasses(XMLUtils.class);
-        archive.addAsResource(new StringAsset("Customer"), "org/wildfly/camel/test/jaxb/model/jaxb.index");
-        archive.addAsResource("soap/envelope.xml", "envelope.xml");
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
+        return ShrinkWrap.create(JavaArchive.class, "soap-dataformat-tests")
+            .addPackage(Customer.class.getPackage())
+            .addClasses(XMLUtils.class)
+            .addAsResource(new StringAsset("Customer"), "org/wildfly/camel/test/jaxb/model/jaxb.index")
+            .addAsResource("soap/envelope.xml", "envelope.xml")
+            .addAsResource("soap/envelope-1.2-marshal.xml", "envelope-1.2-marshal.xml")
+            .addAsResource("soap/envelope-1.2-unmarshal.xml", "envelope-1.2-unmarshal.xml")
+            .setManifest(() -> {
                 ManifestBuilder builder = new ManifestBuilder();
                 builder.addManifestHeader("Dependencies", "org.jdom");
                 return builder.openStream();
-            }
-        });
-        return archive;
+            });
     }
 
     @Test
@@ -92,7 +89,7 @@ public class SOAPIntegrationTest {
     }
 
     @Test
-    public void testJaxbUnmarshal() throws Exception {
+    public void testSoapUnmarshal() throws Exception {
 
         final SoapJaxbDataFormat format = new SoapJaxbDataFormat();
         format.setContextPath("org.wildfly.camel.test.jaxb.model");
@@ -108,6 +105,59 @@ public class SOAPIntegrationTest {
 
         camelctx.start();
         try (InputStream input = getClass().getResourceAsStream("/envelope.xml")) {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            Element response = producer.requestBody("direct:start", input, Element.class);
+            Assert.assertEquals("Customer", response.getLocalName());
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testSoapV1_2Marshal() throws Exception {
+
+        final SoapJaxbDataFormat format = new SoapJaxbDataFormat();
+        format.setContextPath("org.wildfly.camel.test.jaxb.model");
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .marshal(format);
+            }
+        });
+
+        camelctx.start();
+        try (InputStream input = getClass().getResourceAsStream("/envelope-1.2-marshal.xml")) {
+            String expected = camelctx.getTypeConverter().mandatoryConvertTo(String.class, input);
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            Customer customer = new Customer("John", "Doe");
+            String customerXML = producer.requestBody("direct:start", customer, String.class);
+            Assert.assertEquals(expected, XMLUtils.compactXML(customerXML));
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testSoapV1_2Unmarshal() throws Exception {
+
+        final SoapJaxbDataFormat format = new SoapJaxbDataFormat();
+        format.setContextPath("org.wildfly.camel.test.jaxb.model");
+        format.setVersion("1.2");
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .unmarshal(format);
+            }
+        });
+
+        camelctx.start();
+        try (InputStream input = getClass().getResourceAsStream("/envelope-1.2-unmarshal.xml")) {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             Element response = producer.requestBody("direct:start", input, Element.class);
             Assert.assertEquals("Customer", response.getLocalName());
