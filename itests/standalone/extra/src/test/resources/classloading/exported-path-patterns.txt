@@ -1,5 +1,4 @@
 [includes]
-    ^akka(.*)
     ^ca/uhn/hl7v2(.*)
 	^com/amazonaws(.*)
     ^com/bazaarvoice(.*)

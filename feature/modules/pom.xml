@@ -1111,6 +1111,14 @@
                     </modules>
                     <dependencyExcludes>
                         <exclude>
+                            <groupId>com.squareup.okhttp</groupId>
+                            <artifactId>okhttp</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>io.hawt</groupId>
+                            <artifactId>hawtio-wildfly</artifactId>
+                        </exclude>
+                        <exclude>
                             <groupId>org.apache.logging.log4j</groupId>
                             <artifactId>log4j-api-java9</artifactId>
                         </exclude>
@@ -1123,20 +1131,16 @@
                             <artifactId>elasticsearch</artifactId>
                         </exclude>
                         <exclude>
+                            <groupId>org.osgi</groupId>
+                            <artifactId>osgi_R4_core</artifactId>
+                        </exclude>
+                        <exclude>
                             <groupId>org.wildfly</groupId>
                             <artifactId>wildfly-feature-pack</artifactId>
                         </exclude>
                         <exclude>
                             <groupId>org.wildfly.extras.patch</groupId>
                             <artifactId>fuse-patch-feature-pack</artifactId>
-                        </exclude>
-                        <exclude>
-                            <groupId>io.hawt</groupId>
-                            <artifactId>hawtio-wildfly</artifactId>
-                        </exclude>
-                        <exclude>
-                            <groupId>com.squareup.okhttp</groupId>
-                            <artifactId>okhttp</artifactId>
                         </exclude>
                     </dependencyExcludes>
                 </configuration>

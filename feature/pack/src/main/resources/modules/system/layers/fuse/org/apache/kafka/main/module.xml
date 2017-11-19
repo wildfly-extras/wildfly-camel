@@ -10,7 +10,7 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="org.scala.library" />
+    <module name="org.scala.lang" />
     <module name="com.yammer.metrics" />
     <module name="org.apache.kafka.clients" />
     <module name="org.apache.zookeeper" />

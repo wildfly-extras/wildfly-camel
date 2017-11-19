@@ -23,6 +23,7 @@
     <module name="com.google.guava" />
     <module name="com.google.inject.guice" />
     <module name="com.jcraft.jsch" />
+    <module name="com.sun.jersey.core" />
     <module name="io.netty" slot="3.10" />
     <module name="javax.servlet.api" />
     <module name="javax.servlet.jsp.api" />

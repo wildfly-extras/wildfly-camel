@@ -39,7 +39,7 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 import net.javacrumbs.springws.test.helper.InMemoryWebServiceMessageSender;
 
 @RunWith(Arquillian.class)
-public class SpringWebServiceIntegrationTest {
+public class SpringWsIntegrationTest {
 
     @ArquillianResource
     CamelContextRegistry contextRegistry;
