@@ -141,10 +141,7 @@
         <include artifact="com.sun.grizzly:(.*)"/>
     </module>
 
-    <module name="com.sun.jersey" skip="true">
-        <include artifact="com.sun.jersey:jersey-client" />
-        <include artifact="com.sun.jersey:jersey-core"/>
-        <include artifact="com.sun.jersey:jersey-json"/>
+    <module name="com.sun.jersey.server" skip="true">
         <include artifact="com.sun.jersey:jersey-server"/>
         <include artifact="com.sun.jersey.contribs:jersey-guice" />
     </module>
@@ -427,10 +424,6 @@
         <include artifact="org.jruby.jcodings:jcodings" />
     </module>
 
-    <module name="org.json4s" skip="true">
-        <include artifact="org.json4s:json4s-(.*)" />
-    </module>
-
     <module name="org.linkedin" skip="true">
         <include artifact="org.linkedin:(.*)" />
     </module>
@@ -473,12 +466,6 @@
         <include artifact="org.quickfixj:quickfixj-core" />
         <include artifact="org.quickfixj:quickfixj-dictgenerator" />
         <include artifact="org.quickfixj:quickfixj-messages-all" />
-    </module>
-
-    <module name="org.scala" skip="true">
-        <include artifact="org.scala-lang:scala-compiler" />
-        <include artifact="org.scala-lang:scala-reflect" />
-        <include artifact="org.scala-lang:scalap" />
     </module>
 
     <module name="org.springframework.boot" skip="true">

@@ -957,74 +957,16 @@
 
     <module name="org.apache.camel.component.flink">
         <include artifact="org.apache.camel:camel-flink" />
-        <include artifact="com.data-artisans:flakka-actor_2.11" />
-        <include artifact="com.data-artisans:flakka-remote_2.11" />
-        <include artifact="com.data-artisans:flakka-slf4j_2.11" />
-        <include artifact="com.esotericsoftware.kryo:kryo" />
-        <include artifact="com.esotericsoftware.minlog:minlog" />
-        <include artifact="com.github.scopt:scopt_2.11" />
-        <include artifact="com.typesafe:config" />
-        <include artifact="org.apache.flink:flink-annotations" />
-        <include artifact="org.apache.flink:flink-core" />
-        <include artifact="org.apache.flink:flink-clients_2.11" />
-        <include artifact="org.apache.flink:flink-metrics-core" />
-        <include artifact="org.apache.flink:flink-java" />
-        <include artifact="org.apache.flink:flink-optimizer_2.11" />
-        <include artifact="org.apache.flink:flink-runtime_2.11" />
-        <include artifact="org.apache.flink:flink-streaming-java_2.11" />
-        <include artifact="org.clapper:grizzled-slf4j_2.11" />
         <apply-to-dependencies skip="true">
-            <include module="com.data.artisans.skipped" />
-            <include module="com.google.code.findbugs" />
-            <include module="com.twitter.chill" />
             <include module="org.apache.camel.apt" />
-            <include module="org.apache.flink.skipped" />
-            <include module="org.apache.sling" />
             <include module="org.springframework.boot" />
-            <include module="org.uncommons.maths" />
-            <include module="org.objenisis" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="javax.api" />
-            <module name="io.netty" slot="3.10"/>
-            <module name="org.apache.commons.io" />
-            <module name="org.apache.hadoop" />
+            <module name="org.apache.flink" export="true" />
             <module name="org.slf4j" />
-            <module name="sun.jdk">
-                <imports>
-                    <include path="sun/misc" />
-                </imports>
-            </module>
-            <system>
-                <paths>
-                    <!-- not exported by sun.jdk -->
-                    <path name="com/sun/management"/>
-                    <path name="sun/net/util"/>
-                </paths>
-            </system>
         </dependencies>
-        <exports>
-            <exclude path="com/esotericsoftware**" />
-            <exclude path="com/typesafe**" />
-            <exclude path="grizzled**" />
-            <exclude path="io/netty**" />
-            <exclude path="org/apache/flink" />
-            <exclude path="org/apache/flink/client**" />
-            <exclude path="org/apache/flink/configuration" />
-            <exclude path="org/apache/flink/core**" />
-            <exclude path="org/apache/flink/metrics**" />
-            <exclude path="org/apache/flink/migration**" />
-            <exclude path="org/apache/flink/optimizer**" />
-            <exclude path="org/apache/flink/runtime**" />
-            <exclude path="org/apache/flink/shaded**" />
-            <exclude path="org/apache/flink/streaming" />
-            <exclude path="org/apache/flink/streaming/runtime**" />
-            <exclude path="org/apache/flink/streaming/util**" />
-            <exclude path="org/apache/flink/types**" />
-            <exclude path="org/apache/flink/util" />
-        </exports>
     </module>
-
+    
     <module name="org.apache.camel.component.fop">
         <include artifact="org.apache.camel:camel-fop" />
         <apply-to-dependencies skip="true">

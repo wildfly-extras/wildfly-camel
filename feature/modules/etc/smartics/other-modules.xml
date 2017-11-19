@@ -20,6 +20,13 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="aopalliance">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="aopalliance:aopalliance" />
+    </module>
+
     <module name="ch.qos.cal10n">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -688,6 +695,21 @@
         </dependencies>
     </module>
 
+    <module name="com.sun.jersey.client">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.sun.jersey:jersey-client" />
+    </module>
+    
+    <module name="com.sun.jersey.core" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.sun.jersey:jersey-core"/>
+        <include artifact="com.sun.jersey:jersey-json"/>
+    </module>
+
     <module name="com.thoughtworks.xstream">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -701,6 +723,10 @@
         </dependencies>
     </module>
 
+    <module name="com.typesafe.config">
+        <include artifact="com.typesafe:config" />
+    </module>
+    
     <module name="com.yammer.metrics">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1221,6 +1247,73 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.flink">
+        <include artifact="com.data-artisans:flakka-actor_2.11" />
+        <include artifact="com.data-artisans:flakka-remote_2.11" />
+        <include artifact="com.data-artisans:flakka-slf4j_2.11" />
+        <include artifact="com.esotericsoftware.kryo:kryo" />
+        <include artifact="com.esotericsoftware.minlog:minlog" />
+        <include artifact="com.github.scopt:scopt_2.11" />
+        <include artifact="org.apache.flink:flink-annotations" />
+        <include artifact="org.apache.flink:flink-core" />
+        <include artifact="org.apache.flink:flink-clients_2.11" />
+        <include artifact="org.apache.flink:flink-metrics-core" />
+        <include artifact="org.apache.flink:flink-java" />
+        <include artifact="org.apache.flink:flink-optimizer_2.11" />
+        <include artifact="org.apache.flink:flink-runtime_2.11" />
+        <include artifact="org.apache.flink:flink-streaming-java_2.11" />
+        <include artifact="org.clapper:grizzled-slf4j_2.11" />
+        <apply-to-dependencies skip="true">
+            <include module="com.data.artisans.skipped" />
+            <include module="com.google.code.findbugs" />
+            <include module="com.twitter.chill" />
+            <include module="org.apache.flink.skipped" />
+            <include module="org.apache.sling" />
+            <include module="org.uncommons.maths" />
+            <include module="org.objenisis" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="com.typesafe.config" />
+            <module name="io.netty" slot="3.10" />
+            <module name="org.apache.commons.io" />
+            <module name="org.apache.hadoop" />
+            <module name="org.slf4j" />
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc" />
+                </imports>
+            </module>
+            <system>
+                <paths>
+                    <!-- not exported by sun.jdk -->
+                    <path name="com/sun/management"/>
+                    <path name="sun/net/util"/>
+                </paths>
+            </system>
+        </dependencies>
+        <exports>
+            <exclude path="akka**" />
+            <exclude path="com/esotericsoftware**" />
+            <exclude path="grizzled**" />
+            <exclude path="io/netty**" />
+            <exclude path="org/apache/flink" />
+            <exclude path="org/apache/flink/client**" />
+            <exclude path="org/apache/flink/configuration" />
+            <exclude path="org/apache/flink/core**" />
+            <exclude path="org/apache/flink/metrics**" />
+            <exclude path="org/apache/flink/migration**" />
+            <exclude path="org/apache/flink/optimizer**" />
+            <exclude path="org/apache/flink/runtime**" />
+            <exclude path="org/apache/flink/shaded**" />
+            <exclude path="org/apache/flink/streaming" />
+            <exclude path="org/apache/flink/streaming/runtime**" />
+            <exclude path="org/apache/flink/streaming/util**" />
+            <exclude path="org/apache/flink/types**" />
+            <exclude path="org/apache/flink/util" />
+        </exports>
+    </module>
+    
     <module name="org.apache.hadoop">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1235,7 +1328,8 @@
         <apply-to-dependencies skip="true">
             <include module="ant" />
             <include module="com.google.inject.skipped"/>
-            <include module="com.sun.jersey" />
+            <include module="com.sun.jersey.client" />
+            <include module="com.sun.jersey.server" />
             <include module="com.google.code.findbugs" />
             <include module="io.netty.skipped" />
             <include module="jdiff" />
@@ -1351,7 +1445,7 @@
         <include artifact="com.101tec:zkclient" />
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.scala.library" />
+            <module name="org.scala.lang" />
         </dependencies>
         <exports>
             <exclude path="joptsimple**" />
@@ -1941,7 +2035,9 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="org.json4s:json4s-(.*)" />
+        <include artifact="org.json4s:json4s-ast_2.11" />
+        <include artifact="org.json4s:json4s-core_2.11" />
+        <include artifact="org.json4s:json4s-jackson_2.11" />
     </module>
 
     <module name="org.jxmpp">
@@ -2018,6 +2114,27 @@
         </apply-to-dependencies>
     </module>
 
+    <module name="org.scala.lang">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.scala-lang:scala-library" />
+        <dependencies>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc" />
+                </imports>
+            </module>
+        </dependencies>
+    </module>
+
+    <module name="org.scala.modules">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.scala-lang.modules:scala-parser-combinators_2.11" />
+    </module>
+
     <module name="org.scribe">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -2041,27 +2158,6 @@
             <exclude path="net/sf" />
             <exclude path="w3c**" />
         </exports>
-    </module>
-
-    <module name="org.scala.library">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.scala-lang:scala-library" />
-        <dependencies>
-            <module name="sun.jdk">
-                <imports>
-                    <include path="sun/misc" />
-                </imports>
-            </module>
-        </dependencies>
-    </module>
-
-    <module name="org.scala.modules">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.scala-lang.modules:(.*)" />
     </module>
 
     <module name="net.spy.spymemcached">

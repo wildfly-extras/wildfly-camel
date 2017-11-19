@@ -2,75 +2,12 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.flink">
   <resources>
     <artifact name="${org.apache.camel:camel-flink}" />
-    <artifact name="${com.typesafe:config}" />
-    <artifact name="${com.data-artisans:flakka-actor_2.11}" />
-    <artifact name="${com.data-artisans:flakka-remote_2.11}" />
-    <artifact name="${com.data-artisans:flakka-slf4j_2.11}" />
-    <artifact name="${org.apache.flink:flink-annotations}" />
-    <artifact name="${org.apache.flink:flink-clients_2.11}" />
-    <artifact name="${org.apache.flink:flink-core}" />
-    <artifact name="${org.apache.flink:flink-java}" />
-    <artifact name="${org.apache.flink:flink-metrics-core}" />
-    <artifact name="${org.apache.flink:flink-optimizer_2.11}" />
-    <artifact name="${org.apache.flink:flink-runtime_2.11}" />
-    <artifact name="${org.apache.flink:flink-streaming-java_2.11}" />
-    <artifact name="${org.clapper:grizzled-slf4j_2.11}" />
-    <artifact name="${com.esotericsoftware.kryo:kryo}" />
-    <artifact name="${com.esotericsoftware.minlog:minlog}" />
-    <artifact name="${com.github.scopt:scopt_2.11}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
-    <module name="io.netty" slot="3.10" />
-    <module name="org.apache.commons.io" />
-    <module name="org.apache.hadoop" />
+    <module name="org.apache.flink" export="true" />
     <module name="org.slf4j" />
-    <module name="sun.jdk">
-      <imports>
-        <include path="sun/misc" />
-      </imports>
-    </module>
-    <system>
-      <paths>
-        <!-- not exported by sun.jdk -->
-        <path name="com/sun/management" />
-        <path name="sun/net/util" />
-      </paths>
-    </system>
-    <module name="com.fasterxml.jackson.core.jackson-core" />
-    <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="com.google.protobuf" />
     <module name="javax.xml.bind.api" />
-    <module name="org.apache.avro" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.commons.cli" />
-    <module name="org.apache.commons.collections" />
-    <module name="org.apache.commons.compress" />
-    <module name="org.apache.commons.lang3" />
-    <module name="org.apache.commons.math3" />
-    <module name="org.apache.kafka.clients" />
-    <module name="org.apache.zookeeper" />
-    <module name="org.javassist" />
-    <module name="org.scala.library" />
+    <module name="org.scala.lang" />
   </dependencies>
-  <exports>
-    <exclude path="com/esotericsoftware**" />
-    <exclude path="com/typesafe**" />
-    <exclude path="grizzled**" />
-    <exclude path="io/netty**" />
-    <exclude path="org/apache/flink" />
-    <exclude path="org/apache/flink/client**" />
-    <exclude path="org/apache/flink/configuration" />
-    <exclude path="org/apache/flink/core**" />
-    <exclude path="org/apache/flink/metrics**" />
-    <exclude path="org/apache/flink/migration**" />
-    <exclude path="org/apache/flink/optimizer**" />
-    <exclude path="org/apache/flink/runtime**" />
-    <exclude path="org/apache/flink/shaded**" />
-    <exclude path="org/apache/flink/streaming" />
-    <exclude path="org/apache/flink/streaming/runtime**" />
-    <exclude path="org/apache/flink/streaming/util**" />
-    <exclude path="org/apache/flink/types**" />
-    <exclude path="org/apache/flink/util" />
-  </exports>
 </module>
