@@ -30,11 +30,6 @@ import com.amazonaws.services.simpledb.model.DeleteDomainRequest;
 
 public class SDBUtils {
 
-    private static final String SUFFIX = "-id" + SDBUtils.class.getClassLoader().hashCode();
-    
-    public static final String DOMAIN_NAME = "TestDomain" + SUFFIX;
-    public static final String ITEM_NAME = "TestItem" + SUFFIX;
-
     /* Attach a policy like this: MySDBFullAccess
             {
                 "Version": "2012-10-17",
@@ -52,31 +47,28 @@ public class SDBUtils {
                 ]
             }
      */
-    
+
     public static AmazonSimpleDBClient createDBClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
-        AmazonSimpleDBClient client = !credentials.isValid() ? null : (AmazonSimpleDBClient) 
+        AmazonSimpleDBClient client = !credentials.isValid() ? null : (AmazonSimpleDBClient)
                 AmazonSimpleDBClientBuilder.standard()
                 .withCredentials(credentials)
                 .withRegion("eu-west-1").build();
         return client;
     }
 
-    public static void createDomain(AmazonSimpleDBClient client) throws InterruptedException {
-        client.createDomain(new CreateDomainRequest(DOMAIN_NAME));
+    public static void createDomain(AmazonSimpleDBClient client, String domainName) throws InterruptedException {
+        client.createDomain(new CreateDomainRequest(domainName));
 
         // Unfortunatly, there is no waiters for domain create
-        
+
         int retries = 10;
         List<String> domainNames = client.listDomains().getDomainNames();
-        while (!domainNames.contains(DOMAIN_NAME) && 0 < retries--) {
+        while (!domainNames.contains(domainName) && 0 < retries--) {
             Thread.sleep(500);
             domainNames = client.listDomains().getDomainNames();
         }
-        Assert.assertTrue(domainNames.contains(DOMAIN_NAME));
+        Assert.assertTrue(domainNames.contains(domainName));
     }
 
-    public static void deleteDomain(AmazonSimpleDBClient client) throws InterruptedException {
-        client.deleteDomain(new DeleteDomainRequest(DOMAIN_NAME));
-    }
 }

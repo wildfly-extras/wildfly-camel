@@ -18,6 +18,7 @@ package org.wildfly.camel.test.aws;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -38,6 +39,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.aws.subA.SDBClientProducer;
 import org.wildfly.camel.test.aws.subA.SDBClientProducer.SDBClientProvider;
+import org.wildfly.camel.test.common.aws.AWSUtils;
 import org.wildfly.camel.test.common.aws.BasicCredentialsProvider;
 import org.wildfly.camel.test.common.aws.SDBUtils;
 import org.wildfly.extension.camel.CamelAware;
@@ -45,23 +47,36 @@ import org.wildfly.extension.camel.WildFlyCamelContext;
 
 import com.amazonaws.services.simpledb.AmazonSimpleDBClient;
 import com.amazonaws.services.simpledb.model.Attribute;
+import com.amazonaws.services.simpledb.model.DeleteDomainRequest;
 import com.amazonaws.services.simpledb.model.ReplaceableAttribute;
 
 @CamelAware
 @RunWith(Arquillian.class)
 public class SDBIntegrationTest {
 
+    private static final String domainName = AWSUtils.toTimestampedName(SDBIntegrationTest.class);
+    private static final String itemName = "Item-" + AWSUtils.toTimestampedName(SDBIntegrationTest.class);
+
     @Inject
     private SDBClientProvider provider;
-    
+
     @Deployment
     public static JavaArchive deployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "aws-sdb-tests.jar");
-        archive.addClasses(SDBClientProducer.class, SDBUtils.class, BasicCredentialsProvider.class);
+        archive.addClasses(SDBClientProducer.class, SDBUtils.class, BasicCredentialsProvider.class, AWSUtils.class);
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }
-    
+
+    public static void assertNoStaleDomain(AmazonSimpleDBClient client, String when) {
+        List<String> staleInstances = client.listDomains().getDomainNames().stream() //
+                .filter(name -> !name.startsWith(SDBIntegrationTest.class.getSimpleName())
+                        || System.currentTimeMillis() - AWSUtils.toEpochMillis(name) > AWSUtils.HOUR) //
+                .collect(Collectors.toList());
+        Assert.assertEquals(String.format("Found stale SDB domans %s running the test: %s", when, staleInstances), 0,
+                staleInstances.size());
+    }
+
     @Test
     @SuppressWarnings("unchecked")
     public void putAndGetAttributes() throws Exception {
@@ -69,49 +84,62 @@ public class SDBIntegrationTest {
         AmazonSimpleDBClient sdbClient = provider.getClient();
         Assume.assumeNotNull("AWS client not null", sdbClient);
 
-        WildFlyCamelContext camelctx = new WildFlyCamelContext();
-        camelctx.getNamingContext().bind("sdbClient", sdbClient);
-        
-        camelctx.addRoutes(new RouteBuilder() {
-            public void configure() {
-                from("direct:start").to("aws-sdb://" + SDBUtils.DOMAIN_NAME + "?amazonSDBClient=#sdbClient");
-            }
-        });
+        assertNoStaleDomain(sdbClient, "before");
 
-        camelctx.start();
         try {
-            ReplaceableAttribute attr = new ReplaceableAttribute("SomeName", "SomeValue", true);
-            
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            Exchange exchange = producer.send("direct:start", new Processor() {
-                public void process(Exchange exchange) throws Exception {
-                    exchange.getIn().setHeader(SdbConstants.OPERATION, SdbOperations.PutAttributes);
-                    exchange.getIn().setHeader(SdbConstants.ITEM_NAME, SDBUtils.ITEM_NAME);
-                    exchange.getIn().setHeader(SdbConstants.REPLACEABLE_ATTRIBUTES, Collections.singletonList(attr));
-                }
-            });
-            Assert.assertNull(exchange.getException());
+            try {
+                SDBUtils.createDomain(sdbClient, domainName);
 
-            int retries = 10;
-            List<Attribute> result = Collections.emptyList();
-            while (result.isEmpty() && 0 < retries--) {
-                exchange = producer.send("direct:start", new Processor() {
-                    public void process(Exchange exchange) throws Exception {
-                        exchange.getIn().setHeader(SdbConstants.OPERATION, SdbOperations.GetAttributes);
-                        exchange.getIn().setHeader(SdbConstants.ITEM_NAME, SDBUtils.ITEM_NAME);
+                WildFlyCamelContext camelctx = new WildFlyCamelContext();
+                camelctx.getNamingContext().bind("sdbClient", sdbClient);
+
+                camelctx.addRoutes(new RouteBuilder() {
+                    public void configure() {
+                        from("direct:start").to("aws-sdb://" + domainName + "?amazonSDBClient=#sdbClient");
                     }
                 });
-                Assert.assertNull(exchange.getException());
-                result = exchange.getIn().getHeader(SdbConstants.ATTRIBUTES, List.class);
-                System.out.println(retries + ": " + result);
-                Thread.sleep(500);
+
+                camelctx.start();
+                try {
+                    ReplaceableAttribute attr = new ReplaceableAttribute("SomeName", "SomeValue", true);
+
+                    ProducerTemplate producer = camelctx.createProducerTemplate();
+                    Exchange exchange = producer.send("direct:start", new Processor() {
+                        public void process(Exchange exchange) throws Exception {
+                            exchange.getIn().setHeader(SdbConstants.OPERATION, SdbOperations.PutAttributes);
+                            exchange.getIn().setHeader(SdbConstants.ITEM_NAME, itemName);
+                            exchange.getIn().setHeader(SdbConstants.REPLACEABLE_ATTRIBUTES,
+                                    Collections.singletonList(attr));
+                        }
+                    });
+                    Assert.assertNull(exchange.getException());
+
+                    int retries = 10;
+                    List<Attribute> result = Collections.emptyList();
+                    while (result.isEmpty() && 0 < retries--) {
+                        exchange = producer.send("direct:start", new Processor() {
+                            public void process(Exchange exchange) throws Exception {
+                                exchange.getIn().setHeader(SdbConstants.OPERATION, SdbOperations.GetAttributes);
+                                exchange.getIn().setHeader(SdbConstants.ITEM_NAME, itemName);
+                            }
+                        });
+                        Assert.assertNull(exchange.getException());
+                        result = exchange.getIn().getHeader(SdbConstants.ATTRIBUTES, List.class);
+                        System.out.println(retries + ": " + result);
+                        Thread.sleep(500);
+                    }
+                    Assert.assertEquals(1, result.size());
+                    Assert.assertEquals(attr.getName(), result.get(0).getName());
+                    Assert.assertEquals(attr.getValue(), result.get(0).getValue());
+
+                } finally {
+                    camelctx.stop();
+                }
+            } finally {
+                sdbClient.deleteDomain(new DeleteDomainRequest(domainName));
             }
-            Assert.assertEquals(1, result.size());
-            Assert.assertEquals(attr.getName(), result.get(0).getName());
-            Assert.assertEquals(attr.getValue(), result.get(0).getValue());
-            
         } finally {
-            camelctx.stop();
+            assertNoStaleDomain(sdbClient, "after");
         }
     }
 }

@@ -24,12 +24,10 @@ import com.amazonaws.services.sns.AmazonSNSClientBuilder;
 
 public class SNSUtils {
 
-    public static final String TOPIC_NAME = "MyNewTopic";
-
     // Attach Policy: AmazonSNSFullAccess
     public static AmazonSNSClient createNotificationClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
-        AmazonSNSClient client = !credentials.isValid() ? null : (AmazonSNSClient) 
+        AmazonSNSClient client = !credentials.isValid() ? null : (AmazonSNSClient)
                 AmazonSNSClientBuilder.standard()
                 .withCredentials(credentials)
                 .withRegion("eu-west-1")
