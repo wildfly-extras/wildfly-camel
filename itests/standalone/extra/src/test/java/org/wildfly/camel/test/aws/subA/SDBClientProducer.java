@@ -19,7 +19,6 @@
  */
 package org.wildfly.camel.test.aws.subA;
 
-import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 
@@ -38,21 +37,12 @@ public class SDBClientProducer {
             return client;
         }
     }
-    
+
     @Produces
     @Singleton
     public SDBClientProvider getClientProvider() throws Exception {
         AmazonSimpleDBClient client = SDBUtils.createDBClient();
-        if (client != null) {
-            SDBUtils.createDomain(client);
-        }
         return new SDBClientProvider(client);
     }
 
-    public void close(@Disposes SDBClientProvider provider) throws Exception {
-        AmazonSimpleDBClient client = provider.getClient();
-        if (client != null) {
-            SDBUtils.deleteDomain(client);
-        }
-    }
 }

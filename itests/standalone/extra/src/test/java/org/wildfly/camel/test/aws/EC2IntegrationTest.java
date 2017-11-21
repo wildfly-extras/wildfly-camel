@@ -22,7 +22,9 @@ package org.wildfly.camel.test.aws;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -40,12 +42,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.aws.subA.EC2ClientProducer;
 import org.wildfly.camel.test.aws.subA.EC2ClientProducer.EC2ClientProvider;
+import org.wildfly.camel.test.common.aws.AWSUtils;
 import org.wildfly.camel.test.common.aws.BasicCredentialsProvider;
 import org.wildfly.camel.test.common.aws.EC2Utils;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.WildFlyCamelContext;
 
 import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.InstanceStateName;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.TerminateInstancesResult;
@@ -56,7 +61,7 @@ public class EC2IntegrationTest {
 
     @Inject
     private EC2ClientProvider provider;
-    
+
     @Deployment
     public static JavaArchive deployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "aws-ec2-tests.jar");
@@ -65,46 +70,66 @@ public class EC2IntegrationTest {
         return archive;
     }
 
+    public static void assertNoStaleInstances(AmazonEC2Client client, String when) {
+        List<Instance> staleInstances = client.describeInstances().getReservations().stream() //
+        .flatMap(r -> r.getInstances().stream()) //
+        .filter(i -> {
+            if (System.currentTimeMillis() - i.getLaunchTime().getTime() > AWSUtils.HOUR) {
+                return true;
+            }
+            String state = i.getState().getName();
+            return !InstanceStateName.ShuttingDown.toString().equals(state) && !InstanceStateName.Terminated.toString().equals(state);
+        }) //
+        .collect(Collectors.toList());
+        Assert.assertEquals(String.format("Found stale EC2 instances %s running the test: %s", when, staleInstances), 0, staleInstances.size());
+    }
+
     @Test
     public void testCreateInstance() throws Exception {
 
         AmazonEC2Client ec2Client = provider.getClient();
         Assume.assumeNotNull("AWS client not null", ec2Client);
-        
-        WildFlyCamelContext camelctx = new WildFlyCamelContext();
-        camelctx.getNamingContext().bind("ec2Client", ec2Client);
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:createAndRun").to("aws-ec2://TestDomain?amazonEc2Client=#ec2Client&operation=createAndRunInstances");
-                from("direct:terminate").to("aws-ec2://TestDomain?amazonEc2Client=#ec2Client&operation=terminateInstances");
-            }
-        });
 
-        camelctx.start();
+        assertNoStaleInstances(ec2Client, "before");
+
         try {
+            WildFlyCamelContext camelctx = new WildFlyCamelContext();
+            camelctx.getNamingContext().bind("ec2Client", ec2Client);
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    from("direct:createAndRun").to("aws-ec2://TestDomain?amazonEc2Client=#ec2Client&operation=createAndRunInstances");
+                    from("direct:terminate").to("aws-ec2://TestDomain?amazonEc2Client=#ec2Client&operation=terminateInstances");
+                }
+            });
 
-            // Create and run an instance
-            Map<String, Object> headers = new HashMap<>();
-            headers.put(EC2Constants.IMAGE_ID, "ami-02ace471");
-            headers.put(EC2Constants.INSTANCE_TYPE, InstanceType.T2Micro);
-            headers.put(EC2Constants.SUBNET_ID, EC2Utils.getSubnetId(ec2Client));
-            headers.put(EC2Constants.INSTANCE_MIN_COUNT, 1);
-            headers.put(EC2Constants.INSTANCE_MAX_COUNT, 1);
-            
-            ProducerTemplate template = camelctx.createProducerTemplate();
-            RunInstancesResult result1 = template.requestBodyAndHeaders("direct:createAndRun", null, headers, RunInstancesResult.class);
-            String instanceId = result1.getReservation().getInstances().get(0).getInstanceId();
-            System.out.println("InstanceId: " + instanceId);
-            
-            // Terminate the instance 
-            headers = new HashMap<>();
-            headers.put(EC2Constants.INSTANCES_IDS, Collections.singleton(instanceId));
-            
-            TerminateInstancesResult result2 = template.requestBodyAndHeaders("direct:terminate", null, headers, TerminateInstancesResult.class);
-            Assert.assertEquals(instanceId, result2.getTerminatingInstances().get(0).getInstanceId());
+            camelctx.start();
+            try {
+
+                // Create and run an instance
+                Map<String, Object> headers = new HashMap<>();
+                headers.put(EC2Constants.IMAGE_ID, "ami-02ace471");
+                headers.put(EC2Constants.INSTANCE_TYPE, InstanceType.T2Micro);
+                headers.put(EC2Constants.SUBNET_ID, EC2Utils.getSubnetId(ec2Client));
+                headers.put(EC2Constants.INSTANCE_MIN_COUNT, 1);
+                headers.put(EC2Constants.INSTANCE_MAX_COUNT, 1);
+
+                ProducerTemplate template = camelctx.createProducerTemplate();
+                RunInstancesResult result1 = template.requestBodyAndHeaders("direct:createAndRun", null, headers, RunInstancesResult.class);
+                String instanceId = result1.getReservation().getInstances().get(0).getInstanceId();
+                System.out.println("InstanceId: " + instanceId);
+
+                // Terminate the instance
+                headers = new HashMap<>();
+                headers.put(EC2Constants.INSTANCES_IDS, Collections.singleton(instanceId));
+
+                TerminateInstancesResult result2 = template.requestBodyAndHeaders("direct:terminate", null, headers, TerminateInstancesResult.class);
+                Assert.assertEquals(instanceId, result2.getTerminatingInstances().get(0).getInstanceId());
+            } finally {
+                camelctx.stop();
+            }
         } finally {
-            camelctx.stop();
+            assertNoStaleInstances(ec2Client, "after");
         }
     }
 }

@@ -19,7 +19,6 @@
  */
 package org.wildfly.camel.test.aws.subA;
 
-import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 
@@ -38,21 +37,12 @@ public class S3ClientProducer {
             return client;
         }
     }
-    
+
     @Produces
     @Singleton
     public S3ClientProvider getClientProvider() throws Exception {
         AmazonS3Client client = S3Utils.createS3Client();
-        if (client != null) {
-            S3Utils.createBucket(client);
-        }
         return new S3ClientProvider(client);
     }
 
-    public void close(@Disposes S3ClientProvider provider) throws Exception {
-        AmazonS3Client client = provider.getClient();
-        if (client != null) {
-            S3Utils.deleteBucket(client);
-        }
-    }
 }

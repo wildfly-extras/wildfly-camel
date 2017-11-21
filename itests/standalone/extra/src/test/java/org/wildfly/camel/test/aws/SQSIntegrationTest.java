@@ -16,6 +16,9 @@
  */
 package org.wildfly.camel.test.aws;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.inject.Inject;
 
 import org.apache.camel.Exchange;
@@ -36,6 +39,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.aws.subA.SQSClientProducer;
 import org.wildfly.camel.test.aws.subA.SQSClientProducer.SQSClientProvider;
+import org.wildfly.camel.test.common.aws.AWSUtils;
 import org.wildfly.camel.test.common.aws.BasicCredentialsProvider;
 import org.wildfly.camel.test.common.aws.SQSUtils;
 import org.wildfly.extension.camel.CamelAware;
@@ -46,61 +50,86 @@ import com.amazonaws.services.sqs.AmazonSQSClient;
 @CamelAware
 @RunWith(Arquillian.class)
 public class SQSIntegrationTest {
-    
+
+    private static final String queueName = AWSUtils.toTimestampedName(SQSIntegrationTest.class);
+
     @Inject
     private SQSClientProvider provider;
-    
+
     @Deployment
     public static JavaArchive deployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "aws-sqs-tests.jar");
-        archive.addClasses(SQSClientProducer.class, SQSUtils.class, BasicCredentialsProvider.class);
+        archive.addClasses(SQSClientProducer.class, SQSUtils.class, BasicCredentialsProvider.class, AWSUtils.class);
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }
-    
+
+    public static void assertNoStaleQueue(AmazonSQSClient client, String when) {
+        List<String> staleInstances = client.listQueues().getQueueUrls().stream() //
+                .map(url -> url.substring(url.lastIndexOf(':') + 1))
+                .filter(name -> !name.startsWith(SQSIntegrationTest.class.getSimpleName())
+                        || System.currentTimeMillis() - AWSUtils.toEpochMillis(name) > AWSUtils.HOUR) //
+                .collect(Collectors.toList());
+        Assert.assertEquals(String.format("Found stale SQS queues %s running the test: %s", when, staleInstances), 0,
+                staleInstances.size());
+    }
+
     @Test
     public void sendInOnly() throws Exception {
 
         AmazonSQSClient sqsClient = provider.getClient();
         Assume.assumeNotNull("AWS client not null", sqsClient);
 
-        WildFlyCamelContext camelctx = new WildFlyCamelContext();
-        camelctx.getNamingContext().bind("sqsClient", sqsClient);
-        
-        camelctx.addRoutes(new RouteBuilder() {
-            public void configure() {
-                from("direct:start")
-                .to("aws-sqs://" + SQSUtils.QUEUE_NAME + "?amazonSQSClient=#sqsClient");
-            
-                from("aws-sqs://" + SQSUtils.QUEUE_NAME + "?amazonSQSClient=#sqsClient")
-                .to("mock:result");
-            }
-        });
-        
-        MockEndpoint mockep = camelctx.getEndpoint("mock:result", MockEndpoint.class);
-        mockep.expectedMessageCount(1);
-        
-        camelctx.start();
+        assertNoStaleQueue(sqsClient, "before");
+
         try {
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            
-            producer.send("direct:start", ExchangePattern.InOnly, new Processor() {
-                public void process(Exchange exchange) throws Exception {
-                    exchange.getIn().setBody("This is my message text.");
+
+            final String url = sqsClient.createQueue(queueName).getQueueUrl();
+
+            try {
+
+                WildFlyCamelContext camelctx = new WildFlyCamelContext();
+                camelctx.getNamingContext().bind("sqsClient", sqsClient);
+
+                camelctx.addRoutes(new RouteBuilder() {
+                    public void configure() {
+                        from("direct:start").to("aws-sqs://" + queueName + "?amazonSQSClient=#sqsClient");
+
+                        from("aws-sqs://" + queueName + "?amazonSQSClient=#sqsClient").to("mock:result");
+                    }
+                });
+
+                MockEndpoint mockep = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+                mockep.expectedMessageCount(1);
+
+                camelctx.start();
+                try {
+                    ProducerTemplate producer = camelctx.createProducerTemplate();
+
+                    producer.send("direct:start", ExchangePattern.InOnly, new Processor() {
+                        public void process(Exchange exchange) throws Exception {
+                            exchange.getIn().setBody("This is my message text.");
+                        }
+                    });
+
+                    mockep.assertIsSatisfied();
+
+                    Exchange exchange = mockep.getExchanges().get(0);
+                    Assert.assertEquals("This is my message text.", exchange.getIn().getBody());
+                    Assert.assertNotNull(exchange.getIn().getHeader(SqsConstants.MESSAGE_ID));
+                    Assert.assertNotNull(exchange.getIn().getHeader(SqsConstants.RECEIPT_HANDLE));
+                    Assert.assertEquals("6a1559560f67c5e7a7d5d838bf0272ee",
+                            exchange.getIn().getHeader(SqsConstants.MD5_OF_BODY));
+                    Assert.assertNotNull(exchange.getIn().getHeader(SqsConstants.ATTRIBUTES));
+                    Assert.assertNotNull(exchange.getIn().getHeader(SqsConstants.MESSAGE_ATTRIBUTES));
+                } finally {
+                    camelctx.stop();
                 }
-            });
-            
-            mockep.assertIsSatisfied();
-            
-            Exchange exchange = mockep.getExchanges().get(0);
-            Assert.assertEquals("This is my message text.", exchange.getIn().getBody());
-            Assert.assertNotNull(exchange.getIn().getHeader(SqsConstants.MESSAGE_ID));
-            Assert.assertNotNull(exchange.getIn().getHeader(SqsConstants.RECEIPT_HANDLE));
-            Assert.assertEquals("6a1559560f67c5e7a7d5d838bf0272ee", exchange.getIn().getHeader(SqsConstants.MD5_OF_BODY));
-            Assert.assertNotNull(exchange.getIn().getHeader(SqsConstants.ATTRIBUTES));
-            Assert.assertNotNull(exchange.getIn().getHeader(SqsConstants.MESSAGE_ATTRIBUTES));
+            } finally {
+                sqsClient.deleteQueue(url);
+            }
         } finally {
-            camelctx.stop();
+            assertNoStaleQueue(sqsClient, "after");
         }
     }
 }

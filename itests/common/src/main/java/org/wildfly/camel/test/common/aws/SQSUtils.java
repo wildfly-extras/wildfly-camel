@@ -24,25 +24,14 @@ import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 
 public class SQSUtils {
 
-    private static final String SUFFIX = "-id" + SQSUtils.class.getClassLoader().hashCode();
-    
-    public static final String QUEUE_NAME = "MyNewCamelQueue" + SUFFIX;
-
     // Attach Policy: AmazonSQSFullAccess
     public static AmazonSQSClient createSQSClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
-        AmazonSQSClient client = !credentials.isValid() ? null : (AmazonSQSClient) 
+        AmazonSQSClient client = !credentials.isValid() ? null : (AmazonSQSClient)
                 AmazonSQSClientBuilder.standard()
                 .withCredentials(credentials)
                 .withRegion("eu-west-1").build();
         return client;
     }
 
-    public static void createQueue(AmazonSQSClient client) {
-        client.createQueue(QUEUE_NAME);
-    }
-
-    public static void deleteQueue(AmazonSQSClient client) {
-        client.deleteQueue(QUEUE_NAME);
-    }
 }

@@ -33,32 +33,25 @@ import com.amazonaws.waiters.WaiterParameters;
 
 public class KinesisUtils {
 
-    private static final String SUFFIX = "-id" + KinesisUtils.class.getClassLoader().hashCode();
-    
-    public static final String STREAM_NAME = "wfcStream" + SUFFIX;
-
     // Attach Policy: AmazonKinesisFullAccess
     public static AmazonKinesisClient createKinesisClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
-        AmazonKinesisClient client = !credentials.isValid() ? null : (AmazonKinesisClient) 
+        AmazonKinesisClient client = !credentials.isValid() ? null : (AmazonKinesisClient)
                 AmazonKinesisClientBuilder.standard()
                 .withCredentials(credentials)
                 .withRegion("eu-west-1").build();
         return client;
     }
 
-    public static void createStream(AmazonKinesisClient client) throws Exception {
-        
-        client.createStream(STREAM_NAME, 1);
-        
+    public static void createStream(AmazonKinesisClient client, String streamName) throws Exception {
+
+        client.createStream(streamName, 1);
+
         Waiter<DescribeStreamRequest> waiter = client.waiters().streamExists();
-        DescribeStreamRequest request = new DescribeStreamRequest().withStreamName(STREAM_NAME);
+        DescribeStreamRequest request = new DescribeStreamRequest().withStreamName(streamName);
         Assert.assertNotNull("Cannot obtain stream description", request);
         Future<Void> future = waiter.runAsync(new WaiterParameters<DescribeStreamRequest>(request), new NoOpWaiterHandler());
         future.get(1, TimeUnit.MINUTES);
     }
 
-    public static void deleteStream(AmazonKinesisClient client) throws Exception {
-        client.deleteStream(STREAM_NAME);
-    }
 }

@@ -33,9 +33,6 @@ import com.amazonaws.services.dynamodbv2.model.TableDescription;
 
 public class DynamoDBClientProducer {
 
-    @Inject
-    private String tableName;
-    
     public class DynamoDBClientProvider {
         private final AmazonDynamoDBClient client;
         DynamoDBClientProvider(AmazonDynamoDBClient client) {
@@ -45,7 +42,7 @@ public class DynamoDBClientProducer {
             return client;
         }
     }
-    
+
     public class DynamoDBStreamsClientProvider {
         private final AmazonDynamoDBStreamsClient client;
         DynamoDBStreamsClientProvider(AmazonDynamoDBStreamsClient client) {
@@ -55,15 +52,11 @@ public class DynamoDBClientProducer {
             return client;
         }
     }
-    
+
     @Produces
     @Singleton
     public DynamoDBClientProvider getDynamoDBClientProvider() throws Exception {
         AmazonDynamoDBClient client = DynamoDBUtils.createDynamoDBClient();
-        if (client != null) {
-            TableDescription description = DynamoDBUtils.createTable(client, tableName);
-            Assert.assertEquals("ACTIVE", description.getTableStatus());
-        }
         return new DynamoDBClientProvider(client);
     }
 
@@ -74,9 +67,4 @@ public class DynamoDBClientProducer {
         return new DynamoDBStreamsClientProvider(client);
     }
 
-    public void close(@Disposes DynamoDBClientProvider provider) throws Exception {
-        if (provider.getClient() != null) {
-            DynamoDBUtils.deleteTable(provider.getClient(), tableName);
-        }
-    }
 }
