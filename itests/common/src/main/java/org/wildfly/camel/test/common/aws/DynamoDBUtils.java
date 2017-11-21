@@ -20,7 +20,9 @@
 package org.wildfly.camel.test.common.aws;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -51,12 +53,10 @@ import com.amazonaws.services.dynamodbv2.model.TableDescription;
 
 public class DynamoDBUtils {
 
-    public static final String SUFFIX = "-id" + DynamoDBUtils.class.getClassLoader().hashCode();
-    
     // Attach Policy: AmazonDynamoDBFullAccess
     public static AmazonDynamoDBClient createDynamoDBClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
-        AmazonDynamoDBClient client = !credentials.isValid() ? null : (AmazonDynamoDBClient) 
+        AmazonDynamoDBClient client = !credentials.isValid() ? null : (AmazonDynamoDBClient)
                 AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(credentials)
                 .withRegion("eu-west-1")
@@ -66,7 +66,7 @@ public class DynamoDBUtils {
 
     public static AmazonDynamoDBStreamsClient createDynamoDBStreamsClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
-        AmazonDynamoDBStreamsClient client = !credentials.isValid() ? null : (AmazonDynamoDBStreamsClient) 
+        AmazonDynamoDBStreamsClient client = !credentials.isValid() ? null : (AmazonDynamoDBStreamsClient)
                 AmazonDynamoDBStreamsClientBuilder.standard()
                 .withCredentials(credentials)
                 .withRegion("eu-west-1")
@@ -88,7 +88,7 @@ public class DynamoDBUtils {
     }
 
     public static void updItem(CamelContext camelctx, String title) {
-        
+
         HashMap<String, AttributeValue> key = new HashMap<>();
         key.put("Id", new AttributeValue().withN("103"));
 
@@ -96,7 +96,7 @@ public class DynamoDBUtils {
         AttributeValueUpdate updValue = new AttributeValueUpdate();
         updValue.setValue(new AttributeValue().withS(title));
         updItem.put("Title", updValue);
-        
+
         Exchange exchange = new ExchangeBuilder(camelctx)
                 .withHeader(DdbConstants.OPERATION, DdbOperations.UpdateItem)
                 .withHeader(DdbConstants.KEY, key)
@@ -118,7 +118,7 @@ public class DynamoDBUtils {
         ProducerTemplate producer = camelctx.createProducerTemplate();
         producer.send("direct:start", exchange);
         Assert.assertNull(exchange.getException());
-        
+
         return exchange.getIn().getHeader(DdbConstants.ATTRIBUTES, Map.class);
     }
 
@@ -137,4 +137,13 @@ public class DynamoDBUtils {
     public static void deleteTable(AmazonDynamoDB client, String tableName) throws InterruptedException {
         new DynamoDB(client).getTable(tableName).delete();
     }
+
+    public static void assertNoStaleTables(AmazonDynamoDBClient client, String when) {
+        /* Get the list of tables without the ones in the deleting state */
+        List<String> tables = client.listTables().getTableNames().stream()
+                .filter(t -> System.currentTimeMillis() - AWSUtils.toEpochMillis(t) > AWSUtils.HOUR || !"DELETING".equals(client.describeTable(t).getTable().getTableStatus()))
+                .collect(Collectors.toList());
+        Assert.assertEquals(String.format("Found stale DynamoDB tables %s running the test: %s", when, tables), 0, tables.size());
+    }
+
 }

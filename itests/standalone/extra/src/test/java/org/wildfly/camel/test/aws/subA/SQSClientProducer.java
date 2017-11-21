@@ -19,7 +19,6 @@
  */
 package org.wildfly.camel.test.aws.subA;
 
-import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 
@@ -38,21 +37,12 @@ public class SQSClientProducer {
             return client;
         }
     }
-    
+
     @Produces
     @Singleton
     public SQSClientProvider getClientProvider() throws Exception {
         AmazonSQSClient client = SQSUtils.createSQSClient();
-        if (client != null) {
-            SQSUtils.createQueue(client);
-        }
         return new SQSClientProvider(client);
     }
 
-    public void close(@Disposes SQSClientProvider provider) throws Exception {
-        AmazonSQSClient client = provider.getClient();
-        if (client != null) {
-            SQSUtils.deleteQueue(client);
-        }
-    }
 }

@@ -19,7 +19,6 @@
  */
 package org.wildfly.camel.test.aws.subA;
 
-import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 
@@ -38,21 +37,12 @@ public class KinesisClientProducer {
             return client;
         }
     }
-    
+
     @Produces
     @Singleton
     public KinesisClientProvider getClientProvider() throws Exception {
         AmazonKinesisClient client = KinesisUtils.createKinesisClient();
-        if (client != null) {
-            KinesisUtils.createStream(client);
-        }
         return new KinesisClientProvider(client);
     }
 
-    public void close(@Disposes KinesisClientProvider provider) throws Exception {
-        AmazonKinesisClient client = provider.getClient();
-        if (client != null) {
-            KinesisUtils.deleteStream(client);
-        }
-    }
 }

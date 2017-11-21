@@ -16,6 +16,9 @@
  */
 package org.wildfly.camel.test.aws;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.inject.Inject;
 
 import org.apache.camel.Exchange;
@@ -36,6 +39,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.aws.subA.KinesisClientProducer;
 import org.wildfly.camel.test.aws.subA.KinesisClientProducer.KinesisClientProvider;
+import org.wildfly.camel.test.common.aws.AWSUtils;
 import org.wildfly.camel.test.common.aws.BasicCredentialsProvider;
 import org.wildfly.camel.test.common.aws.KinesisUtils;
 import org.wildfly.extension.camel.CamelAware;
@@ -48,15 +52,25 @@ import com.amazonaws.services.kinesis.model.Record;
 @RunWith(Arquillian.class)
 public class KinesisIntegrationTest {
 
+    private static final String streamName = AWSUtils.toTimestampedName(KinesisIntegrationTest.class);
     @Inject
     private KinesisClientProvider provider;
-    
+
     @Deployment
     public static JavaArchive deployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "aws-kinesis-tests.jar");
-        archive.addClasses(KinesisClientProducer.class, KinesisUtils.class, BasicCredentialsProvider.class);
+        archive.addClasses(KinesisClientProducer.class, KinesisUtils.class, BasicCredentialsProvider.class,
+                AWSUtils.class);
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
+    }
+
+    public static void assertNoStaleStreams(AmazonKinesisClient client, String when) {
+        List<String> staleInstances = client.listStreams().getStreamNames().stream() //
+        .filter(s -> !s.startsWith(KinesisIntegrationTest.class.getSimpleName()) ||
+                System.currentTimeMillis() - AWSUtils.toEpochMillis(s) > AWSUtils.HOUR || !client.describeStream(s).getStreamDescription().getStreamStatus().equals("DELETING")) //
+        .collect(Collectors.toList());
+        Assert.assertEquals(String.format("Found stale Kinesis streams %s running the test: %s", when, staleInstances), 0, staleInstances.size());
     }
 
     @Test
@@ -65,49 +79,59 @@ public class KinesisIntegrationTest {
         AmazonKinesisClient kinClient = provider.getClient();
         Assume.assumeNotNull("AWS client not null", kinClient);
 
-        WildFlyCamelContext camelctx = new WildFlyCamelContext();
-        camelctx.getNamingContext().bind("kinClient", kinClient);
-        
-        camelctx.addRoutes(new RouteBuilder() {
-            public void configure() {
-                from("direct:start")
-                .to("aws-kinesis://" + KinesisUtils.STREAM_NAME + "?amazonKinesisClient=#kinClient");
-                
-                from("aws-kinesis://" + KinesisUtils.STREAM_NAME + "?amazonKinesisClient=#kinClient")
-                .to("mock:result");
-            }
-        });
-        
-        MockEndpoint mockep = camelctx.getEndpoint("mock:result", MockEndpoint.class);
-        mockep.expectedMessageCount(2);
-        
-        camelctx.start();
+        assertNoStaleStreams(kinClient, "before");
         try {
-            ProducerTemplate producer = camelctx.createProducerTemplate();
+            KinesisUtils.createStream(kinClient, streamName);
+            try {
 
-            Exchange exchange = producer.send("direct:start", ExchangePattern.InOnly, new Processor() {
-                public void process(Exchange exchange) throws Exception {
-                    exchange.getIn().setHeader(KinesisConstants.PARTITION_KEY, "partition-1");
-                    exchange.getIn().setBody("Kinesis Event 1.");
+                WildFlyCamelContext camelctx = new WildFlyCamelContext();
+                camelctx.getNamingContext().bind("kinClient", kinClient);
+
+                camelctx.addRoutes(new RouteBuilder() {
+                    public void configure() {
+                        from("direct:start").to("aws-kinesis://" + streamName + "?amazonKinesisClient=#kinClient");
+
+                        from("aws-kinesis://" + streamName + "?amazonKinesisClient=#kinClient").to("mock:result");
+                    }
+                });
+
+                MockEndpoint mockep = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+                mockep.expectedMessageCount(2);
+
+                camelctx.start();
+                try {
+                    ProducerTemplate producer = camelctx.createProducerTemplate();
+
+                    Exchange exchange = producer.send("direct:start", ExchangePattern.InOnly, new Processor() {
+                        public void process(Exchange exchange) throws Exception {
+                            exchange.getIn().setHeader(KinesisConstants.PARTITION_KEY, "partition-1");
+                            exchange.getIn().setBody("Kinesis Event 1.");
+                        }
+                    });
+                    Assert.assertNull(exchange.getException());
+
+                    exchange = producer.send("direct:start", ExchangePattern.InOut, new Processor() {
+                        public void process(Exchange exchange) throws Exception {
+                            exchange.getIn().setHeader(KinesisConstants.PARTITION_KEY, "partition-1");
+                            exchange.getIn().setBody("Kinesis Event 2.");
+                        }
+                    });
+                    Assert.assertNull(exchange.getException());
+
+                    mockep.assertIsSatisfied();
+
+                    assertResultExchange(mockep.getExchanges().get(0), "Kinesis Event 1.", "partition-1");
+                    assertResultExchange(mockep.getExchanges().get(1), "Kinesis Event 2.", "partition-1");
+                } finally {
+                    camelctx.stop();
                 }
-            });
-            Assert.assertNull(exchange.getException());
-            
-            exchange = producer.send("direct:start", ExchangePattern.InOut, new Processor() {
-                public void process(Exchange exchange) throws Exception {
-                    exchange.getIn().setHeader(KinesisConstants.PARTITION_KEY, "partition-1");
-                    exchange.getIn().setBody("Kinesis Event 2.");
-                }
-            });
-            Assert.assertNull(exchange.getException());
-
-            mockep.assertIsSatisfied();
-
-            assertResultExchange(mockep.getExchanges().get(0), "Kinesis Event 1.", "partition-1");
-            assertResultExchange(mockep.getExchanges().get(1), "Kinesis Event 2.", "partition-1");
+            } finally {
+                kinClient.deleteStream(streamName);
+            }
         } finally {
-            camelctx.stop();
+            assertNoStaleStreams(kinClient, "after");
         }
+
     }
 
     private void assertResultExchange(Exchange resultExchange, String data, String partition) {

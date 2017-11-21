@@ -22,11 +22,9 @@ package org.wildfly.camel.test.common.aws;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.builder.RouteBuilder;
-
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.HeadBucketRequest;
 import com.amazonaws.waiters.NoOpWaiterHandler;
 import com.amazonaws.waiters.Waiter;
@@ -34,14 +32,10 @@ import com.amazonaws.waiters.WaiterParameters;
 
 public class S3Utils {
 
-    private static final String SUFFIX = "-id" + S3Utils.class.getClassLoader().hashCode();
-    
-    public static final String BUCKET_NAME = "wfc-bucket" + SUFFIX;
-    
     // Attach Policy: AmazonS3FullAccess
     public static AmazonS3Client createS3Client() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
-        AmazonS3Client client = !credentials.isValid() ? null : (AmazonS3Client) 
+        AmazonS3Client client = !credentials.isValid() ? null : (AmazonS3Client)
                 AmazonS3ClientBuilder.standard()
                 .withCredentials(credentials)
                 .withRegion("eu-west-1")
@@ -49,29 +43,33 @@ public class S3Utils {
         return client;
     }
 
-    public static void addRoutes(CamelContext camelctx) throws Exception {
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                String clientref = "amazonS3Client=#s3Client";
-                from("direct:upload").to("aws-s3://" + BUCKET_NAME + "?" + clientref);
-                from("aws-s3://" + BUCKET_NAME + "?" + clientref).to("seda:read");
-            }
-        });
-    }
-
     @SuppressWarnings("unchecked")
-    public static void createBucket(AmazonS3Client client) throws Exception {
+    public static void createBucket(AmazonS3Client client, String bucketName) throws Exception {
 
-        client.createBucket(BUCKET_NAME);
-        
-        HeadBucketRequest request = new HeadBucketRequest(BUCKET_NAME);
+        client.createBucket(bucketName);
+
+        HeadBucketRequest request = new HeadBucketRequest(bucketName);
         Waiter<HeadBucketRequest> waiter = client.waiters().bucketExists();
         Future<Void> future = waiter.runAsync(new WaiterParameters<HeadBucketRequest>(request), new NoOpWaiterHandler());
         future.get(1, TimeUnit.MINUTES);
     }
 
-    public static void deleteBucket(AmazonS3Client client) throws Exception {
-        client.deleteBucket(BUCKET_NAME);
+    public static void deleteBucket(AmazonS3Client client, String bucketName) {
+        long deadline = System.currentTimeMillis() + 30_000;
+        do {
+            try {
+                client.deleteBucket(bucketName);
+                return;
+            } catch (AmazonS3Exception e) {
+                /* Sometimes, we need to retry because the bucketName is not visible yet */
+            }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        } while (System.currentTimeMillis() <= deadline);
+
     }
+
 }
