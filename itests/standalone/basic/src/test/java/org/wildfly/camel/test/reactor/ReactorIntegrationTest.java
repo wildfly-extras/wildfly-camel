@@ -16,6 +16,10 @@
  */
 package org.wildfly.camel.test.reactor;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -53,12 +57,12 @@ import reactor.core.publisher.Flux;
 public class ReactorIntegrationTest {
 
     static final AtomicBoolean boundAlready = new AtomicBoolean();
-    
+
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-reactor-tests.jar");
     }
-    
+
     public static class SampleBean {
         public String hello(String name) {
             return "Hello " + name;
@@ -67,7 +71,7 @@ public class ReactorIntegrationTest {
 
     @Test
     public void testFromStreamDirect() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             public void configure() {
@@ -89,7 +93,7 @@ public class ReactorIntegrationTest {
             template.sendBody("direct:reactive", 1);
             template.sendBody("direct:reactive", 2);
             template.sendBody("direct:reactive", 3);
-            
+
             Assert.assertEquals(3, value.get());
         } finally {
             camelctx.stop();
@@ -98,7 +102,7 @@ public class ReactorIntegrationTest {
 
     @Test
     public void testFromStreamTimer() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -108,7 +112,7 @@ public class ReactorIntegrationTest {
                     .to("reactive-streams:tick");
             }
         });
-        
+
         final int num = 30;
         final CountDownLatch latch = new CountDownLatch(num);
         final AtomicInteger value = new AtomicInteger(0);
@@ -130,7 +134,7 @@ public class ReactorIntegrationTest {
 
     @Test
     public void testFromStreamMultipleSubscriptionsWithDirect() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -167,7 +171,7 @@ public class ReactorIntegrationTest {
 
     @Test
     public void testMultipleSubscriptionsWithTimer() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -289,7 +293,7 @@ public class ReactorIntegrationTest {
         camelctx.start();
         try {
             CamelReactiveStreamsService crs = CamelReactiveStreams.get(camelctx);
-            
+
             crs.process("direct:stream",
                 Integer.class,
                 publisher ->
@@ -345,17 +349,18 @@ public class ReactorIntegrationTest {
         camelctx.start();
         try {
             CamelReactiveStreamsService crs = CamelReactiveStreams.get(camelctx);
-            
-            AtomicInteger value = new AtomicInteger(0);
-            CountDownLatch latch = new CountDownLatch(1);
+
+            Set<String> values = Collections.synchronizedSet(new TreeSet<>());
+            CountDownLatch latch = new CountDownLatch(3);
 
             Flux.just(1, 2, 3)
                 .flatMap(e -> crs.to("bean:hello", e, String.class))
-                .doOnNext(res -> Assert.assertEquals("Hello " + value.incrementAndGet(), res))
+                .doOnNext(res -> values.add(res))
                 .doOnNext(res -> latch.countDown())
                 .subscribe();
 
             Assert.assertTrue(latch.await(2, TimeUnit.SECONDS));
+            Assert.assertEquals(new TreeSet<>(Arrays.asList("Hello 1", "Hello 2", "Hello 3")), values);
         } finally {
             camelctx.stop();
         }
@@ -367,19 +372,20 @@ public class ReactorIntegrationTest {
         camelctx.start();
         try {
             CamelReactiveStreamsService crs = CamelReactiveStreams.get(camelctx);
-            
-            AtomicInteger value = new AtomicInteger(0);
-            CountDownLatch latch = new CountDownLatch(1);
+
+            Set<String> values = Collections.synchronizedSet(new TreeSet<>());
+            CountDownLatch latch = new CountDownLatch(3);
 
             Flux.just(1, 2, 3)
                 .flatMap(e -> crs.to("bean:hello", e))
                 .map(e -> e.getOut())
                 .map(e -> e.getBody(String.class))
-                .doOnNext(res -> Assert.assertEquals("Hello " + value.incrementAndGet(), res))
+                .doOnNext(res -> values.add(res))
                 .doOnNext(res -> latch.countDown())
                 .subscribe();
 
             Assert.assertTrue(latch.await(2, TimeUnit.SECONDS));
+            Assert.assertEquals(new TreeSet<>(Arrays.asList("Hello 1", "Hello 2", "Hello 3")), values);
         } finally {
             camelctx.stop();
         }
@@ -391,18 +397,22 @@ public class ReactorIntegrationTest {
         camelctx.start();
         try {
             CamelReactiveStreamsService crs = CamelReactiveStreams.get(camelctx);
-            
-            AtomicInteger value = new AtomicInteger(0);
-            CountDownLatch latch = new CountDownLatch(1);
+
+            /* A TreeSet will order the messages alphabetically regardless of the insertion order
+             * This is important because in the Flux returned by Flux.flatMap(Function<? super T, ? extends
+             * Publisher<? extends R>>) the emissions may interleave */
+            Set<String> values = Collections.synchronizedSet(new TreeSet<>());
+            CountDownLatch latch = new CountDownLatch(3);
             Function<Object, Publisher<String>> fun = crs.to("bean:hello", String.class);
 
             Flux.just(1, 2, 3)
                 .flatMap(fun)
-                .doOnNext(res -> Assert.assertEquals("Hello " + value.incrementAndGet(), res))
+                .doOnNext(res -> values.add(res))
                 .doOnNext(res -> latch.countDown())
                 .subscribe();
 
             Assert.assertTrue(latch.await(2, TimeUnit.SECONDS));
+            Assert.assertEquals(new TreeSet<>(Arrays.asList("Hello 1", "Hello 2", "Hello 3")), values);
         } finally {
             camelctx.stop();
         }
@@ -414,19 +424,20 @@ public class ReactorIntegrationTest {
         camelctx.start();
         try {
             CamelReactiveStreamsService crs = CamelReactiveStreams.get(camelctx);
-            AtomicInteger value = new AtomicInteger(0);
-            CountDownLatch latch = new CountDownLatch(1);
+            Set<String> values = Collections.synchronizedSet(new TreeSet<>());
+            CountDownLatch latch = new CountDownLatch(3);
             Function<Object, Publisher<Exchange>> fun = crs.to("bean:hello");
 
             Flux.just(1, 2, 3)
                 .flatMap(fun)
                 .map(e -> e.getOut())
                 .map(e -> e.getBody(String.class))
-                .doOnNext(res -> Assert.assertEquals("Hello " + value.incrementAndGet(), res))
+                .doOnNext(res -> values.add(res))
                 .doOnNext(res -> latch.countDown())
                 .subscribe();
 
             Assert.assertTrue(latch.await(2, TimeUnit.SECONDS));
+            Assert.assertEquals(new TreeSet<>(Arrays.asList("Hello 1", "Hello 2", "Hello 3")), values);
         } finally {
             camelctx.stop();
         }
@@ -446,7 +457,7 @@ public class ReactorIntegrationTest {
         camelctx.start();
         try {
             CamelReactiveStreamsService crs = CamelReactiveStreams.get(camelctx);
-            
+
             Flux.just(1, 2, 3)
                 .subscribe(crs.subscriber("direct:reactor", Integer.class));
 
