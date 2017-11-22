@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.google.inject.guice" slot="3.0">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${com.google.inject:guice}" />
+  </resources>
+  <dependencies>
+    <module name="com.google.guava" slot="12.0" />
+    <module name="aopalliance" />
+    <module name="javax.inject.api" />
+  </dependencies>
+</module>

@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+
+<feature-pack xmlns="urn:wildfly:feature-pack:1.1">
+    <dependencies>
+        <artifact name="org.wildfly.camel:wildfly-camel-feature-extrasB"/>
+    </dependencies>
+    <artifact-versions>
+        <artifact groupId="com.carrotsearch" artifactId="hppc" version="0.7.1"/>
+        <artifact groupId="com.fasterxml.jackson.core" artifactId="jackson-annotations" version="2.8.0"/>
+        <artifact groupId="com.fasterxml.jackson.core" artifactId="jackson-core" version="2.8.10"/>
+        <artifact groupId="com.fasterxml.jackson.core" artifactId="jackson-databind" version="2.8.10"/>
+        <artifact groupId="com.fasterxml.jackson.dataformat" artifactId="jackson-dataformat-cbor" version="2.8.6"/>
+        <artifact groupId="com.fasterxml.jackson.dataformat" artifactId="jackson-dataformat-smile" version="2.8.6"/>
+        <artifact groupId="com.fasterxml.jackson.dataformat" artifactId="jackson-dataformat-yaml" version="2.8.6"/>
+        <artifact groupId="com.github.spullara.mustache.java" artifactId="compiler" version="0.9.3"/>
+        <artifact groupId="com.tdunning" artifactId="t-digest" version="3.0"/>
+        <artifact groupId="commons-codec" artifactId="commons-codec" version="1.10"/>
+        <artifact groupId="io.netty" artifactId="netty" version="3.10.6.Final"/>
+        <artifact groupId="joda-time" artifactId="joda-time" version="2.9.5"/>
+        <artifact groupId="net.sf.jopt-simple" artifactId="jopt-simple" version="5.0.2"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-core" version="2.20.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-elasticsearch5" version="2.20.1"/>
+        <artifact groupId="org.apache.httpcomponents" artifactId="httpasyncclient" version="4.1.2"/>
+        <artifact groupId="org.apache.httpcomponents" artifactId="httpclient" version="4.5.2"/>
+        <artifact groupId="org.apache.httpcomponents" artifactId="httpcore" version="4.4.5"/>
+        <artifact groupId="org.apache.httpcomponents" artifactId="httpcore-nio" version="4.4.5"/>
+        <artifact groupId="org.apache.logging.log4j" artifactId="log4j-api" version="2.9.1"/>
+        <artifact groupId="org.apache.logging.log4j" artifactId="log4j-core" version="2.9.1"/>
+        <artifact groupId="org.apache.lucene" artifactId="lucene-analyzers-common" version="6.6.0"/>
+        <artifact groupId="org.apache.lucene" artifactId="lucene-backward-codecs" version="6.6.0"/>
+        <artifact groupId="org.apache.lucene" artifactId="lucene-core" version="6.6.0"/>
+        <artifact groupId="org.apache.lucene" artifactId="lucene-grouping" version="6.6.0"/>
+        <artifact groupId="org.apache.lucene" artifactId="lucene-highlighter" version="6.6.0"/>
+        <artifact groupId="org.apache.lucene" artifactId="lucene-join" version="6.6.0"/>
+        <artifact groupId="org.apache.lucene" artifactId="lucene-memory" version="6.6.0"/>
+        <artifact groupId="org.apache.lucene" artifactId="lucene-misc" version="6.6.0"/>
+        <artifact groupId="org.apache.lucene" artifactId="lucene-queries" version="6.6.0"/>
+        <artifact groupId="org.apache.lucene" artifactId="lucene-queryparser" version="6.6.0"/>
+        <artifact groupId="org.apache.lucene" artifactId="lucene-sandbox" version="6.6.0"/>
+        <artifact groupId="org.apache.lucene" artifactId="lucene-spatial" version="6.6.0"/>
+        <artifact groupId="org.apache.lucene" artifactId="lucene-spatial-extras" version="6.6.0"/>
+        <artifact groupId="org.apache.lucene" artifactId="lucene-spatial3d" version="6.6.0"/>
+        <artifact groupId="org.apache.lucene" artifactId="lucene-suggest" version="6.6.0"/>
+        <artifact groupId="org.elasticsearch" artifactId="elasticsearch" version="5.5.2"/>
+        <artifact groupId="org.elasticsearch" artifactId="securesm" version="1.1"/>
+        <artifact groupId="org.elasticsearch.client" artifactId="rest" version="5.5.2"/>
+        <artifact groupId="org.elasticsearch.client" artifactId="transport" version="5.5.2"/>
+        <artifact groupId="org.elasticsearch.plugin" artifactId="lang-mustache-client" version="5.5.2"/>
+        <artifact groupId="org.elasticsearch.plugin" artifactId="parent-join-client" version="5.5.2"/>
+        <artifact groupId="org.elasticsearch.plugin" artifactId="percolator-client" version="5.5.2"/>
+        <artifact groupId="org.elasticsearch.plugin" artifactId="reindex-client" version="5.5.2"/>
+        <artifact groupId="org.elasticsearch.plugin" artifactId="transport-netty3-client" version="5.5.2"/>
+        <artifact groupId="org.elasticsearch.plugin" artifactId="transport-netty4-client" version="5.5.2"/>
+        <artifact groupId="org.hdrhistogram" artifactId="HdrHistogram" version="2.1.9"/>
+        <artifact groupId="org.slf4j" artifactId="slf4j-api" version="1.7.22"/>
+        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-extrasB" version="5.0.0-SNAPSHOT" extension="zip"/>
+        <artifact groupId="org.yaml" artifactId="snakeyaml" version="1.15"/>
+    </artifact-versions>
+</feature-pack>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.elasticsearch">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.elasticsearch:elasticsearch}" />
+    <artifact name="${com.carrotsearch:hppc}" />
+    <artifact name="${com.twitter:jsr166e}" />
+    <artifact name="${org.elasticsearch:securesm}" />
+    <artifact name="${com.tdunning:t-digest}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="io.netty" slot="3.10" />
+    <module name="org.apache.lucene" slot="5.5" />
+    <module name="org.slf4j" />
+    <module name="sun.jdk">
+      <imports>
+        <include path="sun/misc" />
+      </imports>
+    </module>
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.dataformat.cbor" />
+    <module name="com.fasterxml.jackson.dataformat.smile" />
+    <module name="com.fasterxml.jackson.dataformat.yaml" />
+    <module name="com.google.guava" />
+    <module name="com.ning.lzf" />
+    <module name="org.joda.time" />
+    <module name="org.yaml.snakeyaml" />
+  </dependencies>
+  <exports>
+    <exclude path="com/carrotsearch**" />
+    <exclude path="com/tdunning**" />
+    <exclude path="com/twitter**" />
+  </exports>
+</module>

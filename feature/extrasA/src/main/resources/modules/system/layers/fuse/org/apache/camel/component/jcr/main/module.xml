@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.jcr">
+  <resources>
+    <artifact name="${org.apache.camel:camel-jcr}" />
+  </resources>
+  <dependencies>
+    <module name="javax.jcr" export="true" />
+    <module name="org.slf4j" />
+    <module name="com.rometools.rome" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.jackrabbit" />
+    <module name="org.apache.lucene" slot="3.6" />
+  </dependencies>
+</module>

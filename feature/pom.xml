@@ -36,10 +36,11 @@
 
     <modules>
         <module>common</module>
+        <module>modules</module>
         <module>extrasA</module>
         <module>extrasB</module>
         <module>extrasC</module>
-        <module>modules</module>
+        <module>extrasD</module>
         <module>pack</module>
     </modules>
 

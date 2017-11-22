@@ -297,6 +297,11 @@
         <include artifact=":apache-mime4j-core" />
     </module>
 
+    <module name="org.apache.log4j" skip="true">
+        <include artifact="org.apache.log4j:" />
+        <include artifact="log4j:" />
+    </module>
+
     <module name="org.apache.neethi" skip="true">
         <include artifact=":neethi" />
     </module>

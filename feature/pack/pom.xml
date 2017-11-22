@@ -36,7 +36,7 @@
 
     <properties>
         <wildfly.module.dir>${project.build.directory}/wildfly-${version.wildfly}/modules/system/layers/base</wildfly.module.dir>
-        <wildfly.camel.module.dir>${project.build.directory}/${project.artifactId}-${project.version}/modules/system/layers/fuse</wildfly.camel.module.dir>
+        <wildfly.camel.module.dir>${project.build.directory}/wildfly-camel-${project.version}/modules/system/layers/fuse</wildfly.camel.module.dir>
     </properties>
 
     <dependencyManagement>
@@ -54,27 +54,33 @@
     <dependencies>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-feature-modules</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-feature-extrasA</artifactId>
             <version>${project.version}</version>
-            <type>pom</type>
+            <type>zip</type>
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-feature-extrasB</artifactId>
             <version>${project.version}</version>
-            <type>pom</type>
+            <type>zip</type>
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-feature-extrasC</artifactId>
             <version>${project.version}</version>
-            <type>pom</type>
+            <type>zip</type>
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-feature-modules</artifactId>
+            <artifactId>wildfly-camel-feature-extrasD</artifactId>
             <version>${project.version}</version>
-            <type>pom</type>
+            <type>zip</type>
         </dependency>
     </dependencies>
 
@@ -82,32 +88,14 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <inherited>false</inherited>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <ant antfile="${basedir}/scripts/sync-generated-modules.xml" inheritRefs="true" />
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>unpack-wildfly-feature-pack</id>
+                        <phase>compile</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
-                        <phase>compile</phase>
                         <inherited>false</inherited>
                         <configuration>
                             <artifactItems>
@@ -121,103 +109,6 @@
                                     <outputDirectory>${project.build.directory}/wildfly-feature-pack</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>unpack-extrasA</id>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <inherited>false</inherited>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.wildfly.camel</groupId>
-                                    <artifactId>wildfly-camel-feature-extrasA</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>zip</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/wildfly-patch</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>unpack-extrasB</id>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <inherited>false</inherited>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.wildfly.camel</groupId>
-                                    <artifactId>wildfly-camel-feature-extrasB</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>zip</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/wildfly-patch</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>unpack-extrasC</id>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <inherited>false</inherited>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.wildfly.camel</groupId>
-                                    <artifactId>wildfly-camel-feature-extrasC</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>zip</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/wildfly-patch</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>unpack-modules</id>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <inherited>false</inherited>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.wildfly.camel</groupId>
-                                    <artifactId>wildfly-camel-feature-modules</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>zip</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/wildfly-patch</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.wildfly.build</groupId>
-                <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>server-provisioning</id>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                        <phase>compile</phase>
-                        <configuration>
-                            <config-file>src/main/resources/wildfly-provisioning.xml</config-file>
-                            <server-name>wildfly-${version.wildfly}</server-name>
                         </configuration>
                     </execution>
                 </executions>
@@ -234,6 +125,34 @@
                         <phase>compile</phase>
                         <configuration>
                             <config-file>scripts/feature-pack-build.xml</config-file>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.wildfly.build</groupId>
+                <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>provision-wildfly</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <configuration>
+                            <config-file>src/main/resources/wildfly-provisioning.xml</config-file>
+                            <server-name>wildfly-${version.wildfly}</server-name>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>provision-wildfly-camel</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <configuration>
+                            <config-file>src/main/resources/wildfly-camel-provisioning.xml</config-file>
+                            <server-name>wildfly-camel-${project.version}</server-name>
                         </configuration>
                     </execution>
                 </executions>

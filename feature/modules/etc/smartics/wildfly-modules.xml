@@ -29,10 +29,5 @@
     <module name="com.google.guava" skip="true">
         <include artifact="com.google.guava:guava" />
     </module>
-    
-    <module name="org.apache.log4j" skip="true">
-        <include artifact="org.apache.log4j:" />
-        <include artifact="log4j:" />
-    </module>
 
 </modules>

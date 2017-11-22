@@ -842,31 +842,6 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.elasticsearch">
-        <include artifact="org.apache.camel:camel-elasticsearch"/>
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.elasticsearch"/>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
-    <module name="org.apache.camel.component.elasticsearch5">
-        <include artifact="org.apache.camel:camel-elasticsearch5"/>
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="org.elasticsearch5"/>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
     <module name="org.apache.camel.component.elsql">
         <include artifact="org.apache.camel:camel-elsql" />
         <include artifact="com.opengamma:elsql" />
@@ -955,18 +930,6 @@
         </exports>
     </module>
 
-    <module name="org.apache.camel.component.flink">
-        <include artifact="org.apache.camel:camel-flink" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.apache.flink" export="true" />
-            <module name="org.slf4j" />
-        </dependencies>
-    </module>
-    
     <module name="org.apache.camel.component.fop">
         <include artifact="org.apache.camel:camel-fop" />
         <apply-to-dependencies skip="true">
@@ -1255,54 +1218,6 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.hbase">
-        <include artifact="org.apache.camel:camel-hbase"/>
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt"/>
-            <include module="org.springframework.boot"/>
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.apache.hbase" export="true" services="export">
-                <exports>
-                    <include path="org/apache/hadoop/hbase" />
-                    <include path="org/apache/hadoop/hbase/client" />
-                    <include path="org/apache/hadoop/hbase/filter**" />
-                    <exclude path="com/google**" />
-                    <exclude path="org/apache/hadoop/hbase**" />
-                </exports>
-            </module>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
-    <module name="org.apache.camel.component.hdfs2">
-        <include artifact="org.apache.camel:camel-hdfs2" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="org.apache.hadoop" export="true" services="export">
-                <exports>
-                    <include path="org/apache/hadoop" />
-                    <include path="org/apache/hadoop/conf**" />
-                    <include path="org/apache/hadoop/crypto**" />
-                    <include path="org/apache/hadoop/fs**" />
-                    <include path="org/apache/hadoop/hdfs**" />
-                    <include path="org/apache/hadoop/http**" />
-                    <include path="org/apache/hadoop/io**" />
-                    <include path="org/apache/hadoop/ipc**" />
-                    <include path="org/apache/hadoop/net**" />
-                    <include path="org/apache/hadoop/security**" />
-                    <exclude path="org/apache/hadoop**" />
-                    <exclude path="webapps**" />
-                </exports>
-            </module>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
     <module name="org.apache.camel.component.headersmap">
         <include artifact="org.apache.camel:camel-headersmap" />
         <include artifact="com.cedarsoftware:java-util" />
@@ -1312,7 +1227,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.slf4j"/>
+            <module name="org.apache.logging.log4j"/>
         </dependencies>
         <exports>
             <exclude path="com/cedarsoftware**" />
@@ -1529,18 +1444,6 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.jbpm">
-        <include artifact="org.apache.camel:camel-jbpm" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.kie" slot="6.5"/>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
     <module name="org.apache.camel.component.jcache">
         <include artifact="org.apache.camel:camel-jcache" />
         <apply-to-dependencies skip="true">
@@ -1555,64 +1458,6 @@
                     <exclude path="OSGI-INF/blueprint" />
                 </exports>
             </module>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
-    <module name="org.apache.camel.component.jclouds">
-        <include artifact="org.apache.camel:camel-jclouds"/>
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt"/>
-            <include module="org.springframework.boot"/>
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="com.google.guava" slot="16.0" />
-            <module name="com.google.inject.guice" slot="3.0"/>
-            <module name="javax.api"/>
-            <module name="org.apache.jclouds" export="true" services="export">
-                <exports>
-                    <exclude path="org/jclouds/apis/internal"/>
-                    <exclude path="org/jclouds/blobstore/internal"/>
-                    <exclude path="org/jclouds/blobstore/domain/internal"/>
-                    <exclude path="org/jclouds/blobstore/strategy/internal"/>
-                    <exclude path="org/jclouds/blobstore/util/internal"/>
-                    <exclude path="org/jclouds/collect/internal"/>
-                    <exclude path="org/jclouds/compute/internal"/>
-                    <exclude path="org/jclouds/compute/domain/internal"/>
-                    <exclude path="org/jclouds/compute/extensions/internal"/>
-                    <exclude path="org/jclouds/compute/predicates/internal"/>
-                    <exclude path="org/jclouds/date/internal"/>
-                    <exclude path="org/jclouds/domain/internal"/>
-                    <exclude path="org/jclouds/encryption/internal"/>
-                    <exclude path="org/jclouds/http/internal"/>
-                    <exclude path="org/jclouds/internal"/>
-                    <exclude path="org/jclouds/io/internal"/>
-                    <exclude path="org/jclouds/json/internal"/>
-                    <exclude path="org/jclouds/logging/internal"/>
-                    <exclude path="org/jclouds/ovf/internal"/>
-                    <exclude path="org/jclouds/ovf/xml/internal"/>
-                    <exclude path="org/jclouds/predicates/internal"/>
-                    <exclude path="org/jclouds/providers/internal"/>
-                    <exclude path="org/jclouds/proxy/internal"/>
-                    <exclude path="org/jclouds/rest/internal"/>
-                    <exclude path="org/jclouds/ssh/internal"/>
-                    <exclude path="org/jclouds/strategy/internal"/>
-                    <exclude path="org/jclouds/util/internal"/>
-                    <exclude path="org/jclouds/xml/internal"/>
-                </exports>
-            </module>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
-    <module name="org.apache.camel.component.jcr">
-        <include artifact="org.apache.camel:camel-jcr" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.jcr" export="true"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -3102,7 +2947,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="io.netty"/>
-            <module name="org.slf4j"/>
+            <module name="org.apache.logging.log4j"/>
         </dependencies>
         <exports>
             <exclude path="io/vertx" />

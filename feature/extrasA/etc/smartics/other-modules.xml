@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Wildfly Camel Patch
+  %%
+  Copyright (C) 2013 - 2014 RedHat
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+<modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
+
+    <module name="com.google.guava" inherit-slot="false" slot="12.0">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.google.guava:guava" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.inject.api" />
+        </dependencies>
+    </module>
+
+   <module name="com.google.protobuf" inherit-slot="false" slot="2.5">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.google.protobuf:protobuf-java" />
+        <dependencies>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc/Unsafe" />
+                </imports>
+            </module>
+        </dependencies>
+    </module>
+
+    <module name="com.google.inject.guice" inherit-slot="false" slot="3.0">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.google.inject:guice"/>
+        <dependencies>
+            <module name="com.google.guava" slot="12.0"/>
+        </dependencies>
+    </module>
+
+    <module name="com.sun.jersey.client">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.sun.jersey:jersey-client" />
+    </module>
+    
+    <module name="com.sun.jersey.core" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.sun.jersey:jersey-core"/>
+        <include artifact="com.sun.jersey:jersey-json"/>
+    </module>
+
+    <module name="com.typesafe.config">
+        <include artifact="com.typesafe:config" />
+    </module>
+    
+    <module name="javax.jcr" >
+        <include artifact="javax.jcr:jcr" />
+    </module>
+
+    <module name="org.apache.commons.dbcp">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-dbcp" />
+        <dependencies>
+            <module name="javax.sql.api" />
+            <module name="org.apache.derby" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.derby">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.derby:derby" />
+        <dependencies>
+            <module name="javax.api" />
+            <module name="javax.sql.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.flink">
+        <include artifact="com.data-artisans:flakka-actor_2.11" />
+        <include artifact="com.data-artisans:flakka-remote_2.11" />
+        <include artifact="com.data-artisans:flakka-slf4j_2.11" />
+        <include artifact="com.esotericsoftware.kryo:kryo" />
+        <include artifact="com.esotericsoftware.minlog:minlog" />
+        <include artifact="com.github.scopt:scopt_2.11" />
+        <include artifact="org.apache.flink:flink-annotations" />
+        <include artifact="org.apache.flink:flink-core" />
+        <include artifact="org.apache.flink:flink-clients_2.11" />
+        <include artifact="org.apache.flink:flink-metrics-core" />
+        <include artifact="org.apache.flink:flink-java" />
+        <include artifact="org.apache.flink:flink-optimizer_2.11" />
+        <include artifact="org.apache.flink:flink-runtime_2.11" />
+        <include artifact="org.apache.flink:flink-streaming-java_2.11" />
+        <include artifact="org.clapper:grizzled-slf4j_2.11" />
+        <apply-to-dependencies skip="true">
+            <include module="com.data.artisans.skipped" />
+            <include module="com.google.code.findbugs" />
+            <include module="com.twitter.chill" />
+            <include module="org.apache.flink.skipped" />
+            <include module="org.apache.sling" />
+            <include module="org.uncommons.maths" />
+            <include module="org.objenisis" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="com.typesafe.config" />
+            <module name="io.netty" slot="3.10" />
+            <module name="org.apache.commons.io" />
+            <module name="org.apache.hadoop" />
+            <module name="org.slf4j" />
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc" />
+                </imports>
+            </module>
+            <system>
+                <paths>
+                    <!-- not exported by sun.jdk -->
+                    <path name="com/sun/management"/>
+                    <path name="sun/net/util"/>
+                </paths>
+            </system>
+        </dependencies>
+        <exports>
+            <exclude path="akka**" />
+            <exclude path="com/esotericsoftware**" />
+            <exclude path="grizzled**" />
+            <exclude path="io/netty**" />
+            <exclude path="org/apache/flink" />
+            <exclude path="org/apache/flink/client**" />
+            <exclude path="org/apache/flink/configuration" />
+            <exclude path="org/apache/flink/core**" />
+            <exclude path="org/apache/flink/metrics**" />
+            <exclude path="org/apache/flink/migration**" />
+            <exclude path="org/apache/flink/optimizer**" />
+            <exclude path="org/apache/flink/runtime**" />
+            <exclude path="org/apache/flink/shaded**" />
+            <exclude path="org/apache/flink/streaming" />
+            <exclude path="org/apache/flink/streaming/runtime**" />
+            <exclude path="org/apache/flink/streaming/util**" />
+            <exclude path="org/apache/flink/types**" />
+            <exclude path="org/apache/flink/util" />
+        </exports>
+    </module>
+    
+    <module name="org.apache.hbase">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.hbase:hbase-annotations"/>
+        <include artifact="org.apache.hbase:hbase-client"/>
+        <include artifact="org.apache.hbase:hbase-common"/>
+        <include artifact="org.apache.hbase:hbase-protocol"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs"/>
+            <include module="io.netty.skipped" />
+            <include module="junit"/>
+            <include module="org.apache.camel.component.protobuf" />
+            <include module="org.jruby"/>
+            <include module="org.mortbay.jetty"/>
+            <include module="org.osgi.core"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc"/>
+                </imports>
+            </module>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.hadoop">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.hadoop:hadoop-annotations" />
+        <include artifact="org.apache.hadoop:hadoop-auth" />
+        <include artifact="org.apache.hadoop:hadoop-common" />
+        <include artifact="org.apache.hadoop:hadoop-hdfs" />
+        <include artifact="org.apache.hadoop:hadoop-mapreduce-client-core"/>
+        <include artifact="org.apache.hadoop:hadoop-yarn-api"/>
+        <include artifact="org.apache.hadoop:hadoop-yarn-common"/>
+        <apply-to-dependencies skip="true">
+            <include module="ant" />
+            <include module="com.google.inject.skipped"/>
+            <include module="com.sun.jersey.client" />
+            <include module="com.sun.jersey.server" />
+            <include module="com.google.code.findbugs" />
+            <include module="io.netty.skipped" />
+            <include module="jdiff" />
+            <include module="jdk.tools" />
+            <include module="net.java.dev.jets3t" />
+            <include module="org.apache.camel.component.protobuf" />
+            <include module="org.apache.commons.daemon" />
+            <include module="org.apache.directory.server" />
+            <include module="org.fusesource.leveldbjni" />
+            <include module="org.mortbay.jetty" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.google.protobuf" slot="2.5" />
+            <module name="org.apache.commons.configuration" />
+            <module name="org.apache.commons.net" />
+            <module name="ibm.jdk.ext" />
+            <module name="javax.api" />
+            <module name="sun.jdk.ext" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.htrace">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.htrace:htrace-core" />
+    </module>
+
+    <module name="org.apache.jackrabbit" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.jackrabbit:jackrabbit-api" />
+        <include artifact="org.apache.jackrabbit:jackrabbit-core" />
+        <include artifact="org.apache.jackrabbit:jackrabbit-data" />
+        <include artifact="org.apache.jackrabbit:jackrabbit-jcr-commons" />
+        <include artifact="org.apache.jackrabbit:jackrabbit-spi" />
+        <include artifact="org.apache.jackrabbit:jackrabbit-spi-commons" />
+        <include artifact="concurrent:concurrent" />
+        <apply-to-dependencies skip="true">
+            <include module="biz.aQute" />
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api" />
+            <module name="org.apache.lucene" slot="3.6"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.lucene" inherit-slot="false" slot="3.6">
+        <include artifact=":lucene-core" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.tika" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.tika:tika-core" />
+        <apply-to-dependencies skip="true">
+            <include module="biz.aQute" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="org.kie.remote" inherit-slot="false" slot="6.5">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.kie.remote:kie-remote-client" />
+        <include artifact="org.kie.remote:kie-remote-common" />
+        <include artifact="org.kie.remote:kie-remote-jaxb" />
+        <include artifact="org.kie.remote.ws:kie-remote-ws-common" />
+        <dependencies>
+            <module name="com.sun.xml.bind" />
+            <module name="javax.api"/>
+            <module name="javax.jms.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
+    <module name="org.kie" inherit-slot="false" slot="6.5">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.kie:kie-internal" />
+        <include artifact="org.kie:kie-api" />
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.xml.bind.jaxb.xjc" />
+            <include module="org.osgi.compendium" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="xmlenc">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="xmlenc:xmlenc" />
+    </module>
+
+</modules>

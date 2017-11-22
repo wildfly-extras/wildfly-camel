@@ -28,7 +28,15 @@
 
     <fileSets>
         <fileSet>
-            <directory>target/wildfly-patch</directory>
+            <directory>target/${project.artifactId}-${project.version}</directory>
+            <outputDirectory>/</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/managed-jars</directory>
+            <outputDirectory>/</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/wildfly-feature-pack</directory>
             <outputDirectory>/</outputDirectory>
         </fileSet>
     </fileSets>

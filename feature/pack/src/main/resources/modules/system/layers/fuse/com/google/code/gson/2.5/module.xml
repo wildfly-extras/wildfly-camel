@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="com.google.code.gson" slot="2.5">
-  <resources>
-    <resource-root path="gson-2.5.jar" />
-  </resources>
-  <dependencies />
-</module>

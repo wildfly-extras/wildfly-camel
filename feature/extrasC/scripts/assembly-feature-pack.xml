@@ -28,12 +28,8 @@
 
     <fileSets>
         <fileSet>
-            <directory>target/wildfly-patch</directory>
+            <directory>target/${project.artifactId}-${project.version}</directory>
             <outputDirectory>/</outputDirectory>
-            <excludes>
-                <exclude>modules/system/layers/fuse/org/apache/camel/component/**</exclude>
-                <exclude>modules/system/layers/fuse/org/wildfly/camel/**</exclude>
-            </excludes>
         </fileSet>
     </fileSets>
     

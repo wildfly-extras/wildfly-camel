@@ -21,8 +21,11 @@
 <build xmlns="urn:wildfly:feature-pack-build:1.0">
 
     <dependencies>
-        <artifact name="org.wildfly.extras.patch:fuse-patch-feature-pack" />
-    	<artifact name="org.wildfly:wildfly-feature-pack" />
+        <artifact name="org.wildfly.camel:wildfly-camel-feature-modules" />
+        <artifact name="org.wildfly.camel:wildfly-camel-feature-extrasA" />
+        <artifact name="org.wildfly.camel:wildfly-camel-feature-extrasB" />
+        <artifact name="org.wildfly.camel:wildfly-camel-feature-extrasC" />
+        <artifact name="org.wildfly.camel:wildfly-camel-feature-extrasD" />
     </dependencies>
     
     <config>
@@ -35,10 +38,6 @@
                 subsystems="configuration/standalone/subsystems-full.xml"
                 output-file="standalone/configuration/standalone-full.xml"/>
     </config>
-    
-    <copy-artifacts>
-        <copy-artifact artifact="io.hawt:hawtio-wildfly" to-location="standalone/deployments/"/>
-    </copy-artifacts>
     
     <file-permissions>
         <permission value="755">
@@ -55,5 +54,5 @@
             <filter pattern="*.sh" include="true"/>
         </unix>
     </line-endings>
-    
+
 </build>

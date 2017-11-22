@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.google.code.gson" slot="2.5">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${com.google.code.gson:gson}" />
+  </resources>
+  <dependencies>
+    <module name="sun.jdk">
+      <imports>
+        <include path="sun/misc" />
+      </imports>
+    </module>
+  </dependencies>
+</module>

@@ -100,8 +100,12 @@
         <include artifact="findbugs:annotations" />
     </module>
 
-    <module name="com.google.guava.skipped" skip="true">
+    <module name="com.google.guava.bootstrap" skip="true">
         <include artifact="com.google.guava:guava-bootstrap-jdk5" />
+        <include artifact="com.google.guava:guava-bootstrap" />
+    </module>
+
+    <module name="com.google.guava.jdk5" skip="true">
         <include artifact="com.google.guava:guava-jdk5" />
     </module>
 
@@ -228,6 +232,10 @@
         <include artifact=":junit" />
     </module>
 
+    <module name="net.java.dev.jets3t" skip="true">
+        <include artifact="net.java.dev.jets3t:jets3t" />
+    </module>
+
     <module name="net.java.dev.jna" skip="true">
         <include artifact="net.java.dev.jna:" />
     </module>
@@ -293,6 +301,11 @@
 
     <module name="org.apache.httpcomponents.skipped" skip="true">
         <include artifact="org.apache.httpcomponents:httpclient-osgi" />
+    </module>
+
+    <module name="org.apache.log4j" skip="true">
+        <include artifact="org.apache.log4j:" />
+        <include artifact="log4j:" />
     </module>
 
     <module name="org.apache.maven" skip="true">

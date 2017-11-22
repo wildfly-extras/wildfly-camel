@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.jclouds">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.apache.jclouds:jclouds-blobstore}" />
+    <artifact name="${org.apache.jclouds:jclouds-compute}" />
+    <artifact name="${org.apache.jclouds:jclouds-core}" />
+    <artifact name="${org.apache.jclouds:jclouds-scriptbuilder}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.xml.bind.api" />
+    <module name="com.google.code.gson" slot="2.5" />
+    <module name="com.google.guava" slot="16.0" />
+    <module name="com.google.inject.extensions" slot="3.0" />
+    <module name="com.google.inject.guice" slot="3.0" />
+    <module name="javax.annotation.api" />
+    <module name="javax.inject.api" />
+    <module name="javax.ws.rs.api" />
+  </dependencies>
+  <exports>
+    <exclude path="org/jclouds/javax**" />
+    <exclude path="org/jclouds/osgi" />
+    <exclude path="org/jclouds/scriptbuilder/functionloader/osgi" />
+  </exports>
+</module>

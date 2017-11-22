@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.elasticsearch5">
+  <resources>
+    <artifact name="${org.elasticsearch:elasticsearch}" />
+    <artifact name="${com.carrotsearch:hppc}" />
+    <artifact name="${org.elasticsearch.plugin:lang-mustache-client}" />
+    <artifact name="${org.elasticsearch.plugin:parent-join-client}" />
+    <artifact name="${org.elasticsearch.plugin:percolator-client}" />
+    <artifact name="${org.elasticsearch.plugin:reindex-client}" />
+    <artifact name="${org.elasticsearch.client:rest}" />
+    <artifact name="${org.elasticsearch:securesm}" />
+    <artifact name="${com.tdunning:t-digest}" />
+    <artifact name="${org.elasticsearch.client:transport}" />
+    <artifact name="${org.elasticsearch.plugin:transport-netty4-client}" />
+  </resources>
+  <dependencies>
+    <module name="io.netty" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.dataformat.cbor" />
+    <module name="com.fasterxml.jackson.dataformat.smile" />
+    <module name="com.fasterxml.jackson.dataformat.yaml" />
+    <module name="com.github.spullara.mustache" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.logging" />
+    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.lucene" slot="6.6" />
+    <module name="org.elasticsearch5.log4j" />
+    <module name="org.elasticsearch5.transport.netty3" />
+    <module name="org.joda.time" />
+    <module name="org.yaml.snakeyaml" />
+  </dependencies>
+</module>

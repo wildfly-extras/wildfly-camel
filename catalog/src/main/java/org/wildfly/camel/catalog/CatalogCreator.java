@@ -39,10 +39,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.BooleanNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public final class CatalogCreator {
@@ -209,7 +206,9 @@ public final class CatalogCreator {
                         String comment = idx > 0 ? line.substring(idx).trim() : null;
                         Item item = roadmap.item(name);
                         if (item != null) {
-                            item.state = state;
+                            if (state == State.planned || state == State.rejected) {
+                                item.state = state;
+                            }
                             item.comment = comment;
                         }
                     }
@@ -265,7 +264,9 @@ public final class CatalogCreator {
                         StringBuffer line = new StringBuffer(item.name);
                         String comment = item.deprecated ? "#deprecated" : item.comment;
                         if (comment != null) {
-                            line.append(StringUtils.repeat(" ", maxlength - line.length()));
+                            for (int i = 0; i < (maxlength - item.name.length()); i++) {
+                                line.append(" ");
+                            }
                             line.append(comment);
                         }
                         pw.println(line);
