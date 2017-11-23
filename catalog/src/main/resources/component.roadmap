@@ -257,8 +257,6 @@ cmis                                                #1989 Blocked by camel-2.21.
 hipchat                                             #2003
 nagios                                              #1456
 restlet                                             #2024
-spark                                               #1469
-spark-rest                                          #1470
 tika                                                #1850 Blocked by camel-2.21.x
 
 [undecided]
@@ -302,5 +300,7 @@ openshift                                           #deprecated
 paxlogging                                          #2020 OSGi specific
 quartz                                              #deprecated
 routebox                                            #deprecated
+spark                                               #1469 Scala/Jackson stack overflow
+spark-rest                                          #1470 Scala/Jackson stack overflow
 websocket                                           #1479 No alternative HTTP engine
 
