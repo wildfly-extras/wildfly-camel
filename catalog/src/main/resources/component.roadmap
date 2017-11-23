@@ -163,6 +163,7 @@ msv
 mustache
 mvel
 mybatis
+nagios
 nats
 netty4
 olingo2
@@ -255,7 +256,6 @@ zookeeper-master
 beanstalk                                           #1419
 cmis                                                #1989 Blocked by camel-2.21.x
 hipchat                                             #2003
-nagios                                              #1456
 restlet                                             #2024
 tika                                                #1850 Blocked by camel-2.21.x
 

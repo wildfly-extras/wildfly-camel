@@ -159,6 +159,7 @@
         <module name="org.apache.camel.component.mustache" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.mvel" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.mybatis" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.nagios" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.nats" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.netty4" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.ognl" export="true" services="export" optional="true" />

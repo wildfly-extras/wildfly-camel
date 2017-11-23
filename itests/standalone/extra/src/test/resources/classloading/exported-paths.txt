@@ -673,6 +673,11 @@ com/google/protobuf
 com/google/protobuf/util
 com/google/thirdparty
 com/google/thirdparty/publicsuffix
+com/googlecode/jsendnsca
+com/googlecode/jsendnsca/builders
+com/googlecode/jsendnsca/encryption
+com/googlecode/jsendnsca/quickstart
+com/googlecode/jsendnsca/utils
 com/hazelcast
 com/hazelcast/aggregation
 com/hazelcast/aggregation/impl
@@ -1838,6 +1843,7 @@ org/apache/camel/component/mqtt
 org/apache/camel/component/mustache
 org/apache/camel/component/mvel
 org/apache/camel/component/mybatis
+org/apache/camel/component/nagios
 org/apache/camel/component/nats
 org/apache/camel/component/netty4
 org/apache/camel/component/netty4/codec

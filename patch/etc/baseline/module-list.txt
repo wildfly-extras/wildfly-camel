@@ -344,6 +344,8 @@
 /org/apache/camel/component/mvel/main/camel-mvel-2.20.1.jar
 /org/apache/camel/component/mybatis/main/camel-mybatis-2.20.1.jar
 /org/apache/camel/component/mybatis/main/mybatis-3.4.5.jar
+/org/apache/camel/component/nagios/main/camel-nagios-2.20.1.jar
+/org/apache/camel/component/nagios/main/jsendnsca-2.1.1.jar
 /org/apache/camel/component/nats/main/camel-nats-2.20.1.jar
 /org/apache/camel/component/nats/main/jnats-1.0.jar
 /org/apache/camel/component/netty4/main/camel-netty4-2.20.1.jar

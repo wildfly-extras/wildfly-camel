@@ -1968,6 +1968,23 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.nagios">
+        <include artifact="org.apache.camel:camel-nagios" />
+        <include artifact="com.github.jsendnsca:jsendnsca" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+            <include module="org.mockito" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="com/googlecode" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.nats">
         <include artifact="org.apache.camel:camel-nats" />
         <include artifact="io.nats:jnats" />

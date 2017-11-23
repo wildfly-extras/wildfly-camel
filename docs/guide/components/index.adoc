@@ -238,6 +238,8 @@ include::camel-mvel.adoc[]
 
 include::camel-mybatis.adoc[]
 
+include::camel-nagios.adoc[]
+
 include::camel-nats.adoc[]
 
 include::camel-netty4.adoc[]
