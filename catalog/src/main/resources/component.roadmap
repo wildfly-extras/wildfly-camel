@@ -103,6 +103,7 @@ hazelcast-set
 hazelcast-topic
 hbase
 hdfs2
+hipchat
 http4
 https4
 iec60870-client
@@ -255,7 +256,6 @@ zookeeper-master
 
 [planned]
 cmis                                                #1989 Blocked by camel-2.21.x
-hipchat                                             #2003
 restlet                                             #2024 Blocked by camel-2.21.x
 tika                                                #1850 Blocked by camel-2.21.x
 

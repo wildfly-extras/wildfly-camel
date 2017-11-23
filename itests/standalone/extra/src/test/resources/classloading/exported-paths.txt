@@ -1743,6 +1743,7 @@ org/apache/camel/component/hbase/processor/idempotent
 org/apache/camel/component/hdfs2
 org/apache/camel/component/hdfs2/osgi
 org/apache/camel/component/headersmap
+org/apache/camel/component/hipchat
 org/apache/camel/component/hl7
 org/apache/camel/component/http4
 org/apache/camel/component/http4/cloud

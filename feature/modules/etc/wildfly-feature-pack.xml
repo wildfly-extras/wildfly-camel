@@ -333,6 +333,7 @@
         <artifact groupId="org.apache.camel" artifactId="camel-guava-eventbus" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-hazelcast" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-headersmap" version="2.20.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-hipchat" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-hl7" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-http-common" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-http4" version="2.20.1"/>

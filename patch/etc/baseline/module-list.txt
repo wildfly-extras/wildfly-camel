@@ -277,6 +277,7 @@
 /org/apache/camel/component/hdfs2/main/camel-hdfs2-2.20.1.jar
 /org/apache/camel/component/headersmap/main/camel-headersmap-2.20.1.jar
 /org/apache/camel/component/headersmap/main/java-util-1.31.1.jar
+/org/apache/camel/component/hipchat/main/camel-hipchat-2.20.1.jar
 /org/apache/camel/component/hl7/main/camel-hl7-2.20.1.jar
 /org/apache/camel/component/hl7/main/hapi-base-2.2.jar
 /org/apache/camel/component/hl7/main/hapi-structures-v24-2.2.jar

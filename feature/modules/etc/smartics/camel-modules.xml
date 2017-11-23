@@ -1250,6 +1250,18 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.hipchat">
+        <include artifact="org.apache.camel:camel-hipchat" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.apache.httpcomponents"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.hl7">
         <include artifact="org.apache.camel:camel-hl7" />
         <include artifact="ca.uhn.hapi:hapi-base" />
