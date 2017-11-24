@@ -304,6 +304,22 @@
         </exports>
     </module>
 
+    <module name="org.apache.camel.component.beanstalk">
+        <include artifact="org.apache.camel:camel-beanstalk" />
+        <include artifact="com.surftools:BeanstalkClient" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j" />
+        </dependencies>
+        <exports>
+            <exclude path="com/surftools" />
+            <exclude path="com/surftools/BeanstalkClientImpl" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.bean.validator">
         <include artifact="org.apache.camel:camel-bean-validator" />
         <apply-to-dependencies skip="true">

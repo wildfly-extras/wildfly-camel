@@ -1032,6 +1032,7 @@ com/sun/syndication/feed/atom
 com/sun/syndication/feed/module
 com/sun/syndication/feed/rss
 com/sun/syndication/feed/synd
+com/surftools/BeanstalkClient
 com/twilio
 com/twilio/base
 com/twilio/converter
@@ -1589,6 +1590,8 @@ org/apache/camel/component/azure/common
 org/apache/camel/component/azure/queue
 org/apache/camel/component/bean
 org/apache/camel/component/bean/validator
+org/apache/camel/component/beanstalk
+org/apache/camel/component/beanstalk/processors
 org/apache/camel/component/boon
 org/apache/camel/component/box
 org/apache/camel/component/box/api

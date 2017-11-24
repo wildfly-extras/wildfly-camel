@@ -131,6 +131,7 @@
         <artifact groupId="com.squareup.retrofit2" artifactId="retrofit" version="2.3.0"/>
         <artifact groupId="com.sun.mail" artifactId="javax.mail" version="1.5.6"/>
         <artifact groupId="com.sun.xml.bind.jaxb" artifactId="isorelax" version="20090621"/>
+        <artifact groupId="com.surftools" artifactId="BeanstalkClient" version="1.4.6"/>
         <artifact groupId="com.thoughtworks.xstream" artifactId="xstream" version="1.4.10"/>
         <artifact groupId="com.twilio.sdk" artifactId="twilio" version="7.9.1"/>
         <artifact groupId="com.typesafe.netty" artifactId="netty-reactive-streams" version="1.0.8"/>
@@ -274,6 +275,7 @@
         <artifact groupId="org.apache.camel" artifactId="camel-base64" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-bean-validator" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-beanio" version="2.20.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-beanstalk" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-bindy" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-boon" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-box" version="2.20.1"/>

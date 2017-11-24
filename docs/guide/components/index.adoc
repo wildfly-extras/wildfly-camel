@@ -46,6 +46,8 @@ include::camel-aws-swf.adoc[]
 
 include::camel-azure.adoc[]
 
+include::camel-beanstalk.adoc[]
+
 include::camel-bean-validator.adoc[]
 
 include::camel-bindy.adoc[]

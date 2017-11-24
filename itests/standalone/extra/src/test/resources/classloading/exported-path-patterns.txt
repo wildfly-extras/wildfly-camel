@@ -36,6 +36,7 @@
     ^com/rabbitmq(.*)
     ^com/splunk(.*)
 	^com/sun/syndication(.*)
+	^com/surftools/BeanstalkClient
     ^com/twilio(.*)
     ^freemarker(.*)
 	^groovy(.*)

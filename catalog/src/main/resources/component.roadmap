@@ -31,6 +31,7 @@ azure-blob
 azure-queue
 bean
 bean-validator
+beanstalk
 binding                                             #deprecated
 box
 braintree
@@ -253,10 +254,9 @@ zookeeper
 zookeeper-master
 
 [planned]
-beanstalk                                           #1419
 cmis                                                #1989 Blocked by camel-2.21.x
 hipchat                                             #2003
-restlet                                             #2024
+restlet                                             #2024 Blocked by camel-2.21.x
 tika                                                #1850 Blocked by camel-2.21.x
 
 [undecided]
