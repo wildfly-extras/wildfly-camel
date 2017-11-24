@@ -1457,7 +1457,6 @@
             <include module="org.apache.shiro.skipped" />
             <include module="org.atmosphere.skipped"/>
             <include module="org.eclipse.jetty"/>
-            <include module="org.eclipse.jetty.server"/>
             <include module="org.eclipse.jetty.skipped"/>
             <include module="org.eclipse.jetty.websocket"/>
             <include module="org.mortbay.jetty"/>
@@ -1500,13 +1499,6 @@
         <include artifact="org.cometd.java:cometd-java-common" />
     </module>
 
-    <module name="org.cometd.server">
-        <include artifact="org.cometd.java:cometd-java-server" />
-        <apply-to-dependencies skip="true">
-            <include module="org.eclipse.jetty.skipped" />
-        </apply-to-dependencies>
-    </module>
-
     <module name="org.dozer.mapper">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1541,23 +1533,13 @@
         <include artifact="org.eclipse.jetty:jetty-io" />
         <include artifact="org.eclipse.jetty:jetty-util" />
         <include artifact="org.eclipse.jetty:jetty-util-ajax" />
-        <include artifact="org.eclipse.jetty:jetty-security" />
-        <include artifact="org.eclipse.jetty:jetty-servlet" />
         <apply-to-dependencies skip="true">
             <include module="org.eclipse.jetty.skipped" />
             <include module="org.mortbay.jetty" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
-            <module name="org.eclipse.jetty.server" />
         </dependencies>
-    </module>
-
-    <module name="org.eclipse.jetty.server">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.eclipse.jetty:jetty-server" />
     </module>
 
     <module name="org.eclipse.jetty.websocket">

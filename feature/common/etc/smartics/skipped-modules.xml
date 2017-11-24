@@ -352,6 +352,7 @@
     <module name="org.eclipse.jetty.skipped" skip="true">
         <include artifact="org.eclipse.jetty:jetty-continuation" />
         <include artifact="org.eclipse.jetty:jetty-jmx" />
+        <include artifact="org.eclipse.jetty:jetty-server" />
         <include artifact="org.eclipse.jetty:jetty-servlets" />
         <include artifact="org.eclipse.jetty:jetty-webapp" />
         <include artifact="org.eclipse.jetty:jetty-websocket" />

@@ -43,8 +43,6 @@ chunk
 class
 cm-sms
 coap
-cometd
-cometds
 consul
 controlbus
 couchbase
@@ -270,6 +268,8 @@ solrs                                               #2032 No test coverage for s
 atmos                                               #1984 Jersey clashes with RestEasy
 bonita                                              #1820 Not another BPM engine
 cache                                               #deprecated
+cometd                                              #1990 Depends on Jetty server
+cometds                                             #1991 Depends on Jetty server
 context                                             #deprecated
 drill                                               #1823 Competitor to JDG
 eventadmin                                          #1996 OSGi specific

@@ -70,8 +70,6 @@ include::camel-cm-sms.adoc[]
 
 include::camel-coap.adoc[]
 
-include::camel-cometd.adoc[]
-
 include::camel-consul.adoc[]
 
 include::camel-couchbase.adoc[]

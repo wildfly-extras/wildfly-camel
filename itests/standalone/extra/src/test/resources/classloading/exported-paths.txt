@@ -1612,7 +1612,6 @@ org/apache/camel/component/cm/exceptions
 org/apache/camel/component/cm/exceptions/cmresponse
 org/apache/camel/component/cm/validation
 org/apache/camel/component/cm/validation/constraints
-org/apache/camel/component/cometd
 org/apache/camel/component/connector
 org/apache/camel/component/consul
 org/apache/camel/component/consul/cloud
@@ -3133,9 +3132,6 @@ org/codehaus/groovy/vmplugin
 org/codehaus/groovy/vmplugin/v5
 org/codehaus/groovy/vmplugin/v6
 org/codehaus/groovy/vmplugin/v7
-org/cometd/bayeux
-org/cometd/bayeux/client
-org/cometd/bayeux/server
 org/dozer/util
 org/eclipse/egit/github/core
 org/eclipse/egit/github/core/util

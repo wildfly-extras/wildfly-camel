@@ -7,14 +7,11 @@
     <artifact name="${org.eclipse.jetty:jetty-client}" />
     <artifact name="${org.eclipse.jetty:jetty-http}" />
     <artifact name="${org.eclipse.jetty:jetty-io}" />
-    <artifact name="${org.eclipse.jetty:jetty-security}" />
-    <artifact name="${org.eclipse.jetty:jetty-servlet}" />
     <artifact name="${org.eclipse.jetty:jetty-util}" />
     <artifact name="${org.eclipse.jetty:jetty-util-ajax}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="org.eclipse.jetty.server" />
     <module name="javax.servlet.api" />
   </dependencies>
 </module>

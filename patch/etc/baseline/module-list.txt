@@ -209,7 +209,6 @@
 /org/apache/camel/component/chunk/main/chunk-templates-3.2.4.jar
 /org/apache/camel/component/cm/sms/main/camel-cm-sms-2.20.1.jar
 /org/apache/camel/component/coap/main/camel-coap-2.20.1.jar
-/org/apache/camel/component/cometd/main/camel-cometd-2.20.1.jar
 /org/apache/camel/component/connector/main/camel-connector-2.20.1.jar
 /org/apache/camel/component/consul/main/camel-consul-2.20.1.jar
 /org/apache/camel/component/consul/main/consul-client-0.16.3.jar
@@ -643,7 +642,6 @@
 /org/cometd/bayeux/main/bayeux-api-3.1.2.jar
 /org/cometd/client/main/cometd-java-client-3.1.2.jar
 /org/cometd/client/main/cometd-java-common-3.1.2.jar
-/org/cometd/server/main/cometd-java-server-3.1.2.jar
 /org/dozer/mapper/main/dozer-core-6.1.0.jar
 /org/dozer/mapper/main/dozer-schema-6.1.0.jar
 /org/eclipse/aether/main/aether-api-1.0.2.v20150114.jar
@@ -657,11 +655,8 @@
 /org/eclipse/jetty/main/jetty-client-9.3.21.v20170918.jar
 /org/eclipse/jetty/main/jetty-http-9.3.21.v20170918.jar
 /org/eclipse/jetty/main/jetty-io-9.3.21.v20170918.jar
-/org/eclipse/jetty/main/jetty-security-9.3.21.v20170918.jar
-/org/eclipse/jetty/main/jetty-servlet-9.3.21.v20170918.jar
 /org/eclipse/jetty/main/jetty-util-9.3.21.v20170918.jar
 /org/eclipse/jetty/main/jetty-util-ajax-9.3.21.v20170918.jar
-/org/eclipse/jetty/server/main/jetty-server-9.3.21.v20170918.jar
 /org/eclipse/jetty/websocket/main/websocket-api-9.2.20.v20161216.jar
 /org/eclipse/jetty/websocket/main/websocket-client-9.2.20.v20161216.jar
 /org/eclipse/jetty/websocket/main/websocket-common-9.2.20.v20161216.jar

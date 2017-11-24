@@ -290,7 +290,6 @@
         <artifact groupId="org.apache.camel" artifactId="camel-chunk" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-cm-sms" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-coap" version="2.20.1"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-cometd" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-connector" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-consul" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-core" version="2.20.1"/>
@@ -609,7 +608,6 @@
         <artifact groupId="org.cometd.java" artifactId="bayeux-api" version="3.1.2"/>
         <artifact groupId="org.cometd.java" artifactId="cometd-java-client" version="3.1.2"/>
         <artifact groupId="org.cometd.java" artifactId="cometd-java-common" version="3.1.2"/>
-        <artifact groupId="org.cometd.java" artifactId="cometd-java-server" version="3.1.2"/>
         <artifact groupId="org.drools" artifactId="drools-compiler" version="7.3.0.Final"/>
         <artifact groupId="org.drools" artifactId="drools-core" version="7.3.0.Final"/>
         <artifact groupId="org.eclipse.californium" artifactId="californium-core" version="1.0.6"/>
@@ -618,9 +616,6 @@
         <artifact groupId="org.eclipse.jetty" artifactId="jetty-client" version="9.3.21.v20170918"/>
         <artifact groupId="org.eclipse.jetty" artifactId="jetty-http" version="9.3.21.v20170918"/>
         <artifact groupId="org.eclipse.jetty" artifactId="jetty-io" version="9.3.21.v20170918"/>
-        <artifact groupId="org.eclipse.jetty" artifactId="jetty-security" version="9.3.21.v20170918"/>
-        <artifact groupId="org.eclipse.jetty" artifactId="jetty-server" version="9.3.21.v20170918"/>
-        <artifact groupId="org.eclipse.jetty" artifactId="jetty-servlet" version="9.3.21.v20170918"/>
         <artifact groupId="org.eclipse.jetty" artifactId="jetty-util" version="9.3.21.v20170918"/>
         <artifact groupId="org.eclipse.jetty" artifactId="jetty-util-ajax" version="9.3.21.v20170918"/>
         <artifact groupId="org.eclipse.jetty.websocket" artifactId="websocket-api" version="9.2.20.v20161216"/>
