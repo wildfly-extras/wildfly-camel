@@ -64,7 +64,11 @@ public class SNSIntegrationTest {
     }
 
     public static void assertNoStaleTopic(AmazonSNSClient client, String when) {
-        //client.listTopics().getTopics().stream().forEach(t -> client.deleteTopic(t.getTopicArn()));
+        /* Remove the topic created by the the old version of this test. Note that this may break the old tests running
+         * in parallel. */
+        client.listTopics().getTopics().stream()
+                .filter(topic -> topic.getTopicArn().endsWith("MyNewTopic"))
+                .forEach(t -> client.deleteTopic(t.getTopicArn()));
         List<String> staleInstances = client.listTopics().getTopics().stream() //
                 .map(topic -> topic.getTopicArn().substring(topic.getTopicArn().lastIndexOf(':') + 1)) // extract the
                                                                                                        // topic name
