@@ -59,7 +59,6 @@ public class VersionsValidatorTest {
         mapping.put("version.camel.hbase", "hbase-version");
         mapping.put("version.camel.javacrumbs", "javacrumbs-version");
         mapping.put("version.camel.lucene", "lucene-version");
-        mapping.put("version.camel.netty41", "netty-version");
         mapping.put("version.camel.qpid.proton", "qpid-proton-j-version");
         mapping.put("version.wildfly.arquillian", "version.org.wildfly.arquillian");
         mapping.put("version.wildfly.cxf", "version.org.apache.cxf");

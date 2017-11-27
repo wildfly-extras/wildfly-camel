@@ -151,11 +151,6 @@
                 <type>war</type>
             </dependency>
             <dependency>
-                <groupId>io.netty</groupId>
-                <artifactId>netty-all</artifactId>
-                <version>${version.camel.netty41}</version>
-            </dependency>
-            <dependency>
                 <groupId>io.hawt</groupId>
                 <artifactId>hawtio-wildfly</artifactId>
                 <version>${version.hawtio}</version>

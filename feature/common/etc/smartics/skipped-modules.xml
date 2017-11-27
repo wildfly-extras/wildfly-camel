@@ -454,7 +454,7 @@
         <include artifact="org.mortbay.jetty:(.*)" />
     </module>
 
-    <module name="org.objenisis" skip="true">
+    <module name="org.objenesis" skip="true">
         <include artifact="org.objenesis:objenesis" />
     </module>
 

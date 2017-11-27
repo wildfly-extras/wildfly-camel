@@ -68,7 +68,7 @@
         <include artifact="com.microsoft.azure:azure-storage" />
     </module>
 
-    <module name="io.netty"  skip="true">
+    <module name="io.netty" skip="true">
         <include artifact="io.netty:netty-all" />
     </module>
     

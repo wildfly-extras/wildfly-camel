@@ -187,7 +187,7 @@
         <artifact groupId="io.jsonwebtoken" artifactId="jjwt" version="0.4"/>
         <artifact groupId="io.nats" artifactId="jnats" version="1.0"/>
         <artifact groupId="io.netty" artifactId="netty" version="3.10.6.Final"/>
-        <artifact groupId="io.netty" artifactId="netty-all" version="4.1.16.Final"/>
+        <artifact groupId="io.netty" artifactId="netty-all" version="4.1.9.Final"/>
         <artifact groupId="io.opencensus" artifactId="opencensus-api" version="0.5.1"/>
         <artifact groupId="io.opentracing" artifactId="opentracing-api" version="0.30.0"/>
         <artifact groupId="io.opentracing" artifactId="opentracing-noop" version="0.30.0"/>

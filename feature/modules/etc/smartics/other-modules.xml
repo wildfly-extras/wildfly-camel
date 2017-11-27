@@ -826,18 +826,6 @@
         </dependencies>
     </module>
 
-    <module name="io.netty" inherit-slot="false" slot="4.1">
-        <include artifact="io.netty:netty-all" />
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="sun.jdk">
-                <imports>
-                    <include path="sun/misc" />
-                </imports>
-            </module>
-        </dependencies>
-    </module>
-
     <module name="io.opentracing">
         <include artifact="io.opentracing:opentracing-(.*)" />
         <include artifact="io.opentracing.contrib:opentracing-(.*)" />

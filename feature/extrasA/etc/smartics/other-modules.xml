@@ -125,7 +125,7 @@
             <include module="org.apache.flink.skipped" />
             <include module="org.apache.sling" />
             <include module="org.uncommons.maths" />
-            <include module="org.objenisis" />
+            <include module="org.objenesis" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
