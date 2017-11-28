@@ -41,6 +41,7 @@
         <docker.image.maintainer>Thomas Diesler tdiesler@redhat.com</docker.image.maintainer>
         <docker.image.version>latest</docker.image.version>
         <docker.removeAll>true</docker.removeAll>
+        <docker.skipPush>true</docker.skipPush>
         <server.config>standalone-camel.xml</server.config>
         <server.home>/wildfly</server.home>
     </properties>
@@ -61,6 +62,45 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <autoPull>always</autoPull>
+                    <images>
+                        <image>
+                            <name>${docker.image.name}</name>
+                            <build>
+                                <maintainer>${docker.image.maintainer}</maintainer>
+                                <from>${docker.image.from}</from>
+                                <tags>
+                                    <tag>${docker.image.version}</tag>
+                                    <tag>${project.version}</tag>
+                                </tags>
+                                <labels>
+                                    <io.k8s.description>Platform for building and running Camel applications on WildFly ${version.wildfly}</io.k8s.description>
+                                    <io.k8s.display-name>WildFly Camel ${project.version}</io.k8s.display-name>
+                                    <io.openshift.tags>builder,wildfly,wildfly-camel,wildfly-camel-${project.version}</io.openshift.tags>
+                                </labels>
+                                <cmd>
+                                    <exec>
+                                        <args>/usr/libexec/s2i/run</args>
+                                    </exec>
+                                </cmd>
+                                <env>
+                                    <JBOSS_HOME>${server.home}</JBOSS_HOME>
+                                    <LAUNCH_JBOSS_IN_BACKGROUND>true</LAUNCH_JBOSS_IN_BACKGROUND>
+                                </env>
+                                <assembly>
+                                    <basedir>/</basedir>
+                                    <descriptor>${project.basedir}/s2i/assembly-artifacts.xml</descriptor>
+                                    <user>default:root:default</user>
+                                </assembly>
+                                <runCmds>
+                                    <run>${server.home}/bin/fuseconfig.sh --configs camel --enable</run>
+                                </runCmds>
+                                <optimise>true</optimise>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
                 <executions>
                     <execution>
                         <id>remove-images</id>
@@ -85,48 +125,33 @@
                         <goals>
                             <goal>build</goal>
                         </goals>
+                    </execution>
+                    <execution>
+                        <id>push-docker-image</id>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                        <phase>install</phase>
                         <configuration>
-                            <autoPull>always</autoPull>
-                            <images>
-                                <image>
-                                    <name>${docker.image.name}</name>
-                                    <build>
-                                        <maintainer>${docker.image.maintainer}</maintainer>
-                                        <from>${docker.image.from}</from>
-                                        <tags>
-                                            <tag>${docker.image.version}</tag>
-                                            <tag>${project.version}</tag>
-                                        </tags>
-                                        <labels>
-                                            <io.k8s.description>Platform for building and running Camel applications on WildFly ${version.wildfly}</io.k8s.description>
-                                            <io.k8s.display-name>WildFly Camel ${project.version}</io.k8s.display-name>
-                                            <io.openshift.tags>builder,wildfly,wildfly-camel,wildfly-camel-${project.version}</io.openshift.tags>
-                                        </labels>
-                                        <cmd>
-                                            <exec>
-                                                <args>/usr/libexec/s2i/run</args>
-                                            </exec>
-                                        </cmd>
-                                        <env>
-                                            <JBOSS_HOME>${server.home}</JBOSS_HOME>
-                                            <LAUNCH_JBOSS_IN_BACKGROUND>true</LAUNCH_JBOSS_IN_BACKGROUND>
-                                        </env>
-                                        <assembly>
-                                            <basedir>/</basedir>
-                                            <descriptor>${project.basedir}/s2i/assembly-artifacts.xml</descriptor>
-                                            <user>default:root:default</user>
-                                        </assembly>
-                                        <runCmds>
-                                            <run>${server.home}/bin/fuseconfig.sh --configs camel --enable</run>
-                                        </runCmds>
-                                        <optimise>true</optimise>
-                                    </build>
-                                </image>
-                            </images>
+                            <skipPush>${docker.skipPush}</skipPush>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <!-- Requires registry credentials: -Ddocker.username=myUserName -Ddocker.password=secret -->
+        <profile>
+            <id>docker.push</id>
+            <activation>
+                <property>
+                    <name>docker.push</name>
+                </property>
+            </activation>
+            <properties>
+                <docker.skipPush>false</docker.skipPush>
+            </properties>
+        </profile>
+    </profiles>
 </project>
