@@ -42,6 +42,7 @@
         <version.apache.camel>${version-apache-camel}</version.apache.camel>
         <version.jboss.arquillian>${version-jboss-arquillian}</version.jboss.arquillian>
         <version.junit>${version-junit}</version.junit>
+        <version.wildfly.camel>${version-wildfly-camel}</version.wildfly.camel>
 
         <!-- Plugin versions -->
         <version.maven.compiler.plugin>${version-maven-compiler-plugin}</version.maven.compiler.plugin>
@@ -64,7 +65,7 @@
             <dependency>
                 <groupId>org.wildfly.camel</groupId>
                 <artifactId>wildfly-camel-bom</artifactId>
-                <version>${version-wildfly-camel}</version>
+                <version>${version.wildfly.camel}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -148,7 +149,7 @@
 
     <!-- Profiles -->
     <profiles>
-        <!-- Seperate profiles are provided for running tests, including Arquillian tests that execute in a specified container -->
+        <!-- Separate profiles are provided for running tests, including Arquillian tests that execute in a specified container -->
         <profile>
             <!-- The default profile skips all tests, though you can tune it to run just unit tests based on a custom pattern -->
             <id>default</id>
