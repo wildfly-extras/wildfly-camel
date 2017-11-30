@@ -49,11 +49,6 @@
             <artifactId>zookeeper</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${version.hbase.guava}</version><!--$NO-MVN-MAN-VER$-->
-        </dependency>
-        <dependency>
             <groupId>com.github.kstyrc</groupId>
             <artifactId>embedded-redis</artifactId>
             <version>${version.redis.embedded}</version>
@@ -97,21 +92,6 @@
             <exclusions>
                 <exclusion>
                     <groupId>com.google.protobuf</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hbase</groupId>
-            <artifactId>hbase-testing-util</artifactId>
-            <version>${version.camel.hbase}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.hadoop</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
                     <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>

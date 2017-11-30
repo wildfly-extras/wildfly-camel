@@ -38,7 +38,7 @@
 /com/google/code/gson/main/gson-2.8.1.jar
 /com/google/code/json-simple/main/json-simple-1.1.1.jar
 /com/google/code/libphonenumber/main/libphonenumber-8.8.0.jar
-/com/google/guava/12.0/guava-12.0.1.jar
+/com/google/guava/12.0/guava-11.0.2.jar
 /com/google/guava/16.0/guava-16.0.1.jar
 /com/google/http-client/google-http-client/main/google-http-client-1.22.0.jar
 /com/google/http-client/google-http-client/main/google-http-client-jackson2-1.22.0.jar
@@ -272,7 +272,6 @@
 /org/apache/camel/component/gson/main/camel-gson-2.20.1.jar
 /org/apache/camel/component/guava/eventbus/main/camel-guava-eventbus-2.20.1.jar
 /org/apache/camel/component/hazelcast/main/camel-hazelcast-2.20.1.jar
-/org/apache/camel/component/hbase/main/camel-hbase-2.20.1.jar
 /org/apache/camel/component/hdfs2/main/camel-hdfs2-2.20.1.jar
 /org/apache/camel/component/headersmap/main/camel-headersmap-2.20.1.jar
 /org/apache/camel/component/headersmap/main/java-util-1.31.1.jar
@@ -535,10 +534,6 @@
 /org/apache/hadoop/main/hadoop-mapreduce-client-core-2.7.4.jar
 /org/apache/hadoop/main/hadoop-yarn-api-2.7.4.jar
 /org/apache/hadoop/main/hadoop-yarn-common-2.7.4.jar
-/org/apache/hbase/main/hbase-annotations-1.2.6.jar
-/org/apache/hbase/main/hbase-client-1.2.6.jar
-/org/apache/hbase/main/hbase-common-1.2.6.jar
-/org/apache/hbase/main/hbase-protocol-1.2.6.jar
 /org/apache/htrace/main/htrace-core-3.1.0-incubating.jar
 /org/apache/jackrabbit/main/concurrent-1.3.4.jar
 /org/apache/jackrabbit/main/jackrabbit-api-2.15.6.jar

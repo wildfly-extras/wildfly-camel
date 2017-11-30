@@ -17,7 +17,7 @@
         <artifact groupId="com.fasterxml.jackson.core" artifactId="jackson-databind" version="2.7.4"/>
         <artifact groupId="com.github.scopt" artifactId="scopt_2.11" version="3.5.0"/>
         <artifact groupId="com.google.code.gson" artifactId="gson" version="2.2.4"/>
-        <artifact groupId="com.google.guava" artifactId="guava" version="12.0.1"/>
+        <artifact groupId="com.google.guava" artifactId="guava" version="11.0.2"/>
         <artifact groupId="com.google.inject" artifactId="guice" version="3.0"/>
         <artifact groupId="com.google.protobuf" artifactId="protobuf-java" version="2.5.0"/>
         <artifact groupId="com.jcraft" artifactId="jsch" version="0.1.54"/>
@@ -25,7 +25,6 @@
         <artifact groupId="com.sun.jersey" artifactId="jersey-core" version="1.9"/>
         <artifact groupId="com.sun.jersey" artifactId="jersey-json" version="1.9"/>
         <artifact groupId="com.typesafe" artifactId="config" version="1.2.1"/>
-        <artifact groupId="com.yammer.metrics" artifactId="metrics-core" version="2.2.0"/>
         <artifact groupId="commons-cli" artifactId="commons-cli" version="1.3.1"/>
         <artifact groupId="commons-codec" artifactId="commons-codec" version="1.10"/>
         <artifact groupId="commons-collections" artifactId="commons-collections" version="3.2.2"/>
@@ -45,7 +44,6 @@
         <artifact groupId="org.apache.avro" artifactId="avro" version="1.7.4"/>
         <artifact groupId="org.apache.camel" artifactId="camel-core" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-flink" version="2.20.1"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-hbase" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-hdfs2" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-jbpm" version="2.20.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-jcr" version="2.20.1"/>
@@ -82,13 +80,9 @@
         <artifact groupId="org.apache.hadoop" artifactId="hadoop-mapreduce-client-core" version="2.7.4"/>
         <artifact groupId="org.apache.hadoop" artifactId="hadoop-yarn-api" version="2.7.4"/>
         <artifact groupId="org.apache.hadoop" artifactId="hadoop-yarn-common" version="2.7.4"/>
-        <artifact groupId="org.apache.hbase" artifactId="hbase-annotations" version="1.2.6"/>
-        <artifact groupId="org.apache.hbase" artifactId="hbase-client" version="1.2.6"/>
-        <artifact groupId="org.apache.hbase" artifactId="hbase-common" version="1.2.6"/>
-        <artifact groupId="org.apache.hbase" artifactId="hbase-protocol" version="1.2.6"/>
         <artifact groupId="org.apache.htrace" artifactId="htrace-core" version="3.1.0-incubating"/>
-        <artifact groupId="org.apache.httpcomponents" artifactId="httpclient" version="4.2.5"/>
-        <artifact groupId="org.apache.httpcomponents" artifactId="httpcore" version="4.2.4"/>
+        <artifact groupId="org.apache.httpcomponents" artifactId="httpclient" version="4.1.2"/>
+        <artifact groupId="org.apache.httpcomponents" artifactId="httpcore" version="4.1.2"/>
         <artifact groupId="org.apache.jackrabbit" artifactId="jackrabbit-api" version="2.15.6"/>
         <artifact groupId="org.apache.jackrabbit" artifactId="jackrabbit-core" version="2.15.6"/>
         <artifact groupId="org.apache.jackrabbit" artifactId="jackrabbit-data" version="2.15.6"/>
@@ -117,9 +111,9 @@
         <artifact groupId="org.kie.remote" artifactId="kie-remote-jaxb" version="6.5.0.Final"/>
         <artifact groupId="org.kie.remote.ws" artifactId="kie-remote-ws-common" version="6.5.0.Final"/>
         <artifact groupId="org.scala-lang" artifactId="scala-library" version="2.11.7"/>
-        <artifact groupId="org.slf4j" artifactId="slf4j-api" version="1.7.22"/>
+        <artifact groupId="org.slf4j" artifactId="slf4j-api" version="1.7.10"/>
         <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-modules" version="5.0.0-SNAPSHOT" extension="zip"/>
-        <artifact groupId="org.xerial.snappy" artifactId="snappy-java" version="1.0.5"/>
+        <artifact groupId="org.xerial.snappy" artifactId="snappy-java" version="1.0.4.1"/>
         <artifact groupId="rome" artifactId="rome" version="1.0"/>
         <artifact groupId="wsdl4j" artifactId="wsdl4j" version="1.6.3"/>
         <artifact groupId="xerces" artifactId="xercesImpl" version="2.9.1"/>

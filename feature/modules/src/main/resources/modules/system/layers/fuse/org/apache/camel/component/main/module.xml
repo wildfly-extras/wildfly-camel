@@ -104,7 +104,6 @@
         <module name="org.apache.camel.component.gson" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.guava.eventbus" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.hazelcast" export="true" services="export" optional="true" />
-        <module name="org.apache.camel.component.hbase" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.hdfs2" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.headersmap" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.hipchat" export="true" services="export" optional="true" />

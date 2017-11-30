@@ -53,11 +53,6 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-hbase</artifactId>
-            <version>${version.apache.camel}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
             <artifactId>camel-hdfs2</artifactId>
             <version>${version.apache.camel}</version>
         </dependency>
@@ -70,6 +65,11 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jcr</artifactId>
             <version>${version.apache.camel}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-mapreduce-client-core</artifactId>
+            <version>${version.camel.hadoop2}</version>
         </dependency>
         
         <dependency>

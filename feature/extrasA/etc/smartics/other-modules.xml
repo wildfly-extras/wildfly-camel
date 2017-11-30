@@ -27,6 +27,7 @@
         <include artifact="com.google.guava:guava" />
         <apply-to-dependencies skip="true">
             <include module="com.google.code.findbugs" />
+            <include module="com.google.guava.bootstrap" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.inject.api" />
@@ -169,33 +170,6 @@
         </exports>
     </module>
     
-    <module name="org.apache.hbase">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.apache.hbase:hbase-annotations"/>
-        <include artifact="org.apache.hbase:hbase-client"/>
-        <include artifact="org.apache.hbase:hbase-common"/>
-        <include artifact="org.apache.hbase:hbase-protocol"/>
-        <apply-to-dependencies skip="true">
-            <include module="com.google.code.findbugs"/>
-            <include module="io.netty.skipped" />
-            <include module="junit"/>
-            <include module="org.apache.camel.component.protobuf" />
-            <include module="org.jruby"/>
-            <include module="org.mortbay.jetty"/>
-            <include module="org.osgi.core"/>
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="sun.jdk">
-                <imports>
-                    <include path="sun/misc"/>
-                </imports>
-            </module>
-        </dependencies>
-    </module>
-
     <module name="org.apache.hadoop">
         <properties>
             <property name="jboss.api" value="private"/>

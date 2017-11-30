@@ -99,7 +99,6 @@ hazelcast-ringbuffer
 hazelcast-seda
 hazelcast-set
 hazelcast-topic
-hbase
 hdfs2
 hipchat
 http4
@@ -275,6 +274,7 @@ drill                                               #1823 Competitor to JDG
 eventadmin                                          #1996 OSGi specific
 gora                                                #2000 Competitor to JDG
 grape                                               #2001 Requires Groovy class loading
+hbase                                               #2127 Unsupportable split package
 hdfs                                                #deprecated
 http                                                #deprecated
 https                                               #deprecated

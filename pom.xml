@@ -52,7 +52,6 @@
         <version.camel.log4j2>2.9.1</version.camel.log4j2>
         <version.camel.hadoop2>2.7.4</version.camel.hadoop2>
         <version.camel.hadoop2.protobuf>2.5.0</version.camel.hadoop2.protobuf>
-        <version.camel.hbase>1.2.6</version.camel.hbase>
         <version.camel.javacrumbs>0.22</version.camel.javacrumbs>
         <version.camel.lucene>5.5.2</version.camel.lucene>
         <version.camel.qpid.proton>0.16.0</version.camel.qpid.proton>
@@ -79,7 +78,6 @@
         <version.flapdoodle.embed.mongo>1.50.1</version.flapdoodle.embed.mongo>
         <version.fusepatch>3.0.0</version.fusepatch>
         <version.greenmail>1.4.0</version.greenmail>
-        <version.hbase.guava>14.0.1</version.hbase.guava>
         <version.hawtio>1.5.5</version.hawtio>
         <version.javax.cache.api>1.0.0</version.javax.cache.api>
         <version.jboss.arquillian.core>1.1.10.Final</version.jboss.arquillian.core>

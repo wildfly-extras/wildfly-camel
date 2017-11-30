@@ -1,3 +1,3 @@
 ### camel-hazelcast
 
-The http://camel.apache.org/hbase.html[hazelcast,window=_blank] component allows you to work with the http://www.hazelcast.com/[Hazelcast,window=_blank] distributed data grid/cache. Hazelcast is a in memory data grid, entirely written in Java (single jar). It offers a great palette of different data stores like map, multi map (same key, n values), queue, list and atomic number. The main reason to use Hazelcast is its simple cluster support.
+The http://camel.apache.org/hazelcast-component.html[hazelcast,window=_blank] component allows you to work with the http://www.hazelcast.com/[Hazelcast,window=_blank] distributed data grid/cache. Hazelcast is a in memory data grid, entirely written in Java (single jar). It offers a great palette of different data stores like map, multi map (same key, n values), queue, list and atomic number. The main reason to use Hazelcast is its simple cluster support.

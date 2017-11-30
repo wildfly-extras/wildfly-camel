@@ -1719,13 +1719,6 @@ org/apache/camel/component/hazelcast/ringbuffer
 org/apache/camel/component/hazelcast/seda
 org/apache/camel/component/hazelcast/set
 org/apache/camel/component/hazelcast/topic
-org/apache/camel/component/hbase
-org/apache/camel/component/hbase/converter
-org/apache/camel/component/hbase/filters
-org/apache/camel/component/hbase/mapping
-org/apache/camel/component/hbase/model
-org/apache/camel/component/hbase/processor
-org/apache/camel/component/hbase/processor/idempotent
 org/apache/camel/component/hdfs2
 org/apache/camel/component/hdfs2/osgi
 org/apache/camel/component/headersmap
@@ -2527,9 +2520,6 @@ org/apache/hadoop/fs/permission
 org/apache/hadoop/fs/shell
 org/apache/hadoop/fs/shell/find
 org/apache/hadoop/fs/viewfs
-org/apache/hadoop/hbase
-org/apache/hadoop/hbase/client
-org/apache/hadoop/hbase/filter
 org/apache/hadoop/hdfs
 org/apache/hadoop/hdfs/client
 org/apache/hadoop/hdfs/inotify
