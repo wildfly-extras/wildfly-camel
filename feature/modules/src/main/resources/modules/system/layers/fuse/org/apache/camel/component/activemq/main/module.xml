@@ -8,6 +8,7 @@
     <module name="org.apache.activemq" export="true">
       <exports>
         <exclude path="org/apache/activemq/broker**" />
+        <exclude path="org/apache/activemq/openwire**" />
         <exclude path="org/apache/activemq/transport**" />
         <exclude path="org/apache/activemq/wireformat**" />
         <exclude path="org/apache/activemq/util/osgi/**" />
