@@ -36,12 +36,8 @@
 
         <!-- WildFly versions -->
         <version.wildfly>${version-wildfly}</version.wildfly>
-        <version.wildfly.arquillian>${version-wildfly-arquillian}</version.wildfly.arquillian>
 
         <!-- Other versions -->
-        <version.apache.camel>${version-apache-camel}</version.apache.camel>
-        <version.jboss.arquillian>${version-jboss-arquillian}</version.jboss.arquillian>
-        <version.junit>${version-junit}</version.junit>
         <version.wildfly.camel>${version-wildfly-camel}</version.wildfly.camel>
 
         <!-- Plugin versions -->
@@ -78,7 +74,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
-            <version>${version.apache.camel}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -91,7 +86,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -166,7 +160,6 @@
                 <dependency>
                     <groupId>org.wildfly.arquillian</groupId>
                     <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <version>${version.wildfly.arquillian}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -179,7 +172,6 @@
                 <dependency>
                     <groupId>org.wildfly.arquillian</groupId>
                     <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <version>${version.wildfly.arquillian}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

@@ -6,23 +6,11 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <requiredProperties>
         <!-- Dependency versions -->
-        <requiredProperty key="version-apache-camel">
-            <defaultValue>${version.apache.camel}</defaultValue>
-        </requiredProperty>
         <requiredProperty key="version-wildfly-camel">
             <defaultValue>${project.version}</defaultValue>
         </requiredProperty>
-        <requiredProperty key="version-jboss-arquillian">
-            <defaultValue>${version.jboss.arquillian.core}</defaultValue>
-        </requiredProperty>
-        <requiredProperty key="version-junit">
-            <defaultValue>${version.junit}</defaultValue>
-        </requiredProperty>
         <requiredProperty key="version-wildfly">
             <defaultValue>${version.wildfly}</defaultValue>
-        </requiredProperty>
-        <requiredProperty key="version-wildfly-arquillian">
-            <defaultValue>${version.wildfly.arquillian}</defaultValue>
         </requiredProperty>
 
         <!-- Plugin versions -->
