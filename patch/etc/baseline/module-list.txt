@@ -21,7 +21,7 @@
 /com/eclipsesource/minimal/json/main/minimal-json-0.9.1.jar
 /com/fasterxml/aalto/main/aalto-xml-0.9.10.jar
 /com/fasterxml/jackson/dataformat/cbor/main/jackson-dataformat-cbor-2.8.9.jar
-/com/fasterxml/jackson/dataformat/smile/main/jackson-dataformat-smile-2.8.1.jar
+/com/fasterxml/jackson/dataformat/smile/main/jackson-dataformat-smile-2.8.9.jar
 /com/fasterxml/jackson/dataformat/xml/main/jackson-dataformat-xml-2.8.9.jar
 /com/fasterxml/jackson/dataformat/yaml/main/jackson-dataformat-yaml-2.8.9.jar
 /com/fasterxml/jackson/datatype/jackson-datatype-guava/main/jackson-datatype-guava-2.8.9.jar
