@@ -29,7 +29,8 @@ import org.jboss.as.server.DeploymentProcessorTarget;
 import org.jboss.as.server.deployment.Phase;
 import org.jboss.dmr.ModelNode;
 import org.wildfly.extension.camel.CamelSubsytemExtension;
-import org.wildfly.extension.camel.deployment.CamelContextServiceDependenciesProcessor;
+import org.wildfly.extension.camel.deployment.CamelContextActivationProcessor;
+import org.wildfly.extension.camel.deployment.CamelContextCreateProcessor;
 import org.wildfly.extension.camel.deployment.CamelContextDescriptorsProcessor;
 import org.wildfly.extension.camel.deployment.CamelDependenciesProcessor;
 import org.wildfly.extension.camel.deployment.CamelDeploymentSettingsProcessor;
@@ -59,7 +60,8 @@ public final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
 
     public static final int INSTALL_PACKAGE_SCAN_RESOLVER = Phase.INSTALL_BUNDLE_ACTIVATE + 0x01;
     public static final int INSTALL_CDI_BEAN_ARCHIVE_PROCESSOR = INSTALL_PACKAGE_SCAN_RESOLVER + 0x01;
-    public static final int INSTALL_CAMEL_CONTEXT_SERVICE_DEPENDENCIES = INSTALL_CDI_BEAN_ARCHIVE_PROCESSOR +0x01;
+    public static final int INSTALL_CAMEL_CONTEXT_CREATE = INSTALL_CDI_BEAN_ARCHIVE_PROCESSOR +0x01;
+    public static final int INSTALL_CONTEXT_ACTIVATION = INSTALL_CAMEL_CONTEXT_CREATE + 0x01;
 
     private final SubsystemState subsystemState;
 
@@ -100,7 +102,8 @@ public final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_CAMEL_INTEGRATION, new CamelIntegrationProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_CAMEL_WIRINGS, new CamelDependenciesProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_PACKAGE_SCAN_RESOLVER, new PackageScanResolverProcessor());
-                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CAMEL_CONTEXT_SERVICE_DEPENDENCIES, new CamelContextServiceDependenciesProcessor());
+                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CAMEL_CONTEXT_CREATE, new CamelContextCreateProcessor());
+                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.INSTALL, INSTALL_CONTEXT_ACTIVATION, new CamelContextActivationProcessor());
                 subsystemState.processExtensions(new Consumer<CamelSubsytemExtension>() {
                     @Override
                     public void accept(CamelSubsytemExtension plugin) {
