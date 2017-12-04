@@ -53,7 +53,7 @@
         <artifact groupId="org.elasticsearch.plugin" artifactId="transport-netty4-client" version="5.5.2"/>
         <artifact groupId="org.hdrhistogram" artifactId="HdrHistogram" version="2.1.9"/>
         <artifact groupId="org.slf4j" artifactId="slf4j-api" version="1.7.22"/>
-        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-extrasB" version="5.0.0-SNAPSHOT" extension="zip"/>
+        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-extrasB" version="5.1.0-SNAPSHOT" extension="zip"/>
         <artifact groupId="org.yaml" artifactId="snakeyaml" version="1.15"/>
     </artifact-versions>
 </feature-pack>
