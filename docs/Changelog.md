@@ -1,5 +1,279 @@
 ### Changelog
 
+#### WildFly-Camel 5.0.0
+
+**Features**
+
+* [#1419][1419] Add support for component beanstalk
+* [#1424][1424] Add support for component docker
+* [#1427][1427] Add support for component etcd
+* [#1430][1430] Add support for component flink
+* [#1437][1437] Add support for component google-calendar
+* [#1438][1438] Add support for component google-drive
+* [#1439][1439] Add support for component google-mail
+* [#1450][1450] Add support for component jclouds
+* [#1456][1456] Add support for component nagios
+* [#1476][1476] Add support for component spring-ws
+* [#1818][1818] Add support for component azure-blob
+* [#1819][1819] Add support for component azure-queue
+* [#1821][1821] Add support for component couchbase
+* [#1822][1822] Add support for component digitalocean
+* [#1824][1824] Add support for component elasticsearch5
+* [#1826][1826] Add support for component grpc
+* [#1836][1836] Add support for component milo
+* [#1837][1837] Add support for component mongodb-gridfs
+* [#1839][1839] Add support for component olingo4
+* [#1840][1840] Add support for component openstack-cinder
+* [#1841][1841] Add support for component openstack-glance
+* [#1842][1842] Add support for component openstack-keystone
+* [#1843][1843] Add support for component openstack-neutron
+* [#1844][1844] Add support for component openstack-nova
+* [#1845][1845] Add support for component openstack-swift
+* [#1846][1846] Add support for component pubnub
+* [#1852][1852] Add support for component zookeeper-master
+* [#1874][1874] Add support for camel connectors
+* [#1982][1982] Add support for component apns
+* [#1983][1983] Add support for component asterisk
+* [#1986][1986] Add support for component chronicle-engine
+* [#1987][1987] Add support for component chunk
+* [#1988][1988] Add support for component cm-sms
+* [#1992][1992] Add support for component consul
+* [#2002][2002] Add support for component guava-eventbus
+* [#2003][2003] Add support for component hipchat
+* [#2008][2008] Add support for component jcr
+* [#2012][2012] Add support for component jt400
+* [#2015][2015] Add support for component printer
+* [#2016][2016] Add support for component lumberjack
+* [#2023][2023] Add support for component quickfix
+* [#2025][2025] Add support for component rmi
+* [#2027][2027] Add support for component sip
+* [#2028][2028] Add support for component sips
+* [#2029][2029] Add support for component slack
+* [#2033][2033] Add support for component stomp
+* [#2035][2035] Add support for component telegram
+* [#2037][2037] Add support for component xmpp
+* [#2038][2038] Add support for component yammer
+* [#2063][2063] Add support for component leveldb
+* [#2065][2065] Add support for component shiro
+* [#2068][2068] Add support for component spring-javaconfig
+* [#2130][2130] Add support for component twilio
+* [#2174][2174] Add support for component atomix
+* [#2175][2175] Add support for component caffeine
+* [#2176][2176] Add support for component crypto-cms
+* [#2177][2177] Add support for component google-bigquery
+* [#2178][2178] Add support for component hazelcast
+* [#2179][2179] Add support for component iec60870
+* [#2180][2180] Add support for component json-validator
+* [#2181][2181] Add support for component ldif
+* [#2182][2182] Add support for component master
+* [#2183][2183] Add support for component thrift
+* [#2184][2184] Add support for component headersmap
+* [#2185][2185] Add support for component reactor
+* [#2186][2186] Add support for dataformat asn1
+* [#2187][2187] Add support for dataformat json-fastjson
+* [#2256][2256] Add support for Log4J V2
+* [#2307][2307] Add support for Spring Configuration processing
+
+For details see [5.0.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"5.0.0"+label%3Afeature)
+
+**Tasks**
+
+* [#1247][1247] Remove support for XML Beans
+* [#1269][1269] Upgrade to wildfly-11.0.0
+* [#1357][1357] Integrate with httpclient 4.5.2 when provided by WildFly
+* [#1406][1406] Add support for component atmosphere-websocket
+* [#1469][1469] Reject support for component spark
+* [#1470][1470] Reject support for component spark-rest
+* [#1479][1479] Reject support for component websocket
+* [#1672][1672] Enable Twitter testing in Jenkins
+* [#1809][1809] Enable undertow consumer prefix paths
+* [#1823][1823] Reject support for component drill
+* [#1984][1984] Reject support for component atmos
+* [#1990][1990] Reject support for component cometd
+* [#1991][1991] Reject support for component cometds
+* [#2001][2001] Reject support for component grape
+* [#2066][2066] Reject support for component spring-cloud
+* [#2067][2067] Reject support for component spring-cloud-netflix
+* [#2095][2095] Monitor AWS object build up
+* [#2132][2132] Restructure smartrics module definitions
+* [#2138][2138] Remove superfluous wires to javax.api
+* [#2147][2147] Validate wildfly/camel version properties
+* [#2162][2162] Upgrade to camel-2.20.1
+* [#2164][2164] Remove dependency on jetty-server
+* [#2192][2192] Restore support for camel-jgroups
+* [#2199][2199] Review exported paths from module org.apache.activemq
+* [#2208][2208] Configure Google API keys on fabric8-ci.fusesource.com
+* [#2221][2221] Restore creation of wildfly-swarm fractions
+* [#2227][2227] Upgrade docker base image to wildfly-110-centos7
+* [#2231][2231] Upgrade Hawtio to 1.5.5
+* [#2253][2253] WAR deployments containing Camel libraries should be considered invalid
+* [#2254][2254] Remove outdated elasticsearch from feature pack
+* [#2258][2258] Cleanup module definitions in extras
+* [#2274][2274] Enable Twilio testing in Jenkins
+* [#2275][2275] Remove deprecated camel components
+* [#2295][2295] Remove domain mode from the docs
+* [#2309][2309] Remove AIX related test excludes
+* [#2312][2312] Add test coverage for direct-vm endpoints
+* [#2322][2322] Refactor generated modules into feature packs
+* [#2332][2332] Remove dependency on camel defined netty-4.1
+* [#2334][2334] Add docker push profile
+* [#2345][2345] Reject support for component hbase
+
+For details see [5.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"5.0.0"+label%3Atask)
+
+**Bugs**
+
+* [#1897][1897] Cannot locate org.apache.cxf.transport.http.spring.NamespaceHandler
+* [#1933][1933] NameNotFoundException: infinispan/container/server
+* [#1958][1958] Unable to load custom HBase configuration files  
+* [#2127][2127] Failed to define class HBaseZeroCopyByteString
+* [#2140][2140] Cannot build feature pack with --also-make
+* [#2150][2150] Kie assumes that the TCCL can load its services
+* [#2198][2198] Unable to implement Spring JMS MessageConverter
+* [#2209][2209] GoogleCalendarIntegrationTest assertion failure
+* [#2229][2229] Intermittent failure of SipIntegrationTest
+* [#2243][2243] Inconsistent jar versions with apache curator 
+* [#2250][2250] Path filter leaks internals to user classpath
+* [#2286][2286] Multiple SLF4J bindings in standalone/basic
+* [#2290][2290] DockerIntegrationTest fails when boot2docker is not present
+* [#2292][2292] APNS server uses hard coded ports
+* [#2293][2293] Unable to use SOAP 1.2 with SoapJaxbDataFormat
+* [#2318][2318] Flink requires internals to by visible by TCCL
+* [#2343][2343] Archetypes should not override BOM managed dependency versions
+* [#2348][2348] Unable to resource inject CamelContext
+* [#2349][2349] Incorrect version for jackson-dataformat-smile
+
+For details see [5.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"5.0.0"+label%3Abug)
+
+[1419]: https://github.com/wildfly-extras/wildfly-camel/issues/1419
+[1424]: https://github.com/wildfly-extras/wildfly-camel/issues/1424
+[1427]: https://github.com/wildfly-extras/wildfly-camel/issues/1427
+[1430]: https://github.com/wildfly-extras/wildfly-camel/issues/1430
+[1437]: https://github.com/wildfly-extras/wildfly-camel/issues/1437
+[1438]: https://github.com/wildfly-extras/wildfly-camel/issues/1438
+[1439]: https://github.com/wildfly-extras/wildfly-camel/issues/1439
+[1450]: https://github.com/wildfly-extras/wildfly-camel/issues/1450
+[1456]: https://github.com/wildfly-extras/wildfly-camel/issues/1456
+[1476]: https://github.com/wildfly-extras/wildfly-camel/issues/1476
+[1818]: https://github.com/wildfly-extras/wildfly-camel/issues/1818
+[1819]: https://github.com/wildfly-extras/wildfly-camel/issues/1819
+[1821]: https://github.com/wildfly-extras/wildfly-camel/issues/1821
+[1822]: https://github.com/wildfly-extras/wildfly-camel/issues/1822
+[1824]: https://github.com/wildfly-extras/wildfly-camel/issues/1824
+[1826]: https://github.com/wildfly-extras/wildfly-camel/issues/1826
+[1836]: https://github.com/wildfly-extras/wildfly-camel/issues/1836
+[1837]: https://github.com/wildfly-extras/wildfly-camel/issues/1837
+[1839]: https://github.com/wildfly-extras/wildfly-camel/issues/1839
+[1840]: https://github.com/wildfly-extras/wildfly-camel/issues/1840
+[1841]: https://github.com/wildfly-extras/wildfly-camel/issues/1841
+[1842]: https://github.com/wildfly-extras/wildfly-camel/issues/1842
+[1843]: https://github.com/wildfly-extras/wildfly-camel/issues/1843
+[1844]: https://github.com/wildfly-extras/wildfly-camel/issues/1844
+[1845]: https://github.com/wildfly-extras/wildfly-camel/issues/1845
+[1846]: https://github.com/wildfly-extras/wildfly-camel/issues/1846
+[1852]: https://github.com/wildfly-extras/wildfly-camel/issues/1852
+[1874]: https://github.com/wildfly-extras/wildfly-camel/issues/1874
+[1982]: https://github.com/wildfly-extras/wildfly-camel/issues/1982
+[1983]: https://github.com/wildfly-extras/wildfly-camel/issues/1983
+[1986]: https://github.com/wildfly-extras/wildfly-camel/issues/1986
+[1987]: https://github.com/wildfly-extras/wildfly-camel/issues/1987
+[1988]: https://github.com/wildfly-extras/wildfly-camel/issues/1988
+[1992]: https://github.com/wildfly-extras/wildfly-camel/issues/1992
+[2002]: https://github.com/wildfly-extras/wildfly-camel/issues/2002
+[2003]: https://github.com/wildfly-extras/wildfly-camel/issues/2003
+[2008]: https://github.com/wildfly-extras/wildfly-camel/issues/2008
+[2012]: https://github.com/wildfly-extras/wildfly-camel/issues/2012
+[2015]: https://github.com/wildfly-extras/wildfly-camel/issues/2015
+[2016]: https://github.com/wildfly-extras/wildfly-camel/issues/2016
+[2023]: https://github.com/wildfly-extras/wildfly-camel/issues/2023
+[2025]: https://github.com/wildfly-extras/wildfly-camel/issues/2025
+[2027]: https://github.com/wildfly-extras/wildfly-camel/issues/2027
+[2028]: https://github.com/wildfly-extras/wildfly-camel/issues/2028
+[2029]: https://github.com/wildfly-extras/wildfly-camel/issues/2029
+[2033]: https://github.com/wildfly-extras/wildfly-camel/issues/2033
+[2035]: https://github.com/wildfly-extras/wildfly-camel/issues/2035
+[2037]: https://github.com/wildfly-extras/wildfly-camel/issues/2037
+[2038]: https://github.com/wildfly-extras/wildfly-camel/issues/2038
+[2063]: https://github.com/wildfly-extras/wildfly-camel/issues/2063
+[2065]: https://github.com/wildfly-extras/wildfly-camel/issues/2065
+[2068]: https://github.com/wildfly-extras/wildfly-camel/issues/2068
+[2130]: https://github.com/wildfly-extras/wildfly-camel/issues/2130
+[2174]: https://github.com/wildfly-extras/wildfly-camel/issues/2174
+[2175]: https://github.com/wildfly-extras/wildfly-camel/issues/2175
+[2176]: https://github.com/wildfly-extras/wildfly-camel/issues/2176
+[2177]: https://github.com/wildfly-extras/wildfly-camel/issues/2177
+[2178]: https://github.com/wildfly-extras/wildfly-camel/issues/2178
+[2179]: https://github.com/wildfly-extras/wildfly-camel/issues/2179
+[2180]: https://github.com/wildfly-extras/wildfly-camel/issues/2180
+[2181]: https://github.com/wildfly-extras/wildfly-camel/issues/2181
+[2182]: https://github.com/wildfly-extras/wildfly-camel/issues/2182
+[2183]: https://github.com/wildfly-extras/wildfly-camel/issues/2183
+[2184]: https://github.com/wildfly-extras/wildfly-camel/issues/2184
+[2185]: https://github.com/wildfly-extras/wildfly-camel/issues/2185
+[2186]: https://github.com/wildfly-extras/wildfly-camel/issues/2186
+[2187]: https://github.com/wildfly-extras/wildfly-camel/issues/2187
+[2256]: https://github.com/wildfly-extras/wildfly-camel/issues/2256
+[2307]: https://github.com/wildfly-extras/wildfly-camel/issues/2307
+[1247]: https://github.com/wildfly-extras/wildfly-camel/issues/1247
+[1269]: https://github.com/wildfly-extras/wildfly-camel/issues/1269
+[1357]: https://github.com/wildfly-extras/wildfly-camel/issues/1357
+[1406]: https://github.com/wildfly-extras/wildfly-camel/issues/1406
+[1469]: https://github.com/wildfly-extras/wildfly-camel/issues/1469
+[1470]: https://github.com/wildfly-extras/wildfly-camel/issues/1470
+[1479]: https://github.com/wildfly-extras/wildfly-camel/issues/1479
+[1672]: https://github.com/wildfly-extras/wildfly-camel/issues/1672
+[1809]: https://github.com/wildfly-extras/wildfly-camel/issues/1809
+[1823]: https://github.com/wildfly-extras/wildfly-camel/issues/1823
+[1984]: https://github.com/wildfly-extras/wildfly-camel/issues/1984
+[1990]: https://github.com/wildfly-extras/wildfly-camel/issues/1990
+[1991]: https://github.com/wildfly-extras/wildfly-camel/issues/1991
+[2001]: https://github.com/wildfly-extras/wildfly-camel/issues/2001
+[2066]: https://github.com/wildfly-extras/wildfly-camel/issues/2066
+[2067]: https://github.com/wildfly-extras/wildfly-camel/issues/2067
+[2095]: https://github.com/wildfly-extras/wildfly-camel/issues/2095
+[2132]: https://github.com/wildfly-extras/wildfly-camel/issues/2132
+[2138]: https://github.com/wildfly-extras/wildfly-camel/issues/2138
+[2147]: https://github.com/wildfly-extras/wildfly-camel/issues/2147
+[2162]: https://github.com/wildfly-extras/wildfly-camel/issues/2162
+[2164]: https://github.com/wildfly-extras/wildfly-camel/issues/2164
+[2192]: https://github.com/wildfly-extras/wildfly-camel/issues/2192
+[2199]: https://github.com/wildfly-extras/wildfly-camel/issues/2199
+[2208]: https://github.com/wildfly-extras/wildfly-camel/issues/2208
+[2221]: https://github.com/wildfly-extras/wildfly-camel/issues/2221
+[2227]: https://github.com/wildfly-extras/wildfly-camel/issues/2227
+[2231]: https://github.com/wildfly-extras/wildfly-camel/issues/2231
+[2253]: https://github.com/wildfly-extras/wildfly-camel/issues/2253
+[2254]: https://github.com/wildfly-extras/wildfly-camel/issues/2254
+[2258]: https://github.com/wildfly-extras/wildfly-camel/issues/2258
+[2274]: https://github.com/wildfly-extras/wildfly-camel/issues/2274
+[2275]: https://github.com/wildfly-extras/wildfly-camel/issues/2275
+[2295]: https://github.com/wildfly-extras/wildfly-camel/issues/2295
+[2309]: https://github.com/wildfly-extras/wildfly-camel/issues/2309
+[2312]: https://github.com/wildfly-extras/wildfly-camel/issues/2312
+[2322]: https://github.com/wildfly-extras/wildfly-camel/issues/2322
+[2332]: https://github.com/wildfly-extras/wildfly-camel/issues/2332
+[2334]: https://github.com/wildfly-extras/wildfly-camel/issues/2334
+[2345]: https://github.com/wildfly-extras/wildfly-camel/issues/2345
+[1897]: https://github.com/wildfly-extras/wildfly-camel/issues/1897
+[1933]: https://github.com/wildfly-extras/wildfly-camel/issues/1933
+[1958]: https://github.com/wildfly-extras/wildfly-camel/issues/1958
+[2127]: https://github.com/wildfly-extras/wildfly-camel/issues/2127
+[2140]: https://github.com/wildfly-extras/wildfly-camel/issues/2140
+[2150]: https://github.com/wildfly-extras/wildfly-camel/issues/2150
+[2198]: https://github.com/wildfly-extras/wildfly-camel/issues/2198
+[2209]: https://github.com/wildfly-extras/wildfly-camel/issues/2209
+[2229]: https://github.com/wildfly-extras/wildfly-camel/issues/2229
+[2243]: https://github.com/wildfly-extras/wildfly-camel/issues/2243
+[2250]: https://github.com/wildfly-extras/wildfly-camel/issues/2250
+[2286]: https://github.com/wildfly-extras/wildfly-camel/issues/2286
+[2290]: https://github.com/wildfly-extras/wildfly-camel/issues/2290
+[2292]: https://github.com/wildfly-extras/wildfly-camel/issues/2292
+[2293]: https://github.com/wildfly-extras/wildfly-camel/issues/2293
+[2318]: https://github.com/wildfly-extras/wildfly-camel/issues/2318
+[2343]: https://github.com/wildfly-extras/wildfly-camel/issues/2343
+[2348]: https://github.com/wildfly-extras/wildfly-camel/issues/2348
+[2349]: https://github.com/wildfly-extras/wildfly-camel/issues/2349
+
 #### WildFly-Camel 4.9.0
 
 **Features**
@@ -38,7 +312,6 @@ For details see [4.9.0 features](https://github.com/wildfly-extras/wildfly-camel
 **Tasks**
 
 * [#1702][1702] Remove explicit netty 4.1 dependency overrride
-* [#1837][1837] Reject support for component mongodb-gridfs
 * [#1898][1898] Enable camel-facebook integration tests
 * [#1935][1935] Upgrade to camel-2.19.3
 * [#1948][1948] Activate Camel subsytem on detection of @ImportResource annotation
@@ -109,7 +382,6 @@ For details see [4.9.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 [2048]: https://github.com/wildfly-extras/wildfly-camel/issues/2048
 [2049]: https://github.com/wildfly-extras/wildfly-camel/issues/2049
 [1702]: https://github.com/wildfly-extras/wildfly-camel/issues/1702
-[1837]: https://github.com/wildfly-extras/wildfly-camel/issues/1837
 [1898]: https://github.com/wildfly-extras/wildfly-camel/issues/1898
 [1935]: https://github.com/wildfly-extras/wildfly-camel/issues/1935
 [1948]: https://github.com/wildfly-extras/wildfly-camel/issues/1948
@@ -238,9 +510,7 @@ For details see [4.7.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#1327][1327] Provide CI testing for camel-irc
 * [#1359][1359] Provide CI testing for camel-smpp
 * [#1370][1370] Upgrade to camel-2.19.0
-* [#1419][1419] Reject support for component beanstalk
 * [#1440][1440] Reject support for component hazelcast
-* [#1456][1456] Reject support for component nagios
 * [#1502][1502] Provide image that supports both s2i and plain docker
 * [#1621][1621] Investigate missing components in catalog
 * [#1678][1678] Enable IRC testing in Jenkins
@@ -330,9 +600,7 @@ For details see [4.7.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 [1327]: https://github.com/wildfly-extras/wildfly-camel/issues/1327
 [1359]: https://github.com/wildfly-extras/wildfly-camel/issues/1359
 [1370]: https://github.com/wildfly-extras/wildfly-camel/issues/1370
-[1419]: https://github.com/wildfly-extras/wildfly-camel/issues/1419
 [1440]: https://github.com/wildfly-extras/wildfly-camel/issues/1440
-[1456]: https://github.com/wildfly-extras/wildfly-camel/issues/1456
 [1502]: https://github.com/wildfly-extras/wildfly-camel/issues/1502
 [1621]: https://github.com/wildfly-extras/wildfly-camel/issues/1621
 [1678]: https://github.com/wildfly-extras/wildfly-camel/issues/1678
@@ -409,8 +677,6 @@ For details see [4.6.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#1451][1451] Reject support for component jira
 * [#1453][1453] Reject support for component mina
 * [#1459][1459] Reject support for component netty4-http
-* [#1469][1469] Reject support for component spark
-* [#1476][1476] Reject support for component spring-ws
 * [#1583][1583] Upgrade to OpenShift 3.4
 * [#1584][1584] Upgrade to camel-2.18.3
 * [#1603][1603] Add intellij import ordering spec
@@ -473,8 +739,6 @@ For details see [4.6.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 [1451]: https://github.com/wildfly-extras/wildfly-camel/issues/1451
 [1453]: https://github.com/wildfly-extras/wildfly-camel/issues/1453
 [1459]: https://github.com/wildfly-extras/wildfly-camel/issues/1459
-[1469]: https://github.com/wildfly-extras/wildfly-camel/issues/1469
-[1476]: https://github.com/wildfly-extras/wildfly-camel/issues/1476
 [1583]: https://github.com/wildfly-extras/wildfly-camel/issues/1583
 [1584]: https://github.com/wildfly-extras/wildfly-camel/issues/1584
 [1603]: https://github.com/wildfly-extras/wildfly-camel/issues/1603

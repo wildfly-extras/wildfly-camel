@@ -1,0 +1,4 @@
+### camel-hipchat
+
+The http://camel.apache.org/hipchat.html[hipchat,window=_blank] 
+component supports producing and consuming messages from/to https://www.hipchat.com/[Hipchat,window=_blank] service.

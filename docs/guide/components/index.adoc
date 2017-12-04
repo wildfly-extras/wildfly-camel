@@ -102,6 +102,8 @@ include::camel-ejb.adoc[]
 
 include::camel-elasticsearch.adoc[]
 
+include::camel-elasticsearch5.adoc[]
+
 include::camel-elsql.adoc[]
 
 include::camel-etcd.adoc[]
@@ -145,6 +147,8 @@ include::camel-hazelcast.adoc[]
 include::camel-hdfs2.adoc[]
 
 include::camel-headersmap.adoc[]
+
+include::camel-hipchat.adoc[]
 
 include::camel-hl7.adoc[]
 
@@ -327,6 +331,8 @@ include::camel-sjms.adoc[]
 include::camel-sjms-batch.adoc[]
 
 include::camel-sjms2.adoc[]
+
+include::camel-slack.adoc[]
 
 include::camel-splunk.adoc[]
 
