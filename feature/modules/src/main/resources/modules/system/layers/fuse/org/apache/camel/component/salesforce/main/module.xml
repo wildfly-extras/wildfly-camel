@@ -4,6 +4,7 @@
     <artifact name="${org.apache.camel:camel-salesforce}" />
   </resources>
   <dependencies>
+    <module name="javax.api" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />

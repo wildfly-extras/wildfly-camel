@@ -29,6 +29,9 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.salesforce.SalesforceComponent;
 import org.apache.camel.component.salesforce.SalesforceLoginConfig;
+import org.apache.camel.component.salesforce.api.dto.bulk.ContentType;
+import org.apache.camel.component.salesforce.api.dto.bulk.JobInfo;
+import org.apache.camel.component.salesforce.api.dto.bulk.OperationEnum;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.util.IntrospectionSupport;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -91,6 +94,47 @@ public class SalesforceIntegrationTest {
             QueryRecordsOpportunity queryRecords = producer.requestBody("direct:query", null, QueryRecordsOpportunity.class);
 
             Assert.assertNotNull("Expected query records result to not be null", queryRecords);
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testSalesforceCreateJob() throws Exception {
+        Map<String, Object> salesforceOptions = createSalesforceOptions();
+
+        Assume.assumeTrue("[#1676] Enable Salesforce testing in Jenkins",
+                salesforceOptions.size() == SalesforceOption.values().length);
+
+        SalesforceLoginConfig loginConfig = new SalesforceLoginConfig();
+        IntrospectionSupport.setProperties(loginConfig, salesforceOptions);
+
+        SalesforceComponent component = new SalesforceComponent();
+        component.setPackages("org.wildfly.camel.test.salesforce.dto");
+        component.setLoginConfig(loginConfig);
+
+        JobInfo jobInfo = new JobInfo();
+        jobInfo.setOperation(OperationEnum.QUERY);
+        jobInfo.setContentType(ContentType.CSV);
+        jobInfo.setObject(Opportunity.class.getSimpleName());
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addComponent("salesforce",  component);
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .to("salesforce:createJob");
+            }
+        });
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            JobInfo result = producer.requestBody("direct:start", jobInfo, JobInfo.class);
+
+            Assert.assertNotNull("Expected JobInfo result to not be null", result);
+            Assert.assertNotNull("Expected JobInfo result ID to not be null", result.getId());
         } finally {
             camelctx.stop();
         }
