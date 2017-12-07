@@ -2358,6 +2358,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
+            <module name="org.cometd.bayeux" />
             <module name="org.slf4j" />
         </dependencies>
         <exports>

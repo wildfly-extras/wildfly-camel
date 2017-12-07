@@ -20,6 +20,7 @@
 
 package org.wildfly.camel.test.salesforce;
 
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +28,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.salesforce.SalesforceComponent;
 import org.apache.camel.component.salesforce.SalesforceLoginConfig;
 import org.apache.camel.component.salesforce.api.dto.bulk.ContentType;
@@ -43,6 +45,7 @@ import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.salesforce.dto.Opportunity;
+import org.wildfly.camel.test.salesforce.dto.Opportunity_StageNameEnum;
 import org.wildfly.camel.test.salesforce.dto.QueryRecordsOpportunity;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -51,8 +54,8 @@ import org.wildfly.extension.camel.CamelAware;
 public class SalesforceIntegrationTest {
 
     @Deployment
-    public static JavaArchive createdeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-salesforce-tests")
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class, "camel-salesforce-tests.jar")
             .addPackage(Opportunity.class.getPackage());
     }
 
@@ -65,7 +68,7 @@ public class SalesforceIntegrationTest {
     }
 
     @Test
-    public void testSalesforceQuery() throws Exception {
+    public void testSalesforceQueryProducer() throws Exception {
         Map<String, Object> salesforceOptions = createSalesforceOptions();
         
         Assume.assumeTrue("[#1676] Enable Salesforce testing in Jenkins", 
@@ -90,10 +93,56 @@ public class SalesforceIntegrationTest {
 
         camelctx.start();
         try {
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            QueryRecordsOpportunity queryRecords = producer.requestBody("direct:query", null, QueryRecordsOpportunity.class);
+            ProducerTemplate template = camelctx.createProducerTemplate();
+            QueryRecordsOpportunity queryRecords = template.requestBody("direct:query", null, QueryRecordsOpportunity.class);
 
             Assert.assertNotNull("Expected query records result to not be null", queryRecords);
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testSalesforceTopicConsumer() throws Exception {
+        Map<String, Object> salesforceOptions = createSalesforceOptions();
+
+        Assume.assumeTrue("[#1676] Enable Salesforce testing in Jenkins",
+                salesforceOptions.size() == SalesforceOption.values().length);
+
+        SalesforceLoginConfig loginConfig = new SalesforceLoginConfig();
+        IntrospectionSupport.setProperties(loginConfig, salesforceOptions);
+
+        SalesforceComponent component = new SalesforceComponent();
+        component.setPackages("org.wildfly.camel.test.salesforce.dto");
+        component.setLoginConfig(loginConfig);
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addComponent("salesforce",  component);
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("salesforce:CamelTestTopic?notifyForFields=ALL&"
+                    + "notifyForOperationCreate=true&notifyForOperationDelete=true&notifyForOperationUpdate=true&"
+                    + "sObjectName=Opportunity&"
+                    + "updateTopic=true&sObjectQuery=SELECT Id, Name FROM Opportunity")
+                .to("mock:result");
+            }
+        });
+
+        Opportunity opportunity = new Opportunity();
+        opportunity.setName("test");
+        opportunity.setStageName(Opportunity_StageNameEnum.PROSPECTING);
+        opportunity.setCloseDate(ZonedDateTime.now());
+
+        MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+        mockEndpoint.expectedMinimumMessageCount(1);
+
+        camelctx.start();
+        try {
+            ProducerTemplate template = camelctx.createProducerTemplate();
+            template.sendBody("salesforce:upsertSObject?SObjectIdName=Name", opportunity);
+
+            mockEndpoint.assertIsSatisfied(5000);
         } finally {
             camelctx.stop();
         }
@@ -104,7 +153,7 @@ public class SalesforceIntegrationTest {
         Map<String, Object> salesforceOptions = createSalesforceOptions();
 
         Assume.assumeTrue("[#1676] Enable Salesforce testing in Jenkins",
-                salesforceOptions.size() == SalesforceOption.values().length);
+            salesforceOptions.size() == SalesforceOption.values().length);
 
         SalesforceLoginConfig loginConfig = new SalesforceLoginConfig();
         IntrospectionSupport.setProperties(loginConfig, salesforceOptions);
@@ -130,8 +179,8 @@ public class SalesforceIntegrationTest {
 
         camelctx.start();
         try {
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            JobInfo result = producer.requestBody("direct:start", jobInfo, JobInfo.class);
+            ProducerTemplate template = camelctx.createProducerTemplate();
+            JobInfo result = template.requestBody("direct:start", jobInfo, JobInfo.class);
 
             Assert.assertNotNull("Expected JobInfo result to not be null", result);
             Assert.assertNotNull("Expected JobInfo result ID to not be null", result.getId());
