@@ -45,7 +45,7 @@ public class WeatherIntegrationTest {
     }
 
     @Test
-    public void testGetWeather() {
+    public void testGetWeatherWithDefinedLocation() {
         Assume.assumeNotNull(OPENWEATHER_APP_ID);
 
         CamelContext camelctx = new DefaultCamelContext();
@@ -53,5 +53,16 @@ public class WeatherIntegrationTest {
         String response = template.requestBody("weather:foo?location=Madrid,Spain&period=7 days&appid=" + OPENWEATHER_APP_ID, null, String.class);
         Assert.assertNotNull(response);
         Assert.assertTrue("Contains ", response.contains(",\"name\":\"Madrid\","));
+    }
+
+    @Test
+    public void testGetWeatherFromGeoIpLocation() {
+        Assume.assumeNotNull(OPENWEATHER_APP_ID);
+
+        CamelContext camelctx = new DefaultCamelContext();
+        ProducerTemplate template = camelctx.createProducerTemplate();
+        String response = template.requestBody("weather:foo?appid=" + OPENWEATHER_APP_ID, null, String.class);
+        Assert.assertNotNull(response);
+        Assert.assertTrue("Contains ", response.contains(",\"weather\":"));
     }
 }

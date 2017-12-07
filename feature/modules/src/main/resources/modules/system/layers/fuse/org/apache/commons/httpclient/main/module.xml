@@ -7,6 +7,7 @@
     <artifact name="${commons-httpclient:commons-httpclient}" />
   </resources>
   <dependencies>
+    <module name="javax.api" />
     <module name="org.apache.commons.codec" />
     <module name="org.apache.commons.logging" />
   </dependencies>
