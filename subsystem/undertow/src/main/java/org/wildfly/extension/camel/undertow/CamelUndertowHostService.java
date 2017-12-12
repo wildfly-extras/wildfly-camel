@@ -26,15 +26,14 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 import org.apache.camel.component.undertow.HttpHandlerRegistrationInfo;
 import org.apache.camel.component.undertow.UndertowHost;
+import org.apache.camel.component.undertow.handlers.CamelWebSocketHandler;
 import org.jboss.as.network.NetworkUtils;
 import org.jboss.as.network.SocketBinding;
 import org.jboss.gravia.runtime.ModuleContext;
@@ -194,7 +193,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
         }
 
         @Override
-		public void registerHandler(HttpHandlerRegistrationInfo reginfo, HttpHandler handler) {
+        public HttpHandler registerHandler(HttpHandlerRegistrationInfo reginfo, HttpHandler handler) {
             boolean matchOnUriPrefix = reginfo.isMatchOnUriPrefix();
             URI httpURI = reginfo.getUri();
 
@@ -214,17 +213,20 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
             String methods = reginfo.getMethodRestrict() == null ? DEFAULT_METHODS : reginfo.getMethodRestrict();
             LOGGER.debug("Using methods {}" , methods);
 
+            HttpHandler result = null;
             for (String method : methods.split(",")) {
                 LOGGER.debug("Adding {}: {} for handler {}", method, relativePath, handler);
-                routingHandler.add(method, relativePath, handler);
+                result = routingHandler.add(method, relativePath, handler);
             }
 
             LOGGER.debug("Registering DelegatingRoutingHandler on path {}", contextPath);
             defaultHost.registerHandler(contextPath, routingHandler);
+
+            return result;
         }
 
-		@Override
-		public void unregisterHandler(HttpHandlerRegistrationInfo reginfo) {
+        @Override
+        public void unregisterHandler(HttpHandlerRegistrationInfo reginfo) {
             boolean matchOnUriPrefix = reginfo.isMatchOnUriPrefix();
             URI httpURI = reginfo.getUri();
             String contextPath = getContextPath(httpURI);
@@ -233,14 +235,15 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
             DelegatingRoutingHandler routingHandler = handlers.get(contextPath);
             if (routingHandler != null) {
                 String methods = reginfo.getMethodRestrict() == null ? DEFAULT_METHODS : reginfo.getMethodRestrict();
+                boolean routingHandlerEmpty = false;
                 for (String method : methods.split(",")) {
                     String relativePath = getRelativePath(httpURI, matchOnUriPrefix);
-                    routingHandler.remove(method, relativePath);
+                    routingHandlerEmpty = routingHandler.remove(method, relativePath);
                     LOGGER.debug("Unregistered {}: {}", method, relativePath);
                 }
 
                 // No paths remain registered so remove the base handler
-                if (!routingHandler.hasRegisteredPaths()) {
+                if (routingHandlerEmpty) {
                     defaultHost.unregisterHandler(contextPath);
                     handlers.remove(contextPath);
                     LOGGER.debug("Unregistered root handler from {}", contextPath);
@@ -282,26 +285,40 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
     class DelegatingRoutingHandler implements HttpHandler {
 
-        private final List<MethodPathMapping> paths = new CopyOnWriteArrayList<>();
+        private final Map<MethodPathKey, MethodPathValue> paths = new ConcurrentHashMap<>();
         private final RoutingHandler delegate = Handlers.routing();
 
-        DelegatingRoutingHandler add(String method, String path, HttpHandler handler) {
-            MethodPathMapping mapping = MethodPathMapping.of(method, path);
-            IllegalStateAssertion.assertFalse(paths.contains(mapping) && !method.equals("OPTIONS"), "Cannot register duplicate handler for " + mapping);
+        HttpHandler add(String method, String path, HttpHandler handler) {
+            MethodPathKey key = new MethodPathKey(method, path);
+            HttpHandler result = null;
+            synchronized (paths) { /* lock paths while modifying it, so that paths.isEmpty() in remove() gives a consistent result */
+                MethodPathValue value = paths.computeIfAbsent(key, k -> new MethodPathValue());
+                result = value.addRef(handler, method, path);
+            }
 
-            LOGGER.debug("Registered paths {}", this.toString());
-            delegate.add(method, path, handler);
-            paths.add(mapping);
-            return this;
+            if (handler == result) {
+                /* register only the very first handler per path and method */
+                LOGGER.debug("Registered paths {}", this.toString());
+                delegate.add(method, path, handler);
+            }
+            return result;
         }
 
-        void remove(String method, String path) {
+        boolean remove(String method, String path) {
+            MethodPathKey key = new MethodPathKey(method, path);
+            boolean result;
+            synchronized (paths) { /* lock paths while modifying it, so that paths.isEmpty() below gives a consistent result */
+                MethodPathValue value = paths.get(key);
+                if (value != null) {
+                    value.removeRef();
+                    if (value.refCount <= 0) {
+                        paths.remove(key);
+                    }
+                }
+                result = paths.isEmpty();
+            }
             delegate.remove(Methods.fromString(method), path);
-            paths.remove(MethodPathMapping.of(method, path));
-        }
-
-        boolean hasRegisteredPaths() {
-            return !paths.isEmpty();
+            return result;
         }
 
         @Override
@@ -314,25 +331,21 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
         @Override
         public String toString() {
-            String formattedPaths = paths.stream()
-                .map(methodPathMapping -> methodPathMapping.toString())
+            String formattedPaths = paths.entrySet().stream()
+                .map(entry -> entry.toString())
                 .collect(Collectors.joining(", "));
 
             return String.format("DelegatingRoutingHandler [%s]", formattedPaths);
         }
     }
 
-    static class MethodPathMapping {
-        private String method;
-        private String path;
+    static class MethodPathKey {
+        private final String method;
+        private final String path;
 
-        private MethodPathMapping(String method, String path) {
+        private MethodPathKey(String method, String path) {
             this.method = method;
             this.path = path;
-        }
-
-        static MethodPathMapping of(String method, String path) {
-            return new MethodPathMapping(method, path);
         }
 
         @Override
@@ -344,7 +357,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
                 return false;
             }
 
-            MethodPathMapping that = (MethodPathMapping) o;
+            MethodPathKey that = (MethodPathKey) o;
 
             if (method != null ? !method.equals(that.method) : that.method != null) {
                 return false;
@@ -363,6 +376,39 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
         public String toString() {
             return String.format("%s: %s", method, path);
         }
+    }
+    static class MethodPathValue {
+        private int refCount;
+        private HttpHandler handler;
+
+        MethodPathValue() {
+        }
+
+        public HttpHandler addRef(HttpHandler handler, String method, String path) {
+            if (this.handler == null) {
+                this.handler = handler;
+                refCount++;
+                return handler;
+            } else if ("OPTIONS".equals(method) || CamelWebSocketHandler.class == this.handler.getClass() && CamelWebSocketHandler.class == handler.getClass()) {
+                refCount++;
+                return this.handler;
+            } else {
+                throw new IllegalStateException(String.format(
+                        "Duplicate handler for method %s and path '%s': '%s', '%s'", method, path, this.handler, handler));
+            }
+        }
+
+        public void removeRef() {
+            if (--refCount == 0) {
+                this.handler = null;
+            }
+        }
+
+        @Override
+        public String toString() {
+            return handler == null ? "null" : handler.toString();
+        }
+
     }
 
     class CamelUndertowEventListener implements UndertowEventListener {
