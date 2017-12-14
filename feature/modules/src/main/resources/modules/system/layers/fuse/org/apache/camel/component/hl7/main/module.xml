@@ -7,6 +7,7 @@
     <artifact name="${ca.uhn.hapi:hapi-structures-v25}" />
   </resources>
   <dependencies>
+    <module name="io.netty" />
     <module name="javax.api" />
     <module name="javax.enterprise.api" />
     <module name="javax.inject.api" />

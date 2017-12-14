@@ -1260,6 +1260,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="io.netty"/>
             <module name="javax.api"/>
             <module name="javax.enterprise.api" />
             <module name="javax.inject.api" />
