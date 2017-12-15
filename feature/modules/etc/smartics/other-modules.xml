@@ -738,6 +738,7 @@
         <include artifact="io.dropwizard.metrics:metrics-core" />
         <include artifact="io.dropwizard.metrics:metrics-json" />
         <dependencies>
+            <module name="com.fasterxml.jackson.core.jackson-core" />
             <module name="javax.api" />
         </dependencies>
     </module>
