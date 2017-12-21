@@ -73,7 +73,6 @@ exec
 facebook
 file
 flatpack
-flink
 fop
 freemarker
 ftp
@@ -272,6 +271,7 @@ cometds                                             #1991 Depends on Jetty serve
 context                                             #deprecated
 drill                                               #1823 Competitor to JDG
 eventadmin                                          #1996 OSGi specific
+flink                                               #2370 Massive bucket of scala dependent stuff
 gora                                                #2000 Competitor to JDG
 grape                                               #2001 Requires Groovy class loading
 hbase                                               #2127 Unsupportable split package

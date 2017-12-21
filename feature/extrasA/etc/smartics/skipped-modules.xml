@@ -120,6 +120,10 @@
         <include artifact="org.osgi:core" />
     </module>
 
+    <module name="org.reactivestreams" skip="true">
+        <include artifact="org.reactivestreams:reactive-streams" />
+    </module>
+
     <module name="org.scala.lang" skip="true">
         <include artifact="org.scala-lang:scala-library" />
     </module>

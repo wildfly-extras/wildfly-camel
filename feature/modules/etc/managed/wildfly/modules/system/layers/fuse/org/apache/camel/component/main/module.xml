@@ -87,7 +87,6 @@
         <module name="org.apache.camel.component.facebook" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.fastjson" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.flatpack" export="true" services="export" optional="true" />
-        <module name="org.apache.camel.component.flink" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.fop" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.freemarker" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.ftp" export="true" services="export" optional="true" />

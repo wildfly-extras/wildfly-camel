@@ -42,17 +42,6 @@
         
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-flink</artifactId>
-            <version>${version.apache.camel}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.flink</groupId>
-                    <artifactId>flink-shaded-hadoop2</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
             <artifactId>camel-hdfs2</artifactId>
             <version>${version.apache.camel}</version>
         </dependency>

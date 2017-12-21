@@ -20,18 +20,6 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="org.apache.camel.component.flink">
-        <include artifact="org.apache.camel:camel-flink" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.apache.flink" export="true" />
-            <module name="org.slf4j" />
-        </dependencies>
-    </module>
-    
     <module name="org.apache.camel.component.hdfs2">
         <include artifact="org.apache.camel:camel-hdfs2" />
         <apply-to-dependencies skip="true">

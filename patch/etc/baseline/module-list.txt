@@ -81,7 +81,6 @@
 /com/sun/jersey/core/main/jersey-core-1.9.jar
 /com/sun/jersey/core/main/jersey-json-1.9.jar
 /com/thoughtworks/xstream/main/xstream-1.4.10.jar
-/com/typesafe/config/main/config-1.2.1.jar
 /com/yammer/metrics/main/metrics-core-2.2.0.jar
 /dk/brics/automaton/main/automaton-1.11-8.jar
 /io/atomix/main/atomix-1.0.8.jar
@@ -245,7 +244,6 @@
 /org/apache/camel/component/fastjson/main/camel-fastjson-2.20.1.jar
 /org/apache/camel/component/flatpack/main/camel-flatpack-2.20.1.jar
 /org/apache/camel/component/flatpack/main/flatpack-3.4.3.jar
-/org/apache/camel/component/flink/main/camel-flink-2.20.1.jar
 /org/apache/camel/component/fop/main/camel-fop-2.20.1.jar
 /org/apache/camel/component/freemarker/main/camel-freemarker-2.20.1.jar
 /org/apache/camel/component/freemarker/main/freemarker-2.3.23.jar
@@ -512,21 +510,6 @@
 /org/apache/directory/server/main/apacheds-core-api-2.0.0-M24.jar
 /org/apache/directory/server/main/apacheds-core-constants-2.0.0-M24.jar
 /org/apache/directory/server/main/apacheds-i18n-2.0.0-M24.jar
-/org/apache/flink/main/flakka-actor_2.11-2.3-custom.jar
-/org/apache/flink/main/flakka-remote_2.11-2.3-custom.jar
-/org/apache/flink/main/flakka-slf4j_2.11-2.3-custom.jar
-/org/apache/flink/main/flink-annotations-1.3.2.jar
-/org/apache/flink/main/flink-clients_2.11-1.3.2.jar
-/org/apache/flink/main/flink-core-1.3.2.jar
-/org/apache/flink/main/flink-java-1.3.2.jar
-/org/apache/flink/main/flink-metrics-core-1.3.2.jar
-/org/apache/flink/main/flink-optimizer_2.11-1.3.2.jar
-/org/apache/flink/main/flink-runtime_2.11-1.3.2.jar
-/org/apache/flink/main/flink-streaming-java_2.11-1.3.2.jar
-/org/apache/flink/main/grizzled-slf4j_2.11-1.0.2.jar
-/org/apache/flink/main/kryo-2.24.0.jar
-/org/apache/flink/main/minlog-1.2.jar
-/org/apache/flink/main/scopt_2.11-3.5.0.jar
 /org/apache/hadoop/main/hadoop-annotations-2.7.4.jar
 /org/apache/hadoop/main/hadoop-auth-2.7.4.jar
 /org/apache/hadoop/main/hadoop-common-2.7.4.jar

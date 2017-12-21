@@ -294,11 +294,6 @@
         <include artifact="org.apache.felix:org.apache.felix.scr.ds-annotations" />
     </module>
 
-    <module name="org.apache.flink.skipped" skip="true">
-        <include artifact="org.apache.flink:flink-shaded-hadoop2" />
-        <include artifact="org.apache.flink:force-shading" />
-    </module>
-
     <module name="org.apache.httpcomponents.skipped" skip="true">
         <include artifact="org.apache.httpcomponents:httpclient-osgi" />
     </module>
