@@ -27,8 +27,6 @@ import static org.fusesource.stomp.client.Constants.SEND;
 
 import java.util.UUID;
 
-import javax.naming.InitialContext;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -60,16 +58,12 @@ public class StompIntegrationTest {
 
     private static final String CONTAINER_NAME = "amq";
     private static final int STOMP_PORT = 42653;
-    static final String QUEUE_NAME = "stompq";
-    static final String QUEUE_JNDI_NAME = "java:/" + QUEUE_NAME;
-
-    @ArquillianResource
-    InitialContext initialctx;
+    private static final String QUEUE_NAME = "stompq";
 
     @ArquillianResource
     private CubeController cubeController;
-    private String amqUrl;
 
+    private String amqUrl;
 
     @Before
     public void setUp() throws Exception {
@@ -87,7 +81,7 @@ public class StompIntegrationTest {
     @Deployment
     public static JavaArchive createdeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-stomp-tests")
-                .addClass(TestUtils.class);
+            .addClass(TestUtils.class);
     }
 
     @Test
@@ -97,16 +91,15 @@ public class StompIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                fromF("stomp:jms.queue.%s?brokerURL=%s", QUEUE_NAME, amqUrl) //
-                                .transform(body().method("utf8").prepend("Hello "))//
-                                .to("mock:result");
+                fromF("stomp:jms.queue.%s?brokerURL=%s", QUEUE_NAME, amqUrl)
+                .transform(body().method("utf8").prepend("Hello "))
+                .to("mock:result");
             }
         });
 
         camelctx.start();
 
         MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
-        mockEndpoint.setExpectedCount(1);
         mockEndpoint.expectedBodiesReceived("Hello Kermit");
 
         Stomp stomp = new Stomp(amqUrl);
@@ -115,7 +108,7 @@ public class StompIntegrationTest {
             StompFrame outFrame = new StompFrame(SEND);
             outFrame.addHeader(DESTINATION, StompFrame.encodeHeader("jms.queue." + QUEUE_NAME));
             outFrame.addHeader(MESSAGE_ID, StompFrame
-                    .encodeHeader("StompIntegrationTest.testMessageConsumerRoute" + UUID.randomUUID().toString()));
+                .encodeHeader("StompIntegrationTest.testMessageConsumerRoute" + UUID.randomUUID().toString()));
             outFrame.content(utf8("Kermit"));
             producerConnection.send(outFrame);
 
@@ -127,5 +120,4 @@ public class StompIntegrationTest {
             camelctx.stop();
         }
     }
-
 }

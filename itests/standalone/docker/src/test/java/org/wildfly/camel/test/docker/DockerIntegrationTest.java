@@ -19,6 +19,8 @@
  */
 package org.wildfly.camel.test.docker;
 
+import java.io.File;
+
 import com.github.dockerjava.api.model.Version;
 
 import org.apache.camel.CamelContext;
@@ -49,23 +51,18 @@ public class DockerIntegrationTest {
     }
 
     @Test
-    public void testDockerComponent() throws Exception {
+    public void testDockerComponentForUnixSocket() throws Exception {
+        File dockerSocket = new File("/var/run/docker.sock");
+
         Assume.assumeTrue("[#2287] Docker component cannot use TLS", System.getenv("DOCKER_TLS_VERIFY") == null);
+        Assume.assumeTrue("Docker socket /var/run/docker.sock does not exist or is not writable", dockerSocket.exists() && dockerSocket.canWrite());
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                // Default to connecting via a unix socket
-                String uriOptions = "socket=true";
-
-                if (System.getenv("DOCKER_HOST") != null) {
-                    // Set the host and port options
-                    uriOptions = String.format("host=%s&port=%d", TestUtils.getDockerHost(), TestUtils.getDockerPort());
-                }
-
                 from("direct:start")
-                .toF("docker:version?%s", uriOptions);
+                .toF("docker:version?socket=true");
             }
         });
 
@@ -79,4 +76,30 @@ public class DockerIntegrationTest {
             camelctx.stop();
         }
     }
+
+    @Test
+    public void testDockerComponentForHostnameAndPort() throws Exception {
+        Assume.assumeTrue("[#2287] Docker component cannot use TLS", System.getenv("DOCKER_TLS_VERIFY") == null);
+        Assume.assumeNotNull("DOCKER_HOST environment variable is not set", System.getenv("DOCKER_HOST"));
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .toF("docker:version?host=%s&port=%d", TestUtils.getDockerHost(), TestUtils.getDockerPort());
+            }
+        });
+
+        camelctx.start();
+        try {
+            ProducerTemplate template = camelctx.createProducerTemplate();
+            Version dockerVersion = template.requestBody("direct:start", null, Version.class);
+            Assert.assertNotNull("Docker version not null", dockerVersion);
+            Assert.assertFalse("Docker version was empty", dockerVersion.getVersion().isEmpty());
+        } finally {
+            camelctx.stop();
+        }
+    }
+
 }
