@@ -62,7 +62,7 @@
         <version.wildfly.cxf>3.1.12</version.wildfly.cxf>
         <version.wildfly.fasterxml.jackson>2.8.9</version.wildfly.fasterxml.jackson>
         <version.wildfly.infinispan>8.2.8.Final</version.wildfly.infinispan>
-        
+
         <!-- Other versions -->
         <version.apache.ds>2.0.0-M21</version.apache.ds>
         <version.apache.ds.codec>1.0.0-M33</version.apache.ds.codec>
@@ -430,11 +430,17 @@
         <repository>
             <id>jboss-public-repository</id>
             <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
         <repository>
             <!-- everit is distributed in jitpack and not maven central -->
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
