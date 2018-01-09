@@ -5,7 +5,7 @@
     <artifact name="${org.mousio:etcd4j}" />
   </resources>
   <dependencies>
-    <module name="io.netty" />
+    <module name="io.netty" slot="4.1" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
