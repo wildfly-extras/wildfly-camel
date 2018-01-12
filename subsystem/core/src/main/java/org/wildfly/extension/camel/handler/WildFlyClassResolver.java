@@ -70,7 +70,7 @@ final class WildFlyClassResolver extends DefaultClassResolver {
             try {
                 loadedClass = classLoader.loadClass(className);
             } catch (ClassNotFoundException e) {
-                LOGGER.warn("Cannot load '{}' from module: {}", className, moduleId);
+                LOGGER.debug("Cannot load '{}' from module: {}", className, moduleId);
             }
         }
         return loadedClass;
