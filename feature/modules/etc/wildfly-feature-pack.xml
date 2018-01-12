@@ -183,7 +183,7 @@
         <artifact groupId="io.grpc" artifactId="grpc-protobuf" version="1.6.1"/>
         <artifact groupId="io.grpc" artifactId="grpc-protobuf-lite" version="1.6.1"/>
         <artifact groupId="io.grpc" artifactId="grpc-stub" version="1.6.1"/>
-        <artifact groupId="io.hawt" artifactId="hawtio-wildfly" version="1.5.5" extension="war"/>
+        <artifact groupId="io.hawt" artifactId="hawtio-wildfly" version="1.5.7" extension="war"/>
         <artifact groupId="io.jsonwebtoken" artifactId="jjwt" version="0.4"/>
         <artifact groupId="io.nats" artifactId="jnats" version="1.0"/>
         <artifact groupId="io.netty" artifactId="netty" version="3.10.6.Final"/>
