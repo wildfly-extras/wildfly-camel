@@ -39,7 +39,6 @@
             <unpackOptions>
                 <excludes>
                     <exclude>standalone/configuration/*</exclude>
-                    <exclude>standalone/deployments/*</exclude>
                 </excludes>
             </unpackOptions>
         </dependencySet>
