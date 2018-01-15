@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -85,7 +86,7 @@ public class VersionsValidatorTest {
         for (String line : problems) {
             System.err.println(line);
         }
-        Assert.assertEquals("Mapping problems", 0, problems.size());
+        Assert.assertEquals("Mapping problems", Collections.emptyList(), problems);
     }
 
     public String getTargetValue(String wfcKey) throws JDOMException {
