@@ -827,6 +827,17 @@
         </dependencies>
     </module>
 
+    <module name="io.netty" inherit-slot="false" slot="4.1">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.netty:netty-all" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="sun.jdk"/>
+        </dependencies>
+    </module>
+
     <module name="io.opentracing">
         <include artifact="io.opentracing:opentracing-(.*)" />
         <include artifact="io.opentracing.contrib:opentracing-(.*)" />
@@ -1302,7 +1313,7 @@
             <include module="io.netty.skipped" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.netty" />
+            <module name="io.netty"/>
             <module name="javax.api" />
             <module name="javax.xml.bind.api" />
         </dependencies>

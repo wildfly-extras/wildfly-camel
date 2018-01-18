@@ -52,6 +52,10 @@
         <include artifact="io.netty:netty" />
     </module>
 
+    <module name="io.netty" slot="4.1" skip="true">
+        <include artifact="io.netty:netty-all" />
+    </module>
+
     <module name="org.apache.camel.core" skip="true">
         <include artifact="org.apache.camel:camel-core" />
     </module>
