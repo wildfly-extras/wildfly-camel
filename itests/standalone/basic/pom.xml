@@ -295,6 +295,17 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.ec4j.maven</groupId>
+                <artifactId>editorconfig-maven-plugin</artifactId>
+                <configuration>
+                    <excludes combine.children="append">
+                        <exclude>derby.log</exclude>
+                        <exclude>**/lumberjack/window*</exclude>
+                        <exclude>**/asn1/*.tt</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.jboss.shrinkwrap.resolver</groupId>
                 <artifactId>shrinkwrap-resolver-maven-plugin</artifactId>
             </plugin>
