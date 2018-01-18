@@ -126,6 +126,9 @@
         <!-- GitHub -->
         <github.namespace>wildfly-extras</github.namespace>
         <github.project>wildfly-camel</github.project>
+
+        <!-- Common Maven properties -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <!-- Modules -->
