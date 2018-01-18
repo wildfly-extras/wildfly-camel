@@ -92,7 +92,7 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
             int pos = rootElement.indexOf(extensions);
             rootElement.addContent(pos + 1, new Text("    "));
             rootElement.addContent(pos + 1, element);
-            rootElement.addContent(pos + 1, new Text("\n"));
+            rootElement.addContent(pos + 1, new Text("\n    "));
         }
 
         Map<String, Element> propertiesByName = ConfigSupport.mapByAttributeName(element.getChildren(), "name");
