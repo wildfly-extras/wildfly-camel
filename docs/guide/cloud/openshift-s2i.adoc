@@ -1,6 +1,6 @@
 ### Source to Image
 
-The WildFly-Camel https://hub.docker.com/r/wildflyext/wildfly-camel/[Docker image,window=_blank] is capabale of performing https://docs.openshift.org/latest/architecture/core_concepts/builds_and_image_streams.html#source-build[Source-To-Image,window=_blank] builds.
+The {wildfly-camel} https://hub.docker.com/r/wildflyext/wildfly-camel/[Docker image,window=_blank] is capabale of performing https://docs.openshift.org/latest/architecture/core_concepts/builds_and_image_streams.html#source-build[Source-To-Image,window=_blank] builds.
 
 This enables you to build reproducable images from source.
 
@@ -8,7 +8,7 @@ This enables you to build reproducable images from source.
 
 First you'll need to download and install the S2I tooling from https://github.com/openshift/source-to-image[here,window=_blank].
 
-Then you can build and run a Docker image from source. For example, to build the WildFly-Camel CDI quickstart:
+Then you can build and run a Docker image from source. For example, to build the {wildfly-camel} CDI quickstart:
 
 [source,options="nowrap",subs="attributes"]
 $ s2i build https://github.com/wildfly-extras/wildfly-camel-examples.git -r {version} --context-dir camel-cdi wildflyext/wildfly-camel:{version} wildfly-camel-example-cdi
@@ -22,9 +22,9 @@ http://{ec2-pub-ip}:8080/example-camel-cdi?name=Kermit[,window=_blank]
 
 #### S2I with OpenShift Origin
 
-WildFly-Camel provides an OpenShift builder image, which enables you to do a source to image in OpenShift.
+{wildfly-camel} provides an OpenShift builder image, which enables you to do a source to image in OpenShift.
 
-First add the WildFly-Camel S2I ImageStream.
+First add the {wildfly-camel} S2I ImageStream.
 
 [source,options="nowrap"]
 $ oc apply -f http://wildfly-extras.github.io/wildfly-camel/sources/wildfly-camel-imagestream.json
@@ -34,7 +34,7 @@ When you select 'Add to Project' in the OpenShift web console you should see a n
 
 image::wildfly-camel-s2i-builder01.png[]
 
-To build the latest release of the WildFly-Camel CDI example you would enter:
+To build the latest release of the {wildfly-camel} CDI example you would enter:
 
 [cols="1,2",width="80%"]
 |=======

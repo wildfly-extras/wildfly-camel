@@ -11,12 +11,15 @@ Thomas Diesler;James Netherton
 :ec2-pub-ip-dash: 1-2-3-4
 :ec2-pub-ip: 1.2.3.4
 
+:wildfly: WildFly
+:wildfly-camel: WildFly-Camel
+
 (C) 2016 The original authors.
 
 
 Provides http://camel.apache.org[Apache Camel,window=_blank] integration with the http://wildfly.org[WildFly Application Server,window=_blank].
 
-The WildFly-Camel subsystem allows you to add Camel Routes as part of the WildFly configuration. Routes can be deployed as part of JavaEE applications. JavaEE components can access the Camel Core API and various Camel Component APIs.
+The {wildfly-camel} subsystem allows you to add Camel Routes as part of the WildFly configuration. Routes can be deployed as part of JavaEE applications. JavaEE components can access the Camel Core API and various Camel Component APIs.
 
 Your Enterprise Integration Solution can be architected as a combination of JavaEE and Camel functionality.
 

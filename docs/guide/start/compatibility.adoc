@@ -1,6 +1,6 @@
 ## Compatibility
 
-The WildFly compatibility matrix
+The {wildfly} compatibility matrix
 
 [cols="2*",width="60%"]
 |===

@@ -86,7 +86,7 @@ Support for the following Spring JDBC XML configurations is supported
 
 [NOTE]
 ====
-Only H2 databases are supported by default as WildFly has native support for this. If you want to use other embedded database providers, you will need
+Only H2 databases are supported by default as {wildfly} has native support for this. If you want to use other embedded database providers, you will need
 to install the appropriate database driver.
 ====
 
@@ -96,4 +96,3 @@ to install the appropriate database driver.
 <jdbc:initialize-database data-source="datasource">
   <jdbc:script location="classpath:db-init.sql"/>
 </jdbc:initialize-database>
-

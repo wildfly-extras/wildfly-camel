@@ -1,7 +1,7 @@
 ### JAX-WS
 
 WebService support is provided through the http://camel.apache.org/cxf.html[cxf,window=_blank] 
-component which integrates with the WildFly WebServices subsystem that also uses http://cxf.apache.org/[Apache CXF,window=_blank].
+component which integrates with the {wildfly} WebServices subsystem that also uses http://cxf.apache.org/[Apache CXF,window=_blank].
 
 
 #### JAX-WS CXF Producer
@@ -11,7 +11,7 @@ The following code example uses CXF to consume a web service which has been depl
 The following simple web service has a simple 'greet' method which will concatenate two string arguments together
 and return them.
 
-When the WildFly web service subsystem detects classes containing JAX-WS annotations, it bootstraps a CXF endpoint. In this example
+When the {wildfly} web service subsystem detects classes containing JAX-WS annotations, it bootstraps a CXF endpoint. In this example
 the service endpoint will be located at http://hostname:port/context-root/greeting.
 
 [source,java,options="nowrap"]
@@ -98,4 +98,3 @@ Refer to the link:index.html#_jax_ws_security[JAX-WS security section].
 Example JAX-WS applications are available on GitHub.
 
 * https://github.com/wildfly-extras/wildfly-camel-examples/tree/master/camel-cxf-jaxws[Camel CXF application,window=_blank]
-

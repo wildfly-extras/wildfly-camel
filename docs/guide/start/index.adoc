@@ -1,11 +1,11 @@
 ## Getting Started
 
-This chapter takes you through the first steps of getting WildFly-Camel and provides the initial pointers to get up and running.
+This chapter takes you through the first steps of getting {wildfly-camel} and provides the initial pointers to get up and running.
 
 [discrete]
 ### Download the Distribution
 
-WildFly Camel is distributed as
+WildFly-Camel is distributed as
 
 1. WildFly Patch - https://github.com/wildflyext/wildfly-camel/releases[wildfly-camel-patch]
 2. Docker Image - https://registry.hub.docker.com/u/wildflyext/wildfly-camel/[wildflyext/wildfly-camel]
@@ -53,7 +53,7 @@ There are currently three triggers that can be used to enable Camel for a deploy
 [discrete]
 ### Docker Image
 
-The easiest and most portable way to run WildFly-Camel is to use the https://registry.hub.docker.com/u/wildflyext/wildfly-camel[wildflyext/wildfly-camel] distribution.
+The easiest and most portable way to run {wildfly-camel} is to use the https://registry.hub.docker.com/u/wildflyext/wildfly-camel[wildflyext/wildfly-camel] distribution.
 
 [options="nowrap"]
  $ docker run --rm -ti -p 8080:8080 -p 9990:9990 -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin wildflyext/wildfly-camel
@@ -82,5 +82,3 @@ mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
                        -DartifactId=my-camel-spring-application
 
 Instructions on how to build, test and run the project can be found within the generated README files. 
-
-
