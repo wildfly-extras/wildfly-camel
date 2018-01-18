@@ -105,7 +105,7 @@ Note that the REST DSL configuration starts with `restConfiguration().component(
 
 [CAUTION]
 ====
-The WildFly Camel Subsystem only supports the camel-servlet and camel-undertow components for use with the REST DSL. Attempts to configure other components will not work.
+The {wildfly-camel} Subsystem only supports the camel-servlet and camel-undertow components for use with the REST DSL. Attempts to configure other components will not work.
 ====
 
 By setting the binding mode, Camel can marshal and unmarshal JSON data either by specifying a 'produces()' or 'type()' configuration step.
@@ -117,4 +117,3 @@ Refer to the link:index.html#_jax_rs_security[JAX-RS security section].
 #### Code examples on GitHub
 
 An example https://github.com/wildfly-extras/wildfly-camel-examples/tree/master/camel-cxf-jaxrs[Camel CXF application,window=_blank] is available on GitHub.
-

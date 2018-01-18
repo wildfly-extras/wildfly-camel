@@ -1,7 +1,7 @@
 [discrete]
 ### Camel Context Deployments
 
-Camel contexts can be deployed to WildFly with a **-camel-context.xml** suffix.
+Camel contexts can be deployed to {wildfly} with a **-camel-context.xml** suffix.
 
 1. As a standalone XML file
 2. As part of another supported deployment
@@ -13,4 +13,3 @@ A deployed Camel context is CDI injectable like this
 [source,java,options="nowrap"]
 @Resource(name = "java:jboss/camel/context/mycontext")
 CamelContext camelContext;
-

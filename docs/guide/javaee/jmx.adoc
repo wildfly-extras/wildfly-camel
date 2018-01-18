@@ -1,6 +1,6 @@
 ### JMX
 
-Management support is provided through the http://camel.apache.org/jmx.html[jmx,window=_blank] component which integrates with the WildFly JMX subsystem.
+Management support is provided through the http://camel.apache.org/jmx.html[jmx,window=_blank] component which integrates with the {wildfly} JMX subsystem.
 
 [source,java,options="nowrap"]
 ----
@@ -20,4 +20,3 @@ ConsumerTemplate consumer = camelctx.createConsumerTemplate();
 MonitorNotification notifcation = consumer.receiveBody("direct:end", MonitorNotification.class);
 Assert.assertEquals("ExchangesTotal", notifcation.getObservedAttribute());
 ----
-

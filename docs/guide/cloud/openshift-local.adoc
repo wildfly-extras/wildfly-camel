@@ -45,9 +45,9 @@ You should now be able to use docker on the command line of your host, talking t
 $ docker ps
 ----
 
-#### Running WildFly-Camel
+#### Running {wildfly-camel}
 
-With every WildFly-Camel release we also publish the latest https://registry.hub.docker.com/u/wildflyext/wildfly-camel/[wildflyext/wildfly-camel,window=_blank] image.
+With every {wildfly-camel} release we also publish the latest https://registry.hub.docker.com/u/wildflyext/wildfly-camel/[wildflyext/wildfly-camel,window=_blank] image.
 
 You can run the standalone container like this
 
@@ -60,7 +60,7 @@ image::console-standalone.png[]
 
 #### Create an OpenShift project
 
-Here we run a set of WildFly Camel servers on https://www.openshift.org[OpenShift Origin,window=_blank]. 
+Here we run a set of {wildfly-camel} servers on https://www.openshift.org[OpenShift Origin,window=_blank]. 
 The target platform is the local OpenShift instance that we created above. 
 
 image::example-rest-design.png[]

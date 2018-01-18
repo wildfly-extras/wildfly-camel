@@ -35,6 +35,8 @@
     <properties>
         <ec2-pub-ip-dash>1-2-3-4</ec2-pub-ip-dash>
         <ec2-pub-ip>1.2.3.4</ec2-pub-ip>
+        <wildfly>WildFly</wildfly>
+        <wildfly-camel>WildFly-Camel</wildfly-camel>
     </properties>
     
     <build>
@@ -58,6 +60,8 @@
                                 <camel-version>${version.apache.camel}</camel-version>
                                 <ec2-pub-ip>${ec2-pub-ip}</ec2-pub-ip>
                                 <ec2-pub-ip-dash>${ec2-pub-ip-dash}</ec2-pub-ip-dash>
+                                <wildfly>${wildfly}</wildfly>
+                                <wildfly-camel>${wildfly-camel}</wildfly-camel>
                                 <version>${project.version}</version>
                             </attributes>
                         </configuration>

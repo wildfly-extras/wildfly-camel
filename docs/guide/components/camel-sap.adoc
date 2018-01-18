@@ -6,12 +6,12 @@ There are remote function call (RFC) components that support the sRFC, tRFC, and
 
 [NOTE]
 ====
-A prerequisite for using the Camel SAP component is that the SAP Java Connector (SAP JCo) libraries and the SAP IDoc library are available for the WildFly Camel Subsytem to use. **The subsystem distribution does not include these libraries**. You will need access to the http://service.sap.com/connectors[SAP Service Marketplace,window=_blank] in order to obtain them.
+A prerequisite for using the Camel SAP component is that the SAP Java Connector (SAP JCo) libraries and the SAP IDoc library are available for the {wildfly-camel} Subsytem to use. **The subsystem distribution does not include these libraries**. You will need access to the http://service.sap.com/connectors[SAP Service Marketplace,window=_blank] in order to obtain them.
 ====
 
 #### Configuring the camel-sap module
 
-Before using camel-sap, an additional WildFly / EAP modules needs to be configured so that the subsystem can discover the new functionality.
+Before using camel-sap, an additional {wildfly} modules needs to be configured so that the subsystem can discover the new functionality.
 
 Your application server should be stopped before making the following changes.
 
@@ -126,5 +126,3 @@ You should see an XML structure like the following containing customer records.
 
 The example above only scratches the surface of the functionality provided by the camel-sap component. For comprehensive component documentation visit
 the https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Fuse/6.2/html/Apache_Camel_Component_Reference/SAP.html[Camel SAP Component Reference,window=_blank].
-
-

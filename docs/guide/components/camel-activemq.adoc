@@ -4,17 +4,17 @@ Camel ActiveMQ integration is provided by the http://camel.apache.org/activemq.h
 
 The component can be configured to work with an embedded or external broker. For Wildfly / EAP container managed connection pools and XA-Transaction support, the http://activemq.apache.org/resource-adapter.html[ActiveMQ Resource Adapter,window=_blank] can be configured into the container configuration file.
 
-#### WildFly ActiveMQ resource adapter configuration
+#### {wildfly} ActiveMQ resource adapter configuration
 
 Download the https://repository.apache.org/content/repositories/releases/org/apache/activemq/activemq-rar/5.11.1/activemq-rar-5.11.1.rar[ActiveMQ resource adapter rar file,window=_blank]. The following steps outline how to configure the ActiveMQ resource adapter.
 
-__1)__ Make sure your WildFly instance is stopped.
+__1)__ Make sure your {wildfly} instance is stopped.
 
-__2)__ Copy the downloaded resource adapter to the relevant WildFly deployment directory. For standalone mode:
+__2)__ Copy the downloaded resource adapter to the relevant {wildfly} deployment directory. For standalone mode:
 
  cp activemq-rar-5.11.1.rar ${JBOSS_HOME}/standalone/deployments/activemq-rar.rar
 
-__3)__ Configure the WildFly resource adapters subsystem for the ActiveMQ adapter.
+__3)__ Configure the {wildfly} resource adapters subsystem for the ActiveMQ adapter.
 
 [source,xml,options="nowrap"]
 <subsystem xmlns="urn:jboss:domain:resource-adapters:2.0">  
@@ -69,7 +69,7 @@ The values of the UserName and Password configuration properties must be chosen 
 You might need to change the value of the ServerUrl configuration property to match the actual hostname and port exposed by the external broker.
 
 
-__4)__ Start WildFly. If everything is configured correctly, you should see a message within the WildFly server.log like.
+__4)__ Start {wildfly}. If everything is configured correctly, you should see a message within the {wildfly} server.log like.
 
 [source,options="nowrap"]
 13:16:08,412 INFO  [org.jboss.as.connector.deployment] (MSC service thread 1-5) JBAS010406: Registered connection factory java:/AMQConnectionFactory`
@@ -99,7 +99,7 @@ public class ActiveMQRouteBuilder extends RouteBuilder {
 }
 ----
 
-A log message will be output to the console each time a message is added to the WildFlyCamelQueue destination. To verify that the messages really are being placed onto the queue, we can use the ../features/hawtio.md[Hawtio console,window=_blank] provided by the WildFly Camel subsystem.
+A log message will be output to the console each time a message is added to the WildFlyCamelQueue destination. To verify that the messages really are being placed onto the queue, we can use the ../features/hawtio.md[Hawtio console,window=_blank] provided by the {wildfly-camel} subsystem.
 
 image::activemq-queue-browse.png[]
 
@@ -122,7 +122,7 @@ public void configure() throws Exception {
 
 The ActiveMQ resource adapter is required as we will want to leverage XA transaction support, connection pooling etc.
 
-The XML snippet below shows how the resource adapter is configured within the WildFly server XML configuration. Notice that the `ServerURL` is set to use an embedded broker. The connection factory is bound to the JNDI name `java:/ActiveMQConnectionFactory`. This will be looked up in the RouteBuilder example that follows.
+The XML snippet below shows how the resource adapter is configured within the {wildfly} server XML configuration. Notice that the `ServerURL` is set to use an embedded broker. The connection factory is bound to the JNDI name `java:/ActiveMQConnectionFactory`. This will be looked up in the RouteBuilder example that follows.
 
 Finally, two queues are configured named 'queue1' and 'queue2'.
 
@@ -144,7 +144,7 @@ Finally, two queues are configured named 'queue1' and 'queue2'.
 </subsystem>  
 
 ##### Transaction Manager
-The camel-activemq component requires a transaction manager of type `org.springframework.transaction.PlatformTransactionManager`. Therefore, we begin by creating a bean extending `JtaTransactionManager` which fulfills this requirement. Note that the bean is annotated with `@Named` to allow the bean to be registered within the Camel bean registry. Also note that the WildFly transaction manager and user transaction instances are injected using CDI.
+The camel-activemq component requires a transaction manager of type `org.springframework.transaction.PlatformTransactionManager`. Therefore, we begin by creating a bean extending `JtaTransactionManager` which fulfills this requirement. Note that the bean is annotated with `@Named` to allow the bean to be registered within the Camel bean registry. Also note that the {wildfly} transaction manager and user transaction instances are injected using CDI.
 
 [source,java,options="nowrap"]
 ----
@@ -232,4 +232,3 @@ Refer to the link:index.html#_jms_security[JMS security section].
 #### Code examples on GitHub
 
 An example https://github.com/wildfly-extras/wildfly-camel-examples/tree/master/camel-activemq[camel-activemq application,window=_blank] is available on GitHub.
-

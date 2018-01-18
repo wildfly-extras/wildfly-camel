@@ -2,11 +2,11 @@
 
 Interaction with email is provided by the http://camel.apache.org/mail.html[mail,window=_blank] component.
 
-By default, Camel will create its own mail session and use this to interact with your mail server. Since WildFly already provides a mail subsystem with all of the relevant support for secure connections, username / password encryption etc, it is recommended to configure your mail sessions within the WildFly configuration and use JNDI to wire them into your Camel endpoints.
+By default, Camel will create its own mail session and use this to interact with your mail server. Since {wildfly} already provides a mail subsystem with all of the relevant support for secure connections, username / password encryption etc, it is recommended to configure your mail sessions within the {wildfly} configuration and use JNDI to wire them into your Camel endpoints.
 
-#### WildFly configuration
+#### {wildfly} configuration
 
-First we configure the WildFly mail subsystem for our Mail server. This example adds configuration for Google Mail IMAP and SMTP .
+First we configure the {wildfly} mail subsystem for our Mail server. This example adds configuration for Google Mail IMAP and SMTP .
 
 An additional mail-session is configured after the 'default' session.
 
@@ -54,7 +54,7 @@ If you need to configure POP3 sessions, the principals are the same as defined i
 #### Camel route configuration
 
 ##### Mail producer
-This example uses the SMTPS protocol, together with CDI in conjunction with the camel-cdi component. The Java mail session that we configured within the WildFly configuration is injected into a Camel RouteBuilder through JNDI.
+This example uses the SMTPS protocol, together with CDI in conjunction with the camel-cdi component. The Java mail session that we configured within the {wildfly} configuration is injected into a Camel RouteBuilder through JNDI.
 
 ###### Route builder SMTPS example
 The GMail mail session is injected into a Producer class using the `@Resource` annotation with a reference to the `jndi-name` attribute that we  previously configured. This allows us to reference the mail session on the camel-mail endpoint configuration.
@@ -111,7 +111,7 @@ public void configure() throws Exception {
 
 ##### SSL configuration
 
-WildFly can be configured to manage Java mail sessions and their associated transports using SSL / TLS. When configuring mail sessions you can configure SSL or TLS on server types:
+{wildfly} can be configured to manage Java mail sessions and their associated transports using SSL / TLS. When configuring mail sessions you can configure SSL or TLS on server types:
 
 * smtp-server
 * imap-server
@@ -132,5 +132,3 @@ component guide. Camel also has a http://camel.apache.org/security.html[security
 #### Code examples on GitHub
 
 An example https://github.com/wildfly-extras/wildfly-camel-examples/tree/master/camel-mail[camel-mail application,window=_blank] is available on GitHub for you to try out sending / receiving email.
-
-
