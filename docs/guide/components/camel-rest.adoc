@@ -1,6 +1,6 @@
 ### camel-rest
 
-The http://camel.apache.org/rest.html[rest,window=_blank] 
+The http://camel.apache.org/rest.html[rest,window=_blank]
 component allows you to define REST endpoints using the http://camel.apache.org/rest-dsl.html[Rest DSL,window=_blank] and plugin to other Camel components as the REST transport.
 
 [CAUTION]

@@ -129,7 +129,7 @@ public class KafkaProducerIntegrationTest {
         KafkaComponent kafka = new KafkaComponent();
         kafka.setBrokers("localhost:" + KAFKA_PORT);
         camelctx.addComponent("kafka", kafka);
-        
+
         camelctx.start();
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
@@ -168,7 +168,7 @@ public class KafkaProducerIntegrationTest {
         KafkaComponent kafka = new KafkaComponent();
         kafka.setBrokers("localhost:" + KAFKA_PORT);
         camelctx.addComponent("kafka", kafka);
-        
+
         camelctx.start();
         try {
             Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
@@ -194,7 +194,7 @@ public class KafkaProducerIntegrationTest {
         KafkaComponent kafka = new KafkaComponent();
         kafka.setBrokers("localhost:" + KAFKA_PORT);
         camelctx.addComponent("kafka", kafka);
-        
+
         camelctx.start();
         try {
             Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());

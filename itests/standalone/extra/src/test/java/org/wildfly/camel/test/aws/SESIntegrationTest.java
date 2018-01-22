@@ -49,7 +49,7 @@ public class SESIntegrationTest {
 
     @Inject
     private SESClientProvider provider;
-    
+
     @Deployment
     public static JavaArchive deployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "aws-ses-tests.jar");
@@ -57,23 +57,23 @@ public class SESIntegrationTest {
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }
-    
+
     @Test
     public void sendSimpleMessage() throws Exception {
-        
+
         AmazonSimpleEmailServiceClient sesClient = provider.getClient();
         Assume.assumeNotNull("AWS client not null", sesClient);
-        
+
         WildFlyCamelContext camelctx = new WildFlyCamelContext();
         camelctx.getNamingContext().bind("sesClient", sesClient);
-        
+
         camelctx.addRoutes(new RouteBuilder() {
             public void configure() {
                 from("direct:start")
                 .to("aws-ses://" + SESUtils.FROM + "?amazonSESClient=#sesClient");
             }
         });
-        
+
         camelctx.start();
         try {
             Exchange exchange = ExchangeBuilder.anExchange(camelctx)
@@ -81,13 +81,13 @@ public class SESIntegrationTest {
                     .withHeader(SesConstants.TO, Collections.singletonList(SESUtils.TO))
                     .withBody("Hello world!")
                     .build();
-                    
+
             ProducerTemplate producer = camelctx.createProducerTemplate();
             Exchange result = producer.send("direct:start", exchange);
-            
+
             String messageId = result.getIn().getHeader(SesConstants.MESSAGE_ID, String.class);
             Assert.assertNotNull("MessageId not null", messageId);
-            
+
         } finally {
             camelctx.stop();
         }

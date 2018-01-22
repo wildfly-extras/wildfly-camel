@@ -44,17 +44,17 @@ public class AS400IntegrationTest {
     public void testToString() throws Exception {
 
         String endpointUri = "jt400://user:password@host/qsys.lib/library.lib/queue.dtaq?ccsid=500&format=binary&connectionPool=#mockPool";
-        
+
         WildFlyCamelContext camelctx = new WildFlyCamelContext();
         camelctx.getNamingContext().bind("mockPool", new AS400ConnectionPool());
-        
+
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from(endpointUri).to("mock:end");
             }
         });
-        
+
         Jt400Endpoint endpoint = camelctx.getEndpoint(endpointUri, Jt400Endpoint.class);
         Assert.assertEquals("host", endpoint.getSystemName());
     }

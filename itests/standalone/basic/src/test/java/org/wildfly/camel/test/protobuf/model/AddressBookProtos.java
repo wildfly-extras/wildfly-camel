@@ -55,7 +55,7 @@ public final class AddressBookProtos {
     /**
      * <code>repeated .org.wildfly.camel.test.protobuf.model.Person.PhoneNumber phone = 4;</code>
      */
-    java.util.List<org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumber> 
+    java.util.List<org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumber>
         getPhoneList();
     /**
      * <code>repeated .org.wildfly.camel.test.protobuf.model.Person.PhoneNumber phone = 4;</code>
@@ -68,7 +68,7 @@ public final class AddressBookProtos {
     /**
      * <code>repeated .org.wildfly.camel.test.protobuf.model.Person.PhoneNumber phone = 4;</code>
      */
-    java.util.List<? extends org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumberOrBuilder> 
+    java.util.List<? extends org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumberOrBuilder>
         getPhoneOrBuilderList();
     /**
      * <code>repeated .org.wildfly.camel.test.protobuf.model.Person.PhoneNumber phone = 4;</code>
@@ -435,7 +435,7 @@ public final class AddressBookProtos {
         if (ref instanceof java.lang.String) {
           return (java.lang.String) ref;
         } else {
-          com.google.protobuf.ByteString bs = 
+          com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
@@ -451,7 +451,7 @@ public final class AddressBookProtos {
           getNumberBytes() {
         java.lang.Object ref = number_;
         if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
           number_ = b;
@@ -706,7 +706,7 @@ public final class AddressBookProtos {
 
         public final boolean isInitialized() {
           if (!hasNumber()) {
-            
+
             return false;
           }
           return true;
@@ -760,7 +760,7 @@ public final class AddressBookProtos {
             getNumberBytes() {
           java.lang.Object ref = number_;
           if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString b =
                 com.google.protobuf.ByteString.copyFromUtf8(
                     (java.lang.String) ref);
             number_ = b;
@@ -870,7 +870,7 @@ public final class AddressBookProtos {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
@@ -886,7 +886,7 @@ public final class AddressBookProtos {
         getNameBytes() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         name_ = b;
@@ -929,7 +929,7 @@ public final class AddressBookProtos {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
@@ -945,7 +945,7 @@ public final class AddressBookProtos {
         getEmailBytes() {
       java.lang.Object ref = email_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         email_ = b;
@@ -967,7 +967,7 @@ public final class AddressBookProtos {
     /**
      * <code>repeated .org.wildfly.camel.test.protobuf.model.Person.PhoneNumber phone = 4;</code>
      */
-    public java.util.List<? extends org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumberOrBuilder> 
+    public java.util.List<? extends org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumberOrBuilder>
         getPhoneOrBuilderList() {
       return phone_;
     }
@@ -1285,7 +1285,7 @@ public final class AddressBookProtos {
               phoneBuilder_ = null;
               phone_ = other.phone_;
               bitField0_ = (bitField0_ & ~0x00000008);
-              phoneBuilder_ = 
+              phoneBuilder_ =
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getPhoneFieldBuilder() : null;
             } else {
@@ -1299,16 +1299,16 @@ public final class AddressBookProtos {
 
       public final boolean isInitialized() {
         if (!hasName()) {
-          
+
           return false;
         }
         if (!hasId()) {
-          
+
           return false;
         }
         for (int i = 0; i < getPhoneCount(); i++) {
           if (!getPhone(i).isInitialized()) {
-            
+
             return false;
           }
         }
@@ -1363,7 +1363,7 @@ public final class AddressBookProtos {
           getNameBytes() {
         java.lang.Object ref = name_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
           name_ = b;
@@ -1470,7 +1470,7 @@ public final class AddressBookProtos {
           getEmailBytes() {
         java.lang.Object ref = email_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
           email_ = b;
@@ -1710,7 +1710,7 @@ public final class AddressBookProtos {
       /**
        * <code>repeated .org.wildfly.camel.test.protobuf.model.Person.PhoneNumber phone = 4;</code>
        */
-      public java.util.List<? extends org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumberOrBuilder> 
+      public java.util.List<? extends org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumberOrBuilder>
            getPhoneOrBuilderList() {
         if (phoneBuilder_ != null) {
           return phoneBuilder_.getMessageOrBuilderList();
@@ -1736,12 +1736,12 @@ public final class AddressBookProtos {
       /**
        * <code>repeated .org.wildfly.camel.test.protobuf.model.Person.PhoneNumber phone = 4;</code>
        */
-      public java.util.List<org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumber.Builder> 
+      public java.util.List<org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumber.Builder>
            getPhoneBuilderList() {
         return getPhoneFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumber, org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumber.Builder, org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumberOrBuilder> 
+          org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumber, org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumber.Builder, org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.PhoneNumberOrBuilder>
           getPhoneFieldBuilder() {
         if (phoneBuilder_ == null) {
           phoneBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
@@ -1773,7 +1773,7 @@ public final class AddressBookProtos {
     /**
      * <code>repeated .org.wildfly.camel.test.protobuf.model.Person person = 1;</code>
      */
-    java.util.List<org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person> 
+    java.util.List<org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person>
         getPersonList();
     /**
      * <code>repeated .org.wildfly.camel.test.protobuf.model.Person person = 1;</code>
@@ -1786,7 +1786,7 @@ public final class AddressBookProtos {
     /**
      * <code>repeated .org.wildfly.camel.test.protobuf.model.Person person = 1;</code>
      */
-    java.util.List<? extends org.wildfly.camel.test.protobuf.model.AddressBookProtos.PersonOrBuilder> 
+    java.util.List<? extends org.wildfly.camel.test.protobuf.model.AddressBookProtos.PersonOrBuilder>
         getPersonOrBuilderList();
     /**
      * <code>repeated .org.wildfly.camel.test.protobuf.model.Person person = 1;</code>
@@ -1907,7 +1907,7 @@ public final class AddressBookProtos {
     /**
      * <code>repeated .org.wildfly.camel.test.protobuf.model.Person person = 1;</code>
      */
-    public java.util.List<? extends org.wildfly.camel.test.protobuf.model.AddressBookProtos.PersonOrBuilder> 
+    public java.util.List<? extends org.wildfly.camel.test.protobuf.model.AddressBookProtos.PersonOrBuilder>
         getPersonOrBuilderList() {
       return person_;
     }
@@ -2160,7 +2160,7 @@ public final class AddressBookProtos {
               personBuilder_ = null;
               person_ = other.person_;
               bitField0_ = (bitField0_ & ~0x00000001);
-              personBuilder_ = 
+              personBuilder_ =
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getPersonFieldBuilder() : null;
             } else {
@@ -2175,7 +2175,7 @@ public final class AddressBookProtos {
       public final boolean isInitialized() {
         for (int i = 0; i < getPersonCount(); i++) {
           if (!getPerson(i).isInitialized()) {
-            
+
             return false;
           }
         }
@@ -2396,7 +2396,7 @@ public final class AddressBookProtos {
       /**
        * <code>repeated .org.wildfly.camel.test.protobuf.model.Person person = 1;</code>
        */
-      public java.util.List<? extends org.wildfly.camel.test.protobuf.model.AddressBookProtos.PersonOrBuilder> 
+      public java.util.List<? extends org.wildfly.camel.test.protobuf.model.AddressBookProtos.PersonOrBuilder>
            getPersonOrBuilderList() {
         if (personBuilder_ != null) {
           return personBuilder_.getMessageOrBuilderList();
@@ -2422,12 +2422,12 @@ public final class AddressBookProtos {
       /**
        * <code>repeated .org.wildfly.camel.test.protobuf.model.Person person = 1;</code>
        */
-      public java.util.List<org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.Builder> 
+      public java.util.List<org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.Builder>
            getPersonBuilderList() {
         return getPersonFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person, org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.Builder, org.wildfly.camel.test.protobuf.model.AddressBookProtos.PersonOrBuilder> 
+          org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person, org.wildfly.camel.test.protobuf.model.AddressBookProtos.Person.Builder, org.wildfly.camel.test.protobuf.model.AddressBookProtos.PersonOrBuilder>
           getPersonFieldBuilder() {
         if (personBuilder_ == null) {
           personBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<

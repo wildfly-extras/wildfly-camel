@@ -17,50 +17,50 @@ __2)__ Copy the downloaded resource adapter to the relevant {wildfly} deployment
 __3)__ Configure the {wildfly} resource adapters subsystem for the ActiveMQ adapter.
 
 [source,xml,options="nowrap"]
-<subsystem xmlns="urn:jboss:domain:resource-adapters:2.0">  
-     <resource-adapters>  
-         <resource-adapter id="activemq-rar.rar">  
+<subsystem xmlns="urn:jboss:domain:resource-adapters:2.0">
+     <resource-adapters>
+         <resource-adapter id="activemq-rar.rar">
              <archive>
                  activemq-rar.rar
              </archive>
-             <transaction-support>XATransaction</transaction-support>  
-             <config-property name="UseInboundSession">  
-                 false  
-             </config-property>  
-             <config-property name="Password">  
-                 defaultPassword  
-             </config-property>  
-             <config-property name="UserName">  
-                 defaultUser  
-             </config-property>  
-             <config-property name="ServerUrl">  
-                 tcp://localhost:61616?jms.rmIdFromConnectionId=true  
-             </config-property>  
-             <connection-definitions>  
-                 <connection-definition class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory" jndi-name="java:/ActiveMQConnectionFactory" enabled="true" pool-name="ConnectionFactory">  
-                     <xa-pool>  
-                         <min-pool-size>1</min-pool-size>  
-                         <max-pool-size>20</max-pool-size>  
-                         <prefill>false</prefill>  
-                         <is-same-rm-override>false</is-same-rm-override>  
-                     </xa-pool>  
-                 </connection-definition>  
-             </connection-definitions>  
-             <admin-objects>  
-                 <admin-object class-name="org.apache.activemq.command.ActiveMQQueue" jndi-name="java:/queue/HELLOWORLDMDBQueue" use-java-context="true" pool-name="HELLOWORLDMDBQueue">  
-                     <config-property name="PhysicalName">  
-                         HELLOWORLDMDBQueue  
-                     </config-property>  
-                 </admin-object>  
-                 <admin-object class-name="org.apache.activemq.command.ActiveMQTopic" jndi-name="java:/topic/HELLOWORLDMDBTopic" use-java-context="true" pool-name="HELLOWORLDMDBTopic">  
-                     <config-property name="PhysicalName">  
-                         HELLOWORLDMDBTopic  
-                     </config-property>  
-                 </admin-object>  
-             </admin-objects>  
-         </resource-adapter>  
-     </resource-adapters>  
- </subsystem>  
+             <transaction-support>XATransaction</transaction-support>
+             <config-property name="UseInboundSession">
+                 false
+             </config-property>
+             <config-property name="Password">
+                 defaultPassword
+             </config-property>
+             <config-property name="UserName">
+                 defaultUser
+             </config-property>
+             <config-property name="ServerUrl">
+                 tcp://localhost:61616?jms.rmIdFromConnectionId=true
+             </config-property>
+             <connection-definitions>
+                 <connection-definition class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory" jndi-name="java:/ActiveMQConnectionFactory" enabled="true" pool-name="ConnectionFactory">
+                     <xa-pool>
+                         <min-pool-size>1</min-pool-size>
+                         <max-pool-size>20</max-pool-size>
+                         <prefill>false</prefill>
+                         <is-same-rm-override>false</is-same-rm-override>
+                     </xa-pool>
+                 </connection-definition>
+             </connection-definitions>
+             <admin-objects>
+                 <admin-object class-name="org.apache.activemq.command.ActiveMQQueue" jndi-name="java:/queue/HELLOWORLDMDBQueue" use-java-context="true" pool-name="HELLOWORLDMDBQueue">
+                     <config-property name="PhysicalName">
+                         HELLOWORLDMDBQueue
+                     </config-property>
+                 </admin-object>
+                 <admin-object class-name="org.apache.activemq.command.ActiveMQTopic" jndi-name="java:/topic/HELLOWORLDMDBTopic" use-java-context="true" pool-name="HELLOWORLDMDBTopic">
+                     <config-property name="PhysicalName">
+                         HELLOWORLDMDBTopic
+                     </config-property>
+                 </admin-object>
+             </admin-objects>
+         </resource-adapter>
+     </resource-adapters>
+ </subsystem>
 
 If your resource adapter archive filename differs from activemq-rar.rar, you must change the content of the archive element in the preceding configuration to match the name of your archive file.
 
@@ -94,7 +94,7 @@ public class ActiveMQRouteBuilder extends RouteBuilder {
     from("timer://sendJMSMessage?fixedRate=true&period=10000")
     .transform(constant("<?xml version='1.0><message><greeting>hello world</greeting></message>"))
     .to("activemq:queue:WildFlyCamelQueue?brokerURL=vm://localhost")
-    .log("JMS Message sent");  
+    .log("JMS Message sent");
   }
 }
 ----
@@ -113,7 +113,7 @@ When the ActiveMQ endpoint consumes messages from the WildFlyCamelQueue destinat
 @Override
 public void configure() throws Exception {
   from("activemq:queue:WildFlyCamelQueue?brokerURL=vm://localhost")
-  .to("log:jms?showAll=true");  
+  .to("log:jms?showAll=true");
 }
 
 ##### ActiveMQ Transactions
@@ -127,21 +127,21 @@ The XML snippet below shows how the resource adapter is configured within the {w
 Finally, two queues are configured named 'queue1' and 'queue2'.
 
 [source,xml,options="nowrap"]
-<subsystem xmlns="urn:jboss:domain:resource-adapters:2.0">  
-  <resource-adapters>  
-    <resource-adapter id="activemq-rar.rar">  
-      ...  
-      <admin-objects>  
-        <admin-object class-name="org.apache.activemq.command.ActiveMQQueue" jndi-name="java:/queue/queue1" use-java-context="true" pool-name="queue1pool">  
-          <config-property name="PhysicalName">queue1</config-property>  
+<subsystem xmlns="urn:jboss:domain:resource-adapters:2.0">
+  <resource-adapters>
+    <resource-adapter id="activemq-rar.rar">
+      ...
+      <admin-objects>
+        <admin-object class-name="org.apache.activemq.command.ActiveMQQueue" jndi-name="java:/queue/queue1" use-java-context="true" pool-name="queue1pool">
+          <config-property name="PhysicalName">queue1</config-property>
         </admin-object>
-        <admin-object class-name="org.apache.activemq.command.ActiveMQQueue" jndi-name="java:/queue/queue2" use-java-context="true" pool-name="queue2pool">  
-          <config-property name="PhysicalName">queue2</config-property>  
+        <admin-object class-name="org.apache.activemq.command.ActiveMQQueue" jndi-name="java:/queue/queue2" use-java-context="true" pool-name="queue2pool">
+          <config-property name="PhysicalName">queue2</config-property>
         </admin-object>
-      </admin-objects>  
-    </resource-adapter>  
-  </resource-adapters>  
-</subsystem>  
+      </admin-objects>
+    </resource-adapter>
+  </resource-adapters>
+</subsystem>
 
 ##### Transaction Manager
 The camel-activemq component requires a transaction manager of type `org.springframework.transaction.PlatformTransactionManager`. Therefore, we begin by creating a bean extending `JtaTransactionManager` which fulfills this requirement. Note that the bean is annotated with `@Named` to allow the bean to be registered within the Camel bean registry. Also note that the {wildfly} transaction manager and user transaction instances are injected using CDI.

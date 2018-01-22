@@ -30,7 +30,7 @@ public class EC2Utils {
     // Attach Policy: AmazonEC2FullAccess
     public static AmazonEC2Client createEC2Client() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
-        AmazonEC2Client client = !credentials.isValid() ? null : (AmazonEC2Client) 
+        AmazonEC2Client client = !credentials.isValid() ? null : (AmazonEC2Client)
                 AmazonEC2ClientBuilder.standard()
                 .withCredentials(credentials)
                 .withRegion("eu-west-1")

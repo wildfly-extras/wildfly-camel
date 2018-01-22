@@ -56,4 +56,4 @@ http://camel-cdi-wildfly-camel.{ec2-pub-ip}.xip.io/example-camel-cdi?name=Kermit
 
  Hello Kermit
 
- 
+

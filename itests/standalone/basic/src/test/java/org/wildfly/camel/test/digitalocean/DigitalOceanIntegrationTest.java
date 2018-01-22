@@ -55,7 +55,7 @@ import com.myjeeva.digitalocean.pojo.Tag;
 public class DigitalOceanIntegrationTest {
 
     private static final String DIGITALOCEAN_OAUTH_TOKEN = "DIGITALOCEAN_OAUTH_TOKEN";
-    
+
     private String oauthToken;
 
     @Deployment
@@ -68,7 +68,7 @@ public class DigitalOceanIntegrationTest {
         oauthToken = System.getenv(DIGITALOCEAN_OAUTH_TOKEN);
         Assume.assumeNotNull("OAuth Token required", oauthToken);
     }
-    
+
     @AfterClass
     public static void afterClass() {
         String oauthToken = System.getenv(DIGITALOCEAN_OAUTH_TOKEN);
@@ -84,18 +84,18 @@ public class DigitalOceanIntegrationTest {
             }
         }
     }
-    
+
     @Test
     public void testGetAccountInfo() throws Exception {
-        
+
         CamelContext camelctx = createCamelContext(oauthToken);
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mockResult = camelctx.getEndpoint("mock:result", MockEndpoint.class);
             mockResult.expectedMinimumMessageCount(1);
-            
+
             ProducerTemplate producer = camelctx.createProducerTemplate();
             Account result = producer.requestBody("direct:getAccountInfo", null, Account.class);
             Assert.assertTrue(result.isEmailVerified());
@@ -109,7 +109,7 @@ public class DigitalOceanIntegrationTest {
     public void testCreateDroplet() throws Exception {
         CamelContext camelctx = createCamelContext(oauthToken);
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mockResult = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -122,10 +122,10 @@ public class DigitalOceanIntegrationTest {
             Assert.assertNotNull(droplet.getId());
             Assert.assertEquals(droplet.getRegion().getSlug(), "fra1");
             Assert.assertEquals(2, droplet.getTags().size());
-            
+
             mockResult.reset();
             mockResult.expectedMinimumMessageCount(1);
-            
+
             Droplet resDroplet = producer.requestBodyAndHeader("direct:getDroplet", null, DigitalOceanHeaders.ID, droplet.getId(), Droplet.class);
             mockResult.assertIsSatisfied();
             Assert.assertEquals(droplet.getId(), resDroplet.getId());
@@ -142,7 +142,7 @@ public class DigitalOceanIntegrationTest {
     public void testCreateMultipleDroplets() throws Exception {
         CamelContext camelctx = createCamelContext(oauthToken);
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mockResult = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -155,7 +155,7 @@ public class DigitalOceanIntegrationTest {
             Assert.assertEquals(2, createDroplets.size());
             List<Droplet> getDroplets = producer.requestBody("direct:getDroplets", null, List.class);
             Assert.assertTrue("At least as many droplets as created", getDroplets.size() >= 2);
-            
+
         } finally {
             camelctx.stop();
         }
@@ -165,7 +165,7 @@ public class DigitalOceanIntegrationTest {
     public void testCreateTag() throws Exception {
         CamelContext camelctx = createCamelContext(oauthToken);
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mockResult = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -186,7 +186,7 @@ public class DigitalOceanIntegrationTest {
     public void testGetTags() throws Exception {
         CamelContext camelctx = createCamelContext(oauthToken);
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mockResult = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -206,7 +206,7 @@ public class DigitalOceanIntegrationTest {
     public void getImages() throws Exception {
         CamelContext camelctx = createCamelContext(oauthToken);
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mockResult = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -226,7 +226,7 @@ public class DigitalOceanIntegrationTest {
     public void getImage() throws Exception {
         CamelContext camelctx = createCamelContext(oauthToken);
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mockResult = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -246,7 +246,7 @@ public class DigitalOceanIntegrationTest {
     public void getSizes() throws Exception {
         CamelContext camelctx = createCamelContext(oauthToken);
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mockResult = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -266,7 +266,7 @@ public class DigitalOceanIntegrationTest {
     public void getRegions() throws Exception {
         CamelContext camelctx = createCamelContext(oauthToken);
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mockResult = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -285,11 +285,11 @@ public class DigitalOceanIntegrationTest {
     private RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() {
-                
+
                 from("direct:getAccountInfo")
                 .to("digitalocean:account?operation=" + DigitalOceanOperations.get + "&oAuthToken={{oAuthToken}}")
                 .to("mock:result");
-                
+
                 from("direct:createMultipleDroplets")
                 .setHeader(DigitalOceanHeaders.OPERATION, constant(DigitalOceanOperations.create))
                 .process(e -> {

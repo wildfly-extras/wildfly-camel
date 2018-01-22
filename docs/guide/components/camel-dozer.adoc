@@ -1,7 +1,7 @@
 ### camel-dozer
 
-The http://camel.apache.org/dozer.html[dozer,window=_blank] 
-component provides the ability to map between Java beans using the http://camel.apache.org/dozer-type-conversion.html[Dozer,window=_blank] 
+The http://camel.apache.org/dozer.html[dozer,window=_blank]
+component provides the ability to map between Java beans using the http://camel.apache.org/dozer-type-conversion.html[Dozer,window=_blank]
 mapping framework.  Camel also supports the ability to trigger Dozer mappings as a http://camel.apache.org/dozer-type-conversion.html[type converter,window=_blank].
 
 [source,java,options="nowrap"]

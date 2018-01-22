@@ -29,7 +29,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/greet")
 public interface GreetingService {
-    
+
     @GET
     @Path("/hello/{name}")
     @Produces(MediaType.APPLICATION_JSON)

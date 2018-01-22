@@ -92,7 +92,7 @@ public  final class PongResponse extends
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
-      com.google.protobuf.ByteString bs = 
+      com.google.protobuf.ByteString bs =
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
       pongName_ = s;
@@ -106,7 +106,7 @@ public  final class PongResponse extends
       getPongNameBytes() {
     java.lang.Object ref = pongName_;
     if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
+      com.google.protobuf.ByteString b =
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
       pongName_ = b;
@@ -449,7 +449,7 @@ public  final class PongResponse extends
         getPongNameBytes() {
       java.lang.Object ref = pongName_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         pongName_ = b;
@@ -466,7 +466,7 @@ public  final class PongResponse extends
       if (value == null) {
     throw new NullPointerException();
   }
-  
+
       pongName_ = value;
       onChanged();
       return this;
@@ -475,7 +475,7 @@ public  final class PongResponse extends
      * <code>string pong_name = 1;</code>
      */
     public Builder clearPongName() {
-      
+
       pongName_ = getDefaultInstance().getPongName();
       onChanged();
       return this;
@@ -489,7 +489,7 @@ public  final class PongResponse extends
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-      
+
       pongName_ = value;
       onChanged();
       return this;
@@ -506,7 +506,7 @@ public  final class PongResponse extends
      * <code>int32 pong_id = 2;</code>
      */
     public Builder setPongId(int value) {
-      
+
       pongId_ = value;
       onChanged();
       return this;
@@ -515,7 +515,7 @@ public  final class PongResponse extends
      * <code>int32 pong_id = 2;</code>
      */
     public Builder clearPongId() {
-      
+
       pongId_ = 0;
       onChanged();
       return this;

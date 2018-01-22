@@ -59,10 +59,10 @@ public class Elasticsearch5IntegrationTest {
     @Inject
     @SuppressWarnings("unused")
     private Node node;
-    
-    @Rule 
+
+    @Rule
     public TestName testName = new TestName();
-    
+
     @Deployment
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-elasticsearch5-tests.jar");
@@ -78,7 +78,7 @@ public class Elasticsearch5IntegrationTest {
 
     @Test
     public void testGetSearchUpdateDelete() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -94,7 +94,7 @@ public class Elasticsearch5IntegrationTest {
         camelctx.start();
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
-            
+
             //first, INDEX a value
             Map<String, String> map = createIndexedData();
             template.sendBody("direct:index", map);

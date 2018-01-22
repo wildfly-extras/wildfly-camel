@@ -1,7 +1,7 @@
 ### camel-xstream
 
-The http://camel.apache.org/xstream.html[xstream,window=_blank] 
-component provides the XStream http://camel.apache.org/data-format.html[Data Format,window=_blank] 
+The http://camel.apache.org/xstream.html[xstream,window=_blank]
+component provides the XStream http://camel.apache.org/data-format.html[Data Format,window=_blank]
 which uses the http://x-stream.github.io/[XStream library,window=_blank] to marshal and unmarshal Java objects to and from XML.
 
 [source,java,options="nowrap"]

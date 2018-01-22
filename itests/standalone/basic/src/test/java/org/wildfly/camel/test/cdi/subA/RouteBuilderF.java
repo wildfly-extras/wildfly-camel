@@ -39,9 +39,9 @@ public class RouteBuilderF extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        
+
         final CountDownLatch startLatch = new CountDownLatch(1);
-        
+
         // verify that a component can be added manually
         getContext().addComponent("quartz2", new QuartzComponent() {
             @Override
@@ -50,7 +50,7 @@ public class RouteBuilderF extends RouteBuilder {
                 startLatch.countDown();
             }
         });
-        
+
         from("quartz2://mytimer?trigger.repeatCount=3&trigger.repeatInterval=100")
         .process(new Processor() {
             @Override

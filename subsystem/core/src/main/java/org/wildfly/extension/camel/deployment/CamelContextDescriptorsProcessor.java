@@ -77,18 +77,18 @@ public class CamelContextDescriptorsProcessor implements DeploymentUnitProcessor
     }
 
     public void addConditionally(DeploymentUnit depUnit, URL fileURL) {
-        
+
         boolean skipResource = false;
         CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
         CompositeIndex index = depUnit.getAttachment(Attachments.COMPOSITE_ANNOTATION_INDEX);
-        
+
         // [#1251] Add support for Spring based CamelContext injection
         for (AnnotationInstance aninst : index.getAnnotations(DotName.createSimple("org.apache.camel.cdi.ImportResource"))) {
             for (String resname : aninst.value().asStringArray()) {
                 skipResource |= fileURL.getPath().endsWith(resname);
             }
         }
-        
+
         if (skipResource == false) {
             depSettings.addCamelContextUrl(fileURL);
         }

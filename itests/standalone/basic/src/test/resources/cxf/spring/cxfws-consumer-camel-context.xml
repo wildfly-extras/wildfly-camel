@@ -17,22 +17,22 @@
   limitations under the License.
   #L%
   -->
-<beans xmlns="http://www.springframework.org/schema/beans" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:cxf="http://camel.apache.org/schema/cxf"
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
         http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-    <cxf:cxfEndpoint id="cxfConsumer" 
-        address="http://localhost:8080/EndpointService/EndpointPort" 
+    <cxf:cxfEndpoint id="cxfConsumer"
+        address="http://localhost:8080/EndpointService/EndpointPort"
         serviceClass="org.wildfly.camel.test.common.types.Endpoint" />
-        
-    <cxf:cxfEndpoint id="cxfProducer" 
-        address="http://localhost:8080/EndpointService/EndpointPort" 
+
+    <cxf:cxfEndpoint id="cxfProducer"
+        address="http://localhost:8080/EndpointService/EndpointPort"
         serviceClass="org.wildfly.camel.test.common.types.Endpoint" />
-    
+
     <camelContext id="cxfws-undertow" xmlns="http://camel.apache.org/schema/spring">
         <route id="producerRoute">
             <from uri="direct:start" />
@@ -45,5 +45,5 @@
             </transform>
         </route>
     </camelContext>
-    
+
 </beans>

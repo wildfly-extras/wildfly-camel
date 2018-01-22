@@ -18,12 +18,12 @@
   limitations under the License.
   #L%
   -->
-  
+
 <!--
   This file holds extensions to module definitions that come with wildfly.
 -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
-    
+
     <module name="org.apache.cxf.ext" >
         <properties>
             <property name="jboss.api" value="private"/>
@@ -51,7 +51,7 @@
             <exclude path="schemas/blueprint" />
         </exports>
     </module>
-    
+
     <module name="org.bouncycastle.ext">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -61,5 +61,5 @@
             <module name="javax.api" />
         </dependencies>
     </module>
-    
+
 </modules>

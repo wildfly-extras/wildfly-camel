@@ -80,7 +80,7 @@ public class Olingo4IntegrationTest {
 
     @Test
     public void testRead() throws Exception {
-        
+
         CamelContext camelctx = createCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             public void configure() {
@@ -105,7 +105,7 @@ public class Olingo4IntegrationTest {
             }
         });
         camelctx.start();
-        
+
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
             final Map<String, Object> headers = new HashMap<String, Object>();
@@ -171,7 +171,7 @@ public class Olingo4IntegrationTest {
             }
         });
         camelctx.start();
-        
+
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
             final ClientEntity clientEntity = createEntity();

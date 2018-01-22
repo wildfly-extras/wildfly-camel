@@ -1,6 +1,6 @@
 ### camel-elasticsearch
 
-The http://camel.apache.org/elasticsearch.html[elasticsearch,window=_blank] 
+The http://camel.apache.org/elasticsearch.html[elasticsearch,window=_blank]
 component allows you to interface with an https://www.elastic.co/[ElasticSearch,window=_blank] server.
 
 [source,java,options="nowrap"]

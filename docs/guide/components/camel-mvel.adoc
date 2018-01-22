@@ -1,6 +1,6 @@
 ### camel-mvel
 
-The http://camel.apache.org/mvel-component.html[mvel,window=_blank] 
+The http://camel.apache.org/mvel-component.html[mvel,window=_blank]
 component allows you to process a message using an https://github.com/mvel/mvel[MVEL,window=_blank] template.
 
 A simple template

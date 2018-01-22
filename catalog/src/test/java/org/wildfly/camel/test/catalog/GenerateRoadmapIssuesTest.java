@@ -48,14 +48,14 @@ public final class GenerateRoadmapIssuesTest {
 
     private static final String MILESTONE = "4.8.0";
     private static final Label LABEL = new Label().setName("feature");
-    
+
     private static final Path auxfile = CatalogCreator.basedir().resolve("target/issues.txt");
-    
+
     @Test
     public void createIssuesStepA() throws Exception {
-        
+
         CatalogCreator creator = new CatalogCreator().collect();
-        
+
         List<String> collection = new ArrayList<>();
         for (RoadMap rm : creator.getRoadmaps()) {
             String prefix = null;
@@ -89,13 +89,13 @@ public final class GenerateRoadmapIssuesTest {
 
         String accessToken = System.getenv("GitHubAccessToken");
         Assume.assumeNotNull("GitHubAccessToken not null", accessToken);
-        
+
         GitHubClient client = new GitHubClient();
         client.setOAuth2Token(accessToken);
-        
+
         String githubUser = "wildfly-extras";
         String githubRepo = "wildfly-camel";
-        
+
         Milestone milestone = null;
         MilestoneService milestoneService = new MilestoneService(client);
         for (Milestone aux : milestoneService.getMilestones(githubUser, githubRepo, IssueService.STATE_OPEN)) {
@@ -105,7 +105,7 @@ public final class GenerateRoadmapIssuesTest {
             }
         }
         Assert.assertNotNull("Milestone not null", milestone);
-        
+
         IssueService issueService = new IssueService(client);
         try (BufferedReader br = new BufferedReader(new FileReader(auxfile.toFile()))) {
             String line = br.readLine();

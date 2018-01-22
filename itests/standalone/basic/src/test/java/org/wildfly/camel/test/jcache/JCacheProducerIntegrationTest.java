@@ -46,7 +46,7 @@ public class JCacheProducerIntegrationTest {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-jcache-tests");
         return archive;
     }
-    
+
     @Test
     public void testPutGetAndRemove() throws Exception {
 
@@ -70,12 +70,12 @@ public class JCacheProducerIntegrationTest {
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            
+
             headers.clear();
             headers.put(JCacheConstants.ACTION, "PUT");
             headers.put(JCacheConstants.KEY, key);
             producer.sendBodyAndHeaders("direct:put", val, headers);
-            
+
             MockEndpoint mock = camelctx.getEndpoint("mock:put", MockEndpoint.class);
             mock.expectedMinimumMessageCount(1);
             mock.expectedHeaderReceived(JCacheConstants.KEY, key);
@@ -87,12 +87,12 @@ public class JCacheProducerIntegrationTest {
                 }
             });
             mock.assertIsSatisfied();
-            
+
             headers.clear();
             headers.put(JCacheConstants.ACTION, "GETANDREMOVE");
             headers.put(JCacheConstants.KEY, key);
             producer.sendBodyAndHeaders("direct:get", null, headers);
-            
+
             mock = camelctx.getEndpoint("mock:put", MockEndpoint.class);
             mock.expectedMinimumMessageCount(1);
             mock.expectedHeaderReceived(JCacheConstants.KEY, key);

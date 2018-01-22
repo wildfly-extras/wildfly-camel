@@ -233,7 +233,7 @@ public class OpenstackIntegrationTest {
         when(testOSproject.getName()).thenReturn(dummyProject.getName());
         when(testOSproject.getDescription()).thenReturn(dummyProject.getDescription());
 
-        // glance 
+        // glance
         when(imageService.get(anyString())).thenReturn(osImage);
         when(imageService.create(any(org.openstack4j.model.image.Image.class), any(Payload.class))).thenReturn(osImage);
         when(imageService.reserve(any(org.openstack4j.model.image.Image.class))).thenReturn(osImage);

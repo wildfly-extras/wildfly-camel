@@ -10,9 +10,9 @@
         <h1>WebSocket Security</h1>
 
         <div style="text-align: center;">
-            <form action=""> 
+            <form action="">
                 <input id="myField" value="WebSocket" type="text"><br>
-                <input onclick="echo();" value="Echo" type="button"> 
+                <input onclick="echo();" value="Echo" type="button">
             </form>
         </div>
         <div id="output"></div>

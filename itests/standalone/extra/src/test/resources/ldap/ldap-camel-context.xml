@@ -25,14 +25,14 @@
     <spring:bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
         <spring:constructor-arg ref="ldapContextSource" />
     </spring:bean>
-    
+
     <spring:bean id="ldapContextSource" class="org.wildfly.camel.test.ldap.SpringLdapContextSource">
         <spring:property name="contextFactory" value="com.sun.jndi.ldap.LdapCtxFactory" />
         <!-- spring:property name="url" value="ldap://localhost:???" / -->
         <spring:property name="userDn" value="uid=admin,ou=system" />
         <spring:property name="password" value="secret" />
     </spring:bean>
-    
+
     <camelContext id="camel-ldap-ctx" xmlns="http://camel.apache.org/schema/spring">
         <route>
             <from uri="direct:start"/>

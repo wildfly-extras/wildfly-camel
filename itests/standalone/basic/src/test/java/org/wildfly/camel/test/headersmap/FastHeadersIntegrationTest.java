@@ -35,7 +35,7 @@ import org.wildfly.extension.camel.CamelAware;
 @CamelAware
 @RunWith(Arquillian.class)
 public class FastHeadersIntegrationTest {
-    
+
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-fastheaders-tests.jar");
@@ -43,14 +43,14 @@ public class FastHeadersIntegrationTest {
 
     @Test
     public void testSimple() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             public void configure() throws Exception {
                 from("direct:start").to("log:foo").to("log:bar").to("mock:result");
             }
         });
-        
+
         MockEndpoint mockResult = camelctx.getEndpoint("mock:result", MockEndpoint.class);
         mockResult.expectedBodiesReceived("Hello World");
 

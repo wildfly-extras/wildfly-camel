@@ -1,6 +1,6 @@
 ### camel-servlet
 
-The http://camel.apache.org/servlet.html[servlet,window=_blank] 
+The http://camel.apache.org/servlet.html[servlet,window=_blank]
 component provides HTTP based endpoints for consuming HTTP requests that arrive at a HTTP endpoint that is bound to a published Servlet.
 
 [source,java,options="nowrap"]

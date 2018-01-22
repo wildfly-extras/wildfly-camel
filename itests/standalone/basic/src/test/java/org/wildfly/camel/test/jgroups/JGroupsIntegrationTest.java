@@ -52,7 +52,7 @@ public class JGroupsIntegrationTest {
     public void testMasterElection() throws Exception {
 
         final CountDownLatch latch = new CountDownLatch(1);
-        
+
         CamelContext camelcxt = new DefaultCamelContext();
         camelcxt.addRoutes(new RouteBuilder() {
             public void configure() throws Exception {

@@ -43,7 +43,7 @@ If you should want to add the Camel subsystem to existing configurations you can
     Writing 'layers=fuse' to: .../wildfly-9.0.0.CR1/modules/layers.conf
     Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone.xml
     Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone-full.xml
-    
+
 There are currently three triggers that can be used to enable Camel for a deployment
 
 1. a deployment that contains a *-camel-context.xml descriptor
@@ -81,4 +81,4 @@ mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
                        -DgroupId=com.mycompany \
                        -DartifactId=my-camel-spring-application
 
-Instructions on how to build, test and run the project can be found within the generated README files. 
+Instructions on how to build, test and run the project can be found within the generated README files.

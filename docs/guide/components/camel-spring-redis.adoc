@@ -1,5 +1,5 @@
 ### camel-spring-redis
 
-The http://camel.apache.org/spring-redis.html[spring-redis,window=_blank] component allows sending and receiving messages from http://http//redis.io/[Redis,window=_blank]. Redis is advanced key-value store where keys can contain strings, hashes, lists, sets and sorted sets. In addition it provides pub/sub functionality for inter-app communications. 
+The http://camel.apache.org/spring-redis.html[spring-redis,window=_blank] component allows sending and receiving messages from http://http//redis.io/[Redis,window=_blank]. Redis is advanced key-value store where keys can contain strings, hashes, lists, sets and sorted sets. In addition it provides pub/sub functionality for inter-app communications.
 
 Camel provides a producer for executing commands, consumer for subscribing to pub/sub messages an idempotent repository for filtering out duplicate messages.

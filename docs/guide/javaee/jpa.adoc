@@ -1,6 +1,6 @@
 ### JPA
 
-JPA integration is provided by the http://camel.apache.org/jpa.html[Camel JPA component,window=_blank]. 
+JPA integration is provided by the http://camel.apache.org/jpa.html[Camel JPA component,window=_blank].
 Camel JPA applications are developed as per normal by providing a persistence.xml configuration file together with some JPA annotated classes.
 
 #### Example persistence.xml
@@ -12,7 +12,7 @@ In this example we use the Wildfly in-memory ExampleDS datasource which is confi
 <persistence version="2.0"
     xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-    
+
     <persistence-unit name="camel">
         <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
         <class>org.wildfly.camel.test.jpa.model.Customer</class>
@@ -21,7 +21,7 @@ In this example we use the Wildfly in-memory ExampleDS datasource which is confi
             <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
-    
+
 </persistence>
 ----
 

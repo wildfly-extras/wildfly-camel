@@ -72,7 +72,7 @@ The Camel REST DSL gives the capability to write Camel routes that act as JAX-RS
 public class RestConsumerRouteBuilder extends RouteBuilder {
   @Override
   public void configure() throws Exception {
-  
+
     // Use the camel-undertow component to provide REST integration
     restConfiguration().component("undertow")
       .contextPath("/rest").port(8080).bindingMode(RestBindingMode.json);
@@ -82,7 +82,7 @@ public class RestConsumerRouteBuilder extends RouteBuilder {
       .get()
         .produces(MediaType.APPLICATION_JSON)
         .to("direct:getCustomers")
-      // GET /rest/customer/1  
+      // GET /rest/customer/1
       .get("/{id}")
         .produces(MediaType.APPLICATION_JSON)
         .to("direct:getCustomer")
@@ -91,12 +91,12 @@ public class RestConsumerRouteBuilder extends RouteBuilder {
         .type(Customer.class)
         .to("direct:createCustomer");
       // PUT /rest/customer
-      .put()  
+      .put()
         .type(Customer.class)
         .to("direct:updateCustomer");
-      // DELETE /rest/customer/1  
+      // DELETE /rest/customer/1
       .delete("/{id}")
-        .to("direct:deleteCustomer");  
+        .to("direct:deleteCustomer");
   }
 }
 ----

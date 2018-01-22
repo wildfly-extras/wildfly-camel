@@ -37,7 +37,7 @@ public class CloudWatchClientProducer {
             return client;
         }
     }
-    
+
     @Produces
     @Singleton
     public CloudWatchClientProvider getClientProvider() throws Exception {

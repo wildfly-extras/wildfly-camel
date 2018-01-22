@@ -1,6 +1,6 @@
 ### OpenShift on EC2
 
-Here we follow the instructions on https://www.openshift.org[Try Origin,window=_blank] 
+Here we follow the instructions on https://www.openshift.org[Try Origin,window=_blank]
 for https://github.com/openshift/origin/releases[binary releases VM,window=_blank].
 
 After having launched an instance of RHEL7 on EC2 we can `ssh` into the box.
@@ -8,7 +8,7 @@ After having launched an instance of RHEL7 on EC2 we can `ssh` into the box.
 [source,subs="attributes"]
 $ ssh -i ~/.ssh/id_rsa_ec2.pem ec2-user@{ec2-pub-ip}
 
-#### Install Docker 
+#### Install Docker
 
 Then we https://docs.docker.com/engine/installation/linux/rhel[install Docker,window=_blank]
 and add the `ec2-user` to the docker group.
@@ -26,15 +26,15 @@ This message shows that your installation appears to be working correctly.
 #### Download & Install OpenShift
 
 Now download the OpenShift server and start it
- 
+
 [source,subs="attributes",options="nowrap"]
 $ curl -L https://github.com/openshift/origin/releases/download/v1.4.0-rc1/openshift-origin-server-v1.4.0-rc1.b4e0954-linux-64bit.tar.gz > openshift-origin-server-v1.4.0-rc1.tar.gz
-$ tar xzf openshift-origin-server-v1.4.0-rc1.tar.gz 
+$ tar xzf openshift-origin-server-v1.4.0-rc1.tar.gz
 $ oc cluster up --public-hostname=ec2-{ec2-pub-ip-dash}.eu-west-1.compute.amazonaws.com --routing-suffix={ec2-pub-ip}.xip.io
 
 [NOTE]
 ====
-If you see a failure during startup like this, follow the instructions below for Docker deamon configuration. 
+If you see a failure during startup like this, follow the instructions below for Docker deamon configuration.
 [source,options="nowrap"]
 ----
 -- Checking Docker daemon configuration ... FAIL
@@ -48,16 +48,16 @@ If you see a failure during startup like this, follow the instructions below for
 
 #### Registry Security
 
-The Docker registry may need to be https://docs.docker.com/engine/admin/[marked,window=_blank] as insecure.  
+The Docker registry may need to be https://docs.docker.com/engine/admin/[marked,window=_blank] as insecure.
 
 1. Create the /etc/systemd/system/docker.service.d directory.
 
  $ sudo mkdir /etc/systemd/system/docker.service.d
- 
+
 2. Create/Edit the /etc/systemd/system/docker.service.d/docker.conf file.
 
-+ 
-Override the ExecStart configuration from your docker.service file to customize the docker daemon. 
++
+Override the ExecStart configuration from your docker.service file to customize the docker daemon.
 To modify the ExecStart configuration you have to specify an empty configuration followed by a new one as follows:
 +
 
@@ -65,13 +65,13 @@ To modify the ExecStart configuration you have to specify an empty configuration
  [Service]
  ExecStart=
  ExecStart=/usr/bin/dockerd --insecure-registry 172.30.0.0/16
- 
+
 3. Restart the docker daemon.
- 
+
  $ sudo systemctl daemon-reload; sudo systemctl restart docker
 
 4. Restart the OpenShift cluster
- 
+
 [source,subs="attributes",options="nowrap"]
 $ oc cluster up --public-hostname=ec2-{ec2-pub-ip-dash}.eu-west-1.compute.amazonaws.com --routing-suffix={ec2-pub-ip}.xip.io
 

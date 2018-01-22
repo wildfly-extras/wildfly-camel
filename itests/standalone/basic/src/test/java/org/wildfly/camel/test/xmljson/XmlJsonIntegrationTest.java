@@ -80,7 +80,7 @@ public class XmlJsonIntegrationTest {
             ProducerTemplate template = camelctx.createProducerTemplate();
             Object json = template.requestBody("direct:marshal", in);
             String jsonString = camelctx.getTypeConverter().convertTo(String.class, json);
-            
+
             String expString = "{'a':'1','b':'2','c':{'a':'c.a.1','b':'c.b.2'},'d':['a','b','c'],'e':['1','2','3'],'f':'true','g':[]}";
             Assert.assertEquals(expString, jsonString.replace('"', '\''));
 

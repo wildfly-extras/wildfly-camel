@@ -84,7 +84,7 @@ public class BarcodeDataformatTest {
 
         camelctx.start();
         try (BufferedInputStream bis = new BufferedInputStream(getClass().getClassLoader().getResourceAsStream("barcode.png"))) {
-            
+
             ProducerTemplate template = camelctx.createProducerTemplate();
             String result = template.requestBody("direct:start", bis, String.class);
 

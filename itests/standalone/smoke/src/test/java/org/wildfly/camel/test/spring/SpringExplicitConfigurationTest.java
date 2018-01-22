@@ -50,11 +50,11 @@ public class SpringExplicitConfigurationTest {
 
     @Test
     public void testSpringJavaConfig() throws Exception {
-        
+
         AnnotationConfigApplicationContext appctx = new AnnotationConfigApplicationContext(MyConfiguration.class);
         CamelContext camelctx = new SpringCamelContext(appctx);
         camelctx.addRoutes(appctx.getBean(RouteBuilder.class));
-        
+
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
@@ -68,7 +68,7 @@ public class SpringExplicitConfigurationTest {
     @Test
     @SuppressWarnings("resource")
     public void testCounterA() throws Exception {
-        
+
         ApplicationContext appctx = new AnnotationConfigApplicationContext(MyConfiguration.class);
         Assert.assertEquals(1, appctx.getBean(Counter.class).getCount());
         Assert.assertEquals(1, appctx.getBean(Counter.class).getCount());

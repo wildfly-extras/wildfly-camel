@@ -49,7 +49,7 @@ public class JsonpathIntegrationTest {
     public void testUnmarshalJson() throws Exception {
 
         final String type = "Customer";
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

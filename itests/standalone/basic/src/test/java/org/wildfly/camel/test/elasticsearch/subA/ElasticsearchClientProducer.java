@@ -40,9 +40,9 @@ public class ElasticsearchClientProducer {
     @Produces
     @Singleton
     public Client getClient() throws IOException {
-        
+
         FileUtils.deleteDirectory(DATA_PATH);
-        
+
         Settings.Builder settings = Settings.settingsBuilder()
             .put("http.enabled", false)
             .put("path.data", DATA_PATH)

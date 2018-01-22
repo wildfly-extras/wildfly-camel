@@ -63,11 +63,11 @@ public class MongoDBIntegrationTest {
     private static final int ROWS = 20;
     private static final int PORT = 27017;
     private static EmbeddedMongoServer mongoServer;
-    
+
     private MongoCollection<BasicDBObject> testCollection;
     private MongoCollection<BasicDBObject> dynamicCollection;
     private MongoClient mongoClient;
-    
+
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-mongodb-tests")
@@ -84,7 +84,7 @@ public class MongoDBIntegrationTest {
 
     @AfterClass
     public static void afterClass() {
-        if (mongoServer != null) 
+        if (mongoServer != null)
             mongoServer.stop();
     }
 
@@ -195,7 +195,7 @@ public class MongoDBIntegrationTest {
         });
 
         GridFS gridfs = new GridFS(mongoClient.getDB("testA"), getBucket());
-        
+
         camelctx.start();
         try {
             Map<String, Object> headers = new HashMap<String, Object>();
@@ -238,22 +238,22 @@ public class MongoDBIntegrationTest {
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             public void configure() {
-                
+
                 from("direct:create-a")
                 .to("mongodb-gridfs:mdb?database=testB&operation=create&bucket=" + getBucket("-a"));
-                
+
                 from("direct:create-b")
                 .to("mongodb-gridfs:mdb?database=testB&operation=create&bucket=" + getBucket("-b"));
-                
+
                 from("direct:create-c")
                 .to("mongodb-gridfs:mdb?database=testB&operation=create&bucket=" + getBucket("-c"));
 
                 from("mongodb-gridfs:mdb?database=testB&bucket=" + getBucket("-a"))
                 .convertBodyTo(String.class).to("mock:test");
-                
+
                 from("mongodb-gridfs:mdb?database=testB&bucket=" + getBucket("-b") + "&queryStrategy=FileAttribute")
                 .convertBodyTo(String.class).to("mock:test");
-                
+
                 from("mongodb-gridfs:mdb?database=testB&bucket=" + getBucket("-c") + "&queryStrategy=PersistentTimestamp")
                 .convertBodyTo(String.class).to("mock:test");
             }
@@ -270,27 +270,27 @@ public class MongoDBIntegrationTest {
     }
 
     public void runTest(CamelContext camelctx, String target, GridFS gridfs) throws Exception {
-        
+
         String data = "This is some stuff to go into the db";
         MockEndpoint mock = camelctx.getEndpoint("mock:test", MockEndpoint.class);
         mock.reset();
         mock.expectedMessageCount(1);
         mock.expectedBodiesReceived(data);
-        
+
         Map<String, Object> headers = new HashMap<String, Object>();
         String fn = "filename.for.db.txt";
         Assert.assertEquals(0, gridfs.find(fn).size());
-        
+
         headers.put(Exchange.FILE_NAME, fn);
         ProducerTemplate template = camelctx.createProducerTemplate();
         template.requestBodyAndHeaders(target, data, headers);
-        
+
         mock.assertIsSatisfied();
 
         mock.reset();
         mock.expectedMessageCount(3);
         mock.expectedBodiesReceived(data, data, data);
-        
+
         headers.put(Exchange.FILE_NAME, fn + "_1");
         template.requestBodyAndHeaders(target, data, headers);
         headers.put(Exchange.FILE_NAME, fn + "_2");
@@ -299,7 +299,7 @@ public class MongoDBIntegrationTest {
         template.requestBodyAndHeaders(target, data, headers);
         mock.assertIsSatisfied();
     }
-    
+
     private void setupTestData() {
         String[] scientists = {"Einstein", "Darwin", "Copernicus", "Pasteur", "Curie", "Faraday", "Newton", "Bohr", "Galilei", "Maxwell"};
         for (int i = 1; i <= ROWS; i++) {
@@ -314,7 +314,7 @@ public class MongoDBIntegrationTest {
     private static String getBucket() {
         return getBucket("");
     }
-    
+
     private static String getBucket(String suffix) {
         return MongoDBIntegrationTest.class.getSimpleName() + suffix;
     }

@@ -275,8 +275,8 @@
                     <version>${version-groovy-maven-plugin}</version>
                 </plugin>
                 <plugin>
-                  <groupId>org.codehaus.mojo</groupId>
-                  <artifactId>build-helper-maven-plugin</artifactId>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
                     <version>${version-build-helper-plugin}</version>
                 </plugin>
                 <plugin>

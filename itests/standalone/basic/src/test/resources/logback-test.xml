@@ -1,29 +1,29 @@
 <!--
 Generated using
- 
-    https://logback.qos.ch/translator/dsl/propertiesToXML 
+
+    https://logback.qos.ch/translator/dsl/propertiesToXML
 -->
 <configuration>
-  <appender name="file" class="ch.qos.logback.core.FileAppender">
-    <File>target/test.log</File>
-    <encoder>
-      <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p [%c] (%t) - %m%n</pattern>
-    </encoder>
-    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-      <level>DEBUG</level>
-    </filter>
-  </appender>
-  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-    <Target>System.out</Target>
-    <encoder>
-      <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p [%c] (%t) - %m%n</pattern>
-    </encoder>
-    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-      <level>WARN</level>
-    </filter>
-  </appender>
-  <root level="DEBUG">
-    <appender-ref ref="file"/>
-    <appender-ref ref="console"/>
-  </root>
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
+        <File>target/test.log</File>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p [%c] (%t) - %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p [%c] (%t) - %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+    </appender>
+    <root level="DEBUG">
+        <appender-ref ref="file"/>
+        <appender-ref ref="console"/>
+    </root>
 </configuration>

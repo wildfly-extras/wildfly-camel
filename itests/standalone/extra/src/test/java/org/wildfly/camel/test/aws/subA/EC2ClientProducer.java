@@ -37,7 +37,7 @@ public class EC2ClientProducer {
             return client;
         }
     }
-    
+
     @Produces
     @Singleton
     public EC2ClientProvider getClientProvider() throws Exception {

@@ -39,7 +39,7 @@ public class SlackIntegrationTest {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-slack-tests");
         return archive;
     }
-    
+
     @Test
     public void testSlackMessage() throws Exception {
 
@@ -55,19 +55,19 @@ public class SlackIntegrationTest {
 
         SlackComponent comp = camelctx.getComponent("slack", SlackComponent.class);
         comp.setWebhookUrl("https://hooks.slack.com/services/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");
-        
+
         MockEndpoint mockErrors = camelctx.getEndpoint("mock:errors", MockEndpoint.class);
         mockErrors.expectedMessageCount(0);
-        
+
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             producer.sendBody("direct:test", "Hello from Camel!");
             mockErrors.assertIsSatisfied();
-            
+
             mockErrors.reset();
             mockErrors.expectedMessageCount(1);
-            
+
             producer.sendBody("direct:error", "Error from Camel!");
             mockErrors.assertIsSatisfied();
         } finally {

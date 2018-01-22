@@ -16,12 +16,12 @@ public final class PingPongProto {
   }
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_org_apache_camel_component_grpc_test_PingRequest_descriptor;
-  static final 
+  static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_org_apache_camel_component_grpc_test_PingRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_org_apache_camel_component_grpc_test_PongResponse_descriptor;
-  static final 
+  static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_org_apache_camel_component_grpc_test_PongResponse_fieldAccessorTable;
 

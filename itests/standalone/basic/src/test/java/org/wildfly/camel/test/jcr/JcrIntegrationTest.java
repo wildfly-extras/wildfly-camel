@@ -73,19 +73,19 @@ public class JcrIntegrationTest {
     public void before() throws Exception {
         FileUtils.deleteDirectory(REPO_PATH);
         REPO_PATH.toFile().mkdirs();
-        
+
         File configFile = REPO_PATH.resolve("repository-simple-security.xml").toFile();
         InputStream input = getClass().getClassLoader().getResourceAsStream("jcr/repository-simple-security.xml");
         try (OutputStream output = new FileOutputStream(configFile)) {
             IOUtils.copyStream(input, output);
         }
-        
+
         repository = new TransientRepository(configFile, REPO_PATH.toFile());
     }
 
     @Test
     public void testJcrProducer() throws Exception {
-        
+
         WildFlyCamelContext camelctx = new WildFlyCamelContext();
         camelctx.getNamingContext().bind("repository", repository);
 
@@ -96,7 +96,7 @@ public class JcrIntegrationTest {
                 from("direct:a").to("jcr://user:pass@repository/home/test");
             }
         });
-        
+
         camelctx.start();
         try {
             String content = "<hello>world!</hello>";
@@ -118,7 +118,7 @@ public class JcrIntegrationTest {
             camelctx.stop();
         }
     }
-    
+
     private Session openSession() throws RepositoryException {
         return repository.login(new SimpleCredentials("user", "pass".toCharArray()));
     }

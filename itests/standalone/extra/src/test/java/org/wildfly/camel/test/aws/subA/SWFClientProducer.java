@@ -37,7 +37,7 @@ public class SWFClientProducer {
             return client;
         }
     }
-    
+
     @Produces
     @Singleton
     public SWFClientProvider getClientProvider() throws Exception {

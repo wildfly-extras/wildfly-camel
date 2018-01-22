@@ -71,10 +71,10 @@ public class YamlDataFormatIntegrationTest {
 
     @Test
     public void testUnmarshalYaml() throws Exception {
-        
+
         SnakeYAMLDataFormat yaml = new SnakeYAMLDataFormat();
         yaml.addTypeFilters(TypeFilters.types(Customer.class));
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

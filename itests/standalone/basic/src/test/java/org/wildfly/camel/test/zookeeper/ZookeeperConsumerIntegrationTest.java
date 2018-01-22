@@ -49,7 +49,7 @@ public class ZookeeperConsumerIntegrationTest {
     static class EmbeddedZookeeperSetupTask implements ServerSetupTask {
 
         EmbeddedZookeeper server;
-        
+
         @Override
         public void setup(final ManagementClient managementClient, String containerId) throws Exception {
             server = new EmbeddedZookeeper().startup(10, TimeUnit.SECONDS);
@@ -70,12 +70,12 @@ public class ZookeeperConsumerIntegrationTest {
         archive.addClasses(AvailablePortFinder.class);
         return archive;
     }
-    
+
     @Test
     public void testZookeeperConsumer() throws Exception {
 
         String zkcon = AvailablePortFinder.readServerData("zkcon");
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

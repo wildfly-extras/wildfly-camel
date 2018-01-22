@@ -6,10 +6,10 @@ Let's add `admin/admin` Management User without any special roles:
 
 ```
 cd itests/standalone/smoke/target/wildfly-9.0.0.CR1
-$ bin/add-user.sh 
+$ bin/add-user.sh
 
-What type of user do you wish to add? 
- a) Management User (mgmt-users.properties) 
+What type of user do you wish to add?
+ a) Management User (mgmt-users.properties)
  b) Application User (application-users.properties)
 (a): a
 
@@ -22,16 +22,16 @@ Password recommendations are listed below. To modify these restrictions edit the
  - The password should be different from the username
  - The password should not be one of the following restricted values {root, admin, administrator}
  - The password should contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), 1 non-alphanumeric symbol(s)
-Password : 
-Re-enter Password : 
-What groups do you want this user to belong to? (Please enter a comma separated list, or leave blank for none)[  ]: 
+Password :
+Re-enter Password :
+What groups do you want this user to belong to? (Please enter a comma separated list, or leave blank for none)[  ]:
 About to add user 'admin' for realm 'ManagementRealm'
 Is this correct yes/no? yes
 Added user 'admin' to file '/data/ggrzybek/sources/github.com/jboss-fuse/wildfly-camel/itests/standalone/smoke/target/wildfly-9.0.0.CR1/standalone/configuration/mgmt-users.properties'
 Added user 'admin' to file '/data/ggrzybek/sources/github.com/jboss-fuse/wildfly-camel/itests/standalone/smoke/target/wildfly-9.0.0.CR1/domain/configuration/mgmt-users.properties'
 Added user 'admin' with groups  to file '/data/ggrzybek/sources/github.com/jboss-fuse/wildfly-camel/itests/standalone/smoke/target/wildfly-9.0.0.CR1/standalone/configuration/mgmt-groups.properties'
 Added user 'admin' with groups  to file '/data/ggrzybek/sources/github.com/jboss-fuse/wildfly-camel/itests/standalone/smoke/target/wildfly-9.0.0.CR1/domain/configuration/mgmt-groups.properties'
-Is this new user going to be used for one AS process to connect to another AS process? 
+Is this new user going to be used for one AS process to connect to another AS process?
 e.g. for a slave host controller connecting to the master or for a Remoting connection for server to server EJB calls.
 yes/no? no
 ```

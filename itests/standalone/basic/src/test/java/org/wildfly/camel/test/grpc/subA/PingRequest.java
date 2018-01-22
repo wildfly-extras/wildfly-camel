@@ -92,7 +92,7 @@ public  final class PingRequest extends
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
-      com.google.protobuf.ByteString bs = 
+      com.google.protobuf.ByteString bs =
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
       pingName_ = s;
@@ -106,7 +106,7 @@ public  final class PingRequest extends
       getPingNameBytes() {
     java.lang.Object ref = pingName_;
     if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
+      com.google.protobuf.ByteString b =
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
       pingName_ = b;
@@ -449,7 +449,7 @@ public  final class PingRequest extends
         getPingNameBytes() {
       java.lang.Object ref = pingName_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         pingName_ = b;
@@ -466,7 +466,7 @@ public  final class PingRequest extends
       if (value == null) {
     throw new NullPointerException();
   }
-  
+
       pingName_ = value;
       onChanged();
       return this;
@@ -475,7 +475,7 @@ public  final class PingRequest extends
      * <code>string ping_name = 1;</code>
      */
     public Builder clearPingName() {
-      
+
       pingName_ = getDefaultInstance().getPingName();
       onChanged();
       return this;
@@ -489,7 +489,7 @@ public  final class PingRequest extends
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-      
+
       pingName_ = value;
       onChanged();
       return this;
@@ -506,7 +506,7 @@ public  final class PingRequest extends
      * <code>int32 ping_id = 2;</code>
      */
     public Builder setPingId(int value) {
-      
+
       pingId_ = value;
       onChanged();
       return this;
@@ -515,7 +515,7 @@ public  final class PingRequest extends
      * <code>int32 ping_id = 2;</code>
      */
     public Builder clearPingId() {
-      
+
       pingId_ = 0;
       onChanged();
       return this;

@@ -76,7 +76,7 @@ public class SSHIntegrationTest {
 
     @Test
     public void testSSHProducer() throws Exception {
-        
+
         String conUrl = TestUtils.getResourceValue(getClass(), "/ssh-connection");
 
         CamelContext camelctx = new DefaultCamelContext();

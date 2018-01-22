@@ -11,15 +11,15 @@ public class Customer {
 
     @DataField(pos = 1)
     private String firstName;
-    
+
     @DataField(pos = 2)
     private String lastName;
-    
+
     ...
 }
 ----
 
-We can use the `BindyCsvDataFormat` data format unmarshall CSV data like `John,Doe` to the domain model. 
+We can use the `BindyCsvDataFormat` data format unmarshall CSV data like `John,Doe` to the domain model.
 
 [source,java,options="nowrap"]
 camelctx.addRoutes(new RouteBuilder() {

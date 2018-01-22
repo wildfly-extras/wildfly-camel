@@ -107,7 +107,7 @@ public class CastorIntegrationTest {
 
     @Test
     public void testUnmarshal() throws Exception {
-        
+
         CastorDataFormat castor = new CastorDataFormat();
         castor.setMappingFile("castor-mapping.xml");
         castor.setAllowClasses(Customer.class);

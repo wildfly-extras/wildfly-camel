@@ -1,6 +1,6 @@
 ### camel-zookeeper
 
-The http://camel.apache.org/zookeeper.html[zookeeper,window=_blank] 
+The http://camel.apache.org/zookeeper.html[zookeeper,window=_blank]
 component allows interaction with a http://hadoop.apache.org/zookeeper/[ZooKeeper,window=_blank] cluster and exposes the following features to Camel:
 
 * Creation of nodes in any of the ZooKeeper create modes.

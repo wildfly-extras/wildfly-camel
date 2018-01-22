@@ -55,19 +55,19 @@
             <module name="javax.api" />
         </dependencies>
     </module>
-        
+
     <module name="org.jboss.gravia.container.common" skip="true">
         <include artifact=":gravia-container-common" />
     </module>
-        
+
     <module name="org.jboss.gravia.provision" skip="true">
         <include artifact=":gravia-provision" />
     </module>
-        
+
     <module name="org.jboss.gravia.repository" skip="true">
         <include artifact=":gravia-repository" />
     </module>
-        
+
     <module name="org.jboss.gravia.resolver" skip="true">
         <include artifact=":gravia-resolver" />
     </module>

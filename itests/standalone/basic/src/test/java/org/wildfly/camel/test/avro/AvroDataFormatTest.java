@@ -58,7 +58,7 @@ public class AvroDataFormatTest {
         DataFormat avro = new AvroDataFormat(getSchema());
         GenericRecord input = new GenericData.Record(getSchema());
         input.put("name", "Kermit");
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

@@ -44,8 +44,8 @@ public class ShiroIntegrationTest {
         (byte) 0x08, (byte) 0x09, (byte) 0x0A, (byte) 0x0B,
         (byte) 0x0C, (byte) 0x0D, (byte) 0x0E, (byte) 0x0F,
         (byte) 0x10, (byte) 0x11, (byte) 0x12, (byte) 0x13,
-        (byte) 0x14, (byte) 0x15, (byte) 0x16, (byte) 0x17};    
-    
+        (byte) 0x14, (byte) 0x15, (byte) 0x16, (byte) 0x17};
+
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-shiro-tests");
@@ -55,21 +55,21 @@ public class ShiroIntegrationTest {
 
     @Test
     public void testShiroAuthentication() throws Exception {
-        
+
         ShiroSecurityPolicy securityPolicy = new ShiroSecurityPolicy("classpath:securityconfig.ini", passPhrase);
-        
+
         ShiroSecurityToken goodToken = new ShiroSecurityToken("ringo", "starr");
         MySecurityTokenInjector goodInjector = new MySecurityTokenInjector(goodToken, passPhrase);
-        
+
         ShiroSecurityToken badToken = new ShiroSecurityToken("ringo", "stirr");
         MySecurityTokenInjector badInjector = new MySecurityTokenInjector(badToken, passPhrase);
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             @SuppressWarnings("unchecked")
             public void configure() throws Exception {
-                
+
                 onException(IncorrectCredentialsException.class, AuthenticationException.class).
                     to("mock:authenticationException");
 
@@ -90,16 +90,16 @@ public class ShiroIntegrationTest {
             successEndpoint.expectedMessageCount(1);
             failureEndpoint.expectedMessageCount(0);
             template.send("direct:secureEndpoint", goodInjector);
-            
+
             successEndpoint.assertIsSatisfied();
             failureEndpoint.assertIsSatisfied();
             successEndpoint.reset();
             failureEndpoint.reset();
-            
+
             successEndpoint.expectedMessageCount(0);
             failureEndpoint.expectedMessageCount(1);
             template.send("direct:secureEndpoint", badInjector);
-            
+
             successEndpoint.assertIsSatisfied();
             failureEndpoint.assertIsSatisfied();
         } finally {
@@ -112,11 +112,11 @@ public class ShiroIntegrationTest {
         MySecurityTokenInjector(ShiroSecurityToken shiroSecurityToken, byte[] bytes) {
             super(shiroSecurityToken, bytes);
         }
-        
+
         public void process(Exchange exchange) throws Exception {
             exchange.getIn().setHeader(ShiroSecurityConstants.SHIRO_SECURITY_TOKEN, encrypt());
             exchange.getIn().setBody("Beatle Mania");
         }
     }
-    
+
 }

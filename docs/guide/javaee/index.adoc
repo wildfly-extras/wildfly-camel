@@ -1,6 +1,6 @@
 ## JavaEE Integration
 
-This chapter details information about integration points with JavaEE. 
+This chapter details information about integration points with JavaEE.
 
 include::cdi.adoc[]
 

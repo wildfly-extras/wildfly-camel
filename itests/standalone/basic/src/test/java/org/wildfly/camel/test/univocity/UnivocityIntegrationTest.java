@@ -72,7 +72,7 @@ public class UnivocityIntegrationTest {
             Map<String, String> input = asMap("A", "1", "B", "2", "C", "3");
             String res1 = producer.requestBody("direct:marshal", input, String.class);
             Assert.assertEquals(join("1,2,3"), res1);
-            
+
             List<?> res2 = producer.requestBody("direct:unmarshal", res1, List.class);
             Assert.assertEquals("Expected one row", 1, res2.size());
             Assert.assertEquals(Arrays.asList("1" ,"2", "3"), res2.get(0));
@@ -100,7 +100,7 @@ public class UnivocityIntegrationTest {
             Map<String, String> input = asMap("A", "1", "B", "2", "C", "3");
             String res1 = producer.requestBody("direct:marshal", input, String.class);
             Assert.assertEquals(join("1\t2\t3"), res1);
-            
+
             List<?> res2 = producer.requestBody("direct:unmarshal", res1, List.class);
             Assert.assertEquals("Expected one row", 1, res2.size());
             Assert.assertEquals(Arrays.asList("1" ,"2", "3"), res2.get(0));
@@ -128,7 +128,7 @@ public class UnivocityIntegrationTest {
             Map<String, String> input = asMap("A", "1", "B", "2", "C", "3");
             String res1 = producer.requestBody("direct:marshal", input, String.class);
             Assert.assertEquals(join("1 2 3 "), res1);
-            
+
             List<?> res2 = producer.requestBody("direct:unmarshal", res1, List.class);
             Assert.assertEquals("Expected one row", 1, res2.size());
             Assert.assertEquals(Arrays.asList("1" ,"2", "3"), res2.get(0));

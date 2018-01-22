@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss umlns="urn:jboss:1.0">
 
-  <jboss-camel xmlns="urn:jboss:jboss-camel:1.0">
-    <component name="camel-ftp"/>
-    <component-module name="org.apache.camel.component.rss"/>
-  </jboss-camel>
-  
+    <jboss-camel xmlns="urn:jboss:jboss-camel:1.0">
+        <component name="camel-ftp"/>
+        <component-module name="org.apache.camel.component.rss"/>
+    </jboss-camel>
+
 </jboss>

@@ -11,7 +11,7 @@ package org.wildfly.camel.test.thrift.generated;
  * Structs are the basic complex data structures. They are comprised of fields
  * which each have an integer identifier, a type, a symbolic name, and an
  * optional default value.
- * 
+ *
  * Fields can be declared "optional", which ensures they will not be included
  * in the serialized output if they aren't set.  Note that this requires some
  * manual management in some languages.
@@ -31,7 +31,7 @@ public class Work implements org.apache.thrift.TBase<Work, Work._Fields>, java.i
   public int num1; // required
   public int num2; // required
   /**
-   * 
+   *
    * @see Operation
    */
   public Operation op; // required
@@ -42,7 +42,7 @@ public class Work implements org.apache.thrift.TBase<Work, Work._Fields>, java.i
     NUM1((short)1, "num1"),
     NUM2((short)2, "num2"),
     /**
-     * 
+     *
      * @see Operation
      */
     OP((short)3, "op"),
@@ -116,13 +116,13 @@ public class Work implements org.apache.thrift.TBase<Work, Work._Fields>, java.i
   public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-    tmpMap.put(_Fields.NUM1, new org.apache.thrift.meta_data.FieldMetaData("num1", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+    tmpMap.put(_Fields.NUM1, new org.apache.thrift.meta_data.FieldMetaData("num1", org.apache.thrift.TFieldRequirementType.DEFAULT,
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
-    tmpMap.put(_Fields.NUM2, new org.apache.thrift.meta_data.FieldMetaData("num2", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+    tmpMap.put(_Fields.NUM2, new org.apache.thrift.meta_data.FieldMetaData("num2", org.apache.thrift.TFieldRequirementType.DEFAULT,
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
-    tmpMap.put(_Fields.OP, new org.apache.thrift.meta_data.FieldMetaData("op", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+    tmpMap.put(_Fields.OP, new org.apache.thrift.meta_data.FieldMetaData("op", org.apache.thrift.TFieldRequirementType.DEFAULT,
         new org.apache.thrift.meta_data.EnumMetaData(org.apache.thrift.protocol.TType.ENUM, Operation.class)));
-    tmpMap.put(_Fields.COMMENT, new org.apache.thrift.meta_data.FieldMetaData("comment", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+    tmpMap.put(_Fields.COMMENT, new org.apache.thrift.meta_data.FieldMetaData("comment", org.apache.thrift.TFieldRequirementType.OPTIONAL,
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(Work.class, metaDataMap);
@@ -222,7 +222,7 @@ public class Work implements org.apache.thrift.TBase<Work, Work._Fields>, java.i
   }
 
   /**
-   * 
+   *
    * @see Operation
    */
   public Operation getOp() {
@@ -230,7 +230,7 @@ public class Work implements org.apache.thrift.TBase<Work, Work._Fields>, java.i
   }
 
   /**
-   * 
+   *
    * @see Operation
    */
   public Work setOp(Operation op) {
@@ -558,7 +558,7 @@ public class Work implements org.apache.thrift.TBase<Work, Work._Fields>, java.i
       while (true)
       {
         schemeField = iprot.readFieldBegin();
-        if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+        if (schemeField.type == org.apache.thrift.protocol.TType.STOP) {
           break;
         }
         switch (schemeField.id) {
@@ -566,7 +566,7 @@ public class Work implements org.apache.thrift.TBase<Work, Work._Fields>, java.i
             if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
               struct.num1 = iprot.readI32();
               struct.setNum1IsSet(true);
-            } else { 
+            } else {
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
@@ -574,7 +574,7 @@ public class Work implements org.apache.thrift.TBase<Work, Work._Fields>, java.i
             if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
               struct.num2 = iprot.readI32();
               struct.setNum2IsSet(true);
-            } else { 
+            } else {
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
@@ -582,7 +582,7 @@ public class Work implements org.apache.thrift.TBase<Work, Work._Fields>, java.i
             if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
               struct.op = Operation.findByValue(iprot.readI32());
               struct.setOpIsSet(true);
-            } else { 
+            } else {
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
@@ -590,7 +590,7 @@ public class Work implements org.apache.thrift.TBase<Work, Work._Fields>, java.i
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
               struct.comment = iprot.readString();
               struct.setCommentIsSet(true);
-            } else { 
+            } else {
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;

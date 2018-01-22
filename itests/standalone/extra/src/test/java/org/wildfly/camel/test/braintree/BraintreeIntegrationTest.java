@@ -104,7 +104,7 @@ public class BraintreeIntegrationTest {
 
         Map<String, Object> braintreeOptions = createBraintreeOptions();
 
-        Assume.assumeTrue("[#1679] Enable Braintree testing in Jenkins", 
+        Assume.assumeTrue("[#1679] Enable Braintree testing in Jenkins",
                 braintreeOptions.size() == BraintreeOption.values().length);
 
         final CountDownLatch latch = new CountDownLatch(1);
@@ -209,8 +209,8 @@ public class BraintreeIntegrationTest {
 
         @SuppressWarnings("unchecked")
         Result<Customer> deleteResult = camelctx.createProducerTemplate().requestBody(
-            "direct:delete", 
-            createResult.getTarget().getId(), 
+            "direct:delete",
+            createResult.getTarget().getId(),
             Result.class);
 
         Assert.assertNotNull(deleteResult);

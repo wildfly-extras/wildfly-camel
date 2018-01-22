@@ -66,14 +66,14 @@
         </AccessManager>
 
         <LoginModule class="org.apache.jackrabbit.core.security.simple.SimpleLoginModule">
-           <!-- 
+           <!--
               anonymous user name ('anonymous' is the default value)
             -->
-           <param name="anonymousId" value="anonymous"/>
+            <param name="anonymousId" value="anonymous"/>
            <!--
               administrator user id (default value if param is missing is 'admin')
             -->
-           <param name="adminId" value="admin"/>
+            <param name="adminId" value="admin"/>
         </LoginModule>
     </Security>
 
@@ -98,8 +98,8 @@
             class: FQN of class implementing the PersistenceManager interface
         -->
         <PersistenceManager class="org.apache.jackrabbit.core.persistence.pool.DerbyPersistenceManager">
-          <param name="url" value="jdbc:derby:${wsp.home}/db;create=true"/>
-          <param name="schemaObjectPrefix" value="${wsp.name}_"/>
+            <param name="url" value="jdbc:derby:${wsp.home}/db;create=true"/>
+            <param name="schemaObjectPrefix" value="${wsp.name}_"/>
         </PersistenceManager>
         <!--
             Search index and the file system it uses.
@@ -130,8 +130,8 @@
             implementations.
         -->
         <PersistenceManager class="org.apache.jackrabbit.core.persistence.pool.DerbyPersistenceManager">
-          <param name="url" value="jdbc:derby:${rep.home}/version/db;create=true"/>
-          <param name="schemaObjectPrefix" value="version_"/>
+            <param name="url" value="jdbc:derby:${rep.home}/version/db;create=true"/>
+            <param name="schemaObjectPrefix" value="version_"/>
         </PersistenceManager>
     </Versioning>
 

@@ -105,7 +105,7 @@ public class CXFWSSecureConsumerIntegrationTest {
         cxfEndpoint.setServiceClass(Endpoint.class.getName());
         return cxfEndpoint;
     }
-    
+
     private SSLContextParameters createSSLContextParameters() {
         KeyStoreParameters ksp = new KeyStoreParameters();
         ksp.setResource(System.getProperty("jboss.server.config.dir") + "/application.keystore");

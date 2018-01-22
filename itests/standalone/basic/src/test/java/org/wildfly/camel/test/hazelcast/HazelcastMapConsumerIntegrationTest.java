@@ -69,7 +69,7 @@ public class HazelcastMapConsumerIntegrationTest {
         verifyHazelcastInstance(hazelcastInstance);
         Mockito.verifyNoMoreInteractions(hazelcastInstance);
     }
-    
+
     @Test
     @SuppressWarnings("unchecked")
     public void testAdd() throws Exception {
@@ -126,7 +126,7 @@ public class HazelcastMapConsumerIntegrationTest {
             camelctx.stop();
         }
     }
-    
+
     @Test
     @SuppressWarnings("unchecked")
     public void testRemove() throws Exception {

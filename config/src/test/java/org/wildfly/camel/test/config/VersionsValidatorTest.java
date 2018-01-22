@@ -90,7 +90,7 @@ public class VersionsValidatorTest {
     }
 
     public String getTargetValue(String wfcKey) throws JDOMException {
-        
+
         Element rootNode;
         if (wfcKey.startsWith("version.camel.")) {
             rootNode = camelRoot;

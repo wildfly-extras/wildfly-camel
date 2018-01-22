@@ -2,7 +2,7 @@
 
 Netty client / server support in Camel is provided by the http://camel.apache.org/netty4.html[netty4,window=_blank] component.
 
-{wildfly} 8 and EAP 6.4 are bundled with module libraries supporting the http://netty.io/[Netty,window=_blank] 
+{wildfly} 8 and EAP 6.4 are bundled with module libraries supporting the http://netty.io/[Netty,window=_blank]
 project version 4. Therefore, the standard http://camel.apache.org/netty.html[netty component,window=_blank] will not work since it is compatible with Netty version 3 only.
 
 #### Simple Netty Client / Server Test

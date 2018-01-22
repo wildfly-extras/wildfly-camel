@@ -22,7 +22,7 @@ public class BasicCredentialsProvider implements AWSCredentialsProvider {
         String secretKey = System.getenv(AWS_SECRET_KEY);
         return new BasicCredentialsProvider(accessId, secretKey);
     }
-    
+
     public boolean isValid() {
         return accessId != null && secretKey != null;
     }

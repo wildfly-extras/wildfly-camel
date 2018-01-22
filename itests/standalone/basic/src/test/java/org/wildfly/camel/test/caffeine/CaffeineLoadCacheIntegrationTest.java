@@ -72,7 +72,7 @@ public class CaffeineLoadCacheIntegrationTest {
     public void testCacheClear() throws Exception {
 
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -84,7 +84,7 @@ public class CaffeineLoadCacheIntegrationTest {
             camelctx.createFluentProducerTemplate().to("direct://start")
             .withHeader(CaffeineConstants.ACTION, CaffeineConstants.ACTION_CLEANUP)
             .send();
-            
+
             mock.assertIsSatisfied();
         } finally {
             camelctx.stop();
@@ -97,7 +97,7 @@ public class CaffeineLoadCacheIntegrationTest {
         final Integer val = 3;
 
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -128,7 +128,7 @@ public class CaffeineLoadCacheIntegrationTest {
         final Set<Integer> keys = map.keySet().stream().limit(2).collect(Collectors.toSet());
 
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -159,7 +159,7 @@ public class CaffeineLoadCacheIntegrationTest {
         final Integer val = 2;
 
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -191,7 +191,7 @@ public class CaffeineLoadCacheIntegrationTest {
         cache.putAll(map);
 
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -224,7 +224,7 @@ public class CaffeineLoadCacheIntegrationTest {
         cache.put(key, val);
 
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -256,7 +256,7 @@ public class CaffeineLoadCacheIntegrationTest {
         cache.putAll(map);
 
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);

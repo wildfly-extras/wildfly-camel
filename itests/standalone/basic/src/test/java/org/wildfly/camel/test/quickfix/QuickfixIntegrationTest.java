@@ -59,11 +59,11 @@ public class QuickfixIntegrationTest {
     }
 
     @Test
-    public void sendMessage() throws Exception {        
-        
+    public void sendMessage() throws Exception {
+
         final CountDownLatch logonLatch = new CountDownLatch(2);
         final CountDownLatch receivedMessageLatch = new CountDownLatch(1);
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -87,18 +87,18 @@ public class QuickfixIntegrationTest {
                     bean(new CountDownLatchDecrementer("message", receivedMessageLatch));
             }
         });
-        
+
         camelctx.start();
         try {
             Assert.assertTrue("Logon succeed", logonLatch.await(5L, TimeUnit.SECONDS));
-            
+
             String marketUri = "quickfix:quickfix/inprocess.cfg?sessionID=FIX.4.2:TRADER->MARKET";
             Producer producer = camelctx.getEndpoint(marketUri).createProducer();
-            
+
             Email email = createEmailMessage("Example");
             Exchange exchange = producer.createExchange(ExchangePattern.InOnly);
             exchange.getIn().setBody(email);
-            producer.process(exchange);            
+            producer.process(exchange);
 
             Assert.assertTrue("Message reached market", receivedMessageLatch.await(5L, TimeUnit.SECONDS));
         } finally {
@@ -113,5 +113,5 @@ public class QuickfixIntegrationTest {
         email.addGroup(text);
         return email;
     }
-    
+
 }

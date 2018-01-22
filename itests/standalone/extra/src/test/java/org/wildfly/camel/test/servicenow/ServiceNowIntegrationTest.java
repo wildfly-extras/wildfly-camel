@@ -71,7 +71,7 @@ public class ServiceNowIntegrationTest {
     public void testSearchIncidents() throws Exception {
         Map<String, Object> serviceNowOptions = createServiceNowOptions();
 
-        Assume.assumeTrue("[#1674] Enable ServiceNow testing in Jenkins", 
+        Assume.assumeTrue("[#1674] Enable ServiceNow testing in Jenkins",
                 serviceNowOptions.size() == ServiceNowIntegrationTest.ServiceNowOption.values().length);
 
         CamelContext camelctx = new DefaultCamelContext();

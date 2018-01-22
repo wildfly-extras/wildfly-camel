@@ -1,2 +1,2 @@
-def body = request.getBody() 
+def body = request.getBody()
 request.setBody("Hello " + body);

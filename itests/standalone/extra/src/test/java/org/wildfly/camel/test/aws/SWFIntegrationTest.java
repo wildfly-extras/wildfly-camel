@@ -43,10 +43,10 @@ import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClient;
 @CamelAware
 @RunWith(Arquillian.class)
 public class SWFIntegrationTest {
-    
+
     @Inject
     private SWFClientProvider provider;
-    
+
     @Deployment
     public static JavaArchive deployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "aws-swf-tests.jar");
@@ -54,24 +54,24 @@ public class SWFIntegrationTest {
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }
-    
+
     @Test
     public void deciderAndWorker() throws Exception {
-        
+
         AmazonSimpleWorkflowClient swfClient = provider.getClient();
         Assume.assumeNotNull("AWS client not null", swfClient);
-        
+
         WildFlyCamelContext camelctx = new WildFlyCamelContext();
         camelctx.getNamingContext().bind("swfClient", swfClient);
         camelctx.addRoutes(new RouteBuilder() {
             public void configure() {
                 String options = "amazonSWClient=#swfClient&domainName=" + SWFUtils.DOMAIN + "&activityList=swf-alist&workflowList=swf-wlist&version=1.0";
-                
+
                 from("aws-swf://activity?" + options + "&eventName=processActivities")
                     .log("FOUND ACTIVITY TASK ${body}")
                     .setBody(constant("1"))
                     .to("mock:worker");
-                
+
                 from("aws-swf://workflow?" + options + "&eventName=processWorkflows")
                     .log("FOUND WORKFLOW TASK ${body}").filter(header(SWFConstants.ACTION).isEqualTo(SWFConstants.EXECUTE_ACTION))
                     .to("aws-swf://activity?" + options + "&eventName=processActivities")
@@ -86,24 +86,24 @@ public class SWFIntegrationTest {
                     .to("mock:starter");
             }
         });
-        
+
         MockEndpoint decider = camelctx.getEndpoint("mock:decider", MockEndpoint.class);
         MockEndpoint worker = camelctx.getEndpoint("mock:worker", MockEndpoint.class);
         MockEndpoint starter = camelctx.getEndpoint("mock:starter", MockEndpoint.class);
-        
+
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             producer.sendBody("direct:start", "Hello world!");
-            
+
             starter.expectedMessageCount(1);
             decider.expectedMinimumMessageCount(1);
             worker.expectedMessageCount(2);
-            
+
             String workflowId = starter.getReceivedExchanges().get(0).getIn().getHeader(SWFConstants.WORKFLOW_ID, String.class);
             Assert.assertNotNull(SWFConstants.WORKFLOW_ID + " not null", workflowId);
             SWFUtils.terminateWorkflowExecution(swfClient, workflowId);
-            
+
         } finally {
             camelctx.stop();
         }

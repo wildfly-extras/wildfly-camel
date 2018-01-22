@@ -1,7 +1,7 @@
 WildFly Camel CDI Web Application
 =============
 
-This is a template Apache Camel CDI application for the WildFly Camel subsystem. 
+This is a template Apache Camel CDI application for the WildFly Camel subsystem.
 
 This project is setup to allow you to create a Apache Camel CDI application, which can be deployed to an application
 server running the WildFly Camel subsystem. An example CDI Camel Route has been created for you, together with an Arquillian
@@ -45,7 +45,7 @@ To build the application do:
 
 Run Arquillian Tests
 --------------------
-    
+
 By default, tests are configured to be skipped as Arquillian requires the use of a container.
 
 If you already have a running application server, you can run integration tests with:

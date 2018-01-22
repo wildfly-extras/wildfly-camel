@@ -37,7 +37,7 @@ public class MyTest {
 
     @Inject
     CamelContext camelContext;
-    
+
     @Deployment
     public static WebArchive createDeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-tests.war");

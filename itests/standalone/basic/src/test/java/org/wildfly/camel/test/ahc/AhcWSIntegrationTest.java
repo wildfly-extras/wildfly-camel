@@ -74,12 +74,12 @@ public class AhcWSIntegrationTest {
                 latch.countDown();
             }
         };
-        
+
         try (AsyncHttpClient client = new DefaultAsyncHttpClient()) {
             WebSocketUpgradeHandler handler = new WebSocketUpgradeHandler.Builder().addWebSocketListener(listener).build();
             WebSocket websocket = client.prepareGet("ws://" + WEBSOCKET_ENDPOINT).execute(handler).get();
             websocket.sendMessage("Kermit");
-            
+
             Assert.assertTrue(latch.await(1, TimeUnit.SECONDS));
             Assert.assertEquals("Hello Kermit", messages.get(0));
         }
@@ -99,7 +99,7 @@ public class AhcWSIntegrationTest {
 
         PollingConsumer consumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
         consumer.start();
-        
+
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();

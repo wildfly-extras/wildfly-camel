@@ -99,7 +99,7 @@ public class CDIContextCreationTest {
             Assert.assertNotNull("Context not null", camelctx);
 
             Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
-            
+
             MockEndpoint mock = camelctx.getEndpoint(RouteBuilderF.MOCK_RESULT_URI, MockEndpoint.class);
             Assert.assertTrue("All messages received", mock.await(500, TimeUnit.MILLISECONDS));
             Assert.assertEquals(3, mock.getExpectedCount());

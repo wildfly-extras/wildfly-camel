@@ -76,14 +76,14 @@ public final class SpringCamelContextFactory {
     }
 
     private static List<SpringCamelContext> createCamelContextList(Resource resource, ClassLoader classLoader) throws Exception {
-        
+
         if (classLoader == null) {
             classLoader = SpringCamelContextFactory.class.getClassLoader();
         }
 
         final GenericApplicationContext appContext = new GenericApplicationContext();
         appContext.setClassLoader(classLoader);
-        
+
         XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(appContext) {
             @Override
             protected NamespaceHandlerResolver createDefaultNamespaceHandlerResolver() {

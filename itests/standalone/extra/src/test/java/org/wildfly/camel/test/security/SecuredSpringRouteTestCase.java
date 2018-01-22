@@ -71,7 +71,7 @@ public class SecuredSpringRouteTestCase {
             Assert.assertTrue(cause.getMessage(), cause.getMessage().startsWith("Cannot obtain authentication subject"));
         }
     }
-    
+
     @Test
     public void testInvalidCredentials() throws Exception {
         CamelContext camelctx = contextRegistry.getCamelContext("contextA");

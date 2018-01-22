@@ -92,7 +92,7 @@ public class MiloIntegrationTest {
                 from(DIRECT_START_4).to(resolve(MILO_CLIENT_ITEM_C2_2));
             }
         });
-        
+
         MiloServerComponent server = camelctx.getComponent("milo-server", MiloServerComponent.class);
         server.setBindAddresses("localhost");
         server.setBindPort(serverPort);
@@ -132,7 +132,7 @@ public class MiloIntegrationTest {
             sendValue(producer4, new Variant("Foo4"));
 
             MockEndpoint.assertIsSatisfied(camelctx);
-            
+
         } finally {
             camelctx.stop();
         }

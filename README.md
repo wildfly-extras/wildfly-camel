@@ -15,7 +15,7 @@ Your Enterprise Integration Solution can be architected as a combination of Java
 
 ### Documentation
 
-The docs are generated using [Asciidoctor](http://asciidoctor.org/docs). 
+The docs are generated using [Asciidoctor](http://asciidoctor.org/docs).
 
 * [User Guide](http://wildfly-extras.github.io/wildfly-camel)
 * [JavaEE Integration](http://wildfly-extras.github.io/wildfly-camel/#_javaee_integration)
@@ -24,7 +24,7 @@ The docs are generated using [Asciidoctor](http://asciidoctor.org/docs).
 To generate an update of the docs use:
 
 ```
-$ mvn clean install -f docs 
+$ mvn clean install -f docs
 ```
 
 If you like to contribute to the docs, please file a [pull request](https://github.com/wildfly-extras/wildfly-camel) against the master branch.

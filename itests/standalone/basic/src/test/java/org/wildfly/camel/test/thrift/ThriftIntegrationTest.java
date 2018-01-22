@@ -48,10 +48,10 @@ public class ThriftIntegrationTest {
         archive.addPackage(Work.class.getPackage());
         return archive;
     }
-    
+
     @Test
     public void testMarshalAndUnmarshal() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -61,7 +61,7 @@ public class ThriftIntegrationTest {
                 from("direct:back").unmarshal(format).to("mock:reverse");
             }
         });
-        
+
         camelctx.start();
         try {
             Work input = new Work();

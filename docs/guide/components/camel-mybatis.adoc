@@ -1,5 +1,5 @@
 ### camel-mybatis
 
-The http://camel.apache.org/mybatis.html[mybatis,window=_blank] component allows you to query, poll, insert, update and delete data 
+The http://camel.apache.org/mybatis.html[mybatis,window=_blank] component allows you to query, poll, insert, update and delete data
 in a relational database using http://mybatis.org[MyBatis,window=_blank].
 

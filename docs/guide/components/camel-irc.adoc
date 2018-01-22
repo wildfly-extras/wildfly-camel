@@ -1,5 +1,5 @@
 ### camel-irc
 
-The http://camel.apache.org/irc.html[irc,window=_blank] component enables you to publish and consume messages from 
+The http://camel.apache.org/irc.html[irc,window=_blank] component enables you to publish and consume messages from
 http://en.wikipedia.org/wiki/Internet_Relay_Chat[IRC,window=_blank] channels.
 

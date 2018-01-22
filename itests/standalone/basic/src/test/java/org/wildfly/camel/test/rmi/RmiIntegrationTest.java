@@ -41,7 +41,7 @@ import org.wildfly.extension.camel.CamelAware;
 public class RmiIntegrationTest {
 
     private int port;
-    
+
     @Deployment
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-rmi-tests.jar");
@@ -54,7 +54,7 @@ public class RmiIntegrationTest {
         port = AvailablePortFinder.getNextAvailable(37503);
         LocateRegistry.createRegistry(port);
     }
-    
+
     @Test
     public void testPojoRoutes() throws Exception {
 

@@ -1,6 +1,6 @@
 ### camel-jbpm
 
-The http://camel.apache.org/jbpm.html[jbpm,window=_blank] component provides integration with Business Process Management (BPM) Suit jBPM. 
-It uses kie-remote-client API to interact with jBPM instance over REST. 
+The http://camel.apache.org/jbpm.html[jbpm,window=_blank] component provides integration with Business Process Management (BPM) Suit jBPM.
+It uses kie-remote-client API to interact with jBPM instance over REST.
 The component supports only producer.
 

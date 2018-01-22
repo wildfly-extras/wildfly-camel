@@ -46,7 +46,7 @@ import org.wildfly.extension.camel.CamelAware;
 public class MasterIntegrationTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MasterIntegrationTest.class);
-    
+
     private static final List<String> INSTANCES = IntStream.range(0, 3).mapToObj(Integer::toString).collect(Collectors.toList());
     private static final List<String> RESULTS = new ArrayList<>();
     private static final ScheduledExecutorService SCHEDULER = Executors.newScheduledThreadPool(INSTANCES.size());

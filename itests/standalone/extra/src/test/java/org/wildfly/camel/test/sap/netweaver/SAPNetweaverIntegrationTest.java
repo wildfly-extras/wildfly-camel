@@ -48,7 +48,7 @@ import org.wildfly.extension.camel.CamelAware;
 public class SAPNetweaverIntegrationTest {
 
     static final String SAP_GATEWAY_URL = "https4://sapes4.sapdevcenter.com/sap/opu/odata/IWFND/RMTSAMPLEFLIGHT";
-    
+
     static final String SAP_USERNAME = System.getenv("SAP_USERNAME");
     static final String SAP_PASSWORD = System.getenv("SAP_PASSWORD");
 

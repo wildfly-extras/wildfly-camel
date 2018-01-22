@@ -1,2 +1,2 @@
-body = request.getBody() 
+body = request.getBody()
 request.setBody("Hello " + body);

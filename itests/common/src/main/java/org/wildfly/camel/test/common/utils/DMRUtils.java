@@ -27,7 +27,7 @@ import org.jboss.dmr.ModelNode;
 public class DMRUtils {
 
     private static Pattern HANDLER_PATTERN = Pattern.compile(".*handler=(.*)");
-    
+
     public static ModelNode createOpNode(String address, String operation) {
         ModelNode op = new ModelNode();
 

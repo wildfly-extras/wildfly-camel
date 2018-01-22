@@ -66,7 +66,7 @@
             <module name="org.apache.commons.logging" />
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.batch">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -83,7 +83,7 @@
             <module name="org.springframework.aop" />
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.beans">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -96,7 +96,7 @@
             <module name="org.springframework.core" />
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.context">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -135,7 +135,7 @@
             <exclude path="org/springframework/cglib/core/internal" />
         </exports>
     </module>
-    
+
     <module name="org.springframework.data.commons">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -148,7 +148,7 @@
         <dependencies>
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.data.redis">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -163,7 +163,7 @@
             <module name="org.springframework.data.commons" />
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.data.keyvalue">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -172,7 +172,7 @@
         <dependencies>
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.expression">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -183,7 +183,7 @@
             <module name="org.apache.commons.logging" />
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.integration">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -199,7 +199,7 @@
             <module name="com.jayway.jsonpath" />
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.jdbc">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -212,7 +212,7 @@
             <module name="org.springframework.context" />
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.jms">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -223,7 +223,7 @@
             <module name="org.apache.commons.logging" />
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.ldap">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -238,7 +238,7 @@
             <module name="sun.jdk" />
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.messaging">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -249,7 +249,7 @@
             <module name="org.apache.commons.logging" />
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.orm">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -263,7 +263,7 @@
             <module name="org.springframework.context" />
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.oxm">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -273,7 +273,7 @@
             <module name="org.apache.commons.logging" />
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.retry">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -282,7 +282,7 @@
         <dependencies>
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.security">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -297,7 +297,7 @@
             <module name="org.apache.commons.logging" />
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.tx">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -313,14 +313,14 @@
             <module name="org.springframework.context" />
         </dependencies>
     </module>
-    
+
     <module name="org.springframework.web">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.springframework:spring-web" />
     </module>
-    
+
     <module name="org.springframework.ws">
         <include artifact="org.springframework.ws:spring-ws-core" />
         <include artifact="org.springframework.ws:spring-ws-support" />
@@ -335,5 +335,5 @@
             <module name="javax.xml.soap.api" />
         </dependencies>
     </module>
-    
+
 </modules>

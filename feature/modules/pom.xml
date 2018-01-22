@@ -921,7 +921,7 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-zookeeper-master</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>org.apache.directory.api</groupId>
             <artifactId>api-ldap-codec-standalone</artifactId>

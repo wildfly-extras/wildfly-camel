@@ -144,7 +144,7 @@ public class HazelcastMapProducerIntegrationTest {
             camelctx.stop();
         }
     }
-    
+
     @Test
     public void testUpdate() throws Exception {
         CamelContext camelctx = createCamelContext();
@@ -177,7 +177,7 @@ public class HazelcastMapProducerIntegrationTest {
             camelctx.stop();
         }
     }
-    
+
     @Test
     public void testGetAllEmptySet() throws Exception {
         CamelContext camelctx = createCamelContext();
@@ -203,7 +203,7 @@ public class HazelcastMapProducerIntegrationTest {
             camelctx.stop();
         }
     }
-    
+
     @Test
     public void testGetAllOnlyOneKey() throws Exception {
         CamelContext camelctx = createCamelContext();
@@ -261,7 +261,7 @@ public class HazelcastMapProducerIntegrationTest {
             camelctx.stop();
         }
     }
-    
+
     @Test
     public void testEmptyQuery() throws Exception {
         CamelContext camelctx = createCamelContext();
@@ -282,7 +282,7 @@ public class HazelcastMapProducerIntegrationTest {
             camelctx.stop();
         }
     }
-    
+
     @Test
     public void testUpdateOldValue() throws Exception {
         CamelContext camelctx = createCamelContext();
@@ -301,7 +301,7 @@ public class HazelcastMapProducerIntegrationTest {
             camelctx.stop();
         }
     }
-    
+
     @Test
     public void testPutIfAbsent() throws Exception {
         CamelContext camelctx = createCamelContext();
@@ -317,7 +317,7 @@ public class HazelcastMapProducerIntegrationTest {
             camelctx.stop();
         }
     }
-    
+
     @Test
     public void testPutIfAbsentWithTtl() throws Exception {
         CamelContext camelctx = createCamelContext();
@@ -335,7 +335,7 @@ public class HazelcastMapProducerIntegrationTest {
             camelctx.stop();
         }
     }
-    
+
     @Test
     public void testEvict() throws Exception {
         CamelContext camelctx = createCamelContext();
@@ -343,7 +343,7 @@ public class HazelcastMapProducerIntegrationTest {
         try {
             Map<String, Object> headers = new HashMap<String, Object>();
             headers.put(HazelcastConstants.OBJECT_ID, "4711");
-            
+
             ProducerTemplate template = camelctx.createProducerTemplate();
             template.sendBodyAndHeaders("direct:evict", "", headers);
             Mockito.verify(map).evict("4711");
@@ -351,7 +351,7 @@ public class HazelcastMapProducerIntegrationTest {
             camelctx.stop();
         }
     }
-    
+
     @Test
     public void testEvictAll() throws Exception {
         CamelContext camelctx = createCamelContext();
@@ -366,7 +366,7 @@ public class HazelcastMapProducerIntegrationTest {
             camelctx.stop();
         }
     }
-    
+
     @Test
     public void testClear() throws Exception {
         CamelContext camelctx = createCamelContext();
@@ -379,7 +379,7 @@ public class HazelcastMapProducerIntegrationTest {
             camelctx.stop();
         }
     }
-    
+
     @Test
     public void testContainsKey() throws Exception {
         CamelContext camelctx = createCamelContext();
@@ -403,7 +403,7 @@ public class HazelcastMapProducerIntegrationTest {
             camelctx.stop();
         }
     }
-    
+
     @Test
     public void testContainsValue() throws Exception {
         CamelContext camelctx = createCamelContext();
@@ -505,7 +505,7 @@ public class HazelcastMapProducerIntegrationTest {
 
                 from("direct:putWithOperationNumber")
                 .toF("hazelcast-%sfoo?operation=%s", HazelcastConstants.MAP_PREFIX, HazelcastOperation.PUT);
-                
+
                 from("direct:putWithOperationName")
                 .toF("hazelcast-%sfoo?operation=PUT", HazelcastConstants.MAP_PREFIX);
             }

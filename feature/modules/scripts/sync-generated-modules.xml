@@ -8,9 +8,9 @@
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
-  
+
        http://www.apache.org/licenses/LICENSE-2.0
-  
+
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,24 +30,24 @@
     	<!-- ================================================================== -->
 	<!-- Distribution                                                       -->
 	<!-- ================================================================== -->
-	<target name="build">
+    <target name="build">
 
 		<!-- Copy managed module.xml resources to patch -->
-		<copy todir="${target.patch.dir}" overwrite="true" filtering="true">
-			<fileset dir="${basedir}/etc/managed/wildfly" >
-				<include name="modules/**"/>
-		    </fileset>
-			<filterset>
-				<filter token="project.version" value="${project.version}" />
-		        <filter token="version.apache.felix.configadmin" value="${version.apache.felix.configadmin}"/>
-		        <filter token="version.apache.felix.log" value="${version.apache.felix.log}"/>
-		        <filter token="version.apache.felix.metatype" value="${version.apache.felix.metatype}"/>
-		        <filter token="version.apache.felix.scr" value="${version.apache.felix.scr}"/>
+        <copy todir="${target.patch.dir}" overwrite="true" filtering="true">
+            <fileset dir="${basedir}/etc/managed/wildfly" >
+                <include name="modules/**"/>
+            </fileset>
+            <filterset>
+                <filter token="project.version" value="${project.version}" />
+                <filter token="version.apache.felix.configadmin" value="${version.apache.felix.configadmin}"/>
+                <filter token="version.apache.felix.log" value="${version.apache.felix.log}"/>
+                <filter token="version.apache.felix.metatype" value="${version.apache.felix.metatype}"/>
+                <filter token="version.apache.felix.scr" value="${version.apache.felix.scr}"/>
                 <filter token="version.jboss.gravia" value="${version.jboss.gravia}" />
                 <filter token="version.net.sf.json" value="${version.net.sf.json}" />
-			</filterset>
-		</copy>
-		
+            </filterset>
+        </copy>
+
         <!-- Copy managed jar resources to patch -->
         <property name="target.gravia.module.dir" value="${output.dir}/managed-jars/modules/system/layers/fuse/org/jboss/gravia/main" />
         <copy file="${maven.dependency.org.apache.felix.org.apache.felix.configadmin.jar.path}" todir="${target.gravia.module.dir}" />
@@ -59,10 +59,10 @@
                 <include name="**/*.jar" />
             </fileset>
         </copy>
-        
+
         <property name="target.net.sf.json.module.dir" value="${output.dir}/managed-jars/modules/system/layers/fuse/net/sf/json/main" />
         <copy file="${maven.dependency.net.sf.json-lib.json-lib.jdk15.jar.path}" todir="${target.net.sf.json.module.dir}" />
-        
+
         <!-- Sync source tree with Smartics generated XML files -->
         <sync todir="${resources.dir}/modules" overwrite="true" verbose="true">
             <fileset dir="${target.patch.dir}/modules">
@@ -70,6 +70,6 @@
                 <include name="**/module.xml" />
             </fileset>
         </sync>
-		
-	</target>
+
+    </target>
 </project>

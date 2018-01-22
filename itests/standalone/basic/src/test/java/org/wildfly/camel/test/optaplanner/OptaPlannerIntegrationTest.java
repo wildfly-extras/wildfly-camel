@@ -53,12 +53,12 @@ public class OptaPlannerIntegrationTest  {
 
     @Test
     public void testSynchronousProblemSolving() throws Exception {
-        
+
         CloudBalancingGenerator generator = new CloudBalancingGenerator(true);
         final CloudBalance planningProblem = generator.createCloudBalance(4, 12);
         Assert.assertNull(planningProblem.getScore());
         Assert.assertNull(planningProblem.getProcessList().get(0).getComputer());
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

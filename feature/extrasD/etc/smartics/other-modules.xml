@@ -56,7 +56,7 @@
             <module name="javax.inject.api"/>
         </dependencies>
     </module>
-    
+
     <module name="org.apache.jclouds">
         <properties>
             <property name="jboss.api" value="private"/>

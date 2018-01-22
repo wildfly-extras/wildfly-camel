@@ -57,12 +57,12 @@ public class FooConnectorTest {
     public void testFooConnector() throws Exception {
 
         final CountDownLatch latch = new CountDownLatch(1);
-        
+
         CamelContext camelctx = new DefaultCamelContext();
-        
+
         FooComponent foo = new FooComponent();
         camelctx.addComponent(foo.getComponentName(), foo);
-        
+
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

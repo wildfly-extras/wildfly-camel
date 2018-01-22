@@ -70,7 +70,7 @@ public class MyBatisIntegrationTest {
 
         MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
         mock.expectedMessageCount(1);
-        
+
         Account account = new Account();
         account.setId(444);
         account.setFirstName("Willem");
@@ -80,11 +80,11 @@ public class MyBatisIntegrationTest {
         camelctx.start();
         try {
             createTable(camelctx);
-            
+
             ProducerTemplate producer = camelctx.createProducerTemplate();
             producer.sendBody("direct:start", account);
             mock.assertIsSatisfied();
-            
+
             Integer rows = producer.requestBody("mybatis:count?statementType=SelectOne", null, Integer.class);
             Assert.assertEquals(1, rows.intValue());
         } finally {

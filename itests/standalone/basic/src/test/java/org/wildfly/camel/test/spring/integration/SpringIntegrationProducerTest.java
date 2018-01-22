@@ -53,6 +53,6 @@ public class SpringIntegrationProducerTest {
         template.sendBody("direct:onewayMessage", "Greet");
 
         HelloWorldService service = SpringUtils.getMandatoryBean(camelctx, HelloWorldService.class, "helloService");
-        Assert.assertEquals("We should call the service", service.getGreetName(), "Greet");        
+        Assert.assertEquals("We should call the service", service.getGreetName(), "Greet");
     }
 }

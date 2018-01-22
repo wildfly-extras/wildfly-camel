@@ -63,9 +63,9 @@ public class PahoIntegrationTest {
         static final String MQTT_CONNECTION = "mqtt://127.0.0.1:" + PORT;
         static final String TCP_CONNECTION = "tcp://127.0.0.1:" + PORT;
         static final String TEST_TOPIC = "ComponentTestTopic";
-        
+
         private BrokerService brokerService;
-        
+
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
             brokerService = new BrokerService();
@@ -91,9 +91,9 @@ public class PahoIntegrationTest {
 
     @Test
     public void testPahoConsumer() throws Exception {
-        
+
         String conUrl = TestUtils.getResourceValue(getClass(), "/tcp-connection");
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -107,7 +107,7 @@ public class PahoIntegrationTest {
         try {
             PollingConsumer consumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
             consumer.start();
-            
+
             MqttClient client = null;
             try {
                 client = new MqttClient(conUrl, "MqttClient", new MemoryPersistence());
@@ -129,9 +129,9 @@ public class PahoIntegrationTest {
 
     @Test
     public void testMQTTProducer() throws Exception {
-        
+
         String conUrl = TestUtils.getResourceValue(getClass(), "/tcp-connection");
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

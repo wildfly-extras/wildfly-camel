@@ -54,7 +54,7 @@ public class TwitterIntegrationTest {
     public void testPostStatusUpdate() throws Exception {
 
         final CamelTwitterSupport twitter = new CamelTwitterSupport();
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -62,9 +62,9 @@ public class TwitterIntegrationTest {
                 from("direct:start").to("twitter://timeline/user?" + twitter.getUriTokens());
             }
         });
-        
+
         Assume.assumeTrue("[#1672] Enable Twitter testing in Jenkins", twitter.hasUriTokens());
-        
+
         camelctx.start();
         try {
             SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss dd-MMM-yyyy");

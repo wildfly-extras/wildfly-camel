@@ -33,7 +33,7 @@ public class SWFUtils {
     // Attach Policy: SimpleWorkflowFullAccess
     public static AmazonSimpleWorkflowClient createWorkflowClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
-        AmazonSimpleWorkflowClient client = !credentials.isValid() ? null : (AmazonSimpleWorkflowClient) 
+        AmazonSimpleWorkflowClient client = !credentials.isValid() ? null : (AmazonSimpleWorkflowClient)
                 AmazonSimpleWorkflowClientBuilder.standard()
                 .withCredentials(credentials)
                 .withRegion("eu-west-1")

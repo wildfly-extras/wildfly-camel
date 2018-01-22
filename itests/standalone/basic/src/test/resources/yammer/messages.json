@@ -27,15 +27,15 @@
 						"full_name":"Jonathan Anstey",
 						"user_id":1499642294
 					}
-					
+
 				]
-				
+
 			},
 			"sender_id":1499642294,
 			"language":null,
 			"system_message":false,
 			"attachments":[
-				
+
 			],
 			"direct_message":false,
 			"web_url":"https://www.yammer.com/redhat.com/messages/305298242"
@@ -62,11 +62,11 @@
 			"liked_by":{
 				"count":0,
 				"names":[
-					
+
 				]
-				
+
 			}
-		}	
+		}
 		]
-		
+
 	}

@@ -72,7 +72,7 @@ public class TelegramIntegrationTest {
 
     @Test
     public void testReceptionOfTwoMessages() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(createRouteBuilder());
 

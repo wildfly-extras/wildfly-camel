@@ -39,7 +39,7 @@ import org.wildfly.extension.camel.service.CamelContextRegistryService;
 public final class ModuleClassLoaderAssociationHandler implements ContextCreateHandler {
 
     private static ThreadLocal<ModuleClassLoader> moduleClassLoaderAssociation = new ThreadLocal<>();
-    
+
     @Override
     public void setup(CamelContext camelctx) {
         ModuleClassLoader moduleClassLoader = getModuleClassLoader(camelctx);
@@ -49,11 +49,11 @@ public final class ModuleClassLoaderAssociationHandler implements ContextCreateH
     public static void associate(ModuleClassLoader modcl) {
         moduleClassLoaderAssociation.set(modcl);
     }
-    
+
     public static void disassociate() {
         moduleClassLoaderAssociation.remove();
     }
-    
+
     public static ModuleClassLoader getModuleClassLoader(CamelContext camelctx) {
         Module contextModule = null;
 
@@ -68,7 +68,7 @@ public final class ModuleClassLoaderAssociationHandler implements ContextCreateH
         if (moduleClassLoader != null) {
             contextModule = moduleClassLoader.getModule();
         }
-        
+
         // Case #3: The context is a system context
         if (contextModule == null) {
             ClassLoader thiscl = CamelContextRegistryService.class.getClassLoader();

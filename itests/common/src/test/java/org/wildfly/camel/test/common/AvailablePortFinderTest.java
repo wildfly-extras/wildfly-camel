@@ -34,7 +34,7 @@ public final class AvailablePortFinderTest {
         int portA = AvailablePortFinder.getNextAvailable();
         Assert.assertTrue(portA >= AvailablePortFinder.MIN_PORT_NUMBER);
     }
-    
+
     @Test
     public void testBoundPort() throws Exception {
         InetAddress addr = InetAddress.getLocalHost();
@@ -45,7 +45,7 @@ public final class AvailablePortFinderTest {
             Assert.assertTrue(portA != portB);
         }
     }
-    
+
     @Test
     public void testUnboundPort() throws Exception {
         InetAddress addr = InetAddress.getLocalHost();
@@ -53,7 +53,7 @@ public final class AvailablePortFinderTest {
         int portB = AvailablePortFinder.getNextAvailable(addr);
         Assert.assertTrue(portA != portB);
     }
-    
+
     @Test
     public void testUnboundPortAnyAddr() throws Exception {
         int portA = AvailablePortFinder.getNextAvailable();

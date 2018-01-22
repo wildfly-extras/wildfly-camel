@@ -1,10 +1,10 @@
 ### camel-saxon
 
-The http://camel.apache.org/xquery.html[saxon,window=_blank] 
-component supports http://www.w3.org/TR/xquery/[XQuery,window=_blank] 
-to allow an http://camel.apache.org/expression.html[Expression,window=_blank] 
-or http://camel.apache.org/predicate.html[Predicate,window=_blank] 
-to be used in the http://camel.apache.org/dsl.html[DSL,window=_blank] 
+The http://camel.apache.org/xquery.html[saxon,window=_blank]
+component supports http://www.w3.org/TR/xquery/[XQuery,window=_blank]
+to allow an http://camel.apache.org/expression.html[Expression,window=_blank]
+or http://camel.apache.org/predicate.html[Predicate,window=_blank]
+to be used in the http://camel.apache.org/dsl.html[DSL,window=_blank]
 or http://camel.apache.org/xml-configuration.html[Xml Configuration,window=_blank].
 
 [source,java,options="nowrap"]

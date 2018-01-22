@@ -82,10 +82,10 @@ public class JNDIIntegrationTest {
     }
 
     private void assertBeanBinding(WildFlyCamelContext camelctx) throws NamingException, Exception {
-        
+
         InitialContext inicxt = new InitialContext();
         String bindingName = CamelConstants.CAMEL_CONTEXT_BINDING_NAME + "/" + camelctx.getName();
-        
+
         Context jndictx = camelctx.getNamingContext();
         jndictx.bind("helloBean", new HelloBean());
         try {
@@ -98,11 +98,11 @@ public class JNDIIntegrationTest {
 
             camelctx.start();
             try {
-                
+
                 // Assert that the context is bound into JNDI after start
                 CamelContext lookup = (CamelContext) inicxt.lookup(bindingName);
                 Assert.assertSame(camelctx, lookup);
-                
+
                 ProducerTemplate producer = camelctx.createProducerTemplate();
                 String result = producer.requestBody("direct:start", "Kermit", String.class);
                 Assert.assertEquals("Hello Kermit", result);
@@ -112,16 +112,16 @@ public class JNDIIntegrationTest {
 
             // Assert that the context is unbound from JNDI after stop
             try {
-                
+
                 // Removing an msc service is asynchronous
                 Thread.sleep(200);
-                
+
                 inicxt.lookup(bindingName);
                 Assert.fail("NameNotFoundException expected");
             } catch (NameNotFoundException ex) {
                 // expected
             }
-            
+
         } finally {
             jndictx.unbind("helloBean");
         }

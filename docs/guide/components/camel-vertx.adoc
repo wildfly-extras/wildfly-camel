@@ -1,7 +1,7 @@
 ### camel-vertx
 
-The http://camel.apache.org/vertx.html[vertx,window=_blank] 
-component is for working with the http://vertx.io/[Vertx,window=_blank] 
+The http://camel.apache.org/vertx.html[vertx,window=_blank]
+component is for working with the http://vertx.io/[Vertx,window=_blank]
 http://vertx.io/core_manual_js.html#the-event-bus[EventBus,window=_blank]. The Vertx EventBus sends and receives JSON events.
 
 

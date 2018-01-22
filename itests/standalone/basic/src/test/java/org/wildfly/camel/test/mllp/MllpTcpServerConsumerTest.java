@@ -38,10 +38,10 @@ import org.wildfly.extension.camel.CamelAware;
 @CamelAware
 @RunWith(Arquillian.class)
 public class MllpTcpServerConsumerTest {
-    
+
     @Rule
     public MllpClientResource mllpClient = new MllpClientResource();
-    
+
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-mllp-tests");
@@ -49,10 +49,10 @@ public class MllpTcpServerConsumerTest {
         archive.addClasses(AvailablePortFinder.class);
         return archive;
     }
-    
+
     @Test
     public void testReceiveSingleMessage() throws Exception {
-        
+
         mllpClient.setMllpHost("localhost");
         mllpClient.setMllpPort(AvailablePortFinder.getNextAvailable());
 
@@ -76,7 +76,7 @@ public class MllpTcpServerConsumerTest {
 
         MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
         mock.expectedMessageCount(1);
-        
+
         camelctx.start();
         try {
             mllpClient.connect();

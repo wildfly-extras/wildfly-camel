@@ -7,8 +7,8 @@ By default, access to management consoles is secured. We therefore need to setup
 ----
 $ bin/add-user.sh
 
-What type of user do you wish to add? 
- a) Management User (mgmt-users.properties) 
+What type of user do you wish to add?
+ a) Management User (mgmt-users.properties)
  b) Application User (application-users.properties)
 ----
 

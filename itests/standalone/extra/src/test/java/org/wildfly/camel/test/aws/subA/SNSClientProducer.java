@@ -37,7 +37,7 @@ public class SNSClientProducer {
             return client;
         }
     }
-    
+
     @Produces
     @Singleton
     public SNSClientProvider getClientProvider() throws Exception {

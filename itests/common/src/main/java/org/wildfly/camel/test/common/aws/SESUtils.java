@@ -27,11 +27,11 @@ public class SESUtils {
     public static final String SUBJECT = "[wfc-aws-ses] Test Subject";
     public static final String FROM = "tdiesler@redhat.com";
     public static final String TO = "tdiesler@redhat.com";
-    
+
     // Attach Policy: AmazonSESFullAccess
     public static AmazonSimpleEmailServiceClient createEmailClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
-        AmazonSimpleEmailServiceClient client = !credentials.isValid() ? null : (AmazonSimpleEmailServiceClient) 
+        AmazonSimpleEmailServiceClient client = !credentials.isValid() ? null : (AmazonSimpleEmailServiceClient)
                 AmazonSimpleEmailServiceClientBuilder.standard()
                 .withCredentials(credentials)
                 .withRegion("eu-west-1")

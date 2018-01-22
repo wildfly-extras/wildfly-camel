@@ -80,10 +80,10 @@ public class AhcWSSIntegrationTest {
 
         WsComponent wsComponent = (WsComponent) camelctx.getComponent("ahc-wss");
         wsComponent.setSslContextParameters(defineSSLContextClientParameters());
-        
+
         PollingConsumer consumer = camelctx.getEndpoint("seda:end").createPollingConsumer();
         consumer.start();
-        
+
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
@@ -98,7 +98,7 @@ public class AhcWSSIntegrationTest {
     }
 
     private static SSLContextParameters defineSSLContextClientParameters() {
-        
+
         KeyStoreParameters ksp = new KeyStoreParameters();
         ksp.setResource("/" + KEYSTORE);
         ksp.setPassword(KEYSTORE_PASSWORD);

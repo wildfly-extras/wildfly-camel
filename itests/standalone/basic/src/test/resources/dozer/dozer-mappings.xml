@@ -1,6 +1,6 @@
-<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping  http://dozermapper.github.io/schema/bean-mapping.xsd">
-    
+
     <mapping>
         <class-a>org.wildfly.camel.test.dozer.subA.CustomerA</class-a>
         <class-b>org.wildfly.camel.test.dozer.subA.CustomerB</class-b>
@@ -13,5 +13,5 @@
             <b>address.zip</b>
         </field>
     </mapping>
-    
+
 </mappings>

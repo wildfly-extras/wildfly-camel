@@ -1,5 +1,5 @@
 ### camel-jgroups
 
-The http://camel.apache.org/jgroups.html[jgroups,window=_blank] 
+The http://camel.apache.org/jgroups.html[jgroups,window=_blank]
 component provides reliable multicast communication via the http://www.jgroups.org/[JGroups,window=_blank] toolkit.
 

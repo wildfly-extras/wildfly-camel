@@ -88,7 +88,7 @@ public class QuartzIntegrationTest {
 
         final CountDownLatch startLatch = new CountDownLatch(1);
         final CountDownLatch procLatch = new CountDownLatch(3);
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addComponent("quartz2", new QuartzComponent() {
             @Override
@@ -99,7 +99,7 @@ public class QuartzIntegrationTest {
                 }
             }
         });
-        
+
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

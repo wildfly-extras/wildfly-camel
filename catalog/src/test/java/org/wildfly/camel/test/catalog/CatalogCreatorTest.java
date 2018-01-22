@@ -33,14 +33,14 @@ public final class CatalogCreatorTest {
 
     @Test
     public void createCatalog() throws Exception {
-        
+
         CatalogCreator creator = new CatalogCreator().collect();
         List<RoadMap> roadmaps = creator.getRoadmaps();
         Assert.assertEquals(4, roadmaps.size());
-        
+
         RoadMap roadmap = creator.getRoadmap(Kind.other);
         Assert.assertNotNull("Other roadmap not null", roadmap);
-        
+
         Item item = roadmap.item("opentracing");
         Assert.assertNotNull("Item not null", item);
     }

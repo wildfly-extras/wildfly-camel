@@ -142,7 +142,7 @@ public class LdapIntegrationTest {
         int ldapPort = Integer.parseInt(AvailablePortFinder.readServerData("ldap-port"));
         SimpleRegistry reg = new SimpleRegistry();
         reg.put("ldapcon", getWiredConnection(ldapPort));
-        
+
         CamelContext camelctx = new DefaultCamelContext(reg);
         camelctx.addRoutes(new RouteBuilder() {
             @Override

@@ -70,7 +70,7 @@ public class ThreadContextClassloaderTest {
         ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         Assert.assertTrue("TCCL is ModuleClassLoader", tccl instanceof ModuleClassLoader);
     }
-    
+
     private static void assertNoTCCL() {
         ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         if (tccl instanceof ModuleClassLoader) {

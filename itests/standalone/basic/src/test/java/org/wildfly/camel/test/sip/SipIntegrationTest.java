@@ -57,7 +57,7 @@ public class SipIntegrationTest {
 
     @Test
     public void testPresenceAgentBasedPubSub() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(createRouteBuilder());
 
@@ -73,7 +73,7 @@ public class SipIntegrationTest {
             template.sendBodyAndHeader(
                     "sip://agent@localhost:" + port1 + "?stackName=client&eventHeaderName=evtHdrName&eventId=evtid&fromUser=user2&fromHost=localhost&fromPort=" + port3,
                     "EVENT_A",
-                    "REQUEST_METHOD", Request.PUBLISH);         
+                    "REQUEST_METHOD", Request.PUBLISH);
 
             mockNeverland.assertIsSatisfied();
             mockNotification.assertIsSatisfied();
@@ -81,16 +81,16 @@ public class SipIntegrationTest {
             camelctx.stop();
         }
     }
-    
+
     private RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             @Override
-            public void configure() throws Exception {  
+            public void configure() throws Exception {
                 // Create PresenceAgent
                 fromF("sip://agent@localhost:%s?stackName=PresenceAgent&presenceAgent=true&eventHeaderName=evtHdrName&eventId=evtid", port1)
                     .to("log:neverland")
                     .to("mock:neverland");
-                
+
                 fromF("sip://johndoe@localhost:%s?stackName=Subscriber&toUser=agent&toHost=localhost&toPort=%s&eventHeaderName=evtHdrName&eventId=evtid", port2, port1)
                     .to("log:notification")
                     .to("mock:notification");
@@ -98,4 +98,4 @@ public class SipIntegrationTest {
         };
     }
 
-} 
+}

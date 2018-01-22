@@ -1,6 +1,6 @@
 ### JMS
 
-Messaging support is provided through the http://camel.apache.org/jms.html[jms,window=_blank] 
+Messaging support is provided through the http://camel.apache.org/jms.html[jms,window=_blank]
 component which integrates with the {wildfly} Messaging (https://activemq.apache.org/artemis/)[ActiveMQ Artemis,window=_blank]) subsystem.
 
 Integration with other JMS implementations is possible through configuration of vendor specific resource adapters, or if not available, by using the JBoss Generic JMS resource adapter.
@@ -55,7 +55,7 @@ public class JmsRouteBuilder extends RouteBuilder {
     from("timer://sendJMSMessage?fixedRate=true&period=10000")
     .transform(constant("<?xml version='1.0><message><greeting>hello world</greeting></message>"))
     .to("jms:queue:WildFlyCamelQueue")
-    .log("JMS Message sent");  
+    .log("JMS Message sent");
   }
 }
 ----
@@ -83,7 +83,7 @@ public void configure() throws Exception {
   getContext().addComponent("jms", component);
 
   from("jms:queue:WildFlyCamelQueue")
-  .to("log:jms?showAll=true");  
+  .to("log:jms?showAll=true");
 }
 ----
 

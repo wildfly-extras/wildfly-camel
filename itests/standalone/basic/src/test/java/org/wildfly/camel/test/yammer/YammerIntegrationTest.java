@@ -63,9 +63,9 @@ public class YammerIntegrationTest {
 
         camelctx.start();
         try {
-            InputStream is = getClass().getResourceAsStream("/yammer/messages.json");        
-            String messages = camelctx.getTypeConverter().convertTo(String.class, is);    
-            
+            InputStream is = getClass().getResourceAsStream("/yammer/messages.json");
+            String messages = camelctx.getTypeConverter().convertTo(String.class, is);
+
             Collection<Endpoint> endpoints = camelctx.getEndpoints();
             for (Endpoint endpoint : endpoints) {
                 if (endpoint instanceof YammerEndpoint) {
@@ -76,7 +76,7 @@ public class YammerIntegrationTest {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
             mock.expectedMinimumMessageCount(1);
             mock.assertIsSatisfied();
-            
+
             Exchange exchange = mock.getExchanges().get(0);
             Messages response = exchange.getIn().getBody(Messages.class);
 
@@ -92,11 +92,11 @@ public class YammerIntegrationTest {
     static class TestApiRequestor implements ApiRequestor {
 
         String body;
-        
+
         public TestApiRequestor(String body) {
             this.body = body;
         }
-        
+
         private String send() {
             return body;
         }

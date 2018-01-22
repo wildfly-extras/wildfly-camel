@@ -18,7 +18,7 @@
   limitations under the License.
   #L%
   -->
-  
+
 <!--
   This file holds all module definitions that come with wildfly. Here
   we map maven artifacts to those modules, but skip generating the modules since
@@ -33,23 +33,23 @@
     <module name="com.fasterxml.jackson.core.jackson-annotations" skip="true">
         <include artifact=":jackson-annotations" />
     </module>
-    
+
     <module name="com.fasterxml.jackson.core.jackson-core" skip="true">
         <include artifact=":jackson-core" />
     </module>
-    
+
     <module name="com.fasterxml.jackson.datatype.jackson-datatype-jdk8" skip="true">
         <include artifact=":jackson-datatype-jdk8" />
     </module>
-    
+
     <module name="com.fasterxml.jackson.datatype.jackson-datatype-jsr310" skip="true">
         <include artifact=":jackson-datatype-jsr310" />
     </module>
-    
+
     <module name="com.fasterxml.jackson.core.jackson-databind" skip="true">
         <include artifact=":jackson-databind" />
     </module>
-    
+
     <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" skip="true">
         <include artifact=":jackson-jaxrs-base" />
         <include artifact=":jackson-jaxrs-json-provider" />
@@ -63,7 +63,7 @@
     <module name="com.github.spullara.mustache" skip="true">
         <include artifact="com.github.spullara.mustache.java:compiler" />
     </module>
-    
+
     <module name="com.microsoft.azure.storage" skip="true">
         <include artifact="com.microsoft.azure:azure-storage" />
     </module>
@@ -71,7 +71,7 @@
     <module name="io.netty" skip="true">
         <include artifact="io.netty:netty-all" />
     </module>
-    
+
     <module name="io.undertow.core" skip="true">
         <include artifact=":undertow-core" />
     </module>
@@ -259,7 +259,7 @@
         <include artifact=":cxf-api" />
         <include artifact=":cxf-core" />
     </module>
-    
+
     <module name="org.apache.cxf.impl" skip="true">
         <include artifact=":cxf-rt-bindings-soap" />
         <include artifact=":cxf-rt-bindings-xml" />
@@ -280,7 +280,7 @@
         <include artifact=":cxf-services-sts-core" />
         <include artifact=":cxf-services-ws-discovery-api" />
     </module>
-    
+
     <module name="org.apache.httpcomponents" skip="true">
         <include artifact="org.apache.httpcomponents:httpasyncclient" />
         <include artifact="org.apache.httpcomponents:httpclient" />
@@ -309,7 +309,7 @@
     <module name="org.apache.santuario.xmlsec" skip="true">
         <include artifact="org.apache.santuario:xmlsec" />
     </module>
-    
+
     <module name="org.apache.velocity" skip="true">
         <include artifact="org.apache.velocity:velocity-engine-core" />
         <include artifact="org.apache.velocity:velocity" />
@@ -343,23 +343,23 @@
         <include artifact=":bcpkix-jdk15on"/>
         <include artifact=":bcprov-jdk15on" />
     </module>
-    
+
     <module name="org.codehaus.jackson.jackson-core-asl" skip="true">
         <include artifact=":jackson-core-asl" />
     </module>
-    
+
     <module name="org.codehaus.jackson.jackson-jaxrs" skip="true">
         <include artifact=":jackson-jaxrs" />
     </module>
-    
+
     <module name="org.codehaus.jackson.jackson-mapper-asl" skip="true">
         <include artifact=":jackson-mapper-asl" />
     </module>
-    
+
     <module name="org.codehaus.jackson.jackson-xc" skip="true">
         <include artifact=":jackson-xc" />
     </module>
-    
+
     <module name="org.codehaus.jettison" skip="true">
         <include artifact=":jettison" />
     </module>
@@ -376,7 +376,7 @@
     <module name="org.eclipse.jdt.ecj" skip="true">
         <include artifact="org.eclipse.jdt.core.compiler:ecj" />
     </module>
-    
+
     <module name="org.hibernate" skip="true">
         <include artifact=":hibernate-core" />
     </module>
@@ -388,15 +388,15 @@
     <module name="org.infinispan" skip="true" >
         <include artifact="org.infinispan:infinispan-core" />
     </module>
-    
+
     <module name="org.infinispan.commons" skip="true" >
         <include artifact="org.infinispan:infinispan-commons" />
     </module>
-    
+
     <module name="org.infinispan.client.hotrod" skip="true" >
         <include artifact="org.infinispan:infinispan-client-hotrod" />
     </module>
-    
+
     <module name="org.javassist" skip="true">
         <include artifact=":org.apache.servicemix.bundles.javassist" />
     </module>
@@ -412,15 +412,15 @@
     <module name="org.jboss.as.ee" skip="true">
         <include artifact=":wildfly-ee" />
     </module>
-    
+
     <module name="org.jboss.as.naming" skip="true">
         <include artifact=":wildfly-naming" />
     </module>
-    
+
     <module name="org.jboss.as.server" skip="true">
         <include artifact=":wildfly-server" />
     </module>
-    
+
     <module name="org.jboss.as.weld" skip="true">
         <include artifact=":wildfly-weld" />
         <include artifact=":weld-api" />
@@ -428,7 +428,7 @@
         <include artifact=":weld-osgi-bundle" />
         <include artifact=":weld-spi" />
     </module>
-    
+
     <module name="org.jboss.logging" skip="true">
         <include artifact=":jboss-logging"/>
     </module>
@@ -460,7 +460,7 @@
     <module name="org.jboss.xnio" skip="true">
         <include artifact=":xnio-api" />
     </module>
-    
+
     <module name="org.jdom" skip="true">
         <include artifact=":jdom" />
     </module>
@@ -488,7 +488,7 @@
     <module name="org.wildfly.extension.undertow" skip="true">
         <include artifact=":wildfly-undertow" />
     </module>
-    
+
     <module name="org.yaml.snakeyaml" skip="true">
         <include artifact="org.yaml:snakeyaml" />
     </module>

@@ -55,12 +55,12 @@ public class LevelDBIntegrationTest {
 
     @Test
     public void testLevelDBAggregate() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                
+
                 LevelDBAggregationRepository repo = new LevelDBAggregationRepository("repo1", "target/leveldb/leveldb.dat");
 
                 from("direct:start")

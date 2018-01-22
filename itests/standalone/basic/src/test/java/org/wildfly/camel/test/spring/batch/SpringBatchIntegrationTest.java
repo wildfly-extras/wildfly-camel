@@ -54,7 +54,7 @@ public class SpringBatchIntegrationTest {
         for (String message : new String[] { "foo", "bar", "baz", null }) {
             template.sendBody("seda:inputQueue", message);
         }
-        
+
         template.sendBody("direct:start", "Start batch!");
         outputEndpoint.assertIsSatisfied();
     }

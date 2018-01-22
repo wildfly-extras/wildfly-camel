@@ -103,7 +103,7 @@
         <include artifact="org.apache.directory.api:api-ldap-schema-data" />
         <include artifact="org.apache.directory.api:api-util" />
     </module>
-    
+
     <module name="org.apache.directory.server" skip="true">
         <include artifact="org.apache.directory.server:apacheds-core-api" />
         <include artifact="org.apache.directory.server:apacheds-core-constants" />

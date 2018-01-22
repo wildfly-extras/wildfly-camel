@@ -55,7 +55,7 @@ public class CaffeineCacheIntegrationTest {
     private Cache<Object, Object> cacheRl = Caffeine.newBuilder().recordStats().removalListener(new DummyRemovalListener()).build();
     private MetricRegistry mRegistry = new MetricRegistry();
     private Cache<Object, Object> cacheSc = Caffeine.newBuilder().recordStats(() -> new MetricsStatsCounter(mRegistry)).build();
-    
+
     private WildFlyCamelContext camelctx;
 
     @Deployment
@@ -73,12 +73,12 @@ public class CaffeineCacheIntegrationTest {
         jndi.rebind("cacheRl", cacheRl);
         jndi.rebind("cacheSc", cacheSc);
     }
-    
+
     @Test
     public void testCacheClear() throws Exception {
-        
+
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -103,7 +103,7 @@ public class CaffeineCacheIntegrationTest {
         final String val = generateRandomString();
 
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -131,7 +131,7 @@ public class CaffeineCacheIntegrationTest {
         final Set<String> keys = map.keySet().stream().limit(2).collect(Collectors.toSet());
 
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -143,7 +143,7 @@ public class CaffeineCacheIntegrationTest {
             .withHeader(CaffeineConstants.ACTION, CaffeineConstants.ACTION_PUT_ALL)
             .withBody(map)
             .send();
-            
+
             final Map<Object, Object> elements = cache.getAllPresent(keys);
             keys.forEach(k -> {
                 Assert.assertTrue(elements.containsKey(k));
@@ -164,7 +164,7 @@ public class CaffeineCacheIntegrationTest {
         cache.put(key, val);
 
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -178,7 +178,7 @@ public class CaffeineCacheIntegrationTest {
             .withHeader(CaffeineConstants.KEY, key)
             .withBody(val)
             .send();
-            
+
             mock.assertIsSatisfied();
         } finally {
             camelctx.stop();
@@ -193,7 +193,7 @@ public class CaffeineCacheIntegrationTest {
         cache.putAll(map);
 
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -205,7 +205,7 @@ public class CaffeineCacheIntegrationTest {
             .withHeader(CaffeineConstants.ACTION, CaffeineConstants.ACTION_GET_ALL)
             .withHeader(CaffeineConstants.KEYS, keys)
             .send();
-            
+
             final Map<?, ?> elements = mock.getExchanges().get(0).getIn().getBody(Map.class);
             keys.forEach(k -> {
                 Assert.assertTrue(elements.containsKey(k));
@@ -224,7 +224,7 @@ public class CaffeineCacheIntegrationTest {
         cache.put(key, val);
 
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -253,7 +253,7 @@ public class CaffeineCacheIntegrationTest {
         cache.putAll(map);
 
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -283,7 +283,7 @@ public class CaffeineCacheIntegrationTest {
         final Set<String> keys = map.keySet().stream().limit(2).collect(Collectors.toSet());
 
         camelctx.addRoutes(createRouteBuilder());
-        
+
         camelctx.start();
         try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -330,7 +330,7 @@ public class CaffeineCacheIntegrationTest {
     static class DummyRemovalListener implements RemovalListener<Object, Object> {
 
         private static final Logger LOG = LoggerFactory.getLogger(DummyRemovalListener.class);
-        
+
         @Override
         public void onRemoval(Object key, Object value, RemovalCause cause) {
             LOG.info("Key %s was removed (%s)%n", key, cause);

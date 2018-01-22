@@ -119,7 +119,7 @@ public class EmbeddedKafkaBroker {
             System.out.println("EmbeddedKafkaBroker: local directory: " + logDir.getAbsolutePath());
             properties.setProperty("log.flush.interval.messages", String.valueOf(1));
             properties.setProperty("offsets.topic.replication.factor", String.valueOf(1));
-            
+
             KafkaServer broker = startBroker(properties);
 
             brokers.add(broker);

@@ -58,7 +58,7 @@ public class Customer implements Serializable {
         this.lastName = lastName;
     }
 
-    
+
     @Override
     public int hashCode() {
         return toString().hashCode();

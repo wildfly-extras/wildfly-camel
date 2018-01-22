@@ -40,7 +40,7 @@ import org.wildfly.camel.test.common.utils.FileUtils;
 public class ElasticsearchNodeProducer {
 
     public static final int ES_TRANSPORT_PORT = AvailablePortFinder.getNextAvailable();
-    
+
     public static final Path DATA_PATH = Paths.get("target", "elasticsearch5", "data");
     public static final Path HOME_PATH = Paths.get("target", "elasticsearch5", "home");
 
@@ -48,9 +48,9 @@ public class ElasticsearchNodeProducer {
     @Singleton
     @SuppressWarnings("resource")
     public Node getElasticsearchNode() throws Exception {
-        
+
         FileUtils.deleteDirectory(DATA_PATH);
-        
+
         class PluginConfigurableNode extends Node {
             PluginConfigurableNode(Settings settings, Collection<Class<? extends Plugin>> classpathPlugins) {
                 super(InternalSettingsPreparer.prepareEnvironment(settings, null), classpathPlugins);

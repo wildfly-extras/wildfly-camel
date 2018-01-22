@@ -37,7 +37,7 @@ public class SESClientProducer {
             return client;
         }
     }
-    
+
     @Produces
     @Singleton
     public SESClientProvider getClientProvider() throws Exception {

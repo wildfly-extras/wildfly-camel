@@ -50,7 +50,7 @@ public class EmbeddedSSHServer {
     public EmbeddedSSHServer(Path homeDir) {
         this(homeDir, AvailablePortFinder.getNextAvailable());
     }
-    
+
     public EmbeddedSSHServer(Path homeDir, int port) {
         this.sshServer = SshServer.setUpDefaultServer();
         this.sshServer.setPort(port);

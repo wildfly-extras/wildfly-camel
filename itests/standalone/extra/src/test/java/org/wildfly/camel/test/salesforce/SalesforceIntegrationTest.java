@@ -70,8 +70,8 @@ public class SalesforceIntegrationTest {
     @Test
     public void testSalesforceQueryProducer() throws Exception {
         Map<String, Object> salesforceOptions = createSalesforceOptions();
-        
-        Assume.assumeTrue("[#1676] Enable Salesforce testing in Jenkins", 
+
+        Assume.assumeTrue("[#1676] Enable Salesforce testing in Jenkins",
                 salesforceOptions.size() == SalesforceOption.values().length);
 
         SalesforceLoginConfig loginConfig = new SalesforceLoginConfig();

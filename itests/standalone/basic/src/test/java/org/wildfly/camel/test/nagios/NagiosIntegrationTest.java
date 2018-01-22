@@ -55,7 +55,7 @@ public class NagiosIntegrationTest {
         archive.addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage());
         return archive;
     }
-    
+
     @Before
     public void before() {
         nagiosPassiveCheckSender =  Mockito.mock(NagiosPassiveCheckSender.class);

@@ -1,6 +1,6 @@
 ### OpenShift Local
 
-Here we follow the instructions on https://www.openshift.org[Try Origin,window=_blank]. 
+Here we follow the instructions on https://www.openshift.org[Try Origin,window=_blank].
 We use the https://www.openshift.org/vm[All-In-One VM,window=_blank] approach through https://www.openshift.org/minishift[Minishift,window=_blank] on VirtualBox VM.
 
 After having installed Minishift and VirtualBox, we run:
@@ -29,7 +29,7 @@ The client tools are available from the Minishift installation.
 $ export PATH=$PATH:~/.minishift/cache/oc/v3.6.0
 ----
 
-==== Docker access 
+==== Docker access
 
 When running OpenShift in a single VM, it is recommended to reuse the Docker daemon which Minishift uses for pure Docker use-cases as well. By using the same docker daemon as Minishift, you can speed up your local experiments.
 
@@ -60,13 +60,13 @@ image::console-standalone.png[]
 
 #### Create an OpenShift project
 
-Here we run a set of {wildfly-camel} servers on https://www.openshift.org[OpenShift Origin,window=_blank]. 
-The target platform is the local OpenShift instance that we created above. 
+Here we run a set of {wildfly-camel} servers on https://www.openshift.org[OpenShift Origin,window=_blank].
+The target platform is the local OpenShift instance that we created above.
 
 image::example-rest-design.png[]
 
-The example architecture consists of a set of three high available (HA) servers running REST endpoints. For server replication and failover we use http://kubernetes.io[Kubernetes,window=_blank]. 
-Each server runs in a dedicated https://github.com/GoogleCloudPlatform/kubernetes/blob/v1.0.0/docs/pods.md[Pod,window=_blank] 
+The example architecture consists of a set of three high available (HA) servers running REST endpoints. For server replication and failover we use http://kubernetes.io[Kubernetes,window=_blank].
+Each server runs in a dedicated https://github.com/GoogleCloudPlatform/kubernetes/blob/v1.0.0/docs/pods.md[Pod,window=_blank]
 that we access via https://github.com/GoogleCloudPlatform/kubernetes/blob/v1.0.0/docs/services.md[Services,window=_blank].
 
 A project allows us to create deployments, pods, services, routes, etc. under our own custom 'wildfly-camel' namespace.
@@ -76,7 +76,7 @@ A project allows us to create deployments, pods, services, routes, etc. under ou
 
 ##### Create a new application
 
-Now, lets create a new appliction from an existing wildfly-camel based image. 
+Now, lets create a new appliction from an existing wildfly-camel based image.
 
  $ oc new-app wildflyext/example-camel-rest
 
@@ -102,4 +102,4 @@ http://example-camel-rest-wildfly-camel.192.168.99.100.nip.io/rest/greet/hello/K
 
  Hello Kermit from 172.17.0.8
 
- 
+

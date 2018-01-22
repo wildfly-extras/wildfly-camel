@@ -50,7 +50,7 @@ public final class SubsystemState  {
     private final Map<String, String> contextDefinitions = new HashMap<String,String>();
     private final List<CamelSubsytemExtension> extensions = new ArrayList<>();
     private final RuntimeState runtimeState = new RuntimeState();
-    
+
     public SubsystemState() {
         ClassLoader classLoader = SubsystemState.class.getClassLoader();
         Iterator<CamelSubsytemExtension> it = ServiceLoader.load(CamelSubsytemExtension.class, classLoader).iterator();
@@ -99,7 +99,7 @@ public final class SubsystemState  {
 
         private final Set<URL> endpoints = new LinkedHashSet<>();
         private URL httpHost;
-        
+
         public URL getHttpHost() {
             return httpHost;
         }

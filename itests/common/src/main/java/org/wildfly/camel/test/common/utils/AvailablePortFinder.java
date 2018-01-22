@@ -44,7 +44,7 @@ public final class AvailablePortFinder {
 
     // Note, this is scoped on the ClassLoader
     private static Set<Integer> alreadyUsed = new HashSet<>();
-    
+
     public static int getNextAvailable() {
         return getNextAvailable(MIN_PORT_NUMBER);
     }
@@ -64,7 +64,7 @@ public final class AvailablePortFinder {
     }
 
     public static int getNextAvailable(InetAddress addr, int fromPort) {
-        if (fromPort < MIN_PORT_NUMBER || fromPort > MAX_PORT_NUMBER) 
+        if (fromPort < MIN_PORT_NUMBER || fromPort > MAX_PORT_NUMBER)
             throw new IllegalArgumentException("Invalid start port: " + fromPort);
 
         for (int i = fromPort; i <= MAX_PORT_NUMBER; i++) {
@@ -84,10 +84,10 @@ public final class AvailablePortFinder {
         } catch (IOException e) {
             return false;
         }
-        
+
         return alreadyUsed.add(port);
     }
-    
+
     public static Path storeServerData(String filename, Object port) {
         String jbossHome = System.getProperty("jboss.home.dir");
         IllegalStateAssertion.assertNotNull(jbossHome, "Property 'jboss.home.dir' not set");

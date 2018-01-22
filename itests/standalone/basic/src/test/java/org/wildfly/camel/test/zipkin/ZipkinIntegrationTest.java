@@ -49,7 +49,7 @@ public class ZipkinIntegrationTest {
 
     @Test
     public void testZipkin() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -64,9 +64,9 @@ public class ZipkinIntegrationTest {
         zipkin.setServiceName("dude");
         zipkin.setSpanCollector(new ZipkinLoggingSpanCollector());
         zipkin.init(camelctx);
-        
+
         NotifyBuilder notify = new NotifyBuilder(camelctx).whenDone(5).create();
-        
+
         camelctx.start();
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();

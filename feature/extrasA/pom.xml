@@ -39,7 +39,7 @@
     </properties>
 
     <dependencies>
-        
+
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-hdfs2</artifactId>
@@ -60,7 +60,7 @@
             <artifactId>hadoop-mapreduce-client-core</artifactId>
             <version>${version.camel.hadoop2}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-feature-modules</artifactId>

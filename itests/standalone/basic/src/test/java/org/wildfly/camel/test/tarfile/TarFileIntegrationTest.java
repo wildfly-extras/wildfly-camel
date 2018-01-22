@@ -47,7 +47,7 @@ public class TarFileIntegrationTest {
     public void testMarshalUnmarshall() throws Exception {
 
         TarFileDataFormat tar = new TarFileDataFormat();
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

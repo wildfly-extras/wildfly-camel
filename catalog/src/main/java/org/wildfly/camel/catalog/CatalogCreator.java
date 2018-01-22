@@ -190,7 +190,7 @@ public final class CatalogCreator {
             }
         });
 
-        // Change state when planned or rejected 
+        // Change state when planned or rejected
         for (RoadMap roadmap : ROAD_MAPS.values()) {
             State state = null;
             File file = roadmap.outpath.toFile();

@@ -22,21 +22,21 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
   <!-- Since this is a test case lets run a local ZK server -->
-  <bean id="zkServer" class="org.wildfly.camel.test.zookeepermaster.ZKServerFactoryBean">
-    <property name="port" value="9003"/>
-  </bean>
+    <bean id="zkServer" class="org.wildfly.camel.test.zookeepermaster.ZKServerFactoryBean">
+        <property name="port" value="9003"/>
+    </bean>
 
 
-  <bean id="curator" class="org.wildfly.camel.test.zookeepermaster.CuratorFactoryBean" depends-on="zkServer">
-    <property name="timeout" value="3000"/>
-    <property name="connectString" value="localhost:9003"/>
-  </bean>
+    <bean id="curator" class="org.wildfly.camel.test.zookeepermaster.CuratorFactoryBean" depends-on="zkServer">
+        <property name="timeout" value="3000"/>
+        <property name="connectString" value="localhost:9003"/>
+    </bean>
 
-  <camelContext id="master-quartz2" xmlns="http://camel.apache.org/schema/spring" depends-on="curator">
-    <route>
-      <from uri="zookeeper-master:master-000:quartz2://masterTest?trigger.repeatCount=3&amp;trigger.repeatInterval=100"/>
-      <to uri="mock:results"/>
-    </route>
-  </camelContext>
-  
+    <camelContext id="master-quartz2" xmlns="http://camel.apache.org/schema/spring" depends-on="curator">
+        <route>
+            <from uri="zookeeper-master:master-000:quartz2://masterTest?trigger.repeatCount=3&amp;trigger.repeatInterval=100"/>
+            <to uri="mock:results"/>
+        </route>
+    </camelContext>
+
 </beans>

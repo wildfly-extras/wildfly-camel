@@ -19,7 +19,7 @@
   #L%
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
-    
+
     <module name="org.apache.lucene" inherit-slot="false" slot="6.6">
         <include artifact=":lucene-analyzers-common" />
         <include artifact=":lucene-backward-codecs" />
@@ -64,7 +64,7 @@
             <module name="io.netty"/>
         </dependencies>
     </module>
-    
+
     <!-- elasticsearch5 has a direct dependency on log4j-core -->
     <module name="org.elasticsearch5.log4j">
         <properties>

@@ -45,7 +45,7 @@ import org.wildfly.extension.camel.WildFlyCamelContext;
 public class InfinispanIntegrationTest {
 
     private static final String CONTAINER_NAME = "java:jboss/infinispan/container/server";
-    
+
     private static final String CACHE_KEY_NAME = "name";
     private static final String CACHE_KEY_AGE = "age";
     private static final String CACHE_VALUE_KERMIT = "Kermit";

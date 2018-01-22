@@ -60,16 +60,16 @@ public class AzureIntegrationTest {
 
         StorageCredentials creds = getStorageCredentials("camelblob", System.getenv(AZURE_STORAGE_BLOB));
         Assume.assumeNotNull("Credentials not null", creds);
-        
+
         CamelContext camelctx = createCamelContext(creds);
         camelctx.addRoutes(new RouteBuilder() {
             public void configure() throws Exception {
                 from("direct:start")
                 .to("azure-blob://camelblob/container1/blobAppend?credentials=#creds&operation=updateAppendBlob");
-                
+
                 from("azure-blob://camelblob/container1/blobAppend?credentials=#creds&blobType=appendblob")
                 .to("mock:read");
-                
+
                 from("direct:list")
                 .to("azure-blob://camelblob/container1?credentials=#creds&operation=listBlobs");
             }
@@ -80,9 +80,9 @@ public class AzureIntegrationTest {
             MockEndpoint mockRead = camelctx.getEndpoint("mock:read", MockEndpoint.class);
             mockRead.expectedBodiesReceived("Append Blob");
             mockRead.expectedMessageCount(1);
-            
+
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            
+
             Iterator<?> it = producer.requestBody("direct:list", null, Iterable.class).iterator();
             Assert.assertFalse("No Blob exists", it.hasNext());
 
@@ -94,7 +94,7 @@ public class AzureIntegrationTest {
             Assert.assertTrue("Blob exists", it.hasNext());
             CloudBlob blob = (CloudAppendBlob) it.next();
             blob.delete();
-            
+
             it = producer.requestBody("direct:list", null, Iterable.class).iterator();
             Assert.assertFalse("No Blob exists", it.hasNext());
 
@@ -110,7 +110,7 @@ public class AzureIntegrationTest {
         Assume.assumeNotNull("Credentials not null", creds);
 
         OperationContext.setLoggingEnabledByDefault(true);
-        
+
         CamelContext camelctx = createCamelContext(creds);
         camelctx.addRoutes(new RouteBuilder() {
             public void configure() throws Exception {
@@ -134,18 +134,18 @@ public class AzureIntegrationTest {
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            
+
             Iterator<?> it = producer.requestBody("direct:listQueues", null, Iterable.class).iterator();
             Assert.assertFalse("No more queues", it.hasNext());
 
             producer.sendBody("direct:addMessage", "SomeMsg");
-            
+
             it = producer.requestBody("direct:listQueues", null, Iterable.class).iterator();
             Assert.assertTrue("Has queues", it.hasNext());
             CloudQueue queue = (CloudQueue) it.next();
             Assert.assertEquals("queue1", queue.getName());
             Assert.assertFalse("No more queues", it.hasNext());
-            
+
             try {
                 CloudQueueMessage msg = producer.requestBody("direct:retrieveMessage", null, CloudQueueMessage.class);
                 Assert.assertNotNull("Retrieve a message", msg);
@@ -153,7 +153,7 @@ public class AzureIntegrationTest {
             } finally {
                 queue.delete();
             }
-            
+
         } finally {
             camelctx.stop();
         }

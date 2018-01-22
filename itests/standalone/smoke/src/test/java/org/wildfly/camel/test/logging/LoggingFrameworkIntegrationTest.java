@@ -39,7 +39,7 @@ public class LoggingFrameworkIntegrationTest {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "logger-tests");
         return archive.addClass(LogUtils.class);
     }
-    
+
     @Test
     public void testSLF4J() throws Exception {
         org.slf4j.LoggerFactory.getLogger("logger-slf4j").info("Message from SLF4J");

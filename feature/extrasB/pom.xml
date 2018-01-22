@@ -39,7 +39,7 @@
     </properties>
 
     <dependencies>
-        
+
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-cbor</artifactId>
@@ -60,7 +60,7 @@
             <artifactId>camel-elasticsearch</artifactId>
             <version>${version.apache.camel}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-feature-extrasA</artifactId>

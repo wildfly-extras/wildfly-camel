@@ -39,13 +39,13 @@
     </properties>
 
     <dependencies>
-        
+
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jclouds</artifactId>
             <version>${version.apache.camel}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-feature-extrasC</artifactId>

@@ -50,7 +50,7 @@ public class SpringWsIntegrationTest {
     private ProducerTemplate template;
     private MockEndpoint resultEndpoint;
     private MockEndpoint inOnlyEndpoint;
-    
+
     @Deployment
     public static JavaArchive createDeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "spring-ws-tests");

@@ -77,7 +77,7 @@
             <module name="sun.jdk.ext" export="true" />
         </dependencies>
     </module>
-    
+
     <module name="org.wildfly.extension.camel.cdi">
         <include artifact=":wildfly-camel-subsystem-cdi" />
         <dependencies>
@@ -89,7 +89,7 @@
             <module name="org.slf4j"/>
         </dependencies>
     </module>
-    
+
     <module name="org.wildfly.extension.camel.security">
         <include artifact=":wildfly-camel-subsystem-security" />
         <dependencies>
@@ -102,7 +102,7 @@
             <module name="org.slf4j"/>
         </dependencies>
     </module>
-    
+
     <module name="org.wildfly.extension.camel.undertow">
         <include artifact=":wildfly-camel-subsystem-undertow" />
         <dependencies>
@@ -116,7 +116,7 @@
             <module name="org.slf4j"/>
         </dependencies>
     </module>
-    
+
     <module name="org.wildfly.extension.camel.cxf.undertow">
         <include artifact=":wildfly-camel-cxf-undertow" />
         <dependencies>
@@ -130,7 +130,7 @@
             <module name="org.slf4j"/>
         </dependencies>
     </module>
-    
+
     <module name="org.wildfly.extras.config.plugin.camel">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -140,5 +140,5 @@
             <module name="org.jdom" />
         </dependencies>
     </module>
-    
+
 </modules>

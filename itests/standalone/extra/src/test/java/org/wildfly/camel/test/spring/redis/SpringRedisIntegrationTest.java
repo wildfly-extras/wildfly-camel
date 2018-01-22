@@ -61,7 +61,7 @@ public class SpringRedisIntegrationTest {
     static class RedisServerSetupTask implements ServerSetupTask {
 
         RedisServer redisServer;
-        
+
         @Override
         public void setup(final ManagementClient managementClient, String containerId) throws Exception {
             Assume.assumeFalse("[#1701] Cannot start Redis server on Windows", EnvironmentUtils.isWindows());
@@ -74,7 +74,7 @@ public class SpringRedisIntegrationTest {
         @Override
         public void tearDown(final ManagementClient managementClient, String containerId) throws Exception {
             if (redisServer != null) {
-                redisServer.stop();       
+                redisServer.stop();
             }
         }
     }
@@ -91,19 +91,19 @@ public class SpringRedisIntegrationTest {
     public void testRedisRoute() throws Exception {
 
         Assume.assumeFalse("[#1701] Cannot start Redis server on Windows", EnvironmentUtils.isWindows());
-        
+
         JedisConnectionFactory connectionFactory = new JedisConnectionFactory();
         connectionFactory.afterPropertiesSet();
-        
+
         RedisTemplate redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(connectionFactory);
         redisTemplate.afterPropertiesSet();
-        
+
         CamelContextFactory contextFactory = ServiceLocator.getRequiredService(CamelContextFactory.class);
         WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
         Context jndictx = camelctx.getNamingContext();
         jndictx.bind("redisTemplate", redisTemplate);
-        
+
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -120,7 +120,7 @@ public class SpringRedisIntegrationTest {
                     RedisConstants.KEY, "key1",
                     RedisConstants.VALUE, "value"
                     };
-            
+
             ProducerTemplate producer = camelctx.createProducerTemplate();
             producer.send("direct:start", new Processor() {
                 public void process(Exchange exchange) throws Exception {

@@ -48,30 +48,30 @@ public class DomainAuthenticationManager implements AuthenticationManager {
 
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
-        
+
         if (!(auth instanceof UsernamePasswordAuthenticationToken))
             throw new BadCredentialsException("Unsupported authentication type: " + auth);
-        
+
         LoginContextBuilder builder = new LoginContextBuilder(Type.AUTHENTICATION);
         UsernamePasswordAuthenticationToken authToken = (UsernamePasswordAuthenticationToken) auth;
-        
+
         Object details = auth.getDetails();
         builder.domain(details instanceof String ? (String) details : "other");
-        
+
         Object principal = authToken.getPrincipal();
         if (principal instanceof String) {
             builder.username((String) principal);
         } else {
             throw new UsernameNotFoundException("Unsupported principal: " + principal);
         }
-        
+
         Object credentials = authToken.getCredentials();
         if (credentials instanceof char[]) {
             builder.password((char[]) credentials);
         } else {
             throw new BadCredentialsException("Unsupported credentials: " + credentials);
         }
-        
+
         LoginContext context;
         try {
             context = builder.build();
@@ -83,7 +83,7 @@ public class DomainAuthenticationManager implements AuthenticationManager {
         } catch (LoginException ex) {
             throw new AuthenticationServiceException("Password invalid/Password required", ex);
         }
-        
+
         Collection<GrantedAuthority> authorities = new HashSet<>();
         Set<Group> groups = context.getSubject().getPrincipals(Group.class);
         if (groups != null) {
@@ -97,10 +97,10 @@ public class DomainAuthenticationManager implements AuthenticationManager {
                 }
             }
         }
-        
+
         AbstractAuthenticationToken result = new UsernamePasswordAuthenticationToken(principal, credentials, authorities);
         result.setDetails(details);
-        
+
         return result;
     }
 }

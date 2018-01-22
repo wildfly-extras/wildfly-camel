@@ -69,7 +69,7 @@ public class BeanstalkIntegrationTest {
     }
 
     private Client client;
-    
+
     @Before
     public void setUp() throws Exception {
         client = Mockito.mock(Client.class);
@@ -98,7 +98,7 @@ public class BeanstalkIntegrationTest {
 
         CamelContext camelctx = createCamelContext();
         BeanstalkEndpoint beanstalkEndpoint = camelctx.getEndpoint("beanstalk:tube", BeanstalkEndpoint.class);
-        
+
         final Producer producer = beanstalkEndpoint.createProducer();
         Assert.assertNotNull("Producer", producer);
         Assert.assertThat("Producer class", producer, CoreMatchers.instanceOf(BeanstalkProducer.class));
@@ -107,7 +107,7 @@ public class BeanstalkIntegrationTest {
         camelctx.start();
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
-            final Exchange exchange = template.send(beanstalkEndpoint, ExchangePattern.InOnly, new Processor() { 
+            final Exchange exchange = template.send(beanstalkEndpoint, ExchangePattern.InOnly, new Processor() {
                 public void process(Exchange exchange) {
                     exchange.getIn().setBody(TEST_MESSAGE);
                 }
@@ -126,7 +126,7 @@ public class BeanstalkIntegrationTest {
 
         CamelContext camelctx = createCamelContext();
         BeanstalkEndpoint beanstalkEndpoint = camelctx.getEndpoint("beanstalk:tube", BeanstalkEndpoint.class);
-        
+
         beanstalkEndpoint.setCommand(BeanstalkCommand.delete);
         Producer producer = beanstalkEndpoint.createProducer();
         Assert.assertNotNull("Producer", producer);
@@ -160,7 +160,7 @@ public class BeanstalkIntegrationTest {
 
         CamelContext camelctx = createCamelContext();
         BeanstalkEndpoint beanstalkEndpoint = camelctx.getEndpoint("beanstalk:tube", BeanstalkEndpoint.class);
-        
+
         beanstalkEndpoint.setCommand(BeanstalkCommand.release);
         Producer producer = beanstalkEndpoint.createProducer();
         Assert.assertNotNull("Producer", producer);
@@ -192,7 +192,7 @@ public class BeanstalkIntegrationTest {
 
         CamelContext camelctx = createCamelContext();
         BeanstalkEndpoint beanstalkEndpoint = camelctx.getEndpoint("beanstalk:tube", BeanstalkEndpoint.class);
-        
+
         beanstalkEndpoint.setCommand(BeanstalkCommand.touch);
         Producer producer = beanstalkEndpoint.createProducer();
         Assert.assertNotNull("Producer", producer);

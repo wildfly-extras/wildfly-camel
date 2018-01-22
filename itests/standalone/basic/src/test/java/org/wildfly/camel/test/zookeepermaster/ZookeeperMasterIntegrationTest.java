@@ -49,13 +49,13 @@ public class ZookeeperMasterIntegrationTest {
 
     @Test
     public void testEndpoint() throws Exception {
-        
+
         CamelContext camelctx = contextRegistry.getCamelContext("master-quartz2");
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
-        
+
         MockEndpoint mockResult = camelctx.getEndpoint("mock:results", MockEndpoint.class);
         mockResult.expectedMinimumMessageCount(2);
-        
+
         MockEndpoint.assertIsSatisfied(10, TimeUnit.SECONDS, mockResult);
     }
 }

@@ -37,7 +37,7 @@ import com.google.common.eventbus.Subscribe;
 public class GuavaEventIntegrationTest {
 
     EventBus eventBus = new EventBus();
-    
+
     Object receivedEvent;
 
     @Deployment
@@ -48,17 +48,17 @@ public class GuavaEventIntegrationTest {
 
     @Test
     public void shouldForwardMessageToCamel() throws Exception {
-        
+
         WildFlyCamelContext camelctx = new WildFlyCamelContext();
         camelctx.getNamingContext().bind("eventBusA", eventBus);
-        
+
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("guava-eventbus:eventBusA").to("mock:allEvents");
             }
         });
-        
+
         camelctx.start();
         try {
             String message = "message";
@@ -75,7 +75,7 @@ public class GuavaEventIntegrationTest {
 
     @Test
     public void shouldReceiveMessageFromCamel() throws Exception {
-        
+
         WildFlyCamelContext camelctx = new WildFlyCamelContext();
         camelctx.getNamingContext().bind("eventBusB", eventBus);
         camelctx.addRoutes(new RouteBuilder() {
@@ -84,7 +84,7 @@ public class GuavaEventIntegrationTest {
                 from("direct:start").to("guava-eventbus:eventBusB");
             }
         });
-        
+
         camelctx.start();
         try {
             String message = "message";

@@ -27,7 +27,7 @@ milestoneIssues.each { milestone, issues ->
     issueCategories.each {
     	if (issues[it] != null) {
         	milestoneSummary <<= processIssues(milestone, issues, it)
-    	} 
+    	}
     }
 
     println ''

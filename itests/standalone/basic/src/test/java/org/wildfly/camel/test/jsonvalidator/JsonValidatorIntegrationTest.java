@@ -58,7 +58,7 @@ public class JsonValidatorIntegrationTest {
 
     @Test
     public void testValidMessage() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             public void configure() throws Exception {
@@ -67,7 +67,7 @@ public class JsonValidatorIntegrationTest {
                 .to("mock:valid");
             }
         });
-        
+
         MockEndpoint mockValid = camelctx.getEndpoint("mock:valid", MockEndpoint.class);
         mockValid.expectedMessageCount(1);
 
@@ -79,9 +79,9 @@ public class JsonValidatorIntegrationTest {
                     Exchange.FILE_NAME, "valid.json");
 
             mockValid.assertIsSatisfied();
-            
+
             Assert.assertTrue("Can delete the file", FileUtil.deleteFile(new File("target/validator/valid.json")));
-            
+
         } finally {
           camelctx.stop();
         }
@@ -96,11 +96,11 @@ public class JsonValidatorIntegrationTest {
                     .doTry()
                         .to("json-validator:jsonvalidator/schema.json")
                     .doCatch(ValidationException.class)
-                        .to("mock:invalid")                        
+                        .to("mock:invalid")
                     .end();
             }
         });
-        
+
         MockEndpoint mockInvalid = camelctx.getEndpoint("mock:invalid", MockEndpoint.class);
         mockInvalid.expectedMessageCount(1);
 
@@ -112,10 +112,10 @@ public class JsonValidatorIntegrationTest {
                     Exchange.FILE_NAME, "invalid.json");
 
             mockInvalid.assertIsSatisfied();
-            
+
 
             Assert.assertTrue("Can delete the file", FileUtil.deleteFile(new File("target/validator/invalid.json")));
-            
+
         } finally {
           camelctx.stop();
         }

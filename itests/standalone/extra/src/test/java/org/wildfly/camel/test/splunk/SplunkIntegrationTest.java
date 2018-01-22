@@ -51,12 +51,12 @@ public class SplunkIntegrationTest {
         String SPLUNK_USERNAME = System.getenv("SPLUNK_USERNAME");
         String SPLUNK_PASSWORD = System.getenv("SPLUNK_PASSWORD");
         Assume.assumeNotNull("[#1673] Enable Splunk testing in Jenkins", SPLUNK_USERNAME, SPLUNK_PASSWORD);
-        
+
         SplunkEvent splunkEvent = new SplunkEvent();
         splunkEvent.addPair("key1", "value1");
         splunkEvent.addPair("key2", "value2");
         splunkEvent.addPair("key3", "value1");
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -69,7 +69,7 @@ public class SplunkIntegrationTest {
 
         MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
         mock.expectedMinimumMessageCount(1);
-        
+
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();

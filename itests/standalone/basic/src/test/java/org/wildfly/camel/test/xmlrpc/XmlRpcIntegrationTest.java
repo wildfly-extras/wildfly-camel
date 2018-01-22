@@ -48,15 +48,15 @@ public class XmlRpcIntegrationTest {
 
     @Test
     public void testRequestMessage() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                
+
                 XmlRpcDataFormat request = new XmlRpcDataFormat();
                 request.setRequest(true);
-                
+
                 from("direct:request")
                     .marshal(request)
                     .to("log:marshalRequestMessage")
@@ -84,22 +84,22 @@ public class XmlRpcIntegrationTest {
 
     @Test
     public void testResponseMessage() throws Exception {
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                
+
                 XmlRpcDataFormat response = new XmlRpcDataFormat();
                 response.setRequest(false);
-                
+
                 from("direct:response")
                     .marshal(response)
                     .to("log:marshalResponseMessage")
                     .unmarshal(response)
                     .to("log:unmarshalResonseMessage")
                     .to("mock:response");
-                    
+
             }
         });
 

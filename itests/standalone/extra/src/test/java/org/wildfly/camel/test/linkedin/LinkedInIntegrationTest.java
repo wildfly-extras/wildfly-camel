@@ -52,7 +52,7 @@ public class LinkedInIntegrationTest {
     public void testSearchCompanies() throws Exception {
         Map<String, Object> linkedInOptions = createLinkedInOptions();
 
-        Assume.assumeTrue("[#1677] Enable LinkedIn testing in Jenkins", 
+        Assume.assumeTrue("[#1677] Enable LinkedIn testing in Jenkins",
                 linkedInOptions.size() == LinkedInOption.values().length);
 
         CamelContext camelctx = new DefaultCamelContext();

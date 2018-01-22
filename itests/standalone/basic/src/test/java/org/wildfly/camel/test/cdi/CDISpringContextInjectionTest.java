@@ -49,7 +49,7 @@ public class CDISpringContextInjectionTest {
     @ContextName("contextG")
     @Uri(value = "direct:start")
     ProducerTemplate producerG;
-    
+
     @Deployment
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class);
@@ -61,7 +61,7 @@ public class CDISpringContextInjectionTest {
 
     @Test
     public void testCDIContextCreation() throws InterruptedException {
-        
+
         assertCamelContext("contextG");
 
         String result = producerG.requestBody("direct:start", "Kermit", String.class);

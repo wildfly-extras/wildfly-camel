@@ -1,6 +1,6 @@
 ### camel-jsch
 
-The http://camel.apache.org/jsch.html[jsch,window=_blank] 
+The http://camel.apache.org/jsch.html[jsch,window=_blank]
 component enables secure file transfer using the http://en.wikipedia.org/wiki/Secure_copy[SCP protocol,window=_blank].
 
 [source,java,options="nowrap"]

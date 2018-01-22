@@ -60,9 +60,9 @@ public class MQTTIntegrationTest {
         static final String MQTT_CONNECTION = "mqtt://127.0.0.1:" + PORT;
         static final String TCP_CONNECTION = "tcp://127.0.0.1:" + PORT;
         static final String TEST_TOPIC = "ComponentTestTopic";
-        
+
         private BrokerService brokerService;
-        
+
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
             brokerService = new BrokerService();
@@ -93,9 +93,9 @@ public class MQTTIntegrationTest {
 
     @Test
     public void testMQTTConsumer() throws Exception {
-        
+
         String conUrl = TestUtils.getResourceValue(getClass(), "/tcp-connection");
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -132,9 +132,9 @@ public class MQTTIntegrationTest {
 
     @Test
     public void testMQTTProducer() throws Exception {
-        
+
         String conUrl = TestUtils.getResourceValue(getClass(), "/tcp-connection");
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -150,7 +150,7 @@ public class MQTTIntegrationTest {
             MQTT mqtt = new MQTT();
             mqtt.setHost(conUrl);
             BlockingConnection connection = mqtt.blockingConnection();
-            
+
             connection.connect();
             try {
                 Topic topic = new Topic(BrokerSetup.TEST_TOPIC, QoS.AT_MOST_ONCE);
@@ -161,7 +161,7 @@ public class MQTTIntegrationTest {
 
                 Message message = connection.receive(10, TimeUnit.SECONDS);
                 message.ack();
-                
+
                 String result = new String(message.getPayload());
                 Assert.assertEquals("Hello Kermit", result);
             } finally {

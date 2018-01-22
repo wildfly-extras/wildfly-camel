@@ -51,7 +51,7 @@ public class PDFIntegrationTest {
 
         final String datadir = System.getProperty("jboss.server.data.dir") + "/camel-pdf-tests";
         Assert.assertNotNull("Directory name not nul", datadir);
-        
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
