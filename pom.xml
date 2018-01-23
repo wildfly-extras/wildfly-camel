@@ -461,14 +461,6 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-        <repository>
-            <!-- everit is distributed in jitpack and not maven central -->
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
     </repositories>
 
     <!-- Profiles -->
