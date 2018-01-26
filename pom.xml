@@ -530,5 +530,30 @@
                 <module>patch</module>
             </modules>
         </profile>
+        <profile>
+            <!-- Assuming that ts.all profile includes all available profiles, we need this non.ts.all profile -->
+            <!-- to exclude the inactive submodule directories from editorconfig checks. -->
+            <id>non.ts.all</id>
+            <activation>
+                <property>
+                    <name>!ts.all</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.ec4j.maven</groupId>
+                        <artifactId>editorconfig-maven-plugin</artifactId>
+                        <configuration>
+                            <excludes combine.children="append">
+                                <exclude>archetypes/**</exclude>
+                                <exclude>docs/**</exclude>
+                                <exclude>patch/**</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
