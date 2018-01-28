@@ -119,6 +119,7 @@
         <version-maven-surefire-plugin>2.20.1</version-maven-surefire-plugin>
         <version-maven-war-plugin>3.0.0</version-maven-war-plugin>
         <version-properties-maven-plugin>1.0.0</version-properties-maven-plugin>
+        <version-editorconfig-maven-plugin>0.0.3</version-editorconfig-maven-plugin>
         <version-shrinkwrap-resolver-maven-plugin>2.2.6</version-shrinkwrap-resolver-maven-plugin>
         <version-smartics-maven-plugin>2.1.4</version-smartics-maven-plugin>
         <version-wildfly-build-tools>1.1.6.Final</version-wildfly-build-tools>
@@ -309,6 +310,11 @@
                     <version>${version-properties-maven-plugin}</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.ec4j.maven</groupId>
+                    <artifactId>editorconfig-maven-plugin</artifactId>
+                    <version>${version-editorconfig-maven-plugin}</version>
+                </plugin>
+                <plugin>
                     <groupId>org.jboss.shrinkwrap.resolver</groupId>
                     <artifactId>shrinkwrap-resolver-maven-plugin</artifactId>
                     <version>${version-shrinkwrap-resolver-maven-plugin}</version>
@@ -382,6 +388,24 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.ec4j.maven</groupId>
+                <artifactId>editorconfig-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>velocity.log</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
