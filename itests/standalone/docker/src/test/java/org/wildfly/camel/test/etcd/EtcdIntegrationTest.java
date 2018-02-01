@@ -40,6 +40,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -54,7 +55,8 @@ public class EtcdIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-etcd-tests.jar");
+        return ShrinkWrap.create(JavaArchive.class, "camel-etcd-tests.jar")
+            .addClass(TestUtils.class);
     }
 
     @Before
@@ -75,8 +77,10 @@ public class EtcdIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
+                String dockerHost = TestUtils.getDockerHost();
+
                 from("direct:start")
-                .to("etcd:keys")
+                .toF("etcd:keys?uris=http://%s:23379,http://%s:40001", dockerHost, dockerHost)
                 .to("mock:result");
             }
         });
