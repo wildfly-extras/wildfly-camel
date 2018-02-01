@@ -107,9 +107,9 @@
                     "http://localhost:2379,http://localhost:4001"
                 ]
                 portBindings: [
-                    2379->2379/tcp,
-                    2380->2380/tcp,
-                    4001->4001/tcp
+                    23379->2379/tcp,
+                    23380->2380/tcp,
+                    40001->4001/tcp
                 ]
                 await:
                     strategy: log
