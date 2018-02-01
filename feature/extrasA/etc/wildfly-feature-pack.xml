@@ -89,7 +89,7 @@
         <artifact groupId="org.kie.remote" artifactId="kie-remote-jaxb" version="6.5.0.Final"/>
         <artifact groupId="org.kie.remote.ws" artifactId="kie-remote-ws-common" version="6.5.0.Final"/>
         <artifact groupId="org.slf4j" artifactId="slf4j-api" version="1.7.10"/>
-        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-modules" version="5.1.0" extension="zip"/>
+        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-modules" version="5.2.0-SNAPSHOT" extension="zip"/>
         <artifact groupId="org.xerial.snappy" artifactId="snappy-java" version="1.0.4.1"/>
         <artifact groupId="rome" artifactId="rome" version="1.0"/>
         <artifact groupId="wsdl4j" artifactId="wsdl4j" version="1.6.3"/>
