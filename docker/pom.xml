@@ -91,7 +91,7 @@
                                 <assembly>
                                     <basedir>/</basedir>
                                     <descriptor>${project.basedir}/s2i/assembly-artifacts.xml</descriptor>
-                                    <user>default:root:default</user>
+                                    <user>1001:0:1001</user><!-- uid 1001 and gid 0 are used by our base image ${docker.image.from} -->
                                 </assembly>
                                 <runCmds>
                                     <run>${server.home}/bin/fuseconfig.sh --configs camel --enable</run>
