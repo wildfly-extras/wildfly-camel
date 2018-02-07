@@ -20,6 +20,10 @@
 
 package org.wildfly.camel.test.aws;
 
+import static com.amazonaws.services.ec2.model.InstanceStateName.ShuttingDown;
+import static com.amazonaws.services.ec2.model.InstanceStateName.Terminated;
+
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -53,6 +57,7 @@ import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.InstanceStateName;
 import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.RunInstancesResult;
+import com.amazonaws.services.ec2.model.Tag;
 import com.amazonaws.services.ec2.model.TerminateInstancesResult;
 
 @CamelAware
@@ -71,15 +76,15 @@ public class EC2IntegrationTest {
     }
 
     public static void assertNoStaleInstances(AmazonEC2Client client, String when) {
-        List<Instance> staleInstances = client.describeInstances().getReservations().stream() //
-        .flatMap(r -> r.getInstances().stream()) //
+        List<Instance> staleInstances = client.describeInstances().getReservations().stream()
+        .flatMap(r -> r.getInstances().stream())
         .filter(i -> {
-            if (System.currentTimeMillis() - i.getLaunchTime().getTime() > AWSUtils.HOUR) {
-                return true;
-            }
             String state = i.getState().getName();
-            return !InstanceStateName.ShuttingDown.toString().equals(state) && !InstanceStateName.Terminated.toString().equals(state);
-        }) //
+            List<Tag> tags = i.getTags().stream().filter(t -> "Name".equals(t.getKey()) && "wildfly-camel".equals(t.getValue())).collect(Collectors.toList());
+            boolean stillActive = !ShuttingDown.toString().equals(state) && !Terminated.toString().equals(state);
+            boolean startedRecently = AWSUtils.HOUR < System.currentTimeMillis() - i.getLaunchTime().getTime();
+            return tags.size() > 0 && stillActive && startedRecently;
+        })
         .collect(Collectors.toList());
         Assert.assertEquals(String.format("Found stale EC2 instances %s running the test: %s", when, staleInstances), 0, staleInstances.size());
     }
@@ -113,6 +118,7 @@ public class EC2IntegrationTest {
                 headers.put(EC2Constants.SUBNET_ID, EC2Utils.getSubnetId(ec2Client));
                 headers.put(EC2Constants.INSTANCE_MIN_COUNT, 1);
                 headers.put(EC2Constants.INSTANCE_MAX_COUNT, 1);
+                headers.put(EC2Constants.INSTANCES_TAGS, Arrays.asList(new Tag("Name", "wildfly-camel")));
 
                 ProducerTemplate template = camelctx.createProducerTemplate();
                 RunInstancesResult result1 = template.requestBodyAndHeaders("direct:createAndRun", null, headers, RunInstancesResult.class);

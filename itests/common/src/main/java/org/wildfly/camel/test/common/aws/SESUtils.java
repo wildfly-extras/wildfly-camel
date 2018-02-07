@@ -29,6 +29,7 @@ public class SESUtils {
     public static final String TO = "tdiesler@redhat.com";
 
     // Attach Policy: AmazonSESFullAccess
+    // Verify EMail Address: tdiesler@redhat.com
     public static AmazonSimpleEmailServiceClient createEmailClient() {
         BasicCredentialsProvider credentials = BasicCredentialsProvider.standard();
         AmazonSimpleEmailServiceClient client = !credentials.isValid() ? null : (AmazonSimpleEmailServiceClient)

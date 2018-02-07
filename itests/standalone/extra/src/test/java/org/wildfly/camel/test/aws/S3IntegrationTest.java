@@ -30,7 +30,6 @@ import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.WildFlyCamelContext;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.Bucket;
 
 @CamelAware
@@ -52,12 +51,11 @@ public class S3IntegrationTest {
     }
 
     public static void assertNoStaleBuckets(AmazonS3Client client, String when) {
-        List<String> staleInstances = client.listBuckets().stream() //
-                .map(Bucket::getName) //
-                .filter(name -> !name.startsWith(S3IntegrationTest.class.getSimpleName()) || System.currentTimeMillis() - AWSUtils.toEpochMillis(name) > AWSUtils.HOUR) //
+        List<String> staleInstances = client.listBuckets().stream()
+                .map(Bucket::getName)
+                .filter(name -> name.startsWith(S3IntegrationTest.class.getSimpleName()) && AWSUtils.HOUR < System.currentTimeMillis() - AWSUtils.toEpochMillis(name))
                 .collect(Collectors.toList());
-        Assert.assertEquals(String.format("Found stale S3 buckets %s running the test: %s", when, staleInstances), 0,
-                staleInstances.size());
+        Assert.assertEquals(String.format("Found stale S3 buckets %s running the test: %s", when, staleInstances), 0, staleInstances.size());
     }
 
     @Test
