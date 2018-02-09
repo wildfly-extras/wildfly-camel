@@ -183,7 +183,7 @@ public class CdiRequiredPolicy extends SpringTransactionPolicy {
 
 ##### Route Builder
 
-Now we can configure our Camel RouteBuilder class and inject the dependencies needed for the Camel ActiveMQ component. The ActiveMQ connection factory that we configured on the resource adapter configutation is injected together with the transaction manager we configured earlier.
+Now we can configure our Camel RouteBuilder class and inject the dependencies needed for the Camel ActiveMQ component. The ActiveMQ connection factory that we configured on the resource adapter configuration is injected together with the transaction manager we configured earlier.
 
 In this example RouteBuilder, whenever any messages are consumed from queue1, they are routed to another JMS queue named queue2. Messages consumed from queue2 result in JMS transaction being rolled back using the rollback() DSL method. This results in the original message being placed onto the dead letter queue(DLQ).
 

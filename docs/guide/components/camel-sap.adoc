@@ -40,7 +40,7 @@ The file and directory structure for module `com.sap.conn.jco` should now look s
 
 1. From a terminal session change into the application server installation root directory
 2. Change into directory `modules/system/layers/fuse/org/wildfly/camel/extras/main`
-3. Edit `module.xml` and uncomment the `org.fusesource.camel.component.sap` module dependency. Save the modifed file when finished
+3. Edit `module.xml` and uncomment the `org.fusesource.camel.component.sap` module dependency. Save the modified file when finished
 
 The module definition should look like this:
 

@@ -1,8 +1,8 @@
 ### Source to Image
 
-The {wildfly-camel} https://hub.docker.com/r/wildflyext/wildfly-camel/[Docker image,window=_blank] is capabale of performing https://docs.openshift.org/latest/architecture/core_concepts/builds_and_image_streams.html#source-build[Source-To-Image,window=_blank] builds.
+The {wildfly-camel} https://hub.docker.com/r/wildflyext/wildfly-camel/[Docker image,window=_blank] is capable of performing https://docs.openshift.org/latest/architecture/core_concepts/builds_and_image_streams.html#source-build[Source-To-Image,window=_blank] builds.
 
-This enables you to build reproducable images from source.
+This enables you to build reproducible images from source.
 
 #### Example S2I build
 

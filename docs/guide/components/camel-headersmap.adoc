@@ -1,4 +1,4 @@
 ### camel-headersmap
 
 The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-headersmap/src/main/docs/headersmap.adoc[headersmap,window=_blank]
-component provides a faster implementation of a case-insenstive map which can be plugged in and used by Camel at runtime to have slight faster performance in the Camel Message headers.
+component provides a faster implementation of a case-insensitive map which can be plugged in and used by Camel at runtime to have slight faster performance in the Camel Message headers.

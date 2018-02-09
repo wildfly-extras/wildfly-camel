@@ -1,4 +1,4 @@
-### camel-atomosphere-websocket
+### camel-atmosphere-websocket
 
 The http://camel.apache.org/atmosphere-websocket.html[atmosphere-websocket,window=_blank] component provides Websocket based endpoints for a servlet communicating
 with external clients over Websocket (as a servlet accepting websocket connections from external clients).

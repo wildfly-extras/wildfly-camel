@@ -21,7 +21,7 @@ An additional mail-session is configured after the 'default' session.
       <imap-server outbound-socket-binding-ref="mail-gmail-imap" ssl="true" username="your-username-here" password="your-password-here"/>
     </mail-session>
 </subsystem>
-Note that we configured `outbound-socket-binding-ref` values of 'mail-gmail-smtp' and 'mail-gmail-imap'. The next step is to configure these socket bindings. Add aditional bindings to the `socket-binding-group` configuration like the following.
+Note that we configured `outbound-socket-binding-ref` values of 'mail-gmail-smtp' and 'mail-gmail-imap'. The next step is to configure these socket bindings. Add additional bindings to the `socket-binding-group` configuration like the following.
 
 [source,xml,options="nowrap"]
 ----

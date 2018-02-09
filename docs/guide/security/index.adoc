@@ -1,6 +1,6 @@
 ## Security
 
-Security in {wildfly} is a broad topic. Both {wildfly} and Camel have well documented, stadardised methods of securing configuration, endpoints and payloads.
+Security in {wildfly} is a broad topic. Both {wildfly} and Camel have well documented, standardised methods of securing configuration, endpoints and payloads.
 
 include::jaxrs.adoc[]
 

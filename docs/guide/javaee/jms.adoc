@@ -174,7 +174,7 @@ Note that the queue must be configured on the {wildfly} client application serve
 
 Before the client can connect to the remote server, user access credentials need to be configured. On the remote server run the https://docs.jboss.org/author/display/WFLY8/add-user+utility[add user utility,window=_blank] to create a new application user within the 'guest' group. This example has a user with the name 'admin' and a password of 'secret'.
 
-The RouteBuilder implementation is different to the previous examples. Instead of injecting the connection factory, we need to configure an InitalContext and retrieve it from JNDI ourselves.
+The RouteBuilder implementation is different to the previous examples. Instead of injecting the connection factory, we need to configure an InitialContext and retrieve it from JNDI ourselves.
 
 The `configureInitialContext` method creates this InitialContext. Notice that we need to set a provider URL which should reference your remote {wildfly} instance host name and port number. This example uses the {wildfly} JMS http-connector, but there are alternatives documented https://docs.jboss.org/author/display/WFLY8/Messaging+configuration[here,window=_blank].
 

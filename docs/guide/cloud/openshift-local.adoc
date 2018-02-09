@@ -76,7 +76,7 @@ A project allows us to create deployments, pods, services, routes, etc. under ou
 
 ##### Create a new application
 
-Now, lets create a new appliction from an existing wildfly-camel based image.
+Now, lets create a new application from an existing wildfly-camel based image.
 
  $ oc new-app wildflyext/example-camel-rest
 

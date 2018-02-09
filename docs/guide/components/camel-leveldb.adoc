@@ -1,3 +1,3 @@
 ### camel-leveldb
 
-The http://camel.apache.org/leveldb.html[leveldb,window=_blank] component provides access to the https://github.com/google/leveldb[Google LevelDB,window=_blank] lightweight and embedable key value database. It allows together with Camel to provide persistent support for various Camel features such as http://camel.apache.org/aggregator2.html[Aggregator,window=_blank].
+The http://camel.apache.org/leveldb.html[leveldb,window=_blank] component provides access to the https://github.com/google/leveldb[Google LevelDB,window=_blank] lightweight and embeddable key value database. It allows together with Camel to provide persistent support for various Camel features such as http://camel.apache.org/aggregator2.html[Aggregator,window=_blank].
