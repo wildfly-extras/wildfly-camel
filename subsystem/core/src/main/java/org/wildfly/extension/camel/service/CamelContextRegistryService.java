@@ -122,6 +122,17 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
 
     @Override
     public void stop(StopContext context) {
+        for (final String name : subsystemState.getContextDefinitionNames()) {
+            CamelContext camelctx = contextRegistry.getCamelContext(name);
+            try {
+                if (camelctx != null) {
+                    camelctx.stop();
+                }
+            } catch (Exception e) {
+                LOGGER.warn("Cannot stop camel context: " + name, e);
+            }
+        }
+
         if (registration != null) {
             registration.unregister();
         }
