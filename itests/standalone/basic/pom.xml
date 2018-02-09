@@ -299,7 +299,7 @@
                 <artifactId>editorconfig-maven-plugin</artifactId>
                 <configuration>
                     <excludes combine.children="append">
-                        <exclude>.toDelete</exclude><!-- created by Cassandra maybe? -->
+                        <exclude>.toDelete</exclude>
                         <exclude>derby.log</exclude>
                         <exclude>**/lumberjack/window*</exclude>
                         <exclude>**/asn1/*.tt</exclude>

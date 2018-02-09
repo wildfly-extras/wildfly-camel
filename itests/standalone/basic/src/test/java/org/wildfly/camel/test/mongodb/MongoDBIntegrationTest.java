@@ -84,8 +84,9 @@ public class MongoDBIntegrationTest {
 
     @AfterClass
     public static void afterClass() {
-        if (mongoServer != null)
+        if (mongoServer != null) {
             mongoServer.stop();
+        }
     }
 
     @Before
@@ -277,7 +278,7 @@ public class MongoDBIntegrationTest {
         mock.expectedMessageCount(1);
         mock.expectedBodiesReceived(data);
 
-        Map<String, Object> headers = new HashMap<String, Object>();
+        Map<String, Object> headers = new HashMap<>();
         String fn = "filename.for.db.txt";
         Assert.assertEquals(0, gridfs.find(fn).size());
 
@@ -285,7 +286,7 @@ public class MongoDBIntegrationTest {
         ProducerTemplate template = camelctx.createProducerTemplate();
         template.requestBodyAndHeaders(target, data, headers);
 
-        mock.assertIsSatisfied();
+        mock.assertIsSatisfied(5000);
 
         mock.reset();
         mock.expectedMessageCount(3);
@@ -297,7 +298,7 @@ public class MongoDBIntegrationTest {
         template.requestBodyAndHeaders(target, data, headers);
         headers.put(Exchange.FILE_NAME, fn + "_3");
         template.requestBodyAndHeaders(target, data, headers);
-        mock.assertIsSatisfied();
+        mock.assertIsSatisfied(5000);
     }
 
     private void setupTestData() {
