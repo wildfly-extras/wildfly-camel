@@ -28,8 +28,6 @@ import org.jboss.as.server.deployment.AttachmentKey;
 import org.jboss.modules.ModuleIdentifier;
 import org.wildfly.extension.camel.ContextCreateHandler;
 
-import static org.wildfly.extension.camel.CamelLogger.LOGGER;
-
 /**
  * Created by chirino on 2/23/15.
  */
@@ -54,7 +52,6 @@ public final class CamelDeploymentSettings {
         // Verify that we have a valid deployment before performing other enablement checks
         if (deploymentValid) {
             if (!this.camelContextUrls.isEmpty()) {
-                LOGGER.info("Camel context descriptors found");
                 return true;
             }
 

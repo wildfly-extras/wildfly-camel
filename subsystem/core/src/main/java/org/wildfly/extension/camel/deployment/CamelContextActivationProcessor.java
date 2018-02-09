@@ -23,64 +23,72 @@ package org.wildfly.extension.camel.deployment;
 
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.Callable;
 
-import org.apache.camel.CamelContext;
-import org.jboss.as.server.deployment.Attachments;
+import org.jboss.as.naming.deployment.ContextNames;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
 import org.jboss.as.server.deployment.DeploymentUnitProcessor;
-import org.jboss.modules.Module;
+import org.jboss.msc.service.ServiceBuilder;
+import org.jboss.msc.service.ServiceName;
+import org.jboss.msc.service.ServiceTarget;
 import org.wildfly.extension.camel.CamelConstants;
-import org.wildfly.extension.camel.proxy.ProxyUtils;
+import org.wildfly.extension.camel.SpringCamelContextBootstrap;
+import org.wildfly.extension.camel.service.CamelContextActivationService;
 
 /**
- * Start/Stop the {@link CamelContext}
- *
- * @author Thomas.Diesler@jboss.com
- * @since 22-Apr-2013
+ * Creates a {@link CamelContextActivationService} for the deployment with service dependencies for
+ * all JNDI bindings required by the Camel Spring application.
  */
 public class CamelContextActivationProcessor implements DeploymentUnitProcessor {
+
+    private static final ServiceName CAMEL_CONTEXT_ACTIVATION_SERVICE_NAME = ServiceName.of("CamelContextActivationService");
 
     @Override
     public void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
 
         DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
-        Module module = depUnit.getAttachment(Attachments.MODULE);
+        CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
 
-        // Start the camel contexts
-        for (final CamelContext camelctx : depUnit.getAttachmentList(CamelConstants.CAMEL_CONTEXT_KEY)) {
-            try {
-                ProxyUtils.invokeProxied(new Callable<Void>() {
-                    @Override
-                    public Void call() throws Exception {
-                        camelctx.start();
-                        return null;
-                    }
-                }, module.getClassLoader());
-            } catch (Exception ex) {
-                LOGGER.error("Cannot start camel context: " + camelctx.getName(), ex);
+        if (!depSettings.isEnabled()) {
+            return;
+        }
+
+        String runtimeName = depUnit.getName();
+
+        ServiceTarget serviceTarget = phaseContext.getServiceTarget();
+        ServiceName serviceName = depUnit.getServiceName().append(CAMEL_CONTEXT_ACTIVATION_SERVICE_NAME.append(runtimeName));
+
+        List<SpringCamelContextBootstrap> camelctxBootstrapList = depUnit.getAttachmentList(CamelConstants.CAMEL_CONTEXT_BOOTSTRAP_KEY);
+        CamelContextActivationService activationService = new CamelContextActivationService(camelctxBootstrapList, runtimeName);
+        ServiceBuilder builder = serviceTarget.addService(serviceName, activationService);
+
+        // Add JNDI binding dependencies to CamelContextActivationService
+        for (SpringCamelContextBootstrap bootstrap : camelctxBootstrapList) {
+            for (String jndiName : bootstrap.getJndiNames()) {
+                if (jndiName.startsWith("${")) {
+                    // Don't add the binding if it appears to be a Spring property placeholder value
+                    // these can't be resolved before refresh() has been called on the ApplicationContext
+                    LOGGER.warn("Skipping JNDI binding dependency for property placeholder value: {}", jndiName);
+                } else {
+                    LOGGER.debug("Add CamelContextActivationService JNDI binding dependency for {}", jndiName);
+                    installBindingDependency(builder, jndiName);
+                }
             }
         }
+
+        builder.install();
     }
 
     @Override
     public void undeploy(final DeploymentUnit depUnit) {
+    }
 
-        List<CamelContext> ctxlist = new ArrayList<>(depUnit.getAttachmentList(CamelConstants.CAMEL_CONTEXT_KEY));
-        Collections.reverse(ctxlist);
-
-        // Stop the camel contexts
-        for (CamelContext camelctx : ctxlist) {
-            try {
-                camelctx.stop();
-            } catch (Exception ex) {
-                LOGGER.warn("Cannot stop camel context: " + camelctx.getName(), ex);
-            }
+    private void installBindingDependency(ServiceBuilder builder, String jndiName) {
+        if (jndiName != null) {
+            ContextNames.BindInfo bindInfo = ContextNames.bindInfoFor(jndiName);
+            builder.addDependency(bindInfo.getBinderServiceName());
         }
     }
 }

@@ -31,15 +31,12 @@ import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
 import org.jboss.as.server.deployment.DeploymentUnitProcessor;
 import org.jboss.modules.Module;
 import org.wildfly.extension.camel.CamelConstants;
-import org.wildfly.extension.camel.SpringCamelContextFactory;
+import org.wildfly.extension.camel.SpringCamelContextBootstrap;
 
 /**
- * Processes deployments that can create a {@link CamelContext}.
- *
- * @author Thomas.Diesler@jboss.com
- * @since 22-Apr-2013
+ * Creates a {@link SpringCamelContextBootstrap} bootstrapper for each Camel Spring XML file within the deployment.
  */
-public class CamelContextCreateProcessor implements DeploymentUnitProcessor {
+public class CamelContextBootstrapProcessor implements DeploymentUnitProcessor {
 
     @Override
     public void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
@@ -49,15 +46,14 @@ public class CamelContextCreateProcessor implements DeploymentUnitProcessor {
         final Module module = depUnit.getAttachment(Attachments.MODULE);
         final String runtimeName = depUnit.getName();
 
-        // Add the camel contexts to the deployment
+        // Add the camel context bootstraps to the deployment
         CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
         for (URL contextURL : depSettings.getCamelContextUrls()) {
             ClassLoader tccl = Thread.currentThread().getContextClassLoader();
             try {
                 Thread.currentThread().setContextClassLoader(module.getClassLoader());
-                for (CamelContext camelctx : SpringCamelContextFactory.createCamelContextList(contextURL, module.getClassLoader())) {
-                    depUnit.addToAttachmentList(CamelConstants.CAMEL_CONTEXT_KEY, camelctx);
-                }
+                SpringCamelContextBootstrap bootstrap = new SpringCamelContextBootstrap(contextURL, module.getClassLoader());
+                depUnit.addToAttachmentList(CamelConstants.CAMEL_CONTEXT_BOOTSTRAP_KEY, bootstrap);
             } catch (Exception ex) {
                 throw new IllegalStateException("Cannot create camel context: " + runtimeName, ex);
             } finally {

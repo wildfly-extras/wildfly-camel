@@ -66,7 +66,7 @@ When using link:index.html#_camel_spring[camel-spring] the route configuration w
     <camelContext id="sql-spring-context" xmlns="http://camel.apache.org/schema/spring">
         <route>
             <from uri="sql:select name from information_schema.users?dataSource=#wildFlyExampleDS" />
-            <to uru="direct:end" />
+            <to uri="direct:end" />
         </route>
     </camelContext>
 

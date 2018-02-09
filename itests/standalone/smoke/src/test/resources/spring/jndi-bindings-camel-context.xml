@@ -1,0 +1,29 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+
+    <!-- JEE namespace lookup -->
+    <jee:jndi-lookup id="datasource" jndi-name="java:jboss/datasources/ExampleDS"/>
+    <jee:jndi-lookup id="userTransaction" jndi-name="java:/jboss/UserTransaction"/>
+    <jee:jndi-lookup id="testBinding" jndi-name="java:/spring/binding/test"/>
+
+    <!-- JndiObjectFactoryBean lookup -->
+    <bean id="transactionManager" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:/TransactionManager"/>
+    </bean>
+
+    <bean id="contextStartupEventNotifier" class="org.wildfly.camel.test.spring.subE.CamelContextStartupEventNotifier" />
+
+    <camelContext id="jndi-binding-spring-context" xmlns="http://camel.apache.org/schema/spring">
+        <route>
+            <from uri="direct:start" />
+            <setBody>
+                <constant>Hello Kermit</constant>
+            </setBody>
+        </route>
+    </camelContext>
+</beans>

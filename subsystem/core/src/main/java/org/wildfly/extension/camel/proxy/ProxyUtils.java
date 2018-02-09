@@ -22,7 +22,7 @@ package org.wildfly.extension.camel.proxy;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.concurrent.Callable;
+import java.util.Optional;
 
 /**
  * A utility class to run arbitrary code via a {@link Proxy} instance.
@@ -34,24 +34,24 @@ public class ProxyUtils {
     }
 
     /**
-     * Runs a {@link Callable} within a {@link Proxy} instance. See the following issues for information
+     * Runs a {@link ProxiedAction} within a {@link Proxy} instance. See the following issues for information
      * around its primary use case.
      *
      * https://issues.jboss.org/browse/ENTESB-7117
      * https://github.com/wildfly-extras/wildfly-camel/issues/1919
      *
-     * @param callable A callable instance to invoke within a {@link Proxy} instance
+     * @param action A ProxiedAction instance to invoke within a {@link Proxy} instance
      * @param classLoader The ClassLoader used to create the {@link Proxy} instance
      * @throws Exception
      */
-    public static void invokeProxied(final Callable<?> callable, final ClassLoader classLoader) throws Exception {
-        Callable<?> callableProxy = (Callable) Proxy.newProxyInstance(classLoader, new Class<?>[] { Callable.class }, new InvocationHandler() {
+    public static void invokeProxied(final ProxiedAction action, final ClassLoader classLoader) throws Exception {
+        ProxiedAction proxy = (ProxiedAction) Proxy.newProxyInstance(classLoader, new Class<?>[] { ProxiedAction.class }, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                callable.call();
-                return null;
+                action.run();
+                return Optional.empty();
             }
         });
-        callableProxy.call();
+        proxy.run();
     }
 }

@@ -21,6 +21,8 @@
 
 package org.wildfly.extension.camel.deployment;
 
+import static org.wildfly.extension.camel.CamelLogger.LOGGER;
+
 import java.io.IOException;
 import java.net.URL;
 
@@ -49,13 +51,13 @@ public class CamelContextDescriptorsProcessor implements DeploymentUnitProcessor
     public void deploy(final DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
 
         final DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
+        final String runtimeName = depUnit.getName();
 
         CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
-        if (depSettings.isDisabledByJbossAll() || !depSettings.isDeploymentValid() || depUnit.getParent() != null) {
+        if (depSettings.isDisabledByJbossAll() || !depSettings.isDeploymentValid() || runtimeName.endsWith(".ear")) {
             return;
         }
 
-        final String runtimeName = depUnit.getName();
         try {
             if (runtimeName.endsWith(CamelConstants.CAMEL_CONTEXT_FILE_SUFFIX)) {
                 URL fileURL = depUnit.getAttachment(Attachments.DEPLOYMENT_CONTENTS).asFileURL();
@@ -70,6 +72,10 @@ public class CamelContextDescriptorsProcessor implements DeploymentUnitProcessor
                 for (VirtualFile vfile : rootFile.getChildrenRecursively(filter)) {
                     addConditionally(depUnit, vfile.asFileURL());
                 }
+            }
+
+            if (!depSettings.getCamelContextUrls().isEmpty()) {
+                LOGGER.info("Camel context descriptors found");
             }
         } catch (IOException ex) {
             throw new IllegalStateException("Cannot create camel context: " + runtimeName, ex);

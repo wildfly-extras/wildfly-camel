@@ -36,8 +36,6 @@ public interface CamelConstants {
 
     /** The base name for all camel services */
     ServiceName CAMEL_BASE_NAME = ServiceName.JBOSS.append("wildfly", "camel");
-    /** The base name for all camel context services */
-    ServiceName CAMEL_COMPONENT_BASE_NAME = CAMEL_BASE_NAME.append("component");
     /** The name for the {@link CamelContextFactory} service */
     ServiceName CAMEL_CONTEXT_FACTORY_SERVICE_NAME = CAMEL_BASE_NAME.append("CamelContextFactory");
     /** The name for the {@link CamelContextRegistry} service */
@@ -50,15 +48,8 @@ public interface CamelConstants {
     /** The deployment suffix for spring camel context deployments */
     String CAMEL_CONTEXT_FILE_SUFFIX = "camel-context.xml";
 
-    /** This file hold the components to use. */
-    String CAMEL_COMPONENTS_FILE_NAME = "META-INF/jboss-camel-components.properties";
-
-    /** The deployment names for repository content deployments */
-    String REPOSITORY_CONTENT_FILE_SUFFIX = "-repository-content.xml";
-    String REPOSITORY_CONTENT_FILE_NAME = "META-INF/jboss-repository-content.xml";
-
-    /** The {@link CamelContext} attachment key */
-    AttachmentKey<AttachmentList<CamelContext>> CAMEL_CONTEXT_KEY = AttachmentKey.createList(CamelContext.class);
+    /** The {@link SpringCamelContextBootstrap} attachment key */
+    AttachmentKey<AttachmentList<SpringCamelContextBootstrap>> CAMEL_CONTEXT_BOOTSTRAP_KEY = AttachmentKey.createList(SpringCamelContextBootstrap.class);
     /** The {@link CamelContextRegistry} attachment key */
     AttachmentKey<CamelContextRegistry> CAMEL_CONTEXT_REGISTRY_KEY = AttachmentKey.create(CamelContextRegistry.class);
     /** The {@link CamelContextFactory} attachment key */
