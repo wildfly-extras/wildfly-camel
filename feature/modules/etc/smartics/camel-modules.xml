@@ -1467,10 +1467,12 @@
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.apache.servicemix.skipped" />
+            <include module="org.osgi.core" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.cache.api" export="true"/>
+            <module name="org.ehcache"/>
             <module name="org.infinispan.jcache" export="true" services="export">
                 <exports>
                     <exclude path="OSGI-INF/blueprint" />

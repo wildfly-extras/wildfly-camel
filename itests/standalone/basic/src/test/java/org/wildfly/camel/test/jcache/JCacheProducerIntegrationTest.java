@@ -57,7 +57,7 @@ public class JCacheProducerIntegrationTest {
                 .to("jcache://test-cache")
                     .to("mock:put");
                 from("direct:get")
-                    .to("jcache://test-cache?cachingProvider=com.hazelcast.cache.HazelcastCachingProvider")
+                    .to("jcache://test-cache")
                         .to("mock:get");
             }
         });
@@ -104,6 +104,30 @@ public class JCacheProducerIntegrationTest {
                 }
             });
             mock.assertIsSatisfied();
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    @Test
+    public void testJCacheLoadsCachingProviders() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            public void configure() {
+                from("jcache://test-cacheA?cachingProvider=com.hazelcast.cache.HazelcastCachingProvider")
+                .to("mock:resultA");
+
+                from("jcache://test-cacheB?cachingProvider=org.ehcache.jsr107.EhcacheCachingProvider")
+                .to("mock:resultB");
+
+                from("jcache://test-cacheC?cachingProvider=org.infinispan.jcache.embedded.JCachingProvider")
+                .to("mock:resultC");
+            }
+        });
+
+        try {
+            // Just ensure we can start up without any class loading issues
+            camelctx.start();
         } finally {
             camelctx.stop();
         }

@@ -3166,6 +3166,8 @@ org/ehcache/impl/events
 org/ehcache/impl/persistence
 org/ehcache/impl/serialization
 org/ehcache/impl/store
+org/ehcache/jsr107
+org/ehcache/jsr107/config
 org/ehcache/sizeof
 org/ehcache/sizeof/annotations
 org/ehcache/sizeof/filters

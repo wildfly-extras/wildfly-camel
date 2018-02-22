@@ -1635,6 +1635,7 @@
         <include artifact="org.ehcache:ehcache" />
         <dependencies>
             <module name="javax.api" />
+            <module name="javax.cache.api" />
             <module name="javax.xml.bind.api" />
             <module name="sun.jdk">
                 <imports>
@@ -1645,7 +1646,7 @@
         <exports>
             <exclude path="org/ehcache/core/internal**" />
             <exclude path="org/ehcache/impl/internal**" />
-            <exclude path="org/ehcache/jsr107**" />
+            <exclude path="org/ehcache/jsr107/internal**" />
             <exclude path="org/terracotta**" />
         </exports>
     </module>

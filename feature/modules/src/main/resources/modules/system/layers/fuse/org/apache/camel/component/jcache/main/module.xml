@@ -5,6 +5,7 @@
   </resources>
   <dependencies>
     <module name="javax.cache.api" export="true" />
+    <module name="org.ehcache" />
     <module name="org.infinispan.jcache" export="true" services="export">
       <exports>
         <exclude path="OSGI-INF/blueprint" />
@@ -13,6 +14,5 @@
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.osgi.core" />
   </dependencies>
 </module>
