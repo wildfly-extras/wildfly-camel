@@ -57,7 +57,7 @@ public class JCacheProducerIntegrationTest {
                 .to("jcache://test-cache")
                     .to("mock:put");
                 from("direct:get")
-                    .to("jcache://test-cache")
+                    .to("jcache://test-cache?cachingProvider=com.hazelcast.cache.HazelcastCachingProvider")
                         .to("mock:get");
             }
         });

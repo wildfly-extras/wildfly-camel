@@ -5,6 +5,7 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="javax.cache.api" />
   </dependencies>
   <exports>
     <exclude path="com/hazelcast/internal**" />
