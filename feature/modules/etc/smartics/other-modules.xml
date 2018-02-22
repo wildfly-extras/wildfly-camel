@@ -427,6 +427,11 @@
         <dependencies>
             <module name="javax.api"/>
             <module name="javax.cache.api" />
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc" />
+                </imports>
+            </module>
         </dependencies>
         <exports>
             <exclude path="com/hazelcast/internal**" />
