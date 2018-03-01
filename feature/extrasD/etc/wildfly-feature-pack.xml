@@ -18,6 +18,6 @@
         <artifact groupId="org.apache.jclouds" artifactId="jclouds-core" version="2.0.2"/>
         <artifact groupId="org.apache.jclouds" artifactId="jclouds-scriptbuilder" version="2.0.2"/>
         <artifact groupId="org.slf4j" artifactId="slf4j-api" version="1.7.22"/>
-        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-extrasC" version="5.2.0-SNAPSHOT" extension="zip"/>
+        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-extrasC" version="6.0.0-SNAPSHOT" extension="zip"/>
     </artifact-versions>
 </feature-pack>
