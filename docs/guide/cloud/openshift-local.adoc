@@ -80,7 +80,13 @@ Now, lets create a new application from an existing wildfly-camel based image.
 
  $ oc new-app wildflyext/example-camel-rest
 
-and scale it up
+It's good practice to add liveness and readiness probes to the deployment.
+
+ $ oc set probe dc/example-camel-rest --liveness --initial-delay-seconds 60 -- echo ok
+
+ $ oc set probe dc/example-camel-rest --readiness --initial-delay-seconds 60 --get-url=http://:8080/example-camel-cxf-jaxrs/cxf
+
+Scale up the deployment.
 
  $ oc scale --replicas=3 dc example-camel-rest
 
@@ -92,9 +98,13 @@ The pods running the JAX-RS endpoints are however not yet exposed to the world.
 
 ##### Exposing the container externally
 
-Now, lets expose the HTTP root context of the running wildlfy server.
+Now, lets expose the HTTP root context of the running WildFly server.
 
  $ oc expose service example-camel-rest
+
+You can discover the exposed route host name with.
+
+ $ oc get route example-camel-rest
 
 From a remote client, you should now be able to access the service like this
 
@@ -102,4 +112,6 @@ http://example-camel-rest-wildfly-camel.192.168.99.100.nip.io/rest/greet/hello/K
 
  Hello Kermit from 172.17.0.8
 
+You can clean up all created resources with.
 
+ $ oc delete all -l "app=example-camel-rest"
