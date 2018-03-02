@@ -307,12 +307,6 @@
                 <artifactId>maven-aether-provider</artifactId>
                 <version>${version.maven.aether.provider}</version>
             </dependency>
-            <!-- [FIXME #1712] Use WildFly provided org.apache.qpid.proton module -->
-            <dependency>
-                <groupId>org.apache.qpid</groupId>
-                <artifactId>proton-j</artifactId>
-                <version>${version.camel.qpid.proton}</version>
-            </dependency>
             <dependency>
                 <groupId>org.arquillian.cube</groupId>
                 <artifactId>arquillian-cube-docker</artifactId>
