@@ -31,29 +31,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.camel.CamelContext;
 
 @WebServlet(name = "HttpServiceServlet", urlPatterns = { "/*" }, loadOnStartup = 1)
-public class SimpleServlet extends HttpServlet {
+public class SingleResourceInjectionServlet extends HttpServlet {
 
-    @Resource(lookup = "java:jboss/camel/context/transform5")
-    private CamelContext camelctxA;
-
-    @Resource(mappedName=  "java:jboss/camel/context/transform5")
-    private CamelContext camelctxB;
-
-    @Resource(name =  "java:jboss/camel/context/transform5")
-    private CamelContext camelctxC;
+    @Resource(name =  "java:jboss/camel/context/jndi-delayed-binding-spring-context")
+    private CamelContext camelctx;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if (camelctxA != null) {
-            response.getOutputStream().print("@Resource lookup\n");
-        }
-
-        if (camelctxB != null) {
-            response.getOutputStream().print("@Resource mappedName\n");
-        }
-
-        if (camelctxC != null) {
+        if (camelctx != null) {
             response.getOutputStream().print("@Resource name");
         }
     }

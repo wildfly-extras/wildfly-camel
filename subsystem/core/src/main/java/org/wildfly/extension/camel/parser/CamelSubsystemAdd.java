@@ -58,7 +58,7 @@ public final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
     public static final int DEPENDENCIES_CAMEL_INTEGRATION = Phase.DEPENDENCIES_LOGGING + 0x01;
     public static final int DEPENDENCIES_CAMEL_WIRINGS = DEPENDENCIES_CAMEL_INTEGRATION + 0x01;
 
-    public static final int INSTALL_PACKAGE_SCAN_RESOLVER = Phase.INSTALL_PERSISTENCE_SERVICES + 0x01;
+    public static final int INSTALL_PACKAGE_SCAN_RESOLVER = Phase.INSTALL_WS_DEPLOYMENT_ASPECTS + 0x01;
     public static final int INSTALL_CDI_BEAN_ARCHIVE_PROCESSOR = INSTALL_PACKAGE_SCAN_RESOLVER + 0x01;
     public static final int INSTALL_CAMEL_CONTEXT_CREATE = INSTALL_CDI_BEAN_ARCHIVE_PROCESSOR + 0x01;
     public static final int INSTALL_CONTEXT_ACTIVATION = INSTALL_CAMEL_CONTEXT_CREATE + 0x01;

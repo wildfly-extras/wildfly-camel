@@ -26,6 +26,7 @@ import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 import java.util.List;
 
 import org.jboss.as.naming.deployment.ContextNames;
+import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
@@ -58,11 +59,14 @@ public class CamelContextActivationProcessor implements DeploymentUnitProcessor 
         String runtimeName = depUnit.getName();
 
         ServiceTarget serviceTarget = phaseContext.getServiceTarget();
-        ServiceName serviceName = depUnit.getServiceName().append(CAMEL_CONTEXT_ACTIVATION_SERVICE_NAME.append(runtimeName));
+        ServiceName camelActivationServiceName = depUnit.getServiceName().append(CAMEL_CONTEXT_ACTIVATION_SERVICE_NAME.append(runtimeName));
 
         List<SpringCamelContextBootstrap> camelctxBootstrapList = depUnit.getAttachmentList(CamelConstants.CAMEL_CONTEXT_BOOTSTRAP_KEY);
         CamelContextActivationService activationService = new CamelContextActivationService(camelctxBootstrapList, runtimeName);
-        ServiceBuilder builder = serviceTarget.addService(serviceName, activationService);
+        ServiceBuilder builder = serviceTarget.addService(camelActivationServiceName, activationService);
+
+        // Ensure all camel contexts in the deployment are started before constructing servlets etc
+        depUnit.addToAttachmentList(Attachments.WEB_DEPENDENCIES, camelActivationServiceName);
 
         // Add JNDI binding dependencies to CamelContextActivationService
         for (SpringCamelContextBootstrap bootstrap : camelctxBootstrapList) {

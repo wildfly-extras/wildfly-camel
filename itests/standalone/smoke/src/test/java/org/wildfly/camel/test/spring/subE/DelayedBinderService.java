@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DelayedBinderService extends BinderService {
 
-    private static final long SLEEP_DELAY = 3000;
+    private static final long SLEEP_DELAY = 1000;
     private static final Logger LOG = LoggerFactory.getLogger(DelayedBinderServiceActivator.class);
     private long sleepStart;
 

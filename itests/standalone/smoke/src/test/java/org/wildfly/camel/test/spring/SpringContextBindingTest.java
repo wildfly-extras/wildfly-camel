@@ -21,17 +21,23 @@ package org.wildfly.camel.test.spring;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ServiceStatus;
+import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.http.HttpRequest;
 import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
-import org.wildfly.camel.test.spring.subE.SimpleServlet;
+import org.wildfly.camel.test.spring.subE.DelayedBinderService;
+import org.wildfly.camel.test.spring.subE.DelayedBinderServiceActivator;
+import org.wildfly.camel.test.spring.subE.MultipleResourceInjectionServlet;
+import org.wildfly.camel.test.spring.subE.SingleResourceInjectionServlet;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
@@ -39,23 +45,61 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 @CamelAware
 public class SpringContextBindingTest {
 
+    private static final String SIMPLE_WAR_A = "simple-a.war";
+    private static final String SIMPLE_WAR_B = "simple-b.war";
+
+    @ArquillianResource
+    private Deployer deployer;
+
     @Deployment
-    public static WebArchive createDeployment() {
-        return ShrinkWrap.create(WebArchive.class, "camel-spring-binding-tests.war")
-            .addClasses(SimpleServlet.class, HttpRequest.class)
-            .addAsResource("spring/transform5-camel-context.xml", "camel-context.xml");
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class, "camel-spring-binding-tests.jar")
+            .addClasses(HttpRequest.class);
+    }
+
+    @Deployment(managed = false, testable = false, name = SIMPLE_WAR_A)
+    public static WebArchive createMultipleResourceInjectionPointDeployment() {
+        return ShrinkWrap.create(WebArchive.class, SIMPLE_WAR_A)
+            .addClasses(DelayedBinderServiceActivator.class, DelayedBinderService.class, MultipleResourceInjectionServlet.class)
+            .addAsResource("spring/jndi-delayed-bindings-camel-context.xml", "camel-context.xml")
+            .addAsManifestResource(new StringAsset(DelayedBinderServiceActivator.class.getName()), "services/org.jboss.msc.service.ServiceActivator");
+    }
+
+    @Deployment(managed = false, testable = false, name = SIMPLE_WAR_B)
+    public static WebArchive createSingleResourceInjectionPointDeployment() {
+        return ShrinkWrap.create(WebArchive.class, SIMPLE_WAR_B)
+            .addClasses(DelayedBinderServiceActivator.class, DelayedBinderService.class, SingleResourceInjectionServlet.class)
+            .addAsResource("spring/jndi-delayed-bindings-camel-context.xml", "camel-context.xml")
+            .addAsManifestResource(new StringAsset(DelayedBinderServiceActivator.class.getName()), "services/org.jboss.msc.service.ServiceActivator");
     }
 
     @ArquillianResource
     private CamelContextRegistry contextRegistry;
 
     @Test
-    public void testCamelJndiBindingsInjectable() throws Exception {
-        CamelContext camelctx = contextRegistry.getCamelContext("transform5");
-        Assert.assertNotNull("Expected transform5 to not be null", camelctx);
-        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
+    public void testMultipleCamelJndiBindingsInjectable() throws Exception {
+        deployResourceInjectionTest(SIMPLE_WAR_A, "@Resource lookup\n@Resource mappedName\n@Resource name");
+    }
 
-        HttpResponse response = HttpRequest.get("http://localhost:8080/camel-spring-binding-tests").getResponse();
-        Assert.assertEquals("@Resource lookup\n@Resource mappedName\n@Resource name", response.getBody());
+    @Test
+    public void testSingleCamelJndiBindingsInjectable() throws Exception {
+        deployResourceInjectionTest(SIMPLE_WAR_B, "@Resource name");
+    }
+
+    private void deployResourceInjectionTest(String depName, String expectedResult) throws Exception {
+        try {
+            deployer.deploy(depName);
+
+            CamelContext camelctx = contextRegistry.getCamelContext("jndi-delayed-binding-spring-context");
+            Assert.assertNotNull("Expected jndi-delayed-binding-spring-context to not be null", camelctx);
+            Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
+
+            String contextPath = depName.replace(".war", "");
+
+            HttpResponse response = HttpRequest.get("http://localhost:8080/" + contextPath).getResponse();
+            Assert.assertEquals(expectedResult, response.getBody());
+        } finally {
+            deployer.undeploy(depName);
+        }
     }
 }
