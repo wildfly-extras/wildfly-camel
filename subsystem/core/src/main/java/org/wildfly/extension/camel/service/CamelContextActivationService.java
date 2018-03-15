@@ -64,7 +64,7 @@ public final class CamelContextActivationService extends AbstractService<Void> {
                                 }
                             }, bootstrap.getClassLoader());
                         } catch (Exception ex) {
-                            LOGGER.error("Cannot start camel context: " + camelctx.getName(), ex);
+                            throw new StartException("Cannot start camel context: " + camelctx.getName(), ex);
                         }
                     }
                 } catch (Exception e) {

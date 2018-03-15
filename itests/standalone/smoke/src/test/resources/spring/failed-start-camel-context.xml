@@ -1,0 +1,14 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <!-- Deliberately forces CamelContext startup to fail -->
+    <camelContext id="failing-camel-context" xmlns="http://camel.apache.org/schema/spring">
+        <route>
+            <from uri="direct:start" />
+            <bean ref="nonExistentBean" />
+        </route>
+    </camelContext>
+</beans>
