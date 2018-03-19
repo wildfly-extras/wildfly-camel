@@ -57,7 +57,8 @@ public class DynamoDBStreamsIntegrationTest {
         AmazonDynamoDBClient ddbClient = ddbProvider.getClient();
         Assume.assumeNotNull("AWS client not null", ddbClient);
 
-        DynamoDBUtils.assertNoStaleTables(ddbClient, "before");
+        // Temporary workaround for https://issues.apache.org/jira/browse/CAMEL-12379
+        // DynamoDBUtils.assertNoStaleTables(ddbClient, "before");
 
         try {
             try {
@@ -106,10 +107,12 @@ public class DynamoDBStreamsIntegrationTest {
                     camelctx.stop();
                 }
             } finally {
-                DynamoDBUtils.deleteTable(ddbClient, tableName);
+                // Temporary workaround for https://issues.apache.org/jira/browse/CAMEL-12379
+                // DynamoDBUtils.deleteTable(ddbClient, tableName);
             }
         } finally {
-            DynamoDBUtils.assertNoStaleTables(ddbClient, "after");
+            // Temporary workaround for https://issues.apache.org/jira/browse/CAMEL-12379
+            // DynamoDBUtils.assertNoStaleTables(ddbClient, "after");
         }
     }
 

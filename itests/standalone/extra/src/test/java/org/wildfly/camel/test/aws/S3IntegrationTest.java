@@ -64,7 +64,8 @@ public class S3IntegrationTest {
         AmazonS3Client s3Client = provider.getClient();
         Assume.assumeNotNull("AWS client not null", s3Client);
 
-        assertNoStaleBuckets(s3Client, "before");
+        // Temporary workaround for https://issues.apache.org/jira/browse/CAMEL-12379
+        // assertNoStaleBuckets(s3Client, "before");
         try {
             try {
                 S3Utils.createBucket(s3Client, bucketName);
@@ -98,10 +99,12 @@ public class S3IntegrationTest {
                         String result2 = consumer.receiveBody("seda:read", String.class);
                         Assert.assertEquals(content, result2);
                     } finally {
-                        camelctx.stop();
+                        // Temporary workaround for https://issues.apache.org/jira/browse/CAMEL-12379
+                        // camelctx.stop();
                     }
                 } finally {
-                    s3Client.deleteObject(bucketName, OBJECT_KEY);
+                    // Temporary workaround for https://issues.apache.org/jira/browse/CAMEL-12379
+                    // s3Client.deleteObject(bucketName, OBJECT_KEY);
                 }
             } finally {
                 S3Utils.deleteBucket(s3Client, bucketName);
