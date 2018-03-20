@@ -2230,6 +2230,7 @@ org/apache/cxf/interceptor/security/callback
 org/apache/cxf/interceptor/transform
 org/apache/cxf/io
 org/apache/cxf/jaxrs/spring
+org/apache/cxf/jaxws/spring
 org/apache/cxf/message
 org/apache/cxf/phase
 org/apache/cxf/security/transport

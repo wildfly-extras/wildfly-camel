@@ -36,6 +36,7 @@
         <include path="org/apache/cxf/helpers" />
         <include path="org/apache/cxf/interceptor**" />
         <include path="org/apache/cxf/io" />
+        <include path="org/apache/cxf/jaxws/spring" />
         <include path="org/apache/cxf/message" />
         <include path="org/apache/cxf/phase" />
         <include path="org/apache/cxf/security/transport" />
