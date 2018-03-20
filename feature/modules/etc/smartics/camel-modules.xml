@@ -658,13 +658,18 @@
             <module name="javax.wsdl4j.api" />
             <module name="javax.xml.ws.api" />
             <module name="org.apache.cxf.ext" export="true">
+                <imports>
+                    <include path="META-INF" />
+                </imports>
                 <exports>
+                    <include path="META-INF" />
+                    <include path="org/apache/cxf/jaxrs/spring" />
                     <exclude path="org/apache/cxf/clustering**" />
                     <exclude path="org/apache/cxf/jaxrs**" />
                     <exclude path="org/apache/cxf/rs**" />
                 </exports>
             </module>
-            <module name="org.apache.cxf.impl" export="true" >
+            <module name="org.apache.cxf.impl" export="true">
                 <imports>
                     <include path="META-INF" />
                     <include path="META-INF/cxf**" />

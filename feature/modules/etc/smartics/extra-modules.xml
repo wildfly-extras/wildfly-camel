@@ -44,6 +44,8 @@
             <module name="javax.servlet.api" />
             <module name="javax.ws.rs.api" />
             <module name="javax.xml.bind.api" />
+            <module name="org.springframework.beans" />
+            <module name="org.springframework.context" />
         </dependencies>
         <exports>
             <exclude path="net/oauth*" />
