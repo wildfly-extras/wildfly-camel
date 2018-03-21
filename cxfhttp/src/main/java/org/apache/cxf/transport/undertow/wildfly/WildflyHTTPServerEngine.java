@@ -57,7 +57,9 @@ class WildflyHTTPServerEngine extends AbstractHTTPServerEngine {
 
     public void addServant(URL nurl, UndertowHTTPHandler handler) {
 
-        ServletInfo servletInfo = Servlets.servlet("DefaultServlet", DefaultServlet.class).addMapping("/*");
+        ServletInfo servletInfo = Servlets.servlet("DefaultServlet", DefaultServlet.class)
+            .addMapping("/*")
+            .setAsyncSupported(true);
 
         DeploymentInfo servletBuilder = Servlets.deployment()
             .setClassLoader(WildflyHTTPServerEngine.class.getClassLoader())
