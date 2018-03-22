@@ -22,6 +22,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -63,7 +65,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -114,7 +115,6 @@ import net.bytebuddy.ByteBuddy;
 
 @CamelAware
 @RunWith(Arquillian.class)
-@Ignore("[#2353] OpenstackIntegrationTest fails with 2.21.0")
 public class OpenstackIntegrationTest {
 
     private static final String CONTAINER_NAME = "containerName";
@@ -124,6 +124,7 @@ public class OpenstackIntegrationTest {
     ObjectStorageService objectStorageService = Mockito.mock(ObjectStorageService.class);
     ObjectStorageContainerService containerService = Mockito.mock(ObjectStorageContainerService.class);
     ObjectStorageObjectService objectService = Mockito.mock(ObjectStorageObjectService.class);
+    ActionResponse actionResponse = Mockito.mock(ActionResponse.class);
 
     // nova
     ComputeService computeService = Mockito.mock(ComputeService.class);
@@ -187,8 +188,8 @@ public class OpenstackIntegrationTest {
         when(computeService.keypairs()).thenReturn(keypairService);
         when(client.compute()).thenReturn(computeService);
 
-        when(keypairService.get(ArgumentMatchers.anyString())).thenReturn(osTestKeypair);
-        when(keypairService.create(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(osTestKeypair);
+        when(keypairService.get(anyString())).thenReturn(osTestKeypair);
+        when(keypairService.create(anyString(), isNull())).thenReturn(osTestKeypair);
 
         List<Keypair> keypairList = new ArrayList<>();
         keypairList.add(osTestKeypair);
@@ -279,7 +280,8 @@ public class OpenstackIntegrationTest {
         Exchange exchange = Mockito.mock(Exchange.class);
         when(exchange.getIn()).thenReturn(msg);
 
-        when(containerService.create(anyString(), any(CreateUpdateContainerOptions.class))).thenReturn(ActionResponse.actionSuccess());
+        when(containerService.create(anyString(), nullable(CreateUpdateContainerOptions.class))).thenReturn(actionResponse);
+        when(actionResponse.isSuccess()).thenReturn(true);
 
         SwiftEndpoint endpoint = Mockito.mock(SwiftEndpoint.class);
         Producer producer = new ContainerProducer(endpoint, client);
