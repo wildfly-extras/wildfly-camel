@@ -1857,6 +1857,7 @@
                     <exclude path="org/jooq**" />
                 </exports>
             </module>
+            <module name="org.eclipse.milo.server" export="true" />
             <module name="org.slf4j"/>
         </dependencies>
         <exports>

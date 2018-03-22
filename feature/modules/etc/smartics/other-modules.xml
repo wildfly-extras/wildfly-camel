@@ -1660,6 +1660,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
+            <module name="javax.xml.bind.api"/>
             <module name="io.netty"/>
             <module name="org.slf4j"/>
         </dependencies>
@@ -1672,6 +1673,7 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
+        <include artifact="org.eclipse.milo:bsd-parser-core" />
         <include artifact="org.eclipse.milo:sdk-client" />
         <include artifact="org.eclipse.milo:stack-client" />
         <include artifact="com.codepoetics:protonpack" />
@@ -1693,6 +1695,9 @@
             <module name="io.netty"/>
             <module name="org.slf4j"/>
         </dependencies>
+        <exports>
+            <exclude path="org/eclipse" />
+        </exports>
     </module>
 
     <module name="org.eclipse.neoscada.protocols">

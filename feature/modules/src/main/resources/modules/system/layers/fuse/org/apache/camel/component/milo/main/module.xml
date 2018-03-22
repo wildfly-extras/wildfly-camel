@@ -10,11 +10,11 @@
         <exclude path="org/jooq**" />
       </exports>
     </module>
+    <module name="org.eclipse.milo.server" export="true" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.eclipse.milo.client" />
-    <module name="org.eclipse.milo.server" />
   </dependencies>
   <exports>
     <exclude path="org/apache/camel/component/milo/client/internal" />

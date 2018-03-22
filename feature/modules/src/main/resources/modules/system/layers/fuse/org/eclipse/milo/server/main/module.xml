@@ -14,4 +14,7 @@
     <module name="io.dropwizard.metrics" />
     <module name="org.eclipse.milo" />
   </dependencies>
+  <exports>
+    <exclude path="org/eclipse" />
+  </exports>
 </module>

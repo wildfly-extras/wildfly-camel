@@ -16,8 +16,13 @@
  */
 package org.wildfly.camel.test.milo;
 
+import static java.util.Collections.singletonList;
 import static org.apache.camel.component.milo.NodeIds.nodeValue;
+import static org.eclipse.milo.opcua.sdk.server.api.config.OpcUaServerConfig.USER_TOKEN_POLICY_ANONYMOUS;
 
+import java.security.cert.X509Certificate;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
 
 import org.apache.camel.CamelContext;
@@ -27,6 +32,11 @@ import org.apache.camel.component.milo.server.MiloServerComponent;
 import org.apache.camel.component.mock.AssertionClause;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.eclipse.milo.opcua.sdk.server.api.config.OpcUaServerConfig;
+import org.eclipse.milo.opcua.sdk.server.identity.AnonymousIdentityValidator;
+import org.eclipse.milo.opcua.stack.core.UaException;
+import org.eclipse.milo.opcua.stack.core.application.CertificateValidator;
+import org.eclipse.milo.opcua.stack.core.application.DefaultCertificateManager;
 import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -34,7 +44,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
@@ -45,7 +54,6 @@ import org.wildfly.extension.camel.CamelAware;
  */
 @CamelAware
 @RunWith(Arquillian.class)
-@Ignore("[#2289] Milo fails with camel-2.21.0")
 public class MiloIntegrationTest {
 
     private static final String DIRECT_START_1 = "direct:start1";
@@ -59,11 +67,11 @@ public class MiloIntegrationTest {
     private static final String MILO_CLIENT_BASE_C1 = "milo-client:tcp://foo:bar@localhost:@@port@@";
     private static final String MILO_CLIENT_BASE_C2 = "milo-client:tcp://foo2:bar2@localhost:@@port@@";
 
-    private static final String MILO_CLIENT_ITEM_C1_1 = MILO_CLIENT_BASE_C1 + "?node=" + nodeValue(MiloServerComponent.DEFAULT_NAMESPACE_URI, "items-myitem1");
-    private static final String MILO_CLIENT_ITEM_C1_2 = MILO_CLIENT_BASE_C1 + "?node=" + nodeValue(MiloServerComponent.DEFAULT_NAMESPACE_URI, "items-myitem2");
+    private static final String MILO_CLIENT_ITEM_C1_1 = MILO_CLIENT_BASE_C1 + "?allowedSecurityPolicies=None&node=" + nodeValue(MiloServerComponent.DEFAULT_NAMESPACE_URI, "items-myitem1");
+    private static final String MILO_CLIENT_ITEM_C1_2 = MILO_CLIENT_BASE_C1 + "?allowedSecurityPolicies=None&node=" + nodeValue(MiloServerComponent.DEFAULT_NAMESPACE_URI, "items-myitem2");
 
-    private static final String MILO_CLIENT_ITEM_C2_1 = MILO_CLIENT_BASE_C2 + "?node=" + nodeValue(MiloServerComponent.DEFAULT_NAMESPACE_URI, "items-myitem1");
-    private static final String MILO_CLIENT_ITEM_C2_2 = MILO_CLIENT_BASE_C2 + "?node=" + nodeValue(MiloServerComponent.DEFAULT_NAMESPACE_URI, "items-myitem2");
+    private static final String MILO_CLIENT_ITEM_C2_1 = MILO_CLIENT_BASE_C2 + "?allowedSecurityPolicies=None&node=" + nodeValue(MiloServerComponent.DEFAULT_NAMESPACE_URI, "items-myitem1");
+    private static final String MILO_CLIENT_ITEM_C2_2 = MILO_CLIENT_BASE_C2 + "?allowedSecurityPolicies=None&node=" + nodeValue(MiloServerComponent.DEFAULT_NAMESPACE_URI, "items-myitem2");
 
     private static final String MOCK_TEST_1 = "mock:test1";
     private static final String MOCK_TEST_2 = "mock:test2";
@@ -95,10 +103,27 @@ public class MiloIntegrationTest {
             }
         });
 
-        MiloServerComponent server = camelctx.getComponent("milo-server", MiloServerComponent.class);
+        OpcUaServerConfig serverConfig = OpcUaServerConfig.builder()
+            .setEndpointAddresses(Arrays.asList(new String[] {"localhost"}))
+            .setCertificateValidator(new CertificateValidator() {
+                @Override
+                public void validate(X509Certificate certificate) throws UaException {
+                }
+
+                @Override
+                public void verifyTrustChain(List<X509Certificate> certificateChain) throws UaException {
+                }
+            })
+            .setCertificateManager(new DefaultCertificateManager())
+            .setUserTokenPolicies(singletonList(USER_TOKEN_POLICY_ANONYMOUS))
+            .setIdentityValidator(AnonymousIdentityValidator.INSTANCE)
+            .build();
+
+        MiloServerComponent server = new MiloServerComponent(serverConfig);
         server.setBindAddresses("localhost");
         server.setBindPort(serverPort);
-        server.setUserAuthenticationCredentials("foo:bar,foo2:bar2");
+        server.setEnableAnonymousAuthentication(true);
+        camelctx.addComponent("milo-server", server);
 
         camelctx.start();
         try {

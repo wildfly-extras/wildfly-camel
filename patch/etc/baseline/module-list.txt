@@ -649,7 +649,7 @@
 /org/eclipse/jetty/websocket/main/websocket-api-9.2.20.v20161216.jar
 /org/eclipse/jetty/websocket/main/websocket-client-9.2.20.v20161216.jar
 /org/eclipse/jetty/websocket/main/websocket-common-9.2.20.v20161216.jar
-/org/eclipse/milo/bsd-parser-core/main/bsd-parser-core-0.2.1.jar
+/org/eclipse/milo/client/main/bsd-parser-core-0.2.1.jar
 /org/eclipse/milo/client/main/protonpack-1.8.jar
 /org/eclipse/milo/client/main/sdk-client-0.2.1.jar
 /org/eclipse/milo/client/main/stack-client-0.2.1.jar
