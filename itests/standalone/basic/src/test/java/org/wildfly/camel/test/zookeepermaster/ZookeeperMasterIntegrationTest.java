@@ -27,7 +27,6 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
@@ -35,7 +34,6 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 
 @CamelAware
 @RunWith(Arquillian.class)
-@Ignore("[#2354] ZookeeperMasterIntegrationTest fails with 2.21.0")
 public class ZookeeperMasterIntegrationTest {
 
     @ArquillianResource
