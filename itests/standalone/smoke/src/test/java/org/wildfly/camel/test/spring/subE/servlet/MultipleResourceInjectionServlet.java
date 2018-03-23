@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.spring.subE;
+package org.wildfly.camel.test.spring.subE.servlet;
 
 import java.io.IOException;
 
@@ -31,16 +31,30 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.camel.CamelContext;
 
 @WebServlet(name = "HttpServiceServlet", urlPatterns = { "/*" }, loadOnStartup = 1)
-public class SingleResourceInjectionServlet extends HttpServlet {
+public class MultipleResourceInjectionServlet extends HttpServlet {
 
-    @Resource(name =  "java:jboss/camel/context/jndi-delayed-binding-spring-context")
-    private CamelContext camelctx;
+    @Resource(lookup = "java:jboss/camel/context/jndi-delayed-binding-spring-context")
+    private CamelContext camelctxA;
+
+    @Resource(mappedName = "java:jboss/camel/context/jndi-delayed-binding-spring-context")
+    private CamelContext camelctxB;
+
+    @Resource(name = "java:jboss/camel/context/jndi-delayed-binding-spring-context")
+    private CamelContext camelctxC;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if (camelctx != null) {
-            response.getOutputStream().print("@Resource name");
+        if (camelctxA != null) {
+            response.getOutputStream().print("camelctxA,");
+        }
+
+        if (camelctxB != null) {
+            response.getOutputStream().print("camelctxB,");
+        }
+
+        if (camelctxC != null) {
+            response.getOutputStream().print("camelctxC");
         }
     }
 }
