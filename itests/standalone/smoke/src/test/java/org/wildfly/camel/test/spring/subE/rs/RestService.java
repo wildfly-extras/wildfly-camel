@@ -2,7 +2,7 @@
  * #%L
  * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2013 - 2017 RedHat
+ * Copyright (C) 2013 - 2018 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,44 +17,42 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.spring.subE;
-
-import java.io.IOException;
+package org.wildfly.camel.test.spring.subE.rs;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 
 import org.apache.camel.CamelContext;
 
-@WebServlet(name = "HttpServiceServlet", urlPatterns = { "/*" }, loadOnStartup = 1)
-public class MultipleResourceInjectionServlet extends HttpServlet {
+@Path("/context")
+public class RestService {
 
     @Resource(lookup = "java:jboss/camel/context/jndi-delayed-binding-spring-context")
     private CamelContext camelctxA;
 
-    @Resource(mappedName=  "java:jboss/camel/context/jndi-delayed-binding-spring-context")
+    @Resource(mappedName = "java:jboss/camel/context/jndi-delayed-binding-spring-context")
     private CamelContext camelctxB;
 
-    @Resource(name =  "java:jboss/camel/context/jndi-delayed-binding-spring-context")
+    @Resource(name = "java:jboss/camel/context/jndi-delayed-binding-spring-context")
     private CamelContext camelctxC;
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @GET
+    public String getContextInjectionStatus() {
+        StringBuilder builder = new StringBuilder();
 
         if (camelctxA != null) {
-            response.getOutputStream().print("@Resource lookup\n");
+            builder.append("camelctxA,");
         }
 
         if (camelctxB != null) {
-            response.getOutputStream().print("@Resource mappedName\n");
+            builder.append("camelctxB,");
         }
 
         if (camelctxC != null) {
-            response.getOutputStream().print("@Resource name");
+            builder.append("camelctxC");
         }
+
+        return builder.toString();
     }
 }
