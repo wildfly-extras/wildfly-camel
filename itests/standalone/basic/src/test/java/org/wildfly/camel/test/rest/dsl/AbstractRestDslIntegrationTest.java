@@ -1,73 +1,46 @@
-/*
- * #%L
- * Wildfly Camel :: Testsuite
- * %%
- * Copyright (C) 2013 - 2015 RedHat
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
-
 package org.wildfly.camel.test.rest.dsl;
+
+import java.util.Map;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.spi.RestConfiguration;
 import org.jboss.arquillian.container.test.api.Deployer;
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.http.HttpRequest;
+import org.wildfly.camel.test.common.http.HttpRequest.HttpRequestBuilder;
+import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class RestDslIntegrationTest {
+public abstract class AbstractRestDslIntegrationTest {
 
-    private static final String CAMEL_REST_SPRING_JAR = "camel-rest-spring.jar";
+    private static final String[] CORS_HEADERS = { "Access-Control-Allow-Origin", "Access-Control-Allow-Methods",
+        "Access-Control-Allow-Headers", "Access-Control-Max-Age" };
 
     @ArquillianResource
-    private Deployer deployer;
+    protected Deployer deployer;
 
-    @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-rest-dsl-tests")
-            .addClasses(HttpRequest.class);
-    }
+    protected HttpClient client;
 
-    @Deployment(testable = false, managed = false, name = CAMEL_REST_SPRING_JAR)
-    public static JavaArchive camelRestSpringDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, CAMEL_REST_SPRING_JAR)
-            .addAsResource("rest/rest-camel-context.xml", "camel-context.xml")
-            .addClass(HttpRequest.class);
+    @Before
+    public void setUp() {
+        this.client = createHttpClient();
     }
 
     @Test
     public void testRestDsl() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
+        camelctx.setRestConfiguration(createRestConfiguration());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                restConfiguration()
-                    .component("undertow")
-                    .host("localhost")
-                    .port(8080);
-
                 rest()
                     .get("/test")
                         .route()
@@ -100,28 +73,27 @@ public class RestDslIntegrationTest {
                         .endRest();
             }
         });
-
         camelctx.start();
         try {
-            String body = HttpRequest.get("http://localhost:8080/test").getResponse().getBody();
+            String body = client.getResponse("test", "GET").getBody();
             Assert.assertEquals("GET: /test", body);
 
-            body = HttpRequest.get("http://localhost:8080/foo/bar").getResponse().getBody();
+            body = client.getResponse("foo/bar", "GET").getBody();
             Assert.assertEquals("GET: /foo/bar", body);
 
-            body = HttpRequest.get("http://localhost:8080/test/1").getResponse().getBody();
+            body = client.getResponse("test/1", "GET").getBody();
             Assert.assertEquals("GET: /test/1", body);
 
-            body = HttpRequest.post("http://localhost:8080/test").getResponse().getBody();
+            body = client.getResponse("test", "POST").getBody();
             Assert.assertEquals("POST: /test", body);
 
-            body = HttpRequest.put("http://localhost:8080/test/1").getResponse().getBody();
+            body = client.getResponse("test/1", "PUT").getBody();
             Assert.assertEquals("PUT: /test/1", body);
 
-            body = HttpRequest.delete("http://localhost:8080/test/1").getResponse().getBody();
+            body = client.getResponse("test/1", "DELETE").getBody();
             Assert.assertEquals("DELETE: /test/1", body);
 
-            int statusCode = HttpRequest.get("http://localhost:8080/test/foo/bar").throwExceptionOnFailure(false).getResponse().getStatusCode();
+            int statusCode = client.getResponse("test/foo/bar", "GET").getStatusCode();
             Assert.assertEquals(404, statusCode);
         } finally {
             camelctx.stop();
@@ -131,15 +103,10 @@ public class RestDslIntegrationTest {
     @Test
     public void testRestDslWithContextPath() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
+        camelctx.setRestConfiguration(createRestConfiguration("camel-rest-dsl-tests"));
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                restConfiguration()
-                    .component("undertow")
-                    .contextPath("camel-rest-dsl-tests")
-                    .host("localhost")
-                    .port(8080);
-
                 rest("/test")
                     .get("/")
                         .route()
@@ -175,25 +142,25 @@ public class RestDslIntegrationTest {
 
         camelctx.start();
         try {
-            String body = HttpRequest.get("http://localhost:8080/camel-rest-dsl-tests/test").getResponse().getBody();
+            String body = client.getResponse("camel-rest-dsl-tests/test", "GET").getBody();
             Assert.assertEquals("GET: /test", body);
 
-            body = HttpRequest.get("http://localhost:8080/camel-rest-dsl-tests/test/foo/bar").getResponse().getBody();
+            body = client.getResponse("camel-rest-dsl-tests/test/foo/bar", "GET").getBody();
             Assert.assertEquals("GET: /test/foo/bar", body);
 
-            body = HttpRequest.get("http://localhost:8080/camel-rest-dsl-tests/test/1").getResponse().getBody();
+            body = client.getResponse("camel-rest-dsl-tests/test/1", "GET").getBody();
             Assert.assertEquals("GET: /test/1", body);
 
-            body = HttpRequest.post("http://localhost:8080/camel-rest-dsl-tests/test").getResponse().getBody();
+            body = client.getResponse("camel-rest-dsl-tests/test", "POST").getBody();
             Assert.assertEquals("POST: /test", body);
 
-            body = HttpRequest.put("http://localhost:8080/camel-rest-dsl-tests/test/1").getResponse().getBody();
+            body = client.getResponse("camel-rest-dsl-tests/test/1", "PUT").getBody();
             Assert.assertEquals("PUT: /test/1", body);
 
-            body = HttpRequest.delete("http://localhost:8080/camel-rest-dsl-tests/test/1").getResponse().getBody();
+            body = client.getResponse("camel-rest-dsl-tests/test/1", "DELETE").getBody();
             Assert.assertEquals("DELETE: /test/1", body);
 
-            int statusCode = HttpRequest.get("http://localhost:8080/camel-rest-dsl-tests/foo/bar").throwExceptionOnFailure(false).getResponse().getStatusCode();
+            int statusCode = client.getResponse("camel-rest-dsl-tests/foo/bar", "GET").getStatusCode();
             Assert.assertEquals(404, statusCode);
         } finally {
             camelctx.stop();
@@ -203,14 +170,10 @@ public class RestDslIntegrationTest {
     @Test
     public void testRestDslRequestWithInvalidMethod() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
+        camelctx.setRestConfiguration(createRestConfiguration());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                restConfiguration()
-                    .component("undertow")
-                    .host("localhost")
-                    .port(8080);
-
                 rest()
                     .get("/foo/bar")
                         .route()
@@ -221,52 +184,23 @@ public class RestDslIntegrationTest {
 
         camelctx.start();
         try {
-            int statusCode = HttpRequest.delete("http://localhost:8080/foo/bar").throwExceptionOnFailure(false).getResponse().getStatusCode();
+            int statusCode = client.getResponse("foo/bar", "DELETE").getStatusCode();
             Assert.assertEquals(405, statusCode);
         } finally {
             camelctx.stop();
         }
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void testRestDslOverlappingPaths() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                restConfiguration()
-                    .component("undertow")
-                    .host("localhost")
-                    .port(8080);
-
-                rest()
-                    .get("/say/hello")
-                        .route()
-                          .setBody(constant("GET: /say/hello"))
-                        .endRest();
-            }
-        });
-
-        deployer.deploy(CAMEL_REST_SPRING_JAR);
-        try {
-            camelctx.start();
-        } finally {
-            camelctx.stop();
-            deployer.undeploy(CAMEL_REST_SPRING_JAR);
-        }
-    }
-
     @Test
-    public void testRestDslHandlerUnregistered() throws Exception {
+    public void testRestDslCorsEnabled() throws Exception {
+        RestConfiguration restConfiguration = createRestConfiguration();
+        restConfiguration.setEnableCORS(true);
+
         CamelContext camelctx = new DefaultCamelContext();
+        camelctx.setRestConfiguration(restConfiguration);
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                restConfiguration()
-                    .component("undertow")
-                    .host("localhost")
-                    .port(8080);
-
                 rest()
                     .get("/test")
                         .route()
@@ -277,13 +211,90 @@ public class RestDslIntegrationTest {
 
         camelctx.start();
         try {
-            int statusCode = HttpRequest.get("http://localhost:8080/test").getResponse().getStatusCode();
-            Assert.assertEquals(200, statusCode);
+            Map<String, String> headers = client.getResponse("test", "OPTIONS").getHeaders();
+            for (String header : CORS_HEADERS) {
+                Assert.assertTrue("Expected HTTP response header: " + header, headers.containsKey(header));
+            }
         } finally {
             camelctx.stop();
         }
+    }
 
-        int statusCode = HttpRequest.get("http://localhost:8080/test").throwExceptionOnFailure(false).getResponse().getStatusCode();
-        Assert.assertEquals(404, statusCode);
+    @Test
+    public void testRestDslCorsDisabled() throws Exception {
+        RestConfiguration restConfiguration = createRestConfiguration();
+        restConfiguration.setEnableCORS(false);
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.setRestConfiguration(createRestConfiguration());
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                rest()
+                    .get("/test")
+                        .route()
+                            .setBody(constant("GET: /test"))
+                        .endRest();
+            }
+        });
+
+        camelctx.start();
+        try {
+            Map<String, String> headers = client.getResponse("test", "OPTIONS").getHeaders();
+            for (String header : CORS_HEADERS) {
+                Assert.assertFalse(headers.containsKey(header));
+            }
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    protected abstract String getComponentName();
+
+    protected String getDefaultContextPath() {
+        return "/";
+    }
+
+    protected HttpClient createHttpClient() {
+        return new HttpClient() {
+            @Override
+            public HttpResponse getResponse(String url, String method) throws Exception {
+                return new HttpRequestBuilder(getEndpointUrl(url), method)
+                    .throwExceptionOnFailure(false)
+                    .getResponse();
+            }
+        };
+    }
+
+    protected int getPort() {
+        return 8080;
+    }
+
+    private String getEndpointUrl(String path) {
+        return String.format("http://localhost:%d%s%s", getPort(), getDefaultContextPath(), path);
+    }
+
+    private RestConfiguration createRestConfiguration() {
+        return createRestConfiguration(null);
+    }
+
+    private RestConfiguration createRestConfiguration(String contextPath) {
+        RestConfiguration configuration = new RestConfiguration();
+        configuration.setComponent(getComponentName());
+        configuration.setHost("localhost");
+        configuration.setPort(getPort());
+
+        // camel-servlet always requires a context path
+        if (getComponentName().equals("servlet")) {
+            configuration.setContextPath(getDefaultContextPath());
+        } else {
+            configuration.setContextPath(contextPath);
+        }
+
+        return configuration;
+    }
+
+    protected interface HttpClient {
+        HttpResponse getResponse(String url, String method) throws Exception;
     }
 }

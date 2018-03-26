@@ -2,7 +2,7 @@
  * #%L
  * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2013 - 2014 RedHat
+ * Copyright (C) 2013 - 2017 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,9 @@
  * limitations under the License.
  * #L%
  */
-
-package org.wildfly.camel.test.servlet;
+package org.wildfly.camel.test.rest.dsl;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -30,45 +27,54 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.http.HttpRequest;
-import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
-import org.wildfly.extension.camel.CamelAware;
 
-@CamelAware
 @RunWith(Arquillian.class)
-public class ServletIntegrationTest {
+public class ServletRestDslIntegrationTest extends AbstractRestDslIntegrationTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel.war");
-        archive.addAsWebInfResource("servlet/web.xml", "web.xml");
-        archive.addClasses(HttpRequest.class);
-        return archive;
+        return ShrinkWrap.create(WebArchive.class, "camel-servlet-rest-dsl-tests.war")
+            .addAsWebInfResource("servlet/web.xml", "web.xml")
+            .addClasses(HttpRequest.class, AbstractRestDslIntegrationTest.class);
     }
 
-    @Test
-    public void testServletRoute() throws Exception {
+    @Override
+    protected String getComponentName() {
+        return "servlet";
+    }
 
+    @Override
+    protected String getDefaultContextPath() {
+        return "/camel-servlet-rest-dsl-tests/services/";
+    }
+
+    @Override
+    public void testRestDslWithContextPath() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("servlet://hello?matchOnUriPrefix=true")
-                .process(new Processor() {
-                    @Override
-                    public void process(Exchange exchange) throws Exception {
-                        exchange.getOut().setBody("Hello Kermit");
-                    }
-                });
+                restConfiguration()
+                    .component("servlet")
+                    .host("localhost")
+                    .port(8080)
+                    .contextPath("/foo/bar");
+
+                rest("/test")
+                    .get("/")
+                        .route()
+                            .setBody(constant("GET: /foo/bar/test"))
+                        .endRest();
             }
         });
 
         camelctx.start();
         try {
-            HttpResponse result = HttpRequest.get("http://localhost:8080/camel/services/hello").getResponse();
-            Assert.assertEquals("Hello Kermit", result.getBody());
+            // Custom context paths make no sense for camel-servlet so verify no endpoint is reachable
+            int statusCode = HttpRequest.get("http://localhost:8080/foo/bar/test").throwExceptionOnFailure(false).getResponse().getStatusCode();
+            Assert.assertEquals(404, statusCode);
         } finally {
             camelctx.stop();
         }

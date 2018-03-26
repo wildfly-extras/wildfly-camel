@@ -80,7 +80,7 @@ public final class HttpRequest {
         private Map<String, String> headers = new HashMap<>();
         private TimeUnit timeUnit = TimeUnit.SECONDS;
 
-        HttpRequestBuilder(String url, String method) {
+        public HttpRequestBuilder(String url, String method) {
             this.requestUrl = url;
             this.method = method;
         }
