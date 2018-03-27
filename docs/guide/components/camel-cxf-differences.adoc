@@ -1,0 +1,51 @@
+#### CXF consumers on {wildfly}
+
+The configuration of camel-cxf consumers on {wildfly} is different to that of standalone Camel. Producer endpoints work as per normal.
+
+On {wildfly}, camel-cxf consumers leverage the default Undertow HTTP server provided by the container. The server is defined within the undertow subsystem configuration. Here's an excerpt of the default configuration from standalone.xml:
+
+[source,xml,options="nowrap"]
+<subsystem xmlns="urn:jboss:domain:undertow:4.0">
+    <buffer-cache name="default" />
+    <server name="default-server">
+        <http-listener name="default" socket-binding="http" redirect-socket="https" enable-http2="true" />
+        <https-listener name="https" socket-binding="https" security-realm="ApplicationRealm" enable-http2="true" />
+        <host name="default-host" alias="localhost">
+            <location name="/" handler="welcome-content" />
+            <filter-ref name="server-header" />
+            <filter-ref name="x-powered-by-header" />
+            <http-invoker security-realm="ApplicationRealm" />
+        </host>
+    </server>
+</subsystem>
+
+In this instance, Undertow is configured to listen on interfaces / ports specified by the http and https socket-binding. By default this is port 8080 for http and 8443 for https.
+
+For example, if you configure an endpoint consumer using different host or port combinations, a warning will appear within the server log file. For example the following host & port configurations would be ignored:
+
+[source,xml,options="nowrap"]
+<cxf:rsServer id="cxfRsConsumer"
+              address="http://somehost:1234/path/to/resource"
+              serviceClass="org.example.ServiceClass" />
+
+[source,xml,options="nowrap"]
+<cxf:cxfEndpoint id="cxfWsConsumer"
+                 address="http://somehost:1234/path/to/resource"
+                 serviceClass="org.example.ServiceClass" />
+
+[source,options="nowrap"]
+[org.wildfly.extension.camel] (pool-2-thread-1) Ignoring configured host: http://somehost:1234/path/to/resource
+
+However, the consumer is still available on the default host & port localhost:8080 or localhost:8443.
+
+##### Configuring alternative ports
+
+If alternative ports are to be accepted, then these must be configured via the {wildfly} subsystem configuration. This is explained in the server documentation:
+
+https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html/configuration_guide/configuring_the_web_server_undertow
+
+##### Configuring SSL
+
+To configure SSL, refer to the {wildfly} SSL configuration guide:
+
+https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html-single/how_to_configure_server_security/#configure_one_way_and_two_way_ssl_tls_for_application
