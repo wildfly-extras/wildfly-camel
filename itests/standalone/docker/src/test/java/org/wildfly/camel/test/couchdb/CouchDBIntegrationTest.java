@@ -41,6 +41,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.lightcouch.CouchDbClient;
@@ -50,6 +51,7 @@ import org.wildfly.extension.camel.CamelAware;
 @CamelAware
 @RunWith(ArquillianConditionalRunner.class)
 @RequiresDocker
+@Ignore("[#2462] Intermittent failure of CouchDBIntegrationTest")
 public class CouchDBIntegrationTest {
 
     private static final String CONTAINER_NAME = "couchdb";
