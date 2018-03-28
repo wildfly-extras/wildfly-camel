@@ -34,7 +34,7 @@ Authentication and authorization will happen in the JavaEE layer.
 
 #### Securing a Camel Route
 
-In order to secure a Camel Route, we can associate a `DomainAuthorizationPolicy` with the route. This policy requires a successful authentication against the given security domain and authorization for "Role2".
+In order to secure a Camel Route, you can associate a `DomainAuthorizationPolicy` with the route. This policy requires a successful authentication against the given security domain and authorization for "Role2".
 
 
 [source,java,options="nowrap"]

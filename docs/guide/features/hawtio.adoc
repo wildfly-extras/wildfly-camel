@@ -1,7 +1,7 @@
 [discrete]
 ### Management Console
 
-By default, access to management consoles is secured. We therefore need to setup a Management User first.
+By default, access to management consoles is secured. Therefore, you need to setup a Management User first.
 
 [source,options="nowrap"]
 ----

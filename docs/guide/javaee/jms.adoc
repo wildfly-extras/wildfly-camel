@@ -8,9 +8,9 @@ Integration with other JMS implementations is possible through configuration of 
 
 #### {wildfly} JMS configuration
 
-The {wildfly} https://docs.jboss.org/author/display/WFLY8/Messaging+configuration[messaging subsystem,window=_blank] can be configured from within the standard {wildfly} XML configuration files e.g. standalone.xml.
+The {wildfly} https://docs.jboss.org/author/display/WFLY8/Messaging+configuration[messaging subsystem,window=_blank] can be configured from within the standard {wildfly} XML configuration files. For example, standalone.xml file.
 
-For the examples that follow we use the embedded ActiveMQ Artemis in memory instance. We first configure a new JMS queue on the messaging subsystem by adding the following XML configuration to the jms-destinations section.
+For the examples, follow the embedded ActiveMQ Artemis in memory instance. You need to configure a new JMS queue on the messaging subsystem, by adding the following XML configuration to the jms-destinations section.
 
 [source,xml,options="nowrap"]
 <jms-queue name="WildFlyCamelQueue">
@@ -31,9 +31,9 @@ The examples also use CDI in conjunction with the camel-cdi component. JMS Conne
 
 ##### JMS Producer
 
-The RouteBuilder begins by injecting the `DefaultJMSConnectionFactory` connection factory from JNDI. If you're wondering where the connection factory is defined, look at the {wildfly} XML configuration and you'll see it is defined within the messaging subsystem.
+Start the RouteBuilder, by injecting the DefaultJMSConnectionFactory connection factory from JNDI. Under the JBoss EAP XML configuration, you can find the connection factory, within the messaging subsystem.
 
-Next a timer endpoint runs every 10 seconds to send an XML payload to the WildFlyCamelQueue destination that we configured earlier.
+Next a timer endpoint runs every 10 seconds to send an XML payload to the WildFlyCamelQueue destination that has been configured earlier.
 
 [source,java,options="nowrap"]
 ----
@@ -60,7 +60,7 @@ public class JmsRouteBuilder extends RouteBuilder {
 }
 ----
 
-A log message will be output to the console each time a JMS message is added to the WildFlyCamelQueue destination. To verify that the messages really are being placed onto the queue, we can use the {wildfly} administration console.
+A log message will be output to the console each time a JMS message is added to the WildFlyCamelQueue destination. To verify that the messages really are being placed onto the queue, you can use the {wildfly} administration console.
 
 image::jms-queue-browse.png[]
 
@@ -88,9 +88,9 @@ public void configure() throws Exception {
 ----
 
 ##### JMS Transactions
-To enable Camel JMS routes to participate in JMS transactions, some additional configuration is required. Since camel-jms is built around spring-jms, we need to configure some Spring classes to enable them to work with {wildfly}'s transaction manager and connection factory. The following code example demonstrates how to use CDI to configure a transactional JMS Camel route.
+To enable Camel JMS routes to participate in JMS transactions, some additional configuration is required. Since camel-jms is built around spring-jms, you need to configure some Spring classes to enable them to work with {wildfly}'s transaction manager and connection factory. The following code example demonstrates how to use CDI to configure a transactional JMS Camel route.
 
-The camel-jms component requires a transaction manager of type `org.springframework.transaction.PlatformTransactionManager`. Therefore, we begin by creating a bean extending `JtaTransactionManager`. Note that the bean is annotated with `@Named` to allow the bean to be registered within the Camel bean registry. Also note that the {wildfly} transaction manager and user transaction instances are injected using CDI.
+The camel-jms component requires a transaction manager of type `org.springframework.transaction.PlatformTransactionManager`. Therefore, you start by creating a bean extending `JtaTransactionManager`. Note that the bean is annotated with `@Named` to allow the bean to be registered within the Camel bean registry. Also note that the {wildfly} transaction manager and user transaction instances are injected using CDI.
 
 [source,java,options="nowrap"]
 ----
@@ -111,7 +111,7 @@ public class CdiTransactionManager extends JtaTransactionManager {
 }
 ----
 
-Next we need to declare the transaction policy that we want to use. Again we use the `@Named` annotation to make the bean available to Camel. The transaction manager is also injected so that a TransactionTemplate can be created with the desired transaction policy. PROPAGATION_REQUIRED in this instance.
+Next, you need to declare the transaction policy that you want to use. Again, use the `@Named` annotation to make the bean available to Camel. The transaction manager is also injected so that a TransactionTemplate can be created with the desired transaction policy. PROPAGATION_REQUIRED in this instance.
 
 [source,java,options="nowrap"]
 @Named("PROPAGATION_REQUIRED")
@@ -123,7 +123,7 @@ public class CdiRequiredPolicy extends SpringTransactionPolicy {
   }
 }
 
-Now we can configure our Camel RouteBuilder class and inject the dependencies needed for the Camel JMS component. The {wildfly} XA connection factory is injected together with the transaction manager we configured earlier.
+Now you can configure our Camel RouteBuilder class and inject the dependencies needed for the Camel JMS component. The {wildfly} XA connection factory is injected together with the transaction manager that has been configured earlier.
 
 In this example RouteBuilder, whenever any messages are consumed from queue1, they are routed to another JMS queue named queue2. Messages consumed from queue2 result in JMS transaction being rolled back using the rollback() DSL method. This results in the original message being placed onto the dead letter queue(DLQ).
 
@@ -174,9 +174,9 @@ Note that the queue must be configured on the {wildfly} client application serve
 
 Before the client can connect to the remote server, user access credentials need to be configured. On the remote server run the https://docs.jboss.org/author/display/WFLY8/add-user+utility[add user utility,window=_blank] to create a new application user within the 'guest' group. This example has a user with the name 'admin' and a password of 'secret'.
 
-The RouteBuilder implementation is different to the previous examples. Instead of injecting the connection factory, we need to configure an InitialContext and retrieve it from JNDI ourselves.
+The RouteBuilder implementation is different to the previous examples. Instead of injecting the connection factory, you need to configure an InitialContext and retrieve it from JNDI ourselves.
 
-The `configureInitialContext` method creates this InitialContext. Notice that we need to set a provider URL which should reference your remote {wildfly} instance host name and port number. This example uses the {wildfly} JMS http-connector, but there are alternatives documented https://docs.jboss.org/author/display/WFLY8/Messaging+configuration[here,window=_blank].
+The `configureInitialContext` method creates this InitialContext. Notice that you need to set a provider URL which should reference your remote {wildfly} instance host name and port number. This example uses the {wildfly} JMS http-connector, but there are alternatives documented https://docs.jboss.org/author/display/WFLY8/Messaging+configuration[here,window=_blank].
 
 Finally the route is configured to send an XML payload every 10 seconds to the remote destination configured earlier - 'RemoteQueue'.
 

@@ -6,7 +6,7 @@ By default, Camel will create its own mail session and use this to interact with
 
 #### {wildfly} configuration
 
-First we configure the {wildfly} mail subsystem for our Mail server. This example adds configuration for Google Mail IMAP and SMTP .
+First you configure the {wildfly} mail subsystem for our Mail server. This example adds configuration for Google Mail IMAP and SMTP .
 
 An additional mail-session is configured after the 'default' session.
 
@@ -54,10 +54,10 @@ If you need to configure POP3 sessions, the principals are the same as defined i
 #### Camel route configuration
 
 ##### Mail producer
-This example uses the SMTPS protocol, together with CDI in conjunction with the camel-cdi component. The Java mail session that we configured within the {wildfly} configuration is injected into a Camel RouteBuilder through JNDI.
+This example uses the SMTPS protocol, together with CDI in conjunction with the camel-cdi component. The Java mail session that you configured within the {wildfly} configuration is injected into a Camel RouteBuilder through JNDI.
 
 ###### Route builder SMTPS example
-The GMail mail session is injected into a Producer class using the `@Resource` annotation with a reference to the `jndi-name` attribute that we  previously configured. This allows us to reference the mail session on the camel-mail endpoint configuration.
+The GMail mail session is injected into a Producer class using the `@Resource` annotation with a reference to the `jndi-name` attribute that you  previously configured. This allows us to reference the mail session on the camel-mail endpoint configuration.
 
 [source,java,options="nowrap"]
 ----
@@ -82,7 +82,7 @@ public class MailRouteBuilder extends RouteBuilder {
     }
 }
 
-To send an email we can create a ProducerTemplate and send an appropriate body together with the necessary email headers.
+To send an email, you can create a ProducerTemplate and send an appropriate body together with the necessary email headers.
 
 [source,java,options="nowrap"]
 ----
@@ -99,7 +99,7 @@ template.sendBodyAndHeaders("direct:start", body, headers);
 
 ##### Mail consumer
 
-To receive email we use an IMAP MailEndpoint. The Camel route configuration looks like the following.
+To receive email you can use an IMAP MailEndpoint. The Camel route configuration looks like the following.
 
 [source,java,options="nowrap"]
 public void configure() throws Exception {
