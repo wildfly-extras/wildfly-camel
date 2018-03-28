@@ -8,6 +8,6 @@ include::jaxws.adoc[]
 
 include::jms.adoc[]
 
-In addition to that, we use Camel's notion of Route Policies to integrate with the {wildfly} security system.
+In addition to that, you can use Camel's notion of Route Policies to integrate with the {wildfly} security system.
 
 include::policy.adoc[]

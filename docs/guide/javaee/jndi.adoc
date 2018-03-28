@@ -1,6 +1,6 @@
 ### JNDI
 
-JNDI integration is provided by a {wildfly} specific CamelContext, which is can be obtained like this
+JNDI integration is provided by a {wildfly} specific CamelContext as shown below:
 
 [source,java,options="nowrap"]
 InitialContext inictx = new InitialContext();

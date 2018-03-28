@@ -99,7 +99,7 @@ public class ActiveMQRouteBuilder extends RouteBuilder {
 }
 ----
 
-A log message will be output to the console each time a message is added to the WildFlyCamelQueue destination. To verify that the messages really are being placed onto the queue, we can use the ../features/hawtio.md[Hawtio console,window=_blank] provided by the {wildfly-camel} subsystem.
+A log message will be output to the console each time a message is added to the WildFlyCamelQueue destination. To verify that the messages really are being placed onto the queue, you can use the ../features/hawtio.md[Hawtio console,window=_blank] provided by the {wildfly-camel} subsystem.
 
 image::activemq-queue-browse.png[]
 
@@ -120,7 +120,7 @@ public void configure() throws Exception {
 
 ###### ActiveMQ Resource Adapter Configuration
 
-The ActiveMQ resource adapter is required as we will want to leverage XA transaction support, connection pooling etc.
+The ActiveMQ resource adapter is required to leverage XA transaction support, connection pooling etc.
 
 The XML snippet below shows how the resource adapter is configured within the {wildfly} server XML configuration. Notice that the `ServerURL` is set to use an embedded broker. The connection factory is bound to the JNDI name `java:/ActiveMQConnectionFactory`. This will be looked up in the RouteBuilder example that follows.
 
@@ -144,7 +144,7 @@ Finally, two queues are configured named 'queue1' and 'queue2'.
 </subsystem>
 
 ##### Transaction Manager
-The camel-activemq component requires a transaction manager of type `org.springframework.transaction.PlatformTransactionManager`. Therefore, we begin by creating a bean extending `JtaTransactionManager` which fulfills this requirement. Note that the bean is annotated with `@Named` to allow the bean to be registered within the Camel bean registry. Also note that the {wildfly} transaction manager and user transaction instances are injected using CDI.
+The camel-activemq component requires a transaction manager of type `org.springframework.transaction.PlatformTransactionManager`. Therefore, you can start by creating a bean extending `JtaTransactionManager` which fulfills this requirement. Note that the bean is annotated with `@Named` to allow the bean to be registered within the Camel bean registry. Also note that the {wildfly} transaction manager and user transaction instances are injected using CDI.
 
 [source,java,options="nowrap"]
 ----
@@ -167,7 +167,7 @@ public class CdiTransactionManager extends JtaTransactionManager {
 
 ##### Transaction Policy
 
-Next we need to declare the transaction policy that we want to use. Again we use the `@Named` annotation to make the bean available to Camel. The transaction manager is also injected so that a `TransactionTemplate` can be created with the desired transaction policy. `PROPAGATION_REQUIRED` in this instance.
+Next you need to declare the transaction policy that you want to use. Again, use the `@Named` annotation to make the bean available to Camel. The transaction manager is also injected so that a `TransactionTemplate` can be created with the desired transaction policy. `PROPAGATION_REQUIRED` in this instance.
 
 [source,java,options="nowrap"]
 ----
@@ -183,7 +183,7 @@ public class CdiRequiredPolicy extends SpringTransactionPolicy {
 
 ##### Route Builder
 
-Now we can configure our Camel RouteBuilder class and inject the dependencies needed for the Camel ActiveMQ component. The ActiveMQ connection factory that we configured on the resource adapter configuration is injected together with the transaction manager we configured earlier.
+Now you can configure our Camel RouteBuilder class and inject the dependencies needed for the Camel ActiveMQ component. The ActiveMQ connection factory that you configured on the resource adapter configuration is injected together with the transaction manager you configured earlier.
 
 In this example RouteBuilder, whenever any messages are consumed from queue1, they are routed to another JMS queue named queue2. Messages consumed from queue2 result in JMS transaction being rolled back using the rollback() DSL method. This results in the original message being placed onto the dead letter queue(DLQ).
 

@@ -5,7 +5,7 @@ Camel JPA applications are developed as per normal by providing a persistence.xm
 
 #### Example persistence.xml
 
-In this example we use the Wildfly in-memory ExampleDS datasource which is configured within the Wildfly standalone.xml configuration file.
+In this example, you can use the Wildfly in-memory ExampleDS datasource which is configured within the Wildfly standalone.xml configuration file.
 
 [source,xml,options="nowrap"]
 ----
@@ -117,7 +117,7 @@ public void configure() throws Exception {
 camelctx.start();
 ----
 
-Finally, we can send a 'Customer' entity to the 'direct:start' endpoint and then query the ExampleDS datasource to verify that a record was saved.
+Finally, you can send a 'Customer' entity to the 'direct:start' endpoint and then query the ExampleDS datasource to verify that a record was saved.
 
 [source,java,options="nowrap"]
 ----

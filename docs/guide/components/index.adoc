@@ -1,6 +1,6 @@
 ## Camel Components
 
-This chapter details information about supported camel components
+This chapter provides information about supported camel components.
 
 include::camel-activemq.adoc[]
 
@@ -404,7 +404,7 @@ Here is an example for the camel-ftp component
   </dependencies>
 </module>
 
-Please make sure you don't duplicate modules that are already available in {wildfly} and can be reused.
+Make sure that you do not duplicate modules that are already available in {wildfly} and can be reused.
 
 [discrete]
 #### Add a reference to the component
