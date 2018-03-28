@@ -11,6 +11,6 @@
     <module name="org.apache.camel.core" />
   </dependencies>
   <exports>
-    <exclude path="facebook4j/**" />
+    <exclude path="facebook4j/internal**" />
   </exports>
 </module>

@@ -19,7 +19,13 @@
  */
 package org.wildfly.camel.test.facebook;
 
+import facebook4j.Facebook;
+import facebook4j.FacebookFactory;
 import facebook4j.PagableList;
+import facebook4j.ResponseList;
+import facebook4j.TestUser;
+import facebook4j.conf.Configuration;
+import facebook4j.conf.ConfigurationBuilder;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -83,5 +89,25 @@ public class FacebookIntegrationTest {
         } finally {
             camelctx.stop();
         }
+    }
+
+    @Test
+    public void testFacebookClientConfiguration() throws Exception {
+        String baseURL = "http://localhost:8080/camel-facebook-tests/fake-facebook-api/";
+
+        ConfigurationBuilder builder = new ConfigurationBuilder();
+        builder.setOAuthAppId(FACEBOOK_APP_ID);
+        builder.setOAuthAppSecret(FACEBOOK_APP_SECRET);
+        builder.setOAuthAccessToken("fake-token-12345");
+        builder.setClientURL(baseURL);
+        builder.setOAuthAccessTokenURL(baseURL + "oauth-token");
+        builder.setRestBaseURL(baseURL + "rest");
+        Configuration builderConfiguration = builder.build();
+
+        Facebook facebook = new FacebookFactory(builderConfiguration).getInstance();
+        facebook.getOAuthAccessToken();
+
+        ResponseList<TestUser> testUserList = facebook.testUsers().getTestUsers(FACEBOOK_APP_ID);
+        Assert.assertNotNull("Facebook app test user list was null", testUserList);
     }
 }

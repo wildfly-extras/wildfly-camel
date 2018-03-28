@@ -1146,6 +1146,11 @@ com/twilio/security
 com/twilio/taskrouter
 com/twilio/twiml
 com/twilio/type
+facebook4j/api
+facebook4j/auth
+facebook4j/conf
+facebook4j/json
+facebook4j/management
 freemarker/cache
 freemarker/core
 freemarker/log

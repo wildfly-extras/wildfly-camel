@@ -38,6 +38,7 @@
 	^com/sun/syndication(.*)
 	^com/surftools/BeanstalkClient
     ^com/twilio(.*)
+    ^facebook4j(.*)
     ^freemarker(.*)
 	^groovy(.*)
     ^io/atomix(.*)

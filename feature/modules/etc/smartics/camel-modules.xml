@@ -908,7 +908,7 @@
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
-            <exclude path="facebook4j/**" />
+            <exclude path="facebook4j/internal**" />
         </exports>
     </module>
 
