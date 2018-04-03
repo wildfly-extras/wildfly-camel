@@ -811,12 +811,12 @@
         <artifact groupId="org.wildfly" artifactId="wildfly-transactions" version="12.0.0.Final"/>
         <artifact groupId="org.wildfly" artifactId="wildfly-undertow" version="12.0.0.Final"/>
         <artifact groupId="org.wildfly" artifactId="wildfly-web-common" version="12.0.0.Final"/>
-        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-config" version="6.0.0-SNAPSHOT"/>
-        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-cxf-undertow" version="6.0.0-SNAPSHOT"/>
-        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-subsystem-cdi" version="6.0.0-SNAPSHOT"/>
-        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-subsystem-core" version="6.0.0-SNAPSHOT"/>
-        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-subsystem-security" version="6.0.0-SNAPSHOT"/>
-        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-subsystem-undertow" version="6.0.0-SNAPSHOT"/>
+        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-config" version="6.0.0"/>
+        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-cxf-undertow" version="6.0.0"/>
+        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-subsystem-cdi" version="6.0.0"/>
+        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-subsystem-core" version="6.0.0"/>
+        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-subsystem-security" version="6.0.0"/>
+        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-subsystem-undertow" version="6.0.0"/>
         <artifact groupId="org.wildfly.client" artifactId="wildfly-client-config" version="1.0.0.Final"/>
         <artifact groupId="org.wildfly.common" artifactId="wildfly-common" version="1.3.0.Final"/>
         <artifact groupId="org.wildfly.core" artifactId="wildfly-controller" version="4.0.0.Final"/>
