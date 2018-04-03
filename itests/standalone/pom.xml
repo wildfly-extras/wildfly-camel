@@ -36,7 +36,7 @@
     <!-- Properties -->
     <properties>
         <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
-        <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true -Dee8.preview.mode=true -Djava.security.egd=file:/dev/./urandom</jvmArgs>
+        <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true -Djava.security.egd=file:/dev/./urandom</jvmArgs>
         <jvmDebugArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmDebugArgs>
     </properties>
 
