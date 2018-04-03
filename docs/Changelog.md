@@ -1,5 +1,79 @@
 ### Changelog
 
+#### WildFly-Camel 6.0.0
+
+**Features**
+
+* [#2452][2452] Add support for CXF suspended invocations
+
+For details see [6.0.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"6.0.0"+label%3Afeature)
+
+**Tasks**
+
+* [#1392][1392] Add health checks to example-camel-rest deployment
+* [#1712][1712] Use WildFly provided org.apache.qpid.proton module
+* [#2163][2163] Upgrade to camel-2.21.0
+* [#2272][2272] Upgrade to wildfly-12.0.0
+* [#2395][2395] Introduce .editorconfig and enforce it with editorconfig-maven-plugin
+* [#2410][2410] Restore AWS credentials for Jenkins builds
+* [#2415][2415] Fix typos in documentation
+* [#2428][2428] Upgrade docker base image to openshift/wildfly-120-centos7
+* [#2433][2433] Enable camel-sap-netweaver tests
+* [#2434][2434] Enable camel-weather tests
+* [#2437][2437] Expand @Resource injection test coverage
+* [#2438][2438] Add ee8.preview.mode system property to WildFly configuration
+* [#2441][2441] Reject Camel Spring deployments which fail on context startup
+* [#2443][2443] Upgrade Hawtio to 1.5.8
+* [#2448][2448] Expose CXF JAX-RS Spring NamespaceHandler
+* [#2450][2450] Expose CXF JAX-WS Spring NamespaceHandler
+* [#2465][2465] Relax facebook4j package export restriction
+
+For details see [6.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"6.0.0"+label%3Atask)
+
+**Bugs**
+
+* [#2239][2239] Datasource/jndi dependency race condition
+* [#2289][2289] Milo fails with camel-2.21.0
+* [#2353][2353] OpenstackIntegrationTest fails with 2.21.0
+* [#2354][2354] ZookeeperMasterIntegrationTest fails with 2.21.0
+* [#2368][2368] System contexts are not shut down gracefully
+* [#2407][2407] Intermittent failure of MongoDBIntegrationTest
+* [#2420][2420] JCache component cannot use HazelcastCachingProvider
+* [#2422][2422] JCache component cannot use EhcacheCachingProvider
+* [#2425][2425] com.hazelcast module cannot access sun.misc.Unsafe
+* [#2435][2435] JNDI binding race condition for Servlet @Resource injection
+
+For details see [6.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"6.0.0"+label%3Abug)
+
+[2452]: https://github.com/wildfly-extras/wildfly-camel/issues/2452
+[1392]: https://github.com/wildfly-extras/wildfly-camel/issues/1392
+[1712]: https://github.com/wildfly-extras/wildfly-camel/issues/1712
+[2163]: https://github.com/wildfly-extras/wildfly-camel/issues/2163
+[2272]: https://github.com/wildfly-extras/wildfly-camel/issues/2272
+[2395]: https://github.com/wildfly-extras/wildfly-camel/issues/2395
+[2410]: https://github.com/wildfly-extras/wildfly-camel/issues/2410
+[2415]: https://github.com/wildfly-extras/wildfly-camel/issues/2415
+[2428]: https://github.com/wildfly-extras/wildfly-camel/issues/2428
+[2433]: https://github.com/wildfly-extras/wildfly-camel/issues/2433
+[2434]: https://github.com/wildfly-extras/wildfly-camel/issues/2434
+[2437]: https://github.com/wildfly-extras/wildfly-camel/issues/2437
+[2438]: https://github.com/wildfly-extras/wildfly-camel/issues/2438
+[2441]: https://github.com/wildfly-extras/wildfly-camel/issues/2441
+[2443]: https://github.com/wildfly-extras/wildfly-camel/issues/2443
+[2448]: https://github.com/wildfly-extras/wildfly-camel/issues/2448
+[2450]: https://github.com/wildfly-extras/wildfly-camel/issues/2450
+[2465]: https://github.com/wildfly-extras/wildfly-camel/issues/2465
+[2239]: https://github.com/wildfly-extras/wildfly-camel/issues/2239
+[2289]: https://github.com/wildfly-extras/wildfly-camel/issues/2289
+[2353]: https://github.com/wildfly-extras/wildfly-camel/issues/2353
+[2354]: https://github.com/wildfly-extras/wildfly-camel/issues/2354
+[2368]: https://github.com/wildfly-extras/wildfly-camel/issues/2368
+[2407]: https://github.com/wildfly-extras/wildfly-camel/issues/2407
+[2420]: https://github.com/wildfly-extras/wildfly-camel/issues/2420
+[2422]: https://github.com/wildfly-extras/wildfly-camel/issues/2422
+[2425]: https://github.com/wildfly-extras/wildfly-camel/issues/2425
+[2435]: https://github.com/wildfly-extras/wildfly-camel/issues/2435
+
 #### WildFly-Camel 5.1.0
 
 **Tasks**
