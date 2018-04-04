@@ -95,6 +95,7 @@
                                 </assembly>
                                 <runCmds>
                                     <run>${server.home}/bin/fuseconfig.sh --configs camel --enable</run>
+                                    <run>chmod g=u -R ${server.home}</run>
                                 </runCmds>
                                 <optimise>true</optimise>
                             </build>
