@@ -24,24 +24,32 @@ http://{ec2-pub-ip}:8080/example-camel-cdi?name=Kermit[,window=_blank]
 
 {wildfly-camel} provides an OpenShift builder image, which enables you to do a source to image in OpenShift.
 
-First add the {wildfly-camel} S2I ImageStream.
+First add the {wildfly-camel} S2I ImageStream and the application template.
 
-[source,options="nowrap"]
+[source,bash,options="nowrap"]
+----
+$ oc project # Check into which project you are importing the image stream and the template
+Using project "myproject" from context named "minishift" on server "https://192.168.42.188:8443".
 $ oc apply -f http://wildfly-extras.github.io/wildfly-camel/sources/wildfly-camel-imagestream.json
+$ oc create -f http://wildfly-extras.github.io/wildfly-camel/sources/wildfly-camel-application-template.json
+----
 
-When you select 'Add to Project' in the OpenShift web console you should see a new catalog item named
-'wildfly-camel'. Choose this option, then provide the required parameters.
+In the OpenShift web console, go to the project where you imported the image stream and the template. When you select
+'Add to Project -> Select from Project' in the top right corner you should see a new catalog item named 'Wildfly Camel'.
+Choose this option, then provide the required parameters.
 
 image::wildfly-camel-s2i-builder01.png[]
 
-To build the latest release of the {wildfly-camel} CDI example you would enter:
+To build the latest release of the {wildfly-camel} CDI example you would enter (leaving the rest of the parameters
+unchanged):
 
 [cols="1,2",width="80%"]
 |=======
-|**Name**| camel-cdi
-|**Git Repository URL**| https://github.com/wildfly-extras/wildfly-camel-examples
+|**Application Name**| camel-cdi
+|**Base Image ImageStream Namespace**| The name of the project where you imported the WildFly Camel image stream the previous step; e.g. `myproject`
+|**Git Repository URL**| https://github.com/wildfly-extras/wildfly-camel-examples.git
 |**Git Reference**| {version}
-|**Context Dir**| camel-cdi
+|**Context Directory**| camel-cdi
 |=======
 
 Click 'Create' to start the build process.
