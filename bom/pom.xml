@@ -145,6 +145,11 @@
                 <version>${version.wildfly.fasterxml.jackson}</version>
             </dependency>
             <dependency>
+                <groupId>com.fasterxml.jackson.jr</groupId>
+                <artifactId>jackson-jr-objects</artifactId>
+                <version>${version.wildfly.fasterxml.jackson}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.icegreen</groupId>
                 <artifactId>greenmail-webapp</artifactId>
                 <version>${version.greenmail}</version>

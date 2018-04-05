@@ -35,7 +35,7 @@
 /com/fasterxml/jackson/dataformat/yaml/main/jackson-dataformat-yaml-2.9.4.jar
 /com/fasterxml/jackson/datatype/jackson-datatype-guava/main/jackson-datatype-guava-2.9.4.jar
 /com/fasterxml/jackson/datatype/joda/main/jackson-datatype-joda-2.9.4.jar
-/com/fasterxml/jackson/jr/main/jackson-jr-objects-2.8.10.jar
+/com/fasterxml/jackson/jr/main/jackson-jr-objects-2.9.4.jar
 /com/fasterxml/jackson/module/afterburner/main/jackson-module-afterburner-2.9.4.jar
 /com/fasterxml/jackson/module/jsonSchema/main/jackson-module-jsonSchema-2.9.4.jar
 /com/github/docker/java/main/docker-java-3.0.14.jar

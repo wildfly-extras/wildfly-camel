@@ -62,7 +62,7 @@
         <artifact groupId="com.fasterxml.jackson.datatype" artifactId="jackson-datatype-jsr310" version="2.9.4"/>
         <artifact groupId="com.fasterxml.jackson.jaxrs" artifactId="jackson-jaxrs-base" version="2.8.10"/>
         <artifact groupId="com.fasterxml.jackson.jaxrs" artifactId="jackson-jaxrs-json-provider" version="2.8.10"/>
-        <artifact groupId="com.fasterxml.jackson.jr" artifactId="jackson-jr-objects" version="2.8.10"/>
+        <artifact groupId="com.fasterxml.jackson.jr" artifactId="jackson-jr-objects" version="2.9.4"/>
         <artifact groupId="com.fasterxml.jackson.module" artifactId="jackson-module-afterburner" version="2.9.4"/>
         <artifact groupId="com.fasterxml.jackson.module" artifactId="jackson-module-jaxb-annotations" version="2.8.10"/>
         <artifact groupId="com.fasterxml.jackson.module" artifactId="jackson-module-jsonSchema" version="2.9.4"/>

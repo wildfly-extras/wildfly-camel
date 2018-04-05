@@ -10,6 +10,7 @@
         <artifact groupId="com.fasterxml.jackson.dataformat" artifactId="jackson-dataformat-cbor" version="2.9.4"/>
         <artifact groupId="com.fasterxml.jackson.dataformat" artifactId="jackson-dataformat-smile" version="2.9.4"/>
         <artifact groupId="com.fasterxml.jackson.dataformat" artifactId="jackson-dataformat-yaml" version="2.9.4"/>
+        <artifact groupId="com.fasterxml.jackson.jr" artifactId="jackson-jr-objects" version="2.9.4"/>
         <artifact groupId="com.google.guava" artifactId="guava" version="18.0"/>
         <artifact groupId="com.ning" artifactId="compress-lzf" version="1.0.2"/>
         <artifact groupId="com.spatial4j" artifactId="spatial4j" version="0.5"/>

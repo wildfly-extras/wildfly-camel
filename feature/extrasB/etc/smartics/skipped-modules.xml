@@ -32,6 +32,10 @@
         <include artifact=":jackson-dataformat-yaml" />
     </module>
 
+    <module name="com.fasterxml.jackson.jr" skip="true">
+        <include artifact=":jackson-jr-objects" />
+    </module>
+
     <module name="com.google.guava" skip="true">
         <include artifact="com.google.guava:guava" />
     </module>
