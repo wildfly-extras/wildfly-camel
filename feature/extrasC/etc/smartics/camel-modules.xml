@@ -20,15 +20,47 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="org.apache.camel.component.elasticsearch5">
-        <include artifact="org.apache.camel:camel-elasticsearch5"/>
+    <module name="org.apache.camel.component.jclouds">
+        <include artifact="org.apache.camel:camel-jclouds"/>
         <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
+            <include module="org.apache.camel.apt"/>
+            <include module="org.springframework.boot"/>
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.elasticsearch5"/>
+            <module name="com.google.guava" slot="16.0"/>
+            <module name="org.apache.jclouds" export="true" services="export">
+                <exports>
+                    <exclude path="org/jclouds/apis/internal"/>
+                    <exclude path="org/jclouds/blobstore/internal"/>
+                    <exclude path="org/jclouds/blobstore/domain/internal"/>
+                    <exclude path="org/jclouds/blobstore/strategy/internal"/>
+                    <exclude path="org/jclouds/blobstore/util/internal"/>
+                    <exclude path="org/jclouds/collect/internal"/>
+                    <exclude path="org/jclouds/compute/internal"/>
+                    <exclude path="org/jclouds/compute/domain/internal"/>
+                    <exclude path="org/jclouds/compute/extensions/internal"/>
+                    <exclude path="org/jclouds/compute/predicates/internal"/>
+                    <exclude path="org/jclouds/date/internal"/>
+                    <exclude path="org/jclouds/domain/internal"/>
+                    <exclude path="org/jclouds/encryption/internal"/>
+                    <exclude path="org/jclouds/http/internal"/>
+                    <exclude path="org/jclouds/internal"/>
+                    <exclude path="org/jclouds/io/internal"/>
+                    <exclude path="org/jclouds/json/internal"/>
+                    <exclude path="org/jclouds/logging/internal"/>
+                    <exclude path="org/jclouds/ovf/internal"/>
+                    <exclude path="org/jclouds/ovf/xml/internal"/>
+                    <exclude path="org/jclouds/predicates/internal"/>
+                    <exclude path="org/jclouds/providers/internal"/>
+                    <exclude path="org/jclouds/proxy/internal"/>
+                    <exclude path="org/jclouds/rest/internal"/>
+                    <exclude path="org/jclouds/ssh/internal"/>
+                    <exclude path="org/jclouds/strategy/internal"/>
+                    <exclude path="org/jclouds/util/internal"/>
+                    <exclude path="org/jclouds/xml/internal"/>
+                </exports>
+            </module>
             <module name="org.slf4j"/>
         </dependencies>
     </module>

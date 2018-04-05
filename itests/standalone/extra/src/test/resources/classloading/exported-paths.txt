@@ -1740,9 +1740,6 @@ org/apache/camel/component/ejb
 org/apache/camel/component/elasticsearch
 org/apache/camel/component/elasticsearch/aggregation
 org/apache/camel/component/elasticsearch/converter
-org/apache/camel/component/elasticsearch5
-org/apache/camel/component/elasticsearch5/aggregation
-org/apache/camel/component/elasticsearch5/converter
 org/apache/camel/component/elsql
 org/apache/camel/component/etcd
 org/apache/camel/component/etcd/cloud
@@ -2116,8 +2113,6 @@ org/apache/camel/dataformat/tagsoup
 org/apache/camel/dataformat/tarfile
 org/apache/camel/dataformat/thrift
 org/apache/camel/dataformat/univocity
-org/apache/camel/dataformat/xmljson
-org/apache/camel/dataformat/xmljson/converters
 org/apache/camel/dataformat/xmlrpc
 org/apache/camel/dataformat/xmlsecurity
 org/apache/camel/dataformat/xstream

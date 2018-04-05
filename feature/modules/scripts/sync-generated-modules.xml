@@ -44,7 +44,6 @@
                 <filter token="version.apache.felix.metatype" value="${version.apache.felix.metatype}"/>
                 <filter token="version.apache.felix.scr" value="${version.apache.felix.scr}"/>
                 <filter token="version.jboss.gravia" value="${version.jboss.gravia}" />
-                <filter token="version.net.sf.json" value="${version.net.sf.json}" />
             </filterset>
         </copy>
 
@@ -59,9 +58,6 @@
                 <include name="**/*.jar" />
             </fileset>
         </copy>
-
-        <property name="target.net.sf.json.module.dir" value="${output.dir}/managed-jars/modules/system/layers/fuse/net/sf/json/main" />
-        <copy file="${maven.dependency.net.sf.json-lib.json-lib.jdk15.jar.path}" todir="${target.net.sf.json.module.dir}" />
 
         <!-- Sync source tree with Smartics generated XML files -->
         <sync todir="${resources.dir}/modules" overwrite="true" verbose="true">

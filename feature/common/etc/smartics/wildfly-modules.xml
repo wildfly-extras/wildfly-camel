@@ -215,10 +215,6 @@
         <include artifact=":jboss-jaxws-api_2.2_spec" />
     </module>
 
-    <module name="nu.xom" skip="true">
-        <include artifact=":xom"/>
-    </module>
-
     <module name="org.apache.avro" skip="true">
         <include artifact="org.apache.avro:avro"/>
     </module>

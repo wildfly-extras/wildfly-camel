@@ -42,13 +42,8 @@
 
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-elasticsearch5</artifactId>
+            <artifactId>camel-jclouds</artifactId>
             <version>${version.apache.camel}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${version.camel.log4j2}</version>
         </dependency>
 
         <dependency>
@@ -91,8 +86,8 @@
                     </modules>
                     <dependencyExcludes>
                         <exclude>
-                            <groupId>org.apache.logging.log4j</groupId>
-                            <artifactId>log4j-api-java9</artifactId>
+                            <groupId>org.osgi</groupId>
+                            <artifactId>osgi_R4_core</artifactId>
                         </exclude>
                         <exclude>
                             <groupId>org.wildfly.camel</groupId>
