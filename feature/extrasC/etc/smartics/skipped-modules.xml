@@ -24,42 +24,20 @@
 -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="com.fasterxml.jackson.dataformat.cbor" skip="true">
-        <include artifact=":jackson-dataformat-cbor" />
+    <module name="aopalliance" skip="true">
+        <include artifact="aopalliance:aopalliance" />
     </module>
 
-    <module name="com.fasterxml.jackson.dataformat.smile" skip="true">
-        <include artifact=":jackson-dataformat-smile" />
-    </module>
-
-    <module name="com.fasterxml.jackson.dataformat.yaml" skip="true">
-        <include artifact=":jackson-dataformat-yaml" />
-    </module>
-
-    <module name="io.netty" slot="3.10" skip="true">
-        <include artifact="io.netty:netty" />
+    <module name="com.google.inject.guice" slot="3.0" skip="true">
+        <include artifact="com.google.inject:guice"/>
     </module>
 
     <module name="org.apache.camel.core" skip="true">
-        <include artifact="org.apache.camel:camel-core"/>
-    </module>
-
-    <module name="org.elasticsearch5.skipped" skip="true">
-        <include artifact="org.elasticsearch:jna" />
-        <include artifact="org.locationtech.spatial4j:spatial4j" />
-        <include artifact="com.vividsolutions:jts" />
-    </module>
-
-    <module name="org.hdrhistogram" skip="true">
-        <include artifact="org.hdrhistogram:HdrHistogram" />
+        <include artifact="org.apache.camel:camel-core" />
     </module>
 
     <module name="org.osgi.core" skip="true">
         <include artifact=":org.osgi.core" />
-    </module>
-
-    <module name="net.sf.jopt-simple" skip="true">
-        <include artifact="net.sf.jopt-simple:" />
     </module>
 
 </modules>

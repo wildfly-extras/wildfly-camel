@@ -25,7 +25,6 @@
         <artifact name="org.wildfly.camel:wildfly-camel-feature-extrasA" />
         <artifact name="org.wildfly.camel:wildfly-camel-feature-extrasB" />
         <artifact name="org.wildfly.camel:wildfly-camel-feature-extrasC" />
-        <artifact name="org.wildfly.camel:wildfly-camel-feature-extrasD" />
     </dependencies>
 
     <config>

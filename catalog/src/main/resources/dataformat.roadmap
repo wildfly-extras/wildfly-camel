@@ -39,7 +39,6 @@ tidyMarkup
 univocity-csv
 univocity-fixed
 univocity-tsv
-xmljson             #deprecated
 xmlrpc
 xstream
 yaml-snakeyaml
@@ -55,4 +54,5 @@ fhirXml
 [rejected]
 hessian             #deprecated
 xmlBeans            #deprecated
+xmljson             #deprecated
 

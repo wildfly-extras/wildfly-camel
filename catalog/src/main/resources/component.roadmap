@@ -68,7 +68,6 @@ dropbox
 ehcache
 ejb
 elasticsearch                                       #deprecated
-elasticsearch5                                      #deprecated
 elsql
 etcd
 exec
@@ -277,6 +276,7 @@ cometd                                              #1990 Depends on Jetty serve
 cometds                                             #1991 Depends on Jetty server
 context                                             #deprecated
 drill                                               #1823 Competitor to JDG
+elasticsearch5                                      #deprecated
 eventadmin                                          #1996 OSGi specific
 flink                                               #2370 Massive bucket of scala dependent stuff
 gora                                                #2000 Competitor to JDG
