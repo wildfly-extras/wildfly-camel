@@ -49,7 +49,7 @@ public class RSSIntegrationTest {
             .addClass(RSSFeedServlet.class)
             .setManifest(() -> {
                 ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "com.rometools.rome");
+                builder.addManifestHeader("Dependencies", "com.rometools.rome:1.0");
                 return builder.openStream();
             });
     }

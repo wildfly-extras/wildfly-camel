@@ -7,5 +7,7 @@
     <artifact name="${net.minidev:accessors-smart}" />
     <artifact name="${net.minidev:json-smart}" />
   </resources>
-  <dependencies />
+  <dependencies>
+    <module name="asm.asm" />
+  </dependencies>
 </module>

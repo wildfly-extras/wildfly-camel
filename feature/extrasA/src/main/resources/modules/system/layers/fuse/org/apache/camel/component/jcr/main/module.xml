@@ -4,9 +4,9 @@
     <artifact name="${org.apache.camel:camel-jcr}" />
   </resources>
   <dependencies>
+    <module name="com.rometools.rome" slot="1.0" />
     <module name="javax.jcr" export="true" />
     <module name="org.slf4j" />
-    <module name="com.rometools.rome" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.jackrabbit" />

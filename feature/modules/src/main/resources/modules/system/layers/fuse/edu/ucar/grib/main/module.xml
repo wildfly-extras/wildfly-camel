@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="edu.ucar.grib">
+  <resources>
+    <artifact name="${edu.ucar:grib}" />
+  </resources>
+  <dependencies>
+    <module name="com.google.protobuf" />
+    <module name="edu.ucar.cdm" />
+    <module name="net.jcip" />
+    <module name="org.itadaki.bzip2" />
+    <module name="org.jdom.jdom2" />
+    <module name="org.jsoup" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

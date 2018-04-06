@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.james.apache-mime4j-dom">
+  <resources>
+    <artifact name="${org.apache.james:apache-mime4j-dom}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.james.mime4j" />
+  </dependencies>
+</module>

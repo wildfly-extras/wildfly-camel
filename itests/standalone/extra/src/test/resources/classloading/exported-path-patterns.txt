@@ -94,6 +94,7 @@
     ^org/apache/olingo(.*)
     ^org/apache/shiro(.*)
     ^org/apache/sshd
+    ^org/apache/tika(.*)
     ^org/apache/thrift(.*)
 	^org/apache/zookeeper(.*)
     ^org/apache/xmlgraphics(.*)

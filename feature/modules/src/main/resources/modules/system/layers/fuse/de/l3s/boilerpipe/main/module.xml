@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="de.l3s.boilerpipe">
+  <resources>
+    <artifact name="${de.l3s.boilerpipe:boilerpipe}" />
+  </resources>
+  <dependencies />
+</module>

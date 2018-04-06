@@ -20,6 +20,7 @@
         <artifact groupId="ca.uhn.hapi" artifactId="hapi-structures-v26" version="2.3"/>
         <artifact groupId="ch.qos.cal10n" artifactId="cal10n-api" version="0.8.1"/>
         <artifact groupId="com.101tec" artifactId="zkclient" version="0.10"/>
+        <artifact groupId="com.adobe.xmp" artifactId="xmpcore" version="5.1.3"/>
         <artifact groupId="com.alibaba" artifactId="fastjson" version="1.2.46"/>
         <artifact groupId="com.amazonaws" artifactId="aws-java-sdk" version="1.11.269"/>
         <artifact groupId="com.amazonaws" artifactId="aws-java-sdk-cloudfront" version="1.11.269"/>
@@ -47,6 +48,7 @@
         <artifact groupId="com.couchbase.client" artifactId="couchbase-client" version="1.4.13"/>
         <artifact groupId="com.damnhandy" artifactId="handy-uri-templates" version="1.1.7"/>
         <artifact groupId="com.datastax.cassandra" artifactId="cassandra-driver-core" version="3.4.0"/>
+        <artifact groupId="com.drewnoakes" artifactId="metadata-extractor" version="2.10.1"/>
         <artifact groupId="com.dropbox.core" artifactId="dropbox-core-sdk" version="3.0.6"/>
         <artifact groupId="com.eclipsesource.minimal-json" artifactId="minimal-json" version="0.9.1"/>
         <artifact groupId="com.fasterxml" artifactId="aalto-xml" version="0.9.10"/>
@@ -72,8 +74,10 @@
         <artifact groupId="com.github.dozermapper" artifactId="dozer-core" version="6.1.0"/>
         <artifact groupId="com.github.dozermapper" artifactId="dozer-schema" version="6.1.0"/>
         <artifact groupId="com.github.jsendnsca" artifactId="jsendnsca" version="2.1.1"/>
+        <artifact groupId="com.github.junrar" artifactId="junrar" version="0.7"/>
         <artifact groupId="com.github.mifmif" artifactId="generex" version="1.0.1"/>
         <artifact groupId="com.github.spullara.mustache.java" artifactId="compiler" version="0.9.4"/>
+        <artifact groupId="com.github.virtuald" artifactId="curvesapi" version="1.04"/>
         <artifact groupId="com.google.api-client" artifactId="google-api-client" version="1.22.0"/>
         <artifact groupId="com.google.api.grpc" artifactId="proto-google-common-protos" version="1.0.0"/>
         <artifact groupId="com.google.apis" artifactId="google-api-services-bigquery" version="v2-rev352-1.22.0"/>
@@ -95,9 +99,13 @@
         <artifact groupId="com.google.zxing" artifactId="javase" version="3.3.2"/>
         <artifact groupId="com.googlecode.javaewah" artifactId="JavaEWAH" version="1.1.6"/>
         <artifact groupId="com.googlecode.json-simple" artifactId="json-simple" version="1.1.1"/>
+        <artifact groupId="com.googlecode.juniversalchardet" artifactId="juniversalchardet" version="1.0.3"/>
         <artifact groupId="com.googlecode.libphonenumber" artifactId="libphonenumber" version="8.8.11"/>
+        <artifact groupId="com.googlecode.mp4parser" artifactId="isoparser" version="1.1.18"/>
         <artifact groupId="com.hazelcast" artifactId="hazelcast" version="3.9.3"/>
         <artifact groupId="com.hazelcast" artifactId="hazelcast-client" version="3.9.3"/>
+        <artifact groupId="com.healthmarketscience.jackcess" artifactId="jackcess" version="2.1.8"/>
+        <artifact groupId="com.healthmarketscience.jackcess" artifactId="jackcess-encrypt" version="2.1.2"/>
         <artifact groupId="com.intellij" artifactId="annotations" version="12.0"/>
         <artifact groupId="com.jayway.jsonpath" artifactId="json-path" version="2.4.0"/>
         <artifact groupId="com.jcraft" artifactId="jsch" version="0.1.54"/>
@@ -124,8 +132,11 @@
         <artifact groupId="com.notnoop.apns" artifactId="apns" version="1.0.0.Beta6"/>
         <artifact groupId="com.opengamma" artifactId="elsql" version="1.2"/>
         <artifact groupId="com.orbitz.consul" artifactId="consul-client" version="1.0.0"/>
+        <artifact groupId="com.pff" artifactId="java-libpst" version="0.8.1"/>
         <artifact groupId="com.pubnub" artifactId="pubnub-gson" version="4.18.0"/>
         <artifact groupId="com.rabbitmq" artifactId="amqp-client" version="5.1.2"/>
+        <artifact groupId="com.rometools" artifactId="rome" version="1.5.1"/>
+        <artifact groupId="com.rometools" artifactId="rome-utils" version="1.5.1"/>
         <artifact groupId="com.spatial4j" artifactId="spatial4j" version="0.5"/>
         <artifact groupId="com.squareup.moshi" artifactId="moshi" version="1.4.0"/>
         <artifact groupId="com.squareup.okhttp3" artifactId="logging-interceptor" version="3.9.1"/>
@@ -138,6 +149,7 @@
         <artifact groupId="com.sun.mail" artifactId="javax.mail" version="1.6.1"/>
         <artifact groupId="com.sun.xml.bind.jaxb" artifactId="isorelax" version="20090621"/>
         <artifact groupId="com.surftools" artifactId="BeanstalkClient" version="1.4.6"/>
+        <artifact groupId="com.tdunning" artifactId="json" version="1.8"/>
         <artifact groupId="com.thoughtworks.xstream" artifactId="xstream" version="1.4.10"/>
         <artifact groupId="com.twilio.sdk" artifactId="twilio" version="7.9.1"/>
         <artifact groupId="com.typesafe.netty" artifactId="netty-reactive-streams" version="2.0.0"/>
@@ -154,8 +166,15 @@
         <artifact groupId="commons-lang" artifactId="commons-lang" version="2.6"/>
         <artifact groupId="commons-net" artifactId="commons-net" version="3.6"/>
         <artifact groupId="commons-pool" artifactId="commons-pool" version="1.6"/>
+        <artifact groupId="de.l3s.boilerpipe" artifactId="boilerpipe" version="1.1.0"/>
         <artifact groupId="dk.brics.automaton" artifactId="automaton" version="1.11-8"/>
         <artifact groupId="dnsjava" artifactId="dnsjava" version="2.1.8"/>
+        <artifact groupId="edu.ucar" artifactId="cdm" version="4.5.5"/>
+        <artifact groupId="edu.ucar" artifactId="grib" version="4.5.5"/>
+        <artifact groupId="edu.ucar" artifactId="httpservices" version="4.5.5"/>
+        <artifact groupId="edu.ucar" artifactId="netcdf4" version="4.5.5"/>
+        <artifact groupId="edu.ucar" artifactId="udunits" version="4.5.5"/>
+        <artifact groupId="edu.usc.ir" artifactId="sentiment-analysis-parser" version="0.1"/>
         <artifact groupId="io.atomix" artifactId="atomix" version="1.0.8"/>
         <artifact groupId="io.atomix" artifactId="atomix-collections" version="1.0.8"/>
         <artifact groupId="io.atomix" artifactId="atomix-concurrent" version="1.0.8"/>
@@ -219,11 +238,13 @@
         <artifact groupId="javax.cache" artifactId="cache-api" version="1.0.0"/>
         <artifact groupId="javax.enterprise" artifactId="cdi-api" version="2.0"/>
         <artifact groupId="javax.inject" artifactId="javax.inject" version="1"/>
+        <artifact groupId="javax.measure" artifactId="jsr-275" version="0.9.3"/>
         <artifact groupId="javax.validation" artifactId="validation-api" version="2.0.1.Final"/>
         <artifact groupId="jaxen" artifactId="jaxen" version="1.1.6"/>
         <artifact groupId="joda-time" artifactId="joda-time" version="2.9.7"/>
         <artifact groupId="net.java.dev.msv" artifactId="msv-core" version="2013.6.1"/>
         <artifact groupId="net.java.dev.msv" artifactId="xsdlib" version="2013.6.1"/>
+        <artifact groupId="net.jcip" artifactId="jcip-annotations" version="1.0"/>
         <artifact groupId="net.minidev" artifactId="accessors-smart" version="1.2"/>
         <artifact groupId="net.minidev" artifactId="json-smart" version="2.3"/>
         <artifact groupId="net.openhft" artifactId="affinity" version="3.0.5"/>
@@ -237,6 +258,7 @@
         <artifact groupId="net.openhft" artifactId="chronicle-wire" version="1.7.29"/>
         <artifact groupId="net.openhft" artifactId="compiler" version="2.3.0"/>
         <artifact groupId="net.openhft" artifactId="lang" version="6.8.2"/>
+        <artifact groupId="net.sf.ehcache" artifactId="ehcache-core" version="2.6.2"/>
         <artifact groupId="net.sf.flatpack" artifactId="flatpack" version="3.4.3"/>
         <artifact groupId="net.sf.jopt-simple" artifactId="jopt-simple" version="5.0.4"/>
         <artifact groupId="net.sf.jsignature.io-tools" artifactId="easystream" version="1.2.15"/>
@@ -451,6 +473,7 @@
         <artifact groupId="org.apache.camel" artifactId="camel-tarfile" version="2.21.0"/>
         <artifact groupId="org.apache.camel" artifactId="camel-telegram" version="2.21.0"/>
         <artifact groupId="org.apache.camel" artifactId="camel-thrift" version="2.21.0"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-tika" version="2.21.0"/>
         <artifact groupId="org.apache.camel" artifactId="camel-twilio" version="2.21.0"/>
         <artifact groupId="org.apache.camel" artifactId="camel-twitter" version="2.21.0"/>
         <artifact groupId="org.apache.camel" artifactId="camel-undertow" version="2.21.0"/>
@@ -468,6 +491,7 @@
         <artifact groupId="org.apache.camel" artifactId="camel-zipkin" version="2.21.0"/>
         <artifact groupId="org.apache.camel" artifactId="camel-zookeeper" version="2.21.0"/>
         <artifact groupId="org.apache.camel" artifactId="camel-zookeeper-master" version="2.21.0"/>
+        <artifact groupId="org.apache.commons" artifactId="commons-collections4" version="4.1"/>
         <artifact groupId="org.apache.commons" artifactId="commons-compress" version="1.16.1"/>
         <artifact groupId="org.apache.commons" artifactId="commons-csv" version="1.5"/>
         <artifact groupId="org.apache.commons" artifactId="commons-exec" version="1.3"/>
@@ -519,6 +543,7 @@
         <artifact groupId="org.apache.httpcomponents" artifactId="httpcore" version="4.4.9"/>
         <artifact groupId="org.apache.httpcomponents" artifactId="httpcore-nio" version="4.4.9"/>
         <artifact groupId="org.apache.httpcomponents" artifactId="httpmime" version="4.5.5"/>
+        <artifact groupId="org.apache.james" artifactId="apache-mime4j-dom" version="0.8.1"/>
         <artifact groupId="org.apache.johnzon" artifactId="johnzon-core" version="1.1.0"/>
         <artifact groupId="org.apache.johnzon" artifactId="johnzon-mapper" version="1.1.0"/>
         <artifact groupId="org.apache.kafka" artifactId="kafka-clients" version="1.0.0"/>
@@ -550,8 +575,15 @@
         <artifact groupId="org.apache.olingo" artifactId="odata-server-core" version="4.4.0"/>
         <artifact groupId="org.apache.olingo" artifactId="olingo-odata2-api" version="2.0.10"/>
         <artifact groupId="org.apache.olingo" artifactId="olingo-odata2-core" version="2.0.10"/>
+        <artifact groupId="org.apache.opennlp" artifactId="opennlp-tools" version="1.8.3"/>
         <artifact groupId="org.apache.pdfbox" artifactId="fontbox" version="2.0.8"/>
+        <artifact groupId="org.apache.pdfbox" artifactId="jempbox" version="1.8.13"/>
         <artifact groupId="org.apache.pdfbox" artifactId="pdfbox" version="2.0.8"/>
+        <artifact groupId="org.apache.pdfbox" artifactId="pdfbox-tools" version="2.0.8"/>
+        <artifact groupId="org.apache.poi" artifactId="poi" version="3.17"/>
+        <artifact groupId="org.apache.poi" artifactId="poi-ooxml" version="3.17"/>
+        <artifact groupId="org.apache.poi" artifactId="poi-ooxml-schemas" version="3.17"/>
+        <artifact groupId="org.apache.poi" artifactId="poi-scratchpad" version="3.17"/>
         <artifact groupId="org.apache.qpid" artifactId="proton-j" version="0.26.0"/>
         <artifact groupId="org.apache.qpid" artifactId="qpid-jms-client" version="0.30.0"/>
         <artifact groupId="org.apache.santuario" artifactId="xmlsec" version="2.1.1"/>
@@ -567,14 +599,22 @@
         <artifact groupId="org.apache.shiro" artifactId="shiro-crypto-hash" version="1.4.0"/>
         <artifact groupId="org.apache.shiro" artifactId="shiro-event" version="1.4.0"/>
         <artifact groupId="org.apache.shiro" artifactId="shiro-lang" version="1.4.0"/>
+        <artifact groupId="org.apache.sis.core" artifactId="sis-metadata" version="0.6"/>
+        <artifact groupId="org.apache.sis.core" artifactId="sis-referencing" version="0.6"/>
+        <artifact groupId="org.apache.sis.core" artifactId="sis-utility" version="0.6"/>
+        <artifact groupId="org.apache.sis.storage" artifactId="sis-netcdf" version="0.6"/>
+        <artifact groupId="org.apache.sis.storage" artifactId="sis-storage" version="0.6"/>
         <artifact groupId="org.apache.sshd" artifactId="sshd-core" version="1.7.0"/>
         <artifact groupId="org.apache.thrift" artifactId="libthrift" version="0.11.0"/>
+        <artifact groupId="org.apache.tika" artifactId="tika-core" version="1.17"/>
+        <artifact groupId="org.apache.tika" artifactId="tika-parsers" version="1.17"/>
         <artifact groupId="org.apache.velocity" artifactId="velocity-engine-core" version="2.0"/>
         <artifact groupId="org.apache.ws.commons.axiom" artifactId="axiom-api" version="1.2.14"/>
         <artifact groupId="org.apache.ws.commons.axiom" artifactId="axiom-impl" version="1.2.14"/>
         <artifact groupId="org.apache.ws.commons.util" artifactId="ws-commons-util" version="1.0.2"/>
         <artifact groupId="org.apache.ws.xmlschema" artifactId="xmlschema-core" version="2.2.1"/>
         <artifact groupId="org.apache.xbean" artifactId="xbean-spring" version="4.5"/>
+        <artifact groupId="org.apache.xmlbeans" artifactId="xmlbeans" version="2.6.0"/>
         <artifact groupId="org.apache.xmlgraphics" artifactId="batik-anim" version="1.9"/>
         <artifact groupId="org.apache.xmlgraphics" artifactId="batik-awt-util" version="1.9"/>
         <artifact groupId="org.apache.xmlgraphics" artifactId="batik-bridge" version="1.9"/>
@@ -615,6 +655,7 @@
         <artifact groupId="org.codehaus.jackson" artifactId="jackson-mapper-asl" version="1.9.13"/>
         <artifact groupId="org.codehaus.jettison" artifactId="jettison" version="1.3.8"/>
         <artifact groupId="org.codehaus.woodstox" artifactId="stax2-api" version="3.1.4"/>
+        <artifact groupId="org.codelibs" artifactId="jhighlight" version="1.0.2"/>
         <artifact groupId="org.cometd.java" artifactId="bayeux-api" version="3.1.2"/>
         <artifact groupId="org.cometd.java" artifactId="cometd-java-client" version="3.1.2"/>
         <artifact groupId="org.cometd.java" artifactId="cometd-java-common" version="3.1.2"/>
@@ -655,6 +696,8 @@
         <artifact groupId="org.fusesource.hawtdispatch" artifactId="hawtdispatch-transport" version="1.22"/>
         <artifact groupId="org.fusesource.mqtt-client" artifactId="mqtt-client" version="1.14"/>
         <artifact groupId="org.fusesource.stompjms" artifactId="stompjms-client" version="1.19"/>
+        <artifact groupId="org.gagravarr" artifactId="vorbis-java-core" version="0.8"/>
+        <artifact groupId="org.gagravarr" artifactId="vorbis-java-tika" version="0.8"/>
         <artifact groupId="org.glassfish" artifactId="javax.enterprise.concurrent" version="1.0"/>
         <artifact groupId="org.hdrhistogram" artifactId="HdrHistogram" version="2.1.9"/>
         <artifact groupId="org.hibernate" artifactId="hibernate-validator" version="5.3.6.Final"/>
@@ -674,6 +717,7 @@
         <artifact groupId="org.influxdb" artifactId="influxdb-java" version="2.9"/>
         <artifact groupId="org.iq80.leveldb" artifactId="leveldb" version="0.9"/>
         <artifact groupId="org.iq80.leveldb" artifactId="leveldb-api" version="0.9"/>
+        <artifact groupId="org.itadaki" artifactId="bzip2" version="0.9.1"/>
         <artifact groupId="org.jasypt" artifactId="jasypt" version="1.9.2"/>
         <artifact groupId="org.javassist" artifactId="javassist" version="3.22.0-GA"/>
         <artifact groupId="org.jboss" artifactId="jandex" version="2.0.4.Final"/>
@@ -724,6 +768,7 @@
         <artifact groupId="org.jboss.xnio" artifactId="xnio-api" version="3.6.2.Final"/>
         <artifact groupId="org.jboss.xnio" artifactId="xnio-nio" version="3.6.2.Final"/>
         <artifact groupId="org.jdom" artifactId="jdom" version="1.1.3"/>
+        <artifact groupId="org.jdom" artifactId="jdom2" version="2.0.4"/>
         <artifact groupId="org.jgroups" artifactId="jgroups" version="4.0.10.Final"/>
         <artifact groupId="org.jibx" artifactId="jibx-run" version="1.2.6"/>
         <artifact groupId="org.jooq" artifactId="jool" version="0.9.10"/>
@@ -742,6 +787,7 @@
         <artifact groupId="org.mousio" artifactId="etcd4j" version="2.14.0"/>
         <artifact groupId="org.mvel" artifactId="mvel2" version="2.4.0.Final"/>
         <artifact groupId="org.mybatis" artifactId="mybatis" version="3.4.5"/>
+        <artifact groupId="org.opengis" artifactId="geoapi" version="3.0.0"/>
         <artifact groupId="org.openmuc" artifactId="jasn1" version="1.9.0"/>
         <artifact groupId="org.opentelecoms.sip" artifactId="sip-api-1.2" version="1.1"/>
         <artifact groupId="org.optaplanner" artifactId="optaplanner-core" version="7.3.0.Final"/>
@@ -791,6 +837,8 @@
         <artifact groupId="org.springframework.ws" artifactId="spring-ws-core" version="2.4.2.RELEASE"/>
         <artifact groupId="org.springframework.ws" artifactId="spring-ws-support" version="2.4.2.RELEASE"/>
         <artifact groupId="org.springframework.ws" artifactId="spring-xml" version="2.4.2.RELEASE"/>
+        <artifact groupId="org.tallison" artifactId="jmatio" version="1.2"/>
+        <artifact groupId="org.tukaani" artifactId="xz" version="1.5"/>
         <artifact groupId="org.twitter4j" artifactId="twitter4j-core" version="4.0.6"/>
         <artifact groupId="org.twitter4j" artifactId="twitter4j-stream" version="4.0.6"/>
         <artifact groupId="org.uberfire" artifactId="uberfire-maven-support" version="1.3.0.Final"/>

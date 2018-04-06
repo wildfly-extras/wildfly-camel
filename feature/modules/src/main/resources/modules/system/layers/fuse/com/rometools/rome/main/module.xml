@@ -4,10 +4,11 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${rome:rome}" />
+    <artifact name="${com.rometools:rome}" />
+    <artifact name="${com.rometools:rome-utils}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="org.jdom" />
+    <module name="org.slf4j" />
   </dependencies>
 </module>

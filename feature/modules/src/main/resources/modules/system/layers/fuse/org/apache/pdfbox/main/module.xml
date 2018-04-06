@@ -6,6 +6,7 @@
   <resources>
     <artifact name="${org.apache.pdfbox:fontbox}" />
     <artifact name="${org.apache.pdfbox:pdfbox}" />
+    <artifact name="${org.apache.pdfbox:pdfbox-tools}" />
   </resources>
   <dependencies>
     <module name="javax.api" />

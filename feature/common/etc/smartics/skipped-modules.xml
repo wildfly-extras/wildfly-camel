@@ -113,6 +113,10 @@
         <include artifact="com.google.inject.extensions:guice-servlet"/>
     </module>
 
+    <module name="com.googlecode.jaxb-namespaceprefixmapper-interfaces.JAXBNamespacePrefixMapper" skip="true">
+        <include artifact="com.googlecode.jaxb-namespaceprefixmapper-interfaces:JAXBNamespacePrefixMapper"/>
+    </module>
+
     <module name="com.google.oauth-client.google-oauth-client-jetty" skip="true">
         <include artifact="com.google.oauth-client:google-oauth-client-jetty"/>
     </module>
@@ -248,6 +252,10 @@
         <include artifact="net.sf.ehcache:ehcache" />
     </module>
 
+    <module name="net.sf.ehcache.sizeof-agent" skip="true">
+        <include artifact="net.sf.ehcache:sizeof-agent" />
+    </module>
+
     <module name="net.sf.kxml" skip="true">
         <include artifact="net.sf.kxml:(.*)" />
     </module>
@@ -282,6 +290,14 @@
 
     <module name="org.apache.commons.daemon" skip="true">
         <include artifact=":commons-daemon"/>
+    </module>
+
+    <module name="org.apache.commons.vfs2" skip="true">
+        <include artifact=":commons-vfs2"/>
+    </module>
+
+    <module name="org.apache.ctakes.ctakes-core" skip="true">
+        <include artifact="org.apache.ctakes:ctakes-core"/>
     </module>
 
     <module name="org.apache.felix" skip="true">
@@ -465,8 +481,7 @@
         <include artifact="org.osgi:org.osgi.compendium" />
     </module>
 
-    <module name="org.ow2.asm" skip="true">
-        <include artifact="org.ow2.asm:asm"/>
+    <module name="org.ow2.asm.commons" skip="true">
         <include artifact="org.ow2.asm:asm-commons"/>
     </module>
 
@@ -496,6 +511,10 @@
 
     <module name="org.uncommons.maths" skip="true">
         <include artifact="org.uncommons.maths:uncommons-maths" />
+    </module>
+
+    <module name="org.xerial.sqlite-jdbc" skip="true">
+        <include artifact="org.xerial:sqlite-jdbc" />
     </module>
 
     <module name="software.amazon.ion.ion-java" skip="true">
