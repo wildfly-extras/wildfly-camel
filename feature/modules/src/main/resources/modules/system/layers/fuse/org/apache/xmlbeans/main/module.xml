@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.xmlbeans">
+  <resources>
+    <artifact name="${org.apache.xmlbeans:xmlbeans}" />
+  </resources>
+  <dependencies>
+    <module name="javax.xml.stream.api" />
+  </dependencies>
+</module>

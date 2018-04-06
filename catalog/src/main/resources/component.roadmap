@@ -229,6 +229,7 @@ stub
 telegram
 test
 thrift
+tika
 timer
 twilio
 twitter                                             #deprecated
@@ -255,7 +256,6 @@ zookeeper-master
 [planned]
 cmis                                                #1989 Blocked by camel-2.21.x
 restlet                                             #2024 Blocked by camel-2.21.x
-tika                                                #1850 Blocked by camel-2.21.x
 
 [undecided]
 elasticsearch-rest

@@ -352,6 +352,8 @@ include::camel-telegram.adoc[]
 
 include::camel-thrift.adoc[]
 
+include::camel-tika.adoc[]
+
 include::camel-twilio.adoc[]
 
 include::camel-twitter.adoc[]

@@ -27,7 +27,7 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
     <module name="asm.asm" skip="true">
-        <include artifact="asm:asm" />
+        <include artifact="org.ow2.asm:asm" />
     </module>
 
     <module name="com.fasterxml.jackson.core.jackson-annotations" skip="true">
@@ -177,6 +177,10 @@
         <include artifact=":geronimo-transaction" />
         <include artifact=":jboss-transaction-api_1.1_spec" />
         <include artifact=":javax.transaction" />
+    </module>
+
+    <module name="javax.transaction.jta" skip="true">
+        <include artifact=":jta" />
     </module>
 
     <module name="javax.validation.api" skip="true">

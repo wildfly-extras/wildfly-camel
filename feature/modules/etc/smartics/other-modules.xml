@@ -367,6 +367,16 @@
         <include artifact="com.github.mifmif:generex" />
     </module>
 
+    <module name="com.github.junrar">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.github.junrar:junrar" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.commons.vfs2"/>
+        </apply-to-dependencies>
+    </module>
+
     <module name="com.google.code.gson">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -396,6 +406,13 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.googlecode.libphonenumber:libphonenumber" />
+    </module>
+
+    <module name="com.google.code.mp4parser.isoparser">
+        <include artifact="com.googlecode.mp4parser:isoparser" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.android" />
+        </apply-to-dependencies>
     </module>
 
     <module name="com.google.api-client.google-api-client">
@@ -676,11 +693,22 @@
         <include artifact=":querydsl-codegen" />
     </module>
 
-    <module name="com.rometools.rome">
+    <module name="com.rometools.rome" inherit-slot="false" slot="1.0">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="rome:rome" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="com.rometools.rome">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.rometools:rome" />
+        <include artifact="com.rometools:rome-utils" />
         <dependencies>
             <module name="javax.api" />
         </dependencies>
@@ -758,6 +786,20 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="dk.brics.automaton:automaton" />
+    </module>
+
+    <module name="edu.ucar.netcdf4">
+        <include artifact="edu.ucar:netcdf4" />
+        <apply-to-dependencies skip="true">
+            <include module="net.java.dev.jna" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="edu.ucar.cdm">
+        <include artifact="edu.ucar:cdm" />
+        <apply-to-dependencies skip="true">
+            <include module="com.beust.jcommander" />
+        </apply-to-dependencies>
     </module>
 
     <module name="io.atomix">
@@ -988,6 +1030,17 @@
                     <include path="sun/misc" />
                 </imports>
             </module>
+        </dependencies>
+    </module>
+
+    <module name="net.sf.ehcache.ehcache-core">
+        <include artifact="net.sf.ehcache:ehcache-core" />
+        <apply-to-dependencies skip="true">
+            <include module="javax.transaction.jta"/>
+            <include module="net.sf.ehcache.sizeof-agent"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.transaction.api" />
         </dependencies>
     </module>
 
@@ -1362,8 +1415,22 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.pdfbox:fontbox" />
-        <include artifact="org.apache.pdfbox:jempbox" />
         <include artifact="org.apache.pdfbox:pdfbox" />
+        <include artifact="org.apache.pdfbox:pdfbox-tools" />
+        <include artifact="org.apache.pdfbox:pdfbox-debugger" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.poi">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.poi:poi" />
+        <include artifact="org.apache.poi:poi-ooxml" />
+        <include artifact="org.apache.poi:poi-ooxml-schemas" />
+        <include artifact="org.apache.poi:poi-scratchpad" />
         <dependencies>
             <module name="javax.api" />
         </dependencies>
@@ -1412,6 +1479,15 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.sis.core">
+        <include artifact="org.apache.sis.core:sis-utility" />
+        <include artifact="org.apache.sis.core:sis-metadata" />
+        <include artifact="org.apache.sis.core:sis-referencing" />
+        <apply-to-dependencies skip="true">
+            <include module="com.googlecode.jaxb-namespaceprefixmapper-interfaces.JAXBNamespacePrefixMapper" />
+        </apply-to-dependencies>
+    </module>
+
     <module name="org.apache.sshd">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1420,6 +1496,30 @@
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
+    </module>
+
+    <module name="org.apache.tika" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <!-- tika-core's ServiceLoader expects tika-parsers in the same class loader -->
+        <include artifact="org.apache.tika:tika-core" />
+        <include artifact="org.apache.tika:tika-parsers" />
+        <include artifact="org.gagravarr:vorbis-java-tika"/>
+        <apply-to-dependencies skip="true">
+            <include module="biz.aQute" />
+            <include module="org.apache.ctakes.ctakes-core" />
+            <include module="org.apache.felix" />
+            <include module="org.xerial.sqlite-jdbc" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="javax.xml.bind.api"/>
+            <module name="javax.ws.rs.api"/>
+        </dependencies>
+        <exports>
+            <exclude path="org/gagravarr**" />
+        </exports>
     </module>
 
     <module name="org.apache.thrift">
@@ -1593,6 +1693,16 @@
     <module name="org.cometd.client">
         <include artifact="org.cometd.java:cometd-java-client" />
         <include artifact="org.cometd.java:cometd-java-common" />
+    </module>
+
+    <module name="org.ccil.cowan.tagsoup">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.ccil.cowan.tagsoup:tagsoup" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
     </module>
 
     <module name="org.dozer.mapper">

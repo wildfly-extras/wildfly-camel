@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.opengis.geoapi">
+  <resources>
+    <artifact name="${org.opengis:geoapi}" />
+  </resources>
+  <dependencies>
+    <module name="javax.measure.jsr-275" />
+  </dependencies>
+</module>

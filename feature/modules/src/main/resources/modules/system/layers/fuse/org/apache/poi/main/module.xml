@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.poi">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.apache.poi:poi}" />
+    <artifact name="${org.apache.poi:poi-ooxml}" />
+    <artifact name="${org.apache.poi:poi-ooxml-schemas}" />
+    <artifact name="${org.apache.poi:poi-scratchpad}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="com.github.virtuald.curvesapi" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.commons-collections4" />
+    <module name="org.apache.xmlbeans" />
+  </dependencies>
+</module>

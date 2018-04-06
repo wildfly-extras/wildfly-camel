@@ -2346,13 +2346,14 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.rometools.rome" export="true">
+            <module name="com.rometools.rome" export="true" slot="1.0">
                 <exports>
                     <include path="com/sun/syndication/feed" />
                     <include path="com/sun/syndication/feed/atom" />
                     <include path="com/sun/syndication/feed/module" />
                     <include path="com/sun/syndication/feed/rss" />
                     <include path="com/sun/syndication/feed/synd" />
+                    <include path="com/sun/syndication/io" />
                     <exclude path="com/sun**" />
                 </exports>
             </module>
@@ -2852,13 +2853,13 @@
 
     <module name="org.apache.camel.component.tagsoup">
         <include artifact="org.apache.camel:camel-tagsoup" />
-        <include artifact=":tagsoup" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
+            <module name="org.ccil.cowan.tagsoup"/>
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
@@ -2868,7 +2869,6 @@
 
     <module name="org.apache.camel.component.tarfile">
         <include artifact="org.apache.camel:camel-tarfile" />
-        <include artifact=":tagsoup" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
@@ -2922,6 +2922,23 @@
             <exclude path="org/apache/camel/component/twilio/internal" />
             <exclude path="io/jsonwebtoken**" />
         </exports>
+    </module>
+
+    <module name="org.apache.camel.component.tika">
+        <include artifact="org.apache.camel:camel-tika" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.apache.tika" export="true" >
+                <exports>
+                    <exclude path="org/apache/tika/parser/internal**" />
+                </exports>
+            </module>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
     </module>
 
     <module name="org.apache.camel.component.twitter">
