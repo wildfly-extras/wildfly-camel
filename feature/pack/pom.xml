@@ -76,12 +76,6 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-        <dependency>
-            <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-feature-extrasD</artifactId>
-            <version>${project.version}</version>
-            <type>zip</type>
-        </dependency>
     </dependencies>
 
     <build>
