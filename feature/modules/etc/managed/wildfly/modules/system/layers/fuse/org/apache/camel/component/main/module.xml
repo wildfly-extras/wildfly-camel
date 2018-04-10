@@ -168,6 +168,7 @@
         <module name="org.apache.camel.component.optaplanner" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.paho" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.pdf" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.pgevent" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.printer" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.protobuf" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.pubnub" export="true" services="export" optional="true" />

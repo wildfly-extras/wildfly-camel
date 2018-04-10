@@ -159,6 +159,18 @@
                     strategy: log
                     match: 'Server is ready'
                     timeout: 15
+            postgres:
+                image: postgres:alpine
+                portBindings: [
+                    42654->5432/tcp
+                ]
+                env: [
+                    POSTGRES_PASSWORD=s3cret
+                ]
+                await:
+                    strategy: log
+                    match: 'database system is ready'
+                    timeout: 15
             smpp_simulator:
                 image: wildflyext/smppsimulator:2.6.11
                 portBindings: [

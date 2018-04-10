@@ -68,6 +68,7 @@
 /com/hazelcast/main/hazelcast-3.9.3.jar
 /com/healthmarketscience/jackcess/jackcess-encrypt/main/jackcess-encrypt-2.1.2.jar
 /com/healthmarketscience/jackcess/main/jackcess-2.1.8.jar
+/com/impossibl/pgjdbc/main/pgjdbc-ng-0.7.1.jar
 /com/intellij/annotations/main/annotations-12.0.jar
 /com/jayway/jsonpath/main/json-path-2.4.0.jar
 /com/jcraft/jsch/main/jsch-0.1.54.jar
@@ -394,6 +395,7 @@
 /org/apache/camel/component/paho/main/camel-paho-2.21.0.jar
 /org/apache/camel/component/paho/main/org.eclipse.paho.client.mqttv3-1.2.0.jar
 /org/apache/camel/component/pdf/main/camel-pdf-2.21.0.jar
+/org/apache/camel/component/pgevent/main/camel-pgevent-2.21.0.jar
 /org/apache/camel/component/printer/main/camel-printer-2.21.0.jar
 /org/apache/camel/component/protobuf/main/camel-protobuf-2.21.0.jar
 /org/apache/camel/component/pubnub/main/camel-pubnub-2.21.0.jar

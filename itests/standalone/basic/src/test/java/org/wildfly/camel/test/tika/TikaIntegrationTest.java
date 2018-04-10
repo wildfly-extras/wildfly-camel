@@ -216,7 +216,7 @@ public class TikaIntegrationTest {
                     Object body = exchange.getIn().getBody(String.class);
                     Map<String, Object> headerMap = exchange.getIn().getHeaders();
                     Assert.assertThat(body, instanceOf(String.class));
-                    Assert.assertThat((String) body, containsString("<body/>"));
+                    Assert.assertThat((String) body, containsString("<body"));
                     Assert.assertThat(headerMap.get(Exchange.CONTENT_TYPE), equalTo("application/msword"));
                     return true;
                 }
@@ -252,7 +252,7 @@ public class TikaIntegrationTest {
                     Object body = exchange.getIn().getBody(String.class);
                     Map<String, Object> headerMap = exchange.getIn().getHeaders();
                     Assert.assertThat(body, instanceOf(String.class));
-                    Assert.assertThat((String) body, containsString("<body/>"));
+                    Assert.assertThat((String) body, containsString("<body"));
                     Assert.assertThat(headerMap.get(Exchange.CONTENT_TYPE), equalTo("application/msword"));
                     return true;
                 }
@@ -289,7 +289,7 @@ public class TikaIntegrationTest {
                     Object body = exchange.getIn().getBody(String.class);
                     Map<String, Object> headerMap = exchange.getIn().getHeaders();
                     Assert.assertThat(body, instanceOf(String.class));
-                    Assert.assertThat((String) body, containsString("<body/>"));
+                    Assert.assertThat((String) body, containsString("<body"));
                     Assert.assertThat(headerMap.get(Exchange.CONTENT_TYPE), equalTo("image/gif"));
                     return true;
                 }

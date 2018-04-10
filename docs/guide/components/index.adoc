@@ -260,6 +260,8 @@ include::camel-paho.adoc[]
 
 include::camel-pdf.adoc[]
 
+include::camel-pgevent.adoc[]
+
 include::camel-printer.adoc[]
 
 include::camel-pubnub.adoc[]

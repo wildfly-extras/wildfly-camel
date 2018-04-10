@@ -1934,6 +1934,7 @@ org/apache/camel/component/optaplanner
 org/apache/camel/component/paho
 org/apache/camel/component/pdf
 org/apache/camel/component/pdf/text
+org/apache/camel/component/pgevent
 org/apache/camel/component/printer
 org/apache/camel/component/pubnub
 org/apache/camel/component/quartz2

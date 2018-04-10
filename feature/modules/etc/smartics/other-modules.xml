@@ -515,6 +515,23 @@
         </apply-to-dependencies>
     </module>
 
+    <module name="com.impossibl.pgjdbc">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.impossibl.pgjdbc-ng:pgjdbc-ng"/>
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="io.netty"/>
+            <module name="javax.api"/>
+            <module name="javax.sql.api"/>
+            <module name="javax.transaction.api"/>
+            <module name="javax.xml.bind.api" />
+        </dependencies>
+    </module>
+
     <module name="com.intellij.annotations">
         <properties>
             <property name="jboss.api" value="private"/>

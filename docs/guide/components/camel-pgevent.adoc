@@ -1,0 +1,34 @@
+### camel-pgevent
+
+The http://camel.apache.org/pgevent.html[pgevent,window=_blank] component allows for Producing/Consuming PostgreSQL events related to LISTEN/NOTIFY commands.
+
+[NOTE]
+====
+In order to use this component on {wildfly}, you must configure a datasource. For example:
+====
+
+[source,xml,options="nowrap"]
+----
+<subsystem xmlns="urn:jboss:domain:datasources:5.0">
+    <datasources>
+        <datasource jndi-name="java:jboss/datasources/PostgreSqlDS" pool-name="PostgreSqlDS">
+            <connection-url>jdbc:pgsql://localhost:5432/postgres</connection-url>
+            <driver>pgsql</driver>
+            <security>
+                <user-name>postgres</user-name>
+                <password>s3cret</password>
+            </security>
+        </datasource>
+        <drivers>
+            <driver name="pgsql" module="com.impossibl.pgjdbc"/>
+        </drivers>
+    </datasources>
+</subsystem>
+----
+
+Then configure the pgevent endpoint to make use of the DataSource:
+
+[source,java,options="nowrap"]
+----
+pgevent:///postgres/testchannel?datasource=#java:jboss/datasources/PostgreSqlDS
+----
