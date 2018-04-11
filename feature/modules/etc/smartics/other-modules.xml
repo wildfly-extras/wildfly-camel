@@ -1178,6 +1178,20 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.chemistry.opencmis">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.chemistry.opencmis:chemistry-opencmis-client-api"/>
+        <include artifact="org.apache.chemistry.opencmis:chemistry-opencmis-client-bindings"/>
+        <include artifact="org.apache.chemistry.opencmis:chemistry-opencmis-client-impl"/>
+        <include artifact="org.apache.chemistry.opencmis:chemistry-opencmis-commons-api"/>
+        <include artifact="org.apache.chemistry.opencmis:chemistry-opencmis-commons-impl"/>
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.commons.compress">
         <properties>
             <property name="jboss.api" value="private"/>

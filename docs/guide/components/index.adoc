@@ -68,6 +68,8 @@ include::camel-chunk.adoc[]
 
 include::camel-cm-sms.adoc[]
 
+include::camel-cmis.adoc[]
+
 include::camel-coap.adoc[]
 
 include::camel-consul.adoc[]

@@ -238,6 +238,7 @@
 /org/apache/camel/component/chunk/main/camel-chunk-2.21.0.jar
 /org/apache/camel/component/chunk/main/chunk-templates-3.3.1.jar
 /org/apache/camel/component/cm/sms/main/camel-cm-sms-2.21.0.jar
+/org/apache/camel/component/cmis/main/camel-cmis-2.21.0.jar
 /org/apache/camel/component/coap/main/camel-coap-2.21.0.jar
 /org/apache/camel/component/connector/main/camel-connector-2.21.0.jar
 /org/apache/camel/component/consul/main/camel-consul-2.21.0.jar
@@ -496,6 +497,11 @@
 /org/apache/camel/script/groovy/main/groovy-all-2.4.13.jar
 /org/apache/camel/script/rhino/main/js-1.7R2.jar
 /org/apache/camel/spring/main/camel-spring-2.21.0.jar
+/org/apache/chemistry/opencmis/main/chemistry-opencmis-client-api-1.1.0.jar
+/org/apache/chemistry/opencmis/main/chemistry-opencmis-client-bindings-1.1.0.jar
+/org/apache/chemistry/opencmis/main/chemistry-opencmis-client-impl-1.1.0.jar
+/org/apache/chemistry/opencmis/main/chemistry-opencmis-commons-api-1.1.0.jar
+/org/apache/chemistry/opencmis/main/chemistry-opencmis-commons-impl-1.1.0.jar
 /org/apache/commons/commons-collections4/main/commons-collections4-4.1.jar
 /org/apache/commons/compress/main/commons-compress-1.16.1.jar
 /org/apache/commons/configuration/main/commons-configuration-1.8.jar

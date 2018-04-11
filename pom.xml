@@ -55,6 +55,7 @@
         <version.camel.javacrumbs>0.22</version.camel.javacrumbs>
         <version.camel.lucene>5.5.2</version.camel.lucene>
         <version.camel.netty41>4.1.22.Final</version.camel.netty41>
+        <version.camel.opencmis>1.1.0</version.camel.opencmis>
         <version.camel.qpid.proton>0.26.0</version.camel.qpid.proton>
 
         <!-- WildFly versions -->

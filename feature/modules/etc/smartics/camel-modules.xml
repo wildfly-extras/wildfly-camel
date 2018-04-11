@@ -479,6 +479,26 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.cmis">
+        <include artifact="org.apache.camel:camel-cmis"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.apache.chemistry.opencmis" export="true">
+                <exports>
+                    <exclude path="org/apache/chemistry/opencmis/client/osgi"/>
+                    <exclude path="wsdl**"/>
+                </exports>
+            </module>
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="org/apache/camel/component/cmis/osgi"/>
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.chronicle">
         <include artifact="org.apache.camel:camel-chronicle"/>
         <apply-to-dependencies skip="true">

@@ -62,6 +62,7 @@
 	^org/apache/activemq(.*)
 	^org/apache/avro(.*)
 	^org/apache/camel(.*)
+	^org/apache/chemistry(.*)
 	^org/apache/commons/httpclient(.*)
 	^org/apache/curator(.*)
 	^org/apache/cxf

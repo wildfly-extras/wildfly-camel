@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.cmis">
+  <resources>
+    <artifact name="${org.apache.camel:camel-cmis}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.chemistry.opencmis" export="true">
+      <exports>
+        <exclude path="org/apache/chemistry/opencmis/client/osgi" />
+        <exclude path="wsdl**" />
+      </exports>
+    </module>
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+  <exports>
+    <exclude path="org/apache/camel/component/cmis/osgi" />
+  </exports>
+</module>

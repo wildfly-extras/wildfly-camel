@@ -44,6 +44,7 @@ chronicle-engine
 chunk
 class
 cm-sms
+cmis
 coap
 consul
 controlbus
@@ -255,7 +256,6 @@ zookeeper
 zookeeper-master
 
 [planned]
-cmis                                                #1989 Blocked by camel-2.21.x
 restlet                                             #2024 Blocked by camel-2.21.x
 
 [undecided]

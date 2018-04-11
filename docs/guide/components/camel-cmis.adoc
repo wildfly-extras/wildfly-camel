@@ -1,0 +1,3 @@
+### camel-cmis
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-cmis/src/main/docs/cmis-component.adoc[cmis,window=_blank] component uses the http://chemistry.apache.org/java/opencmis.html[Apache Chemistry,window=_blank] client API and allows you to add / read nodes to / from a CMIS compliant content repositories.
