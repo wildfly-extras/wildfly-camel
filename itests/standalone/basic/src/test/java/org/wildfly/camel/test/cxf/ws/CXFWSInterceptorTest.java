@@ -32,11 +32,14 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.cxf.CxfComponent;
 import org.apache.camel.component.cxf.CxfEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.cxf.interceptor.AttachmentInInterceptor;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.interceptor.Interceptor;
+import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
+import org.apache.cxf.ws.policy.PolicyInInterceptor;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -95,6 +98,12 @@ public class CXFWSInterceptorTest {
 
         public CountDownInterceptor(CountDownLatch latch) {
             super(Phase.RECEIVE);
+
+            // Verify common interceptors can be added
+            getBefore().add(PolicyInInterceptor.class.getName());
+            getBefore().add(LoggingInInterceptor.class.getName());
+            getBefore().add(AttachmentInInterceptor.class.getName());
+
             this.latch = latch;
         }
 

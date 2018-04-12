@@ -684,9 +684,6 @@
                 <exports>
                     <include path="META-INF" />
                     <include path="org/apache/cxf/jaxrs/spring" />
-                    <exclude path="org/apache/cxf/clustering**" />
-                    <exclude path="org/apache/cxf/jaxrs**" />
-                    <exclude path="org/apache/cxf/rs**" />
                 </exports>
             </module>
             <module name="org.apache.cxf.impl" export="true">
@@ -697,24 +694,12 @@
                 <exports>
                     <include path="META-INF" />
                     <include path="META-INF/cxf**" />
-                    <include path="org/apache/cxf/binding/**" />
-                    <include path="org/apache/cxf/bus**" />
-                    <include path="org/apache/cxf/headers" />
-                    <include path="org/apache/cxf/helpers" />
-                    <include path="org/apache/cxf/interceptor**" />
-                    <include path="org/apache/cxf/io" />
-                    <include path="org/apache/cxf/jaxws/spring" />
-                    <include path="org/apache/cxf/message" />
-                    <include path="org/apache/cxf/phase" />
-                    <include path="org/apache/cxf/security/transport" />
-                    <include path="org/apache/cxf/sts" />
-                    <include path="org/apache/cxf/transport/http**" />
-                    <include path="org/apache/cxf/ws/discovery" />
-                    <include path="org/apache/cxf/ws/security/**" />
-                    <exclude path="org/apache/cxf/**" />
                     <exclude path="OSGI-INF/blueprint" />
                     <exclude path="OSGI-INF/metatype" />
                     <exclude path="com/sun**" />
+                    <exclude path="org/apache/cxf/internal" />
+                    <exclude path="org/apache/cxf/tools**" />
+                    <exclude path="org/apache/cxf/ws/discovery/internal" />
                     <exclude path="org/osgi**" />
                 </exports>
             </module>
