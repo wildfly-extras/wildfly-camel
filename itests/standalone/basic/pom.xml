@@ -103,6 +103,10 @@
             <artifactId>camel-snakeyaml</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-wordpress</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.cassandra</groupId>
             <artifactId>cassandra-all</artifactId>
             <exclusions>
@@ -125,6 +129,10 @@
             <artifactId>chemistry-opencmis-server-inmemory</artifactId>
             <version>${version.camel.opencmis}</version>
             <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.ftpserver</groupId>

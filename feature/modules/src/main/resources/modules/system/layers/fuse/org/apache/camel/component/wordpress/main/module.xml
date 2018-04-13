@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.wordpress">
+  <resources>
+    <artifact name="${org.apache.camel:camel-wordpress}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="javax.ws.rs.api" />
+    <module name="org.apache.cxf.ext" />
+    <module name="org.apache.cxf.impl" />
+    <module name="org.slf4j" />
+    <module name="com.fasterxml.jackson.core.jackson-annotations" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.fasterxml.jackson.dataformat.xml" />
+    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" />
+    <module name="com.google.guava" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>

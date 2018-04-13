@@ -2062,6 +2062,16 @@ org/apache/camel/component/vertx
 org/apache/camel/component/weather
 org/apache/camel/component/weather/geolocation
 org/apache/camel/component/weather/http
+org/apache/camel/component/wordpress
+org/apache/camel/component/wordpress/api
+org/apache/camel/component/wordpress/api/auth
+org/apache/camel/component/wordpress/api/model
+org/apache/camel/component/wordpress/api/service
+org/apache/camel/component/wordpress/api/service/impl
+org/apache/camel/component/wordpress/api/service/spi
+org/apache/camel/component/wordpress/consumer
+org/apache/camel/component/wordpress/producer
+org/apache/camel/component/wordpress/proxy
 org/apache/camel/component/xmlrpc
 org/apache/camel/component/xmlrpc/converter
 org/apache/camel/component/xmlsecurity

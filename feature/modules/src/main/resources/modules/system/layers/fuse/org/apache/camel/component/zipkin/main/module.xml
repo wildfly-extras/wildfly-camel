@@ -4,8 +4,8 @@
     <artifact name="${io.zipkin.brave:brave-core}" />
     <artifact name="${io.zipkin.brave:brave-spancollector-scribe}" />
     <artifact name="${org.apache.camel:camel-zipkin}" />
-    <artifact name="${io.zipkin.zipkin2:zipkin}" />
     <artifact name="${io.zipkin.java:zipkin}" />
+    <artifact name="${io.zipkin.zipkin2:zipkin}" />
     <artifact name="${io.zipkin.reporter2:zipkin-reporter}" />
     <artifact name="${io.zipkin.reporter2:zipkin-sender-urlconnection}" />
   </resources>

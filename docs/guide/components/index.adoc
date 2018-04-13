@@ -370,6 +370,8 @@ include::camel-vertx.adoc[]
 
 include::camel-weather.adoc[]
 
+include::camel-wordpress.adoc[]
+
 include::camel-xmlrpc.adoc[]
 
 include::camel-xmpp.adoc[]

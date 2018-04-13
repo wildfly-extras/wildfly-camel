@@ -245,6 +245,7 @@ velocity
 vertx
 vm
 weather
+wordpress
 xmlrpc
 xmlsecurity
 xmpp
@@ -264,7 +265,6 @@ ganglia                                             #1998 No test coverage for g
 solr                                                #2030 No test coverage for solr in camel
 solrCloud                                           #2031 No test coverage for solr in camel
 solrs                                               #2032 No test coverage for solr in camel
-wordpress
 xchange
 yql
 
