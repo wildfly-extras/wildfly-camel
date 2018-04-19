@@ -50,10 +50,10 @@ public final class CamelContextActivationService extends AbstractService<Void> {
 
     @Override
     public void start(StartContext context) throws StartException {
-        ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+        ClassLoader tccl = SecurityActions.getContextClassLoader();
         for (SpringCamelContextBootstrap bootstrap : bootstraps) {
             try {
-                Thread.currentThread().setContextClassLoader(bootstrap.getClassLoader());
+                SecurityActions.setContextClassLoader(bootstrap.getClassLoader());
                 try {
                     for (CamelContext camelctx : bootstrap.createSpringCamelContexts()) {
                         try {
@@ -71,7 +71,7 @@ public final class CamelContextActivationService extends AbstractService<Void> {
                     throw new StartException("Cannot create camel context: " + runtimeName, e);
                 }
             } finally {
-                Thread.currentThread().setContextClassLoader(tccl);
+                SecurityActions.setContextClassLoader(tccl);
             }
         }
     }

@@ -72,7 +72,7 @@ public final class ModuleClassLoaderAssociationHandler implements ContextCreateH
         // Case #3: The context is a system context
         if (contextModule == null) {
             ClassLoader thiscl = CamelContextRegistryService.class.getClassLoader();
-            ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+            ClassLoader tccl = SecurityActions.getContextClassLoader();
             if (tccl == thiscl) {
                 contextModule = ((ModuleClassLoader) thiscl).getModule();
             }
@@ -80,7 +80,7 @@ public final class ModuleClassLoaderAssociationHandler implements ContextCreateH
 
         // Case #4: The context is created as part of a deployment
         if (contextModule == null) {
-            ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+            ClassLoader tccl = SecurityActions.getContextClassLoader();
             if (tccl instanceof ModuleClassLoader) {
                 Module tcm = ((ModuleClassLoader) tccl).getModule();
                 if (tcm.getIdentifier().getName().startsWith("deployment.")) {

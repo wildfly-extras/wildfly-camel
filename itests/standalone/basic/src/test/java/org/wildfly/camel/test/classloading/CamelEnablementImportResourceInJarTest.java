@@ -34,17 +34,20 @@ import org.wildfly.camel.test.classloading.subC.XmlRouteBuilder;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
-public class CamelEnablementImportResourceTest {
+public class CamelEnablementImportResourceInJarTest {
 
     @ArquillianResource
     CamelContextRegistry contextRegistry;
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-import-resource-tests.jar")
+
+        JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "camel-import-resource-tests.jar")
             .addClass(XmlRouteBuilder.class)
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
             .addAsResource("classloading/spring-camel-context.xml");
+
+        return jar;
     }
 
     @Test

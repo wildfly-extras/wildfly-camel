@@ -23,7 +23,6 @@ package org.wildfly.extension.camel.deployment;
 
 import java.net.URL;
 
-import org.apache.camel.CamelContext;
 import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
@@ -49,15 +48,15 @@ public class CamelContextBootstrapProcessor implements DeploymentUnitProcessor {
         // Add the camel context bootstraps to the deployment
         CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
         for (URL contextURL : depSettings.getCamelContextUrls()) {
-            ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+            ClassLoader tccl = SecurityActions.getContextClassLoader();
             try {
-                Thread.currentThread().setContextClassLoader(module.getClassLoader());
+                SecurityActions.setContextClassLoader(module.getClassLoader());
                 SpringCamelContextBootstrap bootstrap = new SpringCamelContextBootstrap(contextURL, module.getClassLoader());
                 depUnit.addToAttachmentList(CamelConstants.CAMEL_CONTEXT_BOOTSTRAP_KEY, bootstrap);
             } catch (Exception ex) {
                 throw new IllegalStateException("Cannot create camel context: " + runtimeName, ex);
             } finally {
-                Thread.currentThread().setContextClassLoader(tccl);
+                SecurityActions.setContextClassLoader(tccl);
             }
         }
     }
