@@ -2391,6 +2391,7 @@
         <dependencies>
             <module name="javax.api" />
             <module name="org.cometd.bayeux" />
+            <module name="org.codehaus.jackson.jackson-mapper-asl" />
             <module name="org.slf4j" />
         </dependencies>
         <exports>
