@@ -39,6 +39,10 @@
             <directory>target/wildfly-feature-pack</directory>
             <outputDirectory>/</outputDirectory>
         </fileSet>
+        <fileSet>
+            <directory>target/licenses</directory>
+            <outputDirectory>content/docs/licenses-fuse</outputDirectory>
+        </fileSet>
     </fileSets>
 
 </assembly>

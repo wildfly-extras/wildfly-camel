@@ -58,6 +58,7 @@ public class VersionsValidatorTest {
         mapping.put("version.camel.hadoop2", "hadoop2-version");
         mapping.put("version.camel.hadoop2.protobuf", "hadoop2-protobuf-version");
         mapping.put("version.camel.hbase", "hbase-version");
+        mapping.put("version.camel.httpclient", "httpclient4-version");
         mapping.put("version.camel.javacrumbs", "javacrumbs-version");
         mapping.put("version.camel.lucene", "lucene-version");
         mapping.put("version.camel.qpid.proton", "qpid-proton-j-version");
