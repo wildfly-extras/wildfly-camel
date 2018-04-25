@@ -3,13 +3,13 @@
 <head profile="http://www.w3.org/1999/xhtml/vocab">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="Generator" content="Drupal 7 (http://drupal.org)" />
-<link rel="canonical" href="/licenses/MIT" />
-<link rel="shortlink" href="/node/66" />
+<link rel="canonical" href="/licenses/lgpl-license" />
+<link rel="shortlink" href="/node/253" />
 <meta name="MobileOptimized" content="width" />
 <meta name="HandheldFriendly" content="true" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="shortcut icon" href="https://opensource.org/files/osi_favicon.png" type="image/png" />
-  <title>The MIT License | Open Source Initiative</title>
+  <title>GNU LGPL | Open Source Initiative</title>
   <link type="text/css" rel="stylesheet" href="https://opensource.org/files/css/css_xE-rWrJf-fncB6ztZfd2huxqgxu4WO-qwma6Xer30m4.css" media="all" />
 <link type="text/css" rel="stylesheet" href="https://opensource.org/files/css/css_gArAUcbPOGS20Rj3CC1Ph_2J692LtLqNviaNUAmk_Wg.css" media="all" />
 <link type="text/css" rel="stylesheet" href="https://opensource.org/files/css/css_PGbJgHCUCBf4dg7K9Kt8aAwsApndP4GZ9RuToPy3-Fk.css" media="all" />
@@ -18,7 +18,7 @@
 <link type="text/css" rel="stylesheet" href="https://opensource.org/files/css/css_G9cu63kkDQ56GYuF3QrqJxma5HT-bUVZckUWKUzFCF4.css" media="all" />
 
 <!--[if (lt IE 9)]>
-<link type="text/css" rel="stylesheet" href="https://opensource.org/sites/all/themes/bootstrap-business/css/ie8.css?p6bi0q" media="all" />
+<link type="text/css" rel="stylesheet" href="https://opensource.org/sites/all/themes/bootstrap-business/css/ie8.css?p7r39b" media="all" />
 <![endif]-->
 
     
@@ -56,11 +56,11 @@ jQuery(document).ready(function($) {
 <script type="text/javascript" src="https://opensource.org/files/js/js_JQHTvV_SkyFlN3f2BnQwnusF-eI6tkX8wrKAk2siiZU.js"></script>
 <script type="text/javascript">
 <!--//--><![CDATA[//><!--
-jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"bootstrap_business","theme_token":"2a8qsoHi7zyu93bBfh8PACGbI7p4PmqdIUa98m_Jq4E","js":{"\/\/code.jquery.com\/jquery-1.10.2.min.js":1,"0":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.2.0\/js\/bootstrap.min.js":1,"1":1,"sites\/all\/libraries\/superfish\/jquery.hoverIntent.minified.js":1,"sites\/all\/libraries\/superfish\/sftouchscreen.js":1,"sites\/all\/libraries\/superfish\/sfsmallscreen.js":1,"sites\/all\/libraries\/superfish\/supposition.js":1,"sites\/all\/libraries\/superfish\/superfish.js":1,"sites\/all\/libraries\/superfish\/supersubs.js":1,"sites\/all\/modules\/superfish\/superfish.js":1,"sites\/all\/themes\/bootstrap-business\/js\/jquery.browser.min.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/comment\/comment.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.2.0\/css\/bootstrap.min.css":1,"sites\/all\/libraries\/superfish\/css\/superfish.css":1,"sites\/all\/themes\/bootstrap-business\/css\/style.css":1,"sites\/all\/themes\/bootstrap-business\/color\/colors.css":1,"sites\/all\/themes\/bootstrap-business\/css\/local.css":1,"sites\/all\/themes\/bootstrap-business\/css\/ie8.css":1}},"urlIsAjaxTrusted":{"\/licenses\/MIT":true},"superfish":{"1":{"id":"1","sf":{"animation":{"opacity":"show","height":"show"},"speed":"\u0027fast\u0027","autoArrows":false,"dropShadows":true,"disableHI":false},"plugins":{"touchscreen":{"mode":"window_width"},"smallscreen":{"mode":"window_width","addSelected":false,"menuClasses":false,"hyperlinkClasses":false,"title":"Navigation"},"supposition":true,"bgiframe":false,"supersubs":{"minWidth":"12","maxWidth":"27","extraWidth":1}}}}});
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"bootstrap_business","theme_token":"meaMuFVryECsloaMVNJwRWKBe7pyeAsLe1o323GRDCc","js":{"\/\/code.jquery.com\/jquery-1.10.2.min.js":1,"0":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.2.0\/js\/bootstrap.min.js":1,"1":1,"sites\/all\/libraries\/superfish\/jquery.hoverIntent.minified.js":1,"sites\/all\/libraries\/superfish\/sftouchscreen.js":1,"sites\/all\/libraries\/superfish\/sfsmallscreen.js":1,"sites\/all\/libraries\/superfish\/supposition.js":1,"sites\/all\/libraries\/superfish\/superfish.js":1,"sites\/all\/libraries\/superfish\/supersubs.js":1,"sites\/all\/modules\/superfish\/superfish.js":1,"sites\/all\/themes\/bootstrap-business\/js\/jquery.browser.min.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/comment\/comment.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"\/\/maxcdn.bootstrapcdn.com\/bootstrap\/3.2.0\/css\/bootstrap.min.css":1,"sites\/all\/libraries\/superfish\/css\/superfish.css":1,"sites\/all\/themes\/bootstrap-business\/css\/style.css":1,"sites\/all\/themes\/bootstrap-business\/color\/colors.css":1,"sites\/all\/themes\/bootstrap-business\/css\/local.css":1,"sites\/all\/themes\/bootstrap-business\/css\/ie8.css":1}},"urlIsAjaxTrusted":{"\/licenses\/lgpl-license.php":true},"superfish":{"1":{"id":"1","sf":{"animation":{"opacity":"show","height":"show"},"speed":"\u0027fast\u0027","autoArrows":false,"dropShadows":true,"disableHI":false},"plugins":{"touchscreen":{"mode":"window_width"},"smallscreen":{"mode":"window_width","addSelected":false,"menuClasses":false,"hyperlinkClasses":false,"title":"Navigation"},"supposition":true,"bgiframe":false,"supersubs":{"minWidth":"12","maxWidth":"27","extraWidth":1}}}}});
 //--><!]]>
 </script>
 </head>
-<body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-66 node-type-page" >
+<body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-253 node-type-page" >
   <div id="skip-link">
     <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
   </div>
@@ -103,12 +103,12 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
 
     
   <div class="content">
-    <form action="/licenses/MIT" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+    <form action="/licenses/lgpl-license.php" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
       <h2 class="element-invisible">Search form</h2>
     <div class="form-item form-type-textfield form-item-search-block-form">
  <input onblur="if (this.value == &#039;&#039;) {this.value = &#039;Search this website...&#039;;}" onfocus="if (this.value == &#039;Search this website...&#039;) {this.value = &#039;&#039;;}" type="text" id="edit-search-block-form--2" name="search_block_form" value="Search this website..." size="15" maxlength="128" class="form-text" />
 </div>
-<div class="form-actions form-wrapper" id="edit-actions"><input value="" type="submit" id="edit-submit" name="op" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form-sMorC07Ht6-yukUGQACSb7hTPKU6EtqMPZnKCEqugUU" />
+<div class="form-actions form-wrapper" id="edit-actions"><input value="" type="submit" id="edit-submit" name="op" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form--j0ot-9w9fpyuh0O3ZbOYKap9VdNOEdeRkngWHraZmw" />
 <input type="hidden" name="form_id" value="search_block_form" />
 </div>
 </div></form>  </div>
@@ -211,7 +211,7 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
                         <!-- EOF:#content-wrapper -->
                         <div id="content-wrapper">
 
-                                                                                    <h1 class="page-title">The MIT License</h1>
+                                                                                    <h1 class="page-title">GNU LGPL</h1>
                                                         
                                                   
                             <!-- #tabs -->
@@ -227,57 +227,16 @@ jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":
 
     
   <div class="content">
-    <article id="node-66" class="node node-page clearfix">
+    <article id="node-253" class="node node-page clearfix">
 
   
   <div class="content">
-    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p style="font-weight:bold">
-SPDX short identifier: MIT
-</p>
-
-<div align="right">
-<button onclick="myFunction()">Further resources on the <b>MIT License</b></button>
-
-<p id="demo"></p>
-
-<script>
-<!--//--><![CDATA[// ><!--
-
-function myFunction() {
-    var x;
-    if (confirm("Disclaimer: While the OSI acknowledges these as potentially helpful resources for the community, it does not endorse any content, contributors or license interpretations from these websites. Any links to these resources across opensource.org are solely for navigational purposes. The OSI does not promote or exclusively favor any of the mentioned resources, but instead provides them as separate third-party resource to help inform your opinion. Any content from or links to these resources are separate from the OSI, exist for purely informational purposes and creates no attorney-client relationship between you, the OSI or the resources. If you have questions about how licenses apply to you or your organization, you should seek legal advice. ") == true) {
-        x = "<br><p>The following are other community resources that may be helpful:<br><br><a href=https://tldrlegal.com/license/mit-license style='font-weight: bold;'>The MIT License on TLDRLegal<br><a href=http://www.gnu.org/licenses/license-list.en.html>GNU License List<br><a href=https://en.wikipedia.org/wiki/Comparison_of_free_and_open-source_software_licenses>Wikipedia License List<br><a href=http://oss-watch.ac.uk/apps/licdiff/>OSSWatch License Diff<br><a href=https://choosealicense.com>Choosealicense";
-    } else {
-        x = " ";
-    }
-    document.getElementById("demo").innerHTML = x;
-}
-
-//--><!]]>
-</script></div>
-
-
-
-<p>Copyright &lt;YEAR&gt; &lt;COPYRIGHT HOLDER&gt;</p>
-
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:</p>
-
-<p>The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.</p>
-
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.</p>
-</div></div></div>  </div>
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>
+There are three versions of the license commonly known as the LGPL:
+</p><ul><li><a href="/licenses/LGPL-2.0">GNU Library General Public License, version 2</a> (SPDX short identifier: LGPL-2.0)</li>
+<li><a href="/licenses/LGPL-2.1">GNU Lesser General Public License, version 2.1</a> (SPDX short identifier: LGPL-2.1)</li>
+<li><a href="/licenses/LGPL-3.0">GNU Lesser General Public License, version 3</a> (SPDX short identifier: LGPL-3.0)</li>
+</ul></div></div></div>  </div>
     
      
 

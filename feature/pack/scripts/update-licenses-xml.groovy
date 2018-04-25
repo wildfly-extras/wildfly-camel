@@ -83,6 +83,13 @@ if (licenseXmlFile.exists()) {
         }
     }
 
+    // Clean up file names
+    new File("${licenseDir}/licenses").eachFile { downloadedLicense ->
+        String parent = downloadedLicense.parent
+        String name = sanitizeFileName(downloadedLicense.name)
+        downloadedLicense.renameTo("${parent}/${name}")
+    }
+
     // Process licenses
     def licenses = []
     def urls = [:]
@@ -125,7 +132,7 @@ if (licenseXmlFile.exists()) {
                 licenseFileName += ".txt"
             }
 
-            licenseFileName = licenseFileName.toLowerCase()
+            licenseFileName = sanitizeFileName(licenseFileName.toLowerCase())
             urls[licenseUrl] = licenseFileName
         }
 
@@ -138,7 +145,7 @@ if (licenseXmlFile.exists()) {
             String text = file.text
 
             // license-maven-plugin may fail to download licenses for HTTP -> HTTPS redirects
-            if (text.contains("Moved Permanently")) {
+            if (text.contains("Moved Permanently") || text.isEmpty()) {
                 text = downloadLicense(licenseUrl)
             }
 
@@ -149,7 +156,7 @@ if (licenseXmlFile.exists()) {
 
             // Add a file node so the XSL can reference it
             if (license.file.size() == 0) {
-                license.append(new Node(null, "file", licenseFileName))
+                license.append(new Node(null, "file", sanitizeFileName(licenseFileName)))
             }
 
             file.write(text)
@@ -171,7 +178,7 @@ if (licenseXmlFile.exists()) {
     }
 
     // Add a generic public license
-    def publicLicense = new File("${licenseDir}/licenses/public domain.txt")
+    def publicLicense = new File("${licenseDir}/licenses/public-domain.txt")
     if (!publicLicense.exists()) {
         publicLicense.write("Being in the public domain is not a license; rather, it means the material is not copyrighted and no license is needed.")
     }
@@ -188,6 +195,7 @@ def downloadLicense(String licenseUrl) {
     HttpGet get = new HttpGet(licenseUrl)
     CloseableHttpClient client = HttpClients.createDefault()
     try {
+        println "INFO - Download ${licenseUrl}"
         HttpResponse response = client.execute(get)
         if (response.statusLine.statusCode < 400 ) {
             return EntityUtils.toString(response.getEntity())
@@ -195,4 +203,8 @@ def downloadLicense(String licenseUrl) {
     } finally {
         client.close()
     }
+}
+
+def sanitizeFileName(String text) {
+    return text.replaceAll("[^a-zA-Z0-9\\.\\- ]","").replaceAll(" ", "-").replaceAll("--+", "-")
 }

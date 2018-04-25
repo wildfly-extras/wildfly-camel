@@ -77,11 +77,15 @@ if (licenseOutputXmlFile.exists()) {
             urls[licenseUrl] = licenseFileName
         }
 
-        license.append(new Node(null, "file", licenseFileName))
+        license.append(new Node(null, "file", sanitizeFileName(licenseFileName)))
     }
 
     // Output modified XML
     def printer = new XmlNodePrinter(new PrintWriter(new FileWriter(licenseOutputXmlFile)))
     printer.preserveWhitespace = true
     printer.print(licenseXml)
+}
+
+def sanitizeFileName(String text) {
+    return text.replaceAll("[^a-zA-Z0-9\\.\\- ]","").replaceAll(" ", "-").replaceAll("--+", "-")
 }

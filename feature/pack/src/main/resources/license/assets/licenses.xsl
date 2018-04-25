@@ -66,7 +66,7 @@
         <xsl:param name="file"/>
         <xsl:choose>
             <xsl:when test="contains(translate($name, $uppercase, $lowercase), 'public domain')">
-                <xsl:text>public domain.txt</xsl:text>
+                <xsl:text>public-domain.txt</xsl:text>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="$file"/>
