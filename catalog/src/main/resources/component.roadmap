@@ -246,7 +246,6 @@ vertx
 vm
 weather
 wordpress
-xmlrpc
 xmlsecurity
 xmpp
 xquery
@@ -310,4 +309,5 @@ routebox                                            #deprecated
 spark                                               #1469 Scala/Jackson stack overflow
 spark-rest                                          #1470 Scala/Jackson stack overflow
 websocket                                           #1479 No alternative HTTP engine
+xmlrpc                                              #2507 xmlrpc is no longer maintained
 

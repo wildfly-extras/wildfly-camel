@@ -372,8 +372,6 @@ include::camel-weather.adoc[]
 
 include::camel-wordpress.adoc[]
 
-include::camel-xmlrpc.adoc[]
-
 include::camel-xmpp.adoc[]
 
 include::camel-xstream.adoc[]

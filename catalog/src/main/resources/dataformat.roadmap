@@ -39,7 +39,6 @@ tidyMarkup
 univocity-csv
 univocity-fixed
 univocity-tsv
-xmlrpc
 xstream
 yaml-snakeyaml
 zip
@@ -55,4 +54,5 @@ fhirXml
 hessian             #deprecated
 xmlBeans            #deprecated
 xmljson             #deprecated
+xmlrpc              #2507 xmlrpc is no longer maintained
 

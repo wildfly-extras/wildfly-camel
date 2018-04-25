@@ -2072,8 +2072,6 @@ org/apache/camel/component/wordpress/api/service/spi
 org/apache/camel/component/wordpress/consumer
 org/apache/camel/component/wordpress/producer
 org/apache/camel/component/wordpress/proxy
-org/apache/camel/component/xmlrpc
-org/apache/camel/component/xmlrpc/converter
 org/apache/camel/component/xmlsecurity
 org/apache/camel/component/xmlsecurity/api
 org/apache/camel/component/xmlsecurity/processor
@@ -2127,7 +2125,6 @@ org/apache/camel/dataformat/tagsoup
 org/apache/camel/dataformat/tarfile
 org/apache/camel/dataformat/thrift
 org/apache/camel/dataformat/univocity
-org/apache/camel/dataformat/xmlrpc
 org/apache/camel/dataformat/xmlsecurity
 org/apache/camel/dataformat/xstream
 org/apache/camel/dataformat/zipfile
@@ -3376,14 +3373,6 @@ org/apache/xmlgraphics/xmp
 org/apache/xmlgraphics/xmp/merge
 org/apache/xmlgraphics/xmp/schemas
 org/apache/xmlgraphics/xmp/schemas/pdf
-org/apache/xmlrpc
-org/apache/xmlrpc/client
-org/apache/xmlrpc/client/util
-org/apache/xmlrpc/common
-org/apache/xmlrpc/jaxb
-org/apache/xmlrpc/parser
-org/apache/xmlrpc/serializer
-org/apache/xmlrpc/util
 org/apache/zookeeper
 org/apache/zookeeper/client
 org/apache/zookeeper/common
