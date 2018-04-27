@@ -6,6 +6,7 @@
   <dependencies>
     <module name="io.netty" slot="4.1" />
     <module name="org.apache.camel.component.netty4" />
+    <module name="org.apache.mina.core" />
     <module name="org.slf4j" />
     <module name="ca.uhn.hapi" export="true">
       <exports>
