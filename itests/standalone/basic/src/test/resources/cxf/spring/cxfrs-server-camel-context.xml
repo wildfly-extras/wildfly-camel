@@ -24,10 +24,15 @@
                            http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
                            http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
 
+    <bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider"/>
+
     <jaxrs:server id="jaxrsServer" address="http://localhost:8080/rest">
         <jaxrs:serviceBeans>
             <ref bean="greetingService"/>
         </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref bean="jsonProvider"/>
+        </jaxrs:providers>
     </jaxrs:server>
 
     <bean id="greetingService" class="org.wildfly.camel.test.common.types.GreetingServiceImpl"/>
