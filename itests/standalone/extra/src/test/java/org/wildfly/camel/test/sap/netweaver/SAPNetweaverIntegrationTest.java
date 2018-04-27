@@ -19,10 +19,9 @@
  */
 package org.wildfly.camel.test.sap.netweaver;
 
-import com.sun.syndication.feed.synd.SyndEntry;
-import com.sun.syndication.feed.synd.SyndFeed;
 import org.apache.camel.CamelContext;
-import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.sap.netweaver.NetWeaverConstants;
@@ -32,61 +31,81 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
-/*
- * To run this test you need to set the following environment variables:
- *
- *   SAP_USERNAME
- *   SAP_PASSWORD
- */
 @CamelAware
 @RunWith(Arquillian.class)
 public class SAPNetweaverIntegrationTest {
 
-    static final String SAP_GATEWAY_URL = "https4://sapes4.sapdevcenter.com/sap/opu/odata/IWFND/RMTSAMPLEFLIGHT";
-
-    static final String SAP_USERNAME = System.getenv("SAP_USERNAME");
-    static final String SAP_PASSWORD = System.getenv("SAP_PASSWORD");
+    private static final String SAP_COMMAND = "FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')";
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-sap-netweaver-tests.jar");
+        return ShrinkWrap.create(JavaArchive.class, "camel-sap-netweaver-tests.jar")
+            .addClass(TestUtils.class)
+            .addAsResource("sap/netweaver/flight-data.json", "flight-data.json")
+            .addAsResource("sap/netweaver/flight-data.xml", "flight-data.xml");
     }
 
     @Test
-    public void testSAPNetweaverEndpoint() throws Exception {
-
-        Assume.assumeTrue("[#1675] Enable SAP testing in Jenkins", SAP_USERNAME != null && SAP_PASSWORD != null);
-
+    public void testSAPNetweaverEndpointJsonResponse() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .toF("sap-netweaver:%s?username=%s&password=%s", SAP_GATEWAY_URL, SAP_USERNAME, SAP_PASSWORD);
+                .to("sap-netweaver:http4://localhost:8080/sap/api");
+
+                from("undertow:http://localhost:8080/sap/api?matchOnUriPrefix=true")
+                .process(new Processor() {
+                    @Override
+                    public void process(Exchange exchange) throws Exception {
+                        String data = TestUtils.getResourceValue(SAPNetweaverIntegrationTest.class, "/flight-data.json");
+                        exchange.getOut().setBody(data);
+                    }
+                });
             }
         });
 
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
-            ConsumerTemplate consumer = camelctx.createConsumerTemplate();
+            String result = producer.requestBodyAndHeader("direct:start", null, NetWeaverConstants.COMMAND, SAP_COMMAND, String.class);
+            Assert.assertTrue(result.contains("PRICE=422.94, CURRENCY=USD"));
+        } finally {
+            camelctx.stop();
+        }
+    }
 
-            // Flight data is constantly updated, so fetch a valid flight from the flight collection feed
-            String sapRssFeedUri = String.format("rss:%s/%s?username=%s&password=%s", SAP_GATEWAY_URL.replace("https4", "https"),
-                "FlightCollection", SAP_USERNAME, SAP_PASSWORD);
-            SyndFeed feed = consumer.receiveBody(sapRssFeedUri, SyndFeed.class);
-            Assert.assertNotNull(feed);
-            Assert.assertTrue(feed.getEntries().size() > 0);
+    @Test
+    public void testSAPNetweaverEndpointXmlResponse() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                    .to("sap-netweaver:http4://localhost:8080/sap/api?json=false");
 
-            SyndEntry entry = (SyndEntry) feed.getEntries().get(0);
-            String sapCommand = entry.getTitle();
-            String result = producer.requestBodyAndHeader("direct:start", null, NetWeaverConstants.COMMAND, sapCommand, String.class);
-            Assert.assertFalse(result.isEmpty());
+                from("undertow:http://localhost:8080/sap/api?matchOnUriPrefix=true")
+                    .process(new Processor() {
+                        @Override
+                        public void process(Exchange exchange) throws Exception {
+                            String data = TestUtils.getResourceValue(SAPNetweaverIntegrationTest.class, "/flight-data.xml");
+                            exchange.getOut().setBody(data);
+                        }
+                    });
+            }
+        });
+
+        camelctx.start();
+        try {
+            ProducerTemplate producer = camelctx.createProducerTemplate();
+            String result = producer.requestBodyAndHeader("direct:start", null, NetWeaverConstants.COMMAND, SAP_COMMAND, String.class);
+            Assert.assertTrue(result.contains("<d:PRICE>422.94</d:PRICE>"));
+            Assert.assertTrue(result.contains("<d:CURRENCY>USD</d:CURRENCY>"));
         } finally {
             camelctx.stop();
         }
