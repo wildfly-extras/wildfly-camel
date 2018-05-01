@@ -30,8 +30,10 @@
         <exclude path="OSGI-INF/blueprint" />
         <exclude path="OSGI-INF/metatype" />
         <exclude path="com/sun**" />
+        <exclude path="org/apache/cxf/bus/osgi**" />
         <exclude path="org/apache/cxf/internal" />
         <exclude path="org/apache/cxf/tools**" />
+        <exclude path="org/apache/cxf/transport/http/osgi**" />
         <exclude path="org/apache/cxf/ws/discovery/internal" />
         <exclude path="org/osgi**" />
       </exports>

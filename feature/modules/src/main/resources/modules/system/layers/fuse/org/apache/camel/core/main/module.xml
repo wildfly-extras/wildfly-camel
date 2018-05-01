@@ -9,4 +9,7 @@
     <module name="sun.jdk" />
     <module name="javax.xml.bind.api" />
   </dependencies>
+  <exports>
+    <exclude path="org/apache/camel/impl/osgi**" />
+  </exports>
 </module>

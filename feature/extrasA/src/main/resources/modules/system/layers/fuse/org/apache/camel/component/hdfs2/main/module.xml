@@ -32,4 +32,7 @@
     <module name="org.codehaus.jackson.jackson-core-asl" />
     <module name="org.codehaus.jackson.jackson-mapper-asl" />
   </dependencies>
+  <exports>
+    <exclude path="org/apache/camel/component/hdfs2/osgi**" />
+  </exports>
 </module>

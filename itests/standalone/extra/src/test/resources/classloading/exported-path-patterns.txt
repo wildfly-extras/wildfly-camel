@@ -130,3 +130,4 @@
 [excludes]
     (.*)/internal($|/.*)
     (.*)/internals($|/.*)
+    (.*)/osgi($|/.*)

@@ -38,6 +38,9 @@
             <module name="org.slf4j" />
             <module name="sun.jdk" />
         </dependencies>
+        <exports>
+            <exclude path="org/apache/camel/impl/osgi**"/>
+        </exports>
     </module>
 
     <module name="org.apache.camel.core.xml">
@@ -67,7 +70,7 @@
                     <exclude path="org/apache/activemq/openwire**" />
                     <exclude path="org/apache/activemq/transport**" />
                     <exclude path="org/apache/activemq/wireformat**" />
-                    <exclude path="org/apache/activemq/util/osgi/**" />
+                    <exclude path="org/apache/activemq/util/osgi**" />
                 </exports>
             </module>
             <module name="org.apache.camel.core" />
@@ -624,7 +627,6 @@
         </dependencies>
     </module>
 
-
     <module name="org.apache.camel.component.crypto">
         <include artifact="org.apache.camel:camel-crypto" />
         <apply-to-dependencies skip="true">
@@ -697,8 +699,10 @@
                     <exclude path="OSGI-INF/blueprint" />
                     <exclude path="OSGI-INF/metatype" />
                     <exclude path="com/sun**" />
+                    <exclude path="org/apache/cxf/bus/osgi**" />
                     <exclude path="org/apache/cxf/internal" />
                     <exclude path="org/apache/cxf/tools**" />
+                    <exclude path="org/apache/cxf/transport/http/osgi**" />
                     <exclude path="org/apache/cxf/ws/discovery/internal" />
                     <exclude path="org/osgi**" />
                 </exports>
@@ -1487,6 +1491,9 @@
             </module>
             <module name="org.slf4j"/>
         </dependencies>
+        <exports>
+            <exclude path="org/apache/camel/component/jcache/osgi**"/>
+        </exports>
     </module>
 
     <module name="org.apache.camel.component.jdbc">
@@ -2453,6 +2460,9 @@
             <module name="org.osgi.core"/>
             <module name="org.slf4j"/>
         </dependencies>
+        <exports>
+            <exclude path="org/apache/camel/script/osgi**"/>
+        </exports>
     </module>
 
     <module name="org.apache.camel.script.groovy">
@@ -2511,6 +2521,9 @@
         <dependencies>
             <module name="org.slf4j"/>
         </dependencies>
+        <exports>
+            <exclude path="org/apache/camel/component/servlet/osgi**"/>
+        </exports>
     </module>
 
     <module name="org.apache.camel.component.shiro">
