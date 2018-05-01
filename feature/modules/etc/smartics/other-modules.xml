@@ -502,6 +502,7 @@
         </dependencies>
         <exports>
             <exclude path="com/hazelcast/internal**" />
+            <exclude path="com/hazelcast/osgi**" />
             <exclude path="lib/linux-x86_64" />
             <exclude path="lib/linux-x86" />
         </exports>
@@ -1307,6 +1308,7 @@
             <module name="javax.api" />
         </dependencies>
         <exports>
+            <exclude path="org/apache/directory/api/ldap/codec/osgi**" />
             <exclude path="schema/ou=schema**" />
         </exports>
     </module>

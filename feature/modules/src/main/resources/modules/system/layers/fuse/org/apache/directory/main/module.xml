@@ -30,6 +30,7 @@
     <module name="org.slf4j" />
   </dependencies>
   <exports>
+    <exclude path="org/apache/directory/api/ldap/codec/osgi**" />
     <exclude path="schema/ou=schema**" />
   </exports>
 </module>

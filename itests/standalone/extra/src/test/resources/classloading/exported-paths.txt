@@ -79,8 +79,6 @@ org/apache/camel/impl/cloud
 org/apache/camel/impl/cluster
 org/apache/camel/impl/converter
 org/apache/camel/impl/health
-org/apache/camel/impl/osgi
-org/apache/camel/impl/osgi/tracker
 org/apache/camel/impl/saga
 org/apache/camel/impl/scan
 org/apache/camel/impl/transformer
@@ -870,8 +868,6 @@ com/hazelcast/nio/serialization
 com/hazelcast/nio/serialization/impl
 com/hazelcast/nio/ssl
 com/hazelcast/nio/tcp
-com/hazelcast/osgi
-com/hazelcast/osgi/impl
 com/hazelcast/partition
 com/hazelcast/partition/membergroup
 com/hazelcast/partition/strategy
@@ -1594,7 +1590,6 @@ org/apache/activemq/thread
 org/apache/activemq/transaction
 org/apache/activemq/usage
 org/apache/activemq/util
-org/apache/activemq/util/osgi
 org/apache/activemq/xbean
 org/apache/avro
 org/apache/avro/data
@@ -1797,7 +1792,6 @@ org/apache/camel/component/hazelcast/seda
 org/apache/camel/component/hazelcast/set
 org/apache/camel/component/hazelcast/topic
 org/apache/camel/component/hdfs2
-org/apache/camel/component/hdfs2/osgi
 org/apache/camel/component/headersmap
 org/apache/camel/component/hipchat
 org/apache/camel/component/hl7
@@ -1829,7 +1823,6 @@ org/apache/camel/component/jacksonxml/converter
 org/apache/camel/component/jasypt
 org/apache/camel/component/jbpm
 org/apache/camel/component/jcache
-org/apache/camel/component/jcache/osgi
 org/apache/camel/component/jcache/processor
 org/apache/camel/component/jcache/processor/aggregate
 org/apache/camel/component/jcache/processor/idempotent
@@ -1984,7 +1977,6 @@ org/apache/camel/component/servicenow/releases
 org/apache/camel/component/servicenow/releases/fuji
 org/apache/camel/component/servicenow/releases/helsinki
 org/apache/camel/component/servlet
-org/apache/camel/component/servlet/osgi
 org/apache/camel/component/shiro
 org/apache/camel/component/shiro/security
 org/apache/camel/component/sip
@@ -2165,7 +2157,6 @@ org/apache/camel/processor/mllp
 org/apache/camel/routepolicy
 org/apache/camel/routepolicy/quartz2
 org/apache/camel/script
-org/apache/camel/script/osgi
 org/apache/camel/swagger
 org/apache/camel/swagger/servlet
 org/apache/camel/utils
@@ -2288,7 +2279,6 @@ org/apache/cxf/bus
 org/apache/cxf/bus/blueprint
 org/apache/cxf/bus/extension
 org/apache/cxf/bus/managers
-org/apache/cxf/bus/osgi
 org/apache/cxf/bus/resource
 org/apache/cxf/bus/spring
 org/apache/cxf/buslifecycle
@@ -2487,7 +2477,6 @@ org/apache/cxf/transport/http
 org/apache/cxf/transport/http/asyncclient
 org/apache/cxf/transport/http/auth
 org/apache/cxf/transport/http/blueprint
-org/apache/cxf/transport/http/osgi
 org/apache/cxf/transport/http/policy
 org/apache/cxf/transport/http/policy/impl
 org/apache/cxf/transport/http/spring
@@ -2645,7 +2634,6 @@ org/apache/directory/api/ldap/codec/controls/search/persistentSearch
 org/apache/directory/api/ldap/codec/controls/search/subentries
 org/apache/directory/api/ldap/codec/controls/sort
 org/apache/directory/api/ldap/codec/decorators
-org/apache/directory/api/ldap/codec/osgi
 org/apache/directory/api/ldap/codec/protocol
 org/apache/directory/api/ldap/codec/protocol/mina
 org/apache/directory/api/ldap/codec/search

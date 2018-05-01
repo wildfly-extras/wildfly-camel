@@ -46,6 +46,9 @@
             </module>
             <module name="org.slf4j"/>
         </dependencies>
+        <exports>
+            <exclude path="org/apache/camel/component/hdfs2/osgi**" />
+        </exports>
     </module>
 
     <module name="org.apache.camel.component.jbpm">
