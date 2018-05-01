@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -43,10 +44,12 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 import com.mongodb.BasicDBObject;
@@ -71,15 +74,17 @@ public class MongoDBIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-mongodb-tests")
-            .addClasses(EmbeddedMongoServer.class);
+            .addClasses(EmbeddedMongoServer.class, EnvironmentUtils.class);
     }
 
     @BeforeClass
     public static void beforeClass() throws Exception {
-        if (mongoServer == null) {
-            mongoServer = new EmbeddedMongoServer(PORT);
+        if (!EnvironmentUtils.isWindows()) {
+            if (mongoServer == null) {
+                mongoServer = new EmbeddedMongoServer(PORT);
+            }
+            mongoServer.start();
         }
-        mongoServer.start();
     }
 
     @AfterClass
@@ -91,6 +96,8 @@ public class MongoDBIntegrationTest {
 
     @Before
     public void setUp() throws Exception {
+        Assume.assumeFalse("[#2486] MongoDBIntegrationTest fails on Windows", EnvironmentUtils.isWindows());
+
         mongoClient = new MongoClient("localhost", PORT);
         MongoDatabase db = mongoClient.getDatabase("test");
 
@@ -111,9 +118,13 @@ public class MongoDBIntegrationTest {
     }
 
     @After
-    public void tearDown() throws Exception {
-        InitialContext context = new InitialContext();
-        context.unbind("mdb");
+    public void tearDown() {
+        try {
+            InitialContext context = new InitialContext();
+            context.unbind("mdb");
+        } catch (NamingException e) {
+            // Ignore
+        }
     }
 
     @Test
