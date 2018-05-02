@@ -222,4 +222,46 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>salesforce</id>
+            <activation>
+                <property>
+                    <!-- https://mojo.redhat.com/docs/DOC-153710 -->
+                    <name>env.SALESFORCE_CONSUMER_KEY</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- Generate POJOs for Salesforce SObjects -->
+                    <plugin>
+                        <groupId>org.apache.camel.maven</groupId>
+                        <artifactId>camel-salesforce-maven-plugin</artifactId>
+                        <version>${version.apache.camel}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>src/test/java</outputDirectory>
+                                    <packageName>org.wildfly.camel.test.salesforce.dto</packageName>
+                                    <clientId>${env.SALESFORCE_CONSUMER_KEY}</clientId>
+                                    <clientSecret>${env.SALESFORCE_CONSUMER_SECRET}</clientSecret>
+                                    <userName>${env.SALESFORCE_USER}</userName>
+                                    <password>${env.SALESFORCE_PASSWORD}</password>
+                                    <includes>
+                                        <include>Account</include>
+                                        <include>Order</include>
+                                        <include>Oportunity</include>
+                                    </includes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

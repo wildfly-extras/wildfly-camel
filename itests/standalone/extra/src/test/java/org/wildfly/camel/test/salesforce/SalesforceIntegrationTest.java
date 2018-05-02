@@ -20,7 +20,6 @@
 
 package org.wildfly.camel.test.salesforce;
 
-import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +27,6 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.salesforce.SalesforceComponent;
 import org.apache.camel.component.salesforce.SalesforceLoginConfig;
 import org.apache.camel.component.salesforce.api.dto.bulk.ContentType;
@@ -44,8 +42,9 @@ import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.salesforce.dto.Account;
 import org.wildfly.camel.test.salesforce.dto.Opportunity;
-import org.wildfly.camel.test.salesforce.dto.Opportunity_StageNameEnum;
+import org.wildfly.camel.test.salesforce.dto.QueryRecordsAccount;
 import org.wildfly.camel.test.salesforce.dto.QueryRecordsOpportunity;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -86,63 +85,33 @@ public class SalesforceIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:query")
-                .to("salesforce:query?sObjectQuery=SELECT id,name from Opportunity&sObjectClass=" + QueryRecordsOpportunity.class.getName());
+                from("direct:opportunity")
+                .to("salesforce:query?sObjectQuery=SELECT Id,Name from Opportunity&sObjectClass=" + QueryRecordsOpportunity.class.getName());
+
+                from("direct:account")
+                .to("salesforce:query?sObjectQuery=SELECT Id,AccountNumber from Account&sObjectClass=" + QueryRecordsAccount.class.getName());
             }
         });
 
         camelctx.start();
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
-            QueryRecordsOpportunity queryRecords = template.requestBody("direct:query", null, QueryRecordsOpportunity.class);
 
-            Assert.assertNotNull("Expected query records result to not be null", queryRecords);
-        } finally {
-            camelctx.stop();
-        }
-    }
+            QueryRecordsOpportunity oppRecords = template.requestBody("direct:opportunity", null, QueryRecordsOpportunity.class);
+            Assert.assertNotNull("Expected query records result to not be null", oppRecords);
+            Assert.assertTrue("Expected some records", oppRecords.getRecords().size() > 0);
 
-    @Test
-    public void testSalesforceTopicConsumer() throws Exception {
-        Map<String, Object> salesforceOptions = createSalesforceOptions();
+            Opportunity oppItem = oppRecords.getRecords().get(0);
+            Assert.assertNotNull("Expected Oportunity Id", oppItem.getId());
+            Assert.assertNotNull("Expected Oportunity Name", oppItem.getName());
 
-        Assume.assumeTrue("[#1676] Enable Salesforce testing in Jenkins",
-                salesforceOptions.size() == SalesforceOption.values().length);
+            QueryRecordsAccount accRecords = template.requestBody("direct:account", null, QueryRecordsAccount.class);
+            Assert.assertNotNull("Expected query records result to not be null", accRecords);
+            Assert.assertTrue("Expected some records", accRecords.getRecords().size() > 0);
 
-        SalesforceLoginConfig loginConfig = new SalesforceLoginConfig();
-        IntrospectionSupport.setProperties(loginConfig, salesforceOptions);
-
-        SalesforceComponent component = new SalesforceComponent();
-        component.setPackages("org.wildfly.camel.test.salesforce.dto");
-        component.setLoginConfig(loginConfig);
-
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addComponent("salesforce",  component);
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("salesforce:CamelTestTopic?notifyForFields=ALL&"
-                    + "notifyForOperationCreate=true&notifyForOperationDelete=true&notifyForOperationUpdate=true&"
-                    + "sObjectName=Opportunity&"
-                    + "updateTopic=true&sObjectQuery=SELECT Id, Name FROM Opportunity")
-                .to("mock:result");
-            }
-        });
-
-        Opportunity opportunity = new Opportunity();
-        opportunity.setName("test");
-        opportunity.setStageName(Opportunity_StageNameEnum.PROSPECTING);
-        opportunity.setCloseDate(ZonedDateTime.now());
-
-        MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
-        mockEndpoint.expectedMinimumMessageCount(1);
-
-        camelctx.start();
-        try {
-            ProducerTemplate template = camelctx.createProducerTemplate();
-            template.sendBody("salesforce:upsertSObject?SObjectIdName=Name", opportunity);
-
-            mockEndpoint.assertIsSatisfied(5000);
+            Account accItem = accRecords.getRecords().get(0);
+            Assert.assertNotNull("Expected Account Id", accItem.getId());
+            Assert.assertNotNull("Expected Account Number", accItem.getAccountNumber());
         } finally {
             camelctx.stop();
         }
