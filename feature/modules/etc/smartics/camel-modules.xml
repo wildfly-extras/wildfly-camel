@@ -3137,6 +3137,18 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.yql">
+        <include artifact="org.apache.camel:camel-yql" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.zendesk">
         <include artifact="com.cloudbees.thirdparty:zendesk-java-client" />
         <include artifact="com.ning:async-http-client" />

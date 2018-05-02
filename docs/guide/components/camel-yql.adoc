@@ -1,0 +1,3 @@
+### camel-yql
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-yql/src/main/docs/yql-component.adoc[YQL,window=_blank] component is used for accessing the https://developer.yahoo.com/yql/[Yahoo Query Language platform,target=_blank].

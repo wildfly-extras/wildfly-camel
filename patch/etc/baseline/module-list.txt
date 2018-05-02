@@ -478,6 +478,7 @@
 /org/apache/camel/component/xmpp/main/camel-xmpp-2.21.0.jar
 /org/apache/camel/component/xstream/main/camel-xstream-2.21.0.jar
 /org/apache/camel/component/yammer/main/camel-yammer-2.21.0.jar
+/org/apache/camel/component/yql/main/camel-yql-2.21.0.jar
 /org/apache/camel/component/zendesk/main/async-http-client-1.9.31.jar
 /org/apache/camel/component/zendesk/main/camel-zendesk-2.21.0.jar
 /org/apache/camel/component/zendesk/main/zendesk-java-client-0.5.4.jar

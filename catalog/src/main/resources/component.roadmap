@@ -251,6 +251,7 @@ xmpp
 xquery
 xslt
 yammer
+yql
 zendesk
 zookeeper
 zookeeper-master
@@ -265,7 +266,6 @@ solr                                                #2030 No test coverage for s
 solrCloud                                           #2031 No test coverage for solr in camel
 solrs                                               #2032 No test coverage for solr in camel
 xchange
-yql
 
 [rejected]
 atmos                                               #1984 Jersey clashes with RestEasy

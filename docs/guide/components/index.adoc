@@ -378,6 +378,8 @@ include::camel-xstream.adoc[]
 
 include::camel-yammer.adoc[]
 
+include::camel-yql.adoc[]
+
 include::camel-zendesk.adoc[]
 
 include::camel-zipkin.adoc[]

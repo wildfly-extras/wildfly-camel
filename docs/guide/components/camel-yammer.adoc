@@ -1,3 +1,3 @@
 ### camel-yammer
 
-The http://camel.apache.org/yammer.html[yammer,window=_blank] allows you to interact with the https://developer.yammer.com/[Yammer,window=_blank] enterprise social network. Consuming messages, users, and user relationships is supported as well as creating new messages.
+The http://camel.apache.org/yammer.html[yammer,window=_blank] component allows you to interact with the https://developer.yammer.com/[Yammer,window=_blank] enterprise social network. Consuming messages, users, and user relationships is supported as well as creating new messages.

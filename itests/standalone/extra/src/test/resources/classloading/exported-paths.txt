@@ -2073,6 +2073,10 @@ org/apache/camel/component/yammer
 org/apache/camel/component/yammer/model
 org/apache/camel/component/yammer/scribe
 org/apache/camel/component/yammer/utils
+org/apache/camel/component/yql
+org/apache/camel/component/yql/client
+org/apache/camel/component/yql/configuration
+org/apache/camel/component/yql/exception
 org/apache/camel/component/zendesk
 org/apache/camel/component/zookeeper
 org/apache/camel/component/zookeeper/cloud
