@@ -171,6 +171,7 @@
                     strategy: log
                     match: 'database system is ready'
                     timeout: 15
+                    occurrences: 2
             smpp_simulator:
                 image: wildflyext/smppsimulator:2.6.11
                 portBindings: [
