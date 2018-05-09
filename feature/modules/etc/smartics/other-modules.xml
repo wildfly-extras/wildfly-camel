@@ -996,6 +996,10 @@
         <include artifact=":geronimo-json_1.1_spec" />
     </module>
 
+    <module name="javax.measure.api" >
+        <include artifact="javax.measure:unit-api" />
+    </module>
+
     <module name="net.java.dev.msv">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1448,6 +1452,7 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.pdfbox:fontbox" />
+        <include artifact="org.apache.pdfbox:jbig2-imageio" />
         <include artifact="org.apache.pdfbox:pdfbox" />
         <include artifact="org.apache.pdfbox:pdfbox-tools" />
         <include artifact="org.apache.pdfbox:pdfbox-debugger" />
@@ -1513,12 +1518,18 @@
     </module>
 
     <module name="org.apache.sis.core">
+        <include artifact="org.apache.sis.core:sis-feature" />
         <include artifact="org.apache.sis.core:sis-utility" />
         <include artifact="org.apache.sis.core:sis-metadata" />
         <include artifact="org.apache.sis.core:sis-referencing" />
         <apply-to-dependencies skip="true">
             <include module="com.googlecode.jaxb-namespaceprefixmapper-interfaces.JAXBNamespacePrefixMapper" />
         </apply-to-dependencies>
+    </module>
+
+    <module name="org.apache.sis.storage">
+        <include artifact="org.apache.sis.storage:sis-netcdf" />
+        <include artifact="org.apache.sis.storage:sis-storage" />
     </module>
 
     <module name="org.apache.sshd">
@@ -1541,8 +1552,13 @@
         <include artifact="org.gagravarr:vorbis-java-tika"/>
         <apply-to-dependencies skip="true">
             <include module="biz.aQute" />
+            <include module="com.github.jai-imageio" />
+            <include module="com.github.luben.zstd-jni" />
+            <include module="com.github.openjson" />
             <include module="org.apache.ctakes.ctakes-core" />
             <include module="org.apache.felix" />
+            <include module="org.apache.uima" />
+            <include module="org.brotli" />
             <include module="org.xerial.sqlite-jdbc" />
         </apply-to-dependencies>
         <dependencies>

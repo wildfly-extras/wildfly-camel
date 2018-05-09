@@ -5,6 +5,7 @@
   </properties>
   <resources>
     <artifact name="${org.apache.pdfbox:fontbox}" />
+    <artifact name="${org.apache.pdfbox:jbig2-imageio}" />
     <artifact name="${org.apache.pdfbox:pdfbox}" />
     <artifact name="${org.apache.pdfbox:pdfbox-tools}" />
   </resources>

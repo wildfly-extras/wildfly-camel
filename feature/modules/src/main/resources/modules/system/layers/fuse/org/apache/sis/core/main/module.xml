@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.sis.core">
   <resources>
+    <artifact name="${org.apache.sis.core:sis-feature}" />
     <artifact name="${org.apache.sis.core:sis-metadata}" />
     <artifact name="${org.apache.sis.core:sis-referencing}" />
     <artifact name="${org.apache.sis.core:sis-utility}" />
   </resources>
   <dependencies>
     <module name="javax.enterprise.api" />
+    <module name="javax.measure.api" />
     <module name="org.opengis.geoapi" />
     <module name="org.osgi.core" />
   </dependencies>

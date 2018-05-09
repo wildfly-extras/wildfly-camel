@@ -14,7 +14,9 @@
     <module name="javax.ws.rs.api" />
     <module name="asm.asm" />
     <module name="com.drewnoakes.metadata-extractor" />
+    <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.github.junrar" />
     <module name="com.google.code.gson" />
     <module name="com.google.code.json-simple" />
@@ -24,7 +26,6 @@
     <module name="com.healthmarketscience.jackcess.jackcess-encrypt" />
     <module name="com.pff.java-libpst" />
     <module name="com.rometools.rome" />
-    <module name="com.tdunning.json" />
     <module name="de.l3s.boilerpipe" />
     <module name="edu.ucar.cdm" />
     <module name="edu.ucar.grib" />
@@ -45,12 +46,14 @@
     <module name="org.apache.pdfbox.jempbox" />
     <module name="org.apache.poi" />
     <module name="org.apache.sis.core" />
-    <module name="org.apache.sis.storage.sis-netcdf" />
+    <module name="org.apache.sis.storage" />
     <module name="org.bouncycastle" />
     <module name="org.ccil.cowan.tagsoup" />
     <module name="org.codelibs.jhighlight" />
     <module name="org.gagravarr.vorbis-java-core" />
     <module name="org.jboss.logging.jul-to-slf4j-stub" />
+    <module name="org.jdom.jdom2" />
+    <module name="org.jsoup" />
     <module name="org.opengis.geoapi" />
     <module name="org.slf4j" />
     <module name="org.tallison.jmatio" />

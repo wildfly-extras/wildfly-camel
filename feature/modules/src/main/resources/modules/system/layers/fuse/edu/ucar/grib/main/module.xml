@@ -8,8 +8,6 @@
     <module name="edu.ucar.cdm" />
     <module name="net.jcip" />
     <module name="org.itadaki.bzip2" />
-    <module name="org.jdom.jdom2" />
-    <module name="org.jsoup" />
     <module name="org.slf4j" />
   </dependencies>
 </module>

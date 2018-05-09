@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-olingo4}" />
     <artifact name="${org.apache.camel:camel-olingo4-api}" />
     <artifact name="${org.apache.camel:camel-olingo4-api}" />
-    <artifact name="${net.sf.jsignature.io-tools:easystream}" />
   </resources>
   <dependencies>
     <module name="org.apache.olingo4" export="true" />

@@ -82,6 +82,10 @@
         <include artifact="com.github.jnr:jffi" />
     </module>
 
+    <module name="com.github.luben.zstd-jni" skip="true">
+        <include artifact="com.github.luben:zstd-jni" />
+    </module>
+
     <module name="com.google.android" skip="true">
         <include artifact="com.google.android:android"/>
     </module>
@@ -343,6 +347,11 @@
         <include artifact="org.apache.tomcat.embed:(.*)" />
     </module>
 
+    <module name="org.apache.uima" skip="true">
+        <include artifact="org.apache.uima:uimafit-core" />
+        <include artifact="org.apache.uima:uimaj-core" />
+    </module>
+
     <module name="org.atmosphere.skipped" skip="true">
         <include artifact="org.atmosphere:atmosphere-compat-jbossweb"/>
         <include artifact="org.atmosphere:atmosphere-compat-tomcat"/>
@@ -350,6 +359,10 @@
         <include artifact="org.atmosphere:atmosphere-compat-stubs"/>
         <include artifact="org.atmosphere:atmosphere-stubs"/>
         <include artifact="org.atmosphere.jboss.as:jboss-as-websockets"/>
+    </module>
+
+    <module name="org.brotli" skip="true">
+        <include artifact="org.brotli:dec" />
     </module>
 
     <module name="org.codehaus.plexus" skip="true">
@@ -376,6 +389,10 @@
 
     <module name="org.fusesource.leveldbjni" skip="true">
         <include artifact="org.fusesource.leveldbjni:leveldbjni-all" />
+    </module>
+
+    <module name="com.github.openjson" skip="true">
+        <include artifact="com.github.openjson:openjson" />
     </module>
 
     <module name="org.glassfish.hk2" skip="true">

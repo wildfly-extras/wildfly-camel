@@ -3,7 +3,5 @@
   <resources>
     <artifact name="${com.healthmarketscience.jackcess:jackcess-encrypt}" />
   </resources>
-  <dependencies>
-    <module name="com.healthmarketscience.jackcess" />
-  </dependencies>
+  <dependencies />
 </module>

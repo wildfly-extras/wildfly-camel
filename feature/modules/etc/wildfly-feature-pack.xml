@@ -104,8 +104,8 @@
         <artifact groupId="com.googlecode.mp4parser" artifactId="isoparser" version="1.1.18"/>
         <artifact groupId="com.hazelcast" artifactId="hazelcast" version="3.9.3"/>
         <artifact groupId="com.hazelcast" artifactId="hazelcast-client" version="3.9.3"/>
-        <artifact groupId="com.healthmarketscience.jackcess" artifactId="jackcess" version="2.1.8"/>
-        <artifact groupId="com.healthmarketscience.jackcess" artifactId="jackcess-encrypt" version="2.1.2"/>
+        <artifact groupId="com.healthmarketscience.jackcess" artifactId="jackcess" version="2.1.10"/>
+        <artifact groupId="com.healthmarketscience.jackcess" artifactId="jackcess-encrypt" version="2.1.4"/>
         <artifact groupId="com.impossibl.pgjdbc-ng" artifactId="pgjdbc-ng" version="0.7.1"/>
         <artifact groupId="com.intellij" artifactId="annotations" version="12.0"/>
         <artifact groupId="com.jayway.jsonpath" artifactId="json-path" version="2.4.0"/>
@@ -150,7 +150,6 @@
         <artifact groupId="com.sun.mail" artifactId="javax.mail" version="1.6.1"/>
         <artifact groupId="com.sun.xml.bind.jaxb" artifactId="isorelax" version="20090621"/>
         <artifact groupId="com.surftools" artifactId="BeanstalkClient" version="1.4.6"/>
-        <artifact groupId="com.tdunning" artifactId="json" version="1.8"/>
         <artifact groupId="com.thoughtworks.xstream" artifactId="xstream" version="1.4.10"/>
         <artifact groupId="com.twilio.sdk" artifactId="twilio" version="7.9.1"/>
         <artifact groupId="com.typesafe.netty" artifactId="netty-reactive-streams" version="2.0.0"/>
@@ -239,7 +238,7 @@
         <artifact groupId="javax.cache" artifactId="cache-api" version="1.0.0"/>
         <artifact groupId="javax.enterprise" artifactId="cdi-api" version="2.0"/>
         <artifact groupId="javax.inject" artifactId="javax.inject" version="1"/>
-        <artifact groupId="javax.measure" artifactId="jsr-275" version="0.9.3"/>
+        <artifact groupId="javax.measure" artifactId="unit-api" version="1.0"/>
         <artifact groupId="javax.validation" artifactId="validation-api" version="2.0.1.Final"/>
         <artifact groupId="jaxen" artifactId="jaxen" version="1.1.6"/>
         <artifact groupId="joda-time" artifactId="joda-time" version="2.9.7"/>
@@ -262,7 +261,6 @@
         <artifact groupId="net.sf.ehcache" artifactId="ehcache-core" version="2.6.2"/>
         <artifact groupId="net.sf.flatpack" artifactId="flatpack" version="3.4.3"/>
         <artifact groupId="net.sf.jopt-simple" artifactId="jopt-simple" version="5.0.4"/>
-        <artifact groupId="net.sf.jsignature.io-tools" artifactId="easystream" version="1.2.15"/>
         <artifact groupId="net.sf.jt400" artifactId="jt400" version="9.4"/>
         <artifact groupId="net.sf.saxon" artifactId="Saxon-HE" version="9.8.0-8"/>
         <artifact groupId="net.sourceforge.cssparser" artifactId="cssparser" version="0.9.21"/>
@@ -287,214 +285,214 @@
         <artifact groupId="org.apache.avalon.framework" artifactId="avalon-framework-api" version="4.3.1"/>
         <artifact groupId="org.apache.avalon.framework" artifactId="avalon-framework-impl" version="4.3.1"/>
         <artifact groupId="org.apache.avro" artifactId="avro" version="1.8.2"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-ahc" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-ahc-ws" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-amqp" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-apns" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-asn1" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-asterisk" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-atmosphere-websocket" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-atom" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-atomix" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-avro" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-aws" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-azure" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-barcode" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-base64" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-bean-validator" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-beanio" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-beanstalk" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-bindy" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-boon" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-box" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-box-api" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-braintree" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-caffeine" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-cassandraql" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-castor" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-catalog" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-cdi" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-chronicle" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-chunk" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-cm-sms" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-cmis" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-coap" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-connector" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-consul" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-core" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-core-xml" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-couchbase" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-couchdb" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-crypto" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-crypto-cms" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-csv" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-cxf" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-cxf-transport" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-digitalocean" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-disruptor" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-dns" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-docker" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-dozer" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-dropbox" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-ehcache" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-ejb" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-elsql" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-etcd" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-exec" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-facebook" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-fastjson" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-flatpack" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-fop" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-freemarker" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-ftp" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-geocoder" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-git" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-github" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-google-bigquery" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-google-calendar" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-google-drive" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-google-mail" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-google-pubsub" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-groovy" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-grpc" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-gson" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-guava-eventbus" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-hazelcast" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-headersmap" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-hipchat" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-hl7" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-http-common" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-http4" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-hystrix" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-ical" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-iec60870" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-infinispan" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-influxdb" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-irc" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jackson" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jacksonxml" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jasypt" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jaxb" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jcache" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jdbc" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jgroups" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jibx" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jing" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jms" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jmx" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-johnzon" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jolt" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jpa" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jsch" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-json-validator" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jsonpath" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jt400" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-kafka" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-kubernetes" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-ldap" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-ldif" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-leveldb" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-linkedin" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-linkedin-api" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-lucene" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-lumberjack" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-lzf" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-mail" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-master" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-metrics" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-milo" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-mina2" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-mllp" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-mongodb" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-mongodb-gridfs" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-mongodb3" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-mqtt" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-msv" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-mustache" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-mvel" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-mybatis" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-nagios" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-nats" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-netty4" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-ognl" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-olingo2" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-olingo2-api" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-olingo4" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-olingo4-api" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-openstack" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-opentracing" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-optaplanner" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-paho" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-pdf" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-pgevent" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-printer" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-protobuf" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-pubnub" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-quartz2" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-quickfix" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-rabbitmq" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-reactive-streams" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-reactor" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-rest-swagger" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-ribbon" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-rmi" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-rss" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-salesforce" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-sap-netweaver" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-saxon" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-schematron" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-script" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-servicenow" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-servlet" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-shiro" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-sip" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-sjms" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-sjms2" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-slack" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-smpp" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-snakeyaml" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-snmp" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-soap" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-splunk" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-spring" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-spring-batch" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-spring-integration" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-spring-javaconfig" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-spring-ldap" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-spring-redis" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-spring-security" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-spring-ws" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-sql" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-ssh" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-stax" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-stomp" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-stream" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-stringtemplate" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-swagger-java" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-syslog" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-tagsoup" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-tarfile" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-telegram" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-thrift" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-tika" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-twilio" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-twitter" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-undertow" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-univocity-parsers" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-velocity" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-vertx" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-weather" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-wordpress" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-xmlsecurity" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-xmpp" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-xstream" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-yammer" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-yql" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-zendesk" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-zipfile" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-zipkin" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-zookeeper" version="2.21.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-zookeeper-master" version="2.21.0"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-ahc" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-ahc-ws" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-amqp" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-apns" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-asn1" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-asterisk" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-atmosphere-websocket" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-atom" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-atomix" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-avro" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-aws" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-azure" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-barcode" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-base64" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-bean-validator" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-beanio" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-beanstalk" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-bindy" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-boon" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-box" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-box-api" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-braintree" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-caffeine" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-cassandraql" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-castor" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-catalog" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-cdi" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-chronicle" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-chunk" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-cm-sms" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-cmis" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-coap" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-connector" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-consul" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-core" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-core-xml" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-couchbase" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-couchdb" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-crypto" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-crypto-cms" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-csv" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-cxf" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-cxf-transport" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-digitalocean" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-disruptor" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-dns" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-docker" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-dozer" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-dropbox" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-ehcache" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-ejb" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-elsql" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-etcd" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-exec" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-facebook" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-fastjson" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-flatpack" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-fop" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-freemarker" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-ftp" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-geocoder" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-git" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-github" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-google-bigquery" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-google-calendar" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-google-drive" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-google-mail" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-google-pubsub" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-groovy" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-grpc" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-gson" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-guava-eventbus" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-hazelcast" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-headersmap" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-hipchat" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-hl7" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-http-common" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-http4" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-hystrix" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-ical" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-iec60870" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-infinispan" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-influxdb" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-irc" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jackson" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jacksonxml" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jasypt" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jaxb" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jcache" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jdbc" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jgroups" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jibx" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jing" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jms" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jmx" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-johnzon" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jolt" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jpa" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jsch" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-json-validator" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jsonpath" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jt400" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-kafka" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-kubernetes" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-ldap" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-ldif" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-leveldb" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-linkedin" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-linkedin-api" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-lucene" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-lumberjack" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-lzf" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-mail" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-master" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-metrics" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-milo" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-mina2" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-mllp" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-mongodb" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-mongodb-gridfs" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-mongodb3" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-mqtt" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-msv" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-mustache" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-mvel" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-mybatis" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-nagios" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-nats" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-netty4" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-ognl" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-olingo2" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-olingo2-api" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-olingo4" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-olingo4-api" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-openstack" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-opentracing" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-optaplanner" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-paho" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-pdf" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-pgevent" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-printer" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-protobuf" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-pubnub" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-quartz2" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-quickfix" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-rabbitmq" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-reactive-streams" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-reactor" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-rest-swagger" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-ribbon" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-rmi" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-rss" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-salesforce" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-sap-netweaver" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-saxon" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-schematron" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-script" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-servicenow" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-servlet" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-shiro" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-sip" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-sjms" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-sjms2" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-slack" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-smpp" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-snakeyaml" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-snmp" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-soap" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-splunk" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-spring" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-spring-batch" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-spring-integration" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-spring-javaconfig" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-spring-ldap" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-spring-redis" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-spring-security" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-spring-ws" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-sql" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-ssh" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-stax" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-stomp" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-stream" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-stringtemplate" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-swagger-java" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-syslog" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-tagsoup" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-tarfile" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-telegram" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-thrift" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-tika" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-twilio" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-twitter" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-undertow" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-univocity-parsers" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-velocity" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-vertx" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-weather" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-wordpress" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-xmlsecurity" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-xmpp" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-xstream" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-yammer" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-yql" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-zendesk" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-zipfile" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-zipkin" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-zookeeper" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-zookeeper-master" version="2.21.1"/>
         <artifact groupId="org.apache.chemistry.opencmis" artifactId="chemistry-opencmis-client-api" version="1.1.0"/>
         <artifact groupId="org.apache.chemistry.opencmis" artifactId="chemistry-opencmis-client-bindings" version="1.1.0"/>
         <artifact groupId="org.apache.chemistry.opencmis" artifactId="chemistry-opencmis-client-impl" version="1.1.0"/>
@@ -584,8 +582,9 @@
         <artifact groupId="org.apache.olingo" artifactId="odata-server-core" version="4.4.0"/>
         <artifact groupId="org.apache.olingo" artifactId="olingo-odata2-api" version="2.0.10"/>
         <artifact groupId="org.apache.olingo" artifactId="olingo-odata2-core" version="2.0.10"/>
-        <artifact groupId="org.apache.opennlp" artifactId="opennlp-tools" version="1.8.3"/>
+        <artifact groupId="org.apache.opennlp" artifactId="opennlp-tools" version="1.8.4"/>
         <artifact groupId="org.apache.pdfbox" artifactId="fontbox" version="2.0.8"/>
+        <artifact groupId="org.apache.pdfbox" artifactId="jbig2-imageio" version="3.0.0"/>
         <artifact groupId="org.apache.pdfbox" artifactId="jempbox" version="1.8.13"/>
         <artifact groupId="org.apache.pdfbox" artifactId="pdfbox" version="2.0.8"/>
         <artifact groupId="org.apache.pdfbox" artifactId="pdfbox-tools" version="2.0.8"/>
@@ -608,15 +607,16 @@
         <artifact groupId="org.apache.shiro" artifactId="shiro-crypto-hash" version="1.4.0"/>
         <artifact groupId="org.apache.shiro" artifactId="shiro-event" version="1.4.0"/>
         <artifact groupId="org.apache.shiro" artifactId="shiro-lang" version="1.4.0"/>
-        <artifact groupId="org.apache.sis.core" artifactId="sis-metadata" version="0.6"/>
-        <artifact groupId="org.apache.sis.core" artifactId="sis-referencing" version="0.6"/>
-        <artifact groupId="org.apache.sis.core" artifactId="sis-utility" version="0.6"/>
-        <artifact groupId="org.apache.sis.storage" artifactId="sis-netcdf" version="0.6"/>
-        <artifact groupId="org.apache.sis.storage" artifactId="sis-storage" version="0.6"/>
+        <artifact groupId="org.apache.sis.core" artifactId="sis-feature" version="0.8"/>
+        <artifact groupId="org.apache.sis.core" artifactId="sis-metadata" version="0.8"/>
+        <artifact groupId="org.apache.sis.core" artifactId="sis-referencing" version="0.8"/>
+        <artifact groupId="org.apache.sis.core" artifactId="sis-utility" version="0.8"/>
+        <artifact groupId="org.apache.sis.storage" artifactId="sis-netcdf" version="0.8"/>
+        <artifact groupId="org.apache.sis.storage" artifactId="sis-storage" version="0.8"/>
         <artifact groupId="org.apache.sshd" artifactId="sshd-core" version="1.7.0"/>
         <artifact groupId="org.apache.thrift" artifactId="libthrift" version="0.11.0"/>
-        <artifact groupId="org.apache.tika" artifactId="tika-core" version="1.17"/>
-        <artifact groupId="org.apache.tika" artifactId="tika-parsers" version="1.17"/>
+        <artifact groupId="org.apache.tika" artifactId="tika-core" version="1.18"/>
+        <artifact groupId="org.apache.tika" artifactId="tika-parsers" version="1.18"/>
         <artifact groupId="org.apache.velocity" artifactId="velocity-engine-core" version="2.0"/>
         <artifact groupId="org.apache.ws.commons.axiom" artifactId="axiom-api" version="1.2.14"/>
         <artifact groupId="org.apache.ws.commons.axiom" artifactId="axiom-impl" version="1.2.14"/>
@@ -774,7 +774,7 @@
         <artifact groupId="org.jboss.xnio" artifactId="xnio-api" version="3.6.2.Final"/>
         <artifact groupId="org.jboss.xnio" artifactId="xnio-nio" version="3.6.2.Final"/>
         <artifact groupId="org.jdom" artifactId="jdom" version="1.1.3"/>
-        <artifact groupId="org.jdom" artifactId="jdom2" version="2.0.4"/>
+        <artifact groupId="org.jdom" artifactId="jdom2" version="2.0.6"/>
         <artifact groupId="org.jgroups" artifactId="jgroups" version="4.0.10.Final"/>
         <artifact groupId="org.jibx" artifactId="jibx-run" version="1.2.6"/>
         <artifact groupId="org.jooq" artifactId="jool" version="0.9.10"/>
@@ -792,8 +792,8 @@
         <artifact groupId="org.mongodb" artifactId="mongo-java-driver" version="3.6.3"/>
         <artifact groupId="org.mousio" artifactId="etcd4j" version="2.14.0"/>
         <artifact groupId="org.mvel" artifactId="mvel2" version="2.4.0.Final"/>
-        <artifact groupId="org.mybatis" artifactId="mybatis" version="3.4.5"/>
-        <artifact groupId="org.opengis" artifactId="geoapi" version="3.0.0"/>
+        <artifact groupId="org.mybatis" artifactId="mybatis" version="3.4.6"/>
+        <artifact groupId="org.opengis" artifactId="geoapi" version="3.0.1"/>
         <artifact groupId="org.openmuc" artifactId="jasn1" version="1.9.0"/>
         <artifact groupId="org.opentelecoms.sip" artifactId="sip-api-1.2" version="1.1"/>
         <artifact groupId="org.optaplanner" artifactId="optaplanner-core" version="7.3.0.Final"/>
@@ -817,19 +817,19 @@
         <artifact groupId="org.scribe" artifactId="scribe" version="1.3.7"/>
         <artifact groupId="org.slf4j" artifactId="slf4j-api" version="1.7.25"/>
         <artifact groupId="org.slf4j" artifactId="slf4j-ext" version="1.7.22"/>
-        <artifact groupId="org.springframework" artifactId="spring-aop" version="4.3.14.RELEASE"/>
-        <artifact groupId="org.springframework" artifactId="spring-beans" version="4.3.14.RELEASE"/>
-        <artifact groupId="org.springframework" artifactId="spring-context" version="4.3.14.RELEASE"/>
-        <artifact groupId="org.springframework" artifactId="spring-context-support" version="4.3.14.RELEASE"/>
-        <artifact groupId="org.springframework" artifactId="spring-core" version="4.3.14.RELEASE"/>
-        <artifact groupId="org.springframework" artifactId="spring-expression" version="4.3.14.RELEASE"/>
-        <artifact groupId="org.springframework" artifactId="spring-jdbc" version="4.3.14.RELEASE"/>
-        <artifact groupId="org.springframework" artifactId="spring-jms" version="4.3.14.RELEASE"/>
+        <artifact groupId="org.springframework" artifactId="spring-aop" version="4.3.16.RELEASE"/>
+        <artifact groupId="org.springframework" artifactId="spring-beans" version="4.3.16.RELEASE"/>
+        <artifact groupId="org.springframework" artifactId="spring-context" version="4.3.16.RELEASE"/>
+        <artifact groupId="org.springframework" artifactId="spring-context-support" version="4.3.16.RELEASE"/>
+        <artifact groupId="org.springframework" artifactId="spring-core" version="4.3.16.RELEASE"/>
+        <artifact groupId="org.springframework" artifactId="spring-expression" version="4.3.16.RELEASE"/>
+        <artifact groupId="org.springframework" artifactId="spring-jdbc" version="4.3.16.RELEASE"/>
+        <artifact groupId="org.springframework" artifactId="spring-jms" version="4.3.16.RELEASE"/>
         <artifact groupId="org.springframework" artifactId="spring-messaging" version="4.3.14.RELEASE"/>
-        <artifact groupId="org.springframework" artifactId="spring-orm" version="4.3.14.RELEASE"/>
+        <artifact groupId="org.springframework" artifactId="spring-orm" version="4.3.16.RELEASE"/>
         <artifact groupId="org.springframework" artifactId="spring-oxm" version="4.2.9.RELEASE"/>
-        <artifact groupId="org.springframework" artifactId="spring-tx" version="4.3.14.RELEASE"/>
-        <artifact groupId="org.springframework" artifactId="spring-web" version="4.3.14.RELEASE"/>
+        <artifact groupId="org.springframework" artifactId="spring-tx" version="4.3.16.RELEASE"/>
+        <artifact groupId="org.springframework" artifactId="spring-web" version="4.3.16.RELEASE"/>
         <artifact groupId="org.springframework.batch" artifactId="spring-batch-core" version="3.0.9.RELEASE"/>
         <artifact groupId="org.springframework.batch" artifactId="spring-batch-infrastructure" version="3.0.9.RELEASE"/>
         <artifact groupId="org.springframework.data" artifactId="spring-data-commons" version="1.13.6.RELEASE"/>

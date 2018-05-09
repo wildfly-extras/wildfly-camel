@@ -3296,6 +3296,7 @@ org/apache/tika/parser/mat
 org/apache/tika/parser/mbox
 org/apache/tika/parser/microsoft
 org/apache/tika/parser/microsoft/ooxml
+org/apache/tika/parser/microsoft/ooxml/xps
 org/apache/tika/parser/microsoft/ooxml/xslf
 org/apache/tika/parser/microsoft/ooxml/xwpf
 org/apache/tika/parser/microsoft/ooxml/xwpf/ml2006

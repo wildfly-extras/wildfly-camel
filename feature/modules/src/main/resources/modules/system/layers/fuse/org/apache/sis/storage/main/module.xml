@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="org.apache.sis.storage.sis-storage">
+<module xmlns="urn:jboss:module:1.1" name="org.apache.sis.storage">
   <resources>
+    <artifact name="${org.apache.sis.storage:sis-netcdf}" />
     <artifact name="${org.apache.sis.storage:sis-storage}" />
   </resources>
   <dependencies>

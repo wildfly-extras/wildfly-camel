@@ -10,9 +10,7 @@
     <module name="edu.ucar.udunits" />
     <module name="net.jcip" />
     <module name="net.sf.ehcache.ehcache-core" />
-    <module name="org.apache.httpcomponents" />
     <module name="org.itadaki.bzip2" />
-    <module name="org.jdom.jdom2" />
     <module name="org.joda.time" />
     <module name="org.quartz" />
     <module name="org.slf4j" />

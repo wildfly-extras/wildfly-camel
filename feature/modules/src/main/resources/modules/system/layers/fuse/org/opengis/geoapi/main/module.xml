@@ -4,6 +4,6 @@
     <artifact name="${org.opengis:geoapi}" />
   </resources>
   <dependencies>
-    <module name="javax.measure.jsr-275" />
+    <module name="javax.measure.api" />
   </dependencies>
 </module>
