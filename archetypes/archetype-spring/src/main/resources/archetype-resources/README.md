@@ -1,5 +1,5 @@
 WildFly Camel Spring XML Web Application
-=============
+========================================
 
 This is a template Apache Camel Spring application for the WildFly Camel subsystem.
 
@@ -10,8 +10,8 @@ integration test.
 Prerequisites
 =============
 
-* Minimum of Java 1.7
-* Maven 3.2 or greater
+* Minimum of Java 1.8
+* Maven 3.3 or greater
 * WildFly application server. Refer to the WildFly Camel compatibility matrix for more information.
 
 http://wildflyext.gitbooks.io/wildfly-camel/content/start/compatibility.html
