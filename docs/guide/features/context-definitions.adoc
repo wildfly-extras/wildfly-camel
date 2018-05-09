@@ -1,7 +1,7 @@
 [discrete]
 ### Camel Context Definitions
 
-Camel Contexts can be configured in standalone-camel.xml as part of the subsystem definition like this
+To configure camel contexts as a part of the subsystem definition, perform the following in the `standalone.xml` file:
 
 [source,xml,options="nowrap"]
 <subsystem xmlns="urn:jboss:domain:camel:1.0">

@@ -1,10 +1,10 @@
 [discrete]
 ### Camel Context Deployments
 
-Camel contexts can be deployed to {wildfly} with a **-camel-context.xml** suffix.
+You can deploy camel contexts to {wildfly} with a **-camel-context.xml** suffix as:
 
-1. As a standalone XML file
-2. As part of another supported deployment
+* a standalone XML file
+* a part of another supported deployment
 
 A deployment may contain multiple **-camel-context.xml** files.
 

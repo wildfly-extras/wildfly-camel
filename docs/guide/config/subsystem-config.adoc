@@ -1,7 +1,7 @@
 [discrete]
 ### Camel Subsystem Configuration
 
-The subsystem configuration may contain static system routes
+The Camel Subsystem Configuration may contain static system routes. However, the system starts the route automatically.
 
 [source,xml,options="nowrap"]
 <subsystem xmlns="urn:jboss:domain:camel:1.0">
@@ -17,5 +17,4 @@ The subsystem configuration may contain static system routes
    </camelContext>
 </subsystem>
 
-These routes are started automatically.
 

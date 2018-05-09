@@ -1,11 +1,11 @@
 ### JPA
 
 JPA integration is provided by the http://camel.apache.org/jpa.html[Camel JPA component,window=_blank].
-Camel JPA applications are developed as per normal by providing a persistence.xml configuration file together with some JPA annotated classes.
+You can develop Camel JPA applications by providing a persistence.xml configuration file together with some JPA annotated classes.
 
 #### Example persistence.xml
 
-In this example, you can use the Wildfly in-memory ExampleDS datasource which is configured within the Wildfly standalone.xml configuration file.
+In the following example, you can use the {wildfly} in-memory ExampleDS datasource which is configured within the {wildfly} standalone.xml configuration file.
 
 [source,xml,options="nowrap"]
 ----

@@ -1,6 +1,6 @@
 ### JAX-WS
 
-WebService support is provided through the http://camel.apache.org/cxf.html[cxf,window=_blank]
+WebService support is provided through the http://camel.apache.org/cxf.html[CXF,window=_blank]
 component which integrates with the {wildfly} WebServices subsystem that also uses http://cxf.apache.org/[Apache CXF,window=_blank].
 
 
@@ -91,7 +91,7 @@ String result = producer.requestBody("direct:start", serviceParams, String.class
 
 #### Security
 
-Refer to the link:index.html#_jax_ws_security[JAX-WS security section].
+Refer to the https://github.com/wildfly-extras/wildfly-camel-examples/tree/master/camel-cxf-jaxws-secure[JAX-WS security section].
 
 #### Code examples on GitHub
 

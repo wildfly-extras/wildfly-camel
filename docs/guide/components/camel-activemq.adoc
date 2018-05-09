@@ -8,13 +8,13 @@ The component can be configured to work with an embedded or external broker. For
 
 Download the https://repository.apache.org/content/repositories/releases/org/apache/activemq/activemq-rar/5.11.1/activemq-rar-5.11.1.rar[ActiveMQ resource adapter rar file,window=_blank]. The following steps outline how to configure the ActiveMQ resource adapter.
 
-__1)__ Make sure your {wildfly} instance is stopped.
+. Stop your {wildfly} instance.
 
-__2)__ Copy the downloaded resource adapter to the relevant {wildfly} deployment directory. For standalone mode:
+. Download the resource adapter and copy to the relevant {wildfly} deployment directory. For standalone mode:
 
  cp activemq-rar-5.11.1.rar ${JBOSS_HOME}/standalone/deployments/activemq-rar.rar
 
-__3)__ Configure the {wildfly} resource adapters subsystem for the ActiveMQ adapter.
+. Configure the {wildfly} resource adapters subsystem for the ActiveMQ adapter.
 
 [source,xml,options="nowrap"]
 <subsystem xmlns="urn:jboss:domain:resource-adapters:2.0">
@@ -183,7 +183,7 @@ public class CdiRequiredPolicy extends SpringTransactionPolicy {
 
 ##### Route Builder
 
-Now you can configure our Camel RouteBuilder class and inject the dependencies needed for the Camel ActiveMQ component. The ActiveMQ connection factory that you configured on the resource adapter configuration is injected together with the transaction manager you configured earlier.
+Now you can configure the Camel RouteBuilder class and inject the dependencies needed for the Camel ActiveMQ component. The ActiveMQ connection factory that you configured on the resource adapter configuration is injected together with the transaction manager you configured earlier.
 
 In this example RouteBuilder, whenever any messages are consumed from queue1, they are routed to another JMS queue named queue2. Messages consumed from queue2 result in JMS transaction being rolled back using the rollback() DSL method. This results in the original message being placed onto the dead letter queue(DLQ).
 

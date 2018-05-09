@@ -1,6 +1,6 @@
 ### JMS
 
-Messaging support is provided through the http://camel.apache.org/jms.html[jms,window=_blank]
+Messaging support is provided through the http://camel.apache.org/jms.html[JMS,window=_blank]
 component which integrates with the {wildfly} Messaging (https://activemq.apache.org/artemis/)[ActiveMQ Artemis,window=_blank]) subsystem.
 
 Integration with other JMS implementations is possible through configuration of vendor specific resource adapters, or if not available, by using the JBoss Generic JMS resource adapter.
@@ -8,9 +8,10 @@ Integration with other JMS implementations is possible through configuration of 
 
 #### {wildfly} JMS configuration
 
-The {wildfly} https://docs.jboss.org/author/display/WFLY8/Messaging+configuration[messaging subsystem,window=_blank] can be configured from within the standard {wildfly} XML configuration files. For example, standalone.xml file.
+You can configure the {wildfly} https://docs.jboss.org/author/display/WFLY8/Messaging+configuration[messaging subsystem,window=_blank] through the standard {wildfly} XML configuration files.
+For example, standalone.xml file.
 
-For the examples, follow the embedded ActiveMQ Artemis in memory instance. You need to configure a new JMS queue on the messaging subsystem, by adding the following XML configuration to the jms-destinations section.
+For the examples, that follow you use the embedded ActiveMQ Artemis in memory instance. You first configure a new JMS queue on the messaging subsystem by adding the following XML configuration to the jms-destinations section.
 
 [source,xml,options="nowrap"]
 <jms-queue name="WildFlyCamelQueue">
@@ -22,16 +23,16 @@ Alternatively you could use a CLI script to add the queue.
 [source,options="nowrap"]
 $ jms-queue add --queue-address=WildFlyCamelQueue --entries=queue/WildFlyCamelQueue,java:/jms/queue/WildFlyCamelQueue
 
-Or, you could create a `messaging-deployment` configuration within a custom jms.xml deployment descriptor. See section 'Deployment of -jms.xml files' within the {wildfly} messaging subsystem documentation for more information.
+Also, you can create a `messaging-deployment` configuration within a custom jms.xml deployment descriptor. See section 'Deployment of -jms.xml files' within the {wildfly} messaging subsystem documentation for more information.
 
 #### Camel route configuration
-The following JMS producer and consumer examples make use of {wildfly}'s embedded ActiveMQ Artemis sever to publish and consume messages to and from destinations.
+The following JMS producer and consumer examples make use of {wildfly}'s embedded ActiveMQ Artemis server to publish and consume messages to and from destinations.
 
 The examples also use CDI in conjunction with the camel-cdi component. JMS ConnectionFactory instances are injected into the Camel RouteBuilder through JNDI lookups.
 
 ##### JMS Producer
 
-Start the RouteBuilder, by injecting the DefaultJMSConnectionFactory connection factory from JNDI. Under the JBoss EAP XML configuration, you can find the connection factory, within the messaging subsystem.
+The `DefaultJMSConnectionFactory` connection factory is injected into the RouteBuilder from JNDI. Under the {wildfly} XML configuration, you can find the connection factory, within the messaging subsystem.
 
 Next a timer endpoint runs every 10 seconds to send an XML payload to the WildFlyCamelQueue destination that has been configured earlier.
 
@@ -159,13 +160,16 @@ public class JMSRouteBuilder extends RouteBuilder {
 
 ##### Remote JMS destinations
 
-It's possible for one {wildfly} instance to send messages to ActiveMQ Artemis destinations configured on another {wildfly} instance through https://docs.jboss.org/author/display/WFLY8/Remote+JNDI+Reference[remote JNDI,window=_blank].
+It is possible for one {wildfly} instance to send messages to ActiveMQ Artemis destinations configured on another {wildfly} instance through https://docs.jboss.org/author/display/WFLY8/Remote+JNDI+Reference[remote JNDI,window=_blank].
 
 Some additional {wildfly} configuration is required to achieve this. First an exported JMS queue is configured.
 
 Only JNDI names bound in the `java:jboss/exported` namespace are considered as candidates for remote clients, so the queue is named appropriately.
 
-Note that the queue must be configured on the {wildfly} client application server __and__ the {wildfly} remote server.
+[NOTE]
+====
+You must configure the queue on the {wildfly} client application server __and__{wildfly} remote server.
+====
 
 [source,xml,options="nowrap"]
 <jms-queue name="RemoteQueue">

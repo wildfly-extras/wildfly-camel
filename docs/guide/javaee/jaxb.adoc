@@ -2,7 +2,7 @@
 
 JAXB support is provided through the http://camel.apache.org/jaxb.html[Camel JAXB data format,window=_blank].
 
-Camel supports unmarshalling XML data to JAXB annotated classes and marshalling from classes to XML. What follows demonstrates a simple Camel route for marshalling and unmarshalling with the Camel JAXB data format class.
+Camel supports unmarshalling XML data to JAXB annotated classes and marshalling from classes to XML. The following demonstrates a simple Camel route for marshalling and unmarshalling with the Camel JAXB data format class.
 
 #### JAXB Annotated class
 

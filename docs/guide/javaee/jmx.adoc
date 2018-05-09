@@ -1,6 +1,6 @@
 ### JMX
 
-Management support is provided through the http://camel.apache.org/jmx.html[jmx,window=_blank] component which integrates with the {wildfly} JMX subsystem.
+You can provide management support through the http://camel.apache.org/jmx.html[JMX,window=_blank] component which integrates with the {wildfly} JMX subsystem.
 
 [source,java,options="nowrap"]
 ----

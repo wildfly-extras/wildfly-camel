@@ -6,7 +6,7 @@ Camel supports the notion of http://camel.apache.org/routepolicy.html[RoutePolic
 
 When a camel route calls into a secured JavaEE component, it acts as a client and must provide appropriate credentials associated with the call.
 
-The route can be decorated with a `ClientAuthorizationPolicy`
+You can decorate the route with a `ClientAuthorizationPolicy` as follows:
 
 [source,java,options="nowrap"]
 CamelContext camelctx = new DefaultCamelContext();
@@ -19,7 +19,7 @@ camelctx.addRoutes(new RouteBuilder() {
     }
 });
 
-This does actually no do any authentication/authorization as part of the Camel message processing. Instead it associates the credentials that come with the Camel Exchange with the call into the EJB3 layer.
+This does not do any authentication and authorization, as a part of the camel message processing. Instead, it associates the credentials that come with the Camel Exchange with the call into the EJB3 layer.
 
 The client that calls the message consumer must provide appropriate credentials in the AUTHENTICATION header like this:
 

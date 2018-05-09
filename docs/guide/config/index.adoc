@@ -1,6 +1,6 @@
 ## Configuration
 
-This chapter details information about the Camel subsytem and deployment configuration.
+This chapter provides the necessary information about the Camel Subsystem and Deployment Configuration.
 
 include::subsystem-config.adoc[]
 include::deployment-config.adoc[]

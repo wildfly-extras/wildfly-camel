@@ -3,9 +3,10 @@
 The http://camel.apache.org/rest.html[rest,window=_blank]
 component allows you to define REST endpoints using the http://camel.apache.org/rest-dsl.html[Rest DSL,window=_blank] and plugin to other Camel components as the REST transport.
 
-[CAUTION]
+[NOTE]
 ====
-The {wildfly-camel} Subsystem only supports the camel-servlet and camel-undertow components for use with the REST DSL. Attempts to configure other components will not work.
+The {wildfly-camel} Subsystem only supports the camel-servlet and camel-undertow components for use with the REST DSL. However, the subsystem does not work, If you attempt to configure other components.
+
 ====
 
 [source,java,options="nowrap"]

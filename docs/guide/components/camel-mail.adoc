@@ -2,11 +2,11 @@
 
 Interaction with email is provided by the http://camel.apache.org/mail.html[mail,window=_blank] component.
 
-By default, Camel will create its own mail session and use this to interact with your mail server. Since {wildfly} already provides a mail subsystem with all of the relevant support for secure connections, username / password encryption etc, it is recommended to configure your mail sessions within the {wildfly} configuration and use JNDI to wire them into your Camel endpoints.
+By default, Camel will create its own mail session and use this to interact with your mail server. Since {wildfly} already provides a mail subsystem with all of the relevant support for secure connections, username and password encryption etc, therefore, it is recommended to configure your mail sessions within the {wildfly} configuration and use JNDI to wire them into your Camel endpoints.
 
 #### {wildfly} configuration
 
-First you configure the {wildfly} mail subsystem for our Mail server. This example adds configuration for Google Mail IMAP and SMTP .
+First you configure the {wildfly} mail subsystem for the Mail server. The following example adds configuration for Google Mail IMAP and SMTP .
 
 An additional mail-session is configured after the 'default' session.
 
@@ -21,7 +21,13 @@ An additional mail-session is configured after the 'default' session.
       <imap-server outbound-socket-binding-ref="mail-gmail-imap" ssl="true" username="your-username-here" password="your-password-here"/>
     </mail-session>
 </subsystem>
-Note that we configured `outbound-socket-binding-ref` values of 'mail-gmail-smtp' and 'mail-gmail-imap'. The next step is to configure these socket bindings. Add additional bindings to the `socket-binding-group` configuration like the following.
+
+[Note]
+====
+You can configure `outbound-socket-binding-ref` values of 'mail-gmail-smtp' and 'mail-gmail-imap'.
+====
+
+The next step is to configure these socket bindings. You can add additional bindings to the `socket-binding-group` configuration as per the following.
 
 [source,xml,options="nowrap"]
 ----
@@ -34,11 +40,11 @@ Note that we configured `outbound-socket-binding-ref` values of 'mail-gmail-smtp
 </outbound-socket-binding>
 ----
 
-This configures our mail session to connect to host smtp.gmail.com on port 465 and imap.gmail.com on port 993. If you're using a different mail host, then this detail will be different.
+This configures the mail session to connect to host smtp.gmail.com on port 465 and imap.gmail.com on port 993. If you're using a different mail host, then this detail will be different.
 
 #### POP3 Configuration
 
-If you need to configure POP3 sessions, the principals are the same as defined in the examples above.
+If you need to configure POP3 sessions, the principles are the same as defined in the examples above.
 
 [source,xml,options="nowrap"]
 ----
@@ -57,7 +63,7 @@ If you need to configure POP3 sessions, the principals are the same as defined i
 This example uses the SMTPS protocol, together with CDI in conjunction with the camel-cdi component. The Java mail session that you configured within the {wildfly} configuration is injected into a Camel RouteBuilder through JNDI.
 
 ###### Route builder SMTPS example
-The GMail mail session is injected into a Producer class using the `@Resource` annotation with a reference to the `jndi-name` attribute that you  previously configured. This allows us to reference the mail session on the camel-mail endpoint configuration.
+The GMail mail session is injected into a Producer class using the `@Resource` annotation with a reference to the `jndi-name` attribute that you  previously configured. This allows you to reference the mail session on the camel-mail endpoint configuration.
 
 [source,java,options="nowrap"]
 ----
@@ -121,7 +127,7 @@ By setting attributes `ssl="true"` or `tls="true"`.
 
 ##### Securing passwords
 
-Writing passwords in clear text within configuration files is never a good idea for obvious reasons. The https://developer.jboss.org/wiki/JBossAS7SecuringPasswords[WildFly Vault,window=_blank] provides tooling to mask sensitive data.
+It is recommended to not use clear text for passwords within configuration files. You can mask sensitive data using the https://developer.jboss.org/wiki/JBossAS7SecuringPasswords[WildFly Vault,window=_blank].
 
 ##### Camel security
 

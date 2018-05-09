@@ -1,8 +1,11 @@
 ### CDI
 
-CDI integration is provided by http://camel.apache.org/cdi.html[cdi,window=_blank].
+The Camel CDI component provides an auto-configuration for Apache Camel, using CDI as dependency injection framework. However, it is based on convention-over-configuration.
+It implements the standard camel bean integration so that you can use the Camel annotations easily in CDI beans.
 
-A Context with an associated route can be provided like this
+For more information about CDI, refer to the http://camel.apache.org/cdi.html[cdi,window=_blank] documentation.
+
+The following example describes how you can consume and assosciate the Camel Context with a route.
 
 [source,java,options="nowrap"]
 ----
@@ -16,15 +19,16 @@ public class MyRouteBuilder extends RouteBuilder {
     	from("direct:start").transform(body().prepend("Hi"));
     }
 }
+
 ----
 
-and consumed like this
-
 [source,java,options="nowrap"]
+----
 @Inject
 @ContextName("cdi-context")
 private CamelContext camelctx;
 
+----
 
 #### Importing XML DSL configuration
 
@@ -35,6 +39,10 @@ Camel CDI integration enables you to import existing XML DSL files via the `@Imp
 class MyBean {
 }
 
-It's important to note that the location of the imported file must be present on the deployment classpath. Placing
-the file into locations such as `WEB-INF` will not work. However, `WEB-INF/classes` will work fine.
+[NOTE]
+====
+The location of the imported file must be present on the deployment classpath. Placing the file into locations such as `WEB-INF` will not work. However, `WEB-INF/classes` will work fine.
+
+====
+
 

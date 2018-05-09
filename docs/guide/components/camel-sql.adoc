@@ -1,6 +1,6 @@
 ### camel-sql
 
-The http://camel.apache.org/sql-component.html[sql,window=_blank]
+The http://camel.apache.org/sql-component.html[SQL,window=_blank]
 component allows you to work with databases using http://camel.apache.org/jdbc.html[JDBC,window=_blank] queries. The difference between this component and JDBC component is that in case of SQL the query is a property of the endpoint and it uses message payload as parameters passed to the query.
 
 [source,java,options="nowrap"]

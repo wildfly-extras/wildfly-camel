@@ -101,14 +101,16 @@ public class RestConsumerRouteBuilder extends RouteBuilder {
 }
 ----
 
-Note that the REST DSL configuration starts with `restConfiguration().component("undertow")`.
-
-[CAUTION]
-====
-The {wildfly-camel} Subsystem only supports the camel-servlet and camel-undertow components for use with the REST DSL. Attempts to configure other components will not work.
-====
-
 By setting the binding mode, Camel can marshal and unmarshal JSON data either by specifying a 'produces()' or 'type()' configuration step.
+
+[NOTE]
+====
+* The REST DSL configuration starts with `restConfiguration().component("undertow")`.
+
+* The {wildfly-camel} Subsystem only supports the camel-servlet and camel-undertow components for use with the REST DSL. However, it does not work if you configure the other components.
+
+====
+
 
 #### Security
 

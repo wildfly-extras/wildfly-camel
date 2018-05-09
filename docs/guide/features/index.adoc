@@ -1,6 +1,6 @@
 ## Features
 
-This chapter provides more detailed information about {wildfly-camel} features.
+This chapter provides the necessary information about {wildfly-camel} features.
 
 include::context-definitions.adoc[]
 include::context-deployments.adoc[]
