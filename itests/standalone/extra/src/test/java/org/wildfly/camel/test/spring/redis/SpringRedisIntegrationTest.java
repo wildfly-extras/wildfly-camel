@@ -36,13 +36,11 @@ import org.jboss.gravia.runtime.ServiceLocator;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
-import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextFactory;
 import org.wildfly.extension.camel.CamelContextRegistry;
@@ -64,10 +62,12 @@ public class SpringRedisIntegrationTest {
 
         @Override
         public void setup(final ManagementClient managementClient, String containerId) throws Exception {
-            Assume.assumeFalse("[#1701] Cannot start Redis server on Windows", EnvironmentUtils.isWindows());
             int port = AvailablePortFinder.getNextAvailable(6379);
             AvailablePortFinder.storeServerData("redis-port", port);
-            redisServer = new RedisServer(port);
+            redisServer = RedisServer.builder()
+                .port(port)
+                .setting("maxmemory 128M")
+                .build();
             redisServer.start();
         }
 
@@ -82,15 +82,13 @@ public class SpringRedisIntegrationTest {
     @Deployment
     public static JavaArchive deployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-redis-tests");
-        archive.addClasses(AvailablePortFinder.class, EnvironmentUtils.class);
+        archive.addClasses(AvailablePortFinder.class);
         return archive;
     }
 
     @Test
     @SuppressWarnings("rawtypes")
     public void testRedisRoute() throws Exception {
-
-        Assume.assumeFalse("[#1701] Cannot start Redis server on Windows", EnvironmentUtils.isWindows());
 
         JedisConnectionFactory connectionFactory = new JedisConnectionFactory();
         connectionFactory.afterPropertiesSet();
