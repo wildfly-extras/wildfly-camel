@@ -26,6 +26,19 @@
 -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="args4j" skip="true">
+        <include artifact="args4j:args4j"/>
+    </module>
+
+    <module name="org.eclipse.aether" skip="true">
+        <include artifact="org.eclipse.aether:aether-api"/>
+        <include artifact="org.eclipse.aether:aether-impl"/>
+        <include artifact="org.eclipse.aether:aether-connector-basic"/>
+        <include artifact="org.eclipse.aether:aether-transport-file"/>
+        <include artifact="org.eclipse.aether:aether-transport-http"/>
+        <include artifact="org.apache.maven:maven-aether-provider"/>
+    </module>
+
     <module name="org.wildfly.extras.config" skip="true">
         <include artifact=":fuse-patch-config" />
     </module>

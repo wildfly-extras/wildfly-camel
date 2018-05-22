@@ -42,6 +42,13 @@
         </dependencies>
     </module>
 
+    <module name="com.adobe.xmp.xmpcore">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.adobe.xmp:xmpcore" />
+    </module>
+
     <module name="com.alibaba.fastjson">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -229,6 +236,20 @@
         </exports>
     </module>
 
+    <module name="com.damnhandy.handy-uri-templates">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.damnhandy:handy-uri-templates" />
+    </module>
+
+    <module name="com.drewnoakes.metadata-extractor">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.drewnoakes:metadata-extractor" />
+    </module>
+
     <module name="com.eclipsesource.minimal.json">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -352,6 +373,13 @@
         </apply-to-dependencies>
     </module>
 
+    <module name="com.github.virtuald.curvesapi">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.github.virtuald:curvesapi" />
+    </module>
+
     <module name="com.google.code.gson">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -388,6 +416,13 @@
         <apply-to-dependencies skip="true">
             <include module="com.google.android" />
         </apply-to-dependencies>
+    </module>
+
+    <module name="com.google.code.juniversalchardet">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.googlecode.juniversalchardet:juniversalchardet" />
     </module>
 
     <module name="com.google.api-client.google-api-client">
@@ -491,6 +526,14 @@
         </apply-to-dependencies>
     </module>
 
+    <module name="com.healthmarketscience.jackcess">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.healthmarketscience.jackcess:jackcess"/>
+        <include artifact="com.healthmarketscience.jackcess:jackcess-encrypt"/>
+    </module>
+
     <module name="com.impossibl.pgjdbc">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -575,11 +618,12 @@
         </apply-to-dependencies>
     </module>
 
-    <module name="com.netflix.netflix-commons.netflix-statistics">
+    <module name="com.netflix.netflix-commons">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.netflix.netflix-commons:netflix-statistics" />
+        <include artifact="com.netflix.netflix-commons:netflix-commons-util" />
         <apply-to-dependencies skip="true">
             <include module="com.google.code.findbugs" />
         </apply-to-dependencies>
@@ -611,8 +655,7 @@
         <include artifact="com.netflix.ribbon:ribbon-loadbalancer" />
         <dependencies>
             <module name="com.google.guava" />
-            <module name="com.netflix.netflix-commons.netflix-commons-util" />
-            <module name="com.netflix.netflix-commons.netflix-statistics" />
+            <module name="com.netflix.netflix-commons" />
             <module name="com.netflix.ribbon.ribbon-core" />
             <module name="com.netflix.servo" />
             <module name="org.slf4j" />
@@ -668,6 +711,13 @@
         </properties>
         <include artifact=":querydsl-apt" />
         <include artifact=":querydsl-codegen" />
+    </module>
+
+    <module name="com.pff.java-libpst">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.pff:java-libpst" />
     </module>
 
     <module name="com.rometools.rome" inherit-slot="false" slot="1.0">
@@ -758,6 +808,13 @@
         <include artifact="com.yammer.metrics:metrics-core" />
     </module>
 
+    <module name="de.l3s.boilerpipe">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="de.l3s.boilerpipe:boilerpipe" />
+    </module>
+
     <module name="dk.brics.automaton">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -777,6 +834,34 @@
         <apply-to-dependencies skip="true">
             <include module="com.beust.jcommander" />
         </apply-to-dependencies>
+    </module>
+
+    <module name="edu.ucar.grib">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="edu.ucar:grib" />
+    </module>
+
+    <module name="edu.ucar.httpservices">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="edu.ucar:httpservices" />
+    </module>
+
+    <module name="edu.ucar.udunits">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="edu.ucar:udunits" />
+    </module>
+
+    <module name="edu.usc.ir.sentiment-analysis-parser">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="edu.usc.ir:sentiment-analysis-parser" />
     </module>
 
     <module name="io.atomix">
@@ -1134,6 +1219,13 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.commons.collections4">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.commons:commons-collections4" />
+    </module>
+
     <module name="org.apache.commons.compress">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1264,6 +1356,13 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.james.apache-mime4j-dom">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.james:apache-mime4j-dom" />
+    </module>
+
     <module name="org.apache.kafka">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1377,12 +1476,20 @@
         <include artifact="org.apache.olingo:odata-server-core" />
     </module>
 
+    <module name="org.apache.opennlp.opennlp-tools">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.opennlp:opennlp-tools" />
+    </module>
+
     <module name="org.apache.pdfbox">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.pdfbox:fontbox" />
         <include artifact="org.apache.pdfbox:jbig2-imageio" />
+        <include artifact="org.apache.pdfbox:jempbox" />
         <include artifact="org.apache.pdfbox:pdfbox" />
         <include artifact="org.apache.pdfbox:pdfbox-tools" />
         <include artifact="org.apache.pdfbox:pdfbox-debugger" />
@@ -1538,6 +1645,13 @@
         <include artifact="org.apache.xbean:xbean-(.*)" />
     </module>
 
+    <module name="org.apache.xmlbeans">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.xmlbeans:xmlbeans" />
+    </module>
+
     <module name="org.apache.xmlgraphics">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1669,6 +1783,13 @@
         <dependencies>
             <module name="javax.api" />
         </dependencies>
+    </module>
+
+    <module name="org.codelibs.jhighlight">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.codelibs:jhighlight" />
     </module>
 
     <module name="org.dozer.mapper">
@@ -1852,6 +1973,13 @@
         </dependencies>
     </module>
 
+    <module name="org.gagravarr.vorbis-java-core">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.gagravarr:vorbis-java-core" />
+    </module>
+
     <module name="org.hdrhistogram">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1920,6 +2048,20 @@
         </dependencies>
     </module>
 
+    <module name="org.itadaki.bzip2">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.itadaki:bzip2" />
+    </module>
+
+    <module name="org.jdom.jdom2">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.jdom:jdom2" />
+    </module>
+
     <module name="org.jxmpp">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1934,6 +2076,13 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.lz4:lz4-java" />
+    </module>
+
+    <module name="org.opengis.geoapi">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.opengis:geoapi" />
     </module>
 
     <module name="org.osgi.core">
@@ -1962,6 +2111,13 @@
             <exclude path="com/mongodb/internal**" />
             <exclude path="org/bson/internal" />
         </exports>
+    </module>
+
+    <module name="org.mvel.mvel2">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.mvel:mvel2" />
     </module>
 
     <module name="org.quartz">
@@ -2013,6 +2169,27 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.scribe:scribe" />
+    </module>
+
+    <module name="org.tallison.jmatio">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.tallison:jmatio" />
+    </module>
+
+    <module name="org.tukaani.xz">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.tukaani:xz" />
+    </module>
+
+    <module name="org.w3c.css.sac">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.w3c.css:sac" />
     </module>
 
     <module name="org.xerial.snappy">

@@ -2,6 +2,7 @@
 <module xmlns="urn:jboss:module:1.1" name="com.healthmarketscience.jackcess">
   <resources>
     <artifact name="${com.healthmarketscience.jackcess:jackcess}" />
+    <artifact name="${com.healthmarketscience.jackcess:jackcess-encrypt}" />
   </resources>
   <dependencies>
     <module name="org.apache.commons.lang" />

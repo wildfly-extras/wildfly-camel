@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="com.googlecode.juniversalchardet">
+<module xmlns="urn:jboss:module:1.1" name="com.google.code.juniversalchardet">
   <resources>
     <artifact name="${com.googlecode.juniversalchardet:juniversalchardet}" />
   </resources>

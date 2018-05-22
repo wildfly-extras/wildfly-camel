@@ -170,6 +170,13 @@ def smarticsDirectories = [
     "${smarticsFilesPrefix}extrasB/etc/smartics",
     "${smarticsFilesPrefix}extrasC/etc/smartics"
 ]
+/** We ignore modules in smartics XML files having skip="true" unless the given file is explicitly present in this list */
+def smarticsFilesIgnoreSkip = [
+    new File("${smarticsFilesPrefix}modules/etc/smartics/fusepatch-modules.xml").path
+] as Set
+def smarticsManagedDirectories = [
+    "${smarticsFilesPrefix}modules/etc/managed"
+]
 
 def modules = []
 def duplicateResources = []
@@ -297,10 +304,11 @@ def smarticsModuleNames = [] as Set
 smarticsDirectories.each { dir ->
     new File(dir).eachFile() { smarticsFile ->
         if (smarticsFile.isFile() && smarticsFile.name.endsWith(".xml")) {
+            def ignoreSkip = smarticsFilesIgnoreSkip.contains(smarticsFile.path)
             def parser = new XmlParser()
             def smarticsDom = parser.parseText(smarticsFile.getText())
             smarticsDom.module.each { moduleNode ->
-                if (moduleNode.@skip != "true") {
+                if (ignoreSkip || moduleNode.@skip != "true") {
                     def key = moduleNode.@name + ":"+ (moduleNode.@slot ?: "main")
                     smarticsModuleNames.add(key)
                     if (!dependencyGraph.containsModule(key)) {
@@ -310,6 +318,25 @@ smarticsDirectories.each { dir ->
                 }
             }
         }
+    }
+}
+
+// add managed files to smarticsModuleNames
+smarticsManagedDirectories.each { path ->
+    new File(path).eachFileRecurse() { file ->
+        if (file.name == "module.xml") {
+            def parser = new XmlParser()
+            moduleXml = parser.parseText(file.getText())
+            def key = moduleXml.@name + ":"+ (moduleXml.@slot ?: "main")
+            smarticsModuleNames.add(key)
+        }
+    }
+}
+
+// Check that each fuse module is explicitly defined in a smartics file
+modules.findAll { (it.layer == "fuse") }.each { fuseModule ->
+    if (!smarticsModuleNames.contains(fuseModule.name + ":"+ fuseModule.slot)) {
+        problems << "Module ${fuseModule.name} is not defined in any smartics xml file"
     }
 }
 

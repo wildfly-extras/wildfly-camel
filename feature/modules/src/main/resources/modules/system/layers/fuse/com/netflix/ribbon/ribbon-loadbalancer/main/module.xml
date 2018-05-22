@@ -8,8 +8,7 @@
   </resources>
   <dependencies>
     <module name="com.google.guava" />
-    <module name="com.netflix.netflix-commons.netflix-commons-util" />
-    <module name="com.netflix.netflix-commons.netflix-statistics" />
+    <module name="com.netflix.netflix-commons" />
     <module name="com.netflix.ribbon.ribbon-core" />
     <module name="com.netflix.servo" />
     <module name="org.slf4j" />

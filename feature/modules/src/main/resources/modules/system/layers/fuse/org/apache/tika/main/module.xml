@@ -20,10 +20,9 @@
     <module name="com.github.junrar" />
     <module name="com.google.code.gson" />
     <module name="com.google.code.json-simple" />
+    <module name="com.google.code.juniversalchardet" />
     <module name="com.google.code.mp4parser.isoparser" />
-    <module name="com.googlecode.juniversalchardet" />
     <module name="com.healthmarketscience.jackcess" />
-    <module name="com.healthmarketscience.jackcess.jackcess-encrypt" />
     <module name="com.pff.java-libpst" />
     <module name="com.rometools.rome" />
     <module name="de.l3s.boilerpipe" />
@@ -43,7 +42,6 @@
     <module name="org.apache.james.mime4j" />
     <module name="org.apache.opennlp.opennlp-tools" />
     <module name="org.apache.pdfbox" />
-    <module name="org.apache.pdfbox.jempbox" />
     <module name="org.apache.poi" />
     <module name="org.apache.sis.core" />
     <module name="org.apache.sis.storage" />

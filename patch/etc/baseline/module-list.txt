@@ -51,6 +51,7 @@
 /com/google/code/gson/2.5/gson-2.5.jar
 /com/google/code/gson/main/gson-2.8.2.jar
 /com/google/code/json-simple/main/json-simple-1.1.1.jar
+/com/google/code/juniversalchardet/main/juniversalchardet-1.0.3.jar
 /com/google/code/libphonenumber/main/libphonenumber-8.8.11.jar
 /com/google/code/mp4parser/isoparser/main/isoparser-1.1.18.jar
 /com/google/guava/12.0/guava-11.0.2.jar
@@ -63,11 +64,10 @@
 /com/google/protobuf/2.5/protobuf-java-2.5.0.jar
 /com/google/protobuf/main/protobuf-java-3.5.1.jar
 /com/google/protobuf/main/protobuf-java-util-3.5.1.jar
-/com/googlecode/juniversalchardet/main/juniversalchardet-1.0.3.jar
 /com/hazelcast/client/main/hazelcast-client-3.9.3.jar
 /com/hazelcast/main/hazelcast-3.9.3.jar
-/com/healthmarketscience/jackcess/jackcess-encrypt/main/jackcess-encrypt-2.1.4.jar
 /com/healthmarketscience/jackcess/main/jackcess-2.1.10.jar
+/com/healthmarketscience/jackcess/main/jackcess-encrypt-2.1.4.jar
 /com/impossibl/pgjdbc/main/pgjdbc-ng-0.7.1.jar
 /com/intellij/annotations/main/annotations-12.0.jar
 /com/jayway/jsonpath/main/json-path-2.4.0.jar
@@ -80,8 +80,8 @@
 /com/netflix/hystrix/main/hystrix-metrics-event-stream-1.5.12.jar
 /com/netflix/hystrix/main/hystrix-serialization-1.5.12.jar
 /com/netflix/hystrix/main/rxjava-1.0.9.jar
-/com/netflix/netflix-commons/netflix-commons-util/main/netflix-commons-util-0.1.1.jar
-/com/netflix/netflix-commons/netflix-statistics/main/netflix-statistics-0.1.1.jar
+/com/netflix/netflix-commons/main/netflix-commons-util-0.1.1.jar
+/com/netflix/netflix-commons/main/netflix-statistics-0.1.1.jar
 /com/netflix/ribbon/ribbon-core/main/ribbon-core-2.2.4.jar
 /com/netflix/ribbon/ribbon-loadbalancer/main/ribbon-loadbalancer-2.2.4.jar
 /com/netflix/servo/main/servo-core-0.10.1.jar
@@ -498,7 +498,7 @@
 /org/apache/chemistry/opencmis/main/chemistry-opencmis-client-impl-1.1.0.jar
 /org/apache/chemistry/opencmis/main/chemistry-opencmis-commons-api-1.1.0.jar
 /org/apache/chemistry/opencmis/main/chemistry-opencmis-commons-impl-1.1.0.jar
-/org/apache/commons/commons-collections4/main/commons-collections4-4.1.jar
+/org/apache/commons/collections4/main/commons-collections4-4.1.jar
 /org/apache/commons/compress/main/commons-compress-1.16.1.jar
 /org/apache/commons/configuration/main/commons-configuration-1.8.jar
 /org/apache/commons/csv/main/commons-csv-1.5.jar
@@ -590,9 +590,9 @@
 /org/apache/olingo4/server/main/odata-server-api-4.4.0.jar
 /org/apache/olingo4/server/main/odata-server-core-4.4.0.jar
 /org/apache/opennlp/opennlp-tools/main/opennlp-tools-1.8.4.jar
-/org/apache/pdfbox/jempbox/main/jempbox-1.8.13.jar
 /org/apache/pdfbox/main/fontbox-2.0.8.jar
 /org/apache/pdfbox/main/jbig2-imageio-3.0.0.jar
+/org/apache/pdfbox/main/jempbox-1.8.13.jar
 /org/apache/pdfbox/main/pdfbox-2.0.8.jar
 /org/apache/pdfbox/main/pdfbox-tools-2.0.8.jar
 /org/apache/poi/main/poi-3.17.jar
