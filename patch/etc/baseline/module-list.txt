@@ -100,7 +100,6 @@
 /com/squareup/retrofit2/main/converter-jackson-2.0.2.jar
 /com/squareup/retrofit2/main/converter-moshi-2.3.0.jar
 /com/squareup/retrofit2/main/retrofit-2.3.0.jar
-/com/sun/jersey/client/main/jersey-client-1.9.jar
 /com/sun/jersey/core/main/jersey-core-1.9.jar
 /com/sun/jersey/core/main/jersey-json-1.9.jar
 /com/thoughtworks/xstream/main/xstream-1.4.10.jar

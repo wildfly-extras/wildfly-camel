@@ -36,11 +36,13 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.DMRUtils;
 import org.wildfly.extension.camel.CamelAware;
 
+@Ignore
 @CamelAware
 @RunWith(ArquillianConditionalRunner.class)
 @ServerSetup({ PGEventIntegrationTest.DataSourceServerSetupTask.class })

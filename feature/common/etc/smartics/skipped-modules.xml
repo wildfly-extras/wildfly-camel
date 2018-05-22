@@ -153,6 +153,10 @@
         <include artifact="com.sun.grizzly:(.*)"/>
     </module>
 
+    <module name="com.sun.jersey.client" skip="true">
+        <include artifact="com.sun.jersey:jersey-client" />
+    </module>
+
     <module name="com.sun.jersey.server" skip="true">
         <include artifact="com.sun.jersey:jersey-server"/>
         <include artifact="com.sun.jersey.contribs:jersey-guice" />

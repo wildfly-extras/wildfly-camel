@@ -39,6 +39,7 @@
         <license.output.dir>${project.build.directory}/licenses</license.output.dir>
         <wildfly.module.dir>${project.build.directory}/wildfly-${version.wildfly}/modules/system/layers/base</wildfly.module.dir>
         <wildfly.camel.module.dir>${project.build.directory}/wildfly-camel-${project.version}/modules/system/layers/fuse</wildfly.camel.module.dir>
+        <wildfly-camel-feature-pack.basedir>${project.basedir}</wildfly-camel-feature-pack.basedir>
     </properties>
 
     <dependencyManagement>

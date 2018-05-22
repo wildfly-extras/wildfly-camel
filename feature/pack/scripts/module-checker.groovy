@@ -89,10 +89,92 @@ class Resource {
     }
 }
 
+/** A JBoss Modules dependency graph as seen in $JBOSS_HOME/modules file tree */
+class DependencyGraph {
+
+    /** A set of Fuse modules (incl :slot) that all other Fuse modules are supposed to transitively depend on */
+    def rootModules = [] as Set
+
+    def modules = [] as Set
+
+    /** A map from module names to sets of dependent module names */
+    def dependentsIndex = [:]
+
+    def DependencyGraph(rootModules) {
+        this.rootModules = rootModules
+    }
+
+    /** Returns @{code true} if the given moduleName:slot conbination is a (possibly transitive) dependency of some
+     *  element of rootModules */
+    boolean isDependencyOfRootModule(moduleName, slot) {
+        return isDependencyOfRootModuleInternal(moduleName +":"+ slot, [] as Set)
+    }
+
+    boolean isDependencyOfRootModuleInternal(moduleName, path) {
+        if (rootModules.contains(moduleName)) {
+            return true;
+        }
+
+        def dependents = dependentsIndex[moduleName]
+        if (dependents == null) {
+            return false
+        } else {
+            // recurse
+            path << moduleName
+            for (String dependent : dependents) {
+                if (path.contains(dependent)) {
+                    // ignore cyclic dependencies
+                } else if (isDependencyOfRootModuleInternal(dependent, path)) {
+                    return true
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean containsModule(moduleNameSlot) {
+        return modules.contains(moduleNameSlot)
+    }
+
+    def addModule(moduleName, slot) {
+        modules << (moduleName +":"+ slot)
+    }
+
+    def addDependency(dependent, dependentSlot, dependency, dependencySlot) {
+        dependentSlot = dependentSlot ?: "main"
+        dependencySlot = dependencySlot ?: "main"
+        def dependencyKey = dependency +":"+ dependencySlot;
+        def dependents = dependentsIndex.get(dependencyKey)
+        if (dependents == null) {
+            dependentsIndex.put(dependencyKey, dependents = [] as Set)
+        }
+        dependents << (dependent +":"+ dependentSlot)
+    }
+
+}
+
 def paths = [properties.get("wildfly.module.dir"), properties.get("wildfly.camel.module.dir")]
+
+/** A set of WildFly Camel modules that all other WildFly Camel modules are supposed to transitively depend on */
+def rootModules = [
+    "org.wildfly.extension.camel:main",
+    "org.wildfly.extras.config.plugin.camel:main",
+    "org.wildfly.extras.patch:main",
+    "org.apache.kafka:main" //  KafkaProducerIntegrationTest depends on it see https://github.com/wildfly-extras/wildfly-camel/issues/2539
+] as Set
+
+def smarticsFilesPrefix = properties.get("wildfly-camel-feature-pack.basedir") + "/../"
+def smarticsDirectories = [
+    "${smarticsFilesPrefix}modules/etc/smartics",
+    "${smarticsFilesPrefix}extrasA/etc/smartics",
+    "${smarticsFilesPrefix}extrasB/etc/smartics",
+    "${smarticsFilesPrefix}extrasC/etc/smartics"
+]
+
 def modules = []
 def duplicateResources = []
 def problems = []
+def dependencyGraph = new DependencyGraph(rootModules);
 
 // Build up a list of modules and identify duplicates
 paths.each { path ->
@@ -113,6 +195,12 @@ paths.each { path ->
             module.slot = moduleXml.attribute("slot") ?: "main"
             module.layer = file.path.contains("layers${File.separator}base") ? "base" : "fuse"
             module.path = "modules/system/layers/${module.layer}${file.parent.replace(path, "")}"
+            if (module.layer == "fuse") {
+                moduleXml.dependencies.module.each { dep ->
+                    dependencyGraph.addDependency(module.name, module.slot, dep.@name, dep.@slot)
+                }
+                dependencyGraph.addModule(module.name, module.slot)
+            }
 
             // Process standard <resource-root> elements
             moduleXml.resources."resource-root".@path.each { resource ->
@@ -191,6 +279,35 @@ modules.findAll { (it.layer == "fuse") }.each { fuseModule ->
             if(duplicateResource != null && !duplicateResources.contains(resource)) {
                 duplicateResources << resource
                 problems << "Duplicate dependency ${resource.artifactId}\n\t${fuseModule.path}/${resource}\n\t${baseModule.path}/${duplicateResource}\n"
+            }
+        }
+    }
+}
+
+// Ban orphan modules
+modules.findAll { (it.layer == "fuse") }.each { fuseModule ->
+    if (!dependencyGraph.isDependencyOfRootModule(fuseModule.name, fuseModule.slot)) {
+        problems << "Orphan module: ${fuseModule.name}:${fuseModule.slot} No relevant WildFly Camel module depends on it and can thus be removed"
+    }
+}
+
+// Check that all modules from smartics files are materialized in a JBoss module
+// and create a list of smartics modules
+def smarticsModuleNames = [] as Set
+smarticsDirectories.each { dir ->
+    new File(dir).eachFile() { smarticsFile ->
+        if (smarticsFile.isFile() && smarticsFile.name.endsWith(".xml")) {
+            def parser = new XmlParser()
+            def smarticsDom = parser.parseText(smarticsFile.getText())
+            smarticsDom.module.each { moduleNode ->
+                if (moduleNode.@skip != "true") {
+                    def key = moduleNode.@name + ":"+ (moduleNode.@slot ?: "main")
+                    smarticsModuleNames.add(key)
+                    if (!dependencyGraph.containsModule(key)) {
+                        String shortPath = smarticsFile.toString().substring(smarticsFilesPrefix.length())
+                        problems << "${key}   unused in distro but defined in ${shortPath}"
+                    }
+                }
             }
         }
     }

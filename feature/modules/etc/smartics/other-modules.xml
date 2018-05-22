@@ -42,13 +42,6 @@
         </dependencies>
     </module>
 
-    <module name="ch.qos.cal10n">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="ch.qos.cal10n:cal10n-api" />
-    </module>
-
     <module name="com.alibaba.fastjson">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -234,24 +227,6 @@
         <exports>
             <exclude path="com/box/sdk/internal**" />
         </exports>
-    </module>
-
-    <module name="com.codahale.metrics">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.codahale.metrics:metrics-core" />
-        <dependencies>
-            <module name="javax.api" />
-            <module name="sun.jdk" />
-        </dependencies>
-    </module>
-
-    <module name="com.damnhandy">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.damnhandy.handy-uri-templates" />
     </module>
 
     <module name="com.eclipsesource.minimal.json">
@@ -540,13 +515,6 @@
         <include artifact="com.intellij:annotations"/>
     </module>
 
-    <module name="com.jamesmurty.utils.java.xmlbuilder">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.jamesmurty.utils:java-xmlbuilder"/>
-    </module>
-
     <module name="com.jayway.jsonpath">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -692,15 +660,6 @@
         <exports>
             <exclude path="com/ning" />
         </exports>
-    </module>
-
-    <module name="com.querydsl">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":querydsl-core" />
-        <dependencies>
-        </dependencies>
     </module>
 
     <module name="com.querydsl.skip" skip="true">
@@ -977,17 +936,6 @@
         <include artifact="io.opentracing.contrib:opentracing-(.*)" />
     </module>
 
-    <module name="io.sundr">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="io.sundr:sundr-core" />
-        <apply-to-dependencies skip="true">
-            <include module="com.sun.tools" />
-            <include module="io.sundr.codegen" />
-        </apply-to-dependencies>
-    </module>
-
     <module name="javax.cache.api" >
         <include artifact="javax.cache:cache-api" />
     </module>
@@ -1079,17 +1027,6 @@
         <include artifact="net.sourceforge.cssparser:(.*)"/>
         <dependencies>
             <module name="javax.api"/>
-        </dependencies>
-    </module>
-
-    <module name="net.sourceforge.nekohtml">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="net.sourceforge.nekohtml:(.*)"/>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="org.apache.xerces"/>
         </dependencies>
     </module>
 
@@ -1219,13 +1156,6 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":commons-csv" />
-    </module>
-
-    <module name="org.apache.commons.digester">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":commons-digester" />
     </module>
 
     <module name="org.apache.commons.exec">
@@ -1601,7 +1531,7 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.xbean.$1">
+    <module name="org.apache.xbean.spring">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
@@ -2076,13 +2006,6 @@
                 </imports>
             </module>
         </dependencies>
-    </module>
-
-    <module name="org.scala.modules">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.scala-lang.modules:scala-parser-combinators_2.11" />
     </module>
 
     <module name="org.scribe">

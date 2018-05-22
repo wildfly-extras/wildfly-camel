@@ -58,13 +58,6 @@
         </dependencies>
     </module>
 
-    <module name="com.sun.jersey.client">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.sun.jersey:jersey-client" />
-    </module>
-
     <module name="com.sun.jersey.core" >
         <properties>
             <property name="jboss.api" value="private"/>
@@ -212,11 +205,6 @@
             <include module="com.sun.xml.bind.jaxb.xjc" />
             <include module="org.osgi.compendium" />
         </apply-to-dependencies>
-    </module>
-
-    <module name="org.scala.modules">
-        <include artifact="org.scala-lang.modules:scala-parser-combinators_2.11" />
-        <include artifact="org.scala-lang.modules:scala-java8-compat_2.11" />
     </module>
 
     <module name="xmlenc">

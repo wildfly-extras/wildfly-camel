@@ -11,7 +11,6 @@
         <artifact groupId="com.google.inject" artifactId="guice" version="3.0"/>
         <artifact groupId="com.google.protobuf" artifactId="protobuf-java" version="2.5.0"/>
         <artifact groupId="com.jcraft" artifactId="jsch" version="0.1.54"/>
-        <artifact groupId="com.sun.jersey" artifactId="jersey-client" version="1.9"/>
         <artifact groupId="com.sun.jersey" artifactId="jersey-core" version="1.9"/>
         <artifact groupId="com.sun.jersey" artifactId="jersey-json" version="1.9"/>
         <artifact groupId="commons-cli" artifactId="commons-cli" version="1.2"/>
