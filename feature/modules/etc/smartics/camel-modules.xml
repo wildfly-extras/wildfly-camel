@@ -2472,6 +2472,11 @@
         <dependencies>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
+            <module name="sun.jdk">
+                <imports>
+                    <include path="sun/misc/Unsafe"/>
+                </imports>
+            </module>
         </dependencies>
         <exports>
             <exclude path="groovy/json/internal"/>

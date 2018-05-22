@@ -43,17 +43,16 @@ import org.wildfly.extension.camel.CamelAware;
 public class ScriptIntegrationTest {
 
     private static final String BEANSHELL_SCRIPT = "beanshell-script.bsh";
-    private static final String GROOVY_SCRIPT = "groovy-script.grv";
+    private static final String GROOVY_SCRIPT = "groovy-script.groovy";
     private static final String JAVA_SCRIPT = "java-script.js";
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "script-tests");
-        archive.addAsResource("script/" + BEANSHELL_SCRIPT, BEANSHELL_SCRIPT);
-        archive.addAsResource("script/" + GROOVY_SCRIPT, GROOVY_SCRIPT);
-        archive.addAsResource("script/" + JAVA_SCRIPT, JAVA_SCRIPT);
-        archive.addClasses(TestUtils.class);
-        return archive;
+        return ShrinkWrap.create(JavaArchive.class, "script-tests.jar")
+            .addAsResource("script/" + BEANSHELL_SCRIPT, BEANSHELL_SCRIPT)
+            .addAsResource("script/" + GROOVY_SCRIPT, GROOVY_SCRIPT)
+            .addAsResource("script/" + JAVA_SCRIPT, JAVA_SCRIPT)
+            .addClasses(TestUtils.class);
     }
 
     @Test
@@ -67,7 +66,7 @@ public class ScriptIntegrationTest {
     }
 
     @Test
-    public void testJavaScrip() throws Exception {
+    public void testJavaScript() throws Exception {
         scriptProcessing("javaScript", JAVA_SCRIPT);
     }
 
