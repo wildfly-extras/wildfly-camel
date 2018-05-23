@@ -159,8 +159,7 @@ def paths = [properties.get("wildfly.module.dir"), properties.get("wildfly.camel
 def rootModules = [
     "org.wildfly.extension.camel:main",
     "org.wildfly.extras.config.plugin.camel:main",
-    "org.wildfly.extras.patch:main",
-    "org.apache.kafka:main" //  KafkaProducerIntegrationTest depends on it see https://github.com/wildfly-extras/wildfly-camel/issues/2539
+    "org.wildfly.extras.patch:main"
 ] as Set
 
 def smarticsFilesPrefix = properties.get("wildfly-camel-feature-pack.basedir") + "/../"

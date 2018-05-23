@@ -801,13 +801,6 @@
         </dependencies>
     </module>
 
-    <module name="com.yammer.metrics">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.yammer.metrics:metrics-core" />
-    </module>
-
     <module name="de.l3s.boilerpipe">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1375,23 +1368,6 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.james:apache-mime4j-dom" />
-    </module>
-
-    <module name="org.apache.kafka">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.apache.kafka:kafka_2.11" />
-        <include artifact="net.sf.jopt-simple:jopt-simple" />
-        <include artifact="com.101tec:zkclient" />
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="org.scala.lang" />
-        </dependencies>
-        <exports>
-            <exclude path="joptsimple**" />
-            <exclude path="org/I0Itec**" />
-        </exports>
     </module>
 
     <module name="org.apache.kafka.clients">
@@ -2162,20 +2138,6 @@
         <apply-to-dependencies skip="true">
             <include module="com.google.code.findbugs" />
         </apply-to-dependencies>
-    </module>
-
-    <module name="org.scala.lang">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.scala-lang:scala-library" />
-        <dependencies>
-            <module name="sun.jdk">
-                <imports>
-                    <include path="sun/misc" />
-                </imports>
-            </module>
-        </dependencies>
     </module>
 
     <module name="org.scribe">

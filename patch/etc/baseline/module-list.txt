@@ -103,7 +103,6 @@
 /com/sun/jersey/core/main/jersey-core-1.9.jar
 /com/sun/jersey/core/main/jersey-json-1.9.jar
 /com/thoughtworks/xstream/main/xstream-1.4.10.jar
-/com/yammer/metrics/main/metrics-core-2.2.0.jar
 /de/l3s/boilerpipe/main/boilerpipe-1.1.0.jar
 /dk/brics/automaton/main/automaton-1.11-8.jar
 /edu/ucar/cdm/main/cdm-4.5.5.jar
@@ -561,9 +560,6 @@
 /org/apache/jclouds/main/jclouds-core-2.1.0.jar
 /org/apache/jclouds/main/jclouds-scriptbuilder-2.1.0.jar
 /org/apache/kafka/clients/main/kafka-clients-1.0.0.jar
-/org/apache/kafka/main/jopt-simple-5.0.4.jar
-/org/apache/kafka/main/kafka_2.11-1.0.0.jar
-/org/apache/kafka/main/zkclient-0.10.jar
 /org/apache/logging/log4j/main/log4j-api-2.9.1.jar
 /org/apache/logging/log4j/main/log4j-to-slf4j-2.9.1.jar
 /org/apache/lucene/3.6/lucene-core-3.6.0.jar
@@ -745,7 +741,6 @@
 /org/quartz/main/mchange-commons-java-0.2.11.jar
 /org/quartz/main/quartz-2.3.0.jar
 /org/reflections/main/reflections-0.9.10.jar
-/org/scala/lang/main/scala-library-2.11.7.jar
 /org/scribe/main/scribe-1.3.7.jar
 /org/springframework/aop/main/spring-aop-4.3.16.RELEASE.jar
 /org/springframework/batch/main/spring-batch-core-3.0.9.RELEASE.jar

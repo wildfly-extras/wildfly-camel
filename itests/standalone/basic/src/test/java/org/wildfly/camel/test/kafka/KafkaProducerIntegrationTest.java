@@ -20,7 +20,6 @@
 
 package org.wildfly.camel.test.kafka;
 
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -42,9 +41,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -71,19 +68,9 @@ public class KafkaProducerIntegrationTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "kafka-producer-tests.jar");
-        archive.addPackage(EmbeddedKafkaBroker.class.getPackage());
-        archive.addPackage(EmbeddedZookeeper.class.getPackage());
-        archive.addClasses(SimpleKafkaSerializer.class, SimpleKafkaPartitioner.class, TestUtils.class);
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.apache.kafka");
-                return builder.openStream();
-            }
-        });
-        return archive;
+        return ShrinkWrap.create(JavaArchive.class, "kafka-producer-tests.jar")
+            .addClasses(SimpleKafkaSerializer.class, SimpleKafkaPartitioner.class, TestUtils.class,
+                EmbeddedZookeeper.class, EmbeddedKafkaBroker.class);
     }
 
     @BeforeClass
@@ -239,7 +226,7 @@ public class KafkaProducerIntegrationTest {
     }
 
     private void sendMessagesInRoute(int messages, ProducerTemplate template, Object bodyOther, String... headersWithValue) {
-        Map<String, Object> headerMap = new HashMap<String, Object>();
+        Map<String, Object> headerMap = new HashMap<>();
         for (int i = 0; i < headersWithValue.length; i = i + 2) {
             headerMap.put(headersWithValue[i], headersWithValue[i + 1]);
         }

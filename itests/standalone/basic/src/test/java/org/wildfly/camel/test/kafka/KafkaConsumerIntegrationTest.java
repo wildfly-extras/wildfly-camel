@@ -20,7 +20,6 @@
 
 package org.wildfly.camel.test.kafka;
 
-import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
@@ -37,9 +36,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -62,19 +59,8 @@ public class KafkaConsumerIntegrationTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "kafka-consumer-tests.jar");
-        archive.addPackage(EmbeddedKafkaBroker.class.getPackage());
-        archive.addPackage(EmbeddedZookeeper.class.getPackage());
-        archive.addClass(TestUtils.class);
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.apache.kafka");
-                return builder.openStream();
-            }
-        });
-        return archive;
+        return ShrinkWrap.create(JavaArchive.class, "kafka-consumer-tests.jar")
+            .addClasses(TestUtils.class, EmbeddedZookeeper.class, EmbeddedKafkaBroker.class);
     }
 
     @BeforeClass
@@ -139,7 +125,7 @@ public class KafkaConsumerIntegrationTest {
         ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         try {
             Thread.currentThread().setContextClassLoader(org.apache.kafka.clients.producer.KafkaProducer.class.getClassLoader());
-            return new KafkaProducer<String, String>(props);
+            return new KafkaProducer<>(props);
         } finally {
             Thread.currentThread().setContextClassLoader(tccl);
         }
