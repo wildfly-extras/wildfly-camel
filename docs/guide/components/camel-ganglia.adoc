@@ -1,0 +1,3 @@
+### camel-ganglia
+
+The https://github.com/apache/camel/blob/{camel-version}/components/camel-ganglia/src/main/docs/ganglia-component.adoc[Ganglia,window=_blank] component provides a mechanism to send a value (the message body) as a metric to the http://ganglia.info/[Ganglia,window=_blank] monitoring system.

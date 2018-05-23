@@ -122,6 +122,8 @@ include::camel-freemarker.adoc[]
 
 include::camel-ftp.adoc[]
 
+include::camel-ganglia.adoc[]
+
 include::camel-geocoder.adoc[]
 
 include::camel-git.adoc[]

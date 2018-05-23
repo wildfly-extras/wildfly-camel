@@ -90,6 +90,7 @@
         <module name="org.apache.camel.component.fop" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.freemarker" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.ftp" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.ganglia" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.geocoder" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.git" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.github" export="true" services="export" optional="true" />

@@ -175,6 +175,7 @@
         <artifact groupId="edu.ucar" artifactId="netcdf4" version="4.5.5"/>
         <artifact groupId="edu.ucar" artifactId="udunits" version="4.5.5"/>
         <artifact groupId="edu.usc.ir" artifactId="sentiment-analysis-parser" version="0.1"/>
+        <artifact groupId="info.ganglia.gmetric4j" artifactId="gmetric4j" version="1.0.10"/>
         <artifact groupId="io.atomix" artifactId="atomix" version="1.0.8"/>
         <artifact groupId="io.atomix" artifactId="atomix-collections" version="1.0.8"/>
         <artifact groupId="io.atomix" artifactId="atomix-concurrent" version="1.0.8"/>
@@ -269,6 +270,7 @@
         <artifact groupId="net.sourceforge.htmlunit" artifactId="neko-htmlunit" version="2.24"/>
         <artifact groupId="net.spy" artifactId="spymemcached" version="2.12.3"/>
         <artifact groupId="ognl" artifactId="ognl" version="3.1.12"/>
+        <artifact groupId="org.acplt.remotetea" artifactId="remotetea-oncrpc" version="1.1.2"/>
         <artifact groupId="org.antlr" artifactId="ST4" version="4.0.8"/>
         <artifact groupId="org.antlr" artifactId="antlr-runtime" version="3.5.2"/>
         <artifact groupId="org.apache-extras.beanshell" artifactId="bsh" version="2.0b6"/>
@@ -345,6 +347,7 @@
         <artifact groupId="org.apache.camel" artifactId="camel-fop" version="2.21.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-freemarker" version="2.21.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-ftp" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-ganglia" version="2.21.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-geocoder" version="2.21.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-git" version="2.21.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-github" version="2.21.1"/>

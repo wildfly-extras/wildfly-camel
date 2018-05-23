@@ -112,6 +112,8 @@
 /edu/ucar/netcdf4/main/netcdf4-4.5.5.jar
 /edu/ucar/udunits/main/udunits-4.5.5.jar
 /edu/usc/ir/sentiment-analysis-parser/main/sentiment-analysis-parser-0.1.jar
+/info/ganglia/gmetric4j/main/gmetric4j-1.0.10.jar
+/info/ganglia/gmetric4j/main/remotetea-oncrpc-1.1.2.jar
 /io/atomix/main/atomix-1.0.8.jar
 /io/atomix/main/atomix-collections-1.0.8.jar
 /io/atomix/main/atomix-concurrent-1.0.8.jar
@@ -277,6 +279,7 @@
 /org/apache/camel/component/freemarker/main/camel-freemarker-2.21.1.jar
 /org/apache/camel/component/freemarker/main/freemarker-2.3.23.jar
 /org/apache/camel/component/ftp/main/camel-ftp-2.21.1.jar
+/org/apache/camel/component/ganglia/main/camel-ganglia-2.21.1.jar
 /org/apache/camel/component/geocoder/main/camel-geocoder-2.21.1.jar
 /org/apache/camel/component/geocoder/main/geocoder-java-0.16.jar
 /org/apache/camel/component/git/main/JavaEWAH-1.1.6.jar

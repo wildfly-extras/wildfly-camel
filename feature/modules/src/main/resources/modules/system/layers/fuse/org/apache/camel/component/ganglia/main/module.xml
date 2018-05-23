@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.ganglia">
+  <resources>
+    <artifact name="${org.apache.camel:camel-ganglia}" />
+  </resources>
+  <dependencies>
+    <module name="info.ganglia.gmetric4j" export="true">
+      <exports>
+        <exclude path="info/ganglia" />
+        <exclude path="org/acplt**" />
+      </exports>
+    </module>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>

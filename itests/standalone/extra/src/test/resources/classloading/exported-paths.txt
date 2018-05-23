@@ -1189,6 +1189,11 @@ groovy/util/slurpersupport
 groovy/xml
 groovy/xml/dom
 groovy/xml/streamingmarkupsupport
+info/ganglia/gmetric4j
+info/ganglia/gmetric4j/gmetric
+info/ganglia/gmetric4j/xdr
+info/ganglia/gmetric4j/xdr/v30x
+info/ganglia/gmetric4j/xdr/v31x
 io/atomix
 io/atomix/catalyst
 io/atomix/catalyst/annotations
@@ -1754,6 +1759,7 @@ org/apache/camel/component/file/remote/strategy
 org/apache/camel/component/flatpack
 org/apache/camel/component/fop
 org/apache/camel/component/freemarker
+org/apache/camel/component/ganglia
 org/apache/camel/component/geocoder
 org/apache/camel/component/geocoder/http
 org/apache/camel/component/git

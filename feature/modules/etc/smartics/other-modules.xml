@@ -823,6 +823,9 @@
     </module>
 
     <module name="edu.ucar.netcdf4">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="edu.ucar:netcdf4" />
         <apply-to-dependencies skip="true">
             <include module="net.java.dev.jna" />
@@ -830,6 +833,9 @@
     </module>
 
     <module name="edu.ucar.cdm">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="edu.ucar:cdm" />
         <apply-to-dependencies skip="true">
             <include module="com.beust.jcommander" />
@@ -862,6 +868,14 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="edu.usc.ir:sentiment-analysis-parser" />
+    </module>
+
+    <module name="info.ganglia.gmetric4j">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="info.ganglia.gmetric4j:gmetric4j" />
+        <include artifact="org.acplt.remotetea:remotetea-oncrpc" />
     </module>
 
     <module name="io.atomix">

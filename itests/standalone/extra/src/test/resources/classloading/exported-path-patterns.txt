@@ -41,6 +41,7 @@
     ^facebook4j(.*)
     ^freemarker(.*)
 	^groovy(.*)
+	^info/ganglia/gmetric4j(.*)
     ^io/atomix(.*)
 	^io/fabric8/kubernetes(.*)
  	^io/fabric8/openshift(.*)

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="info.ganglia.gmetric4j">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${info.ganglia.gmetric4j:gmetric4j}" />
+    <artifact name="${org.acplt.remotetea:remotetea-oncrpc}" />
+  </resources>
+  <dependencies />
+</module>
