@@ -39,7 +39,7 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 public class GroovyShellFactoryTest {
 
-    @Resource(name = "java:jboss/camel/context/spring-context")
+    @Resource(lookup = "java:jboss/camel/context/spring-context")
     CamelContext camelctx;
 
     @Deployment

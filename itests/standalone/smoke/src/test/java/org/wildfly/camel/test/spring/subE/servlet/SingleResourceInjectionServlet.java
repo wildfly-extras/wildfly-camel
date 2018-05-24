@@ -33,7 +33,7 @@ import org.apache.camel.CamelContext;
 @WebServlet(name = "HttpServiceServlet", urlPatterns = { "/*" }, loadOnStartup = 1)
 public class SingleResourceInjectionServlet extends HttpServlet {
 
-    @Resource(name = "java:jboss/camel/context/jndi-delayed-binding-spring-context")
+    @Resource(lookup = "java:jboss/camel/context/jndi-delayed-binding-spring-context")
     private CamelContext camelctx;
 
     @Override

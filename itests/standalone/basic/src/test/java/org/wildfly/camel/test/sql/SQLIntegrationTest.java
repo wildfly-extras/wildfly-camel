@@ -58,7 +58,7 @@ public class SQLIntegrationTest {
     @ArquillianResource
     Deployer deployer;
 
-    @Resource(name = "java:jboss/datasources/ExampleDS")
+    @Resource(lookup = "java:jboss/datasources/ExampleDS")
     DataSource dataSource;
 
     @Deployment

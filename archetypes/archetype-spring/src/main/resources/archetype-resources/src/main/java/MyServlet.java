@@ -34,7 +34,7 @@ import org.apache.camel.ProducerTemplate;
 
 @WebServlet(name = "HttpServiceServlet", urlPatterns = { "/*" }, loadOnStartup = 1)
 public class MyServlet extends HttpServlet {
-	@Resource(name = "java:jboss/camel/context/spring-context")
+	@Resource(lookup = "java:jboss/camel/context/spring-context")
 	private CamelContext camelContext;
 
     @Override

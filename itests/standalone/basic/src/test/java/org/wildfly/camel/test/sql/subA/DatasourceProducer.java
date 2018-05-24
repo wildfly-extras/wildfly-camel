@@ -26,7 +26,7 @@ import javax.inject.Named;
 import javax.sql.DataSource;
 
 public class DatasourceProducer {
-    @Resource(name = "java:jboss/datasources/ExampleDS")
+    @Resource(lookup = "java:jboss/datasources/ExampleDS")
     DataSource dataSource;
 
     @Produces
