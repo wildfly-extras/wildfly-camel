@@ -2167,6 +2167,8 @@ org/apache/camel/processor/mllp
 org/apache/camel/routepolicy
 org/apache/camel/routepolicy/quartz2
 org/apache/camel/script
+org/apache/camel/service
+org/apache/camel/service/lra
 org/apache/camel/swagger
 org/apache/camel/swagger/servlet
 org/apache/camel/utils

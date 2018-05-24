@@ -394,6 +394,7 @@
         <artifact groupId="org.apache.camel" artifactId="camel-leveldb" version="2.21.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-linkedin" version="2.21.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-linkedin-api" version="2.21.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-lra" version="2.21.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-lucene" version="2.21.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-lumberjack" version="2.21.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-lzf" version="2.21.1"/>

@@ -150,6 +150,16 @@
                     strategy: log
                     match: 'Now listening'
                     timeout: 15
+            lra:
+                image: wildflyext/lra-coordinator:latest
+                portBindings: [
+                    46000->46000/tcp
+                ]
+                networkMode: host
+                await:
+                    strategy: log
+                    match: 'WFSWARM99999: WildFly Swarm is Ready'
+                    timeout: 15
             nats:
                 image: nats:0.9.6
                 portBindings: [

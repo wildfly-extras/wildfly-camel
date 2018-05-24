@@ -353,6 +353,7 @@
 /org/apache/camel/component/leveldb/main/camel-leveldb-2.21.1.jar
 /org/apache/camel/component/linkedin/main/camel-linkedin-2.21.1.jar
 /org/apache/camel/component/linkedin/main/camel-linkedin-api-2.21.1.jar
+/org/apache/camel/component/lra/main/camel-lra-2.21.1.jar
 /org/apache/camel/component/lucene/main/camel-lucene-2.21.1.jar
 /org/apache/camel/component/lumberjack/main/camel-lumberjack-2.21.1.jar
 /org/apache/camel/component/lzf/main/camel-lzf-2.21.1.jar

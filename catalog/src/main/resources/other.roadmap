@@ -5,6 +5,7 @@ headersmap
 hystrix
 jasypt
 leveldb
+lra
 opentracing
 reactor
 ribbon
@@ -18,7 +19,6 @@ zipkin
 
 [undecided]
 aws-xray
-lra
 
 [rejected]
 bam                                 #deprecated
