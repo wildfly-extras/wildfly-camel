@@ -24,7 +24,7 @@ This example uses the `@Named` annotation so that Camel can discover the desired
 [source,java,options="nowrap"]
 ----
 public class DatasourceProducer {
-    @Resource(name = "java:jboss/datasources/ExampleDS")
+    @Resource(lookup = "java:jboss/datasources/ExampleDS")
     DataSource dataSource;
 
     @Produces
