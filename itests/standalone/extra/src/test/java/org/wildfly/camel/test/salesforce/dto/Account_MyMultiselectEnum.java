@@ -10,19 +10,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Salesforce Enumeration DTO for picklist Status
+ * Salesforce Enumeration DTO for picklist MyMultiselect__c
  */
 @Generated("org.apache.camel.maven.CamelSalesforceMojo")
-public enum Order_StatusEnum {
+public enum Account_MyMultiselectEnum {
 
-    // Activated
-    ACTIVATED("Activated"),
-    // Draft
-    DRAFT("Draft");
+    // bar
+    BAR("bar"),
+    // cheese
+    CHEESE("cheese"),
+    // foo
+    FOO("foo");
 
     final String value;
 
-    private Order_StatusEnum(String value) {
+    private Account_MyMultiselectEnum(String value) {
         this.value = value;
     }
 
@@ -32,8 +34,8 @@ public enum Order_StatusEnum {
     }
 
     @JsonCreator
-    public static Order_StatusEnum fromValue(String value) {
-        for (Order_StatusEnum e : Order_StatusEnum.values()) {
+    public static Account_MyMultiselectEnum fromValue(String value) {
+        for (Account_MyMultiselectEnum e : Account_MyMultiselectEnum.values()) {
             if (e.value.equals(value)) {
                 return e;
             }

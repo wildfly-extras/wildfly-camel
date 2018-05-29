@@ -50,7 +50,7 @@
 
         <route id="salesforce-account" trace="true">
             <from uri="direct:account" />
-            <to uri="salesforce:query?sObjectQuery=SELECT Id,AccountNumber FROM Account&amp;sObjectClass=org.wildfly.camel.test.salesforce.dto.QueryRecordsAccount"/>
+            <to uri="salesforce:query?sObjectQuery=SELECT Id,AccountNumber,MyMultiselect__c FROM Account&amp;sObjectClass=org.wildfly.camel.test.salesforce.dto.QueryRecordsAccount"/>
             <log message="${body}" />
         </route>
 

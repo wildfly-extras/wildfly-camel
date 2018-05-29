@@ -85,6 +85,8 @@ public class SalesforceSpringIntegrationTest_ {
         Account accItem = accRecords.getRecords().get(0);
         Assert.assertNotNull("Expected Account Id", accItem.getId());
         Assert.assertNotNull("Expected Account Number", accItem.getAccountNumber());
+        Assert.assertNotNull("Expected MyMultiselect", accItem.getMyMultiselect__c());
+        Assert.assertEquals("Expected MyMultiselect to have 3 values", 3, accItem.getMyMultiselect__c().length);
     }
 
     protected Map<String, Object> createSalesforceOptions() throws Exception {
