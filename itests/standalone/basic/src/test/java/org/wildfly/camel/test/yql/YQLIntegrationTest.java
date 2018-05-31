@@ -62,7 +62,7 @@ public class YQLIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .toF("yql://%s?format=json&callback=%s&https=false&env=%s", FINANCE_QUERY, CALLBACK, ENV)
+                .toF("yql://%s?format=json&callback=%s&https=false&env=%s&throwExceptionOnFailure=false", FINANCE_QUERY, CALLBACK, ENV)
                 .to("mock:result");
             }
         });
@@ -74,9 +74,17 @@ public class YQLIntegrationTest {
             ProducerTemplate template = camelctx.createProducerTemplate();
             template.sendBody("direct:start", null);
 
-            final Exchange exchange = mockEndpoint.getReceivedExchanges().get(0);
+            Exchange exchange = mockEndpoint.getReceivedExchanges().get(0);
+            Integer status = exchange.getIn().getHeader(CAMEL_YQL_HTTP_STATUS, Integer.class);
+            if (!status.equals(HttpStatus.SC_OK)) {
+                // [#2553] Retry YQL query
+                mockEndpoint.reset();
+                template.sendBody("direct:start", null);
+                exchange = mockEndpoint.getReceivedExchanges().get(0);
+                status = exchange.getIn().getHeader(CAMEL_YQL_HTTP_STATUS, Integer.class);
+            }
+
             final String body = exchange.getIn().getBody(String.class);
-            final Integer status = exchange.getIn().getHeader(CAMEL_YQL_HTTP_STATUS, Integer.class);
             final String httpRequest = exchange.getIn().getHeader(CAMEL_YQL_HTTP_REQUEST, String.class);
             Assert.assertThat(httpRequest, containsString("http"));
             Assert.assertThat(httpRequest, containsString("q=" + URLEncoder.encode(FINANCE_QUERY, "UTF-8")));
@@ -135,7 +143,7 @@ public class YQLIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .toF("yql://%s?format=xml&crossProduct=optimized&env=%s", BOOK_QUERY, ENV)
+                .toF("yql://%s?format=xml&crossProduct=optimized&env=%s&throwExceptionOnFailure=false", BOOK_QUERY, ENV)
                 .to("mock:result");
             }
         });
@@ -147,9 +155,17 @@ public class YQLIntegrationTest {
             ProducerTemplate template = camelctx.createProducerTemplate();
             template.sendBody("direct:start", null);
 
-            final Exchange exchange = mockEndpoint.getReceivedExchanges().get(0);
+            Exchange exchange = mockEndpoint.getReceivedExchanges().get(0);
+            Integer status = exchange.getIn().getHeader(CAMEL_YQL_HTTP_STATUS, Integer.class);
+            if (!status.equals(HttpStatus.SC_OK)) {
+                // [#2553] Retry YQL query
+                mockEndpoint.reset();
+                template.sendBody("direct:start", null);
+                exchange = mockEndpoint.getReceivedExchanges().get(0);
+                status = exchange.getIn().getHeader(CAMEL_YQL_HTTP_STATUS, Integer.class);
+            }
+
             final String body = exchange.getIn().getBody(String.class);
-            final Integer status = exchange.getIn().getHeader(CAMEL_YQL_HTTP_STATUS, Integer.class);
             final String httpRequest = exchange.getIn().getHeader(CAMEL_YQL_HTTP_REQUEST, String.class);
             Assert.assertThat(httpRequest, containsString("https"));
             Assert.assertThat(httpRequest, containsString("q=" + URLEncoder.encode(BOOK_QUERY, "UTF-8")));
