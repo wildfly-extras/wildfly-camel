@@ -1,5 +1,101 @@
 ### Changelog
 
+#### WildFly-Camel 6.1.0
+
+**Features**
+
+* [#1850][1850] Add support for component tika
+* [#1989][1989] Add support for component cmis
+* [#1998][1998] Add support for component ganglia
+* [#2021][2021] Add support for component pgevent
+* [#2487][2487] Add support for component wordpress
+* [#2489][2489] Add support for component yql
+* [#2491][2491] Add support for component lra
+
+For details see [6.1.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"6.1.0"+label%3Afeature)
+
+**Tasks**
+
+* [#2115][2115] Add a generic OpenShift template
+* [#2317][2317] Create a set of generic camel REST DSL tests
+* [#2458][2458] Upgrade to camel-2.21.1
+* [#2470][2470] Remove deprecated camel components
+* [#2479][2479] Remove redundant wildfly-camel-feature-extrasD dependency
+* [#2483][2483] Use stubbed data for SAPNetweaverIntegrationTest
+* [#2485][2485] Clean up exported OSGi package paths
+* [#2494][2494] Relax CXF package export restrictions
+* [#2500][2500] Protect access to TCCL by security actions in all packages
+* [#2503][2503] Add license information to feature pack
+* [#2506][2506] Sanitize license file names
+* [#2507][2507] Reject support for component xmlrpc
+* [#2519][2519] Add test coverage for saga EIP
+* [#2526][2526] Remove redundant configuration from archetypes
+* [#2529][2529] Upgrade Hawtio to 1.5.9
+* [#2539][2539] Remove org.apache.kafka module
+* [#2543][2543] Use  org.hibernate.jpa.HibernatePersistenceProvider instead of org.hibernate.ejb.HibernatePersistence
+* [#2546][2546] Use @Resource lookup attribute instead of name
+* [#2548][2548] Upgrade to editorconfig-maven-plugin 0.0.5
+* [#2550][2550] Add test coverage for Salesforce picklist attributes
+* [#2552][2552] Upgrade Hawtio to 1.5.10
+
+For details see [6.1.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"6.1.0"+label%3Atask)
+
+**Bugs**
+
+* [#1701][1701] Cannot start Redis server on Windows
+* [#2439][2439] LinkedInIntegrationTest fails with 2.21.0
+* [#2476][2476] Incorrect version for jackson-jr-objects
+* [#2481][2481] Release 6.0.0 is missing some downloads
+* [#2486][2486] MongoDBIntegrationTest fails on Windows
+* [#2498][2498] camel-salesforce query attributes are not mapped correctly
+* [#2505][2505] Intermittent failure of PGEventIntegrationTest
+* [#2512][2512] Module org.apache.cxf.ext is missing jettison dependency
+* [#2513][2513] Hl7 component module is missing dependency for org.apache.mina.core
+* [#2536][2536] org.apache.camel.script.groovy module cannot access sun.misc.Unsafe
+* [#2553][2553] Intermittent failure of YQLIntegrationTest
+
+For details see [6.1.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"6.1.0"+label%3Abug)
+
+[1850]: https://github.com/wildfly-extras/wildfly-camel/issues/1850
+[1989]: https://github.com/wildfly-extras/wildfly-camel/issues/1989
+[1998]: https://github.com/wildfly-extras/wildfly-camel/issues/1998
+[2021]: https://github.com/wildfly-extras/wildfly-camel/issues/2021
+[2487]: https://github.com/wildfly-extras/wildfly-camel/issues/2487
+[2489]: https://github.com/wildfly-extras/wildfly-camel/issues/2489
+[2491]: https://github.com/wildfly-extras/wildfly-camel/issues/2491
+[2115]: https://github.com/wildfly-extras/wildfly-camel/issues/2115
+[2317]: https://github.com/wildfly-extras/wildfly-camel/issues/2317
+[2458]: https://github.com/wildfly-extras/wildfly-camel/issues/2458
+[2470]: https://github.com/wildfly-extras/wildfly-camel/issues/2470
+[2479]: https://github.com/wildfly-extras/wildfly-camel/issues/2479
+[2483]: https://github.com/wildfly-extras/wildfly-camel/issues/2483
+[2485]: https://github.com/wildfly-extras/wildfly-camel/issues/2485
+[2494]: https://github.com/wildfly-extras/wildfly-camel/issues/2494
+[2500]: https://github.com/wildfly-extras/wildfly-camel/issues/2500
+[2503]: https://github.com/wildfly-extras/wildfly-camel/issues/2503
+[2506]: https://github.com/wildfly-extras/wildfly-camel/issues/2506
+[2507]: https://github.com/wildfly-extras/wildfly-camel/issues/2507
+[2519]: https://github.com/wildfly-extras/wildfly-camel/issues/2519
+[2526]: https://github.com/wildfly-extras/wildfly-camel/issues/2526
+[2529]: https://github.com/wildfly-extras/wildfly-camel/issues/2529
+[2539]: https://github.com/wildfly-extras/wildfly-camel/issues/2539
+[2543]: https://github.com/wildfly-extras/wildfly-camel/issues/2543
+[2546]: https://github.com/wildfly-extras/wildfly-camel/issues/2546
+[2548]: https://github.com/wildfly-extras/wildfly-camel/issues/2548
+[2550]: https://github.com/wildfly-extras/wildfly-camel/issues/2550
+[2552]: https://github.com/wildfly-extras/wildfly-camel/issues/2552
+[1701]: https://github.com/wildfly-extras/wildfly-camel/issues/1701
+[2439]: https://github.com/wildfly-extras/wildfly-camel/issues/2439
+[2476]: https://github.com/wildfly-extras/wildfly-camel/issues/2476
+[2481]: https://github.com/wildfly-extras/wildfly-camel/issues/2481
+[2486]: https://github.com/wildfly-extras/wildfly-camel/issues/2486
+[2498]: https://github.com/wildfly-extras/wildfly-camel/issues/2498
+[2505]: https://github.com/wildfly-extras/wildfly-camel/issues/2505
+[2512]: https://github.com/wildfly-extras/wildfly-camel/issues/2512
+[2513]: https://github.com/wildfly-extras/wildfly-camel/issues/2513
+[2536]: https://github.com/wildfly-extras/wildfly-camel/issues/2536
+[2553]: https://github.com/wildfly-extras/wildfly-camel/issues/2553
+
 #### WildFly-Camel 6.0.0
 
 **Features**
