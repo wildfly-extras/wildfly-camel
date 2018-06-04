@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel</artifactId>
-        <version>6.1.0</version>
+        <version>6.2.0-SNAPSHOT</version>
     </parent>
 
     <name>Wildfly Camel :: Enricher</name>

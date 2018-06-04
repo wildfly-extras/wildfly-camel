@@ -39,7 +39,7 @@
         <artifact groupId="org.elasticsearch" artifactId="securesm" version="1.0"/>
         <artifact groupId="org.hdrhistogram" artifactId="HdrHistogram" version="2.1.6"/>
         <artifact groupId="org.slf4j" artifactId="slf4j-api" version="1.7.25"/>
-        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-extrasA" version="6.1.0-SNAPSHOT" extension="zip"/>
+        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-extrasA" version="6.2.0-SNAPSHOT" extension="zip"/>
         <artifact groupId="org.yaml" artifactId="snakeyaml" version="1.18"/>
     </artifact-versions>
 </feature-pack>
