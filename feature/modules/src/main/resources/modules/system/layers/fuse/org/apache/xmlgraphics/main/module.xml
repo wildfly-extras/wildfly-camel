@@ -25,7 +25,7 @@
     <artifact name="${org.apache.xmlgraphics:xmlgraphics-commons}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
+    <module name="jdk.xml.dom" />
     <module name="org.apache.avalon.framework" />
     <module name="javax.servlet.api" />
     <module name="org.apache.commons.io" />

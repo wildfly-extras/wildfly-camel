@@ -91,6 +91,7 @@ public class CXFRSSecureConsumerIntegrationTest {
             // Verify that if we attempt to use HTTP, we get a 302 redirect to the HTTPS endpoint URL
             HttpResponse response = HttpRequest.get(INSECURE_RS_ENDPOINT)
                 .throwExceptionOnFailure(false)
+                .followRedirects(false)
                 .getResponse();
             Assert.assertEquals(302, response.getStatusCode());
             Assert.assertEquals(response.getHeader("Location"), SECURE_RS_ENDPOINT);

@@ -30,11 +30,15 @@ import java.lang.management.ManagementFactory;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javax.management.JMX;
 import javax.management.MBeanServer;
@@ -52,6 +56,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -59,16 +65,21 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 public class ExportedPathsTest {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ExportedPathsTest.class);
+
     private static final String FILE_BASEDIR = "basedir.txt";
     private static final String FILE_EXPORTED_PATH_PATTERNS = "exported-path-patterns.txt";
     private static final String BASELINE_EXPORTED_PATHS_TXT = "src/test/resources/classloading/exported-paths.txt";
     private static final Path FILE_EXPORTED_PATHS = Paths.get(System.getProperty("exportedPathsTxt", BASELINE_EXPORTED_PATHS_TXT));
     private static final Path FILE_MODULE_INFOS = Paths.get("target/module-infos.txt");
 
-    private static final String MODULE_LOADER_OBJECT_NAME = "jboss.modules:type=ModuleLoader,name=LocalModuleLoader-2";
+    private static final String MODULE_LOADER_OBJECT_NAME = "jboss.modules:type=ModuleLoader,name=LocalModuleLoader-3";
+    private static final String BASE_MODULE_LOADER_OBJECT_NAME = "jboss.modules:type=ModuleLoader,name=ModuleLoader-2";
     private static final String MODULE_CAMEL_COMPONENT = "org.apache.camel.component";
     private static final String MODULE_CAMEL = "org.apache.camel";
     private static final String MODULE_WILDFLY_CAMEL_EXTRAS = "org.wildfly.camel.extras:main";
+    /** Modules added by default by JBoss Modules */
+    private static final Set<String> IGNORED_MODULES = new HashSet<>(Arrays.asList("java.base", "java.se", "jdk.unsupported"));
 
     @Deployment
     public static JavaArchive deployment() {
@@ -82,17 +93,23 @@ public class ExportedPathsTest {
     @Before
     public void setUp() throws Exception {
         MBeanServer server = ManagementFactory.getPlatformMBeanServer();
+        ObjectName baseObjectName = ObjectNameFactory.create(BASE_MODULE_LOADER_OBJECT_NAME);
+        ModuleLoaderMXBean baseMBean = JMX.newMXBeanProxy(server, baseObjectName, ModuleLoaderMXBean.class);
+
+        Set<String> ignoredPaths = IGNORED_MODULES.stream() //
+                .flatMap(moduleName -> baseMBean.getModulePathsInfo(moduleName, true).keySet().stream()) //
+                .collect(Collectors.toSet());
+
         ObjectName oname = ObjectNameFactory.create(MODULE_LOADER_OBJECT_NAME);
         ModuleLoaderMXBean mbean = JMX.newMXBeanProxy(server, oname, ModuleLoaderMXBean.class);
 
         Path moduleInfos = resolvePath(FILE_MODULE_INFOS);
-        PrintWriter pw = new PrintWriter(new FileWriter(moduleInfos.toFile()));
-        try {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(moduleInfos.toFile()))) {
             for (String module : new String[] { MODULE_CAMEL, MODULE_CAMEL_COMPONENT }) {
                 pw.println(mbean.dumpModuleInformation(module));
                 for (DependencyInfo depinfo : mbean.getDependencies(module)) {
                     String moduleName = depinfo.getModuleName();
-                    if (moduleName != null && !moduleName.equals(MODULE_WILDFLY_CAMEL_EXTRAS)) {
+                    if (moduleName != null && !moduleName.equals(MODULE_WILDFLY_CAMEL_EXTRAS) && !IGNORED_MODULES.contains(moduleName)) {
                         String modinfo;
                         try {
                             modinfo = mbean.dumpModuleInformation(moduleName);
@@ -106,26 +123,20 @@ public class ExportedPathsTest {
                         }
                         pw.println(modinfo);
                         pw.println("[Exported Paths: " + moduleName + "]");
-                        List<String> modulePaths = new ArrayList<>(mbean.getModulePathsInfo(moduleName, true).keySet());
-                        Collections.sort(modulePaths);
-                        for (String path : modulePaths) {
-                            if (path.contains("/") && !path.equals("org/apache")) {
-                                pw.println(path);
-                            }
-                        }
+                        mbean.getModulePathsInfo(moduleName, true).keySet().stream() //
+                                .filter(p -> !ignoredPaths.contains(p) && p.contains("/") && !p.equals("org/apache")) //
+                                .sorted() //
+                                .forEach(p -> pw.println(p));
                         pw.println();
                     }
                 }
             }
             pw.flush();
-        } finally {
-            pw.close();
         }
 
         Path exportedPaths = resolvePath(FILE_EXPORTED_PATHS);
-        pw = new PrintWriter(new FileWriter(exportedPaths.toFile()));
         List<String> camelExtraDeps = getDependentModuleNames(mbean);
-        try {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(exportedPaths.toFile()))) {
             for (String module : new String[] { MODULE_CAMEL, MODULE_CAMEL_COMPONENT }) {
                 pw.println("[Exported Paths: " + module + "]");
 
@@ -136,15 +147,14 @@ public class ExportedPathsTest {
                     String moduleName = getPathModuleLoaderName(modulePathsInfo.get(path));
 
                     // Ignore paths exported from wildfly.camel.extras as they are not guaranteed to be present
-                    if (path.contains("/") && !path.equals("org/apache") && !camelExtraDeps.contains(moduleName)) {
+                    // and also ignore the paths coming from IGNORED_MODULES
+                    if (path.contains("/") && !path.equals("org/apache") && !camelExtraDeps.contains(moduleName) && !ignoredPaths.contains(path)) {
                         pw.println(path);
                     }
                 }
                 pw.println();
             }
             pw.flush();
-        } finally {
-            pw.close();
         }
     }
 

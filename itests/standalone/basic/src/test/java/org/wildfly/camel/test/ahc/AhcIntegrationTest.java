@@ -60,7 +60,8 @@ public class AhcIntegrationTest {
             Future<Response> f = client.prepareGet(HTTP_URL).execute();
             Response res = f.get();
             Assert.assertEquals(200, res.getStatusCode());
-            Assert.assertTrue(res.getResponseBody().contains("Welcome to WildFly 11"));
+            final String body = res.getResponseBody();
+            Assert.assertTrue("Got body " + body, body.contains("Welcome to WildFly"));
         }
     }
 
@@ -88,7 +89,8 @@ public class AhcIntegrationTest {
             mockep.assertIsSatisfied();
             Message message = mockep.getExchanges().get(0).getIn();
             Assert.assertEquals(200, (int) message.getHeader(Exchange.HTTP_RESPONSE_CODE, Integer.class));
-            Assert.assertTrue(message.getBody(String.class).contains("Welcome to WildFly 11"));
+            final String body = message.getBody(String.class);
+            Assert.assertTrue("Got body " + body, body.contains("Welcome to WildFly"));
 
         } finally {
             camelctx.stop();

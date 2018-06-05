@@ -10,6 +10,7 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="jdk.xml.dom" />
     <module name="org.w3c.css.sac" />
     <module name="net.sourceforge.cssparser" />
     <module name="org.apache.commons.codec" />

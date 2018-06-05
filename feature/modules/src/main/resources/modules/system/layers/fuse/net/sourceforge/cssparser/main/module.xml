@@ -7,7 +7,7 @@
     <artifact name="${net.sourceforge.cssparser:cssparser}" />
   </resources>
   <dependencies>
-    <module name="javax.api" />
+    <module name="jdk.xml.dom" />
     <module name="org.w3c.css.sac" />
   </dependencies>
 </module>

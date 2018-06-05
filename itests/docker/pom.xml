@@ -60,6 +60,7 @@
         <dependency>
             <groupId>org.wildfly.arquillian</groupId>
             <artifactId>wildfly-arquillian-container-remote</artifactId>
+            <version>${version.wildfly.arquillian}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

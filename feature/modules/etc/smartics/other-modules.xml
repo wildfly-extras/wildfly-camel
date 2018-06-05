@@ -1118,7 +1118,7 @@
         </properties>
         <include artifact="net.sourceforge.cssparser:(.*)"/>
         <dependencies>
-            <module name="javax.api"/>
+            <module name="jdk.xml.dom" />
         </dependencies>
     </module>
 
@@ -1129,6 +1129,7 @@
         <include artifact="net.sourceforge.htmlunit:(.*)"/>
         <dependencies>
             <module name="javax.api"/>
+            <module name="jdk.xml.dom" />
             <module name="org.w3c.css.sac"/>
         </dependencies>
     </module>
@@ -1669,7 +1670,7 @@
         <include artifact="org.apache.xmlgraphics:fop" />
         <include artifact="org.apache.xmlgraphics:xmlgraphics-commons" />
         <dependencies>
-            <module name="javax.api" />
+            <module name="jdk.xml.dom" />
             <module name="org.apache.avalon.framework" />
         </dependencies>
     </module>
