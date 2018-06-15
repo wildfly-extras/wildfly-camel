@@ -60,7 +60,7 @@ public class DMRUtils {
                     for (String argSegment : args.replaceAll("[{}\\[\\]]", "").split(",")) {
                         if (argSegment.startsWith("handlers")) {
                             Matcher handlerMatch = HANDLER_PATTERN.matcher(argSegment);
-                            if (handlerMatch.find()); {
+                            if (handlerMatch.find()) {
                                 op.get("handlers").add(handlerMatch.group(1));
                             }
                         } else {
