@@ -125,7 +125,7 @@
         <version-smartics-maven-plugin>2.1.5</version-smartics-maven-plugin>
         <version-wildfly-build-tools>1.2.10.Final</version-wildfly-build-tools>
         <version-wildfly-licenses-plugin>2.0.0.Beta1</version-wildfly-licenses-plugin>
-        <version-wildfly-maven-plugin>1.2.0.Final</version-wildfly-maven-plugin>
+        <version-wildfly-maven-plugin>1.2.2.Final</version-wildfly-maven-plugin>
         <version-xml-maven-plugin>1.0.1</version-xml-maven-plugin>
 
         <!-- GitHub -->
