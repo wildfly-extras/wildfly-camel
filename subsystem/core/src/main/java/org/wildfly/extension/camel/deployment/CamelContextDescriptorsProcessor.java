@@ -54,7 +54,7 @@ public class CamelContextDescriptorsProcessor implements DeploymentUnitProcessor
         final String runtimeName = depUnit.getName();
 
         CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
-        if (depSettings.isDisabledByJbossAll() || !depSettings.isDeploymentValid() || depUnit.getParent() != null) {
+        if (depSettings.isDisabledByJbossAll() || !depSettings.isDeploymentValid() || runtimeName.endsWith(".ear")) {
             return;
         }
 

@@ -30,6 +30,7 @@ import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.classloading.subC.XmlRouteBuilder;
@@ -38,6 +39,7 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 
 @CamelAware
 @RunWith(Arquillian.class)
+@Ignore("[#2497] Camel subsystem not activated by @ImportResource in EAR")
 public class CamelEnablementImportResourceWarInEarTest {
 
     @ArquillianResource
