@@ -125,11 +125,15 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":spring-core" />
+        <apply-to-dependencies skip="true">
+            <include module="org.springframework.skipped" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="org.jboss.vfs" />
             <module name="org.springframework.aop" export="true" />
             <module name="org.springframework.batch" optional="true" />
+            <module name="org.apache.commons.logging" />
         </dependencies>
         <exports>
             <exclude path="org/springframework/cglib/core/internal" />
@@ -192,6 +196,7 @@
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />
+            <module name="org.reactivestreams" />
             <module name="org.springframework.beans" />
             <module name="org.springframework.expression" />
         </dependencies>
@@ -221,6 +226,7 @@
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />
+            <module name="org.springframework.context" />
         </dependencies>
     </module>
 
@@ -247,6 +253,7 @@
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" />
+            <module name="org.springframework.context" />
         </dependencies>
     </module>
 
@@ -319,6 +326,9 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.springframework:spring-web" />
+        <dependencies>
+            <module name="org.springframework.context" />
+        </dependencies>
     </module>
 
     <module name="org.springframework.ws">
@@ -333,6 +343,7 @@
             <module name="javax.api" />
             <module name="javax.xml.bind.api" />
             <module name="javax.xml.soap.api" />
+            <module name="org.springframework.context" />
         </dependencies>
     </module>
 

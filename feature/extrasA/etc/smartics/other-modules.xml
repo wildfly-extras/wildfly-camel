@@ -20,6 +20,13 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="aopalliance">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="aopalliance:aopalliance" />
+    </module>
+
     <module name="com.google.guava" inherit-slot="false" slot="12.0">
         <properties>
             <property name="jboss.api" value="private"/>

@@ -44,6 +44,7 @@ public class EmbeddedKafkaBroker {
 
     private final List<KafkaServer> brokers;
     private final List<File> logDirs;
+    private ZkUtils zkUtils = null;
 
     public EmbeddedKafkaBroker(String zkConnection) {
         this(zkConnection, new Properties());
@@ -64,10 +65,7 @@ public class EmbeddedKafkaBroker {
     }
 
     public ZkUtils getZkUtils() {
-        for (KafkaServer server : brokers) {
-            return server.zkUtils();
-        }
-        return null;
+        return zkUtils;
     }
 
     public void createTopics(String... topics) {
@@ -129,6 +127,11 @@ public class EmbeddedKafkaBroker {
 
 
     private KafkaServer startBroker(Properties props) {
+        zkUtils = ZkUtils.apply(
+                zkConnection,
+                30000,
+                30000,
+                false);
         List<KafkaMetricsReporter> kmrList = new ArrayList<>();
         Buffer<KafkaMetricsReporter> metricsList = scala.collection.JavaConversions.asScalaBuffer(kmrList);
         KafkaServer server = new KafkaServer(new KafkaConfig(props), new SystemTime(), Option.<String>empty(), metricsList);
@@ -157,6 +160,7 @@ public class EmbeddedKafkaBroker {
     }
 
     public void shutdown() {
+        zkUtils.close();
         for (KafkaServer broker : brokers) {
             try {
                 broker.shutdown();

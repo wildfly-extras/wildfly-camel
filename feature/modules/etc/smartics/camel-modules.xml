@@ -1703,10 +1703,12 @@
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
-        <apply-to-dependencies export="true">
-            <include module="org.apache.kafka.clients" />
-        </apply-to-dependencies>
         <dependencies>
+            <module name="org.apache.kafka.clients" export="true">
+                <exports>
+                    <exclude path="org/apache/kafka/common/header/internals" />
+                </exports>
+            </module>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -3222,6 +3224,7 @@
         <include artifact="io.zipkin.java:zipkin" />
         <include artifact="io.zipkin.zipkin2:zipkin" />
         <include artifact="io.zipkin.reporter2:zipkin-reporter" />
+        <include artifact="io.zipkin.reporter2:zipkin-sender-libthrift" />
         <include artifact="io.zipkin.reporter2:zipkin-sender-urlconnection" />
         <apply-to-dependencies skip="true">
             <include module="com.google.auto.value" />
@@ -3230,15 +3233,17 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="org.apache.thrift" />
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
-            <exclude path="com/github" />
-            <exclude path="com/github/kristofa" />
-            <exclude path="com/github/kristofa/brave/internal**" />
-            <exclude path="com/twitter**" />
-            <exclude path="zipkin2/**" />
-            <exclude path="zipkin/**" />
+            <exclude path="brave**" />
+            <exclude path="zipkin2/codec**"/>
+            <exclude path="zipkin2/internal**"/>
+            <exclude path="zipkin2/reporter/libthrift**"/>
+            <exclude path="zipkin2/reporter/urlconnection**"/>
+            <exclude path="zipkin2/storage**"/>
+            <exclude path="zipkin2/v1**"/>
         </exports>
     </module>
 

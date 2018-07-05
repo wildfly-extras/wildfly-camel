@@ -45,6 +45,7 @@ import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.jxmpp.jid.impl.JidCreate;
@@ -52,6 +53,7 @@ import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 import org.wildfly.camel.test.xmpp.subA.EmbeddedXMPPServer;
 import org.wildfly.extension.camel.CamelAware;
 
+@Ignore("https://github.com/wildfly-extras/wildfly-camel/issues/2557")
 @CamelAware
 @RunWith(Arquillian.class)
 @ServerSetup({XMPPIntegrationTest.ServerSetup.class})

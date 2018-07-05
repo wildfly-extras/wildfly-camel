@@ -13,6 +13,7 @@
     <module name="org.xerial.snappy" />
   </dependencies>
   <exports>
+    <include path="org/apache/kafka/common/header/internals" />
     <exclude path="**/internals**" />
     <exclude path="darwin/*" />
     <exclude path="linux/*" />

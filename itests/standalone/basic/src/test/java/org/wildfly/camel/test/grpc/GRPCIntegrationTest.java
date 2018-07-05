@@ -40,7 +40,7 @@ import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Assume;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
@@ -50,6 +50,7 @@ import org.wildfly.camel.test.grpc.subA.PingRequest;
 import org.wildfly.camel.test.grpc.subA.PongResponse;
 import org.wildfly.extension.camel.CamelAware;
 
+@Ignore("https://github.com/wildfly-extras/wildfly-camel/issues/2576")
 @CamelAware
 @RunWith(Arquillian.class)
 @ServerSetup({GRPCIntegrationTest.ServerSetup.class})

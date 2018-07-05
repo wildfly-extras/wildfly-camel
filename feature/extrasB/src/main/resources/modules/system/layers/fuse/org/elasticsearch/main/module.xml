@@ -5,7 +5,6 @@
   </properties>
   <resources>
     <artifact name="${org.elasticsearch:elasticsearch}" />
-    <artifact name="${com.carrotsearch:hppc}" />
     <artifact name="${com.twitter:jsr166e}" />
     <artifact name="${org.elasticsearch:securesm}" />
     <artifact name="${com.tdunning:t-digest}" />
@@ -20,6 +19,7 @@
         <include path="sun/misc" />
       </imports>
     </module>
+    <module name="com.carrotsearch.hppc" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.dataformat.cbor" />
     <module name="com.fasterxml.jackson.dataformat.smile" />

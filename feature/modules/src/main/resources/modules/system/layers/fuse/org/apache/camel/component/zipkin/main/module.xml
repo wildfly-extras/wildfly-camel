@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.zipkin">
   <resources>
-    <artifact name="${io.zipkin.brave:brave-core}" />
-    <artifact name="${io.zipkin.brave:brave-spancollector-scribe}" />
+    <artifact name="${io.zipkin.brave:brave}" />
     <artifact name="${org.apache.camel:camel-zipkin}" />
-    <artifact name="${io.zipkin.java:zipkin}" />
     <artifact name="${io.zipkin.zipkin2:zipkin}" />
     <artifact name="${io.zipkin.reporter2:zipkin-reporter}" />
+    <artifact name="${io.zipkin.reporter2:zipkin-sender-libthrift}" />
     <artifact name="${io.zipkin.reporter2:zipkin-sender-urlconnection}" />
   </resources>
   <dependencies>
+    <module name="org.apache.thrift" />
     <module name="org.slf4j" />
     <module name="javax.annotation.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.thrift" />
   </dependencies>
   <exports>
-    <exclude path="com/github" />
-    <exclude path="com/github/kristofa" />
-    <exclude path="com/github/kristofa/brave/internal**" />
-    <exclude path="com/twitter**" />
-    <exclude path="zipkin2/**" />
-    <exclude path="zipkin/**" />
+    <exclude path="brave**" />
+    <exclude path="zipkin2/codec**" />
+    <exclude path="zipkin2/internal**" />
+    <exclude path="zipkin2/reporter/libthrift**" />
+    <exclude path="zipkin2/reporter/urlconnection**" />
+    <exclude path="zipkin2/storage**" />
+    <exclude path="zipkin2/v1**" />
   </exports>
 </module>

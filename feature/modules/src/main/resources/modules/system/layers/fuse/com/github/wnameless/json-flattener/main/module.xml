@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.github.wnameless.json-flattener">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${com.github.wnameless:json-flattener}" />
+  </resources>
+  <dependencies>
+    <module name="com.eclipsesource.minimal.json" />
+    <module name="org.apache.commons.text" />
+  </dependencies>
+</module>

@@ -20,6 +20,13 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="com.carrotsearch.hppc">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.carrotsearch:hppc" />
+    </module>
+
     <module name="com.fasterxml.jackson.dataformat.smile">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -31,7 +38,6 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="com.carrotsearch:hppc" />
         <include artifact="com.tdunning:t-digest" />
         <include artifact="com.twitter:jsr166e" />
         <include artifact="org.elasticsearch:elasticsearch" />

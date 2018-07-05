@@ -7,6 +7,7 @@
     <module name="javax.api" />
   </dependencies>
   <exports>
+    <exclude path="com/mongodb/client/internal**" />
     <exclude path="com/mongodb/internal**" />
     <exclude path="org/bson/internal" />
   </exports>

@@ -486,10 +486,6 @@
         <include artifact="org.mortbay.jetty:(.*)" />
     </module>
 
-    <module name="org.objenesis" skip="true">
-        <include artifact="org.objenesis:objenesis" />
-    </module>
-
     <module name="org.ops4j" skip="true">
         <include artifact="org.ops4j.base:(.*)" />
     </module>
@@ -524,6 +520,7 @@
     </module>
 
     <module name="org.springframework.skipped" skip="true">
+        <include artifact=":spring-jcl" />
         <include artifact=":spring-ldap-ldif-batch" />
         <include artifact=":spring-ldap-ldif-core" />
         <include artifact=":spring-ldap-odm" />

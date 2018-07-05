@@ -27,7 +27,6 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.NotifyBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.zipkin.ZipkinLoggingSpanCollector;
 import org.apache.camel.zipkin.ZipkinTracer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -36,11 +35,18 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wildfly.extension.camel.CamelAware;
+
+import zipkin2.Span;
+import zipkin2.reporter.Reporter;
 
 @CamelAware
 @RunWith(Arquillian.class)
 public class ZipkinIntegrationTest {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ZipkinIntegrationTest.class);
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -62,7 +68,7 @@ public class ZipkinIntegrationTest {
 
         ZipkinTracer zipkin = new ZipkinTracer();
         zipkin.setServiceName("dude");
-        zipkin.setSpanCollector(new ZipkinLoggingSpanCollector());
+        zipkin.setSpanReporter(new LoggingReporter());
         zipkin.init(camelctx);
 
         NotifyBuilder notify = new NotifyBuilder(camelctx).whenDone(5).create();
@@ -76,6 +82,27 @@ public class ZipkinIntegrationTest {
             Assert.assertTrue(notify.matches(30, TimeUnit.SECONDS));
         } finally {
             camelctx.stop();
+        }
+    }
+
+    static class LoggingReporter implements Reporter<Span> {
+
+        @Override
+        public void report(Span span) {
+            if (!LOG.isInfoEnabled()) {
+                return;
+            }
+
+            if (span == null) {
+                throw new NullPointerException("span == null");
+            }
+
+            LOG.info(span.toString());
+        }
+
+        @Override
+        public String toString() {
+            return "LoggingReporter{name=" + LOG.getName() + "}";
         }
     }
 }

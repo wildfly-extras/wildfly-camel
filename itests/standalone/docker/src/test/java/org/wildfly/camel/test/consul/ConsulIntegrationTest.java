@@ -178,8 +178,9 @@ public class ConsulIntegrationTest {
 
             for (ServiceDefinition service : services) {
                 assertFalse(service.getMetadata().isEmpty());
-                assertTrue(service.getMetadata().containsKey("service_name"));
-                assertTrue(service.getMetadata().containsKey("service_id"));
+                assertTrue(service.getMetadata().containsKey("service.name"));
+                assertTrue(service.getMetadata().containsKey("service.id"));
+                assertTrue(service.getMetadata().containsKey("service.node"));
                 assertTrue(service.getMetadata().containsKey("a-tag"));
                 assertTrue(service.getMetadata().containsKey("key1"));
                 assertTrue(service.getMetadata().containsKey("key2"));

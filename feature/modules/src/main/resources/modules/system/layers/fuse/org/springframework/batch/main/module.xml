@@ -12,7 +12,7 @@
     <module name="javax.batch.api" />
     <module name="org.apache.commons.logging" />
     <module name="org.springframework.aop" />
-    <module name="com.thoughtworks.xstream" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="org.codehaus.jettison" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.context" />

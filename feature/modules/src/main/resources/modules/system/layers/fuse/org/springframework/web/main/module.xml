@@ -7,10 +7,8 @@
     <artifact name="${org.springframework:spring-web}" />
   </resources>
   <dependencies>
-    <module name="javax.servlet.api" />
-    <module name="org.springframework.aop" />
-    <module name="org.springframework.beans" />
     <module name="org.springframework.context" />
+    <module name="org.springframework.beans" />
     <module name="org.springframework.core" />
   </dependencies>
 </module>

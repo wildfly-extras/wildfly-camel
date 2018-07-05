@@ -29,6 +29,7 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":cxf-rt-features-clustering" />
+        <include artifact=":cxf-rt-features-logging" />
         <include artifact=":cxf-rt-frontend-jaxrs" />
         <include artifact=":cxf-rt-rs-client" />
         <include artifact=":cxf-rt-rs-extension-providers" />
@@ -39,6 +40,9 @@
         <include artifact=":cxf-rt-rs-security-oauth2" />
         <include artifact=":oauth"/>
         <include artifact=":oauth-provider"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.osgi.compendium" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="javax.servlet.api" />
@@ -50,6 +54,7 @@
         </dependencies>
         <exports>
             <exclude path="net/oauth*" />
+            <exclude path="org/apache/cxf/ext/logging**"/>
             <exclude path="OSGI-INF/blueprint" />
             <exclude path="OSGI-INF/metatype" />
             <exclude path="schemas/blueprint" />

@@ -20,8 +20,6 @@
 
 package org.wildfly.camel.test.ribbon;
 
-import java.util.Collections;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -29,6 +27,7 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.ribbon.RibbonConfiguration;
 import org.apache.camel.component.ribbon.cloud.RibbonServiceLoadBalancer;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.cloud.DefaultServiceDefinition;
 import org.apache.camel.impl.cloud.StaticServiceDiscovery;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -62,7 +61,7 @@ public class RibbonIntegrationTest {
                  * at least on two distinct context paths, but none of those is possible because of
                  * https://github.com/wildfly-extras/wildfly-camel/issues/2129
                  * and https://issues.apache.org/jira/browse/CAMEL-11882 */
-                servers.addServer("my-service", "localhost", 8080);
+                servers.addServer(new DefaultServiceDefinition("my-service", "localhost", 8080));
 
                 RibbonConfiguration configuration = new RibbonConfiguration();
                 RibbonServiceLoadBalancer loadBalancer = new RibbonServiceLoadBalancer(configuration);

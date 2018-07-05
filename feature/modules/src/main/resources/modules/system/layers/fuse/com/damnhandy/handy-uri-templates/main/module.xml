@@ -7,6 +7,6 @@
     <artifact name="${com.damnhandy:handy-uri-templates}" />
   </resources>
   <dependencies>
-    <module name="javax.ws.rs.api" />
+    <module name="org.joda.time" />
   </dependencies>
 </module>

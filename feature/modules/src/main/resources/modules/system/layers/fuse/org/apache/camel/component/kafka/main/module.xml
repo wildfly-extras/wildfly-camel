@@ -4,9 +4,13 @@
     <artifact name="${org.apache.camel:camel-kafka}" />
   </resources>
   <dependencies>
+    <module name="org.apache.kafka.clients" export="true">
+      <exports>
+        <exclude path="org/apache/kafka/common/header/internals" />
+      </exports>
+    </module>
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.kafka.clients" export="true" />
   </dependencies>
 </module>

@@ -19,6 +19,11 @@ zipkin
 
 [undecided]
 aws-xray
+rxjava2
+spring-cloud-consul
+spring-cloud-zookeeper
+testcontainers
+testcontainers-spring
 
 [rejected]
 bam                                 #deprecated

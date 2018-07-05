@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.zendesk">
   <resources>
-    <artifact name="${com.ning:async-http-client}" />
     <artifact name="${org.apache.camel:camel-zendesk}" />
     <artifact name="${com.cloudbees.thirdparty:zendesk-java-client}" />
   </resources>
@@ -12,9 +11,9 @@
     <module name="com.damnhandy.handy-uri-templates" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="io.netty" slot="3.10" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
+    <module name="org.asynchttpclient" />
   </dependencies>
   <exports>
     <exclude path="com/ning**" />

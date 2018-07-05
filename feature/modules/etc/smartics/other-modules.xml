@@ -380,6 +380,13 @@
         <include artifact="com.github.virtuald:curvesapi" />
     </module>
 
+    <module name="com.github.wnameless.json-flattener">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.github.wnameless:json-flattener" />
+    </module>
+
     <module name="com.google.code.gson">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -746,6 +753,9 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.squareup.moshi:"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs"/>
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="com.squareup.okio"/>
@@ -788,6 +798,13 @@
             <module name="com.squareup.okio"/>
             <module name="com.squareup.okhttp3"/>
         </dependencies>
+    </module>
+
+    <module name="com.sun.activation.javax.activation">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.sun.activation:javax.activation" />
     </module>
 
     <module name="com.thoughtworks.xstream">
@@ -1001,6 +1018,13 @@
             <module name="io.netty" slot="4.1"/>
             <module name="javax.api"/>
         </dependencies>
+    </module>
+
+    <module name="io.micrometer">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.micrometer:micrometer-core" />
     </module>
 
     <module name="io.netty" inherit-slot="false" slot="3.10">
@@ -1241,6 +1265,7 @@
         <include artifact=":commons-compress" />
         <apply-to-dependencies skip="true">
             <include module="org.objenesis" />
+            <include module="org.osgi.core" />
         </apply-to-dependencies>
     </module>
 
@@ -1303,6 +1328,13 @@
         <dependencies>
             <module name="javax.api" />
         </dependencies>
+    </module>
+
+    <module name="org.apache.commons.text">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.commons:commons-text" />
     </module>
 
     <module name="org.apache.curator">
@@ -1380,6 +1412,7 @@
             <module name="javax.api"/>
         </dependencies>
         <exports>
+            <include path="org/apache/kafka/common/header/internals" />
             <exclude path="**/internals**" />
             <exclude path="darwin/*" />
             <exclude path="linux/*" />
@@ -1791,6 +1824,7 @@
         <include artifact="com.github.dozermapper:dozer-schema" />
         <apply-to-dependencies skip="true">
             <include module="org.osgi.core" />
+            <include module="org.projectlombok" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
@@ -2062,11 +2096,25 @@
         <include artifact="org.jxmpp:jxmpp-util-cache" />
     </module>
 
+    <module name="org.latencyutils">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.latencyutils:LatencyUtils" />
+    </module>
+
     <module name="org.lz4">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.lz4:lz4-java" />
+    </module>
+
+    <module name="org.objenesis" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.objenesis:objenesis" />
     </module>
 
     <module name="org.opengis.geoapi">
@@ -2099,6 +2147,7 @@
             <module name="javax.api"/>
         </dependencies>
         <exports>
+            <exclude path="com/mongodb/client/internal**" />
             <exclude path="com/mongodb/internal**" />
             <exclude path="org/bson/internal" />
         </exports>

@@ -55,9 +55,9 @@ public class TwilioIntegrationTest {
         CamelContext camelctx = new DefaultCamelContext();
 
         TwilioComponent component = camelctx.getComponent("twilio", TwilioComponent.class);
-        component.getConfiguration().setUsername(TWILIO_ACCOUNT_SID);
-        component.getConfiguration().setPassword(TWILIO_PASSWORD);
-        component.getConfiguration().setAccountSid(TWILIO_ACCOUNT_SID);
+        component.setUsername(TWILIO_ACCOUNT_SID);
+        component.setPassword(TWILIO_PASSWORD);
+        component.setAccountSid(TWILIO_ACCOUNT_SID);
 
         camelctx.addRoutes(new RouteBuilder() {
             @Override

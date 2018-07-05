@@ -41,12 +41,14 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.FileUtils;
 import org.wildfly.camel.test.elasticsearch.subA.ElasticsearchClientProducer;
 import org.wildfly.extension.camel.CamelAware;
 
+@Ignore("https://github.com/wildfly-extras/wildfly-camel/issues/2575")
 @CamelAware
 @RunWith(Arquillian.class)
 public class ElasticsearchIntegrationTest {

@@ -5,7 +5,6 @@
   </properties>
   <resources>
     <artifact name="${com.github.dozermapper:dozer-core}" />
-    <artifact name="${com.github.dozermapper:dozer-schema}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
@@ -13,7 +12,9 @@
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.component.dozer" />
     <module name="org.apache.commons.beanutils" />
+    <module name="org.apache.commons.io" />
     <module name="org.apache.commons.lang3" />
+    <module name="org.objenesis" />
     <module name="org.slf4j" />
   </dependencies>
 </module>
