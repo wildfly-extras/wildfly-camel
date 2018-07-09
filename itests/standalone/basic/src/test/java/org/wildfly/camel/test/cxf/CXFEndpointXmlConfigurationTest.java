@@ -50,7 +50,7 @@ public class CXFEndpointXmlConfigurationTest {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-spring-context-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, CXFEndpointXmlConfigurationTest.class.getSimpleName());
         archive.addClasses(Endpoint.class);
         archive.addAsResource("cxf/spring/cxfws-epconfig-camel-context.xml");
         return archive;
