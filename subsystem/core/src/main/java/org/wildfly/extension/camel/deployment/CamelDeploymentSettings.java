@@ -35,9 +35,9 @@ public final class CamelDeploymentSettings {
 
     public static final AttachmentKey<CamelDeploymentSettings> ATTACHMENT_KEY = AttachmentKey.create(CamelDeploymentSettings.class);
 
-    private List<CamelDeploymentSettings> children = new ArrayList<>();
-    private List<ModuleIdentifier> dependencies = new ArrayList<>();
-    private List<URL> camelContextUrls = new ArrayList<>();
+    private final List<CamelDeploymentSettings> children = new ArrayList<>();
+    private final List<ModuleIdentifier> dependencies = new ArrayList<>();
+    private final List<URL> camelContextUrls = new ArrayList<>();
     private ContextCreateHandler classResolverAssociationHandler;
     private boolean disabledByJbossAll;
     private boolean deploymentValid;
