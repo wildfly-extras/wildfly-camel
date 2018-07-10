@@ -20,7 +20,6 @@ zipkin
 [undecided]
 aws-xray
 rxjava2
-spring-cloud-consul
 spring-cloud-zookeeper
 testcontainers
 testcontainers-spring
@@ -40,6 +39,7 @@ scr                                 #deprecated
 servletlistener                     #deprecated
 spring-boot                         #2051 SpringBoot specific
 spring-cloud                        #2066 SpringBoot specific
+spring-cloud-consul                 #2591 SpringBoot specific
 spring-cloud-netflix                #2067 SpringBoot specific
 swagger                             #deprecated
 test                                #2052 Testing utility
