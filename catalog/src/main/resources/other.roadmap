@@ -20,8 +20,6 @@ zipkin
 [undecided]
 aws-xray
 rxjava2
-testcontainers
-testcontainers-spring
 
 [rejected]
 bam                                 #deprecated
@@ -47,6 +45,8 @@ test-blueprint                      #2053 Testing utility
 test-cdi                            #2054 Testing utility
 test-karaf                          #2055 Testing utility
 test-spring                         #2056 Testing utility
+testcontainers                      #2593 Testing utility
+testcontainers-spring               #2593 Testing utility
 testng                              #deprecated
 urlrewrite                          #deprecated
 
