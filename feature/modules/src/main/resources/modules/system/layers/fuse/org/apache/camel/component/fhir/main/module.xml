@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.fhir">
+  <resources>
+    <artifact name="${org.apache.camel:camel-fhir}" />
+  </resources>
+  <dependencies>
+    <module name="ca.uhn.hapi.fhir" export="true">
+      <exports>
+        <exclude path="ca/uhn" />
+        <exclude path="ca/uhn/fhir" />
+        <exclude path="ca/uhn/fhir/rest**" />
+        <exclude path="org/fhir**" />
+        <exclude path="org/hl7" />
+        <exclude path="org/hl7/fhir" />
+        <exclude path="org/hl7/fhir/utilities**" />
+      </exports>
+    </module>
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>

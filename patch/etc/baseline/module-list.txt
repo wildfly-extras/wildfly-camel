@@ -1,5 +1,10 @@
 /aopalliance/main/aopalliance-1.0.jar
 /args4j/main/args4j-2.0.31.jar
+/ca/uhn/hapi/fhir/main/hapi-fhir-base-3.3.0.jar
+/ca/uhn/hapi/fhir/main/hapi-fhir-client-3.3.0.jar
+/ca/uhn/hapi/fhir/main/hapi-fhir-structures-dstu2-3.3.0.jar
+/ca/uhn/hapi/fhir/main/hapi-fhir-structures-dstu3-3.3.0.jar
+/ca/uhn/hapi/fhir/main/hapi-fhir-utilities-3.3.0.jar
 /ca/uhn/hapi/main/hapi-base-2.3.jar
 /ca/uhn/hapi/main/hapi-structures-v24-2.3.jar
 /ca/uhn/hapi/main/hapi-structures-v25-2.3.jar
@@ -271,6 +276,7 @@
 /org/apache/camel/component/facebook/main/camel-facebook-2.22.0.jar
 /org/apache/camel/component/facebook/main/facebook4j-core-2.4.11.jar
 /org/apache/camel/component/fastjson/main/camel-fastjson-2.22.0.jar
+/org/apache/camel/component/fhir/main/camel-fhir-2.22.0.jar
 /org/apache/camel/component/flatpack/main/camel-flatpack-2.22.0.jar
 /org/apache/camel/component/flatpack/main/flatpack-3.4.3.jar
 /org/apache/camel/component/fop/main/camel-fop-2.22.0.jar

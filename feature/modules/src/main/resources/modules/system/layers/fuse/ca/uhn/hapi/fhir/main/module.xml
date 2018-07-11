@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="ca.uhn.hapi.fhir">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${ca.uhn.hapi.fhir:hapi-fhir-base}" />
+    <artifact name="${ca.uhn.hapi.fhir:hapi-fhir-client}" />
+    <artifact name="${ca.uhn.hapi.fhir:hapi-fhir-structures-dstu2}" />
+    <artifact name="${ca.uhn.hapi.fhir:hapi-fhir-structures-dstu3}" />
+    <artifact name="${ca.uhn.hapi.fhir:hapi-fhir-utilities}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="com.google.code.gson" />
+    <module name="com.google.guava" />
+    <module name="javax.servlet.api" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.io" />
+    <module name="org.apache.commons.lang3" />
+    <module name="org.apache.httpcomponents" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

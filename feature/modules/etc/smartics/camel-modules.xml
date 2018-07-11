@@ -932,6 +932,28 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.fhir">
+        <include artifact="org.apache.camel:camel-fhir"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="ca.uhn.hapi.fhir" export="true">
+                <exports>
+                    <exclude path="ca/uhn"/>
+                    <exclude path="ca/uhn/fhir"/>
+                    <exclude path="ca/uhn/fhir/rest**"/>
+                    <exclude path="org/fhir**"/>
+                    <exclude path="org/hl7"/>
+                    <exclude path="org/hl7/fhir"/>
+                    <exclude path="org/hl7/fhir/utilities**"/>
+                </exports>
+            </module>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.flatpack">
         <include artifact="org.apache.camel:camel-flatpack" />
         <include artifact=":flatpack" />

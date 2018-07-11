@@ -56,16 +56,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
 public class ExportedPathsTest {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ExportedPathsTest.class);
 
     private static final String FILE_BASEDIR = "basedir.txt";
     private static final String FILE_EXPORTED_PATH_PATTERNS = "exported-path-patterns.txt";
@@ -96,9 +92,9 @@ public class ExportedPathsTest {
         ObjectName baseObjectName = ObjectNameFactory.create(BASE_MODULE_LOADER_OBJECT_NAME);
         ModuleLoaderMXBean baseMBean = JMX.newMXBeanProxy(server, baseObjectName, ModuleLoaderMXBean.class);
 
-        Set<String> ignoredPaths = IGNORED_MODULES.stream() //
-                .flatMap(moduleName -> baseMBean.getModulePathsInfo(moduleName, true).keySet().stream()) //
-                .collect(Collectors.toSet());
+        Set<String> ignoredPaths = IGNORED_MODULES.stream()
+            .flatMap(moduleName -> baseMBean.getModulePathsInfo(moduleName, true).keySet().stream())
+            .collect(Collectors.toSet());
 
         ObjectName oname = ObjectNameFactory.create(MODULE_LOADER_OBJECT_NAME);
         ModuleLoaderMXBean mbean = JMX.newMXBeanProxy(server, oname, ModuleLoaderMXBean.class);
@@ -123,10 +119,10 @@ public class ExportedPathsTest {
                         }
                         pw.println(modinfo);
                         pw.println("[Exported Paths: " + moduleName + "]");
-                        mbean.getModulePathsInfo(moduleName, true).keySet().stream() //
-                                .filter(p -> !ignoredPaths.contains(p) && p.contains("/") && !p.equals("org/apache")) //
-                                .sorted() //
-                                .forEach(p -> pw.println(p));
+                        mbean.getModulePathsInfo(moduleName, true).keySet().stream()
+                            .filter(p -> !ignoredPaths.contains(p) && p.contains("/") && !p.equals("org/apache"))
+                            .sorted()
+                            .forEach(p -> pw.println(p));
                         pw.println();
                     }
                 }
@@ -257,5 +253,4 @@ public class ExportedPathsTest {
         }
         return moduleName;
     }
-
 }

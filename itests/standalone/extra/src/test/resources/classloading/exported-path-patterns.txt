@@ -1,5 +1,6 @@
 [includes]
     ^ca/uhn/hl7v2(.*)
+    ^ca/uhn/fhir(.*)
 	^com/amazonaws(.*)
     ^com/bazaarvoice(.*)
 	^com/box(.*)
@@ -97,6 +98,7 @@
 	^org/fusesource/hawtbuf(.*)
     ^org/fusesource/stomp(.*)
 	^org/quartz(.*)
+	^org/hl7/fhir(.*)
 	^org/infinispan(.*)
 	^org/influxdb(.*)
 	^org/lightcouch(.*)

@@ -11,6 +11,8 @@ boon
 castor              #deprecated
 crypto
 csv
+fhirJson
+fhirXml
 flatpack
 gzip
 hl7
@@ -47,8 +49,6 @@ zipfile
 [planned]
 
 [undecided]
-fhirJson
-fhirXml
 
 [rejected]
 hessian             #deprecated

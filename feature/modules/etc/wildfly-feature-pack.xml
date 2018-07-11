@@ -11,6 +11,11 @@
         <artifact groupId="ca.uhn.hapi" artifactId="hapi-base" version="2.3"/>
         <artifact groupId="ca.uhn.hapi" artifactId="hapi-structures-v24" version="2.3"/>
         <artifact groupId="ca.uhn.hapi" artifactId="hapi-structures-v25" version="2.3"/>
+        <artifact groupId="ca.uhn.hapi.fhir" artifactId="hapi-fhir-base" version="3.3.0"/>
+        <artifact groupId="ca.uhn.hapi.fhir" artifactId="hapi-fhir-client" version="3.3.0"/>
+        <artifact groupId="ca.uhn.hapi.fhir" artifactId="hapi-fhir-structures-dstu2" version="3.3.0"/>
+        <artifact groupId="ca.uhn.hapi.fhir" artifactId="hapi-fhir-structures-dstu3" version="3.3.0"/>
+        <artifact groupId="ca.uhn.hapi.fhir" artifactId="hapi-fhir-utilities" version="3.3.0"/>
         <artifact groupId="ch.qos.cal10n" artifactId="cal10n-api" version="0.8.1"/>
         <artifact groupId="com.adobe.xmp" artifactId="xmpcore" version="5.1.3"/>
         <artifact groupId="com.alibaba" artifactId="fastjson" version="1.2.47"/>
@@ -335,6 +340,7 @@
         <artifact groupId="org.apache.camel" artifactId="camel-exec" version="2.22.0"/>
         <artifact groupId="org.apache.camel" artifactId="camel-facebook" version="2.22.0"/>
         <artifact groupId="org.apache.camel" artifactId="camel-fastjson" version="2.22.0"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-fhir" version="2.22.0"/>
         <artifact groupId="org.apache.camel" artifactId="camel-flatpack" version="2.22.0"/>
         <artifact groupId="org.apache.camel" artifactId="camel-fop" version="2.22.0"/>
         <artifact groupId="org.apache.camel" artifactId="camel-freemarker" version="2.22.0"/>

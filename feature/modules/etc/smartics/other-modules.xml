@@ -28,6 +28,9 @@
     </module>
 
     <module name="ca.uhn.hapi">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="ca.uhn.hapi:hapi-base" />
         <include artifact="ca.uhn.hapi:hapi-structures-v21" />
         <include artifact="ca.uhn.hapi:hapi-structures-v22" />
@@ -37,6 +40,20 @@
         <include artifact="ca.uhn.hapi:hapi-structures-v25" />
         <include artifact="ca.uhn.hapi:hapi-structures-v251" />
         <include artifact="ca.uhn.hapi:hapi-structures-v26" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="ca.uhn.hapi.fhir">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="ca.uhn.hapi.fhir:hapi-fhir-base" />
+        <include artifact="ca.uhn.hapi.fhir:hapi-fhir-client" />
+        <include artifact="ca.uhn.hapi.fhir:hapi-fhir-structures-dstu2" />
+        <include artifact="ca.uhn.hapi.fhir:hapi-fhir-structures-dstu3" />
+        <include artifact="ca.uhn.hapi.fhir:hapi-fhir-utilities" />
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
