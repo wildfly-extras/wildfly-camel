@@ -27,6 +27,7 @@
     <container qualifier="managed" default="true">
         <configuration>
             <property name="jbossHome">${jboss.home}</property>
+            <property name="project.basedir">${project.basedir}</property>
             <property name="serverConfig">${server.config}</property>
             <property name="javaVmArguments">${jvmArgs} ${jvmDebugArgs} -Dee8.preview.mode=true -Dorg.wildfly.camel.google.api.oauth.properties.path=${org.wildfly.camel.google.api.oauth.properties.path}</property>
             <property name="allowConnectingToRunningServer">true</property>

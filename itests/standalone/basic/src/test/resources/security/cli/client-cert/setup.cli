@@ -1,0 +1,51 @@
+batch
+
+#/subsystem=logging/logger=org.wildfly.security:add()
+#/subsystem=logging/logger=org.wildfly.security:write-attribute(name=level, value=TRACE)
+
+# key-store
+/subsystem=elytron/key-store=httpsKS:add(path="server.keystore",relative-to=jboss.server.config.dir,credential-reference={clear-text=123456},type=JKS)
+
+# key-manager
+/subsystem=elytron/key-manager=httpsKM:add(key-store=httpsKS,credential-reference={clear-text=123456})
+
+# trust-store
+/subsystem=elytron/key-store=httpsTS:add(path="server.truststore",relative-to=jboss.server.config.dir,credential-reference={clear-text=123456},type=JKS)
+
+# trust-manager
+/subsystem=elytron/trust-manager=httpsTM:add(key-store=httpsTS)
+
+# server-ssl-context
+/subsystem=elytron/server-ssl-context=httpsSSC:add(key-manager=httpsKM,protocols=["TLSv1.2"],trust-manager=httpsTM,want-client-auth=true)
+
+/subsystem=undertow/server=default-server/https-listener=https:undefine-attribute(name=security-realm)
+/subsystem=undertow/server=default-server/https-listener=https:write-attribute(name=ssl-context, value=httpsSSC)
+
+/subsystem=elytron/key-store-realm=keyStoreRealm:add(key-store=httpsTS)
+
+# Realm for Login with client certificate
+/subsystem=elytron/aggregate-realm=clientCertRealm/:add(authentication-realm=keyStoreRealm,authorization-realm=ApplicationRealm)
+
+/subsystem=elytron/constant-realm-mapper=clientCertRealmMapper:add(realm-name=clientCertRealm)
+
+/subsystem=elytron/x500-attribute-principal-decoder=CNDecoder:add(attribute-name=CN, maximum-segments=1)
+
+# Security domain
+/subsystem=elytron/security-domain=client-cert:add(default-realm=clientCertRealm,permission-mapper=default-permission-mapper,principal-decoder=CNDecoder,realms=[{realm=clientCertRealm,role-decoder=groups-to-roles}])
+
+# HTTP authentication
+/subsystem=elytron/http-authentication-factory=application-http-authentication-client-cert:add( \
+    security-domain=client-cert, \
+    http-server-mechanism-factory=global, \
+    mechanism-configurations=[{ \
+      mechanism-name=CLIENT_CERT \
+    }])
+
+
+/subsystem=undertow/application-security-domain=client-cert-security-domain:add(http-authentication-factory=application-http-authentication-client-cert)
+
+run-batch
+
+command-timeout set 30
+
+reload

@@ -34,6 +34,7 @@
 
     <!-- Properties -->
     <properties>
+        <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
         <server.config>standalone-full.xml</server.config>
         <org.wildfly.camel.google.api.oauth.properties.path>${basedir}/src/test/resources/google/google-oauth.properties</org.wildfly.camel.google.api.oauth.properties.path>
     </properties>
@@ -290,6 +291,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemPropertyVariables>
+                        <jbossHome>${jboss.home}</jbossHome>
+                        <project.basedir>${project.basedir}</project.basedir>
                         <org.jboss.remoting-jmx.timeout>300</org.jboss.remoting-jmx.timeout>
                         <org.wildfly.camel.google.api.oauth.properties.path>${org.wildfly.camel.google.api.oauth.properties.path}</org.wildfly.camel.google.api.oauth.properties.path>
                     </systemPropertyVariables>
@@ -322,6 +325,7 @@
                         <exclude>derby.log</exclude>
                         <exclude>**/lumberjack/window*</exclude>
                         <exclude>**/asn1/*.tt</exclude>
+                        <exclude>src/test/resources/security/keys/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>

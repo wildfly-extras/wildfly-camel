@@ -1,0 +1,35 @@
+batch
+
+/subsystem=undertow/application-security-domain=client-cert-security-domain:remove()
+
+# HTTP authentication
+/subsystem=elytron/http-authentication-factory=application-http-authentication-client-cert:remove()
+
+# Security domain
+/subsystem=elytron/security-domain=client-cert:remove()
+
+/subsystem=elytron/x500-attribute-principal-decoder=CNDecoder:remove()
+/subsystem=elytron/constant-realm-mapper=clientCertRealmMapper:remove()
+
+# Realm for Login with client certificate
+/subsystem=elytron/aggregate-realm=clientCertRealm:remove()
+
+/subsystem=elytron/key-store-realm=keyStoreRealm:remove()
+
+/subsystem=undertow/server=default-server/https-listener=https:undefine-attribute(name=ssl-context)
+/subsystem=undertow/server=default-server/https-listener=https:write-attribute(name=security-realm, value=ApplicationRealm)
+
+# server-ssl-context
+/subsystem=elytron/server-ssl-context=httpsSSC:remove()
+# trust-manager
+/subsystem=elytron/trust-manager=httpsTM:remove()
+# trust-store
+/subsystem=elytron/key-store=httpsTS:remove()
+# key-manager
+/subsystem=elytron/key-manager=httpsKM:remove()
+# key-store
+/subsystem=elytron/key-store=httpsKS:remove()
+
+run-batch
+
+reload

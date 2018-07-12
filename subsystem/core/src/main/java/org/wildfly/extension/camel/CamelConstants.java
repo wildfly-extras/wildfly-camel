@@ -25,6 +25,8 @@ import org.apache.camel.CamelContext;
 import org.jboss.as.server.deployment.AttachmentKey;
 import org.jboss.as.server.deployment.AttachmentList;
 import org.jboss.msc.service.ServiceName;
+import org.wildfly.extension.camel.service.CamelEndpointDeployerService;
+import org.wildfly.extension.camel.service.CamelEndpointDeploymentSchedulerService;
 
 /**
  * Camel subsystem constants.
@@ -56,6 +58,8 @@ public interface CamelConstants {
     AttachmentKey<CamelContextFactory> CAMEL_CONTEXT_FACTORY_KEY = AttachmentKey.create(CamelContextFactory.class);
     /** The {@link ContextCreateHandlerRegistry} attachment key */
     AttachmentKey<ContextCreateHandlerRegistry> CONTEXT_CREATE_HANDLER_REGISTRY_KEY = AttachmentKey.create(ContextCreateHandlerRegistry.class);
+
+    AttachmentKey<CamelEndpointDeploymentSchedulerService> CAMEL_ENDPOINT_DEPLOYMENT_SCHEDULER_REGISTRY_KEY = AttachmentKey.create(CamelEndpointDeploymentSchedulerService.class);
 
     /** The JNDI name for the {@link CamelContextFactory} binding */
     String CAMEL_CONTEXT_FACTORY_BINDING_NAME = "java:jboss/camel/CamelContextFactory";

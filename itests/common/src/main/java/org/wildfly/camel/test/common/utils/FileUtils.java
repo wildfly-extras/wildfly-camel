@@ -19,6 +19,12 @@ package org.wildfly.camel.test.common.utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -79,5 +85,26 @@ public final class FileUtils {
             }
         }
         return ret && path.delete();
+    }
+
+    public static void copy(URL src, Path destination) throws IOException {
+        try (InputStream in = src.openStream();
+                OutputStream out = Files.newOutputStream(destination)) {
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = in.read(buffer)) >= 0) {
+                out.write(buffer, 0, len);
+            }
+        }
+    }
+
+    public static void copy(URL src, Appendable out) throws IOException {
+        try (Reader in = new InputStreamReader(src.openStream(), StandardCharsets.UTF_8)) {
+            char[] buffer = new char[1024];
+            int len;
+            while ((len = in.read(buffer)) >= 0) {
+                out.append(new String(buffer, 0, len));
+            }
+        }
     }
 }

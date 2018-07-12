@@ -33,7 +33,7 @@ import org.apache.camel.util.jsse.TrustManagersParameters;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,8 +51,8 @@ public class CXFWSSecureConsumerIntegrationTest {
     private static final String SECURE_WS_ENDPOINT_URL = "https://localhost:8443" + WS_ENDPOINT_PATH;
 
     @Deployment
-    public static JavaArchive deployment() {
-        return ShrinkWrap.create(JavaArchive.class, "cxf-ws-secure-consumer-tests")
+    public static WebArchive deployment() {
+        return ShrinkWrap.create(WebArchive.class, "cxf-ws-secure-consumer-tests.war")
             .addClasses(Endpoint.class, HttpRequest.class);
     }
 

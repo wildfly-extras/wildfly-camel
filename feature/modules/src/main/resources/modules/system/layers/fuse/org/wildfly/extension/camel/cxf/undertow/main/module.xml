@@ -10,9 +10,11 @@
     <module name="io.undertow.servlet" />
     <module name="org.apache.cxf.impl" />
     <module name="org.jboss.as.security" />
+    <module name="org.jboss.as.server" />
     <module name="org.picketbox" />
     <module name="org.slf4j" />
     <module name="org.jboss.gravia" />
+    <module name="org.wildfly.extension.camel" />
     <module name="org.wildfly.extension.undertow" />
   </dependencies>
 </module>
