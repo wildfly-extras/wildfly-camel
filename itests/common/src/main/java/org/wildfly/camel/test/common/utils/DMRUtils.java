@@ -19,12 +19,18 @@
 */
 package org.wildfly.camel.test.common.utils;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jboss.as.controller.client.ModelControllerClient;
+import org.jboss.as.controller.client.OperationBuilder;
 import org.jboss.dmr.ModelNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DMRUtils {
+    private static final Logger LOG = LoggerFactory.getLogger(DMRUtils.class);
 
     private static Pattern HANDLER_PATTERN = Pattern.compile(".*handler=(.*)");
 
@@ -96,6 +102,12 @@ public class DMRUtils {
         return new BatchNodeBuilder();
     }
 
+    public static ExecutionResult executeOperation(final ModelControllerClient client, ModelNode operationNode)
+            throws IOException {
+        ModelNode result = client.execute(new OperationBuilder(operationNode).build());
+        return new ExecutionResult(result);
+    }
+
     public static final class BatchNodeBuilder {
         private ModelNode batchNode;
 
@@ -110,8 +122,66 @@ public class DMRUtils {
             return this;
         }
 
+        public BatchNodeBuilder addStep(ModelNode operation) {
+            batchNode.get("steps").add(operation);
+            return this;
+        }
+
+        public ExecutionResult execute(final ModelControllerClient client) throws IOException {
+            return executeOperation(client, build());
+        }
+
         public ModelNode build() {
             return batchNode;
         }
     }
+
+    /**
+     * Encapsulates a result of executing a CLI operation.
+     */
+    public static class ExecutionResult {
+        private final ModelNode wrappedResult;
+
+        ExecutionResult(ModelNode wrappedResult) {
+            super();
+            this.wrappedResult = wrappedResult;
+        }
+
+        /**
+         * @return this {@link ExecutionResult}
+         * @throws RuntimeException
+         *             in case {@code outcome} is not {@code success}
+         */
+        public ExecutionResult assertSuccess() {
+            if (wrappedResult.hasDefined("outcome") && "success".equals(wrappedResult.get("outcome").asString())) {
+                if (wrappedResult.hasDefined("result")) {
+                    LOG.trace(wrappedResult.get("result").toString());
+                }
+            } else if (wrappedResult.hasDefined("failure-description")) {
+                throw new RuntimeException(wrappedResult.get("failure-description").toString());
+            } else {
+                throw new RuntimeException("Operation not successful; outcome = " + wrappedResult.get("outcome"));
+            }
+            return this;
+        }
+
+        /**
+         * @return the {@link ModelNode} returned by the operation
+         */
+        public ModelNode getWrappedResult() {
+            return wrappedResult;
+        }
+
+        /**
+         * @return {@code result} subnode of {@link #wrappedResult} or {@code null} if {@link #wrappedResult} does not
+         *         have a {@code result}
+         */
+        public ModelNode getUnwrappedResult() {
+            if (wrappedResult.hasDefined("result")) {
+                return wrappedResult.get("result");
+            }
+            return null;
+        }
+    }
+
 }

@@ -5,6 +5,8 @@
     <artifact name="${org.wildfly.camel:wildfly-camel-subsystem-core}" />
   </resources>
   <dependencies>
+    <module name="io.undertow.core" />
+    <module name="io.undertow.servlet" />
     <module name="javax.api" />
     <module name="org.apache.camel" services="export">
       <imports>
@@ -26,9 +28,13 @@
     <module name="org.jboss.as.ee" />
     <module name="org.jboss.as.naming" />
     <module name="org.jboss.as.network" />
+    <module name="org.jboss.as.security" />
     <module name="org.jboss.as.server" />
+    <module name="org.jboss.as.web-common" />
     <module name="org.jboss.jandex" />
     <module name="org.jboss.logging" />
+    <module name="org.jboss.metadata.common" />
+    <module name="org.jboss.metadata.web" />
     <module name="org.jboss.modules" />
     <module name="org.jboss.msc" />
     <module name="org.jboss.staxmapper" />
@@ -43,6 +49,8 @@
     <module name="org.slf4j" />
     <module name="ibm.jdk.ext" export="true" />
     <module name="sun.jdk.ext" export="true" />
+    <module name="javax.servlet.api" />
     <module name="org.jboss.gravia" />
+    <module name="org.wildfly.extension.undertow" />
   </dependencies>
 </module>

@@ -31,7 +31,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,8 +53,8 @@ public class CXFWSConsumerIntegrationTest {
     CamelContextRegistry contextRegistry;
 
     @Deployment
-    public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "cxf-ws-consumer-tests");
+    public static WebArchive deployment() {
+        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "cxf-ws-consumer-tests.war");
         archive.addClasses(Endpoint.class);
         archive.addAsResource("cxf/spring/cxfws-consumer-camel-context.xml", "cxfws-consumer-camel-context.xml");
         return archive;

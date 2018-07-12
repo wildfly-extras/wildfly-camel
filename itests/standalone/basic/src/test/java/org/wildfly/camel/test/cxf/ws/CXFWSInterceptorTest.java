@@ -43,7 +43,7 @@ import org.apache.cxf.ws.policy.PolicyInInterceptor;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,8 +55,8 @@ import org.wildfly.extension.camel.CamelAware;
 public class CXFWSInterceptorTest {
 
     @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-cxfws-interceptor-tests.jar")
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "camel-cxfws-interceptor-tests.war")
             .addClass(Endpoint.class);
     }
 

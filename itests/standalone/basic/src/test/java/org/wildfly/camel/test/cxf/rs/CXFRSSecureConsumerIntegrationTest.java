@@ -30,7 +30,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,8 +52,8 @@ public class CXFRSSecureConsumerIntegrationTest {
     CamelContextRegistry contextRegistry;
 
     @Deployment
-    public static JavaArchive deployment() {
-        return ShrinkWrap.create(JavaArchive.class, "cxfrs-secure-consumer-tests")
+    public static WebArchive deployment() {
+        return ShrinkWrap.create(WebArchive.class, "cxfrs-secure-consumer-tests.war")
             .addClasses(GreetingService.class, HttpRequest.class)
             .addAsResource("cxf/spring/cxfrs-secure-consumer-camel-context.xml", "cxfrs-secure-consumer-camel-context.xml")
             .setManifest(() -> {

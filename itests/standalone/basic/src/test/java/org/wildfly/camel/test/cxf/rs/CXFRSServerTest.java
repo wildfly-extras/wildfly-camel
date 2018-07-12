@@ -26,7 +26,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,8 +43,8 @@ public class CXFRSServerTest {
     private CamelContextRegistry contextRegistry;
 
     @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "cxfrs-consumer-tests.jar")
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "cxfrs-consumer-tests.war")
             .addClasses(GreetingService.class, GreetingServiceImpl.class)
             .addAsResource("cxf/spring/cxfrs-server-camel-context.xml", "cxfrs-server-camel-context.xml");
     }

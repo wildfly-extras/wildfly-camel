@@ -22,8 +22,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -33,21 +31,22 @@ import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;
 import org.apache.cxf.common.classloader.ClassLoaderUtils;
 import org.apache.cxf.common.classloader.ClassLoaderUtils.ClassLoaderHolder;
-import org.apache.cxf.common.logging.LogUtils;
 import org.apache.cxf.configuration.jsse.TLSServerParameters;
 import org.apache.cxf.configuration.security.CertificateConstraintsType;
 import org.apache.cxf.service.model.EndpointInfo;
 import org.apache.cxf.transport.http.DestinationRegistry;
 import org.apache.cxf.transport.https.CertConstraintsJaxBUtils;
 import org.apache.cxf.transport.servlet.ServletDestination;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.wildfly.extension.camel.service.CamelEndpointDeploymentSchedulerService.EndpointHttpHandler;
 
-public class UndertowHTTPDestination extends ServletDestination {
+public class UndertowHTTPDestination extends ServletDestination implements EndpointHttpHandler {
 
-    private static final Logger LOG = LogUtils.getL7dLogger(UndertowHTTPDestination.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UndertowHTTPDestination.class);
 
     protected HttpServerEngine engine;
     protected HttpServerEngineFactory serverEngineFactory;
-    protected ServletContext servletContext;
     protected URL nurl;
     protected ClassLoader loader;
 
@@ -75,14 +74,6 @@ public class UndertowHTTPDestination extends ServletDestination {
             nurl = new URL(getAddress(endpointInfo));
         }
         loader = bus.getExtension(ClassLoader.class);
-    }
-
-    protected Logger getLogger() {
-        return LOG;
-    }
-
-    public void setServletContext(ServletContext sc) {
-        servletContext = sc;
     }
 
     /**
@@ -138,7 +129,14 @@ public class UndertowHTTPDestination extends ServletDestination {
      */
     public void activate() {
         super.activate();
-        LOG.log(Level.FINE, "Activating receipt of incoming messages");
+        LOG.debug("Activating receipt of incoming messages");
+
+        Class<?> serviceClass = endpointInfo.getProperty("serviceClass", Class.class);
+        if (serviceClass != null && this.loader == null) {
+            final ClassLoader cl = serviceClass.getClassLoader();
+            LOG.debug("Using classloader {} obtained via endpointInfo serviceClass", cl);
+            this.loader = cl;
+        }
 
         if (engine != null) {
             UndertowHTTPHandler jhd = createJettyHTTPHandler(this, contextMatchOnExact());
@@ -155,7 +153,7 @@ public class UndertowHTTPDestination extends ServletDestination {
      */
     public void deactivate() {
         super.deactivate();
-        LOG.log(Level.FINE, "Deactivating receipt of incoming messages");
+        LOG.debug("Deactivating receipt of incoming messages");
         if (engine != null) {
             engine.removeServant(nurl);
         }
@@ -169,14 +167,8 @@ public class UndertowHTTPDestination extends ServletDestination {
         }
     }
 
-    public void doService(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        doService(servletContext, req, resp);
-    }
-
-    public void doService(ServletContext context, HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        if (context == null) {
-            context = servletContext;
-        }
+    @Override
+    public void service(ServletContext context, HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         ClassLoaderHolder origLoader = null;
         Bus origBus = BusFactory.getAndSetThreadDefaultBus(bus);
@@ -193,5 +185,9 @@ public class UndertowHTTPDestination extends ServletDestination {
                 origLoader.reset();
             }
         }
+    }
+
+    public ClassLoader getClassLoader() {
+        return loader;
     }
 }

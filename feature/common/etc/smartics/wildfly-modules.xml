@@ -426,6 +426,10 @@
         <include artifact=":wildfly-server" />
     </module>
 
+    <module name="org.jboss.as.web-common" skip="true">
+        <include artifact="org.wildfly:wildfly-web-common" />
+    </module>
+
     <module name="org.jboss.as.weld" skip="true">
         <include artifact=":wildfly-weld" />
         <include artifact=":weld-api" />
