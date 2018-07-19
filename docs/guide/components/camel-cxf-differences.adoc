@@ -38,6 +38,11 @@ For example, if you configure an endpoint consumer using different host or port 
 
 However, the consumer is still available on the default host & port localhost:8080 or localhost:8443.
 
+[NOTE]
+====
+Applications which use camel-cxf consumers **__must__** be packaged as a WAR. In previous {wildfly-camel} releases, other types of archive such as JAR were permitted, but this is no longer supported.
+====
+
 ##### Configuring alternative ports
 
 If alternative ports are to be accepted, then these must be configured via the {wildfly} subsystem configuration. This is explained in the server documentation:
@@ -49,3 +54,114 @@ https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_applicati
 To configure SSL, refer to the {wildfly} SSL configuration guide:
 
 https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html-single/how_to_configure_server_security/#configure_one_way_and_two_way_ssl_tls_for_application
+
+##### Configuring security with Elytron
+
+{wildfly-camel} supports securing camel-cxf consumer endpoints with the https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html/how_to_configure_identity_management/elytron_secure_apps[Elytron] security framework.
+
+###### Configuring a security domain
+
+To secure a {wildfly-camel} application with Elytron, an application security domain needs to be referenced within `WEB-INF/jboss-web.xml` of your WAR deployment:
+
+[source,xml,options="nowrap"]
+----
+<jboss-web>
+  <security-domain>my-application-security-domain</security-domain>
+</jboss-web>
+----
+
+The `<security-domain>` configuration references the name of an `<application-security-domain>` defined by the Undertow subsystem. For example, the Undertow subsystem `<application-security-domain>` is configured within the {wildfly} server `standalone.xml` configuration file as follows:
+
+[source,xml,options="nowrap"]
+----
+<subsystem xmlns="urn:jboss:domain:undertow:6.0">
+    ...
+    <application-security-domains>
+        <application-security-domain name="my-application-security-domain" http-authentication-factory="application-http-authentication"/>
+    </application-security-domains>
+</subsystem>
+----
+
+The `<http-authentication-factory>` `application-http-authentication` is defined within the Elytron subsystem. `application-http-authentication` is available by default in both the `standalone.xml` and `standalone-full.xml` server configuration files. For example:
+
+[source,xml,options="nowrap"]
+----
+<subsystem xmlns="urn:wildfly:elytron:1.2">
+    ...
+    <http>
+        ...
+        <http-authentication-factory name="application-http-authentication" http-server-mechanism-factory="global" security-domain="ApplicationDomain">
+            <mechanism-configuration>
+                <mechanism mechanism-name="BASIC">
+                    <mechanism-realm realm-name="Application Realm" />
+                </mechanism>
+                <mechanism mechanism-name="FORM" />
+            </mechanism-configuration>
+        </http-authentication-factory>
+        <provider-http-server-mechanism-factory name="global" />
+    </http>
+    ...
+</subsystem>
+----
+
+The `<http-authentication-factory>` named `application-http-authentication`, holds a reference to a Elytron security domain called `ApplicationDomain`.
+
+For more information on how to configure the Elytron subsystem, refer to the https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html/how_to_configure_identity_management/elytron_secure_apps[Elytron documentation].
+
+###### Configuring security constraints, authentication methods and security roles
+
+Security constraints, authentication methods and security roles for camel-cxf consumer endpoints can be configured within your WAR deployment `WEB-INF/web.xml`. For example, to configure BASIC Authentication:
+
+[source,xml,options="nowrap"]
+----
+<web-app>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>secure</web-resource-name>
+      <url-pattern>/webservices/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>my-role</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <security-role>
+    <description>The role that is required to log in to /webservices/*</description>
+    <role-name>my-role</role-name>
+  </security-role>
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>my-realm</realm-name>
+  </login-config>
+</web-app>
+----
+
+Note that the `<url-pattern>` defined by the Servlet Specification is relative to the context path of the web application. If your application is packaged as `my-app.war`, {wildfly} will make it accessible under the context path `/my-app` and the `<url-patternpattern>` `+/webservices/*+` will be applied to paths relative to `/my-app`.
+
+For example, requests against `http://my-server/my-app/webservices/my-endpoint` will match the `+/webservices/*+` pattern, while `http://my-server/webservices/my-endpoint` will not match.
+
+This is important because {wildfly-camel} allows the creation of camel-cxf endpoint consumers whose base path is outside of the host web application context path. For example, it is possible to create a camel-cxf consumer for `http://my-server/webservices/my-endpoint` inside `my-app.war`.
+
+In order to define security constraints for such out-of-context endpoints, {wildfly-camel} supports a custom, **__non-standard__** `<url-pattern>` convention where prefixing the pattern with three forward slashes `///` will be interpreted as absolute to server host name. For example, to secure `http://my-server/webservices/my-endpoint` inside `my-app.war`, you would add the following configuration to `web.xml`:
+
+[source,xml,options="nowrap"]
+----
+<web-app>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>secure</web-resource-name>
+      <url-pattern>///webservices/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>my-role</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <security-role>
+    <description>The role that is required to log in to /webservices/*</description>
+    <role-name>my-role</role-name>
+  </security-role>
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>my-realm</realm-name>
+  </login-config>
+</web-app>
+----
