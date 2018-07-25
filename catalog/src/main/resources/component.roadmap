@@ -150,6 +150,7 @@ lucene
 lumberjack
 master
 metrics
+micrometer
 milo-client
 milo-server
 mina2
@@ -265,7 +266,6 @@ restlet                                             #2024 Blocked by camel-2.21.
 [undecided]
 as2
 elasticsearch-rest
-micrometer
 service
 solr                                                #2030 No test coverage for solr in camel
 solrCloud                                           #2031 No test coverage for solr in camel

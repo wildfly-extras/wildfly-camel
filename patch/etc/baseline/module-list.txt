@@ -149,7 +149,7 @@
 /io/grpc/main/java-jwt-3.2.0.jar
 /io/grpc/main/opencensus-api-0.11.0.jar
 /io/grpc/main/opencensus-contrib-grpc-metrics-0.11.0.jar
-/io/micrometer/main/micrometer-core-1.0.1.jar
+/io/micrometer/main/micrometer-core-1.0.5.jar
 /io/netty/3.10/netty-3.10.6.Final.jar
 /io/netty/4.1/netty-all-4.1.25.Final.jar
 /io/opentracing/main/opentracing-api-0.31.0.jar
@@ -365,6 +365,7 @@
 /org/apache/camel/component/mail/main/camel-mail-2.22.0.jar
 /org/apache/camel/component/master/main/camel-master-2.22.0.jar
 /org/apache/camel/component/metrics/main/camel-metrics-2.22.0.jar
+/org/apache/camel/component/micrometer/main/camel-micrometer-2.22.0.jar
 /org/apache/camel/component/milo/main/camel-milo-2.22.0.jar
 /org/apache/camel/component/mina2/main/camel-mina2-2.22.0.jar
 /org/apache/camel/component/mllp/main/camel-mllp-2.22.0.jar

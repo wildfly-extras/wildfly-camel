@@ -222,6 +222,8 @@ include::camel-master.adoc[]
 
 include::camel-metrics.adoc[]
 
+include::camel-micrometer.adoc[]
+
 include::camel-milo.adoc[]
 
 include::camel-mina2.adoc[]

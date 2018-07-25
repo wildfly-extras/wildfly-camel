@@ -1912,6 +1912,25 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.micrometer">
+        <include artifact="org.apache.camel:camel-micrometer"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="io.micrometer" export="true">
+                <exports>
+                    <exclude path="io/micrometer" />
+                    <exclude path="io/micrometer/core/instrument/internal" />
+                    <exclude path="io/micrometer/shaded**" />
+                    <exclude path="shaded**" />
+                </exports>
+            </module>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.milo">
         <include artifact="org.apache.camel:camel-milo" />
         <apply-to-dependencies skip="true">
