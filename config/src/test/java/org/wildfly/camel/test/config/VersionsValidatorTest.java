@@ -64,6 +64,7 @@ public class VersionsValidatorTest {
         mapping.put("version.camel.qpid.proton", "qpid-proton-j-version");
         mapping.put("version.camel.netty41", "netty-version");
         mapping.put("version.camel.opencmis", "cmis-version");
+        mapping.put("version.camel.rxjava2", "rxjava2-version");
         mapping.put("version.wildfly.arquillian", "version.org.wildfly.arquillian");
         mapping.put("version.wildfly.cxf", "version.org.apache.cxf");
         mapping.put("version.wildfly.fasterxml.jackson", "version.com.fasterxml.jackson");

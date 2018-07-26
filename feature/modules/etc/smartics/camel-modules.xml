@@ -2464,6 +2464,22 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.rxjava2">
+        <include artifact="org.apache.camel:camel-rxjava2"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="io.reactivex.rxjava" slot="2.1.16" export="true">
+                <exports>
+                    <exclude path="io/reactivex/internal**" />
+                </exports>
+            </module>
+            <module name="org.slf4j" />
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.salesforce">
         <include artifact="org.apache.camel:camel-salesforce" />
         <apply-to-dependencies skip="true">

@@ -155,6 +155,7 @@
 /io/opentracing/main/opentracing-api-0.31.0.jar
 /io/opentracing/main/opentracing-noop-0.31.0.jar
 /io/opentracing/main/opentracing-tracerresolver-0.1.4.jar
+/io/reactivex/rxjava/2.1.16/rxjava-2.1.16.jar
 /javax/cache/api/main/cache-api-1.0.0.jar
 /javax/jcr/main/jcr-2.0.jar
 /javax/json11/api/main/geronimo-json_1.1_spec-1.0.jar
@@ -419,6 +420,7 @@
 /org/apache/camel/component/ribbon/main/camel-ribbon-2.22.0.jar
 /org/apache/camel/component/rmi/main/camel-rmi-2.22.0.jar
 /org/apache/camel/component/rss/main/camel-rss-2.22.0.jar
+/org/apache/camel/component/rxjava2/main/camel-rxjava2-2.22.0.jar
 /org/apache/camel/component/salesforce/main/camel-salesforce-2.22.0.jar
 /org/apache/camel/component/sap/netweaver/main/camel-sap-netweaver-2.22.0.jar
 /org/apache/camel/component/saxon/main/camel-saxon-2.22.0.jar

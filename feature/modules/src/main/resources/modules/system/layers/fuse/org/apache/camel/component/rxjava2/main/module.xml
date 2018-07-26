@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.rxjava2">
+  <resources>
+    <artifact name="${org.apache.camel:camel-rxjava2}" />
+  </resources>
+  <dependencies>
+    <module name="io.reactivex.rxjava" slot="2.1.16" export="true">
+      <exports>
+        <exclude path="io/reactivex/internal**" />
+      </exports>
+    </module>
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.component.reactive.streams" />
+    <module name="org.apache.camel.core" />
+    <module name="org.reactivestreams" />
+  </dependencies>
+</module>

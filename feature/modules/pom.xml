@@ -100,6 +100,11 @@
             <artifactId>netty-all</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.reactivex.rxjava2</groupId>
+            <artifactId>rxjava</artifactId>
+            <version>${version.camel.rxjava2}</version>
+        </dependency>
+        <dependency>
             <groupId>javax.cache</groupId>
             <artifactId>cache-api</artifactId>
         </dependency>
@@ -720,6 +725,10 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-rss</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-rxjava2</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>

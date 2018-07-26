@@ -9,6 +9,7 @@ lra
 opentracing
 reactor
 ribbon
+rxjava2
 shiro
 spring-javaconfig
 spring-security
@@ -19,7 +20,6 @@ zipkin
 
 [undecided]
 aws-xray
-rxjava2
 
 [rejected]
 bam                                 #deprecated

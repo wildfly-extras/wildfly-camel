@@ -294,6 +294,8 @@ include::camel-rmi.adoc[]
 
 include::camel-rss.adoc[]
 
+include::camel-rxjava2.adoc[]
+
 include::camel-salesforce.adoc[]
 
 include::camel-sap.adoc[]

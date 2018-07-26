@@ -58,6 +58,7 @@
         <version.camel.netty41>4.1.25.Final</version.camel.netty41>
         <version.camel.opencmis>1.1.0</version.camel.opencmis>
         <version.camel.qpid.proton>0.27.1</version.camel.qpid.proton>
+        <version.camel.rxjava2>2.1.16</version.camel.rxjava2>
 
         <!-- WildFly versions -->
         <version.wildfly>13.0.0.Final</version.wildfly>

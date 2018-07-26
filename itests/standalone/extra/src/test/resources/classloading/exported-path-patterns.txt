@@ -48,6 +48,7 @@
     ^io/grpc(.*)
     ^io/micrometer(.*)
 	^io/nats(.*)
+	^io/reactivex(.*)
 	^io/swagger(.*)
     ^io/undertow/client(.*)
 	^io/vertx/core(.*)

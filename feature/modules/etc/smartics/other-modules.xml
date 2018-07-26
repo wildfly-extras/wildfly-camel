@@ -1065,8 +1065,18 @@
     </module>
 
     <module name="io.opentracing">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="io.opentracing:opentracing-(.*)" />
         <include artifact="io.opentracing.contrib:opentracing-(.*)" />
+    </module>
+
+    <module name="io.reactivex.rxjava" slot="2.1.16" inherit-slot="false">
+        <include artifact="io.reactivex.rxjava2:rxjava" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
     </module>
 
     <module name="javax.cache.api" >
