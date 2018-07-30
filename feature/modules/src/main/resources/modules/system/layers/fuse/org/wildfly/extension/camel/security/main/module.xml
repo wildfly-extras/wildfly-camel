@@ -10,6 +10,7 @@
     <module name="org.jboss.as.server" />
     <module name="org.jboss.as.security" />
     <module name="org.picketbox" />
+    <module name="org.wildfly.security.elytron" />
     <module name="org.slf4j" />
     <module name="org.jboss.gravia" />
     <module name="org.jboss.modules" />
