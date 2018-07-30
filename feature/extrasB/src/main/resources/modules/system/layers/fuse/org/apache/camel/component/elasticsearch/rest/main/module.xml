@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.elasticsearch.rest">
+  <resources>
+    <artifact name="${org.apache.camel:camel-elasticsearch-rest}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.httpcomponents" />
+    <module name="org.elasticsearch" export="true">
+      <exports>
+        <include path="org/elasticsearch/action**" />
+        <include path="org/elasticsearch/search**" />
+        <exclude path="org/elasticsearch**" />
+      </exports>
+    </module>
+    <module name="org.slf4j" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>

@@ -2,13 +2,7 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.logging.log4j">
   <resources>
     <artifact name="${org.apache.logging.log4j:log4j-api}" />
-    <artifact name="${org.apache.logging.log4j:log4j-to-slf4j}" />
+    <artifact name="${org.apache.logging.log4j:log4j-core}" />
   </resources>
-  <dependencies>
-    <module name="org.slf4j" />
-  </dependencies>
-  <exports>
-    <exclude path="org/apache/logging" />
-    <exclude path="org/apache/logging/slf4j" />
-  </exports>
+  <dependencies />
 </module>

@@ -80,7 +80,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-elasticsearch</artifactId>
+            <artifactId>camel-elasticsearch-rest</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -190,6 +190,11 @@
                     <artifactId>slf4j-log4j12</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.plugin</groupId>
+            <artifactId>transport-netty4-client</artifactId>
+            <version>${version.camel.elasticsearch.rest}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.zookeeper</groupId>

@@ -53,6 +53,7 @@ public class VersionsValidatorTest {
         wfRoot = getRootNode("wildfly-parent");
 
         mapping.put("version.camel.apns", "java-apns-version");
+        mapping.put("version.camel.elasticsearch.rest", "elasticsearch-rest-version");
         mapping.put("version.camel.jgroups", "jgroups-version");
         mapping.put("version.camel.log4j2", "log4j2-version");
         mapping.put("version.camel.hadoop2", "hadoop2-version");

@@ -68,7 +68,7 @@ dozer
 dropbox
 ehcache
 ejb
-elasticsearch                                       #deprecated
+elasticsearch-rest
 elsql
 etcd
 exec
@@ -265,7 +265,6 @@ restlet                                             #2024 Blocked by camel-2.21.
 
 [undecided]
 as2
-elasticsearch-rest
 service
 solr                                                #2030 No test coverage for solr in camel
 solrCloud                                           #2031 No test coverage for solr in camel
@@ -281,6 +280,7 @@ cometd                                              #1990 Depends on Jetty serve
 cometds                                             #1991 Depends on Jetty server
 context                                             #deprecated
 drill                                               #1823 Competitor to JDG
+elasticsearch                                       #deprecated
 elasticsearch5                                      #deprecated
 eventadmin                                          #1996 OSGi specific
 flink                                               #2370 Massive bucket of scala dependent stuff

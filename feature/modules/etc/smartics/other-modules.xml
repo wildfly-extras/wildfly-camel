@@ -1448,38 +1448,31 @@
         </exports>
     </module>
 
-    <module name="org.apache.logging.log4j" >
+    <module name="org.apache.logging.log4j">
         <include artifact="org.apache.logging.log4j:log4j-api" />
-        <include artifact="org.apache.logging.log4j:log4j-to-slf4j" />
+        <include artifact="org.apache.logging.log4j:log4j-core" />
         <apply-to-dependencies skip="true">
             <include module="org.osgi.core" />
         </apply-to-dependencies>
-        <dependencies>
-            <module name="org.slf4j" />
-        </dependencies>
-        <exports>
-            <exclude path="org/apache/logging" />
-            <exclude path="org/apache/logging/slf4j" />
-        </exports>
     </module>
 
-    <module name="org.apache.logging.log4j.core" skip="true">
-        <include artifact="org.apache.logging.log4j:log4j-core" />
+    <module name="org.apache.logging.log4j.log4j-to-slf4j" skip="true">
+        <include artifact="org.apache.logging.log4j:log4j-to-slf4j" />
     </module>
 
-    <module name="org.apache.lucene" inherit-slot="false" slot="5.5">
+    <module name="org.apache.lucene" inherit-slot="false" slot="7.2">
         <include artifact="com.spatial4j:spatial4j" />
         <include artifact="org.apache.lucene:lucene-analyzers-common" />
         <include artifact="org.apache.lucene:lucene-backward-codecs" />
         <include artifact="org.apache.lucene:lucene-core" />
         <include artifact="org.apache.lucene:lucene-facet" />
-        <include artifact="org.apache.lucene:lucene-queries" />
-        <include artifact="org.apache.lucene:lucene-queryparser" />
         <include artifact="org.apache.lucene:lucene-grouping" />
         <include artifact="org.apache.lucene:lucene-highlighter" />
         <include artifact="org.apache.lucene:lucene-join" />
         <include artifact="org.apache.lucene:lucene-memory" />
         <include artifact="org.apache.lucene:lucene-misc" />
+        <include artifact="org.apache.lucene:lucene-queries" />
+        <include artifact="org.apache.lucene:lucene-queryparser" />
         <include artifact="org.apache.lucene:lucene-sandbox" />
         <include artifact="org.apache.lucene:lucene-spatial" />
         <include artifact="org.apache.lucene:lucene-spatial3d" />

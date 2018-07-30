@@ -20,14 +20,21 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="org.apache.camel.component.elasticsearch">
-        <include artifact="org.apache.camel:camel-elasticsearch"/>
+    <module name="org.apache.camel.component.elasticsearch.rest">
+        <include artifact="org.apache.camel:camel-elasticsearch-rest" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.elasticsearch"/>
+            <module name="org.apache.httpcomponents"/>
+            <module name="org.elasticsearch" export="true">
+                <exports>
+                    <include path="org/elasticsearch/action**"/>
+                    <include path="org/elasticsearch/search**"/>
+                    <exclude path="org/elasticsearch**"/>
+                </exports>
+            </module>
             <module name="org.slf4j"/>
         </dependencies>
     </module>

@@ -48,6 +48,7 @@
         <!-- Camel versions -->
         <version.apache.camel>2.22.0</version.apache.camel>
         <version.camel.apns>1.0.0.Beta6</version.camel.apns>
+        <version.camel.elasticsearch.rest>6.1.1</version.camel.elasticsearch.rest>
         <version.camel.jgroups>4.0.12.Final</version.camel.jgroups>
         <version.camel.log4j2>2.11.0</version.camel.log4j2>
         <version.camel.hadoop2>2.7.4</version.camel.hadoop2>

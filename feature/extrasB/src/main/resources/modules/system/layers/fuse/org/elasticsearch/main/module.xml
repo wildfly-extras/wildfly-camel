@@ -4,16 +4,22 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
+    <artifact name="${org.elasticsearch.plugin:aggs-matrix-stats-client}" />
     <artifact name="${org.elasticsearch:elasticsearch}" />
-    <artifact name="${com.twitter:jsr166e}" />
+    <artifact name="${org.elasticsearch:elasticsearch-cli}" />
+    <artifact name="${org.elasticsearch.client:elasticsearch-rest-client}" />
+    <artifact name="${org.elasticsearch.client:elasticsearch-rest-client-sniffer}" />
+    <artifact name="${org.elasticsearch.client:elasticsearch-rest-high-level-client}" />
+    <artifact name="${org.elasticsearch:jna}" />
+    <artifact name="${net.sf.jopt-simple:jopt-simple}" />
+    <artifact name="${org.elasticsearch.plugin:parent-join-client}" />
     <artifact name="${org.elasticsearch:securesm}" />
     <artifact name="${com.tdunning:t-digest}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="io.netty" slot="3.10" />
-    <module name="org.apache.lucene" slot="5.5" />
-    <module name="org.slf4j" />
+    <module name="org.apache.logging.log4j" />
+    <module name="org.apache.lucene" slot="7.1" />
     <module name="sun.jdk">
       <imports>
         <include path="sun/misc" />
@@ -24,14 +30,19 @@
     <module name="com.fasterxml.jackson.dataformat.cbor" />
     <module name="com.fasterxml.jackson.dataformat.smile" />
     <module name="com.fasterxml.jackson.dataformat.yaml" />
-    <module name="com.google.guava" />
-    <module name="com.ning.lzf" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.logging" />
+    <module name="org.apache.httpcomponents" />
+    <module name="org.hdrhistogram" />
     <module name="org.joda.time" />
     <module name="org.yaml.snakeyaml" />
   </dependencies>
   <exports>
-    <exclude path="com/carrotsearch**" />
+    <exclude path="com/sun**" />
     <exclude path="com/tdunning**" />
-    <exclude path="com/twitter**" />
+    <exclude path="joptsimple**" />
+    <exclude path="org/apache/lucene**" />
+    <exclude path="org/elasticsearch/search/internal**" />
+    <exclude path="org/joda**" />
   </exports>
 </module>

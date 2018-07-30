@@ -76,6 +76,12 @@ public final class AvailablePortFinder {
         throw new NoSuchElementException("Could not find an available port above " + fromPort);
     }
 
+    public static int getAndStoreNextAvailable(String filename) {
+        int port = getNextAvailable();
+        storeServerData(filename, port);
+        return port;
+    }
+
     public synchronized static boolean available(InetAddress addr, int port) {
 
         try (ServerSocket ss = new ServerSocket()) {

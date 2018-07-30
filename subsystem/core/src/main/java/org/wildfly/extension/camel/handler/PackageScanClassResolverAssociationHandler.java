@@ -60,7 +60,7 @@ public final class PackageScanClassResolverAssociationHandler implements Context
 
         @Override
         protected void find(PackageScanFilter filter, String packageName, ClassLoader classLoader, Set<Class<?>> classes) {
-            LOGGER.info("Searching for: {} in package: {} using classloader: {}", new Object[] { filter, packageName, classLoader });
+            LOGGER.debug("Searching for: {} in package: {} using classloader: {}", new Object[] { filter, packageName, classLoader });
 
             // Would be the case for the system classloader
             if (!(classLoader instanceof ModuleClassLoader)) {
@@ -80,7 +80,7 @@ public final class PackageScanClassResolverAssociationHandler implements Context
                     try {
                         Class<?> loadedClass = moduleClassLoader.loadClass(className);
                         if (filter.matches(loadedClass)) {
-                            LOGGER.info("Found type in package scan: {}", loadedClass.getName());
+                            LOGGER.debug("Found type in package scan: {}", loadedClass.getName());
                             classes.add(loadedClass);
                         }
                     } catch (ClassNotFoundException ex) {

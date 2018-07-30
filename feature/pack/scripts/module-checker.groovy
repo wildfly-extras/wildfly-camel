@@ -155,7 +155,7 @@ class DependencyGraph {
 
 def paths = [properties.get("wildfly.module.dir"), properties.get("wildfly.camel.module.dir")]
 
-/** A set of WildFly Camel modules that all other WildFly Camel modules are supposed to transitively depend on */
+// A set of WildFly Camel modules that all other WildFly Camel modules are supposed to transitively depend on
 def rootModules = [
     "org.wildfly.extension.camel:main",
     "org.wildfly.extras.config.plugin.camel:main",
@@ -169,7 +169,8 @@ def smarticsDirectories = [
     "${smarticsFilesPrefix}extrasB/etc/smartics",
     "${smarticsFilesPrefix}extrasC/etc/smartics"
 ]
-/** We ignore modules in smartics XML files having skip="true" unless the given file is explicitly present in this list */
+
+// We ignore modules in smartics XML files having skip="true" unless the given file is explicitly present in this list
 def smarticsFilesIgnoreSkip = [
     new File("${smarticsFilesPrefix}modules/etc/smartics/fusepatch-modules.xml").path
 ] as Set

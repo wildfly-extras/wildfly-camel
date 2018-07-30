@@ -562,7 +562,7 @@
         <artifact groupId="org.apache.johnzon" artifactId="johnzon-mapper" version="1.1.0"/>
         <artifact groupId="org.apache.kafka" artifactId="kafka-clients" version="1.1.0"/>
         <artifact groupId="org.apache.logging.log4j" artifactId="log4j-api" version="2.11.0"/>
-        <artifact groupId="org.apache.logging.log4j" artifactId="log4j-to-slf4j" version="2.11.0"/>
+        <artifact groupId="org.apache.logging.log4j" artifactId="log4j-core" version="2.11.0"/>
         <artifact groupId="org.apache.lucene" artifactId="lucene-analyzers-common" version="7.2.1"/>
         <artifact groupId="org.apache.lucene" artifactId="lucene-backward-codecs" version="7.2.1"/>
         <artifact groupId="org.apache.lucene" artifactId="lucene-core" version="7.2.1"/>

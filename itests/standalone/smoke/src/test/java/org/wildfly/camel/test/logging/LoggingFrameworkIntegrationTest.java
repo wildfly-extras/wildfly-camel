@@ -63,10 +63,4 @@ public class LoggingFrameworkIntegrationTest {
         org.apache.log4j.Logger.getLogger("logger-log4j").info("Message from Log4J");
         Assert.assertTrue("Verify log message", LogUtils.awaitLogMessage(".*logger-log4j].*Message from Log4J$", 5000));
     }
-
-    @Test
-    public void testLog4JV2() throws Exception {
-        org.apache.logging.log4j.LogManager.getLogger("logger-log4j-v2").info("Message from Log4J-V2");
-        Assert.assertTrue("Verify log message", LogUtils.awaitLogMessage(".*logger-log4j-v2].*Message from Log4J-V2$", 5000));
-    }
 }

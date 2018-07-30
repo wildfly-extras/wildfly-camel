@@ -102,9 +102,7 @@ include::camel-ehcache.adoc[]
 
 include::camel-ejb.adoc[]
 
-include::camel-elasticsearch.adoc[]
-
-include::camel-elasticsearch5.adoc[]
+include::camel-elasticsearch-rest.adoc[]
 
 include::camel-elsql.adoc[]
 

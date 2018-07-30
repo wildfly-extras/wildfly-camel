@@ -77,7 +77,7 @@ public class QuartzIntegrationTest {
 
         camelctx.start();
         try {
-            Assert.assertTrue("ProcLatch reached zero", procLatch.await(500, TimeUnit.MILLISECONDS));
+            Assert.assertTrue("ProcLatch is not zero", procLatch.await(5, TimeUnit.SECONDS));
         } finally {
             camelctx.stop();
         }
@@ -115,7 +115,7 @@ public class QuartzIntegrationTest {
         camelctx.start();
         try {
             Assert.assertEquals("StartLatch is zero", 0, startLatch.getCount());
-            Assert.assertTrue("ProcLatch reached zero", procLatch.await(500, TimeUnit.MILLISECONDS));
+            Assert.assertTrue("ProcLatch is not zero", procLatch.await(5, TimeUnit.SECONDS));
         } finally {
             camelctx.stop();
         }

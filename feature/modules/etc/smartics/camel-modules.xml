@@ -2545,7 +2545,12 @@
             <module name="javax.api"/>
             <module name="org.apache.camel.script.groovy" export="true" services="export"/>
             <module name="org.apache.camel.script.rhino" services="export"/>
-            <module name="org.beanshell" services="export"/>
+            <module name="org.beanshell" export="true" services="export">
+                <exports>
+                    <include path="bsh/engine"/>
+                    <exclude path="bsh**"/>
+                </exports>
+            </module>
             <module name="org.osgi.core"/>
             <module name="org.slf4j"/>
         </dependencies>
