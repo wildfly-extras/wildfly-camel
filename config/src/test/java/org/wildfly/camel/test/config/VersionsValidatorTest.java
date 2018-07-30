@@ -54,17 +54,18 @@ public class VersionsValidatorTest {
 
         mapping.put("version.camel.apns", "java-apns-version");
         mapping.put("version.camel.elasticsearch.rest", "elasticsearch-rest-version");
-        mapping.put("version.camel.jgroups", "jgroups-version");
-        mapping.put("version.camel.log4j2", "log4j2-version");
         mapping.put("version.camel.hadoop2", "hadoop2-version");
         mapping.put("version.camel.hadoop2.protobuf", "hadoop2-protobuf-version");
+        mapping.put("version.camel.grpc.guava", "grpc-guava-version");
         mapping.put("version.camel.hbase", "hbase-version");
         mapping.put("version.camel.httpclient", "httpclient4-version");
         mapping.put("version.camel.javacrumbs", "javacrumbs-version");
+        mapping.put("version.camel.jgroups", "jgroups-version");
+        mapping.put("version.camel.log4j2", "log4j2-version");
         mapping.put("version.camel.lucene", "lucene-version");
-        mapping.put("version.camel.qpid.proton", "qpid-proton-j-version");
         mapping.put("version.camel.netty41", "netty-version");
         mapping.put("version.camel.opencmis", "cmis-version");
+        mapping.put("version.camel.qpid.proton", "qpid-proton-j-version");
         mapping.put("version.camel.rxjava2", "rxjava2-version");
         mapping.put("version.wildfly.arquillian", "version.org.wildfly.arquillian");
         mapping.put("version.wildfly.cxf", "version.org.apache.cxf");
