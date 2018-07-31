@@ -112,9 +112,10 @@
                     40001->4001/tcp
                 ]
                 await:
-                    strategy: log
-                    match: 'listening for client requests'
-                    timeout: 15
+                    strategy: http
+                    url: http://dockerHost:23379/health
+                    responseCode: 200
+                    iterations: 15
             google_pubsub:
                 image: wildflyext/pubsub-emulator:2017.08.07
                 cmd: [
