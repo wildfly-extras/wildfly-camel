@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel-itests-standalone</artifactId>
-        <version>7.0.0-SNAPSHOT</version>
+        <version>7.0.0</version>
     </parent>
 
     <name>Wildfly Camel :: Testsuite :: Standalone :: Extra</name>
@@ -210,28 +210,26 @@
                                         <replacetoken><![CDATA[<subsystem xmlns="urn:jboss:domain:ee:4.0">]]></replacetoken>
                                         <replacevalue><![CDATA[<subsystem xmlns="urn:jboss:domain:ee:4.0">
                                         <global-modules>
-                                            <module name="org.wildfly.camel.global.ee"/>
+                                            <module name="org.wildfly.camel.global.ee" />
                                         </global-modules>]]></replacevalue>
                                     </replacefilter>
                                 </replace>
                                 <echo file="${jboss.home}/modules/system/layers/fuse/org/wildfly/camel/global/ee/main/module.xml"><![CDATA[
                                 <module name="org.wildfly.camel.global.ee" xmlns="urn:jboss:module:1.1">
                                     <resources>
-                                        <resource-root path="props"/>
+                                        <resource-root path="props" />
                                     </resources>
                                 </module>
                                 ]]></echo>
-                                <copy file="${basedir}/src/test/resources/modules/psetA.properties"
-                                    todir="${jboss.home}/modules/system/layers/fuse/org/wildfly/camel/global/ee/main/props"/>
+                                <copy file="${basedir}/src/test/resources/modules/psetA.properties" todir="${jboss.home}/modules/system/layers/fuse/org/wildfly/camel/global/ee/main/props" />
                                 <echo file="${jboss.home}/modules/system/layers/fuse/org/wildfly/camel/extras/main/module.xml"><![CDATA[
                                 <module name="org.wildfly.camel.extras" xmlns="urn:jboss:module:1.1">
                                     <resources>
-                                        <resource-root path="props"/>
+                                        <resource-root path="props" />
                                     </resources>
                                 </module>
                                 ]]></echo>
-                                <copy file="${basedir}/src/test/resources/modules/psetB.properties"
-                                    todir="${jboss.home}/modules/system/layers/fuse/org/wildfly/camel/extras/main/props"/>
+                                <copy file="${basedir}/src/test/resources/modules/psetB.properties" todir="${jboss.home}/modules/system/layers/fuse/org/wildfly/camel/extras/main/props" />
                             </target>
                         </configuration>
                     </execution>
