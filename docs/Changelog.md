@@ -1,5 +1,65 @@
 ### Changelog
 
+#### WildFly-Camel 7.0.0
+
+**Features**
+
+* [#2471][2471] Add support for component elasticsearch-rest
+* [#2492][2492] Add support for dataformat fhirJson
+* [#2493][2493] Add support for dataformat fhirXml
+* [#2587][2587] Add support for component micrometer
+* [#2590][2590] Add support for component rxjava2
+
+For details see [7.0.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"7.0.0"+label%3Afeature)
+
+**Tasks**
+
+* [#2430][2430] Upgrade to wildfly-13.0.0
+* [#2459][2459] Upgrade to camel-2.22.0
+* [#2563][2563] Upgrade Hawtio to 2.0.2
+* [#2566][2566] Upgrade maven-surefire-plugin to 2.21.0
+* [#2567][2567] Restore erroneously ignored tests
+* [#2570][2570] Add wildfly-camel-testenricher to wildfly-camel BOM
+* [#2571][2571] Upgrade wildfly-maven-plugin to 1.2.2.Final
+* [#2591][2591] Reject support for component spring-cloud-consul
+* [#2592][2592] Reject support for component component spring-cloud-zookeeper
+* [#2593][2593] Reject support for component testcontainers
+* [#2617][2617] Verify resource visibility in global/extra modules
+
+For details see [7.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"7.0.0"+label%3Atask)
+
+**Bugs**
+
+* [#2562][2562] Redundant semicolon for if statement in DMRUtils
+* [#2564][2564] BoxIntegrationTest fails with WildFly 13.0.0.Final
+* [#2575][2575] camel-elasticsearch broken after upgrade to lucene 7.2.1
+* [#2576][2576] GRPCIntegrationTest fails with camel 2.22.x
+* [#2615][2615] Intermittent failure of EtcdIntegrationTest
+
+For details see [7.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"7.0.0"+label%3Abug)
+
+[2471]: https://github.com/wildfly-extras/wildfly-camel/issues/2471
+[2492]: https://github.com/wildfly-extras/wildfly-camel/issues/2492
+[2493]: https://github.com/wildfly-extras/wildfly-camel/issues/2493
+[2587]: https://github.com/wildfly-extras/wildfly-camel/issues/2587
+[2590]: https://github.com/wildfly-extras/wildfly-camel/issues/2590
+[2430]: https://github.com/wildfly-extras/wildfly-camel/issues/2430
+[2459]: https://github.com/wildfly-extras/wildfly-camel/issues/2459
+[2563]: https://github.com/wildfly-extras/wildfly-camel/issues/2563
+[2566]: https://github.com/wildfly-extras/wildfly-camel/issues/2566
+[2567]: https://github.com/wildfly-extras/wildfly-camel/issues/2567
+[2570]: https://github.com/wildfly-extras/wildfly-camel/issues/2570
+[2571]: https://github.com/wildfly-extras/wildfly-camel/issues/2571
+[2591]: https://github.com/wildfly-extras/wildfly-camel/issues/2591
+[2592]: https://github.com/wildfly-extras/wildfly-camel/issues/2592
+[2593]: https://github.com/wildfly-extras/wildfly-camel/issues/2593
+[2617]: https://github.com/wildfly-extras/wildfly-camel/issues/2617
+[2562]: https://github.com/wildfly-extras/wildfly-camel/issues/2562
+[2564]: https://github.com/wildfly-extras/wildfly-camel/issues/2564
+[2575]: https://github.com/wildfly-extras/wildfly-camel/issues/2575
+[2576]: https://github.com/wildfly-extras/wildfly-camel/issues/2576
+[2615]: https://github.com/wildfly-extras/wildfly-camel/issues/2615
+
 #### WildFly-Camel 6.1.0
 
 **Features**
@@ -18,7 +78,9 @@ For details see [6.1.0 features](https://github.com/wildfly-extras/wildfly-camel
 
 * [#2115][2115] Add a generic OpenShift template
 * [#2317][2317] Create a set of generic camel REST DSL tests
+* [#2408][2408] Modify Arquillian Cube etcd container port mappings to avoid conflicts
 * [#2458][2458] Upgrade to camel-2.21.1
+* [#2467][2467] Re-enable JBPMIntegrationTest and PubSubIntegrationTest after wildfly/wildfly-url-http/issues/9 gets fixed
 * [#2470][2470] Remove deprecated camel components
 * [#2479][2479] Remove redundant wildfly-camel-feature-extrasD dependency
 * [#2483][2483] Use stubbed data for SAPNetweaverIntegrationTest
@@ -31,6 +93,9 @@ For details see [6.1.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#2519][2519] Add test coverage for saga EIP
 * [#2526][2526] Remove redundant configuration from archetypes
 * [#2529][2529] Upgrade Hawtio to 1.5.9
+* [#2531][2531] Upgrade to smartics-maven-plugin 2.1.5
+* [#2534][2534] Enforce all fuse modules to be defined in smartics xml files
+* [#2535][2535] Enforce no orphan fuse modules
 * [#2539][2539] Remove org.apache.kafka module
 * [#2543][2543] Use  org.hibernate.jpa.HibernatePersistenceProvider instead of org.hibernate.ejb.HibernatePersistence
 * [#2546][2546] Use @Resource lookup attribute instead of name
@@ -44,6 +109,7 @@ For details see [6.1.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 
 * [#1701][1701] Cannot start Redis server on Windows
 * [#2439][2439] LinkedInIntegrationTest fails with 2.21.0
+* [#2472][2472] jboss-cli local authentication does not work on OpenShift
 * [#2476][2476] Incorrect version for jackson-jr-objects
 * [#2481][2481] Release 6.0.0 is missing some downloads
 * [#2486][2486] MongoDBIntegrationTest fails on Windows
@@ -65,7 +131,9 @@ For details see [6.1.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 [2491]: https://github.com/wildfly-extras/wildfly-camel/issues/2491
 [2115]: https://github.com/wildfly-extras/wildfly-camel/issues/2115
 [2317]: https://github.com/wildfly-extras/wildfly-camel/issues/2317
+[2408]: https://github.com/wildfly-extras/wildfly-camel/issues/2408
 [2458]: https://github.com/wildfly-extras/wildfly-camel/issues/2458
+[2467]: https://github.com/wildfly-extras/wildfly-camel/issues/2467
 [2470]: https://github.com/wildfly-extras/wildfly-camel/issues/2470
 [2479]: https://github.com/wildfly-extras/wildfly-camel/issues/2479
 [2483]: https://github.com/wildfly-extras/wildfly-camel/issues/2483
@@ -78,6 +146,9 @@ For details see [6.1.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 [2519]: https://github.com/wildfly-extras/wildfly-camel/issues/2519
 [2526]: https://github.com/wildfly-extras/wildfly-camel/issues/2526
 [2529]: https://github.com/wildfly-extras/wildfly-camel/issues/2529
+[2531]: https://github.com/wildfly-extras/wildfly-camel/issues/2531
+[2534]: https://github.com/wildfly-extras/wildfly-camel/issues/2534
+[2535]: https://github.com/wildfly-extras/wildfly-camel/issues/2535
 [2539]: https://github.com/wildfly-extras/wildfly-camel/issues/2539
 [2543]: https://github.com/wildfly-extras/wildfly-camel/issues/2543
 [2546]: https://github.com/wildfly-extras/wildfly-camel/issues/2546
@@ -86,6 +157,7 @@ For details see [6.1.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 [2552]: https://github.com/wildfly-extras/wildfly-camel/issues/2552
 [1701]: https://github.com/wildfly-extras/wildfly-camel/issues/1701
 [2439]: https://github.com/wildfly-extras/wildfly-camel/issues/2439
+[2472]: https://github.com/wildfly-extras/wildfly-camel/issues/2472
 [2476]: https://github.com/wildfly-extras/wildfly-camel/issues/2476
 [2481]: https://github.com/wildfly-extras/wildfly-camel/issues/2481
 [2486]: https://github.com/wildfly-extras/wildfly-camel/issues/2486
