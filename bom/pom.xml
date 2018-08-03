@@ -103,6 +103,17 @@
                 <artifactId>wildfly-camel-testenricher</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-itests-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-patch</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
 
             <dependency>
                 <groupId>args4j</groupId>
