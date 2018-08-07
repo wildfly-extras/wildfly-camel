@@ -44,7 +44,6 @@ import org.jboss.modules.ModuleIdentifier;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
-import org.jboss.msc.service.ServiceRegistry;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
@@ -107,8 +106,7 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
     @Override
     public void start(StartContext startContext) throws StartException {
         ContextCreateHandlerRegistry handlerRegistry = injectedHandlerRegistry.getValue();
-        ServiceRegistry serviceRegistry = startContext.getController().getServiceContainer();
-        contextRegistry = new CamelContextRegistryImpl(handlerRegistry, serviceRegistry, startContext.getChildTarget());
+        contextRegistry = new CamelContextRegistryImpl(handlerRegistry, startContext.getChildTarget());
 
         // Register the service with gravia
         Runtime runtime = injectedRuntime.getValue();
@@ -131,6 +129,10 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
             } catch (Exception e) {
                 LOGGER.warn("Cannot stop camel context: " + name, e);
             }
+        }
+
+        if (contextRegistry != null) {
+            CamelContextTrackerRegistry.INSTANCE.removeTracker((CamelContextTracker) contextRegistry);
         }
 
         if (registration != null) {
@@ -170,7 +172,7 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
         private final ContextCreateHandlerRegistry handlerRegistry;
         private final ServiceTarget serviceTarget;
 
-        CamelContextRegistryImpl(ContextCreateHandlerRegistry handlerRegistry, ServiceRegistry serviceRegistry, ServiceTarget serviceTarget) {
+        CamelContextRegistryImpl(ContextCreateHandlerRegistry handlerRegistry, ServiceTarget serviceTarget) {
             this.handlerRegistry = handlerRegistry;
             this.serviceTarget = serviceTarget;
             CamelContextTrackerRegistry.INSTANCE.addTracker(this);
