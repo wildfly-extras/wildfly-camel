@@ -52,7 +52,7 @@ public class ContextTrackerRegistryTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-management-strategy-tests.jar")
+        return ShrinkWrap.create(JavaArchive.class, "camel-context-tracker-tests.jar")
             .addClass(TrackerCountReportingRouteBuilder.class)
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
@@ -71,8 +71,9 @@ public class ContextTrackerRegistryTest {
     private void reloadAppServer() throws IOException, InterruptedException {
         String jbossHome = System.getProperty("jboss.home.dir");
         String extension = EnvironmentUtils.isWindows() ? ".bat" : ".sh";
-        new ProcessBuilder()
-            .command(jbossHome + "/bin/jboss-cli" + extension, "-c", "--command=reload")
+        ProcessBuilder builder = new ProcessBuilder();
+        builder.environment().put("NOPAUSE", "Y");
+        builder.command(jbossHome + "/bin/jboss-cli" + extension, "-c", "--command=reload", "--timeout=60000")
             .start()
             .waitFor();
     }
