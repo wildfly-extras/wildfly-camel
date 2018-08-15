@@ -393,22 +393,6 @@
                 <artifactId>org.osgi.enterprise</artifactId>
                 <version>${version.osgi}</version>
             </dependency>
-            <dependency>
-                <groupId>org.wildfly.extras.patch</groupId>
-                <artifactId>fuse-patch-config</artifactId>
-                <version>${version.fusepatch}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.extras.patch</groupId>
-                <artifactId>fuse-patch-core</artifactId>
-                <version>${version.fusepatch}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.extras.patch</groupId>
-                <artifactId>fuse-patch-feature-pack</artifactId>
-                <version>${version.fusepatch}</version>
-                <type>zip</type>
-            </dependency>
 
         </dependencies>
     </dependencyManagement>

@@ -43,9 +43,21 @@
     </dependencyManagement>
 
     <dependencies>
+
         <dependency>
-            <groupId>org.wildfly.extras.patch</groupId>
-            <artifactId>fuse-patch-config</artifactId>
+            <groupId>args4j</groupId>
+            <artifactId>args4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom</artifactId>
+        </dependency>
+
+        <!-- Provided -->
+        <dependency>
+            <groupId>org.jboss.modules</groupId>
+            <artifactId>jboss-modules</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Test -->

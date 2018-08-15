@@ -27,6 +27,13 @@
         <include artifact="aopalliance:aopalliance" />
     </module>
 
+    <module name="args4j">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="args4j:args4j" />
+    </module>
+
     <module name="ca.uhn.hapi">
         <properties>
             <property name="jboss.api" value="private"/>

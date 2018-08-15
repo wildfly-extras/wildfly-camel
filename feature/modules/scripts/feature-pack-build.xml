@@ -21,7 +21,6 @@
 <build xmlns="urn:wildfly:feature-pack-build:1.0">
 
     <dependencies>
-        <artifact name="org.wildfly.extras.patch:fuse-patch-feature-pack" />
         <artifact name="org.wildfly:wildfly-feature-pack" />
     </dependencies>
 

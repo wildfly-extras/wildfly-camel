@@ -141,6 +141,7 @@
         <dependencies>
             <module name="org.jdom" />
         </dependencies>
+        <main-class name="org.wildfly.extras.config.internal.Main"/>
     </module>
 
 </modules>

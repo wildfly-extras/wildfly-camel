@@ -136,7 +136,7 @@
                                         <environmentVariables>
                                             <JBOSS_HOME>${jboss.home}</JBOSS_HOME>
                                         </environmentVariables>
-                                        <commandlineArgs>-jar ${jboss.home}/jboss-modules.jar -mp ${jboss.home}/modules org.wildfly.extras.config --configs camel --enable</commandlineArgs>
+                                        <commandlineArgs>-jar ${jboss.home}/jboss-modules.jar -mp ${jboss.home}/modules org.wildfly.extras.config.plugin.camel --configs camel --enable</commandlineArgs>
                                     </configuration>
                                 </execution>
                             </executions>
