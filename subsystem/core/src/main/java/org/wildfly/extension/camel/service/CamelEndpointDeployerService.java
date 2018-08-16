@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
@@ -39,7 +38,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.jboss.as.ee.component.ComponentConfiguration;
 import org.jboss.as.ee.component.EEModuleConfiguration;
 import org.jboss.as.server.deployment.DeploymentUnit;
-import org.jboss.msc.Service;
+import org.jboss.msc.service.Service;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
 import org.jboss.msc.service.ServiceName;
@@ -47,6 +46,7 @@ import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
+import org.jboss.msc.value.InjectedValue;
 import org.wildfly.extension.camel.CamelLogger;
 import org.wildfly.extension.camel.service.CamelEndpointDeploymentSchedulerService.EndpointHttpHandler;
 import org.wildfly.extension.undertow.Host;
@@ -79,7 +79,7 @@ import io.undertow.servlet.core.ManagedServlet;
  *
  * @author <a href="https://github.com/ppalaga">Peter Palaga</a>
  */
-public class CamelEndpointDeployerService implements Service {
+public class CamelEndpointDeployerService implements Service<CamelEndpointDeployerService> {
 
     private static final String MATCH_ALL_ENDPOINT_URI_PREFIX = "///*";
 
@@ -220,13 +220,6 @@ public class CamelEndpointDeployerService implements Service {
         info.setSecurityDisabled(src.isSecurityDisabled());
         info.setUseCachedAuthenticationMechanism(src.isUseCachedAuthenticationMechanism());
         info.setCheckOtherSessionManagers(src.isCheckOtherSessionManagers());
-        info.setDefaultRequestEncoding(src.getDefaultRequestEncoding());
-        info.setDefaultResponseEncoding(src.getDefaultResponseEncoding());
-        for (Entry<String, String> e : src.getPreCompressedResources().entrySet()) {
-            info.addPreCompressedResourceEncoding(e.getKey(), e.getValue());
-        }
-        info.setContainerMajorVersion(src.getContainerMajorVersion());
-        info.setContainerMinorVersion(src.getContainerMinorVersion());
 
         return info;
     }
@@ -234,30 +227,24 @@ public class CamelEndpointDeployerService implements Service {
     public static ServiceController<CamelEndpointDeployerService> addService(DeploymentUnit deploymentUnit,
             ServiceTarget serviceTarget, ServiceName deploymentInfoServiceName, ServiceName hostServiceName) {
 
-        @SuppressWarnings("unchecked")
-        ServiceBuilder<CamelEndpointDeployerService> sb = (ServiceBuilder<CamelEndpointDeployerService>) serviceTarget
-                .addService(deployerServiceName(deploymentUnit.getServiceName()))
-        ;
-        final Supplier<Host> hostSupplier = sb.requires(hostServiceName);
-        final Supplier<DeploymentInfo> deploymentInfoSupplier = sb.requires(deploymentInfoServiceName);
-        final Supplier<CamelEndpointDeploymentSchedulerService> deploymentSchedulerServiceSupplier = sb
-                .requires(CamelEndpointDeploymentSchedulerService
-                        .deploymentSchedulerServiceName(deploymentUnit.getServiceName()));
-
-        final Supplier<ServletContainerService> servletContainerService = sb
-                .requires(UndertowService.SERVLET_CONTAINER.append("default"));
+        CamelEndpointDeployerService service = new CamelEndpointDeployerService();
+        ServiceBuilder<CamelEndpointDeployerService> sb = serviceTarget
+                .addService(deployerServiceName(deploymentUnit.getServiceName()), service);
+        sb.addDependency(hostServiceName, Host.class, service.hostSupplier);
+        sb.addDependency(deploymentInfoServiceName, DeploymentInfo.class, service.deploymentInfoSupplier);
+        sb.addDependency(
+                CamelEndpointDeploymentSchedulerService.deploymentSchedulerServiceName(deploymentUnit.getServiceName()),
+                CamelEndpointDeploymentSchedulerService.class, service.deploymentSchedulerServiceSupplier);
+        sb.addDependency(UndertowService.SERVLET_CONTAINER.append("default"), ServletContainerService.class, service.servletContainerServiceSupplier);
 
         final EEModuleConfiguration moduleConfiguration = deploymentUnit
                 .getAttachment(org.jboss.as.ee.component.Attachments.EE_MODULE_CONFIGURATION);
         if (moduleConfiguration != null) {
             for (final ComponentConfiguration c : moduleConfiguration.getComponentConfigurations()) {
-                sb.requires(c.getComponentDescription().getStartServiceName());
+                sb.addDependency(c.getComponentDescription().getStartServiceName());
             }
         }
-
-        final CamelEndpointDeployerService service = new CamelEndpointDeployerService(hostSupplier,
-                deploymentInfoSupplier, deploymentSchedulerServiceSupplier, servletContainerService);
-        return sb.setInstance(service).install();
+        return sb.install();
     }
 
     public static ServiceName deployerServiceName(ServiceName deploymentUnitServiceName) {
@@ -331,23 +318,22 @@ public class CamelEndpointDeployerService implements Service {
         }
     }
 
-    private final Supplier<DeploymentInfo> deploymentInfoSupplier;
+    private final InjectedValue<DeploymentInfo> deploymentInfoSupplier = new InjectedValue<>();
 
     private final Map<URI, Deployment> deployments = new HashMap<>();
 
-    private final Supplier<CamelEndpointDeploymentSchedulerService> deploymentSchedulerServiceSupplier;
+    private final InjectedValue<CamelEndpointDeploymentSchedulerService> deploymentSchedulerServiceSupplier = new InjectedValue<>();
 
-    private final Supplier<Host> hostSupplier;
+    private final InjectedValue<Host> hostSupplier = new InjectedValue<>();
 
-    private final Supplier<ServletContainerService> servletContainerServiceSupplier;
+    private final InjectedValue<ServletContainerService> servletContainerServiceSupplier = new InjectedValue<>();
 
-    public CamelEndpointDeployerService(Supplier<Host> hostSupplier, Supplier<DeploymentInfo> deploymentInfoSupplier,
-            Supplier<CamelEndpointDeploymentSchedulerService> deploymentSchedulerServiceSupplier,
-            Supplier<ServletContainerService> servletContainerServiceSupplier) {
-        this.hostSupplier = hostSupplier;
-        this.deploymentInfoSupplier = deploymentInfoSupplier;
-        this.deploymentSchedulerServiceSupplier = deploymentSchedulerServiceSupplier;
-        this.servletContainerServiceSupplier = servletContainerServiceSupplier;
+    public CamelEndpointDeployerService() {
+    }
+
+    @Override
+    public CamelEndpointDeployerService getValue() throws IllegalStateException, IllegalArgumentException {
+        return this;
     }
 
     /**
@@ -362,18 +348,18 @@ public class CamelEndpointDeployerService implements Service {
         final ServletInfo servletInfo = Servlets.servlet(EndpointServlet.NAME, EndpointServlet.class).addMapping("/*")
                 .setAsyncSupported(true);
 
-        final DeploymentInfo mainDeploymentInfo = deploymentInfoSupplier.get();
+        final DeploymentInfo mainDeploymentInfo = deploymentInfoSupplier.getValue();
 
         DeploymentInfo endPointDeplyomentInfo = adaptDeploymentInfo(mainDeploymentInfo, uri, servletInfo);
         CamelLogger.LOGGER.debug("Deploying endpoint {}", endPointDeplyomentInfo.getDeploymentName());
 
-        final DeploymentManager manager = servletContainerServiceSupplier.get().getServletContainer()
+        final DeploymentManager manager = servletContainerServiceSupplier.getValue().getServletContainer()
                 .addDeployment(endPointDeplyomentInfo);
         manager.deploy();
         final Deployment deployment = manager.getDeployment();
         try {
             HttpHandler servletHandler = manager.start();
-            hostSupplier.get().registerDeployment(deployment, servletHandler);
+            hostSupplier.getValue().registerDeployment(deployment, servletHandler);
 
             ManagedServlet managedServlet = deployment.getServlets().getManagedServlet(EndpointServlet.NAME);
 
@@ -392,12 +378,19 @@ public class CamelEndpointDeployerService implements Service {
         /*
          * Now that the injectedMainDeploymentInfo is ready, we can link this to CamelEndpointDeploymentSchedulerService
          */
-        final DeploymentInfo mainDeploymentInfo = deploymentInfoSupplier.get();
-        deploymentSchedulerServiceSupplier.get().registerDeployer(this);
+        deploymentSchedulerServiceSupplier.getValue().registerDeployer(this);
     }
 
     @Override
     public void stop(StopContext context) {
+        synchronized (deployments) {
+            for (Deployment deployment : deployments.values()) {
+                CamelLogger.LOGGER.debug("Undeploying endpoint {}",
+                        deployment.getDeploymentInfo().getDeploymentName());
+                hostSupplier.getValue().unregisterDeployment(deployment);
+            }
+            deployments.clear();
+        }
     }
 
     /**
@@ -411,7 +404,12 @@ public class CamelEndpointDeployerService implements Service {
             if (removedDeployment != null) {
                 CamelLogger.LOGGER.debug("Undeploying endpoint {}",
                         removedDeployment.getDeploymentInfo().getDeploymentName());
-                hostSupplier.get().unregisterDeployment(removedDeployment);
+                try {
+                    hostSupplier.getValue().unregisterDeployment(removedDeployment);
+                } catch (IllegalStateException e) {
+                    CamelLogger.LOGGER.warn("Could not undeploy endpoint "
+                            + removedDeployment.getDeploymentInfo().getDeploymentName(), e);
+                }
             }
         }
     }
