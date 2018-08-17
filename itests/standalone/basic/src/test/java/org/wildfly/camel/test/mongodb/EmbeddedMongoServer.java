@@ -38,7 +38,7 @@ public class EmbeddedMongoServer {
     public EmbeddedMongoServer(int port) throws Exception {
         IMongodConfig mongodConfig = new MongodConfigBuilder()
             .version(PRODUCTION)
-            .net(new Net(port, localhostIsIPv6()))
+            .net(new Net("127.0.0.1", port, localhostIsIPv6()))
             .build();
         mongodExecutable = MongodStarter.getDefaultInstance().prepare(mongodConfig);
     }

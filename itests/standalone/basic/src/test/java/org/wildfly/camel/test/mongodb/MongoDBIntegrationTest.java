@@ -21,13 +21,24 @@
 package org.wildfly.camel.test.mongodb;
 
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
+import com.mongodb.client.ListIndexesIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.gridfs.GridFS;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -49,15 +60,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
-
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.gridfs.GridFS;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -65,6 +71,7 @@ public class MongoDBIntegrationTest {
 
     private static final int ROWS = 20;
     private static final int PORT = 27017;
+    private static final Logger LOG = LoggerFactory.getLogger(MongoDBIntegrationTest.class);
     private static EmbeddedMongoServer mongoServer;
 
     private MongoCollection<BasicDBObject> testCollection;
@@ -210,6 +217,13 @@ public class MongoDBIntegrationTest {
 
         camelctx.start();
         try {
+            String[] indexes = {
+                getIndex("testA", getBucket(), "files"),
+                getIndex("testA", getBucket(), "chunks"),
+            };
+
+            waitForIndexes("testA", indexes);
+
             Map<String, Object> headers = new HashMap<String, Object>();
             String fn = "filename.for.db.txt";
             Assert.assertEquals(0, gridfs.find(fn).size());
@@ -273,6 +287,18 @@ public class MongoDBIntegrationTest {
 
         camelctx.start();
         try {
+            String[] indexes = {
+                getIndex("testB", getBucket("-a"), "files"),
+                getIndex("testB", getBucket("-a"), "chunks"),
+                getIndex("testB", getBucket("-b"), "files"),
+                getIndex("testB", getBucket("-b"), "chunks"),
+                getIndex("testB", getBucket("-c"), "files"),
+                getIndex("testB", getBucket("-c"), "chunks"),
+                getIndex("testB", "camel-timestamps", null),
+            };
+
+            waitForIndexes("testB", indexes);
+
             runTest(camelctx, "direct:create-a", new GridFS(mongoClient.getDB("testB"), getBucket("-a")));
             runTest(camelctx, "direct:create-b", new GridFS(mongoClient.getDB("testB"), getBucket("-b")));
             runTest(camelctx, "direct:create-c", new GridFS(mongoClient.getDB("testB"), getBucket("-c")));
@@ -323,11 +349,61 @@ public class MongoDBIntegrationTest {
         }
     }
 
+    private void waitForIndexes(String db, String ...indexNames) throws Exception {
+        final long timeout = 15000;
+        final long start = System.currentTimeMillis();
+        final MongoDatabase database = mongoClient.getDatabase(db);
+        final List<String> collectionNames = Arrays.asList(indexNames)
+            .stream()
+            .map((c) -> {
+                if (c.matches(".*\\..*\\..*")) {
+                    return c.substring(0, c.lastIndexOf("."));
+                }
+                return c;
+            })
+            .collect(Collectors.toList());
+
+        int expectedIndexCount = indexNames.length * 2;
+        do {
+            int indexCount = 0;
+
+            for (String collectionName : collectionNames) {
+                MongoCollection<Document> collection = database.getCollection(collectionName);
+                if (collection != null) {
+                    ListIndexesIterable<Document> documents = collection.listIndexes();
+                    MongoCursor<Document> iterator = documents.iterator();
+                    while (iterator.hasNext()) {
+                        iterator.next();
+                        indexCount++;
+                    }
+                }
+            }
+
+            if (indexCount == expectedIndexCount) {
+                LOG.info("MongoDB collection indexes created");
+                return;
+            }
+
+            LOG.info("Waiting on creation of {} indexes. Currently have {}.", expectedIndexCount, indexCount);
+            Thread.sleep(1000);
+        } while (!((System.currentTimeMillis() - start) >= timeout));
+
+        throw new IllegalStateException("Gave up waiting for MongoDB collection indexes to be created");
+    }
+
     private static String getBucket() {
         return getBucket("");
     }
 
     private static String getBucket(String suffix) {
         return MongoDBIntegrationTest.class.getSimpleName() + suffix;
+    }
+
+    private static String getIndex(String db, String suffix, String type) {
+        String index = suffix;
+        if (type != null) {
+            index += "." + type;
+        }
+        return index;
     }
 }
