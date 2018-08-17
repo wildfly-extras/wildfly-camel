@@ -25,7 +25,7 @@
                     match: 'WFLYSRV0025'
                     stdOut: true
                     stdErr: true
-                    timeout: 15
+                    timeout: 30
         </property>
     </extension>
 
