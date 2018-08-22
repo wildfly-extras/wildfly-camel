@@ -142,7 +142,6 @@ public class StandaloneConfigTest extends ConfigTestSupport {
         Element element = ConfigSupport.findChildElement(doc.getRootElement(), "system-properties", NS_DOMAINS);
         Assert.assertNotNull("system-properties not null", element);
         assertElementWithAttributeValueNull(element, "property", "name", "hawtio.realm", NS_DOMAINS);
-        assertElementWithAttributeValueNull(element, "property", "name", "hawtio.offline", NS_DOMAINS);
         assertElementWithAttributeValueNull(element, "property", "name", "hawtio.authenticationEnabled", NS_DOMAINS);
         assertElementWithAttributeValueNull(element, "property", "name", "ee8.preview.mode", NS_DOMAINS);
 
