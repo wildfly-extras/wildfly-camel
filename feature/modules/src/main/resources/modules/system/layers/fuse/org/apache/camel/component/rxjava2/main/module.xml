@@ -4,7 +4,7 @@
     <artifact name="${org.apache.camel:camel-rxjava2}" />
   </resources>
   <dependencies>
-    <module name="io.reactivex.rxjava" slot="2.1.16" export="true">
+    <module name="io.reactivex.rxjava2.rxjava" export="true">
       <exports>
         <exclude path="io/reactivex/internal**" />
       </exports>

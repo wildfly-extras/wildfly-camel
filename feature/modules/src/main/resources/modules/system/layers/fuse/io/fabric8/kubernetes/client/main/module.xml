@@ -8,12 +8,12 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="com.squareup.okio" />
+    <module name="com.squareup.okhttp3" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.fasterxml.jackson.dataformat.yaml" />
     <module name="com.github.generex" />
-    <module name="com.squareup.okhttp3" />
+    <module name="com.squareup.okhttp3.logging-interceptor" />
     <module name="io.fabric8.kubernetes.model" />
     <module name="io.fabric8.zjsonpatch" />
     <module name="org.jboss.logging.jul-to-slf4j-stub" />

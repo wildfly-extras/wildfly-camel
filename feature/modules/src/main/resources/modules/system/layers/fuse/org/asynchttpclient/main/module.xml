@@ -10,7 +10,7 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="io.netty" slot="4.1" />
+    <module name="io.netty" />
     <module name="com.sun.activation.javax.activation" />
     <module name="org.reactivestreams" />
     <module name="org.slf4j" />

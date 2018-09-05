@@ -16,7 +16,7 @@
     <artifact name="${io.opencensus:opencensus-contrib-grpc-metrics}" />
   </resources>
   <dependencies>
-    <module name="io.netty" slot="4.1" />
+    <module name="io.netty" />
     <module name="javax.api" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.google.api.grpc.proto-google-common-protos" />

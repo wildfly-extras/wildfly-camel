@@ -10,9 +10,9 @@
     <artifact name="${org.apache.jclouds:jclouds-scriptbuilder}" />
   </resources>
   <dependencies>
+    <module name="com.google.code.gson" slot="2.5" />
     <module name="javax.api" />
     <module name="javax.xml.bind.api" />
-    <module name="com.google.code.gson" slot="2.5" />
     <module name="com.google.guava" slot="16.0" />
     <module name="com.google.inject.extensions" slot="3.0" />
     <module name="com.google.inject.guice" slot="3.0" />

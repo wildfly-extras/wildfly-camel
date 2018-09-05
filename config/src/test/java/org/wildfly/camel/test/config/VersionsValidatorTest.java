@@ -71,6 +71,7 @@ public class VersionsValidatorTest {
         mapping.put("version.wildfly.cxf", "version.org.apache.cxf");
         mapping.put("version.wildfly.fasterxml.jackson", "version.com.fasterxml.jackson");
         mapping.put("version.wildfly.infinispan", "version.org.infinispan");
+        mapping.put("version.wildfly.okhttp3", "version.com.squareup.okhttp3");
     }
 
     @Test

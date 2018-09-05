@@ -4,7 +4,7 @@
     <artifact name="${org.apache.camel:camel-hl7}" />
   </resources>
   <dependencies>
-    <module name="io.netty" slot="4.1" />
+    <module name="io.netty" />
     <module name="org.apache.camel.component.netty4" />
     <module name="org.apache.mina.core" />
     <module name="org.slf4j" />

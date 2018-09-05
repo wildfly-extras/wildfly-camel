@@ -411,20 +411,6 @@
         <include artifact="com.github.wnameless:json-flattener" />
     </module>
 
-    <module name="com.google.code.gson">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.google.code.gson:gson" />
-        <dependencies>
-            <module name="sun.jdk">
-                <imports>
-                    <include path="sun/misc" />
-                </imports>
-            </module>
-        </dependencies>
-    </module>
-
     <module name="com.google.code.json-simple">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -597,16 +583,6 @@
         <apply-to-dependencies skip="true">
             <include module="org.ow2.asm" />
         </apply-to-dependencies>
-    </module>
-
-    <module name="com.jcraft.jsch">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.jcraft:jsch" />
-        <dependencies>
-            <module name="javax.api" />
-        </dependencies>
     </module>
 
     <module name="com.kohlschutter.junixsocket">
@@ -782,29 +758,32 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="com.squareup.okio"/>
+            <module name="com.squareup.okhttp3"/>
         </dependencies>
     </module>
 
+    <!-- Move com.squareup.okhttp3 to common/wildfly-modules after a fix for
+         https://issues.jboss.org/browse/WFLY-10977 is delivered via WildFly -->
     <module name="com.squareup.okhttp3">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="com.squareup.okhttp3:"/>
+        <include artifact="com.squareup.okhttp3:okhttp"/>
+        <include artifact="com.squareup.okio:okio"/>
         <apply-to-dependencies skip="true">
             <include module="com.google.android"/>
             <include module="com.google.code.findbugs" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="javax.api"/>
+            <module name="java.logging"/>
         </dependencies>
     </module>
 
-    <module name="com.squareup.okio">
+    <module name="com.squareup.okhttp3.logging-interceptor">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="com.squareup.okio:okio"/>
+        <include artifact="com.squareup.okhttp3:logging-interceptor"/>
         <apply-to-dependencies skip="true">
             <include module="com.google.code.findbugs" />
         </apply-to-dependencies>
@@ -819,7 +798,6 @@
             <include module="com.google.code.findbugs" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.squareup.okio"/>
             <module name="com.squareup.okhttp3"/>
         </dependencies>
     </module>
@@ -986,7 +964,7 @@
         <include artifact="io.fabric8:kubernetes-client" />
         <dependencies>
             <module name="javax.api" />
-            <module name="com.squareup.okio" />
+            <module name="com.squareup.okhttp3" />
         </dependencies>
     </module>
 
@@ -1039,7 +1017,7 @@
             <include module="io.netty.skipped"/>
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.netty" slot="4.1"/>
+            <module name="io.netty"/>
             <module name="javax.api"/>
         </dependencies>
     </module>
@@ -1056,31 +1034,6 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="io.netty:netty" />
-        <dependencies>
-            <module name="javax.api"/>
-        </dependencies>
-    </module>
-
-    <module name="io.netty" inherit-slot="false" slot="4.1">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="io.netty:netty-all" />
-        <dependencies>
-            <module name="javax.api"/>
-        </dependencies>
-    </module>
-
-    <module name="io.opentracing">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="io.opentracing:opentracing-(.*)" />
-        <include artifact="io.opentracing.contrib:opentracing-(.*)" />
-    </module>
-
-    <module name="io.reactivex.rxjava" slot="2.1.16" inherit-slot="false">
-        <include artifact="io.reactivex.rxjava2:rxjava" />
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
@@ -1352,6 +1305,13 @@
         <dependencies>
             <module name="javax.api" />
         </dependencies>
+    </module>
+
+    <module name="org.apache.commons.pool">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="commons-pool:commons-pool" />
     </module>
 
     <module name="org.apache.commons.pool2">
@@ -1659,10 +1619,6 @@
         </exports>
     </module>
 
-    <module name="org.apache.thrift">
-        <include artifact="org.apache.thrift:libthrift" />
-    </module>
-
     <module name="org.apache.ws.commons.axiom.axiom-impl">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1766,7 +1722,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
-            <module name="io.netty" slot="4.1"/>
+            <module name="io.netty" />
         </dependencies>
         <exports>
             <exclude path="io/netty**" />

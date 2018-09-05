@@ -63,11 +63,12 @@
         <version.camel.rxjava2>2.1.16</version.camel.rxjava2>
 
         <!-- WildFly versions -->
-        <version.wildfly>13.0.0.Final</version.wildfly>
-        <version.wildfly.arquillian>2.1.0.Final</version.wildfly.arquillian>
-        <version.wildfly.cxf>3.2.4-jbossorg-1</version.wildfly.cxf>
+        <version.wildfly>14.0.0.Final</version.wildfly>
+        <version.wildfly.arquillian>2.1.1.Final</version.wildfly.arquillian>
+        <version.wildfly.cxf>3.2.5-jbossorg-1</version.wildfly.cxf>
         <version.wildfly.fasterxml.jackson>2.9.5</version.wildfly.fasterxml.jackson>
-        <version.wildfly.infinispan>9.2.4.Final</version.wildfly.infinispan>
+        <version.wildfly.infinispan>9.3.1.Final</version.wildfly.infinispan>
+        <version.wildfly.okhttp3>3.9.0</version.wildfly.okhttp3>
 
         <!-- Other versions -->
         <version.apache.ds>2.0.0-M21</version.apache.ds>

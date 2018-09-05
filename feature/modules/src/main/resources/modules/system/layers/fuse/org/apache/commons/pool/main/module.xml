@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="com.squareup.okio">
+<module xmlns="urn:jboss:module:1.1" name="org.apache.commons.pool">
   <properties>
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${com.squareup.okio:okio}" />
+    <artifact name="${commons-pool:commons-pool}" />
   </resources>
   <dependencies />
 </module>

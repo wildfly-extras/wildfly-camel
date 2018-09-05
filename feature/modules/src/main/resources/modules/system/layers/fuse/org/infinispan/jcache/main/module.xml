@@ -10,6 +10,7 @@
   <dependencies>
     <module name="javax.api" />
     <module name="org.jboss.logging" />
+    <module name="javax.annotation.api" />
     <module name="javax.cache.api" />
     <module name="javax.enterprise.api" />
     <module name="org.infinispan" />

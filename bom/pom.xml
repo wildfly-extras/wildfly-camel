@@ -172,6 +172,11 @@
                 <type>war</type>
             </dependency>
             <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>logging-interceptor</artifactId>
+                <version>${version.wildfly.okhttp3}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.hawt</groupId>
                 <artifactId>hawtio-wildfly</artifactId>
                 <version>${version.hawtio}</version>

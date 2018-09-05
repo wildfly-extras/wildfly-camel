@@ -26,6 +26,10 @@
 -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="com.google.code.gson" skip="true">
+        <include artifact="com.google.code.gson:gson" />
+    </module>
+
     <module name="com.google.guava" skip="true">
         <include artifact="com.google.guava:guava" />
     </module>

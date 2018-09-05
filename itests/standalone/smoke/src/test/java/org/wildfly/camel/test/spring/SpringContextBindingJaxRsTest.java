@@ -43,6 +43,7 @@ import org.wildfly.camel.test.spring.subE.servlet.MultipleResourceInjectionServl
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
+@org.junit.Ignore("https://github.com/wildfly-extras/wildfly-camel/issues/2601")
 @RunWith(Arquillian.class)
 @CamelAware
 public class SpringContextBindingJaxRsTest {

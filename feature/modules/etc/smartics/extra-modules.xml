@@ -29,7 +29,6 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":cxf-rt-features-clustering" />
-        <include artifact=":cxf-rt-features-logging" />
         <include artifact=":cxf-rt-frontend-jaxrs" />
         <include artifact=":cxf-rt-rs-client" />
         <include artifact=":cxf-rt-rs-extension-providers" />

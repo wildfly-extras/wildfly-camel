@@ -88,7 +88,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="org.asynchttpclient" export="true"/>
-            <module name="io.netty" slot="4.1"/>
+            <module name="io.netty" />
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -700,6 +700,7 @@
                     <exclude path="OSGI-INF/metatype" />
                     <exclude path="com/sun**" />
                     <exclude path="org/apache/cxf/bus/osgi**" />
+                    <exclude path="org/apache/cxf/ext/logging/osgi" />
                     <exclude path="org/apache/cxf/internal" />
                     <exclude path="org/apache/cxf/tools**" />
                     <exclude path="org/apache/cxf/transport/http/osgi**" />
@@ -887,7 +888,7 @@
             <include module="org.springframework.boot"/>
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.netty" slot="4.1"/>
+            <module name="io.netty"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -1056,26 +1057,26 @@
     </module>
 
     <module name="org.apache.camel.component.git">
-        <include artifact="com.googlecode.javaewah:JavaEWAH" />
         <include artifact="org.apache.camel:camel-git" />
-        <include artifact="org.eclipse.jgit:org.eclipse.jgit" />
         <apply-to-dependencies skip="true">
             <include module="com.jcraft.jzlib" />
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="com.googlecode.javaewah"/>
+            <module name="org.eclipse.jgit" export="true">
+                <exports>
+                    <exclude path="org/eclipse" />
+                    <exclude path="org/eclipse/jgit/internal**" />
+                    <exclude path="org/eclipse/jgit/gitrepo/internal**" />
+                    <exclude path="org/eclipse/jgit/ignore/internal**" />
+                    <exclude path="org/eclipse/jgit/lib/internal**" />
+                </exports>
+            </module>
             <module name="javax.api"/>
             <module name="org.slf4j"/>
         </dependencies>
-        <exports>
-            <exclude path="com/googlecode**" />
-            <exclude path="org/eclipse"/>
-            <exclude path="org/eclipse/jgit/internal**" />
-            <exclude path="org/eclipse/jgit/gitrepo/internal**" />
-            <exclude path="org/eclipse/jgit/ignore/internal**" />
-            <exclude path="org/eclipse/jgit/lib/internal**" />
-        </exports>
     </module>
 
     <module name="org.apache.camel.component.github">
@@ -1313,7 +1314,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.netty" slot="4.1"/>
+            <module name="io.netty"/>
             <module name="org.apache.camel.component.netty4"/>
             <module name="org.apache.mina.core"/>
             <module name="org.slf4j"/>
@@ -2471,7 +2472,7 @@
             <include module="org.springframework.boot"/>
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.reactivex.rxjava" slot="2.1.16" export="true">
+            <module name="io.reactivex.rxjava2.rxjava" export="true">
                 <exports>
                     <exclude path="io/reactivex/internal**" />
                 </exports>

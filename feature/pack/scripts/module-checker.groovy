@@ -162,6 +162,15 @@ def rootModules = [
     "org.wildfly.extras.patch:main"
 ] as Set
 
+def allowedDuplicateModules = [
+    "com.squareup.okhttp3:main"
+] as Set
+def allowedDuplicateArtifacts = [
+    "com.squareup.okhttp3:okhttp",
+    "com.squareup.okio:okio"
+] as Set
+
+
 def smarticsFilesPrefix = properties.get("wildfly-camel-feature-pack.basedir") + "/../"
 def smarticsDirectories = [
     "${smarticsFilesPrefix}modules/etc/smartics",
@@ -258,7 +267,8 @@ paths.each { path ->
             }
 
             otherModule = modules.find { it.name == module.name && it.slot == module.slot }
-            if (otherModule != null) {
+            final String nameSlot = "${module.name}:${module.slot}"
+            if (otherModule != null && !allowedDuplicateModules.contains(nameSlot)) {
                 problems << "Duplicate module name and slot detected: ${module.name}:${module.slot}\n\t${module.path}\n\t${otherModule.path}\n"
             }
 
@@ -284,8 +294,11 @@ modules.findAll { (it.layer == "fuse") }.each { fuseModule ->
         fuseModule.resources.each { resource ->
             def duplicateResource = fuseModule.findDuplicateResource(baseModule, resource)
             if(duplicateResource != null && !duplicateResources.contains(resource)) {
-                duplicateResources << resource
-                problems << "Duplicate dependency ${resource.artifactId}\n\t${fuseModule.path}/${resource}\n\t${baseModule.path}/${duplicateResource}\n"
+                final String ga = "${resource.groupId}:${resource.artifactId}"
+                if (!allowedDuplicateArtifacts.contains(ga)) {
+                    duplicateResources << resource
+                    problems << "Duplicate dependency ${resource.artifactId}\n\t${fuseModule.path}/${resource}\n\t${baseModule.path}/${duplicateResource}\n"
+                }
             }
         }
     }

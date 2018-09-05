@@ -68,8 +68,48 @@
         <include artifact="com.github.spullara.mustache.java:compiler" />
     </module>
 
+    <module name="com.googlecode.javaewah" skip="true">
+        <include artifact="com.googlecode.javaewah:JavaEWAH" />
+    </module>
+
+    <module name="com.jcraft.jsch" skip="true">
+        <include artifact="com.jcraft:jsch" />
+    </module>
+
     <module name="com.microsoft.azure.storage" skip="true">
         <include artifact="com.microsoft.azure:azure-storage" />
+    </module>
+
+    <!-- Uncomment after a fix for https://issues.jboss.org/browse/WFLY-10977
+         is delivered via WildFly
+    <module name="com.squareup.okhttp3" skip="true">
+        <include artifact="com.squareup.okhttp3:"/>
+        <include artifact="com.squareup.okio:okio"/>
+    </module>
+    -->
+
+    <module name="io.netty" skip="true">
+        <include artifact="io.netty:netty-all" />
+    </module>
+
+    <module name="io.opentracing.opentracing-api" skip="true">
+        <include artifact="io.opentracing:opentracing-api" />
+    </module>
+
+    <module name="io.opentracing.opentracing-noop" skip="true">
+        <include artifact="io.opentracing:opentracing-noop" />
+    </module>
+
+    <module name="io.opentracing.opentracing-util" skip="true">
+        <include artifact="io.opentracing:opentracing-util" />
+    </module>
+
+    <module name="io.opentracing.contrib.opentracing-tracerresolver" skip="true">
+        <include artifact="io.opentracing.contrib:opentracing-tracerresolver" />
+    </module>
+
+    <module name="io.reactivex.rxjava2.rxjava" skip="true">
+        <include artifact="io.reactivex.rxjava2:rxjava" />
     </module>
 
     <module name="io.undertow.core" skip="true">
@@ -256,13 +296,10 @@
         <include artifact=":commons-logging" />
     </module>
 
-    <module name="org.apache.commons.pool" skip="true">
-        <include artifact="commons-pool:commons-pool" />
-    </module>
-
     <module name="org.apache.cxf" skip="true">
         <include artifact=":cxf-api" />
         <include artifact=":cxf-core" />
+        <include artifact=":cxf-rt-features-logging"/>
     </module>
 
     <module name="org.apache.cxf.impl" skip="true">
@@ -313,6 +350,10 @@
 
     <module name="org.apache.santuario.xmlsec" skip="true">
         <include artifact="org.apache.santuario:xmlsec" />
+    </module>
+
+    <module name="org.apache.thrift" skip="true">
+        <include artifact="org.apache.thrift:libthrift" />
     </module>
 
     <module name="org.apache.velocity" skip="true">
@@ -380,6 +421,10 @@
 
     <module name="org.eclipse.jdt.ecj" skip="true">
         <include artifact="org.eclipse.jdt.core.compiler:ecj" />
+    </module>
+
+    <module name="org.eclipse.jgit" skip="true">
+        <include artifact="org.eclipse.jgit:org.eclipse.jgit" />
     </module>
 
     <module name="org.hibernate" skip="true">

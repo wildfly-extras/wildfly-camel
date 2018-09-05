@@ -48,10 +48,6 @@
         <include artifact="io.netty:netty" />
     </module>
 
-    <module name="io.netty" slot="4.1" skip="true">
-        <include artifact="io.netty:netty-all" />
-    </module>
-
     <module name="org.apache.camel.core" skip="true">
         <include artifact="org.apache.camel:camel-core" />
     </module>
@@ -78,6 +74,10 @@
 
     <module name="org.apache.commons.net" skip="true">
         <include artifact="commons.net:commons.net" />
+    </module>
+
+    <module name="org.apache.commons.pool" skip="true">
+        <include artifact="commons-pool:commons-pool" />
     </module>
 
     <module name="org.apache.curator" skip="true">

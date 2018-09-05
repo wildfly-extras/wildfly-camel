@@ -10,7 +10,6 @@
     <artifact name="${com.squareup.retrofit2:retrofit}" />
   </resources>
   <dependencies>
-    <module name="com.squareup.okio" />
     <module name="com.squareup.okhttp3" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.google.code.gson" />

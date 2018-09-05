@@ -4,7 +4,6 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${org.apache.cxf:cxf-rt-features-logging}" />
     <artifact name="${org.apache.cxf:cxf-rt-frontend-jaxrs}" />
     <artifact name="${org.apache.cxf:cxf-rt-rs-client}" />
     <artifact name="${org.apache.cxf:cxf-rt-rs-extension-providers}" />
@@ -25,7 +24,6 @@
     <module name="org.apache.cxf" />
     <module name="org.apache.cxf.impl" />
     <module name="org.osgi.core" />
-    <module name="org.slf4j" />
   </dependencies>
   <exports>
     <exclude path="net/oauth*" />
