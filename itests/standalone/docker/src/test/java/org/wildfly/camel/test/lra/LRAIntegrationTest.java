@@ -57,7 +57,6 @@ import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
-@org.junit.Ignore("https://github.com/wildfly-extras/wildfly-camel/issues/2601")
 @CamelAware
 @RunWith(ArquillianConditionalRunner.class)
 @RequiresDocker

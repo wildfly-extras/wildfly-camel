@@ -76,7 +76,6 @@
 	^org/apache/hadoop(.*)
 	^org/apache/http(.*)
 	^org/apache/ibatis(.*)
-	^org/apache/johnzon(.*)
 	^org/apache/kafka(.*)
     ^org/apache/olingo(.*)
     ^org/apache/shiro(.*)

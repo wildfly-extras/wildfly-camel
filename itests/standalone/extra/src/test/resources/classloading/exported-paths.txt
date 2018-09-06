@@ -3139,12 +3139,6 @@ org/apache/ibatis/transaction
 org/apache/ibatis/transaction/jdbc
 org/apache/ibatis/transaction/managed
 org/apache/ibatis/type
-org/apache/johnzon
-org/apache/johnzon/core
-org/apache/johnzon/mapper
-org/apache/johnzon/mapper/access
-org/apache/johnzon/mapper/converter
-org/apache/johnzon/mapper/reflection
 org/apache/kafka
 org/apache/kafka/clients
 org/apache/kafka/clients/admin

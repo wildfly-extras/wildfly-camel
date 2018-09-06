@@ -1043,10 +1043,6 @@
         <include artifact="javax.cache:cache-api" />
     </module>
 
-    <module name="javax.json11.api" >
-        <include artifact=":geronimo-json_1.1_spec" />
-    </module>
-
     <module name="javax.measure.api" >
         <include artifact="javax.measure:unit-api" />
     </module>
@@ -1388,6 +1384,14 @@
         <dependencies>
             <module name="javax.api" />
         </dependencies>
+    </module>
+
+    <module name="org.apache.johnzon">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.johnzon:johnzon-core" />
+        <include artifact="org.apache.johnzon:johnzon-mapper" />
     </module>
 
     <module name="org.apache.james.apache-mime4j-dom">

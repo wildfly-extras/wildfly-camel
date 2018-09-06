@@ -178,6 +178,10 @@
         <include artifact=":jms-api" />
     </module>
 
+    <module name="javax.json.api" skip="true">
+        <include artifact=":geronimo-json_1.1_spec" />
+    </module>
+
     <module name="javax.management.j2ee.api" skip="true">
         <include artifact=":geronimo-j2ee-management_1.1_spec" />
     </module>

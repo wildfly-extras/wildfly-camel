@@ -41,7 +41,6 @@ import org.wildfly.camel.test.common.types.GreetingService;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
-@org.junit.Ignore("https://github.com/wildfly-extras/wildfly-camel/issues/2601")
 @CamelAware
 @RunWith(Arquillian.class)
 public class CXFRSConsumerIntegrationTest {

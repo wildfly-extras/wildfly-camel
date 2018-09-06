@@ -2,16 +2,12 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.johnzon">
   <resources>
     <artifact name="${org.apache.camel:camel-johnzon}" />
-    <artifact name="${org.apache.johnzon:johnzon-core}" />
-    <artifact name="${org.apache.johnzon:johnzon-mapper}" />
   </resources>
   <dependencies>
+    <module name="org.apache.johnzon" />
     <module name="org.slf4j" />
-    <module name="javax.json11.api" />
+    <module name="javax.json.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
-  <exports>
-    <exclude path="org/apache/johnzon/mapper/internal" />
-  </exports>
 </module>
