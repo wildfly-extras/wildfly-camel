@@ -50,7 +50,7 @@
         <artifact groupId="org.elasticsearch.plugin" artifactId="parent-join-client" version="6.1.1"/>
         <artifact groupId="org.hdrhistogram" artifactId="HdrHistogram" version="2.1.9"/>
         <artifact groupId="org.slf4j" artifactId="slf4j-api" version="1.7.25"/>
-        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-extrasA" version="7.1.0-SNAPSHOT" extension="zip"/>
+        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-feature-extrasA" version="8.0.0-SNAPSHOT" extension="zip"/>
         <artifact groupId="org.yaml" artifactId="snakeyaml" version="1.18"/>
     </artifact-versions>
 </feature-pack>
