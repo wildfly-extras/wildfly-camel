@@ -80,13 +80,10 @@
         <include artifact="com.microsoft.azure:azure-storage" />
     </module>
 
-    <!-- Uncomment after a fix for https://issues.jboss.org/browse/WFLY-10977
-         is delivered via WildFly
     <module name="com.squareup.okhttp3" skip="true">
-        <include artifact="com.squareup.okhttp3:"/>
+        <include artifact="com.squareup.okhttp3:okhttp"/>
         <include artifact="com.squareup.okio:okio"/>
     </module>
-    -->
 
     <module name="io.netty" skip="true">
         <include artifact="io.netty:netty-all" />

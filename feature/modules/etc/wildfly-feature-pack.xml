@@ -851,20 +851,20 @@
         <artifact groupId="org.twitter4j" artifactId="twitter4j-stream" version="4.0.6"/>
         <artifact groupId="org.uberfire" artifactId="uberfire-maven-support" version="1.3.0.Final"/>
         <artifact groupId="org.w3c.css" artifactId="sac" version="1.3"/>
-        <artifact groupId="org.wildfly" artifactId="wildfly-clustering-common" version="14.0.0.Final"/>
-        <artifact groupId="org.wildfly" artifactId="wildfly-clustering-infinispan-spi" version="14.0.0.Final"/>
-        <artifact groupId="org.wildfly" artifactId="wildfly-clustering-marshalling-api" version="14.0.0.Final"/>
-        <artifact groupId="org.wildfly" artifactId="wildfly-clustering-marshalling-spi" version="14.0.0.Final"/>
-        <artifact groupId="org.wildfly" artifactId="wildfly-clustering-service" version="14.0.0.Final"/>
-        <artifact groupId="org.wildfly" artifactId="wildfly-ee" version="14.0.0.Final"/>
-        <artifact groupId="org.wildfly" artifactId="wildfly-feature-pack" version="14.0.0.Final" extension="zip"/>
-        <artifact groupId="org.wildfly" artifactId="wildfly-iiop-openjdk" version="14.0.0.Final"/>
-        <artifact groupId="org.wildfly" artifactId="wildfly-naming" version="14.0.0.Final"/>
+        <artifact groupId="org.wildfly" artifactId="wildfly-clustering-common" version="14.0.1.Final"/>
+        <artifact groupId="org.wildfly" artifactId="wildfly-clustering-infinispan-spi" version="14.0.1.Final"/>
+        <artifact groupId="org.wildfly" artifactId="wildfly-clustering-marshalling-api" version="14.0.1.Final"/>
+        <artifact groupId="org.wildfly" artifactId="wildfly-clustering-marshalling-spi" version="14.0.1.Final"/>
+        <artifact groupId="org.wildfly" artifactId="wildfly-clustering-service" version="14.0.1.Final"/>
+        <artifact groupId="org.wildfly" artifactId="wildfly-ee" version="14.0.1.Final"/>
+        <artifact groupId="org.wildfly" artifactId="wildfly-feature-pack" version="14.0.1.Final" extension="zip"/>
+        <artifact groupId="org.wildfly" artifactId="wildfly-iiop-openjdk" version="14.0.1.Final"/>
+        <artifact groupId="org.wildfly" artifactId="wildfly-naming" version="14.0.1.Final"/>
         <artifact groupId="org.wildfly" artifactId="wildfly-naming-client" version="1.0.9.Final"/>
-        <artifact groupId="org.wildfly" artifactId="wildfly-security" version="14.0.0.Final"/>
-        <artifact groupId="org.wildfly" artifactId="wildfly-transactions" version="14.0.0.Final"/>
-        <artifact groupId="org.wildfly" artifactId="wildfly-undertow" version="14.0.0.Final"/>
-        <artifact groupId="org.wildfly" artifactId="wildfly-web-common" version="14.0.0.Final"/>
+        <artifact groupId="org.wildfly" artifactId="wildfly-security" version="14.0.1.Final"/>
+        <artifact groupId="org.wildfly" artifactId="wildfly-transactions" version="14.0.1.Final"/>
+        <artifact groupId="org.wildfly" artifactId="wildfly-undertow" version="14.0.1.Final"/>
+        <artifact groupId="org.wildfly" artifactId="wildfly-web-common" version="14.0.1.Final"/>
         <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-config" version="8.0.0-SNAPSHOT"/>
         <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-cxf-undertow" version="8.0.0-SNAPSHOT"/>
         <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-subsystem-cdi" version="8.0.0-SNAPSHOT"/>
@@ -873,23 +873,23 @@
         <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-subsystem-undertow" version="8.0.0-SNAPSHOT"/>
         <artifact groupId="org.wildfly.client" artifactId="wildfly-client-config" version="1.0.1.Final"/>
         <artifact groupId="org.wildfly.common" artifactId="wildfly-common" version="1.4.0.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-controller" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-controller-client" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-core-management-client" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-core-security" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-core-security-api" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-deployment-repository" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-domain-http-interface" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-domain-management" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-io" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-network" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-platform-mbean" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-process-controller" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-protocol" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-remoting" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-request-controller" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-server" version="6.0.1.Final"/>
-        <artifact groupId="org.wildfly.core" artifactId="wildfly-version" version="6.0.1.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-controller" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-controller-client" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-core-management-client" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-core-security" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-core-security-api" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-deployment-repository" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-domain-http-interface" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-domain-management" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-io" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-network" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-platform-mbean" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-process-controller" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-protocol" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-remoting" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-request-controller" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-server" version="6.0.2.Final"/>
+        <artifact groupId="org.wildfly.core" artifactId="wildfly-version" version="6.0.2.Final"/>
         <artifact groupId="org.wildfly.security" artifactId="wildfly-elytron" version="1.6.0.Final"/>
         <artifact groupId="org.wildfly.security.elytron-web" artifactId="undertow-server" version="1.2.3.Final"/>
         <artifact groupId="org.wildfly.security.elytron-web" artifactId="undertow-server-servlet" version="1.2.3.Final"/>
