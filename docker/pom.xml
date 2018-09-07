@@ -91,10 +91,10 @@
                                 <assembly>
                                     <basedir>/</basedir>
                                     <descriptor>${project.basedir}/s2i/assembly-artifacts.xml</descriptor>
-                                    <user>1001:0:1001</user><!-- uid 1001 and gid 0 are used by our base image ${docker.image.from} -->
+                                    <user>1001:0:1001</user>
                                 </assembly>
                                 <runCmds>
-                                    <run>${server.home}/bin/fuseconfig.sh --configs camel --enable</run>
+                                    <run>java -jar ${server.home}/jboss-modules.jar -mp ${server.home}/modules org.wildfly.extras.config.plugin.camel --configs camel --enable</run>
                                     <run>chmod g=u -R ${server.home}</run>
                                 </runCmds>
                                 <optimise>true</optimise>
