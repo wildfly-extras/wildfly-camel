@@ -1911,6 +1911,7 @@ org/apache/camel/component/jpa
 org/apache/camel/component/jsonvalidator
 org/apache/camel/component/jt400
 org/apache/camel/component/kafka
+org/apache/camel/component/kafka/serde
 org/apache/camel/component/kubernetes
 org/apache/camel/component/kubernetes/cloud
 org/apache/camel/component/kubernetes/cluster

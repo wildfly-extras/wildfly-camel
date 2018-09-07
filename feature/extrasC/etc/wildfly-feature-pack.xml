@@ -11,8 +11,8 @@
         <artifact groupId="com.google.inject" artifactId="guice" version="3.0"/>
         <artifact groupId="com.google.inject.extensions" artifactId="guice-assistedinject" version="3.0"/>
         <artifact groupId="javax.inject" artifactId="javax.inject" version="1"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-core" version="2.22.0"/>
-        <artifact groupId="org.apache.camel" artifactId="camel-jclouds" version="2.22.0"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-core" version="2.22.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-jclouds" version="2.22.1"/>
         <artifact groupId="org.apache.jclouds" artifactId="jclouds-blobstore" version="2.1.0"/>
         <artifact groupId="org.apache.jclouds" artifactId="jclouds-compute" version="2.1.0"/>
         <artifact groupId="org.apache.jclouds" artifactId="jclouds-core" version="2.1.0"/>
