@@ -8,8 +8,14 @@
         <artifact groupId="args4j" artifactId="args4j" version="2.0.31"/>
         <artifact groupId="backport-util-concurrent" artifactId="backport-util-concurrent" version="3.1"/>
         <artifact groupId="ca.uhn.hapi" artifactId="hapi-base" version="2.3"/>
+        <artifact groupId="ca.uhn.hapi" artifactId="hapi-structures-v21" version="2.3"/>
+        <artifact groupId="ca.uhn.hapi" artifactId="hapi-structures-v22" version="2.3"/>
+        <artifact groupId="ca.uhn.hapi" artifactId="hapi-structures-v23" version="2.3"/>
+        <artifact groupId="ca.uhn.hapi" artifactId="hapi-structures-v231" version="2.3"/>
         <artifact groupId="ca.uhn.hapi" artifactId="hapi-structures-v24" version="2.3"/>
         <artifact groupId="ca.uhn.hapi" artifactId="hapi-structures-v25" version="2.3"/>
+        <artifact groupId="ca.uhn.hapi" artifactId="hapi-structures-v251" version="2.3"/>
+        <artifact groupId="ca.uhn.hapi" artifactId="hapi-structures-v26" version="2.3"/>
         <artifact groupId="ca.uhn.hapi.fhir" artifactId="hapi-fhir-base" version="3.3.0"/>
         <artifact groupId="ca.uhn.hapi.fhir" artifactId="hapi-fhir-client" version="3.3.0"/>
         <artifact groupId="ca.uhn.hapi.fhir" artifactId="hapi-fhir-structures-dstu2" version="3.3.0"/>

@@ -5,8 +5,14 @@
   </properties>
   <resources>
     <artifact name="${ca.uhn.hapi:hapi-base}" />
+    <artifact name="${ca.uhn.hapi:hapi-structures-v21}" />
+    <artifact name="${ca.uhn.hapi:hapi-structures-v22}" />
+    <artifact name="${ca.uhn.hapi:hapi-structures-v23}" />
+    <artifact name="${ca.uhn.hapi:hapi-structures-v231}" />
     <artifact name="${ca.uhn.hapi:hapi-structures-v24}" />
     <artifact name="${ca.uhn.hapi:hapi-structures-v25}" />
+    <artifact name="${ca.uhn.hapi:hapi-structures-v251}" />
+    <artifact name="${ca.uhn.hapi:hapi-structures-v26}" />
   </resources>
   <dependencies>
     <module name="javax.api" />

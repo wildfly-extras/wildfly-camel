@@ -6,8 +6,14 @@
 /ca/uhn/hapi/fhir/main/hapi-fhir-structures-dstu3-3.3.0.jar
 /ca/uhn/hapi/fhir/main/hapi-fhir-utilities-3.3.0.jar
 /ca/uhn/hapi/main/hapi-base-2.3.jar
+/ca/uhn/hapi/main/hapi-structures-v21-2.3.jar
+/ca/uhn/hapi/main/hapi-structures-v22-2.3.jar
+/ca/uhn/hapi/main/hapi-structures-v23-2.3.jar
+/ca/uhn/hapi/main/hapi-structures-v231-2.3.jar
 /ca/uhn/hapi/main/hapi-structures-v24-2.3.jar
 /ca/uhn/hapi/main/hapi-structures-v25-2.3.jar
+/ca/uhn/hapi/main/hapi-structures-v251-2.3.jar
+/ca/uhn/hapi/main/hapi-structures-v26-2.3.jar
 /com/adobe/xmp/xmpcore/main/xmpcore-5.1.3.jar
 /com/alibaba/fastjson/main/fastjson-1.2.47.jar
 /com/amazon/aws/main/aws-java-sdk-1.11.301.jar
