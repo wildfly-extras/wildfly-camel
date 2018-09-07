@@ -163,11 +163,8 @@ def rootModules = [
 ] as Set
 
 def allowedDuplicateModules = [
-    "com.squareup.okhttp3:main"
 ] as Set
 def allowedDuplicateArtifacts = [
-    "com.squareup.okhttp3:okhttp",
-    "com.squareup.okio:okio"
 ] as Set
 
 

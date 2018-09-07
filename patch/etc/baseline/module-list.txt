@@ -93,8 +93,6 @@
 /com/rometools/rome/main/rome-utils-1.5.1.jar
 /com/squareup/moshi/main/moshi-1.5.0.jar
 /com/squareup/okhttp3/logging-interceptor/main/logging-interceptor-3.9.0.jar
-/com/squareup/okhttp3/main/okhttp-3.9.0.jar
-/com/squareup/okhttp3/main/okio-1.13.0.jar
 /com/squareup/retrofit2/main/converter-gson-2.3.0.jar
 /com/squareup/retrofit2/main/converter-jackson-2.3.0.jar
 /com/squareup/retrofit2/main/converter-moshi-2.4.0.jar
