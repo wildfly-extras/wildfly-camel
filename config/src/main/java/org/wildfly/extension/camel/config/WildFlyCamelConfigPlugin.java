@@ -99,11 +99,9 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
         if (enable) {
             addProperty(element, propertiesByName, "hawtio.authenticationEnabled", "true");
             addProperty(element, propertiesByName, "hawtio.realm", "hawtio-domain");
-            addProperty(element, propertiesByName, "ee8.preview.mode", "true");
         } else {
             removeProperty(propertiesByName, "hawtio.authenticationEnabled");
             removeProperty(propertiesByName, "hawtio.realm");
-            removeProperty(propertiesByName, "ee8.preview.mode");
         }
     }
 
