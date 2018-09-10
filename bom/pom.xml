@@ -70,6 +70,11 @@
 
             <dependency>
                 <groupId>org.wildfly.camel</groupId>
+                <artifactId>wildfly-camel-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.camel</groupId>
                 <artifactId>wildfly-camel-config</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -243,27 +248,6 @@
                 <version>${version.wildfly.cxf}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.log</artifactId>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.osgi</groupId>
-                        <artifactId>org.osgi.compendium</artifactId>
-                    </exclusion>
-                </exclusions>
-                <version>${version.apache.felix.log}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.metatype</artifactId>
-                <version>${version.apache.felix.metatype}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.scr</artifactId>
-                <version>${version.apache.felix.scr}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-to-slf4j</artifactId>
                 <version>${version.camel.log4j2}</version>
@@ -357,31 +341,6 @@
                 <groupId>org.infinispan</groupId>
                 <artifactId>infinispan-jcache</artifactId>
                 <version>${version.wildfly.infinispan}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.gravia</groupId>
-                <artifactId>gravia-container-wildfly-extension</artifactId>
-                <version>${version.jboss.gravia}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.gravia</groupId>
-                <artifactId>gravia-resource</artifactId>
-                <version>${version.jboss.gravia}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.gravia</groupId>
-                <artifactId>gravia-runtime-api</artifactId>
-                <version>${version.jboss.gravia}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.gravia</groupId>
-                <artifactId>gravia-runtime-embedded</artifactId>
-                <version>${version.jboss.gravia}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.gravia</groupId>
-                <artifactId>gravia-runtime-osgi</artifactId>
-                <version>${version.jboss.gravia}</version>
             </dependency>
             <dependency>
                 <groupId>org.jgroups</groupId>

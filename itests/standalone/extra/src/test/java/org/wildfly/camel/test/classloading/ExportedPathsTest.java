@@ -46,7 +46,6 @@ import javax.management.ObjectName;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.utils.ObjectNameFactory;
 import org.jboss.modules.management.DependencyInfo;
 import org.jboss.modules.management.ModuleLoaderMXBean;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -57,6 +56,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.utils.ObjectNameFactory;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware

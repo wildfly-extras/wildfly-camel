@@ -36,8 +36,6 @@ import org.apache.camel.component.jcr.JcrConstants;
 import org.apache.jackrabbit.core.TransientRepository;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.resource.ManifestBuilder;
-import org.jboss.gravia.utils.IOUtils;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -45,6 +43,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.FileUtils;
+import org.wildfly.camel.test.common.utils.ManifestBuilder;
+import org.wildfly.camel.utils.IOUtils;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.WildFlyCamelContext;
 

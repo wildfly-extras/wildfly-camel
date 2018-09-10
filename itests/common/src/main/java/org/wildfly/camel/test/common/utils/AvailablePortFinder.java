@@ -32,7 +32,7 @@ import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import org.jboss.gravia.utils.IllegalStateAssertion;
+import org.wildfly.camel.utils.IllegalStateAssertion;
 
 /**
  * Finds currently available server ports.

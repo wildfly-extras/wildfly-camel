@@ -22,8 +22,8 @@ import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.URI;
 
-import org.jboss.gravia.utils.IOUtils;
-import org.jboss.gravia.utils.IllegalStateAssertion;
+import org.wildfly.camel.utils.IOUtils;
+import org.wildfly.camel.utils.IllegalStateAssertion;
 
 public final class TestUtils {
     private TestUtils() {

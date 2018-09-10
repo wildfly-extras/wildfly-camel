@@ -34,7 +34,10 @@
     <artifactId>wildfly-camel-subsystem-core</artifactId>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-common</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
@@ -42,10 +45,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.gravia</groupId>
-            <artifactId>gravia-runtime-api</artifactId>
         </dependency>
 
         <!-- Provided -->
@@ -67,11 +66,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core-xml</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.gravia</groupId>
-            <artifactId>gravia-container-wildfly-extension</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

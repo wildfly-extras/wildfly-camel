@@ -25,7 +25,7 @@ import java.util.List;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.spring.SpringCamelContext;
-import org.jboss.gravia.utils.IllegalStateAssertion;
+import org.wildfly.camel.utils.IllegalStateAssertion;
 
 /**
  * A {@link CamelContext} factory utility.

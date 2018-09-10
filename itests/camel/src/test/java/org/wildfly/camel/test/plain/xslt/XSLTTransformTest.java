@@ -32,9 +32,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.jboss.gravia.utils.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
+import org.wildfly.camel.utils.IOUtils;
 
 public class XSLTTransformTest {
 

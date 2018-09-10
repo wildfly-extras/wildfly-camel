@@ -740,10 +740,6 @@
         <artifact groupId="org.jboss" artifactId="jboss-vfs" version="3.2.14.Final"/>
         <artifact groupId="org.jboss" artifactId="staxmapper" version="1.3.0.Final"/>
         <artifact groupId="org.jboss.common" artifactId="jboss-common-beans" version="2.0.0.Final"/>
-        <artifact groupId="org.jboss.gravia" artifactId="gravia-container-wildfly-extension" version="1.3.1"/>
-        <artifact groupId="org.jboss.gravia" artifactId="gravia-resource" version="1.3.1"/>
-        <artifact groupId="org.jboss.gravia" artifactId="gravia-runtime-api" version="1.3.1"/>
-        <artifact groupId="org.jboss.gravia" artifactId="gravia-runtime-embedded" version="1.3.1"/>
         <artifact groupId="org.jboss.invocation" artifactId="jboss-invocation" version="1.5.1.Final"/>
         <artifact groupId="org.jboss.logging" artifactId="jboss-logging" version="3.3.2.Final"/>
         <artifact groupId="org.jboss.logmanager" artifactId="jboss-logmanager" version="2.1.4.Final"/>
@@ -806,7 +802,6 @@
         <artifact groupId="org.opentelecoms.sip" artifactId="sip-api-1.2" version="1.1"/>
         <artifact groupId="org.optaplanner" artifactId="optaplanner-core" version="7.3.0.Final"/>
         <artifact groupId="org.osgi" artifactId="org.osgi.core" version="5.0.0"/>
-        <artifact groupId="org.osgi" artifactId="org.osgi.enterprise" version="5.0.0"/>
         <artifact groupId="org.ow2.asm" artifactId="asm" version="6.2.1"/>
         <artifact groupId="org.ow2.asm" artifactId="asm-util" version="6.2.1"/>
         <artifact groupId="org.pacesys" artifactId="openstack4j-core" version="3.0.2"/>
@@ -871,6 +866,7 @@
         <artifact groupId="org.wildfly" artifactId="wildfly-transactions" version="14.0.1.Final"/>
         <artifact groupId="org.wildfly" artifactId="wildfly-undertow" version="14.0.1.Final"/>
         <artifact groupId="org.wildfly" artifactId="wildfly-web-common" version="14.0.1.Final"/>
+        <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-common" version="8.0.0-SNAPSHOT"/>
         <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-config" version="8.0.0-SNAPSHOT"/>
         <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-cxf-undertow" version="8.0.0-SNAPSHOT"/>
         <artifact groupId="org.wildfly.camel" artifactId="wildfly-camel-subsystem-cdi" version="8.0.0-SNAPSHOT"/>

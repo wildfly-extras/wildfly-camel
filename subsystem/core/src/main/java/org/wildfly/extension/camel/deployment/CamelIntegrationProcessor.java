@@ -26,7 +26,6 @@ import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
 import org.jboss.as.server.deployment.DeploymentUnitProcessor;
 import org.wildfly.extension.camel.CamelConstants;
-import org.wildfly.extension.gravia.GraviaConstants;
 
 /**
  * Allways make some camel integration services available
@@ -49,7 +48,6 @@ public class CamelIntegrationProcessor implements DeploymentUnitProcessor {
         phaseContext.addDeploymentDependency(CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_SERVICE_NAME, CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_KEY);
         phaseContext.addDeploymentDependency(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME, CamelConstants.CAMEL_CONTEXT_REGISTRY_KEY);
         phaseContext.addDeploymentDependency(CamelConstants.CAMEL_CONTEXT_FACTORY_SERVICE_NAME, CamelConstants.CAMEL_CONTEXT_FACTORY_KEY);
-        phaseContext.addDeploymentDependency(GraviaConstants.RUNTIME_SERVICE_NAME, GraviaConstants.RUNTIME_KEY);
     }
 
     @Override

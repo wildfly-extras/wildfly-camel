@@ -42,7 +42,6 @@ import org.wildfly.extension.camel.service.CamelBootstrapService;
 import org.wildfly.extension.camel.service.CamelContextFactoryService;
 import org.wildfly.extension.camel.service.CamelContextRegistryService;
 import org.wildfly.extension.camel.service.ContextCreateHandlerRegistryService;
-import org.wildfly.extension.gravia.parser.GraviaSubsystemBootstrap;
 
 /**
  * The Camel subsystem add update handler.
@@ -82,9 +81,6 @@ public final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
     @Override
     protected void performBoottime(final OperationContext context, final ModelNode operation, final ModelNode model) {
 
-        final GraviaSubsystemBootstrap gravia = new GraviaSubsystemBootstrap();
-
-        gravia.getSubsystemServices(context);
         CamelBootstrapService.addService(context.getServiceTarget());
         CamelContextFactoryService.addService(context.getServiceTarget());
         CamelContextRegistryService.addService(context.getServiceTarget(), subsystemState);
@@ -101,7 +97,6 @@ public final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
         context.addStep(new AbstractDeploymentChainStep() {
             @Override
             public void execute(final DeploymentProcessorTarget processorTarget) {
-                gravia.addDeploymentUnitProcessors(processorTarget);
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_DEPLOYMENT_SETTINGS, new CamelDeploymentSettingsProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_CAMEL_CONTEXT_DESCRIPTORS, new CamelContextDescriptorsProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_CAMEL_INTEGRATION, new CamelIntegrationProcessor());

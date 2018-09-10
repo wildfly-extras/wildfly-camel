@@ -21,7 +21,7 @@
 package org.wildfly.extension.camel.security;
 
 import org.jboss.crypto.CryptoUtil;
-import org.jboss.gravia.utils.IllegalArgumentAssertion;
+import org.wildfly.camel.utils.IllegalArgumentAssertion;
 
 /**
  * An encoded username password pricipal

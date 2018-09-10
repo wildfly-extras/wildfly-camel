@@ -24,9 +24,9 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 
 import org.apache.camel.CamelContext;
-import org.jboss.gravia.utils.IllegalStateAssertion;
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleClassLoader;
+import org.wildfly.camel.utils.IllegalStateAssertion;
 import org.wildfly.extension.camel.ContextCreateHandler;
 import org.wildfly.extension.camel.service.CamelContextRegistryService;
 

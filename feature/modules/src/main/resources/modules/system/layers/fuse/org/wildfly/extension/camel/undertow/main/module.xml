@@ -14,7 +14,6 @@
     <module name="org.slf4j" />
     <module name="org.apache.camel.component.cxf" />
     <module name="org.apache.camel.component.undertow" />
-    <module name="org.jboss.gravia" />
     <module name="org.wildfly.extension.camel" />
     <module name="org.wildfly.extension.undertow" />
   </dependencies>

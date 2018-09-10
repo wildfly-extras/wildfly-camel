@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 
 import org.jboss.as.controller.client.ModelControllerClient;
 import org.jboss.dmr.ModelNode;
-import org.jboss.gravia.utils.IllegalStateAssertion;
+import org.wildfly.camel.utils.IllegalStateAssertion;
 
 /**
  * The client for registered endpoints.

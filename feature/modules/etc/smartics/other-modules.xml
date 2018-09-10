@@ -2101,16 +2101,6 @@
         <include artifact=":org.osgi.core" />
     </module>
 
-    <module name="org.osgi.enterprise">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":org.osgi.enterprise" />
-        <dependencies>
-            <module name="javax.api"/>
-        </dependencies>
-    </module>
-
     <module name="org.mongodb">
         <include artifact="org.mongodb:mongo-java-driver" />
         <dependencies>

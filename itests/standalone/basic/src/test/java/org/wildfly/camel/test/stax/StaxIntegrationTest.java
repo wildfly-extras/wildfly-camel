@@ -29,7 +29,6 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -37,6 +36,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.types.Record;
 import org.wildfly.camel.test.common.types.Records;
+import org.wildfly.camel.test.common.utils.ManifestBuilder;
 import org.wildfly.camel.test.stax.subA.ElementCountingHandler;
 import org.wildfly.extension.camel.CamelAware;
 

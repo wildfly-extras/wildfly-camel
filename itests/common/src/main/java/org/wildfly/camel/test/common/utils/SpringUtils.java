@@ -22,9 +22,9 @@ package org.wildfly.camel.test.common.utils;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.spring.SpringCamelContext;
-import org.jboss.gravia.utils.IllegalArgumentAssertion;
-import org.jboss.gravia.utils.IllegalStateAssertion;
 import org.springframework.context.ApplicationContext;
+import org.wildfly.camel.utils.IllegalArgumentAssertion;
+import org.wildfly.camel.utils.IllegalStateAssertion;
 
 /**
  * Collection of Spring utilities

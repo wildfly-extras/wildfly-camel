@@ -37,10 +37,10 @@ import javax.security.auth.login.Configuration;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 
-import org.jboss.gravia.utils.IllegalArgumentAssertion;
-import org.jboss.gravia.utils.IllegalStateAssertion;
 import org.jboss.modules.ModuleClassLoader;
 import org.jboss.security.ClientLoginModule;
+import org.wildfly.camel.utils.IllegalArgumentAssertion;
+import org.wildfly.camel.utils.IllegalStateAssertion;
 
 /**
  * A login context builder

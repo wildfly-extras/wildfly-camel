@@ -35,10 +35,6 @@ import org.apache.camel.management.event.CamelContextStoppedEvent;
 import org.apache.camel.spi.CamelContextTracker;
 import org.apache.camel.spi.ManagementStrategy;
 import org.apache.camel.support.EventNotifierSupport;
-import org.jboss.gravia.runtime.ModuleContext;
-import org.jboss.gravia.runtime.Runtime;
-import org.jboss.gravia.runtime.ServiceRegistration;
-import org.jboss.gravia.utils.IllegalStateAssertion;
 import org.jboss.modules.ModuleClassLoader;
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.msc.service.AbstractService;
@@ -49,6 +45,7 @@ import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
 import org.jboss.msc.value.InjectedValue;
+import org.wildfly.camel.utils.IllegalStateAssertion;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextRegistry;
 import org.wildfly.extension.camel.CamelSubsytemExtension;
@@ -60,7 +57,6 @@ import org.wildfly.extension.camel.deployment.CamelDeploymentSettingsProcessor;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.camel.parser.SubsystemState;
 import org.wildfly.extension.camel.service.CamelContextRegistryService.MutableCamelContextRegistry;
-import org.wildfly.extension.gravia.GraviaConstants;
 
 /**
  * The {@link CamelContextRegistry} service
@@ -77,16 +73,13 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
             + "http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd'>";
 
     private final SubsystemState subsystemState;
-    private final InjectedValue<Runtime> injectedRuntime = new InjectedValue<>();
     private final InjectedValue<ContextCreateHandlerRegistry> injectedHandlerRegistry = new InjectedValue<>();
 
     private MutableCamelContextRegistry contextRegistry;
-    private ServiceRegistration<CamelContextRegistry> registration;
 
     public static ServiceController<MutableCamelContextRegistry> addService(ServiceTarget serviceTarget, SubsystemState subsystemState) {
         CamelContextRegistryService service = new CamelContextRegistryService(subsystemState);
         ServiceBuilder<MutableCamelContextRegistry> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME, service);
-        builder.addDependency(GraviaConstants.RUNTIME_SERVICE_NAME, Runtime.class, service.injectedRuntime);
         builder.addDependency(CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_SERVICE_NAME, ContextCreateHandlerRegistry.class, service.injectedHandlerRegistry);
         return builder.install();
     }
@@ -108,11 +101,6 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
         ContextCreateHandlerRegistry handlerRegistry = injectedHandlerRegistry.getValue();
         contextRegistry = new CamelContextRegistryImpl(handlerRegistry, startContext.getChildTarget());
 
-        // Register the service with gravia
-        Runtime runtime = injectedRuntime.getValue();
-        ModuleContext syscontext = runtime.getModuleContext();
-        registration = syscontext.registerService(CamelContextRegistry.class, contextRegistry, null);
-
         for (final String name : subsystemState.getContextDefinitionNames()) {
             createCamelContext(name, subsystemState.getContextDefinition(name));
         }
@@ -133,10 +121,6 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
 
         if (contextRegistry != null) {
             CamelContextTrackerRegistry.INSTANCE.removeTracker((CamelContextTracker) contextRegistry);
-        }
-
-        if (registration != null) {
-            registration.unregister();
         }
     }
 

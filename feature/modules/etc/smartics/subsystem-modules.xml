@@ -21,8 +21,8 @@
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
     <module name="org.wildfly.extension.camel">
+        <include artifact=":wildfly-camel-common" />
         <include artifact=":wildfly-camel-subsystem-core" />
-        <include artifact=":gravia-container-wildfly-extension" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel" />
             <include module="org.apache.camel.component" />
@@ -31,10 +31,6 @@
             <include module="org.apache.camel.core.xml" />
             <include module="org.apache.camel.spring" />
             <include module="org.jboss.shrinkwrap" />
-            <include module="org.jboss.gravia.container.common" />
-            <include module="org.jboss.gravia.provision" />
-            <include module="org.jboss.gravia.repository" />
-            <include module="org.jboss.gravia.resolver" />
         </apply-to-dependencies>
         <dependencies>
             <module name="io.undertow.core"/>

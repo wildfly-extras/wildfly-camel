@@ -32,7 +32,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
-import org.jboss.gravia.runtime.ServiceLocator;
+import org.jboss.msc.service.ServiceName;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -41,7 +41,9 @@ import org.junit.runner.RunWith;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
+import org.wildfly.camel.utils.ServiceLocator;
 import org.wildfly.extension.camel.CamelAware;
+import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextFactory;
 import org.wildfly.extension.camel.CamelContextRegistry;
 import org.wildfly.extension.camel.WildFlyCamelContext;
@@ -97,7 +99,8 @@ public class SpringRedisIntegrationTest {
         redisTemplate.setConnectionFactory(connectionFactory);
         redisTemplate.afterPropertiesSet();
 
-        CamelContextFactory contextFactory = ServiceLocator.getRequiredService(CamelContextFactory.class);
+        ServiceName serviceName = CamelConstants.CAMEL_CONTEXT_FACTORY_SERVICE_NAME;
+        CamelContextFactory contextFactory = ServiceLocator.getRequiredService(serviceName, CamelContextFactory.class);
         WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
         Context jndictx = camelctx.getNamingContext();
         jndictx.bind("redisTemplate", redisTemplate);

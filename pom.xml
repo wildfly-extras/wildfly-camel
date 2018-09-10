@@ -73,10 +73,6 @@
         <!-- Other versions -->
         <version.apache.ds>2.0.0-M21</version.apache.ds>
         <version.apache.ds.codec>1.0.0-M33</version.apache.ds.codec>
-        <version.apache.felix.configadmin>1.8.8</version.apache.felix.configadmin>
-        <version.apache.felix.log>1.0.1</version.apache.felix.log>
-        <version.apache.felix.metatype>1.0.8</version.apache.felix.metatype>
-        <version.apache.felix.scr>1.6.2</version.apache.felix.scr>
         <version.apache.qpid>6.1.2</version.apache.qpid>
         <version.apache.vysper>0.7</version.apache.vysper>
         <version.args4j>2.0.31</version.args4j>
@@ -87,7 +83,6 @@
         <version.hawtio>2.0.2</version.hawtio>
         <version.javax.cache.api>1.0.0</version.javax.cache.api>
         <version.jboss.arquillian.core>1.1.13.Final</version.jboss.arquillian.core>
-        <version.jboss.gravia>1.3.1</version.jboss.gravia>
         <version.jboss.shrinkwrap>1.2.2</version.jboss.shrinkwrap>
         <version.junit>4.12</version.junit>
         <version.maven.aether.provider>3.2.5</version.maven.aether.provider>
@@ -142,6 +137,7 @@
     <!-- Modules -->
     <modules>
         <module>bom</module>
+        <module>common</module>
         <module>config</module>
         <module>cxfhttp</module>
         <module>subsystem</module>

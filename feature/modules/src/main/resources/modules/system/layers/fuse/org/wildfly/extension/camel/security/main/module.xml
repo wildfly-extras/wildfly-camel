@@ -12,7 +12,6 @@
     <module name="org.picketbox" />
     <module name="org.wildfly.security.elytron" />
     <module name="org.slf4j" />
-    <module name="org.jboss.gravia" />
     <module name="org.jboss.modules" />
     <module name="org.wildfly.extension.camel" />
   </dependencies>

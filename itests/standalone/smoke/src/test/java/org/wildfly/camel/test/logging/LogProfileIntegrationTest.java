@@ -35,7 +35,6 @@ import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.dmr.ModelNode;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -44,6 +43,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.common.utils.DMRUtils;
 import org.wildfly.camel.test.common.utils.LogUtils;
+import org.wildfly.camel.test.common.utils.ManifestBuilder;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware

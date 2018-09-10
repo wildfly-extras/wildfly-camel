@@ -21,10 +21,6 @@
 
 package org.wildfly.extension.camel.service;
 
-import org.jboss.gravia.runtime.ModuleContext;
-import org.jboss.gravia.runtime.Runtime;
-import org.jboss.gravia.runtime.ServiceRegistration;
-import org.jboss.gravia.utils.IllegalArgumentAssertion;
 import org.jboss.modules.ModuleClassLoader;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
@@ -32,13 +28,11 @@ import org.jboss.msc.service.ServiceController;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
-import org.jboss.msc.service.StopContext;
-import org.jboss.msc.value.InjectedValue;
+import org.wildfly.camel.utils.IllegalArgumentAssertion;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextFactory;
 import org.wildfly.extension.camel.WildFlyCamelContext;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
-import org.wildfly.extension.gravia.GraviaConstants;
 
 /**
  * The {@link CamelContextFactory} service
@@ -48,15 +42,11 @@ import org.wildfly.extension.gravia.GraviaConstants;
  */
 public class CamelContextFactoryService extends AbstractService<CamelContextFactory> {
 
-    private final InjectedValue<Runtime> injectedRuntime = new InjectedValue<>();
-
-	private ServiceRegistration<CamelContextFactory> registration;
     private CamelContextFactory contextFactory;
 
     public static ServiceController<CamelContextFactory> addService(ServiceTarget serviceTarget) {
         CamelContextFactoryService service = new CamelContextFactoryService();
         ServiceBuilder<CamelContextFactory> builder = serviceTarget.addService(CamelConstants.CAMEL_CONTEXT_FACTORY_SERVICE_NAME, service);
-        builder.addDependency(GraviaConstants.RUNTIME_SERVICE_NAME, Runtime.class, service.injectedRuntime);
         return builder.install();
     }
 
@@ -66,20 +56,7 @@ public class CamelContextFactoryService extends AbstractService<CamelContextFact
 
     @Override
     public void start(StartContext startContext) throws StartException {
-
         contextFactory = new CamelContextFactoryImpl();
-
-        // Register the service with gravia
-        Runtime runtime = injectedRuntime.getValue();
-        ModuleContext syscontext = runtime.getModuleContext();
-        registration = syscontext.registerService(CamelContextFactory.class, contextFactory, null);
-    }
-
-    @Override
-	public void stop(StopContext context) {
-        if (registration != null) {
-            registration.unregister();
-        }
 	}
 
 	@Override

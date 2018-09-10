@@ -986,22 +986,6 @@
             <artifactId>api-ldap-codec-standalone</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.configadmin</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.log</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.metatype</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.scr</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-to-slf4j</artifactId>
         </dependency>
@@ -1040,14 +1024,6 @@
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-jcache</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.gravia</groupId>
-            <artifactId>gravia-container-wildfly-extension</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.gravia</groupId>
-            <artifactId>gravia-runtime-embedded</artifactId>
         </dependency>
         <dependency>
             <groupId>rhino</groupId>

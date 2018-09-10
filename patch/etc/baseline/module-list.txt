@@ -727,13 +727,6 @@
 /org/iq80/leveldb/main/leveldb-0.10.jar
 /org/iq80/leveldb/main/leveldb-api-0.10.jar
 /org/itadaki/bzip2/main/bzip2-0.9.1.jar
-/org/jboss/gravia/main/gravia-resource-1.3.1.jar
-/org/jboss/gravia/main/gravia-runtime-api-1.3.1.jar
-/org/jboss/gravia/main/gravia-runtime-embedded-1.3.1.jar
-/org/jboss/gravia/main/org.apache.felix.configadmin-1.8.8.jar
-/org/jboss/gravia/main/org.apache.felix.log-1.0.1.jar
-/org/jboss/gravia/main/org.apache.felix.metatype-1.0.8.jar
-/org/jboss/gravia/main/org.apache.felix.scr-1.6.2.jar
 /org/jdom/jdom2/main/jdom2-2.0.6.jar
 /org/jxmpp/main/jxmpp-core-0.6.2.jar
 /org/jxmpp/main/jxmpp-jid-0.6.2.jar
@@ -751,7 +744,6 @@
 /org/objenesis/main/objenesis-2.6.jar
 /org/opengis/geoapi/main/geoapi-3.0.1.jar
 /org/osgi/core/main/org.osgi.core-5.0.0.jar
-/org/osgi/enterprise/main/org.osgi.enterprise-5.0.0.jar
 /org/quartz/main/c3p0-0.9.5.2.jar
 /org/quartz/main/mchange-commons-java-0.2.11.jar
 /org/quartz/main/quartz-2.3.0.jar
@@ -788,7 +780,6 @@
 /org/tallison/jmatio/main/jmatio-1.2.jar
 /org/tukaani/xz/main/xz-1.5.jar
 /org/w3c/css/sac/main/sac-1.3.jar
-/org/wildfly/extension/camel/main/gravia-container-wildfly-extension-1.3.1.jar
 /org/xerial/snappy/main/snappy-java-1.1.1.3.jar
 /xmlenc/main/xmlenc-0.52.jar
 /xmlpull/main/xmlpull-1.1.3.1.jar

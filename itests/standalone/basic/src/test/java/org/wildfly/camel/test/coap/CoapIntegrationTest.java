@@ -26,13 +26,13 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.eclipse.californium.core.network.config.NetworkConfig;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.resource.ManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
+import org.wildfly.camel.test.common.utils.ManifestBuilder;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware

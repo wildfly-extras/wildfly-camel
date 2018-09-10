@@ -22,7 +22,7 @@ package org.wildfly.extension.camel.security;
 
 import java.security.Principal;
 
-import org.jboss.gravia.utils.IllegalArgumentAssertion;
+import org.wildfly.camel.utils.IllegalArgumentAssertion;
 
 
 /**

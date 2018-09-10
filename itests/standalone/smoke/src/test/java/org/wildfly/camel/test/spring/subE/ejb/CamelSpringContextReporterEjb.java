@@ -30,7 +30,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
 import org.apache.camel.CamelContext;
-import org.jboss.gravia.utils.IllegalStateAssertion;
+import org.wildfly.camel.utils.IllegalStateAssertion;
 import org.wildfly.extension.camel.CamelAware;
 
 @Startup

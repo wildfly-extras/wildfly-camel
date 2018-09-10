@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.wildfly.extension.camel">
   <resources>
-    <artifact name="${org.jboss.gravia:gravia-container-wildfly-extension}" />
+    <artifact name="${org.wildfly.camel:wildfly-camel-common}" />
     <artifact name="${org.wildfly.camel:wildfly-camel-subsystem-core}" />
   </resources>
   <dependencies>
@@ -51,7 +51,6 @@
     <module name="ibm.jdk.ext" export="true" />
     <module name="sun.jdk.ext" export="true" />
     <module name="javax.servlet.api" />
-    <module name="org.jboss.gravia" />
     <module name="org.wildfly.extension.undertow" />
   </dependencies>
 </module>

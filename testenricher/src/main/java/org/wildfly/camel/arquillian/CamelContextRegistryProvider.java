@@ -27,7 +27,9 @@ import org.jboss.arquillian.core.api.annotation.Inject;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.test.spi.annotation.SuiteScoped;
 import org.jboss.arquillian.test.spi.enricher.resource.ResourceProvider;
-import org.jboss.gravia.runtime.ServiceLocator;
+import org.jboss.msc.service.ServiceName;
+import org.wildfly.camel.utils.ServiceLocator;
+import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 /**
@@ -54,7 +56,8 @@ public class CamelContextRegistryProvider implements ResourceProvider {
     @Override
     public Object lookup(ArquillianResource resource, Annotation... qualifiers) {
         if (serviceInstance.get() == null) {
-            CamelContextRegistry service = ServiceLocator.getRequiredService(CamelContextRegistry.class);
+            ServiceName sname = CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME;
+            CamelContextRegistry service = ServiceLocator.getRequiredService(sname, CamelContextRegistry.class);
             serviceProducer.set(service);
         }
         return serviceInstance.get();

@@ -40,7 +40,6 @@ import org.jboss.modules.filter.PathFilters;
  */
 public final class CamelDependenciesProcessor implements DeploymentUnitProcessor {
 
-    private static final String GRAVIA_MODULE = "org.jboss.gravia";
     private static final String APACHE_CAMEL_MODULE = "org.apache.camel";
     private static final String APACHE_CAMEL_COMPONENT_MODULE = "org.apache.camel.component";
     private static final String WILDFLY_CAMEL_MODULE = "org.wildfly.extension.camel";
@@ -57,7 +56,6 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
 
         ModuleLoader moduleLoader = depUnit.getAttachment(Attachments.SERVICE_MODULE_LOADER);
         ModuleSpecification moduleSpec = depUnit.getAttachment(Attachments.MODULE_SPECIFICATION);
-        moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(GRAVIA_MODULE), false, false, false, false));
         moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, ModuleIdentifier.create(WILDFLY_CAMEL_MODULE), false, false, false, false));
 
         // Add camel aggregator dependency

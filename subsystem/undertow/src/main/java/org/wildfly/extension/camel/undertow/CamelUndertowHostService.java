@@ -36,10 +36,6 @@ import org.apache.camel.component.undertow.UndertowHost;
 import org.apache.camel.component.undertow.handlers.CamelWebSocketHandler;
 import org.jboss.as.network.NetworkUtils;
 import org.jboss.as.network.SocketBinding;
-import org.jboss.gravia.runtime.ModuleContext;
-import org.jboss.gravia.runtime.Runtime;
-import org.jboss.gravia.runtime.ServiceRegistration;
-import org.jboss.gravia.utils.IllegalStateAssertion;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
@@ -49,9 +45,9 @@ import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
 import org.jboss.msc.value.InjectedValue;
+import org.wildfly.camel.utils.IllegalStateAssertion;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.parser.SubsystemState.RuntimeState;
-import org.wildfly.extension.gravia.GraviaConstants;
 import org.wildfly.extension.undertow.Host;
 import org.wildfly.extension.undertow.UndertowEventListener;
 import org.wildfly.extension.undertow.UndertowListener;
@@ -75,15 +71,13 @@ import io.undertow.util.URLUtils;
  */
 public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
-    private static final ServiceName SERVICE_NAME = CamelConstants.CAMEL_BASE_NAME.append("Undertow");
+    static final ServiceName SERVICE_NAME = CamelConstants.CAMEL_BASE_NAME.append("Undertow");
 
     private final InjectedValue<SocketBinding> injectedHttpSocketBinding = new InjectedValue<>();
     private final InjectedValue<UndertowService> injectedUndertowService = new InjectedValue<>();
     private final InjectedValue<Host> injectedDefaultHost = new InjectedValue<>();
-    private final InjectedValue<Runtime> injectedRuntime = new InjectedValue<Runtime>();
 
     private final RuntimeState runtimeState;
-    private ServiceRegistration<UndertowHost> registration;
     private UndertowEventListener eventListener;
     private UndertowHost undertowHost;
 
@@ -91,7 +85,6 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
     public static ServiceController<UndertowHost> addService(ServiceTarget serviceTarget, RuntimeState runtimeState) {
         CamelUndertowHostService service = new CamelUndertowHostService(runtimeState);
         ServiceBuilder<UndertowHost> builder = serviceTarget.addService(SERVICE_NAME, service);
-        builder.addDependency(GraviaConstants.RUNTIME_SERVICE_NAME, Runtime.class, service.injectedRuntime);
         builder.addDependency(UndertowService.UNDERTOW, UndertowService.class, service.injectedUndertowService);
         builder.addDependency(SocketBinding.JBOSS_BINDING_NAME.append("http"), SocketBinding.class, service.injectedHttpSocketBinding);
         builder.addDependency(UndertowService.virtualHostName("default-server", "default-host"), Host.class, service.injectedDefaultHost);
@@ -109,8 +102,6 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
         eventListener = new CamelUndertowEventListener();
         injectedUndertowService.getValue().registerListener(eventListener);
         undertowHost = new WildFlyUndertowHost(injectedDefaultHost.getValue());
-        ModuleContext syscontext = injectedRuntime.getValue().getModuleContext();
-        registration = syscontext.registerService(UndertowHost.class, undertowHost, null);
     }
 
     private URL getConnectionURL() throws StartException {
@@ -131,7 +122,6 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
     @Override
     public void stop(StopContext context) {
         injectedUndertowService.getValue().unregisterListener(eventListener);
-        registration.unregister();
     }
 
     @Override

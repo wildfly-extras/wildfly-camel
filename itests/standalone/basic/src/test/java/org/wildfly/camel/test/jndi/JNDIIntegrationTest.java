@@ -31,13 +31,14 @@ import org.apache.camel.builder.RouteBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.gravia.runtime.ServiceLocator;
+import org.jboss.msc.service.ServiceName;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.types.HelloBean;
+import org.wildfly.camel.utils.ServiceLocator;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextFactory;
@@ -76,7 +77,8 @@ public class JNDIIntegrationTest {
 
     @Test
     public void testCamelContextFactoryService() throws Exception {
-        CamelContextFactory contextFactory = ServiceLocator.getRequiredService(CamelContextFactory.class);
+        ServiceName serviceName = CamelConstants.CAMEL_CONTEXT_FACTORY_SERVICE_NAME;
+        CamelContextFactory contextFactory = ServiceLocator.getRequiredService(serviceName, CamelContextFactory.class);
         WildFlyCamelContext camelctx = contextFactory.createCamelContext(getClass().getClassLoader());
         assertBeanBinding(camelctx);
     }

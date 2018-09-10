@@ -31,7 +31,7 @@ import org.apache.camel.component.undertow.UndertowConsumer;
 import org.apache.camel.component.undertow.UndertowEndpoint;
 import org.apache.camel.component.undertow.UndertowHost;
 import org.apache.camel.component.undertow.UndertowHostKey;
-import org.jboss.gravia.runtime.ServiceLocator;
+import org.wildfly.camel.utils.ServiceLocator;
 import org.wildfly.extension.camel.parser.SubsystemState.RuntimeState;
 
 /**
@@ -55,7 +55,7 @@ public class WildFlyUndertowComponent extends UndertowComponent {
 
     @Override
     protected UndertowHost createUndertowHost(UndertowHostKey key) {
-        return ServiceLocator.getRequiredService(UndertowHost.class);
+        return ServiceLocator.getRequiredService(CamelUndertowHostService.SERVICE_NAME, UndertowHost.class);
     }
 
     class WildFlyUndertowEndpoint extends UndertowEndpoint {

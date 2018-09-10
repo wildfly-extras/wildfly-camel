@@ -38,7 +38,6 @@ public class CamelRemoteLoadableExtension implements RemoteLoadableExtension, De
 
     private static Set<ModuleIdentifier> dependencies = new LinkedHashSet<ModuleIdentifier>();
     static {
-        dependencies.add(ModuleIdentifier.create("org.jboss.gravia"));
         dependencies.add(ModuleIdentifier.create("org.wildfly.extension.camel"));
     }
 

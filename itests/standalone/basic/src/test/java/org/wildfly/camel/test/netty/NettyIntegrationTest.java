@@ -30,12 +30,14 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.runtime.ServiceLocator;
+import org.jboss.msc.service.ServiceName;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.utils.ServiceLocator;
+import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
@@ -90,7 +92,8 @@ public class NettyIntegrationTest {
     @Test
     public void testDeployedContext() throws Exception {
 
-        CamelContextRegistry registry = ServiceLocator.getRequiredService(CamelContextRegistry.class);
+        ServiceName sname = CamelConstants.CAMEL_CONTEXT_REGISTRY_SERVICE_NAME;
+        CamelContextRegistry registry = ServiceLocator.getRequiredService(sname, CamelContextRegistry.class);
         CamelContext camelctx = registry.getCamelContext("netty-context");
         Assert.assertNotNull("CamelContext not null", camelctx);
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());

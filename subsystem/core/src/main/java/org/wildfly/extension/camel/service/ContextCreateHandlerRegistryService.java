@@ -27,9 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import org.jboss.gravia.runtime.ModuleContext;
-import org.jboss.gravia.runtime.Runtime;
-import org.jboss.gravia.runtime.ServiceRegistration;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceContainer;
@@ -37,8 +34,6 @@ import org.jboss.msc.service.ServiceController;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
-import org.jboss.msc.service.StopContext;
-import org.jboss.msc.value.InjectedValue;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelSubsytemExtension;
 import org.wildfly.extension.camel.ContextCreateHandler;
@@ -47,7 +42,6 @@ import org.wildfly.extension.camel.handler.ClassResolverAssociationHandler;
 import org.wildfly.extension.camel.handler.ComponentResolverAssociationHandler;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.camel.parser.SubsystemState;
-import org.wildfly.extension.gravia.GraviaConstants;
 
 /**
  * The {@link ContextCreateHandlerRegistry} service
@@ -58,15 +52,12 @@ import org.wildfly.extension.gravia.GraviaConstants;
 public class ContextCreateHandlerRegistryService extends AbstractService<ContextCreateHandlerRegistry> {
 
     private final SubsystemState subsystemState;
-    private final InjectedValue<Runtime> injectedRuntime = new InjectedValue<Runtime>();
 
-    private ServiceRegistration<ContextCreateHandlerRegistry> registration;
     private ContextCreateHandlerRegistry createHandlerRegistry;
 
     public static ServiceController<ContextCreateHandlerRegistry> addService(ServiceTarget serviceTarget, SubsystemState subsystemState) {
         ContextCreateHandlerRegistryService service = new ContextCreateHandlerRegistryService(subsystemState);
         ServiceBuilder<ContextCreateHandlerRegistry> builder = serviceTarget.addService(CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_SERVICE_NAME, service);
-        builder.addDependency(GraviaConstants.RUNTIME_SERVICE_NAME, Runtime.class, service.injectedRuntime);
         return builder.install();
     }
 
@@ -78,17 +69,6 @@ public class ContextCreateHandlerRegistryService extends AbstractService<Context
     public void start(StartContext startContext) throws StartException {
         ServiceContainer serviceContainer = startContext.getController().getServiceContainer();
         createHandlerRegistry = new ContextCreateHandlerRegistryImpl(serviceContainer, startContext.getChildTarget());
-
-        Runtime runtime = injectedRuntime.getValue();
-        ModuleContext syscontext = runtime.getModuleContext();
-        registration = syscontext.registerService(ContextCreateHandlerRegistry.class, createHandlerRegistry, null);
-    }
-
-    @Override
-    public void stop(StopContext context) {
-        if (registration != null) {
-            registration.unregister();
-        }
     }
 
     @Override

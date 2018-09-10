@@ -20,9 +20,6 @@
 
 package org.wildfly.extension.camel.undertow;
 
-import org.jboss.gravia.runtime.ModuleContext;
-import org.jboss.gravia.runtime.Runtime;
-import org.jboss.gravia.runtime.ServiceRegistration;
 import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController;
@@ -30,10 +27,8 @@ import org.jboss.msc.service.ServiceName;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
-import org.jboss.msc.service.StopContext;
 import org.jboss.msc.value.InjectedValue;
 import org.wildfly.extension.camel.CamelConstants;
-import org.wildfly.extension.gravia.GraviaConstants;
 import org.wildfly.extension.undertow.Host;
 import org.wildfly.extension.undertow.UndertowService;
 
@@ -48,14 +43,10 @@ public class UndertowHostService extends AbstractService<Host> {
     private static final ServiceName SERVICE_NAME = CamelConstants.CAMEL_BASE_NAME.append("undertow", "host");
 
     private final InjectedValue<Host> injectedDefaultHost = new InjectedValue<>();
-    private final InjectedValue<Runtime> injectedRuntime = new InjectedValue<Runtime>();
-
-    private ServiceRegistration<Host> registration;
 
     public static ServiceController<Host> addService(ServiceTarget serviceTarget) {
         UndertowHostService service = new UndertowHostService();
         ServiceBuilder<Host> builder = serviceTarget.addService(SERVICE_NAME, service);
-        builder.addDependency(GraviaConstants.RUNTIME_SERVICE_NAME, Runtime.class, service.injectedRuntime);
         builder.addDependency(UndertowService.virtualHostName("default-server", "default-host"), Host.class, service.injectedDefaultHost);
         return builder.install();
     }
@@ -66,15 +57,6 @@ public class UndertowHostService extends AbstractService<Host> {
 
     @Override
     public void start(StartContext startContext) throws StartException {
-        ModuleContext syscontext = injectedRuntime.getValue().getModuleContext();
-        registration = syscontext.registerService(Host.class, injectedDefaultHost.getValue(), null);
-    }
-
-    @Override
-    public void stop(StopContext context) {
-        if (registration != null) {
-            registration.unregister();
-        }
     }
 
     @Override

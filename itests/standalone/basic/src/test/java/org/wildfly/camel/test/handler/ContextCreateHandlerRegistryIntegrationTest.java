@@ -24,7 +24,6 @@ import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.gravia.runtime.ServiceLocator;
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.modules.ModuleLoader;
@@ -34,7 +33,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.handler.subA.CamelActivationBean;
+import org.wildfly.camel.utils.ServiceLocator;
 import org.wildfly.extension.camel.CamelAware;
+import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.ContextCreateHandlerRegistry;
 
 @CamelAware
@@ -59,7 +60,7 @@ public class ContextCreateHandlerRegistryIntegrationTest {
 
     @Test
     public void testHandlerRegistry() throws Exception {
-        ContextCreateHandlerRegistry handlerRegistry = ServiceLocator.getRequiredService(ContextCreateHandlerRegistry.class);
+        ContextCreateHandlerRegistry handlerRegistry = ServiceLocator.getRequiredService(CamelConstants.CONTEXT_CREATE_HANDLER_REGISTRY_SERVICE_NAME, ContextCreateHandlerRegistry.class);
         ModuleLoader moduleLoader = Module.getCallerModuleLoader();
 
         deployer.deploy(CAMEL_TEST_JAR);

@@ -20,16 +20,11 @@
 
 package org.wildfly.camel.test.undertow;
 
-import io.undertow.server.HttpHandler;
-import io.undertow.server.HttpServerExchange;
-
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.gravia.resource.ManifestBuilder;
-import org.jboss.gravia.runtime.ServiceLocator;
 import org.jboss.msc.service.ServiceContainer;
 import org.jboss.msc.service.ServiceName;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -40,9 +35,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.http.HttpRequest;
 import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
+import org.wildfly.camel.test.common.utils.ManifestBuilder;
+import org.wildfly.camel.utils.ServiceLocator;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.undertow.Host;
 import org.wildfly.extension.undertow.UndertowService;
+
+import io.undertow.server.HttpHandler;
+import io.undertow.server.HttpServerExchange;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -66,7 +66,7 @@ public class UndertowHandlerTest {
     @Test
     public void testHttpEndpoint() throws Exception {
 
-        ServiceContainer container = ServiceLocator.getRequiredService(ServiceContainer.class);
+        ServiceContainer container = ServiceLocator.getServiceContainer();
         ServiceName hostServiceName = UndertowService.virtualHostName("default-server", "default-host");
         Host host = (Host) container.getRequiredService(hostServiceName).getValue();
 
