@@ -19,7 +19,7 @@ Simply unpack the provided patch into the a supported WildFly installation. For 
 [discrete]
 ### Standalone Server
 
-In your WildFly home directory run ...
+In your {wildfly} home directory run ...
 
 [options="nowrap"]
  $ bin/standalone.sh -c standalone-camel.xml
@@ -38,17 +38,18 @@ The patch does not modify existing configuration files. Instead it comes with a 
 If you should want to add the Camel subsystem to existing configurations you can run the following command.
 
 [options="nowrap"]
- $ bin/fuseconfig.sh --configs=camel --enable
+ $ java -jar ${JBOSS_HOME}/jboss-modules.jar -mp ${JBOSS_HOME}/modules org.wildfly.extras.config.plugin.camel --configs camel --enable
  Processing config for: camel
     Writing 'layers=fuse' to: .../wildfly-9.0.0.CR1/modules/layers.conf
     Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone.xml
     Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone-full.xml
 
-There are currently three triggers that can be used to enable Camel for a deployment
+There are currently four triggers that can be used to enable Camel for a deployment
 
 1. a deployment that contains a *-camel-context.xml descriptor
-2. a deployment that contains a type annotated with @CamelAware
-3. a deployment that contains a type annotated with @ContextName
+2. a deployment that contains a type annotated with `@CamelAware`
+3. a deployment that contains a type annotated with `@ContextName`
+4. a deployment that contains a type annotated with `@ImportResource`
 
 [discrete]
 ### Docker Image
