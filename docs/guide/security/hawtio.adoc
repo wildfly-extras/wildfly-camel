@@ -1,0 +1,35 @@
+### Hawtio Security
+
+Securing the Hawtio console can be accomplished via the following steps.
+
+**1.** Add system properties to standalone.xml
+
+[source,xml,options="nowrap"]
+----
+<system-properties>
+    <property name="hawtio.authenticationEnabled" value="true" />
+    <property name="hawtio.realm" value="hawtio-domain" />
+</system-properties>
+----
+
+**2.** Add a security realm for Hawtio within the security subsystem
+
+[source,xml,options="nowrap"]
+----
+<security-domain name="hawtio-domain" cache-type="default">
+    <authentication>
+        <login-module code="RealmDirect" flag="required">
+            <module-option name="realm" value="ManagementRealm"/>
+        </login-module>
+    </authentication>
+</security-domain>
+----
+
+**3.** Configure a management user
+
+[source,options="nowrap"]
+----
+$JBOSS_HOME/bin/add-user.sh -u someuser -p s3cret
+----
+
+Browse to http://localhost:8080/hawtio, and authenticate with the credentials configured for the management user.

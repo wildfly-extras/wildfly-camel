@@ -2,6 +2,8 @@
 
 Security in {wildfly} is a vast topic. Both {wildfly} and Camel have well documented, standardised methods of securing configuration, endpoints and payloads.
 
+include::hawtio.adoc[]
+
 include::jaxrs.adoc[]
 
 include::jaxws.adoc[]
