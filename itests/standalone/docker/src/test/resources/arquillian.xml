@@ -194,6 +194,21 @@
                     url: http://dockerHost:8888
                     responseCode: 200
                     iterations: 15
+            solr:
+                image: solr:${version.camel.lucene}-alpine
+                portBindings: [
+                    8983->8983/tcp
+                ]
+                entryPoint: [
+                    "docker-entrypoint.sh",
+                    "solr-precreate",
+                    "wfc"
+                ]
+                await:
+                    strategy: http
+                    url: http://dockerHost:8983/solr/wfc/select
+                    responseCode: 200
+                    iterations: 15
         </property>
     </extension>
 </arquillian>

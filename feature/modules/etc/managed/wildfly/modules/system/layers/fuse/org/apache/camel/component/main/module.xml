@@ -201,6 +201,7 @@
         <module name="org.apache.camel.component.snakeyaml" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.snmp" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.soap" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.solr" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.splunk" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.spring.batch" export="true" services="export" optional="true" >
             <imports>

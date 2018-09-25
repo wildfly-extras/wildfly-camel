@@ -433,6 +433,7 @@
 /org/apache/camel/component/snmp/main/camel-snmp-2.22.1.jar
 /org/apache/camel/component/snmp/main/org.apache.servicemix.bundles.snmp4j-2.6.2_1.jar
 /org/apache/camel/component/soap/main/camel-soap-2.22.1.jar
+/org/apache/camel/component/solr/main/camel-solr-2.22.1.jar
 /org/apache/camel/component/splunk/main/camel-splunk-2.22.1.jar
 /org/apache/camel/component/splunk/main/org.apache.servicemix.bundles.splunk-1.6.4.0_1.jar
 /org/apache/camel/component/spring/batch/main/camel-spring-batch-2.22.1.jar
@@ -630,6 +631,8 @@
 /org/apache/sis/core/main/sis-utility-0.8.jar
 /org/apache/sis/storage/main/sis-netcdf-0.8.jar
 /org/apache/sis/storage/main/sis-storage-0.8.jar
+/org/apache/solr/main/noggit-0.8.jar
+/org/apache/solr/main/solr-solrj-7.2.1.jar
 /org/apache/sshd/main/sshd-core-1.7.0.jar
 /org/apache/tika/main/tika-core-1.18.jar
 /org/apache/tika/main/tika-parsers-1.18.jar

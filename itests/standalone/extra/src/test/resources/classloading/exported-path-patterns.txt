@@ -79,6 +79,7 @@
 	^org/apache/kafka(.*)
     ^org/apache/olingo(.*)
     ^org/apache/shiro(.*)
+    ^org/apache/solr(.*)
     ^org/apache/sshd
     ^org/apache/tika(.*)
     ^org/apache/thrift(.*)

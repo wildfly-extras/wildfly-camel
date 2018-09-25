@@ -318,6 +318,8 @@ include::camel-smpp.adoc[]
 
 include::camel-snmp.adoc[]
 
+include::camel-solr.adoc[]
+
 include::camel-spring.adoc[]
 
 include::camel-spring-batch.adoc[]

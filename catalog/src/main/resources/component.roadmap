@@ -217,6 +217,9 @@ smpps
 smtp
 smtps
 snmp
+solr
+solrCloud
+solrs
 splunk
 spring-batch
 spring-event
@@ -266,9 +269,6 @@ restlet                                             #2024 Blocked by camel-2.21.
 [undecided]
 as2
 service
-solr                                                #2030 No test coverage for solr in camel
-solrCloud                                           #2031 No test coverage for solr in camel
-solrs                                               #2032 No test coverage for solr in camel
 web3j
 xchange
 

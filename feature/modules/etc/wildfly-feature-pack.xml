@@ -464,6 +464,7 @@
         <artifact groupId="org.apache.camel" artifactId="camel-snakeyaml" version="2.22.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-snmp" version="2.22.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-soap" version="2.22.1"/>
+        <artifact groupId="org.apache.camel" artifactId="camel-solr" version="2.22.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-splunk" version="2.22.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-spring" version="2.22.1"/>
         <artifact groupId="org.apache.camel" artifactId="camel-spring-batch" version="2.22.1"/>
@@ -621,6 +622,7 @@
         <artifact groupId="org.apache.sis.core" artifactId="sis-utility" version="0.8"/>
         <artifact groupId="org.apache.sis.storage" artifactId="sis-netcdf" version="0.8"/>
         <artifact groupId="org.apache.sis.storage" artifactId="sis-storage" version="0.8"/>
+        <artifact groupId="org.apache.solr" artifactId="solr-solrj" version="7.2.1"/>
         <artifact groupId="org.apache.sshd" artifactId="sshd-core" version="1.7.0"/>
         <artifact groupId="org.apache.thrift" artifactId="libthrift" version="0.11.0"/>
         <artifact groupId="org.apache.tika" artifactId="tika-core" version="1.18"/>
@@ -796,6 +798,7 @@
         <artifact groupId="org.mousio" artifactId="etcd4j" version="2.16.0"/>
         <artifact groupId="org.mvel" artifactId="mvel2" version="2.4.0.Final"/>
         <artifact groupId="org.mybatis" artifactId="mybatis" version="3.4.6"/>
+        <artifact groupId="org.noggit" artifactId="noggit" version="0.8"/>
         <artifact groupId="org.objenesis" artifactId="objenesis" version="2.6"/>
         <artifact groupId="org.opengis" artifactId="geoapi" version="3.0.1"/>
         <artifact groupId="org.openmuc" artifactId="jasn1" version="1.9.0"/>

@@ -119,6 +119,15 @@
                                 Matcher matcher = cubeSpec =~ /.*image: (.*)/
                                 while (matcher.find()) {
                                     def image = matcher.group(1)
+
+                                    // Replace maven properties in image names
+                                    def props = (image =~ /.*\{(.*?)\}.*/)
+                                    if (props.matches()) {
+                                        def propName = props[0][1]
+                                        def propValue = properties.get(propName)
+                                        image = image.replace("\${${propName}}", propValue)
+                                    }
+
                                     println "[DOCKER] Pulling Docker image: ${image}"
                                     "docker pull ${image}".execute().waitForProcessOutput(System.out, System.err)
                                 }

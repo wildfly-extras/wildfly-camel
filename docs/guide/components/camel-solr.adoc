@@ -1,0 +1,5 @@
+### camel-solr
+
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-solr/src/main/docs/solr-component.adoc[solr,window=_blank] component allows you to interface with an Apache Lucene http://lucene.apache.org/solr/[Solr,window=_blank] server.
+
+
