@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.solr">
+  <resources>
+    <artifact name="${org.apache.camel:camel-solr}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.solr" export="true">
+      <exports>
+        <exclude path="org/noggit**" />
+      </exports>
+    </module>
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.apache.httpcomponents" />
+  </dependencies>
+</module>

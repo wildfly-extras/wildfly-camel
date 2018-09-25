@@ -1553,6 +1553,9 @@
     </module>
 
     <module name="org.apache.sis.core">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.sis.core:sis-feature" />
         <include artifact="org.apache.sis.core:sis-utility" />
         <include artifact="org.apache.sis.core:sis-metadata" />
@@ -1563,8 +1566,19 @@
     </module>
 
     <module name="org.apache.sis.storage">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="org.apache.sis.storage:sis-netcdf" />
         <include artifact="org.apache.sis.storage:sis-storage" />
+    </module>
+
+    <module name="org.apache.solr">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.solr:solr-solrj" />
+        <include artifact="org.noggit:noggit" />
     </module>
 
     <module name="org.apache.sshd">

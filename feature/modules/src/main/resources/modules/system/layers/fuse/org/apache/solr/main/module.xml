@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.solr">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.noggit:noggit}" />
+    <artifact name="${org.apache.solr:solr-solrj}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.commons.io" />
+    <module name="org.apache.commons.math3" />
+    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.zookeeper" />
+    <module name="org.codehaus.woodstox" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>
