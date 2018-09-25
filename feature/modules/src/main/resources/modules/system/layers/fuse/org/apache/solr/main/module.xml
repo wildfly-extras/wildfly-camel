@@ -8,6 +8,7 @@
     <artifact name="${org.apache.solr:solr-solrj}" />
   </resources>
   <dependencies>
+    <module name="javax.api" />
     <module name="org.apache.commons.io" />
     <module name="org.apache.commons.math3" />
     <module name="org.apache.httpcomponents" />

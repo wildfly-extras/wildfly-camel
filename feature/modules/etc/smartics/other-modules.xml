@@ -1579,6 +1579,9 @@
         </properties>
         <include artifact="org.apache.solr:solr-solrj" />
         <include artifact="org.noggit:noggit" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
     </module>
 
     <module name="org.apache.sshd">
