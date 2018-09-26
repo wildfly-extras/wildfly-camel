@@ -20,6 +20,7 @@
 package org.wildfly.extension.camel.service;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,6 +53,8 @@ import org.wildfly.extension.camel.service.CamelEndpointDeploymentSchedulerServi
 import org.wildfly.extension.undertow.Host;
 import org.wildfly.extension.undertow.ServletContainerService;
 import org.wildfly.extension.undertow.UndertowService;
+import org.wildfly.extension.undertow.deployment.JspInitializationListener;
+import org.wildfly.extension.undertow.deployment.UndertowDeploymentInfoService;
 
 import io.undertow.security.api.AuthenticationMechanismFactory;
 import io.undertow.server.HandlerWrapper;
@@ -64,6 +67,7 @@ import io.undertow.servlet.api.DeploymentManager;
 import io.undertow.servlet.api.FilterInfo;
 import io.undertow.servlet.api.FilterMappingInfo;
 import io.undertow.servlet.api.LifecycleInterceptor;
+import io.undertow.servlet.api.ListenerInfo;
 import io.undertow.servlet.api.LoginConfig;
 import io.undertow.servlet.api.SecurityConstraint;
 import io.undertow.servlet.api.SecurityInfo.EmptyRoleSemantic;
@@ -72,6 +76,8 @@ import io.undertow.servlet.api.ThreadSetupHandler;
 import io.undertow.servlet.api.TransportGuaranteeType;
 import io.undertow.servlet.api.WebResourceCollection;
 import io.undertow.servlet.core.ManagedServlet;
+import io.undertow.websockets.jsr.WebSocketDeploymentInfo;
+import io.undertow.websockets.jsr.WebSocketDeploymentInfo.ContainerReadyListener;
 
 /**
  * A service responsible for exposing and unexposing CXF endpoints via {@link #deploy(URI, EndpointHttpHandler)} and
@@ -130,7 +136,15 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
                                 + fmi.getMappingType());
             }
         }
-        info.addListeners(src.getListeners());
+        final List<ListenerInfo> listeners = src.getListeners();
+        final ListenerInfo jspInitListener = listeners.stream().filter(l -> l.getListenerClass() == JspInitializationListener.class).findFirst().orElseThrow(() -> new IllegalStateException(JspInitializationListener.class.getName() + " not found in "+ DeploymentInfo.class.getSimpleName() + ".listeners"));
+        info.addListener(jspInitListener);
+        final String infoServiceListenerClassNamePrefix = UndertowDeploymentInfoService.class.getName() + "$";
+        /* Make sure UndertowDeploymentInfoService$3 is there but do not add it to the resuting info */
+        assert listeners.stream().anyMatch(l -> l.getListenerClass().getName().startsWith(infoServiceListenerClassNamePrefix)) : infoServiceListenerClassNamePrefix + "* not found in "+ DeploymentInfo.class.getSimpleName() + ".listeners";
+        /* Make sure there are no other listeners. If there are more we need to check whether we want to include/dadapt/ignore them */
+        assert listeners.size() == 2 : DeploymentInfo.class.getSimpleName() + ".listeners.size() expected 2, actual "+ listeners.size();
+
         info.addServletContainerInitalizers(src.getServletContainerInitializers());
         for (ThreadSetupHandler a : src.getThreadSetupActions()) {
             info.addThreadSetupAction(a);
@@ -139,7 +153,37 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
             info.addInitParameter(en.getKey(), en.getValue());
         }
         for (Entry<String, Object> en : src.getServletContextAttributes().entrySet()) {
-            info.addServletContextAttribute(en.getKey(), en.getValue());
+            if (WebSocketDeploymentInfo.ATTRIBUTE_NAME.equals(en.getKey())) {
+                final WebSocketDeploymentInfo srcWsdi = (WebSocketDeploymentInfo) en.getValue();
+
+                /* Simplify start
+                 * Once https://github.com/undertow-io/undertow/pull/672 reaches us
+                 * the follwing code can be simplified using the newly added WebSocketDeploymentInfo methods clone()
+                 * and [get|add]Listeners() */
+                final WebSocketDeploymentInfo targetWsdi = new WebSocketDeploymentInfo()
+                        .setWorker(srcWsdi.getWorker())
+                        .setBuffers(srcWsdi.getBuffers())
+                        .setDispatchToWorkerThread(srcWsdi.isDispatchToWorkerThread())
+                        .setReconnectHandler(srcWsdi.getReconnectHandler())
+                        ;
+                targetWsdi.setClientBindAddress(srcWsdi.getClientBindAddress());
+                srcWsdi.getAnnotatedEndpoints().stream().forEach(e -> targetWsdi.addEndpoint(e));
+                srcWsdi.getProgramaticEndpoints().stream().forEach(e -> targetWsdi.addEndpoint(e));
+                srcWsdi.getExtensions().stream().forEach(e -> targetWsdi.addExtension(e));
+                try {
+                    final Field containerReadyListenersField = srcWsdi.getClass().getDeclaredField("containerReadyListeners");
+                    containerReadyListenersField.setAccessible(true);
+                    @SuppressWarnings("unchecked")
+                    final List<ContainerReadyListener> containerReadyListeners = (List<ContainerReadyListener>) containerReadyListenersField.get(srcWsdi);
+                    assert containerReadyListeners.stream().anyMatch(l -> l.getClass().getName().startsWith(infoServiceListenerClassNamePrefix)) : infoServiceListenerClassNamePrefix + "* not found in "+ WebSocketDeploymentInfo.class.getSimpleName() + ".containerReadyListeners";
+                    assert containerReadyListeners.size() == 1 : WebSocketDeploymentInfo.class.getSimpleName() + ".containerReadyListeners.size() expected 1, actual "+ listeners.size();
+                } catch (NoSuchFieldException | SecurityException | IllegalAccessException e1) {
+                    throw new RuntimeException(e1);
+                }
+                /* Simplify end */
+            } else {
+                info.addServletContextAttribute(en.getKey(), en.getValue());
+            }
         }
         info.addWelcomePages(src.getWelcomePages());
         info.addErrorPages(src.getErrorPages());

@@ -7,7 +7,9 @@
   <dependencies>
     <module name="io.undertow.core" />
     <module name="io.undertow.servlet" />
+    <module name="io.undertow.websocket" />
     <module name="javax.api" />
+    <module name="javax.websocket.api" />
     <module name="org.apache.camel" services="export">
       <imports>
         <include path="META-INF" />
