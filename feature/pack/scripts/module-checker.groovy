@@ -159,7 +159,7 @@ def paths = [properties.get("wildfly.module.dir"), properties.get("wildfly.camel
 def rootModules = [
     "org.wildfly.extension.camel:main",
     "org.wildfly.extras.config.plugin.camel:main",
-    "org.wildfly.extras.patch:main"
+    "org.wildfly.extras.config:main"
 ] as Set
 
 def allowedDuplicateModules = [
@@ -178,7 +178,6 @@ def smarticsDirectories = [
 
 // We ignore modules in smartics XML files having skip="true" unless the given file is explicitly present in this list
 def smarticsFilesIgnoreSkip = [
-    new File("${smarticsFilesPrefix}modules/etc/smartics/fusepatch-modules.xml").path
 ] as Set
 def smarticsManagedDirectories = [
     "${smarticsFilesPrefix}modules/etc/managed"

@@ -38,7 +38,7 @@ The patch does not modify existing configuration files. Instead it comes with a 
 If you should want to add the Camel subsystem to existing configurations you can run the following command.
 
 [options="nowrap"]
- $ java -jar ${JBOSS_HOME}/jboss-modules.jar -mp ${JBOSS_HOME}/modules org.wildfly.extras.config.plugin.camel --configs camel --enable
+ $ java -jar ${JBOSS_HOME}/jboss-modules.jar -mp ${JBOSS_HOME}/modules org.wildfly.extras.config --configs camel --enable
  Processing config for: camel
     Writing 'layers=fuse' to: .../wildfly-9.0.0.CR1/modules/layers.conf
     Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone.xml

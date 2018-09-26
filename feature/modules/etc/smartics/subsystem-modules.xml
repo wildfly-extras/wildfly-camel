@@ -136,7 +136,7 @@
         </dependencies>
     </module>
 
-    <module name="org.wildfly.extras.config.plugin.camel">
+    <module name="org.wildfly.extras.config">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
