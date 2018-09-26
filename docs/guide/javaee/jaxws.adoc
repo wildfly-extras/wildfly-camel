@@ -93,8 +93,21 @@ String result = producer.requestBody("direct:start", serviceParams, String.class
 
 Refer to the https://github.com/wildfly-extras/wildfly-camel-examples/tree/master/camel-cxf-jaxws-secure[JAX-WS security section].
 
+ifndef::red-hat-fuse[]
+
 #### Code examples on GitHub
 
 Example JAX-WS applications are available on GitHub.
 
 * https://github.com/wildfly-extras/wildfly-camel-examples/tree/master/camel-cxf-jaxws[Camel CXF application,window=_blank]
+
+endif::[]
+
+ifdef::red-hat-fuse[]
+
+#### Quickstart examples in Fuse on EAP
+
+A quickstart example is available in your Fuse on EAP installation at `quickstarts/camel/camel-cxf-jaxws` directory.
+
+endif::red-hat-fuse[]
+

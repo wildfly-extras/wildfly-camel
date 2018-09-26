@@ -216,7 +216,19 @@ private Context configureInitialContext() throws NamingException {
 
 Refer to the link:index.html#_jms_security[JMS security section].
 
+ifndef::red-hat-fuse[]
 
 #### Code examples on GitHub
 
 An example https://github.com/wildfly-extras/wildfly-camel-examples/tree/master/camel-jms[camel-jms application,window=_blank] is available on GitHub.
+
+endif::[]
+
+ifdef::red-hat-fuse[]
+
+#### Quickstart examples in Fuse on EAP
+
+A quickstart example is available in your Fuse on EAP installation at `quickstarts/camel/camel-jms` directory.
+
+endif::red-hat-fuse[]
+
