@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -53,7 +55,6 @@ import org.wildfly.extension.camel.service.CamelEndpointDeploymentSchedulerServi
 import org.wildfly.extension.undertow.Host;
 import org.wildfly.extension.undertow.ServletContainerService;
 import org.wildfly.extension.undertow.UndertowService;
-import org.wildfly.extension.undertow.deployment.JspInitializationListener;
 import org.wildfly.extension.undertow.deployment.UndertowDeploymentInfoService;
 
 import io.undertow.security.api.AuthenticationMechanismFactory;
@@ -137,13 +138,22 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
             }
         }
         final List<ListenerInfo> listeners = src.getListeners();
-        final ListenerInfo jspInitListener = listeners.stream().filter(l -> l.getListenerClass() == JspInitializationListener.class).findFirst().orElseThrow(() -> new IllegalStateException(JspInitializationListener.class.getName() + " not found in "+ DeploymentInfo.class.getSimpleName() + ".listeners"));
-        info.addListener(jspInitListener);
+        final List<String> approvedListeners = Arrays.asList(
+                "org.wildfly.extension.undertow.deployment.JspInitializationListener",
+                "org.jboss.weld.module.web.servlet.WeldInitialListener",
+                "org.jboss.weld.module.web.servlet.WeldTerminalListener",
+                "org.wildfly.microprofile.opentracing.smallrye.TracerInitializer"
+                );
         final String infoServiceListenerClassNamePrefix = UndertowDeploymentInfoService.class.getName() + "$";
-        /* Make sure UndertowDeploymentInfoService$3 is there but do not add it to the resuting info */
-        assert listeners.stream().anyMatch(l -> l.getListenerClass().getName().startsWith(infoServiceListenerClassNamePrefix)) : infoServiceListenerClassNamePrefix + "* not found in "+ DeploymentInfo.class.getSimpleName() + ".listeners";
-        /* Make sure there are no other listeners. If there are more we need to check whether we want to include/dadapt/ignore them */
-        assert listeners.size() == 2 : DeploymentInfo.class.getSimpleName() + ".listeners.size() expected 2, actual "+ listeners.size();
+        for (ListenerInfo listenerInfo : listeners) {
+            CamelLogger.LOGGER.debug("Copying ListenerInfo {}", listenerInfo);
+            if (listenerInfo.getListenerClass().getName().startsWith(infoServiceListenerClassNamePrefix)) {
+                /* ignore */
+            } else {
+                assert approvedListeners.stream().anyMatch(cl -> cl.equals(listenerInfo.getListenerClass().getName())) : "Unexpected "+ ListenerInfo.class.getName() + ": "+ listenerInfo + "; expected any of ["+ approvedListeners.stream().collect(Collectors.joining(", ")) +"]";
+                info.addListener(listenerInfo);
+            }
+        }
 
         info.addServletContainerInitalizers(src.getServletContainerInitializers());
         for (ThreadSetupHandler a : src.getThreadSetupActions()) {
@@ -364,7 +374,7 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
 
     private final InjectedValue<DeploymentInfo> deploymentInfoSupplier = new InjectedValue<>();
 
-    private final Map<URI, Deployment> deployments = new HashMap<>();
+    private final Map<URI, DeploymentManager> deployments = new HashMap<>();
 
     private final InjectedValue<CamelEndpointDeploymentSchedulerService> deploymentSchedulerServiceSupplier = new InjectedValue<>();
 
@@ -397,23 +407,29 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
         DeploymentInfo endPointDeplyomentInfo = adaptDeploymentInfo(mainDeploymentInfo, uri, servletInfo);
         CamelLogger.LOGGER.debug("Deploying endpoint {}", endPointDeplyomentInfo.getDeploymentName());
 
-        final DeploymentManager manager = servletContainerServiceSupplier.getValue().getServletContainer()
-                .addDeployment(endPointDeplyomentInfo);
-        manager.deploy();
-        final Deployment deployment = manager.getDeployment();
+        final ClassLoader old = Thread.currentThread().getContextClassLoader();
+        Thread.currentThread().setContextClassLoader(endPointDeplyomentInfo.getClassLoader());
         try {
-            HttpHandler servletHandler = manager.start();
-            hostSupplier.getValue().registerDeployment(deployment, servletHandler);
+            final DeploymentManager manager = servletContainerServiceSupplier.getValue().getServletContainer()
+                    .addDeployment(endPointDeplyomentInfo);
+            manager.deploy();
+            final Deployment deployment = manager.getDeployment();
+            try {
+                HttpHandler servletHandler = manager.start();
+                hostSupplier.getValue().registerDeployment(deployment, servletHandler);
 
-            ManagedServlet managedServlet = deployment.getServlets().getManagedServlet(EndpointServlet.NAME);
+                ManagedServlet managedServlet = deployment.getServlets().getManagedServlet(EndpointServlet.NAME);
 
-            EndpointServlet servletInstance = (EndpointServlet) managedServlet.getServlet().getInstance();
-            servletInstance.setEndpointHttpHandler(endpointHttpHandler);
-        } catch (ServletException ex) {
-            throw new IllegalStateException(ex);
-        }
-        synchronized (deployments) {
-            deployments.put(uri, deployment);
+                EndpointServlet servletInstance = (EndpointServlet) managedServlet.getServlet().getInstance();
+                servletInstance.setEndpointHttpHandler(endpointHttpHandler);
+            } catch (ServletException ex) {
+                throw new IllegalStateException(ex);
+            }
+            synchronized (deployments) {
+                deployments.put(uri, manager);
+            }
+        } finally {
+            Thread.currentThread().setContextClassLoader(old);
         }
     }
 
@@ -428,10 +444,8 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
     @Override
     public void stop(StopContext context) {
         synchronized (deployments) {
-            for (Deployment deployment : deployments.values()) {
-                CamelLogger.LOGGER.debug("Undeploying endpoint {}",
-                        deployment.getDeploymentInfo().getDeploymentName());
-                hostSupplier.getValue().unregisterDeployment(deployment);
+            for (DeploymentManager deploymentManager : deployments.values()) {
+                undeploy(deploymentManager);
             }
             deployments.clear();
         }
@@ -444,18 +458,37 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
      */
     public void undeploy(URI uri) {
         synchronized (deployments) {
-            Deployment removedDeployment = deployments.remove(uri);
-            if (removedDeployment != null) {
-                CamelLogger.LOGGER.debug("Undeploying endpoint {}",
-                        removedDeployment.getDeploymentInfo().getDeploymentName());
+            DeploymentManager deploymentManager = deployments.remove(uri);
+            if (deploymentManager != null) {
                 try {
-                    hostSupplier.getValue().unregisterDeployment(removedDeployment);
+                    undeploy(deploymentManager);
                 } catch (IllegalStateException e) {
                     CamelLogger.LOGGER.warn("Could not undeploy endpoint "
-                            + removedDeployment.getDeploymentInfo().getDeploymentName(), e);
+                            + deploymentManager.getDeployment().getDeploymentInfo().getDeploymentName(), e);
                 }
             }
         }
+    }
+
+    private void undeploy(DeploymentManager deploymentManager) {
+        final Deployment deployment = deploymentManager.getDeployment();
+        CamelLogger.LOGGER.debug("Undeploying endpoint {}", deployment.getDeploymentInfo().getDeploymentName());
+
+        final ClassLoader old = Thread.currentThread().getContextClassLoader();
+        Thread.currentThread().setContextClassLoader(deployment.getDeploymentInfo().getClassLoader());
+        try {
+            try {
+                hostSupplier.getValue().unregisterDeployment(deployment);
+                deploymentManager.stop();
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            }
+            deploymentManager.undeploy();
+            servletContainerServiceSupplier.getValue().getServletContainer().removeDeployment(deployment.getDeploymentInfo());
+        } finally {
+            Thread.currentThread().setContextClassLoader(old);
+        }
+
     }
 
     @SuppressWarnings("serial")

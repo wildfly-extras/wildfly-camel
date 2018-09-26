@@ -2604,6 +2604,8 @@ org/apache/cxf/transport/servlet/blueprint
 org/apache/cxf/transport/servlet/servicelist
 org/apache/cxf/transport/undertow
 org/apache/cxf/transport/undertow/wildfly
+org/apache/cxf/transport/undertow/wildfly/subsystem
+org/apache/cxf/transport/undertow/wildfly/subsystem/extension
 org/apache/cxf/transports
 org/apache/cxf/transports/http
 org/apache/cxf/transports/http/configuration
