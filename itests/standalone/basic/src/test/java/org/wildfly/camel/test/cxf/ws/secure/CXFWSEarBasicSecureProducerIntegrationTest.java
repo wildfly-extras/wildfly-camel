@@ -84,7 +84,7 @@ public class CXFWSEarBasicSecureProducerIntegrationTest {
         private static final long serialVersionUID = 1L;
         {
         try {
-            put("//" + new URI(SecurityUtils.SPRING_CONSUMER_ENDPOINT_ADDRESS).getPath(), BasicSecurityDomainBSetup.APPLICATION_ROLE);
+            put("//" + new URI(CXFWSSecureUtils.SPRING_CONSUMER_ENDPOINT_ADDRESS).getPath(), BasicSecurityDomainBSetup.APPLICATION_ROLE);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -109,7 +109,7 @@ public class CXFWSEarBasicSecureProducerIntegrationTest {
                 .addAsWebInfResource("cxf/secure/spring/cxfws-camel-context.xml")
                 .addClasses(BasicSecurityDomainBSetup.class, CXFWSSecureUtils.class, GreetingService.class,
                         GreetingsProcessor.class);
-        SecurityUtils.addSpringXml(warB);
+        SecurityUtils.addSpringXmlWs(warB, CXFWSSecureUtils.SPRING_CONSUMER_ENDPOINT_ADDRESS);
         SecurityUtils.enhanceArchive(warB, BasicSecurityDomainBSetup.SECURITY_DOMAIN,
                 BasicSecurityDomainBSetup.AUTH_METHOD, PATH_ROLE_MAP_B);
 
@@ -171,25 +171,25 @@ public class CXFWSEarBasicSecureProducerIntegrationTest {
 
     @Test
     public void greetBAnonymous() throws Exception {
-        CXFWSSecureUtils.assertGreet(WILDFLY_HOME, SecurityUtils.SPRING_CONSUMER_ENDPOINT_ADDRESS, null, null, 401, null);
+        CXFWSSecureUtils.assertGreet(WILDFLY_HOME, CXFWSSecureUtils.SPRING_CONSUMER_ENDPOINT_ADDRESS, null, null, 401, null);
     }
 
     @Test
     public void greetBBasicGoodUser() throws Exception {
-        CXFWSSecureUtils.assertGreet(WILDFLY_HOME, SecurityUtils.SPRING_CONSUMER_ENDPOINT_ADDRESS,
+        CXFWSSecureUtils.assertGreet(WILDFLY_HOME, CXFWSSecureUtils.SPRING_CONSUMER_ENDPOINT_ADDRESS,
                 BasicSecurityDomainBSetup.APPLICATION_USER, BasicSecurityDomainBSetup.APPLICATION_PASSWORD, 200,
                 "Hi Joe");
     }
 
     @Test
     public void greetBBasicBadUser() throws Exception {
-        CXFWSSecureUtils.assertGreet(WILDFLY_HOME, SecurityUtils.SPRING_CONSUMER_ENDPOINT_ADDRESS,
+        CXFWSSecureUtils.assertGreet(WILDFLY_HOME, CXFWSSecureUtils.SPRING_CONSUMER_ENDPOINT_ADDRESS,
                 BasicSecurityDomainBSetup.APPLICATION_USER_SUB, BasicSecurityDomainBSetup.APPLICATION_PASSWORD_SUB, 403,
                 null);
     }
 
     public void greetBBasicUserFromA() throws Exception {
-        CXFWSSecureUtils.assertGreet(WILDFLY_HOME, SecurityUtils.SPRING_CONSUMER_ENDPOINT_ADDRESS,
+        CXFWSSecureUtils.assertGreet(WILDFLY_HOME, CXFWSSecureUtils.SPRING_CONSUMER_ENDPOINT_ADDRESS,
                 BasicSecurityDomainASetup.APPLICATION_USER, BasicSecurityDomainASetup.APPLICATION_PASSWORD, 403,
                 null);
     }

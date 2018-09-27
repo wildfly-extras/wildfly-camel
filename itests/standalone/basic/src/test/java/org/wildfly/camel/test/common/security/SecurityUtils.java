@@ -62,7 +62,6 @@ public class SecurityUtils {
     private static final String SERVER_CRT = "server.crt";
     private static final String SERVER_KEYSTORE = "server.keystore";
     private static final String SERVER_TRUSTSTORE = "server.truststore";
-    public static final String SPRING_CONSUMER_ENDPOINT_ADDRESS = "https://localhost:8443/webservices/greeting-secure-spring";
     private static final String UNTRUSTED_CRT = "untrusted.crt";
 
     private static final String UNTRUSTED_KEYSTORE = "untrusted.keystore";
@@ -90,17 +89,23 @@ public class SecurityUtils {
             + "</web-app>"
     ;
 
-    public static void addSpringXml(WebArchive archive) {
+    public static void addSpringXmlWs(WebArchive archive, String endpointUrl) {
+        addSpringXml(archive, "cxfws-camel-context.xml", endpointUrl);
+    }
+    public static void addSpringXmlRs(WebArchive archive, String endpointUrl) {
+        addSpringXml(archive, "cxfrs-camel-context.xml", endpointUrl);
+    }
+    public static void addSpringXml(WebArchive archive, String file, String endpointUrl) {
         final StringBuilder sb = new StringBuilder();
         try {
             FileUtils.copy(
-                    SecurityUtils.class.getClassLoader().getResource("cxf/secure/spring/cxfws-camel-context.xml"), sb);
+                    SecurityUtils.class.getClassLoader().getResource("cxf/secure/spring/"+ file), sb);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         final String xml = sb.toString().replace("${SPRING_CONSUMER_ENDPOINT_ADDRESS}",
-                SPRING_CONSUMER_ENDPOINT_ADDRESS);
-        archive.addAsWebInfResource(new StringAsset(xml), "cxfws-camel-context.xml");
+                endpointUrl);
+        archive.addAsWebInfResource(new StringAsset(xml), file);
     }
 
     private static void copy(String fileName, Path targetDirectory) throws IOException {
