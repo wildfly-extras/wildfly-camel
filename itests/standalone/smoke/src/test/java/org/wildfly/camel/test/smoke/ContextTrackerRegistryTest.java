@@ -40,7 +40,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.http.HttpRequest;
-import org.wildfly.camel.test.common.utils.EnvironmentUtils;
+import org.wildfly.camel.test.common.utils.WildFlyCli;
 import org.wildfly.extension.camel.CamelAware;
 
 /**
@@ -69,13 +69,7 @@ public class ContextTrackerRegistryTest {
     }
 
     private void reloadAppServer() throws IOException, InterruptedException {
-        String jbossHome = System.getProperty("jboss.home.dir");
-        String extension = EnvironmentUtils.isWindows() ? ".bat" : ".sh";
-        ProcessBuilder builder = new ProcessBuilder();
-        builder.environment().put("NOPAUSE", "Y");
-        builder.command(jbossHome + "/bin/jboss-cli" + extension, "-c", "--command=reload", "--timeout=60000")
-            .start()
-            .waitFor();
+        WildFlyCli.run("reload").assertSuccess();
     }
 
     @ApplicationScoped

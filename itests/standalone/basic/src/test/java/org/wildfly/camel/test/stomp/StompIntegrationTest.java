@@ -31,67 +31,74 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.arquillian.cube.CubeController;
-import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
-import org.arquillian.cube.requirement.ArquillianConditionalRunner;
 import org.fusesource.stomp.client.BlockingConnection;
 import org.fusesource.stomp.client.Stomp;
 import org.fusesource.stomp.codec.StompFrame;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.common.utils.UserManager;
+import org.wildfly.camel.test.common.utils.WildFlyCli;
 import org.wildfly.extension.camel.CamelAware;
 
-/**
- * @author <a href="https://github.com/ppalaga">Peter Palaga</a>
- */
 @CamelAware
-@RequiresDocker
-@RunWith(ArquillianConditionalRunner.class)
+@RunWith(Arquillian.class)
+@ServerSetup({StompIntegrationTest.StompConnectorSetupTask.class})
 public class StompIntegrationTest {
 
-    private static final String CONTAINER_NAME = "amq";
-    private static final int STOMP_PORT = 42653;
-    private static final String QUEUE_NAME = "stompq";
+    private static final int STOMP_PORT = 61613;
+    private static final String BROKER_URL = "tcp://localhost:" + STOMP_PORT;
+    private static final String QUEUE_NAME = "wfc";
+    private static final String USERNAME = "stomp-user";
+    private static final String PASSWORD = "stomp-password";
 
-    @ArquillianResource
-    private CubeController cubeController;
+    static class StompConnectorSetupTask implements ServerSetupTask {
+        @Override
+        public void setup(ManagementClient managementClient, String containerId) throws Exception {
+            String cliScript = "/subsystem=messaging-activemq/server=default/acceptor=stomp-acceptor"
+                + ":add(factory-class=org.apache.activemq.artemis.core.remoting.impl.netty.NettyAcceptorFactory,"
+                + "params={protocols=STOMP, port=" + STOMP_PORT + "})\n"
+                + "reload";
 
-    private String amqUrl;
+            WildFlyCli.run(cliScript).assertSuccess();
 
-    @Before
-    public void setUp() throws Exception {
-        cubeController.create(CONTAINER_NAME);
-        cubeController.start(CONTAINER_NAME);
-        amqUrl = "tcp://"+ TestUtils.getDockerHost() +":"+ STOMP_PORT;
-    }
+            try (UserManager userManager = UserManager.forStandaloneApplicationRealm()) {
+                userManager.addUser(USERNAME, PASSWORD);
+                userManager.addRole(USERNAME, "guest");
+            }
+        }
 
-    @After
-    public void tearDown() throws Exception {
-        cubeController.stop(CONTAINER_NAME);
-        cubeController.destroy(CONTAINER_NAME);
+        @Override
+        public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
+            String cliScript = "/subsystem=messaging-activemq/server=default/acceptor=stomp-acceptor:remove\n"
+                + "reload";
+            WildFlyCli.run(cliScript).assertSuccess();
+
+            try (UserManager userManager = UserManager.forStandaloneApplicationRealm()) {
+                userManager.removeUser(USERNAME);
+                userManager.removeRole(USERNAME, "guest");
+            }
+        }
     }
 
     @Deployment
-    public static JavaArchive createdeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-stomp-tests")
-            .addClass(TestUtils.class);
+    public static JavaArchive createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class, "camel-stomp-tests.jar");
     }
 
     @Test
     public void testMessageConsumerRoute() throws Exception {
-
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                fromF("stomp:jms.queue.%s?brokerURL=%s", QUEUE_NAME, amqUrl)
+                fromF("stomp:jms.queue.%s?login=%s&passcode=%s&brokerURL=%s", QUEUE_NAME, USERNAME, PASSWORD, BROKER_URL)
                 .transform(body().method("utf8").prepend("Hello "))
                 .to("mock:result");
             }
@@ -102,7 +109,10 @@ public class StompIntegrationTest {
         MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
         mockEndpoint.expectedBodiesReceived("Hello Kermit");
 
-        Stomp stomp = new Stomp(amqUrl);
+        Stomp stomp = new Stomp(BROKER_URL);
+        stomp.setLogin(USERNAME);
+        stomp.setPasscode(PASSWORD);
+
         final BlockingConnection producerConnection = stomp.connectBlocking();
         try {
             StompFrame outFrame = new StompFrame(SEND);

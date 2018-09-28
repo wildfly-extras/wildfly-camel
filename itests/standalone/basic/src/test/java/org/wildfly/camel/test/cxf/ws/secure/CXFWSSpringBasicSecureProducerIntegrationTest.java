@@ -22,7 +22,6 @@ package org.wildfly.camel.test.cxf.ws.secure;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -37,6 +36,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.security.BasicSecurityDomainASetup;
 import org.wildfly.camel.test.common.security.SecurityUtils;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.cxf.ws.secure.subA.GreetingService;
 import org.wildfly.camel.test.cxf.ws.secure.subA.GreetingsProcessor;
 import org.wildfly.extension.camel.CamelAware;
@@ -49,7 +49,8 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 @ServerSetup(BasicSecurityDomainASetup.class)
 public class CXFWSSpringBasicSecureProducerIntegrationTest {
-    static final Path WILDFLY_HOME = Paths.get(System.getProperty("jbossHome"));
+
+    private static final Path WILDFLY_HOME = EnvironmentUtils.getWildFlyHome();
     private static final Map<String, String> PATH_ROLE_MAP = new LinkedHashMap<String, String>() {{
         try {
             put("//" + new URI(SecurityUtils.SPRING_CONSUMER_ENDPOINT_ADDRESS).getPath(), BasicSecurityDomainASetup.APPLICATION_ROLE);

@@ -291,7 +291,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemPropertyVariables>
-                        <jbossHome>${jboss.home}</jbossHome>
                         <project.basedir>${project.basedir}</project.basedir>
                         <org.jboss.remoting-jmx.timeout>300</org.jboss.remoting-jmx.timeout>
                         <org.wildfly.camel.google.api.oauth.properties.path>${org.wildfly.camel.google.api.oauth.properties.path}</org.wildfly.camel.google.api.oauth.properties.path>

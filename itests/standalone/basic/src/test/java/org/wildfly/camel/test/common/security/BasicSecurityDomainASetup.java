@@ -12,6 +12,7 @@ import org.jboss.as.controller.operations.common.Util;
 import org.jboss.dmr.ModelNode;
 import org.wildfly.camel.test.common.http.HttpRequest;
 import org.wildfly.camel.test.common.utils.DMRUtils;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.common.utils.UserManager;
 
 /**
@@ -41,7 +42,6 @@ public class BasicSecurityDomainASetup implements ServerSetupTask {
     public static final String HTTP_AUTH_FACTORY = "basic-a-http-authentication-factory";
     public static final String SECURITY_DOMAIN = "basic-a-application-security-domain";
 
-    static final Path WILDFLY_HOME = Paths.get(System.getProperty("jbossHome"));
     private static final String SECURITY_REALM = "a-application-realm";
     private static final String USERS_PROPS = "a-application-users.properties";
     private static final String ROLES_PROPS = "a-application-roles.properties";
@@ -111,8 +111,9 @@ public class BasicSecurityDomainASetup implements ServerSetupTask {
     }
 
     private static UserManager newUserManager() throws IOException {
-        final Path userPropertiesPath = WILDFLY_HOME.resolve("standalone/configuration/" + USERS_PROPS);
-        final Path rolePropertiesPath = WILDFLY_HOME.resolve("standalone/configuration/" + ROLES_PROPS);
+        final Path jbossHome = EnvironmentUtils.getWildFlyHome();
+        final Path userPropertiesPath = jbossHome.resolve("standalone/configuration/" + USERS_PROPS);
+        final Path rolePropertiesPath = jbossHome.resolve("standalone/configuration/" + ROLES_PROPS);
         return new UserManager(userPropertiesPath, rolePropertiesPath, SECURITY_REALM);
     }
 

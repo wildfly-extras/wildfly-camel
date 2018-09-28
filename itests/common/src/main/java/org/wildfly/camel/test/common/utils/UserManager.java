@@ -44,9 +44,8 @@ import java.util.stream.Collectors;
 public final class UserManager implements Closeable {
 
     private static final String APPLICATION_REALM = "ApplicationRealm";
-    private static final char[] HEX_CHARS = "0123456789abcdef".toCharArray();
-
     private static final String MANAGEMENT_REALM = "ManagementRealm";
+    private static final char[] HEX_CHARS = "0123456789abcdef".toCharArray();
 
     public static String encryptPassword(String userName, String password, String realm) {
         try {
@@ -68,28 +67,26 @@ public final class UserManager implements Closeable {
     }
 
     /**
-     * @param jbossHome relative to where {@code application-users.properties} and {@code application-roles.properties}
-     *        should be resolved
      * @return a new {@link UserManager} that will operate on
      *         {@code $jbossHome/standalone/configuration/application-users.properties} and
      *         {@code $jbossHome/standalone/configuration/application-roles.properties}
      * @throws IOException
      */
-    public static UserManager forStandaloneApplicationRealm(Path jbossHome) throws IOException {
+    public static UserManager forStandaloneApplicationRealm() throws IOException {
+        final Path jbossHome = EnvironmentUtils.getWildFlyHome();
         final Path userPropertiesPath = jbossHome.resolve("standalone/configuration/application-users.properties");
         final Path rolePropertiesPath = jbossHome.resolve("standalone/configuration/application-roles.properties");
         return new UserManager(userPropertiesPath, rolePropertiesPath, APPLICATION_REALM);
     }
 
     /**
-     * @param jbossHome relative to where {@code mgmt-users.properties} and {@code mgmt-roles.properties} should be
-     *        resolved
      * @return a new {@link UserManager} that will operate on
      *         {@code $jbossHome/standalone/configuration/mgmt-users.properties} and
      *         {@code $jbossHome/standalone/configuration/mgmt-roles.properties}
      * @throws IOException
      */
-    public static UserManager forStandaloneManagementRealm(Path jbossHome) throws IOException {
+    public static UserManager forStandaloneManagementRealm() throws IOException {
+        final Path jbossHome = EnvironmentUtils.getWildFlyHome();
         final Path userPropertiesPath = jbossHome.resolve("standalone/configuration/mgmt-users.properties");
         final Path rolePropertiesPath = jbossHome.resolve("standalone/configuration/mgmt-roles.properties");
         return new UserManager(userPropertiesPath, rolePropertiesPath, MANAGEMENT_REALM);
@@ -129,7 +126,7 @@ public final class UserManager implements Closeable {
     }
 
     public UserManager addRole(String userName, String role) {
-        final List<String> roles = Optional.<String>ofNullable(roleProperties.getProperty(userName))
+        final List<String> roles = Optional.ofNullable(roleProperties.getProperty(userName))
                 .map(list -> new ArrayList<>(Arrays.asList(list.split(","))))
                 .orElse(new ArrayList<>());
         roles.add(role);
@@ -157,7 +154,7 @@ public final class UserManager implements Closeable {
     }
 
     public UserManager removeRole(String userName, String role) {
-        final List<String> roles = Optional.<String>ofNullable(roleProperties.getProperty(userName))
+        final List<String> roles = Optional.ofNullable(roleProperties.getProperty(userName))
                 .map(list -> new ArrayList<>(Arrays.asList(list.split(","))))
                 .orElse(new ArrayList<>());
         roles.remove(role);

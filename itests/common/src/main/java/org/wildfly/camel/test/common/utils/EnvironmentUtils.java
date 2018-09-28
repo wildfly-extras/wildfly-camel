@@ -40,6 +40,8 @@ public final class EnvironmentUtils {
     private static final boolean VM_OPEN_JDK;
     private static final String JAVA;
     private static final Path JAVA_HOME;
+    private static final Path WILDFLY_HOME;
+
 
     static {
         final String os = getOSName();
@@ -62,6 +64,8 @@ public final class EnvironmentUtils {
             javaHome = System.getProperty("java.home");
         }
         JAVA_HOME = Paths.get(javaHome);
+
+        WILDFLY_HOME = Paths.get(System.getProperty("jboss.home.dir"));
     }
 
     public static String getOSName() {
@@ -102,5 +106,9 @@ public final class EnvironmentUtils {
 
     public static Path getJavaExecutablePath() {
         return Paths.get(JAVA_HOME.toString(), "bin", JAVA);
+    }
+
+    public static Path getWildFlyHome() {
+        return WILDFLY_HOME;
     }
 }

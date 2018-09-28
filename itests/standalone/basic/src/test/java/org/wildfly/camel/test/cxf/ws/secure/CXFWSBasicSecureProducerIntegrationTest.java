@@ -32,12 +32,13 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.security.BasicSecurityDomainASetup;
 import org.wildfly.camel.test.common.security.SecurityUtils;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.cxf.ws.secure.subA.Application;
 import org.wildfly.camel.test.cxf.ws.secure.subA.CxfWsRouteBuilder;
 import org.wildfly.extension.camel.CamelAware;
@@ -50,7 +51,10 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 @ServerSetup(BasicSecurityDomainASetup.class)
 public class CXFWSBasicSecureProducerIntegrationTest {
+
     public static final String APP_NAME = "CXFWSBasicSecureProducerIntegrationTest";
+    private static final Path WILDFLY_HOME = EnvironmentUtils.getWildFlyHome();
+
     private static final Map<String, String> PATH_ROLE_MAP = new LinkedHashMap<String, String>() {
         private static final long serialVersionUID = 1L;
         {
@@ -66,7 +70,6 @@ public class CXFWSBasicSecureProducerIntegrationTest {
             }
         }
     };
-    static final Path WILDFLY_HOME = Paths.get(System.getProperty("jbossHome"));
 
     @Deployment
     public static Archive<?> deployment() {
@@ -74,7 +77,7 @@ public class CXFWSBasicSecureProducerIntegrationTest {
                 .create(WebArchive.class, APP_NAME + ".war")
                 .addClasses(BasicSecurityDomainASetup.class, CXFWSSecureUtils.class)
                 .addPackage(CxfWsRouteBuilder.class.getPackage())
-                .addAsWebInfResource(new StringAsset(""), "beans.xml")
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
         ;
         SecurityUtils.enhanceArchive(archive, BasicSecurityDomainASetup.SECURITY_DOMAIN,
                 BasicSecurityDomainASetup.AUTH_METHOD, PATH_ROLE_MAP);

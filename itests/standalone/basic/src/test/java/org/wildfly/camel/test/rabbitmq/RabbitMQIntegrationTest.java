@@ -41,6 +41,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -60,7 +61,7 @@ public class RabbitMQIntegrationTest {
             int port = AvailablePortFinder.getNextAvailable();
             AvailablePortFinder.storeServerData("rabbitmq-port", port);
 
-            String jbossHome = System.getProperty("jboss.home.dir");
+            String jbossHome = EnvironmentUtils.getWildFlyHome().toString();
 
             Path workPath = Paths.get(jbossHome, "standalone", "data", "rabbitmq");
             Path configPath = Paths.get(jbossHome, "standalone", "configuration", "rabbitmq");

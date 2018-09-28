@@ -40,13 +40,14 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.security.ClientCertSecurityDomainSetup;
 import org.wildfly.camel.test.common.security.SecurityUtils;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.cxf.ws.secure.subA.Application;
 import org.wildfly.camel.test.cxf.ws.secure.subA.CxfWsRouteBuilder;
 import org.wildfly.extension.camel.CamelAware;
@@ -59,6 +60,8 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 @ServerSetup(ClientCertSecurityDomainSetup.class)
 public class CXFWSClientCertSecureProducerIntegrationTest {
+
+    private static final Path WILDFLY_HOME = EnvironmentUtils.getWildFlyHome();
     private static final Map<String, String> PATH_ROLE_MAP = new LinkedHashMap<String, String>() {
         private static final long serialVersionUID = 1L;
         {
@@ -70,7 +73,6 @@ public class CXFWSClientCertSecureProducerIntegrationTest {
             }
         }
     };
-    static final Path WILDFLY_HOME = Paths.get(System.getProperty("jbossHome"));
 
     private static final String WS_MESSAGE_TEMPLATE = "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">"
             + "<Body>"
@@ -80,13 +82,14 @@ public class CXFWSClientCertSecureProducerIntegrationTest {
             + "</greet>"
             + "</Body>"
             + "</Envelope>";
+
     @Deployment
     public static Archive<?> deployment() {
         final WebArchive archive = ShrinkWrap
                 .create(WebArchive.class, CXFWSClientCertSecureProducerIntegrationTest.class.getSimpleName() + ".war")
-                .addClasses(ClientCertSecurityDomainSetup.class, CXFWSSecureUtils.class)
+                .addClasses(ClientCertSecurityDomainSetup.class, CXFWSSecureUtils.class, EnvironmentUtils.class)
                 .addPackage(CxfWsRouteBuilder.class.getPackage())
-                .addAsWebInfResource(new StringAsset(""), "beans.xml")
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
         ;
         SecurityUtils.enhanceArchive(archive, ClientCertSecurityDomainSetup.SECURITY_DOMAIN,
                 ClientCertSecurityDomainSetup.AUTH_METHOD, PATH_ROLE_MAP);

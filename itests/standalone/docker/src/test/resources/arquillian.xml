@@ -37,15 +37,6 @@
         <property name="autoStartContainers">[none]</property>
         <property name="definitionFormat">CUBE</property>
         <property name="dockerContainers">
-            amq:
-                image: registry.access.redhat.com/jboss-amq-6/amq63-openshift:1.1
-                portBindings: [
-                    42653->61613/tcp
-                ]
-                await:
-                    strategy: log
-                    match: ") started"
-                    timeout: 20
             consul:
                 image: consul:0.9.3
                 cmd: [

@@ -19,7 +19,6 @@
  */
 package org.wildfly.camel.test.cxf.ws.secure;
 
-import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
@@ -33,8 +32,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
-import org.jboss.shrinkwrap.api.exporter.ZipExporter;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -43,6 +41,7 @@ import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.security.BasicSecurityDomainASetup;
 import org.wildfly.camel.test.common.security.BasicSecurityDomainBSetup;
 import org.wildfly.camel.test.common.security.SecurityUtils;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.cxf.ws.secure.subA.Application;
 import org.wildfly.camel.test.cxf.ws.secure.subA.GreetingService;
 import org.wildfly.camel.test.cxf.ws.secure.subA.GreetingsProcessor;
@@ -57,7 +56,7 @@ import org.wildfly.extension.camel.CamelAware;
 @ServerSetup({BasicSecurityDomainASetup.class, BasicSecurityDomainBSetup.class})
 public class CXFWSEarBasicSecureProducerIntegrationTest {
 
-
+    private static final Path WILDFLY_HOME = EnvironmentUtils.getWildFlyHome();
     private static final String WS_MESSAGE_TEMPLATE_B = "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">"
             + "<Body>"
             + "<greet xmlns=\"http://subB.secure.ws.cxf.test.camel.wildfly.org/\">"
@@ -90,18 +89,17 @@ public class CXFWSEarBasicSecureProducerIntegrationTest {
             throw new RuntimeException(e);
         }
     }};
-    static final Path WILDFLY_HOME = Paths.get(System.getProperty("jbossHome"));
 
     @Deployment
     public static Archive<?> deployment() {
         final JavaArchive jar = ShrinkWrap
                 .create(JavaArchive.class, CXFWSEarBasicSecureProducerIntegrationTest.class.getSimpleName() + ".jar")
-                .addClasses(BasicSecurityDomainASetup.class, CXFWSSecureUtils.class)
+                .addClasses(BasicSecurityDomainASetup.class, CXFWSSecureUtils.class, EnvironmentUtils.class)
         ;
         final WebArchive warA = ShrinkWrap
                 .create(WebArchive.class, CXFWSEarBasicSecureProducerIntegrationTest.class.getSimpleName() + "-a.war")
                 .addPackage(Application.class.getPackage())
-                .addAsWebInfResource(new StringAsset(""), "beans.xml")
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
         ;
         SecurityUtils.enhanceArchive(warA, BasicSecurityDomainASetup.SECURITY_DOMAIN,
                 BasicSecurityDomainASetup.AUTH_METHOD, PATH_ROLE_MAP_A);
