@@ -35,10 +35,12 @@ import org.wildfly.extension.camel.CamelAware;
 @ContextName("contextF")
 public class RouteBuilderF extends RouteBuilder {
 
-    public static final String MOCK_RESULT_URI = "mock:result?expectedCount=3";
+    public static final String MOCK_RESULT_URI = "mock:result?expectedMinimumCount=1";
 
     @Override
     public void configure() throws Exception {
+
+        log.info("Configure: {}", getClass().getName());
 
         final CountDownLatch startLatch = new CountDownLatch(1);
 
@@ -51,10 +53,11 @@ public class RouteBuilderF extends RouteBuilder {
             }
         });
 
-        from("quartz2://mytimer?trigger.repeatCount=3&trigger.repeatInterval=100")
+        from("quartz2://mytimer?trigger.repeatCount=3&trigger.repeatInterval=100&fireNow=true")
         .process(new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {
+                log.info("Process: {}", exchange);
                 if (startLatch.getCount() > 0)
                     throw new IllegalStateException("onCamelContextStarted not called");
             }

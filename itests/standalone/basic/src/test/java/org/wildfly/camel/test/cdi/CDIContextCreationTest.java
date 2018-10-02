@@ -101,8 +101,7 @@ public class CDIContextCreationTest {
             Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
 
             MockEndpoint mock = camelctx.getEndpoint(RouteBuilderF.MOCK_RESULT_URI, MockEndpoint.class);
-            Assert.assertTrue("All messages received", mock.await(500, TimeUnit.MILLISECONDS));
-            Assert.assertEquals(3, mock.getExpectedCount());
+            Assert.assertTrue("All messages received", mock.await(5, TimeUnit.SECONDS));
         } finally {
             deployer.undeploy(CDI_CONTEXT_C);
         }
