@@ -98,7 +98,7 @@ public class StompIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                fromF("stomp:jms.queue.%s?login=%s&passcode=%s&brokerURL=%s", QUEUE_NAME, USERNAME, PASSWORD, BROKER_URL)
+                fromF("stomp:%s?login=%s&passcode=%s&brokerURL=%s", QUEUE_NAME, USERNAME, PASSWORD, BROKER_URL)
                 .transform(body().method("utf8").prepend("Hello "))
                 .to("mock:result");
             }
@@ -108,6 +108,7 @@ public class StompIntegrationTest {
 
         MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
         mockEndpoint.expectedBodiesReceived("Hello Kermit");
+        mockEndpoint.setResultWaitTime(30000);
 
         Stomp stomp = new Stomp(BROKER_URL);
         stomp.setLogin(USERNAME);
@@ -116,7 +117,7 @@ public class StompIntegrationTest {
         final BlockingConnection producerConnection = stomp.connectBlocking();
         try {
             StompFrame outFrame = new StompFrame(SEND);
-            outFrame.addHeader(DESTINATION, StompFrame.encodeHeader("jms.queue." + QUEUE_NAME));
+            outFrame.addHeader(DESTINATION, StompFrame.encodeHeader(QUEUE_NAME));
             outFrame.addHeader(MESSAGE_ID, StompFrame
                 .encodeHeader("StompIntegrationTest.testMessageConsumerRoute" + UUID.randomUUID().toString()));
             outFrame.content(utf8("Kermit"));
