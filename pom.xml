@@ -242,6 +242,7 @@
                         <detectJavaApiLink>false</detectJavaApiLink>
                         <detectOfflineLinks>false</detectOfflineLinks>
                         <detectLinks>false</detectLinks>
+                        <failOnError>false</failOnError>
                     </configuration>
                 </plugin>
                 <plugin>

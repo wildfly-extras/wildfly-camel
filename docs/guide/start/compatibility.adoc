@@ -4,6 +4,9 @@ The {wildfly} compatibility matrix
 
 [cols="2*",width="60%"]
 |===
+| **14.0.1.Final**
+| 8.0
+
 | **13.0.0.Final**
 | 7.0
 

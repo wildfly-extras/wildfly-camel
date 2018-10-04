@@ -1,5 +1,65 @@
 ### Changelog
 
+#### WildFly-Camel 8.0.0
+
+**Features**
+
+* [#2030][2030] Add support for component solr
+* [#2032][2032] Add support for component solrs
+* [#2595][2595] Support securing Fuse CXF endpoints with Elytron
+
+For details see [8.0.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"8.0.0"+label%3Afeature)
+
+**Tasks**
+
+* [#2574][2574] Remove dependency on gravia
+* [#2585][2585] Upgrade to camel-2.22.1
+* [#2599][2599] Document how to secure CXF endpoints with Elytron
+* [#2620][2620] Add itests-common and wildfly-camel-patch depenencies to BOM
+* [#2630][2630] StompIntegrationTest should use WildFly embedded Artemis broker
+* [#2631][2631] Remove hawtio.offline property from server configuration
+* [#2635][2635] Remove property ee8.preview.mode from server configuration
+* [#2638][2638] Upgrade to WildFly 14.0.1.Final
+* [#2640][2640] Remove fuse-patch from docker image build
+
+For details see [8.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"8.0.0"+label%3Atask)
+
+**Bugs**
+
+* [#1658][1658] IllegalStateException when reloading WildFly from the CLI
+* [#2577][2577] wildfly-camel-docker CI build is failing
+* [#2611][2611] Missing hapi-structures dependencies in module ca.uhn.hapi
+* [#2622][2622] WildFly server reload leads to multiple CamelContextRegistry instances in CamelContextTrackerRegistry
+* [#2625][2625] Build hangs on Windows during CLI script execution
+* [#2627][2627] IllegalStateException on undeploy of Camel CXF applications
+* [#2644][2644] CXFEndpointTest Arquillian initialisation fails
+* [#2659][2659] Restore well known extras config module
+* [#2664][2664] CDI context creation test fails intermittently
+
+For details see [8.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"8.0.0"+label%3Abug)
+
+[2030]: https://github.com/wildfly-extras/wildfly-camel/issues/2030
+[2032]: https://github.com/wildfly-extras/wildfly-camel/issues/2032
+[2595]: https://github.com/wildfly-extras/wildfly-camel/issues/2595
+[2574]: https://github.com/wildfly-extras/wildfly-camel/issues/2574
+[2585]: https://github.com/wildfly-extras/wildfly-camel/issues/2585
+[2599]: https://github.com/wildfly-extras/wildfly-camel/issues/2599
+[2620]: https://github.com/wildfly-extras/wildfly-camel/issues/2620
+[2630]: https://github.com/wildfly-extras/wildfly-camel/issues/2630
+[2631]: https://github.com/wildfly-extras/wildfly-camel/issues/2631
+[2635]: https://github.com/wildfly-extras/wildfly-camel/issues/2635
+[2638]: https://github.com/wildfly-extras/wildfly-camel/issues/2638
+[2640]: https://github.com/wildfly-extras/wildfly-camel/issues/2640
+[1658]: https://github.com/wildfly-extras/wildfly-camel/issues/1658
+[2577]: https://github.com/wildfly-extras/wildfly-camel/issues/2577
+[2611]: https://github.com/wildfly-extras/wildfly-camel/issues/2611
+[2622]: https://github.com/wildfly-extras/wildfly-camel/issues/2622
+[2625]: https://github.com/wildfly-extras/wildfly-camel/issues/2625
+[2627]: https://github.com/wildfly-extras/wildfly-camel/issues/2627
+[2644]: https://github.com/wildfly-extras/wildfly-camel/issues/2644
+[2659]: https://github.com/wildfly-extras/wildfly-camel/issues/2659
+[2664]: https://github.com/wildfly-extras/wildfly-camel/issues/2664
+
 #### WildFly-Camel 7.0.0
 
 **Features**
@@ -35,6 +95,7 @@ For details see [7.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 * [#2575][2575] camel-elasticsearch broken after upgrade to lucene 7.2.1
 * [#2576][2576] GRPCIntegrationTest fails with camel 2.22.x
 * [#2615][2615] Intermittent failure of EtcdIntegrationTest
+* [#2619][2619] javadoc:javadoc may hang forever
 
 For details see [7.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"7.0.0"+label%3Abug)
 
@@ -59,6 +120,7 @@ For details see [7.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 [2575]: https://github.com/wildfly-extras/wildfly-camel/issues/2575
 [2576]: https://github.com/wildfly-extras/wildfly-camel/issues/2576
 [2615]: https://github.com/wildfly-extras/wildfly-camel/issues/2615
+[2619]: https://github.com/wildfly-extras/wildfly-camel/issues/2619
 
 #### WildFly-Camel 6.1.0
 
