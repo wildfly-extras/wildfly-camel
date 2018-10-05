@@ -98,6 +98,9 @@
                                     <run>chmod g=u -R ${server.home}</run>
                                 </runCmds>
                                 <optimise>true</optimise>
+                                <buildOptions>
+                                    <squash>true</squash>
+                                </buildOptions>
                             </build>
                         </image>
                     </images>
