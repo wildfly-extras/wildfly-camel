@@ -98,9 +98,6 @@
                                     <run>chmod g=u -R ${server.home}</run>
                                 </runCmds>
                                 <optimise>true</optimise>
-                                <buildOptions>
-                                    <squash>true</squash>
-                                </buildOptions>
                             </build>
                         </image>
                     </images>
@@ -156,6 +153,34 @@
             <properties>
                 <docker.skipPush>false</docker.skipPush>
             </properties>
+        </profile>
+        <!-- Enables useful experimental docker features -->
+        <profile>
+            <id>docker.experimental</id>
+            <activation>
+                <property>
+                    <name>docker.experimental</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <build>
+                                        <buildOptions>
+                                            <squash>true</squash>
+                                        </buildOptions>
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>
