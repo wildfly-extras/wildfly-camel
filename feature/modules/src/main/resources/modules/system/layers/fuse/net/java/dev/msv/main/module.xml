@@ -7,10 +7,8 @@
     <artifact name="${com.sun.xml.bind.jaxb:isorelax}" />
     <artifact name="${org.jopendocument:isorelax-jaxp-bridge-ILM}" />
     <artifact name="${net.java.dev.msv:msv-core}" />
+    <artifact name="${relaxngDatatype:relaxngDatatype}" />
     <artifact name="${net.java.dev.msv:xsdlib}" />
   </resources>
-  <dependencies>
-    <module name="javax.api" />
-    <module name="com.github.relaxng" />
-  </dependencies>
+  <dependencies />
 </module>

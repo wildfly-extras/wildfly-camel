@@ -1427,6 +1427,7 @@
             <module name="org.infinispan" export="true" >
                 <exports>
                     <exclude path="org/infinispan/configuration/internal" />
+                    <exclude path="org/infinispan/persistence/internal" />
                     <exclude path="OSGI-INF/blueprint" />
                 </exports>
             </module>

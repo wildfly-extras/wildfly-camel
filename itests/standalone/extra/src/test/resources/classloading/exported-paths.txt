@@ -4076,9 +4076,11 @@ org/infinispan/client/hotrod/impl/protocol
 org/infinispan/client/hotrod/impl/query
 org/infinispan/client/hotrod/impl/transaction
 org/infinispan/client/hotrod/impl/transaction/entry
+org/infinispan/client/hotrod/impl/transaction/recovery
 org/infinispan/client/hotrod/impl/transport
 org/infinispan/client/hotrod/impl/transport/netty
 org/infinispan/client/hotrod/impl/transport/tcp
+org/infinispan/client/hotrod/jmx
 org/infinispan/client/hotrod/logging
 org/infinispan/client/hotrod/marshall
 org/infinispan/client/hotrod/multimap
@@ -4110,11 +4112,14 @@ org/infinispan/commons/executors
 org/infinispan/commons/hash
 org/infinispan/commons/io
 org/infinispan/commons/jdkspecific
+org/infinispan/commons/jmx
 org/infinispan/commons/logging
 org/infinispan/commons/marshall
 org/infinispan/commons/marshall/exts
 org/infinispan/commons/marshall/jboss
 org/infinispan/commons/persistence
+org/infinispan/commons/stat
+org/infinispan/commons/time
 org/infinispan/commons/tx
 org/infinispan/commons/tx/lookup
 org/infinispan/commons/util
@@ -4162,6 +4167,7 @@ org/infinispan/expiration/impl
 org/infinispan/factories
 org/infinispan/factories/annotations
 org/infinispan/factories/components
+org/infinispan/factories/impl
 org/infinispan/factories/scopes
 org/infinispan/factories/threads
 org/infinispan/filter
@@ -4286,6 +4292,7 @@ org/infinispan/util/function
 org/infinispan/util/logging
 org/infinispan/util/logging/events
 org/infinispan/util/logging/events/impl
+org/infinispan/util/rxjava
 org/infinispan/util/stream
 org/infinispan/xsite
 org/infinispan/xsite/notification
