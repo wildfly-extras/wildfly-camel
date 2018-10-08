@@ -60,10 +60,6 @@
         <include artifact="com.github.ben-manes.caffeine:caffeine" />
     </module>
 
-    <module name="com.github.relaxng" skip="true">
-        <include artifact=":relaxngDatatype" />
-    </module>
-
     <module name="com.github.spullara.mustache" skip="true">
         <include artifact="com.github.spullara.mustache.java:compiler" />
     </module>

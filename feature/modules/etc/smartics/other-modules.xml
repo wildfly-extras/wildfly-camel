@@ -1082,9 +1082,7 @@
         <include artifact="net.java.dev.msv:msv-core" />
         <include artifact="net.java.dev.msv:xsdlib" />
         <include artifact="org.jopendocument:isorelax-jaxp-bridge-ILM" />
-        <dependencies>
-            <module name="javax.api" />
-        </dependencies>
+        <include artifact="relaxngDatatype:relaxngDatatype" />
     </module>
 
     <module name="net.minidev.smart">
