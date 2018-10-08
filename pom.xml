@@ -46,7 +46,7 @@
     <properties>
 
         <!-- Camel versions -->
-        <version.apache.camel>2.22.1</version.apache.camel>
+        <version.apache.camel>2.22.2</version.apache.camel>
         <version.camel.apns>1.0.0.Beta6</version.camel.apns>
         <version.camel.elasticsearch.rest>6.1.1</version.camel.elasticsearch.rest>
         <version.camel.grpc.guava>20.0</version.camel.grpc.guava>
