@@ -41,6 +41,7 @@ import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.UserManager;
@@ -50,6 +51,7 @@ import org.wildfly.extension.camel.CamelAware;
 @CamelAware
 @RunWith(Arquillian.class)
 @ServerSetup({StompIntegrationTest.StompConnectorSetupTask.class})
+@Ignore("[#2674] Intermittent failure of StompIntegrationTest")
 public class StompIntegrationTest {
 
     private static final int STOMP_PORT = 61613;
