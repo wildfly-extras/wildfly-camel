@@ -95,6 +95,8 @@ Refer to the https://github.com/wildfly-extras/wildfly-camel-examples/tree/maste
 
 ifndef::red-hat-fuse[]
 
+ifndef::red-hat-fuse[]
+
 #### Code examples on GitHub
 
 Example JAX-WS applications are available on GitHub.
