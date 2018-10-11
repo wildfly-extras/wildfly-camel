@@ -1,0 +1,29 @@
+<web-app>
+    <servlet>
+        <servlet-name>CamelServlet</servlet-name>
+        <servlet-class>org.apache.camel.component.servlet.CamelHttpTransportServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CamelServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>secure</web-resource-name>
+            <url-pattern>/services/secure/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>camel-servlet-role</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+        <description>Test role for camel-servlet</description>
+        <role-name>camel-servlet-role</role-name>
+    </security-role>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>camel-servlet-application-realm</realm-name>
+    </login-config>
+</web-app>

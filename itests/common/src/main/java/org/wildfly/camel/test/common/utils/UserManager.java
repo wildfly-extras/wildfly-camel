@@ -47,51 +47,6 @@ public final class UserManager implements Closeable {
     private static final String MANAGEMENT_REALM = "ManagementRealm";
     private static final char[] HEX_CHARS = "0123456789abcdef".toCharArray();
 
-    public static String encryptPassword(String userName, String password, String realm) {
-        try {
-            String stringToEncrypt = String.format("%s:%s:%s", userName, realm, password);
-
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] hashedPassword = md.digest(stringToEncrypt.getBytes(StandardCharsets.UTF_8));
-
-            char[] converted = new char[hashedPassword.length * 2];
-            for (int i = 0; i < hashedPassword.length; i++) {
-                byte b = hashedPassword[i];
-                converted[i * 2] = HEX_CHARS[b >> 4 & 0x0F];
-                converted[i * 2 + 1] = HEX_CHARS[b & 0x0F];
-            }
-            return String.valueOf(converted);
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
-    /**
-     * @return a new {@link UserManager} that will operate on
-     *         {@code $jbossHome/standalone/configuration/application-users.properties} and
-     *         {@code $jbossHome/standalone/configuration/application-roles.properties}
-     * @throws IOException
-     */
-    public static UserManager forStandaloneApplicationRealm() throws IOException {
-        final Path jbossHome = EnvironmentUtils.getWildFlyHome();
-        final Path userPropertiesPath = jbossHome.resolve("standalone/configuration/application-users.properties");
-        final Path rolePropertiesPath = jbossHome.resolve("standalone/configuration/application-roles.properties");
-        return new UserManager(userPropertiesPath, rolePropertiesPath, APPLICATION_REALM);
-    }
-
-    /**
-     * @return a new {@link UserManager} that will operate on
-     *         {@code $jbossHome/standalone/configuration/mgmt-users.properties} and
-     *         {@code $jbossHome/standalone/configuration/mgmt-roles.properties}
-     * @throws IOException
-     */
-    public static UserManager forStandaloneManagementRealm() throws IOException {
-        final Path jbossHome = EnvironmentUtils.getWildFlyHome();
-        final Path userPropertiesPath = jbossHome.resolve("standalone/configuration/mgmt-users.properties");
-        final Path rolePropertiesPath = jbossHome.resolve("standalone/configuration/mgmt-roles.properties");
-        return new UserManager(userPropertiesPath, rolePropertiesPath, MANAGEMENT_REALM);
-    }
-
     private final String realm;
     private Properties roleProperties;
     private final Path rolePropertiesPath;
@@ -123,6 +78,39 @@ public final class UserManager implements Closeable {
                 roleProperties.load(in);
             }
         }
+    }
+
+    /**
+     * @return a new {@link UserManager} that will operate on
+     *         {@code $jbossHome/standalone/configuration/application-users.properties} and
+     *         {@code $jbossHome/standalone/configuration/application-roles.properties}
+     * @throws IOException
+     */
+    public static UserManager forStandaloneApplicationRealm() throws IOException {
+        final Path jbossHome = EnvironmentUtils.getWildFlyHome();
+        final Path userPropertiesPath = jbossHome.resolve("standalone/configuration/application-users.properties");
+        final Path rolePropertiesPath = jbossHome.resolve("standalone/configuration/application-roles.properties");
+        return new UserManager(userPropertiesPath, rolePropertiesPath, APPLICATION_REALM);
+    }
+
+    /**
+     * @return a new {@link UserManager} that will operate on
+     *         {@code $jbossHome/standalone/configuration/mgmt-users.properties} and
+     *         {@code $jbossHome/standalone/configuration/mgmt-roles.properties}
+     * @throws IOException
+     */
+    public static UserManager forStandaloneManagementRealm() throws IOException {
+        final Path jbossHome = EnvironmentUtils.getWildFlyHome();
+        final Path userPropertiesPath = jbossHome.resolve("standalone/configuration/mgmt-users.properties");
+        final Path rolePropertiesPath = jbossHome.resolve("standalone/configuration/mgmt-roles.properties");
+        return new UserManager(userPropertiesPath, rolePropertiesPath, MANAGEMENT_REALM);
+    }
+
+    public static UserManager forStandaloneCustomRealm(String userPropertiesFileName, String rolesPropertiesFileName, String realmName) throws IOException {
+        final Path jbossHome = EnvironmentUtils.getWildFlyHome();
+        final Path userPropertiesPath = jbossHome.resolve("standalone/configuration/" + userPropertiesFileName);
+        final Path rolePropertiesPath = jbossHome.resolve("standalone/configuration/" + rolesPropertiesFileName);
+        return new UserManager(userPropertiesPath, rolePropertiesPath, realmName);
     }
 
     public UserManager addRole(String userName, String role) {
@@ -171,4 +159,22 @@ public final class UserManager implements Closeable {
         return this;
     }
 
+    private static String encryptPassword(String userName, String password, String realm) {
+        try {
+            String stringToEncrypt = String.format("%s:%s:%s", userName, realm, password);
+
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] hashedPassword = md.digest(stringToEncrypt.getBytes(StandardCharsets.UTF_8));
+
+            char[] converted = new char[hashedPassword.length * 2];
+            for (int i = 0; i < hashedPassword.length; i++) {
+                byte b = hashedPassword[i];
+                converted[i * 2] = HEX_CHARS[b >> 4 & 0x0F];
+                converted[i * 2 + 1] = HEX_CHARS[b & 0x0F];
+            }
+            return String.valueOf(converted);
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException(e);
+        }
+    }
 }

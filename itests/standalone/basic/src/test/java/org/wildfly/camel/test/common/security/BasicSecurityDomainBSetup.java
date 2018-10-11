@@ -1,8 +1,5 @@
 package org.wildfly.camel.test.common.security;
 
-import java.io.IOException;
-import java.nio.file.Path;
-
 import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.as.controller.PathAddress;
@@ -11,7 +8,6 @@ import org.jboss.as.controller.operations.common.Util;
 import org.jboss.dmr.ModelNode;
 import org.wildfly.camel.test.common.http.HttpRequest;
 import org.wildfly.camel.test.common.utils.DMRUtils;
-import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.common.utils.UserManager;
 
 /**
@@ -59,7 +55,7 @@ public class BasicSecurityDomainBSetup implements ServerSetupTask {
         HttpRequest.post(HTTPS_HOST).getResponse();
         final ModelControllerClient client = managementClient.getControllerClient();
 
-        try (UserManager um = newUserManager()) {
+        try (UserManager um = UserManager.forStandaloneCustomRealm(USERS_PROPS, ROLES_PROPS, SECURITY_REALM)) {
             um
                     .addUser(APPLICATION_USER, APPLICATION_PASSWORD)
                     .addRole(APPLICATION_USER, APPLICATION_ROLE)
@@ -104,16 +100,9 @@ public class BasicSecurityDomainBSetup implements ServerSetupTask {
                 .assertSuccess();
     }
 
-    private static UserManager newUserManager() throws IOException {
-        final Path jbossHome = EnvironmentUtils.getWildFlyHome();
-        final Path userPropertiesPath = jbossHome.resolve("standalone/configuration/"+ USERS_PROPS);
-        final Path rolePropertiesPath = jbossHome.resolve("standalone/configuration/"+ ROLES_PROPS);
-        return new UserManager(userPropertiesPath, rolePropertiesPath, SECURITY_REALM);
-    }
-
     @Override
     public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
-        try (UserManager um = newUserManager()) {
+        try (UserManager um = UserManager.forStandaloneCustomRealm(USERS_PROPS, ROLES_PROPS, SECURITY_REALM)) {
             um
                     .removeUser(APPLICATION_USER)
                     .removeRole(APPLICATION_USER, APPLICATION_ROLE)
