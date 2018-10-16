@@ -53,8 +53,7 @@ public class Application {
     @Named("cxfConsumerEndpoint")
     @Produces
     public CxfRsEndpoint createCxfConsumerEndpoint() {
-        CxfRsComponent cxfConsumerComponent = new CxfRsComponent(this.camelContext);
-        CxfRsEndpoint cxfConsumerEndpoint = new CxfRsEndpoint(CXF_ENDPOINT_BASE_URI, cxfConsumerComponent);
+        CxfRsEndpoint cxfConsumerEndpoint = this.camelContext.getEndpoint("cxfrs:" + CXF_ENDPOINT_BASE_URI, CxfRsEndpoint.class);
         cxfConsumerEndpoint.setBeanId("cxfConsumerEndpoint");
         cxfConsumerEndpoint.addResourceClass(GreetingsService.class);
         return cxfConsumerEndpoint;
@@ -63,8 +62,7 @@ public class Application {
     @Named("cxfConsumerEndpointSub")
     @Produces
     public CxfRsEndpoint createCxfConsumerEndpointSub() {
-        CxfRsComponent cxfConsumerComponent = new CxfRsComponent(this.camelContext);
-        CxfRsEndpoint cxfConsumerEndpoint = new CxfRsEndpoint(CXF_ENDPOINT_SUB_BASE_URI, cxfConsumerComponent);
+        CxfRsEndpoint cxfConsumerEndpoint = this.camelContext.getEndpoint("cxfrs:" + CXF_ENDPOINT_SUB_BASE_URI, CxfRsEndpoint.class);
         cxfConsumerEndpoint.setBeanId("cxfConsumerEndpointSub");
         cxfConsumerEndpoint.addResourceClass(GreetingsService.class);
         return cxfConsumerEndpoint;
@@ -73,8 +71,7 @@ public class Application {
     @Named("cxfConsumerEndpointRel")
     @Produces
     public CxfRsEndpoint createCxfConsumerEndpointRel() {
-        CxfRsComponent cxfConsumerComponent = new CxfRsComponent(this.camelContext);
-        CxfRsEndpoint cxfConsumerEndpoint = new CxfRsEndpoint(CXF_ENDPOINT_REL_BASE_URI, cxfConsumerComponent);
+        CxfRsEndpoint cxfConsumerEndpoint = this.camelContext.getEndpoint("cxfrs:" + CXF_ENDPOINT_REL_BASE_URI, CxfRsEndpoint.class);
         cxfConsumerEndpoint.setBeanId("cxfConsumerEndpointRel");
         cxfConsumerEndpoint.addResourceClass(GreetingsService.class);
         return cxfConsumerEndpoint;
@@ -83,8 +80,7 @@ public class Application {
     @Named("cxfProducerEndpoint")
     @Produces
     public CxfRsEndpoint createCxfProducerEndpoint() {
-        CxfRsComponent cxfProducerComponent = new CxfRsComponent(this.camelContext);
-        CxfRsEndpoint cxfProducerEndpoint = new CxfRsEndpoint(CXF_ENDPOINT_BASE_URI, cxfProducerComponent);
+        CxfRsEndpoint cxfProducerEndpoint = this.camelContext.getEndpoint("cxfrs:" + CXF_ENDPOINT_BASE_URI, CxfRsEndpoint.class);
         cxfProducerEndpoint.setBeanId("cxfProducerEndpoint");
         cxfProducerEndpoint.addResourceClass(GreetingsService.class);
 
@@ -103,8 +99,7 @@ public class Application {
     @Named("cxfProducerEndpointSub")
     @Produces
     public CxfRsEndpoint createCxfProducerEndpointSub() {
-        CxfRsComponent cxfProducerComponent = new CxfRsComponent(this.camelContext);
-        CxfRsEndpoint cxfProducerEndpoint = new CxfRsEndpoint(CXF_ENDPOINT_SUB_BASE_URI, cxfProducerComponent);
+        CxfRsEndpoint cxfProducerEndpoint = this.camelContext.getEndpoint("cxfrs:" + CXF_ENDPOINT_SUB_BASE_URI, CxfRsEndpoint.class);
         cxfProducerEndpoint.setBeanId("cxfProducerEndpointSub");
         cxfProducerEndpoint.addResourceClass(GreetingsService.class);
 
@@ -123,8 +118,7 @@ public class Application {
     @Named("cxfProducerEndpointRel")
     @Produces
     public CxfRsEndpoint createCxfProducerEndpointRel() {
-        CxfRsComponent cxfProducerComponent = new CxfRsComponent(this.camelContext);
-        CxfRsEndpoint cxfProducerEndpoint = new CxfRsEndpoint(CXF_ENDPOINT_REL_BASE_URI, cxfProducerComponent);
+        CxfRsEndpoint cxfProducerEndpoint = this.camelContext.getEndpoint("cxfrs:" + CXF_ENDPOINT_REL_BASE_URI, CxfRsEndpoint.class);
         cxfProducerEndpoint.setBeanId("cxfProducerEndpointRel");
         cxfProducerEndpoint.addResourceClass(GreetingsService.class);
 

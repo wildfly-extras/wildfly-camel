@@ -44,6 +44,7 @@
     <module name="org.springframework.context" />
     <module name="org.springframework.tx" />
     <module name="org.wildfly.extension.camel.cdi" services="export" optional="true" />
+    <module name="org.wildfly.extension.camel.cxf.undertow" services="export" />
     <module name="org.wildfly.extension.camel.security" export="true" services="export" optional="true" />
     <module name="org.wildfly.extension.camel.undertow" services="export" optional="true" />
     <module name="org.wildfly.security.elytron" />
