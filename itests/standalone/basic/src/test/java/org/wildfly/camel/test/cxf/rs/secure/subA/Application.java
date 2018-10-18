@@ -52,9 +52,8 @@ public class Application {
 
     @Named("cxfConsumerEndpoint")
     @Produces
-    public CxfRsEndpoint createCxfConsumerEndpoint() {
-        CxfRsComponent cxfConsumerComponent = new CxfRsComponent(this.camelContext);
-        CxfRsEndpoint cxfConsumerEndpoint = new CxfRsEndpoint(CXF_ENDPOINT_BASE_URI, cxfConsumerComponent);
+    public CxfRsEndpoint createCxfConsumerEndpoint() throws Exception {
+        CxfRsEndpoint cxfConsumerEndpoint = this.camelContext.getEndpoint("cxfrs:" + CXF_ENDPOINT_BASE_URI, CxfRsEndpoint.class);
         cxfConsumerEndpoint.setBeanId("cxfConsumerEndpoint");
         cxfConsumerEndpoint.addResourceClass(GreetingsService.class);
         return cxfConsumerEndpoint;
@@ -63,8 +62,7 @@ public class Application {
     @Named("cxfConsumerEndpointSub")
     @Produces
     public CxfRsEndpoint createCxfConsumerEndpointSub() {
-        CxfRsComponent cxfConsumerComponent = new CxfRsComponent(this.camelContext);
-        CxfRsEndpoint cxfConsumerEndpoint = new CxfRsEndpoint(CXF_ENDPOINT_SUB_BASE_URI, cxfConsumerComponent);
+        CxfRsEndpoint cxfConsumerEndpoint = this.camelContext.getEndpoint("cxfrs:" + CXF_ENDPOINT_SUB_BASE_URI, CxfRsEndpoint.class);
         cxfConsumerEndpoint.setBeanId("cxfConsumerEndpointSub");
         cxfConsumerEndpoint.addResourceClass(GreetingsService.class);
         return cxfConsumerEndpoint;
@@ -73,8 +71,7 @@ public class Application {
     @Named("cxfConsumerEndpointRel")
     @Produces
     public CxfRsEndpoint createCxfConsumerEndpointRel() {
-        CxfRsComponent cxfConsumerComponent = new CxfRsComponent(this.camelContext);
-        CxfRsEndpoint cxfConsumerEndpoint = new CxfRsEndpoint(CXF_ENDPOINT_REL_BASE_URI, cxfConsumerComponent);
+        CxfRsEndpoint cxfConsumerEndpoint = this.camelContext.getEndpoint("cxfrs:" + CXF_ENDPOINT_REL_BASE_URI, CxfRsEndpoint.class);
         cxfConsumerEndpoint.setBeanId("cxfConsumerEndpointRel");
         cxfConsumerEndpoint.addResourceClass(GreetingsService.class);
         return cxfConsumerEndpoint;

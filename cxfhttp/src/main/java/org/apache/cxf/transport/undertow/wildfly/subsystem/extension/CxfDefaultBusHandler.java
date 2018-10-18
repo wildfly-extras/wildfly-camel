@@ -29,6 +29,8 @@ import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;
 import org.apache.cxf.transport.http.HttpDestinationFactory;
 import org.apache.cxf.transport.undertow.UndertowDestinationFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wildfly.extension.camel.ContextCreateHandler;
 
 /**
@@ -41,11 +43,18 @@ import org.wildfly.extension.camel.ContextCreateHandler;
  */
 public final class CxfDefaultBusHandler implements ContextCreateHandler {
 
+    private static final Logger log = LoggerFactory.getLogger(CxfDefaultBusHandler.class);
+
     private final EndpointStrategy endpointStrategy = new CxfDefaultBusEndpointStrategy();
 
     @Override
     public void setup(CamelContext camelctx) {
+        log.debug("Seting up {}", camelctx);
         camelctx.addRegisterEndpointCallback(endpointStrategy);
+    }
+
+    public CxfDefaultBusHandler() {
+        super();
     }
 
     static class CxfDefaultBusEndpointStrategy implements EndpointStrategy {
@@ -75,9 +84,10 @@ public final class CxfDefaultBusHandler implements ContextCreateHandler {
         public Endpoint registerEndpoint(String uri, Endpoint endpoint) {
             if (endpoint instanceof CxfRsEndpoint) {
                 final CxfRsEndpoint rsEndPoint = (CxfRsEndpoint) endpoint;
-                /* We hope to set the bus before any user provided bus is set */
-                assert rsEndPoint.getBus() == null;
-                rsEndPoint.setBus(bus);
+                /* We set the bus only if the user has not provided one himself */
+                if (rsEndPoint.getBus() == null) {
+                    rsEndPoint.setBus(bus);
+                }
             }
             return endpoint;
         }
