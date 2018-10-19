@@ -20,11 +20,15 @@
 
 package org.apache.cxf.transport.undertow.wildfly.subsystem.extension;
 
+import java.util.Collection;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
+import org.apache.camel.Route;
 import org.apache.camel.component.cxf.CxfComponent;
 import org.apache.camel.component.cxf.jaxrs.CxfRsEndpoint;
-import org.apache.camel.spi.EndpointStrategy;
+import org.apache.camel.spi.LifecycleStrategy;
+import org.apache.camel.support.LifecycleStrategySupport;
 import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;
 import org.apache.cxf.transport.http.HttpDestinationFactory;
@@ -41,18 +45,18 @@ import org.wildfly.extension.camel.ContextCreateHandler;
  */
 public final class CxfDefaultBusHandler implements ContextCreateHandler {
 
-    private final EndpointStrategy endpointStrategy = new CxfDefaultBusEndpointStrategy();
+    private final LifecycleStrategy endpointStrategy = new CxfDefaultBusEndpointStrategy();
 
     @Override
     public void setup(CamelContext camelctx) {
-        camelctx.addRegisterEndpointCallback(endpointStrategy);
+        camelctx.addLifecycleStrategy(endpointStrategy);
     }
 
     public CxfDefaultBusHandler() {
         super();
     }
 
-    static class CxfDefaultBusEndpointStrategy implements EndpointStrategy {
+    static class CxfDefaultBusEndpointStrategy extends LifecycleStrategySupport {
         private final Bus bus;
 
         public CxfDefaultBusEndpointStrategy() {
@@ -75,8 +79,33 @@ public final class CxfDefaultBusHandler implements ContextCreateHandler {
             }
         }
 
+        public void onRoutesAdd(Collection<Route> routes) {
+            /*
+             * LifecycleStrategySupport.onEndpointAdd() is not called for CxfRsEndpoints created via direct constructor
+             * invocation. Therefore we check if the buses on CxfRsEndpoints are correct.
+             */
+            for (Route route : routes) {
+                final Endpoint endpoint = route.getEndpoint();
+                if (endpoint instanceof CxfRsEndpoint) {
+                    final CxfRsEndpoint rsEnspoint = (CxfRsEndpoint) endpoint;
+                    final Bus endpointBus = rsEnspoint.getBus();
+                    if (endpointBus == null || (endpointBus != bus && !(endpointBus
+                            .getExtension(HttpDestinationFactory.class) instanceof UndertowDestinationFactory))) {
+                        /* Not a correct bus instance */
+                        throw new IllegalStateException("A " + CxfRsEndpoint.class.getName() + " used in route " + route
+                                + " either does not have " + Bus.class.getName() + " set or the "
+                                + Bus.class.getSimpleName() + " set was not created using correct context class loader."
+                                + " This is known to happen for " + CxfRsEndpoint.class.getName()
+                                + " instances created by direct constructor invocation."
+                                + " Consider using camelContext.getEndpoint(\"cxfrs:http[s]://my-host/my-endpoint\", CxfRsEndpoint.class) instead"
+                                + " or add your manually created endpoint to the context management manually using CamelContext.addEndpoint(String uri, Endpoint endpoint)");
+                    }
+                }
+            }
+        }
+
         @Override
-        public Endpoint registerEndpoint(String uri, Endpoint endpoint) {
+        public void onEndpointAdd(Endpoint endpoint) {
             if (endpoint instanceof CxfRsEndpoint) {
                 final CxfRsEndpoint rsEndPoint = (CxfRsEndpoint) endpoint;
                 /* We set the bus only if the user has not provided one himself */
@@ -84,7 +113,7 @@ public final class CxfDefaultBusHandler implements ContextCreateHandler {
                     rsEndPoint.setBus(bus);
                 }
             }
-            return endpoint;
         }
+
     }
 }
