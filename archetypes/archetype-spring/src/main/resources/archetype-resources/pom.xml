@@ -128,6 +128,25 @@
         </plugins>
     </build>
 
+    <!-- Repositories -->
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>http://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>jboss-public-repository</id>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <!-- Profiles -->
     <profiles>
         <!-- Separate profiles are provided for running tests, including Arquillian tests that execute in a specified container -->

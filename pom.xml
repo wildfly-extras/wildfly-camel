@@ -469,7 +469,11 @@
         <url>https://github.com/${github.namespace}/${github.project}/issues</url>
     </issueManagement>
 
-    <!-- Repositories -->
+    <!--
+        Repositories
+
+        Please keep these repository definitions in sync with the archetype templates
+    -->
     <repositories>
         <repository>
             <id>central</id>
