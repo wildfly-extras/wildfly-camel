@@ -53,7 +53,7 @@ public class CamelCoreSubsystemExtension implements CamelSubsytemExtension {
 
     @Override
     public void addDeploymentProcessor(DeploymentProcessorTarget processorTarget, SubsystemState subsystemState) {
-        DeploymentUnitProcessor parser = new JBossAllXmlParserRegisteringProcessor<CamelDeploymentSettings>(CamelIntegrationParser.ROOT_ELEMENT, CamelDeploymentSettings.ATTACHMENT_KEY, new CamelIntegrationParser());
+        DeploymentUnitProcessor parser = new JBossAllXmlParserRegisteringProcessor<CamelDeploymentSettings.Builder>(CamelIntegrationParser.ROOT_ELEMENT, CamelDeploymentSettings.BUILDER_ATTACHMENT_KEY, new CamelIntegrationParser());
         processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.STRUCTURE, CamelSubsystemAdd.STRUCTURE_REGISTER_CAMEL_INTEGRATION, parser);
     }
 

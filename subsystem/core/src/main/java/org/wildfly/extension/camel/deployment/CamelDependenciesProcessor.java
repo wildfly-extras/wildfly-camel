@@ -63,9 +63,9 @@ public final class CamelDependenciesProcessor implements DeploymentUnitProcessor
         moddep.addImportFilter(PathFilters.getMetaInfFilter(), true);
         moduleSpec.addUserDependency(moddep);
 
-        List<ModuleIdentifier> deploymentDefinedModules = depSettings.getModuleDependencies();
+        List<String> deploymentDefinedModules = depSettings.getModuleDependencies();
         if (!deploymentDefinedModules.isEmpty()) {
-            for (ModuleIdentifier modid : deploymentDefinedModules) {
+            for (String modid : deploymentDefinedModules) {
                 moduleSpec.addUserDependency(new ModuleDependency(moduleLoader, modid, false, false, true, false));
             }
         } else {

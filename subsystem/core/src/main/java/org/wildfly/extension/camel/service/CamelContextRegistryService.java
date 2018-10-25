@@ -53,7 +53,7 @@ import org.wildfly.extension.camel.ContextCreateHandler;
 import org.wildfly.extension.camel.ContextCreateHandlerRegistry;
 import org.wildfly.extension.camel.SpringCamelContextFactory;
 import org.wildfly.extension.camel.deployment.CamelDeploymentSettings;
-import org.wildfly.extension.camel.deployment.CamelDeploymentSettingsProcessor;
+import org.wildfly.extension.camel.deployment.CamelDeploymentSettingsBuilderProcessor;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.camel.parser.SubsystemState;
 import org.wildfly.extension.camel.service.CamelContextRegistryService.MutableCamelContextRegistry;
@@ -193,7 +193,7 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
             ModuleIdentifier moduleId = moduleClassLoader.getModule().getIdentifier();
             if (moduleId.getName().startsWith("deployment.")) {
                 String depName = moduleId.getName().substring(11);
-                CamelDeploymentSettings depSettings = CamelDeploymentSettingsProcessor.getDeploymentSettings(depName);
+                CamelDeploymentSettings depSettings = CamelDeploymentSettings.get(depName);
                 enableIntegration = depSettings.isEnabled();
             }
 

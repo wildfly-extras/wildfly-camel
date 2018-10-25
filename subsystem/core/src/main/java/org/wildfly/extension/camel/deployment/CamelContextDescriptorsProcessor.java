@@ -53,15 +53,16 @@ public class CamelContextDescriptorsProcessor implements DeploymentUnitProcessor
         final DeploymentUnit depUnit = phaseContext.getDeploymentUnit();
         final String runtimeName = depUnit.getName();
 
-        CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
+        CamelDeploymentSettings.Builder depSettings = depUnit.getAttachment(CamelDeploymentSettings.BUILDER_ATTACHMENT_KEY);
         if (depSettings.isDisabledByJbossAll() || !depSettings.isDeploymentValid() || runtimeName.endsWith(".ear")) {
             return;
         }
 
         try {
+            boolean addedAny = false;
             if (runtimeName.endsWith(CamelConstants.CAMEL_CONTEXT_FILE_SUFFIX)) {
                 URL fileURL = depUnit.getAttachment(Attachments.DEPLOYMENT_CONTENTS).asFileURL();
-                addConditionally(depUnit, fileURL);
+                addedAny |= addConditionally(depUnit, depSettings, fileURL);
             } else {
                 VirtualFileFilter filter = new VirtualFileFilter() {
                     public boolean accepts(VirtualFile child) {
@@ -70,11 +71,11 @@ public class CamelContextDescriptorsProcessor implements DeploymentUnitProcessor
                 };
                 VirtualFile rootFile = depUnit.getAttachment(Attachments.DEPLOYMENT_ROOT).getRoot();
                 for (VirtualFile vfile : rootFile.getChildrenRecursively(filter)) {
-                    addConditionally(depUnit, vfile.asFileURL());
+                    addedAny |= addConditionally(depUnit, depSettings, vfile.asFileURL());
                 }
             }
 
-            if (!depSettings.getCamelContextUrls().isEmpty()) {
+            if (addedAny) {
                 LOGGER.info("Camel context descriptors found");
             }
         } catch (IOException ex) {
@@ -82,10 +83,9 @@ public class CamelContextDescriptorsProcessor implements DeploymentUnitProcessor
         }
     }
 
-    public void addConditionally(DeploymentUnit depUnit, URL fileURL) {
+    public boolean addConditionally(DeploymentUnit depUnit, CamelDeploymentSettings.Builder depSettingsBuilder, URL fileURL) {
 
         boolean skipResource = false;
-        CamelDeploymentSettings depSettings = depUnit.getAttachment(CamelDeploymentSettings.ATTACHMENT_KEY);
         CompositeIndex index = depUnit.getAttachment(Attachments.COMPOSITE_ANNOTATION_INDEX);
 
         // [#1215] Add support for Spring based CamelContext injection
@@ -96,8 +96,10 @@ public class CamelContextDescriptorsProcessor implements DeploymentUnitProcessor
         }
 
         if (skipResource == false) {
-            depSettings.addCamelContextUrl(fileURL);
+            depSettingsBuilder.camelContextUrl(fileURL);
+            return true;
         }
+        return false;
     }
 
     @Override

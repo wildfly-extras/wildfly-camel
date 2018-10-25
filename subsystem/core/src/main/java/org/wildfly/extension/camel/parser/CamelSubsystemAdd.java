@@ -33,6 +33,7 @@ import org.wildfly.extension.camel.deployment.CamelContextActivationProcessor;
 import org.wildfly.extension.camel.deployment.CamelContextBootstrapProcessor;
 import org.wildfly.extension.camel.deployment.CamelContextDescriptorsProcessor;
 import org.wildfly.extension.camel.deployment.CamelDependenciesProcessor;
+import org.wildfly.extension.camel.deployment.CamelDeploymentSettingsBuilderProcessor;
 import org.wildfly.extension.camel.deployment.CamelDeploymentSettingsProcessor;
 import org.wildfly.extension.camel.deployment.CamelEndpointDeployerProcessor;
 import org.wildfly.extension.camel.deployment.CamelEndpointDeploymentSchedulerProcessor;
@@ -56,7 +57,8 @@ public final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
     public static final int PARSE_DEPLOYMENT_SETTINGS = Phase.PARSE_COMPOSITE_ANNOTATION_INDEX + 0x01;
     public static final int PARSE_CAMEL_CONTEXT_DESCRIPTORS = PARSE_DEPLOYMENT_SETTINGS + 0x01;
 
-    public static final int DEPENDENCIES_CAMEL_INTEGRATION = Phase.DEPENDENCIES_LOGGING + 0x01;
+    public static final int DEPENDENCIES_DEPLOYMENT_SETTINGS = Phase.DEPENDENCIES_LOGGING + 0x01;
+    public static final int DEPENDENCIES_CAMEL_INTEGRATION = DEPENDENCIES_DEPLOYMENT_SETTINGS + 0x01;
     public static final int DEPENDENCIES_CAMEL_WIRINGS = DEPENDENCIES_CAMEL_INTEGRATION + 0x01;
     public static final int DEPENDENCIES_CAMEL_ENDPOINT_DEPLOYMENT_SCHEDULER = DEPENDENCIES_CAMEL_WIRINGS + 0x01;
 
@@ -97,8 +99,9 @@ public final class CamelSubsystemAdd extends AbstractBoottimeAddStepHandler {
         context.addStep(new AbstractDeploymentChainStep() {
             @Override
             public void execute(final DeploymentProcessorTarget processorTarget) {
-                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_DEPLOYMENT_SETTINGS, new CamelDeploymentSettingsProcessor());
+                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_DEPLOYMENT_SETTINGS, new CamelDeploymentSettingsBuilderProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.PARSE, PARSE_CAMEL_CONTEXT_DESCRIPTORS, new CamelContextDescriptorsProcessor());
+                processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_DEPLOYMENT_SETTINGS, new CamelDeploymentSettingsProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_CAMEL_INTEGRATION, new CamelIntegrationProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_CAMEL_WIRINGS, new CamelDependenciesProcessor());
                 processorTarget.addDeploymentProcessor(CamelExtension.SUBSYSTEM_NAME, Phase.DEPENDENCIES, DEPENDENCIES_CAMEL_ENDPOINT_DEPLOYMENT_SCHEDULER, new CamelEndpointDeploymentSchedulerProcessor());

@@ -43,7 +43,7 @@ import java.util.Map;
  * @author Thomas.Diesler@jboss.com
  * @since 14-Jun-2013
  */
-public class CamelIntegrationParser implements JBossAllXMLParser<CamelDeploymentSettings> {
+public class CamelIntegrationParser implements JBossAllXMLParser<CamelDeploymentSettings.Builder> {
 
     public static final String NAMESPACE_1_0 = "urn:jboss:jboss-camel:1.0";
     public static final QName ROOT_ELEMENT = new QName(NAMESPACE_1_0, "jboss-camel");
@@ -52,12 +52,12 @@ public class CamelIntegrationParser implements JBossAllXMLParser<CamelDeployment
     private static final String CAMEL_COMPONENT_PREFIX = "camel-";
 
     @Override
-    public CamelDeploymentSettings parse(final XMLExtendedStreamReader reader, final DeploymentUnit deploymentUnit) throws XMLStreamException {
+    public CamelDeploymentSettings.Builder parse(final XMLExtendedStreamReader reader, final DeploymentUnit deploymentUnit) throws XMLStreamException {
         return parser(reader, JBossDescriptorPropertyReplacement.propertyReplacer(deploymentUnit));
     }
 
-    static public CamelDeploymentSettings parser(XMLExtendedStreamReader reader, PropertyReplacer replacer) throws XMLStreamException {
-        CamelDeploymentSettings result = new CamelDeploymentSettings();
+    static public CamelDeploymentSettings.Builder parser(XMLExtendedStreamReader reader, PropertyReplacer replacer) throws XMLStreamException {
+        final CamelDeploymentSettings.Builder result = new CamelDeploymentSettings.Builder();
         parseCamelIntegrationElement(reader, result, replacer);
         return result;
     }
@@ -144,13 +144,13 @@ public class CamelIntegrationParser implements JBossAllXMLParser<CamelDeployment
         }
     }
 
-    private static void parseCamelIntegrationElement(XMLExtendedStreamReader reader, CamelDeploymentSettings result, PropertyReplacer propertyReplacer) throws XMLStreamException {
+    private static void parseCamelIntegrationElement(XMLExtendedStreamReader reader, CamelDeploymentSettings.Builder result, PropertyReplacer propertyReplacer) throws XMLStreamException {
         // We should get called when we are at the root element.
         final Element rootElement = Element.of(reader.getName());
         switch (rootElement) {
             case CAMEL_INTEGRATION:
                 final String value = getAttributeValue(reader, Attribute.ENABLED, propertyReplacer);
-                result.setDisabledByJbossAll(Boolean.valueOf(value) == Boolean.FALSE);
+                result.disabledByJbossAll(Boolean.valueOf(value) == Boolean.FALSE);
                 break;
             default:
                 throw unexpectedContent(reader);
@@ -185,14 +185,14 @@ public class CamelIntegrationParser implements JBossAllXMLParser<CamelDeployment
         throw endOfDocument(reader.getLocation());
     }
 
-    private static void parseComponentElement(XMLExtendedStreamReader reader, CamelDeploymentSettings result, PropertyReplacer propertyReplacer) throws XMLStreamException {
+    private static void parseComponentElement(XMLExtendedStreamReader reader, CamelDeploymentSettings.Builder result, PropertyReplacer propertyReplacer) throws XMLStreamException {
         String value = getAttributeValue(reader, Attribute.NAME, propertyReplacer);
         if (value != null && !value.isEmpty()) {
             if( value.startsWith(CAMEL_COMPONENT_PREFIX) ) {
                 value = value.substring(CAMEL_COMPONENT_PREFIX.length());
             }
             value = APACHE_CAMEL_COMPONENT_MODULE + "." + value;
-            result.addModuleDependency(value);
+            result.dependency(value);
         }
         switch (reader.nextTag()) {
             case XMLStreamConstants.END_ELEMENT: {
@@ -204,10 +204,10 @@ public class CamelIntegrationParser implements JBossAllXMLParser<CamelDeployment
         }
     }
 
-    private static void parseComponentModuleElement(XMLExtendedStreamReader reader, CamelDeploymentSettings result, PropertyReplacer propertyReplacer) throws XMLStreamException {
+    private static void parseComponentModuleElement(XMLExtendedStreamReader reader, CamelDeploymentSettings.Builder result, PropertyReplacer propertyReplacer) throws XMLStreamException {
         final String value = getAttributeValue(reader, Attribute.NAME, propertyReplacer);
         if (value != null && !value.isEmpty()) {
-            result.addModuleDependency(value);
+            result.dependency(value);
         }
         switch (reader.nextTag()) {
             case XMLStreamConstants.END_ELEMENT: {
