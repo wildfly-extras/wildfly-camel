@@ -81,26 +81,54 @@ public final class UserManager implements Closeable {
     }
 
     /**
+     * `$jbossHome` taken from {@link EnvironmentUtils#getWildFlyHome()}.
+     *
      * @return a new {@link UserManager} that will operate on
      *         {@code $jbossHome/standalone/configuration/application-users.properties} and
      *         {@code $jbossHome/standalone/configuration/application-roles.properties}
      * @throws IOException
      */
     public static UserManager forStandaloneApplicationRealm() throws IOException {
-        final Path jbossHome = EnvironmentUtils.getWildFlyHome();
+        return forStandaloneApplicationRealm(EnvironmentUtils.getWildFlyHome());
+    }
+
+    /**
+     * @param jbossHome relative to where {@code application-users.properties} and {@code application-roles.properties}
+     *        should be resolved
+     * @return a new {@link UserManager} that will operate on
+     *         {@code $jbossHome/standalone/configuration/application-users.properties} and
+     *         {@code $jbossHome/standalone/configuration/application-roles.properties}
+     * @throws IOException
+     */
+    public static UserManager forStandaloneApplicationRealm(Path jbossHome) throws IOException {
         final Path userPropertiesPath = jbossHome.resolve("standalone/configuration/application-users.properties");
         final Path rolePropertiesPath = jbossHome.resolve("standalone/configuration/application-roles.properties");
         return new UserManager(userPropertiesPath, rolePropertiesPath, APPLICATION_REALM);
     }
 
+
     /**
+     * `$jbossHome` taken from {@link EnvironmentUtils#getWildFlyHome()}.
+     *
      * @return a new {@link UserManager} that will operate on
      *         {@code $jbossHome/standalone/configuration/mgmt-users.properties} and
      *         {@code $jbossHome/standalone/configuration/mgmt-roles.properties}
      * @throws IOException
      */
     public static UserManager forStandaloneManagementRealm() throws IOException {
-        final Path jbossHome = EnvironmentUtils.getWildFlyHome();
+        return forStandaloneManagementRealm(EnvironmentUtils.getWildFlyHome());
+    }
+
+
+    /**
+     * @param jbossHome relative to where {@code mgmt-users.properties} and {@code mgmt-roles.properties} should be
+     *        resolved
+     * @return a new {@link UserManager} that will operate on
+     *         {@code $jbossHome/standalone/configuration/mgmt-users.properties} and
+     *         {@code $jbossHome/standalone/configuration/mgmt-roles.properties}
+     * @throws IOException
+     */
+    public static UserManager forStandaloneManagementRealm(Path jbossHome) throws IOException {
         final Path userPropertiesPath = jbossHome.resolve("standalone/configuration/mgmt-users.properties");
         final Path rolePropertiesPath = jbossHome.resolve("standalone/configuration/mgmt-roles.properties");
         return new UserManager(userPropertiesPath, rolePropertiesPath, MANAGEMENT_REALM);

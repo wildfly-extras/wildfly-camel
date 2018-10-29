@@ -38,8 +38,15 @@ import java.util.List;
 public class WildFlyCli {
     private static final String DEFAULT_TIMEOUT = "60000";
 
-    private WildFlyCli() {
-        // Hide ctor
+    private final Path wildFlyHome;
+
+    public WildFlyCli(Path wildFlyHome) {
+        super();
+        this.wildFlyHome = wildFlyHome;
+    }
+
+    public WildFlyCli() {
+        this(EnvironmentUtils.getWildFlyHome());
     }
 
     /**
@@ -52,10 +59,10 @@ public class WildFlyCli {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static WildFlyCliResult run(Path cliScript, String... cliArgs) throws IOException, InterruptedException {
+    public WildFlyCliResult run(Path cliScript, String... cliArgs) throws IOException, InterruptedException {
         final ProcessBuilder pb = new ProcessBuilder();
         final String ext = EnvironmentUtils.isWindows() ? "bat" : "sh";
-        final String jbossCliPath = EnvironmentUtils.getWildFlyHome().resolve("bin/jboss-cli." + ext).normalize().toString();
+        final String jbossCliPath = wildFlyHome.resolve("bin/jboss-cli." + ext).normalize().toString();
         final List<String> command = new ArrayList<>();
         command.add(jbossCliPath);
         command.add("--connect");
@@ -91,7 +98,7 @@ public class WildFlyCli {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static WildFlyCliResult run(String cliScript, String... cliArgs) throws IOException, InterruptedException {
+    public WildFlyCliResult run(String cliScript, String... cliArgs) throws IOException, InterruptedException {
         Path path = Files.createTempFile(WildFlyCli.class.getSimpleName(), ".cli");
         Files.write(path, cliScript.getBytes(StandardCharsets.UTF_8));
         return run(path, cliArgs);
@@ -106,7 +113,7 @@ public class WildFlyCli {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static WildFlyCliResult run(URL cliScript, String... cliArgs) throws IOException, InterruptedException {
+    public WildFlyCliResult run(URL cliScript, String... cliArgs) throws IOException, InterruptedException {
         Path path = Files.createTempFile(WildFlyCli.class.getSimpleName(), ".cli");
         FileUtils.copy(cliScript, path);
         return run(path, cliArgs);

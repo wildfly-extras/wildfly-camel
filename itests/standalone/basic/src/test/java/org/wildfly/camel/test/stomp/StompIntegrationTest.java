@@ -68,7 +68,7 @@ public class StompIntegrationTest {
                 + "params={protocols=STOMP, port=" + STOMP_PORT + "})\n"
                 + "reload";
 
-            WildFlyCli.run(cliScript).assertSuccess();
+            new WildFlyCli().run(cliScript).assertSuccess();
 
             try (UserManager userManager = UserManager.forStandaloneApplicationRealm()) {
                 userManager.addUser(USERNAME, PASSWORD);
@@ -80,7 +80,7 @@ public class StompIntegrationTest {
         public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
             String cliScript = "/subsystem=messaging-activemq/server=default/acceptor=stomp-acceptor:remove\n"
                 + "reload";
-            WildFlyCli.run(cliScript).assertSuccess();
+            new WildFlyCli().run(cliScript).assertSuccess();
 
             try (UserManager userManager = UserManager.forStandaloneApplicationRealm()) {
                 userManager.removeUser(USERNAME);
