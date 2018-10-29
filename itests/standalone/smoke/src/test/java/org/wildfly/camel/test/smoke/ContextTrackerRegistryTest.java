@@ -69,7 +69,7 @@ public class ContextTrackerRegistryTest {
     }
 
     private void reloadAppServer() throws IOException, InterruptedException {
-        WildFlyCli.run("reload").assertSuccess();
+        new WildFlyCli().run("reload").assertSuccess();
     }
 
     @ApplicationScoped
