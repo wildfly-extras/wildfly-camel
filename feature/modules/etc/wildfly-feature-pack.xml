@@ -210,7 +210,7 @@
         <artifact groupId="io.grpc" artifactId="grpc-protobuf" version="1.12.0"/>
         <artifact groupId="io.grpc" artifactId="grpc-protobuf-lite" version="1.12.0"/>
         <artifact groupId="io.grpc" artifactId="grpc-stub" version="1.12.0"/>
-        <artifact groupId="io.hawt" artifactId="hawtio-wildfly" version="2.1.0" extension="war"/>
+        <artifact groupId="io.hawt" artifactId="hawtio-wildfly" version="2.2.0" extension="war"/>
         <artifact groupId="io.jsonwebtoken" artifactId="jjwt" version="0.4"/>
         <artifact groupId="io.micrometer" artifactId="micrometer-core" version="1.0.5"/>
         <artifact groupId="io.nats" artifactId="jnats" version="1.0"/>
