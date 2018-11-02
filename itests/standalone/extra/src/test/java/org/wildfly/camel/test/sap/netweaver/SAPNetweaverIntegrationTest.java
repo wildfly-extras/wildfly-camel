@@ -30,6 +30,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,8 +44,8 @@ public class SAPNetweaverIntegrationTest {
     private static final String SAP_COMMAND = "FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')";
 
     @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-sap-netweaver-tests.jar")
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "SAPNetweaverIntegrationTest.war")
             .addClass(TestUtils.class)
             .addAsResource("sap/netweaver/flight-data.json", "flight-data.json")
             .addAsResource("sap/netweaver/flight-data.xml", "flight-data.xml");

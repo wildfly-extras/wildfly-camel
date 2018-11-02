@@ -30,9 +30,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import javax.servlet.Servlet;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -60,6 +63,7 @@ import org.wildfly.extension.undertow.deployment.UndertowDeploymentInfoService;
 import io.undertow.security.api.AuthenticationMechanismFactory;
 import io.undertow.server.HandlerWrapper;
 import io.undertow.server.HttpHandler;
+import io.undertow.server.HttpServerExchange;
 import io.undertow.server.session.SessionListener;
 import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.Deployment;
@@ -76,6 +80,7 @@ import io.undertow.servlet.api.ServletInfo;
 import io.undertow.servlet.api.ThreadSetupHandler;
 import io.undertow.servlet.api.TransportGuaranteeType;
 import io.undertow.servlet.api.WebResourceCollection;
+import io.undertow.servlet.core.DeploymentImpl;
 import io.undertow.servlet.core.ManagedServlet;
 import io.undertow.websockets.jsr.WebSocketDeploymentInfo;
 import io.undertow.websockets.jsr.WebSocketDeploymentInfo.ContainerReadyListener;
@@ -94,6 +99,25 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
 
     /** The name for the {@link CamelEndpointDeployerService} */
     private static final String SERVICE_NAME = "EndpointDeployer";
+
+    /** A {@link ThreadLocal} to pass the {@link HttpServerExchange} from the {@link HttpHandler} chain to {@link DelegatingEndpointHttpHandler} */
+    private static final ThreadLocal<HttpServerExchange> exchangeThreadLocal = new ThreadLocal<>();
+
+    /** Stores the {@link HttpServerExchange} to {@link #exchangeThreadLocal} */
+    private static final HandlerWrapper exchangeStoringHandlerWrapper = new HandlerWrapper() {
+        @Override
+        public HttpHandler wrap(final HttpHandler handler) {
+            return exchange -> {
+                exchangeThreadLocal.set(exchange);
+                try {
+                    handler.handleRequest(exchange);
+                } finally {
+                    exchangeThreadLocal.remove();
+                }
+            };
+        }
+
+    };
 
     /**
      * This method can simplified substantially, once https://github.com/undertow-io/undertow/pull/642 reaches us.
@@ -391,13 +415,54 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
     }
 
     /**
-     * Exposes a HTTP endpoint defined by the given {@link EndpointHttpHandler} under the given {@link URI}'s path.
+     * Exposes an HTTP endpoint defined by the given {@link EndpointHttpHandler} under the given {@link URI}'s path.
      *
      * @param uri determines the path and protocol under which the HTTP endpoint should be exposed
      * @param endpointHttpHandler an {@link EndpointHttpHandler} to use for handling HTTP requests sent to the given
      *        {@link URI}'s path
      */
     public void deploy(URI uri, EndpointHttpHandler endpointHttpHandler) {
+        doDeploy(
+                uri,
+                servletInstance -> servletInstance.setEndpointHttpHandler(endpointHttpHandler), // plug the endpointHttpHandler into the servlet
+                deploymentInfo -> {}, // no need to customize the deploymentInfo
+                deployment -> {} // no need to customize the deployment
+        );
+    }
+
+    /**
+     * Exposes an HTTP endpoint that will be served by the given {@link HttpHandler} under the given {@link URI}'s path.
+     *
+     * @param uri determines the path and protocol under which the HTTP endpoint should be exposed
+     * @param routingHandler an {@link HttpHandler} to use for handling HTTP requests sent to the given
+     *        {@link URI}'s path
+     */
+    public void deploy(URI uri, final HttpHandler routingHandler) {
+        final Set<Deployment> availableDeployments = hostSupplier.getValue().getDeployments();
+        if (!availableDeployments.stream().anyMatch(
+                        deployment -> deployment.getHandler() instanceof CamelEndpointDeployerHandler
+                    && ((CamelEndpointDeployerHandler) deployment.getHandler()).getRoutingHandler() == routingHandler)) {
+            /* deploy only if the routing handler is not there already */
+            doDeploy(
+                    uri,
+                    servletInstance -> servletInstance.setEndpointHttpHandler(new DelegatingEndpointHttpHandler(routingHandler)), // plug the endpointHttpHandler into the servlet
+                    deploymentInfo -> deploymentInfo.addInnerHandlerChainWrapper(exchangeStoringHandlerWrapper), // add the handler to the chain
+                    deployment -> { // wrap the initial handler with our custom class so that we can recognize it at other places
+                        final HttpHandler servletHandler = new CamelEndpointDeployerHandler(deployment.getHandler(), routingHandler);
+                        deployment.setInitialHandler(servletHandler);
+                    });
+        }
+    }
+
+    /**
+     * The stuff common for {@link #deploy(URI, EndpointHttpHandler)} and {@link #deploy(URI, HttpHandler)}.
+     *
+     * @param uri
+     * @param endpointServletConsumer customize the {@link EndpointServlet}
+     * @param deploymentInfoConsumer customize the {@link DeploymentInfo}
+     * @param deploymentConsumer customize the {@link DeploymentImpl}
+     */
+    void doDeploy(URI uri, Consumer<EndpointServlet> endpointServletConsumer, Consumer<DeploymentInfo> deploymentInfoConsumer, Consumer<DeploymentImpl> deploymentConsumer) {
 
         final ServletInfo servletInfo = Servlets.servlet(EndpointServlet.NAME, EndpointServlet.class).addMapping("/*")
                 .setAsyncSupported(true);
@@ -405,6 +470,7 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
         final DeploymentInfo mainDeploymentInfo = deploymentInfoSupplier.getValue();
 
         DeploymentInfo endPointDeplyomentInfo = adaptDeploymentInfo(mainDeploymentInfo, uri, servletInfo);
+        deploymentInfoConsumer.accept(endPointDeplyomentInfo);
         CamelLogger.LOGGER.debug("Deploying endpoint {}", endPointDeplyomentInfo.getDeploymentName());
 
         final ClassLoader old = Thread.currentThread().getContextClassLoader();
@@ -415,13 +481,14 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
             manager.deploy();
             final Deployment deployment = manager.getDeployment();
             try {
-                HttpHandler servletHandler = manager.start();
-                hostSupplier.getValue().registerDeployment(deployment, servletHandler);
+                deploymentConsumer.accept((DeploymentImpl) deployment);
+                manager.start();
+                hostSupplier.getValue().registerDeployment(deployment, deployment.getHandler());
 
                 ManagedServlet managedServlet = deployment.getServlets().getManagedServlet(EndpointServlet.NAME);
 
                 EndpointServlet servletInstance = (EndpointServlet) managedServlet.getServlet().getInstance();
-                servletInstance.setEndpointHttpHandler(endpointHttpHandler);
+                endpointServletConsumer.accept(servletInstance);
             } catch (ServletException ex) {
                 throw new IllegalStateException(ex);
             }
@@ -491,6 +558,69 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
 
     }
 
+    /**
+     * An {@link HttpHandler} that delegates to {@link #initialServletHandler} and stores the {@link #routingHandler}
+     * so that the given routing handler can be recognized at other places and based on that it can be deployed only once.
+     */
+    public static class CamelEndpointDeployerHandler implements HttpHandler {
+        private final HttpHandler initialServletHandler;
+        private final HttpHandler routingHandler;
+
+        public CamelEndpointDeployerHandler(HttpHandler initialServletHandler, HttpHandler routingHandler) {
+            super();
+            this.initialServletHandler = initialServletHandler;
+            this.routingHandler = routingHandler;
+        }
+
+        public HttpHandler getRoutingHandler() {
+            return routingHandler;
+        }
+
+        @Override
+        public void handleRequest(HttpServerExchange exchange) throws Exception {
+            initialServletHandler.handleRequest(exchange);
+        }
+
+    }
+
+    /**
+     * A funny class: although called from within a {@link Servlet} it actually delegates to an {@link HttpHandler}
+     * using the {@link HttpServerExchange} stored in {@link CamelEndpointDeployerService#exchangeThreadLocal}. Found no
+     * better way to deploy an {@link HttpHandler} that we get through
+     * {@link CamelEndpointDeployerService#deploy(URI, HttpHandler)} so that the role permissions are enforced.
+     * The role permissions are enforced by an {@link HttpHandler} quite late in the chain, so our {@link HttpHandler}
+     * would have to be placed behind that one. But Undertow API do not allow that. Therefore this weird servlet
+     * wrapping an {@link HttpHandler}.
+     */
+    static class DelegatingEndpointHttpHandler implements EndpointHttpHandler {
+
+        private final HttpHandler handler;
+
+        public DelegatingEndpointHttpHandler(HttpHandler handler) {
+            super();
+            this.handler = handler;
+        }
+
+        @Override
+        public ClassLoader getClassLoader() {
+            return null;
+        }
+
+        @Override
+        public void service(ServletContext context, HttpServletRequest req, HttpServletResponse resp)
+                throws IOException {
+            HttpServerExchange exchange = exchangeThreadLocal.get();
+            try {
+                handler.handleRequest(exchange);
+            } catch (IOException e) {
+                throw e;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
     @SuppressWarnings("serial")
     static class EndpointServlet extends HttpServlet {
 
@@ -499,7 +629,9 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
 
         @Override
         protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-            endpointHttpHandler.service(getServletContext(), req, res);
+            if (endpointHttpHandler != null) {
+                endpointHttpHandler.service(getServletContext(), req, res);
+            }
         }
 
         public void setEndpointHttpHandler(EndpointHttpHandler endpointHttpHandler) {

@@ -9,6 +9,7 @@
     <module name="org.apache.cxf.impl" />
     <module name="org.jboss.as.server" />
     <module name="org.jboss.as.network" />
+    <module name="org.jboss.modules" />
     <module name="io.undertow.core" />
     <module name="io.undertow.servlet" />
     <module name="org.slf4j" />

@@ -28,6 +28,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.Map;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import javax.net.ssl.HostnameVerifier;
@@ -77,12 +78,10 @@ public class SecurityUtils {
             + "</security-constraint>"
     ;
 
+    private static final String ROLE_NAME_TEMPLATE = "<role-name>%s</role-name>";
     private static final String WEB_XML_TEMPLATE = "<web-app>"
             + "%s" // security constraints
-            + "<security-role>"
-            + "<role-name>testRole</role-name>"
-            + "<role-name>testRoleSub</role-name>"
-            + "</security-role>"
+            + "<security-role>%s</security-role>"
             + "<login-config>"
             + "<auth-method>%s</auth-method>"
             + "</login-config>"
@@ -188,7 +187,12 @@ public class SecurityUtils {
                 .map(en -> String.format(WEB_XML_SECURITY_CONSTRAINT_TEMPLATE, (int) (Math.random() * 1000),
                         en.getKey(), en.getValue()))
                 .collect(Collectors.joining());
-        final String webXml = String.format(WEB_XML_TEMPLATE, securityConstraints, authMethod);
+        final String roleNames = uriRolesMap.values().stream()
+                .collect(Collectors.toCollection(TreeSet::new)).stream()
+                .map(roleName -> String.format(ROLE_NAME_TEMPLATE, roleName))
+                .collect(Collectors.joining());
+
+        final String webXml = String.format(WEB_XML_TEMPLATE, securityConstraints, roleNames, authMethod);
 
         archive.addClasses(WildFlyCli.class, SecurityUtils.class, EnvironmentUtils.class)
                 .addAsWebInfResource(new StringAsset(String.format(JBOSS_WEB_XML_TEMPLATE, securityDomain)),

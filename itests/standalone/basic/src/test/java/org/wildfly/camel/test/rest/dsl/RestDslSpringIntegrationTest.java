@@ -23,7 +23,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,8 +39,8 @@ public class RestDslSpringIntegrationTest {
     CamelContextRegistry contextRegistry;
 
     @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-rest-spring-tests.jar")
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "RestDslSpringIntegrationTest.war")
             .addAsResource("rest/rest-camel-context.xml", "camel-context.xml")
             .addClass(HttpRequest.class);
     }

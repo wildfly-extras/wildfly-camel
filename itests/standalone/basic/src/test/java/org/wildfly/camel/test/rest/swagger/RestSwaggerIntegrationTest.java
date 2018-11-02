@@ -35,7 +35,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,16 +48,16 @@ import org.wildfly.extension.camel.CamelAware;
 public class RestSwaggerIntegrationTest {
 
     @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-rest-swagger-tests.jar")
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "RestSwaggerIntegrationTest.war")
             .addClass(Customer.class);
     }
 
-    @Deployment(testable = false, name = "camel-rest-swagger-service.jar")
-    public static JavaArchive restServiceDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-rest-swagger-service.jar")
+    @Deployment(testable = false, name = "RestSwaggerIntegrationTest-endpoints.war")
+    public static WebArchive restServiceDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "RestSwaggerIntegrationTest-endpoints.war")
             .addPackage(RestRouteBuilder.class.getPackage())
-            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @Test

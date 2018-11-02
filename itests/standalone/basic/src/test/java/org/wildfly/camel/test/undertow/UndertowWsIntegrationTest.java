@@ -45,6 +45,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.logging.Logger;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,8 +62,8 @@ public class UndertowWsIntegrationTest {
     private static Logger log = Logger.getLogger(UndertowWsIntegrationTest.class);
 
     @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "undertow-ws-tests").addClasses(HttpRequest.class,
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "UndertowWsIntegrationTest.war").addClasses(HttpRequest.class,
                 TestClient.class);
     }
 

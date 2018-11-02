@@ -40,6 +40,8 @@ import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
 import org.wildfly.extension.camel.CamelLogger;
 
+import io.undertow.server.HttpHandler;
+
 /**
  * A service that either schedules HTTP endpoints for deployment once {@link #deployerService} becomes available or
  * deploys them instantly if the {@link #deployerService} is available already. The split between
@@ -105,7 +107,8 @@ public class CamelEndpointDeploymentSchedulerService implements Service<CamelEnd
 
     private final String deploymentName;
 
-    private final Map<URI, EndpointHttpHandler> scheduledHandlers = new HashMap<>();
+    /** Let's use values for both {@link HttpHandler}s and {@link EndpointHttpHandler}s */
+    private final Map<URI, Object> scheduledHandlers = new HashMap<>();
 
     CamelEndpointDeploymentSchedulerService(String deploymentName) {
         super();
@@ -136,6 +139,17 @@ public class CamelEndpointDeploymentSchedulerService implements Service<CamelEnd
         }
     }
 
+    public void schedule(URI uri, HttpHandler handler) {
+        synchronized (scheduledHandlers) {
+            CamelLogger.LOGGER.debug("Scheduling a deployment of endpoint {} from {}", uri, deploymentName);
+            if (this.deployerService != null) {
+                this.deployerService.deploy(uri, handler);
+            } else {
+                scheduledHandlers.put(uri, handler);
+            }
+        }
+    }
+
     /**
      * Sets the {@link CamelEndpointDeployerService} and deploys any endpoints scheduled for deployment so far.
      *
@@ -144,10 +158,17 @@ public class CamelEndpointDeploymentSchedulerService implements Service<CamelEnd
     public void registerDeployer(CamelEndpointDeployerService deploymentService) {
         synchronized (scheduledHandlers) {
             /* Deploy the endpoints scheduled so far */
-            for (Iterator<Entry<URI, EndpointHttpHandler>> it = scheduledHandlers.entrySet().iterator(); it
+            for (Iterator<Entry<URI, Object>> it = scheduledHandlers.entrySet().iterator(); it
                     .hasNext();) {
-                Entry<URI, EndpointHttpHandler> en = it.next();
-                deploymentService.deploy(en.getKey(), en.getValue());
+                final Entry<URI, Object> en = it.next();
+                final Object handler = en.getValue();
+                if (handler instanceof EndpointHttpHandler) {
+                    deploymentService.deploy(en.getKey(), (EndpointHttpHandler) handler);
+                } else if (handler instanceof HttpHandler) {
+                    deploymentService.deploy(en.getKey(), (HttpHandler) handler);
+                } else {
+                    throw new IllegalStateException("Unexpected type "+ (handler == null ? "null" : handler.getClass().getName()));
+                }
                 it.remove();
             }
             this.deployerService = deploymentService;

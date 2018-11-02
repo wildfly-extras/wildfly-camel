@@ -55,8 +55,8 @@ public class UndertowIntegrationTest {
     private Deployer deployer;
 
     @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "undertow-tests")
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "UndertowIntegrationTest.war")
             .addClasses(HttpRequest.class);
     }
 

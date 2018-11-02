@@ -36,23 +36,23 @@ import org.wildfly.camel.test.rest.dsl.subA.ContextPathPrintingServlet;
 @RunWith(Arquillian.class)
 public class UndertowRestDslIntegrationTest extends AbstractRestDslIntegrationTest {
 
-    private static final String SIMPLE_JAR = "simple.jar";
-    private static final String SIMPLE_WAR = "simple.war";
+    private static final String SPRING_REST_WAR = "UndertowRestDslIntegrationTest-spring-rest.war";
+    private static final String SERVLET_WAR = "UndertowRestDslIntegrationTest-servlet.war";
 
     @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-undertow-rest-dsl-tests.jar")
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "UndertowRestDslIntegrationTest.war")
             .addClasses(HttpRequest.class, AbstractRestDslIntegrationTest.class);
     }
 
-    @Deployment(testable = false, managed = false, name = SIMPLE_WAR)
+    @Deployment(testable = false, managed = false, name = SERVLET_WAR)
     public static WebArchive createSimpleDeployment() {
-        return ShrinkWrap.create(WebArchive.class, SIMPLE_WAR).addClass(ContextPathPrintingServlet.class);
+        return ShrinkWrap.create(WebArchive.class, SERVLET_WAR).addClass(ContextPathPrintingServlet.class);
     }
 
-    @Deployment(testable = false, managed = false, name = SIMPLE_JAR)
-    public static JavaArchive cameSimpleSpringDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, SIMPLE_JAR)
+    @Deployment(testable = false, managed = false, name = SPRING_REST_WAR)
+    public static WebArchive cameSimpleSpringDeployment() {
+        return ShrinkWrap.create(WebArchive.class, SPRING_REST_WAR)
             .addAsResource("rest/rest-camel-context.xml", "camel-context.xml");
     }
 
@@ -83,7 +83,7 @@ public class UndertowRestDslIntegrationTest extends AbstractRestDslIntegrationTe
 
         camelctx.start();
         try {
-            deployer.deploy(SIMPLE_WAR);
+            deployer.deploy(SERVLET_WAR);
 
             // Verify root context path
             HttpRequest.HttpResponse response = HttpRequest.get("http://localhost:8080/").getResponse();
@@ -91,12 +91,12 @@ public class UndertowRestDslIntegrationTest extends AbstractRestDslIntegrationTe
             Assert.assertTrue(response.getBody().contains("GET: /"));
 
             // Verify other deployed context paths
-            response = HttpRequest.get("http://localhost:8080/simple").getResponse();
+            response = HttpRequest.get("http://localhost:8080/UndertowRestDslIntegrationTest-servlet").getResponse();
             Assert.assertEquals(200, response.getStatusCode());
-            Assert.assertTrue(response.getBody().contains("GET: /simple"));
+            Assert.assertTrue(response.getBody().contains("GET: /UndertowRestDslIntegrationTest-servlet"));
 
         } finally {
-            deployer.undeploy(SIMPLE_WAR);
+            deployer.undeploy(SERVLET_WAR);
             camelctx.stop();
         }
     }
@@ -120,12 +120,12 @@ public class UndertowRestDslIntegrationTest extends AbstractRestDslIntegrationTe
             }
         });
 
-        deployer.deploy(SIMPLE_JAR);
+        deployer.deploy(SPRING_REST_WAR);
         try {
             camelctx.start();
         } finally {
             camelctx.stop();
-            deployer.undeploy(SIMPLE_JAR);
+            deployer.undeploy(SPRING_REST_WAR);
         }
     }
 
