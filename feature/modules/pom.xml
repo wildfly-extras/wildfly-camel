@@ -253,6 +253,12 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-chronicle</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.java</groupId>
+                    <artifactId>tools</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- jsonpath before chunk because of json-smart -->
         <dependency>
@@ -1093,6 +1099,10 @@
                             <groupId>org.wildfly</groupId>
                             <artifactId>wildfly-feature-pack</artifactId>
                         </exclude>
+                        <exclude>
+                            <groupId>com.sun.java</groupId>
+                            <artifactId>tools</artifactId>
+                        </exclude>
                     </dependencyExcludes>
                 </configuration>
             </plugin>
@@ -1165,4 +1175,23 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>pre-java9</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.sun.java</groupId>
+                    <artifactId>tools</artifactId>
+                    <version>1.7.0</version>
+                    <scope>system</scope>
+                    <systemPath>${java.home}/../lib/tools.jar</systemPath>
+                </dependency>
+            </dependencies>
+            <activation>
+                <file>
+                    <exists>${java.home}/../lib/tools.jar</exists>
+                </file>
+            </activation>
+        </profile>
+    </profiles>
 </project>

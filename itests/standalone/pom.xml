@@ -38,6 +38,7 @@
         <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
         <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true -Djava.security.egd=file:/dev/./urandom</jvmArgs>
         <jvmDebugArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmDebugArgs>
+        <commandlineArgs>-jar ${jboss.home}/jboss-modules.jar -mp ${jboss.home}/modules org.wildfly.extras.config --configs camel --enable</commandlineArgs>
     </properties>
 
     <!-- Dependencies -->
@@ -119,7 +120,7 @@
                                 <environmentVariables>
                                     <JBOSS_HOME>${jboss.home}</JBOSS_HOME>
                                 </environmentVariables>
-                                <commandlineArgs>-jar ${jboss.home}/jboss-modules.jar -mp ${jboss.home}/modules org.wildfly.extras.config --configs camel --enable</commandlineArgs>
+                                <commandlineArgs>${commandlineArgs}</commandlineArgs>
                             </configuration>
                         </execution>
                     </executions>
@@ -235,6 +236,16 @@
                 <module>extra</module>
                 <module>docker</module>
             </modules>
+        </profile>
+        <profile>
+            <id>java9-plus</id>
+            <activation>
+                <jdk>[9,)</jdk>
+            </activation>
+            <properties>
+                <!--a workaround for https://issues.jboss.org/browse/MODULES-372-->
+                <commandlineArgs>--add-modules java.se -jar ${jboss.home}/jboss-modules.jar -mp ${jboss.home}/modules org.wildfly.extras.config --configs camel --enable</commandlineArgs>
+            </properties>
         </profile>
     </profiles>
 </project>

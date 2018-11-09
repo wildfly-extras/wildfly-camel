@@ -18,6 +18,7 @@ package org.wildfly.camel.test.beanstalk;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 import org.apache.camel.CamelContext;
@@ -42,6 +43,7 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.hamcrest.CoreMatchers;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.asset.FileAsset;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
@@ -67,6 +69,8 @@ public class BeanstalkIntegrationTest {
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-beanstalk-tests");
         archive.addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage(), ByteBuddy.class.getPackage());
+        //see https://issues.jboss.org/browse/MODULES-373 we need add jdk.unsupported module to dependencies
+        archive.addAsManifestResource(new FileAsset(new File("src/test/resources/META-INF/MANIFEST.MF")), "MANIFEST.MF");
         return archive;
     }
 

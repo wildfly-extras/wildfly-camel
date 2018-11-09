@@ -104,15 +104,15 @@
         <version-maven-compiler-plugin>3.1</version-maven-compiler-plugin>
         <version-maven-dependency-plugin>2.10</version-maven-dependency-plugin>
         <version-maven-deploy-plugin>2.8.2</version-maven-deploy-plugin>
-        <version-maven-enforcer-plugin>1.3.1</version-maven-enforcer-plugin>
+        <version-maven-enforcer-plugin>3.0.0-M1</version-maven-enforcer-plugin>
         <version-maven-install-plugin>2.5.2</version-maven-install-plugin>
-        <version-maven-jar-plugin>2.6</version-maven-jar-plugin>
+        <version-maven-jar-plugin>3.1.0</version-maven-jar-plugin>
         <version-maven-javadoc-plugin>3.0.1</version-maven-javadoc-plugin>
         <version-maven-release-plugin>2.5</version-maven-release-plugin>
         <version-maven-resources-plugin>3.0.2</version-maven-resources-plugin>
         <version-maven-source-plugin>2.3</version-maven-source-plugin>
         <version-maven-surefire-plugin>2.21.0</version-maven-surefire-plugin>
-        <version-maven-war-plugin>3.0.0</version-maven-war-plugin>
+        <version-maven-war-plugin>3.1.0</version-maven-war-plugin>
         <version-properties-maven-plugin>1.0.0</version-properties-maven-plugin>
         <version-editorconfig-maven-plugin>0.0.5</version-editorconfig-maven-plugin>
         <version-shrinkwrap-resolver-maven-plugin>2.2.6</version-shrinkwrap-resolver-maven-plugin>
