@@ -152,8 +152,8 @@ class DependencyGraph {
     }
 
 }
-
-def paths = [properties.get("wildfly.module.dir"), properties.get("wildfly.camel.module.dir")]
+def wfcHome = properties.get("wildfly.camel.dir")
+def paths = ["${wfcHome}/modules/system/layers/base", "${wfcHome}/modules/system/layers/fuse"]
 
 // A set of WildFly Camel modules that all other WildFly Camel modules are supposed to transitively depend on
 def rootModules = [

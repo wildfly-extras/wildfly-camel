@@ -346,8 +346,8 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.wildfly.build</groupId>
-                        <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
+                        <groupId>org.jboss.galleon</groupId>
+                        <artifactId>galleon-maven-plugin</artifactId>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>

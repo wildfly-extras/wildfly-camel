@@ -172,7 +172,7 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.tika" >
+    <module name="org.apache.tika" skip="true">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>

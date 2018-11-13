@@ -260,6 +260,13 @@
         </exports>
     </module>
 
+    <module name="com.carrotsearch.hppc">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.carrotsearch:hppc" />
+    </module>
+
     <module name="com.damnhandy.handy-uri-templates">
         <properties>
             <property name="jboss.api" value="private"/>

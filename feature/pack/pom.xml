@@ -37,8 +37,7 @@
     <properties>
         <license.dir>${project.basedir}/src/main/resources/license</license.dir>
         <license.output.dir>${project.build.directory}/licenses</license.output.dir>
-        <wildfly.module.dir>${project.build.directory}/wildfly-${version.wildfly}/modules/system/layers/base</wildfly.module.dir>
-        <wildfly.camel.module.dir>${project.build.directory}/wildfly-camel-${project.version}/modules/system/layers/fuse</wildfly.camel.module.dir>
+        <wildfly.camel.dir>${project.build.directory}/wildfly-camel-${project.version}</wildfly.camel.dir>
         <wildfly-camel-feature-pack.basedir>${project.basedir}</wildfly-camel-feature-pack.basedir>
     </properties>
 
@@ -84,76 +83,62 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
+                <groupId>org.jboss.galleon</groupId>
+                <artifactId>galleon-maven-plugin</artifactId>
                 <executions>
-                    <execution>
-                        <id>unpack-wildfly-feature-pack</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <inherited>false</inherited>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.wildfly</groupId>
-                                    <artifactId>wildfly-feature-pack</artifactId>
-                                    <version>${version.wildfly}</version>
-                                    <type>zip</type>
-                                    <overWrite>false</overWrite>
-                                    <includes>configuration/standalone/**</includes>
-                                    <outputDirectory>${project.build.directory}/wildfly-feature-pack</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.wildfly.build</groupId>
-                <artifactId>wildfly-feature-pack-build-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>feature-pack-build</id>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                        <phase>compile</phase>
-                        <configuration>
-                            <config-file>scripts/feature-pack-build.xml</config-file>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.wildfly.build</groupId>
-                <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>provision-wildfly</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                        <configuration>
-                            <config-file>src/main/resources/wildfly-provisioning.xml</config-file>
-                            <server-name>wildfly-${version.wildfly}</server-name>
-                        </configuration>
-                    </execution>
                     <execution>
                         <id>provision-wildfly-camel</id>
-                        <phase>compile</phase>
                         <goals>
-                            <goal>build</goal>
+                            <goal>provision</goal>
                         </goals>
+                        <phase>verify</phase>
                         <configuration>
-                            <config-file>src/main/resources/wildfly-camel-provisioning.xml</config-file>
-                            <server-name>wildfly-camel-${project.version}</server-name>
+                            <install-dir>${project.build.directory}/wildfly-camel-${project.version}</install-dir>
+                            <offline>false</offline>
+                            <resolve-locals>
+                                <resolve-local>
+                                    <groupId>org.wildfly.camel</groupId>
+                                    <artifactId>wildfly-camel-feature-modules</artifactId>
+                                    <version>${project.version}</version>
+                                </resolve-local>
+                                <resolve-local>
+                                    <groupId>org.wildfly.camel</groupId>
+                                    <artifactId>wildfly-camel-feature-extrasA</artifactId>
+                                    <version>${project.version}</version>
+                                </resolve-local>
+                                <resolve-local>
+                                    <groupId>org.wildfly.camel</groupId>
+                                    <artifactId>wildfly-camel-feature-extrasB</artifactId>
+                                    <version>${project.version}</version>
+                                </resolve-local>
+                                <resolve-local>
+                                    <groupId>org.wildfly.camel</groupId>
+                                    <artifactId>wildfly-camel-feature-extrasC</artifactId>
+                                    <version>${project.version}</version>
+                                </resolve-local>
+                                <resolve-local>
+                                    <groupId>org.wildfly.camel</groupId>
+                                    <artifactId>wildfly-camel-feature-pack</artifactId>
+                                    <version>${project.version}</version>
+                                </resolve-local>
+                            </resolve-locals>
+                            <feature-packs>
+                                <feature-pack>
+                                    <groupId>org.wildfly.camel</groupId>
+                                    <artifactId>wildfly-camel-feature-pack</artifactId>
+                                    <version>${project.version}</version>
+                                    <inherit-configs>true</inherit-configs>
+                                </feature-pack>
+                            </feature-packs>
+                            <plugin-options>
+                                <jboss-fork-embedded/>
+                                <jboss-maven-dist/>
+                            </plugin-options>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.codehaus.gmaven</groupId>
                 <artifactId>groovy-maven-plugin</artifactId>
@@ -163,29 +148,24 @@
                         <goals>
                             <goal>execute</goal>
                         </goals>
-                        <phase>compile</phase>
+                        <phase>verify</phase>
                         <configuration>
                             <source>${project.basedir}/scripts/module-checker.groovy</source>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
+                <groupId>org.wildfly.galleon-plugins</groupId>
+                <artifactId>wildfly-galleon-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
+                        <id>feature-pack-build</id>
                         <goals>
-                            <goal>single</goal>
+                            <goal>build-feature-pack</goal>
                         </goals>
-                        <configuration>
-                            <appendAssemblyId>false</appendAssemblyId>
-                            <descriptors>
-                                <descriptor>scripts/assembly-feature-pack.xml</descriptor>
-                            </descriptors>
-                        </configuration>
+                        <phase>package</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -200,8 +180,9 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
+    <!-- <profiles>
         <profile>
+            Needs to get re-enabled - see https://github.com/wildfly-extras/wildfly-camel/issues/2700
             <id>update-licenses-xml</id>
             <activation>
                 <property>
@@ -334,7 +315,7 @@
             </build>
         </profile>
 
-        <!-- Activate this profile to download license info -->
+        Activate this profile to download license info
         <profile>
             <id>generate-licenses-xml</id>
             <build>
@@ -358,5 +339,5 @@
                 </plugins>
             </build>
         </profile>
-    </profiles>
+    </profiles> -->
 </project>

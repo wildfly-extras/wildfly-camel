@@ -74,7 +74,7 @@
             <type>zip</type>
             <exclusions>
                 <exclusion>
-                    <groupId>*</groupId>
+                    <groupId>org.apache.lucene</groupId>
                     <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
@@ -107,12 +107,24 @@
                     </modules>
                     <dependencyExcludes>
                         <exclude>
-                            <groupId>org.wildfly.camel</groupId>
-                            <artifactId>wildfly-camel-feature-extrasA</artifactId>
-                        </exclude>
-                        <exclude>
                             <groupId>org.apache.logging.log4j</groupId>
                             <artifactId>log4j-api-java9</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.wildfly.core</groupId>
+                            <artifactId>wildfly-core-galleon-pack</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.wildfly</groupId>
+                            <artifactId>wildfly-galleon-pack</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.wildfly.camel</groupId>
+                            <artifactId>wildfly-camel-feature-modules</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.wildfly.camel</groupId>
+                            <artifactId>wildfly-camel-feature-extrasA</artifactId>
                         </exclude>
                     </dependencyExcludes>
                 </configuration>
@@ -134,53 +146,18 @@
                             </target>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>feature-pack-xml</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <property name="feature.pack.dir" value="${project.build.directory}/${project.artifactId}-${project.version}" />
-                                <copy file="${feature.pack.dir}/wildfly-feature-pack.xml" todir="${basedir}/etc" />
-                            </target>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.wildfly.build</groupId>
-                <artifactId>wildfly-feature-pack-build-maven-plugin</artifactId>
+                <groupId>org.wildfly.galleon-plugins</groupId>
+                <artifactId>wildfly-galleon-maven-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>feature-pack-build</id>
-                        <phase>compile</phase>
                         <goals>
-                            <goal>build</goal>
+                            <goal>build-feature-pack</goal>
                         </goals>
-                        <configuration>
-                            <config-file>scripts/feature-pack-build.xml</config-file>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
                         <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <appendAssemblyId>false</appendAssemblyId>
-                            <descriptors>
-                                <descriptor>scripts/assembly-feature-pack.xml</descriptor>
-                            </descriptors>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>

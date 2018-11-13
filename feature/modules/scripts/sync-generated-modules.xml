@@ -42,13 +42,6 @@
             </filterset>
         </copy>
 
-        <!-- Copy managed jar resources to patch -->
-        <copy todir="${output.dir}/managed-jars/modules" >
-            <fileset dir="${target.patch.dir}/modules">
-                <include name="**/*.jar" />
-            </fileset>
-        </copy>
-
         <!-- Sync source tree with Smartics generated XML files -->
         <sync todir="${resources.dir}/modules" overwrite="true" verbose="true">
             <fileset dir="${target.patch.dir}/modules">

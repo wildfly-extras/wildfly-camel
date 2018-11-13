@@ -55,6 +55,10 @@
             <!-- Avoid clashes with Arquillian Cube Jersey JAX-RS provider -->
             <exclusions>
                 <exclusion>
+                    <groupId>org.jboss.resteasy</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>com.sun.jersey</groupId>
                     <artifactId>*</artifactId>
                 </exclusion>
@@ -86,8 +90,8 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.wildfly.build</groupId>
-                <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
+                <groupId>org.jboss.galleon</groupId>
+                <artifactId>galleon-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

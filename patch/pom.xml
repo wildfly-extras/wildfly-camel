@@ -54,29 +54,73 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.wildfly.build</groupId>
-                <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
+                <groupId>org.jboss.galleon</groupId>
+                <artifactId>galleon-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>wildfly</id>
+                        <id>provision-wildfly</id>
                         <goals>
-                            <goal>build</goal>
+                            <goal>provision</goal>
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <config-file>scripts/wildfly-provisioning.xml</config-file>
-                            <server-name>${jboss.server.name}</server-name>
+                            <install-dir>${project.build.directory}/${jboss.server.name}</install-dir>
+                            <offline>false</offline>
+                            <feature-packs>
+                                <feature-pack>
+                                    <groupId>org.wildfly</groupId>
+                                    <artifactId>wildfly-galleon-pack</artifactId>
+                                    <version>${version.wildfly}</version>
+                                    <inherit-configs>true</inherit-configs>
+                                </feature-pack>
+                            </feature-packs>
+                            <plugin-options>
+                                <jboss-fork-embedded/>
+                            </plugin-options>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>wildfly-camel</id>
+                        <id>provision-wildfly-camel</id>
                         <goals>
-                            <goal>build</goal>
+                            <goal>provision</goal>
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <config-file>scripts/wildfly-camel-provisioning.xml</config-file>
-                            <server-name>wildfly-patch</server-name>
+                            <install-dir>${project.build.directory}/wildfly-patch</install-dir>
+                            <offline>false</offline>
+                            <resolve-locals>
+                                <resolve-local>
+                                    <groupId>org.wildfly.camel</groupId>
+                                    <artifactId>wildfly-camel-feature-modules</artifactId>
+                                    <version>${project.version}</version>
+                                </resolve-local>
+                                <resolve-local>
+                                    <groupId>org.wildfly.camel</groupId>
+                                    <artifactId>wildfly-camel-feature-extrasA</artifactId>
+                                    <version>${project.version}</version>
+                                </resolve-local>
+                                <resolve-local>
+                                    <groupId>org.wildfly.camel</groupId>
+                                    <artifactId>wildfly-camel-feature-extrasB</artifactId>
+                                    <version>${project.version}</version>
+                                </resolve-local>
+                                <resolve-local>
+                                    <groupId>org.wildfly.camel</groupId>
+                                    <artifactId>wildfly-camel-feature-extrasC</artifactId>
+                                    <version>${project.version}</version>
+                                </resolve-local>
+                            </resolve-locals>
+                            <feature-packs>
+                                <feature-pack>
+                                    <groupId>org.wildfly.camel</groupId>
+                                    <artifactId>wildfly-camel-feature-pack</artifactId>
+                                    <version>${project.version}</version>
+                                    <inherit-configs>true</inherit-configs>
+                                </feature-pack>
+                            </feature-packs>
+                            <plugin-options>
+                                <jboss-fork-embedded/>
+                            </plugin-options>
                         </configuration>
                     </execution>
                 </executions>
@@ -121,7 +165,7 @@
                 <executions>
                     <execution>
                         <id>module-list-generate</id>
-                        <phase>verify</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>

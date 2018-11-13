@@ -20,7 +20,7 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="com.carrotsearch.hppc">
+    <module name="com.carrotsearch.hppc" skip="true">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
