@@ -49,7 +49,7 @@ public class UndertowSecureRestDslSpringIntegrationTest extends AbstractUndertow
 
     private static WebArchive app(String war, String springContextXml, Map<String, String> pathRoleMap) {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, war).addClasses(BasicSecurityDomainASetup.class,
-                CXFRSSecureUtils.class, TestClient.class);
+                CXFRSSecureUtils.class, TestClient.class, AbstractUndertowSecureRestDslClientTest.class);
         SecurityUtils.enhanceArchive(archive, BasicSecurityDomainASetup.SECURITY_DOMAIN,
                 BasicSecurityDomainASetup.AUTH_METHOD, pathRoleMap);
         archive.addAsWebInfResource("rest/" + springContextXml, springContextXml);

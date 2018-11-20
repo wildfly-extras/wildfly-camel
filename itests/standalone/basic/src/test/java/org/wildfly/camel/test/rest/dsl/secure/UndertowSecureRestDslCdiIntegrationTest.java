@@ -54,7 +54,7 @@ public class UndertowSecureRestDslCdiIntegrationTest extends AbstractUndertowSec
 
     private static WebArchive app(String war, Class<?> routeBuilder, Map<String, String> pathRoleMap) {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, war)
-                .addClasses(BasicSecurityDomainASetup.class,CXFRSSecureUtils.class, TestClient.class, routeBuilder)
+                .addClasses(BasicSecurityDomainASetup.class, CXFRSSecureUtils.class, TestClient.class, routeBuilder, AbstractUndertowSecureRestDslClientTest.class)
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
         SecurityUtils.enhanceArchive(archive, BasicSecurityDomainASetup.SECURITY_DOMAIN,
                 BasicSecurityDomainASetup.AUTH_METHOD, pathRoleMap);

@@ -35,7 +35,7 @@
         </restConfiguration>
 
         <rest>
-            <get uri="endpoint1"
+            <get uri="/endpoint1"
             bindingMode="auto"
             id="endpoint1"
             outType="java.lang.String"

@@ -107,8 +107,8 @@ public abstract class AbstractUndertowSecureRestDslClientTest {
                     final HttpEntity entity = response.getEntity();
                     try {
                         final String body = EntityUtils.toString(entity, StandardCharsets.UTF_8);
-                        Assert.assertTrue(body.contains("\"summary\" : \"A test endpoint1\""));
-                        Assert.assertTrue(body.contains("\"operationId\" : \"endpoint1\""));
+                        Assert.assertTrue("found "+ body, body.contains("\"summary\" : \"A test endpoint1\""));
+                        Assert.assertTrue("found "+ body, body.contains("\"/endpoint1\" : {\n      \"get\""));
                     } catch (ParseException | IOException e) {
                         throw new RuntimeException(e);
                     }
