@@ -149,7 +149,7 @@
                                 <goal>exec</goal>
                             </goals>
                             <configuration>
-                                <executable>java</executable>
+                                <executable>${java.home}/bin/java</executable>
                                 <environmentVariables>
                                     <JBOSS_HOME>${jboss.home}</JBOSS_HOME>
                                 </environmentVariables>
