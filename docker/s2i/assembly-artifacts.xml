@@ -27,30 +27,17 @@
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
 
-    <dependencySets>
-        <dependencySet>
-            <useStrictFiltering>true</useStrictFiltering>
-            <includes>
-                <include>org.wildfly.camel:wildfly-camel-patch:tar.gz</include>
-            </includes>
-            <outputDirectory>${server.home}</outputDirectory>
-            <scope>provided</scope>
-            <unpack>true</unpack>
-            <unpackOptions>
-                <excludes>
-                    <exclude>standalone/configuration/*</exclude>
-                </excludes>
-            </unpackOptions>
-        </dependencySet>
-    </dependencySets>
-
     <fileSets>
         <fileSet>
-            <outputDirectory>usr/libexec/s2i</outputDirectory>
             <directory>s2i/bin</directory>
+            <outputDirectory>usr/libexec/s2i</outputDirectory>
             <includes>
                 <include>run</include>
             </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}/${server.home}</directory>
+            <outputDirectory>${server.home}</outputDirectory>
         </fileSet>
     </fileSets>
 
