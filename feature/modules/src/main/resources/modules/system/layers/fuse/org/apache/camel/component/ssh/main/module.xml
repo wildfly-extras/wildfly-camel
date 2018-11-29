@@ -11,9 +11,7 @@
       </exports>
     </module>
     <module name="org.slf4j" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.bouncycastle" />
-    <module name="org.bouncycastle.ext" />
+    <module name="org.bouncycastle" slot="1.61" />
   </dependencies>
 </module>

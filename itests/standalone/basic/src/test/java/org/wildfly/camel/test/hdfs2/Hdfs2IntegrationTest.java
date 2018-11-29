@@ -112,7 +112,7 @@ public class Hdfs2IntegrationTest {
                 template.sendBody("direct:start", body);
             }
 
-            camelctx.startRoute("hdfs-consumer");
+            camelctx.getRouteController().startRoute("hdfs-consumer");
 
             MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
             mockEndpoint.expectedBodiesReceivedInAnyOrder(bodies);

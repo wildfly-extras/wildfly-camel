@@ -16,7 +16,6 @@
         <exclude path="org/springframework/security/**" />
       </exports>
     </module>
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.logging" />
     <module name="org.springframework.aop" />

@@ -2,6 +2,7 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.caffeine">
   <resources>
     <artifact name="${org.apache.camel:camel-caffeine}" />
+    <artifact name="${org.apache.camel:camel-caffeine-lrucache}" />
   </resources>
   <dependencies>
     <module name="org.slf4j" />
@@ -11,7 +12,6 @@
         <exclude path="com/github/benmanes" />
       </exports>
     </module>
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

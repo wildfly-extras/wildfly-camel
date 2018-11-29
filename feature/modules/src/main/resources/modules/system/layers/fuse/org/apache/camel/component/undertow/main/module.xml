@@ -12,11 +12,11 @@
       </exports>
     </module>
     <module name="javax.api" />
+    <module name="javax.activation.api" />
     <module name="org.apache.httpcomponents" />
     <module name="org.jboss.xnio" />
     <module name="org.slf4j" />
     <module name="javax.servlet.api" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.component.http.common" />
     <module name="org.apache.camel.core" />
   </dependencies>

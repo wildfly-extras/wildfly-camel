@@ -109,7 +109,7 @@ public class LogProfileIntegrationTest {
     @Test
     public void testWildFlyLogProfileGloabalLogConfig() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
-        camelctx.getProperties().put(Exchange.LOG_EIP_NAME, LogProfileIntegrationTest.class.getName());
+        camelctx.getGlobalOptions().put(Exchange.LOG_EIP_NAME, LogProfileIntegrationTest.class.getName());
 
         camelctx.addRoutes(new RouteBuilder() {
             @Override

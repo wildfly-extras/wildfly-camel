@@ -19,11 +19,10 @@
  */
 package org.wildfly.camel.test.spring.subE;
 
-import java.util.EventObject;
-
 import javax.ejb.Stateless;
 
-import org.apache.camel.management.event.CamelContextStartedEvent;
+import org.apache.camel.impl.event.CamelContextStartedEvent;
+import org.apache.camel.spi.CamelEvent;
 import org.apache.camel.support.EventNotifierSupport;
 
 @Stateless
@@ -32,15 +31,10 @@ public class CamelContextStartupEventNotifier extends EventNotifierSupport {
     private long startupTime;
 
     @Override
-    public void notify(EventObject event) throws Exception {
+	public void notify(CamelEvent event) throws Exception {
         if (event instanceof CamelContextStartedEvent) {
             this.startupTime = System.currentTimeMillis();
         }
-    }
-
-    @Override
-    public boolean isEnabled(EventObject event) {
-        return event instanceof CamelContextStartedEvent;
     }
 
     public long getStartupTime() {

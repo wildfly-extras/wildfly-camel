@@ -21,7 +21,7 @@
 package org.wildfly.camel.test.spring.subD;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.ExplicitCamelContextNameStrategy;
+import org.apache.camel.impl.engine.ExplicitCamelContextNameStrategy;
 import org.apache.camel.spring.javaconfig.SingleRouteCamelConfiguration;
 import org.springframework.context.annotation.Configuration;
 

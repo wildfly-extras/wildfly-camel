@@ -33,7 +33,11 @@
     </module>
 
     <module name="org.apache.camel.core" skip="true">
+        <include artifact="org.apache.camel:camel-api" />
         <include artifact="org.apache.camel:camel-core" />
+        <include artifact="org.apache.camel:camel-management-api" />
+        <include artifact="org.apache.camel:camel-support" />
+        <include artifact="org.apache.camel:camel-util" />
     </module>
 
     <module name="org.osgi.core" skip="true">

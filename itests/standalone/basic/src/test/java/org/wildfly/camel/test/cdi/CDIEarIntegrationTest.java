@@ -20,11 +20,7 @@
 package org.wildfly.camel.test.cdi;
 
 
-import java.lang.management.ManagementFactory;
-import java.util.Set;
-
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
+import java.util.List;
 
 import org.apache.camel.CamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -59,15 +55,14 @@ public class CDIEarIntegrationTest {
 
     @Test
     public void testEjbJarDeployment() throws Exception {
-        // We don't actually know what the camel context name will be, so defer to JMX lookup
-        MBeanServer server = ManagementFactory.getPlatformMBeanServer();
-        Set<ObjectName> camelContextNames = server.queryNames(new ObjectName("org.apache.camel:context=*,type=context,*"), null);
-        Assert.assertEquals(1, camelContextNames.size());
 
-        ObjectName next = camelContextNames.iterator().next();
-        String camelContextName = next.getKeyProperty("name").replace("\"", "");
+        List<String> names = contextRegistry.getCamelContextNames();
+        System.out.println("Registered contexts: " + names);
 
-        CamelContext camelctx = contextRegistry.getCamelContext(camelContextName);
+        Assert.assertEquals(1, names.size());
+
+        String ctxname = names.iterator().next();
+        CamelContext camelctx = contextRegistry.getCamelContext(ctxname);
         Assert.assertNotNull(camelctx);
 
         String result = camelctx.createProducerTemplate().requestBody("direct:start", "Kermit", String.class);

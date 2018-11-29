@@ -68,7 +68,6 @@
         <include artifact="org.elasticsearch.plugin:parent-join-client" />
         <include artifact="org.elasticsearch.plugin:rank-eval-client" />
         <apply-to-dependencies skip="true">
-            <include module="org.apache.logging.log4j" />
             <include module="org.elasticsearch.skipped" />
         </apply-to-dependencies>
         <dependencies>

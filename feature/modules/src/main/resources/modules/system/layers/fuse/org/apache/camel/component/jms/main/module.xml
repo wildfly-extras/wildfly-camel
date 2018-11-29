@@ -9,7 +9,6 @@
     <module name="org.springframework.core" />
     <module name="org.slf4j" />
     <module name="javax.jms.api" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.camel.spring" />
     <module name="org.apache.commons.pool2" />

@@ -20,7 +20,7 @@
 package org.wildfly.camel.test.cdi.subB;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.ExplicitCamelContextNameStrategy;
+import org.apache.camel.impl.engine.ExplicitCamelContextNameStrategy;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware

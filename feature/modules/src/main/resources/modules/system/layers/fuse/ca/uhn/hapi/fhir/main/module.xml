@@ -14,6 +14,7 @@
     <module name="javax.api" />
     <module name="com.google.code.gson" />
     <module name="com.google.guava" />
+    <module name="com.sun.xml.bind" />
     <module name="javax.servlet.api" />
     <module name="org.apache.commons.codec" />
     <module name="org.apache.commons.io" />

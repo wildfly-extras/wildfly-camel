@@ -1,4 +1,5 @@
 [supported]
+activemq
 ahc
 ahc-ws
 ahc-wss
@@ -18,12 +19,8 @@ aws-cw
 aws-ddb
 aws-ddbstream
 aws-ec2
-aws-iam
 aws-kinesis
 aws-kinesis-firehose
-aws-kms
-aws-lambda
-aws-mq
 aws-s3
 aws-sdb
 aws-ses
@@ -35,7 +32,6 @@ azure-queue
 bean
 bean-validator
 beanstalk
-binding                                             #deprecated
 box
 braintree
 browse
@@ -46,6 +42,9 @@ class
 cm-sms
 cmis
 coap
+coap+tcp
+coaps
+coaps+tcp
 consul
 controlbus
 couchbase
@@ -57,6 +56,7 @@ cxf
 cxfrs
 dataformat
 dataset
+dataset-test
 digitalocean
 direct
 direct-vm
@@ -85,6 +85,7 @@ geocoder
 git
 github
 google-bigquery
+google-bigquery-sql
 google-calendar
 google-calendar-stream
 google-drive
@@ -104,9 +105,12 @@ hazelcast-ringbuffer
 hazelcast-seda
 hazelcast-set
 hazelcast-topic
+hdfs                                                #deprecated
 hdfs2
 hipchat
+http                                                #deprecated
 http4
+https                                               #deprecated
 https4
 iec60870-client
 iec60870-server
@@ -129,7 +133,6 @@ jpa
 json-validator
 jt400
 kafka
-kubernetes                                          #deprecated
 kubernetes-config-maps
 kubernetes-deployments
 kubernetes-hpa
@@ -157,10 +160,10 @@ metrics
 micrometer
 milo-client
 milo-server
+mina                                                #deprecated
 mina2
 mllp
 mock
-mongodb                                             #deprecated
 mongodb-gridfs
 mongodb3
 mqtt
@@ -171,6 +174,7 @@ mybatis
 mybatis-bean
 nagios
 nats
+netty                                               #deprecated
 netty4
 nsq
 olingo2
@@ -199,7 +203,6 @@ ref
 rest
 rest-api
 rest-swagger
-rmi
 rss
 saga
 salesforce
@@ -241,12 +244,10 @@ stream
 string-template
 stub
 telegram
-test
 thrift
 tika
 timer
 twilio
-twitter                                             #deprecated
 twitter-directmessage
 twitter-search
 twitter-streaming
@@ -257,6 +258,7 @@ velocity
 vertx
 vm
 weather
+webhook
 wordpress
 xchange
 xmlsecurity
@@ -274,31 +276,37 @@ restlet                                             #2024 Blocked by camel-2.21.
 [undecided]
 as2
 atmos
-chronicle-engine
+aws-ecs
+aws-eks
+aws-iam
+aws-kms
+aws-lambda
+aws-mq
+aws-msk
+chatscript
+corda
 google-sheets
 google-sheets-stream
+iota
 ipfs
+jgroups-raft
+jooq
+pulsar
 service
+soroush
 web3j
+websocket-jsr356
 
 [rejected]
 bonita                                              #1820 Not another BPM engine
-cache                                               #deprecated
 cometd                                              #1990 Depends on Jetty server
 cometds                                             #1991 Depends on Jetty server
-context                                             #deprecated
 drill                                               #1823 Competitor to JDG
-elasticsearch                                       #deprecated
-elasticsearch5                                      #deprecated
 eventadmin                                          #1996 OSGi specific
 flink                                               #2370 Massive bucket of scala dependent stuff
 gora                                                #2000 Competitor to JDG
 grape                                               #2001 Requires Groovy class loading
 hbase                                               #2127 Unsupportable split package
-hdfs                                                #deprecated
-http                                                #deprecated
-https                                               #deprecated
-ibatis                                              #deprecated
 ignite-cache                                        #1828 Competitor to JDG
 ignite-compute                                      #1829 Competitor to JDG
 ignite-events                                       #1830 Competitor to JDG
@@ -307,22 +315,11 @@ ignite-messaging                                    #1832 Competitor to JDG
 ignite-queue                                        #1833 Competitor to JDG
 ignite-set                                          #1834 Competitor to JDG
 ironmq                                              #2006 Not another messaging system
-javaspace                                           #deprecated
 jetty                                               #2009 No alternative HTTP engine
-jira                                                #deprecated
-kestrel                                             #deprecated
-krati                                               #deprecated
-mina                                                #deprecated
-netty                                               #deprecated
 netty-http                                          #deprecated
 netty4-http                                         #1459 No alternative HTTP engine
-openshift                                           #deprecated
 paxlogging                                          #2020 OSGi specific
-quartz                                              #deprecated
-routebox                                            #deprecated
 spark                                               #1469 Scala/Jackson stack overflow
 spark-rest                                          #1470 Scala/Jackson stack overflow
 websocket                                           #1479 No alternative HTTP engine
-xmlrpc                                              #deprecated
-yql                                                 #YQL services are EOL and have been retired
 

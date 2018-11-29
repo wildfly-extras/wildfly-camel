@@ -195,6 +195,8 @@
 
     <module name="com.zaxxer" skip="true">
         <include artifact="com.zaxxer:HikariCP-java6" />
+        <include artifact="com.zaxxer:HikariCP-java7" />
+        <include artifact="com.zaxxer:HikariCP-java8" />
     </module>
 
     <module name="io.javaslang" skip="true">
@@ -331,10 +333,6 @@
         <include artifact="org.apache.httpcomponents:httpclient-osgi" />
     </module>
 
-    <module name="org.jetbrains.annotations" skip="true">
-        <include artifact="org.jetbrains:annotations" />
-    </module>
-
     <module name="org.apache.logging.log4j" skip="true">
         <include artifact="org.apache.logging.log4j:log4j-to-slf4j" />
     </module>
@@ -398,6 +396,10 @@
         <include artifact=":woodstox-core" />
     </module>
 
+    <module name="org.drools.kie" skip="true">
+        <include artifact="org.drools:kie-pmml" />
+    </module>
+
     <module name="org.eclipse.jetty.skipped" skip="true">
         <include artifact="org.eclipse.jetty:jetty-continuation" />
         <include artifact="org.eclipse.jetty:jetty-jmx" />
@@ -435,6 +437,7 @@
         <include artifact="org.glassfish.jersey.connectors:jersey-apache-connector" />
         <include artifact="org.glassfish.jersey.core:jersey-client" />
         <include artifact="org.glassfish.jersey.core:jersey-common" />
+        <include artifact="org.glassfish.jersey.inject:jersey-hk2" />
     </module>
 
     <module name="org.immutables.value" skip="true">
@@ -472,6 +475,10 @@
 
     <module name="org.jctools" skip="true">
         <include artifact="org.jctools:(.*)" />
+    </module>
+
+    <module name="org.jetbrains.annotations" skip="true">
+        <include artifact="org.jetbrains:annotations" />
     </module>
 
     <module name="org.joda.convert" skip="true">
@@ -527,10 +534,12 @@
 
     <module name="org.osgi.compendium" skip="true">
         <include artifact="org.osgi:org.osgi.compendium" />
+        <include artifact="org.osgi:osgi.cmpn" />
     </module>
 
     <module name="org.osgi.core" skip="true">
         <include artifact="org.osgi:org.osgi.core" />
+        <include artifact="org.osgi:osgi.core" />
     </module>
 
     <module name="org.ow2.asm.commons" skip="true">

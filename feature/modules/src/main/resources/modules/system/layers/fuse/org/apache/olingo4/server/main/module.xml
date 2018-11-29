@@ -8,10 +8,10 @@
     <artifact name="${org.apache.olingo:odata-server-core}" />
   </resources>
   <dependencies>
-    <module name="com.fasterxml.aalto" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="javax.servlet.api" />
+    <module name="org.apache.commons.codec" />
     <module name="org.apache.olingo4" />
   </dependencies>
 </module>

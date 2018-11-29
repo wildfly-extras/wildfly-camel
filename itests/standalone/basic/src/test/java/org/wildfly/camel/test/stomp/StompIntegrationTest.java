@@ -101,7 +101,7 @@ public class StompIntegrationTest {
             @Override
             public void configure() throws Exception {
                 fromF("stomp:%s?login=%s&passcode=%s&brokerURL=%s", QUEUE_NAME, USERNAME, PASSWORD, BROKER_URL)
-                .transform(body().method("utf8").prepend("Hello "))
+                .transform(body().prepend("Hello "))
                 .to("mock:result");
             }
         });

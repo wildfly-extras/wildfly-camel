@@ -30,6 +30,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.influxdb.InfluxDbConstants;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.jndi.JndiBeanRepository;
 import org.arquillian.cube.CubeController;
 import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
 import org.arquillian.cube.requirement.ArquillianConditionalRunner;
@@ -91,7 +92,7 @@ public class InfluxDBIntegrationTest {
 
     @Test
     public void testInfluxDBProducer() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

@@ -32,6 +32,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class SimpleManagementTest {
@@ -68,6 +69,7 @@ public class SimpleManagementTest {
     }
 
     @Test
+    @Ignore("[CAMEL-13094] Context MBean not unregistered on startup failure")
     public void testStartupFailure() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();

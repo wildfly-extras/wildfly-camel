@@ -13,7 +13,6 @@
         <exclude path="ca/uhn" />
       </exports>
     </module>
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

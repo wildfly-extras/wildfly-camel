@@ -21,16 +21,13 @@ package org.wildfly.camel.test.metrics;
 
 import java.util.SortedMap;
 
-import com.codahale.metrics.Counter;
-import com.codahale.metrics.MetricRegistry;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.metrics.messagehistory.MetricsMessageHistoryFactory;
 import org.apache.camel.component.metrics.messagehistory.MetricsMessageHistoryService;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.SimpleRegistry;
+import org.apache.camel.support.SimpleRegistry;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -39,6 +36,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
+
+import com.codahale.metrics.Counter;
+import com.codahale.metrics.MetricRegistry;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -53,7 +53,7 @@ public class MetricsIntegrationTest {
     public void testRouteMetrics() throws Exception {
         SimpleRegistry registry = new SimpleRegistry();
         MetricRegistry metricRegistry = new MetricRegistry();
-        registry.put("metricRegistry", metricRegistry);
+        registry.bind("metricRegistry", metricRegistry);
 
         CamelContext camelctx = new DefaultCamelContext(registry);
         camelctx.addRoutes(new RouteBuilder() {
@@ -90,7 +90,7 @@ public class MetricsIntegrationTest {
     public void testMetricsJsonSerialization() throws Exception {
         SimpleRegistry registry = new SimpleRegistry();
         MetricRegistry metricRegistry = new MetricRegistry();
-        registry.put("metricRegistry", metricRegistry);
+        registry.bind("metricRegistry", metricRegistry);
 
         MetricsMessageHistoryFactory messageHistoryFactory = new MetricsMessageHistoryFactory();
         messageHistoryFactory.setMetricsRegistry(metricRegistry);

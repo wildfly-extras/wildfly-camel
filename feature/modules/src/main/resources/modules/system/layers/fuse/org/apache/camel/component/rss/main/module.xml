@@ -17,7 +17,6 @@
     </module>
     <module name="org.apache.commons.codec" />
     <module name="org.slf4j" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.component.atom" />
     <module name="org.apache.camel.core" />
   </dependencies>

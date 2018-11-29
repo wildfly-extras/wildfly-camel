@@ -28,7 +28,6 @@ import javax.net.ssl.SSLSession;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Processor;
 import org.apache.camel.cdi.ContextName;
-import org.apache.camel.component.cxf.jaxrs.CxfRsComponent;
 import org.apache.camel.component.cxf.jaxrs.CxfRsEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

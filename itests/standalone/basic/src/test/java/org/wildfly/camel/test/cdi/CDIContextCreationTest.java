@@ -21,6 +21,7 @@
 package org.wildfly.camel.test.cdi;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -94,7 +95,7 @@ public class CDIContextCreationTest {
     public void testManualComponentConfig() throws InterruptedException {
         deployer.deploy(CDI_CONTEXT_C);
         try {
-            Assert.assertEquals(1, contextRegistry.getCamelContexts().size());
+            Assert.assertEquals(Arrays.asList("contextF"), contextRegistry.getCamelContextNames());
             CamelContext camelctx = contextRegistry.getCamelContext("contextF");
             Assert.assertNotNull("Context not null", camelctx);
 
@@ -105,6 +106,7 @@ public class CDIContextCreationTest {
         } finally {
             deployer.undeploy(CDI_CONTEXT_C);
         }
+        Assert.assertEquals(Arrays.asList(), contextRegistry.getCamelContextNames());
     }
 
     @Deployment(name = CDI_CONTEXT_A, managed = false, testable = false)

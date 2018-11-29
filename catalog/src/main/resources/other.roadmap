@@ -1,7 +1,6 @@
 [supported]
 cdi
 cxf-transport
-headersmap
 hystrix
 jasypt
 leveldb
@@ -20,33 +19,20 @@ zipkin
 
 [undecided]
 aws-xray
+blueprint
+kura
+spring-boot
+spring-cloud
+spring-cloud-consul
+spring-cloud-netflix
+spring-cloud-zookeeper
+test-blueprint
+test-cdi
+test-karaf
+testcontainers
+testcontainers-spring
 
 [rejected]
-bam                                 #deprecated
-blueprint                           #2050 OSGi specific
-eclipse                             #deprecated
-groovy-dsl                          #deprecated
-guice                               #deprecated
-hawtdb                              #deprecated
-kura                                #2062 OSGi specific
-ruby                                #deprecated
-rx                                  #deprecated
-scala                               #deprecated
-scr                                 #deprecated
-servletlistener                     #deprecated
-spring-boot                         #2051 SpringBoot specific
-spring-cloud                        #2066 SpringBoot specific
-spring-cloud-consul                 #2591 SpringBoot specific
-spring-cloud-netflix                #2067 SpringBoot specific
-spring-cloud-zookeeper              #2592 SpringBoot specific
-swagger                             #deprecated
 test                                #2052 Testing utility
-test-blueprint                      #2053 Testing utility
-test-cdi                            #2054 Testing utility
-test-karaf                          #2055 Testing utility
 test-spring                         #2056 Testing utility
-testcontainers                      #2593 Testing utility
-testcontainers-spring               #2593 Testing utility
-testng                              #deprecated
-urlrewrite                          #deprecated
 

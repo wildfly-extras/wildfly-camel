@@ -8,7 +8,6 @@
     <module name="org.fusesource.hawtbuf" export="true" />
     <module name="org.fusesource.hawtdispatch" />
     <module name="org.slf4j" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.fusesource.mqtt" />
   </dependencies>

@@ -16,8 +16,6 @@
  */
 package org.wildfly.camel.test.rxjava;
 
-import io.reactivex.Flowable;
-
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.camel.CamelContext;
@@ -40,6 +38,8 @@ import org.junit.runner.RunWith;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.wildfly.extension.camel.CamelAware;
+
+import io.reactivex.Flowable;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -221,7 +221,7 @@ public class RxJava2IntegrationTest {
                     .to("mock:sub2");
                 from("timer:tick?period=50")
                     .setBody()
-                    .simple("random(500)")
+                    .simple("${random(500)}")
                     .to("mock:sub3")
                     .to("reactive-streams:pub");
             }

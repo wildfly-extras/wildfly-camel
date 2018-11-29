@@ -13,12 +13,11 @@ csv
 fhirJson
 fhirXml
 flatpack
-gzip
+gzipdeflater
 hl7
 ical
 jacksonxml
 jaxb
-jibx
 json-fastjson
 json-gson
 json-jackson
@@ -30,9 +29,7 @@ pgp
 protobuf
 rss
 secureXML
-serialization
 soapjaxb
-string
 syslog
 tarfile
 thrift
@@ -42,17 +39,13 @@ univocity-fixed
 univocity-tsv
 xstream
 yaml-snakeyaml
-zip
+zipdeflater
 zipfile
 
 [planned]
 
 [undecided]
+jsonApi
 
 [rejected]
-castor              #deprecated
-hessian             #deprecated
-xmlBeans            #deprecated
-xmljson             #deprecated
-xmlrpc              #2507 xmlrpc is no longer maintained
 

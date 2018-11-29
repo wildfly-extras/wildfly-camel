@@ -12,7 +12,6 @@
     </module>
     <module name="org.slf4j" />
     <module name="io.netty" slot="3.10" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.codehaus.jackson.jackson-core-asl" />
     <module name="org.codehaus.jackson.jackson-mapper-asl" />

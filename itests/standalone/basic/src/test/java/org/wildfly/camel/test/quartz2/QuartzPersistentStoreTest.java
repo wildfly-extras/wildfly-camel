@@ -59,7 +59,7 @@ public class QuartzPersistentStoreTest {
         mockEndpoint.assertIsSatisfied();
 
         // restart route
-        camelctx.stopRoute("myRoute");
+        camelctx.getRouteController().stopRoute("myRoute");
         mockEndpoint.reset();
         mockEndpoint.expectedMessageCount(0);
 
@@ -72,7 +72,7 @@ public class QuartzPersistentStoreTest {
         mockEndpoint.reset();
         mockEndpoint.expectedMinimumMessageCount(2);
 
-        camelctx.startRoute("myRoute");
+        camelctx.getRouteController().startRoute("myRoute");
 
         mockEndpoint.assertIsSatisfied();
     }

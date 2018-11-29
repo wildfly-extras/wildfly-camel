@@ -34,7 +34,8 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.crypto.DigitalSignatureConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.util.jsse.KeyStoreParameters;
+import org.apache.camel.support.jndi.JndiBeanRepository;
+import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -93,7 +94,7 @@ public class CryptoComponentIntegrationTest {
     @Test
     public void testBasicSignatureRoute() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
 
         camelctx.addRoutes(new RouteBuilder() {
             @Override

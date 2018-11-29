@@ -13,7 +13,11 @@
     </module>
   </dependencies>
   <exports>
+    <exclude path="com/hazelcast/com**" />
+    <exclude path="com/hazelcast/cp**" />
     <exclude path="com/hazelcast/internal**" />
+    <exclude path="com/hazelcast/json**" />
+    <exclude path="com/hazelcast/org**" />
     <exclude path="com/hazelcast/osgi**" />
     <exclude path="lib/linux-x86_64" />
     <exclude path="lib/linux-x86" />

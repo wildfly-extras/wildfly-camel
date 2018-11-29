@@ -20,10 +20,19 @@
     <module name="com.sun.xml.bind" />
     <module name="javax.api" />
     <module name="javax.jms.api" />
+    <module name="org.drools">
+      <imports>
+        <include path="META-INF" />
+      </imports>
+      <exports>
+        <include path="META-INF" />
+      </exports>
+    </module>
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jsr310" />
     <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" />
     <module name="com.thoughtworks.xstream" />
     <module name="javax.activation.api" />
@@ -32,7 +41,6 @@
     <module name="javax.xml.bind.api" />
     <module name="javax.xml.stream.api" />
     <module name="org.apache.commons.lang3" />
-    <module name="org.drools" />
     <module name="org.mvel.mvel2" />
     <module name="org.optaplanner" />
   </dependencies>

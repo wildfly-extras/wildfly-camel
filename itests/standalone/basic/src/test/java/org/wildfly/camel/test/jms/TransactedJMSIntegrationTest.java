@@ -40,6 +40,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spring.spi.SpringTransactionPolicy;
+import org.apache.camel.support.jndi.JndiBeanRepository;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -139,7 +140,7 @@ public class TransactedJMSIntegrationTest {
 
     @Test
     public void testJMSTransactionToDLQ() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addComponent("jms", jmsComponent);
         camelctx.addRoutes(configureJmsRoutes());
 
@@ -163,7 +164,7 @@ public class TransactedJMSIntegrationTest {
 
     @Test
     public void testJMSTransaction() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addComponent("jms", jmsComponent);
         camelctx.addRoutes(configureJmsRoutes());
 

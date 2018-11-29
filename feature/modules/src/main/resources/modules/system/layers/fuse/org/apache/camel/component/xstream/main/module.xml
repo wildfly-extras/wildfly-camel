@@ -9,7 +9,6 @@
     <module name="org.codehaus.jettison" />
     <module name="org.slf4j" />
     <module name="com.thoughtworks.xstream" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.codehaus.woodstox" />
   </dependencies>

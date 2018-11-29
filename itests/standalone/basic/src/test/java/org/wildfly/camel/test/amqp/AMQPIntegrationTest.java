@@ -29,6 +29,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.amqp.AMQPConnectionDetails;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.jndi.JndiBeanRepository;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -97,7 +98,7 @@ public class AMQPIntegrationTest {
     public void testAMQPComponent() throws Exception {
         String[] messages = new String[] {"Message 1", "Message 2", "Message 3", "Message 4", "Message 5"};
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -122,7 +123,7 @@ public class AMQPIntegrationTest {
             }
 
             // Start the consumer route
-            camelctx.startRoute("amqp-consumer");
+            camelctx.getRouteController().startRoute("amqp-consumer");
 
             mockEndpoint.assertIsSatisfied();
         } finally {

@@ -10,7 +10,6 @@
     <module name="com.google.code.libphonenumber" />
     <module name="javax.el.api" />
     <module name="javax.validation.api" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.hibernate.validator" />
     <module name="org.jsoup" />

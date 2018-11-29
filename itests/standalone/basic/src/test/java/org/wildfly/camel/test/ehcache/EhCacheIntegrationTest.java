@@ -30,6 +30,7 @@ import org.apache.camel.component.ehcache.EhcacheConstants;
 import org.apache.camel.component.ehcache.processor.idempotent.EhcacheIdempotentRepository;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.jndi.JndiBeanRepository;
 import org.ehcache.Cache;
 import org.ehcache.CacheManager;
 import org.ehcache.Status;
@@ -86,7 +87,7 @@ public class EhCacheIntegrationTest {
 
     @Test
     public void testEhCacheEventConsumer() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -113,7 +114,7 @@ public class EhCacheIntegrationTest {
 
     @Test
     public void testEhCacheEventProducer() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -145,7 +146,7 @@ public class EhCacheIntegrationTest {
     public void testEhCacheIdempotentRepository() throws Exception {
         EhcacheIdempotentRepository repository = new EhcacheIdempotentRepository(cacheManager, "idempotent");
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

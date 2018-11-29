@@ -198,6 +198,16 @@
                 <version>${version.javax.cache.api}</version>
             </dependency>
             <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>${version.bytebuddy}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy-agent</artifactId>
+                <version>${version.bytebuddy}</version>
+            </dependency>
+            <dependency>
                 <groupId>net.javacrumbs</groupId>
                 <artifactId>spring-ws-test</artifactId>
                 <version>${version.camel.javacrumbs}</version>
@@ -331,6 +341,21 @@
                 <groupId>org.arquillian.cube</groupId>
                 <artifactId>arquillian-cube-requirement</artifactId>
                 <version>${version.arquillian.cube}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcmail-jdk15on</artifactId>
+                <version>${version.camel.bouncycastle}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk15on</artifactId>
+                <version>${version.camel.bouncycastle}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>${version.camel.bouncycastle}</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.mylyn.github</groupId>

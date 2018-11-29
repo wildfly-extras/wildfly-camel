@@ -54,12 +54,15 @@ import org.wildfly.camel.test.undertow.subA.UndertowSecureRoutes2;
 import org.wildfly.camel.test.undertow.subA.UndertowSecureRoutes3;
 
 /**
+ * [ENTESB-9342] Support securing Undertow endpoints with Elytron
+ *
  * @author <a href="https://github.com/ppalaga">Peter Palaga</a>
  */
 @RunAsClient
 @RunWith(Arquillian.class)
 @ServerSetup(BasicSecurityDomainASetup.class)
 public class UndertowSecureIntegrationTest {
+
     private static final String APP_1 = "UndertowSecureIntegrationTest1.war";
     private static final String APP_2 = "UndertowSecureIntegrationTest2.war";
     private static final String APP_3 = "UndertowSecureIntegrationTest3.war";
@@ -93,15 +96,6 @@ public class UndertowSecureIntegrationTest {
         return ShrinkWrap.create(WebArchive.class, "UndertowSecureIntegrationTest.war");
     }
 
-    private static WebArchive app(String war, Class<?> routeBuilder, Map<String, String> pathRoleMap) {
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, war)
-                .addClasses(BasicSecurityDomainASetup.class, TestClient.class, routeBuilder)
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-        SecurityUtils.enhanceArchive(archive, BasicSecurityDomainASetup.SECURITY_DOMAIN,
-                BasicSecurityDomainASetup.AUTH_METHOD, pathRoleMap);
-        return archive;
-    }
-
     @Deployment(name = APP_1, managed = false)
     public static WebArchive app1() {
         return app(APP_1, UndertowSecureRoutes1.class, PATH_ROLE_MAP_1);
@@ -119,6 +113,7 @@ public class UndertowSecureIntegrationTest {
 
     @Test
     public void pathConflicts() throws Exception {
+
         try (TestClient c = new TestClient()) {
 
             /* None of these endpoints may work before the start of app1 and app2 */
@@ -189,11 +184,11 @@ public class UndertowSecureIntegrationTest {
                      * (DeploymentException e) would thus not compile but in spite of that DeploymentException is thrown
                      * at runtime
                      */
-                    if (e instanceof DeploymentException) {
-                        /* expected */
-                    } else {
+                    if (!(e instanceof DeploymentException)) {
                         Assert.fail("Expected " + DeploymentException.class.getName());
                     }
+                } finally {
+                    deployer.undeploy(APP_3);
                 }
 
                 /* Nothing may have changed for /test because app3 was not deployed */
@@ -221,8 +216,15 @@ public class UndertowSecureIntegrationTest {
             c.assertResponse("/test", "GET", APPLICATION_USER, APPLICATION_PASSWORD, 404);
             c.assertResponse("/test", "GET", APPLICATION_USER_SUB, APPLICATION_PASSWORD_SUB, 404);
             c.assertResponse("/test", "GET", null, null, 404);
-
         }
     }
 
+    private static WebArchive app(String war, Class<?> routeBuilder, Map<String, String> pathRoleMap) {
+        final WebArchive archive = ShrinkWrap.create(WebArchive.class, war)
+                .addClasses(BasicSecurityDomainASetup.class, TestClient.class, routeBuilder)
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+        SecurityUtils.enhanceArchive(archive, BasicSecurityDomainASetup.SECURITY_DOMAIN,
+                BasicSecurityDomainASetup.AUTH_METHOD, pathRoleMap);
+        return archive;
+    }
 }

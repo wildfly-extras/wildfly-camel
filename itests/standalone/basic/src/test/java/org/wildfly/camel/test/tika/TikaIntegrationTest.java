@@ -59,7 +59,7 @@ public class TikaIntegrationTest {
             log.debug("Using jndi.properties from classpath root");
             properties.load(in);
         } else {
-            properties.put("java.naming.factory.initial", "org.apache.camel.util.jndi.CamelInitialContextFactory");
+            properties.put("java.naming.factory.initial", "org.apache.camel.support.jndi.CamelInitialContextFactory");
         }
         return new InitialContext(new Hashtable<Object, Object>(properties));
     }

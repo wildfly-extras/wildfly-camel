@@ -30,6 +30,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
+import org.elasticsearch.common.logging.LogConfigurator;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.node.InternalSettingsPreparer;
 import org.elasticsearch.node.Node;
@@ -41,6 +42,7 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @WebServlet(name = "ElasticsearchServerServlet", loadOnStartup = 1)
+@SuppressWarnings("serial")
 public class ElasticsearchServerServlet extends HttpServlet {
 
     public static final Path DATA_PATH = Paths.get("target", "elasticsearch", "data");
@@ -86,11 +88,16 @@ public class ElasticsearchServerServlet extends HttpServlet {
 
     public static final class ElasticsearchNode extends Node {
         public ElasticsearchNode(Settings preparedSettings, Collection<Class<? extends Plugin>> classpathPlugins) {
-            super(InternalSettingsPreparer.prepareEnvironment(preparedSettings, null), classpathPlugins);
+            super(InternalSettingsPreparer.prepareEnvironment(preparedSettings, null), classpathPlugins, true);
         }
 
         public String getPort() {
             return getEnvironment().settings().get("http.port");
         }
+
+		@Override
+		protected void registerDerivedNodeNameWithLogger(String nodeName) {
+            LogConfigurator.setNodeName(nodeName);
+		}
     }
 }

@@ -59,7 +59,7 @@ public class TwitterIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").to("twitter://timeline/user?" + twitter.getUriTokens());
+                from("direct:start").to("twitter-timeline://user?" + twitter.getUriTokens());
             }
         });
 

@@ -8,7 +8,6 @@
     <module name="io.netty" />
     <module name="org.slf4j" />
     <module name="javax.servlet.api" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.component.http.common" />
     <module name="org.apache.camel.core" />
   </dependencies>

@@ -44,12 +44,12 @@ import org.arquillian.cube.requirement.ArquillianConditionalRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.ManifestBuilder;
@@ -62,6 +62,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @CamelAware
 @RunWith(ArquillianConditionalRunner.class)
 @RequiresDocker
+@Ignore("[#2810] No endpoint could be found for: header.Camel-Saga-Compensate")
 public class LRAIntegrationTest {
 
     private static final String CONTAINER_NAME = "lra";

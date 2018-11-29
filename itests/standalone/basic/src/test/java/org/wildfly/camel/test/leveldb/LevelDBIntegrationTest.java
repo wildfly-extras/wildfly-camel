@@ -19,6 +19,7 @@ package org.wildfly.camel.test.leveldb;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.camel.AggregationStrategy;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
@@ -26,7 +27,6 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.leveldb.LevelDBAggregationRepository;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.processor.aggregate.AggregationStrategy;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;

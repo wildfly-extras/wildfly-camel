@@ -9,9 +9,9 @@
     <module name="com.box" export="true" />
     <module name="javax.api" />
     <module name="org.slf4j" />
-    <module name="javax.xml.bind.api" />
-    <module name="net.sourceforge.htmlunit" />
     <module name="org.apache.camel.core" />
+    <module name="org.apache.httpcomponents" />
+    <module name="org.jsoup" />
   </dependencies>
   <exports>
     <exclude path="org/apache/camel/component/box/internal" />

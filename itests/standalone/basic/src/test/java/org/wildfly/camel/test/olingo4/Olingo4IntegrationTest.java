@@ -31,7 +31,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.olingo4.Olingo4Component;
 import org.apache.camel.component.olingo4.Olingo4Configuration;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.util.IntrospectionSupport;
+import org.apache.camel.support.IntrospectionSupport;
 import org.apache.http.HttpHost;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;

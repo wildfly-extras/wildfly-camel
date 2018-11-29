@@ -14,7 +14,7 @@
         </dataFormats>
         <route>
             <from uri="direct:start" />
-            <to ref="json2obj" />
+            <to uri="ref:json2obj" />
         </route>
     </camelContext>
 </beans>

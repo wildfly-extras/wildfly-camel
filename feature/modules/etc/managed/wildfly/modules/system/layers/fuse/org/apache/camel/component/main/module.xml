@@ -47,6 +47,7 @@
         <module name="org.apache.camel.component.caffeine" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.cassandra" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.chunk" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.cloud" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.cm.sms" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.cmis" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.coap" export="true" services="export" optional="true" />
@@ -257,6 +258,7 @@
         <module name="org.apache.camel.component.velocity" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.vertx" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.weather" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.webhook" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.wordpress" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.xchange" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.xmlsecurity" export="true" services="export" optional="true" />
@@ -264,6 +266,7 @@
         <module name="org.apache.camel.component.xstream" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.yammer" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.zendesk" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.zipdeflater" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.zipfile" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.zipkin" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.zookeeper" export="true" services="export" optional="true" />

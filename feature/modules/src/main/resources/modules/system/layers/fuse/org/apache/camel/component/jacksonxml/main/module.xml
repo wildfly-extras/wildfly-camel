@@ -8,7 +8,6 @@
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.fasterxml.jackson.dataformat.xml" />
     <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.codehaus.woodstox" />
   </dependencies>

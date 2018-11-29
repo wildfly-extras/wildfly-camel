@@ -22,7 +22,6 @@ package org.wildfly.camel.test.cxf.ws.secure;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

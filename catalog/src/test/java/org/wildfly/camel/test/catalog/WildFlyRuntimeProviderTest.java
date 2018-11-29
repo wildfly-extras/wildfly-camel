@@ -22,9 +22,11 @@ import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.wildfly.camel.catalog.WildFlyRuntimeProvider;
 
+@Ignore("[#2755] Restore catalog functionality for camel-3.0.x")
 public class WildFlyRuntimeProviderTest {
 
     static CamelCatalog catalog;

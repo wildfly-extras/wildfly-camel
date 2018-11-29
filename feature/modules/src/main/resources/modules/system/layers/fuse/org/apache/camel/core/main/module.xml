@@ -1,13 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.core">
   <resources>
+    <artifact name="${org.apache.camel:camel-api}" />
+    <artifact name="${org.apache.camel:camel-base}" />
+    <artifact name="${org.apache.camel:camel-bean}" />
+    <artifact name="${org.apache.camel:camel-browse}" />
+    <artifact name="${org.apache.camel:camel-cloud}" />
+    <artifact name="${org.apache.camel:camel-controlbus}" />
     <artifact name="${org.apache.camel:camel-core}" />
+    <artifact name="${org.apache.camel:camel-dataformat}" />
+    <artifact name="${org.apache.camel:camel-dataset}" />
+    <artifact name="${org.apache.camel:camel-direct}" />
+    <artifact name="${org.apache.camel:camel-directvm}" />
+    <artifact name="${org.apache.camel:camel-file}" />
+    <artifact name="${org.apache.camel:camel-language}" />
+    <artifact name="${org.apache.camel:camel-log}" />
+    <artifact name="${org.apache.camel:camel-management-api}" />
+    <artifact name="${org.apache.camel:camel-mock}" />
+    <artifact name="${org.apache.camel:camel-properties}" />
+    <artifact name="${org.apache.camel:camel-ref}" />
+    <artifact name="${org.apache.camel:camel-rest}" />
+    <artifact name="${org.apache.camel:camel-saga}" />
+    <artifact name="${org.apache.camel:camel-scheduler}" />
+    <artifact name="${org.apache.camel:camel-seda}" />
+    <artifact name="${org.apache.camel:camel-stub}" />
+    <artifact name="${org.apache.camel:camel-support}" />
+    <artifact name="${org.apache.camel:camel-timer}" />
+    <artifact name="${org.apache.camel:camel-util}" />
+    <artifact name="${org.apache.camel:camel-util-json}" />
+    <artifact name="${org.apache.camel:camel-validator}" />
+    <artifact name="${org.apache.camel:camel-vm}" />
+    <artifact name="${org.apache.camel:camel-xpath}" />
+    <artifact name="${org.apache.camel:camel-xslt}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="javax.activation.api" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.component.caffeine" services="import" />
     <module name="org.slf4j" />
     <module name="sun.jdk" />
-    <module name="javax.xml.bind.api" />
   </dependencies>
   <exports>
     <exclude path="org/apache/camel/impl/osgi**" />

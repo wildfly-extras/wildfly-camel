@@ -27,6 +27,6 @@
     <module name="com.google.guava" />
     <module name="com.google.protobuf" />
     <module name="org.apache.commons.codec" />
-    <module name="org.bouncycastle" />
+    <module name="org.bouncycastle" slot="1.61" />
   </dependencies>
 </module>

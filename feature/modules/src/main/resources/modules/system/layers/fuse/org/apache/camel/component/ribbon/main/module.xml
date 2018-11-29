@@ -7,7 +7,6 @@
     <module name="org.slf4j" />
     <module name="com.netflix.ribbon.ribbon-core" />
     <module name="com.netflix.ribbon.ribbon-loadbalancer" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

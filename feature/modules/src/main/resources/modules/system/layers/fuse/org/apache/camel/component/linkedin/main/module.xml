@@ -11,11 +11,11 @@
     <module name="org.apache.commons.lang3" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="javax.xml.bind.api" />
-    <module name="net.sourceforge.htmlunit" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.cxf" />
     <module name="org.apache.cxf.ext" />
+    <module name="org.apache.httpcomponents" />
+    <module name="org.jsoup" />
   </dependencies>
   <exports>
     <exclude path="org/apache/camel/component/linkedin/internal**" />

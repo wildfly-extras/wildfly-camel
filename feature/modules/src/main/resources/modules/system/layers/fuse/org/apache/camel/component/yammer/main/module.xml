@@ -6,9 +6,10 @@
   <dependencies>
     <module name="org.codehaus.jackson.jackson-core-asl" />
     <module name="org.slf4j" />
-    <module name="javax.xml.bind.api" />
+    <module name="com.fasterxml.jackson.core.jackson-annotations" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="org.apache.camel.core" />
-    <module name="org.codehaus.jackson.jackson-mapper-asl" />
     <module name="org.scribe" />
   </dependencies>
 </module>

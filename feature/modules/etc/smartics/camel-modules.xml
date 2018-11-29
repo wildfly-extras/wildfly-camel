@@ -28,13 +28,47 @@
     </module>
 
     <module name="org.apache.camel.core">
+        <include artifact="org.apache.camel:camel-api" />
+        <include artifact="org.apache.camel:camel-base" />
+        <include artifact="org.apache.camel:camel-bean" />
+        <include artifact="org.apache.camel:camel-browse" />
+        <include artifact="org.apache.camel:camel-cloud" />
+        <include artifact="org.apache.camel:camel-controlbus" />
         <include artifact="org.apache.camel:camel-core" />
+        <include artifact="org.apache.camel:camel-dataformat" />
+        <include artifact="org.apache.camel:camel-dataset" />
+        <include artifact="org.apache.camel:camel-direct" />
+        <include artifact="org.apache.camel:camel-directvm" />
+        <include artifact="org.apache.camel:camel-file" />
+        <include artifact="org.apache.camel:camel-language" />
+        <include artifact="org.apache.camel:camel-log" />
+        <include artifact="org.apache.camel:camel-management-api" />
+        <include artifact="org.apache.camel:camel-management-impl" />
+        <include artifact="org.apache.camel:camel-mock" />
+        <include artifact="org.apache.camel:camel-properties" />
+        <include artifact="org.apache.camel:camel-ref" />
+        <include artifact="org.apache.camel:camel-rest" />
+        <include artifact="org.apache.camel:camel-saga" />
+        <include artifact="org.apache.camel:camel-scheduler" />
+        <include artifact="org.apache.camel:camel-seda" />
+        <include artifact="org.apache.camel:camel-stub" />
+        <include artifact="org.apache.camel:camel-support" />
+        <include artifact="org.apache.camel:camel-timer" />
+        <include artifact="org.apache.camel:camel-util" />
+        <include artifact="org.apache.camel:camel-util-json" />
+        <include artifact="org.apache.camel:camel-validator" />
+        <include artifact="org.apache.camel:camel-vm" />
+        <include artifact="org.apache.camel:camel-xpath" />
+        <include artifact="org.apache.camel:camel-xslt" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
+            <module name="javax.activation.api" />
+            <module name="javax.xml.bind.api" />
+            <module name="org.apache.camel.component.caffeine" services="import" />
             <module name="org.slf4j" />
             <module name="sun.jdk" />
         </dependencies>
@@ -50,9 +84,12 @@
         <include artifact="org.apache.camel:camel-core-xml" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
+            <include module="org.apache.camel.spi-annotations" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="javax.api" />
+            <module name="javax.xml.bind.api" />
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -140,7 +177,7 @@
 
     <module name="org.apache.camel.component.asn1">
         <include artifact="org.apache.camel:camel-asn1"/>
-        <include artifact="org.openmuc:jasn1"/>
+        <include artifact="com.beanit:jasn1"/>
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt"/>
             <include module="org.springframework.boot"/>
@@ -149,6 +186,7 @@
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
+            <exclude path="com/beanit**"/>
             <exclude path="org/openmuc**"/>
         </exports>
     </module>
@@ -228,7 +266,16 @@
     </module>
 
     <module name="org.apache.camel.component.aws">
-        <include artifact="org.apache.camel:camel-aws" />
+        <include artifact="org.apache.camel:camel-aws-cw" />
+        <include artifact="org.apache.camel:camel-aws-ddb" />
+        <include artifact="org.apache.camel:camel-aws-ec2" />
+        <include artifact="org.apache.camel:camel-aws-kinesis" />
+        <include artifact="org.apache.camel:camel-aws-s3" />
+        <include artifact="org.apache.camel:camel-aws-sdb" />
+        <include artifact="org.apache.camel:camel-aws-ses" />
+        <include artifact="org.apache.camel:camel-aws-sns" />
+        <include artifact="org.apache.camel:camel-aws-sqs" />
+        <include artifact="org.apache.camel:camel-aws-swf" />
         <apply-to-dependencies skip="true">
             <include module="com.sun.mail" />
             <include module="org.apache.camel.apt" />
@@ -400,6 +447,7 @@
 
     <module name="org.apache.camel.component.caffeine">
         <include artifact="org.apache.camel:camel-caffeine" />
+        <include artifact="org.apache.camel:camel-caffeine-lrucache" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
@@ -501,17 +549,6 @@
 
     <module name="org.apache.camel.component.coap">
         <include artifact="org.apache.camel:camel-coap" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.slf4j" />
-        </dependencies>
-    </module>
-
-    <module name="org.apache.camel.component.connector">
-        <include artifact="org.apache.camel:camel-connector" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
@@ -1248,7 +1285,6 @@
         <include artifact="com.cedarsoftware:java-util" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
-            <include module="org.apache.logging.log4j.core" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
@@ -1297,6 +1333,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="javax.activation.api"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -1636,6 +1673,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
+            <module name="org.apache.camel.core"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -1688,6 +1726,7 @@
         <dependencies>
             <module name="org.apache.kafka.clients" export="true">
                 <exports>
+                    <exclude path="common/message" />
                     <exclude path="org/apache/kafka/common/header/internals" />
                 </exports>
             </module>
@@ -2827,6 +2866,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
+            <module name="javax.xml.bind.api"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -2878,6 +2918,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
+            <module name="javax.xml.bind.api"/>
             <module name="com.fasterxml.jackson.core.jackson-core"/>
             <module name="org.slf4j"/>
         </dependencies>
@@ -3016,6 +3057,7 @@
                 </exports>
             </module>
             <module name="javax.api"/>
+            <module name="javax.activation.api"/>
             <module name="org.apache.httpcomponents" />
             <module name="org.jboss.xnio" />
             <module name="org.slf4j" />
@@ -3051,7 +3093,6 @@
         <apply-to-dependencies skip="true">
             <include module="io.netty.skipped" />
             <include module="org.apache.camel.apt" />
-            <include module="org.apache.logging.log4j.core" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
@@ -3073,6 +3114,16 @@
         <dependencies>
             <module name="org.apache.commons.httpclient" export="true" />
             <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.camel.component.webhook">
+        <include artifact="org.apache.camel:camel-webhook" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j" />
         </dependencies>
     </module>
 
@@ -3185,6 +3236,17 @@
             <exclude path="com/ning**" />
             <exclude path="org/apache/camel/component/zendesk/internal" />
         </exports>
+    </module>
+
+    <module name="org.apache.camel.component.zipdeflater">
+        <include artifact="org.apache.camel:camel-zip-deflater" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.slf4j"/>
+        </dependencies>
     </module>
 
     <module name="org.apache.camel.component.zipfile">

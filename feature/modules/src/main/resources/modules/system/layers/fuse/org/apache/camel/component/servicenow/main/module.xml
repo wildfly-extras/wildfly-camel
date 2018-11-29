@@ -13,7 +13,6 @@
     <module name="com.fasterxml.jackson.datatype.jackson-datatype-jdk8" />
     <module name="com.fasterxml.jackson.datatype.jackson-datatype-jsr310" />
     <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.cxf" />
     <module name="org.apache.cxf.ext" />

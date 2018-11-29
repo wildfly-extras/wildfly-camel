@@ -14,7 +14,6 @@
     </module>
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

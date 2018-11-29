@@ -51,8 +51,8 @@ public class GZipIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .marshal().gzip()
-                .unmarshal().gzip();
+                .marshal().gzipDeflater()
+                .unmarshal().gzipDeflater();
             }
         });
 

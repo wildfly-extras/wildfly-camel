@@ -6,7 +6,6 @@
   <dependencies>
     <module name="org.slf4j" />
     <module name="com.jayway.jsonpath" />
-    <module name="javax.xml.bind.api" />
     <module name="net.minidev.smart" />
     <module name="org.apache.camel.core" />
   </dependencies>

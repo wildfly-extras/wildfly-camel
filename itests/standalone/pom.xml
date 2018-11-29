@@ -35,7 +35,8 @@
 
     <!-- Properties -->
     <properties>
-        <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
+        <jboss.server.name>wildfly-${version.wildfly}</jboss.server.name>
+        <jboss.home>${project.build.directory}/${jboss.server.name}</jboss.home>
         <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true -Djava.security.egd=file:/dev/./urandom</jvmArgs>
         <jvmDebugArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmDebugArgs>
     </properties>
@@ -98,7 +99,7 @@
                             </goals>
                             <phase>generate-test-resources</phase>
                             <configuration>
-                                <install-dir>${project.build.directory}/wildfly-${version.wildfly}</install-dir>
+                                <install-dir>${project.build.directory}/${jboss.server.name}</install-dir>
                                 <offline>false</offline>
                                 <resolve-locals>
                                     <resolve-local>

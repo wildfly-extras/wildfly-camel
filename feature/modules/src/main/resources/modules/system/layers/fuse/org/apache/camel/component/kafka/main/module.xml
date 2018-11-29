@@ -6,11 +6,11 @@
   <dependencies>
     <module name="org.apache.kafka.clients" export="true">
       <exports>
+        <exclude path="common/message" />
         <exclude path="org/apache/kafka/common/header/internals" />
       </exports>
     </module>
     <module name="org.slf4j" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

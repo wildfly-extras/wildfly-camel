@@ -6,9 +6,6 @@
   <resources>
     <artifact name="${com.kohlschutter.junixsocket:junixsocket-common}" />
     <artifact name="${com.kohlschutter.junixsocket:junixsocket-native-common}" />
-    <artifact name="${org.scijava:native-lib-loader}" />
   </resources>
-  <dependencies>
-    <module name="org.apache.log4j" />
-  </dependencies>
+  <dependencies />
 </module>

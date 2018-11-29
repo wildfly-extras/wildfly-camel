@@ -20,6 +20,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.Producer;
@@ -93,10 +94,11 @@ public class QuickfixIntegrationTest {
             Assert.assertTrue("Logon succeed", logonLatch.await(5L, TimeUnit.SECONDS));
 
             String marketUri = "quickfix:quickfix/inprocess.cfg?sessionID=FIX.4.2:TRADER->MARKET";
-            Producer producer = camelctx.getEndpoint(marketUri).createProducer();
+            Endpoint endpoint = camelctx.getEndpoint(marketUri);
+			Producer producer = endpoint.createProducer();
 
             Email email = createEmailMessage("Example");
-            Exchange exchange = producer.createExchange(ExchangePattern.InOnly);
+            Exchange exchange = endpoint.createExchange(ExchangePattern.InOnly);
             exchange.getIn().setBody(email);
             producer.process(exchange);
 

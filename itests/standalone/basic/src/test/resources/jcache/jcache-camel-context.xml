@@ -7,8 +7,7 @@
     <camelContext id="jcache-test" xmlns="http://camel.apache.org/schema/spring" autoStartup="true">
 
 		<!--endpoint configured via uri options-->
-        <endpoint id="jcacheEndpointWithConf" uri="jcache://test-cache?cachingProvider=com.hazelcast.cache.HazelcastCachingProvider
-		&amp;statisticsEnabled=true" singleton="true"/>
+        <endpoint id="jcacheEndpointWithConf" uri="jcache://test-cache?cachingProvider=com.hazelcast.cache.HazelcastCachingProvider&amp;statisticsEnabled=true" />
 
         <route>
             <from uri="timer:x?repeatCount=1"/>
@@ -21,7 +20,7 @@
             <setBody>
                 <constant>value</constant>
             </setBody>
-            <to ref="jcacheEndpointWithConf"/>
+            <to uri="ref:jcacheEndpointWithConf"/>
             <log message="${body}"/>
         </route>
     </camelContext>

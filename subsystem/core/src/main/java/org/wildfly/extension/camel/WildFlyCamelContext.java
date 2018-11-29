@@ -24,6 +24,7 @@ import javax.naming.Context;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.JndiRegistry;
 
 /**
  * The default WildFly {@link CamelContext}.
@@ -40,6 +41,7 @@ public class WildFlyCamelContext extends DefaultCamelContext {
     }
 
     public void setNamingContext(Context namingContext) {
-        setJndiContext(this.namingContext = namingContext);
+        this.namingContext = namingContext;
+        setRegistry(new JndiRegistry(namingContext));
     }
 }

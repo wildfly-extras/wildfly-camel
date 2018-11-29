@@ -29,7 +29,7 @@ import java.util.Enumeration;
 
 import javax.lang.model.SourceVersion;
 
-import org.apache.camel.impl.DefaultClassResolver;
+import org.apache.camel.impl.engine.DefaultClassResolver;
 import org.apache.camel.util.FileUtil;
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleClassLoader;

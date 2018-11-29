@@ -37,6 +37,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.jndi.JndiBeanRepository;
 import org.apache.camel.util.IOHelper;
 import org.bson.Document;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -137,7 +138,7 @@ public class MongoDBIntegrationTest {
     @SuppressWarnings("unchecked")
     public void testMongo3FindAll() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -168,7 +169,7 @@ public class MongoDBIntegrationTest {
     @Test
     public void testProducerOperations() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             public void configure() {
                 from("direct:create").to("mongodb-gridfs:mdb?database=testA&operation=create&bucket=" + getBucket());
@@ -228,7 +229,7 @@ public class MongoDBIntegrationTest {
     @Test
     public void testConsumerOperations() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             public void configure() {
 

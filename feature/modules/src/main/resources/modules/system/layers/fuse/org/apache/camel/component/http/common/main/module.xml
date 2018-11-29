@@ -4,9 +4,9 @@
     <artifact name="${org.apache.camel:camel-http-common}" />
   </resources>
   <dependencies>
+    <module name="javax.activation.api" />
     <module name="org.slf4j" />
     <module name="javax.servlet.api" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

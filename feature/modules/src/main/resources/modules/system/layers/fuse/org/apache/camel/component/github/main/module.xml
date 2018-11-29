@@ -7,7 +7,6 @@
   <dependencies>
     <module name="org.slf4j" />
     <module name="com.google.code.gson" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.codec" />
   </dependencies>

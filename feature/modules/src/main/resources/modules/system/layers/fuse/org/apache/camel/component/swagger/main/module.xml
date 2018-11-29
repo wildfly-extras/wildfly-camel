@@ -10,6 +10,7 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="javax.xml.bind.api" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
@@ -22,7 +23,6 @@
     <module name="javax.servlet.api" />
     <module name="javax.validation.api" />
     <module name="javax.ws.rs.api" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.io" />
     <module name="org.apache.commons.lang3" />

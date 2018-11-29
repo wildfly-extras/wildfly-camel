@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="org.w3c.css.sac">
+<module xmlns="urn:jboss:module:1.1" name="com.ibm.icu4j">
   <properties>
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${org.w3c.css:sac}" />
+    <artifact name="${com.ibm.icu:icu4j}" />
   </resources>
   <dependencies />
 </module>

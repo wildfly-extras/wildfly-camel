@@ -234,9 +234,11 @@
     </module>
 
     <module name="javax.ws.rs.api" skip="true">
+        <include artifact=":jakarta.ws.rs-api" />
         <include artifact=":javax.ws.rs-api" />
         <include artifact=":jaxrs-api" />
         <include artifact=":jboss-jaxrs-api_2.0_spec" />
+        <include artifact=":jboss-jaxrs-api_2.1_spec" />
         <include artifact=":jsr311-api" />
     </module>
 
@@ -245,6 +247,7 @@
         <include artifact=":jaxb-core" />
         <include artifact=":jaxb-impl" />
         <include artifact=":jboss-jaxb-api_2.2_spec" />
+        <include artifact=":jboss-jaxb-api_2.3_spec" />
     </module>
 
     <module name="javax.xml.stream.api" skip="true">
@@ -380,12 +383,6 @@
 
     <module name="org.apache.xml-resolver" skip="true">
         <include artifact="xml-resolver:xml-resolver" />
-    </module>
-
-    <module name="org.bouncycastle" skip="true">
-        <include artifact=":bcmail-jdk15on"/>
-        <include artifact=":bcpkix-jdk15on"/>
-        <include artifact=":bcprov-jdk15on" />
     </module>
 
     <module name="org.codehaus.jackson.jackson-core-asl" skip="true">

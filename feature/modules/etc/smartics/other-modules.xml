@@ -92,8 +92,6 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="com.amazonaws:aws-java-sdk" />
-        <include artifact="com.amazonaws:aws-java-sdk-cloudfront" />
         <include artifact="com.amazonaws:aws-java-sdk-cloudwatch" />
         <include artifact="com.amazonaws:aws-java-sdk-core" />
         <include artifact="com.amazonaws:aws-java-sdk-dynamodb" />
@@ -101,7 +99,6 @@
         <include artifact="com.amazonaws:aws-java-sdk-kinesis" />
         <include artifact="com.amazonaws:aws-java-sdk-s3" />
         <include artifact="com.amazonaws:aws-java-sdk-ses" />
-        <include artifact="com.amazonaws:aws-java-sdk-signer" />
         <include artifact="com.amazonaws:aws-java-sdk-simpledb" />
         <include artifact="com.amazonaws:aws-java-sdk-simpleworkflow" />
         <include artifact="com.amazonaws:aws-java-sdk-sns" />
@@ -120,18 +117,19 @@
             <module name="com.fasterxml.jackson.dataformat.cbor" />
         </dependencies>
         <exports>
-            <exclude path="com/amazonaws/auth/internal" />
-            <exclude path="com/amazonaws/auth/policy/internal" />
+            <exclude path="com/amazonaws/auth/internal**" />
+            <exclude path="com/amazonaws/auth/policy/internal**" />
             <exclude path="com/amazonaws/auth/profile/internal**" />
             <exclude path="com/amazonaws/internal**" />
             <exclude path="com/amazonaws/metrics/internal**" />
             <exclude path="com/amazonaws/monitoring/internal**" />
-            <exclude path="com/amazonaws/protocol/json/internal" />
-            <exclude path="com/amazonaws/retry/internal" />
-            <exclude path="com/amazonaws/services/dynamodbv2/document/internal" />
+            <exclude path="com/amazonaws/protocol/json/internal**" />
+            <exclude path="com/amazonaws/retry/internal**" />
+            <exclude path="com/amazonaws/services/dynamodbv2/document/internal**" />
             <exclude path="com/amazonaws/services/s3/internal**" />
-            <exclude path="com/amazonaws/services/s3/transfer/internal" />
-            <exclude path="com/amazonaws/services/simpledb/internal" />
+            <exclude path="com/amazonaws/services/s3/transfer/internal**" />
+            <exclude path="com/amazonaws/services/s3control/internal**" />
+            <exclude path="com/amazonaws/services/simpledb/internal**" />
             <exclude path="com/amazonaws/services/sqs/internal**" />
         </exports>
     </module>
@@ -140,6 +138,8 @@
         <include artifact="com.amazonaws:aws-java-sdk-acm" />
         <include artifact="com.amazonaws:aws-java-sdk-acmpca" />
         <include artifact="com.amazonaws:aws-java-sdk-alexaforbusiness" />
+        <include artifact="com.amazonaws:aws-java-sdk-apigatewaymanagementapi" />
+        <include artifact="com.amazonaws:aws-java-sdk-apigatewayv2" />
         <include artifact="com.amazonaws:aws-java-sdk-api-gateway" />
         <include artifact="com.amazonaws:aws-java-sdk-applicationautoscaling" />
         <include artifact="com.amazonaws:aws-java-sdk-appstream" />
@@ -178,6 +178,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-discovery" />
         <include artifact="com.amazonaws:aws-java-sdk-dlm" />
         <include artifact="com.amazonaws:aws-java-sdk-dms" />
+        <include artifact="com.amazonaws:aws-java-sdk-docdb" />
         <include artifact="com.amazonaws:aws-java-sdk-ecr" />
         <include artifact="com.amazonaws:aws-java-sdk-ecs" />
         <include artifact="com.amazonaws:aws-java-sdk-efs" />
@@ -584,7 +585,11 @@
             </module>
         </dependencies>
         <exports>
+            <exclude path="com/hazelcast/com**" />
+            <exclude path="com/hazelcast/cp**" />
             <exclude path="com/hazelcast/internal**" />
+            <exclude path="com/hazelcast/json**" />
+            <exclude path="com/hazelcast/org**" />
             <exclude path="com/hazelcast/osgi**" />
             <exclude path="lib/linux-x86_64" />
             <exclude path="lib/linux-x86" />
@@ -605,6 +610,13 @@
         </properties>
         <include artifact="com.healthmarketscience.jackcess:jackcess"/>
         <include artifact="com.healthmarketscience.jackcess:jackcess-encrypt"/>
+    </module>
+
+    <module name="com.ibm.icu4j">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.ibm.icu:icu4j" />
     </module>
 
     <module name="com.impossibl.pgjdbc">
@@ -1074,6 +1086,13 @@
         <include artifact="javax.measure:unit-api" />
     </module>
 
+    <module name="net.i2p.crypto">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="net.i2p.crypto:eddsa" />
+    </module>
+
     <module name="net.java.dev.msv">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1098,6 +1117,9 @@
     </module>
 
     <module name="net.sf.ehcache.ehcache-core">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="net.sf.ehcache:ehcache-core" />
         <apply-to-dependencies skip="true">
             <include module="javax.transaction.jta"/>
@@ -1108,26 +1130,11 @@
         </dependencies>
     </module>
 
-    <module name="net.sourceforge.cssparser">
+    <module name="net.sf.trove4j">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="net.sourceforge.cssparser:(.*)"/>
-        <dependencies>
-            <module name="jdk.xml.dom" />
-        </dependencies>
-    </module>
-
-    <module name="net.sourceforge.htmlunit">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="net.sourceforge.htmlunit:(.*)"/>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="jdk.xml.dom" />
-            <module name="org.w3c.css.sac"/>
-        </dependencies>
+        <include artifact="net.sf.trove4j:core" />
     </module>
 
     <module name="ognl">
@@ -1399,6 +1406,9 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.kafka:kafka-clients" />
+        <apply-to-dependencies skip="true">
+            <include module="com.github.luben.zstd-jni" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
@@ -1478,6 +1488,9 @@
         </properties>
         <include artifact="org.apache.olingo:odata-server-api" />
         <include artifact="org.apache.olingo:odata-server-core" />
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped" />
+        </apply-to-dependencies>
     </module>
 
     <module name="org.apache.opennlp.opennlp-tools">
@@ -1757,7 +1770,6 @@
             <include module="org.atmosphere.skipped"/>
             <include module="org.eclipse.jetty"/>
             <include module="org.eclipse.jetty.skipped"/>
-            <include module="org.eclipse.jetty.websocket"/>
             <include module="org.mortbay.jetty"/>
             <include module="org.jboss.vfs"/>
         </apply-to-dependencies>
@@ -1774,6 +1786,16 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.bitbucket.b_c:jose4j" />
+    </module>
+
+    <module name="org.bouncycastle" slot="1.61">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":bcpg-jdk15on" />
+        <include artifact=":bcprov-jdk15on" />
+        <include artifact=":bcmail-jdk15on" />
+        <include artifact=":bcpkix-jdk15on" />
     </module>
 
     <module name="org.cometd.bayeux">
@@ -1847,7 +1869,14 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="org.eclipse.californium:" />
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped" />
+        </apply-to-dependencies>
+        <include artifact="org.eclipse.californium:californium-core" />
+        <include artifact="org.eclipse.californium:californium-legal" />
+        <include artifact="org.eclipse.californium:element-connector" />
+        <include artifact="org.eclipse.californium:element-connector-tcp" />
+        <include artifact="org.eclipse.californium:scandium" />
     </module>
 
     <module name="org.eclipse.jetty">
@@ -1866,15 +1895,6 @@
         <dependencies>
             <module name="javax.api" />
         </dependencies>
-    </module>
-
-    <module name="org.eclipse.jetty.websocket">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.eclipse.jetty.websocket:websocket-api" />
-        <include artifact="org.eclipse.jetty.websocket:websocket-client" />
-        <include artifact="org.eclipse.jetty.websocket:websocket-common" />
     </module>
 
     <module name="org.eclipse.milo">
@@ -1966,6 +1986,7 @@
         </dependencies>
         <exports>
             <exclude path="org/ehcache/core/internal**" />
+            <exclude path="org/ehcache/core/osgi" />
             <exclude path="org/ehcache/impl/internal**" />
             <exclude path="org/ehcache/jsr107/internal**" />
             <exclude path="org/terracotta**" />
@@ -2124,6 +2145,7 @@
         <include artifact="org.kie.soup:kie-soup-project-datamodel-commons" />
         <apply-to-dependencies skip="true">
             <include module="com.sun.xml.bind.jaxb.xjc" />
+            <include module="org.drools.kie" />
             <include module="org.osgi.compendium" />
             <include module="org.osgi.core" />
         </apply-to-dependencies>
@@ -2131,6 +2153,14 @@
             <module name="com.sun.xml.bind" />
             <module name="javax.api"/>
             <module name="javax.jms.api"/>
+            <module name="org.drools">
+                <imports>
+                    <include path="META-INF" />
+                </imports>
+                <exports>
+                    <include path="META-INF" />
+                </exports>
+            </module>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -2244,13 +2274,6 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.tukaani:xz" />
-    </module>
-
-    <module name="org.w3c.css.sac">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.w3c.css:sac" />
     </module>
 
     <module name="org.xerial.snappy">
