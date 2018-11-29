@@ -1919,9 +1919,11 @@ org/apache/camel/component/jacksonxml
 org/apache/camel/component/jacksonxml/converter
 org/apache/camel/component/jasypt
 org/apache/camel/component/jbpm
+org/apache/camel/component/jbpm/config
 org/apache/camel/component/jbpm/emitters
 org/apache/camel/component/jbpm/listeners
 org/apache/camel/component/jbpm/server
+org/apache/camel/component/jbpm/workitem
 org/apache/camel/component/jcache
 org/apache/camel/component/jcache/processor
 org/apache/camel/component/jcache/processor/aggregate
