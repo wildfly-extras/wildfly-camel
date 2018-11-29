@@ -16,8 +16,10 @@
     <artifact name="${io.opencensus:opencensus-contrib-grpc-metrics}" />
   </resources>
   <dependencies>
+    <module name="ibm.jdk.ext" />
     <module name="io.netty" />
     <module name="javax.api" />
+    <module name="sun.jdk.ext" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.google.api.grpc.proto-google-common-protos" />
     <module name="com.google.auth.google-auth-library-credentials" />

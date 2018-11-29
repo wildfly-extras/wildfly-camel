@@ -2,6 +2,7 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.zipkin">
   <resources>
     <artifact name="${io.zipkin.brave:brave}" />
+    <artifact name="${io.zipkin.brave:brave-context-slf4j}" />
     <artifact name="${org.apache.camel:camel-zipkin}" />
     <artifact name="${io.zipkin.zipkin2:zipkin}" />
     <artifact name="${io.zipkin.reporter2:zipkin-reporter}" />
@@ -11,7 +12,6 @@
   <dependencies>
     <module name="org.apache.thrift" />
     <module name="org.slf4j" />
-    <module name="javax.annotation.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>

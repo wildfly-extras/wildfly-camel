@@ -101,6 +101,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-kinesis" />
         <include artifact="com.amazonaws:aws-java-sdk-s3" />
         <include artifact="com.amazonaws:aws-java-sdk-ses" />
+        <include artifact="com.amazonaws:aws-java-sdk-signer" />
         <include artifact="com.amazonaws:aws-java-sdk-simpledb" />
         <include artifact="com.amazonaws:aws-java-sdk-simpleworkflow" />
         <include artifact="com.amazonaws:aws-java-sdk-sns" />
@@ -124,6 +125,7 @@
             <exclude path="com/amazonaws/auth/profile/internal**" />
             <exclude path="com/amazonaws/internal**" />
             <exclude path="com/amazonaws/metrics/internal**" />
+            <exclude path="com/amazonaws/monitoring/internal**" />
             <exclude path="com/amazonaws/protocol/json/internal" />
             <exclude path="com/amazonaws/retry/internal" />
             <exclude path="com/amazonaws/services/dynamodbv2/document/internal" />
@@ -136,6 +138,7 @@
 
     <module name="com.amazon.aws.skipped" skip="true">
         <include artifact="com.amazonaws:aws-java-sdk-acm" />
+        <include artifact="com.amazonaws:aws-java-sdk-acmpca" />
         <include artifact="com.amazonaws:aws-java-sdk-alexaforbusiness" />
         <include artifact="com.amazonaws:aws-java-sdk-api-gateway" />
         <include artifact="com.amazonaws:aws-java-sdk-applicationautoscaling" />
@@ -164,6 +167,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-cognitosync" />
         <include artifact="com.amazonaws:aws-java-sdk-comprehend" />
         <include artifact="com.amazonaws:aws-java-sdk-config" />
+        <include artifact="com.amazonaws:aws-java-sdk-connect" />
         <include artifact="com.amazonaws:aws-java-sdk-costandusagereport" />
         <include artifact="com.amazonaws:aws-java-sdk-costexplorer" />
         <include artifact="com.amazonaws:aws-java-sdk-datapipeline" />
@@ -172,6 +176,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-directconnect" />
         <include artifact="com.amazonaws:aws-java-sdk-directory" />
         <include artifact="com.amazonaws:aws-java-sdk-discovery" />
+        <include artifact="com.amazonaws:aws-java-sdk-dlm" />
         <include artifact="com.amazonaws:aws-java-sdk-dms" />
         <include artifact="com.amazonaws:aws-java-sdk-ecr" />
         <include artifact="com.amazonaws:aws-java-sdk-ecs" />
@@ -183,7 +188,9 @@
         <include artifact="com.amazonaws:aws-java-sdk-elasticsearch" />
         <include artifact="com.amazonaws:aws-java-sdk-elastictranscoder" />
         <include artifact="com.amazonaws:aws-java-sdk-emr" />
+        <include artifact="com.amazonaws:aws-java-sdk-eks" />
         <include artifact="com.amazonaws:aws-java-sdk-events" />
+        <include artifact="com.amazonaws:aws-java-sdk-fms" />
         <include artifact="com.amazonaws:aws-java-sdk-gamelift" />
         <include artifact="com.amazonaws:aws-java-sdk-glacier" />
         <include artifact="com.amazonaws:aws-java-sdk-glue" />
@@ -194,6 +201,9 @@
         <include artifact="com.amazonaws:aws-java-sdk-importexport" />
         <include artifact="com.amazonaws:aws-java-sdk-inspector" />
         <include artifact="com.amazonaws:aws-java-sdk-iot" />
+        <include artifact="com.amazonaws:aws-java-sdk-iotanalytics" />
+        <include artifact="com.amazonaws:aws-java-sdk-iot1clickdevices" />
+        <include artifact="com.amazonaws:aws-java-sdk-iot1clickprojects" />
         <include artifact="com.amazonaws:aws-java-sdk-iotjobsdataplane" />
         <include artifact="com.amazonaws:aws-java-sdk-kinesisvideo" />
         <include artifact="com.amazonaws:aws-java-sdk-kms" />
@@ -203,6 +213,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-lightsail" />
         <include artifact="com.amazonaws:aws-java-sdk-logs" />
         <include artifact="com.amazonaws:aws-java-sdk-machinelearning" />
+        <include artifact="com.amazonaws:aws-java-sdk-macie" />
         <include artifact="com.amazonaws:aws-java-sdk-marketplacecommerceanalytics" />
         <include artifact="com.amazonaws:aws-java-sdk-marketplaceentitlement" />
         <include artifact="com.amazonaws:aws-java-sdk-marketplacemeteringservice" />
@@ -212,13 +223,16 @@
         <include artifact="com.amazonaws:aws-java-sdk-mediapackage" />
         <include artifact="com.amazonaws:aws-java-sdk-mediastore" />
         <include artifact="com.amazonaws:aws-java-sdk-mediastoredata" />
+        <include artifact="com.amazonaws:aws-java-sdk-mediatailor" />
         <include artifact="com.amazonaws:aws-java-sdk-migrationhub" />
         <include artifact="com.amazonaws:aws-java-sdk-mobile" />
         <include artifact="com.amazonaws:aws-java-sdk-models" />
         <include artifact="com.amazonaws:aws-java-sdk-mq" />
+        <include artifact="com.amazonaws:aws-java-sdk-neptune" />
         <include artifact="com.amazonaws:aws-java-sdk-opsworks" />
         <include artifact="com.amazonaws:aws-java-sdk-opsworkscm" />
         <include artifact="com.amazonaws:aws-java-sdk-organizations" />
+        <include artifact="com.amazonaws:aws-java-sdk-pi" />
         <include artifact="com.amazonaws:aws-java-sdk-pinpoint" />
         <include artifact="com.amazonaws:aws-java-sdk-polly" />
         <include artifact="com.amazonaws:aws-java-sdk-pricing" />
@@ -230,6 +244,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-route53" />
         <include artifact="com.amazonaws:aws-java-sdk-sagemaker" />
         <include artifact="com.amazonaws:aws-java-sdk-sagemakerruntime" />
+        <include artifact="com.amazonaws:aws-java-sdk-secretsmanager" />
         <include artifact="com.amazonaws:aws-java-sdk-serverlessapplicationrepository" />
         <include artifact="com.amazonaws:aws-java-sdk-servermigration" />
         <include artifact="com.amazonaws:aws-java-sdk-servicecatalog" />
@@ -384,6 +399,25 @@
             <module name="com.fasterxml.jackson.core.jackson-databind"/>
             <module name="io.netty"/>
             <module name="javax.api"/>
+        </dependencies>
+    </module>
+
+    <module name="com.github.dozermapper">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.github.dozermapper:dozer-core" />
+        <include artifact="com.github.dozermapper:dozer-schema" />
+        <apply-to-dependencies skip="true">
+            <include module="org.osgi.core" />
+            <include module="org.projectlombok" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="javax.el.api"/>
+            <module name="javax.xml.bind.api"/>
+            <!-- circular dependency to allow dozer to load camel-dozer types -->
+            <module name="org.apache.camel.component.dozer"/>
         </dependencies>
     </module>
 
@@ -1005,10 +1039,13 @@
             <include module="com.google.code.findbugs"/>
             <include module="com.google.errorprone"/>
             <include module="io.netty.skipped"/>
+            <include module="org.jvnet.skipped" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="ibm.jdk.ext" />
             <module name="io.netty"/>
             <module name="javax.api"/>
+            <module name="sun.jdk.ext" />
         </dependencies>
     </module>
 
@@ -1531,7 +1568,7 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.qpid.proton" slot="0.26">
+    <module name="org.apache.qpid.proton" slot="0.29">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
@@ -1611,9 +1648,12 @@
         <include artifact="org.gagravarr:vorbis-java-tika"/>
         <apply-to-dependencies skip="true">
             <include module="biz.aQute" />
+            <include module="com.epam.parso" />
             <include module="com.github.jai-imageio" />
             <include module="com.github.luben.zstd-jni" />
             <include module="com.github.openjson" />
+            <include module="com.sun.xml.bind" />
+            <include module="net.java.dev.jna" />
             <include module="org.apache.ctakes.ctakes-core" />
             <include module="org.apache.felix" />
             <include module="org.apache.uima" />
@@ -1709,6 +1749,7 @@
         <include artifact="org.apache.zookeeper:zookeeper" />
         <apply-to-dependencies skip="true">
             <include module="jline" />
+            <include module="org.apache.yetus.audience.annotations" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
@@ -1810,23 +1851,14 @@
         <include artifact="org.codelibs:jhighlight" />
     </module>
 
-    <module name="org.dozer.mapper">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.github.dozermapper:dozer-core" />
-        <include artifact="com.github.dozermapper:dozer-schema" />
+    <module name="org.drools">
+        <include artifact="org.drools:drools-compiler" />
+        <include artifact="org.drools:drools-core" />
         <apply-to-dependencies skip="true">
-            <include module="org.osgi.core" />
-            <include module="org.projectlombok" />
+            <include module="antlr" />
+            <include module="com.sun.xml.bind.jaxb.xjc" />
+            <include module="org.osgi.compendium" />
         </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="javax.el.api"/>
-            <module name="javax.xml.bind.api"/>
-            <!-- circular dependency to allow dozer to load camel-dozer types -->
-            <module name="org.apache.camel.component.dozer"/>
-        </dependencies>
     </module>
 
     <module name="org.eclipse.californium">
@@ -2017,6 +2049,9 @@
         <include artifact="org.igniterealtime.smack:smack-resolver-javax" />
         <include artifact="org.igniterealtime.smack:smack-sasl-javax" />
         <include artifact="org.igniterealtime.smack:smack-tcp" />
+        <apply-to-dependencies skip="true">
+            <include module="org.minidns.minidns.core" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
@@ -2090,6 +2125,33 @@
         <include artifact="org.jxmpp:jxmpp-util-cache" />
     </module>
 
+    <module name="org.kie">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.kie:kie-api" />
+        <include artifact="org.kie:kie-internal" />
+        <include artifact="org.kie:kie-dmn-api" />
+        <include artifact="org.kie:kie-dmn-model" />
+        <include artifact="org.kie.server:kie-server-api" />
+        <include artifact="org.kie.server:kie-server-client" />
+        <include artifact="org.kie.server:kie-server-common" />
+        <include artifact="org.kie.soup:kie-soup-commons" />
+        <include artifact="org.kie.soup:kie-soup-maven-support" />
+        <include artifact="org.kie.soup:kie-soup-project-datamodel-api" />
+        <include artifact="org.kie.soup:kie-soup-project-datamodel-commons" />
+        <apply-to-dependencies skip="true">
+            <include module="com.sun.xml.bind.jaxb.xjc" />
+            <include module="org.osgi.compendium" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.sun.xml.bind" />
+            <module name="javax.api"/>
+            <module name="javax.jms.api"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.latencyutils">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -2102,27 +2164,6 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.lz4:lz4-java" />
-    </module>
-
-    <module name="org.objenesis" >
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.objenesis:objenesis" />
-    </module>
-
-    <module name="org.opengis.geoapi">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.opengis:geoapi" />
-    </module>
-
-    <module name="org.osgi.core">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":org.osgi.core" />
     </module>
 
     <module name="org.mongodb">
@@ -2142,6 +2183,40 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.mvel:mvel2" />
+    </module>
+
+    <module name="org.objenesis" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.objenesis:objenesis" />
+    </module>
+
+    <module name="org.opengis.geoapi">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.opengis:geoapi" />
+    </module>
+
+    <module name="org.optaplanner">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.optaplanner:optaplanner-core" />
+        <include artifact="org.optaplanner:optaplanner-persistence-common" />
+        <include artifact="org.optaplanner:optaplanner-persistence-jaxb" />
+        <include artifact="org.optaplanner:optaplanner-persistence-xstream" />
+        <exports>
+            <exclude path="org/optaplanner/core/impl**" />
+        </exports>
+    </module>
+
+    <module name="org.osgi.core">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":org.osgi.core" />
     </module>
 
     <module name="org.quartz">

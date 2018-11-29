@@ -4,7 +4,9 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${org.codehaus.groovy:groovy-all}" />
+    <artifact name="${org.codehaus.groovy:groovy}" />
+    <artifact name="${org.codehaus.groovy:groovy-jsr223}" />
+    <artifact name="${org.codehaus.groovy:groovy-xml}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
@@ -19,6 +21,9 @@
     <exclude path="groovy/json/internal" />
     <exclude path="groovyjarjarantlr/**" />
     <exclude path="groovyjarjarasm/**" />
+    <exclude path="groovyjarjarpicocli/**" />
+    <exclude path="groovyjarjarcommonscli/**" />
+    <exclude path="org/apache/groovy/internal**" />
     <exclude path="org/codehaus" />
   </exports>
 </module>

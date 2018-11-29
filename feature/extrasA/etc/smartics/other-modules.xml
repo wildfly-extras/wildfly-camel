@@ -157,6 +157,7 @@
         <apply-to-dependencies skip="true">
             <include module="biz.aQute" />
             <include module="com.google.code.findbugs" />
+            <include module="org.jetbrains.annotations" />
             <include module="org.osgi.annotation" />
         </apply-to-dependencies>
         <dependencies>
@@ -184,34 +185,6 @@
             <module name="javax.api"/>
             <module name="javax.xml.bind.api"/>
         </dependencies>
-    </module>
-
-    <module name="org.kie.remote" inherit-slot="false" slot="6.5">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.kie.remote:kie-remote-client" />
-        <include artifact="org.kie.remote:kie-remote-common" />
-        <include artifact="org.kie.remote:kie-remote-jaxb" />
-        <include artifact="org.kie.remote.ws:kie-remote-ws-common" />
-        <dependencies>
-            <module name="com.sun.xml.bind" />
-            <module name="javax.api"/>
-            <module name="javax.jms.api"/>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
-    <module name="org.kie" inherit-slot="false" slot="6.5">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.kie:kie-internal" />
-        <include artifact="org.kie:kie-api" />
-        <apply-to-dependencies skip="true">
-            <include module="com.sun.xml.bind.jaxb.xjc" />
-            <include module="org.osgi.compendium" />
-        </apply-to-dependencies>
     </module>
 
     <module name="xmlenc">

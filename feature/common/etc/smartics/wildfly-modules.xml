@@ -240,6 +240,7 @@
     <module name="javax.ws.rs.api" skip="true">
         <include artifact=":javax.ws.rs-api" />
         <include artifact=":jaxrs-api" />
+        <include artifact=":jboss-jaxrs-api_2.0_spec" />
         <include artifact=":jsr311-api" />
     </module>
 

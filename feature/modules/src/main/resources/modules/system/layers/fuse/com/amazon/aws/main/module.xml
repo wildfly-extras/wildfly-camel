@@ -13,6 +13,7 @@
     <artifact name="${com.amazonaws:aws-java-sdk-kinesis}" />
     <artifact name="${com.amazonaws:aws-java-sdk-s3}" />
     <artifact name="${com.amazonaws:aws-java-sdk-ses}" />
+    <artifact name="${com.amazonaws:aws-java-sdk-signer}" />
     <artifact name="${com.amazonaws:aws-java-sdk-simpledb}" />
     <artifact name="${com.amazonaws:aws-java-sdk-simpleworkflow}" />
     <artifact name="${com.amazonaws:aws-java-sdk-sns}" />
@@ -37,6 +38,7 @@
     <exclude path="com/amazonaws/auth/profile/internal**" />
     <exclude path="com/amazonaws/internal**" />
     <exclude path="com/amazonaws/metrics/internal**" />
+    <exclude path="com/amazonaws/monitoring/internal**" />
     <exclude path="com/amazonaws/protocol/json/internal" />
     <exclude path="com/amazonaws/retry/internal" />
     <exclude path="com/amazonaws/services/dynamodbv2/document/internal" />

@@ -7,13 +7,17 @@
     <artifact name="${org.elasticsearch.plugin:aggs-matrix-stats-client}" />
     <artifact name="${org.elasticsearch:elasticsearch}" />
     <artifact name="${org.elasticsearch:elasticsearch-cli}" />
+    <artifact name="${org.elasticsearch:elasticsearch-core}" />
     <artifact name="${org.elasticsearch.client:elasticsearch-rest-client}" />
     <artifact name="${org.elasticsearch.client:elasticsearch-rest-client-sniffer}" />
     <artifact name="${org.elasticsearch.client:elasticsearch-rest-high-level-client}" />
+    <artifact name="${org.elasticsearch:elasticsearch-secure-sm}" />
+    <artifact name="${org.elasticsearch:elasticsearch-x-content}" />
     <artifact name="${org.elasticsearch:jna}" />
     <artifact name="${net.sf.jopt-simple:jopt-simple}" />
+    <artifact name="${org.elasticsearch.plugin:lang-mustache-client}" />
     <artifact name="${org.elasticsearch.plugin:parent-join-client}" />
-    <artifact name="${org.elasticsearch:securesm}" />
+    <artifact name="${org.elasticsearch.plugin:rank-eval-client}" />
     <artifact name="${com.tdunning:t-digest}" />
   </resources>
   <dependencies>
@@ -30,6 +34,7 @@
     <module name="com.fasterxml.jackson.dataformat.cbor" />
     <module name="com.fasterxml.jackson.dataformat.smile" />
     <module name="com.fasterxml.jackson.dataformat.yaml" />
+    <module name="com.github.spullara.mustache" />
     <module name="org.apache.commons.codec" />
     <module name="org.apache.commons.logging" />
     <module name="org.apache.httpcomponents" />

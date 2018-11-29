@@ -34,7 +34,7 @@
 
     <camelContext id="master-quartz2" xmlns="http://camel.apache.org/schema/spring" depends-on="curator">
         <route>
-            <from uri="zookeeper-master:master-000:quartz2://masterTest?trigger.repeatCount=3&amp;trigger.repeatInterval=100"/>
+            <from uri="zookeeper-master:master-000:quartz2://masterTest?trigger.repeatCount=300&amp;trigger.repeatInterval=100"/>
             <to uri="mock:results"/>
         </route>
     </camelContext>

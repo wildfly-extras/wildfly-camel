@@ -69,6 +69,10 @@
         <include artifact="com.data-artisans:flakka-testkit_2.11" />
     </module>
 
+    <module name="com.epam.parso" skip="true">
+        <include artifact="com.epam:parso" />
+    </module>
+
     <module name="com.github.jai-imageio" skip="true">
         <include artifact="com.github.jai-imageio:(.*)" />
     </module>
@@ -220,6 +224,10 @@
         <include artifact="io.sundr:sundr-codegen" />
     </module>
 
+    <module name="io.zipkin.skipped" skip="true">
+        <include artifact="io.zipkin.reporter:zipkin-reporter" />
+    </module>
+
     <module name="jaxmeapi" skip="true">
         <include artifact=":jaxmeapi" />
     </module>
@@ -322,6 +330,10 @@
         <include artifact="org.apache.httpcomponents:httpclient-osgi" />
     </module>
 
+    <module name="org.jetbrains.annotations" skip="true">
+        <include artifact="org.jetbrains:annotations" />
+    </module>
+
     <module name="org.apache.log4j" skip="true">
         <include artifact="org.apache.log4j:" />
         <include artifact="log4j:" />
@@ -354,6 +366,10 @@
     <module name="org.apache.uima" skip="true">
         <include artifact="org.apache.uima:uimafit-core" />
         <include artifact="org.apache.uima:uimaj-core" />
+    </module>
+
+    <module name="org.apache.yetus.audience.annotations" skip="true">
+        <include artifact="org.apache.yetus:audience-annotations" />
     </module>
 
     <module name="org.atmosphere.skipped" skip="true">
@@ -470,8 +486,17 @@
         <include artifact="org.jruby.jcodings:jcodings" />
     </module>
 
+    <module name="org.jvnet.skipped" skip="true">
+        <include artifact="org.jvnet:animal-sniffer-annotation" />
+        <include artifact="org.codehaus.mojo:animal-sniffer-annotations" />
+    </module>
+
     <module name="org.linkedin" skip="true">
         <include artifact="org.linkedin:(.*)" />
+    </module>
+
+    <module name="org.minidns.minidns.core" skip="true">
+        <include artifact="org.minidns:minidns-core" />
     </module>
 
     <module name="org.mnode.skipped" skip="true">

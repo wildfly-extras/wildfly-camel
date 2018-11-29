@@ -3,6 +3,7 @@
   <resources>
     <artifact name="${org.apache.camel:camel-influxdb}" />
     <artifact name="${org.influxdb:influxdb-java}" />
+    <artifact name="${org.msgpack:msgpack-core}" />
   </resources>
   <dependencies>
     <module name="com.squareup.moshi" />
@@ -15,5 +16,6 @@
   </dependencies>
   <exports>
     <exclude path="org/influxdb/impl**" />
+    <exclude path="org/msgpack**" />
   </exports>
 </module>

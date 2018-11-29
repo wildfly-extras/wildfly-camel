@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.kie">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.kie:kie-api}" />
+    <artifact name="${org.kie:kie-dmn-api}" />
+    <artifact name="${org.kie:kie-dmn-model}" />
+    <artifact name="${org.kie:kie-internal}" />
+    <artifact name="${org.kie.server:kie-server-api}" />
+    <artifact name="${org.kie.server:kie-server-client}" />
+    <artifact name="${org.kie.server:kie-server-common}" />
+    <artifact name="${org.kie.soup:kie-soup-commons}" />
+    <artifact name="${org.kie.soup:kie-soup-maven-support}" />
+    <artifact name="${org.kie.soup:kie-soup-project-datamodel-api}" />
+    <artifact name="${org.kie.soup:kie-soup-project-datamodel-commons}" />
+  </resources>
+  <dependencies>
+    <module name="com.sun.xml.bind" />
+    <module name="javax.api" />
+    <module name="javax.jms.api" />
+    <module name="org.slf4j" />
+    <module name="com.fasterxml.jackson.core.jackson-annotations" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" />
+    <module name="com.thoughtworks.xstream" />
+    <module name="javax.activation.api" />
+    <module name="javax.enterprise.api" />
+    <module name="javax.ws.rs.api" />
+    <module name="javax.xml.bind.api" />
+    <module name="javax.xml.stream.api" />
+    <module name="org.apache.commons.lang3" />
+    <module name="org.drools" />
+    <module name="org.mvel.mvel2" />
+    <module name="org.optaplanner" />
+    <module name="org.osgi.core" />
+  </dependencies>
+</module>

@@ -20,7 +20,11 @@
 package org.wildfly.camel.test.nats;
 
 import io.nats.client.Connection;
-import io.nats.client.ConnectionFactory;
+import io.nats.client.Message;
+import io.nats.client.Nats;
+import io.nats.client.Options;
+
+import java.nio.charset.StandardCharsets;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
@@ -35,6 +39,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -82,7 +87,6 @@ public class NatsIntegrationTest {
             });
 
             MockEndpoint to = camelctx.getEndpoint("mock:result", MockEndpoint.class);
-            to.expectedBodiesReceived("{Subject=test;Reply=null;Payload=<test-message>}");
             to.expectedMessageCount(1);
 
             camelctx.start();
@@ -90,7 +94,7 @@ public class NatsIntegrationTest {
             // Make sure the consumer has subscribed to the topic before sending messages
             NatsConsumer consumer = (NatsConsumer) camelctx.getRoute("nats-route").getConsumer();
             int count = 0;
-            while(!consumer.isSubscribed()) {
+            while(!consumer.isActive()) {
                 Thread.sleep(500);
                 count += 1;
                 if (count > 10) {
@@ -98,11 +102,17 @@ public class NatsIntegrationTest {
                 }
             }
 
-            ConnectionFactory factory = new ConnectionFactory("nats://" + TestUtils.getDockerHost() + ":4222");
-            Connection connection = factory.createConnection();
-            connection.publish("test", "test-message".getBytes());
+            Options options = new Options.Builder().server("nats://" + TestUtils.getDockerHost() + ":4222").build();
+            Connection connection = Nats.connect(options);
+
+            final byte[] payload = "test-message".getBytes(StandardCharsets.UTF_8);
+            connection.publish("test", payload);
 
             to.assertIsSatisfied(5000);
+            Message natsMessage = to.getExchanges().get(0).getIn().getBody(Message.class);
+            Assert.assertEquals("test", natsMessage.getSubject());
+            Assert.assertNull(natsMessage.getReplyTo());
+            Assert.assertArrayEquals(payload, natsMessage.getData());
         } finally {
             camelctx.stop();
         }

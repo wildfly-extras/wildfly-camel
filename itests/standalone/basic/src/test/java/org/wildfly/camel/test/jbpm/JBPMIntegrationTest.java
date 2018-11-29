@@ -18,9 +18,9 @@
 package org.wildfly.camel.test.jbpm;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.jbpm.JBPMConstants;
+import org.apache.camel.component.jbpm.JBPMConfiguration;
+import org.apache.camel.component.jbpm.JBPMEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -43,28 +43,25 @@ public class JBPMIntegrationTest {
     @Test
     public void interactsOverRest() throws Exception {
 
+        String endpointUri = "jbpm:http://localhost:8080/business-central?userName=bpmsAdmin&password=pa$word1&deploymentId=org.kie.example:project1:1.0.0-SNAPSHOT";
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                    .to("jbpm:http://localhost:8080/business-central?userName=bpmsAdmin&password=pa$word1&deploymentId=org.kie.example:project1:1.0.0-SNAPSHOT")
+                    .to(endpointUri)
                     .to("mock:result");
             }
         });
 
-        camelctx.start();
-        try {
-            ProducerTemplate producer = camelctx.createProducerTemplate();
-            try {
-                producer.sendBodyAndHeader("direct:start", null, JBPMConstants.PROCESS_ID, "project1.integration-test");
-                Assert.fail("RemoteCommunicationException expected");
-            } catch (Exception ex) {
-                Throwable cause = ex.getCause();
-                Assert.assertTrue("Unexpected: " + cause, cause.getMessage().contains("404"));
-            }
-        } finally {
-            camelctx.stop();
-        }
+        /*
+         * In the future, we could follow up with something that talks to
+         * https://access.redhat.com/containers/?tab=overview#/registry.access.redhat.com/rhpam-7/rhpam71-kieserver-openshift
+         */
+
+        JBPMEndpoint endpoint = camelctx.getEndpoint(endpointUri, JBPMEndpoint.class);
+        JBPMConfiguration config = endpoint.getConfiguration();
+        Assert.assertEquals("bpmsAdmin", config.getUserName());
     }
 }

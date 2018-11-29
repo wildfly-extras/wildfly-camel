@@ -18,6 +18,7 @@ aws-cw
 aws-ddb
 aws-ddbstream
 aws-ec2
+aws-iam
 aws-kinesis
 aws-kinesis-firehose
 aws-kms
@@ -73,6 +74,7 @@ elsql
 etcd
 exec
 facebook
+fhir
 file
 flatpack
 fop
@@ -85,6 +87,7 @@ git
 github
 google-bigquery
 google-calendar
+google-calendar-stream
 google-drive
 google-mail
 google-mail-stream
@@ -130,6 +133,8 @@ kafka
 kubernetes                                          #deprecated
 kubernetes-config-maps
 kubernetes-deployments
+kubernetes-hpa
+kubernetes-job
 kubernetes-namespaces
 kubernetes-nodes
 kubernetes-persistent-volumes
@@ -156,7 +161,7 @@ milo-server
 mina2
 mllp
 mock
-mongodb
+mongodb                                             #deprecated
 mongodb-gridfs
 mongodb3
 mqtt
@@ -268,12 +273,16 @@ restlet                                             #2024 Blocked by camel-2.21.
 
 [undecided]
 as2
+atmos
+google-sheets
+google-sheets-stream
+ipfs
+nsq
 service
 web3j
 xchange
 
 [rejected]
-atmos                                               #1984 Jersey clashes with RestEasy
 bonita                                              #1820 Not another BPM engine
 cache                                               #deprecated
 cometd                                              #1990 Depends on Jetty server
@@ -315,5 +324,5 @@ routebox                                            #deprecated
 spark                                               #1469 Scala/Jackson stack overflow
 spark-rest                                          #1470 Scala/Jackson stack overflow
 websocket                                           #1479 No alternative HTTP engine
-xmlrpc                                              #2507 xmlrpc is no longer maintained
+xmlrpc                                              #deprecated
 

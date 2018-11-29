@@ -28,6 +28,8 @@
                 <path name="org/apache/xerces/dom" />
                 <!-- needed by castor -->
                 <path name="org/apache/xml/serialize" />
+                <!-- needed by grpc-->
+                <path name="com/sun/jndi/dns" />
                 <!-- needed by hadoop -->
                 <path name="com/ibm/security/auth/module"/>
             </paths>

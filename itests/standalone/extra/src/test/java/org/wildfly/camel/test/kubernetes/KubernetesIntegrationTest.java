@@ -35,7 +35,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.kubernetes.KubernetesConstants;
-import org.apache.camel.component.kubernetes.KubernetesEndpoint;
+import org.apache.camel.component.kubernetes.pods.KubernetesPodsEndpoint;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -69,7 +69,7 @@ public class KubernetesIntegrationTest {
 
     @Test
     public void testKubernetesConsumer() throws Exception {
-        String kubernetesConsumerURI = String.format("kubernetes:%s?category=pods", getKubernetesMaster());
+        String kubernetesConsumerURI = String.format("kubernetes-pods:%s?category=pods", getKubernetesMaster());
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -88,7 +88,7 @@ public class KubernetesIntegrationTest {
 
         camelctx.start();
 
-        KubernetesEndpoint kubernetesEndpoint = camelctx.getEndpoint(kubernetesConsumerURI, KubernetesEndpoint.class);
+        KubernetesPodsEndpoint kubernetesEndpoint = camelctx.getEndpoint(kubernetesConsumerURI, KubernetesPodsEndpoint.class);
         String kubernetesNamespace = getNamespace(kubernetesEndpoint.getKubernetesClient());
 
         try {
@@ -97,7 +97,7 @@ public class KubernetesIntegrationTest {
             headers.put(KubernetesConstants.KUBERNETES_NAMESPACE_NAME, kubernetesNamespace);
             headers.put(KubernetesConstants.KUBERNETES_POD_NAME, podName);
             headers.put(KubernetesConstants.KUBERNETES_POD_SPEC, createPodSpec());
-            template.requestBodyAndHeaders("kubernetes:" + getKubernetesMaster() + "?category=pods&operation=createPod", null, headers);
+            template.requestBodyAndHeaders("kubernetes-pods:" + getKubernetesMaster() + "?category=pods&operation=createPod", null, headers);
 
             mockEndpoint.assertIsSatisfied();
         } finally {
@@ -105,7 +105,7 @@ public class KubernetesIntegrationTest {
             Map<String, Object> headers = new HashMap<>();
             headers.put(KubernetesConstants.KUBERNETES_NAMESPACE_NAME, kubernetesNamespace);
             headers.put(KubernetesConstants.KUBERNETES_POD_NAME, podName);
-            template.requestBodyAndHeaders("kubernetes:" + getKubernetesMaster() + "?category=pods&operation=deletePod", null, headers);
+            template.requestBodyAndHeaders("kubernetes-pods:" + getKubernetesMaster() + "?category=pods&operation=deletePod", null, headers);
 
             camelctx.stop();
         }
@@ -113,7 +113,7 @@ public class KubernetesIntegrationTest {
 
     @Test
     public void testKubernetesProducer() throws Exception {
-        String kubernetesProducerURI = String.format("kubernetes:%s?category=pods&operation=createPod", getKubernetesMaster());
+        String kubernetesProducerURI = String.format("kubernetes-pods:%s?category=pods&operation=createPod", getKubernetesMaster());
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -129,7 +129,7 @@ public class KubernetesIntegrationTest {
 
         camelctx.start();
 
-        KubernetesEndpoint kubernetesEndpoint = camelctx.getEndpoint(kubernetesProducerURI, KubernetesEndpoint.class);
+        KubernetesPodsEndpoint kubernetesEndpoint = camelctx.getEndpoint(kubernetesProducerURI, KubernetesPodsEndpoint.class);
         String kubernetesNamespace = getNamespace(kubernetesEndpoint.getKubernetesClient());
 
         try {

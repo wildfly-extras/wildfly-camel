@@ -4,9 +4,9 @@
     <artifact name="${org.apache.camel:camel-groovy}" />
   </resources>
   <dependencies>
+    <module name="org.apache.camel.script.groovy" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.camel.script.groovy" />
   </dependencies>
 </module>

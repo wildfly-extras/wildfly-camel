@@ -10,6 +10,7 @@
     <module name="com.fasterxml.jackson.jr" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.csv" />
   </dependencies>
   <exports>
     <exclude path="org/apache/camel/component/braintree/internal" />

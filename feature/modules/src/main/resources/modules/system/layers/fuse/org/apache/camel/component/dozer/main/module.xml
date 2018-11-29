@@ -4,10 +4,10 @@
     <artifact name="${org.apache.camel:camel-dozer}" />
   </resources>
   <dependencies>
-    <module name="org.dozer.mapper" export="true">
+    <module name="com.github.dozermapper" export="true">
       <exports>
-        <include path="org/dozer/util**" />
-        <exclude path="org/dozer**" />
+        <include path="com/github/dozermapper/core/util**" />
+        <exclude path="com/github**" />
       </exports>
     </module>
     <module name="org.apache.commons.lang3" />
