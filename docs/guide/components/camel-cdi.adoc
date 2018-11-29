@@ -2,3 +2,4 @@
 
 Covered by link:index.html#_cdi[CDI].
 
+include::camel-cdi-differences.adoc[]

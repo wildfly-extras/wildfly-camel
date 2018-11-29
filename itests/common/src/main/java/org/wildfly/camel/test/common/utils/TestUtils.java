@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.URI;
 
+import org.jboss.modules.ModuleClassLoader;
 import org.wildfly.camel.utils.IOUtils;
 import org.wildfly.camel.utils.IllegalStateAssertion;
 
@@ -56,5 +57,14 @@ public final class TestUtils {
             IOUtils.copyStream(in, out);
             return new String(out.toByteArray());
         }
+    }
+
+    public static String getClassLoaderModuleName(ClassLoader classLoader) {
+        if (classLoader instanceof ModuleClassLoader) {
+            ModuleClassLoader moduleClassLoader = (ModuleClassLoader) classLoader;
+            return moduleClassLoader.getModule().getName();
+        }
+
+        throw new IllegalArgumentException("ClassLoader must be of type ModuleClassLoader");
     }
 }

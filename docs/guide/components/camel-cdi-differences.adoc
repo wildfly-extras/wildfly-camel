@@ -1,0 +1,13 @@
+#### Camel CDI for EAR deployments on {wildfly-camel}
+
+Camel CDI EAR deployments on {wildfly-camel} have some differences in class and resource loading behaviour, compared to standard WAR or JAR deployments.
+
+{wildfly} bootstraps Weld using the EAR deployment ClassLoader. {wildfly} also mandates that only a single CDI extension is created and shared
+by all EAR sub-deployments.
+
+This results in the 'Auto-configured' CDI Camel Context using the EAR deployment ClassLoader to dynamically load classes and resources.
+By default, this ClassLoader does not have access to resources within EAR sub-deployments.
+
+For EAR deployments, it is recommended that usage of the 'Auto-configured' CDI Camel Context is avoided and that `RouteBuilder` classes are annotated with `@ContextName`,
+or that a `CamelContext` is created via the `@ImportResource` annotation or through CDI producer methods and fields. This helps {wildfly-camel} to determine the correct
+ClassLoader to use with Camel.

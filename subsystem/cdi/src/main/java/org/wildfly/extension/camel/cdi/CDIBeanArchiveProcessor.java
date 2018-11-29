@@ -2,6 +2,8 @@ package org.wildfly.extension.camel.cdi;
 
 import java.util.List;
 
+import org.jboss.as.ee.structure.DeploymentType;
+import org.jboss.as.ee.structure.DeploymentTypeMarker;
 import org.jboss.as.ee.weld.WeldDeploymentMarker;
 import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
@@ -27,8 +29,8 @@ final class CDIBeanArchiveProcessor implements DeploymentUnitProcessor {
             return;
         }
 
-        // Return if we're not an EAR deployment with 1 or more sub-deployments
-        if (depUnit.getName().endsWith(".ear") && subDeployments.isEmpty()) {
+        // Return if we're not an EAR deployment
+        if (!DeploymentTypeMarker.isType(DeploymentType.EAR, depUnit)) {
             return;
         }
 

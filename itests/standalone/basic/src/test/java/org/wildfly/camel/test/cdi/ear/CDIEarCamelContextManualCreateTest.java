@@ -2,7 +2,7 @@
  * #%L
  * Wildfly Camel :: Testsuite
  * %%
- * Copyright (C) 2013 - 2017 RedHat
+ * Copyright (C) 2013 - 2018 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,9 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.classloading;
+package org.wildfly.camel.test.cdi.ear;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ServiceStatus;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -32,39 +31,39 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.classloading.subC.XmlRouteBuilder;
+import org.wildfly.camel.test.cdi.ear.config.factory.CustomCamelContextFactory;
+import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class CamelEnablementImportResourceWarInEarTest {
+public class CDIEarCamelContextManualCreateTest {
 
     @ArquillianResource
-    CamelContextRegistry contextRegistry;
+    private CamelContextRegistry contextRegistry;
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-import-resource-war-in-ear.jar");
+        return ShrinkWrap.create(JavaArchive.class, "camel-cdi-ear-manual-context-tests.jar")
+            .addClass(TestUtils.class);
+    }
+
+    @Deployment(testable = false, name = "manual-context.ear")
+    public static EnterpriseArchive createEarDeployment() {
+        return ShrinkWrap.create(EnterpriseArchive.class, "manual-context.ear")
+            .addAsModule(ShrinkWrap.create(WebArchive.class, "manual-context.war")
+                .addClass(CustomCamelContextFactory.class)
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+            );
     }
 
     @Test
-    public void testCamelEnabled() throws Exception {
-        CamelContext camelctx = contextRegistry.getCamelContext("classloading-spring-context");
-        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
-    }
+    public void testCamelCdiEarManualContextCreation() throws Exception {
+        CamelContext camelctx = contextRegistry.getCamelContext("manual-context");
+        Assert.assertNotNull("Expected manual-context to not be null", camelctx);
 
-    @Deployment(name = "camel-import-resource-tests.ear", managed = true, testable = false)
-    public static EnterpriseArchive createEarDeployment() {
-
-        WebArchive war = ShrinkWrap.create(WebArchive.class, "camel-import-resource-tests.war")
-                .addClass(XmlRouteBuilder.class)
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-                .addAsResource("classloading/spring-camel-context.xml");
-
-        EnterpriseArchive ear = ShrinkWrap.create(EnterpriseArchive.class, "camel-import-resource-tests.ear")
-                .addAsModule(war);
-
-        return ear;
+        String moduleName = TestUtils.getClassLoaderModuleName(camelctx.getApplicationContextClassLoader());
+        Assert.assertEquals("deployment.manual-context.ear.manual-context.war", moduleName);
     }
 }
