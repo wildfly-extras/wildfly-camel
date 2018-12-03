@@ -1,5 +1,54 @@
 ### Changelog
 
+#### WildFly-Camel 9.0.0
+
+**Tasks**
+
+* [#2584][2584] Upgrade to camel-2.23.0
+* [#2605][2605] Test CXF RS endpoints with Elytron
+* [#2606][2606] Support securing Undertow endpoints with Elytron
+* [#2634][2634] Upgrade to WildFly 15.0.0.Final
+* [#2667][2667] Add squash build option to docker-maven-plugin configuration
+* [#2673][2673] Add fuse conditionals to documentation
+* [#2676][2676] Add test coverage for securing camel-servlet endpoints with Elytron
+* [#2683][2683] Keep repository defs in sync with the archetypes
+* [#2691][2691] Remove redundant Maven plugins
+* [#2694][2694] Upgrade Hawtio to 2.3.0
+* [#2718][2718] Update the docker build with a wf15 base image
+
+For details see [9.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"9.0.0"+label%3Atask)
+
+**Bugs**
+
+* [#2497][2497] Camel subsystem not activated by @ImportResource in EAR
+* [#2580][2580] NPE in CamelDeploymentSettings when deploying an EAR with two WARs
+* [#2655][2655] Leaking DeploymentManagerImpl after a CXF app is undeployed
+* [#2656][2656] Leaking ServerActivity after a CXF app is undeployed
+* [#2670][2670] BusDeploymentAspect creates CXF DefaultBus using wrong class loader
+* [#2711][2711] Unable to build image wildflyext/wildfly-camel
+* [#2720][2720] Module org.dozer.mapper cannot find javax.el implementation
+
+For details see [9.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"9.0.0"+label%3Abug)
+
+[2584]: https://github.com/wildfly-extras/wildfly-camel/issues/2584
+[2605]: https://github.com/wildfly-extras/wildfly-camel/issues/2605
+[2606]: https://github.com/wildfly-extras/wildfly-camel/issues/2606
+[2634]: https://github.com/wildfly-extras/wildfly-camel/issues/2634
+[2667]: https://github.com/wildfly-extras/wildfly-camel/issues/2667
+[2673]: https://github.com/wildfly-extras/wildfly-camel/issues/2673
+[2676]: https://github.com/wildfly-extras/wildfly-camel/issues/2676
+[2683]: https://github.com/wildfly-extras/wildfly-camel/issues/2683
+[2691]: https://github.com/wildfly-extras/wildfly-camel/issues/2691
+[2694]: https://github.com/wildfly-extras/wildfly-camel/issues/2694
+[2718]: https://github.com/wildfly-extras/wildfly-camel/issues/2718
+[2497]: https://github.com/wildfly-extras/wildfly-camel/issues/2497
+[2580]: https://github.com/wildfly-extras/wildfly-camel/issues/2580
+[2655]: https://github.com/wildfly-extras/wildfly-camel/issues/2655
+[2656]: https://github.com/wildfly-extras/wildfly-camel/issues/2656
+[2670]: https://github.com/wildfly-extras/wildfly-camel/issues/2670
+[2711]: https://github.com/wildfly-extras/wildfly-camel/issues/2711
+[2720]: https://github.com/wildfly-extras/wildfly-camel/issues/2720
+
 #### WildFly-Camel 8.0.0
 
 **Features**
