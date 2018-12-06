@@ -10,6 +10,7 @@
     <module name="javax.api" />
     <module name="javax.el.api" />
     <module name="javax.xml.bind.api" />
+    <module name="org.glassfish.javax.el" />
     <module name="org.apache.camel.component.dozer" />
     <module name="org.apache.commons.beanutils" />
     <module name="org.apache.commons.io" />

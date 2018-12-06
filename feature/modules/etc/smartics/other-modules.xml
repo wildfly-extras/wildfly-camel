@@ -416,6 +416,7 @@
             <module name="javax.api"/>
             <module name="javax.el.api"/>
             <module name="javax.xml.bind.api"/>
+            <module name="org.glassfish.javax.el"/>
             <!-- circular dependency to allow dozer to load camel-dozer types -->
             <module name="org.apache.camel.component.dozer"/>
         </dependencies>

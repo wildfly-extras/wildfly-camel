@@ -427,10 +427,6 @@
         <include artifact="org.glassfish.jersey.core:jersey-common" />
     </module>
 
-    <module name="org.glassfish.web" skip="true">
-        <include artifact="org.glassfish.web:javax.el" />
-    </module>
-
     <module name="org.immutables.value" skip="true">
         <include artifact="org.immutables:value" />
     </module>
