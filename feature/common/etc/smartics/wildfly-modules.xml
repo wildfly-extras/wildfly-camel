@@ -197,7 +197,7 @@
     <module name="javax.servlet.api" skip="true">
         <include artifact=":geronimo-servlet_3.0_spec" />
         <include artifact=":javax.servlet-api" />
-        <include artifact=":jboss-servlet-api_3.1_spec" />
+        <include artifact=":jboss-servlet-api_4.0_spec" />
         <include artifact=":servlet-api" />
     </module>
 
