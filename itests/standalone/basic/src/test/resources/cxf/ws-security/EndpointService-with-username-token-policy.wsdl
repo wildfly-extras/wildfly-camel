@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://wildfly.camel.test.cxf"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+  xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+  name="EndpointService" targetNamespace="http://wildfly.camel.test.cxf">
+  <wsdl:types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://wildfly.camel.test.cxf"
+      attributeFormDefault="unqualified" elementFormDefault="unqualified"
+      targetNamespace="http://wildfly.camel.test.cxf">
+      <xsd:element name="input" nillable="true" type="xsd:string" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="echoString">
+    <wsdl:part element="tns:input" name="input">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="echoStringResponse">
+    <wsdl:part name="return" type="xsd:string">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Endpoint">
+    <wsdl:operation name="echoString">
+      <wsdl:input message="tns:echoString" name="echoString">
+      </wsdl:input>
+      <wsdl:output message="tns:echoStringResponse" name="echoStringResponse">
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EndpointServiceSoapBinding" type="tns:Endpoint">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsp:PolicyReference URI="#SecurityServicePolicy"/>
+    <wsdl:operation name="echoString">
+      <soap:operation soapAction="urn:EchoString" style="rpc" />
+      <wsdl:input name="echoString">
+        <soap:header message="tns:echoString" part="input" use="literal">
+        </soap:header>
+        <soap:body namespace="http://wildfly.camel.test.cxf" parts="" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="echoStringResponse">
+        <soap:body namespace="http://wildfly.camel.test.cxf" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EndpointService">
+    <wsdl:port binding="tns:EndpointServiceSoapBinding" name="EndpointPort">
+      <soap:address location="http://localhost:8080/CXFWSPolicyIntegrationTest/EndpointService" />
+    </wsdl:port>
+  </wsdl:service>
+  <wsp:Policy wsu:Id="SecurityServicePolicy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+          <wsp:Policy>
+            <sp:UsernameToken
+              sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy>
+                <sp:WssUsernameToken10 />
+              </wsp:Policy>
+            </sp:UsernameToken>
+          </wsp:Policy>
+        </sp:SupportingTokens>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+
+</wsdl:definitions>

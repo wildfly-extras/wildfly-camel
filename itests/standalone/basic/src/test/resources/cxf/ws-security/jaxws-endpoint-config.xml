@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxws-config xmlns="urn:jboss:jbossws-jaxws-config:4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:javaee="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="urn:jboss:jbossws-jaxws-config:4.0 schema/jbossws-jaxws-config_4_0.xsd">
+    <endpoint-config>
+        <config-name>UsernameTokenEndpointImplConfig</config-name>
+        <property>
+            <property-name>ws-security.validate.token</property-name>
+            <property-value>false</property-value>
+        </property>
+    </endpoint-config>
+</jaxws-config>
