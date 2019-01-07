@@ -478,7 +478,6 @@
 /org/apache/camel/component/xmpp/main/camel-xmpp-2.23.0.jar
 /org/apache/camel/component/xstream/main/camel-xstream-2.23.0.jar
 /org/apache/camel/component/yammer/main/camel-yammer-2.23.0.jar
-/org/apache/camel/component/yql/main/camel-yql-2.23.0.jar
 /org/apache/camel/component/zendesk/main/camel-zendesk-2.23.0.jar
 /org/apache/camel/component/zendesk/main/zendesk-java-client-0.6.2.jar
 /org/apache/camel/component/zipfile/main/camel-zipfile-2.23.0.jar

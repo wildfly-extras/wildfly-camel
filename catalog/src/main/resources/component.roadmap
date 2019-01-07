@@ -263,7 +263,6 @@ xmpp
 xquery
 xslt
 yammer
-yql
 zendesk
 zookeeper
 zookeeper-master
@@ -325,4 +324,5 @@ spark                                               #1469 Scala/Jackson stack ov
 spark-rest                                          #1470 Scala/Jackson stack overflow
 websocket                                           #1479 No alternative HTTP engine
 xmlrpc                                              #deprecated
+yql                                                 #YQL services are EOL and have been retired
 
