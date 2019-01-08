@@ -149,6 +149,11 @@
         <include artifact="com.martiansoftware:nailgun-server" />
     </module>
 
+    <module name="com.querydsl.skip" skip="true">
+        <include artifact=":querydsl-apt" />
+        <include artifact=":querydsl-codegen" />
+    </module>
+
     <module name="com.sun.codemodel" skip="true">
         <include artifact="com.sun.codemodel:codemodel" />
     </module>
@@ -264,15 +269,11 @@
         <include artifact="net.jcip:jcip-annotations" />
     </module>
 
-    <module name="net.sf.ehcache" skip="true">
+    <module name="net.sf.skipped" skip="true">
         <include artifact="net.sf.ehcache:ehcache" />
-    </module>
-
-    <module name="net.sf.ehcache.sizeof-agent" skip="true">
         <include artifact="net.sf.ehcache:sizeof-agent" />
-    </module>
-
-    <module name="net.sf.kxml" skip="true">
+        <include artifact="net.sf.ezmorph:ezmorph" />
+        <include artifact="net.sf.json-lib:json-lib" />
         <include artifact="net.sf.kxml:(.*)" />
     </module>
 
@@ -332,6 +333,10 @@
 
     <module name="org.jetbrains.annotations" skip="true">
         <include artifact="org.jetbrains:annotations" />
+    </module>
+
+    <module name="org.apache.logging.log4j" skip="true">
+        <include artifact="org.apache.logging.log4j:log4j-to-slf4j" />
     </module>
 
     <module name="org.apache.log4j" skip="true">

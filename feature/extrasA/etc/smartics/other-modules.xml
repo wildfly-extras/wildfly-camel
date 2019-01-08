@@ -173,20 +173,6 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.tika" skip="true">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.apache.tika:tika-core" />
-        <apply-to-dependencies skip="true">
-            <include module="biz.aQute" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="javax.xml.bind.api"/>
-        </dependencies>
-    </module>
-
     <module name="xmlenc">
         <properties>
             <property name="jboss.api" value="private"/>

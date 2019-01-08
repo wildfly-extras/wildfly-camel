@@ -42,7 +42,7 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.activemq.rar" skip="true">
+    <module name="org.apache.activemq.skipped" skip="true">
         <include artifact=":activemq-rar" />
     </module>
 

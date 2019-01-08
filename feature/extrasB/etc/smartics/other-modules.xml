@@ -20,13 +20,6 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="com.carrotsearch.hppc" skip="true">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.carrotsearch:hppc" />
-    </module>
-
     <module name="com.fasterxml.jackson.dataformat.smile">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -96,11 +89,6 @@
             <exclude path="org/elasticsearch/search/internal**" />
             <exclude path="org/joda**" />
         </exports>
-    </module>
-
-    <module name="org.elasticsearch.skipped" skip="true">
-        <include artifact="com.vividsolutions:jts" />
-        <include artifact="org.locationtech.spatial4j" />
     </module>
 
 </modules>

@@ -24,6 +24,15 @@
 -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="com.carrotsearch.hppc" skip="true">
+        <include artifact="com.carrotsearch:hppc" />
+    </module>
+
+    <module name="org.elasticsearch.skipped" skip="true">
+        <include artifact="com.vividsolutions:jts" />
+        <include artifact="org.locationtech.spatial4j" />
+    </module>
+
     <module name="com.fasterxml.jackson.dataformat.cbor" skip="true">
         <include artifact=":jackson-dataformat-cbor" />
     </module>

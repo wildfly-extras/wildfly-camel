@@ -111,6 +111,10 @@
         <include artifact="org.apache.directory.server:apacheds-kerberos-codec" />
     </module>
 
+    <module name="org.apache.tika" skip="true">
+        <include artifact="org.apache.tika:tika-core" />
+    </module>
+
     <module name="org.apache.zookeeper" skip="true">
         <include artifact="org.apache.zookeeper:zookeeper" />
     </module>
