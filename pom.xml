@@ -67,7 +67,7 @@
         <version.camel.sshd>2.0.0</version.camel.sshd>
 
         <!-- WildFly versions -->
-        <version.wildfly>15.0.0.Final</version.wildfly>
+        <version.wildfly>15.0.1.Final</version.wildfly>
         <version.wildfly.arquillian>2.1.1.Final</version.wildfly.arquillian>
         <version.wildfly.cxf>3.2.5-jbossorg-1</version.wildfly.cxf>
         <version.wildfly.fasterxml.jackson>2.9.5</version.wildfly.fasterxml.jackson>
