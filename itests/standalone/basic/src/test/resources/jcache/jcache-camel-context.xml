@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <camelContext id="jcache-test" xmlns="http://camel.apache.org/schema/spring" autoStartup="true">
+
+		<!--endpoint configured via uri options-->
+        <endpoint id="jcacheEndpointWithConf" uri="jcache://test-cache?cachingProvider=com.hazelcast.cache.HazelcastCachingProvider
+		&amp;statisticsEnabled=true" singleton="true"/>
+
+        <route>
+            <from uri="timer:x?repeatCount=1"/>
+            <setHeader headerName="CamelJCacheKey">
+                <constant>key</constant>
+            </setHeader>
+            <setHeader headerName="CamelJCacheAction">
+                <constant>PUT</constant>
+            </setHeader>
+            <setBody>
+                <constant>value</constant>
+            </setBody>
+            <to ref="jcacheEndpointWithConf"/>
+            <log message="${body}"/>
+        </route>
+    </camelContext>
+</beans>
