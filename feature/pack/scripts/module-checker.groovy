@@ -166,6 +166,10 @@ def allowedDuplicateModules = [
 ] as Set
 def allowedDuplicateArtifacts = [
 ] as Set
+def allowedOrphanArtifacts = [
+	"org.fusesource.camel.component.sap",
+	"com.sap.conn.jco"
+] as Set
 
 
 def smarticsFilesPrefix = properties.get("wildfly-camel-feature-pack.basedir") + "/../"
@@ -302,7 +306,7 @@ modules.findAll { (it.layer == "fuse") }.each { fuseModule ->
 
 // Ban orphan modules
 modules.findAll { (it.layer == "fuse") }.each { fuseModule ->
-    if (!dependencyGraph.isDependencyOfRootModule(fuseModule.name, fuseModule.slot)) {
+    if (!dependencyGraph.isDependencyOfRootModule(fuseModule.name, fuseModule.slot) && !allowedOrphanArtifacts.contains(fuseModule.name)) {
         problems << "Orphan module: ${fuseModule.name}:${fuseModule.slot} No relevant WildFly Camel module depends on it and can thus be removed"
     }
 }
