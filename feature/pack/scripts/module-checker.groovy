@@ -194,11 +194,6 @@ def dependencyGraph = new DependencyGraph(rootModules);
 
 // Build up a list of modules and identify duplicates
 paths.each { path ->
-    def featurePackFile = new File("${path}/../../../../wildfly-feature-pack.xml")
-    def featurePack = null
-    if (featurePackFile.exists()) {
-        featurePack = new XmlParser().parse(featurePackFile)
-    }
 
     new File(path).eachFileRecurse() { file ->
         def parser = new XmlParser()
@@ -238,32 +233,13 @@ paths.each { path ->
                 def artifactId = gavParts[1]
                 def version = ""
 
-                // Get the version from the resource string or lookup from feature-pack definition
+                // Get the version from the resource string
                 if (gavParts.length >= 3) {
                     version = gavParts[2]
+	                module.resources << new Resource(groupId, artifactId, version)
                 } else {
-                    if (featurePack == null) {
-                        println ""
-                        println "ERROR - Unable to determine version for artifact ${groupId}:${artifactId}. Feature pack definition not found ${featurePackFile.canonicalPath}"
-                        println ""
-                        fail
-                    }
-
-                    def match = featurePack."artifact-versions".artifact.find { artifact ->
-                        artifact.@groupId == groupId && artifact.@artifactId == artifactId
-                    }
-
-                    if (match == null) {
-                        println ""
-                        println "ERROR - Could not find artifact reference ${groupId}:${artifactId} in ${featurePackFile.canonicalPath}"
-                        println ""
-                        fail
-                    }
-
-                    version = match.@version
+                    problems << "Unable to determine version for artifact ${groupId}:${artifactId}"
                 }
-
-                module.resources << new Resource(groupId, artifactId, version)
             }
 
             otherModule = modules.find { it.name == module.name && it.slot == module.slot }
