@@ -31,15 +31,6 @@ import java.util.stream.Collectors;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.client.ListIndexesIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.gridfs.GridFS;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
@@ -64,6 +55,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.MongoClient;
+import com.mongodb.client.ListIndexesIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.gridfs.GridFS;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -131,38 +130,6 @@ public class MongoDBIntegrationTest {
             context.unbind("mdb");
         } catch (NamingException e) {
             // Ignore
-        }
-    }
-
-    @Test
-    @SuppressWarnings("unchecked")
-    public void testMongoFindAll() throws Exception {
-
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:start")
-                .to("mongodb:mdb?database=test&collection=camelTest&operation=findAll&dynamicity=true");
-            }
-        });
-
-        camelctx.start();
-        try {
-            ProducerTemplate template = camelctx.createProducerTemplate();
-            List<DBObject> result = template.requestBody("direct:start", null, List.class);
-
-            Assert.assertEquals(ROWS, result.size());
-
-            for (DBObject obj : result) {
-                Assert.assertNotNull(obj.get("_id"));
-                Assert.assertNotNull(obj.get("scientist"));
-                Assert.assertNotNull(obj.get("fixedField"));
-            }
-        } finally {
-            testCollection.drop();
-            dynamicCollection.drop();
-            camelctx.stop();
         }
     }
 
