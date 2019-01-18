@@ -1,6 +1,0 @@
-### camel-mongodb
-
-The http://camel.apache.org/mongodb.html[mongodb,window=_blank]
-component provides the capability to interact with http://www.mongodb.org/[MongoDB,window=_blank] servers.
-
-

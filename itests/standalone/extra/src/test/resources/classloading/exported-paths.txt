@@ -1999,10 +1999,7 @@ org/apache/camel/component/milo/server
 org/apache/camel/component/mina2
 org/apache/camel/component/mllp
 org/apache/camel/component/mongodb
-org/apache/camel/component/mongodb/converters
 org/apache/camel/component/mongodb/gridfs
-org/apache/camel/component/mongodb/processor
-org/apache/camel/component/mongodb/processor/idempotent
 org/apache/camel/component/mongodb3
 org/apache/camel/component/mongodb3/converters
 org/apache/camel/component/mongodb3/processor

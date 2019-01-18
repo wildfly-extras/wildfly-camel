@@ -228,8 +228,6 @@ include::camel-mina2.adoc[]
 
 include::camel-mllp.adoc[]
 
-include::camel-mongodb.adoc[]
-
 include::camel-mongodb-gridfs.adoc[]
 
 include::camel-mongodb3.adoc[]
