@@ -49,7 +49,7 @@
         <product.release.name>WildFly Camel</product.release.name>
 
         <!-- Camel versions -->
-        <version.apache.camel>2.23.1</version.apache.camel>
+        <version.apache.camel>2.23.2</version.apache.camel>
         <version.camel.apns>1.0.0.Beta6</version.camel.apns>
         <version.camel.elasticsearch.rest>6.4.2</version.camel.elasticsearch.rest>
         <version.camel.grpc.guava>20.0</version.camel.grpc.guava>

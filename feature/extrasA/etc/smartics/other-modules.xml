@@ -123,7 +123,7 @@
             <include module="org.apache.camel.component.protobuf" />
             <include module="org.apache.commons.daemon" />
             <include module="org.apache.directory.server" />
-            <include module="org.fusesource.leveldbjni" />
+            <include module="org.fusesource.leveldbjni.all" />
             <include module="org.mortbay.jetty" />
         </apply-to-dependencies>
         <dependencies>

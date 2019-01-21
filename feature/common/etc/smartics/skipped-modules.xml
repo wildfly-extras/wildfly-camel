@@ -412,8 +412,13 @@
         <include artifact="org.fusesource.hawtjni:hawtjni-runtime" />
     </module>
 
-    <module name="org.fusesource.leveldbjni" skip="true">
-        <include artifact="org.fusesource.leveldbjni:leveldbjni-all" />
+    <module name="org.fusesource.leveldbjni.skipped" skip="true">
+        <include artifact="org.fusesource.leveldbjni:leveldbjni" />
+        <include artifact="org.fusesource.leveldbjni:leveldbjni-linux32" />
+        <include artifact="org.fusesource.leveldbjni:leveldbjni-linux64" />
+        <include artifact="org.fusesource.leveldbjni:leveldbjni-osx" />
+        <include artifact="org.fusesource.leveldbjni:leveldbjni-win32" />
+        <include artifact="org.fusesource.leveldbjni:leveldbjni-win64" />
     </module>
 
     <module name="com.github.openjson" skip="true">

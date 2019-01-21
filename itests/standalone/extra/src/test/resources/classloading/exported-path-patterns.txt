@@ -99,6 +99,8 @@
     ^org/ehcache(.*)
     ^org/elasticsearch(.*)
 	^org/fusesource/hawtbuf(.*)
+	^org/fusesource/hawtjni(.*)
+	^org/fusesource/leveldbjni(.*)
     ^org/fusesource/stomp(.*)
 	^org/quartz(.*)
 	^org/hl7/fhir(.*)

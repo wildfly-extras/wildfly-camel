@@ -119,6 +119,10 @@
         <include artifact="org.apache.zookeeper:zookeeper" />
     </module>
 
+    <module name="org.fusesource.leveldbjni.all" skip="true">
+        <include artifact="org.fusesource.leveldbjni:leveldbjni-all" />
+    </module>
+
     <module name="org.osgi.core" skip="true">
         <include artifact=":org.osgi.core" />
         <include artifact="org.osgi:core" />

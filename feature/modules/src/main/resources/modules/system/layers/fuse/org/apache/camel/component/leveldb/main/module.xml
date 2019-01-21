@@ -2,6 +2,7 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.leveldb">
   <resources>
     <artifact name="${org.apache.camel:camel-leveldb}" />
+    <artifact name="${org.fusesource.leveldbjni:leveldbjni-all}" />
   </resources>
   <dependencies>
     <module name="org.slf4j" />
@@ -10,4 +11,9 @@
     <module name="org.fusesource.hawtbuf" />
     <module name="org.iq80.leveldb" />
   </dependencies>
+  <exports>
+    <exclude path="org/iq80**" />
+    <exclude path="org/fusesource" />
+    <exclude path="org/fusesource/leveldbjni/internal" />
+  </exports>
 </module>

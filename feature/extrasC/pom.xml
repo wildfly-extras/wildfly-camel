@@ -176,19 +176,6 @@
                             </target>
                         </configuration>
                     </execution>
-                    <!-- <execution>
-                        <id>feature-pack-xml</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <property name="feature.pack.dir" value="${project.build.directory}/${project.artifactId}-${project.version}" />
-                                <copy file="${feature.pack.dir}/wildfly-feature-pack.xml" todir="${basedir}/etc" />
-                            </target>
-                        </configuration>
-                    </execution> -->
                 </executions>
             </plugin>
             <plugin>

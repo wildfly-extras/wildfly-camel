@@ -4015,6 +4015,9 @@ org/elasticsearch/search/suggest/phrase
 org/elasticsearch/search/suggest/term
 org/fusesource/hawtbuf
 org/fusesource/hawtbuf/codec
+org/fusesource/hawtjni
+org/fusesource/hawtjni/runtime
+org/fusesource/leveldbjni
 org/fusesource/stomp
 org/fusesource/stomp/client
 org/fusesource/stomp/codec
