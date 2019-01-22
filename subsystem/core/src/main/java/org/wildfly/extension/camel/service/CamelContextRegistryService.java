@@ -25,8 +25,10 @@ import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 import java.util.Collections;
 import java.util.EventObject;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.CamelContextTrackerRegistry;
@@ -53,7 +55,6 @@ import org.wildfly.extension.camel.ContextCreateHandler;
 import org.wildfly.extension.camel.ContextCreateHandlerRegistry;
 import org.wildfly.extension.camel.SpringCamelContextFactory;
 import org.wildfly.extension.camel.deployment.CamelDeploymentSettings;
-import org.wildfly.extension.camel.deployment.CamelDeploymentSettingsBuilderProcessor;
 import org.wildfly.extension.camel.handler.ModuleClassLoaderAssociationHandler;
 import org.wildfly.extension.camel.parser.SubsystemState;
 import org.wildfly.extension.camel.service.CamelContextRegistryService.MutableCamelContextRegistry;
@@ -160,6 +161,14 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
             this.handlerRegistry = handlerRegistry;
             this.serviceTarget = serviceTarget;
             CamelContextTrackerRegistry.INSTANCE.addTracker(this);
+        }
+
+        @Override
+        public List<String> getCamelContextNames() {
+            List<String> result = contexts.stream()
+                    .map(ctx -> ctx.getName())
+                    .collect(Collectors.toList());
+            return result;
         }
 
         @Override

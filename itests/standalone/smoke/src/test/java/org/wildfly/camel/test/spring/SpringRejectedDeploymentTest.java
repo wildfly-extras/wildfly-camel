@@ -19,6 +19,14 @@
  */
 package org.wildfly.camel.test.spring;
 
+import java.lang.management.ManagementFactory;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -32,6 +40,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
+import org.wildfly.extension.camel.CamelContextRegistry;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -40,10 +49,13 @@ public class SpringRejectedDeploymentTest {
     private static final String SIMPLE_JAR = "simple.jar";
 
     @ArquillianResource
-    private Deployer deployer;
+    Deployer deployer;
 
     @ArquillianResource
-    private ServiceContainer serviceContainer;
+    CamelContextRegistry contextRegistry;
+
+    @ArquillianResource
+    ServiceContainer serviceContainer;
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -58,6 +70,14 @@ public class SpringRejectedDeploymentTest {
 
     @Test
     public void testDeploymentRejectedForContextStartupFailure() throws Exception {
+
+        List<String> names = contextRegistry.getCamelContextNames();
+        Assert.assertEquals(Collections.emptyList(), names);
+
+        MBeanServer server = ManagementFactory.getPlatformMBeanServer();
+        Set<ObjectName> onames = server.queryNames(new ObjectName("org.apache.camel:*"), null);
+        Assert.assertEquals(Collections.emptySet(), onames);
+
         try {
             deployer.deploy(SIMPLE_JAR);
             Assert.fail("Expected deployment exception to be thrown but it was not");
@@ -68,5 +88,8 @@ public class SpringRejectedDeploymentTest {
         } finally {
             deployer.undeploy(SIMPLE_JAR);
         }
+
+        onames = server.queryNames(new ObjectName("org.apache.camel:*"), null);
+        Assert.assertEquals(Collections.emptySet(), onames);
     }
 }

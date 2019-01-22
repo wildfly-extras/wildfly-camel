@@ -21,6 +21,7 @@
 
 package org.wildfly.extension.camel;
 
+import java.util.List;
 import java.util.Set;
 
 import org.apache.camel.CamelContext;
@@ -34,6 +35,9 @@ import org.apache.camel.CamelContext;
  * @since 19-Apr-2013
  */
 public interface CamelContextRegistry {
+
+    /** Get the set of registered context names */
+    List<String> getCamelContextNames();
 
     /** Get the camel context for the given name */
     CamelContext getCamelContext(String name);
