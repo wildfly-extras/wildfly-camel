@@ -329,13 +329,11 @@ META-INF/services/org/apache/camel/component
 META-INF/services/org/apache/camel/dataformat
 META-INF/services/org/apache/camel/ha
 META-INF/services/org/apache/camel/language
-META-INF/services/org/apache/camel/language/resolver
 META-INF/services/org/apache/camel/model
 META-INF/services/org/apache/camel/reactive-streams
 META-INF/services/org/apache/camel/rest
 META-INF/services/org/apache/camel/restapi
 META-INF/services/org/apache/camel/send-dynamic
-bsh/engine
 ca/uhn/fhir/context
 ca/uhn/fhir/context/api
 ca/uhn/fhir/context/support
@@ -1699,8 +1697,6 @@ org/apache/avro/reflect
 org/apache/avro/specific
 org/apache/avro/util
 org/apache/camel
-org/apache/camel/builder
-org/apache/camel/builder/script
 org/apache/camel/coap
 org/apache/camel/component
 org/apache/camel/component/ahc
@@ -2276,7 +2272,6 @@ org/apache/camel/processor/lucene/support
 org/apache/camel/processor/mllp
 org/apache/camel/routepolicy
 org/apache/camel/routepolicy/quartz2
-org/apache/camel/script
 org/apache/camel/service
 org/apache/camel/service/lra
 org/apache/camel/swagger

@@ -5,14 +5,10 @@ exchangeProperty
 file
 groovy
 header
-javaScript
 jsonpath
 mvel
 ognl
-php                                 #deprecated
-python                              #deprecated
 ref
-ruby                                #deprecated
 simple
 spel
 terser
@@ -24,6 +20,10 @@ xtokenize
 [planned]
 
 [undecided]
+javaScript
+php                                 #deprecated
+python                              #deprecated
+ruby                                #deprecated
 
 [rejected]
 el                                  #deprecated

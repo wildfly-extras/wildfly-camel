@@ -304,8 +304,6 @@ include::camel-saxon.adoc[]
 
 include::camel-schematron.adoc[]
 
-include::camel-script.adoc[]
-
 include::camel-servicenow.adoc[]
 
 include::camel-servlet.adoc[]
