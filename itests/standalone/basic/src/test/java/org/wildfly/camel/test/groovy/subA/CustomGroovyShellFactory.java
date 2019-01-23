@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.script.subA;
+package org.wildfly.camel.test.groovy.subA;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.language.groovy.GroovyShellFactory;
@@ -31,7 +31,7 @@ public class CustomGroovyShellFactory implements GroovyShellFactory {
 
     public GroovyShell createGroovyShell(Exchange exchange) {
         ImportCustomizer importCustomizer = new ImportCustomizer();
-        importCustomizer.addStaticStars("org.wildfly.camel.test.script.subA.CustomUtils");
+        importCustomizer.addStaticStars("org.wildfly.camel.test.groovy.subA.CustomUtils");
         CompilerConfiguration configuration = new CompilerConfiguration();
         configuration.addCompilationCustomizers(importCustomizer);
         ClassLoader classLoader = exchange.getContext().getApplicationContextClassLoader();

@@ -132,10 +132,6 @@
             <artifactId>cache-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache-extras.beanshell</groupId>
-            <artifactId>bsh</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-camel</artifactId>
         </dependency>
@@ -781,10 +777,6 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-script</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
             <artifactId>camel-servlet</artifactId>
         </dependency>
         <dependency>
@@ -1040,11 +1032,6 @@
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-jcache</artifactId>
         </dependency>
-        <dependency>
-            <groupId>rhino</groupId>
-            <artifactId>js</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-galleon-pack</artifactId>

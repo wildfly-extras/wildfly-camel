@@ -1200,7 +1200,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.apache.camel.script.groovy" />
+            <module name="org.codehaus.groovy" export="true"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -2552,71 +2552,6 @@
         <dependencies>
             <module name="javax.api" />
             <module name="net.sf.saxon" export="true" />
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
-    <module name="org.apache.camel.component.script">
-        <include artifact="org.apache.camel:camel-script">
-            <filter>
-                <exclude path="org/apache/camel/script/osgi**" />
-            </filter>
-        </include>
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-            <include module="org.osgi.core" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="org.apache.camel.script.groovy" export="true" services="export"/>
-            <module name="org.apache.camel.script.rhino" services="export"/>
-            <module name="org.beanshell" export="true" services="export">
-                <exports>
-                    <include path="bsh/engine"/>
-                    <exclude path="bsh**"/>
-                </exports>
-            </module>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
-    <module name="org.apache.camel.script.groovy">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.codehaus.groovy:groovy" />
-        <include artifact="org.codehaus.groovy:groovy-jsr223" />
-        <include artifact="org.codehaus.groovy:groovy-xml" />
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="org.slf4j"/>
-            <module name="sun.jdk">
-                <imports>
-                    <include path="sun/misc/Unsafe"/>
-                </imports>
-            </module>
-        </dependencies>
-        <exports>
-            <exclude path="groovy/json/internal"/>
-            <exclude path="groovyjarjarantlr/**"/>
-            <exclude path="groovyjarjarasm/**"/>
-            <exclude path="groovyjarjarpicocli/**"/>
-            <exclude path="groovyjarjarcommonscli/**"/>
-            <exclude path="org/apache/groovy/internal**"/>
-            <exclude path="org/codehaus"/>
-        </exports>
-    </module>
-
-    <module name="org.apache.camel.script.rhino">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":scriptengines-javascript" />
-        <include artifact=":livetribe-jsr223" />
-        <include artifact="rhino:js" />
-        <dependencies>
-            <module name="javax.api"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>

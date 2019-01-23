@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.script;
+package org.wildfly.camel.test.groovy;
 
 import javax.annotation.Resource;
 
@@ -32,7 +32,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.script.subA.CustomGroovyShellFactory;
+import org.wildfly.camel.test.groovy.subA.CustomGroovyShellFactory;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
@@ -46,7 +46,7 @@ public class GroovyShellFactoryTest {
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "script-tests.jar");
         archive.addPackage(CustomGroovyShellFactory.class.getPackage());
-        archive.addAsResource("script/groovy-transform-camel-context.xml");
+        archive.addAsResource("groovy/groovy-transform-camel-context.xml");
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }
@@ -55,7 +55,6 @@ public class GroovyShellFactoryTest {
     public void testGroovy() throws Exception {
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBody("direct:start", "Kermit", String.class);
-
         Assert.assertEquals("Hello Kermit", result);
     }
 
@@ -63,7 +62,6 @@ public class GroovyShellFactoryTest {
     public void testGroovyWithHeader() throws Exception {
         ProducerTemplate producer = camelctx.createProducerTemplate();
         String result = producer.requestBodyAndHeader("direct:start", "Kermit", "locale", "es", String.class);
-
         Assert.assertEquals("Hola Kermit", result);
     }
 }

@@ -25,7 +25,7 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
     <!-- The custom groovy shell factory -->
-    <bean id="myShellFactory" class="org.wildfly.camel.test.script.subA.CustomGroovyShellFactory" />
+    <bean id="myShellFactory" class="org.wildfly.camel.test.groovy.subA.CustomGroovyShellFactory" />
 
     <camelContext id="spring-context" xmlns="http://camel.apache.org/schema/spring">
         <route>

@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.script.subA;
+package org.wildfly.camel.test.groovy.subA;
 
 public final class CustomUtils {
 
