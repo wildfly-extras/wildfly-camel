@@ -656,13 +656,6 @@
         </dependencies>
     </module>
 
-    <module name="com.intellij.annotations">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.intellij:annotations"/>
-    </module>
-
     <module name="com.jayway.jsonpath">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1154,36 +1147,6 @@
         <apply-to-dependencies skip="true">
             <include module="org.ow2.asm"/>
         </apply-to-dependencies>
-    </module>
-
-    <module name="net.openhft.chronicle">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="net.openhft:affinity"/>
-        <include artifact="net.openhft:chronicle-bytes"/>
-        <include artifact="net.openhft:chronicle-core"/>
-        <include artifact="net.openhft:chronicle-engine"/>
-        <include artifact="net.openhft:chronicle-map"/>
-        <include artifact="net.openhft:chronicle-network"/>
-        <include artifact="net.openhft:chronicle-queue"/>
-        <include artifact="net.openhft:chronicle-threads"/>
-        <include artifact="net.openhft:chronicle-wire"/>
-        <include artifact="net.openhft:compiler"/>
-        <include artifact="net.openhft:lang"/>
-        <apply-to-dependencies skip="true">
-            <include module="com.sun.tools"/>
-            <include module="net.java.dev.jna"/>
-            <include module="org.ow2.asm"/>
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="sun.jdk">
-                <imports>
-                    <include path="sun/misc" />
-                </imports>
-            </module>
-        </dependencies>
     </module>
 
     <module name="net.sf.ehcache.ehcache-core">
