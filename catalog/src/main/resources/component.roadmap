@@ -41,7 +41,6 @@ braintree
 browse
 caffeine-cache
 caffeine-loadcache
-chronicle-engine
 chunk
 class
 cm-sms
@@ -275,6 +274,7 @@ restlet                                             #2024 Blocked by camel-2.21.
 [undecided]
 as2
 atmos
+chronicle-engine
 google-sheets
 google-sheets-stream
 ipfs
