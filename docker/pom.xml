@@ -119,7 +119,7 @@
                                     <user>1001:0:1001</user>
                                 </assembly>
                                 <runCmds>
-                                    <run>java -jar ${server.home}/jboss-modules.jar -mp ${server.home}/modules org.wildfly.extras.config --configs camel --enable</run>
+                                    <run>java -jar --add-modules java.se ${server.home}/jboss-modules.jar -mp ${server.home}/modules org.wildfly.extras.config --configs camel --enable</run>
                                     <run>chmod g=u -R ${server.home}</run>
                                 </runCmds>
                                 <optimise>true</optimise>
