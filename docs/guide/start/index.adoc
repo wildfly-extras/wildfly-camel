@@ -24,25 +24,32 @@ In your {wildfly} home directory run ...
 [options="nowrap"]
  $ bin/standalone.sh -c standalone-camel.xml
  ...
- 10:50:02,833 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 31) JBAS018559: Deployed "wildfly-camel.war" (runtime-name : "wildfly-camel.war")
- 10:50:02,834 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 31) JBAS018559: Deployed "hawtio.war" (runtime-name : "hawtio.war")
- 10:50:02,848 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015961: Http management interface listening on http://127.0.0.1:9990/management
- 10:50:02,849 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015951: Admin console listening on http://127.0.0.1:9990
- 10:50:02,849 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: WildFly 8.1.0.Final "Kenny" started in 10804ms
+12:20:52,997 INFO  [org.wildfly.extension.camel] (MSC service thread 1-3) Activating Camel Subsystem
+12:20:53,821 INFO  [org.wildfly.extension.camel] (MSC service thread 1-5) Bound camel naming object: java:jboss/camel/CamelContextRegistry
+12:20:58,211 INFO  [io.hawt.jmx.JmxTreeWatcher] (ServerService Thread Pool -- 76) Welcome to Hawtio 2.4.0
+12:20:58,536 INFO  [org.wildfly.extension.camel] (ServerService Thread Pool -- 76) Add Camel endpoint: http://127.0.0.1:8080/hawtio
+12:20:58,624 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0060: Http management interface listening on http://127.0.0.1:9990/management
+12:20:58,626 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0051: Admin console listening on http://127.0.0.1:9990
+12:20:58,626 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0025: WildFly Core 7.0.0.Final started in 11286ms
+
 
 [discrete]
 ### Enable Camel Subsystem
 
 The patch does not modify existing configuration files. Instead it comes with a number of additional configurations files that end in `-camel.xml`.
 
-If you should want to add the Camel subsystem to existing configurations you can run the following command.
+To add the Camel subsystem to existing configurations you can run the following command.
 
 [options="nowrap"]
  $ java -jar ${JBOSS_HOME}/jboss-modules.jar -mp ${JBOSS_HOME}/modules org.wildfly.extras.config --configs camel --enable
  Processing config for: camel
-    Writing 'layers=fuse' to: .../wildfly-9.0.0.CR1/modules/layers.conf
-    Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone.xml
-    Enable camel configuration in: .../wildfly-9.0.0.CR1/standalone/configuration/standalone-full.xml
+	Writing 'layers=fuse' to: .../wildfly-15.0.1.Final/modules/layers.conf
+	Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration/standalone.xml
+	Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration/standalone-full.xml
+	Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration/standalone-full-ha.xml
+	Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration/standalone-ha.xml
+
+The domain mode is not supported for the Camel subsystem.
 
 There are currently four triggers that can be used to enable Camel for a deployment
 
