@@ -26,8 +26,6 @@
             <paths>
                 <!-- default DOM impl lookup -->
                 <path name="com/sun/org/apache/xerces/internal/dom" />
-                <!-- needed by castor -->
-                <path name="com/sun/org/apache/xml/internal/serialize" />
                 <!-- needed by grpc-->
                 <path name="com/sun/jndi/dns" />
                 <!-- needed by hadoop -->

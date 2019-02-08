@@ -233,9 +233,6 @@
 /org/apache/camel/component/caffeine/main/camel-caffeine-2.23.1.jar
 /org/apache/camel/component/cassandra/main/camel-cassandraql-2.23.1.jar
 /org/apache/camel/component/cassandra/main/cassandra-driver-core-3.6.0.jar
-/org/apache/camel/component/castor/main/camel-castor-2.23.1.jar
-/org/apache/camel/component/castor/main/castor-core-1.3.3.jar
-/org/apache/camel/component/castor/main/castor-xml-1.3.3.jar
 /org/apache/camel/component/cdi/main/camel-cdi-2.23.1.jar
 /org/apache/camel/component/chronicle/main/camel-chronicle-2.23.1.jar
 /org/apache/camel/component/chunk/main/camel-chunk-2.23.1.jar

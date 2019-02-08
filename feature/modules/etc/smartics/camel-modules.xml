@@ -430,26 +430,6 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.castor">
-        <include artifact="org.apache.camel:camel-castor" />
-        <include artifact=":castor-core" />
-        <include artifact=":castor-xml" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api" />
-            <module name="org.slf4j" />
-            <module name="ibm.jdk.ext" />
-            <module name="sun.jdk.ext" />
-        </dependencies>
-        <exports>
-            <exclude path="org/castor**" />
-            <exclude path="org/exolab**" />
-        </exports>
-    </module>
-
     <module name="org.apache.camel.component.cdi">
         <include artifact="org.apache.camel:camel-cdi" />
         <apply-to-dependencies skip="true">

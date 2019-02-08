@@ -8,7 +8,6 @@ bindy-csv
 bindy-fixed
 bindy-kvp
 boon
-castor              #deprecated
 crypto
 csv
 fhirJson
@@ -51,6 +50,7 @@ zipfile
 [undecided]
 
 [rejected]
+castor              #deprecated
 hessian             #deprecated
 xmlBeans            #deprecated
 xmljson             #deprecated
