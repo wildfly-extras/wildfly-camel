@@ -50,6 +50,11 @@
 /com/github/docker/java/main/docker-java-3.0.14.jar
 /com/github/dozermapper/main/dozer-core-6.4.1.jar
 /com/github/generex/main/generex-1.0.1.jar
+/com/github/ipfs/main/java-cid-v1.1.0.jar
+/com/github/ipfs/main/java-ipfs-api-v1.2.2.jar
+/com/github/ipfs/main/java-multiaddr-v1.3.0.jar
+/com/github/ipfs/main/java-multibase-v1.0.0.jar
+/com/github/ipfs/main/java-multihash-v1.1.0.jar
 /com/github/junrar/main/junrar-2.0.0.jar
 /com/github/mmazi/rescu/main/rescu-2.0.2.jar
 /com/github/mmazi/rescu/main/signpost-core-1.2.1.2.jar
@@ -156,6 +161,8 @@
 /io/grpc/main/opencensus-api-0.12.3.jar
 /io/grpc/main/opencensus-contrib-grpc-metrics-0.12.3.jar
 /io/micrometer/main/micrometer-core-1.1.1.jar
+/io/nessus/ipfs/main/nessus-ipfs-client-1.0.0.Beta4.jar
+/io/nessus/ipfs/main/nessus-utils-1.0.0.Beta4.jar
 /io/netty/3.10/netty-3.10.6.Final.jar
 /javax/cache/api/main/cache-api-1.0.0.jar
 /javax/jcr/main/jcr-2.0.jar
@@ -320,6 +327,7 @@
 /org/apache/camel/component/influxdb/main/camel-influxdb-2.24.0.jar
 /org/apache/camel/component/influxdb/main/influxdb-java-2.14.jar
 /org/apache/camel/component/influxdb/main/msgpack-core-0.8.16.jar
+/org/apache/camel/component/ipfs/main/camel-ipfs-2.24.0.jar
 /org/apache/camel/component/irc/main/camel-irc-2.24.0.jar
 /org/apache/camel/component/irc/main/irclib-1.10.jar
 /org/apache/camel/component/jackson/main/camel-jackson-2.24.0.jar
@@ -729,7 +737,7 @@
 /org/fusesource/hawtdispatch/main/hawtdispatch-1.22.jar
 /org/fusesource/hawtdispatch/main/hawtdispatch-transport-1.22.jar
 /org/fusesource/mqtt/main/mqtt-client-1.15.jar
-/org/gagravarr/vorbis-java-core/main/vorbis-java-core-0.8.jar
+/org/gagravarr/vorbis/main/vorbis-java-core-0.8.jar
 /org/hdrhistogram/main/HdrHistogram-2.1.10.jar
 /org/igniterealtime/main/smack-core-4.3.1.jar
 /org/igniterealtime/main/smack-extensions-4.3.1.jar

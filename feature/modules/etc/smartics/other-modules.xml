@@ -450,6 +450,17 @@
         <include artifact="com.github.mifmif:generex" />
     </module>
 
+    <module name="com.github.ipfs">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.github.ipfs:java-ipfs-api" />
+        <include artifact="com.github.multiformats:java-multiaddr" />
+        <include artifact="com.github.multiformats:java-multibase" />
+        <include artifact="com.github.multiformats:java-multihash" />
+        <include artifact="com.github.ipld:java-cid" />
+    </module>
+
     <module name="com.github.junrar">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1082,6 +1093,14 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="io.micrometer:micrometer-core" />
+    </module>
+
+    <module name="io.nessus.ipfs">
+        <include artifact="io.nessus:nessus-ipfs-client" />
+        <include artifact="io.nessus:nessus-utils" />
+        <apply-to-dependencies skip="true">
+            <include module="junit"/>
+        </apply-to-dependencies>
     </module>
 
     <module name="io.netty" inherit-slot="false" slot="3.10">
@@ -2060,7 +2079,7 @@
         </dependencies>
     </module>
 
-    <module name="org.gagravarr.vorbis-java-core">
+    <module name="org.gagravarr.vorbis">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>

@@ -116,6 +116,7 @@ imap
 imaps
 infinispan
 influxdb
+ipfs
 irc
 jbpm
 jcache
@@ -280,7 +281,6 @@ corda
 google-sheets
 google-sheets-stream
 iota
-ipfs
 jgroups-raft
 pulsar
 service

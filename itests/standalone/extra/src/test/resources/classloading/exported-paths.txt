@@ -1326,6 +1326,13 @@ io/grpc/protobuf/lite
 io/grpc/stub
 io/grpc/stub/annotations
 io/grpc/util
+io/ipfs
+io/ipfs/api
+io/ipfs/api/cbor
+io/ipfs/cid
+io/ipfs/multiaddr
+io/ipfs/multibase
+io/ipfs/multihash
 io/micrometer/core
 io/micrometer/core/annotation
 io/micrometer/core/aop
@@ -1361,6 +1368,10 @@ io/micrometer/core/lang
 io/nats
 io/nats/client
 io/nats/client/impl
+io/nessus
+io/nessus/ipfs
+io/nessus/ipfs/client
+io/nessus/utils
 io/reactivex
 io/reactivex/annotations
 io/reactivex/disposables
@@ -1932,6 +1943,7 @@ org/apache/camel/component/infinispan/processor/idempotent
 org/apache/camel/component/infinispan/remote
 org/apache/camel/component/influxdb
 org/apache/camel/component/influxdb/converters
+org/apache/camel/component/ipfs
 org/apache/camel/component/irc
 org/apache/camel/component/jackson
 org/apache/camel/component/jackson/converter

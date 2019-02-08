@@ -50,7 +50,7 @@
     <module name="org.bouncycastle" slot="1.61" />
     <module name="org.ccil.cowan.tagsoup" />
     <module name="org.codelibs.jhighlight" />
-    <module name="org.gagravarr.vorbis-java-core" />
+    <module name="org.gagravarr.vorbis" />
     <module name="org.jboss.logging.jul-to-slf4j-stub" />
     <module name="org.jdom.jdom2" />
     <module name="org.jsoup" />

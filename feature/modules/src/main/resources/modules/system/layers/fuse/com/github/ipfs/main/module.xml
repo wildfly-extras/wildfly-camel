@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.github.ipfs">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${com.github.ipld:java-cid}" />
+    <artifact name="${com.github.ipfs:java-ipfs-api}" />
+    <artifact name="${com.github.multiformats:java-multiaddr}" />
+    <artifact name="${com.github.multiformats:java-multibase}" />
+    <artifact name="${com.github.multiformats:java-multihash}" />
+  </resources>
+  <dependencies />
+</module>

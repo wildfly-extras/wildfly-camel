@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.ipfs">
+  <resources>
+    <artifact name="${org.apache.camel:camel-ipfs}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="com.github.ipfs" export="true" />
+    <module name="io.nessus.ipfs" export="true" />
+    <module name="org.slf4j" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+  </dependencies>
+</module>
