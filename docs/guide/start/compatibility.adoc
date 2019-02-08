@@ -4,6 +4,9 @@ The {wildfly} compatibility matrix
 
 [cols="2*",width="60%"]
 |===
+| **15.0.1.Final**
+| 9.1
+
 | **15.0.0.Final**
 | 9.0
 

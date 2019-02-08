@@ -1,9 +1,50 @@
 ### Changelog
 
+#### WildFly-Camel 9.1.0
+
+**Features**
+
+* [#2741][2741] Add support for whitelisted orphan modules
+
+For details see [9.1.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"9.1.0"+label%3Afeature)
+
+**Tasks**
+
+* [#2715][2715] Upgrade to camel-2.23.1
+* [#2731][2731] Upgrade Hawtio to 2.4.0
+* [#2732][2732] Remove support for component yql
+* [#2734][2734] Remove support for camel-castor
+* [#2738][2738] Upgrade to WildFly 15.0.1.Final
+* [#2743][2743] Explicitly state that domain mode is not supported
+
+For details see [9.1.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"9.1.0"+label%3Atask)
+
+**Bugs**
+
+* [#2744][2744] Module checker requires wildfly-feature-pack.xml
+* [#2752][2752] Context MBean not unregistered on startup failure
+* [#2757][2757] GPRC DNS name resolution fails
+* [#2758][2758] Unable to build docker image
+
+For details see [9.1.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"9.1.0"+label%3Abug)
+
+[2741]: https://github.com/wildfly-extras/wildfly-camel/issues/2741
+[2715]: https://github.com/wildfly-extras/wildfly-camel/issues/2715
+[2731]: https://github.com/wildfly-extras/wildfly-camel/issues/2731
+[2732]: https://github.com/wildfly-extras/wildfly-camel/issues/2732
+[2734]: https://github.com/wildfly-extras/wildfly-camel/issues/2734
+[2738]: https://github.com/wildfly-extras/wildfly-camel/issues/2738
+[2743]: https://github.com/wildfly-extras/wildfly-camel/issues/2743
+[2744]: https://github.com/wildfly-extras/wildfly-camel/issues/2744
+[2752]: https://github.com/wildfly-extras/wildfly-camel/issues/2752
+[2757]: https://github.com/wildfly-extras/wildfly-camel/issues/2757
+[2758]: https://github.com/wildfly-extras/wildfly-camel/issues/2758
+
 #### WildFly-Camel 9.0.0
 
 **Tasks**
 
+* [#2560][2560] Migrate to Galleon packs
 * [#2584][2584] Upgrade to camel-2.23.0
 * [#2605][2605] Test CXF RS endpoints with Elytron
 * [#2606][2606] Support securing Undertow endpoints with Elytron
@@ -30,6 +71,7 @@ For details see [9.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 
 For details see [9.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"9.0.0"+label%3Abug)
 
+[2560]: https://github.com/wildfly-extras/wildfly-camel/issues/2560
 [2584]: https://github.com/wildfly-extras/wildfly-camel/issues/2584
 [2605]: https://github.com/wildfly-extras/wildfly-camel/issues/2605
 [2606]: https://github.com/wildfly-extras/wildfly-camel/issues/2606

@@ -1,18 +1,18 @@
 Release Notes
 -------------------
 
-WildFly-Camel 9.0.0 provides Camel-2.23.0 integration with WildFly-15.0.0
+WildFly-Camel 9.1.0 provides Camel-2.23.1 integration with WildFly-15.0.1
 
-This is a major WildFly upgrade that also comes with a new Camel version. It's main focus has been on CXF/Elytron integration.
+This is a minor update release that comes with a new WildFly and Camel versions.
 
 Component upgrades include
 
-* WildFly-15.0.0
-* Camel-2.23.0
-* Hawtio-2.3.0
+* WildFly-15.0.1
+* Camel-2.23.1
+* Hawtio-2.4.0
 
 In addition to that, we also resolved a number of other [tasks and bugs](https://github.com/wildfly-extras/wildfly-camel/blob/master/docs/Changelog.md).
 
-For details please see the [9.0.0 Milestone](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A9.0.0).
+For details please see the [9.1.0 Milestone](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A9.1.0).
 
 Enjoy
