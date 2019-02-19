@@ -58,7 +58,7 @@
     </module>
 
     <module name="org.apache.camel.component.activemq">
-        <include artifact="org.apache.activemq:activemq-camel" />
+        <include artifact="org.apache.camel:camel-activemq" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
         </apply-to-dependencies>
