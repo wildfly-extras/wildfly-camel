@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<licenseSummary>
+    <dependencies>
+        <dependency>
+            <groupId>\Qaopalliance\E</groupId>
+            <artifactId>\Qaopalliance\E</artifactId>
+            <matchLicenses>
+                <license>
+                    <name>\QPublic Domain\E</name>
+                </license>
+            </matchLicenses>
+            <licenses approved="true" />
+        </dependency>
+        <dependency>
+            <groupId>\Qasm\E</groupId>
+            <artifactId>\Qasm\E</artifactId>
+            <matchLicenses>
+                <!-- Match dependency with no licenses -->
+            </matchLicenses>
+            <licenses>
+                <license>
+                    <name>BSD 3-Clause License, (c) INRIA, France Telecom</name>
+                    <url>https://gitlab.ow2.org/asm/asm/raw/ASM_3_1_MVN/LICENSE.txt</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>\Qca.uhn.hapi\E</groupId>
+            <artifactId>.*</artifactId>
+            <matchLicenses>
+                <license>
+                    <name>\QHAPI is dual licensed (MPL, GPL)\E</name>
+                    <comments>\QHAPI is dual licensed under both the Mozilla Public License and the GNU General Public License.\E\s+\QWhat this means is that you may choose to use HAPI under the terms of either license.\E\s+\QYou are both permitted and encouraged to use HAPI, royalty-free, within your applications,\E\s+\Qwhether they are free/open-source or commercial/closed-source, provided you abide by the\E\s+\Qterms of one of the licenses below.\E\s+\QYou are under no obligations to inform the HAPI project about what you are doing with\E\s+\QHAPI, but we would love to hear about it anyway!\E</comments>
+                </license>
+                <license>
+                    <name>\QMozilla Public License 1.1\E</name>
+                    <url>\Qhttp://www.mozilla.org/MPL/MPL-1.1.txt\E</url>
+                    <file>\Qmozilla public license 1.1 - index.0c5913925d40.txt\E</file>
+                </license>
+                <license>
+                    <name>\QGNU General Public License\E</name>
+                    <url>\Qhttp://www.gnu.org/licenses/gpl.txt\E</url>
+                    <file>\Qgnu general public license - gpl.txt\E</file>
+                </license>
+            </matchLicenses>
+            <licenses approved="true" />
+        </dependency>
+        <dependency>
+            <groupId>\Qcom.bazaarvoice.jolt\E</groupId>
+            <artifactId>.*</artifactId>
+            <matchLicenses>
+                <!-- Match dependency with no licenses -->
+            </matchLicenses>
+            <licenses>
+                <license>
+                    <name>Apache License 2.0</name>
+                    <url>https://apache.org/licenses/LICENSE-2.0</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>\Qcom.codepoetics\E</groupId>
+            <artifactId>\Qprotonpack\E</artifactId>
+            <matchLicenses>
+                <!-- Match dependency with no licenses -->
+            </matchLicenses>
+            <licenses>
+                <license>
+                    <name>MIT License, (c) Dominic Fox</name>
+                    <url>https://raw.githubusercontent.com/poetix/protonpack/protonpack-1.8/LICENSE</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>\Qcom.sun.xml.bind.jaxb\E</groupId>
+            <artifactId>\Qisorelax\E</artifactId>
+            <matchLicenses>
+                <!-- Match dependency with no licenses -->
+            </matchLicenses>
+            <licenses>
+                <license>
+                    <!-- see http://iso-relax.sourceforge.net/ and the isorelax:isorelax:jar/COPYING.txt -->
+                    <name>MIT License</name>
+                    <url>https://opensource.org/licenses/mit-license.html</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>\Qconcurrent\E</groupId>
+            <artifactId>\Qconcurrent\E</artifactId>
+            <matchLicenses>
+                <license>
+                    <name>\QPublic domain, Sun Microsoystems\E</name>
+                    <url>\Q&gt;http://gee.cs.oswego.edu/dl/classes/EDU/oswego/cs/dl/util/concurrent/intro.html\E</url>
+                    <comments>\QAll classes are released to the public domain and may be used for any purpose whatsoever without permission or acknowledgment. Portions of the CopyOnWriteArrayList and ConcurrentReaderHashMap classes are adapted from Sun JDK source code. These are copyright of Sun Microsystems, Inc, and are used with their kind permission, &lt;a href="http://gee.cs.oswego.edu/dl/classes/EDU/oswego/cs/dl/util/sun-u.c.license.pdf"&gt;as described in this license&lt;/a&gt;.\E</comments>
+                </license>
+            </matchLicenses>
+            <licenses>
+                <license>
+                    <name>Public domain, Sun Microsoystems</name>
+                    <url>http://gee.cs.oswego.edu/dl/classes/EDU/oswego/cs/dl/util/concurrent/intro.html</url>
+                    <comments>All classes are released to the public domain and may be used for any purpose whatsoever without permission or acknowledgment. Portions of the CopyOnWriteArrayList and ConcurrentReaderHashMap classes are adapted from Sun JDK source code. These are copyright of Sun Microsystems, Inc, and are used with their kind permission, &lt;a href="http://gee.cs.oswego.edu/dl/classes/EDU/oswego/cs/dl/util/sun-u.c.license.pdf"&gt;as described in this license&lt;/a&gt;.</comments>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>\Qde.l3s.boilerpipe\E</groupId>
+            <artifactId>\Qboilerpipe\E</artifactId>
+            <matchLicenses>
+                <license>
+                    <name>\QApache License 2.0\E</name>
+                </license>
+            </matchLicenses>
+            <licenses>
+                <license>
+                    <name>Apache License 2.0</name>
+                    <url>https://apache.org/licenses/LICENSE-2.0</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>\Qjavax.measure\E</groupId>
+            <artifactId>\Qunit-api\E</artifactId>
+            <matchLicenses>
+                <license>
+                    <name>\QBSD\E</name>
+                    <url>\QLICENSE.txt\E</url>
+                    <distribution>\Qmanual\E</distribution>
+                </license>
+            </matchLicenses>
+            <licenses>
+                <license>
+                    <name>BSD 3-Clause License, (c) Jean-Marie Dautelle, Werner Keil, Otavio Santana</name>
+                    <url>https://raw.githubusercontent.com/unitsofmeasurement/unit-api/master/LICENSE</url>
+                    <distribution>manual</distribution>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>\Qnet.sf.ehcache\E</groupId>
+            <artifactId>.*</artifactId>
+            <matchLicenses>
+                <license>
+                    <name>\QThe Apache Software License, Version 2.0\E</name>
+                    <url>\Qsrc/assemble/EHCACHE-CORE-LICENSE.txt\E</url>
+                </license>
+            </matchLicenses>
+            <licenses>
+                <license>
+                    <name>The Apache Software License, Version 2.0</name>
+                    <url>https://apache.org/licenses/LICENSE-2.0</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>\Qorg.mnode.ical4j\E</groupId>
+            <artifactId>\Qical4j\E</artifactId>
+            <matchLicenses>
+                <license>
+                    <name>\QiCal4j - License\E</name>
+                    <url>\Qhttps://github.com/ical4j/ical4j/raw-file/tip/LICENSE\E</url>
+                </license>
+            </matchLicenses>
+            <licenses>
+                <license>
+                    <name>iCal4j - License</name>
+                    <url>https://raw.githubusercontent.com/ical4j/ical4j/develop/LICENSE</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>\Qorg.tukaani\E</groupId>
+            <artifactId>\Qxz\E</artifactId>
+            <matchLicenses>
+                <license>
+                    <name>\QPublic Domain\E</name>
+                    <distribution>\Qrepo\E</distribution>
+                    <comments>\QYou can do whatever you want with this package.\E</comments>
+                </license>
+            </matchLicenses>
+            <licenses approved="true" />
+        </dependency>
+        <dependency>
+            <groupId>\QrelaxngDatatype\E</groupId>
+            <artifactId>\QrelaxngDatatype\E</artifactId>
+            <matchLicenses>
+                <!-- Match dependency with no licenses -->
+            </matchLicenses>
+            <licenses>
+                <!-- The project site mentions "BSD License" https://sourceforge.net/projects/relaxng/ -->
+                <!-- There is no license file in the CVS source repo, neither are there license headers in Java files -->
+                <!-- The download https://sourceforge.net/projects/relaxng/files/datatype%20%28java%29/Ver.1.0/relaxngDatatype-1.0.zip/download -->
+                <!-- Contains copying.txt file with the same content as https://raw.githubusercontent.com/orbeon/msv/master/relaxngDatatype/copying.txt -->
+                <license>
+                    <name>BSD 3-Clause License, (c) Thai Open Source Software Center Ltd, Sun Microsystems</name>
+                    <url>https://raw.githubusercontent.com/orbeon/msv/master/relaxngDatatype/copying.txt</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>\Qrome\E</groupId>
+            <artifactId>\Qrome\E</artifactId>
+            <matchLicenses>
+                <!-- Match dependency with no licenses -->
+            </matchLicenses>
+            <licenses>
+                <license>
+                    <!-- Get http://central.maven.org/maven2/rome/rome/1.0/rome-1.0-sources.jar and check *.java source files -->
+                    <name>Apache License 2.0</name>
+                    <url>https://apache.org/licenses/LICENSE-2.0</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>\Qthaiopensource\E</groupId>
+            <artifactId>\Qjing\E</artifactId>
+            <matchLicenses>
+                <!-- Match dependency with no licenses -->
+            </matchLicenses>
+            <licenses>
+                <license>
+                    <name>BSD 3-Clause License, (c) Thai Open Source Software Center Ltd</name>
+                    <url>https://raw.githubusercontent.com/relaxng/jing-trang/master/copying.txt</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>\Qxpp3\E</groupId>
+            <artifactId>\Qxpp3\E</artifactId>
+            <matchLicenses>
+                <!-- Match dependency with no licenses -->
+            </matchLicenses>
+            <licenses>
+                <license>
+                    <name>Indiana University Extreme! Lab Software License, vesion 1.1.1</name>
+                    <url>https://raw.githubusercontent.com/aslom/xpp3/master/LICENSE.txt</url>
+                </license>
+            </licenses>
+        </dependency>
+        <dependency>
+            <groupId>\Qxpp3\E</groupId>
+            <artifactId>\Qxpp3_min\E</artifactId>
+            <matchLicenses>
+                <license>
+                    <name>\QIndiana University Extreme! Lab Software License, vesion 1.1.1\E</name>
+                    <url>\Qhttp://www.extreme.indiana.edu/viewcvs/~checkout~/XPP3/java/LICENSE.txt\E</url>
+                    <distribution>\Qrepo\E</distribution>
+                    <comments>\QThe license applies to the Xpp3 classes (all classes below the org.xmlpull package with exception of classes directly in package org.xmlpull.v1 )\E</comments>
+                </license>
+                <license>
+                    <name>\QPublic Domain\E</name>
+                    <url>\Qhttp://creativecommons.org/licenses/publicdomain\E</url>
+                    <distribution>\Qrepo\E</distribution>
+                    <file>\Qpublic domain - publicdomain.html\E</file>
+                    <comments>\QThe license applies to the XmlPull API (all classes directly in the org.xmlpull.v1 package)\E</comments>
+                </license>
+            </matchLicenses>
+            <licenses>
+                <license>
+                    <name>Indiana University Extreme! Lab Software License, vesion 1.1.1</name>
+                    <url>https://raw.githubusercontent.com/aslom/xpp3/master/LICENSE.txt</url>
+                    <distribution>repo</distribution>
+                    <comments>The license applies to the Xpp3 classes (all classes below the org.xmlpull package with exception of classes directly in package org.xmlpull.v1 )</comments>
+                </license>
+                <license>
+                    <name>Public Domain</name>
+                    <url>http://creativecommons.org/licenses/publicdomain</url>
+                    <distribution>repo</distribution>
+                    <comments>The license applies to the XmlPull API (all classes directly in the org.xmlpull.v1 package)</comments>
+                </license>
+            </licenses>
+        </dependency>
+    </dependencies>
+</licenseSummary>

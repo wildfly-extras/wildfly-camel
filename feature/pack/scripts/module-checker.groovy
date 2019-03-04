@@ -85,7 +85,7 @@ class Resource {
 
     @Override
     String toString() {
-        "${this.artifactId}${this.version == "" ? "" : "-${this.version}"}.jar"
+        "${this.groupId}:${this.artifactId}"
     }
 }
 
@@ -343,13 +343,11 @@ if (problems.size() > 0) {
     fail("Module dependency conflicts were detected. Please fix your module dependencies.")
 } else {
     // Write a list of resources so that we can look them up for generating licenses.xml
-    def binding = ["modules" : modules]
-    def engine = new SimpleTemplateEngine()
-    def text = '''
-<%
-modules.findAll({module -> module.layer == "fuse"}).each {it.resources.each {resource -> println resource}}
-%>
-'''
-    def template = engine.createTemplate(text).make(binding)
-    new File("${project.build.directory}/fuse-resources.txt").setText(template.toString().trim())
+    new File("${project.build.directory}/fuse-resources.txt").withWriter('UTF-8') { writer ->
+        modules.findAll({module -> module.layer == "fuse"}).each { module ->
+            module.resources.each { resource ->
+                writer.write('include gaPattern \\Q' + resource + '\\E\n')
+            }
+        }
+    }
 }

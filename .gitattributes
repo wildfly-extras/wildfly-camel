@@ -1,9 +1,9 @@
 # Set the default behavior, in case people don't have core.autocrlf set.
 * text=auto
 
-*.bat  			text
-*.java 			text
-*.properties	text
-*.sh   			text
-*.txt  			text
-*.xml  			text
+*.bat           text
+*.java          text
+*.properties    text
+*.sh            text
+*.txt           text
+*.xml           text
