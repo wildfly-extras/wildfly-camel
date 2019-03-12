@@ -23,7 +23,6 @@
     <module name="javax.annotation.api" />
     <module name="org.apache.cxf" />
     <module name="org.apache.cxf.impl" />
-    <module name="org.osgi.core" />
   </dependencies>
   <exports>
     <exclude path="net/oauth*" />

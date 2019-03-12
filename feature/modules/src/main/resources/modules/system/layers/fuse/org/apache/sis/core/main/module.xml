@@ -13,6 +13,5 @@
     <module name="javax.enterprise.api" />
     <module name="javax.measure.api" />
     <module name="org.opengis.geoapi" />
-    <module name="org.osgi.core" />
   </dependencies>
 </module>

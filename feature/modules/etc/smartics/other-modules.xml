@@ -1241,6 +1241,9 @@
         <include artifact="org.apache.chemistry.opencmis:chemistry-opencmis-client-impl"/>
         <include artifact="org.apache.chemistry.opencmis:chemistry-opencmis-commons-api"/>
         <include artifact="org.apache.chemistry.opencmis:chemistry-opencmis-commons-impl"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.osgi.core" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
@@ -1371,6 +1374,7 @@
             <include module="antlr" />
             <include module="com.google.code.findbugs" />
             <include module="org.apache.servicemix.skipped" />
+            <include module="org.osgi.core" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
@@ -1587,6 +1591,7 @@
         <include artifact="org.apache.sis.core:sis-referencing" />
         <apply-to-dependencies skip="true">
             <include module="com.googlecode.jaxb-namespaceprefixmapper-interfaces.JAXBNamespacePrefixMapper" />
+            <include module="org.osgi.core" />
         </apply-to-dependencies>
     </module>
 
@@ -1839,6 +1844,7 @@
             <include module="antlr" />
             <include module="com.sun.xml.bind.jaxb.xjc" />
             <include module="org.osgi.compendium" />
+            <include module="org.osgi.core" />
         </apply-to-dependencies>
     </module>
 
@@ -2124,6 +2130,7 @@
         <apply-to-dependencies skip="true">
             <include module="com.sun.xml.bind.jaxb.xjc" />
             <include module="org.osgi.compendium" />
+            <include module="org.osgi.core" />
         </apply-to-dependencies>
         <dependencies>
             <module name="com.sun.xml.bind" />
@@ -2191,13 +2198,6 @@
         <exports>
             <exclude path="org/optaplanner/core/impl**" />
         </exports>
-    </module>
-
-    <module name="org.osgi.core">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":org.osgi.core" />
     </module>
 
     <module name="org.quartz">

@@ -41,6 +41,7 @@
         <include artifact=":oauth-provider"/>
         <apply-to-dependencies skip="true">
             <include module="org.osgi.compendium" />
+            <include module="org.osgi.core" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />

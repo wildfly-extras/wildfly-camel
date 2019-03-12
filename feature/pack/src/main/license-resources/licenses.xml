@@ -9858,19 +9858,6 @@
       </licenses>
     </dependency>
     <dependency>
-      <groupId>org.osgi</groupId>
-      <artifactId>org.osgi.core</artifactId>
-      <version>5.0.0</version>
-      <licenses>
-        <license>
-          <name>Apache License, Version 2.0</name>
-          <url>http://opensource.org/licenses/apache2.0.php</url>
-          <distribution>repo</distribution>
-          <file>Apache-2.0.html</file>
-        </license>
-      </licenses>
-    </dependency>
-    <dependency>
       <groupId>org.pacesys</groupId>
       <artifactId>openstack4j-core</artifactId>
       <version>3.0.2</version>

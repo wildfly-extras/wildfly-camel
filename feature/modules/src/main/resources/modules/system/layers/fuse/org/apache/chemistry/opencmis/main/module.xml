@@ -16,7 +16,6 @@
     <module name="org.apache.cxf.impl" />
     <module name="org.apache.httpcomponents" />
     <module name="org.codehaus.woodstox" />
-    <module name="org.osgi.core" />
     <module name="org.slf4j" />
   </dependencies>
 </module>

@@ -35,6 +35,5 @@
     <module name="org.drools" />
     <module name="org.mvel.mvel2" />
     <module name="org.optaplanner" />
-    <module name="org.osgi.core" />
   </dependencies>
 </module>

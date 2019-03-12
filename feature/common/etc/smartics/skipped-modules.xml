@@ -524,6 +524,10 @@
         <include artifact="org.osgi:org.osgi.compendium" />
     </module>
 
+    <module name="org.osgi.core" skip="true">
+        <include artifact="org.osgi:org.osgi.core" />
+    </module>
+
     <module name="org.ow2.asm.commons" skip="true">
         <include artifact="org.ow2.asm:asm-commons"/>
     </module>

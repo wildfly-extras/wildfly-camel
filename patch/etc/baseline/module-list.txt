@@ -758,7 +758,6 @@
 /org/optaplanner/main/optaplanner-persistence-common-7.14.0.Final.jar
 /org/optaplanner/main/optaplanner-persistence-jaxb-7.14.0.Final.jar
 /org/optaplanner/main/optaplanner-persistence-xstream-7.14.0.Final.jar
-/org/osgi/core/main/org.osgi.core-5.0.0.jar
 /org/quartz/main/c3p0-0.9.5.2.jar
 /org/quartz/main/mchange-commons-java-0.2.11.jar
 /org/quartz/main/quartz-2.3.0.jar
