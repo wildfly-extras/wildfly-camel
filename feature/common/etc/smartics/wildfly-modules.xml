@@ -507,10 +507,6 @@
         <include artifact=":xnio-api" />
     </module>
 
-    <module name="org.jdom" skip="true">
-        <include artifact=":jdom" />
-    </module>
-
     <module name="org.jgroups" skip="true">
         <include artifact=":jgroups" />
     </module>

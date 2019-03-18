@@ -54,6 +54,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.ResourceAdapterArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.jms.support.converter.MessageConversionException;
@@ -64,6 +65,7 @@ import org.wildfly.extension.camel.CamelAware;
 @CamelAware
 @RunWith(Arquillian.class)
 @ServerSetup({ActiveMQIntegrationTest.ActiveMQRarSetupTask.class})
+@Ignore("[#2783] No ActiveMQ connection factory with RAR deployment")
 public class ActiveMQIntegrationTest {
 
     private static final String ACTIVEMQ_RAR = "activemq-rar.rar";
