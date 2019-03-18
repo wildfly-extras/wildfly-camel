@@ -812,8 +812,12 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="rome:rome" />
+        <apply-to-dependencies skip="true">
+            <include module="jdom"/>
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
+            <module name="org.jdom" />
         </dependencies>
     </module>
 
@@ -2170,6 +2174,13 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.itadaki:bzip2" />
+    </module>
+
+    <module name="org.jdom">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.jdom:jdom" />
     </module>
 
     <module name="org.jdom.jdom2">

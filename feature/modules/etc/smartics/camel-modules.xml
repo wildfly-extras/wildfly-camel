@@ -945,6 +945,7 @@
         <include artifact=":flatpack" />
         <apply-to-dependencies skip="true">
             <include module="jexcelapi" />
+            <include module="jdom"/>
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>

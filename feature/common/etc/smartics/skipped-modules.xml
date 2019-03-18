@@ -257,6 +257,10 @@
         <include artifact="jdk.tools:jdk.tools"/>
     </module>
 
+    <module name="jdom" skip="true">
+        <include artifact="jdom:jdom" />
+    </module>
+
     <module name="jline" skip="true">
         <include artifact=":jline" />
     </module>
