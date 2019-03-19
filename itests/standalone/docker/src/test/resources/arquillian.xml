@@ -151,7 +151,9 @@
                 await:
                     strategy: log
                     match: 'WFSWARM99999: WildFly Swarm is Ready'
-                    timeout: 15
+                    stdOut: true
+                    stdErr: true
+                    timeout: 30
             nats:
                 image: nats:0.9.6
                 portBindings: [

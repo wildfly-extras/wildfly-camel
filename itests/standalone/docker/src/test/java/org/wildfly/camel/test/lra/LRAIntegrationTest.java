@@ -20,6 +20,7 @@ import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.io.InputStream;
+import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -84,7 +85,7 @@ public class LRAIntegrationTest {
 
     @Before
     public void setUp() throws Exception {
-        Assume.assumeTrue("LRAIntegrationTest can only run against local docker daemon", TestUtils.getDockerHost().equals("localhost"));
+        Assume.assumeTrue("LRAIntegrationTest can only run against local docker daemon", InetAddress.getByName(TestUtils.getDockerHost()).isLoopbackAddress());
         cubeController.create(CONTAINER_NAME);
         cubeController.start(CONTAINER_NAME);
     }
