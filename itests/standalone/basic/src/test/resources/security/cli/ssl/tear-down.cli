@@ -1,0 +1,19 @@
+batch
+
+/subsystem=undertow/server=default-server/https-listener=https:undefine-attribute(name=ssl-context)
+/subsystem=undertow/server=default-server/https-listener=https:write-attribute(name=security-realm, value=ApplicationRealm)
+
+# server-ssl-context
+/subsystem=elytron/server-ssl-context=httpsSSC:remove()
+# trust-manager
+/subsystem=elytron/trust-manager=httpsTM:remove()
+# trust-store
+/subsystem=elytron/key-store=httpsTS:remove()
+# key-manager
+/subsystem=elytron/key-manager=httpsKM:remove()
+# key-store
+/subsystem=elytron/key-store=httpsKS:remove()
+
+run-batch
+
+reload

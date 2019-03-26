@@ -1,0 +1,28 @@
+batch
+
+#/subsystem=logging/logger=org.wildfly.security:add()
+#/subsystem=logging/logger=org.wildfly.security:write-attribute(name=level, value=TRACE)
+
+# key-store
+/subsystem=elytron/key-store=httpsKS:add(path="server.keystore",relative-to=jboss.server.config.dir,credential-reference={clear-text=123456},type=JKS)
+
+# key-manager
+/subsystem=elytron/key-manager=httpsKM:add(key-store=httpsKS,credential-reference={clear-text=123456})
+
+# trust-store
+/subsystem=elytron/key-store=httpsTS:add(path="server.truststore",relative-to=jboss.server.config.dir,credential-reference={clear-text=123456},type=JKS)
+
+# trust-manager
+/subsystem=elytron/trust-manager=httpsTM:add(key-store=httpsTS)
+
+# server-ssl-context
+/subsystem=elytron/server-ssl-context=httpsSSC:add(key-manager=httpsKM,protocols=["TLSv1.2"],trust-manager=httpsTM,want-client-auth=true)
+
+/subsystem=undertow/server=default-server/https-listener=https:undefine-attribute(name=security-realm)
+/subsystem=undertow/server=default-server/https-listener=https:write-attribute(name=ssl-context, value=httpsSSC)
+
+run-batch
+
+command-timeout set 30
+
+reload

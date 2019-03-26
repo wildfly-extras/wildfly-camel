@@ -102,8 +102,10 @@ public class SecurityUtils {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        final String xml = sb.toString().replace("${SPRING_CONSUMER_ENDPOINT_ADDRESS}",
-                endpointUrl);
+        final String xml = sb.toString()
+                .replace("${SPRING_CONSUMER_ENDPOINT_ADDRESS}", endpointUrl)
+                .replace("${SERVER_TRUST_STORE_PATH}", EnvironmentUtils.getWildFlyHome() + "/standalone/configuration/" + SERVER_TRUSTSTORE)
+                .replace("${SERVER_TRUST_STORE_PASSWORD}", CLIENT_CERT_KEYSTORE_PASSWORD);
         archive.addAsWebInfResource(new StringAsset(xml), file);
     }
 
