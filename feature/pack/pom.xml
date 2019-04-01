@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel-feature</artifactId>
-        <version>10.0.0-SNAPSHOT</version>
+        <version>10.0.0</version>
     </parent>
 
     <name>Wildfly Camel :: Feature :: Pack</name>
@@ -336,7 +336,7 @@
                                         </licenseUrlReplacement>
                                     </licenseUrlReplacements>
                                     <licenseUrlFileNames>
-                                        <spdx/>
+                                        <spdx />
                                         <bsd-antlr.html>https?://(www\.)?antlr\.org/license\.html</bsd-antlr.html>
                                         <edl-v10.html>https?://(www\.)?eclipse\.org/org/documents/edl-v10\.php</edl-v10.html>
                                         <lgpl-3.0.txt>
