@@ -1,5 +1,38 @@
 ### Changelog
 
+#### WildFly-Camel 10.0.0
+
+**Tasks**
+
+* [#2700][2700] Re-enable license.xml generation after migration to Galleon tooling
+* [#2722][2722] Upgrade to WildFly-16.0.0
+* [#2764][2764] Upgrade Hawtio to 2.5.0
+* [#2768][2768] Upgrade to galleon-maven-plugin 3.0.1.Final
+* [#2771][2771] Remove org.osgi dependencies
+* [#2772][2772] Upgrade to wildfly-maven-plugin 2.0.1.Final
+* [#2778][2778] Upgrade docker base image to wildfly-160-centos7
+* [#2780][2780] Enable LRAIntegrationTest in CI environment
+* [#2784][2784] Add a test for client cert auth using CXF PhaseInterceptor
+
+For details see [10.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"10.0.0"+label%3Atask)
+
+**Bugs**
+
+* [#2729][2729] MALWARE in maven repository stored dependency file during build
+
+For details see [10.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"10.0.0"+label%3Abug)
+
+[2700]: https://github.com/wildfly-extras/wildfly-camel/issues/2700
+[2722]: https://github.com/wildfly-extras/wildfly-camel/issues/2722
+[2764]: https://github.com/wildfly-extras/wildfly-camel/issues/2764
+[2768]: https://github.com/wildfly-extras/wildfly-camel/issues/2768
+[2771]: https://github.com/wildfly-extras/wildfly-camel/issues/2771
+[2772]: https://github.com/wildfly-extras/wildfly-camel/issues/2772
+[2778]: https://github.com/wildfly-extras/wildfly-camel/issues/2778
+[2780]: https://github.com/wildfly-extras/wildfly-camel/issues/2780
+[2784]: https://github.com/wildfly-extras/wildfly-camel/issues/2784
+[2729]: https://github.com/wildfly-extras/wildfly-camel/issues/2729
+
 #### WildFly-Camel 9.1.0
 
 **Features**
@@ -53,7 +86,7 @@ For details see [9.1.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 * [#2673][2673] Add fuse conditionals to documentation
 * [#2676][2676] Add test coverage for securing camel-servlet endpoints with Elytron
 * [#2683][2683] Keep repository defs in sync with the archetypes
-* [#2691][2691] Remove redundant Maven plugins
+* [#2691][2691] Remove redundant Maven plugins 
 * [#2694][2694] Upgrade Hawtio to 2.3.0
 * [#2718][2718] Update the docker build with a wf15 base image
 
@@ -62,7 +95,7 @@ For details see [9.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 **Bugs**
 
 * [#2497][2497] Camel subsystem not activated by @ImportResource in EAR
-* [#2580][2580] NPE in CamelDeploymentSettings when deploying an EAR with two WARs
+* [#2580][2580] NPE in CamelDeploymentSettings when deploying an EAR with two WARs 
 * [#2655][2655] Leaking DeploymentManagerImpl after a CXF app is undeployed
 * [#2656][2656] Leaking ServerActivity after a CXF app is undeployed
 * [#2670][2670] BusDeploymentAspect creates CXF DefaultBus using wrong class loader
@@ -109,7 +142,7 @@ For details see [8.0.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#2620][2620] Add itests-common and wildfly-camel-patch depenencies to BOM
 * [#2630][2630] StompIntegrationTest should use WildFly embedded Artemis broker
 * [#2631][2631] Remove hawtio.offline property from server configuration
-* [#2635][2635] Remove property ee8.preview.mode from server configuration
+* [#2635][2635] Remove property ee8.preview.mode from server configuration 
 * [#2638][2638] Upgrade to WildFly 14.0.1.Final
 * [#2640][2640] Remove fuse-patch from docker image build
 
@@ -119,11 +152,11 @@ For details see [8.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 
 * [#1658][1658] IllegalStateException when reloading WildFly from the CLI
 * [#2577][2577] wildfly-camel-docker CI build is failing
-* [#2611][2611] Missing hapi-structures dependencies in module ca.uhn.hapi
+* [#2611][2611] Missing hapi-structures dependencies in module ca.uhn.hapi 
 * [#2622][2622] WildFly server reload leads to multiple CamelContextRegistry instances in CamelContextTrackerRegistry
 * [#2625][2625] Build hangs on Windows during CLI script execution
 * [#2627][2627] IllegalStateException on undeploy of Camel CXF applications
-* [#2644][2644] CXFEndpointTest Arquillian initialisation fails
+* [#2644][2644] CXFEndpointTest Arquillian initialisation fails 
 * [#2659][2659] Restore well known extras config module
 * [#2664][2664] CDI context creation test fails intermittently
 
@@ -171,7 +204,7 @@ For details see [7.0.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#2566][2566] Upgrade maven-surefire-plugin to 2.21.0
 * [#2567][2567] Restore erroneously ignored tests
 * [#2570][2570] Add wildfly-camel-testenricher to wildfly-camel BOM
-* [#2571][2571] Upgrade wildfly-maven-plugin to 1.2.2.Final
+* [#2571][2571] Upgrade wildfly-maven-plugin to 1.2.2.Final 
 * [#2591][2591] Reject support for component spring-cloud-consul
 * [#2592][2592] Reject support for component component spring-cloud-zookeeper
 * [#2593][2593] Reject support for component testcontainers
@@ -183,7 +216,7 @@ For details see [7.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 
 * [#2562][2562] Redundant semicolon for if statement in DMRUtils
 * [#2564][2564] BoxIntegrationTest fails with WildFly 13.0.0.Final
-* [#2575][2575] camel-elasticsearch broken after upgrade to lucene 7.2.1
+* [#2575][2575] camel-elasticsearch broken after upgrade to lucene 7.2.1 
 * [#2576][2576] GRPCIntegrationTest fails with camel 2.22.x
 * [#2615][2615] Intermittent failure of EtcdIntegrationTest
 * [#2619][2619] javadoc:javadoc may hang forever
@@ -240,7 +273,7 @@ For details see [6.1.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#2485][2485] Clean up exported OSGi package paths
 * [#2494][2494] Relax CXF package export restrictions
 * [#2500][2500] Protect access to TCCL by security actions in all packages
-* [#2503][2503] Add license information to feature pack
+* [#2503][2503] Add license information to feature pack 
 * [#2506][2506] Sanitize license file names
 * [#2507][2507] Reject support for component xmlrpc
 * [#2519][2519] Add test coverage for saga EIP
@@ -402,9 +435,9 @@ For details see [6.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 * [#2157][2157] Remove support for wildfly-swarm
 * [#2301][2301] Upgrade to camel-2.20.2
 * [#2331][2331] Enable ServiceNowIntegrationTest in Jenkins
-* [#2363][2363] Skip junit module dependency for Abdera modules
+* [#2363][2363] Skip junit module dependency for Abdera modules 
 * [#2370][2370] Remove support for component flink
-* [#2372][2372] Change WildFlyClassResolver.loadClass log message level to DEBUG
+* [#2372][2372] Change WildFlyClassResolver.loadClass log message level to DEBUG 
 * [#2373][2373] Add camel-docker test coverage for a defined host and port
 * [#2381][2381] Upgrade Hawtio to 1.5.7
 * [#2388][2388] Add io.netty 4.1 module slot
@@ -575,13 +608,13 @@ For details see [5.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 
 * [#1897][1897] Cannot locate org.apache.cxf.transport.http.spring.NamespaceHandler
 * [#1933][1933] NameNotFoundException: infinispan/container/server
-* [#1958][1958] Unable to load custom HBase configuration files
+* [#1958][1958] Unable to load custom HBase configuration files  
 * [#2127][2127] Failed to define class HBaseZeroCopyByteString
 * [#2140][2140] Cannot build feature pack with --also-make
 * [#2150][2150] Kie assumes that the TCCL can load its services
 * [#2198][2198] Unable to implement Spring JMS MessageConverter
 * [#2209][2209] GoogleCalendarIntegrationTest assertion failure
-* [#2243][2243] Inconsistent jar versions with apache curator
+* [#2243][2243] Inconsistent jar versions with apache curator 
 * [#2250][2250] Path filter leaks internals to user classpath
 * [#2286][2286] Multiple SLF4J bindings in standalone/basic
 * [#2290][2290] DockerIntegrationTest fails when boot2docker is not present
@@ -783,7 +816,7 @@ For details see [4.9.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 * [#1648][1648] PahoIntegrationTest fails on AIX
 * [#1650][1650] SJMSIntegrationTest fails on AIX
 * [#1707][1707] SJMSBatchIntegrationTest fails on AIX
-* [#1855][1855] WAR deployment HttpHandler can overwrite handlers created by camel-undertow
+* [#1855][1855] WAR deployment HttpHandler can overwrite handlers created by camel-undertow 
 * [#1919][1919] Custom log profiles do not work with spring contexts
 * [#1940][1940] Unable to use https URL scheme in CXF consumer
 * [#1945][1945] Module org.wildfly.extension.camel.cxf.undertow misses dependency org.picketbox
@@ -889,7 +922,7 @@ For details see [4.8.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#1930][1930] Modify JPA example to work on OpenShift with MySQL
 * [#1931][1931] Migrate examples to wildfly-camel-examples project
 * [#1937][1937] Upgrade Hawtio to 1.5.3
-* [#1939][1939] Add support for wildfly-swarm-2017.9.0
+* [#1939][1939] Add support for wildfly-swarm-2017.9.0 
 
 For details see [4.8.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.8.0"+label%3Atask)
 
@@ -972,7 +1005,7 @@ For details see [4.7.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#1745][1745] Create and remove S3 bucket on demand
 * [#1748][1748] Enable Amazon S3 testing in Jenkins
 * [#1756][1756] Add test coverage for camel REST DSL with Spring
-* [#1758][1758] Remove dependence on camel-facebook itest oAuthAccessTokenURL property
+* [#1758][1758] Remove dependence on camel-facebook itest oAuthAccessTokenURL property 
 * [#1760][1760] Upgrade docker maven plugin
 * [#1763][1763] Add examples to patch distribution
 * [#1766][1766] Remove usage of embedded ActiveMQ broker
@@ -993,7 +1026,7 @@ For details see [4.7.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#1876][1876] Use local RSS feed for RSSIntegrationTest
 * [#1891][1891] Restore camel-ahc functionality
 * [#1893][1893] Restore properties-maven-plugin execution
-* [#1895][1895] Add support for wildfly-swarm-2017.6.0
+* [#1895][1895] Add support for wildfly-swarm-2017.6.0 
 
 For details see [4.7.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.7.0"+label%3Atask)
 
@@ -1008,12 +1041,12 @@ For details see [4.7.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 * [#1755][1755] SoapJaxbDataFormat throws NCDFE for javax/jws/WebMethod
 * [#1765][1765] CXF examples use incorrect form action URL
 * [#1769][1769] Unable to configure CXF interceptors
-* [#1775][1775] wildflyext/s2i-wildfly-camel uses outdated domain namespace
+* [#1775][1775] wildflyext/s2i-wildfly-camel uses outdated domain namespace 
 * [#1787][1787] AWS test fail when respective clients cannot be initialized
 * [#1789][1789] Unable to configure multiple paths for the same HTTP verb in camel REST DSL
 * [#1790][1790] DelegatingHttpHandler should return HTTP 405 when no matching handler is found
 * [#1797][1797] Intermittent failure of SMPPIntegrationTest
-* [#1860][1860] Opentracing component missing from roadmap
+* [#1860][1860] Opentracing component missing from roadmap 
 * [#1863][1863] AWS EC3 test uses hardcoded subnet Id
 * [#1885][1885] Module io.netty:4.1 contains incorrect Netty versions
 
@@ -1167,7 +1200,7 @@ For details see [4.6.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 * [#1653][1653] BraintreeIntegrationTest fails on AIX
 * [#1660][1660] Memory leak in CamelCoreSubsystemExtension
 * [#1666][1666] AtomIntegrationTest fails intermittently
-* [#1684][1684] NatsIntegrationTest fails on AIX
+* [#1684][1684] NatsIntegrationTest fails on AIX 
 * [#1705][1705] wildflyext/wildfly-camel fails on OpenShift
 * [#1717][1717] Route not started when deployed in WAR sub module
 
@@ -1265,11 +1298,11 @@ For details see [4.5.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#1514][1514] Upgrade to camel-2.18.2
 * [#1516][1516] Upgrade to hawtio 1.4.67
 * [#1518][1518] Update s2i docs to wildfly-camel-4.4.0
-* [#1520][1520] Document usage of wildfly-camel s2i builder
+* [#1520][1520] Document usage of wildfly-camel s2i builder 
 * [#1533][1533] Provide CI testing for camel-servicenow
 * [#1545][1545] Add debug profile to the build
 * [#1547][1547] Re-enable camel-kafka component
-* [#1555][1555] Add exclusion for camel-http to camel-sap-netweaver
+* [#1555][1555] Add exclusion for camel-http to camel-sap-netweaver  
 * [#1558][1558] Remove explicit version for ActiveMQ
 * [#1560][1560] Reject support for component http
 * [#1566][1566] Consolidate available port util
@@ -1363,7 +1396,7 @@ For details see [4.4.0 features](https://github.com/wildfly-extras/wildfly-camel
 
 **Tasks**
 
-* [#554][554] Investigate Arquillian Cube for integration testing
+* [#554][554] Investigate Arquillian Cube for integration testing 
 * [#1329][1329] Provide CI testing for camel-nats
 * [#1330][1330] Provide CI testing for camel-twitter
 * [#1362][1362] Do not expose port 9999 in docker containers
@@ -1376,7 +1409,7 @@ For details see [4.4.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#1379][1379] Investigate Arquillian enableThreadContextClassLoader=false
 * [#1381][1381] Link to wildfly provided fasterxml
 * [#1383][1383] Investigate removing camel-restlet
-* [#1385][1385] Prioritize unsupported camel components
+* [#1385][1385] Prioritize unsupported camel components 
 * [#1393][1393] Improve camel-salesforce integration test
 * [#1497][1497] Create GitHub issues from [planned] roadmap items
 
@@ -1510,18 +1543,6 @@ For details see [4.3.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 [1346]: https://github.com/wildfly-extras/wildfly-camel/issues/1346
 [1358]: https://github.com/wildfly-extras/wildfly-camel/issues/1358
 
-#### WildFly-Camel 4.2.1
-
-**Tasks**
-
-* [#1300][1300] Upgrade to wildly-10.1.0.CR1
-* [#1302][1302] Switch to git access over https (recommended)
-
-For details see [4.2.1 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.2.1"+label%3Atask)
-
-[1300]: https://github.com/wildfly-extras/wildfly-camel/issues/1300
-[1302]: https://github.com/wildfly-extras/wildfly-camel/issues/1302
-
 #### WildFly-Camel 4.2.0
 
 **Features**
@@ -1546,9 +1567,9 @@ For details see [4.2.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 
 **Bugs**
 
-* [#1220][1220] braintree module does not export com.braintreegateway
+* [#1220][1220] braintree module does not export com.braintreegateway 
 * [#1224][1224] Spring schema file may not resolve when offline
-* [#1238][1238] WildFly-Camel patch not included with the 4.1.0 release
+* [#1238][1238] WildFly-Camel patch not included with the 4.1.0 release 
 * [#1243][1243] Possible race condition with undertow port binding
 * [#1246][1246] Multiple verbs for same resource not working in camel-undertow
 * [#1256][1256] Use of '${body.replaceAll()}' leads to logger warning
@@ -1574,22 +1595,17 @@ For details see [4.2.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 [1256]: https://github.com/wildfly-extras/wildfly-camel/issues/1256
 [1260]: https://github.com/wildfly-extras/wildfly-camel/issues/1260
 
-#### WildFly-Camel 4.1.1
-
-**Features**
-
-* [#1225][1225] Add support for urn:jboss:domain:4.1
-
-For details see [4.1.1 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.1.1"+label%3Afeature)
+#### WildFly-Camel 4.2.1
 
 **Tasks**
 
-* [#1217][1217] Remove wildfly-camel-config from baseline
+* [#1300][1300] Upgrade to wildly-10.1.0.CR1
+* [#1302][1302] Switch to git access over https (recommended)
 
-For details see [4.1.1 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.1.1"+label%3Atask)
+For details see [4.2.1 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.2.1"+label%3Atask)
 
-[1225]: https://github.com/wildfly-extras/wildfly-camel/issues/1225
-[1217]: https://github.com/wildfly-extras/wildfly-camel/issues/1217
+[1300]: https://github.com/wildfly-extras/wildfly-camel/issues/1300
+[1302]: https://github.com/wildfly-extras/wildfly-camel/issues/1302
 
 #### WildFly-Camel 4.1.0
 
@@ -1603,7 +1619,7 @@ For details see [4.1.0 features](https://github.com/wildfly-extras/wildfly-camel
 
 * [#1162][1162] Upgrade to camel-2.17.1
 * [#1174][1174] Increase org.jboss.remoting-jmx.timeout for camel-braintree integration tests
-* [#1179][1179] Move CDI proxy filtering to upstream camel
+* [#1179][1179] Move CDI proxy filtering to upstream camel  
 * [#1182][1182] Add JacksonDataFormat marshalling test coverage for Jackson annotated classes
 * [#1197][1197] Add test coverage for Kafka custom partitioners
 * [#1208][1208] Upgrade to fuse-patch-2.4.0
@@ -1614,7 +1630,7 @@ For details see [4.1.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 **Bugs**
 
 * [#1025][1025] Hawtio not connected
-* [#1171][1171] Intermittent failure of Kafka integration tests
+* [#1171][1171] Intermittent failure of Kafka integration tests 
 * [#1177][1177] Additional CDI camel context always created
 * [#1190][1190] Braintree cannot access JUL to SLF4J bridge
 * [#1195][1195] WeatherIntegrationTest fails with 401 Unauthorized
@@ -1637,6 +1653,23 @@ For details see [4.1.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 [1195]: https://github.com/wildfly-extras/wildfly-camel/issues/1195
 [1201]: https://github.com/wildfly-extras/wildfly-camel/issues/1201
 
+#### WildFly-Camel 4.1.1
+
+**Features**
+
+* [#1225][1225] Add support for urn:jboss:domain:4.1
+
+For details see [4.1.1 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.1.1"+label%3Afeature)
+
+**Tasks**
+
+* [#1217][1217] Remove wildfly-camel-config from baseline
+
+For details see [4.1.1 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.1.1"+label%3Atask)
+
+[1225]: https://github.com/wildfly-extras/wildfly-camel/issues/1225
+[1217]: https://github.com/wildfly-extras/wildfly-camel/issues/1217
+
 #### WildFly-Camel 4.0.0
 
 **Features**
@@ -1645,7 +1678,7 @@ For details see [4.1.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 * [#370][370] Add support for CXF WebService Consumers
 * [#925][925] Add support for CDI apps without @ContextName
 * [#955][955] Provide support for Camel on Undertow.js
-* [#964][964] Enable undertow component to be used in Camel REST DSL
+* [#964][964] Enable undertow component to be used in Camel REST DSL 
 * [#1044][1044] Add camel support for wildfly-swarm
 * [#1048][1048] Add support for camel-braintree
 * [#1050][1050] Add support for Spring PropertyPlaceholderConfigurer
@@ -1680,24 +1713,24 @@ For details see [4.0.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#1078][1078] Remove property definitions that are already defined by wildfly
 * [#1080][1080] Remove dependency on wildfy security from core feature pack
 * [#1092][1092] Relax the xml suffix to include camel-context.xml
-* [#1097][1097] Collocate classloading integration tests under one module and package
+* [#1097][1097] Collocate classloading integration tests under one module and package 
 * [#1098][1098] Profile ts.basic should only build what's needed for itests/basic
 * [#1113][1113] Remove explicit definition of CXF version
 * [#1115][1115] Move swarm functionality to separate repository
 * [#1118][1118] Review dependencies of the modules maven module
 * [#1123][1123] Revert to a single full feature pack
 * [#1125][1125] Update to fuse-patch-2.1.1
-* [#1131][1131] Allow system context injection to the context registry
+* [#1131][1131] Allow system context injection to the context registry 
 * [#1141][1141] Use fasterxml-jackson that comes with camel
 * [#1153][1153] Reuse fuse-patch feature pack
-* [#1154][1154] Add arquillian client sample test for docker
+* [#1154][1154] Add arquillian client sample test for docker 
 * [#1166][1166] Update examples to demonstrate CXF consumers
 
 For details see [4.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.0.0"+label%3Atask)
 
 **Bugs**
 
-* [#819][819] Unable to load custom Kafka Serializer or Partition classes
+* [#819][819] Unable to load custom Kafka Serializer or Partition classes 
 * [#904][904] Cannot create ElasticsearchEndpoint
 * [#913][913] Infinispan integration fails on WildFly10
 * [#981][981] JNDI integration incompatible with camel-2.17
@@ -1842,7 +1875,7 @@ For details see [3.3.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 * [#76][76] Provide camel-infinispan integration
 * [#846][846] Add support for spring data access with jdbc
 * [#879][879] Allow automatic discovery/failover of the AMQ Broker
-* [#931][931] Allow customisation for a Groovy Shell
+* [#931][931] Allow customisation for a Groovy Shell 
 * [#940][940] Add support for user defined security domain/roles
 * [#967][967] Provide camel-metrics integration
 * [#985][985] Compatibility for DS based components
@@ -1856,7 +1889,7 @@ For details see [3.2.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#847][847] Investigate usage of container managed thread pools / factories with Camel
 * [#892][892] Update to camel-2.16.1
 * [#910][910] Add test coverage for idempotent consumers
-* [#919][919] Verify validity of wildfly-camel patch from the project test suite
+* [#919][919] Verify validity of wildfly-camel patch from the project test suite 
 * [#921][921] Remove dependency on shrinkwrap
 * [#928][928] Remove dependency on fuse-patch feature pack
 * [#929][929] Unnecessary transitive dependencies when using WildFly Camel API
@@ -1868,9 +1901,9 @@ For details see [3.2.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#952][952] Assert that every expression in exported-path-patterns is used
 * [#953][953] Mark modules as private that do not contain exported packages
 * [#960][960] Update to wildfly-arquillian-1.0.1.Final
-* [#962][962] Use wildfly-core-parent for dependency version defs
+* [#962][962] Use wildfly-core-parent for dependency version defs 
 * [#965][965] Move enricher to testenricher
-* [#973][973] Modify quickstart example README markdown to be more user friendly
+* [#973][973] Modify quickstart example README markdown to be more user friendly 
 * [#980][980] Add compatibility tests with Karaf
 * [#984][984] Evaluate compatibility for spring based camel routes
 * [#986][986] Evaluate compatibility for CDI based components
@@ -1880,8 +1913,8 @@ For details see [3.2.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 
 **Bugs**
 
-* [#897][897] camel-rest example RestProducerRouteBuilder sometimes produces HTTP 404 errors
-* [#905][905] Cannot use maven release plugin
+* [#897][897] camel-rest example RestProducerRouteBuilder sometimes produces HTTP 404 errors 
+* [#905][905] Cannot use maven release plugin 
 * [#908][908] Unable to configure JDBC idempotent consumers
 * [#914][914] Unable to configure JPA idempotent consumers
 * [#915][915] Unable to configure Infinispan idempotent consumers
@@ -1943,8 +1976,8 @@ For details see [3.2.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 
 **Features**
 
-* [#766][766] Create simple archetype for camel project
-* [#778][778] Add support for camel-undertow
+* [#766][766] Create simple archetype for camel project 
+* [#778][778] Add support for camel-undertow 
 * [#814][814] Add support for camel-elasticsearch
 * [#859][859] Add support for camel-jasypt
 * [#874][874] Add support for camel-stream
@@ -1954,7 +1987,7 @@ For details see [3.1.0 features](https://github.com/wildfly-extras/wildfly-camel
 
 **Tasks**
 
-* [#555][555] Verify that Hawtio camel tab works as expected
+* [#555][555] Verify that Hawtio camel tab works as expected 
 * [#592][592] Update to camel-2.16.0
 * [#660][660] Update to wildfly-9.0.1.Final
 * [#726][726] Remove explicit spring-security version
@@ -1962,7 +1995,7 @@ For details see [3.1.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#747][747] Add test coverage for Kafka consumer/producer
 * [#754][754] Investigate integration of container managed transactions within Camel routes
 * [#779][779] Endpoint creation on existing undertow server
-* [#792][792] Review use of Maven dependency resolution in module-checker script
+* [#792][792] Review use of Maven dependency resolution in module-checker script 
 * [#797][797] Split up dozer into individual module from camel-dozer
 * [#799][799] Add dependence on SAP module to extras by default
 * [#801][801] Restore or remove skipped tests in CamelSubsystemTestCase
@@ -1977,7 +2010,7 @@ For details see [3.1.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#831][831] Migrate config core functionality to fuse-patch
 * [#834][834] Remove wildfly-camel-enricher dependency from generated wildfly-camel archetype pom.xml
 * [#836][836] Expose quartz public API in separate module
-* [#838][838] Remove GitHub style markdown from archetype generated README files
+* [#838][838] Remove GitHub style markdown from archetype generated README files 
 * [#849][849] Cleanup/Simplify profile handling
 * [#857][857] Add test coverage for camel-crypto component
 * [#860][860] Add test coverage for markRollbackOnly DSL command
@@ -2066,7 +2099,7 @@ For details see [3.1.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 * [#11][11] Provide camel subsystem as feature pack
 * [#155][155] Provide camel-sap support
 * [#160][160] Provide camel-jgroups support
-* [#340][340] Make use of TCCL in ARQ ManagedContainer configurable
+* [#340][340] Make use of TCCL in ARQ ManagedContainer configurable 
 * [#541][541] Add support for wildfly-9.0.x docker image
 * [#563][563] Add executable to enable/disable the camel subsytem
 * [#615][615] Provide camel-zookeeper support
@@ -2088,7 +2121,7 @@ For details see [3.0.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#682][682] Remove shading of the config tool
 * [#683][683] Provide pluggable SPI for config tool
 * [#689][689] Exclude generated subsystem module definition from SCM
-* [#700][700] Add support for module layers to config tool
+* [#700][700] Add support for module layers to config tool 
 * [#708][708] Move mqtt-client dependency into its own module
 * [#711][711] Review service loader contract for ConfigPlugins
 * [#713][713] Split integration tests in smoke, basic, extras
@@ -2206,10 +2239,10 @@ For details see [2.3.0 features](https://github.com/wildfly-extras/wildfly-camel
 
 **Tasks**
 
-* [#252][252] Automate the release of wildfly-camel docker images
+* [#252][252] Automate the release of wildfly-camel docker images 
 * [#405][405] Add compatibility for Maven 3.2.5 and above
 * [#428][428] Replace external RSS feed access with betamax
-* [#432][432] Remove explicit dependency on restlet
+* [#432][432] Remove explicit dependency on restlet 
 * [#474][474] Remove explicit dependency on ognl
 * [#477][477] Remove explicit dependency on castor
 * [#497][497] Move CustomConverter to sub package
@@ -2228,7 +2261,7 @@ For details see [2.3.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#598][598] Rename CamelContextRegistry.getContext(String name)
 * [#602][602] Move subsystem module definition from patch to modules
 * [#605][605] Document testsuite application/management credentials
-* [#618][618] Add capability for integration tests to be used in other projects
+* [#618][618] Add capability for integration tests to be used in other projects 
 * [#619][619] Rationalise configuration files
 * [#626][626] Configure users/roles required by tests programmatically
 * [#627][627] Include XML Beans schemaorg content in integration tests jar
@@ -2262,7 +2295,7 @@ For details see [2.3.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 * [#622][622] Path to exported-paths.txt in ExportedPathsTest should be configurable
 * [#625][625] JMS Example cannot find OrdersQueue
 * [#639][639] JAXBIntegrationTest may fail with shrinkwrap resolver issue
-* [#642][642] Betamax tapeRoot property should be a relative path
+* [#642][642] Betamax tapeRoot property should be a relative path 
 * [#643][643] Cannot add schemaorg_apache_xmlbeans when sourced from jar
 * [#664][664] Generated domain.xml does not work in testsuite
 * [#666][666] Password must have at least 1 non-alphanumeric symbol
@@ -2417,7 +2450,7 @@ For details see [2.2.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#469][469] Remove dependency on org.apache.servicemix.bundles.ognl
 * [#470][470] Remove dependency on org.glassfish.web.javax.el
 * [#485][485] Update to hawtio-1.4.48
-* [#494][494] Reduce paths exported through camel-xmlbeans
+* [#494][494] Reduce paths exported through camel-xmlbeans 
 * [#509][509] Replace literal string comparison with normalized XML
 * [#511][511] Move scripting languages to separate modules
 * [#516][516] Verify that resource streams obtained from a class loader are closed properly
@@ -2448,22 +2481,22 @@ For details see [2.2.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 * [#292][292] Camel endpoint discovery depends on TCCL
 * [#299][299] Usage of camel-script depends on TCCL
 * [#300][300] Usage of SpringCamelContextFactory depends on TCCL
-* [#316][316] Conflict between camel-http / camel-http4 components
-* [#319][319] Unable to locate Spring JEE Namespace Handler
-* [#343][343] Examples can no longer run standalone
+* [#316][316] Conflict between camel-http / camel-http4 components 
+* [#319][319] Unable to locate Spring JEE Namespace Handler 
+* [#343][343] Examples can no longer run standalone 
 * [#347][347] Generated module definitions contain optional dependencies
 * [#354][354] Distro module attaches tar archive artifact multiple times
 * [#357][357] ActiveMQIntegrationTest bundles all ActiveMQ jars
 * [#361][361] Dependency on lucene defined twice
-* [#376][376] Camel atom component requires exported paths for abdera core
+* [#376][376] Camel atom component requires exported paths for abdera core 
 * [#378][378] Intermittent failures of JMS integration tests
-* [#380][380] Unable to use the wildfly-maven-plugin run goal to execute WildFly Camel examples
+* [#380][380] Unable to use the wildfly-maven-plugin run goal to execute WildFly Camel examples  
 * [#381][381] Unable to configure ActiveMQ resource adapter
 * [#391][391] Cannot obtain DOMImplementationRegistry instance
 * [#399][399] Fix missing plugin versions
 * [#402][402] CamelEmailIntegrationTest cannot connect
 * [#410][410] Cannot load mina type converter
-* [#439][439] Unable to configure CXF producer endpoints in Spring XML contexts
+* [#439][439] Unable to configure CXF producer endpoints in Spring XML contexts 
 * [#464][464] Object may get marshalled to wrong CSV order
 * [#467][467] Docker domain unit tests fail on environments with SELinux enabled
 * [#502][502] Project does not build successfully on Windows
@@ -2619,7 +2652,7 @@ For details see [2.1.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#93][93] Support WildFly domain mode in OpenShift
 * [#95][95] Upgrade to WildFly 8.2.0.Final
 * [#106][106] Application/Management user setup for docker container
-* [#107][107] Remove the default camel webapp
+* [#107][107] Remove the default camel webapp 
 * [#124][124] Provide Fabric8 V2 example
 * [#134][134] Upgrade to hawtio-1.4.42
 * [#137][137] Use the official tagged jboss/wildfly image as base
@@ -2631,10 +2664,10 @@ For details see [2.1.0 features](https://github.com/wildfly-extras/wildfly-camel
 * [#178][178] Define version for war and license plugin
 * [#182][182] Use management realm for hawtio authentication
 * [#186][186] Review todos in spring modules
-* [#187][187] Review all [TODO] markers and add issue references
+* [#187][187] Review all [TODO] markers and add issue references 
 * [#201][201] Update to camel-2.14.1
-* [#218][218] Domain mode Docker integration tests are not portable across different platforms
-* [#227][227] Put wildfly modules in a layer
+* [#218][218] Domain mode Docker integration tests are not portable across different platforms 
+* [#227][227] Put wildfly modules in a layer 
 * [#231][231] Rename activemq component module
 * [#235][235] Remove duplicate REST annotations in GreetingService
 * [#242][242] Make CamelContextFactory available as Gravia service

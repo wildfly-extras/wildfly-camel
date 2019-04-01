@@ -421,6 +421,7 @@
                 <configuration>
                     <excludes>
                         <exclude>velocity.log</exclude>
+                        <exclude>Changelog.md</exclude>
                     </excludes>
                 </configuration>
             </plugin>
