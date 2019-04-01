@@ -438,8 +438,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Thomas Diesler</span><br>
 <span id="author2" class="author">James Netherton</span><br>
-<span id="revnumber">version 9.1.0,</span>
-<span id="revdate">2019-02-08</span>
+<span id="revnumber">version 10.0.0,</span>
+<span id="revdate">2019-04-01</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -802,7 +802,7 @@ Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration
 <div class="content">
 <pre class="highlight nowrap"><code>mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
                        -DarchetypeArtifactId=wildfly-camel-archetype-cdi \
-                       -DarchetypeVersion=9.1.0 \
+                       -DarchetypeVersion=10.0.0 \
                        -DgroupId=com.mycompany \
                        -DartifactId=my-camel-cdi-application</code></pre>
 </div>
@@ -814,7 +814,7 @@ Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration
 <div class="content">
 <pre class="highlight nowrap"><code>mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
                        -DarchetypeArtifactId=wildfly-camel-archetype-spring \
-                       -DarchetypeVersion=9.1.0 \
+                       -DarchetypeVersion=10.0.0 \
                        -DgroupId=com.mycompany \
                        -DartifactId=my-camel-spring-application</code></pre>
 </div>
@@ -836,6 +836,10 @@ Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration
 <col style="width: 50%;">
 </colgroup>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>16.0.0.Final</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10.0</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>15.0.1.Final</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">9.1</p></td>
@@ -5771,7 +5775,7 @@ ExecStart=/usr/bin/dockerd --insecure-registry 172.30.0.0/16</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ s2i build https://github.com/wildfly-extras/wildfly-camel-examples.git -r 9.1.0 --context-dir camel-cdi wildflyext/wildfly-camel:9.1.0 wildfly-camel-example-cdi
+<pre class="highlight nowrap"><code>$ s2i build https://github.com/wildfly-extras/wildfly-camel-examples.git -r 10.0.0 --context-dir camel-cdi wildflyext/wildfly-camel:10.0.0 wildfly-camel-example-cdi
 $ docker run -ti -p 8080:8080 wildfly-camel-example-cdi</code></pre>
 </div>
 </div>
@@ -5837,7 +5841,7 @@ unchanged):</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Git Reference</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">9.1.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10.0.0</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Context Directory</strong></p></td>
@@ -6096,8 +6100,8 @@ producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION,
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 9.1.0<br>
-Last updated 2019-01-29 08:50:43 CET
+Version 10.0.0<br>
+Last updated 2019-04-01 11:42:42 CEST
 </div>
 </div>
 </body>
