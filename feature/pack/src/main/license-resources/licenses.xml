@@ -10458,7 +10458,7 @@
     <dependency>
       <groupId>org.wildfly.camel</groupId>
       <artifactId>wildfly-camel-common</artifactId>
-      <version>10.0.0-SNAPSHOT</version>
+      <version>10.1.0-SNAPSHOT</version>
       <licenses>
         <license>
           <name>apache_v2</name>
@@ -10470,7 +10470,7 @@
     <dependency>
       <groupId>org.wildfly.camel</groupId>
       <artifactId>wildfly-camel-config</artifactId>
-      <version>10.0.0-SNAPSHOT</version>
+      <version>10.1.0-SNAPSHOT</version>
       <licenses>
         <license>
           <name>apache_v2</name>
@@ -10482,7 +10482,7 @@
     <dependency>
       <groupId>org.wildfly.camel</groupId>
       <artifactId>wildfly-camel-cxf-undertow</artifactId>
-      <version>10.0.0-SNAPSHOT</version>
+      <version>10.1.0-SNAPSHOT</version>
       <licenses>
         <license>
           <name>apache_v2</name>
@@ -10494,7 +10494,7 @@
     <dependency>
       <groupId>org.wildfly.camel</groupId>
       <artifactId>wildfly-camel-subsystem-cdi</artifactId>
-      <version>10.0.0-SNAPSHOT</version>
+      <version>10.1.0-SNAPSHOT</version>
       <licenses>
         <license>
           <name>apache_v2</name>
@@ -10506,7 +10506,7 @@
     <dependency>
       <groupId>org.wildfly.camel</groupId>
       <artifactId>wildfly-camel-subsystem-core</artifactId>
-      <version>10.0.0-SNAPSHOT</version>
+      <version>10.1.0-SNAPSHOT</version>
       <licenses>
         <license>
           <name>apache_v2</name>
@@ -10518,7 +10518,7 @@
     <dependency>
       <groupId>org.wildfly.camel</groupId>
       <artifactId>wildfly-camel-subsystem-security</artifactId>
-      <version>10.0.0-SNAPSHOT</version>
+      <version>10.1.0-SNAPSHOT</version>
       <licenses>
         <license>
           <name>apache_v2</name>
@@ -10530,7 +10530,7 @@
     <dependency>
       <groupId>org.wildfly.camel</groupId>
       <artifactId>wildfly-camel-subsystem-undertow</artifactId>
-      <version>10.0.0-SNAPSHOT</version>
+      <version>10.1.0-SNAPSHOT</version>
       <licenses>
         <license>
           <name>apache_v2</name>
