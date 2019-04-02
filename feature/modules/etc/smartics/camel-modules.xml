@@ -2528,7 +2528,11 @@
     </module>
 
     <module name="org.apache.camel.component.script">
-        <include artifact="org.apache.camel:camel-script" />
+        <include artifact="org.apache.camel:camel-script">
+            <filter>
+                <exclude path="org/apache/camel/script/osgi**" />
+            </filter>
+        </include>
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
@@ -2546,9 +2550,6 @@
             </module>
             <module name="org.slf4j"/>
         </dependencies>
-        <exports>
-            <exclude path="org/apache/camel/script/osgi**"/>
-        </exports>
     </module>
 
     <module name="org.apache.camel.script.groovy">
