@@ -12,6 +12,7 @@
     <module name="javax.api" />
     <module name="javax.xml.bind.api" />
     <module name="javax.ws.rs.api" />
+    <module name="org.apache.xerces" />
     <module name="asm.asm" />
     <module name="com.drewnoakes.metadata-extractor" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
