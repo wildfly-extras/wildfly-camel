@@ -99,9 +99,12 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
         if (enable) {
             addProperty(element, propertiesByName, "hawtio.authenticationEnabled", "true");
             addProperty(element, propertiesByName, "hawtio.realm", "hawtio-domain");
+            addProperty(element, propertiesByName, "org.apache.xml.dtm.DTMManager", "org.apache.xml.dtm.ref.DTMManagerDefault");
         } else {
             removeProperty(propertiesByName, "hawtio.authenticationEnabled");
             removeProperty(propertiesByName, "hawtio.realm");
+            /* Do not remove org.apache.xml.dtm.DTMManager because we do not know whether it was added by us or by the
+             * user. Leaving it there should be harmless or even beneficial for the perf of XPath.evaluate() */
         }
     }
 
