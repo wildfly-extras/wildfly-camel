@@ -64,6 +64,7 @@ public class StandaloneConfigTest extends ConfigTestSupport {
         Assert.assertNotNull("system-properties not null", element);
         assertElementWithAttributeValueNotNull(element, "property", "name", "hawtio.realm", NS_DOMAINS);
         assertElementWithAttributeValueNotNull(element, "property", "name", "hawtio.authenticationEnabled", NS_DOMAINS);
+        assertElementWithAttributeValueNotNull(element, "property", "name", "org.apache.xml.dtm.DTMManager", NS_DOMAINS);
 
         // Verify camel
         List<Element> profiles = ConfigSupport.findProfileElements(doc, NS_DOMAINS);
