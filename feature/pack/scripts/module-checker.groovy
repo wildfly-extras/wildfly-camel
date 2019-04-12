@@ -341,13 +341,4 @@ if (problems.size() > 0) {
 
     println ""
     fail("Module dependency conflicts were detected. Please fix your module dependencies.")
-} else {
-    // Write a list of resources so that we can look them up for generating licenses.xml
-    new File("${project.build.directory}/fuse-resources.txt").withWriter('UTF-8') { writer ->
-        modules.findAll({module -> module.layer == "fuse"}).each { module ->
-            module.resources.each { resource ->
-                writer.write('include gaPattern \\Q' + resource + '\\E\n')
-            }
-        }
-    }
 }

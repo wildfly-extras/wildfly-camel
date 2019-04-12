@@ -136,6 +136,49 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>module-list</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>compile</phase>
+                        <configuration>
+                            <source>${project.basedir}/../scripts/module-list.groovy</source>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>licenses-xml-check</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>process-test-sources</phase><!-- After license-maven-plugin@licenses-xml-insert-versions -->
+                        <configuration>
+                            <source>${project.basedir}/../scripts/licenses-xml-check.groovy</source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>licenses-xml-insert-versions</id>
+                        <goals>
+                            <goal>licenses-xml-insert-versions</goal>
+                        </goals>
+                        <phase>generate-test-sources</phase><!-- after license-maven-plugin@update-licenses-xml -->
+                        <configuration>
+                            <licensesInputFile>${license.dir}/licenses.xml</licensesInputFile>
+                            <licensesOutputFile>${license.output.dir}/licenses.xml</licensesOutputFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.wildfly.galleon-plugins</groupId>
                 <artifactId>wildfly-galleon-maven-plugin</artifactId>
                 <executions>
@@ -150,4 +193,32 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>download-licenses</id>
+            <activation>
+                <property>
+                    <name>update-licenses-xml</name><!-- off by default -->
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>license-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>download-licenses</id>
+                                <goals>
+                                    <goal>download-licenses</goal>
+                                </goals>
+                                <phase>process-classes</phase>
+                                <!-- configured in the parent module -->
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
