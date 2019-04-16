@@ -49,9 +49,10 @@
         <product.release.name>WildFly Camel</product.release.name>
 
         <!-- Camel versions -->
-        <version.apache.camel>2.23.2</version.apache.camel>
+        <version.apache.camel>2.24.0</version.apache.camel>
         <version.camel.apns>1.0.0.Beta6</version.camel.apns>
-        <version.camel.elasticsearch.rest>6.4.2</version.camel.elasticsearch.rest>
+        <version.camel.bouncycastle>1.61</version.camel.bouncycastle>
+        <version.camel.elasticsearch.rest>6.5.1</version.camel.elasticsearch.rest>
         <version.camel.grpc.guava>20.0</version.camel.grpc.guava>
         <version.camel.hadoop2>2.7.4</version.camel.hadoop2>
         <version.camel.hadoop2.protobuf>2.5.0</version.camel.hadoop2.protobuf>
@@ -60,9 +61,9 @@
         <version.camel.jgroups>4.0.15.Final</version.camel.jgroups>
         <version.camel.log4j2>2.11.1</version.camel.log4j2>
         <version.camel.lucene>7.5.0</version.camel.lucene>
-        <version.camel.netty41>4.1.31.Final</version.camel.netty41>
+        <version.camel.netty41>4.1.32.Final</version.camel.netty41>
         <version.camel.opencmis>1.1.0</version.camel.opencmis>
-        <version.camel.qpid.proton>0.30.0</version.camel.qpid.proton>
+        <version.camel.qpid.proton>0.31.0</version.camel.qpid.proton>
         <version.camel.rxjava2>2.2.3</version.camel.rxjava2>
         <version.camel.sshd>2.0.0</version.camel.sshd>
 

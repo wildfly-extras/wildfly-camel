@@ -10,7 +10,7 @@
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.lang" />
-    <module name="org.bouncycastle" />
+    <module name="org.bouncycastle" slot="1.61" />
   </dependencies>
   <exports>
     <exclude path="com/googlecode" />

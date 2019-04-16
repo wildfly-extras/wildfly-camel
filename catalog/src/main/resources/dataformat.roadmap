@@ -30,9 +30,9 @@ pgp
 protobuf
 rss
 secureXML
-serialization
+serialization       #deprecated
 soapjaxb
-string
+string              #deprecated
 syslog
 tarfile
 thrift
@@ -53,6 +53,5 @@ zipfile
 castor              #deprecated
 hessian             #deprecated
 xmlBeans            #deprecated
-xmljson             #deprecated
 xmlrpc              #2507 xmlrpc is no longer maintained
 

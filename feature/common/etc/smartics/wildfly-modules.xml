@@ -382,12 +382,6 @@
         <include artifact="xml-resolver:xml-resolver" />
     </module>
 
-    <module name="org.bouncycastle" skip="true">
-        <include artifact=":bcmail-jdk15on"/>
-        <include artifact=":bcpkix-jdk15on"/>
-        <include artifact=":bcprov-jdk15on" />
-    </module>
-
     <module name="org.codehaus.jackson.jackson-core-asl" skip="true">
         <include artifact=":jackson-core-asl" />
     </module>

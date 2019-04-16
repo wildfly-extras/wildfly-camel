@@ -631,6 +631,7 @@ com/dropbox/core/v2/async
 com/dropbox/core/v2/auth
 com/dropbox/core/v2/callbacks
 com/dropbox/core/v2/common
+com/dropbox/core/v2/contacts
 com/dropbox/core/v2/fileproperties
 com/dropbox/core/v2/filerequests
 com/dropbox/core/v2/files
@@ -1285,16 +1286,22 @@ io/fabric8/kubernetes
 io/fabric8/kubernetes/api
 io/fabric8/kubernetes/api/builder
 io/fabric8/kubernetes/api/model
+io/fabric8/kubernetes/api/model/admission
+io/fabric8/kubernetes/api/model/admissionregistration
 io/fabric8/kubernetes/api/model/apiextensions
 io/fabric8/kubernetes/api/model/apps
 io/fabric8/kubernetes/api/model/authentication
 io/fabric8/kubernetes/api/model/authorization
 io/fabric8/kubernetes/api/model/batch
+io/fabric8/kubernetes/api/model/certificates
+io/fabric8/kubernetes/api/model/events
 io/fabric8/kubernetes/api/model/extensions
 io/fabric8/kubernetes/api/model/networking
 io/fabric8/kubernetes/api/model/policy
 io/fabric8/kubernetes/api/model/rbac
 io/fabric8/kubernetes/api/model/runtime
+io/fabric8/kubernetes/api/model/scheduling
+io/fabric8/kubernetes/api/model/settings
 io/fabric8/kubernetes/api/model/storage
 io/fabric8/kubernetes/api/model/validators
 io/fabric8/kubernetes/api/model/version
@@ -1407,6 +1414,7 @@ io/vertx/core/datagram/impl
 io/vertx/core/dns
 io/vertx/core/dns/impl
 io/vertx/core/dns/impl/decoder
+io/vertx/core/dns/impl/netty
 io/vertx/core/eventbus
 io/vertx/core/eventbus/impl
 io/vertx/core/eventbus/impl/clustered
@@ -1424,6 +1432,7 @@ io/vertx/core/impl/cpu
 io/vertx/core/impl/launcher
 io/vertx/core/impl/launcher/commands
 io/vertx/core/impl/resolver
+io/vertx/core/impl/utils
 io/vertx/core/impl/verticle
 io/vertx/core/json
 io/vertx/core/logging
@@ -1611,6 +1620,7 @@ net/sf/saxon/ma
 net/sf/saxon/ma/arrays
 net/sf/saxon/ma/json
 net/sf/saxon/ma/map
+net/sf/saxon/ma/parray
 net/sf/saxon/ma/trie
 net/sf/saxon/om
 net/sf/saxon/pattern
@@ -1620,6 +1630,7 @@ net/sf/saxon/regex
 net/sf/saxon/regex/charclass
 net/sf/saxon/resource
 net/sf/saxon/s9api
+net/sf/saxon/s9api/streams
 net/sf/saxon/serialize
 net/sf/saxon/serialize/charcode
 net/sf/saxon/serialize/codenorm
@@ -1632,6 +1643,7 @@ net/sf/saxon/trans/packages
 net/sf/saxon/trans/rules
 net/sf/saxon/tree
 net/sf/saxon/tree/iter
+net/sf/saxon/tree/jiter
 net/sf/saxon/tree/linked
 net/sf/saxon/tree/tiny
 net/sf/saxon/tree/util
@@ -1866,6 +1878,7 @@ org/apache/camel/component/github/consumer
 org/apache/camel/component/github/producer
 org/apache/camel/component/google
 org/apache/camel/component/google/bigquery
+org/apache/camel/component/google/bigquery/sql
 org/apache/camel/component/google/calendar
 org/apache/camel/component/google/calendar/stream
 org/apache/camel/component/google/drive

@@ -9,6 +9,6 @@
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.lang3" />
     <module name="org.apache.pdfbox" />
-    <module name="org.bouncycastle" />
+    <module name="org.bouncycastle" slot="1.61" />
   </dependencies>
 </module>

@@ -5,7 +5,7 @@ exchangeProperty
 file
 groovy
 header
-javaScript
+javaScript                          #deprecated
 jsonpath
 mvel
 ognl

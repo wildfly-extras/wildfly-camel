@@ -9,7 +9,7 @@
   <dependencies>
     <module name="javax.api" />
     <module name="javax.xml.stream.api" />
-    <module name="javax.activation.api" />
+    <module name="javax.xml.bind.api" />
     <module name="xmlpull" />
   </dependencies>
 </module>

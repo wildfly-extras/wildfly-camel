@@ -20,7 +20,7 @@
     <module name="org.apache.commons.io" />
     <module name="org.apache.commons.lang" />
     <module name="org.apache.httpcomponents" />
-    <module name="org.bouncycastle" />
+    <module name="org.bouncycastle" slot="1.61" />
     <module name="org.slf4j" />
   </dependencies>
 </module>

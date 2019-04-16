@@ -140,8 +140,10 @@
         <include artifact="com.amazonaws:aws-java-sdk-acm" />
         <include artifact="com.amazonaws:aws-java-sdk-acmpca" />
         <include artifact="com.amazonaws:aws-java-sdk-alexaforbusiness" />
+        <include artifact="com.amazonaws:aws-java-sdk-amplify" />
         <include artifact="com.amazonaws:aws-java-sdk-api-gateway" />
         <include artifact="com.amazonaws:aws-java-sdk-applicationautoscaling" />
+        <include artifact="com.amazonaws:aws-java-sdk-appmesh" />
         <include artifact="com.amazonaws:aws-java-sdk-appstream" />
         <include artifact="com.amazonaws:aws-java-sdk-appsync" />
         <include artifact="com.amazonaws:aws-java-sdk-autoscaling" />
@@ -149,6 +151,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-athena" />
         <include artifact="com.amazonaws:aws-java-sdk-batch" />
         <include artifact="com.amazonaws:aws-java-sdk-budgets" />
+        <include artifact="com.amazonaws:aws-java-sdk-chime" />
         <include artifact="com.amazonaws:aws-java-sdk-cloud9" />
         <include artifact="com.amazonaws:aws-java-sdk-clouddirectory" />
         <include artifact="com.amazonaws:aws-java-sdk-cloudformation" />
@@ -166,11 +169,13 @@
         <include artifact="com.amazonaws:aws-java-sdk-cognitoidp" />
         <include artifact="com.amazonaws:aws-java-sdk-cognitosync" />
         <include artifact="com.amazonaws:aws-java-sdk-comprehend" />
+        <include artifact="com.amazonaws:aws-java-sdk-comprehendmedical" />
         <include artifact="com.amazonaws:aws-java-sdk-config" />
         <include artifact="com.amazonaws:aws-java-sdk-connect" />
         <include artifact="com.amazonaws:aws-java-sdk-costandusagereport" />
         <include artifact="com.amazonaws:aws-java-sdk-costexplorer" />
         <include artifact="com.amazonaws:aws-java-sdk-datapipeline" />
+        <include artifact="com.amazonaws:aws-java-sdk-datasync" />
         <include artifact="com.amazonaws:aws-java-sdk-dax" />
         <include artifact="com.amazonaws:aws-java-sdk-devicefarm" />
         <include artifact="com.amazonaws:aws-java-sdk-directconnect" />
@@ -191,8 +196,10 @@
         <include artifact="com.amazonaws:aws-java-sdk-eks" />
         <include artifact="com.amazonaws:aws-java-sdk-events" />
         <include artifact="com.amazonaws:aws-java-sdk-fms" />
+        <include artifact="com.amazonaws:aws-java-sdk-fsx" />
         <include artifact="com.amazonaws:aws-java-sdk-gamelift" />
         <include artifact="com.amazonaws:aws-java-sdk-glacier" />
+        <include artifact="com.amazonaws:aws-java-sdk-globalaccelerator" />
         <include artifact="com.amazonaws:aws-java-sdk-glue" />
         <include artifact="com.amazonaws:aws-java-sdk-greengrass" />
         <include artifact="com.amazonaws:aws-java-sdk-guardduty" />
@@ -205,11 +212,14 @@
         <include artifact="com.amazonaws:aws-java-sdk-iot1clickdevices" />
         <include artifact="com.amazonaws:aws-java-sdk-iot1clickprojects" />
         <include artifact="com.amazonaws:aws-java-sdk-iotjobsdataplane" />
+        <include artifact="com.amazonaws:aws-java-sdk-kafka" />
+        <include artifact="com.amazonaws:aws-java-sdk-kinesisanalyticsv2" />
         <include artifact="com.amazonaws:aws-java-sdk-kinesisvideo" />
         <include artifact="com.amazonaws:aws-java-sdk-kms" />
         <include artifact="com.amazonaws:aws-java-sdk-lambda" />
         <include artifact="com.amazonaws:aws-java-sdk-lex" />
         <include artifact="com.amazonaws:aws-java-sdk-lexmodelbuilding" />
+        <include artifact="com.amazonaws:aws-java-sdk-licensemanager" />
         <include artifact="com.amazonaws:aws-java-sdk-lightsail" />
         <include artifact="com.amazonaws:aws-java-sdk-logs" />
         <include artifact="com.amazonaws:aws-java-sdk-machinelearning" />
@@ -218,6 +228,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-marketplaceentitlement" />
         <include artifact="com.amazonaws:aws-java-sdk-marketplacemeteringservice" />
         <include artifact="com.amazonaws:aws-java-sdk-mechanicalturkrequester" />
+        <include artifact="com.amazonaws:aws-java-sdk-mediaconnect" />
         <include artifact="com.amazonaws:aws-java-sdk-mediaconvert" />
         <include artifact="com.amazonaws:aws-java-sdk-medialive" />
         <include artifact="com.amazonaws:aws-java-sdk-mediapackage" />
@@ -234,17 +245,26 @@
         <include artifact="com.amazonaws:aws-java-sdk-organizations" />
         <include artifact="com.amazonaws:aws-java-sdk-pi" />
         <include artifact="com.amazonaws:aws-java-sdk-pinpoint" />
+        <include artifact="com.amazonaws:aws-java-sdk-pinpointemail" />
+        <include artifact="com.amazonaws:aws-java-sdk-pinpointsmsvoice" />
         <include artifact="com.amazonaws:aws-java-sdk-polly" />
         <include artifact="com.amazonaws:aws-java-sdk-pricing" />
+        <include artifact="com.amazonaws:aws-java-sdk-quicksight" />
+        <include artifact="com.amazonaws:aws-java-sdk-ram" />
         <include artifact="com.amazonaws:aws-java-sdk-rds" />
+        <include artifact="com.amazonaws:aws-java-sdk-rdsdata" />
         <include artifact="com.amazonaws:aws-java-sdk-redshift" />
         <include artifact="com.amazonaws:aws-java-sdk-rekognition" />
         <include artifact="com.amazonaws:aws-java-sdk-resourcegroups" />
         <include artifact="com.amazonaws:aws-java-sdk-resourcegroupstaggingapi" />
+        <include artifact="com.amazonaws:aws-java-sdk-robomaker" />
         <include artifact="com.amazonaws:aws-java-sdk-route53" />
+        <include artifact="com.amazonaws:aws-java-sdk-route53resolver" />
+        <include artifact="com.amazonaws:aws-java-sdk-s3control" />
         <include artifact="com.amazonaws:aws-java-sdk-sagemaker" />
         <include artifact="com.amazonaws:aws-java-sdk-sagemakerruntime" />
         <include artifact="com.amazonaws:aws-java-sdk-secretsmanager" />
+        <include artifact="com.amazonaws:aws-java-sdk-securityhub" />
         <include artifact="com.amazonaws:aws-java-sdk-serverlessapplicationrepository" />
         <include artifact="com.amazonaws:aws-java-sdk-servermigration" />
         <include artifact="com.amazonaws:aws-java-sdk-servicecatalog" />
@@ -257,6 +277,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-sts" />
         <include artifact="com.amazonaws:aws-java-sdk-support" />
         <include artifact="com.amazonaws:aws-java-sdk-transcribe" />
+        <include artifact="com.amazonaws:aws-java-sdk-transfer" />
         <include artifact="com.amazonaws:aws-java-sdk-translate" />
         <include artifact="com.amazonaws:aws-java-sdk-waf" />
         <include artifact="com.amazonaws:aws-java-sdk-workdocs" />
@@ -1436,6 +1457,9 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.kafka:kafka-clients" />
+        <apply-to-dependencies skip="true">
+            <include module="com.github.luben.zstd-jni" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
@@ -1821,6 +1845,16 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.bitbucket.b_c:jose4j" />
+    </module>
+
+    <module name="org.bouncycastle" slot="1.61">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":bcpg-jdk15on" />
+        <include artifact=":bcprov-jdk15on" />
+        <include artifact=":bcmail-jdk15on" />
+        <include artifact=":bcpkix-jdk15on" />
     </module>
 
     <module name="org.cometd.bayeux">

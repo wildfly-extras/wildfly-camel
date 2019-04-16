@@ -333,6 +333,21 @@
                 <version>${version.arquillian.cube}</version>
             </dependency>
             <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcmail-jdk15on</artifactId>
+                <version>${version.camel.bouncycastle}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk15on</artifactId>
+                <version>${version.camel.bouncycastle}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>${version.camel.bouncycastle}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.eclipse.mylyn.github</groupId>
                 <artifactId>org.eclipse.egit.github.core</artifactId>
                 <version>${version.eclipse.egit.github}</version>

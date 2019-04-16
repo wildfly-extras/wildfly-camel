@@ -41,7 +41,7 @@ braintree
 browse
 caffeine-cache
 caffeine-loadcache
-chronicle-engine
+chronicle-engine                                    #deprecated
 chunk
 class
 cm-sms
@@ -86,6 +86,7 @@ geocoder
 git
 github
 google-bigquery
+google-bigquery-sql
 google-calendar
 google-calendar-stream
 google-drive
@@ -200,7 +201,7 @@ ref
 rest
 rest-api
 rest-swagger
-rmi
+rmi                                                 #deprecated
 rss
 saga
 salesforce
@@ -275,11 +276,16 @@ restlet                                             #2024 Blocked by camel-2.21.
 [undecided]
 as2
 atmos
+corda
 google-sheets
 google-sheets-stream
+iota
 ipfs
+jgroups-raft
+pulsar
 service
 web3j
+websocket-jsr356
 
 [rejected]
 bonita                                              #1820 Not another BPM engine
@@ -324,5 +330,4 @@ spark                                               #1469 Scala/Jackson stack ov
 spark-rest                                          #1470 Scala/Jackson stack overflow
 websocket                                           #1479 No alternative HTTP engine
 xmlrpc                                              #deprecated
-yql                                                 #YQL services are EOL and have been retired
 

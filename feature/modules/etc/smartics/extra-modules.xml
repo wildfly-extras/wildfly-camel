@@ -61,14 +61,4 @@
         </exports>
     </module>
 
-    <module name="org.bouncycastle.ext">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.bouncycastle:bcpg-jdk15on" />
-        <dependencies>
-            <module name="javax.api" />
-        </dependencies>
-    </module>
-
 </modules>
