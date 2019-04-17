@@ -34,11 +34,6 @@
     <artifactId>wildfly-camel-feature</artifactId>
     <packaging>pom</packaging>
 
-    <properties>
-        <license.dir>${project.basedir}/src/main/license-resources</license.dir>
-        <license.output.dir>${project.build.directory}/licenses</license.output.dir>
-    </properties>
-
     <modules>
         <module>common</module>
         <module>modules</module>
@@ -76,131 +71,7 @@
                 <configuration>
                     <excludes combine.children="append">
                         <exclude>src/main/resources/modules/**/*.xml</exclude>
-                        <exclude>src/main/license-resources/licenses/**</exclude>
-                        <exclude>src/main/license-resources/licenses.xml</exclude>
                     </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <!-- not bound to any phase here, that's done in some of the submodules -->
-                <configuration>
-                    <licensesConfigFile>${basedir}/etc/licenses/licenses-config.xml</licensesConfigFile>
-                    <licensesOutputDirectory>${license.dir}/licenses</licensesOutputDirectory>
-                    <licensesOutputFile>${license.dir}/licenses.xml</licensesOutputFile>
-                    <sortByGroupIdAndArtifactId>true</sortByGroupIdAndArtifactId>
-                    <errorRemedy>xmlOutput</errorRemedy>
-                    <!-- Uncomment or run with -Dlicense.cleanLicensesOutputDirectory=true to download all licenses anew -->
-                    <!-- <cleanLicensesOutputDirectory>true</cleanLicensesOutputDirectory> -->
-                    <artifactFiltersUrl>${project.baseUri}/target/fuse-resources.txt</artifactFiltersUrl>
-                    <socketTimeout>15000</socketTimeout>
-                    <useDefaultContentSanitizers>true</useDefaultContentSanitizers>
-                    <useDefaultUrlReplacements>true</useDefaultUrlReplacements>
-                    <licenseUrlReplacements>
-                        <licenseUrlReplacement>
-                            <regexp>\Qhttp://www.day.com/content/dam/day/downloads/jsr283/LICENSE.txt\E</regexp>
-                            <replacement>https://web.archive.org/web/20100220121505id_/http://www.day.com/content/dam/day/downloads/jsr283/LICENSE.txt</replacement>
-                        </licenseUrlReplacement>
-                        <licenseUrlReplacement>
-                            <regexp>\Qhttp://www.day.com/dam/day/downloads/jsr283/day-spec-license.htm\E</regexp>
-                            <replacement>https://web.archive.org/web/20100220121453id_/http://www.day.com/dam/day/downloads/jsr283/day-spec-license.htm</replacement>
-                        </licenseUrlReplacement>
-                        <licenseUrlReplacement>
-                            <regexp>\Qhttp://www.mozilla.org/MPL/MPL-1.1.txt\E</regexp>
-                            <replacement>https://www.mozilla.org/media/MPL/1.1/index.0c5913925d40.txt</replacement>
-                        </licenseUrlReplacement>
-                        <licenseUrlReplacement>
-                            <regexp>https?://glassfish\.(dev\.)?java\.net/(nonav/)?public/CDDL\+GPL(_1_1)?\.html</regexp>
-                            <replacement>https://raw.githubusercontent.com/javaee/glassfish/master/LICENSE</replacement>
-                        </licenseUrlReplacement>
-                        <licenseUrlReplacement>
-                            <regexp>https?\Q://glassfish.dev.java.net/\E(nonav/)?\Qpublic/CDDLv1.0.html\E</regexp>
-                            <replacement>https://opensource.org/licenses/CDDL-1.0</replacement>
-                        </licenseUrlReplacement>
-                        <licenseUrlReplacement>
-                            <regexp>https?://(www\.)?opensource\.org/licenses/apache2.0(\.(php|html))?</regexp>
-                            <replacement>https://opensource.org/licenses/Apache-2.0</replacement>
-                        </licenseUrlReplacement>
-                        <licenseUrlReplacement>
-                            <regexp>https?://(www\.)?opensource\.org/licenses/bsd-license(\.(php|html))?</regexp>
-                            <replacement>https://opensource.org/licenses/BSD-2-Clause</replacement>
-                        </licenseUrlReplacement>
-                        <licenseUrlReplacement>
-                            <regexp>https?://(www\.)?opensource\.org/licenses/CDDL-1\.0\.php</regexp>
-                            <replacement>https://opensource.org/licenses/CDDL-1.0</replacement>
-                        </licenseUrlReplacement>
-                        <licenseUrlReplacement>
-                            <regexp>https?://(www\.)?opensource\.org/licenses/cddl1(\.(php|html))?</regexp>
-                            <replacement>https://opensource.org/licenses/CDDL-1.0</replacement>
-                        </licenseUrlReplacement>
-                        <licenseUrlReplacement>
-                            <regexp>https?://(www\.)?opensource\.org/licenses/mit-license(\.(php|html))?</regexp>
-                            <replacement>https://opensource.org/licenses/MIT</replacement>
-                        </licenseUrlReplacement>
-                        <licenseUrlReplacement>
-                            <regexp>^https?://github\.com/([^/]+)/([^/]+)/blob/(.*)$</regexp>
-                            <replacement>https://raw.githubusercontent.com/$1/$2/$3</replacement>
-                        </licenseUrlReplacement>
-                        <licenseUrlReplacement>
-                            <regexp>^https?://(www\.)?creativecommons.org/licenses/([^/]+)/([^/]+)/$</regexp>
-                            <replacement>http://creativecommons.org/licenses/$1/$2/legalcode</replacement>
-                        </licenseUrlReplacement>
-                        <licenseUrlReplacement>
-                            <regexp>^https?://(www\.)?apache\.org/license/LICENSE-2\.0\.txt$</regexp>
-                            <replacement>https://www.apache.org/licenses/LICENSE-2.0.txt</replacement>
-                        </licenseUrlReplacement>
-                        <licenseUrlReplacement>
-                            <regexp>^https?://repository\.jboss\.com/licenses/lgpl\.txt$</regexp>
-                            <replacement>https://web.archive.org/web/20171202125112id_/http://repository.jboss.com/licenses/lgpl.txt</replacement>
-                        </licenseUrlReplacement>
-                    </licenseUrlReplacements>
-                    <licenseUrlFileNames>
-                        <spdx />
-                        <bsd-antlr.html>https?://(www\.)?antlr\.org/license\.html</bsd-antlr.html>
-                        <edl-v10.html>https?://(www\.)?eclipse\.org/org/documents/edl-v10\.php</edl-v10.html>
-                        <lgpl-3.0.txt>
-                            sha1:a8a12e6867d7ee39c21d9b11a984066099b6fb6b
-                            https?://(www\.)?gnu\.org/licenses/lgpl\.txt
-                            https?://(www\.)?fsf\.org/licensing/licenses/lgpl\.txt
-                        </lgpl-3.0.txt>
-                        <lgpl-2.1.txt>
-                            sha1:01a6b4bf79aca9b556822601186afab86e8c4fbf
-                            https?://(www\.)?gnu\.org/licenses/old-licenses/lgpl-2\.1\.txt
-                            https?://repository\.jboss\.org/licenses/lgpl-2\.1\.txt
-                        </lgpl-2.1.txt>
-                        <mit-license-auth0.txt>
-                            sha1:44258edfa65d99689f3b8e939a04fe98815dba66
-                            \Qhttps://raw.githubusercontent.com/auth0/java-jwt/master/LICENSE\E
-                        </mit-license-auth0.txt>
-                        <mit-license-pubnub.txt>
-                            sha1:898827e65f86217b02c921cdac8bfbe99d0f5429
-                            \Qhttps://raw.githubusercontent.com/jeevatkm/digitalocean-api-java/master/LICENSE\E
-                        </mit-license-pubnub.txt>
-                        <mit-license-jeevanandam-m.txt>
-                            sha1:2035018f22cb2d75bcc79d401cf3e2db78e99563
-                            \Qhttps://raw.githubusercontent.com/pubnub/pubnub-api/master/LICENSE\E
-                        </mit-license-jeevanandam-m.txt>
-                        <mit-license-pablo-fernandez.txt>
-                            sha1:8d7e620d498f99b3fc47c63a613ed1b3975c9564
-                            \Qhttps://raw.githubusercontent.com/scribejava/scribejava/master/LICENSE.txt\E
-                            \Qhttps://raw.githubusercontent.com/fernandezpablo85/scribe-java/master/LICENSE.txt\E
-                        </mit-license-pablo-fernandez.txt>
-                        <mit-license-pablo-fernandez.txt>
-                            sha1:f6c324a01dd4132f6a6ff75be9342676a2a4137a
-                            \Qhttps://raw.githubusercontent.com/xetorthio/jedis/master/LICENSE.txt\E
-                        </mit-license-pablo-fernandez.txt>
-                    </licenseUrlFileNames>
-                    <licenseUrlFileNameSanitizers>
-                        <licenseUrlFileNameSanitizer>
-                            <regexp>[\s-_,;]+</regexp>
-                            <replacement>-</replacement>
-                        </licenseUrlFileNameSanitizer>
-                        <licenseUrlFileNameSanitizer>
-                            <regexp>-($|\.)</regexp>
-                            <replacement>$1</replacement>
-                        </licenseUrlFileNameSanitizer>
-                    </licenseUrlFileNameSanitizers>
                 </configuration>
             </plugin>
         </plugins>
