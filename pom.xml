@@ -102,7 +102,6 @@
         <version-galleon-maven-plugin>3.0.2.Final</version-galleon-maven-plugin>
         <version-groovy-maven-plugin>2.1</version-groovy-maven-plugin>
         <version-jibx-maven-plugin>1.3.1</version-jibx-maven-plugin>
-        <version-license-maven-plugin>1.20.jbossorg-2</version-license-maven-plugin>
         <version-maven-antrun-plugin>1.8</version-maven-antrun-plugin>
         <version-maven-archetype-plugin>3.0.1</version-maven-archetype-plugin>
         <version-maven-assembly-plugin>3.1.0</version-maven-assembly-plugin>
@@ -291,25 +290,6 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>${version-exec-maven-plugin}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>license-maven-plugin</artifactId>
-                    <version>${version-license-maven-plugin}</version>
-                    <configuration>
-                        <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
-                        <canUpdateCopyright>true</canUpdateCopyright>
-                        <canUpdateDescription>true</canUpdateDescription>
-                        <organizationName>RedHat</organizationName>
-                        <licenseName>apache_v2</licenseName>
-                        <inceptionYear>2013</inceptionYear>
-                        <roots>
-                            <root>etc</root>
-                            <root>src</root>
-                            <root>scripts</root>
-                        </roots>
-                        <!-- <roots> <root>${basedir}</root> </roots> <includes> <include>pom.xml</include> </includes> -->
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>

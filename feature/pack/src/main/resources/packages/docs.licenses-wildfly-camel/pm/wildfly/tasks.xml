@@ -1,7 +1,0 @@
-<?xml version="1.0" ?>
-
-<tasks xmlns="urn:wildfly:wildfly-feature-pack-tasks:2.0">
-    <copy-path src="docs/licenses-wildfly-camel/licenses.xsl" relative-to="content" target="docs/licenses-wildfly-camel/licenses.xsl"/>
-    <transform stylesheet="docs/licenses-wildfly-camel/licenses.xsl" src="docs/licenses-wildfly-camel/licenses.xml" output="docs/licenses-wildfly-camel/licenses.html" feature-pack-properties="true"/>
-    <delete path="docs/licenses/licenses.xsl"/>
-</tasks>

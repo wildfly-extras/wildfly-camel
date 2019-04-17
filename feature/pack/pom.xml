@@ -35,8 +35,6 @@
     <packaging>pom</packaging>
 
     <properties>
-        <galleon.license.resources.dir>${project.build.directory}/resources/content/docs/licenses-wildfly-camel</galleon.license.resources.dir>
-        <galleon.licenses.xml.path>${galleon.license.resources.dir}/licenses.xml</galleon.licenses.xml.path>
         <wildfly.camel.dir>${project.build.directory}/wildfly-camel-${project.version}</wildfly.camel.dir>
         <wildfly-camel-feature-pack.basedir>${project.basedir}</wildfly-camel-feature-pack.basedir>
     </properties>
@@ -120,12 +118,6 @@
                                 </resolve-local>
                             </resolve-locals>
                             <feature-packs>
-                                <!-- We cannot provision wildfly-camel-feature-pack because it is not ready yet in the
-                                     compile phase. But at the same time we need a module tree to
-                                     run module-checker.groovy and to produce fuse-resources.txt used for licenses.xml.
-                                     So we fall back to provisioning wildfly-camel-feature-extras[C,B] (which also
-                                     installs A and modules). That's OK as long as wildfly-camel-feature-pack does not
-                                     contain any JBoss modules. -->
                                 <feature-pack>
                                     <groupId>org.wildfly.camel</groupId>
                                     <artifactId>wildfly-camel-feature-extrasB</artifactId>
@@ -151,33 +143,6 @@
                                 <jboss-fork-embedded>false</jboss-fork-embedded>
                                 <jboss-maven-dist>true</jboss-maven-dist>
                             </plugin-options>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-license-resources</id>
-                        <phase>generate-test-sources</phase><!-- after license-maven-plugin@update-licenses-xml -->
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${galleon.license.resources.dir}</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${license.dir}</directory>
-                                    <includes>
-                                        <include>licenses.xsl</include>
-                                        <include>licenses.css</include>
-                                    </includes>
-                                    <filtering>false</filtering>
-                                </resource>
-                            </resources>
                         </configuration>
                     </execution>
                 </executions>
@@ -208,19 +173,8 @@
                             </source>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>merge-licenses</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>process-classes</phase>
-                        <configuration>
-                            <source>${project.basedir}/scripts/merge-licenses.groovy</source>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.wildfly.galleon-plugins</groupId>
                 <artifactId>wildfly-galleon-maven-plugin</artifactId>
