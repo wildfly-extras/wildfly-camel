@@ -36,7 +36,6 @@
 
     <!-- Properties -->
     <properties>
-        <jboss.server.name>wildfly-${version.wildfly}</jboss.server.name>
         <jboss.home>${project.build.directory}/wildfly-patch</jboss.home>
     </properties>
 

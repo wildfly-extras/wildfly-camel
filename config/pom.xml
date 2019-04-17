@@ -26,10 +26,6 @@
 
     <description>Wildfly Camel Default Configuration Utility</description>
 
-    <properties>
-        <jboss.server.name>wildfly-${version.wildfly}</jboss.server.name>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>

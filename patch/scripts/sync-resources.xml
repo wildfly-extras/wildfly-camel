@@ -33,7 +33,7 @@
     <target name="build">
 
         <!-- Store file patterns for generated modules -->
-        <fileset id="wildfly.dist" dir="${output.dir}/wildfly-${version.wildfly}">
+        <fileset id="wildfly.dist" dir="${output.dir}/${jboss.server.name}">
             <exclude name="modules/layers.conf"/>
         </fileset>
         <echo file="${output.dir}/wildfly-dist-patterns">${toString:wildfly.dist}</echo>

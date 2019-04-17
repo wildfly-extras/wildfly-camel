@@ -135,6 +135,10 @@
 
         <!-- Common Maven properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Target server name -->
+        <jboss.server.name>wildfly-${version.wildfly}</jboss.server.name>
+
     </properties>
 
     <!-- Modules -->

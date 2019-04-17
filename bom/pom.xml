@@ -203,51 +203,6 @@
                 <version>${version.camel.javacrumbs}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-features-clustering</artifactId>
-                <version>${version.wildfly.cxf}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-                <version>${version.wildfly.cxf}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-client</artifactId>
-                <version>${version.wildfly.cxf}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-extension-providers</artifactId>
-                <version>${version.wildfly.cxf}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-json-basic</artifactId>
-                <version>${version.wildfly.cxf}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-security-jose</artifactId>
-                <version>${version.wildfly.cxf}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-security-jose-jaxrs</artifactId>
-                <version>${version.wildfly.cxf}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-security-oauth</artifactId>
-                <version>${version.wildfly.cxf}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-security-oauth2</artifactId>
-                <version>${version.wildfly.cxf}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-to-slf4j</artifactId>
                 <version>${version.camel.log4j2}</version>
