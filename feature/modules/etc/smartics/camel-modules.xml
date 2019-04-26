@@ -3200,6 +3200,26 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.xchange">
+        <include artifact="org.apache.camel:camel-xchange" />
+        <include artifact="org.knowm.xchange:xchange-core" />
+        <include artifact="org.knowm.xchange:xchange-binance" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.fasterxml.jackson.core.jackson-annotations"/>
+            <module name="com.fasterxml.jackson.core.jackson-databind"/>
+            <module name="javax.ws.rs.api" />
+            <module name="javax.api" />
+            <module name="org.slf4j"/>
+        </dependencies>
+        <exports>
+            <exclude path="org/knowm" />
+        </exports>
+    </module>
+
     <module name="org.apache.camel.component.xmlsecurity">
         <include artifact="org.apache.camel:camel-xmlsecurity" />
         <apply-to-dependencies skip="true">

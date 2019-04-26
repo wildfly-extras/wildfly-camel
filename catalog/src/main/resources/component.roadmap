@@ -258,6 +258,7 @@ vertx
 vm
 weather
 wordpress
+xchange
 xmlsecurity
 xmpp
 xquery
@@ -279,7 +280,6 @@ ipfs
 nsq
 service
 web3j
-xchange
 
 [rejected]
 bonita                                              #1820 Not another BPM engine

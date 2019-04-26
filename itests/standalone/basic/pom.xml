@@ -108,6 +108,10 @@
             <artifactId>camel-wordpress</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-xchange</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.cassandra</groupId>
             <artifactId>cassandra-all</artifactId>
             <exclusions>

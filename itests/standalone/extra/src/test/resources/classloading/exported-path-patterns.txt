@@ -112,6 +112,7 @@
     ^org/jivesoftware(.*)
     ^org/jsmpp(.*)
     ^org/jxmpp(.*)
+    ^org/knowm/xchange(.*)
     ^com/myjeeva/digitalocean(.*)
     ^org/openstack(.*)
     ^org/optaplanner(.*)

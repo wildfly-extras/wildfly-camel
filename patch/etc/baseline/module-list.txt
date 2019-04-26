@@ -51,6 +51,8 @@
 /com/github/dozermapper/main/dozer-core-6.4.1.jar
 /com/github/generex/main/generex-1.0.1.jar
 /com/github/junrar/main/junrar-2.0.0.jar
+/com/github/mmazi/rescu/main/rescu-2.0.2.jar
+/com/github/mmazi/rescu/main/signpost-core-1.2.1.2.jar
 /com/github/virtuald/curvesapi/main/curvesapi-1.05.jar
 /com/github/wnameless/json-flattener/main/json-flattener-0.5.0.jar
 /com/google/api-client/google-api-client/main/google-api-client-1.22.0.jar
@@ -472,6 +474,9 @@
 /org/apache/camel/component/vertx/main/vertx-core-3.5.4.jar
 /org/apache/camel/component/weather/main/camel-weather-2.23.2.jar
 /org/apache/camel/component/wordpress/main/camel-wordpress-2.23.2.jar
+/org/apache/camel/component/xchange/main/camel-xchange-2.23.2.jar
+/org/apache/camel/component/xchange/main/xchange-binance-4.3.12.jar
+/org/apache/camel/component/xchange/main/xchange-core-4.3.12.jar
 /org/apache/camel/component/xmlsecurity/main/camel-xmlsecurity-2.23.2.jar
 /org/apache/camel/component/xmpp/main/camel-xmpp-2.23.2.jar
 /org/apache/camel/component/xstream/main/camel-xstream-2.23.2.jar

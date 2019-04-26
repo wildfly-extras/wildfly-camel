@@ -380,6 +380,8 @@ include::camel-weather.adoc[]
 
 include::camel-wordpress.adoc[]
 
+include::camel-xchange.adoc[]
+
 include::camel-xmpp.adoc[]
 
 include::camel-xstream.adoc[]

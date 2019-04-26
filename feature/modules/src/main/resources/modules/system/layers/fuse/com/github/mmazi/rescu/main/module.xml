@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.github.mmazi.rescu">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${com.github.mmazi:rescu}" />
+    <artifact name="${oauth.signpost:signpost-core}" />
+  </resources>
+  <dependencies>
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="javax.ws.rs.api" />
+    <module name="org.apache.commons.codec" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

@@ -439,6 +439,20 @@
         </apply-to-dependencies>
     </module>
 
+    <module name="com.github.mmazi.rescu">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.github.mmazi:rescu" />
+        <include artifact="oauth.signpost:signpost-core" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.fasterxml.jackson.core.jackson-core"/>
+        </dependencies>
+    </module>
+
     <module name="com.github.virtuald.curvesapi">
         <properties>
             <property name="jboss.api" value="private"/>
