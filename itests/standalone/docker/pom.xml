@@ -102,7 +102,7 @@
                 <artifactId>groovy-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>process-test-resources</phase>
+                        <phase>process-resources</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
@@ -110,6 +110,7 @@
                 </executions>
                 <configuration>
                     <source>
+                        import java.net.InetAddress
                         import java.nio.file.Files
                         import java.nio.file.Paths
                         import java.util.regex.Matcher
@@ -136,6 +137,15 @@
                                     "docker pull ${image}".execute().waitForProcessOutput(System.out, System.err)
                                 }
                             }
+                        }
+
+                        // Enables docker.host maven property to be used in arquillian.xml
+                        String dockerHost = System.getenv("DOCKER_HOST")
+                        if (dockerHost == null) {
+                            project.properties["docker.host"] = InetAddress.getLocalHost().getHostName()
+                        } else {
+                            URI uri = new URI(dockerHost)
+                            project.properties["docker.host"] = uri.getHost()
                         }
                     </source>
                 </configuration>

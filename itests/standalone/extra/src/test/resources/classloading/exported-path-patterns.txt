@@ -10,6 +10,7 @@
 	^com/datastax(.*)
 	^com/dropbox/core(.*)
 	^com/codahale(.*)
+	^com/github/brainlag/nsq(.*)
 	^com/github/dockerjava(.*)
     ^com/github/dozermapper/core(.*)
 	^com/github/benmanes/caffeine(.*)

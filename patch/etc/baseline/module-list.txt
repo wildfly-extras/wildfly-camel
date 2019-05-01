@@ -381,6 +381,8 @@
 /org/apache/camel/component/nats/main/camel-nats-2.23.2.jar
 /org/apache/camel/component/nats/main/jnats-2.1.2.jar
 /org/apache/camel/component/netty4/main/camel-netty4-2.23.2.jar
+/org/apache/camel/component/nsq/main/camel-nsq-2.23.2.jar
+/org/apache/camel/component/nsq/main/nsq-client-1.0.0.RC4.jar
 /org/apache/camel/component/ognl/main/camel-ognl-2.23.2.jar
 /org/apache/camel/component/olingo2/main/camel-olingo2-2.23.2.jar
 /org/apache/camel/component/olingo2/main/camel-olingo2-api-2.23.2.jar

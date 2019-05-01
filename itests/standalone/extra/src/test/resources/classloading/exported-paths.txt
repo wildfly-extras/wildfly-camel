@@ -647,6 +647,13 @@ com/github/benmanes/caffeine
 com/github/benmanes/caffeine/base
 com/github/benmanes/caffeine/cache
 com/github/benmanes/caffeine/cache/stats
+com/github/brainlag/nsq
+com/github/brainlag/nsq/callbacks
+com/github/brainlag/nsq/exceptions
+com/github/brainlag/nsq/frames
+com/github/brainlag/nsq/lookup
+com/github/brainlag/nsq/netty
+com/github/brainlag/nsq/pool
 com/github/dockerjava
 com/github/dockerjava/api
 com/github/dockerjava/api/async
@@ -2011,6 +2018,7 @@ org/apache/camel/component/netty4/codec
 org/apache/camel/component/netty4/handlers
 org/apache/camel/component/netty4/ssl
 org/apache/camel/component/netty4/util
+org/apache/camel/component/nsq
 org/apache/camel/component/olingo2
 org/apache/camel/component/olingo2/api
 org/apache/camel/component/olingo2/api/batch

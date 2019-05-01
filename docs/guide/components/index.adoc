@@ -250,6 +250,8 @@ include::camel-nats.adoc[]
 
 include::camel-netty4.adoc[]
 
+include::camel-nsq.adoc[]
+
 include::camel-ognl.adoc[]
 
 include::camel-olingo2.adoc[]

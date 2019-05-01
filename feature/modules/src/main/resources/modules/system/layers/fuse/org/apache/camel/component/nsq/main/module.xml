@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.nsq">
+  <resources>
+    <artifact name="${org.apache.camel:camel-nsq}" />
+    <artifact name="${com.github.brainlag:nsq-client}" />
+  </resources>
+  <dependencies>
+    <module name="javax.api" />
+    <module name="org.slf4j" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.google.guava" />
+    <module name="io.netty" />
+    <module name="javax.xml.bind.api" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.pool2" />
+    <module name="org.apache.logging.log4j" />
+  </dependencies>
+  <exports>
+    <exclude path="com/github" />
+    <exclude path="com/github/brainlag" />
+  </exports>
+</module>

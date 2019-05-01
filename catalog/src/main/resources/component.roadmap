@@ -173,6 +173,7 @@ mybatis-bean
 nagios
 nats
 netty4
+nsq
 olingo2
 olingo4
 openshift-build-configs
@@ -277,7 +278,6 @@ atmos
 google-sheets
 google-sheets-stream
 ipfs
-nsq
 service
 web3j
 

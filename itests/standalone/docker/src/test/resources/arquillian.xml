@@ -163,6 +163,41 @@
                     strategy: log
                     match: 'Server is ready'
                     timeout: 15
+            nsqd:
+                image: nsqio/nsq:v1.1.0
+                portBindings: [
+                    4150->4150/tcp
+                ]
+                cmd: [
+                    "/nsqd",
+                    "--broadcast-address",
+                    "${docker.host}",
+                    "--lookupd-tcp-address",
+                    "${docker.host}:4160"
+                ]
+                networkMode: host
+                await:
+                    strategy: log
+                    match: 'TCP: listening'
+                    stdOut: true
+                    stdErr: true
+                    timeout: 15
+            nsqlookupd:
+                image: nsqio/nsq:v1.1.0
+                portBindings: [
+                    4160->4160/tcp,
+                    4161->4161/tcp
+                ]
+                cmd: [
+                    "/nsqlookupd"
+                ]
+                networkMode: host
+                await:
+                    strategy: log
+                    match: 'TCP: listening'
+                    stdOut: true
+                    stdErr: true
+                    timeout: 15
             postgres:
                 image: postgres:alpine
                 portBindings: [
