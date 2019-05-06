@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.extension.camel.proxy;
+package org.wildfly.camel.proxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

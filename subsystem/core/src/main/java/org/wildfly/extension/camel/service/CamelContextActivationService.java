@@ -30,9 +30,9 @@ import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
-import org.wildfly.extension.camel.SpringCamelContextBootstrap;
-import org.wildfly.extension.camel.proxy.ProxiedAction;
-import org.wildfly.extension.camel.proxy.ProxyUtils;
+import org.wildfly.camel.proxy.ProxiedAction;
+import org.wildfly.camel.proxy.ProxyUtils;
+import org.wildfly.camel.utils.SpringCamelContextBootstrap;
 
 /**
  * Activates and starts all {@link SpringCamelContext} instances associated with

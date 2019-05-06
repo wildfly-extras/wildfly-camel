@@ -29,8 +29,8 @@ import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
 import org.jboss.as.server.deployment.DeploymentUnitProcessor;
 import org.jboss.modules.Module;
+import org.wildfly.camel.utils.SpringCamelContextBootstrap;
 import org.wildfly.extension.camel.CamelConstants;
-import org.wildfly.extension.camel.SpringCamelContextBootstrap;
 
 /**
  * Creates a {@link SpringCamelContextBootstrap} bootstrapper for each Camel Spring XML file within the deployment.

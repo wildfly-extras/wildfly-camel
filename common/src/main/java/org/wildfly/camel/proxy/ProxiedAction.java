@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.extension.camel.proxy;
+package org.wildfly.camel.proxy;
 
 public interface ProxiedAction {
     void run() throws Exception;

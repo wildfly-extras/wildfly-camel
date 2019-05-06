@@ -18,14 +18,13 @@
  * #L%
  */
 
-package org.wildfly.extension.camel;
+package org.wildfly.camel.utils;
 
 import java.net.URL;
 import java.util.List;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.spring.SpringCamelContext;
-import org.wildfly.camel.utils.IllegalStateAssertion;
 
 /**
  * A {@link CamelContext} factory utility.

@@ -17,9 +17,8 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.extension.camel;
+package org.wildfly.camel.utils;
 
-import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,6 +27,8 @@ import java.util.List;
 
 import org.apache.camel.spring.SpringCamelContext;
 import org.apache.camel.spring.handler.CamelNamespaceHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.TypedStringValue;
@@ -39,13 +40,15 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.jndi.JndiObjectFactoryBean;
-import org.wildfly.extension.camel.proxy.ProxiedAction;
-import org.wildfly.extension.camel.proxy.ProxyUtils;
+import org.wildfly.camel.proxy.ProxiedAction;
+import org.wildfly.camel.proxy.ProxyUtils;
 
 /**
  * SpringCamelContextBootstrap bootstraps a {@link SpringCamelContext}.
  */
 public class SpringCamelContextBootstrap {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(SpringCamelContextBootstrap.class);
 
     private GenericApplicationContext applicationContext;
 

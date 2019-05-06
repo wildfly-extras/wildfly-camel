@@ -41,9 +41,10 @@ import org.junit.runner.RunWith;
 import org.wildfly.camel.test.spring.subE.CamelContextStartupEventNotifier;
 import org.wildfly.camel.test.spring.subE.service.DelayedBinderService;
 import org.wildfly.camel.test.spring.subE.service.DelayedBinderServiceActivator;
+import org.wildfly.camel.utils.SpringCamelContextBootstrap;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextRegistry;
-import org.wildfly.extension.camel.SpringCamelContextBootstrap;
+
 import static org.jboss.as.naming.deployment.ContextNames.bindInfoFor;
 
 @RunWith(Arquillian.class)

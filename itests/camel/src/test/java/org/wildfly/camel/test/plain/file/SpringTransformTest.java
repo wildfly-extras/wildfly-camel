@@ -18,47 +18,21 @@
  * #L%
  */
 
-package org.wildfly.camel.test.spring;
+package org.wildfly.camel.test.plain.file;
 
 import java.net.URL;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.types.HelloBean;
 import org.wildfly.camel.utils.SpringCamelContextFactory;
-import org.wildfly.extension.camel.CamelAware;
 
-/**
- * Deploys a module/bundle which contain a {@link HelloBean} referenced from a spring context definition.
- *
- * The tests then build a route through the {@link SpringCamelContextFactory} API.
- * This verifies access to beans within the same deployemnt.
- *
- * @author thomas.diesler@jboss.com
- * @since 21-Apr-2013
- */
-@CamelAware
-@RunWith(Arquillian.class)
-public class SpringBeanTransformTest {
-
-    @Deployment
-    public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-spring-tests");
-        archive.addClasses(HelloBean.class);
-        archive.addAsResource("spring/bean-transformB-camel-context.xml", "some-other-name.xml");
-        return archive;
-    }
+public class SpringTransformTest {
 
     @Test
     public void testSpringContextFromURL() throws Exception {
-        URL resourceUrl = getClass().getResource("/some-other-name.xml");
+        URL resourceUrl = getClass().getResource("/spring/transform1-camel-context.xml");
         CamelContext camelctx = SpringCamelContextFactory.createSingleCamelContext(resourceUrl, getClass().getClassLoader());
         camelctx.start();
         try {

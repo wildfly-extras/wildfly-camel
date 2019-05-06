@@ -25,6 +25,7 @@ import org.apache.camel.CamelContext;
 import org.jboss.as.server.deployment.AttachmentKey;
 import org.jboss.as.server.deployment.AttachmentList;
 import org.jboss.msc.service.ServiceName;
+import org.wildfly.camel.utils.SpringCamelContextBootstrap;
 import org.wildfly.extension.camel.service.CamelEndpointDeployerService;
 import org.wildfly.extension.camel.service.CamelEndpointDeploymentSchedulerService;
 
