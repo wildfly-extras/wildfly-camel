@@ -411,7 +411,6 @@
 /org/apache/camel/component/reactor/main/reactor-core-3.2.3.RELEASE.jar
 /org/apache/camel/component/rest/swagger/main/camel-rest-swagger-2.23.2.jar
 /org/apache/camel/component/ribbon/main/camel-ribbon-2.23.2.jar
-/org/apache/camel/component/rmi/main/camel-rmi-2.23.2.jar
 /org/apache/camel/component/rss/main/camel-rss-2.23.2.jar
 /org/apache/camel/component/rxjava2/main/camel-rxjava2-2.23.2.jar
 /org/apache/camel/component/salesforce/main/camel-salesforce-2.23.2.jar
