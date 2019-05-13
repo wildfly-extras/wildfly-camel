@@ -101,7 +101,6 @@
         <version-exec-maven-plugin>1.6.0</version-exec-maven-plugin>
         <version-galleon-maven-plugin>3.0.2.Final</version-galleon-maven-plugin>
         <version-groovy-maven-plugin>2.1</version-groovy-maven-plugin>
-        <version-jibx-maven-plugin>1.3.1</version-jibx-maven-plugin>
         <version-maven-antrun-plugin>1.8</version-maven-antrun-plugin>
         <version-maven-archetype-plugin>3.0.1</version-maven-archetype-plugin>
         <version-maven-assembly-plugin>3.1.0</version-maven-assembly-plugin>
@@ -327,11 +326,6 @@
                             </goals>
                         </execution>
                     </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.jibx</groupId>
-                    <artifactId>maven-jibx-plugin</artifactId>
-                    <version>${version-jibx-maven-plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.wildfly.galleon-plugins</groupId>

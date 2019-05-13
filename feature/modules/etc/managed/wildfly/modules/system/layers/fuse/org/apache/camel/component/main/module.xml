@@ -124,7 +124,6 @@
         <module name="org.apache.camel.component.jcr" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jdbc" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jgroups" export="true" services="export" optional="true" />
-        <module name="org.apache.camel.component.jibx" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jing" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jms" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.jmx" export="true" services="export" optional="true" />
