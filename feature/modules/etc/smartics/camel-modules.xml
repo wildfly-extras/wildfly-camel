@@ -1555,22 +1555,6 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.jibx">
-        <include artifact="org.apache.camel:camel-jibx" />
-        <include artifact="org.jibx:jibx-run" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.slf4j"/>
-        </dependencies>
-        <exports>
-            <exclude path="javax/xml" />
-            <exclude path="javax/xml/namespace" />
-        </exports>
-    </module>
-
     <module name="org.apache.camel.component.jing">
         <include artifact="org.apache.camel:camel-jing" />
         <include artifact="thaiopensource:jing" />

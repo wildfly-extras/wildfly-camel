@@ -109,7 +109,6 @@
 	^org/influxdb(.*)
 	^org/lightcouch(.*)
     ^org/jclouds(.*)
-    ^org/jibx(.*)
     ^org/jivesoftware(.*)
     ^org/jsmpp(.*)
     ^org/jxmpp(.*)

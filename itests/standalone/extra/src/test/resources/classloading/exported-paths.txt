@@ -2165,7 +2165,6 @@ org/apache/camel/dataformat/bindy/kvp
 org/apache/camel/dataformat/bindy/util
 org/apache/camel/dataformat/csv
 org/apache/camel/dataformat/flatpack
-org/apache/camel/dataformat/jibx
 org/apache/camel/dataformat/lzf
 org/apache/camel/dataformat/mime
 org/apache/camel/dataformat/mime/multipart
@@ -4362,9 +4361,6 @@ org/jclouds/ssh/config
 org/jclouds/suppliers
 org/jclouds/util
 org/jclouds/xml
-org/jibx
-org/jibx/runtime
-org/jibx/runtime/impl
 org/jivesoftware
 org/jivesoftware/smack
 org/jivesoftware/smack/chat
