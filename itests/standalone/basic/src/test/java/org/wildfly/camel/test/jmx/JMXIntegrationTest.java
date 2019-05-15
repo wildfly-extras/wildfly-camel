@@ -42,7 +42,6 @@ import org.jboss.dmr.ModelNode;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.DMRUtils;
@@ -58,7 +57,6 @@ import org.wildfly.extension.camel.CamelContextRegistry;
  */
 @CamelAware
 @RunWith(Arquillian.class)
-@Ignore("[#2812] No MBeans registerd for system context")
 @ServerSetup({JMXIntegrationTest.SystemContextSetupTask.class})
 public class JMXIntegrationTest  {
 
