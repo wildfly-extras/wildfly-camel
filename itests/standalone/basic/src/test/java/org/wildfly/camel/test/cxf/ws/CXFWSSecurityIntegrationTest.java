@@ -19,14 +19,9 @@
  */
 package org.wildfly.camel.test.cxf.ws;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.security.auth.callback.Callback;
-import javax.security.auth.callback.CallbackHandler;
-import javax.security.auth.callback.PasswordCallback;
-import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
@@ -42,7 +37,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.types.Endpoint;
@@ -55,7 +49,6 @@ import org.wildfly.camel.test.cxf.ws.subA.UsernameTokenEndpointImpl;
 @RunAsClient
 @RunWith(Arquillian.class)
 @ServerSetup({ CXFWSSecureProducerIntegrationTest.SecurityDomainSetup.class })
-@Ignore("[#2818] WSPasswordCallback no longer on classpath")
 public class CXFWSSecurityIntegrationTest {
 
     public static final String APP_NAME = "CXFWSPolicyIntegrationTest";
@@ -123,22 +116,6 @@ public class CXFWSSecurityIntegrationTest {
 
     private URL getWsdl(String contextPath) throws MalformedURLException {
         return new URL(getEndpointAddress(contextPath) + "?wsdl");
-    }
-
-    static class ClientCallbackHandler implements CallbackHandler {
-
-        public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
-            System.out.println(">>>>>>>>>  " + callbacks.length);
-            for (Callback cb : callbacks) {
-                System.out.println(">>>>>>>>>  " + cb.getClass());
-                if (cb instanceof PasswordCallback) {
-                    PasswordCallback pc = (PasswordCallback) cb;
-                    pc.setPassword("cxfpassword".toCharArray());
-                    return;
-                }
-            }
-            throw new IllegalStateException("Only WSPasswordCallback and cxfuser supported");
-        }
     }
 
 }
