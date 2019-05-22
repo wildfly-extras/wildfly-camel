@@ -30,6 +30,8 @@ import javax.naming.NamingException;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryFactory;
+import org.apache.camel.component.micrometer.routepolicy.MicrometerRoutePolicyFactory;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -168,6 +170,8 @@ public class MicrometerCounterIntegrationTest {
 
     private CamelContext createCamelContext() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutePolicyFactory(new MicrometerRoutePolicyFactory());
+        camelctx.setMessageHistoryFactory(new MicrometerMessageHistoryFactory());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

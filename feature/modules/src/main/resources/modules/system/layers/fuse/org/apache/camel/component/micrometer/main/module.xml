@@ -4,6 +4,7 @@
     <artifact name="${org.apache.camel:camel-micrometer}" />
   </resources>
   <dependencies>
+    <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="io.micrometer" export="true">
       <exports>
         <exclude path="io/micrometer" />
