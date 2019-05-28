@@ -23,21 +23,28 @@ import java.io.IOException;
 
 import org.jboss.as.controller.client.ModelControllerClient;
 import org.jboss.dmr.ModelNode;
+import org.wildfly.camel.utils.IllegalStateAssertion;
 
 public class JMSUtils {
 
     public static ModelNode createJmsQueue(String queueName, String jndiName, ModelControllerClient client) throws IOException {
         ModelNode modelNode = createJmsQueueModelNode("add", queueName, jndiName, client);
-        return executeModelNode(client, modelNode);
+        ModelNode result = executeModelNode(client, modelNode);
+        System.out.println("JMS queue added: " + jndiName);
+        return result;
     }
 
     public static ModelNode removeJmsQueue(String queueName, ModelControllerClient client) throws IOException {
         ModelNode modelNode = createJmsQueueModelNode("remove", queueName, null, client);
-        return executeModelNode(client, modelNode);
+        ModelNode result = executeModelNode(client, modelNode);
+        System.out.println("JMS queue removed: " + queueName);
+        return result;
     }
 
     private static ModelNode executeModelNode(ModelControllerClient client, ModelNode modelNode) throws IOException {
         ModelNode result = client.execute(modelNode);
+        String outcome = result.get("outcome").asString();
+        IllegalStateAssertion.assertEquals("success", outcome, "Unexpected outcome: " + modelNode);
         return result;
     }
 
@@ -52,22 +59,6 @@ public class JMSUtils {
         if (jndiName != null) {
             modelNode.get("entries").add(jndiName);
         }
-        return modelNode;
-    }
-
-    private static ModelNode createStompAcceptorNode(String operationName, String acceptorName, int port, ModelControllerClient client) {
-        ModelNode modelNode = new ModelNode();
-        modelNode.get("operation").set(operationName);
-
-        modelNode.get("address").add("subsystem", MessagingSubsystem.ACTIVEMQ_ARTEMIS.getSubsystemName());
-        modelNode.get("address").add(MessagingSubsystem.ACTIVEMQ_ARTEMIS.getServerName(), "default");
-        modelNode.get("address").add("acceptor", acceptorName);
-
-        modelNode.get("factory-class").set("org.apache.activemq.artemis.core.remoting.impl.netty.NettyAcceptorFactory");
-        modelNode.get("name").set(acceptorName);
-        modelNode.get("params").add("protocols", "STOMP");
-        modelNode.get("params").add("port", port);
-
         return modelNode;
     }
 
