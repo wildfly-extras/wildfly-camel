@@ -1,0 +1,5 @@
+### camel-ipfs
+
+The https://github.com/apache/camel/blob/master/components/camel-ipfs/src/main/docs/ipfs-component.adoc[ipfs,window=_blank]
+component provides access to the Interplanetary File System https://ipfs.io/[(IPFS)].
+

@@ -1,5 +1,49 @@
 ### Changelog
 
+#### WildFly-Camel 10.1.0
+
+**Features**
+
+* [#2488][2488] Add support for component xchange
+* [#2652][2652] Add support for component ipfs
+* [#2726][2726] Add support for component nsq
+
+For details see [10.1.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"10.1.0"+label%3Afeature)
+
+**Tasks**
+
+* [#2788][2788] Upgrade Hawtio to 2.6.0
+* [#2796][2796] Revisit license processing during normal build
+* [#2797][2797] Upgrade to camel-2.24.0
+* [#2805][2805] Add support for plain spring based camel testing
+* [#2826][2826] Add info log about created/removed JMS queue
+
+For details see [10.1.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"10.1.0"+label%3Atask)
+
+**Bugs**
+
+* [#2786][2786] camel-script throws NCDFE for org/apache/camel/script/osgi/Activator
+* [#2790][2790] org.apache.tika module has missing dependency for org.apache.xerces
+* [#2792][2792] Thread contention in Xalan's XPath.evaluate()
+* [#2821][2821] JsonProcessingException not found for micrometer component
+* [#2822][2822] CXF BOM/EAP container version mismatch
+
+For details see [10.1.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"10.1.0"+label%3Abug)
+
+[2488]: https://github.com/wildfly-extras/wildfly-camel/issues/2488
+[2652]: https://github.com/wildfly-extras/wildfly-camel/issues/2652
+[2726]: https://github.com/wildfly-extras/wildfly-camel/issues/2726
+[2788]: https://github.com/wildfly-extras/wildfly-camel/issues/2788
+[2796]: https://github.com/wildfly-extras/wildfly-camel/issues/2796
+[2797]: https://github.com/wildfly-extras/wildfly-camel/issues/2797
+[2805]: https://github.com/wildfly-extras/wildfly-camel/issues/2805
+[2826]: https://github.com/wildfly-extras/wildfly-camel/issues/2826
+[2786]: https://github.com/wildfly-extras/wildfly-camel/issues/2786
+[2790]: https://github.com/wildfly-extras/wildfly-camel/issues/2790
+[2792]: https://github.com/wildfly-extras/wildfly-camel/issues/2792
+[2821]: https://github.com/wildfly-extras/wildfly-camel/issues/2821
+[2822]: https://github.com/wildfly-extras/wildfly-camel/issues/2822
+
 #### WildFly-Camel 10.0.0
 
 **Tasks**
@@ -19,6 +63,7 @@ For details see [10.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/i
 **Bugs**
 
 * [#2729][2729] MALWARE in maven repository stored dependency file during build
+* [#2782][2782] Invalid TCCL for CXF webapp deployments
 
 For details see [10.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"10.0.0"+label%3Abug)
 
@@ -32,6 +77,7 @@ For details see [10.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/is
 [2780]: https://github.com/wildfly-extras/wildfly-camel/issues/2780
 [2784]: https://github.com/wildfly-extras/wildfly-camel/issues/2784
 [2729]: https://github.com/wildfly-extras/wildfly-camel/issues/2729
+[2782]: https://github.com/wildfly-extras/wildfly-camel/issues/2782
 
 #### WildFly-Camel 9.1.0
 
