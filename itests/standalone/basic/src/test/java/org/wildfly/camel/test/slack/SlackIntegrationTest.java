@@ -25,7 +25,7 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
@@ -35,9 +35,8 @@ import org.wildfly.extension.camel.CamelAware;
 public class SlackIntegrationTest {
 
     @Deployment
-    public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-slack-tests");
-        return archive;
+    public static WebArchive deployment() {
+        return ShrinkWrap.create(WebArchive.class, "camel-slack-tests.war");
     }
 
     @Test
@@ -47,32 +46,24 @@ public class SlackIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                onException(Exception.class).handled(true).to("mock:errors");
-                from("direct:test").to("slack:#general?iconEmoji=:camel:&username=CamelTest");
-                from("direct:error").to("slack:#badchannel?iconEmoji=:camel:&username=CamelTest");
+                from("direct:test").to("slack:#general?iconEmoji=:camel:&username=CamelTest").to("mock:result");
+                from("undertow:http://localhost/slack/webhook").setBody(constant("{\"ok\": true}"));
             }
         });
 
         SlackComponent comp = camelctx.getComponent("slack", SlackComponent.class);
-        comp.setWebhookUrl("https://hooks.slack.com/services/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");
+        comp.setWebhookUrl("http://localhost:8080/slack/webhook");
 
-        MockEndpoint mockErrors = camelctx.getEndpoint("mock:errors", MockEndpoint.class);
-        mockErrors.expectedMessageCount(0);
+        MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+        mockEndpoint.expectedMessageCount(1);
 
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             producer.sendBody("direct:test", "Hello from Camel!");
-            mockErrors.assertIsSatisfied();
-
-            mockErrors.reset();
-            mockErrors.expectedMessageCount(1);
-
-            producer.sendBody("direct:error", "Error from Camel!");
-            mockErrors.assertIsSatisfied();
+            mockEndpoint.assertIsSatisfied();
         } finally {
             camelctx.stop();
         }
-
     }
 }
