@@ -142,24 +142,6 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
         private final Map<String, DelegatingRoutingHandler> handlers = new ConcurrentHashMap<>();
         private final Host defaultHost;
 
-        private static CamelEndpointDeploymentSchedulerService lookupDeploymentSchedulerService(ClassLoader tccl) {
-            final ServiceName serviceName = CamelEndpointDeploymentSchedulerService
-                    .deploymentSchedulerServiceName(tccl);
-            ServiceController<?> serviceControler = CurrentServiceContainer.getServiceContainer()
-                    .getRequiredService(serviceName);
-            return (CamelEndpointDeploymentSchedulerService) serviceControler.getValue();
-        }
-
-        private static ModuleClassLoader checkTccl() {
-            final ClassLoader tccl = Thread.currentThread().getContextClassLoader();
-            if (tccl instanceof ModuleClassLoader && ((ModuleClassLoader) tccl).getName().startsWith("deployment.")) {
-                return (ModuleClassLoader) tccl;
-            } else {
-                throw new IllegalStateException("Expected an org.jboss.modules.ModuleClassLoader with name starting with 'deployment.'; found "
-                        + tccl);
-            }
-        }
-
         WildFlyUndertowHost(Host host) {
             this.defaultHost = host;
         }
@@ -207,11 +189,11 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
                         final ModuleClassLoader oldCl = ((DelegatingRoutingHandler)((CamelEndpointDeployerHandler)handler).getRoutingHandler()).classLoader;
                         final ModuleClassLoader tccl = checkTccl();
                         if (tccl != oldCl) {
-                            /* Avoid allowing handlers from distict apps to handle the same path */
+                            // Avoid allowing handlers from distinct apps to handle the same path
                             throw new IllegalStateException("Cannot add "+ HttpHandler.class.getName() +" for path " + contextPath + " defined in " + tccl.getName() + " because that path is already served by "+ oldCl.getName());
                         }
                     } else {
-                        /* Another application already serves this path */
+                        // Another application already serves this path
                         throw new IllegalStateException("Cannot overwrite context path " + contextPath + " owned by " + depInfo.getDeploymentName());
                     }
                 }
@@ -234,7 +216,6 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
             if (routingHandler == null) {
                 routingHandler = new DelegatingRoutingHandler(checkTccl());
                 registerRoutingHandler = true;
-                handlers.put(contextPath, routingHandler);
                 LOGGER.debug("Created new DelegatingRoutingHandler {}", routingHandler);
             }
 
@@ -249,6 +230,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
             if (registerRoutingHandler) {
                 lookupDeploymentSchedulerService(routingHandler.classLoader).schedule(httpURI.resolve(contextPath), routingHandler);
+                handlers.put(contextPath, routingHandler);
             }
 
             return result;
@@ -306,6 +288,24 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
             }
             return normalizedPath;
         }
+
+        private static CamelEndpointDeploymentSchedulerService lookupDeploymentSchedulerService(ClassLoader classLoader) {
+            final ServiceName serviceName = CamelEndpointDeploymentSchedulerService
+                .deploymentSchedulerServiceName(classLoader);
+            ServiceController<?> serviceController = CurrentServiceContainer.getServiceContainer()
+                .getRequiredService(serviceName);
+            return (CamelEndpointDeploymentSchedulerService) serviceController.getValue();
+        }
+
+        private static ModuleClassLoader checkTccl() {
+            final ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+            if (tccl instanceof ModuleClassLoader && ((ModuleClassLoader) tccl).getName().startsWith("deployment.")) {
+                return (ModuleClassLoader) tccl;
+            } else {
+                throw new IllegalStateException("Expected an org.jboss.modules.ModuleClassLoader with name starting with 'deployment.'; found "
+                    + tccl);
+            }
+        }
     }
 
     static class DelegatingRoutingHandler implements HttpHandler {
@@ -316,20 +316,19 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
         private final ModuleClassLoader classLoader;
 
         public DelegatingRoutingHandler(ModuleClassLoader classLoader) {
-            super();
             this.classLoader = classLoader;
         }
 
         HttpHandler add(String method, String path, HttpHandler handler) {
             MethodPathKey key = new MethodPathKey(method, path);
             HttpHandler result = null;
-            synchronized (paths) { /* lock paths while modifying it, so that paths.isEmpty() in remove() gives a consistent result */
+            synchronized (paths) {
                 MethodPathValue value = paths.computeIfAbsent(key, k -> new MethodPathValue());
                 result = value.addRef(handler, method, path);
             }
 
             if (handler == result) {
-                /* register only the very first handler per path and method */
+                // register only the very first handler per path and method
                 LOGGER.debug("Registered paths {}", this.toString());
                 delegate.add(method, path, handler);
             }
@@ -339,7 +338,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
         boolean remove(String method, String path) {
             MethodPathKey key = new MethodPathKey(method, path);
             boolean result;
-            synchronized (paths) { /* lock paths while modifying it, so that paths.isEmpty() below gives a consistent result */
+            synchronized (paths) {
                 MethodPathValue value = paths.get(key);
                 if (value != null) {
                     value.removeRef();
@@ -363,9 +362,10 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
 
         @Override
         public String toString() {
-            String formattedPaths = paths.entrySet().stream().map(entry -> entry.toString())
-                    .collect(Collectors.joining(", "));
-
+            String formattedPaths = paths.entrySet()
+                .stream()
+                .map(entry -> entry.toString())
+                .collect(Collectors.joining(", "));
             return String.format("DelegatingRoutingHandler [%s]", formattedPaths);
         }
     }
