@@ -12,9 +12,9 @@
     <module name="javax.xml.bind.api" />
     <module name="org.glassfish.javax.el" />
     <module name="org.apache.camel.component.dozer" />
-    <module name="org.apache.commons.beanutils" />
-    <module name="org.apache.commons.io" />
-    <module name="org.apache.commons.lang3" />
+    <module name="org.apache.commons.beanutils" slot="fuse" />
+    <module name="org.apache.commons.io" slot="fuse" />
+    <module name="org.apache.commons.lang3" slot="fuse" />
     <module name="org.objenesis" />
     <module name="org.slf4j" />
   </dependencies>

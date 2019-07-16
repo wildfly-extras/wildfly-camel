@@ -6,11 +6,11 @@
   </resources>
   <dependencies>
     <module name="org.slf4j" />
-    <module name="com.google.code.gson" />
+    <module name="com.google.code.gson" slot="fuse" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.commons.lang3" />
-    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.commons.lang3" slot="fuse" />
+    <module name="org.apache.httpcomponents" slot="fuse" />
   </dependencies>
   <exports>
     <exclude path="com/myjeeva" />

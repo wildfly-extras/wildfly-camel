@@ -12,9 +12,9 @@
     <module name="org.apache.abdera.i18n" />
     <module name="javax.xml.stream.api" />
     <module name="org.apache.abdera.core" />
-    <module name="org.apache.commons.logging" />
+    <module name="org.apache.commons.logging" slot="fuse" />
     <module name="org.apache.ws.commons.axiom.axiom-api" />
     <module name="org.apache.ws.commons.axiom.axiom-impl" />
-    <module name="org.jaxen" />
+    <module name="org.jaxen" slot="fuse" />
   </dependencies>
 </module>

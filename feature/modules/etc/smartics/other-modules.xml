@@ -385,7 +385,7 @@
             <module name="com.fasterxml.jackson.core.jackson-annotations" />
             <module name="com.fasterxml.jackson.core.jackson-core" />
             <module name="com.fasterxml.jackson.core.jackson-databind" />
-            <module name="com.google.guava" />
+            <module name="com.google.guava" slot="fuse" />
         </dependencies>
     </module>
 
@@ -418,7 +418,7 @@
             <module name="com.fasterxml.jackson.core.jackson-annotations"/>
             <module name="com.fasterxml.jackson.core.jackson-core"/>
             <module name="com.fasterxml.jackson.core.jackson-databind"/>
-            <module name="io.netty"/>
+            <module name="io.netty" slot="fuse"/>
             <module name="javax.api"/>
         </dependencies>
     </module>
@@ -648,7 +648,7 @@
             <include module="io.netty.skipped"/>
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.netty"/>
+            <module name="io.netty" slot="fuse"/>
             <module name="javax.api"/>
             <module name="javax.sql.api"/>
             <module name="javax.transaction.api"/>
@@ -694,7 +694,7 @@
             <module name="com.fasterxml.jackson.core.jackson-annotations" />
             <module name="com.fasterxml.jackson.core.jackson-core" />
             <module name="com.fasterxml.jackson.core.jackson-databind" />
-            <module name="com.google.guava" />
+            <module name="com.google.guava" slot="fuse" />
             <module name="org.apache.commons.configuration" />
             <module name="org.slf4j" />
         </dependencies>
@@ -736,9 +736,9 @@
             <include module="com.google.code.findbugs" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.google.guava" />
+            <module name="com.google.guava" slot="fuse" />
             <module name="org.apache.commons.configuration" />
-            <module name="org.apache.commons.lang" />
+            <module name="org.apache.commons.lang" slot="fuse" />
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -749,7 +749,7 @@
         </properties>
         <include artifact="com.netflix.ribbon:ribbon-loadbalancer" />
         <dependencies>
-            <module name="com.google.guava" />
+            <module name="com.google.guava" slot="fuse" />
             <module name="com.netflix.netflix-commons" />
             <module name="com.netflix.ribbon.ribbon-core" />
             <module name="com.netflix.servo" />
@@ -768,7 +768,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
-            <module name="com.google.guava" />
+            <module name="com.google.guava" slot="fuse" />
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -838,7 +838,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="com.squareup.okhttp3"/>
+            <module name="com.squareup.okhttp3" slot="fuse"/>
         </dependencies>
     </module>
 
@@ -861,7 +861,7 @@
             <include module="com.google.code.findbugs" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.squareup.okhttp3"/>
+            <module name="com.squareup.okhttp3" slot="fuse"/>
         </dependencies>
     </module>
 
@@ -870,6 +870,13 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.sun.activation:javax.activation" />
+    </module>
+
+    <module name="com.thoughtworks.paranamer">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.thoughtworks.paranamer:paranamer" />
     </module>
 
     <module name="com.thoughtworks.xstream">
@@ -975,7 +982,7 @@
             <include module="io.netty.skipped" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.netty" />
+            <module name="io.netty" slot="fuse" />
             <module name="sun.jdk">
                 <imports>
                     <include path="sun/misc" />
@@ -1027,7 +1034,7 @@
         <include artifact="io.fabric8:kubernetes-client" />
         <dependencies>
             <module name="javax.api" />
-            <module name="com.squareup.okhttp3" />
+            <module name="com.squareup.okhttp3" slot="fuse"/>
         </dependencies>
     </module>
 
@@ -1082,7 +1089,8 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="ibm.jdk.ext" />
-            <module name="io.netty"/>
+            <module name="com.google.guava"/>
+            <module name="io.netty" slot="fuse"/>
             <module name="javax.api"/>
             <module name="sun.jdk.ext" />
         </dependencies>
@@ -1203,6 +1211,7 @@
         <dependencies>
             <module name="javax.api"/>
             <module name="jdk.xml.dom" />
+            <module name="org.apache.httpcomponents" slot="fuse"/>
             <module name="org.w3c.css.sac"/>
         </dependencies>
     </module>
@@ -1604,7 +1613,7 @@
             <include module="io.netty.skipped" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.netty"/>
+            <module name="io.netty" slot="fuse"/>
             <module name="javax.api" />
             <module name="javax.xml.bind.api" />
         </dependencies>
@@ -1695,12 +1704,12 @@
             <include module="com.github.jai-imageio" />
             <include module="com.github.luben.zstd-jni" />
             <include module="com.github.openjson" />
-            <include module="com.sun.xml.bind" />
             <include module="net.java.dev.jna" />
             <include module="org.apache.ctakes.ctakes-core" />
             <include module="org.apache.felix" />
             <include module="org.apache.uima" />
             <include module="org.brotli" />
+            <include module="org.glassfish.jaxb" />
             <include module="org.xerial.sqlite-jdbc" />
         </apply-to-dependencies>
         <dependencies>
@@ -1721,7 +1730,7 @@
         <include artifact="org.apache.ws.commons.axiom:axiom-impl" />
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.apache.commons.logging"/>
+            <module name="org.apache.commons.logging" slot="fuse"/>
         </dependencies>
     </module>
 
@@ -1736,7 +1745,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.apache.commons.logging"/>
+            <module name="org.apache.commons.logging" slot="fuse"/>
         </dependencies>
     </module>
 
@@ -1818,7 +1827,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
-            <module name="io.netty" />
+            <module name="io.netty" slot="fuse" />
         </dependencies>
         <exports>
             <exclude path="io/netty**" />
@@ -1964,7 +1973,7 @@
         <dependencies>
             <module name="javax.api"/>
             <module name="javax.xml.bind.api"/>
-            <module name="io.netty"/>
+            <module name="io.netty" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
@@ -1981,8 +1990,8 @@
         <include artifact="org.eclipse.milo:stack-client" />
         <include artifact="com.codepoetics:protonpack" />
         <dependencies>
-            <module name="com.google.guava"/>
-            <module name="io.netty"/>
+            <module name="com.google.guava" slot="fuse"/>
+            <module name="io.netty" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -1994,8 +2003,8 @@
         <include artifact="org.eclipse.milo:sdk-server" />
         <include artifact="org.eclipse.milo:stack-server" />
         <dependencies>
-            <module name="com.google.guava"/>
-            <module name="io.netty"/>
+            <module name="com.google.guava" slot="fuse"/>
+            <module name="io.netty" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
@@ -2018,7 +2027,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="io.netty"/>
+            <module name="io.netty" slot="fuse"/>
         </dependencies>
     </module>
 
@@ -2201,7 +2210,6 @@
             <include module="org.osgi.core" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.sun.xml.bind" />
             <module name="javax.api"/>
             <module name="javax.jms.api"/>
             <module name="org.slf4j"/>

@@ -9,6 +9,6 @@
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.component.reactive.streams" />
     <module name="org.apache.camel.core" />
-    <module name="org.reactivestreams" />
+    <module name="org.reactivestreams" slot="fuse" />
   </dependencies>
 </module>

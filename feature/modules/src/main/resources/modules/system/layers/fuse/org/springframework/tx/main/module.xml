@@ -9,7 +9,7 @@
   <dependencies>
     <module name="javax.api" />
     <module name="javax.transaction.api" />
-    <module name="org.apache.commons.logging" />
+    <module name="org.apache.commons.logging" slot="fuse" />
     <module name="org.springframework.aop" />
     <module name="org.springframework.core" />
     <module name="org.springframework.beans" />

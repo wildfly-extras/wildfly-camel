@@ -10,9 +10,9 @@
     <artifact name="${com.squareup.retrofit2:retrofit}" />
   </resources>
   <dependencies>
-    <module name="com.squareup.okhttp3" />
+    <module name="com.squareup.okhttp3" slot="fuse" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="com.google.code.gson" />
+    <module name="com.google.code.gson" slot="fuse" />
     <module name="com.squareup.moshi" />
   </dependencies>
 </module>

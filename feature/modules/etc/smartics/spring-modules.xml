@@ -63,7 +63,7 @@
         <include artifact=":spring-aop" />
         <dependencies>
             <module name="javax.api" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
         </dependencies>
     </module>
 
@@ -79,7 +79,7 @@
         <dependencies>
             <module name="javax.api" />
             <module name="javax.batch.api" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.springframework.aop" />
         </dependencies>
     </module>
@@ -91,7 +91,7 @@
         <include artifact=":spring-beans" />
         <dependencies>
             <module name="javax.api" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.springframework.context" />
             <module name="org.springframework.core" />
         </dependencies>
@@ -111,7 +111,7 @@
         <dependencies>
             <module name="javax.api" />
             <module name="javax.annotation.api" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.springframework.core" />
             <module name="org.springframework.tx" optional="true" />
             <module name="org.springframework.jdbc" optional="true" />
@@ -133,7 +133,7 @@
             <module name="org.jboss.vfs" />
             <module name="org.springframework.aop" export="true" />
             <module name="org.springframework.batch" optional="true" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
         </dependencies>
         <exports>
             <exclude path="org/springframework/cglib/core/internal" />
@@ -161,7 +161,7 @@
         <include artifact="redis.clients:jedis" />
         <dependencies>
             <module name="javax.api" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.springframework.core" />
             <module name="org.springframework.beans" />
             <module name="org.springframework.data.commons" />
@@ -184,7 +184,7 @@
         <include artifact=":spring-expression" />
         <dependencies>
             <module name="javax.api" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
         </dependencies>
     </module>
 
@@ -195,8 +195,8 @@
         <include artifact=":spring-integration-core" />
         <dependencies>
             <module name="javax.api" />
-            <module name="org.apache.commons.logging" />
-            <module name="org.reactivestreams" />
+            <module name="org.apache.commons.logging" slot="fuse" />
+            <module name="org.reactivestreams" slot="fuse" />
             <module name="org.springframework.beans" />
             <module name="org.springframework.expression" />
         </dependencies>
@@ -213,7 +213,7 @@
         <dependencies>
             <module name="com.h2database.h2" />
             <module name="javax.api" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.springframework.context" />
         </dependencies>
     </module>
@@ -225,7 +225,7 @@
         <include artifact=":spring-jms" />
         <dependencies>
             <module name="javax.api" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.springframework.context" />
         </dependencies>
     </module>
@@ -240,7 +240,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
             <module name="sun.jdk" />
         </dependencies>
     </module>
@@ -252,7 +252,7 @@
         <include artifact=":spring-messaging" />
         <dependencies>
             <module name="javax.api" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.springframework.context" />
         </dependencies>
     </module>
@@ -265,7 +265,7 @@
         <dependencies>
             <module name="javax.api" />
             <module name="javax.persistence.api" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.hibernate" />
             <module name="org.springframework.context" />
         </dependencies>
@@ -277,7 +277,7 @@
         </properties>
         <include artifact=":spring-oxm" />
         <dependencies>
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
         </dependencies>
     </module>
 
@@ -301,7 +301,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
         </dependencies>
     </module>
 
@@ -313,7 +313,7 @@
         <dependencies>
             <module name="javax.api" />
             <module name="javax.transaction.api" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.springframework.aop" />
             <module name="org.springframework.core" />
             <module name="org.springframework.beans" />

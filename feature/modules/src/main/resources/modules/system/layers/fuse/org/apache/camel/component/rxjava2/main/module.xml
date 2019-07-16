@@ -4,7 +4,7 @@
     <artifact name="${org.apache.camel:camel-rxjava2}" />
   </resources>
   <dependencies>
-    <module name="io.reactivex.rxjava2.rxjava" export="true">
+    <module name="io.reactivex.rxjava2.rxjava" export="true" slot="fuse">
       <exports>
         <exclude path="io/reactivex/internal**" />
       </exports>
@@ -13,6 +13,6 @@
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.component.reactive.streams" />
     <module name="org.apache.camel.core" />
-    <module name="org.reactivestreams" />
+    <module name="org.reactivestreams" slot="fuse" />
   </dependencies>
 </module>

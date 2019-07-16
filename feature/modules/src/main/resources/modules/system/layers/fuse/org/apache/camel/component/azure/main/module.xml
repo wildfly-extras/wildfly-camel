@@ -4,7 +4,7 @@
     <artifact name="${org.apache.camel:camel-azure}" />
   </resources>
   <dependencies>
-    <module name="com.microsoft.azure.storage" export="true">
+    <module name="com.microsoft.azure.storage" export="true" slot="fuse">
       <exports>
         <exclude path="com/microsoft" />
       </exports>

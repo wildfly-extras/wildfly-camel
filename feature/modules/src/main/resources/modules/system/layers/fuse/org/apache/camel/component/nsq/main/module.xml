@@ -8,8 +8,8 @@
     <module name="javax.api" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="com.google.guava" />
-    <module name="io.netty" />
+    <module name="com.google.guava" slot="fuse" />
+    <module name="io.netty" slot="fuse" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.pool2" />

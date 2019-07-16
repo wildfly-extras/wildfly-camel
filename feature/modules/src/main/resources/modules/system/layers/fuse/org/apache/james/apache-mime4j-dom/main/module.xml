@@ -7,6 +7,6 @@
     <artifact name="${org.apache.james:apache-mime4j-dom}" />
   </resources>
   <dependencies>
-    <module name="org.apache.james.mime4j" />
+    <module name="org.apache.james.mime4j" slot="fuse" />
   </dependencies>
 </module>

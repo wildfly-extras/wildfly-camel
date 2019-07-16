@@ -28,11 +28,6 @@
         <include artifact="com.carrotsearch:hppc" />
     </module>
 
-    <module name="org.elasticsearch.skipped" skip="true">
-        <include artifact="com.vividsolutions:jts" />
-        <include artifact="org.locationtech.spatial4j" />
-    </module>
-
     <module name="com.fasterxml.jackson.dataformat.cbor" skip="true">
         <include artifact=":jackson-dataformat-cbor" />
     </module>
@@ -45,7 +40,7 @@
         <include artifact=":jackson-jr-objects" />
     </module>
 
-    <module name="com.google.guava" skip="true">
+    <module name="com.google.guava" slot="fuse" skip="true">
         <include artifact="com.google.guava:guava" />
     </module>
 
@@ -61,13 +56,18 @@
         <include artifact="org.apache.camel:camel-core" />
     </module>
 
-    <module name="org.hdrhistogram" skip="true">
-        <include artifact="org.hdrhistogram:HdrHistogram" />
-    </module>
-
     <module name="org.apache.logging.log4j" skip="true">
         <include artifact="org.apache.logging.log4j:log4j-api" />
         <include artifact="org.apache.logging.log4j:log4j-core" />
+    </module>
+
+    <module name="org.elasticsearch.skipped" skip="true">
+        <include artifact="com.vividsolutions:jts" />
+        <include artifact="org.locationtech.spatial4j" />
+    </module>
+
+    <module name="org.hdrhistogram" skip="true">
+        <include artifact="org.hdrhistogram:HdrHistogram" />
     </module>
 
 </modules>

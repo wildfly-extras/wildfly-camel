@@ -7,7 +7,7 @@
     <artifact name="${org.springframework:spring-oxm}" />
   </resources>
   <dependencies>
-    <module name="org.apache.commons.logging" />
+    <module name="org.apache.commons.logging" slot="fuse" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.core" />
   </dependencies>

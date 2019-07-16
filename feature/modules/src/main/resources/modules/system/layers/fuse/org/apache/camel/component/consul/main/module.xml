@@ -9,12 +9,12 @@
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.fasterxml.jackson.datatype.jackson-datatype-guava" />
-    <module name="com.google.guava" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="com.squareup.retrofit2" />
-    <module name="com.squareup.okhttp3" />
-    <module name="org.apache.commons.lang3" />
+    <module name="com.squareup.okhttp3" slot="fuse" />
+    <module name="org.apache.commons.lang3" slot="fuse" />
     <module name="org.slf4j" />
-    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jdk8" />
+    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jdk8" slot="fuse" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>

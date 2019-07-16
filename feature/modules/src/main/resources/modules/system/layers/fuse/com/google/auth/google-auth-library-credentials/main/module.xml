@@ -8,7 +8,7 @@
     <artifact name="${com.google.auth:google-auth-library-oauth2-http}" />
   </resources>
   <dependencies>
-    <module name="com.google.guava" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="com.google.http-client.google-http-client" />
   </dependencies>
 </module>

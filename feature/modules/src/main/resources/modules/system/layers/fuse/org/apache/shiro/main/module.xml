@@ -16,7 +16,7 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="org.apache.commons.beanutils" />
+    <module name="org.apache.commons.beanutils" slot="fuse" />
     <module name="org.slf4j" />
   </dependencies>
 </module>

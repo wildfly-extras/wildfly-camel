@@ -4,7 +4,7 @@
     <artifact name="${org.apache.camel:camel-guava-eventbus}" />
   </resources>
   <dependencies>
-    <module name="com.google.guava" export="true">
+    <module name="com.google.guava" export="true" slot="fuse">
       <exports>
         <exclude path="com/google" />
         <exclude path="com/google/common/base/internal" />

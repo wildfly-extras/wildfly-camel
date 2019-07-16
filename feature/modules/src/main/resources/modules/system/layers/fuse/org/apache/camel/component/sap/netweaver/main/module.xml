@@ -8,6 +8,6 @@
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.codehaus.jackson.jackson-mapper-asl" />
+    <module name="org.codehaus.jackson.jackson-mapper-asl" slot="fuse" />
   </dependencies>
 </module>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.httpcomponents" slot="fuse">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.apache.httpcomponents:httpclient}" />
+    <artifact name="${org.apache.httpcomponents:httpcore}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.commons.logging" slot="fuse" />
+    <module name="org.apache.commons.codec" slot="fuse" />
+  </dependencies>
+</module>

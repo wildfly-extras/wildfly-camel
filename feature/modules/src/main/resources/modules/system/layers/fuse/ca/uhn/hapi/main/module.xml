@@ -16,7 +16,7 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="org.joda.time" />
+    <module name="org.joda.time" slot="fuse" />
     <module name="org.slf4j" />
   </dependencies>
 </module>

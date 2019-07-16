@@ -12,7 +12,7 @@
       </exports>
     </module>
     <module name="javax.api" />
-    <module name="org.apache.commons.lang" />
+    <module name="org.apache.commons.lang" slot="fuse" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />

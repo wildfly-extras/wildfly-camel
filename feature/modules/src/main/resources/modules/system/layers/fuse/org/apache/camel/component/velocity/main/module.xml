@@ -7,6 +7,6 @@
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.velocity" />
+    <module name="org.apache.velocity" slot="fuse" />
   </dependencies>
 </module>

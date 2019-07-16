@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Wildfly Camel Patch
+  %%
+  Copyright (C) 2013 - 2014 RedHat
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+
+<!--
+=========================================================================
+
+  Modules that exist in Wildfly, but are for portability reasons provided
+
+  in alterniative slots
+
+=========================================================================
+-->
+<modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
+
+    <module name="asm.asm" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.ow2.asm:asm" />
+    </module>
+
+    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jdk8" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-datatype-jdk8" />
+    </module>
+
+    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jsr310" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-datatype-jsr310" />
+    </module>
+
+    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-jaxrs-base" />
+        <include artifact=":jackson-jaxrs-json-provider" />
+        <include artifact=":jackson-module-jaxb-annotations" />
+    </module>
+
+    <module name="com.github.ben-manes.caffeine" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.github.ben-manes.caffeine:caffeine" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+            <include module="com.google.errorprone" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="com.github.spullara.mustache" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.github.spullara.mustache.java:compiler" />
+    </module>
+
+    <module name="com.googlecode.javaewah" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.googlecode.javaewah:JavaEWAH" />
+    </module>
+
+    <module name="com.jcraft.jsch" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.jcraft:jsch" />
+    </module>
+
+    <module name="com.microsoft.azure.storage" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.microsoft.azure:azure-storage" />
+        <apply-to-dependencies skip="true">
+            <include module="com.microsoft.azure.keyvault" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="com.squareup.okhttp3" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.squareup.okhttp3:okhttp"/>
+        <include artifact="com.squareup.okio:okio"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.google.android" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="io.netty" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.netty:netty-all" />
+        <dependencies>
+            <module name="javax.api"/>
+            <module name="org.apache.log4j"/>
+            <module name="sun.jdk"/>
+        </dependencies>
+    </module>
+
+    <module name="io.opentracing.opentracing-api" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.opentracing:opentracing-api" />
+    </module>
+
+    <module name="io.opentracing.opentracing-noop" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.opentracing:opentracing-noop" />
+    </module>
+
+    <module name="io.opentracing.contrib.opentracing-tracerresolver" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.opentracing.contrib:opentracing-tracerresolver" />
+    </module>
+
+    <module name="io.reactivex.rxjava2.rxjava" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.reactivex.rxjava2:rxjava" />
+    </module>
+
+    <module name="org.apache.avro" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.avro:avro"/>
+        <dependencies>
+            <module name="org.codehaus.jackson.jackson-core-asl" slot="fuse"/>
+            <module name="org.codehaus.jackson.jackson-mapper-asl" slot="fuse"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.commons.beanutils" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-beanutils" />
+        <dependencies>
+            <module name="org.apache.commons.logging" slot="fuse"/>
+        </dependencies>
+    </module>
+
+    <module name="org.apache.commons.cli" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-cli" />
+    </module>
+
+    <module name="org.apache.commons.codec" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-codec" />
+    </module>
+
+    <module name="org.apache.commons.collections" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-collections" />
+    </module>
+
+    <module name="org.apache.commons.io" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-io" />
+    </module>
+
+    <module name="org.apache.commons.lang" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-lang" />
+    </module>
+
+    <module name="org.apache.commons.lang3" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-lang3" />
+    </module>
+
+    <module name="org.apache.commons.logging" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-logging" />
+    </module>
+
+    <module name="org.apache.httpcomponents" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.httpcomponents:httpasyncclient" />
+        <include artifact="org.apache.httpcomponents:httpclient" />
+        <include artifact="org.apache.httpcomponents:httpcore" />
+        <include artifact="org.apache.httpcomponents:httpcore-nio" />
+        <include artifact="org.apache.httpcomponents:httpmime" />
+        <dependencies>
+            <module name="org.apache.commons.logging" slot="fuse" />
+        </dependencies>
+    </module>
+
+    <module name="org.apache.james.mime4j" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":apache-mime4j-core" />
+    </module>
+
+    <module name="org.apache.santuario.xmlsec" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.santuario:xmlsec" />
+        <apply-to-dependencies skip="true">
+            <include module="org.codehaus.woodstox.core" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="org.apache.thrift" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.thrift:libthrift" />
+    </module>
+
+    <module name="org.apache.velocity" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.velocity:velocity-engine-core" />
+        <include artifact="org.apache.velocity:velocity" />
+    </module>
+
+    <module name="org.codehaus.jackson.jackson-core-asl" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.codehaus.jackson:jackson-core-asl" />
+    </module>
+
+    <module name="org.codehaus.jackson.jackson-jaxrs" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.codehaus.jackson:jackson-jaxrs" />
+    </module>
+
+    <module name="org.codehaus.jackson.jackson-mapper-asl" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.codehaus.jackson:jackson-mapper-asl" />
+    </module>
+
+    <module name="org.codehaus.jackson.jackson-xc" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.codehaus.jackson:jackson-xc" />
+    </module>
+
+    <module name="org.codehaus.jettison" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jettison" />
+    </module>
+
+    <module name="org.codehaus.woodstox" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":woodstox-core-asl" />
+        <include artifact=":stax2-api" />
+    </module>
+
+    <module name="org.eclipse.jdt.ecj" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.eclipse.jdt.core.compiler:ecj" />
+    </module>
+
+    <module name="org.eclipse.jgit" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.eclipse.jgit:org.eclipse.jgit" />
+    </module>
+
+    <module name="org.jaxen" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="jaxen:jaxen" />
+    </module>
+
+    <module name="org.jdom" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jdom" />
+    </module>
+
+    <module name="org.joda.time" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":joda-time" />
+    </module>
+
+    <module name="org.jsoup" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jsoup" />
+    </module>
+
+    <module name="org.reactivestreams" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.reactivestreams:reactive-streams" />
+    </module>
+
+    <module name="org.yaml.snakeyaml" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.yaml:snakeyaml" />
+    </module>
+
+</modules>

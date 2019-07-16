@@ -9,6 +9,6 @@
   <dependencies>
     <module name="org.apache.abdera.core" />
     <module name="javax.activation.api" />
-    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.codec" slot="fuse" />
   </dependencies>
 </module>

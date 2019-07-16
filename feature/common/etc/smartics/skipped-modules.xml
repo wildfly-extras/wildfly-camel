@@ -149,6 +149,10 @@
         <include artifact="com.martiansoftware:nailgun-server" />
     </module>
 
+    <module name="com.microsoft.azure.keyvault" skip="true">
+        <include artifact="com.microsoft.azure:azure-keyvault-core" />
+    </module>
+
     <module name="com.querydsl.skip" skip="true">
         <include artifact=":querydsl-apt" />
         <include artifact=":querydsl-codegen" />
@@ -428,6 +432,10 @@
     <module name="org.glassfish.hk2" skip="true">
         <include artifact="org.glassfish.hk2.external:" />
         <include artifact="org.glassfish.hk2:" />
+    </module>
+
+    <module name="org.glassfish.jaxb" skip="true">
+        <include artifact="org.glassfish.jaxb:jaxb-runtime" />
     </module>
 
     <module name="org.glassfish.jersey" skip="true">

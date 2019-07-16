@@ -87,8 +87,8 @@ public class AtmosphereWebsocketIntegrationTest {
 
         @Override
         public void onMessage(String message) {
-            latch.countDown();
             result = message;
+            latch.countDown();
         }
 
         public boolean awaitMessage() throws InterruptedException {

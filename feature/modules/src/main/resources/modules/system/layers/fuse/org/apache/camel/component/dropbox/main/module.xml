@@ -11,7 +11,7 @@
     <module name="javax.servlet.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.commons.io" />
+    <module name="org.apache.commons.io" slot="fuse" />
   </dependencies>
   <exports>
     <exclude path="com/dropbox" />

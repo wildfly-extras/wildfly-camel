@@ -88,7 +88,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="org.asynchttpclient" export="true"/>
-            <module name="io.netty" />
+            <module name="io.netty" slot="fuse" />
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -115,7 +115,7 @@
         <dependencies>
             <module name="javax.resource.api" />
             <module name="org.apache.camel.core" />
-            <module name="io.netty" />
+            <module name="io.netty" slot="fuse"/>
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -217,7 +217,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.apache.avro" export="true">
+            <module name="org.apache.avro" export="true" slot="fuse">
                 <exports>
                     <exclude path="org/apache/avro/util/internal" />
                     <exclude path="avro/shaded**" />
@@ -252,7 +252,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.microsoft.azure.storage" export="true" >
+            <module name="com.microsoft.azure.storage" export="true" slot="fuse">
                 <exports>
                     <exclude path="com/microsoft" />
                 </exports>
@@ -406,7 +406,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="org.slf4j" />
-            <module name="com.github.ben-manes.caffeine" export="true">
+            <module name="com.github.ben-manes.caffeine" export="true" slot="fuse">
                 <exports>
                     <exclude path="com/github"/>
                     <exclude path="com/github/benmanes"/>
@@ -425,7 +425,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.netty"/>
+            <module name="io.netty" slot="fuse"/>
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -457,7 +457,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.apache.httpcomponents"/>
+            <module name="org.apache.httpcomponents" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -556,10 +556,10 @@
             <module name="com.fasterxml.jackson.core.jackson-core" />
             <module name="com.fasterxml.jackson.core.jackson-databind" />
             <module name="com.fasterxml.jackson.datatype.jackson-datatype-guava" />
-            <module name="com.google.guava" />
+            <module name="com.google.guava" slot="fuse" />
             <module name="com.squareup.retrofit2" />
-            <module name="com.squareup.okhttp3" />
-            <module name="org.apache.commons.lang3" />
+            <module name="com.squareup.okhttp3" slot="fuse"/>
+            <module name="org.apache.commons.lang3" slot="fuse" />
             <module name="org.slf4j" />
         </dependencies>
         <exports>
@@ -578,7 +578,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.apache.httpcomponents"/>
+            <module name="org.apache.httpcomponents" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
@@ -594,15 +594,15 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.google.code.gson" export="true">
+            <module name="com.google.code.gson" export="true" slot="fuse">
                 <exports>
                     <include path="com/google/gson" />
                     <exclude path="com/google**" />
                 </exports>
             </module>
             <module name="javax.api" />
-            <module name="org.apache.commons.codec" />
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.codec" slot="fuse" />
+            <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -778,7 +778,7 @@
                 </exports>
             </module>
             <module name="javax.api" />
-            <module name="org.apache.commons.lang" />
+            <module name="org.apache.commons.lang" slot="fuse" />
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -797,7 +797,7 @@
                     <exclude path="com/github**" />
                 </exports>
             </module>
-            <module name="org.apache.commons.lang3"/>
+            <module name="org.apache.commons.lang3" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -869,7 +869,7 @@
             <include module="org.springframework.boot"/>
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.netty"/>
+            <module name="io.netty" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -1050,7 +1050,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="com.googlecode.javaewah"/>
-            <module name="org.eclipse.jgit" export="true">
+            <module name="org.eclipse.jgit" export="true" slot="fuse">
                 <exports>
                     <exclude path="org/eclipse" />
                     <exclude path="org/eclipse/jgit/internal**" />
@@ -1182,7 +1182,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="com.google.http-client.google-http-client"/>
-            <module name="org.apache.httpcomponents" />
+            <module name="org.apache.httpcomponents" slot="fuse" />
             <module name="javax.api"/>
             <module name="org.slf4j"/>
         </dependencies>
@@ -1243,7 +1243,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.google.guava" export="true" >
+            <module name="com.google.guava" export="true" slot="fuse">
                 <exports>
                     <exclude path="com/google"/>
                     <exclude path="com/google/common/base/internal"/>
@@ -1288,7 +1288,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.apache.httpcomponents"/>
+            <module name="org.apache.httpcomponents" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -1300,7 +1300,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.netty"/>
+            <module name="io.netty" slot="fuse"/>
             <module name="org.apache.camel.component.netty4"/>
             <module name="org.apache.mina.core"/>
             <module name="org.slf4j"/>
@@ -1336,7 +1336,7 @@
                     <include path="org/apache/camel/http/common" />
                 </exports>
             </module>
-            <module name="org.apache.httpcomponents" export="true">
+            <module name="org.apache.httpcomponents" export="true" slot="fuse">
                 <exports>
                     <include path="org/apache/http**" />
                     <exclude path="org/apache**" />
@@ -1384,7 +1384,7 @@
             <include module="org.springframework.boot"/>
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.netty"/>
+            <module name="io.netty" slot="fuse"/>
             <module name="org.eclipse.neoscada.protocols" export="true">
                 <exports>
                     <exclude path="org/eclipse"/>
@@ -1616,7 +1616,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.apache.commons.logging" />
+            <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.springframework.core"/>
             <module name="org.slf4j"/>
         </dependencies>
@@ -1668,7 +1668,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="org.hibernate" />
-            <module name="org.javassist" />
+            <module name="org.javassist"/>
             <module name="org.springframework.orm" export="true">
                 <exports>
                     <include path="org/springframework/orm/jpa" />
@@ -1836,7 +1836,7 @@
         <dependencies>
             <module name="javax.api"/>
             <module name="javax.ws.rs.api"/>
-            <module name="org.apache.commons.lang3"/>
+            <module name="org.apache.commons.lang3" slot="fuse"/>
             <module name="org.slf4j" />
         </dependencies>
         <exports>
@@ -1876,7 +1876,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.netty" />
+            <module name="io.netty" slot="fuse" />
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -1958,7 +1958,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.google.guava"/>
+            <module name="com.google.guava" slot="fuse"/>
             <module name="org.eclipse.milo" export="true">
                 <exports>
                     <exclude path="org/jooq**" />
@@ -2183,7 +2183,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.apache.httpcomponents" />
+            <module name="org.apache.httpcomponents" slot="fuse" />
             <module name="org.apache.olingo2" export="true">
                 <exports>
                     <include path="org/apache/olingo/odata2/api**" />
@@ -2420,7 +2420,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.reactivestreams" export="true"/>
+            <module name="org.reactivestreams" export="true" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -2491,7 +2491,7 @@
                     <exclude path="com/sun**" />
                 </exports>
             </module>
-            <module name="org.apache.commons.codec" />
+            <module name="org.apache.commons.codec" slot="fuse" />
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -2503,7 +2503,7 @@
             <include module="org.springframework.boot"/>
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.reactivex.rxjava2.rxjava" export="true">
+            <module name="io.reactivex.rxjava2.rxjava" export="true" slot="fuse">
                 <exports>
                     <exclude path="io/reactivex/internal**" />
                 </exports>
@@ -2850,7 +2850,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="org.slf4j"/>
-            <module name="org.apache.commons.lang" />
+            <module name="org.apache.commons.lang" slot="fuse" />
             <module name="org.springframework.ldap" export="true" />
         </dependencies>
     </module>
@@ -3088,7 +3088,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.apache.thrift" export="true"/>
+            <module name="org.apache.thrift" export="true" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -3104,7 +3104,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="org.slf4j" />
-            <module name="org.apache.commons.codec" />
+            <module name="org.apache.commons.codec" slot="fuse" />
         </dependencies>
         <exports>
             <exclude path="org/apache/camel/component/twilio/internal" />
@@ -3158,7 +3158,7 @@
                 </exports>
             </module>
             <module name="javax.api"/>
-            <module name="org.apache.httpcomponents" />
+            <module name="org.apache.httpcomponents" slot="fuse" />
             <module name="org.jboss.xnio" />
             <module name="org.slf4j" />
         </dependencies>
@@ -3197,7 +3197,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="io.netty"/>
+            <module name="io.netty" slot="fuse"/>
             <module name="org.apache.logging.log4j"/>
         </dependencies>
         <exports>
@@ -3293,7 +3293,7 @@
         <dependencies>
             <module name="javax.api"/>
             <module name="javax.xml.stream.api"/>
-            <module name="org.codehaus.jettison"/>
+            <module name="org.codehaus.jettison" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -3305,7 +3305,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.codehaus.jackson.jackson-core-asl"/>
+            <module name="org.codehaus.jackson.jackson-core-asl" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -3359,7 +3359,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.apache.thrift" />
+            <module name="org.apache.thrift" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
@@ -3393,7 +3393,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.google.guava"/>
+            <module name="com.google.guava" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
         <exports>

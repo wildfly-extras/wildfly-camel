@@ -7,7 +7,7 @@
     <artifact name="${com.netflix.ribbon:ribbon-loadbalancer}" />
   </resources>
   <dependencies>
-    <module name="com.google.guava" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="com.netflix.netflix-commons" />
     <module name="com.netflix.ribbon.ribbon-core" />
     <module name="com.netflix.servo" />

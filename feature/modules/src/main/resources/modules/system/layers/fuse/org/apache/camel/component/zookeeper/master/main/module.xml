@@ -4,7 +4,7 @@
     <artifact name="${org.apache.camel:camel-zookeeper-master}" />
   </resources>
   <dependencies>
-    <module name="com.google.guava" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />

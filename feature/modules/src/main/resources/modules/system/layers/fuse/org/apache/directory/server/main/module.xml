@@ -10,7 +10,7 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="org.apache.commons.lang" />
+    <module name="org.apache.commons.lang" slot="fuse" />
     <module name="org.apache.directory" />
     <module name="org.apache.mina.core" />
     <module name="org.slf4j" />

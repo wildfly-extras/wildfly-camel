@@ -4,7 +4,7 @@
     <artifact name="${org.apache.camel:camel-hipchat}" />
   </resources>
   <dependencies>
-    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.httpcomponents" slot="fuse" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />

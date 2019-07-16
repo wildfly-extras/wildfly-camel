@@ -6,11 +6,11 @@
   </resources>
   <dependencies>
     <module name="org.slf4j" />
-    <module name="com.google.code.gson" />
-    <module name="com.squareup.okhttp3" />
+    <module name="com.google.code.gson" slot="fuse" />
+    <module name="com.squareup.okhttp3" slot="fuse" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.joda.time" />
+    <module name="org.joda.time" slot="fuse" />
   </dependencies>
   <exports>
     <include path="com/google/maps/model" />

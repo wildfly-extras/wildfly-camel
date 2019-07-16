@@ -148,7 +148,7 @@
         </properties>
         <include artifact=":wildfly-camel-config" />
         <dependencies>
-            <module name="org.jdom" />
+            <module name="org.jdom" slot="fuse"/>
         </dependencies>
         <main-class name="org.wildfly.extras.config.internal.Main"/>
     </module>

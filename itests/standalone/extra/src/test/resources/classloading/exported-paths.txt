@@ -722,7 +722,6 @@ com/google/common/cache
 com/google/common/collect
 com/google/common/escape
 com/google/common/eventbus
-com/google/common/graph
 com/google/common/hash
 com/google/common/html
 com/google/common/io
@@ -1718,6 +1717,7 @@ org/apache/avro/file
 org/apache/avro/generic
 org/apache/avro/io
 org/apache/avro/io/parsing
+org/apache/avro/message
 org/apache/avro/reflect
 org/apache/avro/specific
 org/apache/avro/util
@@ -3099,8 +3099,6 @@ org/apache/http/conn/util
 org/apache/http/cookie
 org/apache/http/cookie/params
 org/apache/http/entity
-org/apache/http/entity/mime
-org/apache/http/entity/mime/content
 org/apache/http/impl
 org/apache/http/impl/auth
 org/apache/http/impl/bootstrap

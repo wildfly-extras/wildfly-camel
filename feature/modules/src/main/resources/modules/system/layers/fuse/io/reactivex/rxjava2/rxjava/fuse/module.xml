@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="io.reactivex.rxjava2.rxjava" slot="fuse">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${io.reactivex.rxjava2:rxjava}" />
+  </resources>
+  <dependencies>
+    <module name="org.reactivestreams" slot="fuse" />
+  </dependencies>
+</module>

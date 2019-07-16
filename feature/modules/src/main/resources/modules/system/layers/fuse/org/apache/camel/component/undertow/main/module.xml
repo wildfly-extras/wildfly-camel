@@ -12,7 +12,7 @@
       </exports>
     </module>
     <module name="javax.api" />
-    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.httpcomponents" slot="fuse" />
     <module name="org.jboss.xnio" />
     <module name="org.slf4j" />
     <module name="javax.servlet.api" />

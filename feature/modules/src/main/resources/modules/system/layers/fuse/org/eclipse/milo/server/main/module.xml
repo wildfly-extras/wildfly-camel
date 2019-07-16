@@ -8,8 +8,8 @@
     <artifact name="${org.eclipse.milo:stack-server}" />
   </resources>
   <dependencies>
-    <module name="com.google.guava" />
-    <module name="io.netty" />
+    <module name="com.google.guava" slot="fuse" />
+    <module name="io.netty" slot="fuse" />
     <module name="org.slf4j" />
     <module name="io.dropwizard.metrics" />
     <module name="org.eclipse.milo" />

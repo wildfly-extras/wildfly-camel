@@ -60,7 +60,7 @@ public class GangliaIntegrationTest {
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
             .setManifest(() -> {
                 ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "io.netty,info.ganglia.gmetric4j");
+                builder.addManifestHeader("Dependencies", "io.netty:fuse,info.ganglia.gmetric4j");
                 return builder.openStream();
             });
     }

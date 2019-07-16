@@ -7,7 +7,7 @@
     <artifact name="${com.impossibl.pgjdbc-ng:pgjdbc-ng}" />
   </resources>
   <dependencies>
-    <module name="io.netty" />
+    <module name="io.netty" slot="fuse" />
     <module name="javax.api" />
     <module name="javax.sql.api" />
     <module name="javax.transaction.api" />

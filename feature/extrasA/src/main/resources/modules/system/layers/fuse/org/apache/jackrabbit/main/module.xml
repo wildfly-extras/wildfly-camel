@@ -16,9 +16,9 @@
     <module name="javax.api" />
     <module name="org.apache.lucene" slot="3.6" />
     <module name="javax.jcr" />
-    <module name="org.apache.commons.collections" />
+    <module name="org.apache.commons.collections" slot="fuse" />
     <module name="org.apache.commons.dbcp" />
-    <module name="org.apache.commons.io" />
+    <module name="org.apache.commons.io" slot="fuse" />
     <module name="org.apache.derby" />
     <module name="org.apache.tika" />
     <module name="org.slf4j" />

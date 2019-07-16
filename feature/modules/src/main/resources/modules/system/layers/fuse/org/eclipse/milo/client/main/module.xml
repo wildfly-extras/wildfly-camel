@@ -10,10 +10,10 @@
     <artifact name="${org.eclipse.milo:stack-client}" />
   </resources>
   <dependencies>
-    <module name="com.google.guava" />
-    <module name="io.netty" />
+    <module name="com.google.guava" slot="fuse" />
+    <module name="io.netty" slot="fuse" />
     <module name="org.slf4j" />
-    <module name="com.google.code.gson" />
+    <module name="com.google.code.gson" slot="fuse" />
     <module name="javax.xml.bind.api" />
     <module name="org.eclipse.milo" />
   </dependencies>

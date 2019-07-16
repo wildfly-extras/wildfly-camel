@@ -28,9 +28,9 @@
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.dataformat.cbor" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="org.apache.commons.logging" />
-    <module name="org.apache.httpcomponents" />
-    <module name="org.joda.time" />
+    <module name="org.apache.commons.logging" slot="fuse" />
+    <module name="org.apache.httpcomponents" slot="fuse" />
+    <module name="org.joda.time" slot="fuse" />
   </dependencies>
   <exports>
     <exclude path="com/amazonaws/auth/internal" />

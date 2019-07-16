@@ -11,8 +11,8 @@
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" />
+    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" slot="fuse" />
     <module name="javax.xml.stream.api" />
-    <module name="org.codehaus.woodstox" />
+    <module name="org.codehaus.woodstox" slot="fuse" />
   </dependencies>
 </module>
