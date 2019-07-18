@@ -149,6 +149,10 @@
         <include artifact="com.martiansoftware:nailgun-server" />
     </module>
 
+    <module name="com.microsoft.azure.keyvault" skip="true">
+        <include artifact="com.microsoft.azure:azure-keyvault-core" />
+    </module>
+
     <module name="com.querydsl.skip" skip="true">
         <include artifact=":querydsl-apt" />
         <include artifact=":querydsl-codegen" />
@@ -530,7 +534,8 @@
     </module>
 
     <module name="org.osgi.core" skip="true">
-        <include artifact="org.osgi:org.osgi.core" />
+        <include artifact=":org.osgi.core" />
+        <include artifact="org.osgi:core" />
     </module>
 
     <module name="org.ow2.asm.commons" skip="true">

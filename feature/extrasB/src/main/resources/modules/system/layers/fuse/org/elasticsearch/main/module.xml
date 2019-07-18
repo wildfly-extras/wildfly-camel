@@ -34,13 +34,13 @@
     <module name="com.fasterxml.jackson.dataformat.cbor" />
     <module name="com.fasterxml.jackson.dataformat.smile" />
     <module name="com.fasterxml.jackson.dataformat.yaml" />
-    <module name="com.github.spullara.mustache" />
-    <module name="org.apache.commons.codec" />
-    <module name="org.apache.commons.logging" />
-    <module name="org.apache.httpcomponents" />
+    <module name="com.github.spullara.mustache" slot="fuse" />
+    <module name="org.apache.commons.codec" slot="fuse" />
+    <module name="org.apache.commons.logging" slot="fuse" />
+    <module name="org.apache.httpcomponents" slot="fuse" />
     <module name="org.hdrhistogram" />
-    <module name="org.joda.time" />
-    <module name="org.yaml.snakeyaml" />
+    <module name="org.joda.time" slot="fuse" />
+    <module name="org.yaml.snakeyaml" slot="fuse" />
   </dependencies>
   <exports>
     <exclude path="com/sun**" />

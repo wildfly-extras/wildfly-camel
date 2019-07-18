@@ -7,7 +7,7 @@
     <artifact name="${org.apache.qpid:qpid-jms-client}" />
   </resources>
   <dependencies>
-    <module name="io.netty" />
+    <module name="io.netty" slot="fuse" />
     <module name="javax.api" />
     <module name="javax.xml.bind.api" />
     <module name="javax.jms.api" />

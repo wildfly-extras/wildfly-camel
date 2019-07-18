@@ -4,7 +4,7 @@
     <artifact name="${org.apache.camel:camel-lumberjack}" />
   </resources>
   <dependencies>
-    <module name="io.netty" />
+    <module name="io.netty" slot="fuse" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="javax.xml.bind.api" />

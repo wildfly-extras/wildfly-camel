@@ -24,13 +24,40 @@
 -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="com.carrotsearch.hppc" skip="true">
-        <include artifact="com.carrotsearch:hppc" />
+	<!-- =========================================================== -->
+	<!--          modules defined in wildfly-alternatives            -->
+	<!-- =========================================================== -->
+
+    <module name="com.github.spullara.mustache" slot="fuse" skip="true">
+        <include artifact="com.github.spullara.mustache.java:compiler" />
     </module>
 
-    <module name="org.elasticsearch.skipped" skip="true">
-        <include artifact="com.vividsolutions:jts" />
-        <include artifact="org.locationtech.spatial4j" />
+    <module name="org.joda.time" slot="fuse" skip="true">
+        <include artifact=":joda-time" />
+    </module>
+
+    <module name="org.apache.commons.codec" slot="fuse" skip="true">
+        <include artifact=":commons-codec" />
+    </module>
+
+    <module name="org.apache.commons.logging" slot="fuse" skip="true">
+        <include artifact=":commons-logging" />
+    </module>
+
+    <module name="org.apache.httpcomponents" slot="fuse" skip="true">
+        <include artifact="org.apache.httpcomponents:httpasyncclient" />
+        <include artifact="org.apache.httpcomponents:httpclient" />
+        <include artifact="org.apache.httpcomponents:httpcore" />
+        <include artifact="org.apache.httpcomponents:httpcore-nio" />
+        <include artifact="org.apache.httpcomponents:httpmime" />
+    </module>
+
+	<!-- =========================================================== -->
+	<!--          modules defined in features/modules                -->
+	<!-- =========================================================== -->
+
+    <module name="com.carrotsearch.hppc" skip="true">
+        <include artifact="com.carrotsearch:hppc" />
     </module>
 
     <module name="com.fasterxml.jackson.dataformat.cbor" skip="true">
@@ -45,29 +72,17 @@
         <include artifact=":jackson-jr-objects" />
     </module>
 
-    <module name="com.google.guava" skip="true">
-        <include artifact="com.google.guava:guava" />
-    </module>
-
-    <module name="com.ning.lzf" skip="true">
-        <include artifact="com.ning:compress-lzf" />
-    </module>
-
-    <module name="io.netty" slot="3.10" skip="true">
-        <include artifact="io.netty:netty" />
-    </module>
-
     <module name="org.apache.camel.core" skip="true">
         <include artifact="org.apache.camel:camel-core" />
-    </module>
-
-    <module name="org.hdrhistogram" skip="true">
-        <include artifact="org.hdrhistogram:HdrHistogram" />
     </module>
 
     <module name="org.apache.logging.log4j" skip="true">
         <include artifact="org.apache.logging.log4j:log4j-api" />
         <include artifact="org.apache.logging.log4j:log4j-core" />
+    </module>
+
+    <module name="org.hdrhistogram" skip="true">
+        <include artifact="org.hdrhistogram:HdrHistogram" />
     </module>
 
 </modules>

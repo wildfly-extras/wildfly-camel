@@ -10,9 +10,9 @@
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.commons.io" />
-    <module name="org.apache.commons.lang" />
-    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.commons.io" slot="fuse" />
+    <module name="org.apache.commons.lang" slot="fuse" />
+    <module name="org.apache.httpcomponents" slot="fuse" />
     <module name="org.apache.olingo4.server" />
   </dependencies>
   <exports>

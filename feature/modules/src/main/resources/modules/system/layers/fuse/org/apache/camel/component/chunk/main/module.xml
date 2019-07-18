@@ -9,7 +9,7 @@
     <module name="javax.xml.bind.api" />
     <module name="net.minidev.smart" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.commons.io" />
+    <module name="org.apache.commons.io" slot="fuse" />
   </dependencies>
   <exports>
     <exclude path="com/csvreader**" />

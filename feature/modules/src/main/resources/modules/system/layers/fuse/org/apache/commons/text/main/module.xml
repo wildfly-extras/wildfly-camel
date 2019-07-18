@@ -7,6 +7,6 @@
     <artifact name="${org.apache.commons:commons-text}" />
   </resources>
   <dependencies>
-    <module name="org.apache.commons.lang3" />
+    <module name="org.apache.commons.lang3" slot="fuse" />
   </dependencies>
 </module>

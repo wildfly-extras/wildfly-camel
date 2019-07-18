@@ -8,15 +8,15 @@
   </resources>
   <dependencies>
     <module name="org.slf4j" />
-    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.codec" slot="fuse" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.google.guava" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.httpcomponents" />
-    <module name="org.joda.time" />
+    <module name="org.apache.httpcomponents" slot="fuse" />
+    <module name="org.joda.time" slot="fuse" />
   </dependencies>
   <exports>
     <exclude path="org/apache/camel/component/twilio/internal" />

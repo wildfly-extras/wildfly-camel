@@ -5,18 +5,18 @@
     <artifact name="${org.lightcouch:lightcouch}" />
   </resources>
   <dependencies>
-    <module name="com.google.code.gson" export="true">
+    <module name="com.google.code.gson" export="true" slot="fuse">
       <exports>
         <include path="com/google/gson" />
         <exclude path="com/google**" />
       </exports>
     </module>
     <module name="javax.api" />
-    <module name="org.apache.commons.codec" />
-    <module name="org.apache.commons.logging" />
+    <module name="org.apache.commons.codec" slot="fuse" />
+    <module name="org.apache.commons.logging" slot="fuse" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.httpcomponents" slot="fuse" />
   </dependencies>
 </module>

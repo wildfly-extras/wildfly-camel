@@ -9,6 +9,6 @@
   <dependencies>
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="org.yaml.snakeyaml" />
+    <module name="org.yaml.snakeyaml" slot="fuse" />
   </dependencies>
 </module>

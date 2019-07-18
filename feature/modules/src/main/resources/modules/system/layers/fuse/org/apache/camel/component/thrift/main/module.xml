@@ -4,11 +4,11 @@
     <artifact name="${org.apache.camel:camel-thrift}" />
   </resources>
   <dependencies>
-    <module name="org.apache.thrift" export="true" />
+    <module name="org.apache.thrift" export="true" slot="fuse" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.commons.io" />
+    <module name="org.apache.commons.io" slot="fuse" />
     <module name="org.javassist" />
   </dependencies>
 </module>

@@ -14,7 +14,7 @@
     <module name="javax.jms.api" />
     <module name="javax.mail.api" />
     <module name="javax.servlet.api" />
-    <module name="org.apache.commons.io" />
+    <module name="org.apache.commons.io" slot="fuse" />
     <module name="org.springframework.aop" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.core" />

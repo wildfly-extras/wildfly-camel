@@ -10,7 +10,7 @@
     <artifact name="${io.zipkin.reporter2:zipkin-sender-urlconnection}" />
   </resources>
   <dependencies>
-    <module name="org.apache.thrift" />
+    <module name="org.apache.thrift" slot="fuse" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />

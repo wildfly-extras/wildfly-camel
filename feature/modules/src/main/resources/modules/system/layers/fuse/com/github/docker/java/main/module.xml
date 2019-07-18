@@ -10,16 +10,16 @@
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="io.netty" />
+    <module name="io.netty" slot="fuse" />
     <module name="javax.api" />
-    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" />
+    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" slot="fuse" />
     <module name="com.google.guava" />
     <module name="com.kohlschutter.junixsocket" />
-    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.codec" slot="fuse" />
     <module name="org.apache.commons.compress" />
-    <module name="org.apache.commons.io" />
-    <module name="org.apache.commons.lang" />
-    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.commons.io" slot="fuse" />
+    <module name="org.apache.commons.lang" slot="fuse" />
+    <module name="org.apache.httpcomponents" slot="fuse" />
     <module name="org.bouncycastle" slot="1.61" />
     <module name="org.slf4j" />
   </dependencies>

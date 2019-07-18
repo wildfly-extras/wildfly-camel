@@ -13,11 +13,11 @@
     <module name="jdk.xml.dom" />
     <module name="org.w3c.css.sac" />
     <module name="net.sourceforge.cssparser" />
-    <module name="org.apache.commons.codec" />
-    <module name="org.apache.commons.io" />
-    <module name="org.apache.commons.lang3" />
-    <module name="org.apache.commons.logging" />
-    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.commons.codec" slot="fuse" />
+    <module name="org.apache.commons.io" slot="fuse" />
+    <module name="org.apache.commons.lang3" slot="fuse" />
+    <module name="org.apache.commons.logging" slot="fuse" />
+    <module name="org.apache.httpcomponents" slot="fuse" />
     <module name="org.apache.xalan" />
     <module name="org.apache.xerces" />
     <module name="org.eclipse.jetty.websocket" />

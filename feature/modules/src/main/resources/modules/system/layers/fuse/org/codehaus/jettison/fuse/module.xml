@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.codehaus.jettison" slot="fuse">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.codehaus.jettison:jettison}" />
+  </resources>
+  <dependencies />
+</module>

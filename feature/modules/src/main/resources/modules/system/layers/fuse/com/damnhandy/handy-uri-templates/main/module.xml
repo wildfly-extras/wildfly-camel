@@ -7,6 +7,6 @@
     <artifact name="${com.damnhandy:handy-uri-templates}" />
   </resources>
   <dependencies>
-    <module name="org.joda.time" />
+    <module name="org.joda.time" slot="fuse" />
   </dependencies>
 </module>

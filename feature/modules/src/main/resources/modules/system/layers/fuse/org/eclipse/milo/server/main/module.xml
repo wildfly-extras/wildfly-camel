@@ -9,7 +9,7 @@
   </resources>
   <dependencies>
     <module name="com.google.guava" />
-    <module name="io.netty" />
+    <module name="io.netty" slot="fuse" />
     <module name="org.slf4j" />
     <module name="io.dropwizard.metrics" />
     <module name="org.eclipse.milo" />

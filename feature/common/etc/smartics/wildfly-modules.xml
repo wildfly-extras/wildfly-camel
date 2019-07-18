@@ -20,15 +20,18 @@
   -->
 
 <!--
-  This file holds all module definitions that come with wildfly. Here
-  we map maven artifacts to those modules, but skip generating the modules since
-  they are provided for us.
+=========================================================================
+
+  THIS IS THE COMPATIBILITY CONTRACT WITH EAP
+
+  Please don't change stuff light heartedly, it may affect whether
+  this version of WilfFly-Camel is compatible with other EAP versions
+
+  [ENTESB-10879] Fuse/EAP Compatibility Contract
+
+=========================================================================
 -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
-
-    <module name="asm.asm" skip="true">
-        <include artifact="org.ow2.asm:asm" />
-    </module>
 
     <module name="com.fasterxml.jackson.core.jackson-annotations" skip="true">
         <include artifact=":jackson-annotations" />
@@ -38,71 +41,14 @@
         <include artifact=":jackson-core" />
     </module>
 
-    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jdk8" skip="true">
-        <include artifact=":jackson-datatype-jdk8" />
-    </module>
-
-    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jsr310" skip="true">
-        <include artifact=":jackson-datatype-jsr310" />
-    </module>
-
     <module name="com.fasterxml.jackson.core.jackson-databind" skip="true">
         <include artifact=":jackson-databind" />
     </module>
 
-    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" skip="true">
-        <include artifact=":jackson-jaxrs-base" />
-        <include artifact=":jackson-jaxrs-json-provider" />
-        <include artifact=":jackson-module-jaxb-annotations" />
-    </module>
-
-    <module name="com.github.ben-manes.caffeine" skip="true">
-        <include artifact="com.github.ben-manes.caffeine:caffeine" />
-    </module>
-
-    <module name="com.github.spullara.mustache" skip="true">
-        <include artifact="com.github.spullara.mustache.java:compiler" />
-    </module>
-
-    <module name="com.googlecode.javaewah" skip="true">
-        <include artifact="com.googlecode.javaewah:JavaEWAH" />
-    </module>
-
-    <module name="com.jcraft.jsch" skip="true">
-        <include artifact="com.jcraft:jsch" />
-    </module>
-
-    <module name="com.microsoft.azure.storage" skip="true">
-        <include artifact="com.microsoft.azure:azure-storage" />
-    </module>
-
-    <module name="com.squareup.okhttp3" skip="true">
-        <include artifact="com.squareup.okhttp3:okhttp"/>
-        <include artifact="com.squareup.okio:okio"/>
-    </module>
-
-    <module name="io.netty" skip="true">
-        <include artifact="io.netty:netty-all" />
-    </module>
-
-    <module name="io.opentracing.opentracing-api" skip="true">
-        <include artifact="io.opentracing:opentracing-api" />
-    </module>
-
-    <module name="io.opentracing.opentracing-noop" skip="true">
-        <include artifact="io.opentracing:opentracing-noop" />
-    </module>
-
-    <module name="io.opentracing.opentracing-util" skip="true">
-        <include artifact="io.opentracing:opentracing-util" />
-    </module>
-
-    <module name="io.opentracing.contrib.opentracing-tracerresolver" skip="true">
-        <include artifact="io.opentracing.contrib:opentracing-tracerresolver" />
-    </module>
-
-    <module name="io.reactivex.rxjava2.rxjava" skip="true">
-        <include artifact="io.reactivex.rxjava2:rxjava" />
+    <module name="com.sun.xml.bind" skip="true">
+        <include artifact=":jaxb-runtime" />
+        <include artifact=":jaxb-jxc" />
+        <include artifact=":jaxb-xjc" />
     </module>
 
     <module name="io.undertow.core" skip="true">
@@ -258,42 +204,6 @@
         <include artifact=":jboss-jaxws-api_2.2_spec" />
     </module>
 
-    <module name="org.apache.avro" skip="true">
-        <include artifact="org.apache.avro:avro"/>
-    </module>
-
-    <module name="org.apache.commons.beanutils" skip="true">
-        <include artifact=":commons-beanutils" />
-    </module>
-
-    <module name="org.apache.commons.cli" skip="true">
-        <include artifact=":commons-cli" />
-    </module>
-
-    <module name="org.apache.commons.codec" skip="true">
-        <include artifact=":commons-codec" />
-    </module>
-
-    <module name="org.apache.commons.collections" skip="true">
-        <include artifact=":commons-collections" />
-    </module>
-
-    <module name="org.apache.commons.lang" skip="true">
-        <include artifact=":commons-lang" />
-    </module>
-
-    <module name="org.apache.commons.io" skip="true">
-        <include artifact=":commons-io" />
-    </module>
-
-    <module name="org.apache.commons.lang3" skip="true">
-        <include artifact="org.apache.commons:commons-lang3" />
-    </module>
-
-    <module name="org.apache.commons.logging" skip="true">
-        <include artifact=":commons-logging" />
-    </module>
-
     <module name="org.apache.cxf" skip="true">
         <include artifact=":cxf-api" />
         <include artifact=":cxf-core" />
@@ -321,42 +231,9 @@
         <include artifact=":cxf-services-ws-discovery-api" />
     </module>
 
-    <module name="org.apache.httpcomponents" skip="true">
-        <include artifact="org.apache.httpcomponents:httpasyncclient" />
-        <include artifact="org.apache.httpcomponents:httpclient" />
-        <include artifact="org.apache.httpcomponents:httpcore" />
-        <include artifact="org.apache.httpcomponents:httpcore-nio" />
-        <include artifact="org.apache.httpcomponents:httpmime" />
-    </module>
-
-    <module name="org.apache.james.mime4j" skip="true">
-        <include artifact=":apache-mime4j-core" />
-    </module>
-
-    <module name="org.apache.james.mime4j" skip="true">
-        <include artifact=":apache-mime4j-core" />
-    </module>
-
     <module name="org.apache.log4j" skip="true">
         <include artifact="org.apache.log4j:" />
         <include artifact="log4j:" />
-    </module>
-
-    <module name="org.apache.neethi" skip="true">
-        <include artifact=":neethi" />
-    </module>
-
-    <module name="org.apache.santuario.xmlsec" skip="true">
-        <include artifact="org.apache.santuario:xmlsec" />
-    </module>
-
-    <module name="org.apache.thrift" skip="true">
-        <include artifact="org.apache.thrift:libthrift" />
-    </module>
-
-    <module name="org.apache.velocity" skip="true">
-        <include artifact="org.apache.velocity:velocity-engine-core" />
-        <include artifact="org.apache.velocity:velocity" />
     </module>
 
     <module name="org.apache.ws.security" skip="true">
@@ -382,43 +259,6 @@
         <include artifact="xml-resolver:xml-resolver" />
     </module>
 
-    <module name="org.codehaus.jackson.jackson-core-asl" skip="true">
-        <include artifact=":jackson-core-asl" />
-    </module>
-
-    <module name="org.codehaus.jackson.jackson-jaxrs" skip="true">
-        <include artifact=":jackson-jaxrs" />
-    </module>
-
-    <module name="org.codehaus.jackson.jackson-mapper-asl" skip="true">
-        <include artifact=":jackson-mapper-asl" />
-    </module>
-
-    <module name="org.codehaus.jackson.jackson-xc" skip="true">
-        <include artifact=":jackson-xc" />
-    </module>
-
-    <module name="org.codehaus.jettison" skip="true">
-        <include artifact=":jettison" />
-    </module>
-
-    <module name="org.codehaus.woodstox" skip="true">
-        <include artifact=":woodstox-core-asl" />
-        <include artifact=":stax2-api" />
-    </module>
-
-    <module name="org.dom4j" skip="true">
-        <include artifact=":dom4j" />
-    </module>
-
-    <module name="org.eclipse.jdt.ecj" skip="true">
-        <include artifact="org.eclipse.jdt.core.compiler:ecj" />
-    </module>
-
-    <module name="org.eclipse.jgit" skip="true">
-        <include artifact="org.eclipse.jgit:org.eclipse.jgit" />
-    </module>
-
     <module name="org.hibernate" skip="true">
         <include artifact=":hibernate-core" />
     </module>
@@ -437,14 +277,6 @@
 
     <module name="org.infinispan.client.hotrod" skip="true" >
         <include artifact="org.infinispan:infinispan-client-hotrod" />
-    </module>
-
-    <module name="org.javassist" skip="true">
-        <include artifact=":org.apache.servicemix.bundles.javassist" />
-    </module>
-
-    <module name="org.jaxen" skip="true">
-        <include artifact="jaxen:jaxen" />
     </module>
 
     <module name="org.javassist" skip="true">
@@ -475,6 +307,18 @@
         <include artifact=":weld-spi" />
     </module>
 
+    <module name="org.jboss.msc" skip="true">
+        <include artifact="org.jboss.msc:jboss-msc" />
+    </module>
+
+    <module name="org.jboss.metadata.common" skip="true">
+        <include artifact=":jboss-metadata-common"/>
+    </module>
+
+    <module name="org.jboss.metadata.web" skip="true">
+        <include artifact=":jboss-metadata-web"/>
+    </module>
+
     <module name="org.jboss.logging" skip="true">
         <include artifact=":jboss-logging"/>
     </module>
@@ -499,6 +343,10 @@
         <include artifact=":jboss-modules" />
     </module>
 
+    <module name="org.jboss.msc" skip="true">
+        <include artifact=":jboss-msc" />
+    </module>
+
     <module name="org.jboss.vfs" skip="true">
         <include artifact=":jboss-vfs"/>
     </module>
@@ -507,24 +355,8 @@
         <include artifact=":xnio-api" />
     </module>
 
-    <module name="org.jdom" skip="true">
-        <include artifact=":jdom" />
-    </module>
-
     <module name="org.jgroups" skip="true">
         <include artifact=":jgroups" />
-    </module>
-
-    <module name="org.joda.time" skip="true">
-        <include artifact=":joda-time" />
-    </module>
-
-    <module name="org.jsoup" skip="true">
-        <include artifact=":jsoup" />
-    </module>
-
-    <module name="org.reactivestreams" skip="true">
-        <include artifact="org.reactivestreams:reactive-streams" />
     </module>
 
     <module name="org.slf4j" skip="true">
@@ -541,10 +373,6 @@
 
     <module name="org.wildfly.extension.undertow" skip="true">
         <include artifact=":wildfly-undertow" />
-    </module>
-
-    <module name="org.yaml.snakeyaml" skip="true">
-        <include artifact="org.yaml:snakeyaml" />
     </module>
 
 </modules>

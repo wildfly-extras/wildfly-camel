@@ -10,7 +10,7 @@
         <exclude path="com/github**" />
       </exports>
     </module>
-    <module name="org.apache.commons.lang3" />
+    <module name="org.apache.commons.lang3" slot="fuse" />
     <module name="org.slf4j" />
     <module name="javax.el.api" />
     <module name="javax.xml.bind.api" />

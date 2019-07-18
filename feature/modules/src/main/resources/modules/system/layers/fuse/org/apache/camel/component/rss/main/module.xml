@@ -15,7 +15,7 @@
         <exclude path="com/sun**" />
       </exports>
     </module>
-    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.codec" slot="fuse" />
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.component.atom" />

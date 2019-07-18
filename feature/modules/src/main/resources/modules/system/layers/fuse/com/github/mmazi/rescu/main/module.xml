@@ -11,7 +11,7 @@
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="javax.ws.rs.api" />
-    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.codec" slot="fuse" />
     <module name="org.slf4j" />
   </dependencies>
 </module>

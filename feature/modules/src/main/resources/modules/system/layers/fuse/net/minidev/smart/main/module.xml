@@ -9,6 +9,6 @@
     <artifact name="${net.minidev:json-smart-action}" />
   </resources>
   <dependencies>
-    <module name="asm.asm" />
+    <module name="asm.asm" slot="fuse" />
   </dependencies>
 </module>

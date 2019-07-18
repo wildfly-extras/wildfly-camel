@@ -13,19 +13,20 @@
     <module name="javax.xml.bind.api" />
     <module name="javax.ws.rs.api" />
     <module name="org.apache.xerces" />
-    <module name="asm.asm" />
+    <module name="asm.asm" slot="fuse" />
     <module name="com.drewnoakes.metadata-extractor" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.github.junrar" />
-    <module name="com.google.code.gson" />
+    <module name="com.google.code.gson" slot="fuse" />
     <module name="com.google.code.json-simple" />
     <module name="com.google.code.juniversalchardet" />
     <module name="com.google.code.mp4parser.isoparser" />
     <module name="com.healthmarketscience.jackcess" />
     <module name="com.pff.java-libpst" />
     <module name="com.rometools.rome" />
+    <module name="com.sun.xml.bind" />
     <module name="de.l3s.boilerpipe" />
     <module name="edu.ucar.cdm" />
     <module name="edu.ucar.grib" />
@@ -33,15 +34,15 @@
     <module name="edu.ucar.netcdf4" />
     <module name="edu.usc.ir.sentiment-analysis-parser" />
     <module name="javax.activation.api" />
-    <module name="org.apache.commons.codec" />
+    <module name="org.apache.commons.codec" slot="fuse" />
     <module name="org.apache.commons.compress" />
     <module name="org.apache.commons.csv" />
     <module name="org.apache.commons.exec" />
-    <module name="org.apache.commons.io" />
+    <module name="org.apache.commons.io" slot="fuse" />
     <module name="org.apache.cxf.ext" />
-    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.httpcomponents" slot="fuse" />
     <module name="org.apache.james.apache-mime4j-dom" />
-    <module name="org.apache.james.mime4j" />
+    <module name="org.apache.james.mime4j" slot="fuse" />
     <module name="org.apache.opennlp.opennlp-tools" />
     <module name="org.apache.pdfbox" />
     <module name="org.apache.poi" />
@@ -53,7 +54,7 @@
     <module name="org.gagravarr.vorbis" />
     <module name="org.jboss.logging.jul-to-slf4j-stub" />
     <module name="org.jdom.jdom2" />
-    <module name="org.jsoup" />
+    <module name="org.jsoup" slot="fuse" />
     <module name="org.opengis.geoapi" />
     <module name="org.slf4j" />
     <module name="org.tallison.jmatio" />

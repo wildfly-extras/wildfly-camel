@@ -23,7 +23,7 @@
         <include path="sun/misc" />
       </imports>
     </module>
-    <module name="asm.asm" />
+    <module name="asm.asm" slot="fuse" />
     <module name="com.intellij.annotations" />
     <module name="com.thoughtworks.xstream" />
     <module name="org.slf4j" />

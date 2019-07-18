@@ -24,20 +24,20 @@
 -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="aopalliance" skip="true">
-        <include artifact="aopalliance:aopalliance" />
-    </module>
-
-    <module name="com.google.inject.guice" slot="3.0" skip="true">
-        <include artifact="com.google.inject:guice"/>
-    </module>
+	<!-- =========================================================== -->
+	<!--          modules defined in features/modules                -->
+	<!-- =========================================================== -->
 
     <module name="org.apache.camel.core" skip="true">
         <include artifact="org.apache.camel:camel-core" />
     </module>
 
-    <module name="org.osgi.core" skip="true">
-        <include artifact=":org.osgi.core" />
+	<!-- =========================================================== -->
+	<!--          modules defined in features/extrasA                -->
+	<!-- =========================================================== -->
+
+    <module name="com.google.inject.guice" slot="3.0" skip="true">
+        <include artifact="com.google.inject:guice"/>
     </module>
 
 </modules>

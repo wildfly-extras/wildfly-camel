@@ -11,7 +11,7 @@
   <dependencies>
     <module name="javax.api" />
     <module name="javax.xml.bind.api" />
-    <module name="io.netty" />
+    <module name="io.netty" slot="fuse" />
     <module name="org.slf4j" />
     <module name="com.google.guava" />
   </dependencies>

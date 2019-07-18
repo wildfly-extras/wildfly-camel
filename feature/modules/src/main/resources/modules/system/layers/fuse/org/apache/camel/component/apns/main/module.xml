@@ -11,8 +11,8 @@
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.httpclient" />
-    <module name="org.codehaus.jackson.jackson-core-asl" />
-    <module name="org.codehaus.jackson.jackson-mapper-asl" />
+    <module name="org.codehaus.jackson.jackson-core-asl" slot="fuse" />
+    <module name="org.codehaus.jackson.jackson-mapper-asl" slot="fuse" />
   </dependencies>
   <exports>
     <exclude path="com/notnoop" />

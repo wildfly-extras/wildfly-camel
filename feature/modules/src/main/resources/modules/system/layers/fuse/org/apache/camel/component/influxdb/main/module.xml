@@ -8,7 +8,7 @@
   <dependencies>
     <module name="com.squareup.moshi" />
     <module name="org.slf4j" />
-    <module name="com.squareup.okhttp3" />
+    <module name="com.squareup.okhttp3" slot="fuse" />
     <module name="com.squareup.okhttp3.logging-interceptor" />
     <module name="com.squareup.retrofit2" />
     <module name="javax.xml.bind.api" />

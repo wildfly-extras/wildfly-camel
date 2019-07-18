@@ -5,7 +5,7 @@
     <artifact name="${io.vertx:vertx-core}" />
   </resources>
   <dependencies>
-    <module name="io.netty" />
+    <module name="io.netty" slot="fuse" />
     <module name="org.apache.logging.log4j" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />

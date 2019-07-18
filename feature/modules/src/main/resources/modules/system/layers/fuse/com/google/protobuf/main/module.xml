@@ -13,7 +13,7 @@
         <include path="sun/misc" />
       </imports>
     </module>
-    <module name="com.google.code.gson" />
+    <module name="com.google.code.gson" slot="fuse" />
     <module name="com.google.guava" />
   </dependencies>
   <exports>

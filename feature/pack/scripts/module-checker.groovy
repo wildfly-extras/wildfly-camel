@@ -164,7 +164,52 @@ def rootModules = [
 
 def allowedDuplicateModules = [
 ] as Set
+
+/**
+ * Modules that exist in Wildfly, but are for portability reasons provided in alterniative slots
+ *
+ * [ENTESB-10879] Fuse/EAP Compatibility Contract
+ */
 def allowedDuplicateArtifacts = [
+    "com.fasterxml.jackson.datatype:jackson-datatype-jdk8",
+    "com.fasterxml.jackson.datatype:jackson-datatype-jsr310",
+    "com.fasterxml.jackson.jaxrs:jackson-jaxrs-base",
+    "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider",
+    "com.fasterxml.jackson.module:jackson-module-jaxb-annotations",
+    "com.github.ben-manes.caffeine:caffeine",
+    "com.github.spullara.mustache.java:compiler",
+    "com.googlecode.javaewah:JavaEWAH",
+    "com.google.code.gson:gson",
+    "com.jcraft:jsch",
+    "com.microsoft.azure:azure-storage",
+    "com.squareup.okhttp3:okhttp",
+    "com.squareup.okio:okio",
+    "commons-beanutils:commons-beanutils",
+    "commons-collections:commons-collections",
+    "commons-lang:commons-lang",
+    "io.opentracing.contrib:opentracing-tracerresolver",
+    "io.opentracing:opentracing-api",
+    "io.opentracing:opentracing-noop",
+    "io.reactivex.rxjava2:rxjava",
+    "jaxen:jaxen",
+    "joda-time:joda-time",
+    "org.apache.commons:commons-lang3",
+    "org.apache.httpcomponents:httpasyncclient",
+    "org.apache.santuario:xmlsec",
+    "org.apache.velocity:velocity-engine-core",
+    "org.apache.thrift:libthrift",
+    "org.codehaus.jackson:jackson-core-asl",
+    "org.codehaus.jackson:jackson-jaxrs",
+    "org.codehaus.jackson:jackson-mapper-asl",
+    "org.codehaus.jackson:jackson-xc",
+    "org.codehaus.woodstox:stax2-api",
+    "org.eclipse.jdt.core.compiler:ecj",
+    "org.eclipse.jgit:org.eclipse.jgit",
+    "org.jdom:jdom",
+    "org.jsoup:jsoup",
+    "org.ow2.asm:asm",
+    "org.reactivestreams:reactive-streams",
+    "org.yaml:snakeyaml"
 ] as Set
 def allowedOrphanArtifacts = [
 	"org.fusesource.camel.component.sap",
@@ -174,6 +219,7 @@ def allowedOrphanArtifacts = [
 
 def smarticsFilesPrefix = properties.get("wildfly-camel-feature-pack.basedir") + "/../"
 def smarticsDirectories = [
+    "${smarticsFilesPrefix}common/etc/smartics",
     "${smarticsFilesPrefix}modules/etc/smartics",
     "${smarticsFilesPrefix}extrasA/etc/smartics",
     "${smarticsFilesPrefix}extrasB/etc/smartics",
@@ -298,7 +344,7 @@ smarticsDirectories.each { dir ->
             def smarticsDom = parser.parseText(smarticsFile.getText())
             smarticsDom.module.each { moduleNode ->
                 if (ignoreSkip || moduleNode.@skip != "true") {
-                    def key = moduleNode.@name + ":"+ (moduleNode.@slot ?: "main")
+                    def key = moduleNode.@name + ":" + (moduleNode.@slot ? moduleNode.@slot : "main")
                     smarticsModuleNames.add(key)
                     if (!dependencyGraph.containsModule(key)) {
                         String shortPath = smarticsFile.toString().substring(smarticsFilesPrefix.length())
@@ -325,7 +371,7 @@ smarticsManagedDirectories.each { path ->
 // Check that each fuse module is explicitly defined in a smartics file
 modules.findAll { (it.layer == "fuse") }.each { fuseModule ->
     if (!smarticsModuleNames.contains(fuseModule.name + ":"+ fuseModule.slot)) {
-        problems << "Module ${fuseModule.name} is not defined in any smartics xml file"
+        problems << "Module ${fuseModule.name}:${fuseModule.slot} is not defined in any smartics xml file"
     }
 }
 

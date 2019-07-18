@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.microsoft.azure.storage" slot="fuse">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${com.microsoft.azure:azure-storage}" />
+  </resources>
+  <dependencies>
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="org.apache.commons.lang3" slot="fuse" />
+    <module name="org.slf4j" />
+  </dependencies>
+</module>

@@ -11,7 +11,7 @@
     <module name="org.jboss.vfs" />
     <module name="org.springframework.aop" export="true" />
     <module name="org.springframework.batch" optional="true" />
-    <module name="org.apache.commons.logging" />
+    <module name="org.apache.commons.logging" slot="fuse" />
   </dependencies>
   <exports>
     <exclude path="org/springframework/cglib/core/internal" />

@@ -8,6 +8,6 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="com.squareup.okhttp3" />
+    <module name="com.squareup.okhttp3" slot="fuse" />
   </dependencies>
 </module>

@@ -27,7 +27,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.apache.httpcomponents"/>
+            <module name="org.apache.httpcomponents" slot="fuse"/>
             <module name="org.elasticsearch" export="true">
                 <exports>
                     <include path="org/elasticsearch/action**"/>

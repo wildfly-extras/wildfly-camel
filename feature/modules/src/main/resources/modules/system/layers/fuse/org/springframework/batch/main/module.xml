@@ -10,10 +10,10 @@
   <dependencies>
     <module name="javax.api" />
     <module name="javax.batch.api" />
-    <module name="org.apache.commons.logging" />
+    <module name="org.apache.commons.logging" slot="fuse" />
     <module name="org.springframework.aop" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="org.codehaus.jettison" />
+    <module name="org.codehaus.jettison" slot="fuse" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.context" />
     <module name="org.springframework.core" />
