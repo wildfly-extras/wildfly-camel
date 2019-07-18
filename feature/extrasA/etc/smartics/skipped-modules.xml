@@ -24,24 +24,76 @@
 -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="com.google.code.gson" skip="true">
+	<!-- =========================================================== -->
+	<!--          modules defined in wildfly-alternatives            -->
+	<!-- =========================================================== -->
+
+    <module name="com.google.code.gson" slot="fuse" skip="true">
         <include artifact="com.google.code.gson:gson" />
     </module>
 
-    <module name="com.jcraft.jsch" skip="true">
+    <module name="com.jcraft.jsch" slot="fuse" skip="true">
         <include artifact="com.jcraft:jsch" />
+    </module>
+
+    <module name="io.netty" slot="fuse" skip="true">
+        <include artifact="io.netty:netty-all" />
+    </module>
+
+    <module name="org.apache.avro" slot="fuse" skip="true">
+        <include artifact="org.apache.avro:avro"/>
+    </module>
+
+    <module name="org.apache.commons.codec" slot="fuse" skip="true">
+        <include artifact=":commons-codec" />
+    </module>
+
+    <module name="org.apache.commons.collections" slot="fuse" skip="true">
+        <include artifact=":commons-collections" />
+    </module>
+
+    <module name="org.apache.commons.io" slot="fuse" skip="true">
+        <include artifact=":commons-io" />
+    </module>
+
+    <module name="org.apache.commons.lang" slot="fuse" skip="true">
+        <include artifact=":commons-lang" />
+    </module>
+
+    <module name="org.apache.commons.logging" slot="fuse" skip="true">
+        <include artifact=":commons-logging" />
+    </module>
+
+    <module name="org.apache.httpcomponents" slot="fuse" skip="true">
+        <include artifact="org.apache.httpcomponents:httpasyncclient" />
+        <include artifact="org.apache.httpcomponents:httpclient" />
+        <include artifact="org.apache.httpcomponents:httpcore" />
+        <include artifact="org.apache.httpcomponents:httpcore-nio" />
+        <include artifact="org.apache.httpcomponents:httpmime" />
+    </module>
+
+    <module name="org.codehaus.jackson.jackson-core-asl" slot="fuse" skip="true">
+        <include artifact="org.codehaus.jackson:jackson-core-asl" />
+    </module>
+
+    <module name="org.codehaus.jackson.jackson-mapper-asl" slot="fuse" skip="true">
+        <include artifact="org.codehaus.jackson:jackson-mapper-asl" />
+    </module>
+
+    <module name="org.codehaus.jettison" slot="fuse" skip="true">
+        <include artifact=":jettison" />
+    </module>
+
+	<!-- =========================================================== -->
+	<!--          modules defined in features/modules                -->
+	<!-- =========================================================== -->
+
+    <module name="com.thoughtworks.paranamer" skip="true">
+        <include artifact="com.thoughtworks.paranamer:paranamer" />
     </module>
 
     <module name="com.rometools.rome" slot="1.0" skip="true">
         <include artifact="rome:rome" />
-    </module>
-
-    <module name="com.thoughtworks.xstream" skip="true">
-        <include artifact="com.thoughtworks.xstream:xstream" />
-    </module>
-
-    <module name="com.yammer.metrics" skip="true">
-        <include artifact="com.yammer.metrics:metrics-core" />
     </module>
 
     <module name="io.netty" slot="3.10" skip="true">
@@ -62,10 +114,6 @@
 
     <module name="org.apache.commons.httpclient" skip="true">
         <include artifact="commons-httpclient:commons-httpclient" />
-    </module>
-
-    <module name="org.apache.commons.lang3" skip="true">
-        <include artifact="org.apache.commons:commons-lang3" />
     </module>
 
     <module name="org.apache.commons.math3" skip="true">
@@ -128,21 +176,4 @@
         <include artifact="org.osgi:core" />
     </module>
 
-    <module name="org.reactivestreams" skip="true">
-        <include artifact="org.reactivestreams:reactive-streams" />
-    </module>
-
-    <module name="org.scala.lang" skip="true">
-        <include artifact="org.scala-lang:scala-library" />
-    </module>
-
-    <module name="org.xerial.snappy" skip="true">
-        <include artifact="org.xerial.snappy:snappy-java" />
-    </module>
-
-    <module name="xmlpull" skip="true">
-        <include artifact="xmlpull:xmlpull" />
-        <include artifact="xpp3:xpp3_min" />
-        <include artifact="xpp3:xpp3" />
-    </module>
 </modules>

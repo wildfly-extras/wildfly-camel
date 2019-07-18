@@ -28,8 +28,8 @@
     <module name="jdk.xml.dom" />
     <module name="org.apache.avalon.framework" />
     <module name="javax.servlet.api" />
-    <module name="org.apache.commons.io" />
-    <module name="org.apache.commons.logging" />
+    <module name="org.apache.commons.io" slot="fuse" />
+    <module name="org.apache.commons.logging" slot="fuse" />
     <module name="org.apache.pdfbox" />
     <module name="org.apache.xalan" />
     <module name="org.apache.xerces" />

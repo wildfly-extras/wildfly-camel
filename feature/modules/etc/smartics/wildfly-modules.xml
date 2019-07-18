@@ -20,27 +20,21 @@
   -->
 
 <!--
-  This file holds all module definitions that come with wildfly. Here
-  we map maven artifacts to those modules, but skip generating the modules since
-  they are provided for us.
+=========================================================================
+
+  THIS IS THE COMPATIBILITY CONTRACT WITH EAP
+
+  Please don't change stuff light heartedly, it may affect whether
+  this version of WilfFly-Camel is compatible with other EAP versions
+
+  [ENTESB-10879] Fuse/EAP Compatibility Contract
+
+=========================================================================
 -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="com.google.code.gson" skip="true">
-        <include artifact="com.google.code.gson:gson" />
-    </module>
-
     <module name="com.google.guava" skip="true">
         <include artifact="com.google.guava:guava" />
-    </module>
-
-    <module name="com.sun.xml.bind" skip="true">
-        <include artifact="com.sun.xml.bind:jaxb-runtime" />
-        <include artifact="org.glassfish.jaxb:jaxb-runtime" />
-    </module>
-
-    <module name="org.jboss.msc" skip="true">
-        <include artifact="org.jboss.msc:jboss-msc" />
     </module>
 
 </modules>

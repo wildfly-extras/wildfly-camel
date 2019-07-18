@@ -20,7 +20,7 @@
     <artifact name="${io.atomix.copycat:copycat-server}" />
   </resources>
   <dependencies>
-    <module name="io.netty" />
+    <module name="io.netty" slot="fuse" />
     <module name="sun.jdk">
       <imports>
         <include path="sun/misc" />

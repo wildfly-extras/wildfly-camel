@@ -5,7 +5,7 @@
     <artifact name="${org.mousio:etcd4j}" />
   </resources>
   <dependencies>
-    <module name="io.netty" />
+    <module name="io.netty" slot="fuse" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
@@ -14,6 +14,6 @@
     <module name="com.github.wnameless.json-flattener" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.commons.lang3" />
+    <module name="org.apache.commons.lang3" slot="fuse" />
   </dependencies>
 </module>

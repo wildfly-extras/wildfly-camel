@@ -9,7 +9,7 @@
   <dependencies>
     <module name="com.google.guava" />
     <module name="org.apache.commons.configuration" />
-    <module name="org.apache.commons.lang" />
+    <module name="org.apache.commons.lang" slot="fuse" />
     <module name="org.slf4j" />
     <module name="com.netflix.archaius.archaius-core" />
   </dependencies>

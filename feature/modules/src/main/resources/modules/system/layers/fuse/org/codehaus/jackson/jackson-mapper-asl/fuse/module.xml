@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.codehaus.jackson.jackson-mapper-asl" slot="fuse">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.codehaus.jackson:jackson-mapper-asl}" />
+  </resources>
+  <dependencies>
+    <module name="org.codehaus.jackson.jackson-core-asl" slot="fuse" />
+  </dependencies>
+</module>

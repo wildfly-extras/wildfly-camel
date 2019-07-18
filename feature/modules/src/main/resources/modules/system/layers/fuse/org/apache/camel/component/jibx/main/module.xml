@@ -8,7 +8,7 @@
     <module name="org.slf4j" />
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.joda.time" />
+    <module name="org.joda.time" slot="fuse" />
     <module name="xmlpull" />
   </dependencies>
   <exports>

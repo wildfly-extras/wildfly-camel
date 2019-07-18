@@ -14,7 +14,7 @@
     <module name="com.thoughtworks.xstream" />
     <module name="javax.activation.api" />
     <module name="javax.xml.bind.api" />
-    <module name="org.apache.commons.lang3" />
+    <module name="org.apache.commons.lang3" slot="fuse" />
     <module name="org.apache.commons.math3" />
     <module name="org.drools" />
     <module name="org.kie" />

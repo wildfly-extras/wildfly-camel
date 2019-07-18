@@ -5,7 +5,7 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.httpcomponents" slot="fuse" />
     <module name="org.slf4j" />
     <module name="com.google.code.libphonenumber" />
     <module name="javax.el.api" />
@@ -13,6 +13,6 @@
     <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.hibernate.validator" />
-    <module name="org.jsoup" />
+    <module name="org.jsoup" slot="fuse" />
   </dependencies>
 </module>

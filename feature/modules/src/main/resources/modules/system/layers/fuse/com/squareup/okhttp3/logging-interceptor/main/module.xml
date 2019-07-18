@@ -7,6 +7,6 @@
     <artifact name="${com.squareup.okhttp3:logging-interceptor}" />
   </resources>
   <dependencies>
-    <module name="com.squareup.okhttp3" />
+    <module name="com.squareup.okhttp3" slot="fuse" />
   </dependencies>
 </module>

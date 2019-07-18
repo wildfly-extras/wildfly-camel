@@ -7,7 +7,7 @@
   <dependencies>
     <module name="javax.api" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
-    <module name="org.apache.commons.codec" />
-    <module name="org.apache.httpcomponents" />
+    <module name="org.apache.commons.codec" slot="fuse" />
+    <module name="org.apache.httpcomponents" slot="fuse" />
   </dependencies>
 </module>

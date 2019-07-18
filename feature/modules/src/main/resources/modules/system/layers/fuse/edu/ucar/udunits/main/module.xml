@@ -8,6 +8,6 @@
   </resources>
   <dependencies>
     <module name="net.jcip" />
-    <module name="org.joda.time" />
+    <module name="org.joda.time" slot="fuse" />
   </dependencies>
 </module>

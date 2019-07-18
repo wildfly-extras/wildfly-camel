@@ -4,7 +4,7 @@
     <artifact name="${org.apache.camel:camel-iec60870}" />
   </resources>
   <dependencies>
-    <module name="io.netty" />
+    <module name="io.netty" slot="fuse" />
     <module name="org.eclipse.neoscada.protocols" export="true">
       <exports>
         <exclude path="org/eclipse" />
