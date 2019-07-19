@@ -34,7 +34,7 @@
         </dependencies>
     </module>
 
-    <module name="com.google.guava" inherit-slot="false" slot="16.0">
+    <module name="com.google.guava" inherit-slot="false" slot="18.0">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>

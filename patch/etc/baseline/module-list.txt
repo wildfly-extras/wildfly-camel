@@ -78,8 +78,8 @@
 /com/google/code/juniversalchardet/main/juniversalchardet-1.0.3.jar
 /com/google/code/libphonenumber/main/libphonenumber-8.10.1.jar
 /com/google/code/mp4parser/isoparser/main/isoparser-1.1.22.jar
-/com/google/guava/12.0/guava-11.0.2.jar
-/com/google/guava/16.0/guava-18.0.jar
+/com/google/guava/11.0/guava-11.0.2.jar
+/com/google/guava/18.0/guava-18.0.jar
 /com/google/http-client/google-http-client/main/google-http-client-1.22.0.jar
 /com/google/http-client/google-http-client/main/google-http-client-jackson2-1.22.0.jar
 /com/google/inject/extensions/3.0/guice-assistedinject-3.0.jar

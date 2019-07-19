@@ -28,7 +28,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
-            <module name="com.google.guava" slot="16.0"/>
+            <module name="com.google.guava" slot="18.0"/>
             <module name="org.apache.jclouds" export="true" services="export">
                 <exports>
                     <exclude path="org/jclouds/apis/internal"/>

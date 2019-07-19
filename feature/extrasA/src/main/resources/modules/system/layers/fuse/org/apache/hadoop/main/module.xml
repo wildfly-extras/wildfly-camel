@@ -20,7 +20,7 @@
     <module name="javax.api" />
     <module name="sun.jdk.ext" />
     <module name="com.google.code.gson" slot="fuse" />
-    <module name="com.google.guava" slot="12.0" />
+    <module name="com.google.guava" slot="11.0" />
     <module name="com.google.inject.guice" slot="3.0" />
     <module name="com.jcraft.jsch" slot="fuse" />
     <module name="com.sun.jersey.core" />
