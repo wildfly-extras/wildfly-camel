@@ -27,7 +27,7 @@
         <include artifact="aopalliance:aopalliance" />
     </module>
 
-    <module name="com.google.guava" inherit-slot="false" slot="12.0">
+    <module name="com.google.guava" inherit-slot="false" slot="11.0">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
@@ -61,7 +61,7 @@
         </properties>
         <include artifact="com.google.inject:guice"/>
         <dependencies>
-            <module name="com.google.guava" slot="12.0"/>
+            <module name="com.google.guava" slot="11.0"/>
         </dependencies>
     </module>
 
