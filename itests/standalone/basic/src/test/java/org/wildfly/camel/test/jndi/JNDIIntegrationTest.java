@@ -22,7 +22,6 @@ package org.wildfly.camel.test.jndi;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NameNotFoundException;
 import javax.naming.NamingException;
 
 import org.apache.camel.CamelContext;
@@ -113,20 +112,30 @@ public class JNDIIntegrationTest {
             }
 
             // Assert that the context is unbound from JNDI after stop
-            try {
-
-                // Removing an msc service is asynchronous
-                Thread.sleep(200);
-
-                inicxt.lookup(bindingName);
-                Assert.fail("NameNotFoundException expected");
-            } catch (NameNotFoundException ex) {
-                // expected
-            }
-
+            Assert.assertTrue("Expected " + bindingName + " to be unbound", awaitUnbinding(inicxt, bindingName));
         } finally {
             jndictx.unbind("helloBean");
+            Assert.assertTrue("Expected java:/helloBean to be unbound", awaitUnbinding(jndictx, "helloBean"));
         }
     }
 
+    private boolean awaitUnbinding(Context context, String bindingName) {
+        int attempts = 1;
+
+        long start = System.currentTimeMillis();
+        do {
+            System.out.println(String.format("Await unbinding of %s attempt %d", bindingName, attempts));
+            try {
+                context.lookup(bindingName);
+                Thread.sleep(250);
+                attempts++;
+            } catch (NamingException e) {
+                return true;
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        } while (!((System.currentTimeMillis() - start) >= 5000));
+
+        return false;
+    }
 }
