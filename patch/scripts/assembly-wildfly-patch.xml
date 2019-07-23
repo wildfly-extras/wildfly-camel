@@ -32,6 +32,7 @@
             <outputDirectory>/</outputDirectory>
             <excludes>
                 <exclude>standalone/configuration/*.bak</exclude>
+                <exclude>.galleon/**</exclude>
             </excludes>
         </fileSet>
     </fileSets>
