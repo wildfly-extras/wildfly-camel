@@ -72,6 +72,7 @@
         <version.wildfly.arquillian>2.1.1.Final</version.wildfly.arquillian>
         <version.wildfly.cxf>3.2.7</version.wildfly.cxf>
         <version.wildfly.fasterxml.jackson>2.9.8</version.wildfly.fasterxml.jackson>
+        <version.wildfly.hibernate>5.3.9.Final</version.wildfly.hibernate>
         <version.wildfly.infinispan>9.4.8.Final</version.wildfly.infinispan>
         <version.wildfly.okhttp3>3.9.0</version.wildfly.okhttp3>
 
