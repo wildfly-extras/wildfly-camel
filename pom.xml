@@ -82,7 +82,7 @@
         <version.apache.qpid>6.1.2</version.apache.qpid>
         <version.apache.vysper>0.7</version.apache.vysper>
         <version.args4j>2.0.31</version.args4j>
-        <version.arquillian.cube>1.6.0</version.arquillian.cube>
+        <version.arquillian.cube>1.18.2</version.arquillian.cube>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
         <version.flapdoodle.embed.mongo>1.50.1</version.flapdoodle.embed.mongo>
         <version.greenmail>1.4.0</version.greenmail>
