@@ -16,18 +16,19 @@
  */
 package org.wildfly.camel.test.cdi;
 
-import java.util.Map;
-
 import javax.inject.Inject;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.ServiceStatus;
+import org.apache.camel.ValueHolder;
 import org.apache.camel.cdi.ContextName;
 import org.apache.camel.cdi.Uri;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.util.CamelContextHelper;
+import org.apache.camel.impl.engine.EndpointKey;
+import org.apache.camel.spi.EndpointRegistry;
+import org.apache.camel.support.CamelContextHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -38,9 +39,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.cdi.subA.Constants;
-import org.wildfly.camel.test.cdi.subA.RouteBuilderA;
-import org.wildfly.camel.test.cdi.subA.RouteBuilderB;
-import org.wildfly.camel.test.cdi.subA.RouteBuilderC;
 import org.wildfly.camel.test.cdi.subA.RouteBuilderD;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
@@ -50,15 +48,6 @@ public class CDIIntegrationTest {
     @ArquillianResource
     CamelContextRegistry contextRegistry;
 
-    @Inject
-    @ContextName("contextA")
-    RouteBuilderA routesA;
-    @Inject
-    @ContextName("contextB")
-    RouteBuilderB routesB;
-    @Inject
-    @ContextName("contextC")
-    RouteBuilderC routesC;
     @Inject
     @ContextName("contextD")
     RouteBuilderD routesD;
@@ -72,38 +61,13 @@ public class CDIIntegrationTest {
     public static JavaArchive createDeployment() {
         // Note, this needs to have the *.jar suffix
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-cdi-tests.jar");
-        archive.addPackage(RouteBuilderA.class.getPackage());
+        archive.addClasses(Constants.class, RouteBuilderD.class);
         archive.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
         return archive;
     }
 
     @Test
     public void checkContextsHaveCorrectEndpointsAndRoutes() throws Exception {
-
-        CamelContext contextA = assertCamelContext("contextA");
-        assertHasEndpoints(contextA, "seda://A.a", "mock://A.b");
-
-        MockEndpoint mockEndpoint = routesA.b;
-        mockEndpoint.expectedBodiesReceived(Constants.EXPECTED_BODIES_A);
-        routesA.sendMessages();
-        mockEndpoint.assertIsSatisfied();
-
-        CamelContext contextB = assertCamelContext("contextB");
-        assertHasEndpoints(contextB, "seda://B.a", "mock://B.b");
-
-        MockEndpoint mockEndpointB = routesB.b;
-        mockEndpointB.expectedBodiesReceived(Constants.EXPECTED_BODIES_B);
-        routesB.sendMessages();
-        mockEndpointB.assertIsSatisfied();
-
-        // lets check the routes where we default the context from the @ContextName
-        CamelContext contextC = assertCamelContext("contextC");
-        assertHasEndpoints(contextC, "seda://C.a", "mock://C.b");
-
-        MockEndpoint mockEndpointC = routesC.b;
-        mockEndpointC.expectedBodiesReceived(Constants.EXPECTED_BODIES_C);
-        routesC.sendMessages();
-        mockEndpointC.assertIsSatisfied();
 
         CamelContext contextD = assertCamelContext("contextD");
         assertHasEndpoints(contextD, "seda://D.a", "mock://D.b");
@@ -113,9 +77,7 @@ public class CDIIntegrationTest {
         routesD.sendMessages();
         mockEndpointD.assertIsSatisfied();
 
-        CamelContext contextE = assertCamelContext("contextD");
-        assertHasEndpoints(contextE, "seda://D.a", "mock://D.b");
-        MockEndpoint mockDb = CamelContextHelper.getMandatoryEndpoint(contextE, "mock://D.b", MockEndpoint.class);
+        MockEndpoint mockDb = CamelContextHelper.getMandatoryEndpoint(contextD, "mock://D.b", MockEndpoint.class);
         mockDb.reset();
         mockDb.expectedBodiesReceived(Constants.EXPECTED_BODIES_D_A);
         for (Object body : Constants.EXPECTED_BODIES_D_A) {
@@ -125,10 +87,10 @@ public class CDIIntegrationTest {
     }
 
     private void assertHasEndpoints(CamelContext context, String... uris) {
-        Map<String, Endpoint> endpointMap = context.getEndpointMap();
+        EndpointRegistry<? extends ValueHolder<String>> registry = context.getEndpointRegistry();
         for (String uri : uris) {
-            Endpoint endpoint = endpointMap.get(uri);
-            Assert.assertNotNull("CamelContext " + context + " does not have an Endpoint with URI " + uri + " but has " + endpointMap.keySet(), endpoint);
+            Endpoint endpoint = registry.get(new EndpointKey(uri));
+            Assert.assertNotNull("CamelContext " + context + " does not have an Endpoint with URI " + uri + " but has " + registry.keySet(), endpoint);
         }
     }
 
