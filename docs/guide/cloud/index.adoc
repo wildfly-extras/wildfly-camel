@@ -7,3 +7,5 @@ include::openshift-local.adoc[]
 include::openshift-ec2.adoc[]
 
 include::openshift-s2i.adoc[]
+
+include::openshift-operator.adoc[]

@@ -1,0 +1,43 @@
+### WildFly OpenShift Operator
+
+It is useful to deploy and manage containerized WildFly-Camel applications on OpenShift via the https://operatorhub.io/operator/wildfly[WildFly Operator,window=_blank].
+
+#### Installation
+
+##### Operator Lifecycle Manager (OLM)
+With OpenShift 4, the operator can be installed from the OLM marketplace. Browse the operator catalog, select the WildFly item, click the 'install' button and follow the instructions.
+
+OLM can be installed on an OpenShift 3 cluster by following the https://github.com/operator-framework/operator-lifecycle-manager/blob/master/Documentation/install/install.md#openshift[installation instructions,window=_blank].
+
+##### Manual installation
+
+To manually install the WildFly operator, apply the required Custom Resource Definition (CRD), roles and deployments to your cluster by following the https://github.com/wildfly/wildfly-operator#install-the-operator-and-associate-resources[instructions, window=_blank].
+
+#### Deploying a operator managed application
+
+For the WildFly operator to manage a containerized WildFly-Camel application deployment, you need to create WildFlyServer resources on your cluster.
+
+[source,shell,options="nowrap"]
+----
+$ cat <<EOF | oc create -f -
+apiVersion: wildfly.org/v1alpha1
+kind: WildFlyServer
+metadata:
+  name: example-camel-rest
+spec:
+  applicationImage: "docker.io/wildflyext/example-camel-rest"
+  size: 3
+EOF
+----
+
+This results in 3 replicas of the example-camel-rest application backed by a service and route.
+
+[source,shell,options="nowrap"]
+----
+$ oc get pods -l app.kubernetes.io/name=example-camel-rest
+
+NAME                   READY     STATUS             RESTARTS   AGE
+example-camel-rest-0   1/1       Running            0          5m
+example-camel-rest-1   1/1       Running            0          5m
+example-camel-rest-2   1/1       Running            0          5m
+----
