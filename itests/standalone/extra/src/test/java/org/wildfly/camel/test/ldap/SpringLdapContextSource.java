@@ -29,7 +29,7 @@ public class SpringLdapContextSource extends LdapContextSource {
     public SpringLdapContextSource() {
         try {
             int port = Integer.parseInt(AvailablePortFinder.readServerData("ldap-port"));
-            setUrl("ldap://" + InetAddress.getLocalHost().getHostName() + ":" + port);
+            setUrl("ldap://" + InetAddress.getLocalHost().getHostAddress() + ":" + port);
         } catch (UnknownHostException ex) {
             throw new IllegalStateException(ex);
         }

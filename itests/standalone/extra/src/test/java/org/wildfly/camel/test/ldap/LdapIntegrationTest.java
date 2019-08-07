@@ -198,7 +198,7 @@ public class LdapIntegrationTest {
     private LdapContext getWiredContext(int port) throws Exception {
         Hashtable<String, String> env = new Hashtable<String, String>();
         env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-        env.put(Context.PROVIDER_URL, "ldap://" + InetAddress.getLocalHost().getHostName() + ":" + port);
+        env.put(Context.PROVIDER_URL, "ldap://" + InetAddress.getLocalHost().getHostAddress() + ":" + port);
         env.put(Context.SECURITY_PRINCIPAL, ServerDNConstants.ADMIN_SYSTEM_DN);
         env.put(Context.SECURITY_CREDENTIALS, "secret");
         LdapApiService ldapApiService = new StandaloneLdapApiService();
@@ -206,7 +206,7 @@ public class LdapIntegrationTest {
     }
 
     private LdapConnection getWiredConnection(int port) throws Exception {
-        LdapConnection connection = new LdapNetworkConnection(InetAddress.getLocalHost().getHostName(), port);
+        LdapConnection connection = new LdapNetworkConnection(InetAddress.getLocalHost().getHostAddress(), port);
         connection.bind(ServerDNConstants.ADMIN_SYSTEM_DN, "secret");
         return connection;
     }

@@ -33,9 +33,11 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -53,7 +55,7 @@ public class NsqIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-nsq-tests.jar")
-            .addClass(TestUtils.class);
+            .addClasses(TestUtils.class, EnvironmentUtils.class);
     }
 
     @Before
@@ -74,6 +76,10 @@ public class NsqIntegrationTest {
 
     @Test
     public void testNsqComponent() throws Exception {
+
+        // [#2862] NsqIntegrationTest cannot access DOCKER_HOST
+        Assume.assumeFalse(EnvironmentUtils.isMac());
+
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override

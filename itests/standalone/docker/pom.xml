@@ -141,12 +141,14 @@
 
                         // Enables docker.host maven property to be used in arquillian.xml
                         String dockerHost = System.getenv("DOCKER_HOST")
+                        System.out.println("DOCKER_HOST: " + dockerHost)
                         if (dockerHost == null) {
-                            project.properties["docker.host"] = InetAddress.getLocalHost().getHostName()
+                            project.properties["docker.host"] = InetAddress.getLocalHost().getHostAddress()
                         } else {
                             URI uri = new URI(dockerHost)
                             project.properties["docker.host"] = uri.getHost()
                         }
+                        System.out.println("docker.host: " + project.properties["docker.host"])
                     </source>
                 </configuration>
             </plugin>

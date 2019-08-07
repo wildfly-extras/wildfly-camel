@@ -33,7 +33,8 @@ public final class TestUtils {
     public static String getDockerHost() throws Exception {
         String dockerHost = System.getenv("DOCKER_HOST");
         if (dockerHost == null) {
-            return InetAddress.getLocalHost().getHostName();
+            InetAddress localHost = InetAddress.getLocalHost();
+            return localHost.getHostAddress();
         }
 
         URI uri = new URI(dockerHost);
