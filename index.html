@@ -438,8 +438,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Thomas Diesler</span><br>
 <span id="author2" class="author">James Netherton</span><br>
-<span id="revnumber">version 10.1.0,</span>
-<span id="revdate">2019-05-31</span>
+<span id="revnumber">version 10.2.0,</span>
+<span id="revdate">2019-08-07</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -672,6 +672,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_openshift_local">9.1. OpenShift Local</a></li>
 <li><a href="#_openshift_on_ec2">9.2. OpenShift on EC2</a></li>
 <li><a href="#_source_to_image">9.3. Source to Image</a></li>
+<li><a href="#_wildfly_openshift_operator">9.4. WildFly OpenShift Operator</a></li>
 </ul>
 </li>
 <li><a href="#_security_6">10. Security</a>
@@ -805,7 +806,7 @@ Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration
 <div class="content">
 <pre class="highlight nowrap"><code>mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
                        -DarchetypeArtifactId=wildfly-camel-archetype-cdi \
-                       -DarchetypeVersion=10.1.0 \
+                       -DarchetypeVersion=10.2.0 \
                        -DgroupId=com.mycompany \
                        -DartifactId=my-camel-cdi-application</code></pre>
 </div>
@@ -817,7 +818,7 @@ Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration
 <div class="content">
 <pre class="highlight nowrap"><code>mvn archetype:generate -DarchetypeGroupId=org.wildfly.camel.archetypes \
                        -DarchetypeArtifactId=wildfly-camel-archetype-spring \
-                       -DarchetypeVersion=10.1.0 \
+                       -DarchetypeVersion=10.2.0 \
                        -DgroupId=com.mycompany \
                        -DartifactId=my-camel-spring-application</code></pre>
 </div>
@@ -841,7 +842,7 @@ Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>16.0.0.Final</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">10.0, 10.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10.0, 10.1, 10.2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>15.0.1.Final</strong></p></td>
@@ -2331,7 +2332,7 @@ public class ActiveMQRouteBuilder extends RouteBuilder {
 <div class="sect2">
 <h3 id="_camel_asterisk">6.6. camel-asterisk</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-asterisk/src/main/docs/asterisk-component.adoc" target="_blank" rel="noopener">asterisk</a> component allows you to interface with an <a href="http://www.asterisk.org/" target="_blank" rel="noopener">Asterisk</a> PBX Server using <a href="https://asterisk-java.org/" target="_blank" rel="noopener">asterisk-java</a>.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-asterisk/src/main/docs/asterisk-component.adoc" target="_blank" rel="noopener">asterisk</a> component allows you to interface with an <a href="http://www.asterisk.org/" target="_blank" rel="noopener">Asterisk</a> PBX Server using <a href="https://asterisk-java.org/" target="_blank" rel="noopener">asterisk-java</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2375,22 +2376,22 @@ camelContext.addRoutes(new RouteBuilder() {
 <div class="sect2">
 <h3 id="_camel_atomix">6.9. camel-atomix</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-atomix/src/main/docs/atomix-map-component.adoc" target="_blank" rel="noopener">atomix-map</a> component allows you to work with <a href="http://atomix.io/atomix/" target="_blank" rel="noopener">Atomix’s</a> <a href="http://atomix.io/atomix/docs/collections/#distributedmap" target="_blank" rel="noopener">Distributed Map</a> collection.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-atomix/src/main/docs/atomix-map-component.adoc" target="_blank" rel="noopener">atomix-map</a> component allows you to work with <a href="http://atomix.io/atomix/" target="_blank" rel="noopener">Atomix’s</a> <a href="http://atomix.io/atomix/docs/collections/#distributedmap" target="_blank" rel="noopener">Distributed Map</a> collection.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-atomix/src/main/docs/atomix-messaging-component.adoc" target="_blank" rel="noopener">atomix-messaging</a> component allows you to work with <a href="http://atomix.io/atomix/" target="_blank" rel="noopener">Atomix’s</a> <a href="http://atomix.io/atomix/docs/groups/#messaging" target="_blank" rel="noopener">Group Messaging</a>.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-atomix/src/main/docs/atomix-messaging-component.adoc" target="_blank" rel="noopener">atomix-messaging</a> component allows you to work with <a href="http://atomix.io/atomix/" target="_blank" rel="noopener">Atomix’s</a> <a href="http://atomix.io/atomix/docs/groups/#messaging" target="_blank" rel="noopener">Group Messaging</a>.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-atomix/src/main/docs/atomix-multimap-component.adoc" target="_blank" rel="noopener">atomix-multimap</a> component allows you to work with <a href="http://atomix.io/atomix/" target="_blank" rel="noopener">Atomix’s</a> <a href="http://atomix.io/atomix/docs/collections/#distributedmultimap" target="_blank" rel="noopener">Distributed MultiMap</a> collection.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-atomix/src/main/docs/atomix-multimap-component.adoc" target="_blank" rel="noopener">atomix-multimap</a> component allows you to work with <a href="http://atomix.io/atomix/" target="_blank" rel="noopener">Atomix’s</a> <a href="http://atomix.io/atomix/docs/collections/#distributedmultimap" target="_blank" rel="noopener">Distributed MultiMap</a> collection.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-atomix/src/main/docs/atomix-queue-component.adoc" target="_blank" rel="noopener">atomix-queue</a> component allows you to work with <a href="http://atomix.io/atomix/" target="_blank" rel="noopener">Atomix’s</a> <a href="http://atomix.io/atomix/docs/collections/#distributedqueue" target="_blank" rel="noopener">Distributed Queues</a>.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-atomix/src/main/docs/atomix-queue-component.adoc" target="_blank" rel="noopener">atomix-queue</a> component allows you to work with <a href="http://atomix.io/atomix/" target="_blank" rel="noopener">Atomix’s</a> <a href="http://atomix.io/atomix/docs/collections/#distributedqueue" target="_blank" rel="noopener">Distributed Queues</a>.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-atomix/src/main/docs/atomix-set-component.adoc" target="_blank" rel="noopener">atomix-set</a> component allows you to work with <a href="http://atomix.io/atomix/" target="_blank" rel="noopener">Atomix’s</a> <a href="http://atomix.io/atomix/docs/collections/#distributedset" target="_blank" rel="noopener">Distributed Set</a> collection.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-atomix/src/main/docs/atomix-set-component.adoc" target="_blank" rel="noopener">atomix-set</a> component allows you to work with <a href="http://atomix.io/atomix/" target="_blank" rel="noopener">Atomix’s</a> <a href="http://atomix.io/atomix/docs/collections/#distributedset" target="_blank" rel="noopener">Distributed Set</a> collection.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-atomix/src/main/docs/atomix-value-component.adoc" target="_blank" rel="noopener">atomix-value</a> component allows you to work with <a href="http://atomix.io/atomix/" target="_blank" rel="noopener">Atomix’s</a> <a href="http://atomix.io/atomix/docs/collections/#distributedvalue" target="_blank" rel="noopener">Distributed Value</a>.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-atomix/src/main/docs/atomix-value-component.adoc" target="_blank" rel="noopener">atomix-value</a> component allows you to work with <a href="http://atomix.io/atomix/" target="_blank" rel="noopener">Atomix’s</a> <a href="http://atomix.io/atomix/docs/collections/#distributedvalue" target="_blank" rel="noopener">Distributed Value</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2470,10 +2471,10 @@ Moreover, it provides support for Apache Avro&#8217;s rpc, by providing producer
 <div class="sect2">
 <h3 id="_camel_azure">6.22. camel-azure</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-azure/src/main/docs/azure-blob-component.adoc" target="_blank" rel="noopener">azure-blob</a> component supports storing and retrieving the blobs to/from <a href="https://azure.microsoft.com/services/storage/blobs/" target="_blank" rel="noopener">Azure Storage Blob</a> service.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-azure/src/main/docs/azure-blob-component.adoc" target="_blank" rel="noopener">azure-blob</a> component supports storing and retrieving the blobs to/from <a href="https://azure.microsoft.com/services/storage/blobs/" target="_blank" rel="noopener">Azure Storage Blob</a> service.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-azure/src/main/docs/azure-queue-component.adoc" target="_blank" rel="noopener">azure-queue</a> component supports storing and retrieving the messages to/from <a href="https://azure.microsoft.com/services/storage/queues/" target="_blank" rel="noopener">Azure Storage Queue</a> service.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-azure/src/main/docs/azure-queue-component.adoc" target="_blank" rel="noopener">azure-queue</a> component supports storing and retrieving the messages to/from <a href="https://azure.microsoft.com/services/storage/queues/" target="_blank" rel="noopener">Azure Storage Queue</a> service.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2566,10 +2567,10 @@ camelctx.addRoutes(new RouteBuilder() {
 <div class="sect2">
 <h3 id="_camel_caffeine">6.28. camel-caffeine</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-caffeine/src/main/docs/caffeine-cache-component.adoc" target="_blank" rel="noopener">caffeine-cache</a> component enables you to perform caching operations using The simple cache from <a href="https://github.com/ben-manes/caffeine/wiki" target="_blank" rel="noopener">Caffeine</a>.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-caffeine/src/main/docs/caffeine-cache-component.adoc" target="_blank" rel="noopener">caffeine-cache</a> component enables you to perform caching operations using The simple cache from <a href="https://github.com/ben-manes/caffeine/wiki" target="_blank" rel="noopener">Caffeine</a>.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-caffeine/src/main/docs/caffeine-loadcache-component.adoc" target="_blank" rel="noopener">caffeine-loadcache</a> component enables you to perform caching operations using The Load cache from <a href="https://github.com/ben-manes/caffeine/wiki" target="_blank" rel="noopener">Caffeine</a>.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-caffeine/src/main/docs/caffeine-loadcache-component.adoc" target="_blank" rel="noopener">caffeine-loadcache</a> component enables you to perform caching operations using The Load cache from <a href="https://github.com/ben-manes/caffeine/wiki" target="_blank" rel="noopener">Caffeine</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2616,25 +2617,25 @@ ClassLoader to use with Camel.</p>
 <div class="sect2">
 <h3 id="_camel_chunk">6.32. camel-chunk</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-chunk/src/main/docs/chunk-component.adoc" target="_blank" rel="noopener">chunk</a> component allows for processing a message using a <a href="http://www.x5software.com/chunk" target="_blank" rel="noopener">Chunk</a> template.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-chunk/src/main/docs/chunk-component.adoc" target="_blank" rel="noopener">chunk</a> component allows for processing a message using a <a href="http://www.x5software.com/chunk" target="_blank" rel="noopener">Chunk</a> template.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_cm_sms">6.33. camel-cm-sms</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-cm-sms/src/main/docs/cm-sms-component.adoc" target="_blank" rel="noopener">cm-sms</a> component enables you to integrate with the <a href="https://dashboard.onlinesmsgateway.com/docs" target="_blank" rel="noopener">CM SMS API</a>.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-cm-sms/src/main/docs/cm-sms-component.adoc" target="_blank" rel="noopener">cm-sms</a> component enables you to integrate with the <a href="https://dashboard.onlinesmsgateway.com/docs" target="_blank" rel="noopener">CM SMS API</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_cmis">6.34. camel-cmis</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-cmis/src/main/docs/cmis-component.adoc" target="_blank" rel="noopener">cmis</a> component uses the <a href="http://chemistry.apache.org/java/opencmis.html" target="_blank" rel="noopener">Apache Chemistry</a> client API and allows you to add / read nodes to / from a CMIS compliant content repositories.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-cmis/src/main/docs/cmis-component.adoc" target="_blank" rel="noopener">cmis</a> component uses the <a href="http://chemistry.apache.org/java/opencmis.html" target="_blank" rel="noopener">Apache Chemistry</a> client API and allows you to add / read nodes to / from a CMIS compliant content repositories.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_coap">6.35. camel-coap</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-coap/src/main/docs/coap-component.adoc" target="_blank" rel="noopener">coap</a> component enables you work
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-coap/src/main/docs/coap-component.adoc" target="_blank" rel="noopener">coap</a> component enables you work
 with the <a href="http://coap.technology/" target="_blank" rel="noopener">CoAP protocol</a>. The protocol is designed for machine-to-machine (M2M) applications
 and is suitable for IoT devices.</p>
 </div>
@@ -2642,13 +2643,13 @@ and is suitable for IoT devices.</p>
 <div class="sect2">
 <h3 id="_camel_consul">6.36. camel-consul</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-consul/src/main/docs/consul-component.adoc" target="_blank" rel="noopener">consul</a> component allows you to work with Consul a distributed highly available datacenter-aware service discovery and configuration system.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-consul/src/main/docs/consul-component.adoc" target="_blank" rel="noopener">consul</a> component allows you to work with Consul a distributed highly available datacenter-aware service discovery and configuration system.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_couchbase">6.37. camel-couchbase</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-influxdb/src/main/docs/couchbase-component.adoc" target="_blank" rel="noopener">couchbase</a> component allows you to treat <a href="https://www.couchbase.com/" target="_blank" rel="noopener">CouchBase</a> instances as a producer or consumer of messages.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-influxdb/src/main/docs/couchbase-component.adoc" target="_blank" rel="noopener">couchbase</a> component allows you to treat <a href="https://www.couchbase.com/" target="_blank" rel="noopener">CouchBase</a> instances as a producer or consumer of messages.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2716,7 +2717,7 @@ camelContext.addRoutes(new RouteBuilder() {
 <div class="sect2">
 <h3 id="_camel_crypto_cms">6.40. camel-crypto-cms</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-crypto-cms/src/main/docs/crypto-cms-component.adoc" target="_blank" rel="noopener">Crypto CMS</a> component supports the following parts of this standard:</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-crypto-cms/src/main/docs/crypto-cms-component.adoc" target="_blank" rel="noopener">Crypto CMS</a> component supports the following parts of this standard:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2952,7 +2953,7 @@ camelContext.addRoutes(new RouteBuilder() {
 <div class="sect2">
 <h3 id="_camel_digitalocean">6.42. camel-digitalocean</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-digitalocean/src/main/docs/digitalocean-component.adoc" target="_blank" rel="noopener">digitalocean</a> component allows you to manage Droplets and resources within the DigitalOcean cloud with Camel.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-digitalocean/src/main/docs/digitalocean-component.adoc" target="_blank" rel="noopener">digitalocean</a> component allows you to manage Droplets and resources within the DigitalOcean cloud with Camel.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3053,7 +3054,7 @@ download, upload and manipulate files.</p>
 <div class="sect2">
 <h3 id="_camel_elasticsearch_rest">6.51. camel-elasticsearch-rest</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-elasticsearch-rest/src/main/docs/elasticsearch-rest-component.adoc" target="_blank" rel="noopener">elasticsearch-rest</a> component allows you to interface with an <a href="https://www.elastic.co/products/elasticsearch" target="_blank" rel="noopener">ElasticSearch</a> 6.x API using the REST Client library.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-elasticsearch-rest/src/main/docs/elasticsearch-rest-component.adoc" target="_blank" rel="noopener">elasticsearch-rest</a> component allows you to interface with an <a href="https://www.elastic.co/products/elasticsearch" target="_blank" rel="noopener">ElasticSearch</a> 6.x API using the REST Client library.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3136,7 +3137,7 @@ camelctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFil
 <div class="sect2">
 <h3 id="_camel_ganglia">6.60. camel-ganglia</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-ganglia/src/main/docs/ganglia-component.adoc" target="_blank" rel="noopener">Ganglia</a> component provides a mechanism to send a value (the message body) as a metric to the <a href="http://ganglia.info/" target="_blank" rel="noopener">Ganglia</a> monitoring system.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-ganglia/src/main/docs/ganglia-component.adoc" target="_blank" rel="noopener">Ganglia</a> component provides a mechanism to send a value (the message body) as a metric to the <a href="http://ganglia.info/" target="_blank" rel="noopener">Ganglia</a> monitoring system.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3162,40 +3163,40 @@ component enables you to interact with the <a href="https://developer.github.com
 <div class="sect2">
 <h3 id="_camel_google_bigquery">6.64. camel-google-bigquery</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-google-bigquery/src/main/docs/google-bigquery-component.adoc" target="_blank" rel="noopener">Google Bigquery</a> component provides access to <a href="https://cloud.google.com/bigquery/">Cloud BigQuery Infrastructure</a> via the <a href="https://developers.google.com/api-client-library/java/apis/bigquery/v2">Google Client Services API</a>.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-google-bigquery/src/main/docs/google-bigquery-component.adoc" target="_blank" rel="noopener">Google Bigquery</a> component provides access to <a href="https://cloud.google.com/bigquery/">Cloud BigQuery Infrastructure</a> via the <a href="https://developers.google.com/api-client-library/java/apis/bigquery/v2">Google Client Services API</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_google_calendar">6.65. camel-google-calendar</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-google-calendar/src/main/docs/google-calendar-component.adoc" target="_blank" rel="noopener">google-calendar</a> component provides access to <a href="http://calendar.google.com/">Google Calendar</a> via
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-google-calendar/src/main/docs/google-calendar-component.adoc" target="_blank" rel="noopener">google-calendar</a> component provides access to <a href="http://calendar.google.com/">Google Calendar</a> via
 the <a href="https://developers.google.com/google-apps/calendar/v3/reference/">Google Calendar API v3</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_google_drive">6.66. camel-google-drive</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-google-drive/src/main/docs/google-drive-component.adoc" target="_blank" rel="noopener">google-drive</a> component provides access to <a href="http://drive.google.com/">Google Drive</a> via
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-google-drive/src/main/docs/google-drive-component.adoc" target="_blank" rel="noopener">google-drive</a> component provides access to <a href="http://drive.google.com/">Google Drive</a> via
 the <a href="https://developers.google.com/drive/v2/reference/">Google Drive API v2</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_google_mail">6.67. camel-google-mail</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-google-mail/src/main/docs/google-mail-component.adoc" target="_blank" rel="noopener">google-mail</a> component provides access to <a href="http://gmail.com/">Gmail</a> via
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-google-mail/src/main/docs/google-mail-component.adoc" target="_blank" rel="noopener">google-mail</a> component provides access to <a href="http://gmail.com/">Gmail</a> via
 the <a href="https://developers.google.com/gmail/api/v1/reference/">Google Mail Web APIs</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_google_pubsub">6.68. camel-google-pubsub</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-google-pubsub/src/main/docs/camel-google-pubsub.adoc" target="_blank" rel="noopener">google-pubsub</a> component provides access to <a href="https://cloud.google.com/pubsub/" target="_blank" rel="noopener">Cloud Pub/Sub Infrastructure</a> via the <a href="https://cloud.google.com/apis/docs/client-libraries-explained" target="_blank" rel="noopener">Google Client Services API</a>.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-google-pubsub/src/main/docs/camel-google-pubsub.adoc" target="_blank" rel="noopener">google-pubsub</a> component provides access to <a href="https://cloud.google.com/pubsub/" target="_blank" rel="noopener">Cloud Pub/Sub Infrastructure</a> via the <a href="https://cloud.google.com/apis/docs/client-libraries-explained" target="_blank" rel="noopener">Google Client Services API</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_grpc">6.69. camel-grpc</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-grpc/src/main/docs/grpc-component.adoc" target="_blank" rel="noopener">grpc</a>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-grpc/src/main/docs/grpc-component.adoc" target="_blank" rel="noopener">grpc</a>
 component enables you to call or expose Remote Procedure Call (RPC) services using <a href="https://developers.google.com/protocol-buffers/docs/overview" target="_blank" rel="noopener">Protocol Buffers</a> (protobuf) exchange format over HTTP/2 transport.</p>
 </div>
 </div>
@@ -3222,7 +3223,7 @@ HDFS is the distributed file system at the heart of <a href="http://hadoop.apach
 <div class="sect2">
 <h3 id="_camel_headersmap">6.73. camel-headersmap</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-headersmap/src/main/docs/headersmap.adoc" target="_blank" rel="noopener">headersmap</a>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-headersmap/src/main/docs/headersmap.adoc" target="_blank" rel="noopener">headersmap</a>
 component provides a faster implementation of a case-insensitive map which can be plugged in and used by Camel at runtime to have slight faster performance in the Camel Message headers.</p>
 </div>
 </div>
@@ -3303,10 +3304,10 @@ EIP provides integration with Netflix <a href="https://github.com/Netflix/Hystri
 <div class="sect2">
 <h3 id="_camel_iec60870">6.78. camel-iec60870</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-iec60870/src/main/docs/iec60870-client-component.adoc" target="_blank" rel="noopener">IEC 60870-5-104 Client</a> component provides access to IEC 60870 servers using the <a href="http://eclipse.org/eclipsescada" target="_blank" rel="noopener">Eclipse NeoSCADA™</a> implementation.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-iec60870/src/main/docs/iec60870-client-component.adoc" target="_blank" rel="noopener">IEC 60870-5-104 Client</a> component provides access to IEC 60870 servers using the <a href="http://eclipse.org/eclipsescada" target="_blank" rel="noopener">Eclipse NeoSCADA™</a> implementation.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-iec60870/src/main/docs/iec60870-server-component.adoc" target="_blank" rel="noopener">IEC 60870-5-104 Server</a> component provides access to IEC 60870 servers using the <a href="http://eclipse.org/eclipsescada" target="_blank" rel="noopener">Eclipse NeoSCADA™</a> implementation.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-iec60870/src/main/docs/iec60870-server-component.adoc" target="_blank" rel="noopener">IEC 60870-5-104 Server</a> component provides access to IEC 60870 servers using the <a href="http://eclipse.org/eclipsescada" target="_blank" rel="noopener">Eclipse NeoSCADA™</a> implementation.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3363,7 +3364,7 @@ component allows you to interact with <a href="http://infinispan.org" target="_b
 <div class="sect2">
 <h3 id="_camel_influxdb">6.80. camel-influxdb</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-influxdb/src/main/docs/influxdb-component.adoc" target="_blank" rel="noopener">influxdb</a> component enables you to interact with <a href="https://influxdata.com/time-series-platform/influxdb/" target="_blank" rel="noopener">InfluxDB</a></p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-influxdb/src/main/docs/influxdb-component.adoc" target="_blank" rel="noopener">influxdb</a> component enables you to interact with <a href="https://influxdata.com/time-series-platform/influxdb/" target="_blank" rel="noopener">InfluxDB</a></p>
 </div>
 </div>
 <div class="sect2">
@@ -3508,7 +3509,7 @@ camelctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFil
 <div class="sect2">
 <h3 id="_camel_json_validator">6.97. camel-json-validator</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-json-validator/src/main/docs/json-validator-component.adoc" target="_blank" rel="noopener">json-validator</a> component performs bean validation of the message body agains JSON Schemas using the <a href="https://github.com/everit-org/json-schema" target="_blank" rel="noopener">Everit JSON Schema</a> library.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-json-validator/src/main/docs/json-validator-component.adoc" target="_blank" rel="noopener">json-validator</a> component performs bean validation of the message body agains JSON Schemas using the <a href="https://github.com/everit-org/json-schema" target="_blank" rel="noopener">Everit JSON Schema</a> library.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3540,7 +3541,7 @@ with Kubernetes and OpenShift clusters to create, read, update &amp; delete reso
 <div class="sect2">
 <h3 id="_camel_ldif">6.102. camel-ldif</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-ldif/src/main/docs/ldif-component.adoc" target="_blank" rel="noopener">ldif</a> component allows you to do updates on an LDAP server from a LDIF body content.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-ldif/src/main/docs/ldif-component.adoc" target="_blank" rel="noopener">ldif</a> component allows you to do updates on an LDAP server from a LDIF body content.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3562,7 +3563,7 @@ component provides access to the <a href="https://developer.linkedin.com/rest" t
 <div class="sect2">
 <h3 id="_camel_lra">6.105. camel-lra</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-lra/src/main/docs/lra.adoc" target="_blank" rel="noopener">LRA</a> component provides bindings of the Saga EIP with any <a href="https://github.com/eclipse/microprofile-sandbox/tree/master/proposals/0009-LRA" target="_blank" rel="noopener">Microprofile compatible LRA Coordinator</a>.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-lra/src/main/docs/lra.adoc" target="_blank" rel="noopener">LRA</a> component provides bindings of the Saga EIP with any <a href="https://github.com/eclipse/microprofile-sandbox/tree/master/proposals/0009-LRA" target="_blank" rel="noopener">Microprofile compatible LRA Coordinator</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3771,7 +3772,7 @@ component guide. Camel also has a <a href="http://camel.apache.org/security.html
 <div class="sect2">
 <h3 id="_camel_master">6.109. camel-master</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-master/src/main/docs/master-component.adoc" target="_blank" rel="noopener">master</a> endpoint provides a way to ensure only a single consumer in a cluster consumes from a given endpoint; with automatic failover if that JVM dies.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-master/src/main/docs/master-component.adoc" target="_blank" rel="noopener">master</a> endpoint provides a way to ensure only a single consumer in a cluster consumes from a given endpoint; with automatic failover if that JVM dies.</p>
 </div>
 <div class="paragraph">
 <p>This can be very useful if you need to consume from some legacy back end which either doesn’t support concurrent consumption or due to commercial or stability reasons you can only have a single connection at any point in time.</p>
@@ -3792,16 +3793,16 @@ component guide. Camel also has a <a href="http://camel.apache.org/security.html
 <div class="sect2">
 <h3 id="_camel_micrometer">6.111. camel-micrometer</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-micrometer/src/main/docs/micrometer-component.adoc" target="_blank" rel="noopener">micrometer</a> component allows you to collect various metrics directly from Camel routes.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-micrometer/src/main/docs/micrometer-component.adoc" target="_blank" rel="noopener">micrometer</a> component allows you to collect various metrics directly from Camel routes.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_milo">6.112. camel-milo</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-milo/src/main/docs/milo-client-component.adoc" target="_blank" rel="noopener">milo-client</a> component provides access to OPC UA servers using the <a href="http://eclipse.org/milo" target="_blank" rel="noopener">Eclipse Milo™</a> implementation.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-milo/src/main/docs/milo-client-component.adoc" target="_blank" rel="noopener">milo-client</a> component provides access to OPC UA servers using the <a href="http://eclipse.org/milo" target="_blank" rel="noopener">Eclipse Milo™</a> implementation.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-milo/src/main/docs/milo-server-component.adoc" target="_blank" rel="noopener">milo-server</a> component component provides an OPC UA server using the <a href="http://eclipse.org/milo" target="_blank" rel="noopener">Eclipse Milo™</a> implementation.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-milo/src/main/docs/milo-server-component.adoc" target="_blank" rel="noopener">milo-server</a> component component provides an OPC UA server using the <a href="http://eclipse.org/milo" target="_blank" rel="noopener">Eclipse Milo™</a> implementation.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3830,14 +3831,14 @@ component provides the capability to interact with <a href="http://www.mongodb.o
 <div class="sect2">
 <h3 id="_camel_mongodb_gridfs">6.116. camel-mongodb-gridfs</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-mongodb-gridfs/src/main/docs/mongodb-gridfs-component.adoc" target="_blank" rel="noopener">mongodb-gridfs</a>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-mongodb-gridfs/src/main/docs/mongodb-gridfs-component.adoc" target="_blank" rel="noopener">mongodb-gridfs</a>
 component provides MongoDB GridFS file storage. Instead of storing a file in a single document, GridFS divides the file into parts, or chunks, and stores each chunk as a separate document.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_mongodb3">6.117. camel-mongodb3</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-mongodb3/src/main/docs/mongodb3-component.adoc" target="_blank" rel="noopener">mongodb3</a>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-mongodb3/src/main/docs/mongodb3-component.adoc" target="_blank" rel="noopener">mongodb3</a>
 component uses the Mongo Driver for Java 3.4. If your are looking for previous versions, please look at the <a href="http://camel.apache.org/mongodb.html" target="_blank" rel="noopener">mongodb</a> component.</p>
 </div>
 </div>
@@ -3859,7 +3860,7 @@ or <a href="http://mosquitto.org/" target="_blank" rel="noopener">Mosquitto</a>.
 <div class="sect2">
 <h3 id="_camel_mustache">6.120. camel-mustache</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-mustache/src/main/docs/reactive-mustache.adoc" target="_blank" rel="noopener">mustache</a> component allows for processing a message using a <a href="http://mustache.github.io/" target="_blank" rel="noopener">Mustache</a> template.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-mustache/src/main/docs/reactive-mustache.adoc" target="_blank" rel="noopener">mustache</a> component allows for processing a message using a <a href="http://mustache.github.io/" target="_blank" rel="noopener">Mustache</a> template.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3966,7 +3967,7 @@ camelContext.stop();</code></pre>
 <div class="sect2">
 <h3 id="_camel_nsq">6.126. camel-nsq</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-nsq/src/main/docs/nsq-component.adoc" target="_blank" rel="noopener">nsq</a> component enables you to interact with the <a href="https://nsq.io/" target="_blank" rel="noopener">NSQ</a> realtime distributed messaging platform.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-nsq/src/main/docs/nsq-component.adoc" target="_blank" rel="noopener">nsq</a> component enables you to interact with the <a href="https://nsq.io/" target="_blank" rel="noopener">NSQ</a> realtime distributed messaging platform.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4024,28 +4025,28 @@ component utilizes <a href="http://olingo.apache.org/" target="_blank" rel="noop
 <div class="sect2">
 <h3 id="_camel_openstack">6.130. camel-openstack</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-openstack/src/main/docs/openstack-swift-component.adoc" target="_blank" rel="noopener">openstack-swift</a> component allows messages to be sent to an OpenStack object storage services.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-openstack/src/main/docs/openstack-swift-component.adoc" target="_blank" rel="noopener">openstack-swift</a> component allows messages to be sent to an OpenStack object storage services.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-openstack/src/main/docs/openstack-nova-component.adoc" target="_blank" rel="noopener">openstack-nova</a> component allows messages to be sent to an OpenStack compute services.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-openstack/src/main/docs/openstack-nova-component.adoc" target="_blank" rel="noopener">openstack-nova</a> component allows messages to be sent to an OpenStack compute services.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-openstack/src/main/docs/openstack-neutron-component.adoc" target="_blank" rel="noopener">openstack-neutron</a> component allows messages to be sent to an OpenStack network services.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-openstack/src/main/docs/openstack-neutron-component.adoc" target="_blank" rel="noopener">openstack-neutron</a> component allows messages to be sent to an OpenStack network services.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-openstack/src/main/docs/openstack-keystone-component.adoc" target="_blank" rel="noopener">openstack-keystone</a> component allows messages to be sent to an OpenStack identity services.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-openstack/src/main/docs/openstack-keystone-component.adoc" target="_blank" rel="noopener">openstack-keystone</a> component allows messages to be sent to an OpenStack identity services.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-openstack/src/main/docs/openstack-glance-component.adoc" target="_blank" rel="noopener">openstack-glance</a> component allows messages to be sent to an OpenStack image services.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-openstack/src/main/docs/openstack-glance-component.adoc" target="_blank" rel="noopener">openstack-glance</a> component allows messages to be sent to an OpenStack image services.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-openstack/src/main/docs/openstack-cinder-component.adoc" target="_blank" rel="noopener">openstack-cinder</a> component allows messages to be sent to an OpenStack block storage services.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-openstack/src/main/docs/openstack-cinder-component.adoc" target="_blank" rel="noopener">openstack-cinder</a> component allows messages to be sent to an OpenStack block storage services.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_opentracing">6.131. camel-opentracing</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-opentracing/src/main/docs/opentracing.adoc" target="_blank" rel="noopener">opentracing</a> component
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-opentracing/src/main/docs/opentracing.adoc" target="_blank" rel="noopener">opentracing</a> component
 is used for tracing and timing incoming and outgoing Camel messages using <a href="http://opentracing.io/" target="_blank" rel="noopener">OpenTracing</a>.</p>
 </div>
 </div>
@@ -4126,7 +4127,7 @@ component provides the ability to create, modify or extract content from PDF doc
 <div class="sect2">
 <h3 id="_camel_pubnub">6.137. camel-pubnub</h3>
 <div class="paragraph">
-<p>The The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-pubnub/src/main/docs/pubnub-component.adoc" target="_blank" rel="noopener">PubNub</a> component allows you to communicate with the <a href="https://www.pubnub.com/" target="_blank" rel="noopener">PubNub</a> data stream network for connected devices. This component uses PubNub <a href="https://github.com/pubnub/java" target="_blank" rel="noopener">java library</a>.</p>
+<p>The The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-pubnub/src/main/docs/pubnub-component.adoc" target="_blank" rel="noopener">PubNub</a> component allows you to communicate with the <a href="https://www.pubnub.com/" target="_blank" rel="noopener">PubNub</a> data stream network for connected devices. This component uses PubNub <a href="https://github.com/pubnub/java" target="_blank" rel="noopener">java library</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4167,19 +4168,19 @@ from <a href="http://www.rabbitmq.com/" target="_blank" rel="noopener">RabbitMQ<
 <div class="sect2">
 <h3 id="_camel_reactive_streams">6.141. camel-reactive-streams</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-reactive-streams/src/main/docs/reactive-streams-component.adoc" target="_blank" rel="noopener">reactive-streams</a> component enables you to exchange messages with reactive stream processing libraries that are compatible with the <a href="http://www.reactive-streams.org/" target="_blank" rel="noopener">reactive streams</a> standard.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-reactive-streams/src/main/docs/reactive-streams-component.adoc" target="_blank" rel="noopener">reactive-streams</a> component enables you to exchange messages with reactive stream processing libraries that are compatible with the <a href="http://www.reactive-streams.org/" target="_blank" rel="noopener">reactive streams</a> standard.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_reactor">6.142. camel-reactor</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-reactor/src/main/docs/reactive-streams-component.adoc" target="_blank" rel="noopener">reactor</a> component integrates with <a href="https://projectreactor.io/" target="_blank" rel="noopener">Project Reactor</a> a fully non-blocking foundation with efficient demand management. It directly interacts with Java 8 functional API, Completable Future, Stream and Duration.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-reactor/src/main/docs/reactive-streams-component.adoc" target="_blank" rel="noopener">reactor</a> component integrates with <a href="https://projectreactor.io/" target="_blank" rel="noopener">Project Reactor</a> a fully non-blocking foundation with efficient demand management. It directly interacts with Java 8 functional API, Completable Future, Stream and Duration.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_ribbon">6.143. camel-ribbon</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-ribbon/src/main/docs/ribbon.adoc" target="_blank" rel="noopener">ribbon</a> component provides use of Netflix Ribbon for client side load balancing.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-ribbon/src/main/docs/ribbon.adoc" target="_blank" rel="noopener">ribbon</a> component provides use of Netflix Ribbon for client side load balancing.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4219,7 +4220,7 @@ camelctx.addRoutes(new RouteBuilder() {
 <div class="sect2">
 <h3 id="_camel_rest_swagger">6.145. camel-rest-swagger</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-rest-swagger/src/main/docs/rest-swagger-component.adoc" target="_blank" rel="noopener">rest-swagger</a>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-rest-swagger/src/main/docs/rest-swagger-component.adoc" target="_blank" rel="noopener">rest-swagger</a>
 component can configure REST producers from a <a href="http://swagger.io/" target="_blank" rel="noopener">Swagger</a> document and
 delegate to a component implementing the <code>RestProducerFactory</code> interface such as:</p>
 </div>
@@ -4267,7 +4268,7 @@ camelctx.addRoutes(new RouteBuilder() {
 <div class="sect2">
 <h3 id="_camel_rxjava2">6.148. camel-rxjava2</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-rxjava2/src/main/docs/rxjava2-component.adoc" target="_blank" rel="noopener">rxjava2</a> component allows you to use the RxJava API for processing messages on endpoints.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-rxjava2/src/main/docs/rxjava2-component.adoc" target="_blank" rel="noopener">rxjava2</a> component allows you to use the RxJava API for processing messages on endpoints.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4666,7 +4667,7 @@ camelctx.addRoutes(new RouteBuilder() {
 <div class="sect2">
 <h3 id="_camel_solr">6.161. camel-solr</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-solr/src/main/docs/solr-component.adoc" target="_blank" rel="noopener">solr</a> component allows you to interface with an Apache Lucene <a href="http://lucene.apache.org/solr/" target="_blank" rel="noopener">Solr</a> server.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-solr/src/main/docs/solr-component.adoc" target="_blank" rel="noopener">solr</a> component allows you to interface with an Apache Lucene <a href="http://lucene.apache.org/solr/" target="_blank" rel="noopener">Solr</a> server.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4771,7 +4772,7 @@ consumption from a JMS queue.</p>
 <div class="sect2">
 <h3 id="_camel_sjms2">6.172. camel-sjms2</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-sjms2/src/main/docs/sjms2-component.adoc" target="_blank" rel="noopener">sjms2</a> component, or SJMS2,
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-sjms2/src/main/docs/sjms2-component.adoc" target="_blank" rel="noopener">sjms2</a> component, or SJMS2,
 is a JMS 2.x client for use with Camel that uses well known best practices when it comes to JMS client creation and configuration.</p>
 </div>
 </div>
@@ -4937,7 +4938,7 @@ through a SAX ContentHandler. It can also iterate over JAXB records using StAX.<
 <div class="sect2">
 <h3 id="_camel_stomp">6.178. camel-stomp</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-stomp/src/main/docs/stomp-component.adoc" target="_blank" rel="noopener">stomp</a>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-stomp/src/main/docs/stomp-component.adoc" target="_blank" rel="noopener">stomp</a>
 can be used for communicating with <a href="http://stomp.github.io/">Stomp</a> compliant message brokers, like <a href="http://activemq.apache.org">Apache ActiveMQ</a>
 or <a href="http://activemq.apache.org/apollo/">ActiveMQ Apollo</a>.</p>
 </div>
@@ -4951,7 +4952,7 @@ or <a href="http://activemq.apache.org/apollo/">ActiveMQ Apollo</a>.</p>
 <div class="sect2">
 <h3 id="_camel_string_template">6.180. camel-string-template</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-stringtemplate/src/main/docs/string-template-component.adoc" target="_blank" rel="noopener">string-template</a> component allows you to process a message using a <a href="http://www.stringtemplate.org/" target="_blank" rel="noopener">String Template</a>.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-stringtemplate/src/main/docs/string-template-component.adoc" target="_blank" rel="noopener">string-template</a> component allows you to process a message using a <a href="http://www.stringtemplate.org/" target="_blank" rel="noopener">String Template</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4984,20 +4985,20 @@ camelctx.start();</code></pre>
 <div class="sect2">
 <h3 id="_camel_thrift">6.183. camel-thrift</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-thrift/src/main/docs/thrift-component.adoc" target="_blank" rel="noopener">thrift</a> component allows you to call or expose Remote Procedure Call (RPC) services using <a href="https://thrift.apache.org" target="_blank" rel="noopener">Apache Thrift</a> binary communication protocol and serialization mechanism.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-thrift/src/main/docs/thrift-component.adoc" target="_blank" rel="noopener">thrift</a> component allows you to call or expose Remote Procedure Call (RPC) services using <a href="https://thrift.apache.org" target="_blank" rel="noopener">Apache Thrift</a> binary communication protocol and serialization mechanism.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_tika">6.184. camel-tika</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-tika/src/main/docs/tika-component.adoc" target="_blank" rel="noopener">tika</a>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-tika/src/main/docs/tika-component.adoc" target="_blank" rel="noopener">tika</a>
 provides the ability to detect and parse documents with <a href="https://tika.apache.org/">Apache Tika</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_camel_twilio">6.185. camel-twilio</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-twilio/src/main/docs/twilio-component.adoc" target="_blank" rel="noopener">twilio</a> component provides access to Version 2010-04-01 of Twilio REST APIs accessible
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-twilio/src/main/docs/twilio-component.adoc" target="_blank" rel="noopener">twilio</a> component provides access to Version 2010-04-01 of Twilio REST APIs accessible
 using <a href="https://github.com/twilio/twilio-java" target="_blank" rel="noopener">Twilio Java SDK</a>.</p>
 </div>
 </div>
@@ -5164,7 +5165,7 @@ camelContext.start();</code></pre>
 <div class="sect2">
 <h3 id="_camel_wordpress">6.191. camel-wordpress</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-wordpress/src/main/docs/wordpress-component.adoc" target="_blank" rel="noopener">wordpress component</a>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-wordpress/src/main/docs/wordpress-component.adoc" target="_blank" rel="noopener">wordpress component</a>
 provides support for <a href="https://developer.wordpress.org/rest-api/reference/">Wordpress API</a>.</p>
 </div>
 </div>
@@ -5220,7 +5221,7 @@ try {
 <div class="sect2">
 <h3 id="_camel_zendesk">6.196. camel-zendesk</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-zendesk/src/main/docs/zendesk-component.adoc" target="_blank" rel="noopener">zendesk</a> component provides access to all of the <a href="http://zendesk.com" target="_blank" rel="noopener">Zendesk</a> APIs via the <a href="https://github.com/cloudbees/zendesk-java-client" target="_blank" rel="noopener">zendesk-java-client</a>.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-zendesk/src/main/docs/zendesk-component.adoc" target="_blank" rel="noopener">zendesk</a> component provides access to all of the <a href="http://zendesk.com" target="_blank" rel="noopener">Zendesk</a> APIs via the <a href="https://github.com/cloudbees/zendesk-java-client" target="_blank" rel="noopener">zendesk-java-client</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -5256,7 +5257,7 @@ component allows interaction with a <a href="http://hadoop.apache.org/zookeeper/
 <div class="sect2">
 <h3 id="_camel_zookeeper_master">6.199. camel-zookeeper-master</h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-zookeeper-master/src/main/docs/zookeeper-master-component.adoc" target="_blank" rel="noopener">zookeeper-master</a> component provides a way to ensure only a single consumer in a cluster consumes from a given endpoint; with automatic failover if that JVM dies.</p>
+<p>The <a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-zookeeper-master/src/main/docs/zookeeper-master-component.adoc" target="_blank" rel="noopener">zookeeper-master</a> component provides a way to ensure only a single consumer in a cluster consumes from a given endpoint; with automatic failover if that JVM dies.</p>
 </div>
 <div class="paragraph">
 <p>This can be very useful if you need to consume from some legacy back end which either doesn’t support concurrent consumption or due to commercial or stability reasons you can only have a single connection at any point in time.</p>
@@ -5318,7 +5319,7 @@ component allows interaction with a <a href="http://hadoop.apache.org/zookeeper/
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-asn1/src/main/docs/asn1-dataformat.adoc" target="_blank" rel="noopener">ASN.1</a></p>
+<p><a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-asn1/src/main/docs/asn1-dataformat.adoc" target="_blank" rel="noopener">ASN.1</a></p>
 </li>
 <li>
 <p><a href="http://camel.apache.org/avro.html" target="_blank" rel="noopener">Avro</a></p>
@@ -5345,13 +5346,13 @@ component allows interaction with a <a href="http://hadoop.apache.org/zookeeper/
 <p><a href="http://camel.apache.org/csv.html" target="_blank" rel="noopener">CSV</a></p>
 </li>
 <li>
-<p><a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-fastjson/src/main/docs/json-fastjson-dataformat.adoc" target="_blank" rel="noopener">Fastjson</a></p>
+<p><a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-fastjson/src/main/docs/json-fastjson-dataformat.adoc" target="_blank" rel="noopener">Fastjson</a></p>
 </li>
 <li>
-<p><a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-fhir/src/main/docs/fhirJson-dataformat.adoc" target="_blank" rel="noopener">FHIR JSON</a></p>
+<p><a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-fhir/src/main/docs/fhirJson-dataformat.adoc" target="_blank" rel="noopener">FHIR JSON</a></p>
 </li>
 <li>
-<p><a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-fhir/src/main/docs/fhirXml-dataformat.adoc" target="_blank" rel="noopener">FHIR XML</a></p>
+<p><a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-fhir/src/main/docs/fhirXml-dataformat.adoc" target="_blank" rel="noopener">FHIR XML</a></p>
 </li>
 <li>
 <p><a href="http://camel.apache.org/flatpack.html" target="_blank" rel="noopener">Flatpack</a></p>
@@ -5378,7 +5379,7 @@ component allows interaction with a <a href="http://hadoop.apache.org/zookeeper/
 <p><a href="http://camel.apache.org/json.html" target="_blank" rel="noopener">JSON</a></p>
 </li>
 <li>
-<p><a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-johnzon/src/main/docs/json-johnzon-dataformat.adoc" target="_blank" rel="noopener">JSON-Johnzon</a></p>
+<p><a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-johnzon/src/main/docs/json-johnzon-dataformat.adoc" target="_blank" rel="noopener">JSON-Johnzon</a></p>
 </li>
 <li>
 <p><a href="http://camel.apache.org/lzf-data-format.html" target="_blank" rel="noopener">LZF</a></p>
@@ -5396,13 +5397,13 @@ component allows interaction with a <a href="http://hadoop.apache.org/zookeeper/
 <p><a href="http://camel.apache.org/syslog.html" target="_blank" rel="noopener">Syslog</a></p>
 </li>
 <li>
-<p><a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-tarfile/src/main/docs/tarfile-dataformat.adoc" target="_blank" rel="noopener">Tarfile</a></p>
+<p><a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-tarfile/src/main/docs/tarfile-dataformat.adoc" target="_blank" rel="noopener">Tarfile</a></p>
 </li>
 <li>
 <p><a href="http://camel.apache.org/tidymarkup.html" target="_blank" rel="noopener">TidyMarkup</a></p>
 </li>
 <li>
-<p><a href="https://github.com/apache/camel/blob/camel-2.24.0/components/camel-thrift/src/main/docs/thrift-dataformat.adoc" target="_blank" rel="noopener">Thrift</a></p>
+<p><a href="https://github.com/apache/camel/blob/camel-2.24.1/components/camel-thrift/src/main/docs/thrift-dataformat.adoc" target="_blank" rel="noopener">Thrift</a></p>
 </li>
 <li>
 <p><a href="http://camel.apache.org/univocity-parsers-formats.html" target="_blank" rel="noopener">Univocity-CSV</a></p>
@@ -5800,7 +5801,7 @@ ExecStart=/usr/bin/dockerd --insecure-registry 172.30.0.0/16</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ s2i build https://github.com/wildfly-extras/wildfly-camel-examples.git -r 10.1.0 --context-dir camel-cdi wildflyext/wildfly-camel:10.1.0 wildfly-camel-example-cdi
+<pre class="highlight nowrap"><code>$ s2i build https://github.com/wildfly-extras/wildfly-camel-examples.git -r 10.2.0 --context-dir camel-cdi wildflyext/wildfly-camel:10.2.0 wildfly-camel-example-cdi
 $ docker run -ti -p 8080:8080 wildfly-camel-example-cdi</code></pre>
 </div>
 </div>
@@ -5817,12 +5818,12 @@ $ docker run -ti -p 8080:8080 wildfly-camel-example-cdi</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_s2i_with_openshift_origin">9.3.2. S2I with OpenShift Origin</h4>
+<h4 id="_s2i_with_openshift">9.3.2. S2I with OpenShift</h4>
 <div class="paragraph">
-<p>WildFly-Camel provides an OpenShift builder image, which enables you to do a source to image in OpenShift.</p>
+<p>WildFly-Camel provides an S2I builder image, which enables you to do source to image builds in OpenShift.</p>
 </div>
 <div class="paragraph">
-<p>First add the WildFly-Camel S2I ImageStream and the application template.</p>
+<p>First add the WildFly-Camel S2I ImageStream and application template.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -5866,7 +5867,7 @@ unchanged):</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Git Reference</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">10.1.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10.2.0</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Context Directory</strong></p></td>
@@ -5894,6 +5895,62 @@ unchanged):</p>
 <div class="literalblock">
 <div class="content">
 <pre>Hello Kermit</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_wildfly_openshift_operator">9.4. WildFly OpenShift Operator</h3>
+<div class="paragraph">
+<p>It is useful to deploy and manage containerized WildFly-Camel applications on OpenShift via the <a href="https://operatorhub.io/operator/wildfly" target="_blank" rel="noopener">WildFly Operator</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="_installation">9.4.1. Installation</h4>
+<div class="sect4">
+<h5 id="_operator_lifecycle_manager_olm">Operator Lifecycle Manager (OLM)</h5>
+<div class="paragraph">
+<p>With OpenShift 4, the operator can be installed from the OLM marketplace. Browse the operator catalog, select the WildFly item, click the 'install' button and follow the instructions.</p>
+</div>
+<div class="paragraph">
+<p>OLM can be installed on an OpenShift 3 cluster by following the <a href="https://github.com/operator-framework/operator-lifecycle-manager/blob/master/Documentation/install/install.md#openshift" target="_blank" rel="noopener">installation instructions</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_manual_installation">Manual installation</h5>
+<div class="paragraph">
+<p>To manually install the WildFly operator, apply the required Custom Resource Definition (CRD), roles and deployments to your cluster by following the <a href="https://github.com/wildfly/wildfly-operator#install-the-operator-and-associate-resources" target="_blank" rel="noopener">instructions</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_deploying_a_operator_managed_application">9.4.2. Deploying a operator managed application</h4>
+<div class="paragraph">
+<p>For the WildFly operator to manage a containerized WildFly-Camel application deployment, you need to create WildFlyServer resources on your cluster.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-shell" data-lang="shell">$ cat &lt;&lt;EOF | oc create -f -
+apiVersion: wildfly.org/v1alpha1
+kind: WildFlyServer
+metadata:
+  name: example-camel-rest
+spec:
+  applicationImage: "docker.io/wildflyext/example-camel-rest"
+  size: 3
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This results in 3 replicas of the example-camel-rest application backed by a service and route.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-shell" data-lang="shell">$ oc get pods -l app.kubernetes.io/name=example-camel-rest
+
+NAME                   READY     STATUS             RESTARTS   AGE
+example-camel-rest-0   1/1       Running            0          5m
+example-camel-rest-1   1/1       Running            0          5m
+example-camel-rest-2   1/1       Running            0          5m</code></pre>
 </div>
 </div>
 </div>
@@ -6125,8 +6182,8 @@ producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION,
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 10.1.0<br>
-Last updated 2019-05-10 13:19:22 CEST
+Version 10.2.0<br>
+Last updated 2019-07-18 09:41:03 CEST
 </div>
 </div>
 </body>
