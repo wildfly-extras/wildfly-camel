@@ -1,5 +1,47 @@
 ### Changelog
 
+#### WildFly-Camel 10.2.0
+
+**Features**
+
+* [#2847][2847] WildFly compatibility contract
+
+For details see [10.2.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"10.2.0"+label%3Afeature)
+
+**Tasks**
+
+* [#2762][2762] Transition away from Boot2Docker
+* [#2815][2815] Upgrade to camel-2.24.1
+* [#2825][2825] Support for WildFly Kubernetes operator
+* [#2833][2833] Upgrade Hawtio to 2.7.0
+* [#2845][2845] Remove duplicate license files
+* [#2851][2851] Rename guava slots to reflect actual versions
+* [#2856][2856] Explicitly define version for hibernate-core
+
+For details see [10.2.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"10.2.0"+label%3Atask)
+
+**Bugs**
+
+* [#2834][2834] Patch archive contains Galleon hashes directory
+* [#2840][2840] SlackIntegrationTest fails to trigger onException handler
+* [#2841][2841] ClassLoader leak in CamelUndertowHostService
+* [#2853][2853] Intermittent failure of JNDIIntegrationTest
+
+For details see [10.2.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"10.2.0"+label%3Abug)
+
+[2847]: https://github.com/wildfly-extras/wildfly-camel/issues/2847
+[2762]: https://github.com/wildfly-extras/wildfly-camel/issues/2762
+[2815]: https://github.com/wildfly-extras/wildfly-camel/issues/2815
+[2825]: https://github.com/wildfly-extras/wildfly-camel/issues/2825
+[2833]: https://github.com/wildfly-extras/wildfly-camel/issues/2833
+[2845]: https://github.com/wildfly-extras/wildfly-camel/issues/2845
+[2851]: https://github.com/wildfly-extras/wildfly-camel/issues/2851
+[2856]: https://github.com/wildfly-extras/wildfly-camel/issues/2856
+[2834]: https://github.com/wildfly-extras/wildfly-camel/issues/2834
+[2840]: https://github.com/wildfly-extras/wildfly-camel/issues/2840
+[2841]: https://github.com/wildfly-extras/wildfly-camel/issues/2841
+[2853]: https://github.com/wildfly-extras/wildfly-camel/issues/2853
+
 #### WildFly-Camel 10.1.0
 
 **Features**
