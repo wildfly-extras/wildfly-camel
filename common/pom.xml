@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel</artifactId>
-        <version>10.2.0-SNAPSHOT</version>
+        <version>10.2.0</version>
     </parent>
 
     <name>Wildfly Camel :: Common</name>
