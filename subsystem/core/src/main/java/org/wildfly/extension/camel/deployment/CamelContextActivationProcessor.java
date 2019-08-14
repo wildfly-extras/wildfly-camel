@@ -34,7 +34,7 @@ import org.jboss.as.server.deployment.DeploymentUnitProcessor;
 import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceName;
 import org.jboss.msc.service.ServiceTarget;
-import org.wildfly.camel.utils.SpringCamelContextBootstrap;
+import org.wildfly.extension.camel.SpringCamelContextBootstrap;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.service.CamelContextActivationService;
 

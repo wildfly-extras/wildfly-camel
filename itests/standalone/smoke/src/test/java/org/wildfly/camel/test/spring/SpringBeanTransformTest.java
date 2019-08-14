@@ -32,7 +32,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.types.HelloBean;
-import org.wildfly.camel.utils.SpringCamelContextFactory;
+import org.wildfly.extension.camel.SpringCamelContextFactory;
 import org.wildfly.extension.camel.CamelAware;
 
 /**

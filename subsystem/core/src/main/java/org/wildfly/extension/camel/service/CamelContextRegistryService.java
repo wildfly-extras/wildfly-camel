@@ -48,7 +48,7 @@ import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
 import org.jboss.msc.value.InjectedValue;
 import org.wildfly.camel.utils.IllegalStateAssertion;
-import org.wildfly.camel.utils.SpringCamelContextFactory;
+import org.wildfly.extension.camel.SpringCamelContextFactory;
 import org.wildfly.extension.camel.CamelConstants;
 import org.wildfly.extension.camel.CamelContextRegistry;
 import org.wildfly.extension.camel.CamelSubsytemExtension;

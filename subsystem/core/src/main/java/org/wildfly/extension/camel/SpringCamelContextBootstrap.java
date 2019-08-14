@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.utils;
+package org.wildfly.extension.camel;
 
 
 import java.net.URL;

@@ -20,20 +20,19 @@
 
 package org.wildfly.camel.test.plain.file;
 
-import java.net.URL;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.junit.Assert;
 import org.junit.Test;
-import org.wildfly.camel.utils.SpringCamelContextFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SpringTransformTest {
 
     @Test
     public void testSpringContextFromURL() throws Exception {
-        URL resourceUrl = getClass().getResource("/spring/transform1-camel-context.xml");
-        CamelContext camelctx = SpringCamelContextFactory.createSingleCamelContext(resourceUrl, getClass().getClassLoader());
+        ApplicationContext appctx = new ClassPathXmlApplicationContext("/spring/transform1-camel-context.xml");
+        CamelContext camelctx = appctx.getBean("transform1", CamelContext.class);
         camelctx.start();
         try {
             ProducerTemplate producer = camelctx.createProducerTemplate();
