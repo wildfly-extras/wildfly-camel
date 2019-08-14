@@ -288,7 +288,7 @@ include::camel-rest-swagger.adoc[]
 
 include::camel-rss.adoc[]
 
-include::camel-rxjava2.adoc[]
+include::camel-rxjava.adoc[]
 
 include::camel-salesforce.adoc[]
 

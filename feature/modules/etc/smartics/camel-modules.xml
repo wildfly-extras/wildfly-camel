@@ -2414,8 +2414,8 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.rxjava2">
-        <include artifact="org.apache.camel:camel-rxjava2"/>
+    <module name="org.apache.camel.component.rxjava">
+        <include artifact="org.apache.camel:camel-rxjava"/>
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt"/>
             <include module="org.springframework.boot"/>

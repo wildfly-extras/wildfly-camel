@@ -1,3 +1,0 @@
-### camel-rxjava2
-
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-rxjava2/src/main/docs/rxjava2-component.adoc[rxjava2,window=_blank] component allows you to use the RxJava API for processing messages on endpoints.
