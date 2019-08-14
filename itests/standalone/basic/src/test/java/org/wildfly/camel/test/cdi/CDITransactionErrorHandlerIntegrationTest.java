@@ -28,6 +28,7 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.ServiceStatus;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -63,7 +64,8 @@ public class CDITransactionErrorHandlerIntegrationTest {
 
     @Test
     public void testJTATransactionErrorHandler() throws Exception {
-        CamelContext camelctx = contextRegistry.getCamelContext("cdi-tx-context");
+
+        CamelContext camelctx = assertSingleCamelContext();
         Assert.assertNotNull("Expected cdi-tx-context to not be null", camelctx);
 
         MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
@@ -84,5 +86,13 @@ public class CDITransactionErrorHandlerIntegrationTest {
 
         Assert.assertEquals(1, orders.size());
         Assert.assertEquals("Test product redelivered", orders.get(0).getProductName());
+    }
+
+    private CamelContext assertSingleCamelContext() {
+        List<String> ctxnames = contextRegistry.getCamelContextNames();
+        Assert.assertEquals("Expected single camel context: " + ctxnames, 1, ctxnames.size());
+        CamelContext camelctx = contextRegistry.getCamelContext(ctxnames.iterator().next());
+        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
+        return camelctx;
     }
 }

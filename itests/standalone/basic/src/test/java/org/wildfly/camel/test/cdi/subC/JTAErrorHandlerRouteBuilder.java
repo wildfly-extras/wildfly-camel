@@ -24,10 +24,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.apache.camel.cdi.CdiRouteBuilder;
-import org.apache.camel.cdi.ContextName;
 
 @ApplicationScoped
-@ContextName("cdi-tx-context")
 public class JTAErrorHandlerRouteBuilder extends CdiRouteBuilder {
 
     @PersistenceContext

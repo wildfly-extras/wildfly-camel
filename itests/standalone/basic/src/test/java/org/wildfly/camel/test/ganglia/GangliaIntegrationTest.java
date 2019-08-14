@@ -23,6 +23,8 @@ import static org.apache.camel.component.ganglia.GangliaConfiguration.DEFAULT_TM
 import static org.apache.camel.component.ganglia.GangliaConfiguration.DEFAULT_TYPE;
 import static org.apache.camel.component.ganglia.GangliaConfiguration.DEFAULT_UNITS;
 
+import java.util.List;
+
 import info.ganglia.gmetric4j.xdr.v31x.Ganglia_metadata_msg;
 import info.ganglia.gmetric4j.xdr.v31x.Ganglia_value_msg;
 
@@ -30,6 +32,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.ServiceStatus;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -51,7 +54,7 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 public class GangliaIntegrationTest {
 
     @ArquillianResource
-    private CamelContextRegistry registry;
+    private CamelContextRegistry contextRegistry;
 
     @Deployment(testable = false, order = 1, name = "fake-ganglia-agent.jar")
     public static JavaArchive createFakeGangliaAgentDeployment() {
@@ -72,8 +75,8 @@ public class GangliaIntegrationTest {
 
     @Test
     public void sendDefaultConfigurationShouldSucceed() throws Exception {
-        CamelContext camelctx = registry.getCamelContext("ganglia-camel-context");
-        Assert.assertNotNull("Expected ganglia-camel-context to not be null", camelctx);
+
+        CamelContext camelctx = assertSingleCamelContext();
 
         ProducerTemplate template = camelctx.createProducerTemplate();
         Integer port = template.requestBody("direct:getPort", null, Integer.class);
@@ -107,5 +110,13 @@ public class GangliaIntegrationTest {
         template.sendBody(String.format("ganglia:localhost:%d?mode=UNICAST", port), "28.0");
 
         mockEndpoint.assertIsSatisfied();
+    }
+
+    private CamelContext assertSingleCamelContext() {
+        List<String> ctxnames = contextRegistry.getCamelContextNames();
+        Assert.assertEquals("Expected single camel context: " + ctxnames, 1, ctxnames.size());
+        CamelContext camelctx = contextRegistry.getCamelContext(ctxnames.iterator().next());
+        Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
+        return camelctx;
     }
 }

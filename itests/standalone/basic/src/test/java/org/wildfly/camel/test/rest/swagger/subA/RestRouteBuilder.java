@@ -1,13 +1,15 @@
 package org.wildfly.camel.test.rest.swagger.subA;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
 import org.apache.camel.model.rest.RestBindingMode;
+import org.wildfly.extension.camel.CamelAware;
 
-@ContextName("rest-service-camel-context")
+@CamelAware
 public class RestRouteBuilder extends RouteBuilder {
+
     @Override
     public void configure() throws Exception {
+
         restConfiguration()
             .host("localhost")
             .port(8080)
@@ -29,7 +31,7 @@ public class RestRouteBuilder extends RouteBuilder {
                         customer.setId(exchange.getIn().getHeader("id", Integer.class));
                         customer.setFirstName("Kermit");
                         customer.setLastName("The Frog");
-                        exchange.getOut().setBody(customer);
+                        exchange.getMessage().setBody(customer);
                     })
                 .endRest();
     }

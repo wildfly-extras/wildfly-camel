@@ -17,16 +17,23 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.cdi.ear.config.resourceloading;
+package org.wildfly.camel.test.cdi.ear.config.classloading;
 
-import org.apache.camel.builder.RouteBuilder;
-import org.wildfly.extension.camel.CamelAware;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+import javax.ws.rs.Produces;
 
-@CamelAware
-public class ResourceLoadingRouteBuilderB extends RouteBuilder {
+import org.apache.camel.impl.DefaultCamelContext;
+
+@Produces
+@ApplicationScoped
+@Named("class-loading-a")
+public class ClassLoadingCamelContext extends DefaultCamelContext  {
 
     @Override
-    public void configure() throws Exception {
-        from("direct:startB").to("mustache:classpath:template.mustache");
+    public void setApplicationContextClassLoader(ClassLoader classLoader) {
+        System.out.println("ApplicationContextClassLoader: " + classLoader);
+        super.setApplicationContextClassLoader(classLoader);
     }
+
 }

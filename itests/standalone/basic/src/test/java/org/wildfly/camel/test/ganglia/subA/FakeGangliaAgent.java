@@ -19,13 +19,6 @@ package org.wildfly.camel.test.ganglia.subA;
 import static info.ganglia.gmetric4j.xdr.v31x.Ganglia_msg_formats.gmetadata_full;
 import static info.ganglia.gmetric4j.xdr.v31x.Ganglia_msg_formats.gmetric_string;
 
-import info.ganglia.gmetric4j.xdr.v31x.Ganglia_metadata_msg;
-import info.ganglia.gmetric4j.xdr.v31x.Ganglia_value_msg;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.socket.DatagramPacket;
-import io.netty.handler.codec.MessageToMessageDecoder;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -36,13 +29,17 @@ import org.acplt.oncrpc.OncRpcException;
 import org.acplt.oncrpc.XdrAble;
 import org.acplt.oncrpc.XdrBufferDecodingStream;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
+import org.wildfly.extension.camel.CamelAware;
 
-/**
- * A camel route to emulate a Ganglia agent using Netty
- */
-@ContextName("ganglia-camel-context")
+import info.ganglia.gmetric4j.xdr.v31x.Ganglia_metadata_msg;
+import info.ganglia.gmetric4j.xdr.v31x.Ganglia_value_msg;
+import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.socket.DatagramPacket;
+import io.netty.handler.codec.MessageToMessageDecoder;
+
+@CamelAware
 public class FakeGangliaAgent extends RouteBuilder {
 
     private static final int PORT = AvailablePortFinder.getNextAvailable();

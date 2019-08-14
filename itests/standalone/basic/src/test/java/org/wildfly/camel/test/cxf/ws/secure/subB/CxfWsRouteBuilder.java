@@ -25,11 +25,9 @@ import javax.inject.Named;
 
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
 import org.apache.camel.component.cxf.CxfEndpoint;
 
 @ApplicationScoped
-@ContextName("cxfws-secure-cdi-camel-context-b")
 public class CxfWsRouteBuilder extends RouteBuilder {
 
     @Inject

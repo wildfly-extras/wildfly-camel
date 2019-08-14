@@ -1,8 +1,8 @@
 /*
  * #%L
- * Wildfly Camel :: Testsuite
+ * Wildfly Camel
  * %%
- * Copyright (C) 2013 - 2018 RedHat
+ * Copyright (C) 2013 - 2015 RedHat
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,17 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.cdi.ear.config.resourceloading;
+package ${package};
 
-import org.apache.camel.builder.RouteBuilder;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
+import org.apache.camel.impl.DefaultCamelContext;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
-public class ResourceLoadingRouteBuilderB extends RouteBuilder {
+@ApplicationScoped
+@Named("camel-cdi-context")
+public class MyCamelContext extends DefaultCamelContext {
 
-    @Override
-    public void configure() throws Exception {
-        from("direct:startB").to("mustache:classpath:template.mustache");
-    }
 }

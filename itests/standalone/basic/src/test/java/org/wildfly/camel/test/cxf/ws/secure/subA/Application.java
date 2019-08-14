@@ -27,23 +27,20 @@ import javax.net.ssl.SSLSession;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Processor;
-import org.apache.camel.cdi.ContextName;
 import org.apache.camel.component.cxf.CxfComponent;
 import org.apache.camel.component.cxf.CxfEndpoint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.cxf.ws.secure.CXFWSBasicSecureProducerIntegrationTest;
+import org.wildfly.extension.camel.CamelAware;
 
+@CamelAware
 @Named("cxf_cdi_security_app")
 public class Application {
 
     public static final String CXF_ENDPOINT_URI = "https://localhost:8443/webservices/greeting-secure-cdi";
     public static final String CXF_ENDPOINT_SUB_URI = "https://localhost:8443/webservices/greeting-secure-cdi/sub";
     public static final String CXF_ENDPOINT_REL_URI = "https://localhost:8443/"+ CXFWSBasicSecureProducerIntegrationTest.APP_NAME +"/rel-greeting-secure-cdi";
-    private static final Logger log = LoggerFactory.getLogger(Application.class);
 
     @Inject
-    @ContextName("cxfws-secure-cdi-camel-context")
     CamelContext camelContext;
 
     @Named("cxfConsumerEndpoint")

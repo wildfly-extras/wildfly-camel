@@ -20,13 +20,13 @@
 package org.wildfly.camel.test.cdi.ear.config.resourceloading;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
+import org.wildfly.extension.camel.CamelAware;
 
-@ContextName("sub-deployment-a")
+@CamelAware
 public class ResourceLoadingRouteBuilderA extends RouteBuilder  {
 
     @Override
     public void configure() throws Exception {
-        from("direct:start").to("mustache:classpath:template-a.mustache");
+        from("direct:startA").to("mustache:classpath:template.mustache");
     }
 }

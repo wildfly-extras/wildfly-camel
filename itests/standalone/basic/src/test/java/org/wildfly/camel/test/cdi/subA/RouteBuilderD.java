@@ -22,7 +22,6 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
 import org.apache.camel.cdi.Uri;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.slf4j.Logger;
@@ -32,18 +31,15 @@ import org.slf4j.LoggerFactory;
  * Uses contextD implicitly using that context for all injection points without
  * having to mention them on each camel annotation
  */
-@ContextName("contextD")
 public class RouteBuilderD extends RouteBuilder {
     private static final Logger LOG = LoggerFactory.getLogger(RouteBuilderD.class);
 
-    @EndpointInject(uri = "mock:D.b", context = "contextD")
+    @EndpointInject(uri = "mock:D.b") // context = "contextD")
     public MockEndpoint b;
 
-    @ContextName("contextD")
     @Inject @Uri("seda:D.a")
     Endpoint a;
 
-    @ContextName("contextD")
     @Inject @Uri("seda:D.a")
     ProducerTemplate producer;
 

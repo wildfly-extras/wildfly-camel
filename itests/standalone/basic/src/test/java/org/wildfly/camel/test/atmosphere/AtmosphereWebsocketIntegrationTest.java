@@ -29,10 +29,8 @@ import javax.websocket.MessageHandler;
 import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
-import org.apache.camel.CamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
@@ -40,14 +38,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.atmosphere.subA.WebSocketRouteBuilder;
 import org.wildfly.extension.camel.CamelAware;
-import org.wildfly.extension.camel.CamelContextRegistry;
 
 @CamelAware
 @RunWith(Arquillian.class)
 public class AtmosphereWebsocketIntegrationTest {
-
-    @ArquillianResource
-    private CamelContextRegistry camelContextRegistry;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -58,8 +52,6 @@ public class AtmosphereWebsocketIntegrationTest {
 
     @Test
     public void testAtmosphereWebsocketComponent() throws Exception {
-        CamelContext camelctx = camelContextRegistry.getCamelContext("camel-websocket-context");
-        Assert.assertNotNull("Expected camel-websocker-context to not be null", camelctx);
 
         SimpleMessageHandler handler = new SimpleMessageHandler(new CountDownLatch(1));
 

@@ -22,13 +22,13 @@ package org.wildfly.camel.test.undertow.subA;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
+import org.wildfly.extension.camel.CamelAware;
 
 /**
  * @author <a href="https://github.com/ppalaga">Peter Palaga</a>
  */
+@CamelAware
 @ApplicationScoped
-@ContextName("secure-cdi-1-camel-context")
 public class UndertowSecureRoutes1 extends RouteBuilder {
 
     @Override

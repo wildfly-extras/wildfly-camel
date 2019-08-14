@@ -27,20 +27,15 @@ import javax.net.ssl.SSLSession;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Processor;
-import org.apache.camel.cdi.ContextName;
 import org.apache.camel.component.cxf.CxfComponent;
 import org.apache.camel.component.cxf.CxfEndpoint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Named("cxf_cdi_security_app_b")
 public class ApplicationB {
 
     public static final String CXF_ENDPOINT_URI = "https://localhost:8443/webservices-b/greeting-secure-cdi";
-    private static final Logger log = LoggerFactory.getLogger(ApplicationB.class);
 
     @Inject
-    @ContextName("cxfws-secure-cdi-camel-context-b")
     CamelContext camelContext;
 
     @Named("cxfConsumerEndpointB")

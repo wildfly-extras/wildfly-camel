@@ -19,14 +19,21 @@
  */
 package org.wildfly.camel.test.cdi.ear.config.resourceloading;
 
-import org.apache.camel.builder.RouteBuilder;
-import org.wildfly.extension.camel.CamelAware;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+import javax.ws.rs.Produces;
 
-@CamelAware
-public class ResourceLoadingRouteBuilderB extends RouteBuilder {
+import org.apache.camel.impl.DefaultCamelContext;
+
+@Produces
+@ApplicationScoped
+@Named("sub-deployment-a")
+public class ResourceLoadingCamelContext extends DefaultCamelContext  {
 
     @Override
-    public void configure() throws Exception {
-        from("direct:startB").to("mustache:classpath:template.mustache");
+    public void setApplicationContextClassLoader(ClassLoader classLoader) {
+        System.out.println("ApplicationContextClassLoader: " + classLoader);
+        super.setApplicationContextClassLoader(classLoader);
     }
+
 }

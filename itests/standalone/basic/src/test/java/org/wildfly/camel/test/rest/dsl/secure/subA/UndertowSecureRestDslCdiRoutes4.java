@@ -22,14 +22,14 @@ package org.wildfly.camel.test.rest.dsl.secure.subA;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
 import org.apache.camel.model.rest.RestBindingMode;
+import org.wildfly.extension.camel.CamelAware;
 
 /**
  * @author <a href="https://github.com/ppalaga">Peter Palaga</a>
  */
+@CamelAware
 @ApplicationScoped
-@ContextName("rest-dsl-secure-cdi-1-camel-context")
 public class UndertowSecureRestDslCdiRoutes4 extends RouteBuilder {
 
     @Override

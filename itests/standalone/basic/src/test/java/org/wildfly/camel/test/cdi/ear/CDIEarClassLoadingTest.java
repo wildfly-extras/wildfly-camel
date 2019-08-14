@@ -32,6 +32,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.cdi.ear.config.classloading.ClassLoadingCamelContext;
 import org.wildfly.camel.test.cdi.ear.config.classloading.ClassLoadingRouteBuilderA;
 import org.wildfly.camel.test.cdi.ear.config.classloading.ClassLoadingRouteBuilderB;
 import org.wildfly.camel.test.common.types.HelloBean;
@@ -56,7 +57,7 @@ public class CDIEarClassLoadingTest {
     public static EnterpriseArchive createEarDeployment() {
         return ShrinkWrap.create(EnterpriseArchive.class, "class-loading.ear")
             .addAsModule(ShrinkWrap.create(WebArchive.class, "class-loading-a.war")
-                .addClasses(ClassLoadingRouteBuilderA.class, HelloBean.class)
+                .addClasses(ClassLoadingRouteBuilderA.class, ClassLoadingCamelContext.class, HelloBean.class)
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
             )
             .addAsModule(ShrinkWrap.create(WebArchive.class, "class-loading-b.war")
@@ -67,24 +68,15 @@ public class CDIEarClassLoadingTest {
 
     @Test
     public void testCamelCdiEarClassLoading() throws Exception {
-        CamelContext camelctxA = contextRegistry.getCamelContext("sub-deployment-a");
-        Assert.assertNotNull("Expected sub-deployment-a to not be null", camelctxA);
 
-        CamelContext camelctxB = contextRegistry.getCamelContext("sub-deployment-b");
-        Assert.assertNotNull("Expected sub-deployment-b to not be null", camelctxB);
+        CamelContext camelctx = contextRegistry.getCamelContext("class-loading-a");
 
-        String moduleNameA = TestUtils.getClassLoaderModuleName(camelctxA.getApplicationContextClassLoader());
-        Assert.assertEquals("deployment.class-loading.ear.class-loading-a.war", moduleNameA);
-
-        String moduleNameB = TestUtils.getClassLoaderModuleName(camelctxB.getApplicationContextClassLoader());
-        Assert.assertEquals("deployment.class-loading.ear.class-loading-b.war", moduleNameB);
-
-        ProducerTemplate template = camelctxA.createProducerTemplate();
-        String result = template.requestBody("direct:start", null, String.class);
+        ProducerTemplate template = camelctx.createProducerTemplate();
+        String result = template.requestBody("direct:startA", null, String.class);
         Assert.assertEquals("Hello RouteA", result);
 
-        template = camelctxB.createProducerTemplate();
-        result = template.requestBody("direct:start", null, String.class);
+        template = camelctx.createProducerTemplate();
+        result = template.requestBody("direct:startB", null, String.class);
         Assert.assertEquals("Hello RouteB", result);
     }
 }

@@ -35,6 +35,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.cdi.ear.config.resourceloading.ResourceLoadingCamelContext;
 import org.wildfly.camel.test.cdi.ear.config.resourceloading.ResourceLoadingRouteBuilderA;
 import org.wildfly.camel.test.cdi.ear.config.resourceloading.ResourceLoadingRouteBuilderB;
 import org.wildfly.camel.test.common.utils.TestUtils;
@@ -58,46 +59,39 @@ public class CDIEarResourceLoadingTest {
     public static EnterpriseArchive createEarDeployment() {
         return ShrinkWrap.create(EnterpriseArchive.class, "resource-loading.ear")
             .addAsModule(ShrinkWrap.create(WebArchive.class, "resource-loading-a.war")
-                .addClass(ResourceLoadingRouteBuilderA.class)
-                .addAsResource("mustache/hello.mustache", "template-a.mustache")
+                .addClasses(ResourceLoadingRouteBuilderA.class, ResourceLoadingCamelContext.class)
+                .addAsResource("mustache/hello.mustache", "template.mustache")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
             )
             .addAsModule(ShrinkWrap.create(WebArchive.class, "resource-loading-b.war")
                 .addClass(ResourceLoadingRouteBuilderB.class)
-                .addAsResource("mustache/hello.mustache", "template-b.mustache")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
             );
     }
 
     @Test
     public void testCamelCdiEarResourceLoading() throws Exception {
-        CamelContext camelctxA = contextRegistry.getCamelContext("sub-deployment-a");
-        Assert.assertNotNull("Expected sub-deployment-a to not be null", camelctxA);
 
-        CamelContext camelctxB = contextRegistry.getCamelContext("sub-deployment-b");
-        Assert.assertNotNull("Expected sub-deployment-b to not be null", camelctxB);
+        CamelContext camelctx = contextRegistry.getCamelContext("sub-deployment-a");
+        Assert.assertNotNull("Expected sub-deployment-a to not be null", camelctx);
 
-        String moduleNameA = TestUtils.getClassLoaderModuleName(camelctxA.getApplicationContextClassLoader());
+        String moduleNameA = TestUtils.getClassLoaderModuleName(camelctx.getApplicationContextClassLoader());
         Assert.assertEquals("deployment.resource-loading.ear.resource-loading-a.war", moduleNameA);
 
-        String moduleNameB = TestUtils.getClassLoaderModuleName(camelctxB.getApplicationContextClassLoader());
-        Assert.assertEquals("deployment.resource-loading.ear.resource-loading-b.war", moduleNameB);
-
-        Assert.assertNotNull("Expected resource template-a.mustache to not be null", camelctxA.getClassResolver().loadResourceAsURL("/template-a.mustache"));
-        Assert.assertNotNull("Expected resource template-b.mustache to not be null", camelctxB.getClassResolver().loadResourceAsURL("/template-b.mustache"));
+        Assert.assertNotNull("Expected resource template.mustache to not be null", camelctx.getClassResolver().loadResourceAsURL("/template.mustache"));
 
         Map<String, Object> headers = new HashMap<>();
         headers.put("greeting", "Hello");
         headers.put("name", "camelctxA");
 
-        ProducerTemplate template = camelctxA.createProducerTemplate();
-        String result = template.requestBodyAndHeaders("direct:start", null, headers, String.class);
+        ProducerTemplate template = camelctx.createProducerTemplate();
+        String result = template.requestBodyAndHeaders("direct:startA", null, headers, String.class);
         Assert.assertEquals("Hello camelctxA!", result);
 
         headers.put("name", "camelctxB");
 
-        template = camelctxB.createProducerTemplate();
-        result = template.requestBodyAndHeaders("direct:start", null, headers, String.class);
+        template = camelctx.createProducerTemplate();
+        result = template.requestBodyAndHeaders("direct:startB", null, headers, String.class);
         Assert.assertEquals("Hello camelctxB!", result);
     }
 }

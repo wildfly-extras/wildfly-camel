@@ -16,6 +16,8 @@
  */
 package org.wildfly.camel.test.cdi;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.camel.CamelContext;
@@ -23,7 +25,6 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.ValueHolder;
-import org.apache.camel.cdi.ContextName;
 import org.apache.camel.cdi.Uri;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.engine.EndpointKey;
@@ -49,11 +50,9 @@ public class CDIIntegrationTest {
     CamelContextRegistry contextRegistry;
 
     @Inject
-    @ContextName("contextD")
     RouteBuilderD routesD;
 
     @Inject
-    @ContextName("contextD")
     @Uri(value = "seda:foo")
     ProducerTemplate producerD;
 
@@ -69,7 +68,7 @@ public class CDIIntegrationTest {
     @Test
     public void checkContextsHaveCorrectEndpointsAndRoutes() throws Exception {
 
-        CamelContext contextD = assertCamelContext("contextD");
+        CamelContext contextD = assertSingleCamelContext();
         assertHasEndpoints(contextD, "seda://D.a", "mock://D.b");
 
         MockEndpoint mockEndpointD = routesD.b;
@@ -94,8 +93,10 @@ public class CDIIntegrationTest {
         }
     }
 
-    private CamelContext assertCamelContext(String contextName) {
-        CamelContext camelctx = contextRegistry.getCamelContext(contextName);
+    private CamelContext assertSingleCamelContext() {
+        List<String> ctxnames = contextRegistry.getCamelContextNames();
+        Assert.assertEquals("Expected single camel context: " + ctxnames, 1, ctxnames.size());
+        CamelContext camelctx = contextRegistry.getCamelContext(ctxnames.iterator().next());
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         return camelctx;
     }

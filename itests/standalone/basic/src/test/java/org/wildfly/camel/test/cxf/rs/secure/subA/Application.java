@@ -27,11 +27,7 @@ import javax.net.ssl.SSLSession;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Processor;
-import org.apache.camel.cdi.ContextName;
-import org.apache.camel.component.cxf.jaxrs.CxfRsComponent;
 import org.apache.camel.component.cxf.jaxrs.CxfRsEndpoint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.cxf.rs.secure.CXFRSBasicSecureProducerIntegrationTest;
 
 @Named("cxf_cdi_security_app")
@@ -44,10 +40,7 @@ public class Application {
     public static final String CXF_ENDPOINT_REL_BASE_URI = "https://localhost:8443/"+ CXFRSBasicSecureProducerIntegrationTest.APP_NAME +"/rel-greeting-secure-cdi";
     public static final String CXF_ENDPOINT_REL_URI = CXF_ENDPOINT_REL_BASE_URI + "/greet/hi";
 
-    private static final Logger log = LoggerFactory.getLogger(Application.class);
-
     @Inject
-    @ContextName("cxfrs-secure-cdi-camel-context")
     CamelContext camelContext;
 
     @Named("cxfConsumerEndpoint")

@@ -22,10 +22,8 @@ package org.wildfly.camel.test.atmosphere.subA;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
 
 @ApplicationScoped
-@ContextName("camel-websocket-context")
 public class WebSocketRouteBuilder extends RouteBuilder {
 
     @Override

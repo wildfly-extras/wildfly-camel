@@ -25,11 +25,9 @@ import javax.inject.Named;
 
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
 import org.apache.camel.component.cxf.jaxrs.CxfRsEndpoint;
 
 @ApplicationScoped
-@ContextName("cxfrs-secure-cdi-camel-context")
 public class CxfRsRouteBuilderSub extends RouteBuilder {
 
     @Inject

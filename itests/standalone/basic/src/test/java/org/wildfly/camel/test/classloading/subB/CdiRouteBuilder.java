@@ -21,9 +21,7 @@
 package org.wildfly.camel.test.classloading.subB;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
 
-@ContextName("cdi-context")
 public class CdiRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {

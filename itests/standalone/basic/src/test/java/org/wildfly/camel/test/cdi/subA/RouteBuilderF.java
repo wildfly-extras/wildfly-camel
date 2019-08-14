@@ -27,12 +27,10 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
 import org.apache.camel.component.quartz2.QuartzComponent;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
-@ContextName("contextF")
 public class RouteBuilderF extends RouteBuilder {
 
     public static final String MOCK_RESULT_URI = "mock:result?expectedMinimumCount=1";

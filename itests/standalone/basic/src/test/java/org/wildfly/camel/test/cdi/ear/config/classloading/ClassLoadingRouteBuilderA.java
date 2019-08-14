@@ -20,21 +20,21 @@
 package org.wildfly.camel.test.cdi.ear.config.classloading;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cdi.ContextName;
 import org.apache.camel.spi.ClassResolver;
 import org.wildfly.camel.test.common.types.HelloBean;
+import org.wildfly.extension.camel.CamelAware;
 
-@ContextName("sub-deployment-a")
+@CamelAware
 public class ClassLoadingRouteBuilderA extends RouteBuilder  {
 
     @Override
     public void configure() throws Exception {
-        from("direct:start")
+        from("direct:startA")
             .process(exchange -> {
                 ClassResolver classResolver = getContext().getClassResolver();
                 Class<HelloBean> helloBeanClass = classResolver.resolveClass(HelloBean.class.getName(), HelloBean.class);
                 HelloBean helloBean = helloBeanClass.newInstance();
-                exchange.getOut().setBody(helloBean.hello("RouteA"));
+                exchange.getMessage().setBody(helloBean.hello("RouteA"));
             });
     }
 }

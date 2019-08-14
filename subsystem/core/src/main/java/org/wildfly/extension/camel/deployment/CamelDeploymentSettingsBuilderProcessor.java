@@ -42,8 +42,7 @@ import org.jboss.jandex.DotName;
  */
 public final class CamelDeploymentSettingsBuilderProcessor implements DeploymentUnitProcessor {
 
-    private static final String[] ACTIVATION_ANNOTATIONS = { "org.wildfly.extension.camel.CamelAware", "org.apache.camel.cdi.ContextName",
-            "org.apache.camel.cdi.Uri", "org.apache.camel.cdi.ImportResource" };
+    private static final String[] ACTIVATION_ANNOTATIONS = { "org.wildfly.extension.camel.CamelAware", "org.apache.camel.cdi.Uri", "org.apache.camel.cdi.ImportResource" };
 
     public static String getDeploymentName(final DeploymentUnit depUnit) {
         DeploymentUnit parent = depUnit.getParent();

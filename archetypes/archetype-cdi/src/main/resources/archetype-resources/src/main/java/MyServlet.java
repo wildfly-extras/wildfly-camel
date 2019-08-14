@@ -31,7 +31,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.cdi.ContextName;
 
 @WebServlet(name = "HttpServiceServlet", urlPatterns = { "/*" }, loadOnStartup = 1)
 public class MyServlet extends HttpServlet {

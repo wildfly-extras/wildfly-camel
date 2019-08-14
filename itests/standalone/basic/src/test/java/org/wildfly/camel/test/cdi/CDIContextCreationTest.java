@@ -21,6 +21,7 @@
 package org.wildfly.camel.test.cdi;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -40,13 +41,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.cdi.subA.RouteBuilderE;
 import org.wildfly.camel.test.cdi.subA.RouteBuilderF;
-import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 /**
  * Verifies that CDI proxied camel contexts do not become candidates for lifecycle management.
  */
-@CamelAware
 @RunWith(Arquillian.class)
 public class CDIContextCreationTest {
 
@@ -94,17 +93,21 @@ public class CDIContextCreationTest {
     public void testManualComponentConfig() throws InterruptedException {
         deployer.deploy(CDI_CONTEXT_C);
         try {
-            Assert.assertEquals(1, contextRegistry.getCamelContexts().size());
-            CamelContext camelctx = contextRegistry.getCamelContext("contextF");
-            Assert.assertNotNull("Context not null", camelctx);
-
+            CamelContext camelctx = assertSingleCamelContext();
             Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
-
             MockEndpoint mock = camelctx.getEndpoint(RouteBuilderF.MOCK_RESULT_URI, MockEndpoint.class);
             Assert.assertTrue("All messages received", mock.await(5, TimeUnit.SECONDS));
         } finally {
             deployer.undeploy(CDI_CONTEXT_C);
         }
+        Assert.assertEquals(Arrays.asList(), contextRegistry.getCamelContextNames());
+    }
+
+    private CamelContext assertSingleCamelContext() {
+        List<String> ctxnames = contextRegistry.getCamelContextNames();
+        Assert.assertEquals("Expected single camel context: " + ctxnames, 1, ctxnames.size());
+        CamelContext camelctx = contextRegistry.getCamelContext(ctxnames.iterator().next());
+        return camelctx;
     }
 
     @Deployment(name = CDI_CONTEXT_A, managed = false, testable = false)

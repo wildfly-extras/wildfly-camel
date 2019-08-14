@@ -25,7 +25,6 @@ import javax.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.ServiceStatus;
-import org.apache.camel.cdi.ContextName;
 import org.apache.camel.cdi.Uri;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -46,7 +45,6 @@ public class CDISpringContextInjectionTest {
     private CamelContextRegistry contextRegistry;
 
     @Inject
-    @ContextName("contextG")
     @Uri(value = "direct:start")
     ProducerTemplate producerG;
 

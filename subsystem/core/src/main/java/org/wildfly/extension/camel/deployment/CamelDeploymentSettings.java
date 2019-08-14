@@ -206,7 +206,7 @@ public final class CamelDeploymentSettings {
                     }
                 }
 
-                // @ContextName or @CamelAware annotations are present
+                // @CamelAware annotations are present
                 if (camelAnnotationPresent) {
                     return true;
                 }
