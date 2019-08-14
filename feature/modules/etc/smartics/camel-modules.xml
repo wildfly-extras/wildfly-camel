@@ -2291,8 +2291,8 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.quartz2">
-        <include artifact="org.apache.camel:camel-quartz2" />
+    <module name="org.apache.camel.component.quartz">
+        <include artifact="org.apache.camel:camel-quartz" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />

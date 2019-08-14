@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.quartz2;
+package org.wildfly.camel.test.quartz;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -62,11 +62,11 @@ public class QuartzIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("quartz2://mytimer?trigger.repeatCount=3&trigger.repeatInterval=100").process(new Processor() {
+                from("quartz://mytimer?trigger.repeatCount=3&trigger.repeatInterval=100").process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
                         CamelContext context = exchange.getContext();
-                        QuartzComponent comp = context.getComponent("quartz2", QuartzComponent.class);
+                        QuartzComponent comp = context.getComponent("quartz", QuartzComponent.class);
                         Scheduler scheduler = comp.getScheduler();
                         Assert.assertNotNull("Scheduler not null", scheduler);
                         procLatch.countDown();
@@ -90,7 +90,7 @@ public class QuartzIntegrationTest {
         final CountDownLatch procLatch = new CountDownLatch(3);
 
         CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addComponent("quartz2", new QuartzComponent() {
+        camelctx.addComponent("quartz", new QuartzComponent() {
             @Override
             public void onCamelContextStarted(CamelContext context, boolean alreadyStarted) throws Exception {
                 super.onCamelContextStarted(context, alreadyStarted);
@@ -103,7 +103,7 @@ public class QuartzIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("quartz2://mytimer?trigger.repeatCount=3&trigger.repeatInterval=100").process(new Processor() {
+                from("quartz://mytimer?trigger.repeatCount=3&trigger.repeatInterval=100").process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
                         procLatch.countDown();

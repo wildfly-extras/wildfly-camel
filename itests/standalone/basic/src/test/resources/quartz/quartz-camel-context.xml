@@ -49,13 +49,13 @@
         </property>
     </bean>
 
-    <bean id="quartz2" class="org.apache.camel.component.quartz2.QuartzComponent">
+    <bean id="quartz" class="org.apache.camel.component.quartz2.QuartzComponent">
         <property name="scheduler" ref="myScheduler"/>
     </bean>
 
     <camelContext id="quartz-context" xmlns="http://camel.apache.org/schema/spring">
         <route id="myRoute">
-            <from uri="quartz2://app/test?trigger.repeatInterval=1000&amp;trigger.repeatCount=-1&amp;stateful=true"/>
+            <from uri="quartz://app/test?trigger.repeatInterval=1000&amp;trigger.repeatCount=-1&amp;stateful=true"/>
             <log message="Fired: ${header.CamelCreatedTimestamp}"/>
             <to uri="mock:result"/>
         </route>

@@ -45,7 +45,7 @@ public class RouteBuilderF extends RouteBuilder {
         final CountDownLatch startLatch = new CountDownLatch(1);
 
         // verify that a component can be added manually
-        getContext().addComponent("quartz2", new QuartzComponent() {
+        getContext().addComponent("quartz", new QuartzComponent() {
             @Override
             public void onCamelContextStarted(CamelContext context, boolean alreadyStarted) throws Exception {
                 super.onCamelContextStarted(context, alreadyStarted);
@@ -53,7 +53,7 @@ public class RouteBuilderF extends RouteBuilder {
             }
         });
 
-        from("quartz2://mytimer?trigger.repeatCount=3&trigger.repeatInterval=100&fireNow=true")
+        from("quartz://mytimer?trigger.repeatCount=3&trigger.repeatInterval=100&fireNow=true")
         .process(new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {

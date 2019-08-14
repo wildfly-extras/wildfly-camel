@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.quartz2;
+package org.wildfly.camel.test.quartz;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.mock.MockEndpoint;
