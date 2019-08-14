@@ -1,4 +1,4 @@
-### camel-mongodb3
+### camel-mongodb
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-mongodb3/src/main/docs/mongodb3-component.adoc[mongodb3,window=_blank]
+The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-mongodb/src/main/docs/mongodb-component.adoc[mongodb,window=_blank]
 component uses the Mongo Driver for Java 3.4. If your are looking for previous versions, please look at the http://camel.apache.org/mongodb.html[mongodb,window=_blank] component.

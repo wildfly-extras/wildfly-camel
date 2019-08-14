@@ -142,7 +142,7 @@ public class MongoDBIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .to("mongodb3:mdb?database=test&collection=camelTest&operation=findAll&dynamicity=true");
+                .to("mongodb:mdb?database=test&collection=camelTest&operation=findAll&dynamicity=true");
             }
         });
 
