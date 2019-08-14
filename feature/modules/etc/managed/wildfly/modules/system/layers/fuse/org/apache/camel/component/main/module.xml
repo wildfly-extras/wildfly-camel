@@ -77,7 +77,6 @@
         <module name="org.apache.camel.component.dozer" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.dropbox" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.ehcache" export="true" services="export" optional="true" />
-        <module name="org.apache.camel.component.ejb" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.elasticsearch.rest" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.elsql" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.etcd" export="true" services="export" optional="true" />

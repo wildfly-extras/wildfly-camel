@@ -98,8 +98,6 @@ include::camel-dropbox.adoc[]
 
 include::camel-ehcache.adoc[]
 
-include::camel-ejb.adoc[]
-
 include::camel-elasticsearch-rest.adoc[]
 
 include::camel-elsql.adoc[]

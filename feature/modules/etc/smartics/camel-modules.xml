@@ -810,18 +810,6 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.ejb">
-        <include artifact="org.apache.camel:camel-ejb" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
     <module name="org.apache.camel.component.elsql">
         <include artifact="org.apache.camel:camel-elsql" />
         <include artifact="com.opengamma:elsql" />
