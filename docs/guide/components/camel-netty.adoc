@@ -1,6 +1,6 @@
-### camel-netty4
+### camel-netty
 
-Netty client / server support in Camel is provided by the http://camel.apache.org/netty4.html[netty4,window=_blank] component.
+Netty client / server support in Camel is provided by the http://camel.apache.org/netty.html[netty,window=_blank] component.
 
 {wildfly} 8 and EAP 6.4 are bundled with module libraries supporting the http://netty.io/[Netty,window=_blank]
 project version 4. Therefore, the standard http://camel.apache.org/netty.html[netty component,window=_blank] will not work since it is compatible with Netty version 3 only.
@@ -14,7 +14,7 @@ CamelContext camelContext = new DefaultCamelContext();
 camelContext.addRoutes(new RouteBuilder() {
     @Override
     public void configure() throws Exception {
-        from("netty4:tcp://localhost:7666?textline=true")
+        from("netty:tcp://localhost:7666?textline=true")
                 .transform(simple("Hello ${body}"))
                 .to("direct:end");
     }

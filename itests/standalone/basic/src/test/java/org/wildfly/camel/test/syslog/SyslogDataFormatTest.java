@@ -92,7 +92,7 @@ public class SyslogDataFormatTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("netty4:udp://localhost:" + port + "?sync=false&allowDefaultCodec=false")
+                from("netty:udp://localhost:" + port + "?sync=false&allowDefaultCodec=false")
                 .unmarshal(new SyslogDataFormat())
                 .to("mock:result");
             }
@@ -104,7 +104,7 @@ public class SyslogDataFormatTest {
             mockEndpoint.expectedMessageCount(1);
 
             ProducerTemplate template = camelctx.createProducerTemplate();
-            template.requestBody("netty4:udp://127.0.0.1:" + port + "?sync=false&allowDefaultCodec=false&useByteBuf=true", SYSLOG_RAW_MESSAGE);
+            template.requestBody("netty:udp://127.0.0.1:" + port + "?sync=false&allowDefaultCodec=false&useByteBuf=true", SYSLOG_RAW_MESSAGE);
 
             mockEndpoint.assertIsSatisfied();
 

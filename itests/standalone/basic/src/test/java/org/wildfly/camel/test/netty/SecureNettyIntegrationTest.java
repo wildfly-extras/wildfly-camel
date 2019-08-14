@@ -91,7 +91,7 @@ public class SecureNettyIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .to("netty4:tcp://" + SOCKET_HOST + ":" + SOCKET_PORT + "?textline=true&ssl=true&sslContextParameters=#sslContextParameters");
+                .to("netty:tcp://" + SOCKET_HOST + ":" + SOCKET_PORT + "?textline=true&ssl=true&sslContextParameters=#sslContextParameters");
             }
         });
 

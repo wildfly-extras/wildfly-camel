@@ -32,7 +32,7 @@
 
     <camelContext id="secure-netty-context">
         <route>
-            <from uri="netty4:tcp://localhost:7999?textline=true&amp;ssl=true&amp;sslContextParameters=#sslContextParameters"/>
+            <from uri="netty:tcp://localhost:7999?textline=true&amp;ssl=true&amp;sslContextParameters=#sslContextParameters"/>
             <transform>
                 <simple>Hello ${body}</simple>
             </transform>

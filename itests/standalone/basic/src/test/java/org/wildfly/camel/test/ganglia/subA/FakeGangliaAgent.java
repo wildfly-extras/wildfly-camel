@@ -49,7 +49,7 @@ public class FakeGangliaAgent extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        fromF("netty4:udp://localhost:%d/?decoders=protocolV31Decoder", PORT)
+        fromF("netty:udp://localhost:%d/?decoders=protocolV31Decoder", PORT)
         .to("mock:result");
 
         from("direct:getPort")

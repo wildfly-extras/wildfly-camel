@@ -60,7 +60,7 @@ public class NettyIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("netty4:tcp://" + SOCKET_HOST + ":" + SOCKET_PORT + "?textline=true")
+                from("netty:tcp://" + SOCKET_HOST + ":" + SOCKET_PORT + "?textline=true")
                 .transform(simple("Hello ${body}"))
                 .inOnly("seda:end");
             }

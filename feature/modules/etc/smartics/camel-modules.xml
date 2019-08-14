@@ -1258,7 +1258,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="io.netty" slot="fuse"/>
-            <module name="org.apache.camel.component.netty4"/>
+            <module name="org.apache.camel.component.netty"/>
             <module name="org.apache.mina.core"/>
             <module name="org.slf4j"/>
             <module name="ca.uhn.hapi" export="true">
@@ -2060,8 +2060,8 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.netty4">
-        <include artifact="org.apache.camel:camel-netty4" />
+    <module name="org.apache.camel.component.netty">
+        <include artifact="org.apache.camel:camel-netty" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />

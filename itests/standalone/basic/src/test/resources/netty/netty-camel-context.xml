@@ -26,7 +26,7 @@
 
     <camelContext id="netty-context">
         <route>
-            <from uri="netty4:tcp://localhost:7999?textline=true"/>
+            <from uri="netty:tcp://localhost:7999?textline=true"/>
             <transform>
                 <simple>Hello ${body}</simple>
             </transform>
