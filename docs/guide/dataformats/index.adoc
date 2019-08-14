@@ -8,7 +8,6 @@ The following lists supported Data Formats
 * http://camel.apache.org/base64.html[Base64,window=_blank]
 * http://camel.apache.org/beanio.html[BeanIO,window=_blank]
 * http://camel.apache.org/bindy.html[Bindy,window=_blank]
-* http://camel.apache.org/boon.html[Boon,window=_blank]
 * http://camel.apache.org/crypto.html[Crypto,window=_blank]
 * http://camel.apache.org/csv.html[CSV,window=_blank]
 * https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-fastjson/src/main/docs/json-fastjson-dataformat.adoc[Fastjson,window=_blank]
