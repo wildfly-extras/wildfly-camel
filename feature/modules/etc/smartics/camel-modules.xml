@@ -1914,8 +1914,8 @@
         </exports>
     </module>
 
-    <module name="org.apache.camel.component.mina2">
-        <include artifact="org.apache.camel:camel-mina2" />
+    <module name="org.apache.camel.component.mina">
+        <include artifact="org.apache.camel:camel-mina" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />

@@ -148,7 +148,7 @@
         <module name="org.apache.camel.component.metrics" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.micrometer" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.milo" export="true" services="export" optional="true" />
-        <module name="org.apache.camel.component.mina2" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.mina" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.mllp" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.mongodb" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.mongodb.gridfs" export="true" services="export" optional="true" />

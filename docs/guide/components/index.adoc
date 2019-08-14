@@ -222,7 +222,7 @@ include::camel-micrometer.adoc[]
 
 include::camel-milo.adoc[]
 
-include::camel-mina2.adoc[]
+include::camel-mina.adoc[]
 
 include::camel-mllp.adoc[]
 

@@ -1,6 +1,6 @@
-### camel-mina2
+### camel-mina
 
-The http://camel.apache.org/mina2.html[mina2,window=_blank]
+The http://camel.apache.org/mina.html[mina,window=_blank]
 component is a transport for working with http://mina.apache.org/[Apache MINA,window=_blank].
 
 

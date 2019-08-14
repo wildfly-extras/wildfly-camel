@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.mina2;
+package org.wildfly.camel.test.mina;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
@@ -34,11 +34,11 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class Mina2IntegrationTest {
+public class MinaIntegrationTest {
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-mina2-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-mina-tests");
         return archive;
     }
 
@@ -46,10 +46,9 @@ public class Mina2IntegrationTest {
     public void testComponentLoad() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
-        Endpoint endpoint = camelctx.getEndpoint("mina2:tcp://localhost:6200");
+        Endpoint endpoint = camelctx.getEndpoint("mina:tcp://localhost:6200");
         Assert.assertNotNull(endpoint);
-        Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.mina2.Mina2Endpoint");
+        Assert.assertEquals("org.apache.camel.component.mina2.Mina2Endpoint", endpoint.getClass().getName());
         camelctx.stop();
     }
-
 }
