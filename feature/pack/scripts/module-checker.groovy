@@ -19,7 +19,6 @@
  * #L%
 */
 import groovy.transform.EqualsAndHashCode
-import groovy.text.SimpleTemplateEngine
 
 /**
  * Script to help ensure that there is minimum dependency duplication between the wildfly-camel 'fuse'
@@ -80,7 +79,7 @@ class Resource {
     Resource(groupId, artifactId, version) {
         this.groupId = groupId
         this.artifactId = artifactId
-        this.version = version
+        this.version = version.replaceAll("(-|\\.)redhat.*", "")
     }
 
     @Override
@@ -89,23 +88,22 @@ class Resource {
     }
 }
 
-/** A JBoss Modules dependency graph as seen in $JBOSS_HOME/modules file tree */
+// A JBoss Modules dependency graph as seen in $JBOSS_HOME/modules file tree
 class DependencyGraph {
 
-    /** A set of Fuse modules (incl :slot) that all other Fuse modules are supposed to transitively depend on */
+    // A set of Fuse modules (incl :slot) that all other Fuse modules are supposed to transitively depend on
     def rootModules = [] as Set
 
     def modules = [] as Set
 
-    /** A map from module names to sets of dependent module names */
+    // A map from module names to sets of dependent module names
     def dependentsIndex = [:]
 
     def DependencyGraph(rootModules) {
         this.rootModules = rootModules
     }
 
-    /** Returns @{code true} if the given moduleName:slot conbination is a (possibly transitive) dependency of some
-     *  element of rootModules */
+    // Returns @{code true} if the given moduleName:slot conbination is a (possibly transitive) dependency of some element of rootModules
     boolean isDependencyOfRootModule(moduleName, slot) {
         return isDependencyOfRootModuleInternal(moduleName +":"+ slot, [] as Set)
     }
