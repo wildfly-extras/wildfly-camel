@@ -2209,6 +2209,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="org.apache.olingo4" export="true"/>
+            <module name="org.apache.commons.lang3" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
