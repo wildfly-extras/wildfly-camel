@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package org.wildfly.camel.test.hdfs2;
+package org.wildfly.camel.test.hdfs;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -46,8 +46,8 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-@ServerSetup({ Hdfs2IntegrationTest.ServerSetup.class })
-public class Hdfs2IntegrationTest {
+@ServerSetup({ HdfsIntegrationTest.ServerSetup.class })
+public class HdfsIntegrationTest {
 
     static class ServerSetup implements ServerSetupTask {
 
@@ -78,7 +78,7 @@ public class Hdfs2IntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-hdfs2-tests.jar")
+        return ShrinkWrap.create(JavaArchive.class, "camel-hdfs-tests.jar")
             .addClasses(AvailablePortFinder.class, EnvironmentUtils.class);
     }
 

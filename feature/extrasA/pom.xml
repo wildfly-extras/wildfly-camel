@@ -42,7 +42,7 @@
 
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-hdfs2</artifactId>
+            <artifactId>camel-hdfs</artifactId>
             <version>${version.apache.camel}</version>
         </dependency>
         <dependency>

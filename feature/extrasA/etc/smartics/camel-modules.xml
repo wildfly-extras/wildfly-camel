@@ -20,8 +20,8 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="org.apache.camel.component.hdfs2">
-        <include artifact="org.apache.camel:camel-hdfs2" />
+    <module name="org.apache.camel.component.hdfs">
+        <include artifact="org.apache.camel:camel-hdfs" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />

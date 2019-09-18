@@ -1,6 +1,6 @@
-### camel-hdfs2
+### camel-hdfs
 
-The http://camel.apache.org/hdfs2.html[hdfs2,window=_blank]
+The http://camel.apache.org/hdfs.html[hdfs,window=_blank]
 component enables you to read and write messages to and from an HDFS file system using Hadoop 2.x.
 HDFS is the distributed file system at the heart of http://hadoop.apache.org/[Hadoop,window=_blank].
 
