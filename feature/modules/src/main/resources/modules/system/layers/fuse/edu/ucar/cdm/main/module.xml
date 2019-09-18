@@ -7,8 +7,6 @@
     <artifact name="${edu.ucar:cdm}" />
   </resources>
   <dependencies>
-    <module name="com.google.guava" />
-    <module name="com.google.protobuf" />
     <module name="edu.ucar.httpservices" />
     <module name="edu.ucar.udunits" />
     <module name="net.jcip" />

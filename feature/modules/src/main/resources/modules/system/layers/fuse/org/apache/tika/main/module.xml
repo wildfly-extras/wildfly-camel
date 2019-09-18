@@ -23,6 +23,8 @@
     <module name="com.google.code.json-simple" />
     <module name="com.google.code.juniversalchardet" />
     <module name="com.google.code.mp4parser.isoparser" />
+    <module name="com.google.guava" />
+    <module name="com.google.protobuf" />
     <module name="com.healthmarketscience.jackcess" />
     <module name="com.pff.java-libpst" />
     <module name="com.rometools.rome" />
@@ -34,11 +36,13 @@
     <module name="edu.ucar.netcdf4" />
     <module name="edu.usc.ir.sentiment-analysis-parser" />
     <module name="javax.activation.api" />
+    <module name="javax.annotation.api" />
     <module name="org.apache.commons.codec" slot="fuse" />
     <module name="org.apache.commons.compress" />
     <module name="org.apache.commons.csv" />
     <module name="org.apache.commons.exec" />
     <module name="org.apache.commons.io" slot="fuse" />
+    <module name="org.apache.commons.lang3" slot="fuse" />
     <module name="org.apache.cxf.ext" />
     <module name="org.apache.httpcomponents" slot="fuse" />
     <module name="org.apache.james.apache-mime4j-dom" />
@@ -56,6 +60,7 @@
     <module name="org.jdom.jdom2" />
     <module name="org.jsoup" slot="fuse" />
     <module name="org.opengis.geoapi" />
+    <module name="org.quartz" />
     <module name="org.slf4j" />
     <module name="org.tallison.jmatio" />
     <module name="org.tukaani.xz" />

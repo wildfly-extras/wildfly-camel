@@ -1800,6 +1800,7 @@
         <include artifact="org.apache.zookeeper:zookeeper" />
         <apply-to-dependencies skip="true">
             <include module="jline" />
+            <include module="com.github.spotbugs" />
             <include module="org.apache.yetus.audience.annotations" />
         </apply-to-dependencies>
         <dependencies>

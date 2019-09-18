@@ -7,7 +7,5 @@
     <artifact name="${com.healthmarketscience.jackcess:jackcess}" />
     <artifact name="${com.healthmarketscience.jackcess:jackcess-encrypt}" />
   </resources>
-  <dependencies>
-    <module name="org.apache.commons.lang" slot="fuse" />
-  </dependencies>
+  <dependencies />
 </module>

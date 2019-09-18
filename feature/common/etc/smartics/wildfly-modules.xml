@@ -62,6 +62,7 @@
     <module name="javax.activation.api" skip="true">
         <include artifact=":activation" />
         <include artifact=":geronimo-activation_1.1_spec" />
+        <include artifact=":jakarta.activation" />
     </module>
 
     <module name="javax.annotation.api" skip="true">

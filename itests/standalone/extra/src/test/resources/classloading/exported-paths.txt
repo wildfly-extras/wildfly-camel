@@ -3451,6 +3451,7 @@ org/apache/tika/parser/chm/exception
 org/apache/tika/parser/chm/lzx
 org/apache/tika/parser/code
 org/apache/tika/parser/crypto
+org/apache/tika/parser/csv
 org/apache/tika/parser/ctakes
 org/apache/tika/parser/dbf
 org/apache/tika/parser/dif
@@ -3472,6 +3473,7 @@ org/apache/tika/parser/hdf
 org/apache/tika/parser/html
 org/apache/tika/parser/html/charsetdetector
 org/apache/tika/parser/html/charsetdetector/charsets
+org/apache/tika/parser/hwp
 org/apache/tika/parser/image
 org/apache/tika/parser/image/xmp
 org/apache/tika/parser/iptc

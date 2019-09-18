@@ -90,6 +90,10 @@
         <include artifact="com.github.luben:zstd-jni" />
     </module>
 
+    <module name="com.github.spotbugs" skip="true">
+        <include artifact="com.github.spotbugs:spotbugs-annotations" />
+    </module>
+
     <module name="com.google.android" skip="true">
         <include artifact="com.google.android:android"/>
     </module>
