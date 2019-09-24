@@ -78,7 +78,7 @@ public class CXFRSProducerIntegrationTest {
                 String result = producer.requestBodyAndHeader("direct:start", "mybody", "name", "Kermit", String.class);
                 Assert.assertEquals("Hello Kermit", result);
             } finally {
-                camelctx.stop();
+                camelctx.close();
             }
         } finally {
             deployer.undeploy(SIMPLE_WAR);

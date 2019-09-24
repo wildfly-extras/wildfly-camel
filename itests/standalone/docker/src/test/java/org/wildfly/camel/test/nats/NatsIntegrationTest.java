@@ -114,7 +114,7 @@ public class NatsIntegrationTest {
             Assert.assertNull(natsMessage.getReplyTo());
             Assert.assertArrayEquals(payload, natsMessage.getData());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

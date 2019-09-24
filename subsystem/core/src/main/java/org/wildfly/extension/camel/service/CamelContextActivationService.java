@@ -83,7 +83,7 @@ public final class CamelContextActivationService extends AbstractService<Void> {
             List<SpringCamelContext> camelctxList = bootstrap.getSpringCamelContexts();
             for (CamelContext camelctx : camelctxList) {
                 try {
-                    camelctx.stop();
+                    camelctx.close();
                 } catch (Exception ex) {
                     LOGGER.warn("Cannot stop camel context: " + camelctx.getName(), ex);
                 }

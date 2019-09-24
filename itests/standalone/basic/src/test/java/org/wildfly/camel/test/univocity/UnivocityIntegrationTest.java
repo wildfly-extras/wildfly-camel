@@ -77,7 +77,7 @@ public class UnivocityIntegrationTest {
             Assert.assertEquals("Expected one row", 1, res2.size());
             Assert.assertEquals(Arrays.asList("1" ,"2", "3"), res2.get(0));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -105,7 +105,7 @@ public class UnivocityIntegrationTest {
             Assert.assertEquals("Expected one row", 1, res2.size());
             Assert.assertEquals(Arrays.asList("1" ,"2", "3"), res2.get(0));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -133,7 +133,7 @@ public class UnivocityIntegrationTest {
             Assert.assertEquals("Expected one row", 1, res2.size());
             Assert.assertEquals(Arrays.asList("1" ,"2", "3"), res2.get(0));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

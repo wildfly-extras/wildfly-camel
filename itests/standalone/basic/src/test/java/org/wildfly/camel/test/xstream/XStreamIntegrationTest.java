@@ -67,7 +67,7 @@ public class XStreamIntegrationTest {
             String customer = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
             Assert.assertTrue("Contains " + expected + ": " + customer, customer.contains(expected));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -92,7 +92,7 @@ public class XStreamIntegrationTest {
             Assert.assertEquals("John", customer.getFirstName());
             Assert.assertEquals("Doe", customer.getLastName());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

@@ -94,7 +94,7 @@ public class InfinispanIntegrationTest {
 
             Assert.assertEquals("Kermit", name);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -121,7 +121,7 @@ public class InfinispanIntegrationTest {
             String name = (String) cacheContainer.getCache().get(CACHE_KEY_NAME);
             Assert.assertEquals("Kermit", name);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -150,7 +150,7 @@ public class InfinispanIntegrationTest {
 
             Assert.assertFalse(cacheContainer.getCache().containsKey(CACHE_KEY_NAME));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -173,25 +173,25 @@ public class InfinispanIntegrationTest {
             MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
             mockEndpoint.expectedMessageCount(4);
 
-            mockEndpoint.message(0).outHeader(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_CREATED");
-            mockEndpoint.message(0).outHeader(InfinispanConstants.IS_PRE).isEqualTo(true);
-            mockEndpoint.message(0).outHeader(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_NAME);
+            mockEndpoint.message(0).header(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_CREATED");
+            mockEndpoint.message(0).header(InfinispanConstants.IS_PRE).isEqualTo(true);
+            mockEndpoint.message(0).header(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_NAME);
 
-            mockEndpoint.message(1).outHeader(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_CREATED");
-            mockEndpoint.message(1).outHeader(InfinispanConstants.IS_PRE).isEqualTo(false);
-            mockEndpoint.message(1).outHeader(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_NAME);
+            mockEndpoint.message(1).header(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_CREATED");
+            mockEndpoint.message(1).header(InfinispanConstants.IS_PRE).isEqualTo(false);
+            mockEndpoint.message(1).header(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_NAME);
 
-            mockEndpoint.message(2).outHeader(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_CREATED");
-            mockEndpoint.message(2).outHeader(InfinispanConstants.IS_PRE).isEqualTo(true);
-            mockEndpoint.message(2).outHeader(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_AGE);
+            mockEndpoint.message(2).header(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_CREATED");
+            mockEndpoint.message(2).header(InfinispanConstants.IS_PRE).isEqualTo(true);
+            mockEndpoint.message(2).header(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_AGE);
 
-            mockEndpoint.message(3).outHeader(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_CREATED");
-            mockEndpoint.message(3).outHeader(InfinispanConstants.IS_PRE).isEqualTo(false);
-            mockEndpoint.message(3).outHeader(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_AGE);
+            mockEndpoint.message(3).header(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_CREATED");
+            mockEndpoint.message(3).header(InfinispanConstants.IS_PRE).isEqualTo(false);
+            mockEndpoint.message(3).header(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_AGE);
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -214,21 +214,21 @@ public class InfinispanIntegrationTest {
             MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
             mockEndpoint.expectedMessageCount(2);
 
-            mockEndpoint.message(0).outHeader(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_REMOVED");
-            mockEndpoint.message(0).outHeader(InfinispanConstants.IS_PRE).isEqualTo(true);
-            mockEndpoint.message(0).outHeader(InfinispanConstants.CACHE_NAME).isNotNull();
-            mockEndpoint.message(0).outHeader(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_NAME);
+            mockEndpoint.message(0).header(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_REMOVED");
+            mockEndpoint.message(0).header(InfinispanConstants.IS_PRE).isEqualTo(true);
+            mockEndpoint.message(0).header(InfinispanConstants.CACHE_NAME).isNotNull();
+            mockEndpoint.message(0).header(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_NAME);
 
-            mockEndpoint.message(1).outHeader(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_REMOVED");
-            mockEndpoint.message(1).outHeader(InfinispanConstants.IS_PRE).isEqualTo(false);
-            mockEndpoint.message(1).outHeader(InfinispanConstants.CACHE_NAME).isNotNull();
-            mockEndpoint.message(1).outHeader(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_NAME);
+            mockEndpoint.message(1).header(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_REMOVED");
+            mockEndpoint.message(1).header(InfinispanConstants.IS_PRE).isEqualTo(false);
+            mockEndpoint.message(1).header(InfinispanConstants.CACHE_NAME).isNotNull();
+            mockEndpoint.message(1).header(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_NAME);
 
             cacheContainer.getCache().remove("name");
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -250,21 +250,21 @@ public class InfinispanIntegrationTest {
             MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
             mockEndpoint.expectedMessageCount(2);
 
-            mockEndpoint.message(0).outHeader(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_MODIFIED");
-            mockEndpoint.message(0).outHeader(InfinispanConstants.IS_PRE).isEqualTo(true);
-            mockEndpoint.message(0).outHeader(InfinispanConstants.CACHE_NAME).isNotNull();
-            mockEndpoint.message(0).outHeader(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_NAME);
+            mockEndpoint.message(0).header(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_MODIFIED");
+            mockEndpoint.message(0).header(InfinispanConstants.IS_PRE).isEqualTo(true);
+            mockEndpoint.message(0).header(InfinispanConstants.CACHE_NAME).isNotNull();
+            mockEndpoint.message(0).header(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_NAME);
 
-            mockEndpoint.message(1).outHeader(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_MODIFIED");
-            mockEndpoint.message(1).outHeader(InfinispanConstants.IS_PRE).isEqualTo(false);
-            mockEndpoint.message(1).outHeader(InfinispanConstants.CACHE_NAME).isNotNull();
-            mockEndpoint.message(1).outHeader(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_NAME);
+            mockEndpoint.message(1).header(InfinispanConstants.EVENT_TYPE).isEqualTo("CACHE_ENTRY_MODIFIED");
+            mockEndpoint.message(1).header(InfinispanConstants.IS_PRE).isEqualTo(false);
+            mockEndpoint.message(1).header(InfinispanConstants.CACHE_NAME).isNotNull();
+            mockEndpoint.message(1).header(InfinispanConstants.KEY).isEqualTo(CACHE_KEY_NAME);
 
             cacheContainer.getCache().replace(CACHE_KEY_NAME, CACHE_VALUE_BOB);
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -295,7 +295,7 @@ public class InfinispanIntegrationTest {
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

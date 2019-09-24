@@ -23,7 +23,7 @@
     <module name="com.google.code.json-simple" />
     <module name="com.google.code.juniversalchardet" />
     <module name="com.google.code.mp4parser.isoparser" />
-    <module name="com.google.guava" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="com.google.protobuf" />
     <module name="com.healthmarketscience.jackcess" />
     <module name="com.pff.java-libpst" />
@@ -57,7 +57,7 @@
     <module name="org.codelibs.jhighlight" />
     <module name="org.gagravarr.vorbis" />
     <module name="org.jboss.logging.jul-to-slf4j-stub" />
-    <module name="org.jdom.jdom2" />
+    <module name="org.jdom2" />
     <module name="org.jsoup" slot="fuse" />
     <module name="org.opengis.geoapi" />
     <module name="org.quartz" />

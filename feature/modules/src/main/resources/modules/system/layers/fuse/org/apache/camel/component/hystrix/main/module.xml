@@ -7,7 +7,6 @@
     <module name="org.slf4j" />
     <module name="com.netflix.hystrix" />
     <module name="javax.servlet.api" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

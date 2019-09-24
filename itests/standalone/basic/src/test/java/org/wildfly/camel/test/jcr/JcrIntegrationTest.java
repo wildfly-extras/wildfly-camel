@@ -115,7 +115,7 @@ public class JcrIntegrationTest {
                 session.logout();
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

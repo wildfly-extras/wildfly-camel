@@ -64,7 +64,7 @@ public class DropboxIntegrationTest {
             byte[] result = template.requestBody("direct:start", null, byte[].class);
             Assert.assertEquals("Hello Kermit\n", new String(result));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -88,7 +88,7 @@ public class DropboxIntegrationTest {
         try {
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

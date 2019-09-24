@@ -33,7 +33,7 @@ import org.apache.camel.component.salesforce.api.dto.bulk.ContentType;
 import org.apache.camel.component.salesforce.api.dto.bulk.JobInfo;
 import org.apache.camel.component.salesforce.api.dto.bulk.OperationEnum;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.util.IntrospectionSupport;
+import org.apache.camel.support.IntrospectionSupport;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -115,7 +115,7 @@ public class SalesforceIntegrationTest {
             Assert.assertNotNull("Expected MyMultiselect", accItem.getMyMultiselect__c());
             Assert.assertEquals("Expected MyMultiselect to have 3 values", 3, accItem.getMyMultiselect__c().length);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -156,7 +156,7 @@ public class SalesforceIntegrationTest {
             Assert.assertNotNull("Expected JobInfo result to not be null", result);
             Assert.assertNotNull("Expected JobInfo result ID to not be null", result.getId());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

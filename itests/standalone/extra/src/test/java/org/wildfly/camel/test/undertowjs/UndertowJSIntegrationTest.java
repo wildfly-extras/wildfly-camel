@@ -12,12 +12,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.http.HttpRequest;
+import org.wildfly.camel.test.undertowjs.subA.UndertowJSCamelContext;
 import org.wildfly.camel.test.undertowjs.subA.UndertowJSRouteBuilder;
 import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
-@RunWith(Arquillian.class)
 @CamelAware
+@RunWith(Arquillian.class)
 public class UndertowJSIntegrationTest {
 
     @ArquillianResource
@@ -30,11 +31,12 @@ public class UndertowJSIntegrationTest {
             .addAsWebInfResource(new StringAsset("<jboss-web><context-root>test-undertowjs</context-root></jboss-web>"), "jboss-web.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
             .addAsWebResource("undertowjs/camelRoutes.js", "camelRoutes.js")
-            .addClasses(HttpRequest.class, UndertowJSRouteBuilder.class);
+            .addClasses(HttpRequest.class, UndertowJSRouteBuilder.class, UndertowJSCamelContext.class);
     }
 
     @Test
     public void testUndertowJSCamelIntegration() throws Exception {
+
         CamelContext camelctx = contextRegistry.getCamelContext("undertowjs-context");
         Assert.assertNotNull("Expected camel context to not be null", camelctx);
 

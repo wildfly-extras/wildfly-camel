@@ -74,7 +74,7 @@ public class FreeMarkerIntegrationTest {
 
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

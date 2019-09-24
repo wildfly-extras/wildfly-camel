@@ -95,7 +95,7 @@
                 </property>
             </activation>
             <properties>
-                <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv6Stack=true -Djboss.bind.address=::1</jvmArgs>
+                <jvmArgs>-Xmx1G -Djava.net.preferIPv6Stack=true -Djboss.bind.address=::1</jvmArgs>
             </properties>
         </profile>
     </profiles>

@@ -81,7 +81,7 @@ public class RecipientListTest {
             Assert.assertTrue("Latch reached zero", latch.await(100, TimeUnit.MILLISECONDS));
             Assert.assertEquals("John,Doe", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -117,7 +117,7 @@ public class RecipientListTest {
             Assert.assertTrue("Latch reached zero", latch.await(100, TimeUnit.MILLISECONDS));
             Assert.assertEquals("John,Doe", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

@@ -19,6 +19,7 @@
   </dependencies>
   <exports>
     <exclude path="org/ehcache/core/internal**" />
+    <exclude path="org/ehcache/core/osgi" />
     <exclude path="org/ehcache/impl/internal**" />
     <exclude path="org/ehcache/jsr107/internal**" />
     <exclude path="org/terracotta**" />

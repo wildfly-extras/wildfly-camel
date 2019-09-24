@@ -71,7 +71,7 @@ public class AtomIntegrationTest {
             Assert.assertEquals(FeedConstants.ENTRY_TITLE, result.getTitle());
             Assert.assertEquals(FeedConstants.ENTRY_CONTENT, result.getContent());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

@@ -64,7 +64,7 @@ public class ChunkIntegrationTest {
 
             Assert.assertEquals("Hello Kermit!\n", response.getOut().getBody(String.class));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

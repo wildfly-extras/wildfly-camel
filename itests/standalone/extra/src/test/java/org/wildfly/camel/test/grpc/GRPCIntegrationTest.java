@@ -138,7 +138,7 @@ public class GRPCIntegrationTest {
             Assert.assertEquals(response.getPongId(), GRPC_TEST_PING_ID_1);
             Assert.assertEquals(response.getPongName(), GRPC_TEST_PING_VALUE + GRPC_TEST_PONG_VALUE);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -184,7 +184,7 @@ public class GRPCIntegrationTest {
 
             Assert.assertTrue("Gave up waiting for latch", latch.await(5, TimeUnit.SECONDS));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

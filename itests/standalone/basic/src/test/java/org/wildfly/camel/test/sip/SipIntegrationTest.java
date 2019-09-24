@@ -80,7 +80,7 @@ public class SipIntegrationTest {
             mockNeverland.assertIsSatisfied();
             mockNotification.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

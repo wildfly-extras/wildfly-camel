@@ -115,7 +115,7 @@ public class SNSIntegrationTest {
                     Assert.assertNotNull(exchange.getIn().getHeader(SnsConstants.MESSAGE_ID));
 
                 } finally {
-                    camelctx.stop();
+                    camelctx.close();
                 }
             } finally {
                 snsClient.deleteTopic(arn);
@@ -161,7 +161,7 @@ public class SNSIntegrationTest {
                     Assert.assertNotNull(exchange.getOut().getHeader(SnsConstants.MESSAGE_ID));
 
                 } finally {
-                    camelctx.stop();
+                    camelctx.close();
                 }
             } finally {
                 snsClient.deleteTopic(arn);

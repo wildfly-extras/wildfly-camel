@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.aws">
   <resources>
-    <artifact name="${org.apache.camel:camel-aws}" />
+    <artifact name="${org.apache.camel:camel-aws-cw}" />
+    <artifact name="${org.apache.camel:camel-aws-ddb}" />
+    <artifact name="${org.apache.camel:camel-aws-ec2}" />
+    <artifact name="${org.apache.camel:camel-aws-kinesis}" />
+    <artifact name="${org.apache.camel:camel-aws-s3}" />
+    <artifact name="${org.apache.camel:camel-aws-sdb}" />
+    <artifact name="${org.apache.camel:camel-aws-ses}" />
+    <artifact name="${org.apache.camel:camel-aws-sns}" />
+    <artifact name="${org.apache.camel:camel-aws-sqs}" />
+    <artifact name="${org.apache.camel:camel-aws-swf}" />
   </resources>
   <dependencies>
     <module name="javax.mail.api" />
@@ -11,13 +20,6 @@
       </exports>
     </module>
     <module name="org.slf4j" />
-    <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" slot="fuse" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.commons.codec" slot="fuse" />
-    <module name="org.apache.commons.logging" slot="fuse" />
-    <module name="org.apache.httpcomponents" slot="fuse" />
-    <module name="org.joda.time" slot="fuse" />
   </dependencies>
 </module>

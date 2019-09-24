@@ -70,7 +70,7 @@ public class ServletIntegrationTest {
             HttpResponse result = HttpRequest.get("http://localhost:8080/camel/services/hello").getResponse();
             Assert.assertEquals("Hello Kermit", result.getBody());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

@@ -36,7 +36,7 @@
     <!-- Properties -->
     <properties>
         <jboss.home>${project.build.directory}/${jboss.server.name}</jboss.home>
-        <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true -Djava.security.egd=file:/dev/./urandom</jvmArgs>
+        <jvmArgs>-Xmx1G -Djava.net.preferIPv4Stack=true -Djava.security.egd=file:/dev/./urandom</jvmArgs>
         <jvmDebugArgs>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n</jvmDebugArgs>
     </properties>
 
@@ -53,17 +53,21 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-depchain</artifactId>
             <type>pom</type>
         </dependency>
         <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.wildfly.arquillian</groupId>
             <artifactId>wildfly-arquillian-container-managed</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.arquillian</groupId>
+            <artifactId>wildfly-arquillian-protocol-jmx</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -98,7 +102,7 @@
                             </goals>
                             <phase>generate-test-resources</phase>
                             <configuration>
-                                <install-dir>${project.build.directory}/wildfly-${version.wildfly}</install-dir>
+                                <install-dir>${project.build.directory}/${jboss.server.name}</install-dir>
                                 <offline>false</offline>
                                 <resolve-locals>
                                     <resolve-local>

@@ -67,7 +67,7 @@ public class CustomConverterTest {
             Map<?, ?> result = producer.requestBody("direct:start", new Customer("John", "Doe"), Map.class);
             Assert.assertEquals("{firstName=John, lastName=Doe}", result.toString());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -93,7 +93,7 @@ public class CustomConverterTest {
             Assert.assertEquals("John", result.getFirstName());
             Assert.assertEquals("Doe", result.getLastName());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

@@ -31,8 +31,8 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.builder.Namespaces;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -78,7 +78,7 @@ public class XSLTIntegrationTest {
             String customer = producer.requestBody("direct:start", readCustomerXml("/customer.xml"), String.class);
             Assert.assertEquals("John", customer);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -99,7 +99,7 @@ public class XSLTIntegrationTest {
             String customer = producer.requestBody("direct:start", readCustomerXml("/customer-nons.xml"), String.class);
             Assert.assertEquals("John Doe", customer);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -130,7 +130,7 @@ public class XSLTIntegrationTest {
             String customer = producer.requestBody("direct:start", readCustomerXml("/customer.xml"), String.class);
             Assert.assertEquals("John Doe", customer);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -151,7 +151,7 @@ public class XSLTIntegrationTest {
             String customer = producer.requestBody("direct:start", readCustomerXml("/customer.xml"), String.class);
             Assert.assertEquals("John Doe", customer);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

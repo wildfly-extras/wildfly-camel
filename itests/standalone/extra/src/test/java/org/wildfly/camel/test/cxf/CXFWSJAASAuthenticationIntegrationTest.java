@@ -63,7 +63,7 @@ public class CXFWSJAASAuthenticationIntegrationTest {
             String result = template.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -79,7 +79,7 @@ public class CXFWSJAASAuthenticationIntegrationTest {
             Assert.assertTrue(e.getCause().getMessage().startsWith("Authentication failed"));
         }
         finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

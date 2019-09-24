@@ -71,7 +71,7 @@ public class ProtobufIntegrationTest {
             String result = producer.requestBody("direct:start", person, String.class);
             Assert.assertEquals("John Doe", result.trim());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -98,7 +98,7 @@ public class ProtobufIntegrationTest {
             Person result = producer.requestBody("direct:start", baos.toByteArray(), Person.class);
             Assert.assertEquals("John Doe", result.getName().trim());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

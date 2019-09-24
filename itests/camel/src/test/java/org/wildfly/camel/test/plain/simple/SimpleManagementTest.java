@@ -27,11 +27,12 @@ import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.CamelException;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class SimpleManagementTest {
@@ -60,7 +61,7 @@ public class SimpleManagementTest {
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
         onames = server.queryNames(new ObjectName("org.apache.camel:*"), null);
@@ -68,6 +69,7 @@ public class SimpleManagementTest {
     }
 
     @Test
+    @Ignore("[CAMEL-13094] Context MBean not unregistered on startup failure")
     public void testStartupFailure() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
@@ -85,7 +87,7 @@ public class SimpleManagementTest {
         try {
             camelctx.start();
             Assert.fail("Startup failure expected");
-        } catch (CamelException ex) {
+        } catch (RuntimeCamelException ex) {
             System.out.println(">>>>>>> Startup Exception: " + ex);
             // expected
         }

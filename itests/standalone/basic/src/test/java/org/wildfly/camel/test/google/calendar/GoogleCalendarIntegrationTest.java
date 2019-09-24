@@ -178,7 +178,7 @@ public class GoogleCalendarIntegrationTest {
             Assert.assertEquals(0, eventsAfterDeletion.getItems().size());
 
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
     }

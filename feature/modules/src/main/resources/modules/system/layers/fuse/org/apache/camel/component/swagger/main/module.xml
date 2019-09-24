@@ -10,6 +10,7 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="javax.xml.bind.api" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
@@ -18,11 +19,10 @@
     <module name="com.fasterxml.jackson.dataformat.yaml" />
     <module name="com.fasterxml.jackson.datatype.joda" />
     <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" slot="fuse" />
-    <module name="com.google.guava" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="javax.servlet.api" />
     <module name="javax.validation.api" />
     <module name="javax.ws.rs.api" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.io" slot="fuse" />
     <module name="org.apache.commons.lang3" slot="fuse" />

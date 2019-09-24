@@ -7,7 +7,7 @@
     <artifact name="${org.apache.curator:curator-x-discovery}" />
   </resources>
   <dependencies>
-    <module name="com.google.guava" />
+    <module name="com.google.guava" slot="main" />
     <module name="org.apache.zookeeper" />
     <module name="org.codehaus.jackson.jackson-mapper-asl" slot="fuse" />
     <module name="org.slf4j" />

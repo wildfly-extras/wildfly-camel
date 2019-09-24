@@ -22,15 +22,13 @@ package org.wildfly.camel.test.box;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.box.sdk.BoxFolder;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.box.BoxComponent;
 import org.apache.camel.component.box.BoxConfiguration;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.util.IntrospectionSupport;
+import org.apache.camel.support.IntrospectionSupport;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -40,6 +38,8 @@ import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
+
+import com.box.sdk.BoxFolder;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -107,7 +107,7 @@ public class BoxIntegrationTest {
                 folder.delete(true);
             }
 
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

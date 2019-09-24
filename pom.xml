@@ -49,23 +49,28 @@
         <product.release.name>WildFly Camel</product.release.name>
 
         <!-- Camel versions -->
-        <version.apache.camel>2.24.2</version.apache.camel>
+        <version.apache.camel>3.0.0-RC3</version.apache.camel>
         <version.camel.apns>1.0.0.Beta6</version.camel.apns>
-        <version.camel.bouncycastle>1.61</version.camel.bouncycastle>
-        <version.camel.elasticsearch.rest>6.5.1</version.camel.elasticsearch.rest>
-        <version.camel.grpc.guava>20.0</version.camel.grpc.guava>
+        <version.camel.consul.client>1.3.3</version.camel.consul.client>
+        <version.camel.bouncycastle>1.64</version.camel.bouncycastle>
+        <version.camel.elasticsearch.rest>7.3.2</version.camel.elasticsearch.rest>
+        <version.camel.grpc.guava>26.0-android</version.camel.grpc.guava>
         <version.camel.hadoop2>2.7.4</version.camel.hadoop2>
         <version.camel.hadoop2.protobuf>2.5.0</version.camel.hadoop2.protobuf>
-        <version.camel.httpclient>4.5.6</version.camel.httpclient>
+        <version.camel.httpclient>4.5.10</version.camel.httpclient>
         <version.camel.javacrumbs>0.22</version.camel.javacrumbs>
-        <version.camel.jgroups>4.0.15.Final</version.camel.jgroups>
-        <version.camel.log4j2>2.11.1</version.camel.log4j2>
-        <version.camel.lucene>7.5.0</version.camel.lucene>
-        <version.camel.netty41>4.1.32.Final</version.camel.netty41>
+        <version.camel.jgroups>4.1.6.Final</version.camel.jgroups>
+        <version.camel.log4j2>2.12.1</version.camel.log4j2>
+        <version.camel.lucene>8.1.1</version.camel.lucene>
+        <version.camel.netty41>4.1.42.Final</version.camel.netty41>
         <version.camel.opencmis>1.1.0</version.camel.opencmis>
-        <version.camel.qpid.proton>0.31.0</version.camel.qpid.proton>
-        <version.camel.rxjava2>2.2.3</version.camel.rxjava2>
+        <version.camel.qpid.proton>0.33.2</version.camel.qpid.proton>
+        <version.camel.rxjava2>2.2.13</version.camel.rxjava2>
         <version.camel.sshd>2.0.0</version.camel.sshd>
+
+        <!-- https://issues.jboss.org/browse/ENTESB-12085 -->
+        <version.squareup.okhttp>3.12.0</version.squareup.okhttp>
+        <version.squareup.okio>1.15.0</version.squareup.okio>
 
         <!-- WildFly versions -->
         <version.wildfly>18.0.0.Final</version.wildfly>
@@ -74,7 +79,6 @@
         <version.wildfly.fasterxml.jackson>2.9.10</version.wildfly.fasterxml.jackson>
         <version.wildfly.hibernate>5.3.12.Final</version.wildfly.hibernate>
         <version.wildfly.infinispan>9.4.16.Final</version.wildfly.infinispan>
-        <version.wildfly.okhttp3>3.9.0</version.wildfly.okhttp3>
 
         <!-- Other versions -->
         <version.apache.ds>2.0.0-M21</version.apache.ds>
@@ -83,13 +87,15 @@
         <version.apache.vysper>0.7</version.apache.vysper>
         <version.args4j>2.0.31</version.args4j>
         <version.arquillian.cube>1.18.2</version.arquillian.cube>
+        <version.bytebuddy>1.9.10</version.bytebuddy>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
         <version.flapdoodle.embed.mongo>1.50.1</version.flapdoodle.embed.mongo>
         <version.greenmail>1.4.0</version.greenmail>
         <version.hawtio>2.7.1</version.hawtio>
         <version.javax.cache.api>1.0.0</version.javax.cache.api>
-        <version.jboss.arquillian.core>1.1.13.Final</version.jboss.arquillian.core>
+        <version.jboss.arquillian.core>1.4.0.Final</version.jboss.arquillian.core>
         <version.jboss.shrinkwrap>1.2.2</version.jboss.shrinkwrap>
+        <version.jdom>2.0.6</version.jdom>
         <version.junit>4.12</version.junit>
         <version.maven.aether.provider>3.2.5</version.maven.aether.provider>
         <version.maven.archetype.packaging>2.3</version.maven.archetype.packaging>
@@ -118,7 +124,7 @@
         <version-maven-resources-plugin>3.1.0</version-maven-resources-plugin>
         <version-maven-site-plugin>3.7.1</version-maven-site-plugin>
         <version-maven-source-plugin>3.0.1</version-maven-source-plugin>
-        <version-maven-surefire-plugin>3.0.0-M1</version-maven-surefire-plugin>
+        <version-maven-surefire-plugin>3.0.0-M3</version-maven-surefire-plugin>
         <version-maven-war-plugin>3.2.2</version-maven-war-plugin>
         <version-properties-maven-plugin>1.0.0</version-properties-maven-plugin>
         <version-editorconfig-maven-plugin>0.0.8</version-editorconfig-maven-plugin>
@@ -459,7 +465,7 @@
         </repository>
         <repository>
             <id>jboss-public-repository</id>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+            <url>https://repository.jboss.org/nexus/content/groups/public</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -482,7 +488,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>jboss-public-repository-plugins</id>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>

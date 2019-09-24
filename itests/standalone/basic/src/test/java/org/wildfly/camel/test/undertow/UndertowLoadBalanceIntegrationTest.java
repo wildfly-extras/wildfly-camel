@@ -38,7 +38,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.http4.subA.MyServlet;
+import org.wildfly.camel.test.http.subA.MyServlet;
 import org.wildfly.extension.camel.EndpointRegistryClient;
 
 @RunAsClient
@@ -76,7 +76,7 @@ public class UndertowLoadBalanceIntegrationTest {
             String result = producer.requestBodyAndHeader("direct:start", null, Exchange.HTTP_QUERY, "name=Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

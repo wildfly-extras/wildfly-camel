@@ -40,7 +40,7 @@
     <camelContext id="cxfrs-server-context" xmlns="http://camel.apache.org/schema/spring">
         <route>
             <from uri="direct:start"/>
-            <setHeader headerName="CamelHttpMethod">
+            <setHeader name="CamelHttpMethod">
                 <constant>GET</constant>
             </setHeader>
             <to uri="cxfrs://http://localhost:8080/rest/greet/hello/Kermit"/>

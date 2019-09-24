@@ -2,15 +2,15 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.asn1">
   <resources>
     <artifact name="${org.apache.camel:camel-asn1}" />
-    <artifact name="${org.openmuc:jasn1}" />
+    <artifact name="${com.beanit:jasn1}" />
   </resources>
   <dependencies>
     <module name="org.slf4j" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.bouncycastle" slot="1.61" />
   </dependencies>
   <exports>
+    <exclude path="com/beanit**" />
     <exclude path="org/openmuc**" />
   </exports>
 </module>

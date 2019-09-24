@@ -109,7 +109,7 @@ public class CloudWatchIntegrationTest {
             // Assert.assertEquals(1, metrics.size());
 
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

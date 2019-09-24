@@ -132,7 +132,7 @@ public class EC2IntegrationTest {
                 TerminateInstancesResult result2 = template.requestBodyAndHeaders("direct:terminate", null, headers, TerminateInstancesResult.class);
                 Assert.assertEquals(instanceId, result2.getTerminatingInstances().get(0).getInstanceId());
             } finally {
-                camelctx.stop();
+                camelctx.close();
             }
         } finally {
             assertNoStaleInstances(ec2Client, "after");

@@ -10,10 +10,9 @@
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jdk8" slot="fuse" />
+    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jdk8" />
     <module name="com.fasterxml.jackson.datatype.jackson-datatype-jsr310" slot="fuse" />
     <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" slot="fuse" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.cxf" />
     <module name="org.apache.cxf.ext" />

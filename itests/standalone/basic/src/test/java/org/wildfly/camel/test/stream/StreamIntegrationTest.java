@@ -60,7 +60,7 @@ public class StreamIntegrationTest {
             String customer = producer.requestBody("direct:start", "John Doe", String.class);
             Assert.assertEquals("John Doe", customer);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

@@ -23,6 +23,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.jndi.JndiBeanRepository;
 import org.arquillian.cube.CubeController;
 import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
 import org.arquillian.cube.requirement.ArquillianConditionalRunner;
@@ -100,7 +101,7 @@ public class PGEventIntegrationTest {
         String uri = String.format("pgevent:///postgres/testchannel?datasource=#java:jboss/datasources/PostgreSQLDS");
         String body = "Hello Kermit";
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -120,7 +121,7 @@ public class PGEventIntegrationTest {
         try {
             mockEndpoint.assertIsSatisfied(5000);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

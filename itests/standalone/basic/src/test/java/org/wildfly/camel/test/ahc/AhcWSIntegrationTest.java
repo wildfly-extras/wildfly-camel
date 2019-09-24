@@ -133,7 +133,7 @@ public class AhcWSIntegrationTest {
             Assert.assertEquals("Hello Kermit", exchange.getIn().getBody(String.class));
 
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

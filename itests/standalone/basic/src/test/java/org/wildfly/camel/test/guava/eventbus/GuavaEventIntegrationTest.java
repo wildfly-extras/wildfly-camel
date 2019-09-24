@@ -69,7 +69,7 @@ public class GuavaEventIntegrationTest {
             mockAll.assertIsSatisfied();
             Assert.assertEquals(message, mockAll.getExchanges().get(0).getIn().getBody());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -94,7 +94,7 @@ public class GuavaEventIntegrationTest {
             producer.sendBody("direct:start", message);
             Assert.assertEquals(message, receivedEvent);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

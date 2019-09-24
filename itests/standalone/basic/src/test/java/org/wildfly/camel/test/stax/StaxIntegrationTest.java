@@ -55,7 +55,7 @@ public class StaxIntegrationTest {
             .addAsResource("stax/" + RECORDS_XML, RECORDS_XML)
             .setManifest(() -> {
                 ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.jdom");
+                builder.addManifestHeader("Dependencies", "org.jdom2");
                 return builder.openStream();
             });
     }
@@ -77,7 +77,7 @@ public class StaxIntegrationTest {
             ElementCountingHandler handler = template.requestBody("direct:start", input, ElementCountingHandler.class);
             Assert.assertEquals(6, handler.getCount());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -103,7 +103,7 @@ public class StaxIntegrationTest {
             template.sendBody("direct:start", input);
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

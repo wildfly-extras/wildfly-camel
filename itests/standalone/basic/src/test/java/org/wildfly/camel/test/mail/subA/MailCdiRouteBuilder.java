@@ -23,7 +23,7 @@ import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.ExplicitCamelContextNameStrategy;
+import org.apache.camel.impl.engine.ExplicitCamelContextNameStrategy;
 import org.wildfly.extension.camel.CamelAware;
 
 @Startup
@@ -35,6 +35,6 @@ public class MailCdiRouteBuilder extends RouteBuilder {
     public void configure() throws Exception {
         getContext().setNameStrategy(new ExplicitCamelContextNameStrategy("camel-mail-cdi-context"));
         from("direct:start").to("smtp://localhost:10025?session=#mailSession");
-        from("pop3://user2@localhost:10110?consumer.delay=30000&session=#mailSession&delete=true").to("mock:result");
+        from("pop3://user2@localhost:10110?delay=30000&session=#mailSession&delete=true").to("mock:result");
     }
 }

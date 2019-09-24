@@ -60,7 +60,7 @@ public class LogIntegrationTest {
             producer.requestBody("direct:start", "Hello Kermit", String.class);
             Assert.assertTrue("Verify log message", LogUtils.awaitLogMessage(".*simple-log.*Hello Kermit]$", 5000));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

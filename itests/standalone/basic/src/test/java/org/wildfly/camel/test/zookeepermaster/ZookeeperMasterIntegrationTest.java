@@ -43,7 +43,7 @@ public class ZookeeperMasterIntegrationTest {
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "zookeeper-master-tests");
         archive.addClasses(CuratorFactoryBean.class, ZKServerFactoryBean.class);
-        archive.addAsResource("zookeepermaster/MasterQuartz2-camel-context.xml");
+        archive.addAsResource("zookeepermaster/zkmaster-camel-context.xml");
         return archive;
     }
 

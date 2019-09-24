@@ -14,6 +14,7 @@
     <module name="org.apache.httpcomponents" slot="fuse" />
     <module name="org.apache.zookeeper" />
     <module name="org.codehaus.woodstox" slot="fuse" />
+    <module name="org.eclipse.jetty" />
     <module name="org.slf4j" />
   </dependencies>
 </module>

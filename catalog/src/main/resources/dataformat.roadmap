@@ -7,18 +7,16 @@ beanio
 bindy-csv
 bindy-fixed
 bindy-kvp
-boon
 crypto
 csv
 fhirJson
 fhirXml
 flatpack
-gzip
+gzipdeflater
 hl7
 ical
 jacksonxml
 jaxb
-jibx
 json-fastjson
 json-gson
 json-jackson
@@ -30,9 +28,7 @@ pgp
 protobuf
 rss
 secureXML
-serialization       #deprecated
 soapjaxb
-string              #deprecated
 syslog
 tarfile
 thrift
@@ -42,16 +38,16 @@ univocity-fixed
 univocity-tsv
 xstream
 yaml-snakeyaml
-zip
+zipdeflater
 zipfile
 
 [planned]
 
 [undecided]
+any23
+cbor
+grok
+jsonApi
 
 [rejected]
-castor              #deprecated
-hessian             #deprecated
-xmlBeans            #deprecated
-xmlrpc              #2507 xmlrpc is no longer maintained
 

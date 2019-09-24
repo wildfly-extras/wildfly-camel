@@ -65,7 +65,7 @@ public class JacksonXMLIntegrationTest {
             String result = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
             Assert.assertEquals(XML_STRING, result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -88,7 +88,7 @@ public class JacksonXMLIntegrationTest {
             Assert.assertEquals("John", customer.getFirstName());
             Assert.assertEquals("Doe", customer.getLastName());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

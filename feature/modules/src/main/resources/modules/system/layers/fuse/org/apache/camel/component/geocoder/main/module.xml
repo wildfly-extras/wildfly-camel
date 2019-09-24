@@ -8,7 +8,6 @@
     <module name="org.slf4j" />
     <module name="com.google.code.gson" slot="fuse" />
     <module name="com.squareup.okhttp3" slot="fuse" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.joda.time" slot="fuse" />
   </dependencies>

@@ -74,7 +74,7 @@ public class FileURLDecodingTest {
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
         BufferedReader br = new BufferedReader(new FileReader(expectedFile));

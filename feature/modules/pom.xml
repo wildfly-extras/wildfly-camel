@@ -120,6 +120,18 @@
             <artifactId>hapi-structures-v26</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.orbitz.consul</groupId>
+            <artifactId>consul-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okio</groupId>
+            <artifactId>okio</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
         </dependency>
@@ -183,7 +195,43 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws</artifactId>
+            <artifactId>camel-aws-cw</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-aws-ddb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-aws-ec2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-aws-kinesis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-aws-s3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-aws-sdb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-aws-ses</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-aws-sns</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-aws-sqs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-aws-swf</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -257,10 +305,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-coap</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-connector</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -430,7 +474,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-http4</artifactId>
+            <artifactId>camel-http</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -456,10 +500,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-infinispan</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-influxdb</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -583,6 +623,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-management</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-master</artifactId>
         </dependency>
         <dependency>
@@ -599,7 +643,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-mina2</artifactId>
+            <artifactId>camel-mina</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -607,7 +651,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-mongodb3</artifactId>
+            <artifactId>camel-mongodb</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -693,9 +737,14 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-pubnub</artifactId>
         </dependency>
+        <!-- consul & influxdb after pubnub because of retrofit2 -->
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-consul</artifactId><!-- consul after pubnub because of retrofit2 -->
+            <artifactId>camel-consul</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-influxdb</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -736,12 +785,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-sap-netweaver</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.camel</groupId>
-                    <artifactId>camel-http</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -930,6 +973,12 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-xstream</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -938,6 +987,10 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-zendesk</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-zip-deflater</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -962,7 +1015,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-to-slf4j</artifactId>
+            <artifactId>log4j-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.lucene</groupId>
@@ -1008,6 +1061,7 @@
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-jcache</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-galleon-pack</artifactId>
@@ -1052,6 +1106,10 @@
                         <exclude>
                             <groupId>org.apache.logging.log4j</groupId>
                             <artifactId>log4j-api-java9</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.apache.logging.log4j</groupId>
+                            <artifactId>log4j-core-java9</artifactId>
                         </exclude>
                         <exclude>
                             <groupId>org.osgi</groupId>

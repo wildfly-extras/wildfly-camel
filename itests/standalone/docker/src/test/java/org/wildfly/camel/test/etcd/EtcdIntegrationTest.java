@@ -103,7 +103,7 @@ public class EtcdIntegrationTest {
             template.sendBodyAndHeaders("direct:start", value, headers);
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

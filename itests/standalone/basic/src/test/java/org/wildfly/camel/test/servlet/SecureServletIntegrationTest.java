@@ -113,7 +113,7 @@ public class SecureServletIntegrationTest {
             Assert.assertEquals(200, response.getStatusCode());
             Assert.assertEquals("GET: /secure", response.getBody());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

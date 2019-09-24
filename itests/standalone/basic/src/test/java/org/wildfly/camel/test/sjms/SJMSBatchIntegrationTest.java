@@ -23,15 +23,18 @@ package org.wildfly.camel.test.sjms;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jms.ConnectionFactory;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
+import org.apache.camel.AggregationStrategy;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.processor.aggregate.AggregationStrategy;
+import org.apache.camel.support.SimpleRegistry;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -76,16 +79,6 @@ public class SJMSBatchIntegrationTest {
         return ShrinkWrap.create(JavaArchive.class, "camel-sjms-batch-tests");
     }
 
-    @Before
-    public void setUp() throws Exception {
-        initialctx.bind("aggregationStrategy", new ListAggregationStrategy());
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        initialctx.unbind("aggregationStrategy");
-    }
-
     @Test
     public void testBatchMessageConsumerRoute() throws Exception {
 
@@ -94,19 +87,19 @@ public class SJMSBatchIntegrationTest {
         int completionTimeout = 5000;
         int completionSize = 100;
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = createCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 fromF("sjms-batch:%s?completionTimeout=%s&completionSize=%s&consumerCount=%s&aggregationStrategy=%s&connectionFactory=%s",
-                    QUEUE_NAME, completionTimeout, completionSize, consumerCount, "#aggregationStrategy", "ConnectionFactory")
+                    QUEUE_NAME, completionTimeout, completionSize, consumerCount, "#astrategy", "#cfactory")
                     .routeId("batchConsumer").autoStartup(false)
                     .split(body())
                     .to("mock:split");
 
                 from("direct:in")
                     .split(body())
-                    .toF("sjms:queue:%s?transacted=true&connectionFactory=ConnectionFactory", QUEUE_NAME)
+                    .toF("sjms:queue:%s?transacted=true&connectionFactory=#cfactory", QUEUE_NAME)
                     .to("mock:before");
             }
         });
@@ -130,11 +123,23 @@ public class SJMSBatchIntegrationTest {
             mockBefore.assertIsSatisfied();
 
             // Start up the batch consumer route
-            camelctx.startRoute("batchConsumer");
+            camelctx.getRouteController().startRoute("batchConsumer");
             mockSplit.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
+    }
+
+    private CamelContext createCamelContext() throws NamingException {
+        SimpleRegistry registry = new SimpleRegistry();
+        registry.bind("cfactory", lookupConnectionFactory());
+        registry.bind("astrategy", new ListAggregationStrategy());
+        return new DefaultCamelContext(registry);
+    }
+
+    private ConnectionFactory lookupConnectionFactory() throws NamingException {
+        ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
+        return cfactory;
     }
 
     private final class ListAggregationStrategy implements AggregationStrategy {

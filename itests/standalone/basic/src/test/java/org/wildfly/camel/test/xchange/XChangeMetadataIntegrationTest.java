@@ -64,7 +64,7 @@ public class XChangeMetadataIntegrationTest {
             Assert.assertNotNull("Currencies not null", currencies);
             Assert.assertTrue("Contains ETH", currencies.contains(Currency.ETH));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -83,7 +83,7 @@ public class XChangeMetadataIntegrationTest {
             metadata = template.requestBodyAndHeader("direct:currencyMetaData", null, HEADER_CURRENCY, Currency.ETH, CurrencyMetaData.class);
             Assert.assertNotNull("CurrencyMetaData not null", metadata);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -101,7 +101,7 @@ public class XChangeMetadataIntegrationTest {
             Assert.assertNotNull("Pairs not null", pairs);
             Assert.assertTrue("Contains EOS/ETH", pairs.contains(CurrencyPair.EOS_ETH));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -120,7 +120,7 @@ public class XChangeMetadataIntegrationTest {
             metadata = template.requestBodyAndHeader("direct:currencyPairMetaData", null, HEADER_CURRENCY_PAIR, CurrencyPair.EOS_ETH, CurrencyPairMetaData.class);
             Assert.assertNotNull("CurrencyPairMetaData not null", metadata);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

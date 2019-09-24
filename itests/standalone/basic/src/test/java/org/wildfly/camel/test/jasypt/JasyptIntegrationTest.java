@@ -63,7 +63,7 @@ public class JasyptIntegrationTest {
         pc.setPropertiesParser(jasypt);
 
         CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addComponent("properties", pc);
+        camelctx.setPropertiesComponent(pc);
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -77,7 +77,7 @@ public class JasyptIntegrationTest {
             String result = producer.requestBody("direct:start", "John", String.class);
             Assert.assertEquals("Hi John the decrypted password is: tiger", result.trim());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

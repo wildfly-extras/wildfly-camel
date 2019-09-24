@@ -103,7 +103,7 @@ public class ShiroIntegrationTest {
             successEndpoint.assertIsSatisfied();
             failureEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

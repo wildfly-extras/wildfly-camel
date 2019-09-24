@@ -87,7 +87,7 @@ public class HystrixIntegrationTest {
 
             Assert.assertEquals("Hello World", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
             deployer.undeploy(DELAYED_RESPONSE_WAR);
         }
     }
@@ -126,7 +126,7 @@ public class HystrixIntegrationTest {
             Assert.assertEquals("Hello Kermit", result);
         } finally {
             LOG.info("[wfc#1507] Camel context shutdown: {}", System.currentTimeMillis());
-            camelctx.stop();
+            camelctx.close();
 
             LOG.info("[wfc#1507] DelayedHttpResponseServlet undeploy: {}", System.currentTimeMillis());
             deployer.undeploy(DELAYED_RESPONSE_WAR);

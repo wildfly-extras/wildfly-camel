@@ -87,10 +87,10 @@ public class GitIntegrationTest {
             mockEndpoint.assertIsSatisfied();
 
             Exchange exchange = mockEndpoint.getExchanges().get(0);
-            RevCommit commit = exchange.getOut().getBody(RevCommit.class);
+            RevCommit commit = exchange.getMessage().getBody(RevCommit.class);
             Assert.assertEquals("Hello Kermit", commit.getFullMessage());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

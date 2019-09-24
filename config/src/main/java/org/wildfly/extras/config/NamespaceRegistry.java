@@ -24,7 +24,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jdom.Namespace;
+import org.jdom2.Namespace;
 import org.wildfly.extras.config.internal.IllegalArgumentAssertion;
 
 public class NamespaceRegistry {

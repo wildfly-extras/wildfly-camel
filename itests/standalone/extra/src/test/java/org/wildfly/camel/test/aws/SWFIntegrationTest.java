@@ -105,7 +105,7 @@ public class SWFIntegrationTest {
             SWFUtils.terminateWorkflowExecution(swfClient, workflowId);
 
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

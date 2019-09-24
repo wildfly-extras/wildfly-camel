@@ -5,7 +5,7 @@
   </resources>
   <dependencies>
     <module name="io.netty" slot="fuse" />
-    <module name="org.apache.camel.component.netty4" />
+    <module name="org.apache.camel.component.netty" />
     <module name="org.apache.mina.core" />
     <module name="org.slf4j" />
     <module name="ca.uhn.hapi" export="true">
@@ -13,7 +13,6 @@
         <exclude path="ca/uhn" />
       </exports>
     </module>
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

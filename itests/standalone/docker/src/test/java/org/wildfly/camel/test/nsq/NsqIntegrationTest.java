@@ -101,7 +101,7 @@ public class NsqIntegrationTest {
 
             mockEndpoint.assertIsSatisfied(5000);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

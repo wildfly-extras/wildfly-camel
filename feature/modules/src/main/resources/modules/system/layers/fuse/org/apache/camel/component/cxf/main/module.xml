@@ -52,7 +52,6 @@
       </exports>
     </module>
     <module name="javax.servlet.api" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.component.http.common" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.camel.spring" />

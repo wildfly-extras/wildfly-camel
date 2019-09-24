@@ -26,7 +26,6 @@ import static org.wildfly.camel.test.common.security.BasicSecurityDomainASetup.A
 import static org.wildfly.camel.test.common.security.BasicSecurityDomainASetup.APPLICATION_USER;
 import static org.wildfly.camel.test.common.security.BasicSecurityDomainASetup.APPLICATION_USER_SUB;
 
-import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -38,7 +37,6 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.exporter.ZipExporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;

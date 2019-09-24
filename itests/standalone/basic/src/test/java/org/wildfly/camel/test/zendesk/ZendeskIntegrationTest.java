@@ -68,7 +68,7 @@ public class ZendeskIntegrationTest {
             Assert.assertEquals(new Long(1), ticket.getId());
             Assert.assertEquals("Hello Kermit", ticket.getSubject());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

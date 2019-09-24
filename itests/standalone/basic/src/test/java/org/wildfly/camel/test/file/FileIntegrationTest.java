@@ -70,7 +70,7 @@ public class FileIntegrationTest {
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
         BufferedReader br = new BufferedReader(new FileReader(Paths.get(datadir, "camel-file.txt").toFile()));
@@ -107,7 +107,7 @@ public class FileIntegrationTest {
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

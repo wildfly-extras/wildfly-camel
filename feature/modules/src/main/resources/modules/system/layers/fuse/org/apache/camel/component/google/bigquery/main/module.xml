@@ -9,7 +9,6 @@
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.google.api-client.google-api-client" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.httpcomponents" slot="fuse" />
   </dependencies>

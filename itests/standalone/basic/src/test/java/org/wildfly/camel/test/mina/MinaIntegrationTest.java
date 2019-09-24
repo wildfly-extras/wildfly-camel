@@ -48,7 +48,7 @@ public class MinaIntegrationTest {
         CamelContext camelctx = new DefaultCamelContext();
         Endpoint endpoint = camelctx.getEndpoint("mina:tcp://localhost:6200");
         Assert.assertNotNull(endpoint);
-        Assert.assertEquals("org.apache.camel.component.mina2.Mina2Endpoint", endpoint.getClass().getName());
-        camelctx.stop();
+        Assert.assertEquals("org.apache.camel.component.mina.MinaEndpoint", endpoint.getClass().getName());
+        camelctx.close();
     }
 }

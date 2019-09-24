@@ -22,7 +22,6 @@ package org.wildfly.camel.test.cxf.ws.secure;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -57,14 +56,6 @@ import org.wildfly.extension.camel.CamelAware;
 public class CXFWSEarBasicSecureProducerIntegrationTest {
 
     private static final Path WILDFLY_HOME = EnvironmentUtils.getWildFlyHome();
-    private static final String WS_MESSAGE_TEMPLATE_B = "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">"
-            + "<Body>"
-            + "<greet xmlns=\"http://subB.secure.ws.cxf.test.camel.wildfly.org/\">"
-            + "<message xmlns=\"\">%s</message>"
-            + "<name xmlns=\"\">%s</name>"
-            + "</greet>"
-            + "</Body>"
-            + "</Envelope>";
 
     private static final Map<String, String> PATH_ROLE_MAP_A = new LinkedHashMap<String, String>() {
         private static final long serialVersionUID = 1L;

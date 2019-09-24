@@ -118,7 +118,7 @@ public class UndertowIntegrationTest {
             Assert.assertEquals(HTTP_OK, response.getStatusCode());
             Assert.assertEquals("Hello Kermit from /c", response.getBody());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -145,7 +145,7 @@ public class UndertowIntegrationTest {
 
             endpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -166,7 +166,7 @@ public class UndertowIntegrationTest {
             String result = template.requestBody("undertow:http://localhost:8080/myapp/serviceB?name=Kermit", null, String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -187,7 +187,7 @@ public class UndertowIntegrationTest {
             expectedException.expect(RuntimeException.class);
             deployer.deploy(TEST_SERVLET_WAR);
         } finally {
-            camelctx.stop();
+            camelctx.close();
             deployer.undeploy(TEST_SERVLET_WAR);
         }
     }
@@ -209,7 +209,7 @@ public class UndertowIntegrationTest {
             expectedException.expect(IllegalStateException.class);
             camelctx.start();
         } finally {
-            camelctx.stop();
+            camelctx.close();
             deployer.undeploy(TEST_SERVLET_WAR);
         }
     }

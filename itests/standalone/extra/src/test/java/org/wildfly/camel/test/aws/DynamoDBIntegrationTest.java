@@ -77,7 +77,7 @@ public class DynamoDBIntegrationTest {
                     Assert.assertEquals("Book 103 Update", result);
 
                 } finally {
-                    camelctx.stop();
+                    camelctx.close();
                 }
             } finally {
                 DynamoDBUtils.deleteTable(client, tableName);

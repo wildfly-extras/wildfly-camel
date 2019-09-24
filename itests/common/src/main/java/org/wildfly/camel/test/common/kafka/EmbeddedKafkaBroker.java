@@ -29,6 +29,7 @@ import kafka.server.KafkaConfig;
 import kafka.server.KafkaServer;
 import kafka.utils.ZkUtils;
 
+import org.apache.kafka.common.utils.Time;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 import org.wildfly.camel.test.common.utils.FileUtils;
 
@@ -134,7 +135,7 @@ public class EmbeddedKafkaBroker {
                 false);
         List<KafkaMetricsReporter> kmrList = new ArrayList<>();
         Buffer<KafkaMetricsReporter> metricsList = scala.collection.JavaConversions.asScalaBuffer(kmrList);
-        KafkaServer server = new KafkaServer(new KafkaConfig(props), new SystemTime(), Option.<String>empty(), metricsList);
+        KafkaServer server = new KafkaServer(new KafkaConfig(props), Time.SYSTEM, Option.<String>empty(), metricsList);
         server.startup();
         return server;
     }

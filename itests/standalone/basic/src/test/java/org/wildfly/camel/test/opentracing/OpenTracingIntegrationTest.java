@@ -72,7 +72,7 @@ public class OpenTracingIntegrationTest {
 
             Assert.assertTrue(notify.matches(30, TimeUnit.SECONDS));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

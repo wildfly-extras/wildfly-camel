@@ -213,7 +213,7 @@ public class GoogleMailIntegrationTest {
             Assert.assertTrue(findLabel(labels, testLabel) == null);
 
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
     }
@@ -346,7 +346,7 @@ public class GoogleMailIntegrationTest {
             listOfMessages = template.requestBody("direct://LIST", CURRENT_USERID, ListMessagesResponse.class);
             Assert.assertFalse(idInList(testEmailId, listOfMessages));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -377,7 +377,7 @@ public class GoogleMailIntegrationTest {
             Assert.assertNotNull("Should be email address associated with current account", result.getEmailAddress());
             System.out.println("getProfile: " + result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -477,7 +477,7 @@ public class GoogleMailIntegrationTest {
             }
 
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
     }

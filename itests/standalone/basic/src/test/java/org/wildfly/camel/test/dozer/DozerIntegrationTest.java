@@ -79,7 +79,7 @@ public class DozerIntegrationTest {
             Assert.assertEquals(customerA.getStreet(), result.getAddress().getStreet());
             Assert.assertEquals(customerA.getZip(), result.getAddress().getZip());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

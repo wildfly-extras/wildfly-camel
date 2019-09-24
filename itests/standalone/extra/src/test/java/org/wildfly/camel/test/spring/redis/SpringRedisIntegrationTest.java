@@ -133,7 +133,7 @@ public class SpringRedisIntegrationTest {
             });
             Assert.assertEquals("value", redisTemplate.opsForValue().get("key1"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

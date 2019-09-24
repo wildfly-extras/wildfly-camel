@@ -174,6 +174,7 @@ def allowedDuplicateArtifacts = [
     "com.fasterxml.jackson.jaxrs:jackson-jaxrs-base",
     "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider",
     "com.fasterxml.jackson.module:jackson-module-jaxb-annotations",
+    "com.fasterxml.woodstox:woodstox-core",
     "com.github.ben-manes.caffeine:caffeine",
     "com.github.spullara.mustache.java:compiler",
     "com.googlecode.javaewah:JavaEWAH",

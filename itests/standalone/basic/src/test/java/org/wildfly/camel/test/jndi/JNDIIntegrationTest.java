@@ -108,7 +108,7 @@ public class JNDIIntegrationTest {
                 String result = producer.requestBody("direct:start", "Kermit", String.class);
                 Assert.assertEquals("Hello Kermit", result);
             } finally {
-                camelctx.stop();
+                camelctx.close();
             }
 
             // Assert that the context is unbound from JNDI after stop

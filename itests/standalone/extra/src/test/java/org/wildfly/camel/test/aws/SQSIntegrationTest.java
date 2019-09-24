@@ -123,7 +123,7 @@ public class SQSIntegrationTest {
                     Assert.assertNotNull(exchange.getIn().getHeader(SqsConstants.ATTRIBUTES));
                     Assert.assertNotNull(exchange.getIn().getHeader(SqsConstants.MESSAGE_ATTRIBUTES));
                 } finally {
-                    camelctx.stop();
+                    camelctx.close();
                 }
             } finally {
                 sqsClient.deleteQueue(url);

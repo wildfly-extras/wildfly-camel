@@ -83,7 +83,7 @@ public class SagaIntegrationTest {
             Assert.assertEquals(3, sagaIds.size());
             assertUniqueNonNullSagaIds(sagaIds, 1);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -117,7 +117,7 @@ public class SagaIntegrationTest {
             Assert.assertEquals(3, sagaIds.size());
             assertUniqueNonNullSagaIds(sagaIds, 3);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -155,7 +155,7 @@ public class SagaIntegrationTest {
             Assert.assertEquals(4, sagaIds.size());
             assertNonNullSagaIds(sagaIds, 1);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -189,9 +189,9 @@ public class SagaIntegrationTest {
             camelctx.createFluentProducerTemplate().to("direct:supports").request();
 
             Assert.assertEquals(2, sagaIds.size());
-            assertNonNullSagaIds(sagaIds, 1);
+            assertUniqueNonNullSagaIds(sagaIds, 1);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -222,7 +222,7 @@ public class SagaIntegrationTest {
         } catch (CamelExecutionException e) {
             // Expected
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -254,7 +254,7 @@ public class SagaIntegrationTest {
         } catch (CamelExecutionException e) {
             // Expected
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -272,7 +272,7 @@ public class SagaIntegrationTest {
     private void assertNonNullSagaIds(List<String> sagaIds, int num) {
         List<String> nonNull = sagaIds.stream().filter(Objects::nonNull).collect(Collectors.toList());
         if (nonNull.size() != num) {
-            Assert.fail("Expeced size " + num + ", actual " + nonNull.size());
+            Assert.fail("Expeced size " + num + ", actual: " + nonNull);
         }
     }
 }

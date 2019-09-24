@@ -73,7 +73,7 @@ public class WordpressIntegrationTest {
 
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -99,7 +99,7 @@ public class WordpressIntegrationTest {
 
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -133,7 +133,7 @@ public class WordpressIntegrationTest {
 
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -170,7 +170,7 @@ public class WordpressIntegrationTest {
 
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -201,7 +201,7 @@ public class WordpressIntegrationTest {
 
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -226,7 +226,7 @@ public class WordpressIntegrationTest {
 
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -252,7 +252,7 @@ public class WordpressIntegrationTest {
 
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -289,7 +289,7 @@ public class WordpressIntegrationTest {
 
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -323,7 +323,7 @@ public class WordpressIntegrationTest {
 
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -354,7 +354,7 @@ public class WordpressIntegrationTest {
 
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

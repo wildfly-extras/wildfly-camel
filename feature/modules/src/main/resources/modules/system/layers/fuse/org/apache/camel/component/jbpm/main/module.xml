@@ -6,7 +6,6 @@
   <dependencies>
     <module name="org.slf4j" />
     <module name="javax.jms.api" />
-    <module name="javax.xml.bind.api" />
     <module name="javax.xml.ws.api" />
     <module name="org.apache.camel.core" />
     <module name="org.jboss.logging" />

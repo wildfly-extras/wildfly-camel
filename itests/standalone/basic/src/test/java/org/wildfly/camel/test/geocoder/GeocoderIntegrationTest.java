@@ -96,7 +96,7 @@ public class GeocoderIntegrationTest {
             Assert.assertEquals("51.50735090", latitude);
             Assert.assertEquals("-0.12775830", longitude);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

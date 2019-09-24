@@ -26,12 +26,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Properties;
 
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.Namespace;
-import org.jdom.input.SAXBuilder;
-import org.jdom.xpath.XPath;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.Namespace;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.xpath.XPath;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,6 +54,7 @@ public class VersionsValidatorTest {
 
         mapping.put("version.camel.apns", "java-apns-version");
         mapping.put("version.camel.bouncycastle", "bouncycastle-version");
+        mapping.put("version.camel.consul.client", "consul-client-version");
         mapping.put("version.camel.elasticsearch.rest", "elasticsearch-rest-version");
         mapping.put("version.camel.grpc.guava", "grpc-guava-version");
         mapping.put("version.camel.hadoop2", "hadoop2-version");
@@ -74,7 +75,6 @@ public class VersionsValidatorTest {
         mapping.put("version.wildfly.fasterxml.jackson", "version.com.fasterxml.jackson");
         mapping.put("version.wildfly.hibernate", "version.org.hibernate");
         mapping.put("version.wildfly.infinispan", "version.org.infinispan");
-        mapping.put("version.wildfly.okhttp3", "version.com.squareup.okhttp3");
     }
 
     @Test
@@ -136,7 +136,7 @@ public class VersionsValidatorTest {
         File xmlFile = new File(pomPath);
 
         SAXBuilder builder = new SAXBuilder();
-        Document document = (Document) builder.build(xmlFile);
+        Document document = builder.build(xmlFile);
         return document.getRootElement();
     }
 }

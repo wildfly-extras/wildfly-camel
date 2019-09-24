@@ -87,7 +87,7 @@ public class HazelcastMapConsumerIntegrationTest {
 
             checkHeaders(mock.getExchanges().get(0).getIn().getHeaders(), HazelcastConstants.ADDED);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -105,7 +105,7 @@ public class HazelcastMapConsumerIntegrationTest {
 
             mock.assertIsSatisfied(3000);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -125,7 +125,7 @@ public class HazelcastMapConsumerIntegrationTest {
 
             checkHeaders(mock.getExchanges().get(0).getIn().getHeaders(), HazelcastConstants.UPDATED);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -144,7 +144,7 @@ public class HazelcastMapConsumerIntegrationTest {
             mock.assertIsSatisfied(3000);
             checkHeaders(mock.getExchanges().get(0).getIn().getHeaders(), HazelcastConstants.REMOVED);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

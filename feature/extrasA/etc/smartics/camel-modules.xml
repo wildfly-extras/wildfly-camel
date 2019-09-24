@@ -47,7 +47,7 @@
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
-            <exclude path="org/apache/camel/component/hdfs2/osgi**" />
+            <exclude path="org/apache/camel/component/hdfs/osgi**" />
         </exports>
     </module>
 
@@ -58,7 +58,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.rometools.rome" slot="1.0" />
+            <module name="com.rometools.rome" />
             <module name="javax.jcr" export="true"/>
             <module name="org.slf4j"/>
         </dependencies>

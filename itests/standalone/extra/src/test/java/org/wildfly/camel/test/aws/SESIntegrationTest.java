@@ -89,7 +89,7 @@ public class SESIntegrationTest {
             Assert.assertNotNull("MessageId not null", messageId);
 
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

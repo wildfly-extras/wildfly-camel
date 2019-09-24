@@ -30,14 +30,15 @@ import javax.naming.Context;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
+import org.apache.camel.FailedToStartRouteException;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.reactive.streams.api.CamelReactiveStreams;
 import org.apache.camel.component.reactive.streams.api.CamelReactiveStreamsService;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.DefaultExchange;
-import org.apache.camel.util.ExchangeHelper;
+import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.support.ExchangeHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -96,7 +97,7 @@ public class ReactorIntegrationTest {
 
             Assert.assertEquals(3, value.get());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -128,7 +129,7 @@ public class ReactorIntegrationTest {
             latch.await(5, TimeUnit.SECONDS);
             Assert.assertEquals(num, value.get());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -165,7 +166,7 @@ public class ReactorIntegrationTest {
             Assert.assertTrue(latch1.await(5, TimeUnit.SECONDS));
             Assert.assertTrue(latch2.await(5, TimeUnit.SECONDS));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -209,7 +210,7 @@ public class ReactorIntegrationTest {
             Assert.assertTrue(latch3.await(5, TimeUnit.SECONDS));
             disp3.dispose();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -232,7 +233,7 @@ public class ReactorIntegrationTest {
 
             Assert.assertTrue(latch.await(2, TimeUnit.SECONDS));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -273,7 +274,7 @@ public class ReactorIntegrationTest {
                 );
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -308,7 +309,7 @@ public class ReactorIntegrationTest {
                 );
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -339,7 +340,7 @@ public class ReactorIntegrationTest {
             Assert.assertNotNull(content);
             Assert.assertEquals("123", content);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -362,7 +363,7 @@ public class ReactorIntegrationTest {
             Assert.assertTrue(latch.await(2, TimeUnit.SECONDS));
             Assert.assertEquals(new TreeSet<>(Arrays.asList("Hello 1", "Hello 2", "Hello 3")), values);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -387,7 +388,7 @@ public class ReactorIntegrationTest {
             Assert.assertTrue(latch.await(2, TimeUnit.SECONDS));
             Assert.assertEquals(new TreeSet<>(Arrays.asList("Hello 1", "Hello 2", "Hello 3")), values);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -414,7 +415,7 @@ public class ReactorIntegrationTest {
             Assert.assertTrue(latch.await(2, TimeUnit.SECONDS));
             Assert.assertEquals(new TreeSet<>(Arrays.asList("Hello 1", "Hello 2", "Hello 3")), values);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -439,7 +440,7 @@ public class ReactorIntegrationTest {
             Assert.assertTrue(latch.await(2, TimeUnit.SECONDS));
             Assert.assertEquals(new TreeSet<>(Arrays.asList("Hello 1", "Hello 2", "Hello 3")), values);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -470,11 +471,11 @@ public class ReactorIntegrationTest {
                 Assert.assertEquals(new Integer(idx++), ex.getIn().getBody(Integer.class));
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = FailedToStartRouteException.class)
     public void testOnlyOneCamelProducerPerPublisher() throws Exception {
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {

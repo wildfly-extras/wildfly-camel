@@ -27,7 +27,7 @@
         <include artifact=":jackson-dataformat-smile" />
     </module>
 
-    <module name="org.apache.lucene" inherit-slot="false" slot="7.1">
+    <module name="org.apache.lucene" inherit-slot="false" slot="8.0">
         <include artifact="org.apache.lucene:lucene-analyzers-common" />
         <include artifact="org.apache.lucene:lucene-backward-codecs" />
         <include artifact="org.apache.lucene:lucene-core" />
@@ -57,6 +57,7 @@
         <include artifact="org.elasticsearch:elasticsearch" />
         <include artifact="org.elasticsearch:elasticsearch-cli" />
         <include artifact="org.elasticsearch:elasticsearch-core" />
+        <include artifact="org.elasticsearch:elasticsearch-geo" />
         <include artifact="org.elasticsearch:elasticsearch-secure-sm" />
         <include artifact="org.elasticsearch:elasticsearch-x-content" />
         <include artifact="org.elasticsearch:jna" />
@@ -68,13 +69,16 @@
         <include artifact="org.elasticsearch.plugin:parent-join-client" />
         <include artifact="org.elasticsearch.plugin:rank-eval-client" />
         <apply-to-dependencies skip="true">
-            <include module="org.apache.logging.log4j" />
             <include module="org.elasticsearch.skipped" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.apache.logging.log4j" />
-            <module name="org.apache.lucene" slot="7.1"/>
+            <module name="org.apache.lucene" export="true" slot="8.0">
+                <exports>
+                    <exclude path="org/tartarus**"/>
+                </exports>
+            </module>
             <module name="sun.jdk">
                 <imports>
                     <include path="sun/misc" />

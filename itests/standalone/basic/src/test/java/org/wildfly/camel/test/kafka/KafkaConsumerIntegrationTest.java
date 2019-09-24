@@ -111,7 +111,7 @@ public class KafkaConsumerIntegrationTest {
             }
             to.assertIsSatisfied(3000);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

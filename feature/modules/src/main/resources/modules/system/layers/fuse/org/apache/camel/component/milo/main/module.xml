@@ -4,7 +4,7 @@
     <artifact name="${org.apache.camel:camel-milo}" />
   </resources>
   <dependencies>
-    <module name="com.google.guava" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="org.eclipse.milo" export="true">
       <exports>
         <exclude path="org/jooq**" />
@@ -12,7 +12,6 @@
     </module>
     <module name="org.eclipse.milo.server" export="true" />
     <module name="org.slf4j" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.eclipse.milo.client" />
   </dependencies>

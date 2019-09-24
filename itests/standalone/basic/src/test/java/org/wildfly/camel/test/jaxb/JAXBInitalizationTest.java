@@ -20,9 +20,9 @@
 
 package org.wildfly.camel.test.jaxb;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.ModelHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -48,7 +48,7 @@ public class JAXBInitalizationTest {
     @Test
     public void testJaxbDumpModelAsXML() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
+    	ModelCamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -64,7 +64,7 @@ public class JAXBInitalizationTest {
             String xml = ModelHelper.dumpModelAsXml(camelctx, camelctx.getRouteDefinition("route-1"));
             Assert.assertTrue(xml.contains("log:test"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

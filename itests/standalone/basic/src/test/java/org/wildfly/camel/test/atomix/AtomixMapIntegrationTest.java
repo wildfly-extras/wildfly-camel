@@ -128,7 +128,7 @@ public class AtomixMapIntegrationTest {
             Assert.assertEquals(val, result.getBody(String.class));
             Assert.assertTrue(map.containsKey(key).join());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
     }

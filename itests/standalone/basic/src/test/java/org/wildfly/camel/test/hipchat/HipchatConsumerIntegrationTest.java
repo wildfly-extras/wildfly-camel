@@ -125,7 +125,7 @@ public class HipchatConsumerIntegrationTest {
 
             assertCommonResultExchange(result.getExchanges().get(0));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -182,7 +182,7 @@ public class HipchatConsumerIntegrationTest {
 
             assertCommonResultExchange(result.getExchanges().get(0));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -204,7 +204,7 @@ public class HipchatConsumerIntegrationTest {
 
             result.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

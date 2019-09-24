@@ -10,4 +10,7 @@
     <module name="org.hdrhistogram" />
     <module name="org.latencyutils" />
   </dependencies>
+  <exports>
+    <exclude path="io/micrometer/core/util/internal*" />
+  </exports>
 </module>

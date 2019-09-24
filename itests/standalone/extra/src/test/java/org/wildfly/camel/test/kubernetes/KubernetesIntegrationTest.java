@@ -107,7 +107,7 @@ public class KubernetesIntegrationTest {
             headers.put(KubernetesConstants.KUBERNETES_POD_NAME, podName);
             template.requestBodyAndHeaders("kubernetes-pods:" + getKubernetesMaster() + "?category=pods&operation=deletePod", null, headers);
 
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -147,9 +147,9 @@ public class KubernetesIntegrationTest {
             Map<String, Object> headers = new HashMap<>();
             headers.put(KubernetesConstants.KUBERNETES_NAMESPACE_NAME, kubernetesNamespace);
             headers.put(KubernetesConstants.KUBERNETES_POD_NAME, podName);
-            template.requestBodyAndHeaders("kubernetes:" + getKubernetesMaster() + "?category=pods&operation=deletePod", null, headers);
+            template.requestBodyAndHeaders("kubernetes-pods:" + getKubernetesMaster() + "?operation=deletePod", null, headers);
 
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

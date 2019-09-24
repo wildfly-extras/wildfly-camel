@@ -71,7 +71,7 @@ public class BeanIOIntegrationTest {
             String result = producer.requestBody("direct:start", customer, String.class);
             Assert.assertEquals("Peter,Post,Street,12345", result.trim());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -98,7 +98,7 @@ public class BeanIOIntegrationTest {
             Assert.assertEquals("Street", customer.getStreet());
             Assert.assertEquals("12345", customer.getZip());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

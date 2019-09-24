@@ -75,7 +75,7 @@ public class MsvIntegrationTest {
             mockEndpointValid.assertIsSatisfied();
             mockEndpointInvalid.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -108,7 +108,7 @@ public class MsvIntegrationTest {
             mockEndpointValid.assertIsSatisfied();
             mockEndpointInvalid.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

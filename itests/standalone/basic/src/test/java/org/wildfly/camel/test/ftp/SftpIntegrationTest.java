@@ -81,13 +81,15 @@ public class SftpIntegrationTest {
 
         File testFile = resolvePath(FTP_ROOT_DIR).resolve("test.txt").toFile();
         CamelContext camelctx = new DefaultCamelContext();
+
+        camelctx.start();
         try {
             Endpoint endpoint = camelctx.getEndpoint(getSftpEndpointUri());
             Assert.assertFalse(testFile.exists());
             camelctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFileName", "test.txt");
             Assert.assertTrue(testFile.exists());
         } finally {
-            camelctx.stop();
+            camelctx.close();
             recursiveDelete(resolvePath(FTP_ROOT_DIR).toFile());
         }
     }

@@ -76,7 +76,7 @@ public class SplunkIntegrationTest {
             producer.sendBody("direct:submit", splunkEvent);
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

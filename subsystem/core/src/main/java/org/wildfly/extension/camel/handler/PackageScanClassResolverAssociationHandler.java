@@ -25,7 +25,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.impl.DefaultPackageScanClassResolver;
+import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.impl.engine.DefaultPackageScanClassResolver;
 import org.apache.camel.spi.PackageScanClassResolver;
 import org.apache.camel.spi.PackageScanFilter;
 import org.jboss.modules.ModuleClassLoader;
@@ -49,7 +50,7 @@ public final class PackageScanClassResolverAssociationHandler implements Context
     @Override
     public void setup(CamelContext camelctx) {
         PackageScanClassResolver resolver = new PackageScanClassResolverImpl(moduleClassLoader);
-        camelctx.setPackageScanClassResolver(resolver);
+        ((ExtendedCamelContext) camelctx).setPackageScanClassResolver(resolver);
     }
 
     static final class PackageScanClassResolverImpl extends DefaultPackageScanClassResolver {

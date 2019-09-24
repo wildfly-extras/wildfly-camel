@@ -99,7 +99,7 @@ public class AzureIntegrationTest {
             Assert.assertFalse("No Blob exists", it.hasNext());
 
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -155,7 +155,7 @@ public class AzureIntegrationTest {
             }
 
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

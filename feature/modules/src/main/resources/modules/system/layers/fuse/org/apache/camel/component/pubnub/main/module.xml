@@ -7,11 +7,9 @@
   <dependencies>
     <module name="javax.api" />
     <module name="org.slf4j" />
-    <module name="com.google.code.gson" slot="fuse" />
     <module name="com.squareup.okhttp3" slot="fuse" />
-    <module name="com.squareup.okhttp3.logging-interceptor" />
-    <module name="com.squareup.retrofit2" />
-    <module name="javax.xml.bind.api" />
+    <module name="com.google.code.gson" slot="fuse" />
+    <module name="com.squareup.retrofit2" slot="fuse" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

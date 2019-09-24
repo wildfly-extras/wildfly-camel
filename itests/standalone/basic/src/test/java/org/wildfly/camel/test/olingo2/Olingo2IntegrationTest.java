@@ -95,7 +95,7 @@ public class Olingo2IntegrationTest {
             List<ODataEntry> cars = carEntries.getEntries();
             Assert.assertFalse(cars.isEmpty());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

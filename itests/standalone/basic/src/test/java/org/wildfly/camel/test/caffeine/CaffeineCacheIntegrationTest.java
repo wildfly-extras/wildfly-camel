@@ -93,7 +93,7 @@ public class CaffeineCacheIntegrationTest {
 
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -121,7 +121,7 @@ public class CaffeineCacheIntegrationTest {
             Assert.assertTrue(cache.getIfPresent(key) != null);
             Assert.assertEquals(val, cache.getIfPresent(key));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -152,7 +152,7 @@ public class CaffeineCacheIntegrationTest {
 
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -181,7 +181,7 @@ public class CaffeineCacheIntegrationTest {
 
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -212,7 +212,7 @@ public class CaffeineCacheIntegrationTest {
                 Assert.assertEquals(map.get(k), elements.get(k));
             });
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -241,7 +241,7 @@ public class CaffeineCacheIntegrationTest {
 
             Assert.assertFalse(cache.getIfPresent(key) != null);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -273,7 +273,7 @@ public class CaffeineCacheIntegrationTest {
                 Assert.assertFalse(elements.containsKey(k));
             });
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -304,7 +304,7 @@ public class CaffeineCacheIntegrationTest {
                 Assert.assertEquals(map.get(k), elements.get(k));
             });
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

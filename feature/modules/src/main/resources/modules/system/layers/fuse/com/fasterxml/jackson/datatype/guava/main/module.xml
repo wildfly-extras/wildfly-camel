@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.fasterxml.jackson.datatype.guava">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${com.fasterxml.jackson.datatype:jackson-datatype-guava}" />
+  </resources>
+  <dependencies>
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.google.guava" slot="fuse" />
+  </dependencies>
+</module>

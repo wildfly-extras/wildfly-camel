@@ -173,7 +173,7 @@ public class GoogleDriveIntegrationTest {
             }
 
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
     }

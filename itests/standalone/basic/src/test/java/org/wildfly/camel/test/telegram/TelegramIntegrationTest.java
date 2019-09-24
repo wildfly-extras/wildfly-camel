@@ -86,7 +86,7 @@ public class TelegramIntegrationTest {
 
             endpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -94,7 +94,7 @@ public class TelegramIntegrationTest {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("telegram:bots/mock-token")
+                from("telegram:bots?authorizationToken=mock-token")
                         .convertBodyTo(String.class)
                         .to("mock:telegram");
             }

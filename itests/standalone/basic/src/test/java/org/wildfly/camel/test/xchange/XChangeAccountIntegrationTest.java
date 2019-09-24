@@ -63,7 +63,7 @@ public class XChangeAccountIntegrationTest {
             Assert.assertNotNull("Balances not null", balances);
             balances.forEach(b -> System.out.println(b));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -81,7 +81,7 @@ public class XChangeAccountIntegrationTest {
             List<Wallet> wallets = template.requestBody("direct:wallets", null, List.class);
             Assert.assertNotNull("Wallets not null", wallets);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -99,7 +99,7 @@ public class XChangeAccountIntegrationTest {
             List<FundingRecord> records = template.requestBody("direct:fundingHistory", null, List.class);
             Assert.assertNotNull("Funding records not null", records);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

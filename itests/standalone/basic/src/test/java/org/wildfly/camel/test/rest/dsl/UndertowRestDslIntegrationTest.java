@@ -25,7 +25,6 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -97,7 +96,7 @@ public class UndertowRestDslIntegrationTest extends AbstractRestDslIntegrationTe
 
         } finally {
             deployer.undeploy(SERVLET_WAR);
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -124,7 +123,7 @@ public class UndertowRestDslIntegrationTest extends AbstractRestDslIntegrationTe
         try {
             camelctx.start();
         } finally {
-            camelctx.stop();
+            camelctx.close();
             deployer.undeploy(SPRING_REST_WAR);
         }
     }
@@ -153,7 +152,7 @@ public class UndertowRestDslIntegrationTest extends AbstractRestDslIntegrationTe
             int statusCode = HttpRequest.get("http://localhost:8080/test").getResponse().getStatusCode();
             Assert.assertEquals(200, statusCode);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
         int statusCode = HttpRequest.get("http://localhost:8080/test").throwExceptionOnFailure(false).getResponse().getStatusCode();

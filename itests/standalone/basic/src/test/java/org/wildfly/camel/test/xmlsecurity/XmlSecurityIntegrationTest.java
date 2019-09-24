@@ -26,6 +26,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.xmlsecurity.api.KeyAccessor;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.jndi.JndiBeanRepository;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -33,7 +34,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -87,7 +87,7 @@ public class XmlSecurityIntegrationTest {
     @Test
     public void testXmlSigning() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -105,14 +105,14 @@ public class XmlSecurityIntegrationTest {
             // Make sure the XML was signed
             Assert.assertTrue(signedXml.contains("ds:SignatureValue"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
     @Test
     public void testXmlVerifySigning() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -131,7 +131,7 @@ public class XmlSecurityIntegrationTest {
             // Make sure the XML was unsigned
             Assert.assertEquals(XML_PAYLOAD, verifiedXml);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

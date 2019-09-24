@@ -105,7 +105,7 @@ public class JCacheProducerIntegrationTest {
             });
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -129,7 +129,7 @@ public class JCacheProducerIntegrationTest {
             // Just ensure we can start up without any class loading issues
             camelctx.start();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

@@ -53,7 +53,7 @@ public class SOAPServiceInterfaceStrategyIntegrationTest {
             .addAsResource("soap/envelope-sis.xml", "envelope.xml")
             .setManifest(() -> {
                 ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.jdom");
+                builder.addManifestHeader("Dependencies", "org.jdom2");
                 return builder.openStream();
             });
     }
@@ -82,7 +82,7 @@ public class SOAPServiceInterfaceStrategyIntegrationTest {
             String result = template.requestBody("direct:start", customer, String.class);
             Assert.assertEquals(XMLUtils.compactXML(input), XMLUtils.compactXML(result));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

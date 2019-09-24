@@ -74,7 +74,7 @@ public class CmSMSIntegrationTest {
             // If no exception was thrown, we assume everything worked ok
             template.requestBody("direct:start", message);
         } finally {
-            camelctx.stop();
+            camelctx.close();
             System.clearProperty("javax.net.ssl.trustStorePassword");
             System.clearProperty("javax.net.ssl.trustStore");
         }

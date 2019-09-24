@@ -56,7 +56,7 @@ public class SOAPIntegrationTest {
             .addAsResource("soap/envelope-1.2-unmarshal.xml", "envelope-1.2-unmarshal.xml")
             .setManifest(() -> {
                 ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.jdom");
+                builder.addManifestHeader("Dependencies", "org.jdom2");
                 return builder.openStream();
             });
     }
@@ -84,7 +84,7 @@ public class SOAPIntegrationTest {
             String customerXML = producer.requestBody("direct:start", customer, String.class);
             Assert.assertEquals(expected, XMLUtils.compactXML(customerXML));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -109,7 +109,7 @@ public class SOAPIntegrationTest {
             Element response = producer.requestBody("direct:start", input, Element.class);
             Assert.assertEquals("Customer", response.getLocalName());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -136,7 +136,7 @@ public class SOAPIntegrationTest {
             String customerXML = producer.requestBody("direct:start", customer, String.class);
             Assert.assertEquals(expected, XMLUtils.compactXML(customerXML));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -162,7 +162,7 @@ public class SOAPIntegrationTest {
             Element response = producer.requestBody("direct:start", input, Element.class);
             Assert.assertEquals("Customer", response.getLocalName());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

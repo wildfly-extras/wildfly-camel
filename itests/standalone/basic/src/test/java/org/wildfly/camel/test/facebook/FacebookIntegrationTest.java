@@ -87,7 +87,7 @@ public class FacebookIntegrationTest {
             PagableList testUserList = template.requestBody("direct:start", null, PagableList.class);
             Assert.assertNotNull("Facebook app test user list was null", testUserList);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

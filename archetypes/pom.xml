@@ -120,11 +120,6 @@
                                         <resolve-locals>
                                             <resolve-local>
                                                 <groupId>org.wildfly.camel</groupId>
-                                                <artifactId>wildfly-camel-feature-altmodA</artifactId>
-                                                <version>${project.version}</version>
-                                            </resolve-local>
-                                            <resolve-local>
-                                                <groupId>org.wildfly.camel</groupId>
                                                 <artifactId>wildfly-camel-feature-modules</artifactId>
                                                 <version>${project.version}</version>
                                             </resolve-local>

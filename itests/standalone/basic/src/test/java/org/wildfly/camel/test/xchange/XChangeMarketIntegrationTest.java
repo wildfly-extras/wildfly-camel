@@ -62,7 +62,7 @@ public class XChangeMarketIntegrationTest {
             Assert.assertNotNull("Ticker not null", ticker);
             System.out.println(ticker);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -79,7 +79,7 @@ public class XChangeMarketIntegrationTest {
             Assert.assertNotNull("Ticker not null", ticker);
             System.out.println(ticker);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

@@ -118,7 +118,7 @@ public class BeanstalkIntegrationTest {
             Assert.assertEquals("Job ID in exchange", Long.valueOf(jobId), exchange.getIn().getHeader(Headers.JOB_ID, Long.class));
             Mockito.verify(client).put(priority, delay, timeToRun, payload);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -150,7 +150,7 @@ public class BeanstalkIntegrationTest {
             Assert.assertEquals("Job ID in exchange", Long.valueOf(jobId), exchange.getIn().getHeader(Headers.JOB_ID, Long.class));
             Mockito.verify(client).delete(jobId);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -184,7 +184,7 @@ public class BeanstalkIntegrationTest {
             Assert.assertEquals("Job ID in exchange", Long.valueOf(jobId), exchange.getIn().getHeader(Headers.JOB_ID, Long.class));
             Mockito.verify(client).release(jobId, priority, delay);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -216,7 +216,7 @@ public class BeanstalkIntegrationTest {
             Assert.assertEquals("Job ID in exchange", Long.valueOf(jobId), exchange.getIn().getHeader(Headers.JOB_ID, Long.class));
             Mockito.verify(client).touch(jobId);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

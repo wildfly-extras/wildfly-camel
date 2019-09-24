@@ -67,7 +67,7 @@ public class JoltIntegrationTest {
 
             Assert.assertEquals(output, result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

@@ -69,7 +69,7 @@ public class GitHubIntegrationTest {
             String result = template.requestBody("direct:start", commitFile, String.class);
             Assert.assertEquals("Hello Kermit", result.trim());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

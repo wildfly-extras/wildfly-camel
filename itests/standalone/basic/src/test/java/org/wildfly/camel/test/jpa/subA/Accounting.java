@@ -32,6 +32,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.jndi.JndiBeanRepository;
 
 @Stateless
 public class Accounting {
@@ -72,7 +73,7 @@ public class Accounting {
         accountA.setBalance(accountA.getBalance() - amount);
 
         // do something in camel that is transactional
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -87,7 +88,7 @@ public class Accounting {
             ProducerTemplate producer = camelctx.createProducerTemplate();
             producer.requestBody("direct:start", accountA.getBalance());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
         // rollback if from balance is < 0

@@ -89,7 +89,7 @@ public class CouchbaseIntegrationTest {
         try {
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

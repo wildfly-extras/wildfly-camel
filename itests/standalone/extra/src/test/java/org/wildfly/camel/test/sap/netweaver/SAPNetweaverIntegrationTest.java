@@ -58,14 +58,14 @@ public class SAPNetweaverIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .to("sap-netweaver:http4://localhost:8080/sap/api");
+                .to("sap-netweaver:http://localhost:8080/sap/api");
 
                 from("undertow:http://localhost:8080/sap/api?matchOnUriPrefix=true")
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
                         String data = TestUtils.getResourceValue(SAPNetweaverIntegrationTest.class, "/flight-data.json");
-                        exchange.getOut().setBody(data);
+                        exchange.getMessage().setBody(data);
                     }
                 });
             }
@@ -77,7 +77,7 @@ public class SAPNetweaverIntegrationTest {
             String result = producer.requestBodyAndHeader("direct:start", null, NetWeaverConstants.COMMAND, SAP_COMMAND, String.class);
             Assert.assertTrue(result.contains("PRICE=422.94, CURRENCY=USD"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -88,14 +88,14 @@ public class SAPNetweaverIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                    .to("sap-netweaver:http4://localhost:8080/sap/api?json=false");
+                    .to("sap-netweaver:http://localhost:8080/sap/api?json=false");
 
                 from("undertow:http://localhost:8080/sap/api?matchOnUriPrefix=true")
                     .process(new Processor() {
                         @Override
                         public void process(Exchange exchange) throws Exception {
                             String data = TestUtils.getResourceValue(SAPNetweaverIntegrationTest.class, "/flight-data.xml");
-                            exchange.getOut().setBody(data);
+                            exchange.getMessage().setBody(data);
                         }
                     });
             }
@@ -108,7 +108,7 @@ public class SAPNetweaverIntegrationTest {
             Assert.assertTrue(result.contains("<d:PRICE>422.94</d:PRICE>"));
             Assert.assertTrue(result.contains("<d:CURRENCY>USD</d:CURRENCY>"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

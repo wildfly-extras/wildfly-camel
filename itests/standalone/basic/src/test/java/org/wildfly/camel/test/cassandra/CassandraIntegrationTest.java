@@ -99,7 +99,7 @@ public class CassandraIntegrationTest {
             Assert.assertNotNull("Result not null", result);
             Assert.assertEquals("Two records selected", 2, result.size());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

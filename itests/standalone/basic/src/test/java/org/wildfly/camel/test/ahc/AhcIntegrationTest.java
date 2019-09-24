@@ -93,7 +93,7 @@ public class AhcIntegrationTest {
             Assert.assertTrue("Got body " + body, body.contains("Welcome to WildFly"));
 
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

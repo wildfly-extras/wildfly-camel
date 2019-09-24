@@ -76,7 +76,7 @@ public class FastjsonIntegrationTest {
             template.sendBody("direct:back", marshalled);
             mockReverse.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -110,7 +110,7 @@ public class FastjsonIntegrationTest {
             template.sendBody("direct:backPojo", marshalled);
             mockPojo.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

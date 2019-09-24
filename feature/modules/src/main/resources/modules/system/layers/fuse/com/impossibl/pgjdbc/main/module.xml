@@ -5,6 +5,7 @@
   </properties>
   <resources>
     <artifact name="${com.impossibl.pgjdbc-ng:pgjdbc-ng}" />
+    <artifact name="${com.impossibl.pgjdbc-ng:spy}" />
   </resources>
   <dependencies>
     <module name="io.netty" slot="fuse" />

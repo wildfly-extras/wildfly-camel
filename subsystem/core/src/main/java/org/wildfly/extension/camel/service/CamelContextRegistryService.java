@@ -23,18 +23,18 @@ package org.wildfly.extension.camel.service;
 import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 
 import java.util.Collections;
-import java.util.EventObject;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.impl.CamelContextTrackerRegistry;
-import org.apache.camel.management.event.CamelContextStartingEvent;
-import org.apache.camel.management.event.CamelContextStoppedEvent;
+import org.apache.camel.impl.event.CamelContextStartingEvent;
+import org.apache.camel.impl.event.CamelContextStartupFailureEvent;
+import org.apache.camel.impl.event.CamelContextStoppedEvent;
 import org.apache.camel.spi.CamelContextTracker;
+import org.apache.camel.spi.CamelEvent;
 import org.apache.camel.spi.ManagementStrategy;
 import org.apache.camel.support.EventNotifierSupport;
 import org.jboss.modules.ModuleClassLoader;
@@ -101,6 +101,7 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
     public void start(StartContext startContext) throws StartException {
         ContextCreateHandlerRegistry handlerRegistry = injectedHandlerRegistry.getValue();
         contextRegistry = new CamelContextRegistryImpl(handlerRegistry, startContext.getChildTarget());
+        ((CamelContextTracker) contextRegistry).open();
 
         for (final String name : subsystemState.getContextDefinitionNames()) {
             createCamelContext(name, subsystemState.getContextDefinition(name));
@@ -113,7 +114,7 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
             CamelContext camelctx = contextRegistry.getCamelContext(name);
             try {
                 if (camelctx != null) {
-                    camelctx.stop();
+                    camelctx.close();
                 }
             } catch (Exception e) {
                 LOGGER.warn("Cannot stop camel context: " + name, e);
@@ -121,7 +122,7 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
         }
 
         if (contextRegistry != null) {
-            CamelContextTrackerRegistry.INSTANCE.removeTracker((CamelContextTracker) contextRegistry);
+            ((CamelContextTracker) contextRegistry).close();
         }
     }
 
@@ -153,14 +154,13 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
 
     final class CamelContextRegistryImpl extends CamelContextTracker implements MutableCamelContextRegistry {
 
-        private final Set<CamelContext> contexts = new HashSet<>();
+        private final Set<CamelContext> contexts = new LinkedHashSet<>();
         private final ContextCreateHandlerRegistry handlerRegistry;
         private final ServiceTarget serviceTarget;
 
         CamelContextRegistryImpl(ContextCreateHandlerRegistry handlerRegistry, ServiceTarget serviceTarget) {
             this.handlerRegistry = handlerRegistry;
             this.serviceTarget = serviceTarget;
-            CamelContextTrackerRegistry.INSTANCE.addTracker(this);
         }
 
         @Override
@@ -225,7 +225,8 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
                 ManagementStrategy mgmtStrategy = camelctx.getManagementStrategy();
                 mgmtStrategy.addEventNotifier(new EventNotifierSupport() {
 
-                    public void notify(EventObject event) throws Exception {
+					@Override
+					public void notify(CamelEvent event) throws Exception {
 
                         // Starting
                         if (event instanceof CamelContextStartingEvent) {
@@ -235,6 +236,14 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
                             LOGGER.info("Camel context starting: {}", camelctx.getName());
                         }
 
+                        // Start failure
+                        else if (event instanceof CamelContextStartupFailureEvent) {
+                        	CamelContextStartupFailureEvent camelevt = (CamelContextStartupFailureEvent) event;
+                            CamelContext camelctx = camelevt.getContext();
+                            removeCamelContext(camelctx);
+                            LOGGER.info("Camel context failure: {}", camelctx.getName());
+                        }
+
                         // Stopped
                         else if (event instanceof CamelContextStoppedEvent) {
                             CamelContextStoppedEvent camelevt = (CamelContextStoppedEvent) event;
@@ -242,11 +251,7 @@ public class CamelContextRegistryService extends AbstractService<MutableCamelCon
                             removeCamelContext(camelctx);
                             LOGGER.info("Camel context stopped: {}", camelctx.getName());
                         }
-                    }
-
-                    public boolean isEnabled(EventObject event) {
-                        return true;
-                    }
+					}
                 });
             }
         }

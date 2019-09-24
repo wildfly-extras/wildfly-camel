@@ -93,7 +93,7 @@ public class ICalFormatTest {
 
             mock.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -115,7 +115,7 @@ public class ICalFormatTest {
             Calendar response = producer.requestBody("direct:unmarshal", inStream, Calendar.class);
             Assert.assertNotNull(response);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

@@ -122,7 +122,7 @@ public class ApnsIntegrationTest {
             Assert.assertNotNull(inactiveDevice.getDeviceToken());
             Assert.assertEquals(deviceToken, inactiveDevice.getDeviceToken());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -165,7 +165,7 @@ public class ApnsIntegrationTest {
             server.getMessages().acquire();
             Assert.assertArrayEquals(apnsNotification.marshall(), server.getReceived().toByteArray());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

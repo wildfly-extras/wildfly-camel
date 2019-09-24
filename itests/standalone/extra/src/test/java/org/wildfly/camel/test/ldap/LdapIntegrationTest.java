@@ -39,7 +39,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.SimpleRegistry;
+import org.apache.camel.support.SimpleRegistry;
 import org.apache.directory.api.ldap.codec.api.LdapApiService;
 import org.apache.directory.api.ldap.codec.standalone.StandaloneLdapApiService;
 import org.apache.directory.api.ldap.util.JndiUtils;
@@ -110,7 +110,7 @@ public class LdapIntegrationTest {
 
         int ldapPort = Integer.parseInt(AvailablePortFinder.readServerData("ldap-port"));
         SimpleRegistry reg = new SimpleRegistry();
-        reg.put("localhost:" + ldapPort, getWiredContext(ldapPort));
+        reg.bind("localhost:" + ldapPort, getWiredContext(ldapPort));
 
         CamelContext camelctx = new DefaultCamelContext(reg);
         camelctx.addRoutes(new RouteBuilder() {
@@ -131,7 +131,7 @@ public class LdapIntegrationTest {
             Assert.assertTrue(containsResult(searchResults, "uid=testNoOU,ou=test,ou=system"));
             Assert.assertTrue(containsResult(searchResults, "uid=tcruise,ou=actors,ou=system"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -141,7 +141,7 @@ public class LdapIntegrationTest {
 
         int ldapPort = Integer.parseInt(AvailablePortFinder.readServerData("ldap-port"));
         SimpleRegistry reg = new SimpleRegistry();
-        reg.put("ldapcon", getWiredConnection(ldapPort));
+        reg.bind("ldapcon", getWiredConnection(ldapPort));
 
         CamelContext camelctx = new DefaultCamelContext(reg);
         camelctx.addRoutes(new RouteBuilder() {
@@ -166,7 +166,7 @@ public class LdapIntegrationTest {
             SearchResult sr = searchResults.next();
             Assert.assertEquals("uid=test3,ou=test,ou=system", sr.getName());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

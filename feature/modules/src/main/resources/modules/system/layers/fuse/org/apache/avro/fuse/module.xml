@@ -9,10 +9,9 @@
   <dependencies>
     <module name="org.codehaus.jackson.jackson-core-asl" slot="fuse" />
     <module name="org.codehaus.jackson.jackson-mapper-asl" slot="fuse" />
-    <module name="com.thoughtworks.paranamer" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="org.apache.commons.compress" />
     <module name="org.slf4j" />
-    <module name="org.tukaani.xz" />
-    <module name="org.xerial.snappy" />
   </dependencies>
 </module>

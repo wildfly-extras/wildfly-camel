@@ -91,7 +91,7 @@ public class JPAIdempotentConsumerIntegrationTest {
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

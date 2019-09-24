@@ -1,6 +1,6 @@
 FROM openjdk:8-jre-slim
 
-ENV NARAYANA_VERSION=5.8.2.Final
+ENV NARAYANA_VERSION=5.9.3.Final
 
 RUN apt update && \
     apt install curl -y && \

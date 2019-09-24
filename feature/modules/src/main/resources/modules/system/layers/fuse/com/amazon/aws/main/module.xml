@@ -4,8 +4,6 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${com.amazonaws:aws-java-sdk}" />
-    <artifact name="${com.amazonaws:aws-java-sdk-cloudfront}" />
     <artifact name="${com.amazonaws:aws-java-sdk-cloudwatch}" />
     <artifact name="${com.amazonaws:aws-java-sdk-core}" />
     <artifact name="${com.amazonaws:aws-java-sdk-dynamodb}" />
@@ -13,7 +11,6 @@
     <artifact name="${com.amazonaws:aws-java-sdk-kinesis}" />
     <artifact name="${com.amazonaws:aws-java-sdk-s3}" />
     <artifact name="${com.amazonaws:aws-java-sdk-ses}" />
-    <artifact name="${com.amazonaws:aws-java-sdk-signer}" />
     <artifact name="${com.amazonaws:aws-java-sdk-simpledb}" />
     <artifact name="${com.amazonaws:aws-java-sdk-simpleworkflow}" />
     <artifact name="${com.amazonaws:aws-java-sdk-sns}" />
@@ -33,18 +30,19 @@
     <module name="org.joda.time" slot="fuse" />
   </dependencies>
   <exports>
-    <exclude path="com/amazonaws/auth/internal" />
-    <exclude path="com/amazonaws/auth/policy/internal" />
+    <exclude path="com/amazonaws/auth/internal**" />
+    <exclude path="com/amazonaws/auth/policy/internal**" />
     <exclude path="com/amazonaws/auth/profile/internal**" />
     <exclude path="com/amazonaws/internal**" />
     <exclude path="com/amazonaws/metrics/internal**" />
     <exclude path="com/amazonaws/monitoring/internal**" />
-    <exclude path="com/amazonaws/protocol/json/internal" />
-    <exclude path="com/amazonaws/retry/internal" />
-    <exclude path="com/amazonaws/services/dynamodbv2/document/internal" />
+    <exclude path="com/amazonaws/protocol/json/internal**" />
+    <exclude path="com/amazonaws/retry/internal**" />
+    <exclude path="com/amazonaws/services/dynamodbv2/document/internal**" />
     <exclude path="com/amazonaws/services/s3/internal**" />
-    <exclude path="com/amazonaws/services/s3/transfer/internal" />
-    <exclude path="com/amazonaws/services/simpledb/internal" />
+    <exclude path="com/amazonaws/services/s3/transfer/internal**" />
+    <exclude path="com/amazonaws/services/s3control/internal**" />
+    <exclude path="com/amazonaws/services/simpledb/internal**" />
     <exclude path="com/amazonaws/services/sqs/internal**" />
   </exports>
 </module>

@@ -81,7 +81,7 @@ public class ZookeeperProducerIntegrationTest {
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("/somenode", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

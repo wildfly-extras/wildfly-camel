@@ -72,7 +72,7 @@ public class SNMPIntegrationTest {
             Assert.assertNotNull(snmpMessage);
             Assert.assertEquals(0, snmpMessage.getErrorStatus());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

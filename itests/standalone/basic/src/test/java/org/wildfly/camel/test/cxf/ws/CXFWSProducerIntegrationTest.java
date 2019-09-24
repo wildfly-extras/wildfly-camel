@@ -108,7 +108,7 @@ public class CXFWSProducerIntegrationTest {
                 String result = producer.requestBody("direct:start", "Kermit", String.class);
                 Assert.assertEquals("Hello Kermit", result);
             } finally {
-                camelctx.stop();
+                camelctx.close();
             }
         } finally {
             deployer.undeploy(SIMPLE_WAR);
@@ -148,7 +148,7 @@ public class CXFWSProducerIntegrationTest {
                 String result = producer.requestBody("direct:start", null, String.class);
                 Assert.assertEquals("Hello Kermit", result);
             } finally {
-                camelctx.stop();
+                camelctx.close();
             }
         } finally {
             deployer.undeploy(SIMPLE_WAR);

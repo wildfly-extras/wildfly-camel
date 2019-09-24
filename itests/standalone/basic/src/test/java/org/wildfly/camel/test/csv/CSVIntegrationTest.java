@@ -76,7 +76,7 @@ public class CSVIntegrationTest {
             String result = producer.requestBody("direct:start", map, String.class);
             Assert.assertEquals("John,Doe", result.trim());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -101,7 +101,7 @@ public class CSVIntegrationTest {
             String result = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
             Assert.assertEquals("John,Doe", result.trim());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -128,7 +128,7 @@ public class CSVIntegrationTest {
             Assert.assertEquals("John", line.get(0));
             Assert.assertEquals("Doe", line.get(1));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

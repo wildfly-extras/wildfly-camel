@@ -7,7 +7,6 @@
     <module name="org.apache.johnzon" />
     <module name="org.slf4j" />
     <module name="javax.json.api" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

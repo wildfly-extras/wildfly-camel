@@ -51,8 +51,8 @@ public class GZipIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .marshal().gzip()
-                .unmarshal().gzip();
+                .marshal().gzipDeflater()
+                .unmarshal().gzipDeflater();
             }
         });
 
@@ -62,7 +62,7 @@ public class GZipIntegrationTest {
             String result = producer.requestBody("direct:start", "password", String.class);
             Assert.assertEquals("password", result.trim());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

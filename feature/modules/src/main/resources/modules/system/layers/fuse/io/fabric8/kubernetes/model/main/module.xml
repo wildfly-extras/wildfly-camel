@@ -5,12 +5,12 @@
   </properties>
   <resources>
     <artifact name="${io.fabric8:kubernetes-model}" />
+    <artifact name="${io.fabric8:kubernetes-model-common}" />
   </resources>
   <dependencies>
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" slot="fuse" />
-    <module name="javax.validation.api" />
   </dependencies>
 </module>

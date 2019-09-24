@@ -69,7 +69,7 @@ public class JsonpathIntegrationTest {
             String result = producer.requestBody("direct:start", input, String.class);
             Assert.assertEquals("Doe", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

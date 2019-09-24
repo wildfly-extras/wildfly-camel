@@ -29,6 +29,7 @@
             <module name="javax.api" />
             <module name="javax.xml.bind.api" />
             <module name="org.apache.camel.core" />
+            <module name="org.apache.camel.core.xml" />
             <module name="org.springframework.beans" export="true" />
             <module name="org.springframework.context" />
             <module name="org.springframework.core" />
@@ -225,6 +226,7 @@
         <include artifact=":spring-jms" />
         <dependencies>
             <module name="javax.api" />
+            <module name="javax.jms.api" />
             <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.springframework.context" />
         </dependencies>

@@ -80,8 +80,10 @@
         <include artifact="com.alibaba:fastjson" />
         <apply-to-dependencies skip="true">
             <include module="io.javaslang" />
+            <include module="net.sf.trove4j" />
             <include module="org.glassfish.hk2" />
             <include module="org.glassfish.jersey" />
+            <include module="org.javamoney.moneta" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
@@ -92,8 +94,6 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="com.amazonaws:aws-java-sdk" />
-        <include artifact="com.amazonaws:aws-java-sdk-cloudfront" />
         <include artifact="com.amazonaws:aws-java-sdk-cloudwatch" />
         <include artifact="com.amazonaws:aws-java-sdk-core" />
         <include artifact="com.amazonaws:aws-java-sdk-dynamodb" />
@@ -101,7 +101,6 @@
         <include artifact="com.amazonaws:aws-java-sdk-kinesis" />
         <include artifact="com.amazonaws:aws-java-sdk-s3" />
         <include artifact="com.amazonaws:aws-java-sdk-ses" />
-        <include artifact="com.amazonaws:aws-java-sdk-signer" />
         <include artifact="com.amazonaws:aws-java-sdk-simpledb" />
         <include artifact="com.amazonaws:aws-java-sdk-simpleworkflow" />
         <include artifact="com.amazonaws:aws-java-sdk-sns" />
@@ -120,18 +119,19 @@
             <module name="com.fasterxml.jackson.dataformat.cbor" />
         </dependencies>
         <exports>
-            <exclude path="com/amazonaws/auth/internal" />
-            <exclude path="com/amazonaws/auth/policy/internal" />
+            <exclude path="com/amazonaws/auth/internal**" />
+            <exclude path="com/amazonaws/auth/policy/internal**" />
             <exclude path="com/amazonaws/auth/profile/internal**" />
             <exclude path="com/amazonaws/internal**" />
             <exclude path="com/amazonaws/metrics/internal**" />
             <exclude path="com/amazonaws/monitoring/internal**" />
-            <exclude path="com/amazonaws/protocol/json/internal" />
-            <exclude path="com/amazonaws/retry/internal" />
-            <exclude path="com/amazonaws/services/dynamodbv2/document/internal" />
+            <exclude path="com/amazonaws/protocol/json/internal**" />
+            <exclude path="com/amazonaws/retry/internal**" />
+            <exclude path="com/amazonaws/services/dynamodbv2/document/internal**" />
             <exclude path="com/amazonaws/services/s3/internal**" />
-            <exclude path="com/amazonaws/services/s3/transfer/internal" />
-            <exclude path="com/amazonaws/services/simpledb/internal" />
+            <exclude path="com/amazonaws/services/s3/transfer/internal**" />
+            <exclude path="com/amazonaws/services/s3control/internal**" />
+            <exclude path="com/amazonaws/services/simpledb/internal**" />
             <exclude path="com/amazonaws/services/sqs/internal**" />
         </exports>
     </module>
@@ -140,7 +140,8 @@
         <include artifact="com.amazonaws:aws-java-sdk-acm" />
         <include artifact="com.amazonaws:aws-java-sdk-acmpca" />
         <include artifact="com.amazonaws:aws-java-sdk-alexaforbusiness" />
-        <include artifact="com.amazonaws:aws-java-sdk-amplify" />
+        <include artifact="com.amazonaws:aws-java-sdk-apigatewaymanagementapi" />
+        <include artifact="com.amazonaws:aws-java-sdk-apigatewayv2" />
         <include artifact="com.amazonaws:aws-java-sdk-api-gateway" />
         <include artifact="com.amazonaws:aws-java-sdk-applicationautoscaling" />
         <include artifact="com.amazonaws:aws-java-sdk-appmesh" />
@@ -183,6 +184,7 @@
         <include artifact="com.amazonaws:aws-java-sdk-discovery" />
         <include artifact="com.amazonaws:aws-java-sdk-dlm" />
         <include artifact="com.amazonaws:aws-java-sdk-dms" />
+        <include artifact="com.amazonaws:aws-java-sdk-docdb" />
         <include artifact="com.amazonaws:aws-java-sdk-ecr" />
         <include artifact="com.amazonaws:aws-java-sdk-ecs" />
         <include artifact="com.amazonaws:aws-java-sdk-efs" />
@@ -362,6 +364,18 @@
         <include artifact=":jackson-dataformat-yaml" />
     </module>
 
+    <module name="com.fasterxml.jackson.datatype.guava">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":jackson-datatype-guava" />
+        <dependencies>
+            <module name="com.fasterxml.jackson.core.jackson-core" />
+            <module name="com.fasterxml.jackson.core.jackson-databind" />
+            <module name="com.google.guava" slot="fuse" />
+        </dependencies>
+    </module>
+
     <module name="com.fasterxml.jackson.datatype.joda">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -374,19 +388,6 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact=":jackson-module-afterburner" />
-    </module>
-
-    <module name="com.fasterxml.jackson.datatype.jackson-datatype-guava">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.fasterxml.jackson.datatype:jackson-datatype-guava" />
-        <dependencies>
-            <module name="com.fasterxml.jackson.core.jackson-annotations" />
-            <module name="com.fasterxml.jackson.core.jackson-core" />
-            <module name="com.fasterxml.jackson.core.jackson-databind" />
-            <module name="com.google.guava" />
-        </dependencies>
     </module>
 
     <module name="com.fasterxml.jackson.module.jsonSchema">
@@ -587,6 +588,9 @@
         </properties>
         <include artifact=":protobuf-java-util" />
         <include artifact=":protobuf-java" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.errorprone" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="sun.jdk">
                 <imports>
@@ -616,7 +620,11 @@
             </module>
         </dependencies>
         <exports>
+            <exclude path="com/hazelcast/com**" />
+            <exclude path="com/hazelcast/cp**" />
             <exclude path="com/hazelcast/internal**" />
+            <exclude path="com/hazelcast/json**" />
+            <exclude path="com/hazelcast/org**" />
             <exclude path="com/hazelcast/osgi**" />
             <exclude path="lib/linux-x86_64" />
             <exclude path="lib/linux-x86" />
@@ -644,6 +652,7 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.impossibl.pgjdbc-ng:pgjdbc-ng"/>
+        <include artifact="com.impossibl.pgjdbc-ng:spy"/>
         <apply-to-dependencies skip="true">
             <include module="io.netty.skipped"/>
         </apply-to-dependencies>
@@ -687,7 +696,7 @@
             <module name="com.fasterxml.jackson.core.jackson-annotations" />
             <module name="com.fasterxml.jackson.core.jackson-core" />
             <module name="com.fasterxml.jackson.core.jackson-databind" />
-            <module name="com.google.guava" />
+            <module name="com.google.guava" slot="fuse"/>
             <module name="org.apache.commons.configuration" />
             <module name="org.slf4j" />
         </dependencies>
@@ -729,7 +738,7 @@
             <include module="com.google.code.findbugs" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.google.guava" />
+            <module name="com.google.guava" slot="fuse"/>
             <module name="org.apache.commons.configuration" />
             <module name="org.apache.commons.lang" slot="fuse" />
             <module name="org.slf4j" />
@@ -742,7 +751,7 @@
         </properties>
         <include artifact="com.netflix.ribbon:ribbon-loadbalancer" />
         <dependencies>
-            <module name="com.google.guava" />
+            <module name="com.google.guava" slot="fuse"/>
             <module name="com.netflix.netflix-commons" />
             <module name="com.netflix.ribbon.ribbon-core" />
             <module name="com.netflix.servo" />
@@ -761,7 +770,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
-            <module name="com.google.guava" />
+            <module name="com.google.guava" slot="fuse"/>
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -793,25 +802,19 @@
         </exports>
     </module>
 
+    <module name="com.orbitz.consul.client">
+        <include artifact="com.orbitz.consul:consul-client" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+            <include module="org.immutables.value" />
+        </apply-to-dependencies>
+    </module>
+
     <module name="com.pff.java-libpst">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.pff:java-libpst" />
-    </module>
-
-    <module name="com.rometools.rome" inherit-slot="false" slot="1.0">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="rome:rome" />
-        <apply-to-dependencies skip="true">
-            <include module="jdom"/>
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api" />
-            <module name="org.jdom" />
-        </dependencies>
     </module>
 
     <module name="com.rometools.rome">
@@ -825,55 +828,62 @@
         </dependencies>
     </module>
 
+    <module name="com.squareup.okhttp3" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.squareup.okhttp3:okhttp" />
+        <include artifact="com.squareup.okhttp3:logging-interceptor"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.google.android" />
+            <include module="com.google.code.findbugs" />
+            <include module="org.codehaus.animal-sniffer" />
+            <include module="org.conscrypt.openjdk" />
+            <include module="org.jvnet.skipped" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="com.squareup.okio">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.squareup.okio:okio" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="com.squareup.retrofit2" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.squareup.retrofit2:converter-gson"/>
+        <include artifact="com.squareup.retrofit2:converter-jackson"/>
+        <include artifact="com.squareup.retrofit2:converter-moshi"/>
+        <include artifact="com.squareup.retrofit2:retrofit"/>
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="com.squareup.okio" />
+        </dependencies>
+    </module>
+
     <module name="com.squareup.moshi">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="com.squareup.moshi:"/>
-        <apply-to-dependencies skip="true">
-            <include module="com.google.code.findbugs"/>
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="com.squareup.okhttp3" slot="fuse"/>
-        </dependencies>
-    </module>
-
-    <module name="com.squareup.okhttp3.logging-interceptor">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.squareup.okhttp3:logging-interceptor"/>
+        <include artifact="com.squareup.moshi:moshi"/>
         <apply-to-dependencies skip="true">
             <include module="com.google.code.findbugs" />
         </apply-to-dependencies>
     </module>
 
-    <module name="com.squareup.retrofit2">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.squareup.retrofit2:"/>
-        <apply-to-dependencies skip="true">
-            <include module="com.google.code.findbugs" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="com.squareup.okhttp3" slot="fuse"/>
-        </dependencies>
-    </module>
-
-    <module name="com.sun.activation.javax.activation">
+    <module name="com.sun.javax.activation">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.sun.activation:javax.activation" />
-    </module>
-
-    <module name="com.thoughtworks.paranamer">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.thoughtworks.paranamer:paranamer" />
     </module>
 
     <module name="com.thoughtworks.xstream">
@@ -1013,8 +1023,10 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="io.fabric8:kubernetes-model" />
+        <include artifact="io.fabric8:kubernetes-model-common" />
         <apply-to-dependencies skip="true">
-            <include module="io.sundr.builder.annotations" />
+            <include module="io.sundr.builder" />
+            <include module="io.sundr.transform" />
             <include module="org.projectlombok" />
         </apply-to-dependencies>
         <dependencies>
@@ -1031,7 +1043,7 @@
         <include artifact="io.fabric8:kubernetes-client" />
         <dependencies>
             <module name="javax.api" />
-            <module name="com.squareup.okhttp3" slot="fuse"/>
+            <module name="com.squareup.okio"/>
         </dependencies>
     </module>
 
@@ -1052,23 +1064,13 @@
         <include artifact="io.fabric8:zjsonpatch" />
     </module>
 
-    <module name="io.fastjson.boon">
-        <include artifact="io.fastjson:boon" />
-        <dependencies>
-            <module name="sun.jdk">
-                <imports>
-                    <include path="sun/misc" />
-                </imports>
-            </module>
-        </dependencies>
-    </module>
-
     <module name="io.grpc">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.auth0:java-jwt"/>
         <include artifact="com.google.instrumentation:instrumentation-api"/>
+        <include artifact="io.grpc:grpc-api"/>
         <include artifact="io.grpc:grpc-auth"/>
         <include artifact="io.grpc:grpc-context"/>
         <include artifact="io.grpc:grpc-core"/>
@@ -1079,13 +1081,14 @@
         <include artifact="io.opencensus:opencensus-api"/>
         <include artifact="io.opencensus:opencensus-contrib-grpc-metrics"/>
         <apply-to-dependencies skip="true">
+            <include module="com.google.android"/>
             <include module="com.google.code.findbugs"/>
             <include module="com.google.errorprone"/>
             <include module="io.netty.skipped"/>
             <include module="org.jvnet.skipped" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.google.guava"/>
+            <module name="com.google.guava" slot="main"/>
             <module name="ibm.jdk.ext" />
             <module name="io.netty" slot="fuse"/>
             <module name="javax.api"/>
@@ -1098,6 +1101,9 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="io.micrometer:micrometer-core" />
+        <exports>
+            <exclude path="io/micrometer/core/util/internal*" />
+        </exports>
     </module>
 
     <module name="io.nessus.ipfs">
@@ -1118,12 +1124,30 @@
         </dependencies>
     </module>
 
+    <module name="io.perfmark.api" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.perfmark:perfmark-api" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs"/>
+            <include module="com.google.errorprone"/>
+        </apply-to-dependencies>
+    </module>
+
     <module name="javax.cache.api" >
         <include artifact="javax.cache:cache-api" />
     </module>
 
     <module name="javax.measure.api" >
         <include artifact="javax.measure:unit-api" />
+    </module>
+
+    <module name="net.i2p.crypto">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="net.i2p.crypto:eddsa" />
     </module>
 
     <module name="net.java.dev.msv">
@@ -1150,6 +1174,9 @@
     </module>
 
     <module name="net.sf.ehcache.ehcache-core">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
         <include artifact="net.sf.ehcache:ehcache-core" />
         <apply-to-dependencies skip="true">
             <include module="javax.transaction.jta"/>
@@ -1157,28 +1184,6 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.transaction.api" />
-        </dependencies>
-    </module>
-
-    <module name="net.sourceforge.cssparser">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="net.sourceforge.cssparser:(.*)"/>
-        <dependencies>
-            <module name="jdk.xml.dom" />
-        </dependencies>
-    </module>
-
-    <module name="net.sourceforge.htmlunit">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="net.sourceforge.htmlunit:(.*)"/>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="jdk.xml.dom" />
-            <module name="org.w3c.css.sac"/>
         </dependencies>
     </module>
 
@@ -1260,6 +1265,18 @@
             <module name="javax.api" />
         </dependencies>
     </module>
+
+    <!--
+    <module name="org.apache.avro" inherit-slot="false" slot="1.2">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.apache.avro:avro"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.avro.skipped" />
+        </apply-to-dependencies>
+    </module>
+    -->
 
     <module name="org.apache.chemistry.opencmis">
         <properties>
@@ -1379,6 +1396,9 @@
         <exports>
             <exclude path="org/apache/curator/shaded/**" />
         </exports>
+        <dependencies>
+            <module name="com.google.guava" slot="main"/>
+        </dependencies>
     </module>
 
     <module name="org.apache.directory">
@@ -1475,28 +1495,6 @@
         </apply-to-dependencies>
     </module>
 
-    <module name="org.apache.lucene" inherit-slot="false" slot="7.2">
-        <include artifact="com.spatial4j:spatial4j" />
-        <include artifact="org.apache.lucene:lucene-analyzers-common" />
-        <include artifact="org.apache.lucene:lucene-backward-codecs" />
-        <include artifact="org.apache.lucene:lucene-core" />
-        <include artifact="org.apache.lucene:lucene-facet" />
-        <include artifact="org.apache.lucene:lucene-grouping" />
-        <include artifact="org.apache.lucene:lucene-highlighter" />
-        <include artifact="org.apache.lucene:lucene-join" />
-        <include artifact="org.apache.lucene:lucene-memory" />
-        <include artifact="org.apache.lucene:lucene-misc" />
-        <include artifact="org.apache.lucene:lucene-queries" />
-        <include artifact="org.apache.lucene:lucene-queryparser" />
-        <include artifact="org.apache.lucene:lucene-sandbox" />
-        <include artifact="org.apache.lucene:lucene-spatial" />
-        <include artifact="org.apache.lucene:lucene-spatial3d" />
-        <include artifact="org.apache.lucene:lucene-suggest" />
-        <dependencies>
-            <module name="javax.api" />
-        </dependencies>
-    </module>
-
     <module name="org.apache.mina.core">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1533,6 +1531,9 @@
         </properties>
         <include artifact="org.apache.olingo:odata-server-api" />
         <include artifact="org.apache.olingo:odata-server-core" />
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped" />
+        </apply-to-dependencies>
     </module>
 
     <module name="org.apache.opennlp.opennlp-tools">
@@ -1577,6 +1578,7 @@
         <include artifact="org.apache.qpid:qpid-jms-client" />
         <apply-to-dependencies skip="true">
             <include module="io.netty.skipped" />
+            <include module="io.opentracing" />
         </apply-to-dependencies>
         <dependencies>
             <module name="io.netty" slot="fuse"/>
@@ -1631,6 +1633,10 @@
         </properties>
         <include artifact="org.apache.solr:solr-solrj" />
         <include artifact="org.noggit:noggit" />
+        <apply-to-dependencies skip="true">
+            <include module="org.eclipse.jetty.http2" />
+            <include module="org.eclipse.jetty.skipped" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
         </dependencies>
@@ -1762,6 +1768,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
+            <module name="com.google.guava" slot="main"/>
         </dependencies>
         <exports>
             <exclude path="org/apache/jute**" />
@@ -1802,7 +1809,6 @@
             <include module="org.atmosphere.skipped"/>
             <include module="org.eclipse.jetty"/>
             <include module="org.eclipse.jetty.skipped"/>
-            <include module="org.eclipse.jetty.websocket"/>
             <include module="org.mortbay.jetty"/>
             <include module="org.jboss.vfs"/>
         </apply-to-dependencies>
@@ -1902,7 +1908,14 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="org.eclipse.californium:" />
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped" />
+        </apply-to-dependencies>
+        <include artifact="org.eclipse.californium:californium-core" />
+        <include artifact="org.eclipse.californium:californium-legal" />
+        <include artifact="org.eclipse.californium:element-connector" />
+        <include artifact="org.eclipse.californium:element-connector-tcp" />
+        <include artifact="org.eclipse.californium:scandium" />
     </module>
 
     <module name="org.eclipse.jetty">
@@ -1921,15 +1934,6 @@
         <dependencies>
             <module name="javax.api" />
         </dependencies>
-    </module>
-
-    <module name="org.eclipse.jetty.websocket">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.eclipse.jetty.websocket:websocket-api" />
-        <include artifact="org.eclipse.jetty.websocket:websocket-client" />
-        <include artifact="org.eclipse.jetty.websocket:websocket-common" />
     </module>
 
     <module name="org.eclipse.milo">
@@ -1963,7 +1967,7 @@
         <include artifact="org.eclipse.milo:stack-client" />
         <include artifact="com.codepoetics:protonpack" />
         <dependencies>
-            <module name="com.google.guava"/>
+            <module name="com.google.guava" slot="fuse"/>
             <module name="io.netty" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
@@ -1976,7 +1980,7 @@
         <include artifact="org.eclipse.milo:sdk-server" />
         <include artifact="org.eclipse.milo:stack-server" />
         <dependencies>
-            <module name="com.google.guava"/>
+            <module name="com.google.guava" slot="fuse"/>
             <module name="io.netty" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
@@ -2021,6 +2025,7 @@
         </dependencies>
         <exports>
             <exclude path="org/ehcache/core/internal**" />
+            <exclude path="org/ehcache/core/osgi" />
             <exclude path="org/ehcache/impl/internal**" />
             <exclude path="org/ehcache/jsr107/internal**" />
             <exclude path="org/terracotta**" />
@@ -2076,9 +2081,6 @@
         <include artifact="org.igniterealtime.smack:smack-resolver-javax" />
         <include artifact="org.igniterealtime.smack:smack-sasl-javax" />
         <include artifact="org.igniterealtime.smack:smack-tcp" />
-        <apply-to-dependencies skip="true">
-            <include module="org.minidns.minidns.core" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
@@ -2136,14 +2138,7 @@
         <include artifact="org.itadaki:bzip2" />
     </module>
 
-    <module name="org.jdom">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.jdom:jdom" />
-    </module>
-
-    <module name="org.jdom.jdom2">
+    <module name="org.jdom2">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
@@ -2176,12 +2171,21 @@
         <include artifact="org.kie.soup:kie-soup-project-datamodel-commons" />
         <apply-to-dependencies skip="true">
             <include module="com.sun.xml.bind.jaxb.xjc" />
+            <include module="org.drools.kie" />
             <include module="org.osgi.compendium" />
             <include module="org.osgi.core" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="javax.jms.api"/>
+            <module name="org.drools">
+                <imports>
+                    <include path="META-INF" />
+                </imports>
+                <exports>
+                    <include path="META-INF" />
+                </exports>
+            </module>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -2198,6 +2202,13 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.lz4:lz4-java" />
+    </module>
+
+    <module name="org.minidns.minidns" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.minidns:minidns-core" />
     </module>
 
     <module name="org.mongodb">
@@ -2295,13 +2306,6 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.tukaani:xz" />
-    </module>
-
-    <module name="org.w3c.css.sac">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.w3c.css:sac" />
     </module>
 
     <module name="org.xerial.snappy">

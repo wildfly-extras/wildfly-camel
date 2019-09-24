@@ -64,7 +64,7 @@ public class MustacheIntegrationTest {
 
             Assert.assertEquals("Hello Kermit!", response.getOut().getBody(String.class));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

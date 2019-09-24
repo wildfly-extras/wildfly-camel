@@ -114,7 +114,7 @@ public class ConsulIntegrationTest {
             Assert.assertFalse(res.isEmpty());
             Assert.assertEquals(ref, res);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -143,7 +143,7 @@ public class ConsulIntegrationTest {
             Assert.assertFalse(res.isEmpty());
             Assert.assertEquals(ref, res);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
