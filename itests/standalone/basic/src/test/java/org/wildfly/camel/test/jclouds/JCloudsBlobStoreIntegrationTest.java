@@ -83,7 +83,7 @@ public class JCloudsBlobStoreIntegrationTest {
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -116,7 +116,7 @@ public class JCloudsBlobStoreIntegrationTest {
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -147,7 +147,7 @@ public class JCloudsBlobStoreIntegrationTest {
             String result = template.requestBody("direct:start", "Hello Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
     }

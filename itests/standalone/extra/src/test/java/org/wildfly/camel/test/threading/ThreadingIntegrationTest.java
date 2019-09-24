@@ -93,7 +93,7 @@ public class ThreadingIntegrationTest {
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -126,7 +126,7 @@ public class ThreadingIntegrationTest {
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

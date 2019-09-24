@@ -89,7 +89,7 @@ public class CXFWSInterceptorTest {
             endpoint.echo("Kermit");
             Assert.assertTrue("Gave up waiting for CXF interceptor handleMessage", latch.await(5, TimeUnit.SECONDS));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

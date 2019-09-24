@@ -34,6 +34,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.micrometer.MicrometerTimerAction;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.jndi.JndiBeanRepository;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -95,7 +96,7 @@ public class MicrometerTimerIntegrationTest {
             Assert.assertTrue(timer.max(TimeUnit.MILLISECONDS) > 0.0D);
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -118,7 +119,7 @@ public class MicrometerTimerIntegrationTest {
             Assert.assertTrue(timer.max(TimeUnit.MILLISECONDS) > 0.0D);
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -146,12 +147,12 @@ public class MicrometerTimerIntegrationTest {
             Assert.assertEquals(body, timer.getId().getTag("a"));
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
     private CamelContext createCamelContext() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

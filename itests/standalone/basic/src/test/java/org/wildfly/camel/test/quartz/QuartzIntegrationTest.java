@@ -27,7 +27,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.quartz2.QuartzComponent;
+import org.apache.camel.component.quartz.QuartzComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -79,7 +79,7 @@ public class QuartzIntegrationTest {
         try {
             Assert.assertTrue("ProcLatch is not zero", procLatch.await(5, TimeUnit.SECONDS));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -117,7 +117,7 @@ public class QuartzIntegrationTest {
             Assert.assertEquals("StartLatch is zero", 0, startLatch.getCount());
             Assert.assertTrue("ProcLatch is not zero", procLatch.await(5, TimeUnit.SECONDS));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

@@ -90,7 +90,7 @@ public class RestSwaggerIntegrationTest {
             Assert.assertNotNull(customer);
             Assert.assertEquals(1, customer.getId());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -125,7 +125,7 @@ public class RestSwaggerIntegrationTest {
             Assert.assertNotNull(customer);
             Assert.assertEquals(1, customer.getId());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

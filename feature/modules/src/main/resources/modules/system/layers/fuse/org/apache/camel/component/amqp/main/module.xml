@@ -9,9 +9,8 @@
     <module name="io.netty" slot="fuse" />
     <module name="org.slf4j" />
     <module name="javax.jms.api" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.component.jms" />
     <module name="org.apache.qpid" />
-    <module name="org.apache.qpid.proton" slot="0.29" />
+    <module name="org.apache.qpid.proton" slot="fuse" />
   </dependencies>
 </module>

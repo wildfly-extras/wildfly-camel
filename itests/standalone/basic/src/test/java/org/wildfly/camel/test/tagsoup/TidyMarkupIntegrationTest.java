@@ -63,7 +63,7 @@ public class TidyMarkupIntegrationTest {
             Assert.assertTrue("Contains end link: " + result, result.contains("</a>"));
             Assert.assertTrue("Ends with html: " + result, result.endsWith("</html>"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

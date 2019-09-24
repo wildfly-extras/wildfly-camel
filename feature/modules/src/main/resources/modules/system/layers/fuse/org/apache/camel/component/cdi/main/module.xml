@@ -12,7 +12,6 @@
     <module name="org.jboss.weld.core" />
     <module name="org.jboss.weld.spi" />
     <module name="org.slf4j" />
-    <module name="javax.el.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

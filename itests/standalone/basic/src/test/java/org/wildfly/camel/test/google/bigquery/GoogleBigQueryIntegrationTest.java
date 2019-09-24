@@ -21,12 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.api.services.bigquery.Bigquery;
-import com.google.api.services.bigquery.model.TableDataInsertAllRequest;
-import com.google.api.services.bigquery.model.TableDataInsertAllResponse;
-
-import net.bytebuddy.ByteBuddy;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
@@ -35,7 +29,7 @@ import org.apache.camel.component.google.bigquery.GoogleBigQueryConstants;
 import org.apache.camel.component.google.bigquery.GoogleBigQueryEndpoint;
 import org.apache.camel.component.google.bigquery.GoogleBigQueryProducer;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.DefaultExchange;
+import org.apache.camel.support.DefaultExchange;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -48,6 +42,12 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.objenesis.Objenesis;
 import org.wildfly.extension.camel.CamelAware;
+
+import com.google.api.services.bigquery.Bigquery;
+import com.google.api.services.bigquery.model.TableDataInsertAllRequest;
+import com.google.api.services.bigquery.model.TableDataInsertAllResponse;
+
+import net.bytebuddy.ByteBuddy;
 
 @CamelAware
 @RunWith(Arquillian.class)

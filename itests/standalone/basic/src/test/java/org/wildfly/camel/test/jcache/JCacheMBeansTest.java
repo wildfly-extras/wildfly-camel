@@ -78,8 +78,8 @@ public class JCacheMBeansTest {
 
         MBeanServer server = ManagementFactory.getPlatformMBeanServer();
 
-        ObjectName onAll = ObjectNameFactory.create("javax.cache:*");
-        ObjectName onThis = ObjectNameFactory.create("javax.cache:type=CacheStatistics,CacheManager=hazelcast,Cache=test-cache");
+        ObjectName onameAll = ObjectNameFactory.create("javax.cache:*");
+        ObjectName onameThis = ObjectNameFactory.create("javax.cache:type=CacheStatistics,CacheManager=hazelcast,Cache=test-cache");
 
         URL resourceUrl = getClass().getResource("/some-other-name.xml");
         ServerDeploymentHelper helper = new ServerDeploymentHelper(managementClient.getControllerClient());
@@ -89,17 +89,17 @@ public class JCacheMBeansTest {
             CamelContext camelctx = contextRegistry.getCamelContext("jcache-test");
             Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
 
-            Set<ObjectInstance> mbeans = server.queryMBeans(onAll, null);
+            Set<ObjectInstance> mbeans = server.queryMBeans(onameAll, null);
             System.out.println(">>>>>>>>> JCache MBeans: " + mbeans.size());
             mbeans.forEach(mb -> System.out.println(mb.getObjectName()));
 
-            Assert.assertTrue(server.isRegistered(onThis));
+            Assert.assertTrue(server.isRegistered(onameThis));
 
         } finally {
         	helper.undeploy(runtimeName);
         }
 
-        Set<ObjectInstance> mbeans = server.queryMBeans(onAll, null);
+        Set<ObjectInstance> mbeans = server.queryMBeans(onameAll, null);
         System.out.println(">>>>>>>>> JCache MBeans: " + mbeans.size());
         mbeans.forEach(mb -> System.out.println(mb.getObjectName()));
         Assert.assertTrue(mbeans.isEmpty());

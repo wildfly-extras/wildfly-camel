@@ -22,7 +22,6 @@
       </exports>
     </module>
     <module name="org.slf4j" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.codec" slot="fuse" />
     <module name="org.apache.commons.collections" slot="fuse" />
@@ -33,6 +32,6 @@
     <module name="org.codehaus.jackson.jackson-mapper-asl" slot="fuse" />
   </dependencies>
   <exports>
-    <exclude path="org/apache/camel/component/hdfs2/osgi**" />
+    <exclude path="org/apache/camel/component/hdfs/osgi**" />
   </exports>
 </module>

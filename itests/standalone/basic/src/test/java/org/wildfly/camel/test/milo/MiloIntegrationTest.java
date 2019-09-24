@@ -161,7 +161,7 @@ public class MiloIntegrationTest {
             MockEndpoint.assertIsSatisfied(camelctx);
 
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

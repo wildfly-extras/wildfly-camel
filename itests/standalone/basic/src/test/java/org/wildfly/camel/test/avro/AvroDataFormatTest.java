@@ -73,7 +73,7 @@ public class AvroDataFormatTest {
             GenericRecord result = producer.requestBody("direct:start", input, GenericRecord.class);
             Assert.assertEquals("Kermit", result.get("name").toString());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

@@ -17,7 +17,6 @@
 package org.wildfly.camel.test.openstack;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -57,8 +56,8 @@ import org.apache.camel.component.openstack.swift.SwiftConstants;
 import org.apache.camel.component.openstack.swift.SwiftEndpoint;
 import org.apache.camel.component.openstack.swift.producer.ContainerProducer;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.DefaultHeadersMapFactory;
-import org.apache.camel.impl.DefaultMessage;
+import org.apache.camel.impl.engine.DefaultHeadersMapFactory;
+import org.apache.camel.support.DefaultMessage;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -296,8 +295,6 @@ public class OpenstackIntegrationTest {
         verify(containerService).create(containerNameCaptor.capture(), optionsCaptor.capture());
         assertEquals(CONTAINER_NAME, containerNameCaptor.getValue());
         assertNull(optionsCaptor.getValue());
-
-        assertFalse(msg.isFault());
     }
 
     @Test

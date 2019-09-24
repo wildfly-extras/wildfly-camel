@@ -34,6 +34,7 @@ import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHis
 import org.apache.camel.component.micrometer.routepolicy.MicrometerRoutePolicyFactory;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.jndi.JndiBeanRepository;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -89,7 +90,7 @@ public class MicrometerCounterIntegrationTest {
             Assert.assertEquals(5.0D, metricsRegistry.find("A1").counter().count(), 0.01D);
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -107,7 +108,7 @@ public class MicrometerCounterIntegrationTest {
             Assert.assertEquals(14.0D, metricsRegistry.find("A").counter().count(), 0.01D);
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -125,7 +126,7 @@ public class MicrometerCounterIntegrationTest {
             Assert.assertEquals(-7.0D, metricsRegistry.find("B").counter().count(), 0.01D);
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -143,7 +144,7 @@ public class MicrometerCounterIntegrationTest {
             Assert.assertEquals(417.0D, metricsRegistry.find("C").counter().count(), 0.01D);
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -164,12 +165,12 @@ public class MicrometerCounterIntegrationTest {
             Assert.assertEquals(Integer.toString(message.length()), counter.getId().getTag("a"));
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
     private CamelContext createCamelContext() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutePolicyFactory(new MicrometerRoutePolicyFactory());
         camelctx.setMessageHistoryFactory(new MicrometerMessageHistoryFactory());
         camelctx.addRoutes(new RouteBuilder() {

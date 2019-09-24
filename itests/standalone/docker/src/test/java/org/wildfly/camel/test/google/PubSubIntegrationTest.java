@@ -139,7 +139,7 @@ public class PubSubIntegrationTest {
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
             pubsub.projects().topics().delete(topicFullName).execute();
             pubsub.projects().subscriptions().delete(subscriptionFullName).execute();
         }

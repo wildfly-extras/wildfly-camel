@@ -16,8 +16,6 @@
  */
 package org.wildfly.camel.test.rxjava;
 
-import io.reactivex.Flowable;
-
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.camel.CamelContext;
@@ -28,7 +26,7 @@ import org.apache.camel.component.reactive.streams.ReactiveStreamsComponent;
 import org.apache.camel.component.reactive.streams.ReactiveStreamsConstants;
 import org.apache.camel.component.reactive.streams.api.CamelReactiveStreams;
 import org.apache.camel.component.reactive.streams.api.CamelReactiveStreamsService;
-import org.apache.camel.component.rxjava2.engine.RxJavaStreamsConstants;
+import org.apache.camel.component.rxjava.engine.RxJavaStreamsConstants;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -40,6 +38,8 @@ import org.junit.runner.RunWith;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.wildfly.extension.camel.CamelAware;
+
+import io.reactivex.Flowable;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -74,7 +74,7 @@ public class RxJava2IntegrationTest {
             endpoint.expectedBodiesReceived(new Object[]{null});
             endpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -100,7 +100,7 @@ public class RxJava2IntegrationTest {
             endpoint.expectedMessageCount(0);
             endpoint.assertIsSatisfied(200);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -130,7 +130,7 @@ public class RxJava2IntegrationTest {
             Exchange ex = endpoint.getExchanges().get(0);
             Assert.assertEquals(1, ex.getIn().getBody());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -170,7 +170,7 @@ public class RxJava2IntegrationTest {
             Exchange exchange = endpoint.getExchanges().get(0);
             Assert.assertEquals(ex, exchange.getIn().getBody());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -205,7 +205,7 @@ public class RxJava2IntegrationTest {
             endpoint.expectedMessageCount(0);
             endpoint.assertIsSatisfied(200);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -221,7 +221,7 @@ public class RxJava2IntegrationTest {
                     .to("mock:sub2");
                 from("timer:tick?period=50")
                     .setBody()
-                    .simple("random(500)")
+                    .simple("${random(500)}")
                     .to("mock:sub3")
                     .to("reactive-streams:pub");
             }
@@ -260,7 +260,7 @@ public class RxJava2IntegrationTest {
                 Assert.assertEquals(ex1.getIn().getBody(), ex3.getIn().getBody());
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -305,7 +305,7 @@ public class RxJava2IntegrationTest {
                 .map(x -> x.getIn().getBody(Long.class))
                 .forEach(n -> Assert.assertEquals(num.getAndIncrement(), n.longValue()));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -342,7 +342,7 @@ public class RxJava2IntegrationTest {
                     .count()
             );
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

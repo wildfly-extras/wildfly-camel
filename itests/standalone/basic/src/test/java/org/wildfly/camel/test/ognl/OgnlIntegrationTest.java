@@ -69,7 +69,7 @@ public class OgnlIntegrationTest {
             String result = producer.requestBody("direct:start", person, String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -98,7 +98,7 @@ public class OgnlIntegrationTest {
             String result = producer.requestBody("direct:start", person, String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

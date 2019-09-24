@@ -11,7 +11,7 @@ import org.apache.camel.component.linkedin.LinkedInConfiguration;
 import org.apache.camel.component.linkedin.api.OAuthScope;
 import org.apache.camel.component.linkedin.api.model.CompanySearch;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.util.IntrospectionSupport;
+import org.apache.camel.support.IntrospectionSupport;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -84,7 +84,7 @@ public class LinkedInIntegrationTest {
             CompanySearch result = producer.requestBodyAndHeaders("direct://SEARCHCOMPANIES", null, headers, CompanySearch.class);
             Assert.assertNotNull("CompanySearch not null", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

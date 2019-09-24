@@ -81,7 +81,7 @@ public class FlatpackIntegrationTest {
             Assert.assertEquals("JANE", result.get(2).get("FIRSTNAME"));
             Assert.assertEquals("FRED", result.get(3).get("FIRSTNAME"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

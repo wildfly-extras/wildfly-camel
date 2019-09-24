@@ -5,17 +5,13 @@ exchangeProperty
 file
 groovy
 header
-javaScript                          #deprecated
+hl7terser
 jsonpath
 mvel
 ognl
-php                                 #deprecated
-python                              #deprecated
 ref
-ruby                                #deprecated
 simple
 spel
-terser
 tokenize
 xpath
 xquery
@@ -26,7 +22,4 @@ xtokenize
 [undecided]
 
 [rejected]
-el                                  #deprecated
-jxpath                              #deprecated
-sql                                 #deprecated
 

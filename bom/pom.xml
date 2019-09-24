@@ -177,9 +177,19 @@
                 <type>war</type>
             </dependency>
             <dependency>
+                <groupId>com.orbitz.consul</groupId>
+                <artifactId>consul-client</artifactId>
+                <version>${version.camel.consul.client}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>logging-interceptor</artifactId>
-                <version>${version.wildfly.okhttp3}</version>
+                <artifactId>okhttp</artifactId>
+                <version>${version.squareup.okhttp}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okio</groupId>
+                <artifactId>okio</artifactId>
+                <version>${version.squareup.okio}</version>
             </dependency>
             <dependency>
                 <groupId>io.hawt</groupId>
@@ -196,6 +206,16 @@
                 <groupId>javax.cache</groupId>
                 <artifactId>cache-api</artifactId>
                 <version>${version.javax.cache.api}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>${version.bytebuddy}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy-agent</artifactId>
+                <version>${version.bytebuddy}</version>
             </dependency>
             <dependency>
                 <groupId>net.javacrumbs</groupId>
@@ -316,6 +336,11 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-core</artifactId>
                 <version>${version.wildfly.hibernate}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jdom</groupId>
+                <artifactId>jdom2</artifactId>
+                <version>${version.jdom}</version>
             </dependency>
             <dependency>
                 <groupId>org.jgroups</groupId>

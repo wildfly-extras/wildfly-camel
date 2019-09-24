@@ -58,7 +58,7 @@ public class SpringScannedConfigurationTest {
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

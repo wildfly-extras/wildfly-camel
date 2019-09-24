@@ -133,7 +133,7 @@ public class SDBIntegrationTest {
                     Assert.assertEquals(attr.getValue(), result.get(0).getValue());
 
                 } finally {
-                    camelctx.stop();
+                    camelctx.close();
                 }
             } finally {
                 sdbClient.deleteDomain(new DeleteDomainRequest(domainName));

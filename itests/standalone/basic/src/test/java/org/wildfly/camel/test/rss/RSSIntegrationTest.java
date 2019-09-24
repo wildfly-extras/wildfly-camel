@@ -35,7 +35,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.utils.ManifestBuilder;
 import org.wildfly.camel.test.rss.subA.RSSFeedServlet;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -46,12 +45,7 @@ public class RSSIntegrationTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "rss-tests.war")
-            .addClass(RSSFeedServlet.class)
-            .setManifest(() -> {
-                ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "com.rometools.rome:1.0");
-                return builder.openStream();
-            });
+            .addClass(RSSFeedServlet.class);
     }
 
     @Test
@@ -76,7 +70,7 @@ public class RSSIntegrationTest {
         try {
             Assert.assertTrue("Countdown reached zero", latch.await(30, TimeUnit.SECONDS));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

@@ -22,7 +22,7 @@ package org.wildfly.camel.test.google;
 
 import java.util.Arrays;
 
-import org.apache.camel.util.IntrospectionSupport;
+import org.apache.camel.support.IntrospectionSupport;
 import org.jboss.logging.Logger;
 import org.junit.Assume;
 

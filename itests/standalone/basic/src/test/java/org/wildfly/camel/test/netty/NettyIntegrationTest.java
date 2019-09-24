@@ -85,7 +85,7 @@ public class NettyIntegrationTest {
             String result = pollingConsumer.receive(3000).getIn().getBody(String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

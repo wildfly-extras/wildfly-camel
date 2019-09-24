@@ -15,6 +15,7 @@
   <dependencies>
     <module name="javax.api" />
     <module name="org.jxmpp" />
+    <module name="org.minidns.minidns" />
     <module name="xmlpull" />
   </dependencies>
 </module>

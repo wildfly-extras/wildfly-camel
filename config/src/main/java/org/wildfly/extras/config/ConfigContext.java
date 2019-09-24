@@ -17,7 +17,7 @@ package org.wildfly.extras.config;
 
 import java.nio.file.Path;
 
-import org.jdom.Document;
+import org.jdom2.Document;
 
 
 public final class ConfigContext {

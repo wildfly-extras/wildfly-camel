@@ -7,9 +7,8 @@
   <dependencies>
     <module name="io.netty" slot="fuse" />
     <module name="org.slf4j" />
-    <module name="com.google.guava" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="io.dropwizard.metrics" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

@@ -83,7 +83,7 @@ public class JsonValidatorIntegrationTest {
             Assert.assertTrue("Can delete the file", FileUtil.deleteFile(new File("target/validator/valid.json")));
 
         } finally {
-          camelctx.stop();
+          camelctx.close();
         }
     }
 
@@ -117,7 +117,7 @@ public class JsonValidatorIntegrationTest {
             Assert.assertTrue("Can delete the file", FileUtil.deleteFile(new File("target/validator/invalid.json")));
 
         } finally {
-          camelctx.stop();
+          camelctx.close();
         }
     }
 }

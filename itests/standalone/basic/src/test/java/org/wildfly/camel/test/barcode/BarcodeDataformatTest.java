@@ -67,7 +67,7 @@ public class BarcodeDataformatTest {
             Assert.assertTrue(file.exists());
             Assert.assertTrue(file.length() > 0);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -90,7 +90,7 @@ public class BarcodeDataformatTest {
 
             Assert.assertEquals("Barcode Test Content", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

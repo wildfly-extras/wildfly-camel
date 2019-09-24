@@ -76,7 +76,7 @@ public class CryptoDataFormatIntegrationTest {
             String result = producer.requestBody("direct:start", "password", String.class);
             Assert.assertEquals("password", result.trim());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -107,7 +107,7 @@ public class CryptoDataFormatIntegrationTest {
             String result = producer.requestBody("direct:start", "password", String.class);
             Assert.assertEquals("password", result.trim());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

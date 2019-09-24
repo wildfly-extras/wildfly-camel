@@ -24,14 +24,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.function.Supplier;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
-import org.elasticsearch.common.logging.LogConfigurator;
 import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.env.Environment;
 import org.elasticsearch.node.InternalSettingsPreparer;
 import org.elasticsearch.node.Node;
 import org.elasticsearch.node.NodeValidationException;
@@ -87,17 +89,27 @@ public class ElasticsearchServerServlet extends HttpServlet {
     }
 
     public static final class ElasticsearchNode extends Node {
+
         public ElasticsearchNode(Settings preparedSettings, Collection<Class<? extends Plugin>> classpathPlugins) {
-            super(InternalSettingsPreparer.prepareEnvironment(preparedSettings, null), classpathPlugins, true);
+            super(prepareEnvironment(preparedSettings), classpathPlugins, true);
         }
 
         public String getPort() {
             return getEnvironment().settings().get("http.port");
         }
 
-		@Override
-		protected void registerDerivedNodeNameWithLogger(String nodeName) {
-            LogConfigurator.setNodeName(nodeName);
-		}
+        private static Environment prepareEnvironment(Settings preparedSettings) {
+            Environment env = InternalSettingsPreparer.prepareEnvironment(preparedSettings, new HashMap<>(), null, defaultNodeName());
+            return env;
+        }
+
+        private static Supplier<String> defaultNodeName() {
+            Supplier<String> supplier = new Supplier<String>() {
+                public String get() {
+                    return "someNode";
+                }
+            };
+            return supplier;
+        }
     }
 }

@@ -68,7 +68,7 @@ public class DisruptorIntegrationTest {
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

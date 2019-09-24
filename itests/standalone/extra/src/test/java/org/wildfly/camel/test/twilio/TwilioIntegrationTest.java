@@ -76,7 +76,7 @@ public class TwilioIntegrationTest {
             Assert.assertNotNull("Twilio fetcher result was null", account);
             Assert.assertEquals("Account SID did not match", TWILIO_ACCOUNT_SID, account.getSid());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

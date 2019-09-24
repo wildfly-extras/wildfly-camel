@@ -70,7 +70,7 @@ public class SSHIntegrationTest {
             mockEndpoint.setAssertPeriod(100);
             mockEndpoint.expectedBodiesReceived("Hello Kermit" + System.lineSeparator());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -94,7 +94,7 @@ public class SSHIntegrationTest {
             String result = template.requestBody("direct:start", "echo Hello Kermit", String.class);
             Assert.assertEquals("Running command: echo Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

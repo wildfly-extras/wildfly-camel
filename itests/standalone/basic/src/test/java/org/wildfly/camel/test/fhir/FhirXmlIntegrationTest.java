@@ -75,7 +75,7 @@ public class FhirXmlIntegrationTest {
             IBaseResource result = FhirContext.forDstu3().newXmlParser().parseResource(new InputStreamReader(inputStream));
             Assert.assertTrue("Expected marshaled patient to be equal", patient.equalsDeep((Base)result));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -96,7 +96,7 @@ public class FhirXmlIntegrationTest {
             Patient result = template.requestBody("direct:start", PATIENT_XML, Patient.class);
             Assert.assertTrue("Expected unmarshaled patient to be equal", result.equalsDeep(createPatient()));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

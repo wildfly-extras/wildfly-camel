@@ -70,7 +70,7 @@ public class ExecIntegrationTest {
             String result = template.requestBody("direct:start", null, String.class);
             Assert.assertEquals("Hello Kermit" + System.getProperty("line.separator"), result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

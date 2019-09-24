@@ -12,7 +12,6 @@
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.fasterxml.jackson.module.afterburner" />
     <module name="com.github.wnameless.json-flattener" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.lang3" slot="fuse" />
   </dependencies>

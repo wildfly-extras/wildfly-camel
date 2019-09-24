@@ -74,7 +74,7 @@ public class FhirJsonIntegrationTest {
             IBaseResource result = FhirContext.forDstu3().newJsonParser().parseResource(new InputStreamReader(inputStream));
             Assert.assertTrue("Expected marshaled patient to be equal", patient.equalsDeep((Base)result));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -95,7 +95,7 @@ public class FhirJsonIntegrationTest {
             Patient result = template.requestBody("direct:start", PATIENT_JSON, Patient.class);
             Assert.assertTrue("Expected unmarshaled patient to be equal", result.equalsDeep(createPatient()));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

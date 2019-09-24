@@ -5,6 +5,7 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="javax.xml.bind.api" />
     <module name="org.cometd.bayeux" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
@@ -14,8 +15,8 @@
     <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" slot="fuse" />
     <module name="com.fasterxml.jackson.module.jsonSchema" />
     <module name="com.thoughtworks.xstream" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
+    <module name="org.apache.commons.lang3" slot="fuse" />
     <module name="org.cometd.client" />
     <module name="org.eclipse.jetty" />
   </dependencies>

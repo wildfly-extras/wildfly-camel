@@ -76,7 +76,7 @@ public class ServletRestDslIntegrationTest extends AbstractRestDslIntegrationTes
             int statusCode = HttpRequest.get("http://localhost:8080/foo/bar/test").throwExceptionOnFailure(false).getResponse().getStatusCode();
             Assert.assertEquals(404, statusCode);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

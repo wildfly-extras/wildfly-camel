@@ -106,7 +106,7 @@ public class CouchDBIntegrationTest {
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -138,7 +138,7 @@ public class CouchDBIntegrationTest {
             Assert.assertTrue(headers.containsKey(CouchDbConstants.HEADER_DOC_ID));
             Assert.assertTrue(headers.containsKey(CouchDbConstants.HEADER_DOC_REV));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

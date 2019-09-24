@@ -171,7 +171,7 @@ public class CoapRestDslIntegrationTest extends AbstractRestDslIntegrationTest {
             Assert.assertEquals(200, response.getStatusCode());
             Assert.assertEquals("GET: /test", response.getBody());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

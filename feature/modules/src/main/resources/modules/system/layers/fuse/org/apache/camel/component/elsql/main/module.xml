@@ -8,7 +8,6 @@
     <module name="javax.sql.api" />
     <module name="org.slf4j" />
     <module name="org.springframework.jdbc" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.component.sql" />
     <module name="org.apache.camel.core" />
   </dependencies>

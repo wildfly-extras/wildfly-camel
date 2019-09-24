@@ -84,7 +84,7 @@ public class JSONJacksonAnnotationsTest {
 
             Assert.assertEquals("{\"name\":\"The Manager\"}", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

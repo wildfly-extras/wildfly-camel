@@ -72,7 +72,7 @@ public class CoapIntegrationTest {
             String result = template.requestBody(coapConsumerUri, "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

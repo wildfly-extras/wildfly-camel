@@ -145,13 +145,15 @@ public class FtpIntegrationTest {
         File testFile = resolvePath(FTP_ROOT_DIR).resolve("foo/test.txt").toFile();
 
         CamelContext camelctx = new DefaultCamelContext();
+
+        camelctx.start();
         try {
             Endpoint endpoint = camelctx.getEndpoint("ftp://localhost:" + PORT + "/foo?username=admin&password=admin");
             Assert.assertFalse(testFile.exists());
             camelctx.createProducerTemplate().sendBodyAndHeader(endpoint, "Hello", "CamelFileName", "test.txt");
             Assert.assertTrue(testFile.exists());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

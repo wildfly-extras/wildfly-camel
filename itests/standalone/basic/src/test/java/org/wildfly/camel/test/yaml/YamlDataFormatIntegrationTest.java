@@ -65,7 +65,7 @@ public class YamlDataFormatIntegrationTest {
             String result = template.requestBody("direct:start", new Customer("John", "Doe"), String.class);
             Assert.assertEquals(CUSTOMER_YAML, result.trim());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -92,7 +92,7 @@ public class YamlDataFormatIntegrationTest {
             Assert.assertEquals("John", result.getFirstName());
             Assert.assertEquals("Doe", result.getLastName());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

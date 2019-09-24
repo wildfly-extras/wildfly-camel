@@ -9,7 +9,6 @@
     <module name="org.slf4j" />
     <module name="com.google.api-client.google-api-client" />
     <module name="com.google.http-client.google-http-client" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
   <exports>

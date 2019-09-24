@@ -55,7 +55,7 @@ public class XSLTTransformTest {
             String customer = producer.requestBody("direct:start", readCustomerXml("/xslt/customer.xml"), String.class);
             Assert.assertEquals("John Doe", customer);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -76,7 +76,7 @@ public class XSLTTransformTest {
             String customer = producer.requestBody("direct:start", readCustomerXml("/xslt/customer.xml"), String.class);
             Assert.assertEquals("John Doe", customer);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

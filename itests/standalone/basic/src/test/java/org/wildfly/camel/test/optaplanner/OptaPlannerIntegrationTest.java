@@ -79,7 +79,7 @@ public class OptaPlannerIntegrationTest  {
             Assert.assertTrue(bestSolution.getScore().isFeasible());
             Assert.assertNotNull(bestSolution.getProcessList().get(0).getComputer());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

@@ -5,11 +5,10 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="org.apache.camel.core" />
     <module name="org.slf4j" />
     <module name="com.jcraft.jsch" slot="fuse" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.component.ftp" />
-    <module name="org.apache.camel.core" />
     <module name="org.apache.mina.core" />
   </dependencies>
 </module>

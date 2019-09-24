@@ -19,7 +19,6 @@
  */
 package org.wildfly.camel.test.rest.dsl.secure;
 
-import java.io.File;
 import java.util.Map;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -28,7 +27,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.exporter.ZipExporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;

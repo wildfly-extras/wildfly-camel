@@ -134,7 +134,7 @@ public class KafkaProducerIntegrationTest {
 
             Assert.assertTrue("Messages published to the kafka topics were received: " + latch.getCount(), allReceived);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -160,7 +160,7 @@ public class KafkaProducerIntegrationTest {
         try {
             Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -186,7 +186,7 @@ public class KafkaProducerIntegrationTest {
         try {
             Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

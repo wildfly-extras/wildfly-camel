@@ -75,7 +75,7 @@ public class LzfDataFormatTest {
             InputStream stream = new LZFInputStream(new ByteArrayInputStream(output));
             Assert.assertEquals(TEXT, IOConverter.toString(stream, null));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -98,7 +98,7 @@ public class LzfDataFormatTest {
             String result = producer.requestBody("direct:unmarshalTextToLzf", TEXT.getBytes("UTF-8"), String.class);
             Assert.assertEquals(TEXT, result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

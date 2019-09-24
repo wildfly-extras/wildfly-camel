@@ -30,7 +30,8 @@ import org.apache.camel.component.crypto.cms.crypt.DefaultKeyTransRecipientInfo;
 import org.apache.camel.component.crypto.cms.sig.DefaultSignerInfo;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.util.jsse.KeyStoreParameters;
+import org.apache.camel.support.jndi.JndiBeanRepository;
+import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -61,12 +62,12 @@ public class CryptoCmsIntegrationTest {
     public void testCryptoCmsSignEncryptDecryptVerify() throws Exception {
         Assume.assumeFalse("[#2241] CryptoCmsIntegrationTest fails on IBM JDK", EnvironmentUtils.isIbmJDK() || EnvironmentUtils.isOpenJDK());
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .to("crypto-cms:sign://testsign?signer=#signer1&signer=#signer2&includeContent=true")
+                .to("crypto-cms:sign://testsign?signer=#signer1,signer=#signer2&includeContent=true")
                 .to("crypto-cms:encrypt://testencrpyt?toBase64=true&recipient=#recipient1&contentEncryptionAlgorithm=DESede/CBC/PKCS5Padding&secretKeyLength=128")
                 .to("crypto-cms:decrypt://testdecrypt?fromBase64=true&keyStoreParameters=#keyStoreParameters")
                 .to("crypto-cms:verify://testverify?keyStoreParameters=#keyStoreParameters")
@@ -109,7 +110,7 @@ public class CryptoCmsIntegrationTest {
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
             context.unbind("keyStoreParameters");
             context.unbind("signer1");
             context.unbind("signer2");
@@ -121,7 +122,7 @@ public class CryptoCmsIntegrationTest {
     public void testCryptoCmsDecryptVerifyBinary() throws Exception {
         Assume.assumeFalse("[#2241] CryptoCmsIntegrationTest fails on IBM JDK", EnvironmentUtils.isIbmJDK() || EnvironmentUtils.isOpenJDK());
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -150,7 +151,7 @@ public class CryptoCmsIntegrationTest {
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
             context.unbind("keyStoreParameters");
         }
     }

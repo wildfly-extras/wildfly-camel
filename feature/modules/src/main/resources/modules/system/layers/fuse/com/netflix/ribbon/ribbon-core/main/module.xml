@@ -7,7 +7,7 @@
     <artifact name="${com.netflix.ribbon:ribbon-core}" />
   </resources>
   <dependencies>
-    <module name="com.google.guava" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="org.apache.commons.configuration" />
     <module name="org.apache.commons.lang" slot="fuse" />
     <module name="org.slf4j" />

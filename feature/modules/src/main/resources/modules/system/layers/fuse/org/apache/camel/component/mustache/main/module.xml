@@ -6,7 +6,6 @@
   <dependencies>
     <module name="org.slf4j" />
     <module name="com.github.spullara.mustache" slot="fuse" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

@@ -65,7 +65,7 @@ public class JingIntegrationTest {
             mockEndpointValid.assertIsSatisfied();
             mockEndpointInvalid.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -87,7 +87,7 @@ public class JingIntegrationTest {
             mockEndpointValid.assertIsSatisfied();
             mockEndpointInvalid.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -109,7 +109,7 @@ public class JingIntegrationTest {
             mockEndpointValid.assertIsSatisfied();
             mockEndpointInvalid.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -131,7 +131,7 @@ public class JingIntegrationTest {
             mockEndpointValid.assertIsSatisfied();
             mockEndpointInvalid.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

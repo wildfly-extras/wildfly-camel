@@ -14,7 +14,6 @@
       </exports>
     </module>
     <module name="org.springframework.beans" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

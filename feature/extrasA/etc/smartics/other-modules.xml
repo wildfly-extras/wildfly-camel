@@ -153,6 +153,7 @@
         <include artifact="org.apache.jackrabbit:jackrabbit-jcr-commons" />
         <include artifact="org.apache.jackrabbit:jackrabbit-spi" />
         <include artifact="org.apache.jackrabbit:jackrabbit-spi-commons" />
+        <include artifact="org.apache.jackrabbit:oak-jackrabbit-api" />
         <include artifact="concurrent:concurrent" />
         <apply-to-dependencies skip="true">
             <include module="biz.aQute" />

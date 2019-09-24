@@ -99,7 +99,7 @@ public class ZookeeperConsumerIntegrationTest {
             // Read back from the znode
             mockEndpoint.assertIsSatisfied(5000);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

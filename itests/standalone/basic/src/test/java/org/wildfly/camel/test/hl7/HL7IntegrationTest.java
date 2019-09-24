@@ -20,16 +20,10 @@
 
 package org.wildfly.camel.test.hl7;
 
-import ca.uhn.hl7v2.DefaultHapiContext;
-import ca.uhn.hl7v2.HapiContext;
-import ca.uhn.hl7v2.model.Message;
-import ca.uhn.hl7v2.model.v24.message.ADT_A01;
-import ca.uhn.hl7v2.model.v24.segment.PID;
-import ca.uhn.hl7v2.parser.Parser;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.hl7.HL7;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.model.dataformat.HL7DataFormat;
@@ -41,7 +35,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
-import static org.apache.camel.component.hl7.HL7.terser;
+
+import ca.uhn.hl7v2.DefaultHapiContext;
+import ca.uhn.hl7v2.HapiContext;
+import ca.uhn.hl7v2.model.Message;
+import ca.uhn.hl7v2.model.v24.message.ADT_A01;
+import ca.uhn.hl7v2.model.v24.segment.PID;
+import ca.uhn.hl7v2.parser.Parser;
 
 @CamelAware
 @RunWith(Arquillian.class)
@@ -83,7 +83,7 @@ public class HL7IntegrationTest {
             Message result = (Message) producer.requestBody("direct:start", hapimsg);
             Assert.assertEquals(hapimsg.toString(), result.toString());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -94,7 +94,7 @@ public class HL7IntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .transform(terser("PID-3-1"))
+                .transform(HL7.hl7terser("PID-3-1"))
                 .to("mock:result");
             }
         });
@@ -109,7 +109,7 @@ public class HL7IntegrationTest {
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

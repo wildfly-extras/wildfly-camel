@@ -33,8 +33,4 @@
 -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="com.google.guava" skip="true">
-        <include artifact="com.google.guava:guava" />
-    </module>
-
 </modules>

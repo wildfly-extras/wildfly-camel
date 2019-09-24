@@ -123,7 +123,7 @@ public class KinesisIntegrationTest {
                     assertResultExchange(mockep.getExchanges().get(0), "Kinesis Event 1.", "partition-1");
                     assertResultExchange(mockep.getExchanges().get(1), "Kinesis Event 2.", "partition-1");
                 } finally {
-                    camelctx.stop();
+                    camelctx.close();
                 }
             } finally {
                 kinClient.deleteStream(streamName);

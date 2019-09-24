@@ -15,7 +15,6 @@
     <module name="org.springframework.tx" />
     <module name="org.slf4j" />
     <module name="javax.persistence.api" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.camel.spring" />
   </dependencies>

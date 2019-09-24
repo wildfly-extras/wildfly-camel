@@ -34,7 +34,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.braintree.BraintreeComponent;
 import org.apache.camel.component.braintree.BraintreeConfiguration;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.util.IntrospectionSupport;
+import org.apache.camel.support.IntrospectionSupport;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -136,7 +136,7 @@ public class BraintreeIntegrationTest {
         try {
             Assert.assertTrue("Countdown reached zero", latch.await(5, TimeUnit.MINUTES));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -220,7 +220,7 @@ public class BraintreeIntegrationTest {
         try {
             Assert.assertTrue("Countdown reached zero", latch.await(5, TimeUnit.MINUTES));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

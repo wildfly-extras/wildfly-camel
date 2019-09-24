@@ -49,7 +49,7 @@
         </property>
     </bean>
 
-    <bean id="quartz" class="org.apache.camel.component.quartz2.QuartzComponent">
+    <bean id="quartz" class="org.apache.camel.component.quartz.QuartzComponent">
         <property name="scheduler" ref="myScheduler"/>
     </bean>
 

@@ -8,7 +8,6 @@
     <module name="com.github.ipfs" export="true" />
     <module name="io.nessus.ipfs" export="true" />
     <module name="org.slf4j" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

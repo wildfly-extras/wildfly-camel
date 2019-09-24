@@ -84,7 +84,7 @@ public class YammerIntegrationTest {
             Assert.assertEquals("Testing yammer API...", response.getMessages().get(0).getBody().getPlain());
             Assert.assertEquals("(Principal Software Engineer) has #joined the redhat.com network. Take a moment to welcome Jonathan.", response.getMessages().get(1).getBody().getPlain());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
     }

@@ -76,7 +76,7 @@ public class SchematronIntegrationTest {
             Assert.assertEquals(valid, "PASS");
             Assert.assertEquals(invalid, "FAIL");
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

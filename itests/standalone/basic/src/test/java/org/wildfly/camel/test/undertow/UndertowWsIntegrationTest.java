@@ -44,7 +44,6 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.logging.Logger;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -100,7 +99,7 @@ public class UndertowWsIntegrationTest {
 
             websocket.close();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
     }
@@ -135,7 +134,7 @@ public class UndertowWsIntegrationTest {
 
             websocket.close();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -165,7 +164,7 @@ public class UndertowWsIntegrationTest {
 
             websocket.close();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -200,7 +199,7 @@ public class UndertowWsIntegrationTest {
 
             websocket.close();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -239,7 +238,7 @@ public class UndertowWsIntegrationTest {
             websocket1.close();
             websocket2.close();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -275,7 +274,7 @@ public class UndertowWsIntegrationTest {
 
             websocket.close();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
     }
@@ -306,7 +305,7 @@ public class UndertowWsIntegrationTest {
 
             wsclient1.close();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -341,7 +340,7 @@ public class UndertowWsIntegrationTest {
             wsclient1.close();
             wsclient2.close();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -386,7 +385,7 @@ public class UndertowWsIntegrationTest {
             wsclient1.close();
             wsclient2.close();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -454,7 +453,7 @@ public class UndertowWsIntegrationTest {
             final List<String> actual2 = it.next();
             Assert.assertTrue("actual " + actual2, actual2.equals(expected1) || actual2.equals(expected2));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
     }
@@ -534,7 +533,7 @@ public class UndertowWsIntegrationTest {
             wsclient2.close();
             wsclient3.close();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
     }

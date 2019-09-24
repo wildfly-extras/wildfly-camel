@@ -33,6 +33,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.cmis.CamelCMISActions;
+import org.apache.camel.component.cmis.CamelCMISConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.chemistry.opencmis.client.api.CmisObject;
@@ -105,7 +107,7 @@ public class CmisIntegrationTest {
             Assert.assertTrue(getNodeNameForIndex(exchanges, 3).contains(".txt"));
             Assert.assertTrue(getNodeNameForIndex(exchanges, 4).contains(".txt"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -127,33 +129,37 @@ public class CmisIntegrationTest {
             ProducerTemplate template = camelctx.createProducerTemplate();
 
             String content = "Some content to be store";
+            String rootFolderId = createSession().getRootFolder().getId();
+
             Map<String,Object> headers = new HashMap<>();
             headers.put(PropertyIds.CONTENT_STREAM_MIME_TYPE, "text/plain; charset=UTF-8");
+            headers.put(CamelCMISConstants.CMIS_OBJECT_ID, rootFolderId);
+            headers.put(CamelCMISConstants.CMIS_ACTION, CamelCMISActions.CREATE);
             headers.put(PropertyIds.NAME, "test.file");
 
-            String newNodeId = template.requestBodyAndHeaders("direct:start", "Some content to be store", headers, String.class);
-            Assert.assertNotNull(newNodeId);
+            CmisObject object = template.requestBodyAndHeaders("direct:start", "Some content to be store", headers, CmisObject.class);
+            Assert.assertNotNull(object);
 
-            String newNodeContent = getDocumentContentAsString(newNodeId);
-            Assert.assertEquals(content, newNodeContent);
+            String nodeContent = getDocumentContentAsString(object.getId());
+            Assert.assertEquals(content, nodeContent);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
-    protected CmisObject retrieveCMISObjectByIdFromServer(String nodeId) throws Exception {
+    private CmisObject retrieveCMISObjectByIdFromServer(String nodeId) throws Exception {
         Session session = createSession();
         return session.getObject(nodeId);
     }
 
-    protected String getDocumentContentAsString(String nodeId) throws Exception {
+    private String getDocumentContentAsString(String nodeId) throws Exception {
         CmisObject cmisObject = retrieveCMISObjectByIdFromServer(nodeId);
         Document doc = (Document)cmisObject;
         InputStream inputStream = doc.getContentStream().getStream();
         return readFromStream(inputStream);
     }
 
-    protected String readFromStream(InputStream in) throws Exception {
+    private String readFromStream(InputStream in) throws Exception {
         StringBuilder result = new StringBuilder();
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
@@ -170,7 +176,7 @@ public class CmisIntegrationTest {
         return exchanges.get(index).getIn().getHeader("cmis:name", String.class);
     }
 
-    protected void deleteAllContent() {
+    private void deleteAllContent() {
         Session session = createSession();
         Folder rootFolder = session.getRootFolder();
         ItemIterable<CmisObject> children = rootFolder.getChildren();
@@ -196,37 +202,36 @@ public class CmisIntegrationTest {
         createTextDocument(folder2, "Document2.2", "2.2.txt");
     }
 
-    protected void createTextDocument(Folder newFolder, String content, String fileName)
+    private void createTextDocument(Folder newFolder, String content, String fileName)
             throws UnsupportedEncodingException {
         byte[] buf = content.getBytes("UTF-8");
         ByteArrayInputStream input = new ByteArrayInputStream(buf);
         ContentStream contentStream = createSession().getObjectFactory()
                 .createContentStream(fileName, buf.length, "text/plain; charset=UTF-8", input);
 
-        Map<String, Object> properties = new HashMap<String, Object>();
-        properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:document");
+        Map<String, Object> properties = new HashMap<>();
+        properties.put(PropertyIds.OBJECT_TYPE_ID, CamelCMISConstants.CMIS_DOCUMENT);
         properties.put(PropertyIds.NAME, fileName);
         newFolder.createDocument(properties, contentStream, VersioningState.NONE);
     }
 
-    protected Folder createFolderWithName(String folderName) {
+    private Folder createFolderWithName(String folderName) {
         Folder rootFolder = createSession().getRootFolder();
         return createChildFolderWithName(rootFolder, folderName);
     }
 
-    protected Folder createChildFolderWithName(Folder parent, String childName) {
-        Map<String, String> newFolderProps = new HashMap<String, String>();
-        newFolderProps.put(PropertyIds.OBJECT_TYPE_ID, "cmis:folder");
-        newFolderProps.put(PropertyIds.NAME, childName);
-        return parent.createFolder(newFolderProps);
+    private Folder createChildFolderWithName(Folder parent, String childName) {
+        Map<String, Object> properties = new HashMap<>();
+        properties.put(PropertyIds.OBJECT_TYPE_ID, CamelCMISConstants.CMIS_FOLDER);
+        properties.put(PropertyIds.NAME, childName);
+        return parent.createFolder(properties);
     }
 
-    protected Session createSession() {
+    private Session createSession() {
         SessionFactory sessionFactory = SessionFactoryImpl.newInstance();
         Map<String, String> parameter = new HashMap<String, String>();
         parameter.put(SessionParameter.ATOMPUB_URL, "http://127.0.0.1:8080/chemistry-opencmis-server-inmemory/atom11/atom11");
         parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
-
         Repository repository = sessionFactory.getRepositories(parameter).get(0);
         return repository.createSession();
     }

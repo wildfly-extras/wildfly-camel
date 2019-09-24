@@ -86,7 +86,7 @@ public class HazelcastMapProducerIntegrationTest {
             ProducerTemplate template = camelctx.createProducerTemplate();
             template.sendBody("direct:putInvalid", "my-foo");
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -99,7 +99,7 @@ public class HazelcastMapProducerIntegrationTest {
             template.sendBodyAndHeader("direct:put", "my-foo", HazelcastConstants.OBJECT_ID, "4711");
             Mockito.verify(map).put("4711", "my-foo");
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -112,7 +112,7 @@ public class HazelcastMapProducerIntegrationTest {
             template.sendBodyAndHeader("direct:putWithOperationNumber", "my-foo", HazelcastConstants.OBJECT_ID, "4711");
             Mockito.verify(map).put("4711", "my-foo");
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -125,7 +125,7 @@ public class HazelcastMapProducerIntegrationTest {
             template.sendBodyAndHeader("direct:putWithOperationName", "my-foo", HazelcastConstants.OBJECT_ID, "4711");
             Mockito.verify(map).put("4711", "my-foo");
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -143,7 +143,7 @@ public class HazelcastMapProducerIntegrationTest {
             template.sendBodyAndHeaders("direct:put", "test", headers);
             Mockito.verify(map).put("4711", "test", 1, TimeUnit.MINUTES);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -158,7 +158,7 @@ public class HazelcastMapProducerIntegrationTest {
             Mockito.verify(map).replace("4711", "my-fooo");
             Mockito.verify(map).unlock("4711");
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -176,7 +176,7 @@ public class HazelcastMapProducerIntegrationTest {
             Mockito.verify(map).get("4711");
             Assert.assertEquals("my-foo", body);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -202,7 +202,7 @@ public class HazelcastMapProducerIntegrationTest {
             Assert.assertTrue(body.contains("key2=value2"));
             Assert.assertTrue(body.contains("key3=value3"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -225,7 +225,7 @@ public class HazelcastMapProducerIntegrationTest {
             Mockito.verify(map).getAll(l);
             Assert.assertEquals("{key1=value1}", body);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -238,7 +238,7 @@ public class HazelcastMapProducerIntegrationTest {
             template.sendBodyAndHeader("direct:delete", null, HazelcastConstants.OBJECT_ID, 4711);
             Mockito.verify(map).remove(4711);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -260,7 +260,7 @@ public class HazelcastMapProducerIntegrationTest {
             Assert.assertNotNull(b1);
             Assert.assertEquals(2, b1.size());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -281,7 +281,7 @@ public class HazelcastMapProducerIntegrationTest {
             Assert.assertNotNull(b1);
             Assert.assertEquals(3, b1.size());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -300,7 +300,7 @@ public class HazelcastMapProducerIntegrationTest {
             Mockito.verify(map).replace("4711", "my-foo", "replaced");
             Mockito.verify(map).unlock("4711");
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -316,7 +316,7 @@ public class HazelcastMapProducerIntegrationTest {
             template.sendBodyAndHeaders("direct:putIfAbsent", "replaced", headers);
             Mockito.verify(map).putIfAbsent("4711", "replaced");
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -334,7 +334,7 @@ public class HazelcastMapProducerIntegrationTest {
             template.sendBodyAndHeaders("direct:putIfAbsent", "replaced", headers);
             Mockito.verify(map).putIfAbsent("4711", "replaced", new Long(1), TimeUnit.MINUTES);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -350,7 +350,7 @@ public class HazelcastMapProducerIntegrationTest {
             template.sendBodyAndHeaders("direct:evict", "", headers);
             Mockito.verify(map).evict("4711");
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -365,7 +365,7 @@ public class HazelcastMapProducerIntegrationTest {
             template.sendBodyAndHeaders("direct:evictAll", "", headers);
             Mockito.verify(map).evictAll();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -378,7 +378,7 @@ public class HazelcastMapProducerIntegrationTest {
             template.sendBody("direct:clear", "test");
             Mockito.verify(map).clear();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -402,7 +402,7 @@ public class HazelcastMapProducerIntegrationTest {
             Mockito.verify(map).containsKey("testKo");
             Assert.assertEquals(false, body);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -426,7 +426,7 @@ public class HazelcastMapProducerIntegrationTest {
             Mockito.verify(map).containsValue("testKo");
             Assert.assertEquals(false, body);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

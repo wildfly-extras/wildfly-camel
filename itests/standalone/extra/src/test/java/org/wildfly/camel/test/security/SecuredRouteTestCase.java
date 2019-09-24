@@ -79,7 +79,7 @@ public class SecuredRouteTestCase {
                 Assert.assertTrue(cause.getMessage(), cause.getMessage().startsWith("Cannot obtain authentication subject"));
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -108,7 +108,7 @@ public class SecuredRouteTestCase {
                 Assert.assertTrue(cause.getMessage(), cause.getMessage().contains("Password invalid/Password required"));
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -131,7 +131,7 @@ public class SecuredRouteTestCase {
             String result = producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION, subject, String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -154,7 +154,7 @@ public class SecuredRouteTestCase {
             String result = producer.requestBodyAndHeader("direct:start", "Kermit", Exchange.AUTHENTICATION, subject, String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -183,7 +183,7 @@ public class SecuredRouteTestCase {
                 Assert.assertTrue(cause.getMessage(), cause.getMessage().contains("User does not have required roles: [Role3]"));
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

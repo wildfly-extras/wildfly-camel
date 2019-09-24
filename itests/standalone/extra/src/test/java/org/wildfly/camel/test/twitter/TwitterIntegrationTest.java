@@ -59,7 +59,7 @@ public class TwitterIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").to("twitter://timeline/user?" + twitter.getUriTokens());
+                from("direct:start").to("twitter-timeline://user?" + twitter.getUriTokens());
             }
         });
 
@@ -73,7 +73,7 @@ public class TwitterIntegrationTest {
             String result = producer.requestBody("direct:start", message, String.class);
             Assert.assertTrue("Unexpected: " + result, result.contains("(wfcameltest) Its a good day to test Twitter"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

@@ -19,7 +19,7 @@
  */
 package org.wildfly.camel.test.xslt.subA;
 
-import org.apache.camel.language.XPath;
+import org.apache.camel.language.xpath.XPath;
 
 
 public class OrderBean {

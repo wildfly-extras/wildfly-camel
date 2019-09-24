@@ -103,7 +103,7 @@ public class DynamoDBStreamsIntegrationTest {
                     Assert.assertEquals("Book 103 Update", newImage.get("Title").getS());
 
                 } finally {
-                    camelctx.stop();
+                    camelctx.close();
                 }
             } finally {
                 DynamoDBUtils.deleteTable(ddbClient, tableName);

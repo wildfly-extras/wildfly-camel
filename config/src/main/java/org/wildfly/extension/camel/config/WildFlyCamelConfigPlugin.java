@@ -20,9 +20,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.jdom.Element;
-import org.jdom.Namespace;
-import org.jdom.Text;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
+import org.jdom2.Text;
 import org.wildfly.extras.config.ConfigContext;
 import org.wildfly.extras.config.ConfigPlugin;
 import org.wildfly.extras.config.ConfigSupport;

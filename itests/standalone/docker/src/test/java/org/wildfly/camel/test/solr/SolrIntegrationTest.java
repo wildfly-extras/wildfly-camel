@@ -108,7 +108,7 @@ public class SolrIntegrationTest {
             Assert.assertTrue("Expected Solr query result to return 0 results", result.contains("\"numFound\":0"));
 
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

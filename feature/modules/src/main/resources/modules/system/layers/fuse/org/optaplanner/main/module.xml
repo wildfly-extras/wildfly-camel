@@ -10,7 +10,7 @@
     <artifact name="${org.optaplanner:optaplanner-persistence-xstream}" />
   </resources>
   <dependencies>
-    <module name="com.google.guava" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="com.thoughtworks.xstream" />
     <module name="javax.activation.api" />
     <module name="javax.xml.bind.api" />

@@ -7,7 +7,7 @@
     <artifact name="${org.reflections:reflections}" />
   </resources>
   <dependencies>
-    <module name="com.google.guava" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="org.javassist" />
   </dependencies>
 </module>

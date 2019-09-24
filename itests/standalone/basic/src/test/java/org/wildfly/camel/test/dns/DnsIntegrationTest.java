@@ -77,7 +77,7 @@ public class DnsIntegrationTest {
             Throwable cause = ex.getCause();
             Assert.assertEquals("network error", cause.getMessage());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

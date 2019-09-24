@@ -56,7 +56,7 @@ public class JAXBIntegrationTest {
             @Override
             public InputStream openStream() {
                 ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.jdom");
+                builder.addManifestHeader("Dependencies", "org.jdom2");
                 return builder.openStream();
             }
         });
@@ -86,7 +86,7 @@ public class JAXBIntegrationTest {
             String result = producer.requestBody("direct:start", customer, String.class);
             Assert.assertEquals(expected, XMLUtils.compactXML(result));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -112,7 +112,7 @@ public class JAXBIntegrationTest {
             Assert.assertEquals("John", customer.getFirstName());
             Assert.assertEquals("Doe", customer.getLastName());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

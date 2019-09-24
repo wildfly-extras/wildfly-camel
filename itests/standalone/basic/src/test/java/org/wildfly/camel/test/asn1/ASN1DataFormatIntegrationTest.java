@@ -74,7 +74,7 @@ public class ASN1DataFormatIntegrationTest {
             Assert.assertTrue(Arrays.equals(byteArray, response));
             mockMarshal.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

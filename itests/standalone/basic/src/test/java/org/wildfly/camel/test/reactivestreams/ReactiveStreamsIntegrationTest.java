@@ -74,7 +74,7 @@ public class ReactiveStreamsIntegrationTest {
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

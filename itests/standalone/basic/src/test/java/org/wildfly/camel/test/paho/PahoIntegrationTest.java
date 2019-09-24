@@ -123,7 +123,7 @@ public class PahoIntegrationTest {
             String result = consumer.receive(3000).getIn().getBody(String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -176,7 +176,7 @@ public class PahoIntegrationTest {
             Assert.assertEquals("One message", 1, result.size());
             Assert.assertEquals("Hello Kermit", result.get(0));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

@@ -20,6 +20,6 @@ try {
     ProducerTemplate producer = camelctx.createProducerTemplate();
     String customer = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
 } finally {
-    camelctx.stop();
+    camelctx.close();
 }
 ----

@@ -25,9 +25,9 @@
 
     <camelContext id="spring-logging-context-c" xmlns="http://camel.apache.org/schema/spring">
 
-        <properties>
-            <property key="CamelLogEipName" value="org.wildfly.camel.test.spring"/>
-        </properties>
+        <globalOptions>
+            <globalOption key="CamelLogEipName" value="org.wildfly.camel.test.spring"/>
+        </globalOptions>
 
         <route>
             <from uri="direct:log-dsl" />

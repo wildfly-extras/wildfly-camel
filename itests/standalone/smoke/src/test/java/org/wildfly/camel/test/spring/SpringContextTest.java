@@ -66,7 +66,7 @@ public class SpringContextTest {
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello green Frog", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

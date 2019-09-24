@@ -76,7 +76,7 @@ public class IPFSIntegrationTest {
                 Assert.assertTrue("Expecting 0.4 in: " + resA, resA.startsWith("0.4"));
             });
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -103,7 +103,7 @@ public class IPFSIntegrationTest {
             String res = producer.requestBody("direct:start", path, String.class);
             Assert.assertEquals(hash, res);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -132,7 +132,7 @@ public class IPFSIntegrationTest {
             Assert.assertEquals(10, res.size());
             Assert.assertEquals(hash, res.get(9));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -157,7 +157,7 @@ public class IPFSIntegrationTest {
             InputStream res = producer.requestBody("direct:start", hash, InputStream.class);
             verifyFileContent(res);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -183,7 +183,7 @@ public class IPFSIntegrationTest {
             Assert.assertEquals(Paths.get("target", hash), res);
             verifyFileContent(new FileInputStream(res.toFile()));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -210,7 +210,7 @@ public class IPFSIntegrationTest {
             Assert.assertTrue(res.toFile().isDirectory());
             Assert.assertTrue(res.resolve("index.html").toFile().exists());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

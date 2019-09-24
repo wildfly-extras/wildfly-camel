@@ -29,6 +29,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.jndi.JndiBeanRepository;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -99,14 +100,14 @@ public class MailIntegrationTest {
     @Test
     public void testMailEndpoint() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
                 .to("smtp://localhost:10025?session=#java:jboss/mail/greenmail");
 
-                from("pop3://user2@localhost:10110?consumer.delay=1000&session=#java:jboss/mail/greenmail&delete=true")
+                from("pop3://user2@localhost:10110?delay=1000&session=#java:jboss/mail/greenmail&delete=true")
                 .to("mock:result");
             }
         });
@@ -129,7 +130,7 @@ public class MailIntegrationTest {
 
             mockEndpoint.assertIsSatisfied(5000);
         } finally {
-            camelctx.stop();
+            camelctx.close();
             deployer.undeploy(GREENMAIL_WAR);
         }
     }

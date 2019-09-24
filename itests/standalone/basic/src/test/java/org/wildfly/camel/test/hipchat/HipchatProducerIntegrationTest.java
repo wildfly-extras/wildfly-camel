@@ -80,7 +80,7 @@ public class HipchatProducerIntegrationTest {
 
             assertResponseMessage(exchange.getIn());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
     }
@@ -113,7 +113,7 @@ public class HipchatProducerIntegrationTest {
 
             assertResponseMessage(exchange.getIn());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
     }
@@ -159,7 +159,7 @@ public class HipchatProducerIntegrationTest {
             Assert.assertEquals("CamelUnitTestFormat", callback.called.get("message_format"));
             Assert.assertEquals("CamelUnitTestNotify", callback.called.get("notify"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -205,7 +205,7 @@ public class HipchatProducerIntegrationTest {
             Assert.assertEquals("CamelUnitTestFormat", callback.called.get("message_format"));
             Assert.assertEquals("CamelUnitTestNotify", callback.called.get("notify"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

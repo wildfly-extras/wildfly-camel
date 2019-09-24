@@ -80,7 +80,7 @@ public class SyslogDataFormatTest {
 
             Assert.assertEquals(SYSLOG_RAW_MESSAGE, result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -114,7 +114,7 @@ public class SyslogDataFormatTest {
             Assert.assertEquals("camel-test-host", message.getHostname());
             Assert.assertEquals("Hello Kermit!", message.getLogMessage());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

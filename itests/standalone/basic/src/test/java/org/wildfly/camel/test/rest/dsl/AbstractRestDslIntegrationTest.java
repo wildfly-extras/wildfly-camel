@@ -96,7 +96,7 @@ public abstract class AbstractRestDslIntegrationTest {
             int statusCode = client.getResponse("test/foo/bar", "GET").getStatusCode();
             Assert.assertEquals(404, statusCode);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -163,7 +163,7 @@ public abstract class AbstractRestDslIntegrationTest {
             int statusCode = client.getResponse("camel-rest-dsl-tests/foo/bar", "GET").getStatusCode();
             Assert.assertEquals(404, statusCode);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -187,7 +187,7 @@ public abstract class AbstractRestDslIntegrationTest {
             int statusCode = client.getResponse("foo/bar", "DELETE").getStatusCode();
             Assert.assertEquals(405, statusCode);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -216,7 +216,7 @@ public abstract class AbstractRestDslIntegrationTest {
                 Assert.assertTrue("Expected HTTP response header: " + header, headers.containsKey(header));
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -245,7 +245,7 @@ public abstract class AbstractRestDslIntegrationTest {
                 Assert.assertFalse(headers.containsKey(header));
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

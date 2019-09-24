@@ -96,14 +96,11 @@
 
     <module name="com.google.android" skip="true">
         <include artifact="com.google.android:android"/>
+        <include artifact="com.google.android:annotations"/>
     </module>
 
     <module name="com.google.auto.value" skip="true">
         <include artifact="com.google.auto.value:auto-value" />
-    </module>
-
-    <module name="com.google.errorprone" skip="true">
-        <include artifact="com.google.errorprone:error_prone_annotations" />
     </module>
 
     <module name="com.google.code.findbugs" skip="true">
@@ -112,9 +109,21 @@
         <include artifact="findbugs:annotations" />
     </module>
 
+    <module name="com.google.errorprone" skip="true">
+        <include artifact="com.google.errorprone:error_prone_annotations" />
+    </module>
+
     <module name="com.google.guava.bootstrap" skip="true">
         <include artifact="com.google.guava:guava-bootstrap-jdk5" />
         <include artifact="com.google.guava:guava-bootstrap" />
+    </module>
+
+    <module name="com.google.guava.failureaccess" skip="true">
+        <include artifact="com.google.guava:failureaccess" />
+    </module>
+
+    <module name="com.google.guava.listenablefuture" skip="true">
+        <include artifact="com.google.guava:listenablefuture" />
     </module>
 
     <module name="com.google.guava.jdk5" skip="true">
@@ -123,6 +132,10 @@
 
     <module name="com.google.inject.skipped" skip="true">
         <include artifact="com.google.inject.extensions:guice-servlet"/>
+    </module>
+
+    <module name="com.google.j2objc" skip="true">
+        <include artifact="com.google.j2objc:j2objc-annotations" />
     </module>
 
     <module name="com.googlecode.jaxb-namespaceprefixmapper-interfaces.JAXBNamespacePrefixMapper" skip="true">
@@ -203,6 +216,8 @@
 
     <module name="com.zaxxer" skip="true">
         <include artifact="com.zaxxer:HikariCP-java6" />
+        <include artifact="com.zaxxer:HikariCP-java7" />
+        <include artifact="com.zaxxer:HikariCP-java8" />
     </module>
 
     <module name="io.javaslang" skip="true">
@@ -229,7 +244,13 @@
         <include artifact="io.netty:netty-transport-native-unix-common" />
     </module>
 
-    <module name="io.sundr.builder.annotations" skip="true">
+    <module name="io.opentracing" skip="true">
+        <include artifact="io.opentracing:opentracing-util" />
+        <include artifact="io.opentracing.opentracing-api" />
+        <include artifact="io.opentracing.opentracing-noop" />
+    </module>
+
+    <module name="io.sundr.builder" skip="true">
         <include artifact="io.sundr:builder-annotations" />
     </module>
 
@@ -237,8 +258,20 @@
         <include artifact="io.sundr:sundr-codegen" />
     </module>
 
-    <module name="io.zipkin.skipped" skip="true">
-        <include artifact="io.zipkin.reporter:zipkin-reporter" />
+    <module name="io.sundr.transform" skip="true">
+        <include artifact="io.sundr:transform-annotations" />
+    </module>
+
+    <module name="jakarta.activation" skip="true">
+        <include artifact="jakarta.activation:jakarta.activation-api" />
+    </module>
+
+    <module name="jakarta.xml.bind" skip="true">
+        <include artifact="jakarta.xml.bind:jakarta.xml.bind-api" />
+    </module>
+
+    <module name="javax.money" skip="true">
+        <include artifact="javax.money:money-api" />
     </module>
 
     <module name="jaxmeapi" skip="true">
@@ -289,6 +322,10 @@
         <include artifact="net.sf.kxml:(.*)" />
     </module>
 
+    <module name="net.sf.trove4j" skip="true">
+        <include artifact="net.sf.trove4j:core" />
+    </module>
+
     <module name="org.apache.aries.blueprint" skip="true">
         <include artifact="org.apache.aries.blueprint:(.*)" />
     </module>
@@ -298,7 +335,8 @@
     </module>
 
     <module name="org.apache.avro.ipc" skip="true">
-        <include artifact="org.apache.avro:avro-ipc" />
+        <include artifact="org.apache.avro:avro-ipc-jetty" />
+        <include artifact="org.apache.avro:avro-ipc-netty" />
     </module>
 
     <module name="org.apache.camel.apt" skip="true">
@@ -307,14 +345,6 @@
 
     <module name="org.apache.camel.blueprint" skip="true">
         <include artifact="org.apache.camel:camel-blueprint" />
-    </module>
-
-    <module name="org.apache.camel.http" skip="true">
-        <include artifact="org.apache.camel:camel-http" />
-    </module>
-
-    <module name="org.apache.camel.spi-annotations" skip="true">
-        <include artifact="org.apache.camel:spi-annotations" />
     </module>
 
     <module name="org.apache.commons.daemon" skip="true">
@@ -341,10 +371,6 @@
 
     <module name="org.apache.httpcomponents.skipped" skip="true">
         <include artifact="org.apache.httpcomponents:httpclient-osgi" />
-    </module>
-
-    <module name="org.jetbrains.annotations" skip="true">
-        <include artifact="org.jetbrains:annotations" />
     </module>
 
     <module name="org.apache.logging.log4j" skip="true">
@@ -402,15 +428,32 @@
         <include artifact="org.brotli:dec" />
     </module>
 
+    <module name="org.checkerframework" skip="true">
+        <include artifact="org.checkerframework:checker-qual" />
+    </module>
+
     <module name="org.codehaus.plexus" skip="true">
         <include artifact="org.codehaus.plexus:(.*)" />
     </module>
 
-    <module name="org.codehaus.woodstox.core" skip="true">
-        <include artifact=":woodstox-core" />
+    <module name="org.conscrypt.openjdk" skip="true">
+        <include artifact="org.conscrypt:conscrypt-openjdk-uber" />
+    </module>
+
+    <module name="org.drools.kie" skip="true">
+        <include artifact="org.drools:kie-pmml" />
+    </module>
+
+    <module name="org.eclipse.jetty.http2" skip="true">
+        <include artifact="org.eclipse.jetty.http2:http2-common" />
+        <include artifact="org.eclipse.jetty.http2:http2-client" />
+        <include artifact="org.eclipse.jetty.http2:http2-hpack" />
+        <include artifact="org.eclipse.jetty.http2:http2-http-client-transport" />
     </module>
 
     <module name="org.eclipse.jetty.skipped" skip="true">
+        <include artifact="org.eclipse.jetty:jetty-alpn-client" />
+        <include artifact="org.eclipse.jetty:jetty-alpn-java-client" />
         <include artifact="org.eclipse.jetty:jetty-continuation" />
         <include artifact="org.eclipse.jetty:jetty-jmx" />
         <include artifact="org.eclipse.jetty:jetty-server" />
@@ -447,6 +490,7 @@
         <include artifact="org.glassfish.jersey.connectors:jersey-apache-connector" />
         <include artifact="org.glassfish.jersey.core:jersey-client" />
         <include artifact="org.glassfish.jersey.core:jersey-common" />
+        <include artifact="org.glassfish.jersey.inject:jersey-hk2" />
     </module>
 
     <module name="org.immutables.value" skip="true">
@@ -462,6 +506,10 @@
 
     <module name="org.jasypt" skip="true">
         <include artifact="org.jasypt:jasypt" />
+    </module>
+
+    <module name="org.javamoney.moneta" skip="true">
+        <include artifact="org.javamoney.moneta:moneta-core" />
     </module>
 
     <module name="org.jboss.logging.processor" skip="true">
@@ -486,6 +534,10 @@
         <include artifact="org.jctools:(.*)" />
     </module>
 
+    <module name="org.jetbrains.annotations" skip="true">
+        <include artifact="org.jetbrains:annotations" />
+    </module>
+
     <module name="org.joda.convert" skip="true">
         <include artifact=":joda-convert" />
     </module>
@@ -504,6 +556,10 @@
         <include artifact="org.jruby.jcodings:jcodings" />
     </module>
 
+    <module name="org.junit.vintage" skip="true">
+        <include artifact="org.junit.vintage:" />
+    </module>
+
     <module name="org.jvnet.skipped" skip="true">
         <include artifact="org.jvnet:animal-sniffer-annotation" />
         <include artifact="org.codehaus.mojo:animal-sniffer-annotations" />
@@ -511,10 +567,6 @@
 
     <module name="org.linkedin" skip="true">
         <include artifact="org.linkedin:(.*)" />
-    </module>
-
-    <module name="org.minidns.minidns.core" skip="true">
-        <include artifact="org.minidns:minidns-core" />
     </module>
 
     <module name="org.mnode.skipped" skip="true">
@@ -539,11 +591,12 @@
 
     <module name="org.osgi.compendium" skip="true">
         <include artifact="org.osgi:org.osgi.compendium" />
+        <include artifact="org.osgi:osgi.cmpn" />
     </module>
 
     <module name="org.osgi.core" skip="true">
-        <include artifact=":org.osgi.core" />
-        <include artifact="org.osgi:core" />
+        <include artifact="org.osgi:org.osgi.core" />
+        <include artifact="org.osgi:osgi.core" />
     </module>
 
     <module name="org.ow2.asm.commons" skip="true">

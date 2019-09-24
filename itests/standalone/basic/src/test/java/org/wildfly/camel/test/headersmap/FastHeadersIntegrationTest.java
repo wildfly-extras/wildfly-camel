@@ -64,7 +64,7 @@ public class FastHeadersIntegrationTest {
             HeadersMapFactory factory = camelctx.getHeadersMapFactory();
             Assert.assertTrue("Instance of FastHeadersMapFactory", factory instanceof FastHeadersMapFactory);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

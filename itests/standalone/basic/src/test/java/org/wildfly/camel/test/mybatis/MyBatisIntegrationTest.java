@@ -89,7 +89,7 @@ public class MyBatisIntegrationTest {
             Assert.assertEquals(1, rows.intValue());
         } finally {
             dropTable(camelctx);
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

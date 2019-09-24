@@ -65,23 +65,6 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.ec4j.maven</groupId>
-                <artifactId>editorconfig-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <excludes>
-                        <exclude>**/charset-test.xml</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
@@ -95,7 +78,7 @@
                 </property>
             </activation>
             <properties>
-                <jvmArgs>-Xmx1G -XX:MaxPermSize=512m -Djava.net.preferIPv6Stack=true -Djboss.bind.address=::1</jvmArgs>
+                <jvmArgs>-Xmx1G -Djava.net.preferIPv6Stack=true -Djboss.bind.address=::1</jvmArgs>
             </properties>
         </profile>
     </profiles>

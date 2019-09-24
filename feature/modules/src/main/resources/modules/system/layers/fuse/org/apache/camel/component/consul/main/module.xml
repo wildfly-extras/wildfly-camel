@@ -2,20 +2,23 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.consul">
   <resources>
     <artifact name="${org.apache.camel:camel-consul}" />
-    <artifact name="${com.orbitz.consul:consul-client}" />
   </resources>
   <dependencies>
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="com.fasterxml.jackson.datatype.jackson-datatype-guava" />
-    <module name="com.google.guava" />
-    <module name="com.squareup.retrofit2" />
+    <module name="com.fasterxml.jackson.datatype.guava" />
+    <module name="com.google.guava" slot="fuse" />
+    <module name="com.orbitz.consul.client" export="true">
+      <exports>
+        <exclude path="com/orbitz" />
+        <include path="com/orbitz/consul**" />
+      </exports>
+    </module>
+    <module name="com.squareup.retrofit2" slot="fuse" />
     <module name="com.squareup.okhttp3" slot="fuse" />
     <module name="org.apache.commons.lang3" slot="fuse" />
     <module name="org.slf4j" />
-    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jdk8" slot="fuse" />
-    <module name="javax.xml.bind.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
   <exports>

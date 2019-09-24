@@ -89,7 +89,7 @@ public class ZipFileIntegrationTest {
 
             Assert.assertEquals("Hello Kermit", zipFileContent);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -121,7 +121,7 @@ public class ZipFileIntegrationTest {
             String result = pollingConsumer.receive(3000).getIn().getBody(String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -149,7 +149,7 @@ public class ZipFileIntegrationTest {
             String result = pollingConsumer.receive(3000).getIn().getBody(String.class);
             Assert.assertEquals("Hello Kermit", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

@@ -49,7 +49,7 @@ public class CustomCamelContextFactory {
     public void destroy() {
         if (camelctx != null) {
             try {
-                camelctx.stop();
+                camelctx.close();
             } catch (Exception e) {
                 throw new IllegalStateException(e);
             }

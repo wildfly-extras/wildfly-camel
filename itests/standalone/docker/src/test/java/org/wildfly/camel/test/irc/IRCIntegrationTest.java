@@ -113,7 +113,7 @@ public class IRCIntegrationTest {
 
             endpoint.assertIsSatisfied(10000);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

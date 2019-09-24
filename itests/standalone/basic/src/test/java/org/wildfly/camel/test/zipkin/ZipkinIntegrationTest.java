@@ -81,7 +81,7 @@ public class ZipkinIntegrationTest {
             }
             Assert.assertTrue(notify.matches(30, TimeUnit.SECONDS));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

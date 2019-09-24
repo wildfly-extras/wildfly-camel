@@ -67,7 +67,7 @@ public class BindyIntegrationTest {
             String result = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
             Assert.assertEquals("John,Doe", result.trim());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -92,7 +92,7 @@ public class BindyIntegrationTest {
             Assert.assertEquals("John", result.getFirstName());
             Assert.assertEquals("Doe", result.getLastName());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

@@ -98,7 +98,7 @@ public class S3IntegrationTest {
                         String result2 = consumer.receiveBody("seda:read", String.class);
                         Assert.assertEquals(content, result2);
                     } finally {
-                        camelctx.stop();
+                        camelctx.close();
                     }
                 } finally {
                     s3Client.deleteObject(bucketName, OBJECT_KEY);

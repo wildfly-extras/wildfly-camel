@@ -33,6 +33,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.jndi.JndiBeanRepository;
 import org.apache.fop.apps.FopFactory;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -69,12 +70,12 @@ public class FopIntegrationTest {
 
     @Test
     public void testFopComponent() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .to("xslt:template.xsl")
+                .to("xslt:template.xsl?allowStAX=false")
                 .setHeader("foo", constant("bar"))
                 .to("fop:pdf")
                 .setHeader(Exchange.FILE_NAME, constant("resultA.pdf"))
@@ -99,7 +100,7 @@ public class FopIntegrationTest {
             Assert.assertTrue(pdfText.contains("Project"));
             Assert.assertTrue(pdfText.contains("John Doe"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -108,12 +109,12 @@ public class FopIntegrationTest {
         FopFactory fopFactory = FopFactory.newInstance(new URI("/"), FopIntegrationTest.class.getResourceAsStream("/factory.xml"));
         initialContext.bind("fopFactory", fopFactory);
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .to("xslt:template.xsl")
+                .to("xslt:template.xsl?allowStAX=false")
                 .setHeader("foo", constant("bar"))
                 .to("fop:pdf?fopFactory=#fopFactory")
                 .setHeader(Exchange.FILE_NAME, constant("resultB.pdf"))
@@ -138,7 +139,7 @@ public class FopIntegrationTest {
             Assert.assertTrue(pdfText.contains("Project"));
             Assert.assertTrue(pdfText.contains("John Doe"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
             initialContext.unbind("fopFactory");
         }
     }

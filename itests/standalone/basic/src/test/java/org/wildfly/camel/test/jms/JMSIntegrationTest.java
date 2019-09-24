@@ -44,6 +44,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jms.JmsMessage;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.jndi.JndiBeanRepository;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -97,7 +98,7 @@ public class JMSIntegrationTest {
 
     @Test
     public void testMessageConsumerRoute() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -124,7 +125,7 @@ public class JMSIntegrationTest {
                 connection.close();
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -133,7 +134,7 @@ public class JMSIntegrationTest {
         final List<String> result = new ArrayList<>();
         final CountDownLatch latch = new CountDownLatch(3);
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -194,13 +195,13 @@ public class JMSIntegrationTest {
                 connection.close();
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
     @Test
     public void testMessageProviderRoute() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -239,13 +240,13 @@ public class JMSIntegrationTest {
                 connection.close();
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
     @Test
     public void testMessageProviderRouteWithClientAck() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -307,7 +308,7 @@ public class JMSIntegrationTest {
                 connection.close();
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -329,7 +330,7 @@ public class JMSIntegrationTest {
         };
         initialctx.bind("messageConverter", converter);
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -356,7 +357,7 @@ public class JMSIntegrationTest {
                 connection.close();
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
             initialctx.unbind("messageConverter");
         }
     }

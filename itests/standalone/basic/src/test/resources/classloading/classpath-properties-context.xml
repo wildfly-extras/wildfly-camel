@@ -7,7 +7,7 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
     <camelContext  id="classpath-properties-context">
-        <propertyPlaceholder location="classpath:test.properties" prefixToken="{$" suffixToken="}" id="properties" />
+        <propertyPlaceholder location="classpath:test.properties" id="properties" />
         <route>
             <from uri="file:{$testDir}/camel-from" />
             <to uri="file:{$testDir}/camel-to" />

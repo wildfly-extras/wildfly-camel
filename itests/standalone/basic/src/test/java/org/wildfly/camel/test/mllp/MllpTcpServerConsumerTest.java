@@ -84,7 +84,7 @@ public class MllpTcpServerConsumerTest {
             MockEndpoint.assertIsSatisfied(10, TimeUnit.SECONDS, mock);
         } finally {
             mllpClient.disconnect();
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

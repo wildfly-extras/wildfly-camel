@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.mina">
+  <resources>
+    <artifact name="${org.apache.camel:camel-mina}" />
+  </resources>
+  <dependencies>
+    <module name="org.slf4j" />
+    <module name="org.apache.camel.core" />
+    <module name="org.apache.mina.core" />
+  </dependencies>
+</module>

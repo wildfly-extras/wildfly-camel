@@ -87,7 +87,7 @@ public class ThriftIntegrationTest {
             Assert.assertEquals(WORK_TEST_OPERATION, output.getOp());
             Assert.assertEquals(WORK_TEST_NUM2, output.getNum2());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

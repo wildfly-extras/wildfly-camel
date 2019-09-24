@@ -83,8 +83,9 @@ public class HdfsIntegrationTest {
     }
 
     @Test
-    public void testHdfs2Component() throws Exception {
-        Assume.assumeFalse("[#1961] Hdfs2IntegrationTest fails on Windows", EnvironmentUtils.isWindows());
+    public void testHdfsComponent() throws Exception {
+
+        Assume.assumeFalse("[#1961] HdfsIntegrationTest fails on Windows", EnvironmentUtils.isWindows());
 
         String dataDir = Paths.get(System.getProperty("jboss.server.data.dir"), "hadoop").toString();
         String port = AvailablePortFinder.readServerData("hdfs-port");
@@ -94,9 +95,9 @@ public class HdfsIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .toF("hdfs2://localhost:%s%s?fileSystemType=HDFS&splitStrategy=BYTES:5,IDLE:1000", port, dataDir);
+                .toF("hdfs://localhost:%s%s?fileSystemType=HDFS&splitStrategy=BYTES:5,IDLE:1000", port, dataDir);
 
-                fromF("hdfs2://localhost:%s%s?pattern=*&fileSystemType=HDFS&chunkSize=5", port, dataDir).id("hdfs-consumer").autoStartup(false)
+                fromF("hdfs://localhost:%s%s?pattern=*&fileSystemType=HDFS&chunkSize=5", port, dataDir).id("hdfs-consumer").autoStartup(false)
                 .to("mock:result");
             }
         });
@@ -112,13 +113,13 @@ public class HdfsIntegrationTest {
                 template.sendBody("direct:start", body);
             }
 
-            camelctx.startRoute("hdfs-consumer");
+            camelctx.getRouteController().startRoute("hdfs-consumer");
 
             MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
             mockEndpoint.expectedBodiesReceivedInAnyOrder(bodies);
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

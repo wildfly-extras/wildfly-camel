@@ -36,7 +36,7 @@
     <camelContext id="cxfrs-async-context" xmlns="http://camel.apache.org/schema/spring">
         <route>
             <from uri="direct:start"/>
-            <setHeader headerName="CamelHttpMethod">
+            <setHeader name="CamelHttpMethod">
                 <constant>GET</constant>
             </setHeader>
             <to uri="cxfrs://http://localhost:8080/services/async/hello"/>

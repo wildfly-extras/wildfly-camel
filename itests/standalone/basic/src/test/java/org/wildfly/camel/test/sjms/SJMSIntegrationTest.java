@@ -36,12 +36,14 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.SimpleRegistry;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -88,11 +90,11 @@ public class SJMSIntegrationTest {
     @Test
     public void testMessageConsumerRoute() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = createCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("sjms:queue:" + QUEUE_NAME + "?connectionFactory=ConnectionFactory").
+                from("sjms:queue:" + QUEUE_NAME + "?connectionFactory=#cfactory").
                 transform(body().prepend("Hello ")).to("seda:end");
             }
         });
@@ -104,7 +106,7 @@ public class SJMSIntegrationTest {
 
         try {
             // Send a message to the queue
-            ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
+            ConnectionFactory cfactory = lookupConnectionFactory();
             Connection connection = cfactory.createConnection();
             try {
                 sendMessage(connection, QUEUE_JNDI_NAME, "Kermit");
@@ -114,20 +116,20 @@ public class SJMSIntegrationTest {
                 connection.close();
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
     @Test
     public void testMessageProviderRoute() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = createCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start").
                 transform(body().prepend("Hello ")).
-                to("sjms:queue:" + QUEUE_NAME + "?connectionFactory=ConnectionFactory");
+                to("sjms:queue:" + QUEUE_NAME + "?connectionFactory=#cfactory");
             }
         });
 
@@ -137,7 +139,7 @@ public class SJMSIntegrationTest {
         camelctx.start();
         try {
             // Get the message from the queue
-            ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
+            ConnectionFactory cfactory = lookupConnectionFactory();
             Connection connection = cfactory.createConnection();
             try {
                 receiveMessage(connection, QUEUE_JNDI_NAME, new MessageListener() {
@@ -163,8 +165,19 @@ public class SJMSIntegrationTest {
                 connection.close();
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
+    }
+
+    private CamelContext createCamelContext() throws NamingException {
+        SimpleRegistry registry = new SimpleRegistry();
+        registry.bind("cfactory", lookupConnectionFactory());
+        return new DefaultCamelContext(registry);
+    }
+
+    private ConnectionFactory lookupConnectionFactory() throws NamingException {
+        ConnectionFactory cfactory = (ConnectionFactory) initialctx.lookup("java:/ConnectionFactory");
+        return cfactory;
     }
 
     private void sendMessage(Connection connection, String jndiName, String message) throws Exception {

@@ -69,7 +69,7 @@ public class ElasticsearchIntegrationTest {
             .setManifest(() -> {
                 ManifestBuilder builder = new ManifestBuilder();
                 builder.addManifestHeader("Dependencies",
-                    "org.elasticsearch,io.netty,com.carrotsearch.hppc,org.apache.logging.log4j,org.apache.lucene:7.1");
+                    "org.elasticsearch,io.netty,com.carrotsearch.hppc,org.apache.logging.log4j,org.apache.lucene:8.0");
                 return builder.openStream();
             });
     }
@@ -87,10 +87,10 @@ public class ElasticsearchIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:index")
-                    .to("elasticsearch-rest://elasticsearch?operation=Index&indexName=twitter&indexType=tweet&hostAddresses=" + getElasticsearchHost());
+                    .to("elasticsearch-rest://elasticsearch?operation=Index&indexName=twitter&hostAddresses=" + getElasticsearchHost());
 
                 from("direct:get")
-                    .to("elasticsearch-rest://elasticsearch?operation=GetById&indexName=twitter&indexType=tweet&hostAddresses=" + getElasticsearchHost());
+                    .to("elasticsearch-rest://elasticsearch?operation=GetById&indexName=twitter&hostAddresses=" + getElasticsearchHost());
             }
         });
 
@@ -109,7 +109,7 @@ public class ElasticsearchIntegrationTest {
             Assert.assertNotNull("response should not be null", response);
             Assert.assertNotNull("response source should not be null", response.getSource());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -120,13 +120,13 @@ public class ElasticsearchIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:index")
-                    .to("elasticsearch-rest://elasticsearch?operation=Index&indexName=twitter&indexType=tweet&hostAddresses=" + getElasticsearchHost());
+                    .to("elasticsearch-rest://elasticsearch?operation=Index&indexName=twitter&hostAddresses=" + getElasticsearchHost());
 
                 from("direct:get")
-                    .to("elasticsearch-rest://elasticsearch?operation=GetById&indexName=twitter&indexType=tweet&hostAddresses=" + getElasticsearchHost());
+                    .to("elasticsearch-rest://elasticsearch?operation=GetById&indexName=twitter&hostAddresses=" + getElasticsearchHost());
 
                 from("direct:delete")
-                    .to("elasticsearch-rest://elasticsearch?operation=Delete&indexName=twitter&indexType=tweet&hostAddresses=" + getElasticsearchHost());
+                    .to("elasticsearch-rest://elasticsearch?operation=Delete&indexName=twitter&hostAddresses=" + getElasticsearchHost());
             }
         });
 
@@ -154,7 +154,7 @@ public class ElasticsearchIntegrationTest {
             Assert.assertNotNull("response should not be null", response);
             Assert.assertNull("response source should be null", response.getSource());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
 
     }
@@ -166,13 +166,13 @@ public class ElasticsearchIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:index")
-                    .to("elasticsearch-rest://elasticsearch?operation=Index&indexName=twitter&indexType=tweet&hostAddresses=" + getElasticsearchHost());
+                    .to("elasticsearch-rest://elasticsearch?operation=Index&indexName=twitter&hostAddresses=" + getElasticsearchHost());
 
                 from("direct:get")
-                    .to("elasticsearch-rest://elasticsearch?operation=GetById&indexName=twitter&indexType=tweet&hostAddresses=" + getElasticsearchHost());
+                    .to("elasticsearch-rest://elasticsearch?operation=GetById&indexName=twitter&hostAddresses=" + getElasticsearchHost());
 
                 from("direct:search")
-                    .to("elasticsearch-rest://elasticsearch?operation=Search&indexName=twitter&indexType=tweet&hostAddresses=" + getElasticsearchHost());
+                    .to("elasticsearch-rest://elasticsearch?operation=Search&indexName=twitter&hostAddresses=" + getElasticsearchHost());
             }
         });
 
@@ -200,9 +200,9 @@ public class ElasticsearchIntegrationTest {
 
             SearchHits response = template.requestBody("direct:search", match, SearchHits.class);
             Assert.assertNotNull("response should not be null", response);
-            Assert.assertEquals("response hits should be == 0", 0, response.totalHits);
+            Assert.assertEquals("response hits should be == 0", 0, response.getTotalHits().value);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -213,10 +213,10 @@ public class ElasticsearchIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:index")
-                    .to("elasticsearch-rest://elasticsearch?operation=Index&indexName=twitter&indexType=tweet&hostAddresses=" + getElasticsearchHost());
+                    .to("elasticsearch-rest://elasticsearch?operation=Index&indexName=twitter&hostAddresses=" + getElasticsearchHost());
 
                 from("direct:update")
-                    .to("elasticsearch-rest://elasticsearch?operation=Update&indexName=twitter&indexType=tweet&hostAddresses=" + getElasticsearchHost());
+                    .to("elasticsearch-rest://elasticsearch?operation=Update&indexName=twitter&hostAddresses=" + getElasticsearchHost());
             }
         });
 
@@ -235,7 +235,7 @@ public class ElasticsearchIntegrationTest {
             indexId = template.requestBodyAndHeaders("direct:update", newMap, headers, String.class);
             Assert.assertNotNull("indexId should be set", indexId);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -259,7 +259,6 @@ public class ElasticsearchIntegrationTest {
             Map<String, Object> headers = new HashMap<>();
             headers.put(ElasticsearchConstants.PARAM_OPERATION, ElasticsearchOperation.Index);
             headers.put(ElasticsearchConstants.PARAM_INDEX_NAME, "twitter");
-            headers.put(ElasticsearchConstants.PARAM_INDEX_TYPE, "tweet");
 
             String indexId = template.requestBodyAndHeaders("direct:start", map, headers, String.class);
 
@@ -269,7 +268,7 @@ public class ElasticsearchIntegrationTest {
             Assert.assertNotNull("response should not be null", response);
             Assert.assertNotNull("response source should not be null", response.getSource());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -296,9 +295,8 @@ public class ElasticsearchIntegrationTest {
             Map<String, Object> headers = new HashMap<>();
             headers.put(ElasticsearchConstants.PARAM_OPERATION, ElasticsearchOperation.Index);
             headers.put(ElasticsearchConstants.PARAM_INDEX_NAME, "twitter");
-            headers.put(ElasticsearchConstants.PARAM_INDEX_TYPE, "tweet");
 
-            String indexId = template.requestBodyAndHeaders("direct:start", map, headers, String.class);
+            template.requestBodyAndHeaders("direct:start", map, headers, String.class);
 
             //now, verify GET
             headers.put(ElasticsearchConstants.PARAM_OPERATION, ElasticsearchOperation.Exists);
@@ -307,7 +305,7 @@ public class ElasticsearchIntegrationTest {
             Assert.assertNotNull("response should not be null", exists);
             Assert.assertTrue("Index should exist", exists);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -334,9 +332,8 @@ public class ElasticsearchIntegrationTest {
             Map<String, Object> headers = new HashMap<>();
             headers.put(ElasticsearchConstants.PARAM_OPERATION, ElasticsearchOperation.Index);
             headers.put(ElasticsearchConstants.PARAM_INDEX_NAME, "twitter");
-            headers.put(ElasticsearchConstants.PARAM_INDEX_TYPE, "tweet");
 
-            String indexId = template.requestBodyAndHeaders("direct:start", map, headers, String.class);
+            template.requestBodyAndHeaders("direct:start", map, headers, String.class);
 
             //now, verify GET
             headers.put(ElasticsearchConstants.PARAM_OPERATION, ElasticsearchOperation.Exists);
@@ -345,7 +342,7 @@ public class ElasticsearchIntegrationTest {
             Assert.assertNotNull("response should not be null", exists);
             Assert.assertFalse("Index should not exist", exists);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -360,7 +357,7 @@ public class ElasticsearchIntegrationTest {
                     .to("elasticsearch-rest://elasticsearch?operation=Index&hostAddresses=" + getElasticsearchHost());
 
                 from("direct:delete")
-                    .to("elasticsearch-rest://elasticsearch?operation=Delete&indexName=twitter&indexType=tweet&hostAddresses=" + getElasticsearchHost());
+                    .to("elasticsearch-rest://elasticsearch?operation=Delete&indexName=twitter&hostAddresses=" + getElasticsearchHost());
             }
         });
 
@@ -373,7 +370,6 @@ public class ElasticsearchIntegrationTest {
             Map<String, Object> headers = new HashMap<>();
             headers.put(ElasticsearchConstants.PARAM_OPERATION, ElasticsearchOperation.Index);
             headers.put(ElasticsearchConstants.PARAM_INDEX_NAME, "twitter");
-            headers.put(ElasticsearchConstants.PARAM_INDEX_TYPE, "tweet");
 
             String indexId = template.requestBodyAndHeaders("direct:start", map, headers, String.class);
 
@@ -394,7 +390,7 @@ public class ElasticsearchIntegrationTest {
             Assert.assertNotNull("response should not be null", response);
             Assert.assertNull("response source should be null", response.getSource());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -417,7 +413,6 @@ public class ElasticsearchIntegrationTest {
             Map<String, Object> headers = new HashMap<>();
             headers.put(ElasticsearchConstants.PARAM_OPERATION, ElasticsearchOperation.Index);
             headers.put(ElasticsearchConstants.PARAM_INDEX_NAME, "twitter");
-            headers.put(ElasticsearchConstants.PARAM_INDEX_TYPE, "tweet");
             headers.put(ElasticsearchConstants.PARAM_INDEX_ID, "123");
 
             String indexId = template.requestBodyAndHeaders("direct:start", map, headers, String.class);
@@ -430,7 +425,7 @@ public class ElasticsearchIntegrationTest {
             Assert.assertNotNull("indexId should be set", indexId);
             Assert.assertEquals("indexId should be equals to the provided id", "123", indexId);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -441,10 +436,10 @@ public class ElasticsearchIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:index")
-                    .to("elasticsearch-rest://elasticsearch?operation=Index&indexName=twitter&indexType=tweet&hostAddresses=" + getElasticsearchHost());
+                    .to("elasticsearch-rest://elasticsearch?operation=Index&indexName=twitter&hostAddresses=" + getElasticsearchHost());
 
                 from("direct:get")
-                    .to("elasticsearch-rest://elasticsearch?operation=GetById&indexName=twitter&indexType=tweet&hostAddresses=" + getElasticsearchHost());
+                    .to("elasticsearch-rest://elasticsearch?operation=GetById&indexName=twitter&hostAddresses=" + getElasticsearchHost());
             }
         });
 
@@ -452,19 +447,20 @@ public class ElasticsearchIntegrationTest {
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
 
-            GetRequest request = new GetRequest(PREFIX + "foo").type(PREFIX + "bar");
+            GetRequest request = new GetRequest(PREFIX + "foo");
 
-            String documentId = template.requestBody("direct:index",
-                new IndexRequest(PREFIX + "foo", PREFIX + "bar", PREFIX + "testId")
-                    .source(PREFIX + "content", PREFIX + "hello"), String.class);
+            IndexRequest idxreq = new IndexRequest(PREFIX + "foo")
+                    .id(PREFIX + "testId")
+                    .source(PREFIX + "content", PREFIX + "hello");
 
-            GetResponse response = template.requestBody("direct:get",
-                request.id(documentId), GetResponse.class);
+            String documentId = template.requestBody("direct:index", idxreq, String.class);
+
+            GetResponse response = template.requestBody("direct:get", request.id(documentId), GetResponse.class);
 
             Assert.assertNotNull(response);
             Assert.assertEquals(PREFIX + "hello", response.getSourceAsMap().get(PREFIX + "content"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -475,10 +471,10 @@ public class ElasticsearchIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:index")
-                    .to("elasticsearch-rest://elasticsearch?operation=Index&indexName=twitter&indexType=tweet&hostAddresses=" + getElasticsearchHost());
+                    .to("elasticsearch-rest://elasticsearch?operation=Index&indexName=twitter&hostAddresses=" + getElasticsearchHost());
 
                 from("direct:delete")
-                    .to("elasticsearch-rest://elasticsearch?operation=Delete&indexName=twitter&indexType=tweet&hostAddresses=" + getElasticsearchHost());
+                    .to("elasticsearch-rest://elasticsearch?operation=Delete&indexName=twitter&hostAddresses=" + getElasticsearchHost());
             }
         });
 
@@ -486,16 +482,17 @@ public class ElasticsearchIntegrationTest {
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
 
-            DeleteRequest request = new DeleteRequest(PREFIX + "foo").type(PREFIX + "bar");
+            DeleteRequest request = new DeleteRequest(PREFIX + "foo");
 
-            String documentId = template.requestBody("direct:index",
-                new IndexRequest("" + PREFIX + "foo", "" + PREFIX + "bar", "" + PREFIX + "testId")
-                    .source(PREFIX + "content", PREFIX + "hello"), String.class);
+            IndexRequest idxreq = new IndexRequest(PREFIX + "foo")
+                .id(PREFIX + "testId").source(PREFIX + "content", PREFIX + "hello");
+
+            String documentId = template.requestBody("direct:index", idxreq, String.class);
             DeleteResponse.Result response = template.requestBody("direct:delete", request.id(documentId), DeleteResponse.Result.class);
 
             Assert.assertNotNull(response);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

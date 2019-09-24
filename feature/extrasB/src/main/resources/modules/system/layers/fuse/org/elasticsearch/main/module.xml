@@ -8,6 +8,7 @@
     <artifact name="${org.elasticsearch:elasticsearch}" />
     <artifact name="${org.elasticsearch:elasticsearch-cli}" />
     <artifact name="${org.elasticsearch:elasticsearch-core}" />
+    <artifact name="${org.elasticsearch:elasticsearch-geo}" />
     <artifact name="${org.elasticsearch.client:elasticsearch-rest-client}" />
     <artifact name="${org.elasticsearch.client:elasticsearch-rest-client-sniffer}" />
     <artifact name="${org.elasticsearch.client:elasticsearch-rest-high-level-client}" />
@@ -23,7 +24,11 @@
   <dependencies>
     <module name="javax.api" />
     <module name="org.apache.logging.log4j" />
-    <module name="org.apache.lucene" slot="7.1" />
+    <module name="org.apache.lucene" export="true" slot="8.0">
+      <exports>
+        <exclude path="org/tartarus**" />
+      </exports>
+    </module>
     <module name="sun.jdk">
       <imports>
         <include path="sun/misc" />

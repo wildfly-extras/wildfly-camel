@@ -27,8 +27,8 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.digitalocean.constants.DigitalOceanHeaders;
 import org.apache.camel.component.digitalocean.constants.DigitalOceanOperations;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.spi.PropertiesComponent;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -101,7 +101,7 @@ public class DigitalOceanIntegrationTest {
             Assert.assertTrue(result.isEmailVerified());
             mockResult.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -133,7 +133,7 @@ public class DigitalOceanIntegrationTest {
             Delete delres = producer.requestBodyAndHeader("direct:deleteDroplet", null, DigitalOceanHeaders.ID, droplet.getId(), Delete.class);
             Assert.assertTrue("Droplet deleted", delres.getIsRequestSuccess());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -157,7 +157,7 @@ public class DigitalOceanIntegrationTest {
             Assert.assertTrue("At least as many droplets as created", getDroplets.size() >= 2);
 
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -176,7 +176,7 @@ public class DigitalOceanIntegrationTest {
             Assert.assertEquals("tag1", tag.getName());
             mockResult.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -197,7 +197,7 @@ public class DigitalOceanIntegrationTest {
             Assert.assertEquals("tag1", tags.get(0).getName());
             mockResult.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -218,7 +218,7 @@ public class DigitalOceanIntegrationTest {
             mockResult.assertIsSatisfied();
             Assert.assertNotEquals(1, images.size());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -237,7 +237,7 @@ public class DigitalOceanIntegrationTest {
             Assert.assertEquals("ubuntu-14-04-x64", image.getSlug());
             mockResult.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -257,12 +257,13 @@ public class DigitalOceanIntegrationTest {
             Assert.assertNotEquals(1, sizes.size());
             mockResult.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
 
     @Test
+    @SuppressWarnings("unchecked")
     public void getRegions() throws Exception {
         CamelContext camelctx = createCamelContext(oauthToken);
         camelctx.addRoutes(createRouteBuilder());
@@ -277,7 +278,7 @@ public class DigitalOceanIntegrationTest {
             Assert.assertNotEquals(1, regions.size());
             mockResult.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -378,7 +379,7 @@ public class DigitalOceanIntegrationTest {
 
     private CamelContext createCamelContext(String oauthToken) {
         CamelContext camelctx = new DefaultCamelContext();
-        PropertiesComponent pc = camelctx.getComponent("properties", PropertiesComponent.class);
+        PropertiesComponent pc = camelctx.getPropertiesComponent();
         Properties properties = new Properties();
         properties.setProperty("oAuthToken", oauthToken);
         pc.setOverrideProperties(properties);

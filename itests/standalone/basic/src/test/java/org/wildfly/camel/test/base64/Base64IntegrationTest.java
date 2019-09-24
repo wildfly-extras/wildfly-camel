@@ -60,7 +60,7 @@ public class Base64IntegrationTest {
 
             Assert.assertEquals("SGVsbG8gS2VybWl0IQ==", result.trim());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -81,7 +81,7 @@ public class Base64IntegrationTest {
 
             Assert.assertEquals("Hello Kermit!", result.trim());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

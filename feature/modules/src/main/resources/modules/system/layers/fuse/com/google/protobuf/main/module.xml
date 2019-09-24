@@ -14,7 +14,7 @@
       </imports>
     </module>
     <module name="com.google.code.gson" slot="fuse" />
-    <module name="com.google.guava" />
+    <module name="com.google.guava" slot="fuse" />
   </dependencies>
   <exports>
     <exclude path="com/google" />

@@ -64,7 +64,7 @@ final class CamelContextRemove extends AbstractRemoveStepHandler {
                 CamelContext camelctx = camelContextRegistry.getCamelContext(propName);
                 try {
                     if (camelctx != null) {
-                        camelctx.stop();
+                        camelctx.close();
                     }
                 } catch (Exception e) {
                     LOGGER.warn("Cannot stop camel context: " + camelctx.getName(), e);

@@ -123,11 +123,11 @@ public class RabbitMQIntegrationTest {
             }
 
             // Start the consumer route
-            camelctx.startRoute("rabitmq-consumer");
+            camelctx.getRouteController().startRoute("rabitmq-consumer");
 
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

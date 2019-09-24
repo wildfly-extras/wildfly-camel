@@ -79,7 +79,7 @@ public class SwaggerIntegrationTest {
             Assert.assertEquals(HttpURLConnection.HTTP_OK, result.getStatusCode());
             Assert.assertTrue("Contains substr: " + result.getBody(), result.getBody().contains("\"name\" : \"hello\""));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

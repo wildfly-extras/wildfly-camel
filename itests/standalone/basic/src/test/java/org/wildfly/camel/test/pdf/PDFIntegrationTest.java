@@ -67,7 +67,7 @@ public class PDFIntegrationTest {
             File outfile = Paths.get(datadir, "pdftest.pdf").toFile();
             Assert.assertTrue("File existes: " + outfile, outfile.exists());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

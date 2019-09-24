@@ -85,7 +85,7 @@ public class NagiosIntegrationTest {
 
             Mockito.verify(nagiosPassiveCheckSender, Mockito.times(1)).send(expectedPayload);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -114,7 +114,7 @@ public class NagiosIntegrationTest {
             Mockito.verify(nagiosPassiveCheckSender).send(expectedPayload1);
             Mockito.verify(nagiosPassiveCheckSender).send(expectedPayload2);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -138,7 +138,7 @@ public class NagiosIntegrationTest {
             mock.assertIsSatisfied();
             Mockito.verify(nagiosPassiveCheckSender).send(expectedPayload1);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -163,7 +163,7 @@ public class NagiosIntegrationTest {
 
             Mockito.verify(nagiosPassiveCheckSender).send(expectedPayload1);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -192,7 +192,7 @@ public class NagiosIntegrationTest {
             mock.assertIsSatisfied();
             Mockito.verify(nagiosPassiveCheckSender).send(expectedPayload1);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

@@ -102,7 +102,7 @@ public class ServiceNowIntegrationTest {
             Assert.assertNotNull(result);
             Assert.assertTrue(result.size() > 0);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

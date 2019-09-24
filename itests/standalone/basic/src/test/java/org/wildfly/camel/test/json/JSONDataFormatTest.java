@@ -66,7 +66,7 @@ public class JSONDataFormatTest {
             String result = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
             Assert.assertEquals(expected.replace('\'', '"'), result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -91,7 +91,7 @@ public class JSONDataFormatTest {
             Assert.assertEquals("John", customer.getFirstName());
             Assert.assertEquals("Doe", customer.getLastName());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -115,7 +115,7 @@ public class JSONDataFormatTest {
             String result = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
             Assert.assertEquals(expected.replace('\'', '"'), result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -140,7 +140,7 @@ public class JSONDataFormatTest {
             Assert.assertEquals("John", customer.getFirstName());
             Assert.assertEquals("Doe", customer.getLastName());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -164,7 +164,7 @@ public class JSONDataFormatTest {
             String result = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
             Assert.assertEquals(expected.replace('\'', '"'), result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -189,7 +189,7 @@ public class JSONDataFormatTest {
             Assert.assertEquals("John", customer.getFirstName());
             Assert.assertEquals("Doe", customer.getLastName());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -213,7 +213,7 @@ public class JSONDataFormatTest {
             String result = producer.requestBody("direct:start", new Customer("John", "Doe"), String.class);
             Assert.assertEquals(expected.replace('\'', '"'), result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -238,7 +238,7 @@ public class JSONDataFormatTest {
             Assert.assertEquals("John", customer.getFirstName());
             Assert.assertEquals("Doe", customer.getLastName());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

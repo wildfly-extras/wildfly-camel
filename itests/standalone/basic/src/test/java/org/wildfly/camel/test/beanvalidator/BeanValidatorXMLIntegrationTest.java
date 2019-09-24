@@ -74,7 +74,7 @@ public class BeanValidatorXMLIntegrationTest {
 
             Assert.assertSame(car, result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -110,7 +110,7 @@ public class BeanValidatorXMLIntegrationTest {
             Assert.assertEquals(null, constraintViolation.getInvalidValue());
             Assert.assertEquals("must not be null", constraintViolation.getMessage());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

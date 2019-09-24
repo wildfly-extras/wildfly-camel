@@ -60,7 +60,7 @@ public class ParameterBindingTest {
             String result = producer.requestBodyAndHeader("direct:start", 100, "customerId", 200, String.class);
             Assert.assertEquals("Order 100 from customer 200", result);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

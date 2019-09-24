@@ -38,7 +38,7 @@ import org.apache.camel.component.olingo4.api.batch.Olingo4BatchRequest;
 import org.apache.camel.component.olingo4.api.batch.Olingo4BatchResponse;
 import org.apache.camel.component.olingo4.api.batch.Operation;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.util.IntrospectionSupport;
+import org.apache.camel.support.IntrospectionSupport;
 import org.apache.http.HttpHost;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
@@ -171,7 +171,7 @@ public class Olingo4IntegrationTest {
             final ClientEntity unbFuncReturn = (ClientEntity) template.requestBodyAndHeaders("direct://callunboundfunction", null, headers);
             Assert.assertNotNull(unbFuncReturn);
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -218,10 +218,11 @@ public class Olingo4IntegrationTest {
             try {
                 template.requestBody("direct://read-deleted-entity", null, HttpStatusCode.class);
             } catch (CamelExecutionException e) {
-                Assert.assertEquals("Resource Not Found [HTTP/1.1 404 Not Found]", e.getCause().getMessage());
+                String message = e.getCause().getMessage();
+                Assert.assertTrue("Expected '404 Not Found' in: " + message, message.contains("404 Not Found"));
             }
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
@@ -308,7 +309,7 @@ public class Olingo4IntegrationTest {
             Assert.assertNotNull(error);
             LOG.info("Read deleted entity error: {}", error.getMessage());
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 

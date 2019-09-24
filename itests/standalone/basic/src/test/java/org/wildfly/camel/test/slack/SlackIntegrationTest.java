@@ -63,7 +63,7 @@ public class SlackIntegrationTest {
             producer.sendBody("direct:test", "Hello from Camel!");
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

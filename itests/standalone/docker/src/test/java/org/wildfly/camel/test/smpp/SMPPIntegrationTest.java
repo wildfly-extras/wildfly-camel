@@ -91,7 +91,7 @@ public class SMPPIntegrationTest {
             template.sendBody("direct:start", "Kermit");
             mockEndpoint.assertIsSatisfied();
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }

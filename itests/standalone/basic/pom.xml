@@ -109,6 +109,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-rss</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-snakeyaml</artifactId>
         </dependency>
         <dependency>
@@ -322,19 +326,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.ec4j.maven</groupId>
-                <artifactId>editorconfig-maven-plugin</artifactId>
-                <configuration>
-                    <excludes combine.children="append">
-                        <exclude>.toDelete</exclude>
-                        <exclude>derby.log</exclude>
-                        <exclude>**/lumberjack/window*</exclude>
-                        <exclude>**/asn1/*.tt</exclude>
-                        <exclude>src/test/resources/security/keys/**</exclude>
-                    </excludes>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jboss.shrinkwrap.resolver</groupId>

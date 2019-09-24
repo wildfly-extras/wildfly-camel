@@ -28,6 +28,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.jndi.JndiBeanRepository;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -49,7 +50,7 @@ public class ElSQLIntegrationTest {
 
     @Test
     public void testElSQLConsumer() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -68,13 +69,13 @@ public class ElSQLIntegrationTest {
             List<Exchange> exchanges = mockEndpoint.getReceivedExchanges();
             Assert.assertEquals("SA", exchanges.get(0).getIn().getBody(Map.class).get("NAME"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 
     @Test
     public void testElSQLProducer() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -90,7 +91,7 @@ public class ElSQLIntegrationTest {
             Map<String, String> row = result.get(0);
             Assert.assertEquals("SA", row.get("NAME"));
         } finally {
-            camelctx.stop();
+            camelctx.close();
         }
     }
 }
