@@ -20,9 +20,17 @@
 
 package org.wildfly.camel.test.hl7;
 
+import ca.uhn.hl7v2.DefaultHapiContext;
+import ca.uhn.hl7v2.HapiContext;
+import ca.uhn.hl7v2.model.Message;
+import ca.uhn.hl7v2.model.v24.message.ADT_A01;
+import ca.uhn.hl7v2.model.v24.segment.PID;
+import ca.uhn.hl7v2.parser.Parser;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.model.dataformat.HL7DataFormat;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -33,15 +41,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
-
-import ca.uhn.hl7v2.DefaultHapiContext;
-import ca.uhn.hl7v2.HapiContext;
-import ca.uhn.hl7v2.model.Message;
-import ca.uhn.hl7v2.parser.Parser;
+import static org.apache.camel.component.hl7.HL7.terser;
 
 @CamelAware
 @RunWith(Arquillian.class)
 public class HL7IntegrationTest {
+
+    private static final String PATIENT_ID = "123456";
 
     @Deployment
     public static JavaArchive deployment() {
@@ -79,5 +85,43 @@ public class HL7IntegrationTest {
         } finally {
             camelctx.stop();
         }
+    }
+
+    @Test
+    public void testHl7terser() throws Exception {
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                .transform(terser("PID-3-1"))
+                .to("mock:result");
+            }
+        });
+
+        camelctx.start();
+        try {
+            MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+            mockEndpoint.expectedBodiesReceived(PATIENT_ID);
+
+            ProducerTemplate template = camelctx.createProducerTemplate();
+            template.sendBody("direct:start", createADT01Message());
+
+            mockEndpoint.assertIsSatisfied();
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    private Message createADT01Message() throws Exception {
+        ADT_A01 adt = new ADT_A01();
+        adt.initQuickstart("ADT", "A01", "P");
+
+        PID pid = adt.getPID();
+        pid.getPatientName(0).getFamilyName().getSurname().setValue("Doe");
+        pid.getPatientName(0).getGivenName().setValue("John");
+        pid.getPatientIdentifierList(0).getID().setValue(PATIENT_ID);
+
+        return adt;
     }
 }
