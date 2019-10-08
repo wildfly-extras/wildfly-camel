@@ -130,6 +130,7 @@
         <include artifact="javax.mail:mail" />
         <include artifact="javax.mail:javax.mail-api" />
         <include artifact=":geronimo-javamail_1.4_spec" />
+        <include artifact="com.sun.mail:jakarta.mail" />
     </module>
 
     <module name="javax.persistence.api" skip="true">

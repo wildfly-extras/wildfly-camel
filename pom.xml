@@ -68,12 +68,12 @@
         <version.camel.sshd>2.0.0</version.camel.sshd>
 
         <!-- WildFly versions -->
-        <version.wildfly>17.0.1.Final</version.wildfly>
+        <version.wildfly>18.0.0.Final</version.wildfly>
         <version.wildfly.arquillian>2.2.0.Final</version.wildfly.arquillian>
-        <version.wildfly.cxf>3.3.2</version.wildfly.cxf>
-        <version.wildfly.fasterxml.jackson>2.9.9</version.wildfly.fasterxml.jackson>
-        <version.wildfly.hibernate>5.3.9.Final</version.wildfly.hibernate>
-        <version.wildfly.infinispan>9.4.14.Final</version.wildfly.infinispan>
+        <version.wildfly.cxf>3.3.3</version.wildfly.cxf>
+        <version.wildfly.fasterxml.jackson>2.9.10</version.wildfly.fasterxml.jackson>
+        <version.wildfly.hibernate>5.3.12.Final</version.wildfly.hibernate>
+        <version.wildfly.infinispan>9.4.16.Final</version.wildfly.infinispan>
         <version.wildfly.okhttp3>3.9.0</version.wildfly.okhttp3>
 
         <!-- Other versions -->
@@ -452,7 +452,7 @@
         <repository>
             <id>central</id>
             <name>Central Repository</name>
-            <url>http://repo.maven.apache.org/maven2</url>
+            <url>https://repo.maven.apache.org/maven2</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -460,6 +460,13 @@
         <repository>
             <id>jboss-public-repository</id>
             <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>redhat-ga-repository</id>
+            <url>https://maven.repository.redhat.com/ga</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>

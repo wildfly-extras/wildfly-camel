@@ -111,6 +111,7 @@
     ^org/jclouds(.*)
     ^org/jivesoftware(.*)
     ^org/jsmpp(.*)
+    ^org/jvnet(.*)
     ^org/jxmpp(.*)
     ^org/knowm/xchange(.*)
     ^com/myjeeva/digitalocean(.*)

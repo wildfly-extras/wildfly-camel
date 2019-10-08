@@ -4402,6 +4402,9 @@ org/jsmpp/session/connection
 org/jsmpp/session/connection/socket
 org/jsmpp/session/state
 org/jsmpp/util
+org/jvnet
+org/jvnet/staxex
+org/jvnet/staxex/util
 org/jxmpp
 org/jxmpp/jid
 org/jxmpp/jid/impl

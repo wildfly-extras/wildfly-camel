@@ -193,6 +193,7 @@ def allowedDuplicateArtifacts = [
     "joda-time:joda-time",
     "org.apache.commons:commons-lang3",
     "org.apache.httpcomponents:httpasyncclient",
+    "org.apache.qpid:proton-j",
     "org.apache.santuario:xmlsec",
     "org.apache.velocity:velocity-engine-core",
     "org.apache.thrift:libthrift",
