@@ -18,6 +18,7 @@ package org.wildfly.camel.test.common.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,6 +32,10 @@ import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.wildfly.camel.utils.IllegalStateAssertion;
 
@@ -95,10 +100,7 @@ public final class AvailablePortFinder {
     }
 
     public static Path storeServerData(String filename, Object port) {
-        String jbossHome = System.getProperty("jboss.home.dir");
-        IllegalStateAssertion.assertNotNull(jbossHome, "Property 'jboss.home.dir' not set");
-        IllegalStateAssertion.assertTrue(new File(jbossHome).isDirectory(), "Not a directory: " + jbossHome);
-        Path filePath = Paths.get(jbossHome, "standalone", "data", filename);
+        Path filePath = getDataDirPath().resolve(filename);
         try (PrintWriter fw = new PrintWriter(new FileWriter(filePath.toFile()))) {
             fw.println("" + port);
         } catch (IOException ex) {
@@ -108,16 +110,82 @@ public final class AvailablePortFinder {
     }
 
     public static String readServerData(String filename) {
-        String dataDir = System.getProperty("jboss.server.data.dir");
-        IllegalStateAssertion.assertNotNull(dataDir, "Property 'jboss.server.data.dir' not set");
-        IllegalStateAssertion.assertTrue(new File(dataDir).isDirectory(), "Not a directory: " + dataDir);
-        Path filePath = Paths.get(dataDir, filename);
+        Path filePath = getDataDirPath().resolve(filename);
+        String result = null;
         try {
             try (BufferedReader fw = new BufferedReader(new FileReader(filePath.toFile()))) {
-                return fw.readLine().trim();
+                result = fw.readLine().trim();
             }
+        } catch (FileNotFoundException ex) {
+            return null;
         } catch (Exception ex) {
             throw new IllegalStateException(ex);
         }
+        return result;
+    }
+
+    public static Future<String> readServerDataAsync(String filename) {
+        Future<String> future = new Future<String>() {
+
+            private String result;
+            private boolean cancelled;
+
+            @Override
+            public boolean cancel(boolean mayInterruptIfRunning) {
+                cancelled = true;
+                return true;
+            }
+
+            @Override
+            public boolean isCancelled() {
+                return cancelled;
+            }
+
+            @Override
+            public boolean isDone() {
+                return cancelled || result != null;
+            }
+
+            @Override
+            public String get() throws InterruptedException, ExecutionException {
+                if (result != null) return result;
+                result = readServerData(filename);
+                return result;
+            }
+
+            @Override
+            public String get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+
+                result = readServerData(filename);
+                if (result != null) return result;
+
+                long endTime = System.currentTimeMillis() + unit.toMillis(timeout);
+                while (!cancelled && result == null && System.currentTimeMillis() < endTime) {
+                    Thread.sleep(100);
+                    result = readServerData(filename);
+                }
+                if (result != null) return result;
+                throw new TimeoutException();
+            }
+        };
+        return future;
+    }
+
+    public static void removeServerData(String filename) {
+        File dataFile = getDataDirPath().resolve(filename).toFile();
+        try {
+            if (dataFile.exists())
+                dataFile.delete();
+        } catch (Exception ex) {
+            throw new IllegalStateException(ex);
+        }
+    }
+
+    private static Path getDataDirPath() {
+        String jbossHome = System.getProperty("jboss.home.dir");
+        IllegalStateAssertion.assertNotNull(jbossHome, "Property 'jboss.home.dir' not set");
+        IllegalStateAssertion.assertTrue(new File(jbossHome).isDirectory(), "Not a directory: " + jbossHome);
+        Path dirPath = Paths.get(jbossHome, "standalone", "data");
+        return dirPath;
     }
 }

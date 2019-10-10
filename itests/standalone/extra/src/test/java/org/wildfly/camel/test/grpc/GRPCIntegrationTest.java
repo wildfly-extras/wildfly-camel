@@ -25,6 +25,7 @@ import io.grpc.stub.StreamObserver;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.Exchange;
@@ -66,14 +67,31 @@ public class GRPCIntegrationTest {
 
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
-            int port = AvailablePortFinder.getNextAvailable();
-            AvailablePortFinder.storeServerData("grpc-port", port);
 
-            server = ServerBuilder
-                .forPort(port)
-                .addService(new PingPongImpl())
-                .build()
-                .start();
+            AvailablePortFinder.removeServerData("grpc-port");
+            int port = AvailablePortFinder.getNextAvailable();
+
+            System.out.println("GPRC Server port: " + port);
+
+            try {
+
+                server = ServerBuilder
+                    .forPort(port)
+                    .addService(new PingPongImpl())
+                    .build()
+                    .start();
+
+                AvailablePortFinder.storeServerData("grpc-port", port);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                throw ex;
+            }
+
+            System.out.println("GPRC Services");
+            System.out.println("=============");
+            server.getServices().forEach(s -> System.out.println(s.toString()));
+
         }
 
         @Override
@@ -95,7 +113,8 @@ public class GRPCIntegrationTest {
     @Test
     public void testGRPCSynchronousProducer() throws Exception {
 
-        int port = Integer.parseInt(AvailablePortFinder.readServerData("grpc-port"));
+        Future<String> future = AvailablePortFinder.readServerDataAsync("grpc-port");
+        int port = Integer.parseInt(future.get(10, TimeUnit.SECONDS));
 
         DefaultCamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -126,7 +145,8 @@ public class GRPCIntegrationTest {
     @Test
     public void testGRPCAsynchronousProducer() throws Exception {
 
-        int port = Integer.parseInt(AvailablePortFinder.readServerData("grpc-port"));
+        Future<String> future = AvailablePortFinder.readServerDataAsync("grpc-port");
+        int port = Integer.parseInt(future.get(10, TimeUnit.SECONDS));
 
         DefaultCamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -152,7 +172,9 @@ public class GRPCIntegrationTest {
                 public void onComplete(Exchange exchange) {
                     latch.countDown();
 
+                    @SuppressWarnings("unchecked")
                     List<PongResponse> response = exchange.getOut().getBody(List.class);
+
                     Assert.assertEquals(2, response.size());
                     Assert.assertEquals(response.get(0).getPongId(), GRPC_TEST_PONG_ID_1);
                     Assert.assertEquals(response.get(0).getPongName(), GRPC_TEST_PING_VALUE + GRPC_TEST_PONG_VALUE);
