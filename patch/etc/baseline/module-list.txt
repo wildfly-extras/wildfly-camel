@@ -867,6 +867,7 @@
 /org/tukaani/xz/main/xz-1.5.jar
 /org/w3c/css/sac/main/sac-1.3.jar
 /org/xerial/snappy/main/snappy-java-1.1.1.3.jar
+/org/yaml/snakeyaml/fuse/snakeyaml-1.18.jar
 /org/yaml/snakeyaml/fuse/snakeyaml-1.23.jar
 /xmlenc/main/xmlenc-0.52.jar
 /xmlpull/main/xmlpull-1.1.3.1.jar
