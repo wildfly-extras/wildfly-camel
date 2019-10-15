@@ -1,5 +1,40 @@
 ### Changelog
 
+#### WildFly-Camel 10.3.0
+
+**Tasks**
+
+* [#2837][2837] Upgrade to camel-2.24.2
+* [#2873][2873] Move CamelAware annotation to wildfly-camel-common
+* [#2874][2874] Remove dependency on camel-spring from wildfly-camel-common
+* [#2876][2876] Upgrade to Hawtio 2.7.1
+* [#2878][2878] Strip .redhat suffix for artifact comparisons
+* [#2886][2886] Add test coverage for hl7terser language
+* [#2887][2887] Add test coverage for tokenize language 
+* [#2888][2888] Add test coverage for xtokenize language 
+* [#2890][2890] Upgrade galleon-maven-plugin to 4.0.4.Final
+* [#2892][2892] Check for a non-starting GRPC server
+
+For details see [10.3.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"10.3.0"+label%3Atask)
+
+**Bugs**
+
+* [#2879][2879] Olingo4 component module is missing dependency for org.apache.commons.lang3
+
+For details see [10.3.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"10.3.0"+label%3Abug)
+
+[2837]: https://github.com/wildfly-extras/wildfly-camel/issues/2837
+[2873]: https://github.com/wildfly-extras/wildfly-camel/issues/2873
+[2874]: https://github.com/wildfly-extras/wildfly-camel/issues/2874
+[2876]: https://github.com/wildfly-extras/wildfly-camel/issues/2876
+[2878]: https://github.com/wildfly-extras/wildfly-camel/issues/2878
+[2886]: https://github.com/wildfly-extras/wildfly-camel/issues/2886
+[2887]: https://github.com/wildfly-extras/wildfly-camel/issues/2887
+[2888]: https://github.com/wildfly-extras/wildfly-camel/issues/2888
+[2890]: https://github.com/wildfly-extras/wildfly-camel/issues/2890
+[2892]: https://github.com/wildfly-extras/wildfly-camel/issues/2892
+[2879]: https://github.com/wildfly-extras/wildfly-camel/issues/2879
+
 #### WildFly-Camel 10.2.0
 
 **Features**

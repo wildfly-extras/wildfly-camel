@@ -5,7 +5,7 @@ The {wildfly} compatibility matrix
 [cols="2*",width="60%"]
 |===
 | **16.0.0.Final**
-| 10.0, 10.1, 10.2
+| 10.0, 10.1, 10.2, 10.3
 
 | **15.0.1.Final**
 | 9.1
