@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel-itests-standalone</artifactId>
-        <version>10.4.0-SNAPSHOT</version>
+        <version>11.0.0-SNAPSHOT</version>
     </parent>
 
     <name>Wildfly Camel :: Testsuite :: Standalone :: Basic</name>
