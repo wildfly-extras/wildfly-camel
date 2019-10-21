@@ -1,8 +1,0 @@
-### camel-mqtt
-
-The http://camel.apache.org/mqtt.html[mqtt,window=_blank]
-component is used for communicating with http://mqtt.org/[MQTT,window=_blank]
-compliant message brokers, like http://activemq.apache.org/[Apache ActiveMQ,window=_blank]
-or http://mosquitto.org/[Mosquitto,window=_blank].
-
-

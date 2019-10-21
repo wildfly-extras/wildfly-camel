@@ -99,7 +99,6 @@
 	^org/eclipse/scada/utils(.*)
     ^org/ehcache(.*)
     ^org/elasticsearch(.*)
-	^org/fusesource/hawtbuf(.*)
 	^org/fusesource/hawtjni(.*)
 	^org/fusesource/leveldbjni(.*)
     ^org/fusesource/stomp(.*)

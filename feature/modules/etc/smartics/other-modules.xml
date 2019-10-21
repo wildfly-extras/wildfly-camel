@@ -2051,16 +2051,6 @@
         </dependencies>
     </module>
 
-    <module name="org.fusesource.mqtt">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.fusesource.mqtt-client:mqtt-client" />
-        <dependencies>
-            <module name="javax.api"/>
-        </dependencies>
-    </module>
-
     <module name="org.gagravarr.vorbis">
         <properties>
             <property name="jboss.api" value="private"/>

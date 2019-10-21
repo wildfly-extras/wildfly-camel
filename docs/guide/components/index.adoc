@@ -230,8 +230,6 @@ include::camel-mongodb-gridfs.adoc[]
 
 include::camel-mongodb.adoc[]
 
-include::camel-mqtt.adoc[]
-
 include::camel-msv.adoc[]
 
 include::camel-mustache.adoc[]
