@@ -53,7 +53,6 @@ import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 import org.wildfly.camel.test.xmpp.subA.EmbeddedXMPPServer;
 import org.wildfly.extension.camel.CamelAware;
 
-@Ignore("https://github.com/wildfly-extras/wildfly-camel/issues/2557")
 @CamelAware
 @RunWith(Arquillian.class)
 @ServerSetup({XMPPIntegrationTest.ServerSetup.class})
