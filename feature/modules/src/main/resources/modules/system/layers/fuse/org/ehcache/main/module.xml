@@ -15,6 +15,7 @@
         <include path="sun/misc" />
       </imports>
     </module>
+    <module name="com.sun.xml.bind" />
     <module name="org.slf4j" />
   </dependencies>
   <exports>

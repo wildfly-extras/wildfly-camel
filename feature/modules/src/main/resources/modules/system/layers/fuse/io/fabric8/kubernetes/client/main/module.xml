@@ -16,7 +16,6 @@
     <module name="com.squareup.okhttp3" slot="fuse" />
     <module name="io.fabric8.kubernetes.model" />
     <module name="io.fabric8.zjsonpatch" />
-    <module name="org.jboss.logging.jul-to-slf4j-stub" />
     <module name="org.slf4j" />
   </dependencies>
 </module>

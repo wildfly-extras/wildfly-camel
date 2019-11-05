@@ -120,6 +120,11 @@
             <artifactId>hapi-structures-v26</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${version.camel.guava.swagger}</version>
+        </dependency>
+        <dependency>
             <groupId>com.orbitz.consul</groupId>
             <artifactId>consul-client</artifactId>
         </dependency>
@@ -272,10 +277,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-caffeine</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-cassandraql</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>

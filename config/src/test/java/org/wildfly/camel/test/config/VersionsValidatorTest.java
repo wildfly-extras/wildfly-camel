@@ -55,9 +55,11 @@ public class VersionsValidatorTest {
         mapping.put("version.camel.apacheds", "apacheds-version");
         mapping.put("version.camel.apns", "java-apns-version");
         mapping.put("version.camel.bouncycastle", "bouncycastle-version");
+        mapping.put("version.camel.guava.cassandra", "cassandra-driver-guava-version");
+        mapping.put("version.camel.guava.jcloud", "jclouds-google-guava-version");
+        mapping.put("version.camel.guava.swagger", "swagger-java-guava-version");
         mapping.put("version.camel.consul.client", "consul-client-version");
         mapping.put("version.camel.elasticsearch.rest", "elasticsearch-rest-version");
-        mapping.put("version.camel.grpc.guava", "grpc-guava-version");
         mapping.put("version.camel.hadoop2", "hadoop2-version");
         mapping.put("version.camel.hadoop2.protobuf", "hadoop2-protobuf-version");
         mapping.put("version.camel.httpclient", "httpclient4-version");
@@ -71,6 +73,8 @@ public class VersionsValidatorTest {
         mapping.put("version.camel.qpid.proton", "qpid-proton-j-version");
         mapping.put("version.camel.rxjava2", "rxjava2-version");
         mapping.put("version.camel.sshd", "sshd-version");
+        mapping.put("version.camel.squareup.okhttp", "squareup-okhttp-version");
+        mapping.put("version.camel.squareup.okio", "squareup-okio-version");
 
         mapping.put("version.wildfly.arquillian", "version.org.wildfly.arquillian");
         mapping.put("version.wildfly.cxf", "version.org.apache.cxf");

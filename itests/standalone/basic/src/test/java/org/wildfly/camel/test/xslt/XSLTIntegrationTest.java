@@ -120,7 +120,7 @@ public class XSLTIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").to("xslt:transform.xsl?allowStAX=false");
+                from("direct:start").to("xslt:transform.xsl");
             }
         });
 
@@ -141,7 +141,7 @@ public class XSLTIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").to("xslt:transform.xsl?saxon=true");
+                from("direct:start").to("xslt-saxon:transform.xsl");
             }
         });
 

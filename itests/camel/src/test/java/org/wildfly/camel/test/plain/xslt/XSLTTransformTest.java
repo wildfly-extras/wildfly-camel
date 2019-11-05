@@ -45,7 +45,7 @@ public class XSLTTransformTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").to("xslt:xslt/transform.xsl");
+                from("direct:start").to("xslt-saxon:xslt/transform.xsl");
             }
         });
 
@@ -66,7 +66,7 @@ public class XSLTTransformTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").to("xslt:xslt/transform.xsl?saxon=true");
+                from("direct:start").to("xslt-saxon:xslt/transform.xsl");
             }
         });
 

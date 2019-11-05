@@ -5,9 +5,9 @@
     <artifact name="${com.datastax.cassandra:cassandra-driver-core}" />
   </resources>
   <dependencies>
+    <module name="com.google.guava" slot="19.0" />
     <module name="io.netty" slot="fuse" />
     <module name="org.slf4j" />
-    <module name="com.google.guava" slot="fuse" />
     <module name="io.dropwizard.metrics" />
     <module name="org.apache.camel.core" />
   </dependencies>

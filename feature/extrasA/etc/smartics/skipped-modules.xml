@@ -88,6 +88,10 @@
 	<!--          modules defined in features/modules                -->
 	<!-- =========================================================== -->
 
+    <module name="com.google.guava" slot="fuse" skip="true">
+        <include artifact="com.google.guava:guava" />
+    </module>
+
     <module name="com.rometools.rome" slot="1.0" skip="true">
         <include artifact="rome:rome" />
     </module>

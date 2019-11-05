@@ -76,6 +76,12 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-feature-extrasD</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
     </dependencies>
 
     <build>
@@ -116,6 +122,11 @@
                                     <artifactId>wildfly-camel-feature-extrasC</artifactId>
                                     <version>${project.version}</version>
                                 </resolve-local>
+                                <resolve-local>
+                                    <groupId>org.wildfly.camel</groupId>
+                                    <artifactId>wildfly-camel-feature-extrasD</artifactId>
+                                    <version>${project.version}</version>
+                                </resolve-local>
                             </resolve-locals>
                             <feature-packs>
                                 <feature-pack>
@@ -131,6 +142,16 @@
                                 <feature-pack>
                                     <groupId>org.wildfly.camel</groupId>
                                     <artifactId>wildfly-camel-feature-extrasC</artifactId>
+                                    <version>${project.version}</version>
+                                    <inherit-configs>false</inherit-configs>
+                                    <inherit-packages>false</inherit-packages>
+                                    <includedPackages>
+                                        <includedPackage>modules.all</includedPackage><!-- we want only the modules directory -->
+                                    </includedPackages>
+                                </feature-pack>
+                                <feature-pack>
+                                    <groupId>org.wildfly.camel</groupId>
+                                    <artifactId>wildfly-camel-feature-extrasD</artifactId>
                                     <version>${project.version}</version>
                                     <inherit-configs>false</inherit-configs>
                                     <inherit-packages>false</inherit-packages>

@@ -7,6 +7,7 @@
     <artifact name="${xmlpull:xmlpull}" />
     <artifact name="${xpp3:xpp3}" />
     <artifact name="${xpp3:xpp3_min}" />
+    <artifact name="${xpp3:xpp3_xpath}" />
   </resources>
   <dependencies />
 </module>

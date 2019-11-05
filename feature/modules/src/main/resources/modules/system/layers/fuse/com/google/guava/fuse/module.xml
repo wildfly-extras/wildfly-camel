@@ -4,7 +4,11 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
+    <artifact name="${com.google.guava:failureaccess}" />
     <artifact name="${com.google.guava:guava}" />
   </resources>
   <dependencies />
+  <exports>
+    <exclude path="com/google/common/util/concurrent/internal" />
+  </exports>
 </module>

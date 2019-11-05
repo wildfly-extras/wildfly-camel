@@ -34,6 +34,9 @@
         <dependency group-id="org.wildfly.camel" artifact-id="wildfly-camel-feature-extrasC">
             <name>org.wildfly.camel:wildfly-camel-feature-extrasC</name>
         </dependency>
+        <dependency group-id="org.wildfly.camel" artifact-id="wildfly-camel-feature-extrasD">
+            <name>org.wildfly.camel:wildfly-camel-feature-extrasD</name>
+        </dependency>
     </dependencies>
     <default-packages>
         <package name="layers.conf"/>

@@ -4,7 +4,11 @@
     <artifact name="${org.apache.camel:camel-ehcache}" />
   </resources>
   <dependencies>
-    <module name="org.ehcache" export="true" />
+    <module name="org.ehcache" export="true">
+      <exports>
+        <exclude path="org/ehcache/shadow**" />
+      </exports>
+    </module>
     <module name="org.slf4j" />
     <module name="org.apache.camel.core" />
   </dependencies>

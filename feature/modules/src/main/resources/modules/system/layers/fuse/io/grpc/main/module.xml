@@ -17,7 +17,6 @@
     <artifact name="${io.opencensus:opencensus-contrib-grpc-metrics}" />
   </resources>
   <dependencies>
-    <module name="com.google.guava" slot="main" />
     <module name="ibm.jdk.ext" />
     <module name="io.netty" slot="fuse" />
     <module name="javax.api" />
@@ -26,6 +25,7 @@
     <module name="com.google.api.grpc.proto-google-common-protos" />
     <module name="com.google.auth.google-auth-library-credentials" />
     <module name="com.google.code.gson" slot="fuse" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="com.google.protobuf" />
     <module name="io.perfmark.api" />
     <module name="org.apache.commons.codec" slot="fuse" />

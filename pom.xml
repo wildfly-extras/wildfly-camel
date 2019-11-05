@@ -49,30 +49,30 @@
         <product.release.name>WildFly Camel</product.release.name>
 
         <!-- Camel versions -->
-        <version.apache.camel>3.0.0-RC3</version.apache.camel>
-        <version.camel.apacheds>2.0.0-M24</version.camel.apacheds>
+        <version.apache.camel>3.0.0</version.apache.camel>
+        <version.camel.apacheds>2.0.0.AM25</version.camel.apacheds>
         <version.camel.apns>1.0.0.Beta6</version.camel.apns>
-        <version.camel.consul.client>1.3.3</version.camel.consul.client>
         <version.camel.bouncycastle>1.64</version.camel.bouncycastle>
+        <version.camel.guava.cassandra>19.0</version.camel.guava.cassandra>
+        <version.camel.guava.jcloud>18.0</version.camel.guava.jcloud>
+        <version.camel.guava.swagger>27.1-jre</version.camel.guava.swagger>
+        <version.camel.consul.client>1.3.3</version.camel.consul.client>
         <version.camel.elasticsearch.rest>7.3.2</version.camel.elasticsearch.rest>
-        <version.camel.grpc.guava>26.0-android</version.camel.grpc.guava>
         <version.camel.hadoop2>2.7.4</version.camel.hadoop2>
         <version.camel.hadoop2.protobuf>2.5.0</version.camel.hadoop2.protobuf>
         <version.camel.httpclient>4.5.10</version.camel.httpclient>
         <version.camel.javacrumbs>0.22</version.camel.javacrumbs>
-        <version.camel.jgroups>4.1.6.Final</version.camel.jgroups>
+        <version.camel.jgroups>4.1.8.Final</version.camel.jgroups>
         <version.camel.log4j2>2.12.1</version.camel.log4j2>
         <version.camel.lucene>8.1.1</version.camel.lucene>
-        <version.camel.mina>2.0.21</version.camel.mina>
-        <version.camel.netty41>4.1.42.Final</version.camel.netty41>
+        <version.camel.mina>2.1.3</version.camel.mina>
+        <version.camel.netty41>4.1.43.Final</version.camel.netty41>
         <version.camel.opencmis>1.1.0</version.camel.opencmis>
         <version.camel.qpid.proton>0.33.2</version.camel.qpid.proton>
         <version.camel.rxjava2>2.2.13</version.camel.rxjava2>
+        <version.camel.squareup.okhttp>3.12.0</version.camel.squareup.okhttp>
+        <version.camel.squareup.okio>1.15.0</version.camel.squareup.okio>
         <version.camel.sshd>2.0.0</version.camel.sshd>
-
-        <!-- https://issues.jboss.org/browse/ENTESB-12085 -->
-        <version.squareup.okhttp>3.12.0</version.squareup.okhttp>
-        <version.squareup.okio>1.15.0</version.squareup.okio>
 
         <!-- WildFly versions -->
         <version.wildfly>18.0.1.Final</version.wildfly>
@@ -83,7 +83,7 @@
         <version.wildfly.infinispan>9.4.16.Final</version.wildfly.infinispan>
 
         <!-- Other versions -->
-        <version.apacheds.codec>1.0.0</version.apacheds.codec>
+        <version.apacheds.codec>2.0.0.AM1</version.apacheds.codec>
         <version.apache.qpid>6.1.2</version.apache.qpid>
         <version.apache.vysper>0.7</version.apache.vysper>
         <version.args4j>2.0.31</version.args4j>

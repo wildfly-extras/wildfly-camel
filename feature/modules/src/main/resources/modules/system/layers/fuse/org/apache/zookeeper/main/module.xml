@@ -8,7 +8,7 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
-    <module name="com.google.guava" slot="main" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="io.netty" slot="3.10" />
     <module name="org.slf4j" />
   </dependencies>

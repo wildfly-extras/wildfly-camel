@@ -6,9 +6,8 @@
   <dependencies>
     <module name="org.apache.curator" export="true" />
     <module name="org.apache.zookeeper" export="true" />
-    <module name="com.google.guava" slot="main" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="org.slf4j" />
-    <module name="io.netty" slot="3.10" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

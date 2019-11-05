@@ -118,10 +118,6 @@
         <include artifact="com.google.guava:guava-bootstrap" />
     </module>
 
-    <module name="com.google.guava.failureaccess" skip="true">
-        <include artifact="com.google.guava:failureaccess" />
-    </module>
-
     <module name="com.google.guava.listenablefuture" skip="true">
         <include artifact="com.google.guava:listenablefuture" />
     </module>
@@ -506,6 +502,7 @@
     <module name="org.infinispan.skipped" skip="true">
         <include artifact="org.infinispan:infinispan-cdi-common" />
         <include artifact="org.infinispan:infinispan-cdi-embedded" />
+        <include artifact="org.infinispan:infinispan-component-annotations" />
         <include artifact="org.infinispan:infinispan-license" />
         <include artifact="org.infinispan:infinispan-remote-query-client" />
     </module>

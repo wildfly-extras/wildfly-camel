@@ -60,7 +60,17 @@
         <include artifact="ca.uhn.hapi.fhir:hapi-fhir-client" />
         <include artifact="ca.uhn.hapi.fhir:hapi-fhir-structures-dstu2" />
         <include artifact="ca.uhn.hapi.fhir:hapi-fhir-structures-dstu3" />
-        <include artifact="ca.uhn.hapi.fhir:hapi-fhir-utilities" />
+        <include artifact="ca.uhn.hapi.fhir:hapi-fhir-structures-r4" />
+        <include artifact="ca.uhn.hapi.fhir:hapi-fhir-structures-r5" />
+        <include artifact="ca.uhn.hapi.fhir:org.hl7.fhir.dstu3" />
+        <include artifact="ca.uhn.hapi.fhir:org.hl7.fhir.r4" />
+        <include artifact="ca.uhn.hapi.fhir:org.hl7.fhir.r5" />
+        <include artifact="ca.uhn.hapi.fhir:org.hl7.fhir.utilities" />
+        <include artifact="org.fhir:ucum" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs"/>
+            <include module="junit"/>
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
@@ -1088,7 +1098,6 @@
             <include module="org.jvnet.skipped" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.google.guava" slot="main"/>
             <module name="ibm.jdk.ext" />
             <module name="io.netty" slot="fuse"/>
             <module name="javax.api"/>
@@ -1396,9 +1405,6 @@
         <exports>
             <exclude path="org/apache/curator/shaded/**" />
         </exports>
-        <dependencies>
-            <module name="com.google.guava" slot="main"/>
-        </dependencies>
     </module>
 
     <module name="org.apache.directory">
@@ -1768,7 +1774,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
-            <module name="com.google.guava" slot="main"/>
+            <module name="com.google.guava" slot="fuse"/>
         </dependencies>
         <exports>
             <exclude path="org/apache/jute**" />
@@ -2348,6 +2354,7 @@
         </properties>
         <include artifact="xmlpull:xmlpull" />
         <include artifact="xpp3:xpp3_min" />
+        <include artifact="xpp3:xpp3_xpath" />
         <include artifact="xpp3:xpp3" />
     </module>
 

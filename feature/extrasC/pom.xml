@@ -45,6 +45,11 @@
             <artifactId>camel-jclouds</artifactId>
             <version>${version.apache.camel}</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${version.camel.guava.jcloud}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.wildfly.camel</groupId>

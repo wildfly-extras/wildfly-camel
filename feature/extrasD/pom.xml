@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Wildfly Camel Enricher
+  %%
+  Copyright (C) 2013 - 2014 RedHat
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.wildfly.camel</groupId>
+        <artifactId>wildfly-camel-feature</artifactId>
+        <version>11.0.0-SNAPSHOT</version>
+    </parent>
+
+    <name>Wildfly Camel :: Feature :: ExtrasD</name>
+
+    <artifactId>wildfly-camel-feature-extrasD</artifactId>
+    <packaging>pom</packaging>
+
+    <properties>
+        <smartics.module.dir>${project.build.directory}/wildfly-patch/modules/system/layers/fuse</smartics.module.dir>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-cassandraql</artifactId>
+            <version>${version.apache.camel}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${version.camel.guava.cassandra}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-feature-modules</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>de.smartics.maven.plugin</groupId>
+                <artifactId>smartics-jboss-modules-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-modules-archive</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>create-modules-archive</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludeDependencyManagementDependenciesInPomProject>true</excludeDependencyManagementDependenciesInPomProject>
+                    <generateFeaturePackDefinition>true</generateFeaturePackDefinition>
+                    <targetFolder>${smartics.module.dir}</targetFolder>
+                    <ignoreOptionalDependencies>true</ignoreOptionalDependencies>
+                    <attach>false</attach>
+                    <modules>
+                        <dir>../common/etc/smartics</dir>
+                        <dir>etc/smartics</dir>
+                    </modules>
+                    <dependencyExcludes>
+                        <exclude>
+                            <groupId>org.osgi</groupId>
+                            <artifactId>osgi_R4_core</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.wildfly.core</groupId>
+                            <artifactId>wildfly-core-galleon-pack</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.wildfly</groupId>
+                            <artifactId>wildfly-servlet-galleon-pack</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.wildfly</groupId>
+                            <artifactId>wildfly-galleon-pack</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.wildfly.camel</groupId>
+                            <artifactId>wildfly-camel-feature-modules</artifactId>
+                        </exclude>
+                    </dependencyExcludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>sync-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <ant antfile="${basedir}/scripts/sync-generated-modules.xml" inheritRefs="true" />
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.wildfly.galleon-plugins</groupId>
+                <artifactId>wildfly-galleon-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>feature-pack-build</id>
+                        <goals>
+                            <goal>build-feature-pack</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

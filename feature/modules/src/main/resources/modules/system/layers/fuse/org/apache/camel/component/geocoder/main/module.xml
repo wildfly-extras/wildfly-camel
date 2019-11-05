@@ -9,7 +9,6 @@
     <module name="com.google.code.gson" slot="fuse" />
     <module name="com.squareup.okhttp3" slot="fuse" />
     <module name="org.apache.camel.core" />
-    <module name="org.joda.time" slot="fuse" />
   </dependencies>
   <exports>
     <include path="com/google/maps/model" />

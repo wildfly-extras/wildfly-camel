@@ -24,7 +24,7 @@
     <module name="org.apache.commons.codec" slot="fuse" />
     <module name="org.apache.commons.collections" slot="fuse" />
     <module name="org.apache.commons.lang" slot="fuse" />
-    <module name="org.apache.commons.pool" />
+    <module name="org.apache.commons.pool2" />
     <module name="org.apache.mina.core" />
     <module name="org.slf4j" />
   </dependencies>

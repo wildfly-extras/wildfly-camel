@@ -11,6 +11,7 @@
     <module name="org.springframework.ws" export="true" />
     <module name="org.slf4j" />
     <module name="javax.servlet.api" />
+    <module name="org.apache.camel.component.saxon" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.camel.spring" />
   </dependencies>

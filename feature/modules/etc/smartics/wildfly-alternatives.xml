@@ -90,16 +90,19 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.google.guava:guava" />
+        <include artifact="com.google.guava:failureaccess" />
         <apply-to-dependencies skip="true">
             <include module="com.google.code.findbugs" />
             <include module="com.google.errorprone" />
-            <include module="com.google.guava.failureaccess" />
             <include module="com.google.guava.listenablefuture" />
             <include module="com.google.j2objc" />
             <include module="org.checkerframework" />
             <include module="org.codehaus.animal-sniffer" />
             <include module="org.jvnet.skipped" />
         </apply-to-dependencies>
+        <exports>
+            <exclude path="com/google/common/util/concurrent/internal" />
+        </exports>
     </module>
 
     <module name="com.googlecode.javaewah" inherit-slot="false" slot="fuse">

@@ -140,6 +140,11 @@
                                             </resolve-local>
                                             <resolve-local>
                                                 <groupId>org.wildfly.camel</groupId>
+                                                <artifactId>wildfly-camel-feature-extrasD</artifactId>
+                                                <version>${project.version}</version>
+                                            </resolve-local>
+                                            <resolve-local>
+                                                <groupId>org.wildfly.camel</groupId>
                                                 <artifactId>wildfly-camel-feature-pack</artifactId>
                                                 <version>${project.version}</version>
                                             </resolve-local>

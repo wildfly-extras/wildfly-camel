@@ -7,7 +7,7 @@
     <artifact name="${com.google.inject:guice}" />
   </resources>
   <dependencies>
-    <module name="com.google.guava" slot="11.0" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="aopalliance" />
     <module name="javax.inject.api" />
   </dependencies>

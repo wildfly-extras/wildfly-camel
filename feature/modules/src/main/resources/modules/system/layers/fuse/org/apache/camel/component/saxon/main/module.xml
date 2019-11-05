@@ -2,6 +2,7 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.saxon">
   <resources>
     <artifact name="${org.apache.camel:camel-saxon}" />
+    <artifact name="${org.apache.camel:camel-xslt-saxon}" />
   </resources>
   <dependencies>
     <module name="javax.api" />

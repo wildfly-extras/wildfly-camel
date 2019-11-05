@@ -48,7 +48,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>${version.camel.grpc.guava}</version>
+            <version>${version.camel.guava.swagger}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.enterprise</groupId>

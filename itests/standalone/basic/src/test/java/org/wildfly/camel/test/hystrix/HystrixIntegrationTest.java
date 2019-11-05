@@ -67,7 +67,7 @@ public class HystrixIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .hystrix()
+                .circuitBreaker()
                     .hystrixConfiguration()
                         .executionTimeoutInMilliseconds(5000)
                     .end()
@@ -101,7 +101,7 @@ public class HystrixIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .hystrix()
+                .circuitBreaker()
                     .hystrixConfiguration()
                         .executionTimeoutInMilliseconds(2000)
                     .end()

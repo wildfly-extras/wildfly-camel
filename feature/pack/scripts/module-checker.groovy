@@ -225,7 +225,8 @@ def smarticsDirectories = [
     "${smarticsFilesPrefix}modules/etc/smartics",
     "${smarticsFilesPrefix}extrasA/etc/smartics",
     "${smarticsFilesPrefix}extrasB/etc/smartics",
-    "${smarticsFilesPrefix}extrasC/etc/smartics"
+    "${smarticsFilesPrefix}extrasC/etc/smartics",
+    "${smarticsFilesPrefix}extrasD/etc/smartics"
 ]
 
 // We ignore modules in smartics XML files having skip="true" unless the given file is explicitly present in this list

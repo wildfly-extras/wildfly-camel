@@ -100,11 +100,11 @@ public class CryptoComponentIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:sign")
-                .to("crypto:sign://basic?privateKey=#myPrivateKey")
+                .to("crypto:sign://basic?privateKey=#myPrivateKey&algorithm=SHA1withDSA&provider=SUN")
                 .to("direct:verify");
 
                 from("direct:verify")
-                .to("crypto:verify://basic?publicKey=#myPublicKey")
+                .to("crypto:verify://basic?publicKey=#myPublicKey&algorithm=SHA1withDSA&provider=SUN")
                 .to("mock:result");
             }
         });

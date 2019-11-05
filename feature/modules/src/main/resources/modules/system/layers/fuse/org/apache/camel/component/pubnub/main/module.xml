@@ -9,6 +9,7 @@
     <module name="org.slf4j" />
     <module name="com.squareup.okhttp3" slot="fuse" />
     <module name="com.google.code.gson" slot="fuse" />
+    <module name="com.squareup.okio" />
     <module name="com.squareup.retrofit2" slot="fuse" />
     <module name="org.apache.camel.core" />
   </dependencies>

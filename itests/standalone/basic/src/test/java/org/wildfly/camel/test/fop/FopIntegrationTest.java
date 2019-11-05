@@ -75,7 +75,7 @@ public class FopIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .to("xslt:template.xsl?allowStAX=false")
+                .to("xslt:template.xsl")
                 .setHeader("foo", constant("bar"))
                 .to("fop:pdf")
                 .setHeader(Exchange.FILE_NAME, constant("resultA.pdf"))
@@ -114,7 +114,7 @@ public class FopIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .to("xslt:template.xsl?allowStAX=false")
+                .to("xslt:template.xsl")
                 .setHeader("foo", constant("bar"))
                 .to("fop:pdf?fopFactory=#fopFactory")
                 .setHeader(Exchange.FILE_NAME, constant("resultB.pdf"))

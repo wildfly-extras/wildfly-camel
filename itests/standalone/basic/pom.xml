@@ -42,6 +42,11 @@
     <!-- Dependencies -->
     <dependencies>
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${version.camel.guava.cassandra}</version>
+        </dependency>
+        <dependency>
             <groupId>com.icegreen</groupId>
             <artifactId>greenmail-webapp</artifactId>
             <type>war</type>
