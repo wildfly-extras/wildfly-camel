@@ -37,13 +37,13 @@
     <!-- Properties -->
     <properties>
         <docker.image.name>wildflyext/wildfly-camel</docker.image.name>
-        <docker.image.from>openshift/wildfly-160-centos7:latest</docker.image.from>
+        <docker.image.from>quay.io/wildfly/wildfly-centos7:18.0</docker.image.from>
         <docker.image.maintainer>Thomas Diesler tdiesler@redhat.com</docker.image.maintainer>
         <docker.image.version>latest</docker.image.version>
         <docker.removeAll>true</docker.removeAll>
         <docker.skipPush>true</docker.skipPush>
-        <server.config>standalone-camel.xml</server.config>
-        <server.home>/wildfly</server.home>
+        <server.home>/opt/wildfly</server.home>
+        <server.deploy.dir>/deployments</server.deploy.dir>
     </properties>
 
     <!-- Dependencies -->
@@ -106,17 +106,13 @@
                                 </labels>
                                 <cmd>
                                     <exec>
-                                        <args>/usr/libexec/s2i/run</args>
+                                        <args>/usr/local/s2i/run</args>
                                     </exec>
                                 </cmd>
-                                <env>
-                                    <JBOSS_HOME>${server.home}</JBOSS_HOME>
-                                    <LAUNCH_JBOSS_IN_BACKGROUND>true</LAUNCH_JBOSS_IN_BACKGROUND>
-                                </env>
                                 <assembly>
                                     <basedir>/</basedir>
                                     <descriptor>${project.basedir}/s2i/assembly-artifacts.xml</descriptor>
-                                    <user>1001:0:1001</user>
+                                    <user>185:0:185</user>
                                 </assembly>
                                 <runCmds>
                                     <run>java -jar --add-modules java.se ${server.home}/jboss-modules.jar -mp ${server.home}/modules org.wildfly.extras.config --configs camel --enable</run>

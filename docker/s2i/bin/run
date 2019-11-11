@@ -15,4 +15,4 @@ fi
 unset ${WILDFLY_MANAGEMENT_USER} ${WILDFLY_MANAGEMENT_PASSWORD}
 unset ${WILDFLY_APPLICATION_USER} ${WILDFLY_APPLICATION_PASSWORD}
 
-exec ${JBOSS_HOME}/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0 "$@"
+exec $JBOSS_HOME/bin/openshift-launch.sh

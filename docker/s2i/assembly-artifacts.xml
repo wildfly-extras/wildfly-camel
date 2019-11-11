@@ -30,7 +30,7 @@
     <fileSets>
         <fileSet>
             <directory>s2i/bin</directory>
-            <outputDirectory>usr/libexec/s2i</outputDirectory>
+            <outputDirectory>usr/local/s2i</outputDirectory>
             <includes>
                 <include>run</include>
             </includes>
@@ -38,6 +38,16 @@
         <fileSet>
             <directory>${project.build.directory}/${server.home}</directory>
             <outputDirectory>${server.home}</outputDirectory>
+            <excludes>
+                <exclude>**/standalone/deployments/**</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}/${server.home}</directory>
+            <outputDirectory>${server.deploy.dir}</outputDirectory>
+            <includes>
+                <include>**/standalone/deployments/**</include>
+            </includes>
         </fileSet>
     </fileSets>
 
