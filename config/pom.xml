@@ -144,6 +144,7 @@
                             <entry key="wildfly-parent" value="${maven.dependency.org.wildfly.wildfly-parent.pom.path}" />
                         </propertyfile>
                         <copy file="${project.build.directory}/${jboss.server.name}/standalone/configuration/standalone.xml" todir="${project.build.testOutputDirectory}" overwrite="true" />
+                        <copy file="${project.build.directory}/${jboss.server.name}/domain/configuration/domain.xml" todir="${project.build.testOutputDirectory}" overwrite="true" />
                     </tasks>
                 </configuration>
             </plugin>

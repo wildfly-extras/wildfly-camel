@@ -34,6 +34,14 @@ In your {wildfly} home directory run ...
 
 
 [discrete]
+### Domain Mode
+
+Similarly, for the WildFly Domain Mode run ...  
+
+[options="nowrap"]
+ $ bin/domain.sh -c domain-camel.xml
+
+[discrete]
 ### Enable Camel Subsystem
 
 The patch does not modify existing configuration files. Instead it comes with a number of additional configurations files that end in `-camel.xml`.
@@ -41,15 +49,15 @@ The patch does not modify existing configuration files. Instead it comes with a 
 To add the Camel subsystem to existing configurations you can run the following command.
 
 [options="nowrap"]
- $ java -jar ${JBOSS_HOME}/jboss-modules.jar -mp ${JBOSS_HOME}/modules org.wildfly.extras.config --configs camel --enable
- Processing config for: camel
-	Writing 'layers=fuse' to: .../wildfly-15.0.1.Final/modules/layers.conf
-	Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration/standalone.xml
-	Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration/standalone-full.xml
-	Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration/standalone-full-ha.xml
-	Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration/standalone-ha.xml
-
-The domain mode is not supported for the Camel subsystem.
+    $ java -jar ${JBOSS_HOME}/jboss-modules.jar -mp ${JBOSS_HOME}/modules org.wildfly.extras.config --configs camel --enable
+ 
+    Processing config for: camel
+    Writing 'layers=fuse' to: .../wildfly-15.0.1.Final/modules/layers.conf
+    Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration/standalone.xml
+    Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration/standalone-full.xml
+    Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration/standalone-full-ha.xml
+    Enable camel configuration in: .../wildfly-15.0.1.Final/standalone/configuration/standalone-ha.xml
+    Enable camel configuration in: .../wildfly-15.0.1.Final/domain/configuration/domain.xml
 
 There are currently four triggers that can be used to enable Camel for a deployment
 

@@ -49,6 +49,7 @@
         <module>common</module>
         <module>camel</module>
         <module>standalone</module>
+        <module>domain</module>
     </modules>
 
     <!-- Profiles -->
