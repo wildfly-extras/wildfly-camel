@@ -55,18 +55,17 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.ResourceAdapterArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.jms.support.converter.MessageConversionException;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.wildfly.camel.test.common.utils.DMRUtils;
+import org.wildfly.camel.test.common.utils.WildFlyCli;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
 @ServerSetup({ActiveMQIntegrationTest.ActiveMQRarSetupTask.class})
-@Ignore("[#2783] No ActiveMQ connection factory with RAR deployment")
 public class ActiveMQIntegrationTest {
 
     private static final String ACTIVEMQ_RAR = "activemq-rar.rar";
@@ -76,6 +75,7 @@ public class ActiveMQIntegrationTest {
     private InitialContext context;
 
     static class ActiveMQRarSetupTask implements ServerSetupTask {
+        private WildFlyCli cli = new WildFlyCli();
 
         @Override
         public void setup(ManagementClient managementClient, String containerId) throws Exception {
@@ -88,6 +88,7 @@ public class ActiveMQIntegrationTest {
                 .addStep("subsystem=resource-adapters/resource-adapter=amq-ra.rar/admin-objects=OrdersQueue/config-properties=PhysicalName", "add(value=OrdersQueue)")
                 .build();
             managementClient.getControllerClient().execute(batchNode);
+            cli.run("reload").assertSuccess();
         }
 
         @Override
@@ -96,6 +97,7 @@ public class ActiveMQIntegrationTest {
                 .addStep("subsystem=resource-adapters/resource-adapter=amq-ra.rar", "remove")
                 .build();
             managementClient.getControllerClient().execute(batchNode);
+            cli.run("reload").assertSuccess();
         }
     }
 
