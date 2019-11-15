@@ -147,7 +147,6 @@ kubernetes-services
 language
 ldap
 ldif
-linkedin
 log
 lpr
 lucene
@@ -315,6 +314,7 @@ ignite-set                                          #1834 Competitor to JDG
 ironmq                                              #2006 Not another messaging system
 jetty                                               #2009 No alternative HTTP engine
 jira                                                #deprecated
+linkedin                                            #2903 Removed in Camel3
 netty-http                                          #deprecated
 paxlogging                                          #2020 OSGi specific
 spark                                               #1469 Scala/Jackson stack overflow

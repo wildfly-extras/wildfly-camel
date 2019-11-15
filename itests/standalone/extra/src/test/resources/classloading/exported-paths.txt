@@ -1934,9 +1934,6 @@ org/apache/camel/component/kubernetes/services
 org/apache/camel/component/ldap
 org/apache/camel/component/ldif
 org/apache/camel/component/leveldb
-org/apache/camel/component/linkedin
-org/apache/camel/component/linkedin/api
-org/apache/camel/component/linkedin/api/model
 org/apache/camel/component/lucene
 org/apache/camel/component/lumberjack
 org/apache/camel/component/lumberjack/io

@@ -204,8 +204,6 @@ include::camel-ldif.adoc[]
 
 include::camel-leveldb.adoc[]
 
-include::camel-linkedin.adoc[]
-
 include::camel-lra.adoc[]
 
 include::camel-lucene.adoc[]

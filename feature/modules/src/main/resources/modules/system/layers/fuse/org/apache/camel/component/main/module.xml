@@ -139,7 +139,6 @@
         <module name="org.apache.camel.component.ldap" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.ldif" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.leveldb" export="true" services="export" optional="true" />
-        <module name="org.apache.camel.component.linkedin" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.lra" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.lucene" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.lumberjack" export="true" services="export" optional="true" />

@@ -369,8 +369,6 @@
 /org/apache/camel/component/ldif/main/camel-ldif-3.0.0-RC3.jar
 /org/apache/camel/component/leveldb/main/camel-leveldb-3.0.0-RC3.jar
 /org/apache/camel/component/leveldb/main/leveldbjni-all-1.8.jar
-/org/apache/camel/component/linkedin/main/camel-linkedin-3.0.0-RC3.jar
-/org/apache/camel/component/linkedin/main/camel-linkedin-api-3.0.0-RC3.jar
 /org/apache/camel/component/lra/main/camel-lra-3.0.0-RC3.jar
 /org/apache/camel/component/lucene/main/camel-lucene-3.0.0-RC3.jar
 /org/apache/camel/component/lumberjack/main/camel-lumberjack-3.0.0-RC3.jar
