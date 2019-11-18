@@ -73,11 +73,11 @@
         <version.squareup.okio>1.15.0</version.squareup.okio>
 
         <!-- WildFly versions -->
-        <version.wildfly>18.0.0.Final</version.wildfly>
+        <version.wildfly>18.0.1.Final</version.wildfly>
         <version.wildfly.arquillian>2.2.0.Final</version.wildfly.arquillian>
         <version.wildfly.cxf>3.3.3</version.wildfly.cxf>
         <version.wildfly.fasterxml.jackson>2.9.10</version.wildfly.fasterxml.jackson>
-        <version.wildfly.hibernate>5.3.12.Final</version.wildfly.hibernate>
+        <version.wildfly.hibernate>5.3.13.Final</version.wildfly.hibernate>
         <version.wildfly.infinispan>9.4.16.Final</version.wildfly.infinispan>
 
         <!-- Other versions -->

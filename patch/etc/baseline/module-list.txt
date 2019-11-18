@@ -548,7 +548,7 @@
 /org/apache/chemistry/opencmis/main/chemistry-opencmis-client-impl-1.1.0.jar
 /org/apache/chemistry/opencmis/main/chemistry-opencmis-commons-api-1.1.0.jar
 /org/apache/chemistry/opencmis/main/chemistry-opencmis-commons-impl-1.1.0.jar
-/org/apache/commons/beanutils/fuse/commons-beanutils-1.9.3.jar
+/org/apache/commons/beanutils/fuse/commons-beanutils-1.9.4.jar
 /org/apache/commons/cli/fuse/commons-cli-1.2.jar
 /org/apache/commons/codec/fuse/commons-codec-1.13.jar
 /org/apache/commons/collections/fuse/commons-collections-3.2.2.jar
