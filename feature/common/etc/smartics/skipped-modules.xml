@@ -444,6 +444,11 @@
         <include artifact="org.drools:kie-pmml" />
     </module>
 
+    <module name="org.eclipse.microprofile" skip="true">
+        <include artifact="org.eclipse.microprofile.metrics:microprofile-metrics-api" />
+        <include artifact="org.eclipse.microprofile.config:microprofile-config-api" />
+    </module>
+
     <module name="org.eclipse.jetty.http2" skip="true">
         <include artifact="org.eclipse.jetty.http2:http2-common" />
         <include artifact="org.eclipse.jetty.http2:http2-client" />
@@ -587,6 +592,7 @@
 
     <module name="org.osgi.annotation" skip="true">
         <include artifact="org.osgi:org.osgi.annotation" />
+        <include artifact="org.osgi:org.osgi.annotation.versioning" />
     </module>
 
     <module name="org.osgi.compendium" skip="true">

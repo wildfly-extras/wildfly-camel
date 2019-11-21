@@ -154,6 +154,7 @@ lumberjack
 master
 metrics
 micrometer
+microprofile-metrics
 milo-client
 milo-server
 mina                                                #deprecated
@@ -284,7 +285,6 @@ graphql
 iota
 jgroups-raft
 jooq
-microprofile-metrics
 pg-replication-slot
 pulsar
 robotframework

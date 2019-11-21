@@ -1,0 +1,6 @@
+### camel-microprofile-metrics
+
+The https://camel.apache.org/components/latest/microprofile-metrics-component.html[MircoProfile Metrics,window=_blank] component provides the capability to expose
+metrics from Camel routes by leveraging the WildFly metrics subsystem.
+
+Camel metrics are available via the WildFly https://docs.wildfly.org/18/Admin_Guide.html#http-endpoint[metrics endpoint,window=_blank].

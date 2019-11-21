@@ -1929,6 +1929,21 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.microprofile-metrics">
+        <include artifact="org.apache.camel:camel-microprofile-metrics"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt"/>
+            <include module="org.eclipse.microprofile"/>
+            <include module="org.osgi.annotation"/>
+            <include module="org.springframework.boot"/>
+        </apply-to-dependencies>
+        <dependencies>
+            <module name="org.eclipse.microprofile.metrics.api"/>
+            <module name="io.smallrye.metrics"/>
+            <module name="org.slf4j"/>
+        </dependencies>
+    </module>
+
     <module name="org.apache.camel.component.milo">
         <include artifact="org.apache.camel:camel-milo" />
         <apply-to-dependencies skip="true">
