@@ -445,8 +445,9 @@
     </module>
 
     <module name="org.eclipse.microprofile" skip="true">
-        <include artifact="org.eclipse.microprofile.metrics:microprofile-metrics-api" />
         <include artifact="org.eclipse.microprofile.config:microprofile-config-api" />
+        <include artifact="org.eclipse.microprofile.health:microprofile-health-api" />
+        <include artifact="org.eclipse.microprofile.metrics:microprofile-metrics-api" />
     </module>
 
     <module name="org.eclipse.jetty.http2" skip="true">

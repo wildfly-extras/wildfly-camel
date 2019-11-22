@@ -2221,6 +2221,8 @@ org/apache/camel/language/ognl
 org/apache/camel/language/xquery
 org/apache/camel/management
 org/apache/camel/management/mbean
+org/apache/camel/microprofile
+org/apache/camel/microprofile/health
 org/apache/camel/opentracing
 org/apache/camel/opentracing/decorators
 org/apache/camel/opentracing/propagation

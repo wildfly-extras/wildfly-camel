@@ -148,6 +148,7 @@
         <module name="org.apache.camel.component.master" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.metrics" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.micrometer" export="true" services="export" optional="true" />
+        <module name="org.apache.camel.component.microprofile-health" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.microprofile-metrics" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.milo" export="true" services="export" optional="true" />
         <module name="org.apache.camel.component.mina" export="true" services="export" optional="true" />

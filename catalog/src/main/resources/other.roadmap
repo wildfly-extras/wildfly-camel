@@ -6,6 +6,7 @@ hystrix
 jasypt
 leveldb
 lra
+microprofile-health
 opentracing
 reactor
 ribbon
@@ -22,7 +23,6 @@ zipkin
 aws-xray
 kura
 microprofile-config
-microprofile-health
 reactive-executor-vertx
 testcontainers-junit5
 

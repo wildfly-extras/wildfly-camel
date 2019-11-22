@@ -1,0 +1,5 @@
+### camel-microprofile-health
+
+The https://camel.apache.org/components/latest/microprofile-health.html[MircoProfile Health,window=_blank] component is used for bridging https://microprofile.io/project/eclipse/microprofile-health[Eclipse MicroProfile Health,window=_blank] checks with Camel’s own Health Check API.
+
+Health checks are available via the WildFly https://docs.wildfly.org/18/Admin_Guide.html#http-endpoints[health endpoint,window=_blank].

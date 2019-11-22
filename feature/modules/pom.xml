@@ -635,6 +635,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-microprofile-health</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-microprofile-metrics</artifactId>
         </dependency>
         <dependency>

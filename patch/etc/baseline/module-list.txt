@@ -378,6 +378,7 @@
 /org/apache/camel/component/master/main/camel-master-3.0.0-RC3.jar
 /org/apache/camel/component/metrics/main/camel-metrics-3.0.0-RC3.jar
 /org/apache/camel/component/micrometer/main/camel-micrometer-3.0.0-RC3.jar
+/org/apache/camel/component/microprofile-health/main/camel-microprofile-health-3.0.0-RC3.jar
 /org/apache/camel/component/microprofile-metrics/main/camel-microprofile-metrics-3.0.0-RC3.jar
 /org/apache/camel/component/milo/main/camel-milo-3.0.0-RC3.jar
 /org/apache/camel/component/mina/main/camel-mina-3.0.0-RC3.jar
