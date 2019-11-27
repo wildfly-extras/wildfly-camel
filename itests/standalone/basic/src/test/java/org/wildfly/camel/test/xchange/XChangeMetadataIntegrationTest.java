@@ -33,6 +33,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.knowm.xchange.currency.Currency;
@@ -43,47 +44,49 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class XChangeMetadataIntegrationTest {
+public class XChangeMetadataIntegrationTest extends AbstractXChangeIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-xchange-metadata-tests");
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-xchange-metadata-tests");
+        archive.addClasses(AbstractXChangeIntegrationTest.class);
+        return archive;
     }
 
     @Test
     @SuppressWarnings("unchecked")
     public void testCurrencies() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(createRouteBuilder());
+        try (CamelContext camelctx = new DefaultCamelContext()) {
 
-        camelctx.start();
-        try {
+            Assume.assumeTrue(checkAPIConnection());
+
+            camelctx.addRoutes(createRouteBuilder());
+            camelctx.start();
+
             ProducerTemplate template = camelctx.createProducerTemplate();
             List<Currency> currencies = template.requestBody("direct:currencies", null, List.class);
             Assert.assertNotNull("Currencies not null", currencies);
             Assert.assertTrue("Contains ETH", currencies.contains(Currency.ETH));
-        } finally {
-            camelctx.close();
         }
     }
 
     @Test
     public void testCurrencyMetaData() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(createRouteBuilder());
+        try (CamelContext camelctx = new DefaultCamelContext()) {
 
-        camelctx.start();
-        try {
+            Assume.assumeTrue(checkAPIConnection());
+
+            camelctx.addRoutes(createRouteBuilder());
+            camelctx.start();
+
             ProducerTemplate template = camelctx.createProducerTemplate();
             CurrencyMetaData metadata = template.requestBody("direct:currencyMetaData", Currency.ETH, CurrencyMetaData.class);
             Assert.assertNotNull("CurrencyMetaData not null", metadata);
 
             metadata = template.requestBodyAndHeader("direct:currencyMetaData", null, HEADER_CURRENCY, Currency.ETH, CurrencyMetaData.class);
             Assert.assertNotNull("CurrencyMetaData not null", metadata);
-        } finally {
-            camelctx.close();
         }
     }
 
@@ -91,36 +94,36 @@ public class XChangeMetadataIntegrationTest {
     @SuppressWarnings("unchecked")
     public void testCurrencyPairs() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(createRouteBuilder());
+        try (CamelContext camelctx = new DefaultCamelContext()) {
 
-        camelctx.start();
-        try {
+            Assume.assumeTrue(checkAPIConnection());
+
+            camelctx.addRoutes(createRouteBuilder());
+            camelctx.start();
+
             ProducerTemplate template = camelctx.createProducerTemplate();
             List<CurrencyPair> pairs = template.requestBody("direct:currencyPairs", null, List.class);
             Assert.assertNotNull("Pairs not null", pairs);
             Assert.assertTrue("Contains EOS/ETH", pairs.contains(CurrencyPair.EOS_ETH));
-        } finally {
-            camelctx.close();
         }
     }
 
     @Test
     public void testCurrencyPairMetaData() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(createRouteBuilder());
+        try (CamelContext camelctx = new DefaultCamelContext()) {
 
-        camelctx.start();
-        try {
+            Assume.assumeTrue(checkAPIConnection());
+
+            camelctx.addRoutes(createRouteBuilder());
+            camelctx.start();
+
             ProducerTemplate template = camelctx.createProducerTemplate();
             CurrencyPairMetaData metadata = template.requestBody("direct:currencyPairMetaData", CurrencyPair.EOS_ETH, CurrencyPairMetaData.class);
             Assert.assertNotNull("CurrencyPairMetaData not null", metadata);
 
             metadata = template.requestBodyAndHeader("direct:currencyPairMetaData", null, HEADER_CURRENCY_PAIR, CurrencyPair.EOS_ETH, CurrencyPairMetaData.class);
             Assert.assertNotNull("CurrencyPairMetaData not null", metadata);
-        } finally {
-            camelctx.close();
         }
     }
 

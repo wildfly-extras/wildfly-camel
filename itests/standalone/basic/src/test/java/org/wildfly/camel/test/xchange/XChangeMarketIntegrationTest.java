@@ -30,6 +30,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.knowm.xchange.currency.CurrencyPair;
@@ -38,21 +39,25 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class XChangeMarketIntegrationTest {
+public class XChangeMarketIntegrationTest extends AbstractXChangeIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-xchange-market-tests");
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-xchange-market-tests");
+        archive.addClasses(AbstractXChangeIntegrationTest.class);
+        return archive;
     }
 
     @Test
     public void testTicker() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(createRouteBuilder());
+        try (CamelContext camelctx = new DefaultCamelContext()) {
 
-        camelctx.start();
-        try {
+            Assume.assumeTrue(checkAPIConnection());
+
+            camelctx.addRoutes(createRouteBuilder());
+            camelctx.start();
+
             ProducerTemplate template = camelctx.createProducerTemplate();
             Ticker ticker = template.requestBody("direct:ticker", CurrencyPair.EOS_ETH, Ticker.class);
             Assert.assertNotNull("Ticker not null", ticker);
@@ -61,25 +66,23 @@ public class XChangeMarketIntegrationTest {
             ticker = template.requestBodyAndHeader("direct:ticker", null, HEADER_CURRENCY_PAIR, CurrencyPair.EOS_ETH, Ticker.class);
             Assert.assertNotNull("Ticker not null", ticker);
             System.out.println(ticker);
-        } finally {
-            camelctx.close();
         }
     }
 
     @Test
     public void testTickerBTCUSDT() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(createRouteBuilder());
+        try (CamelContext camelctx = new DefaultCamelContext()) {
 
-        camelctx.start();
-        try {
+            Assume.assumeTrue(checkAPIConnection());
+
+            camelctx.addRoutes(createRouteBuilder());
+            camelctx.start();
+
             ProducerTemplate template = camelctx.createProducerTemplate();
             Ticker ticker = template.requestBody("direct:tickerBTCUSDT", null, Ticker.class);
             Assert.assertNotNull("Ticker not null", ticker);
             System.out.println(ticker);
-        } finally {
-            camelctx.close();
         }
     }
 

@@ -24,7 +24,6 @@ import java.util.List;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.xchange.XChangeComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -41,29 +40,32 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class XChangeAccountIntegrationTest {
+public class XChangeAccountIntegrationTest extends AbstractXChangeIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-xchange-account-tests");
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-xchange-account-tests");
+        archive.addClasses(AbstractXChangeIntegrationTest.class);
+        return archive;
     }
 
     @Test
     @SuppressWarnings("unchecked")
     public void testBalances() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(createRouteBuilder());
+        try (CamelContext camelctx = new DefaultCamelContext()) {
 
-        camelctx.start();
-        try {
+            Assume.assumeTrue(checkAPIConnection());
+
+            camelctx.addRoutes(createRouteBuilder());
+            camelctx.start();
+
             Assume.assumeTrue(hasAPICredentials(camelctx));
+
             ProducerTemplate template = camelctx.createProducerTemplate();
             List<Balance> balances = template.requestBody("direct:balances", null, List.class);
             Assert.assertNotNull("Balances not null", balances);
             balances.forEach(b -> System.out.println(b));
-        } finally {
-            camelctx.close();
         }
     }
 
@@ -71,17 +73,18 @@ public class XChangeAccountIntegrationTest {
     @SuppressWarnings("unchecked")
     public void testWallets() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(createRouteBuilder());
+        try (CamelContext camelctx = new DefaultCamelContext()) {
 
-        camelctx.start();
-        try {
+            Assume.assumeTrue(checkAPIConnection());
+
+            camelctx.addRoutes(createRouteBuilder());
+            camelctx.start();
+
             Assume.assumeTrue(hasAPICredentials(camelctx));
+
             ProducerTemplate template = camelctx.createProducerTemplate();
             List<Wallet> wallets = template.requestBody("direct:wallets", null, List.class);
             Assert.assertNotNull("Wallets not null", wallets);
-        } finally {
-            camelctx.close();
         }
     }
 
@@ -89,23 +92,19 @@ public class XChangeAccountIntegrationTest {
     @SuppressWarnings("unchecked")
     public void testFundingHistory() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(createRouteBuilder());
+        try (CamelContext camelctx = new DefaultCamelContext()) {
 
-        camelctx.start();
-        try {
+            Assume.assumeTrue(checkAPIConnection());
+
+            camelctx.addRoutes(createRouteBuilder());
+            camelctx.start();
+
             Assume.assumeTrue(hasAPICredentials(camelctx));
+
             ProducerTemplate template = camelctx.createProducerTemplate();
             List<FundingRecord> records = template.requestBody("direct:fundingHistory", null, List.class);
             Assert.assertNotNull("Funding records not null", records);
-        } finally {
-            camelctx.close();
         }
-    }
-
-    private boolean hasAPICredentials(CamelContext context) {
-        XChangeComponent component = context.getComponent("xchange", XChangeComponent.class);
-        return component.getXChange().getExchangeSpecification().getApiKey() != null;
     }
 
     private RouteBuilder createRouteBuilder() throws Exception {
