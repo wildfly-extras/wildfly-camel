@@ -61,17 +61,17 @@
         <dependency>
             <groupId>org.apache.directory.server</groupId>
             <artifactId>apacheds-server-jndi</artifactId>
-            <version>${version.apache.ds}</version>
+            <version>${version.camel.apacheds}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.directory.server</groupId>
             <artifactId>apacheds-server-integ</artifactId>
-            <version>${version.apache.ds}</version>
+            <version>${version.camel.apacheds}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.directory.server</groupId>
             <artifactId>apacheds-core-integ</artifactId>
-            <version>${version.apache.ds}</version>
+            <version>${version.camel.apacheds}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.hadoop</groupId>

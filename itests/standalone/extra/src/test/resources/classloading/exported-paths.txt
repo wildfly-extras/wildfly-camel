@@ -2740,6 +2740,10 @@ org/apache/directory/api/ldap/extras
 org/apache/directory/api/ldap/extras/controls
 org/apache/directory/api/ldap/extras/controls/ad
 org/apache/directory/api/ldap/extras/controls/ad_impl
+org/apache/directory/api/ldap/extras/controls/changeNotifications
+org/apache/directory/api/ldap/extras/controls/changeNotifications_impl
+org/apache/directory/api/ldap/extras/controls/permissiveModify
+org/apache/directory/api/ldap/extras/controls/permissiveModify_impl
 org/apache/directory/api/ldap/extras/controls/ppolicy
 org/apache/directory/api/ldap/extras/controls/ppolicy_impl
 org/apache/directory/api/ldap/extras/controls/syncrepl

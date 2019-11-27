@@ -18,19 +18,10 @@
  */
 package org.wildfly.camel.test.ldap;
 
-import java.net.InetAddress;
-import java.net.URL;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
 
 import javax.naming.Context;
-import javax.naming.NamingEnumeration;
-import javax.naming.directory.BasicAttributes;
-import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
@@ -43,8 +34,7 @@ import org.apache.camel.support.SimpleRegistry;
 import org.apache.directory.api.ldap.codec.api.LdapApiService;
 import org.apache.directory.api.ldap.codec.standalone.StandaloneLdapApiService;
 import org.apache.directory.api.ldap.util.JndiUtils;
-import org.apache.directory.ldap.client.api.LdapConnection;
-import org.apache.directory.ldap.client.api.LdapNetworkConnection;
+import org.apache.directory.api.util.Network;
 import org.apache.directory.server.annotations.CreateLdapServer;
 import org.apache.directory.server.annotations.CreateTransport;
 import org.apache.directory.server.constants.ServerDNConstants;
@@ -99,8 +89,6 @@ public class LdapIntegrationTest {
     public static JavaArchive createDeployment() throws Exception {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-ldap-tests");
         archive.addClasses(SpringLdapContextSource.class, AvailablePortFinder.class);
-        archive.addAsResource("ldap/ldap-camel-context.xml");
-        archive.addAsResource("ldap/AddOne.ldif");
         return archive;
     }
 
@@ -135,57 +123,6 @@ public class LdapIntegrationTest {
         }
     }
 
-    @Test
-    @SuppressWarnings("unchecked")
-    public void addOneViaLdif() throws Exception {
-
-        int ldapPort = Integer.parseInt(AvailablePortFinder.readServerData("ldap-port"));
-        SimpleRegistry reg = new SimpleRegistry();
-        reg.bind("ldapcon", getWiredConnection(ldapPort));
-
-        CamelContext camelctx = new DefaultCamelContext(reg);
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:start").to("ldif:ldapcon");
-            }
-        });
-
-        camelctx.start();
-        try {
-            ProducerTemplate template = camelctx.createProducerTemplate();
-
-            URL ldifURL = getClass().getClassLoader().getResource("ldap/AddOne.ldif");
-            List<String> response = template.requestBody("direct:start", ldifURL.toString(), List.class);
-            Assert.assertEquals(Collections.singletonList("success"), response);
-
-            // Check LDAP
-            LdapContext ldapctx = getWiredContext(ldapPort);
-            SearchControls searchControls = new SearchControls(SearchControls.SUBTREE_SCOPE, 0, 0, null, true, true);
-            NamingEnumeration<SearchResult> searchResults = ldapctx.search("", "(uid=test3)", searchControls);
-            SearchResult sr = searchResults.next();
-            Assert.assertEquals("uid=test3,ou=test,ou=system", sr.getName());
-        } finally {
-            camelctx.close();
-        }
-    }
-
-    @Test
-    @SuppressWarnings("unchecked")
-    public void testCamelSpringLdapRoute() throws Exception {
-
-        Map<String, String> map = new HashMap<>();
-        map.put("filter", "(!(ou=test1))");
-        map.put("dn", "ou=system");
-
-        CamelContext camelctx = contextRegistry.getCamelContext("camel-ldap-ctx");
-
-        ProducerTemplate template = camelctx.createProducerTemplate();
-        List<BasicAttributes> searchResults = template.requestBody("direct:start", map, List.class);
-        Assert.assertNotNull(searchResults);
-        Assert.assertTrue(searchResults.size() > 0);
-    }
-
     private boolean containsResult(Collection<SearchResult> results, String dn) {
         for (SearchResult result : results) {
             if (result.getNameInNamespace().equals(dn)) {
@@ -197,17 +134,12 @@ public class LdapIntegrationTest {
 
     private LdapContext getWiredContext(int port) throws Exception {
         Hashtable<String, String> env = new Hashtable<String, String>();
-        env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-        env.put(Context.PROVIDER_URL, "ldap://" + InetAddress.getLocalHost().getHostAddress() + ":" + port);
-        env.put(Context.SECURITY_PRINCIPAL, ServerDNConstants.ADMIN_SYSTEM_DN);
-        env.put(Context.SECURITY_CREDENTIALS, "secret");
+        env.put( Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory" );
+        env.put( Context.PROVIDER_URL, Network.ldapLoopbackUrl( port ) );
+        env.put( Context.SECURITY_PRINCIPAL, ServerDNConstants.ADMIN_SYSTEM_DN );
+        env.put( Context.SECURITY_CREDENTIALS, "secret" );
+        env.put( Context.SECURITY_AUTHENTICATION, "simple" );
         LdapApiService ldapApiService = new StandaloneLdapApiService();
-        return new InitialLdapContext(env, JndiUtils.toJndiControls(ldapApiService));
-    }
-
-    private LdapConnection getWiredConnection(int port) throws Exception {
-        LdapConnection connection = new LdapNetworkConnection(InetAddress.getLocalHost().getHostAddress(), port);
-        connection.bind(ServerDNConstants.ADMIN_SYSTEM_DN, "secret");
-        return connection;
+        return new InitialLdapContext( env, JndiUtils.toJndiControls(ldapApiService, null ) );
     }
 }

@@ -40,6 +40,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.ssh.EmbeddedSSHServer;
+import org.wildfly.camel.test.common.utils.FileUtils;
 import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -73,7 +74,7 @@ public class SftpIntegrationTest {
         return ShrinkWrap.create(JavaArchive.class, "camel-ftp-tests.jar")
             .addAsResource(new StringAsset(SftpIntegrationTest.SSHServerSetupTask.sshServer.getConnection()), "sftp-connection")
             .addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR)
-            .addClasses(TestUtils.class);
+            .addClasses(TestUtils.class, FileUtils.class);
     }
 
     @Test
@@ -90,21 +91,7 @@ public class SftpIntegrationTest {
             Assert.assertTrue(testFile.exists());
         } finally {
             camelctx.close();
-            recursiveDelete(resolvePath(FTP_ROOT_DIR).toFile());
-        }
-    }
-
-    private void recursiveDelete(File file) {
-        if (file.exists()) {
-            if (file.isDirectory()) {
-                File[] files = file.listFiles();
-                if (files != null) {
-                    for (File f : files) {
-                        recursiveDelete(f);
-                    }
-                }
-            }
-            file.delete();
+            FileUtils.deleteDirectory(resolvePath(FTP_ROOT_DIR));
         }
     }
 

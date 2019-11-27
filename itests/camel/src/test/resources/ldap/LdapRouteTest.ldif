@@ -1,4 +1,3 @@
-version: 1
 #
 #  Licensed to the Apache Software Foundation (ASF) under one
 #  or more contributor license agreements.  See the NOTICE file
@@ -22,8 +21,42 @@ version: 1
 #   http://www.rfc-editor.org/rfc/rfc2606.txt
 #
 
-dn: uid=test3,ou=test,ou=system
+dn: ou=test,ou=system
+objectClass: top
+objectClass: organizationalUnit
+ou: test
+
+dn: uid=test1,ou=test,ou=system
 objectClass: top
 objectClass: account
-uid: test3
-ou: test3
+uid: test1
+ou: test1
+
+dn: uid=test2,ou=test,ou=system
+objectClass: top
+objectClass: account
+uid: test2
+ou: test2
+
+dn: uid=testNoOU,ou=test,ou=system
+objectClass: top
+objectClass: account
+uid: testNoOU
+
+dn: ou=actors,ou=system
+objectClass: top
+objectClass: organizationalUnit
+ou: actors
+
+dn: uid=tcruise,ou=actors,ou=system
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: uidObject
+uid: tcruise
+ou: drama
+ou: adventure
+cn: Tom Cruise
+sn: Cruise
+
+

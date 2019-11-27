@@ -52,6 +52,7 @@ public class VersionsValidatorTest {
         wfcRoot = getRootNode("wildfly-camel");
         wfRoot = getRootNode("wildfly-parent");
 
+        mapping.put("version.camel.apacheds", "apacheds-version");
         mapping.put("version.camel.apns", "java-apns-version");
         mapping.put("version.camel.bouncycastle", "bouncycastle-version");
         mapping.put("version.camel.consul.client", "consul-client-version");
@@ -64,6 +65,7 @@ public class VersionsValidatorTest {
         mapping.put("version.camel.jgroups", "jgroups-version");
         mapping.put("version.camel.log4j2", "log4j2-version");
         mapping.put("version.camel.lucene", "lucene-version");
+        mapping.put("version.camel.mina", "mina-version");
         mapping.put("version.camel.netty41", "netty-version");
         mapping.put("version.camel.opencmis", "cmis-version");
         mapping.put("version.camel.qpid.proton", "qpid-proton-j-version");

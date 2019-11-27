@@ -54,6 +54,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
+import org.wildfly.camel.test.common.utils.FileUtils;
 import org.wildfly.camel.test.common.utils.TestUtils;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -77,14 +78,15 @@ public class FtpIntegrationTest {
 
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-ftp-tests.war");
         archive.addAsResource(new StringAsset(System.getProperty("basedir")), FILE_BASEDIR);
-        archive.addClasses(AvailablePortFinder.class, TestUtils.class);
+        archive.addClasses(AvailablePortFinder.class, TestUtils.class, FileUtils.class);
         archive.addAsLibraries(libraryDependencies);
         return archive;
     }
 
     @Before
     public void startFtpServer() throws Exception {
-        recursiveDelete(resolvePath(FTP_ROOT_DIR).toFile());
+
+        FileUtils.deleteDirectory(resolvePath(FTP_ROOT_DIR));
 
         File usersFile = USERS_FILE.toFile();
         usersFile.createNewFile();
@@ -159,23 +161,11 @@ public class FtpIntegrationTest {
 
     @Test
     public void testComponentLoads() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
-        Endpoint endpoint = camelctx.getEndpoint("ftp://localhost/foo");
-        Assert.assertNotNull(endpoint);
-        Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.file.remote.FtpEndpoint");
-    }
 
-    private void recursiveDelete(File file) {
-        if (file.exists()) {
-            if (file.isDirectory()) {
-                File[] files = file.listFiles();
-                if (files != null) {
-                    for (File f : files) {
-                        recursiveDelete(f);
-                    }
-                }
-            }
-            file.delete();
+        try (CamelContext camelctx = new DefaultCamelContext()) {
+            Endpoint endpoint = camelctx.getEndpoint("ftp://localhost/foo");
+            Assert.assertNotNull(endpoint);
+            Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.file.remote.FtpEndpoint");
         }
     }
 
