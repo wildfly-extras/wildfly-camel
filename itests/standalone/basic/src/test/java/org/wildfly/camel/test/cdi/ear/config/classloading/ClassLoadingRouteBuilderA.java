@@ -19,12 +19,13 @@
  */
 package org.wildfly.camel.test.cdi.ear.config.classloading;
 
+import javax.enterprise.context.ApplicationScoped;
+
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.spi.ClassResolver;
 import org.wildfly.camel.test.common.types.HelloBean;
-import org.wildfly.extension.camel.CamelAware;
 
-@CamelAware
+@ApplicationScoped
 public class ClassLoadingRouteBuilderA extends RouteBuilder  {
 
     @Override

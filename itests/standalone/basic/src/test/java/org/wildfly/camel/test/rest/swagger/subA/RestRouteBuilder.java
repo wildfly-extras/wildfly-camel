@@ -1,10 +1,11 @@
 package org.wildfly.camel.test.rest.swagger.subA;
 
+import javax.enterprise.context.ApplicationScoped;
+
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
-import org.wildfly.extension.camel.CamelAware;
 
-@CamelAware
+@ApplicationScoped
 public class RestRouteBuilder extends RouteBuilder {
 
     @Override

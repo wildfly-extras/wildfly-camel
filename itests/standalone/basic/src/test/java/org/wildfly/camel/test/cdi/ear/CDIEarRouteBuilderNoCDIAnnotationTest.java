@@ -42,7 +42,7 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class CDIEarRouteBuilderNotAnnotatedTest {
+public class CDIEarRouteBuilderNoCDIAnnotationTest {
 
     @ArquillianResource
     private CamelContextRegistry contextRegistry;

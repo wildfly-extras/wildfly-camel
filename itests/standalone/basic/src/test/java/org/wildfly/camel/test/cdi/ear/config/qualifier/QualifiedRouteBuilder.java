@@ -20,9 +20,7 @@
 package org.wildfly.camel.test.cdi.ear.config.qualifier;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.wildfly.extension.camel.CamelAware;
 
-@CamelAware
 @WildFlyCamelContextQualifier
 public class QualifiedRouteBuilder extends RouteBuilder {
 

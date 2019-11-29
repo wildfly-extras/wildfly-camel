@@ -21,11 +21,9 @@ package org.wildfly.camel.test.cdi.ear.config.resourceloading;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import javax.ws.rs.Produces;
 
 import org.apache.camel.impl.DefaultCamelContext;
 
-@Produces
 @ApplicationScoped
 @Named("sub-deployment-a")
 public class ResourceLoadingCamelContext extends DefaultCamelContext  {

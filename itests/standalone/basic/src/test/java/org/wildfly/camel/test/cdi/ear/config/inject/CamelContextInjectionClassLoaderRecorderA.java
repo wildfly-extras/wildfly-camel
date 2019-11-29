@@ -32,9 +32,7 @@ import javax.inject.Inject;
 
 import org.apache.camel.CamelContext;
 import org.wildfly.camel.test.common.utils.TestUtils;
-import org.wildfly.extension.camel.CamelAware;
 
-@CamelAware
 @Singleton
 @Startup
 public class CamelContextInjectionClassLoaderRecorderA {

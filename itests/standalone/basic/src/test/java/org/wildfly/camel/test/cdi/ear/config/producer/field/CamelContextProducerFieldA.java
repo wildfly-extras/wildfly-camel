@@ -24,9 +24,7 @@ import javax.enterprise.inject.Produces;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.wildfly.extension.camel.CamelAware;
 
-@CamelAware
 public class CamelContextProducerFieldA {
 
     @Produces

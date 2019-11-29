@@ -24,11 +24,9 @@ import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.engine.ExplicitCamelContextNameStrategy;
-import org.wildfly.extension.camel.CamelAware;
 import org.wildfly.extension.camel.security.DomainAuthorizationPolicy;
 
 @Startup
-@CamelAware
 @ApplicationScoped
 public class SecureRouteBuilder extends RouteBuilder {
 

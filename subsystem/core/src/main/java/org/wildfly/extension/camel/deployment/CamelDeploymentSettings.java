@@ -41,30 +41,28 @@ public final class CamelDeploymentSettings {
 
     public static final AttachmentKey<CamelDeploymentSettings> ATTACHMENT_KEY = AttachmentKey.create(CamelDeploymentSettings.class);
     public static final AttachmentKey<CamelDeploymentSettings.Builder> BUILDER_ATTACHMENT_KEY = AttachmentKey.create(CamelDeploymentSettings.Builder.class);
-
     private static final Map<String, CamelDeploymentSettings> deploymentSettingsMap = new HashMap<>();
-    public static CamelDeploymentSettings get(String name) {
-        synchronized (deploymentSettingsMap) {
-            return deploymentSettingsMap.get(name);
-        }
-    }
-    public static void remove(String deploymentName) {
-        synchronized (deploymentSettingsMap) {
-            deploymentSettingsMap.remove(deploymentName);
-        }
-    }
-
 
     private final List<String> dependencies;
     private final List<URL> camelContextUrls;
     private final boolean enabled;
 
-    private CamelDeploymentSettings(List<String> dependencies,
-            List<URL> camelContextUrls, boolean enabled) {
-        super();
+    private CamelDeploymentSettings(List<String> dependencies, List<URL> camelContextUrls, boolean enabled) {
         this.dependencies = dependencies;
         this.camelContextUrls = camelContextUrls;
         this.enabled = enabled;
+    }
+
+    public static CamelDeploymentSettings get(String name) {
+        synchronized (deploymentSettingsMap) {
+            return deploymentSettingsMap.get(name);
+        }
+    }
+
+    public static void remove(String deploymentName) {
+        synchronized (deploymentSettingsMap) {
+            deploymentSettingsMap.remove(deploymentName);
+        }
     }
 
     public boolean isEnabled() {
@@ -80,7 +78,7 @@ public final class CamelDeploymentSettings {
     }
 
     public static class Builder {
-        private boolean camelAnnotationPresent;
+        private boolean camelActivationAnnotationPresent;
         private List<URL> camelContextUrls = new ArrayList<>();
         private List<Map.Entry<CamelDeploymentSettings.Builder, Consumer<CamelDeploymentSettings>>> children = new ArrayList<>();
         private List<String> dependencies = new ArrayList<>();
@@ -120,9 +118,9 @@ public final class CamelDeploymentSettings {
             return result;
         }
 
-        public Builder camelAnnotationPresent(boolean camelAnnotationPresent) {
+        public Builder camelActivationAnnotationPresent(boolean camelActivationAnnotationPresent) {
             synchronized (lock) {
-                this.camelAnnotationPresent = camelAnnotationPresent;
+                this.camelActivationAnnotationPresent = camelActivationAnnotationPresent;
             }
             return this;
         }
@@ -206,8 +204,8 @@ public final class CamelDeploymentSettings {
                     }
                 }
 
-                // @CamelAware annotations are present
-                if (camelAnnotationPresent) {
+                // Camel activation annotations are present
+                if (camelActivationAnnotationPresent) {
                     return true;
                 }
 
@@ -220,5 +218,4 @@ public final class CamelDeploymentSettings {
             return false;
         }
     }
-
 }

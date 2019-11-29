@@ -28,7 +28,7 @@ import org.jboss.as.server.deployment.DeploymentUnitProcessor;
 import org.wildfly.extension.camel.CamelConstants;
 
 /**
- * Allways make some camel integration services available
+ * Always make some camel integration services available
  *
  * @author Thomas.Diesler@jboss.com
  * @since 14-Jun-2013

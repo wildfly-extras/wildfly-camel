@@ -22,12 +22,10 @@ package org.wildfly.camel.test.undertow.subA;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.wildfly.extension.camel.CamelAware;
 
 /**
  * @author <a href="https://github.com/ppalaga">Peter Palaga</a>
  */
-@CamelAware
 @ApplicationScoped
 public class UndertowSecureRoutes2 extends RouteBuilder {
 

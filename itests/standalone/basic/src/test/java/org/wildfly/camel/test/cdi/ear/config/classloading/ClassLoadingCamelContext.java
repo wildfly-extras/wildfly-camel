@@ -21,11 +21,9 @@ package org.wildfly.camel.test.cdi.ear.config.classloading;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import javax.ws.rs.Produces;
 
 import org.apache.camel.impl.DefaultCamelContext;
 
-@Produces
 @ApplicationScoped
 @Named("class-loading-a")
 public class ClassLoadingCamelContext extends DefaultCamelContext  {

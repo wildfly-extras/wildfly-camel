@@ -19,10 +19,11 @@
  */
 package org.wildfly.camel.test.cdi.subA;
 
-import org.apache.camel.builder.RouteBuilder;
-import org.wildfly.extension.camel.CamelAware;
+import javax.enterprise.context.ApplicationScoped;
 
-@CamelAware
+import org.apache.camel.builder.RouteBuilder;
+
+@ApplicationScoped
 public class RouteBuilderE extends RouteBuilder {
 
     @Override

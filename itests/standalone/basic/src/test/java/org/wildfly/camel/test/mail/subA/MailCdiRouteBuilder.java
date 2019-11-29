@@ -24,10 +24,8 @@ import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.engine.ExplicitCamelContextNameStrategy;
-import org.wildfly.extension.camel.CamelAware;
 
 @Startup
-@CamelAware
 @ApplicationScoped
 public class MailCdiRouteBuilder extends RouteBuilder {
 

@@ -22,6 +22,7 @@ import static info.ganglia.gmetric4j.xdr.v31x.Ganglia_msg_formats.gmetric_string
 import java.io.IOException;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
@@ -30,7 +31,6 @@ import org.acplt.oncrpc.XdrAble;
 import org.acplt.oncrpc.XdrBufferDecodingStream;
 import org.apache.camel.builder.RouteBuilder;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
-import org.wildfly.extension.camel.CamelAware;
 
 import info.ganglia.gmetric4j.xdr.v31x.Ganglia_metadata_msg;
 import info.ganglia.gmetric4j.xdr.v31x.Ganglia_value_msg;
@@ -39,7 +39,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.handler.codec.MessageToMessageDecoder;
 
-@CamelAware
+@ApplicationScoped
 public class FakeGangliaAgent extends RouteBuilder {
 
     private static final int PORT = AvailablePortFinder.getNextAvailable();

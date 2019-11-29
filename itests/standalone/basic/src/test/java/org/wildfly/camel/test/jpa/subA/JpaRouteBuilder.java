@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Startup;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,10 +34,9 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jpa.JpaComponent;
 import org.springframework.transaction.jta.JtaTransactionManager;
-import org.wildfly.extension.camel.CamelAware;
 
 @Startup
-@CamelAware
+@ApplicationScoped
 public class JpaRouteBuilder extends RouteBuilder {
 
     @PersistenceContext

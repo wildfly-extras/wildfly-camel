@@ -21,17 +21,11 @@ package org.wildfly.camel.test.cdi.ear.config.producer.method;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.wildfly.extension.camel.CamelAware;
 
-@CamelAware
 public class CamelContextProducerB {
-
-    @Inject
-    CamelContext camelctx;
 
     @Produces
     @ApplicationScoped
