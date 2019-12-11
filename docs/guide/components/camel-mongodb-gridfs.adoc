@@ -1,4 +1,4 @@
 ### camel-mongodb-gridfs
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-mongodb-gridfs/src/main/docs/mongodb-gridfs-component.adoc[mongodb-gridfs,window=_blank]
+The https://camel.apache.org/components/latest/mongodb-gridfs-component.html[mongodb-gridfs,window=_blank]
 component provides MongoDB GridFS file storage. Instead of storing a file in a single document, GridFS divides the file into parts, or chunks, and stores each chunk as a separate document.

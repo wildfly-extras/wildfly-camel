@@ -1,14 +1,14 @@
 ### camel-atomix
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-atomix/src/main/docs/atomix-map-component.adoc[atomix-map,window=_blank] component allows you to work with http://atomix.io/atomix/[Atomix’s,window=_blank] http://atomix.io/atomix/docs/collections/#distributedmap[Distributed Map,window=_blank] collection.
+The https://camel.apache.org/components/latest/atomix-map-component.html[atomix-map,window=_blank] component allows you to work with http://atomix.io/atomix/[Atomix’s,window=_blank] http://atomix.io/atomix/docs/collections/#distributedmap[Distributed Map,window=_blank] collection.
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-atomix/src/main/docs/atomix-messaging-component.adoc[atomix-messaging,window=_blank] component allows you to work with http://atomix.io/atomix/[Atomix’s,window=_blank] http://atomix.io/atomix/docs/groups/#messaging[Group Messaging,window=_blank].
+The https://camel.apache.org/components/latest/atomix-messaging-component.html[atomix-messaging,window=_blank] component allows you to work with http://atomix.io/atomix/[Atomix’s,window=_blank] http://atomix.io/atomix/docs/groups/#messaging[Group Messaging,window=_blank].
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-atomix/src/main/docs/atomix-multimap-component.adoc[atomix-multimap,window=_blank] component allows you to work with http://atomix.io/atomix/[Atomix’s,window=_blank] http://atomix.io/atomix/docs/collections/#distributedmultimap[Distributed MultiMap,window=_blank] collection.
+The https://camel.apache.org/components/latest/atomix-multimap-component.html[atomix-multimap,window=_blank] component allows you to work with http://atomix.io/atomix/[Atomix’s,window=_blank] http://atomix.io/atomix/docs/collections/#distributedmultimap[Distributed MultiMap,window=_blank] collection.
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-atomix/src/main/docs/atomix-queue-component.adoc[atomix-queue,window=_blank] component allows you to work with http://atomix.io/atomix/[Atomix’s,window=_blank] http://atomix.io/atomix/docs/collections/#distributedqueue[Distributed Queues,window=_blank].
+The https://camel.apache.org/components/latest/atomix-queue-component.html[atomix-queue,window=_blank] component allows you to work with http://atomix.io/atomix/[Atomix’s,window=_blank] http://atomix.io/atomix/docs/collections/#distributedqueue[Distributed Queues,window=_blank].
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-atomix/src/main/docs/atomix-set-component.adoc[atomix-set,window=_blank] component allows you to work with http://atomix.io/atomix/[Atomix’s,window=_blank] http://atomix.io/atomix/docs/collections/#distributedset[Distributed Set,window=_blank] collection.
+The https://camel.apache.org/components/latest/atomix-set-component.html[atomix-set,window=_blank] component allows you to work with http://atomix.io/atomix/[Atomix’s,window=_blank] http://atomix.io/atomix/docs/collections/#distributedset[Distributed Set,window=_blank] collection.
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-atomix/src/main/docs/atomix-value-component.adoc[atomix-value,window=_blank] component allows you to work with http://atomix.io/atomix/[Atomix’s,window=_blank] http://atomix.io/atomix/docs/collections/#distributedvalue[Distributed Value,window=_blank].
+The https://camel.apache.org/components/latest/atomix-value-component.html[atomix-value,window=_blank] component allows you to work with http://atomix.io/atomix/[Atomix’s,window=_blank] http://atomix.io/atomix/docs/collections/#distributedvalue[Distributed Value,window=_blank].
 

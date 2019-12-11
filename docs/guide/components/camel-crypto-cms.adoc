@@ -1,6 +1,6 @@
 ### camel-crypto-cms
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-crypto-cms/src/main/docs/crypto-cms-component.adoc[Crypto CMS,window=_blank] component supports the following parts of this standard:
+The https://camel.apache.org/components/latest/crypto-cms-component.html[Crypto CMS,window=_blank] component supports the following parts of this standard:
 
 * Content Type "Enveloped Data" with Key Transport (asymmetric key),
 * Content Type "Signed Data".

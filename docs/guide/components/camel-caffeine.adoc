@@ -1,5 +1,5 @@
 ### camel-caffeine
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-caffeine/src/main/docs/caffeine-cache-component.adoc[caffeine-cache,window=_blank] component enables you to perform caching operations using The simple cache from https://github.com/ben-manes/caffeine/wiki[Caffeine,window=_blank].
+The https://camel.apache.org/components/latest/caffeine-cache-component.html[caffeine-cache,window=_blank] component enables you to perform caching operations using The simple cache from https://github.com/ben-manes/caffeine/wiki[Caffeine,window=_blank].
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-caffeine/src/main/docs/caffeine-loadcache-component.adoc[caffeine-loadcache,window=_blank] component enables you to perform caching operations using The Load cache from https://github.com/ben-manes/caffeine/wiki[Caffeine,window=_blank].
+The https://camel.apache.org/components/latest/caffeine-loadcache-component.html[caffeine-loadcache,window=_blank] component enables you to perform caching operations using The Load cache from https://github.com/ben-manes/caffeine/wiki[Caffeine,window=_blank].

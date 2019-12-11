@@ -1,3 +1,3 @@
 ### camel-digitalocean
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-digitalocean/src/main/docs/digitalocean-component.adoc[digitalocean,window=_blank] component allows you to manage Droplets and resources within the DigitalOcean cloud with Camel.
+The https://camel.apache.org/components/latest/digitalocean-component.html[digitalocean,window=_blank] component allows you to manage Droplets and resources within the DigitalOcean cloud with Camel.

@@ -1,4 +1,4 @@
 ### camel-twilio
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-twilio/src/main/docs/twilio-component.adoc[twilio,window=_blank] component provides access to Version 2010-04-01 of Twilio REST APIs accessible
+The https://camel.apache.org/components/latest/twilio-component.html[twilio,window=_blank] component provides access to Version 2010-04-01 of Twilio REST APIs accessible
 using https://github.com/twilio/twilio-java[Twilio Java SDK,window=_blank].

@@ -1,6 +1,6 @@
 ### camel-sjms2
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-sjms2/src/main/docs/sjms2-component.adoc[sjms2,window=_blank] component, or SJMS2,
+The https://camel.apache.org/components/latest/sjms2-component.html[sjms2,window=_blank] component, or SJMS2,
 is a JMS 2.x client for use with Camel that uses well known best practices when it comes to JMS client creation and configuration.
 
 

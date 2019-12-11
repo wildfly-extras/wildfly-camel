@@ -1,4 +1,4 @@
 ### camel-tika
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-tika/src/main/docs/tika-component.adoc[tika,window=_blank]
+The https://camel.apache.org/components/latest/tika-component.html[tika,window=_blank]
 provides the ability to detect and parse documents with https://tika.apache.org/[Apache Tika].

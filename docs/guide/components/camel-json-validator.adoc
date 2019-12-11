@@ -1,4 +1,4 @@
 ### camel-json-validator
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-json-validator/src/main/docs/json-validator-component.adoc[json-validator,window=_blank] component performs bean validation of the message body agains JSON Schemas using the https://github.com/everit-org/json-schema[Everit JSON Schema,window=_blank] library.
+The https://camel.apache.org/components/latest/json-validator-component.html[json-validator,window=_blank] component performs bean validation of the message body agains JSON Schemas using the https://github.com/everit-org/json-schema[Everit JSON Schema,window=_blank] library.
 

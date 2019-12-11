@@ -1,4 +1,4 @@
 ### camel-google-pubsub
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-google-pubsub/src/main/docs/camel-google-pubsub.adoc[google-pubsub,window=_blank] component provides access to https://cloud.google.com/pubsub/[Cloud Pub/Sub Infrastructure,window=_blank] via the https://cloud.google.com/apis/docs/client-libraries-explained[Google Client Services API,window=_blank].
+The https://camel.apache.org/components/latest/camel-google-pubsub.html[google-pubsub,window=_blank] component provides access to https://cloud.google.com/pubsub/[Cloud Pub/Sub Infrastructure,window=_blank] via the https://cloud.google.com/apis/docs/client-libraries-explained[Google Client Services API,window=_blank].
 

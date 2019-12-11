@@ -1,5 +1,5 @@
 ### camel-reactive-streams
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-reactive-streams/src/main/docs/reactive-streams-component.adoc[reactive-streams,window=_blank] component enables you to exchange messages with reactive stream processing libraries that are compatible with the http://www.reactive-streams.org/[reactive streams,window=_blank] standard.
+The https://camel.apache.org/components/latest/reactive-streams-component.html[reactive-streams,window=_blank] component enables you to exchange messages with reactive stream processing libraries that are compatible with the http://www.reactive-streams.org/[reactive streams,window=_blank] standard.
 
 

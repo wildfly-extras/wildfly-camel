@@ -1,4 +1,4 @@
 ### camel-wordpress
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-wordpress/src/main/docs/wordpress-component.adoc[wordpress component,window=_blank]
+The https://camel.apache.org/components/latest/wordpress-component.html[wordpress component,window=_blank]
 provides support for https://developer.wordpress.org/rest-api/reference/[Wordpress API].

@@ -1,6 +1,6 @@
 ### camel-opentracing
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-opentracing/src/main/docs/opentracing.adoc[opentracing,window=_blank] component
+The https://camel.apache.org/components/latest/opentracing.html[opentracing,window=_blank] component
 is used for tracing and timing incoming and outgoing Camel messages using http://opentracing.io/[OpenTracing,window=_blank].
 
 

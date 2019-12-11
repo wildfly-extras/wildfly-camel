@@ -1,5 +1,5 @@
 ### camel-xchange
 
-The https://github.com/apache/camel/blob/master/components/camel-xchange/src/main/docs/xchange-component.adoc[XChange,window=_blank] component uses the https://knowm.org/open-source/xchange/[XChange] Java library to provide access to 60+ Bitcoin and Altcoin exchanges. It comes with a consistent interface for trading and accessing market data.
+The https://camel.apache.org/components/latest/xchange-component.html[XChange,window=_blank] component uses the https://knowm.org/open-source/xchange/[XChange] Java library to provide access to 60+ Bitcoin and Altcoin exchanges. It comes with a consistent interface for trading and accessing market data.
 
 Camel can get crypto currency market data, query historical data, place market orders and much more.

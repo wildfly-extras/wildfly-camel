@@ -1,13 +1,13 @@
 ### camel-openstack
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-openstack/src/main/docs/openstack-swift-component.adoc[openstack-swift,window=_blank] component allows messages to be sent to an OpenStack object storage services.
+The https://camel.apache.org/components/latest/openstack-swift-component.html[openstack-swift,window=_blank] component allows messages to be sent to an OpenStack object storage services.
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-openstack/src/main/docs/openstack-nova-component.adoc[openstack-nova,window=_blank] component allows messages to be sent to an OpenStack compute services.
+The https://camel.apache.org/components/latest/openstack-nova-component.html[openstack-nova,window=_blank] component allows messages to be sent to an OpenStack compute services.
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-openstack/src/main/docs/openstack-neutron-component.adoc[openstack-neutron,window=_blank] component allows messages to be sent to an OpenStack network services.
+The https://camel.apache.org/components/latest/openstack-neutron-component.html[openstack-neutron,window=_blank] component allows messages to be sent to an OpenStack network services.
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-openstack/src/main/docs/openstack-keystone-component.adoc[openstack-keystone,window=_blank] component allows messages to be sent to an OpenStack identity services.
+The https://camel.apache.org/components/latest/openstack-keystone-component.html[openstack-keystone,window=_blank] component allows messages to be sent to an OpenStack identity services.
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-openstack/src/main/docs/openstack-glance-component.adoc[openstack-glance,window=_blank] component allows messages to be sent to an OpenStack image services.
+The https://camel.apache.org/components/latest/openstack-glance-component.html[openstack-glance,window=_blank] component allows messages to be sent to an OpenStack image services.
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-openstack/src/main/docs/openstack-cinder-component.adoc[openstack-cinder,window=_blank] component allows messages to be sent to an OpenStack block storage services.
+The https://camel.apache.org/components/latest/openstack-cinder-component.html[openstack-cinder,window=_blank] component allows messages to be sent to an OpenStack block storage services.

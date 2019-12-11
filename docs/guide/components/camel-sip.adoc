@@ -1,4 +1,4 @@
-### camel-ip
+### camel-sip
 
 The http://camel.apache.org/sip.html[sip,window=_blank] component is a communication component, based on the Jain SIP implementation (available under the JCP license).
 

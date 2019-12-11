@@ -1,3 +1,3 @@
 ### camel-zendesk
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-zendesk/src/main/docs/zendesk-component.adoc[zendesk,window=_blank] component provides access to all of the http://zendesk.com[Zendesk,window=_blank] APIs via the https://github.com/cloudbees/zendesk-java-client[zendesk-java-client,window=_blank].
+The https://camel.apache.org/components/latest/zendesk-component.html[zendesk,window=_blank] component provides access to all of the http://zendesk.com[Zendesk,window=_blank] APIs via the https://github.com/cloudbees/zendesk-java-client[zendesk-java-client,window=_blank].

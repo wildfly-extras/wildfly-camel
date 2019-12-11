@@ -1,3 +1,3 @@
 ### camel-micrometer
 
-The https://github.com/apache/camel/blob/camel-{camel-version}/components/camel-micrometer/src/main/docs/micrometer-component.adoc[micrometer,window=_blank] component allows you to collect various metrics directly from Camel routes.
+The https://camel.apache.org/components/latest/micrometer-component.html[micrometer,window=_blank] component allows you to collect various metrics directly from Camel routes.
