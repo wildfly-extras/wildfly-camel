@@ -37,7 +37,8 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 public class WeatherIntegrationTest {
 
-    private static String OPENWEATHER_APP_ID = System.getenv("OPENWEATHER_APP_ID");
+    private static final String OPENWEATHER_APP_ID = System.getenv("OPENWEATHER_APP_ID");
+    private static final String GEOLOCATION_ACCESS_KEY = System.getenv("GEOLOCATION_ACCESS_KEY");
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -49,20 +50,32 @@ public class WeatherIntegrationTest {
         Assume.assumeNotNull(OPENWEATHER_APP_ID);
 
         CamelContext camelctx = new DefaultCamelContext();
-        ProducerTemplate template = camelctx.createProducerTemplate();
-        String response = template.requestBody("weather:foo?location=Madrid,Spain&period=7 days&appid=" + OPENWEATHER_APP_ID, null, String.class);
-        Assert.assertNotNull(response);
-        Assert.assertTrue("Contains ", response.contains(",\"name\":\"Madrid\","));
+        try {
+            camelctx.start();
+
+            ProducerTemplate template = camelctx.createProducerTemplate();
+            String response = template.requestBody("weather:foo?location=Madrid,Spain&period=7 days&appid=" + OPENWEATHER_APP_ID, null, String.class);
+            Assert.assertNotNull(response);
+            Assert.assertTrue("Contains ", response.contains(",\"name\":\"Madrid\","));
+        } finally {
+            camelctx.stop();
+        }
     }
 
     @Test
     public void testGetWeatherFromGeoIpLocation() {
-        Assume.assumeNotNull(OPENWEATHER_APP_ID);
+        Assume.assumeNotNull(OPENWEATHER_APP_ID, GEOLOCATION_ACCESS_KEY);
 
         CamelContext camelctx = new DefaultCamelContext();
-        ProducerTemplate template = camelctx.createProducerTemplate();
-        String response = template.requestBody("weather:foo?appid=" + OPENWEATHER_APP_ID, null, String.class);
-        Assert.assertNotNull(response);
-        Assert.assertTrue("Contains ", response.contains(",\"weather\":"));
+        try {
+            camelctx.start();
+
+            ProducerTemplate template = camelctx.createProducerTemplate();
+            String response = template.requestBody("weather:foo?geolocationRequestHostIP=redhat.com&geolocationAccessKey=" + GEOLOCATION_ACCESS_KEY + "&appid=" + OPENWEATHER_APP_ID, null, String.class);
+            Assert.assertNotNull(response);
+            Assert.assertTrue("Contains ", response.contains(",\"weather\":"));
+        } finally {
+            camelctx.stop();
+        }
     }
 }
