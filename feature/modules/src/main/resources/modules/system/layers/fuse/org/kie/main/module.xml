@@ -33,7 +33,6 @@
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.fasterxml.jackson.datatype.jackson-datatype-jsr310" slot="fuse" />
     <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" slot="fuse" />
-    <module name="com.sun.xml.bind" />
     <module name="com.thoughtworks.xstream" />
     <module name="javax.activation.api" />
     <module name="javax.enterprise.api" />

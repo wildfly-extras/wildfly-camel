@@ -1,5 +1,93 @@
 ### Changelog
 
+#### WildFly-Camel 11.0.0
+
+**Features**
+
+* [#2839][2839] Restore support for domain mode
+* [#2872][2872] Enable Camel subsystem based on annotated types
+* [#2911][2911] Add support for component MicroProfile metrics
+* [#2913][2913] Add support for component MicroProfile health
+
+For details see [11.0.0 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"11.0.0"+label%3Afeature)
+
+**Tasks**
+
+* [#2612][2612] Modify documentation component links for new camel website
+* [#2716][2716] Upgrade to camel-3.0.0
+* [#2719][2719] Observability support
+* [#2746][2746] Remove support for camel-mongodb
+* [#2751][2751] Remove support for camel-script
+* [#2756][2756] Remove support for camel-chronicle
+* [#2804][2804] Remove support for SerializationDataFormat
+* [#2807][2807] Remove support for camel-rmi
+* [#2809][2809] Remove support for camel-jibx
+* [#2830][2830] Migrate to docker base image wildfly/wildfly-centos7
+* [#2844][2844] Upgrade to WildFly-18.0.0
+* [#2860][2860] Remove support for @ContextName
+* [#2865][2865] Remove support for camel-boon
+* [#2866][2866] Remove support for camel-ejb
+* [#2867][2867] Rename camel-mina2 to camel-mina
+* [#2868][2868] Rename camel-mongodb3 to camel-mongodb
+* [#2869][2869] Rename camel-netty4 to camel-netty
+* [#2870][2870] Rename camel-quartz2 to camel-quartz
+* [#2871][2871] Rename camel-rxjava2 to camel-rxjava
+* [#2884][2884] Rename camel-hdfs2 to camel-hdfs
+* [#2894][2894] Remove support for camel-mqtt
+* [#2903][2903] Remove support for camel-linkedin
+* [#2906][2906] Upgrade Hawtio to 2.8.0
+* [#2908][2908] Upgrade to WildFly-18.0.1.Final
+* [#2919][2919] Use camel provided apacheds version
+
+For details see [11.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"11.0.0"+label%3Atask)
+
+**Bugs**
+
+* [#2783][2783] No ActiveMQ connection factory with RAR deployment
+* [#2859][2859] CDI integration fails with camel-3.0
+* [#2885][2885] Wildfly shutdown after every test
+* [#2915][2915] LdapIntegration fails with NoSuchFieldError: SESSION_SECURED
+* [#2917][2917] XChange cannot check API connection before start
+* [#2928][2928] WeatherIntegrationTest fails due to CamelContext is stopped
+
+For details see [11.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"11.0.0"+label%3Abug)
+
+[2839]: https://github.com/wildfly-extras/wildfly-camel/issues/2839
+[2872]: https://github.com/wildfly-extras/wildfly-camel/issues/2872
+[2911]: https://github.com/wildfly-extras/wildfly-camel/issues/2911
+[2913]: https://github.com/wildfly-extras/wildfly-camel/issues/2913
+[2612]: https://github.com/wildfly-extras/wildfly-camel/issues/2612
+[2716]: https://github.com/wildfly-extras/wildfly-camel/issues/2716
+[2719]: https://github.com/wildfly-extras/wildfly-camel/issues/2719
+[2746]: https://github.com/wildfly-extras/wildfly-camel/issues/2746
+[2751]: https://github.com/wildfly-extras/wildfly-camel/issues/2751
+[2756]: https://github.com/wildfly-extras/wildfly-camel/issues/2756
+[2804]: https://github.com/wildfly-extras/wildfly-camel/issues/2804
+[2807]: https://github.com/wildfly-extras/wildfly-camel/issues/2807
+[2809]: https://github.com/wildfly-extras/wildfly-camel/issues/2809
+[2830]: https://github.com/wildfly-extras/wildfly-camel/issues/2830
+[2844]: https://github.com/wildfly-extras/wildfly-camel/issues/2844
+[2860]: https://github.com/wildfly-extras/wildfly-camel/issues/2860
+[2865]: https://github.com/wildfly-extras/wildfly-camel/issues/2865
+[2866]: https://github.com/wildfly-extras/wildfly-camel/issues/2866
+[2867]: https://github.com/wildfly-extras/wildfly-camel/issues/2867
+[2868]: https://github.com/wildfly-extras/wildfly-camel/issues/2868
+[2869]: https://github.com/wildfly-extras/wildfly-camel/issues/2869
+[2870]: https://github.com/wildfly-extras/wildfly-camel/issues/2870
+[2871]: https://github.com/wildfly-extras/wildfly-camel/issues/2871
+[2884]: https://github.com/wildfly-extras/wildfly-camel/issues/2884
+[2894]: https://github.com/wildfly-extras/wildfly-camel/issues/2894
+[2903]: https://github.com/wildfly-extras/wildfly-camel/issues/2903
+[2906]: https://github.com/wildfly-extras/wildfly-camel/issues/2906
+[2908]: https://github.com/wildfly-extras/wildfly-camel/issues/2908
+[2919]: https://github.com/wildfly-extras/wildfly-camel/issues/2919
+[2783]: https://github.com/wildfly-extras/wildfly-camel/issues/2783
+[2859]: https://github.com/wildfly-extras/wildfly-camel/issues/2859
+[2885]: https://github.com/wildfly-extras/wildfly-camel/issues/2885
+[2915]: https://github.com/wildfly-extras/wildfly-camel/issues/2915
+[2917]: https://github.com/wildfly-extras/wildfly-camel/issues/2917
+[2928]: https://github.com/wildfly-extras/wildfly-camel/issues/2928
+
 #### WildFly-Camel 10.3.0
 
 **Tasks**
@@ -1081,18 +1169,18 @@ For details see [4.8.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 **Features**
 
 * [#1402][1402] Add support for component ahc
-* [#1403][1403] Add support for component ahc-ws
 * [#1404][1404] Add support for component ahc-wss
+* [#1403][1403] Add support for component ahc-ws
 * [#1408][1408] Add support for component aws-cw
 * [#1409][1409] Add support for component aws-ddb
 * [#1410][1410] Add support for component aws-ddbstream
 * [#1411][1411] Add support for component aws-ec2
 * [#1412][1412] Add support for component aws-kinesis
-* [#1413][1413] Add support for component aws-s3
-* [#1414][1414] Add support for component aws-sdb
 * [#1415][1415] Add support for component aws-ses
-* [#1416][1416] Add support for component aws-sns
 * [#1417][1417] Add support for component aws-sqs
+* [#1416][1416] Add support for component aws-sns
+* [#1414][1414] Add support for component aws-sdb
+* [#1413][1413] Add support for component aws-s3
 * [#1418][1418] Add support for component aws-swf
 * [#1420][1420] Add support for component box
 * [#1421][1421] Add support for component coap
@@ -1176,18 +1264,18 @@ For details see [4.7.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 For details see [4.7.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.7.0"+label%3Abug)
 
 [1402]: https://github.com/wildfly-extras/wildfly-camel/issues/1402
-[1403]: https://github.com/wildfly-extras/wildfly-camel/issues/1403
 [1404]: https://github.com/wildfly-extras/wildfly-camel/issues/1404
+[1403]: https://github.com/wildfly-extras/wildfly-camel/issues/1403
 [1408]: https://github.com/wildfly-extras/wildfly-camel/issues/1408
 [1409]: https://github.com/wildfly-extras/wildfly-camel/issues/1409
 [1410]: https://github.com/wildfly-extras/wildfly-camel/issues/1410
 [1411]: https://github.com/wildfly-extras/wildfly-camel/issues/1411
 [1412]: https://github.com/wildfly-extras/wildfly-camel/issues/1412
-[1413]: https://github.com/wildfly-extras/wildfly-camel/issues/1413
-[1414]: https://github.com/wildfly-extras/wildfly-camel/issues/1414
 [1415]: https://github.com/wildfly-extras/wildfly-camel/issues/1415
-[1416]: https://github.com/wildfly-extras/wildfly-camel/issues/1416
 [1417]: https://github.com/wildfly-extras/wildfly-camel/issues/1417
+[1416]: https://github.com/wildfly-extras/wildfly-camel/issues/1416
+[1414]: https://github.com/wildfly-extras/wildfly-camel/issues/1414
+[1413]: https://github.com/wildfly-extras/wildfly-camel/issues/1413
 [1418]: https://github.com/wildfly-extras/wildfly-camel/issues/1418
 [1420]: https://github.com/wildfly-extras/wildfly-camel/issues/1420
 [1421]: https://github.com/wildfly-extras/wildfly-camel/issues/1421
