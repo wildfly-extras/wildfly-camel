@@ -66,16 +66,17 @@
     <module name="javax.activation.api" skip="true">
         <include artifact=":activation" />
         <include artifact=":jakarta.activation" />
+        <include artifact=":jakarta.activation-api" />
         <include artifact=":geronimo-activation_1.1_spec" />
-        <include artifact=":jakarta.activation" />
     </module>
 
     <module name="javax.annotation.api" skip="true">
-        <include artifact=":javax.annotation-api" />
-        <include artifact=":javax.annotation" />
-        <include artifact=":jsr250-api" />
         <include artifact=":geronimo-annotation_1.0_spec" />
         <include artifact=":geronimo-annotation_1.1_spec" />
+        <include artifact=":javax.annotation-api" />
+        <include artifact=":javax.annotation" />
+        <include artifact=":jboss-annotations-api_1.2_spec" />
+        <include artifact=":jsr250-api" />
     </module>
 
     <module name="javax.batch.api" skip="true">
@@ -199,6 +200,7 @@
         <include artifact=":jaxb-api" />
         <include artifact=":jaxb-core" />
         <include artifact=":jaxb-impl" />
+        <include artifact=":jakarta.xml.bind-api" />
         <include artifact=":jboss-jaxb-api_2.2_spec" />
         <include artifact=":jboss-jaxb-api_2.3_spec" />
     </module>

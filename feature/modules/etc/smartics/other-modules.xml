@@ -1902,8 +1902,13 @@
     <module name="org.drools">
         <include artifact="org.drools:drools-compiler" />
         <include artifact="org.drools:drools-core" />
+        <include artifact="org.drools:drools-canonical-model" />
+        <include artifact="org.drools:drools-model-compiler" />
+        <include artifact="org.drools:drools-mvel-compiler" />
+        <include artifact="org.drools:drools-mvel-parser" />
         <apply-to-dependencies skip="true">
             <include module="antlr" />
+            <include module="com.github.javaparser" />
             <include module="com.sun.xml.bind.jaxb.xjc" />
             <include module="org.osgi.compendium" />
             <include module="org.osgi.core" />
@@ -2261,6 +2266,9 @@
         <exports>
             <exclude path="org/optaplanner/core/impl**" />
         </exports>
+        <dependencies>
+            <module name="com.google.guava" slot="fuse"/>
+        </dependencies>
     </module>
 
     <module name="org.quartz">

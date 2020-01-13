@@ -23,9 +23,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.component.nagios.NagiosComponent;
 import org.apache.camel.component.nagios.NagiosConstants;
-import org.apache.camel.component.nagios.NagiosEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -66,8 +64,7 @@ public class NagiosIntegrationTest {
     @Test
     public void testSendToNagios() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(createRouteBuilder());
+        CamelContext camelctx = createCamelContext();
 
         MessagePayload expectedPayload = new MessagePayload("localhost", Level.OK, camelctx.getName(),  "Hello Nagios");
 
@@ -92,8 +89,7 @@ public class NagiosIntegrationTest {
     @Test
     public void testSendTwoToNagios() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(createRouteBuilder());
+        CamelContext camelctx = createCamelContext();
 
         MessagePayload expectedPayload1 = new MessagePayload("localhost", Level.OK, camelctx.getName(),  "Hello Nagios");
         MessagePayload expectedPayload2 = new MessagePayload("localhost", Level.OK, camelctx.getName(),  "Bye Nagios");
@@ -121,8 +117,7 @@ public class NagiosIntegrationTest {
     @Test
     public void testSendToNagiosWarn() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(createRouteBuilder());
+        CamelContext camelctx = createCamelContext();
 
         MessagePayload expectedPayload1 = new MessagePayload("localhost", Level.WARNING, camelctx.getName(),  "Hello Nagios");
 
@@ -145,8 +140,7 @@ public class NagiosIntegrationTest {
     @Test
     public void testSendToNagiosWarnAsText() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(createRouteBuilder());
+        CamelContext camelctx = createCamelContext();
 
         MessagePayload expectedPayload1 = new MessagePayload("localhost", Level.WARNING, camelctx.getName(),  "Hello Nagios");
 
@@ -170,8 +164,7 @@ public class NagiosIntegrationTest {
     @Test
     public void testSendToNagiosMultiHeaders() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(createRouteBuilder());
+        CamelContext camelctx = createCamelContext();
 
         MessagePayload expectedPayload1 = new MessagePayload("myHost", Level.CRITICAL, "myService",  "Hello Nagios");
 
@@ -196,21 +189,19 @@ public class NagiosIntegrationTest {
         }
     }
 
-    private RouteBuilder createRouteBuilder() throws Exception {
-        return new RouteBuilder() {
+    private CamelContext createCamelContext() throws Exception {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.getRegistry().bind("mySender", nagiosPassiveCheckSender);
+        camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                String uri = "nagios:127.0.0.1:25664?password=secret";
-
-                NagiosComponent nagiosComponent = new NagiosComponent();
-                nagiosComponent.setCamelContext(getContext());
-                NagiosEndpoint nagiousEndpoint = (NagiosEndpoint) nagiosComponent.createEndpoint(uri);
-                nagiousEndpoint.setSender(nagiosPassiveCheckSender);
 
                 from("direct:start")
-                        .to(nagiousEndpoint)
+                        .to("nagios:127.0.0.1:25664?password=secret&sender=#mySender")
                         .to("mock:result");
             }
-        };
+        });
+        return camelctx;
     }
 }

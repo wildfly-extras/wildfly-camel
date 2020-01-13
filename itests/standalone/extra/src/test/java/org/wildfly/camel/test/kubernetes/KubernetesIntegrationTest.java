@@ -69,7 +69,7 @@ public class KubernetesIntegrationTest {
 
     @Test
     public void testKubernetesConsumer() throws Exception {
-        String kubernetesConsumerURI = String.format("kubernetes-pods:%s?category=pods", getKubernetesMaster());
+        String kubernetesConsumerURI = String.format("kubernetes-pods:%s", getKubernetesMaster());
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
@@ -97,7 +97,7 @@ public class KubernetesIntegrationTest {
             headers.put(KubernetesConstants.KUBERNETES_NAMESPACE_NAME, kubernetesNamespace);
             headers.put(KubernetesConstants.KUBERNETES_POD_NAME, podName);
             headers.put(KubernetesConstants.KUBERNETES_POD_SPEC, createPodSpec());
-            template.requestBodyAndHeaders("kubernetes-pods:" + getKubernetesMaster() + "?category=pods&operation=createPod", null, headers);
+            template.requestBodyAndHeaders("kubernetes-pods:" + getKubernetesMaster() + "?operation=createPod", null, headers);
 
             mockEndpoint.assertIsSatisfied();
         } finally {
@@ -105,7 +105,7 @@ public class KubernetesIntegrationTest {
             Map<String, Object> headers = new HashMap<>();
             headers.put(KubernetesConstants.KUBERNETES_NAMESPACE_NAME, kubernetesNamespace);
             headers.put(KubernetesConstants.KUBERNETES_POD_NAME, podName);
-            template.requestBodyAndHeaders("kubernetes-pods:" + getKubernetesMaster() + "?category=pods&operation=deletePod", null, headers);
+            template.requestBodyAndHeaders("kubernetes-pods:" + getKubernetesMaster() + "?operation=deletePod", null, headers);
 
             camelctx.close();
         }
@@ -113,7 +113,7 @@ public class KubernetesIntegrationTest {
 
     @Test
     public void testKubernetesProducer() throws Exception {
-        String kubernetesProducerURI = String.format("kubernetes-pods:%s?category=pods&operation=createPod", getKubernetesMaster());
+        String kubernetesProducerURI = String.format("kubernetes-pods:%s?operation=createPod", getKubernetesMaster());
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {

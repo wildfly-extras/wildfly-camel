@@ -258,14 +258,6 @@
         <include artifact="io.sundr:transform-annotations" />
     </module>
 
-    <module name="jakarta.activation" skip="true">
-        <include artifact="jakarta.activation:jakarta.activation-api" />
-    </module>
-
-    <module name="jakarta.xml.bind" skip="true">
-        <include artifact="jakarta.xml.bind:jakarta.xml.bind-api" />
-    </module>
-
     <module name="javax.money" skip="true">
         <include artifact="javax.money:money-api" />
     </module>

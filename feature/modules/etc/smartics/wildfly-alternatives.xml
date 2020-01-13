@@ -51,10 +51,6 @@
         <include artifact=":jackson-jaxrs-base" />
         <include artifact=":jackson-jaxrs-json-provider" />
         <include artifact=":jackson-module-jaxb-annotations" />
-        <apply-to-dependencies skip="true">
-            <include module="jakarta.activation" />
-            <include module="jakarta.xml.bind" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.xml.bind.api" />
         </dependencies>

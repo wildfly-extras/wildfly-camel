@@ -49,7 +49,7 @@
         <product.release.name>WildFly Camel</product.release.name>
 
         <!-- Camel versions -->
-        <version.apache.camel>3.0.0</version.apache.camel>
+        <version.apache.camel>3.0.1</version.apache.camel>
         <version.camel.apacheds>2.0.0.AM25</version.camel.apacheds>
         <version.camel.apns>1.0.0.Beta6</version.camel.apns>
         <version.camel.bouncycastle>1.64</version.camel.bouncycastle>
