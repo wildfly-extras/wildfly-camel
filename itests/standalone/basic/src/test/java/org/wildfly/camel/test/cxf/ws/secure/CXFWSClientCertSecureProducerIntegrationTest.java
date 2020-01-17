@@ -83,7 +83,11 @@ public class CXFWSClientCertSecureProducerIntegrationTest {
             + "</Envelope>";
 
     @Deployment
-    public static Archive<?> deployment() {
+    public static Archive<?> deployment() throws Exception {
+
+        // [#2935] Cannot deploy CXFWSClientCertSecureProducerIntegrationTest.war
+        Thread.sleep(2000);
+
         final WebArchive archive = ShrinkWrap
                 .create(WebArchive.class, CXFWSClientCertSecureProducerIntegrationTest.class.getSimpleName() + ".war")
                 .addClasses(ClientCertSecurityDomainSetup.class, CXFWSSecureUtils.class, EnvironmentUtils.class)
