@@ -102,7 +102,6 @@ public class PubNubIntegrationTest {
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
             template.sendBody("direct:start", "Hello Kermit");
-
             mockEndpoint.assertIsSatisfied();
         } finally {
             camelctx.close();
@@ -120,13 +119,13 @@ public class PubNubIntegrationTest {
             }
         });
 
+        MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+        mockEndpoint.expectedHeaderReceived(CHANNEL, "subscriberChannel");
+        mockEndpoint.expectedMinimumMessageCount(1);
+
         camelctx.start();
         try {
-            MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:resultB", MockEndpoint.class);
-
-            camelctx.getRouteController().startRoute("subscriber");
-            mockEndpoint.expectedMinimumMessageCount(1);
-            mockEndpoint.expectedHeaderReceived(CHANNEL, "subscriberChannel");
+            camelctx.startRoute("subscriber");
             mockEndpoint.assertIsSatisfied();
         } finally {
             camelctx.close();
