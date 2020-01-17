@@ -216,14 +216,20 @@ public class ReactorIntegrationTest {
 
     @Test
     public void testFrom() throws Exception {
+
         CamelContext camelctx = new DefaultCamelContext();
+
+        CamelReactiveStreamsService crs = CamelReactiveStreams.get(camelctx);
+        Publisher<Exchange> timer = crs.from("timer:reactive?period=250&repeatCount=3");
+
+        AtomicInteger value = new AtomicInteger(0);
+        CountDownLatch latch = new CountDownLatch(3);
+
         camelctx.start();
         try {
-            CamelReactiveStreamsService crs = CamelReactiveStreams.get(camelctx);
-            Publisher<Exchange> timer = crs.from("timer:reactive?period=250&repeatCount=3");
 
-            AtomicInteger value = new AtomicInteger(0);
-            CountDownLatch latch = new CountDownLatch(3);
+            // [#2936] Reactive stream has no active subscriptions
+            Thread.sleep(500);
 
             Flux.from(timer)
                 .map(exchange -> ExchangeHelper.getHeaderOrProperty(exchange, Exchange.TIMER_COUNTER, Integer.class))
