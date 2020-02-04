@@ -151,6 +151,8 @@
             <include module="com.querydsl.skip" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="org.springframework.context" />
+            <module name="org.springframework.expression" />
         </dependencies>
     </module>
 

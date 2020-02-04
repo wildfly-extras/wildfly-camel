@@ -35,6 +35,7 @@ import java.util.UUID;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.Message;
 import org.apache.camel.Producer;
 import org.apache.camel.builder.RouteBuilder;
@@ -271,8 +272,7 @@ public class OpenstackIntegrationTest {
 
     @Test
     public void createSwiftContainer() throws Exception {
-
-        CamelContext camelContext = Mockito.mock(CamelContext.class);
+        ExtendedCamelContext camelContext = Mockito.mock(ExtendedCamelContext.class);
         when(camelContext.getHeadersMapFactory()).thenReturn(new DefaultHeadersMapFactory());
 
         Message msg = new DefaultMessage(camelContext);
@@ -304,7 +304,7 @@ public class OpenstackIntegrationTest {
         when(osTestKeypair.getFingerprint()).thenReturn("fp");
         when(osTestKeypair.getPrivateKey()).thenReturn("prk");
 
-        CamelContext camelContext = Mockito.mock(CamelContext.class);
+        ExtendedCamelContext camelContext = Mockito.mock(ExtendedCamelContext.class);
         when(camelContext.getHeadersMapFactory()).thenReturn(new DefaultHeadersMapFactory());
 
         Message msg = new DefaultMessage(camelContext);
@@ -334,7 +334,7 @@ public class OpenstackIntegrationTest {
 
     @Test
     public void createNeutronNetwork() throws Exception {
-        CamelContext camelContext = Mockito.mock(CamelContext.class);
+        ExtendedCamelContext camelContext = Mockito.mock(ExtendedCamelContext.class);
         when(camelContext.getHeadersMapFactory()).thenReturn(new DefaultHeadersMapFactory());
 
         Message msg = new DefaultMessage(camelContext);
@@ -359,7 +359,7 @@ public class OpenstackIntegrationTest {
 
     @Test
     public void createKeystoneProject() throws Exception {
-        CamelContext camelContext = Mockito.mock(CamelContext.class);
+        ExtendedCamelContext camelContext = Mockito.mock(ExtendedCamelContext.class);
         when(camelContext.getHeadersMapFactory()).thenReturn(new DefaultHeadersMapFactory());
 
         Message msg = new DefaultMessage(camelContext);
@@ -384,7 +384,7 @@ public class OpenstackIntegrationTest {
 
     @Test
     public void reserveGlanceImage() throws Exception {
-        CamelContext camelContext = Mockito.mock(CamelContext.class);
+        ExtendedCamelContext camelContext = Mockito.mock(ExtendedCamelContext.class);
         when(camelContext.getHeadersMapFactory()).thenReturn(new DefaultHeadersMapFactory());
 
         GlanceEndpoint endpoint = Mockito.mock(GlanceEndpoint.class);
@@ -409,7 +409,7 @@ public class OpenstackIntegrationTest {
 
     @Test
     public void createCinderVolume() throws Exception {
-        CamelContext camelContext = Mockito.mock(CamelContext.class);
+        ExtendedCamelContext camelContext = Mockito.mock(ExtendedCamelContext.class);
         when(camelContext.getHeadersMapFactory()).thenReturn(new DefaultHeadersMapFactory());
 
         Message msg = new DefaultMessage(camelContext);

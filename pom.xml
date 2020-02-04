@@ -49,7 +49,7 @@
         <product.release.name>WildFly Camel</product.release.name>
 
         <!-- Camel versions -->
-        <version.apache.camel>3.0.1</version.apache.camel>
+        <version.apache.camel>3.1.0</version.apache.camel>
         <version.camel.apacheds>2.0.0.AM25</version.camel.apacheds>
         <version.camel.apns>1.0.0.Beta6</version.camel.apns>
         <version.camel.bouncycastle>1.64</version.camel.bouncycastle>
@@ -60,18 +60,19 @@
         <version.camel.elasticsearch.rest>7.3.2</version.camel.elasticsearch.rest>
         <version.camel.hadoop2>2.7.4</version.camel.hadoop2>
         <version.camel.hadoop2.protobuf>2.5.0</version.camel.hadoop2.protobuf>
-        <version.camel.httpclient>4.5.10</version.camel.httpclient>
+        <version.camel.httpclient>4.5.11</version.camel.httpclient>
         <version.camel.javacrumbs>0.22</version.camel.javacrumbs>
-        <version.camel.jgroups>4.1.8.Final</version.camel.jgroups>
-        <version.camel.log4j2>2.12.1</version.camel.log4j2>
+        <version.camel.jgroups>4.1.9.Final</version.camel.jgroups>
+        <version.camel.log4j2>2.13.0</version.camel.log4j2>
         <version.camel.lucene>8.1.1</version.camel.lucene>
         <version.camel.mina>2.1.3</version.camel.mina>
-        <version.camel.netty41>4.1.43.Final</version.camel.netty41>
+        <version.camel.netty41>4.1.45.Final</version.camel.netty41>
         <version.camel.opencmis>1.1.0</version.camel.opencmis>
-        <version.camel.qpid.proton>0.33.2</version.camel.qpid.proton>
-        <version.camel.rxjava2>2.2.13</version.camel.rxjava2>
-        <version.camel.squareup.okhttp>3.12.0</version.camel.squareup.okhttp>
-        <version.camel.squareup.okio>1.15.0</version.camel.squareup.okio>
+        <version.camel.qpid.proton>0.33.3</version.camel.qpid.proton>
+        <version.camel.rxjava2>2.2.17</version.camel.rxjava2>
+        <version.camel.snakeyaml>1.25</version.camel.snakeyaml>
+        <version.camel.squareup.okhttp>3.14.3</version.camel.squareup.okhttp>
+        <version.camel.squareup.okio>1.17.2</version.camel.squareup.okio>
         <version.camel.sshd>2.0.0</version.camel.sshd>
 
         <!-- WildFly versions -->

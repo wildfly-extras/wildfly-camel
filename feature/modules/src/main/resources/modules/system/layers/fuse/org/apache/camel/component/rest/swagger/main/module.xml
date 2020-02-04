@@ -8,6 +8,7 @@
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="org.slf4j" />
+    <module name="org.apache.camel.component.http" />
     <module name="org.apache.camel.component.swagger" />
     <module name="org.apache.camel.core" />
   </dependencies>

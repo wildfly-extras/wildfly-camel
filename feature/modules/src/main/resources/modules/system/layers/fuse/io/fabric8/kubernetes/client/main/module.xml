@@ -12,6 +12,7 @@
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="com.fasterxml.jackson.dataformat.yaml" />
+    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jsr310" slot="fuse" />
     <module name="com.github.generex" />
     <module name="com.squareup.okhttp3" slot="fuse" />
     <module name="io.fabric8.kubernetes.model" />

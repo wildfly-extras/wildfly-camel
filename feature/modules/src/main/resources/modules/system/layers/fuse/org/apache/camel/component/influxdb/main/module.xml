@@ -10,6 +10,7 @@
     <module name="com.squareup.retrofit2" slot="fuse" />
     <module name="com.squareup.moshi" />
     <module name="org.slf4j" />
+    <module name="com.squareup.okio" />
     <module name="org.apache.camel.core" />
   </dependencies>
   <exports>

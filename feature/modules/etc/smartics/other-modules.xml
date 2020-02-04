@@ -567,6 +567,19 @@
         </properties>
         <include artifact="com.google.auth:google-auth-library-credentials" />
         <include artifact="com.google.auth:google-auth-library-oauth2-http" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
+    </module>
+
+    <module name="com.google.auto.value">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.google.auto.value:auto-value-annotations" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
     </module>
 
     <module name="com.google.http-client.google-http-client">
@@ -655,6 +668,13 @@
         </properties>
         <include artifact="com.healthmarketscience.jackcess:jackcess"/>
         <include artifact="com.healthmarketscience.jackcess:jackcess-encrypt"/>
+    </module>
+
+    <module name="com.ibm.icu">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.ibm.icu:icu4j"/>
     </module>
 
     <module name="com.impossibl.pgjdbc">
@@ -1882,12 +1902,14 @@
             </module>
         </dependencies>
         <exports>
+            <exclude path="groovy/cli/internal"/>
             <exclude path="groovy/json/internal"/>
             <exclude path="groovyjarjarantlr/**"/>
             <exclude path="groovyjarjarasm/**"/>
             <exclude path="groovyjarjarpicocli/**"/>
             <exclude path="groovyjarjarcommonscli/**"/>
             <exclude path="org/apache/groovy/internal**"/>
+            <exclude path="org/apache/groovy/parser/antlr4**"/>
             <exclude path="org/codehaus"/>
         </exports>
     </module>
@@ -1900,9 +1922,11 @@
     </module>
 
     <module name="org.drools">
+        <include artifact="org.drools:drools-canonical-model" />
         <include artifact="org.drools:drools-compiler" />
         <include artifact="org.drools:drools-core" />
-        <include artifact="org.drools:drools-canonical-model" />
+        <include artifact="org.drools:drools-core-dynamic" />
+        <include artifact="org.drools:drools-core-reflective" />
         <include artifact="org.drools:drools-model-compiler" />
         <include artifact="org.drools:drools-mvel-compiler" />
         <include artifact="org.drools:drools-mvel-parser" />
@@ -1921,11 +1945,11 @@
         </properties>
         <apply-to-dependencies skip="true">
             <include module="io.netty.skipped" />
+            <include module="org.eclipse.californium.skipped" />
         </apply-to-dependencies>
         <include artifact="org.eclipse.californium:californium-core" />
-        <include artifact="org.eclipse.californium:californium-legal" />
         <include artifact="org.eclipse.californium:element-connector" />
-        <include artifact="org.eclipse.californium:element-connector-tcp" />
+        <include artifact="org.eclipse.californium:element-connector-tcp-netty" />
         <include artifact="org.eclipse.californium:scandium" />
     </module>
 

@@ -96,7 +96,7 @@ public class ZipFileIntegrationTest {
     @Test
     public void testZipFileUnmarshal() throws Exception {
         final ZipFileDataFormat zipFileDataFormat = new ZipFileDataFormat();
-        zipFileDataFormat.setUsingIterator(true);
+        zipFileDataFormat.setUsingIterator("true");
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {

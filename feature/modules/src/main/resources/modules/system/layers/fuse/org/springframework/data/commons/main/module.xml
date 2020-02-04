@@ -7,6 +7,8 @@
     <artifact name="${org.springframework.data:spring-data-commons}" />
   </resources>
   <dependencies>
+    <module name="org.springframework.context" />
+    <module name="org.springframework.expression" />
     <module name="org.slf4j" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.core" />

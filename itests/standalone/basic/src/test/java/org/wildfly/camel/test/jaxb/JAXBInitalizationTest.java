@@ -20,10 +20,11 @@
 
 package org.wildfly.camel.test.jaxb;
 
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.model.ModelHelper;
+import org.apache.camel.spi.ModelToXMLDumper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -61,7 +62,8 @@ public class JAXBInitalizationTest {
         camelctx.start();
 
         try {
-            String xml = ModelHelper.dumpModelAsXml(camelctx, camelctx.getRouteDefinition("route-1"));
+            ModelToXMLDumper dumper = camelctx.adapt(ExtendedCamelContext.class).getModelToXMLDumper();
+            String xml = dumper.dumpModelAsXml(camelctx, camelctx.getRouteDefinition("route-1"));
             Assert.assertTrue(xml.contains("log:test"));
         } finally {
             camelctx.close();

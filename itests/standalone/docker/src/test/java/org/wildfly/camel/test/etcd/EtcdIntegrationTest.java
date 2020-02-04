@@ -26,7 +26,6 @@ import java.util.UUID;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.etcd.EtcdConstants;
-import org.apache.camel.component.etcd.EtcdNamespace;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.arquillian.cube.CubeController;
@@ -38,6 +37,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.TestUtils;
@@ -46,6 +46,7 @@ import org.wildfly.extension.camel.CamelAware;
 @CamelAware
 @RunWith(ArquillianConditionalRunner.class)
 @RequiresDocker
+@Ignore("[CAMEL-14492] EtcdKeysEndpoint cannot be cast to AbstractEtcdPollingEndpoint")
 public class EtcdIntegrationTest {
 
     private static final String CONTAINER_ETCD = "etcd";
@@ -94,7 +95,6 @@ public class EtcdIntegrationTest {
 
         MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
         mockEndpoint.expectedMinimumMessageCount(1);
-        mockEndpoint.expectedHeaderReceived(EtcdConstants.ETCD_NAMESPACE, EtcdNamespace.keys.name());
         mockEndpoint.expectedHeaderReceived(EtcdConstants.ETCD_PATH, path);
 
         camelctx.start();

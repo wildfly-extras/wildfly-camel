@@ -6,13 +6,13 @@
     <artifact name="${org.apache.camel:camel-olingo4-api}" />
   </resources>
   <dependencies>
-    <module name="org.apache.olingo4" export="true" />
     <module name="org.apache.commons.lang3" slot="fuse" />
-    <module name="org.slf4j" />
-    <module name="org.apache.camel.core" />
     <module name="org.apache.commons.io" slot="fuse" />
     <module name="org.apache.httpcomponents" slot="fuse" />
+    <module name="org.apache.olingo4" export="true" />
     <module name="org.apache.olingo4.server" />
+    <module name="org.slf4j" />
+    <module name="org.apache.camel.core" />
   </dependencies>
   <exports>
     <exclude path="org/apache/camel/component/olingo4/internal" />

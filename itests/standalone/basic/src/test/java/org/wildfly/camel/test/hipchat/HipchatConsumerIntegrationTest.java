@@ -26,9 +26,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.hipchat.HipchatComponent;
 import org.apache.camel.component.hipchat.HipchatConstants;
-import org.apache.camel.component.hipchat.HipchatEndpoint;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.http.HttpEntity;
@@ -61,23 +59,17 @@ public class HipchatConsumerIntegrationTest {
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-hipchat-tests.jar");
         archive.addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage(), ByteBuddy.class.getPackage());
-        archive.addClasses(HipchatEPSuccessTestSupport.class);
+        archive.addClasses(HipchatComponentSupport.class, HipchatEndpointSupport.class);
         return archive;
     }
 
     private CamelContext createCamelContext() throws Exception {
-        final CamelContext context = new DefaultCamelContext();
-        HipchatComponent component = new HipchatComponent(context) {
-            @Override
-            protected HipchatEndpoint getHipchatEndpoint(String uri) {
-                return new HipchatEPSuccessTestSupport(uri, this, null, closeableHttpResponse);
-            }
-        };
-        context.addComponent("hipchat", component);
+        CamelContext context = new DefaultCamelContext();
+        context.addComponent("hipchat", new HipchatComponentSupport(context, null, closeableHttpResponse));
         context.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("hipchat:http://api.hipchat.com?authToken=anything&consumeUsers=@AUser").to("mock:result");
+                from("hipchat://?authToken=anything&consumeUsers=@AUser").to("mock:result");
             }
         });
         return context;
@@ -130,7 +122,7 @@ public class HipchatConsumerIntegrationTest {
     }
 
     private void assertCommonResultExchange(Exchange resultExchange) {
-        HipchatEPSuccessTestSupport.assertIsInstanceOf(String.class, resultExchange.getIn().getBody());
+        HipchatEndpointSupport.assertIsInstanceOf(String.class, resultExchange.getIn().getBody());
         Assert.assertEquals("Unit test Alert", resultExchange.getIn().getBody(String.class));
         Assert.assertEquals("@AUser", resultExchange.getIn().getHeader(HipchatConstants.FROM_USER));
         Assert.assertEquals("2015-01-19T22:07:11.030740+00:00",

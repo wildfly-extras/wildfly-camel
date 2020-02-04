@@ -10,9 +10,9 @@
     <module name="org.apache.cxf.impl" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
-    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" slot="fuse" />
+    <module name="com.fasterxml.jackson.datatype.jackson-datatype-jsr310" slot="fuse" />
     <module name="org.apache.camel.component.webhook" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.cxf.ext" />
+    <module name="org.asynchttpclient" />
   </dependencies>
 </module>

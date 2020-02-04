@@ -22,6 +22,10 @@
 
     <module name="org.apache.camel.catalog">
         <include artifact="org.apache.camel:camel-catalog" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.allcomponents" />
+            <include module="org.apache.camel.tooling" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="org.slf4j" />
         </dependencies>
@@ -36,6 +40,7 @@
         <include artifact="org.apache.camel:camel-cloud" />
         <include artifact="org.apache.camel:camel-controlbus" />
         <include artifact="org.apache.camel:camel-core" />
+        <include artifact="org.apache.camel:camel-core-catalog" />
         <include artifact="org.apache.camel:camel-core-engine" />
         <include artifact="org.apache.camel:camel-dataformat" />
         <include artifact="org.apache.camel:camel-dataset" />
@@ -60,11 +65,14 @@
         <include artifact="org.apache.camel:camel-util-json" />
         <include artifact="org.apache.camel:camel-validator" />
         <include artifact="org.apache.camel:camel-vm" />
+        <include artifact="org.apache.camel:camel-xml-jaxb" />
+        <include artifact="org.apache.camel:camel-xml-jaxp" />
         <include artifact="org.apache.camel:camel-xpath" />
         <include artifact="org.apache.camel:camel-xslt" />
         <include artifact="org.apache.camel:spi-annotations" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
+            <include module="org.apache.camel.tooling" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
@@ -126,6 +134,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="javax.servlet.api"/>
             <module name="org.asynchttpclient" export="true"/>
             <module name="io.netty" slot="fuse" />
             <module name="org.slf4j" />
@@ -1299,12 +1308,15 @@
 
     <module name="org.apache.camel.component.http.common">
         <include artifact="org.apache.camel:camel-http-common" />
+        <include artifact="org.apache.camel:camel-http-base" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.activation.api"/>
+            <module name="javax.servlet.api"/>
+            <module name="org.apache.camel.core"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>
@@ -2080,11 +2092,13 @@
     <module name="org.apache.camel.component.netty">
         <include artifact="org.apache.camel:camel-netty" />
         <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped" />
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
+            <module name="io.netty" slot="fuse"/>
             <module name="org.slf4j" />
         </dependencies>
     </module>
@@ -2151,8 +2165,11 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.apache.olingo4" export="true"/>
             <module name="org.apache.commons.lang3" slot="fuse"/>
+            <module name="org.apache.commons.io" slot="fuse" />
+            <module name="org.apache.httpcomponents" slot="fuse" />
+            <module name="org.apache.olingo4" export="true"/>
+            <module name="org.apache.olingo4.server" />
             <module name="org.slf4j"/>
         </dependencies>
         <exports>
@@ -2612,7 +2629,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="org.slf4j"/>
-            <module name="org.yaml.snakeyaml" export="true"/>
+            <module name="org.yaml.snakeyaml" slot="fuse" export="true"/>
         </dependencies>
     </module>
 
@@ -3021,6 +3038,7 @@
             </module>
             <module name="javax.api"/>
             <module name="javax.activation.api"/>
+            <module name="javax.servlet.api"/>
             <module name="org.apache.httpcomponents" slot="fuse" />
             <module name="org.jboss.xnio" />
             <module name="org.slf4j" />
@@ -3086,6 +3104,7 @@
             <include module="org.apache.camel.apt" />
         </apply-to-dependencies>
         <dependencies>
+            <module name="org.apache.camel.core" />
             <module name="org.slf4j" />
         </dependencies>
     </module>

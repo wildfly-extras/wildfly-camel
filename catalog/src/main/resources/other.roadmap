@@ -23,6 +23,8 @@ zipkin
 aws-xray
 kura
 microprofile-config
+openapi-java
+osgi-activator
 reactive-executor-vertx
 resilience4j
 testcontainers-junit5
@@ -30,11 +32,6 @@ testcontainers-spring-junit5
 
 [rejected]
 blueprint
-spring-boot
-spring-cloud
-spring-cloud-consul
-spring-cloud-netflix
-spring-cloud-zookeeper
 test                                #2052 Testing utility
 test-blueprint
 test-cdi

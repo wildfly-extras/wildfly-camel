@@ -9,6 +9,5 @@
     <module name="org.slf4j" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.codec" slot="fuse" />
-    <module name="org.apache.commons.io" slot="fuse" />
   </dependencies>
 </module>

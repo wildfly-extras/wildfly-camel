@@ -17,6 +17,7 @@
 package org.wildfly.camel.test.headersmap;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.headersmap.FastHeadersMapFactory;
@@ -61,7 +62,7 @@ public class FastHeadersIntegrationTest {
 
             mockResult.assertIsSatisfied();
 
-            HeadersMapFactory factory = camelctx.getHeadersMapFactory();
+            HeadersMapFactory factory = camelctx.adapt(ExtendedCamelContext.class).getHeadersMapFactory();
             Assert.assertTrue("Instance of FastHeadersMapFactory", factory instanceof FastHeadersMapFactory);
         } finally {
             camelctx.close();

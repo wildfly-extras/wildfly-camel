@@ -7,6 +7,7 @@
     <module name="org.eclipse.microprofile.health.api" />
     <module name="io.smallrye.health" />
     <module name="org.slf4j" />
+    <module name="javax.enterprise.api" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

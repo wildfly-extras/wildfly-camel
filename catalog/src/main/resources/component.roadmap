@@ -51,7 +51,7 @@ couchbase
 couchdb
 cql
 crypto
-crypto-cms
+crypto-cms                                          #deprecated
 cxf
 cxfrs
 dataformat
@@ -69,7 +69,9 @@ dropbox
 ehcache
 elasticsearch-rest
 elsql
-etcd
+etcd-keys
+etcd-stats
+etcd-watch
 exec
 facebook
 fhir
@@ -251,7 +253,8 @@ weather
 webhook
 wordpress
 xchange
-xmlsecurity
+xmlsecurity-sign
+xmlsecurity-verify
 xmpp
 xquery
 xslt
@@ -274,12 +277,28 @@ aws-lambda
 aws-mq
 aws-msk
 aws-translate
+aws2-cw
+aws2-ddb
+aws2-ddbstream
+aws2-ec2
+aws2-ecs
+aws2-eks
+aws2-iam
+aws2-kms
+aws2-mq
+aws2-msk
+aws2-ses
+aws2-sns
+aws2-sqs
+aws2-translate
 chatscript
 corda
+cron
 debezium-mongodb
 debezium-mysql
 debezium-postgres
 debezium-sqlserver
+elytron
 file-watch
 google-sheets
 google-sheets-stream
@@ -287,6 +306,7 @@ graphql
 iota
 jgroups-raft
 jooq
+jslt
 kudu
 milo-client
 milo-server
@@ -294,11 +314,14 @@ nitrite
 pg-replication-slot
 platform-http
 pulsar
+rest-openapi
 robotframework
 service
 soroush
 web3j
 websocket-jsr356
+weka
+workday
 xj
 
 [rejected]

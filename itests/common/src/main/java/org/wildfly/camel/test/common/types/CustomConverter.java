@@ -28,6 +28,10 @@ import org.apache.camel.Converter;
 @Converter
 public class CustomConverter {
 
+	public CustomConverter() {
+		System.out.println("Loaded CustomConverter");
+	}
+	
     @Converter
     public Customer toCustomer(Map<String, String> map) {
         return new Customer(map.get("firstName"), map.get("lastName"));

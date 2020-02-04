@@ -13,6 +13,7 @@
     <module name="org.apache.commons.logging" slot="fuse" />
     <module name="org.springframework.aop" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="io.micrometer" />
     <module name="org.codehaus.jettison" slot="fuse" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.context" />

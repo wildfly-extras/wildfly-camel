@@ -91,7 +91,7 @@ public class SJMS2IntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("sjms2:queue:" + QUEUE_NAME + "?connectionFactory=ConnectionFactory")
+                from("sjms2:queue:" + QUEUE_NAME + "?connectionFactory=#ConnectionFactory")
                 .setBody(simple("Hello ${body}"))
                 .to("mock:result");
             }
@@ -124,7 +124,7 @@ public class SJMS2IntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start").
-                to("sjms2:queue:" + QUEUE_NAME + "?connectionFactory=ConnectionFactory");
+                to("sjms2:queue:" + QUEUE_NAME + "?connectionFactory=#ConnectionFactory");
             }
         });
 

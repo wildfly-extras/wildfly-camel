@@ -21,9 +21,7 @@
 package org.wildfly.camel.test.kafka;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
@@ -35,10 +33,14 @@ import org.apache.camel.ServiceStatus;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.kafka.KafkaComponent;
 import org.apache.camel.component.kafka.KafkaConstants;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -57,7 +59,7 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-public class KafkaProducerIntegrationTest {
+public class KafkaIntegrationTest {
 
     private static final String TOPIC_STRINGS = "test";
     private static final String TOPIC_STRINGS_IN_HEADER = "testHeader";
@@ -76,20 +78,19 @@ public class KafkaProducerIntegrationTest {
     @BeforeClass
     public static void before() throws Exception {
         embeddedZookeeper = new EmbeddedZookeeper();
-        List<Integer> kafkaPorts = Collections.singletonList(KAFKA_PORT);
-        embeddedKafkaBroker = new EmbeddedKafkaBroker(embeddedZookeeper.getConnection(), new Properties(), kafkaPorts);
+        embeddedKafkaBroker = new EmbeddedKafkaBroker(0, KAFKA_PORT, embeddedZookeeper.getConnection(), new Properties());
 
         embeddedZookeeper.startup(1, TimeUnit.SECONDS);
         System.out.println("### Embedded Zookeeper connection: " + embeddedZookeeper.getConnection());
 
-        embeddedKafkaBroker.startup();
+        embeddedKafkaBroker.before();
         System.out.println("### Embedded Kafka cluster broker list: " + embeddedKafkaBroker.getBrokerList());
     }
 
     @AfterClass
     public static void after() throws Exception {
         try {
-            embeddedKafkaBroker.shutdown();
+            embeddedKafkaBroker.after();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -190,6 +191,54 @@ public class KafkaProducerIntegrationTest {
         }
     }
 
+    @Test
+    public void testKafkaMessageConsumedByCamel() throws Exception {
+
+        CamelContext camelctx = new DefaultCamelContext();
+        camelctx.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("kafka:" + TOPIC_STRINGS + "?groupId=group1&autoOffsetReset=earliest&autoCommitEnable=true")
+                .to("mock:result");
+            }
+        });
+
+        KafkaComponent kafka = new KafkaComponent();
+        kafka.setBrokers("localhost:" + KAFKA_PORT);
+        camelctx.addComponent("kafka", kafka);
+
+        MockEndpoint to = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+        to.expectedBodiesReceivedInAnyOrder("message-0", "message-1", "message-2", "message-3", "message-4");
+        to.expectedMessageCount(5);
+
+        camelctx.start();
+        try (KafkaProducer<String, String> producer = createKafkaProducer()) {
+            for (int k = 0; k < 5; k++) {
+                String msg = "message-" + k;
+                ProducerRecord<String, String> data = new ProducerRecord<String, String>(TOPIC_STRINGS, "1", msg);
+                producer.send(data);
+            }
+            to.assertIsSatisfied(3000);
+        } finally {
+            camelctx.stop();
+        }
+    }
+
+    private KafkaProducer<String, String> createKafkaProducer() {
+        Properties props = new Properties();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:" + KAFKA_PORT);
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, KafkaConstants.KAFKA_DEFAULT_SERIALIZER);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaConstants.KAFKA_DEFAULT_SERIALIZER);
+        props.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, KafkaConstants.KAFKA_DEFAULT_PARTITIONER);
+        props.put(ProducerConfig.ACKS_CONFIG, "1");
+        ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+        try {
+            Thread.currentThread().setContextClassLoader(org.apache.kafka.clients.producer.KafkaProducer.class.getClassLoader());
+            return new KafkaProducer<>(props);
+        } finally {
+            Thread.currentThread().setContextClassLoader(tccl);
+        }
+    }
     private KafkaConsumer<String, String> createKafkaConsumer() {
         Properties stringsProps = new Properties();
         stringsProps.put(org.apache.kafka.clients.consumer.ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:" + KAFKA_PORT);

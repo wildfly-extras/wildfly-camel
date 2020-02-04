@@ -1062,6 +1062,11 @@
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-jcache</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${version.camel.snakeyaml}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.wildfly</groupId>
@@ -1101,8 +1106,20 @@
                     </modules>
                     <dependencyExcludes>
                         <exclude>
+                            <groupId>com.atlassian.jira</groupId>
+                            <artifactId>jira-rest-java-client-api</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>com.atlassian.jira</groupId>
+                            <artifactId>jira-rest-java-client-core</artifactId>
+                        </exclude>
+                        <exclude>
                             <groupId>io.hawt</groupId>
                             <artifactId>hawtio-wildfly</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>javax.jdo</groupId>
+                            <artifactId>jdo-api</artifactId>
                         </exclude>
                         <exclude>
                             <groupId>org.apache.logging.log4j</groupId>

@@ -33,12 +33,12 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.message.BasicStatusLine;
 import org.junit.Assert;
 
-class HipchatEPSuccessTestSupport extends HipchatEndpoint {
+public class HipchatEndpointSupport extends HipchatEndpoint {
 
     private PostCallback callback;
     private CloseableHttpResponse closeableHttpResponse;
 
-    HipchatEPSuccessTestSupport(String uri, HipchatComponent component, PostCallback callback, CloseableHttpResponse consumerResponse) {
+    public HipchatEndpointSupport(String uri, HipchatComponent component, PostCallback callback, CloseableHttpResponse consumerResponse) {
         super(uri, component);
         this.callback = callback;
         this.closeableHttpResponse = consumerResponse;

@@ -23,9 +23,7 @@ import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.hipchat.HipchatComponent;
 import org.apache.camel.component.hipchat.HipchatConstants;
-import org.apache.camel.component.hipchat.HipchatEndpoint;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.http.StatusLine;
@@ -45,13 +43,25 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 public class HipchatProducerIntegrationTest {
 
-    private HipchatEPSuccessTestSupport.PostCallback callback = new HipchatEPSuccessTestSupport.PostCallback();
+    private HipchatEndpointSupport.PostCallback callback = new HipchatEndpointSupport.PostCallback();
 
     @Deployment
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-hipchat-tests.jar");
-        archive.addClasses(HipchatEPSuccessTestSupport.class);
+        archive.addClasses(HipchatComponentSupport.class, HipchatEndpointSupport.class);
         return archive;
+    }
+
+    private CamelContext createCamelContext() throws Exception {
+        final CamelContext context = new DefaultCamelContext();
+        context.addComponent("hipchat", new HipchatComponentSupport(context, callback, null));
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start").to("hipchat://?authToken=anything").to("mock:result");
+            }
+        });
+        return context;
     }
 
     @Test
@@ -141,7 +151,7 @@ public class HipchatProducerIntegrationTest {
             result.assertIsSatisfied();
 
             Exchange resultExchange = result.getExchanges().get(0);
-            HipchatEPSuccessTestSupport.assertIsInstanceOf(String.class, resultExchange.getIn().getBody());
+            HipchatEndpointSupport.assertIsInstanceOf(String.class, resultExchange.getIn().getBody());
             Assert.assertEquals("This is my unit test message.", resultExchange.getIn().getBody(String.class));
             Assert.assertEquals("CamelUnitTest", resultExchange.getIn().getHeader(HipchatConstants.TO_ROOM));
             Assert.assertNull(resultExchange.getIn().getHeader(HipchatConstants.TO_USER));
@@ -187,7 +197,7 @@ public class HipchatProducerIntegrationTest {
             result.assertIsSatisfied();
 
             Exchange resultExchange = result.getExchanges().get(0);
-            HipchatEPSuccessTestSupport.assertIsInstanceOf(String.class, resultExchange.getIn().getBody());
+            HipchatEndpointSupport.assertIsInstanceOf(String.class, resultExchange.getIn().getBody());
             Assert.assertEquals("This is my unit test message.", resultExchange.getIn().getBody(String.class));
             Assert.assertEquals("CamelUnitTest", resultExchange.getIn().getHeader(HipchatConstants.TO_USER));
             Assert.assertNull(resultExchange.getIn().getHeader(HipchatConstants.TO_ROOM));
@@ -217,7 +227,7 @@ public class HipchatProducerIntegrationTest {
     }
 
     private void assertCommonResultExchange(Exchange resultExchange) {
-        HipchatEPSuccessTestSupport.assertIsInstanceOf(String.class, resultExchange.getIn().getBody());
+        HipchatEndpointSupport.assertIsInstanceOf(String.class, resultExchange.getIn().getBody());
         Assert.assertEquals("This is my unit test message.", resultExchange.getIn().getBody(String.class));
         Assert.assertEquals("CamelUnitTest", resultExchange.getIn().getHeader(HipchatConstants.TO_ROOM));
         Assert.assertEquals("CamelUnitTestUser", resultExchange.getIn().getHeader(HipchatConstants.TO_USER));
@@ -237,23 +247,5 @@ public class HipchatProducerIntegrationTest {
                 message.getHeader(HipchatConstants.TO_ROOM_RESPONSE_STATUS, StatusLine.class).getStatusCode());
         Assert.assertEquals(204,
                 message.getHeader(HipchatConstants.TO_USER_RESPONSE_STATUS, StatusLine.class).getStatusCode());
-    }
-
-    private CamelContext createCamelContext() throws Exception {
-        final CamelContext context = new DefaultCamelContext();
-        HipchatComponent component = new HipchatComponent(context) {
-            @Override
-            protected HipchatEndpoint getHipchatEndpoint(String uri) {
-                return new HipchatEPSuccessTestSupport(uri, this, callback, null);
-            }
-        };
-        context.addComponent("hipchat", component);
-        context.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:start").to("hipchat:http:api.hipchat.com?authToken=anything").to("mock:result");
-            }
-        });
-        return context;
     }
 }

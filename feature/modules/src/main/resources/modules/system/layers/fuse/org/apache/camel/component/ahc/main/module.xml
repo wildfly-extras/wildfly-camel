@@ -4,10 +4,10 @@
     <artifact name="${org.apache.camel:camel-ahc}" />
   </resources>
   <dependencies>
+    <module name="javax.servlet.api" />
     <module name="org.asynchttpclient" export="true" />
     <module name="io.netty" slot="fuse" />
     <module name="org.slf4j" />
-    <module name="javax.servlet.api" />
     <module name="org.apache.camel.component.http.common" />
     <module name="org.apache.camel.core" />
   </dependencies>

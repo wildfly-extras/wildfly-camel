@@ -59,6 +59,10 @@ public class YamlDataFormatIntegrationTest {
             }
         });
 
+        ClassLoader loader = SnakeYAMLDataFormat.class.getClassLoader();
+        loader = loader.loadClass("org.yaml.snakeyaml.Yaml").getClassLoader();
+        System.out.println(loader);
+        
         camelctx.start();
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();

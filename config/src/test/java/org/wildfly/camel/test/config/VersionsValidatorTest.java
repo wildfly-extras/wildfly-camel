@@ -73,6 +73,7 @@ public class VersionsValidatorTest {
         mapping.put("version.camel.qpid.proton", "qpid-proton-j-version");
         mapping.put("version.camel.rxjava2", "rxjava2-version");
         mapping.put("version.camel.sshd", "sshd-version");
+        mapping.put("version.camel.snakeyaml", "snakeyaml-version");
         mapping.put("version.camel.squareup.okhttp", "squareup-okhttp-version");
         mapping.put("version.camel.squareup.okio", "squareup-okio-version");
 

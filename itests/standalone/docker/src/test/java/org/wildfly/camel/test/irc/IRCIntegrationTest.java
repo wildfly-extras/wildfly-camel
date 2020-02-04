@@ -24,6 +24,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.irc.IrcComponent;
@@ -79,41 +80,46 @@ public class IRCIntegrationTest {
 
     @Test
     public void testIRCComponent() throws Exception {
-        String uri = "irc:kermit@" + TestUtils.getDockerHost() + "/#wfctest";
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from(uri)
-                .to("mock:messages");
-            }
-        });
+        try (CamelContext camelctx = new DefaultCamelContext()) {
 
-        MockEndpoint endpoint = camelctx.getEndpoint("mock:messages", MockEndpoint.class);
-        endpoint.expectedMessageCount(3);
+            String uri = "irc:kermit@" + TestUtils.getDockerHost() + ":6667?channels=#wfctest";
 
-        // Expect a JOIN message for each user connection, followed by the actual IRC message
-        endpoint.expectedBodiesReceived("JOIN", "JOIN", "Hello Kermit!");
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    from(uri)
+                    .to("mock:messages");
+                }
+            });
 
-        CountDownLatch latch = new CountDownLatch(1);
+            // Expect a JOIN message for each user connection, followed by the actual IRC message
 
-        IrcComponent component = camelctx.getComponent("irc", IrcComponent.class);
-        IrcEndpoint ircEndpoint = camelctx.getEndpoint(uri, IrcEndpoint.class);
+            MockEndpoint endpoint = camelctx.getEndpoint("mock:messages", MockEndpoint.class);
+            endpoint.expectedMessageCount(3);
 
-        IRCConnection ircConnection = component.getIRCConnection(ircEndpoint.getConfiguration());
-        ircConnection.addIRCEventListener(new ChannelJoinListener(latch));
+            CountDownLatch latch = new CountDownLatch(1);
 
-        camelctx.start();
-        try {
+            IrcComponent component = camelctx.getComponent("irc", IrcComponent.class);
+            IrcEndpoint ircEndpoint = camelctx.getEndpoint(uri, IrcEndpoint.class);
+
+            IRCConnection ircConnection = component.getIRCConnection(ircEndpoint.getConfiguration());
+            ircConnection.addIRCEventListener(new ChannelJoinListener(latch));
+
+            camelctx.start();
+
             Assert.assertTrue("Gave up waiting for user to join IRC channel", latch.await(15, TimeUnit.SECONDS));
 
             ProducerTemplate template = camelctx.createProducerTemplate();
-            template.sendBody("irc:piggy@" + TestUtils.getDockerHost() + "/#wfctest", "Hello Kermit!");
+            template.sendBody("irc:piggy@" + TestUtils.getDockerHost() + ":6667?channels=#wfctest", "Hello Kermit!");
 
             endpoint.assertIsSatisfied(10000);
-        } finally {
-            camelctx.close();
+
+            System.out.println(endpoint);
+            endpoint.getExchanges().forEach(ex -> System.out.println(ex.getMessage()));
+
+            Exchange ex3 = endpoint.getExchanges().get(2);
+            Assert.assertEquals("Hello Kermit!", ex3.getMessage().getBody(String.class));
         }
     }
 

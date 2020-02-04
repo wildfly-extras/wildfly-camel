@@ -33,11 +33,11 @@
     <camelContext id="hl7-context" xmlns="http://camel.apache.org/schema/spring">
         <route>
             <from uri="direct:start"/>
-            <to uri="netty:tcp://localhost:8907?encoder=#hl7encoder&amp;decoder=#hl7decoder&amp;sync=true"/>
+            <to uri="netty:tcp://localhost:8907?encoders=#hl7encoder&amp;decoders=#hl7decoder&amp;sync=true"/>
         </route>
 
         <route>
-            <from uri="netty:tcp://localhost:8907?encoder=#hl7encoder&amp;decoder=#hl7decoder&amp;sync=true"/>
+            <from uri="netty:tcp://localhost:8907?encoders=#hl7encoder&amp;decoders=#hl7decoder&amp;sync=true"/>
             <to uri="mock:result"/>
         </route>
     </camelContext>

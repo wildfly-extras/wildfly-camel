@@ -154,14 +154,16 @@ public final class CatalogCreator {
 
     private void collectAvailable() throws IOException {
 
+        ObjectMapper mapper = new ObjectMapper();
+
         // Walk the available camel catalog items
         Files.walkFileTree(srcdir, new SimpleFileVisitor<Path>() {
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
                 if (path.toString().endsWith(".json")) {
                     Path relpath = srcdir.relativize(path);
-                    ObjectMapper mapper = new ObjectMapper();
                     JsonNode treeNode = mapper.readTree(path.toFile());
                     JsonNode valnode = treeNode.findValue("kind");
+                    if (valnode == null) return FileVisitResult.CONTINUE;
                     String kind = valnode != null ? valnode.textValue() : null;
                     valnode = treeNode.findValue("artifactId");
                     String artifactId = valnode != null ? valnode.textValue() : null;

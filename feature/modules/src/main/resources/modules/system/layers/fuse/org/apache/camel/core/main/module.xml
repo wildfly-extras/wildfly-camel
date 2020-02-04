@@ -9,13 +9,13 @@
     <artifact name="${org.apache.camel:camel-cloud}" />
     <artifact name="${org.apache.camel:camel-controlbus}" />
     <artifact name="${org.apache.camel:camel-core}" />
+    <artifact name="${org.apache.camel:camel-core-catalog}" />
     <artifact name="${org.apache.camel:camel-core-engine}" />
     <artifact name="${org.apache.camel:camel-dataformat}" />
     <artifact name="${org.apache.camel:camel-dataset}" />
     <artifact name="${org.apache.camel:camel-direct}" />
     <artifact name="${org.apache.camel:camel-directvm}" />
     <artifact name="${org.apache.camel:camel-file}" />
-    <artifact name="${org.apache.camel:camel-jaxp}" />
     <artifact name="${org.apache.camel:camel-language}" />
     <artifact name="${org.apache.camel:camel-log}" />
     <artifact name="${org.apache.camel:camel-main}" />
@@ -33,9 +33,10 @@
     <artifact name="${org.apache.camel:camel-util-json}" />
     <artifact name="${org.apache.camel:camel-validator}" />
     <artifact name="${org.apache.camel:camel-vm}" />
+    <artifact name="${org.apache.camel:camel-xml-jaxb}" />
+    <artifact name="${org.apache.camel:camel-xml-jaxp}" />
     <artifact name="${org.apache.camel:camel-xpath}" />
     <artifact name="${org.apache.camel:camel-xslt}" />
-    <artifact name="${org.apache.camel:spi-annotations}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
@@ -45,6 +46,7 @@
     <module name="org.slf4j" />
     <module name="sun.jdk" />
     <module name="com.sun.javax.activation" />
+    <module name="org.apache.camel.component.headersmap" />
   </dependencies>
   <exports>
     <exclude path="org/apache/camel/impl/osgi**" />

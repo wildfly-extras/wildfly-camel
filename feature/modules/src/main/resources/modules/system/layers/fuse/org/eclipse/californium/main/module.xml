@@ -5,10 +5,8 @@
   </properties>
   <resources>
     <artifact name="${org.eclipse.californium:californium-core}" />
-    <artifact name="${org.eclipse.californium:californium-legal}" />
     <artifact name="${org.eclipse.californium:element-connector}" />
-    <artifact name="${org.eclipse.californium:element-connector}" />
-    <artifact name="${org.eclipse.californium:element-connector-tcp}" />
+    <artifact name="${org.eclipse.californium:element-connector-tcp-netty}" />
     <artifact name="${org.eclipse.californium:scandium}" />
   </resources>
   <dependencies>

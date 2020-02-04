@@ -60,9 +60,9 @@ public class YammerIntegrationTest {
                 from("yammer:messages?consumerKey=aConsumerKey&consumerSecret=aConsumerSecretKey&accessToken=aAccessToken").to("mock:result");
             }
         });
-
-        camelctx.start();
-        try {
+        
+        camelctx.addStartupListener((ctx, flag) -> {
+            
             InputStream is = getClass().getResourceAsStream("/yammer/messages.json");
             String messages = camelctx.getTypeConverter().convertTo(String.class, is);
 
@@ -72,7 +72,10 @@ public class YammerIntegrationTest {
                     ((YammerEndpoint)endpoint).getConfig().setRequestor(new TestApiRequestor(messages));
                 }
             }
+        });
 
+        camelctx.start();
+        try {
             MockEndpoint mock = camelctx.getEndpoint("mock:result", MockEndpoint.class);
             mock.expectedMinimumMessageCount(1);
             mock.assertIsSatisfied();

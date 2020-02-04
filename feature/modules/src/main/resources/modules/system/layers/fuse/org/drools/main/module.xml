@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.drools">
   <resources>
+    <artifact name="${org.drools:drools-canonical-model}" />
     <artifact name="${org.drools:drools-compiler}" />
     <artifact name="${org.drools:drools-core}" />
+    <artifact name="${org.drools:drools-core-dynamic}" />
+    <artifact name="${org.drools:drools-core-reflective}" />
+    <artifact name="${org.drools:drools-model-compiler}" />
+    <artifact name="${org.drools:drools-mvel-compiler}" />
+    <artifact name="${org.drools:drools-mvel-parser}" />
   </resources>
   <dependencies>
     <module name="com.google.protobuf" />
@@ -13,7 +19,6 @@
     <module name="javax.xml.stream.api" />
     <module name="org.antlr.runtime" />
     <module name="org.apache.commons.codec" slot="fuse" />
-    <module name="org.eclipse.jdt.ecj" slot="fuse" />
     <module name="org.kie" />
     <module name="org.mvel.mvel2" />
     <module name="org.slf4j" />

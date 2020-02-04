@@ -12,6 +12,7 @@
   <dependencies>
     <module name="javax.enterprise.api" />
     <module name="javax.measure.api" />
+    <module name="javax.xml.bind.api" />
     <module name="org.opengis.geoapi" />
   </dependencies>
 </module>

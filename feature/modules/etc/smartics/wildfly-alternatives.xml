@@ -336,13 +336,6 @@
         <include artifact=":stax2-api" />
     </module>
 
-    <module name="org.eclipse.jdt.ecj" inherit-slot="false" slot="fuse">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.eclipse.jdt.core.compiler:ecj" />
-    </module>
-
     <module name="org.eclipse.jgit" inherit-slot="false" slot="fuse">
         <properties>
             <property name="jboss.api" value="private"/>

@@ -13,7 +13,6 @@
     <module name="net.sf.ehcache.ehcache-core" />
     <module name="org.itadaki.bzip2" />
     <module name="org.joda.time" slot="fuse" />
-    <module name="org.quartz" />
     <module name="org.slf4j" />
   </dependencies>
 </module>

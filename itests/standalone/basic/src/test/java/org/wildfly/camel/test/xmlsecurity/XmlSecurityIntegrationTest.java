@@ -92,7 +92,7 @@ public class XmlSecurityIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                    .to("xmlsecurity:sign://enveloping?keyAccessor=#accessor&schemaResourceUri=");
+                    .to("xmlsecurity-sign://enveloping?keyAccessor=#accessor&schemaResourceUri=");
             }
         });
 
@@ -117,8 +117,8 @@ public class XmlSecurityIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                    .to("xmlsecurity:sign://enveloping?keyAccessor=#accessor&schemaResourceUri=")
-                    .to("xmlsecurity:verify://enveloping?keySelector=#selector");
+                    .to("xmlsecurity-sign://enveloping?keyAccessor=#accessor&schemaResourceUri=")
+                    .to("xmlsecurity-verify://enveloping?keySelector=#selector");
             }
         });
 

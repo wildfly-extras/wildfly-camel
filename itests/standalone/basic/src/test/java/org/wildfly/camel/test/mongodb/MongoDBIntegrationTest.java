@@ -58,8 +58,8 @@ import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.MongoClient;
 import com.mongodb.client.ListIndexesIterable;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
@@ -76,7 +76,8 @@ public class MongoDBIntegrationTest {
 
     private MongoCollection<BasicDBObject> testCollection;
     private MongoCollection<BasicDBObject> dynamicCollection;
-    private MongoClient mongoClient;
+    private com.mongodb.client.MongoClient mongoClientA;
+    private com.mongodb.MongoClient mongoClientB;
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -103,13 +104,14 @@ public class MongoDBIntegrationTest {
 
     @Before
     public void setUp() throws Exception {
+
         Assume.assumeFalse("[#2486] MongoDBIntegrationTest fails on Windows", EnvironmentUtils.isWindows());
 
-        mongoClient = new MongoClient("localhost", PORT);
-        MongoDatabase db = mongoClient.getDatabase("test");
-
         InitialContext context = new InitialContext();
-        context.bind("mdb", mongoClient);
+        context.bind("mdbA", mongoClientA = MongoClients.create(String.format("mongodb://%s:%d", "localhost", PORT)));
+        context.bind("mdbB", mongoClientB = new com.mongodb.MongoClient("localhost", PORT));
+
+        MongoDatabase db = mongoClientA.getDatabase("test");
 
         String testCollectionName = "camelTest";
         testCollection = db.getCollection(testCollectionName, BasicDBObject.class);
@@ -128,7 +130,8 @@ public class MongoDBIntegrationTest {
     public void tearDown() {
         try {
             InitialContext context = new InitialContext();
-            context.unbind("mdb");
+            context.unbind("mdbA");
+            context.unbind("mdbB");
         } catch (NamingException e) {
             // Ignore
         }
@@ -143,7 +146,7 @@ public class MongoDBIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .to("mongodb:mdb?database=test&collection=camelTest&operation=findAll&dynamicity=true");
+                .to("mongodb:mdbA?database=test&collection=camelTest&operation=findAll&dynamicity=true");
             }
         });
 
@@ -172,16 +175,16 @@ public class MongoDBIntegrationTest {
         CamelContext camelctx = new DefaultCamelContext(new JndiBeanRepository());
         camelctx.addRoutes(new RouteBuilder() {
             public void configure() {
-                from("direct:create").to("mongodb-gridfs:mdb?database=testA&operation=create&bucket=" + getBucket());
-                from("direct:remove").to("mongodb-gridfs:mdb?database=testA&operation=remove&bucket=" + getBucket());
-                from("direct:findOne").to("mongodb-gridfs:mdb?database=testA&operation=findOne&bucket=" + getBucket());
-                from("direct:listAll").to("mongodb-gridfs:mdb?database=testA&operation=listAll&bucket=" + getBucket());
-                from("direct:count").to("mongodb-gridfs:mdb?database=testA&operation=count&bucket=" + getBucket());
-                from("direct:headerOp").to("mongodb-gridfs:mdb?database=testA&bucket=" + getBucket());
+                from("direct:create").to("mongodb-gridfs:mdbB?database=testA&operation=create&bucket=" + getBucket());
+                from("direct:remove").to("mongodb-gridfs:mdbB?database=testA&operation=remove&bucket=" + getBucket());
+                from("direct:findOne").to("mongodb-gridfs:mdbB?database=testA&operation=findOne&bucket=" + getBucket());
+                from("direct:listAll").to("mongodb-gridfs:mdbB?database=testA&operation=listAll&bucket=" + getBucket());
+                from("direct:count").to("mongodb-gridfs:mdbB?database=testA&operation=count&bucket=" + getBucket());
+                from("direct:headerOp").to("mongodb-gridfs:mdbB?database=testA&bucket=" + getBucket());
             }
         });
 
-        GridFS gridfs = new GridFS(mongoClient.getDB("testA"), getBucket());
+        GridFS gridfs = new GridFS(mongoClientB.getDB("testA"), getBucket());
 
         camelctx.start();
         try {
@@ -234,21 +237,21 @@ public class MongoDBIntegrationTest {
             public void configure() {
 
                 from("direct:create-a")
-                .to("mongodb-gridfs:mdb?database=testB&operation=create&bucket=" + getBucket("-a"));
+                .to("mongodb-gridfs:mdbB?database=testB&operation=create&bucket=" + getBucket("-a"));
 
                 from("direct:create-b")
-                .to("mongodb-gridfs:mdb?database=testB&operation=create&bucket=" + getBucket("-b"));
+                .to("mongodb-gridfs:mdbB?database=testB&operation=create&bucket=" + getBucket("-b"));
 
                 from("direct:create-c")
-                .to("mongodb-gridfs:mdb?database=testB&operation=create&bucket=" + getBucket("-c"));
+                .to("mongodb-gridfs:mdbB?database=testB&operation=create&bucket=" + getBucket("-c"));
 
-                from("mongodb-gridfs:mdb?database=testB&bucket=" + getBucket("-a"))
+                from("mongodb-gridfs:mdbB?database=testB&bucket=" + getBucket("-a"))
                 .convertBodyTo(String.class).to("mock:test");
 
-                from("mongodb-gridfs:mdb?database=testB&bucket=" + getBucket("-b") + "&queryStrategy=FileAttribute")
+                from("mongodb-gridfs:mdbB?database=testB&bucket=" + getBucket("-b") + "&queryStrategy=FileAttribute")
                 .convertBodyTo(String.class).to("mock:test");
 
-                from("mongodb-gridfs:mdb?database=testB&bucket=" + getBucket("-c") + "&queryStrategy=PersistentTimestamp")
+                from("mongodb-gridfs:mdbB?database=testB&bucket=" + getBucket("-c") + "&queryStrategy=PersistentTimestamp")
                 .convertBodyTo(String.class).to("mock:test");
             }
         });
@@ -267,9 +270,9 @@ public class MongoDBIntegrationTest {
 
             waitForIndexes("testB", indexes);
 
-            runTest(camelctx, "direct:create-a", new GridFS(mongoClient.getDB("testB"), getBucket("-a")));
-            runTest(camelctx, "direct:create-b", new GridFS(mongoClient.getDB("testB"), getBucket("-b")));
-            runTest(camelctx, "direct:create-c", new GridFS(mongoClient.getDB("testB"), getBucket("-c")));
+            runTest(camelctx, "direct:create-a", new GridFS(mongoClientB.getDB("testB"), getBucket("-a")));
+            runTest(camelctx, "direct:create-b", new GridFS(mongoClientB.getDB("testB"), getBucket("-b")));
+            runTest(camelctx, "direct:create-c", new GridFS(mongoClientB.getDB("testB"), getBucket("-c")));
         } finally {
             camelctx.close();
         }
@@ -320,7 +323,7 @@ public class MongoDBIntegrationTest {
     private void waitForIndexes(String db, String ...indexNames) throws Exception {
         final long timeout = 15000;
         final long start = System.currentTimeMillis();
-        final MongoDatabase database = mongoClient.getDatabase(db);
+        final MongoDatabase database = mongoClientA.getDatabase(db);
         final List<String> collectionNames = Arrays.asList(indexNames)
             .stream()
             .map((c) -> {

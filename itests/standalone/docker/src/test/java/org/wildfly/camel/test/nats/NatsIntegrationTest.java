@@ -20,15 +20,17 @@
 package org.wildfly.camel.test.nats;
 
 import io.nats.client.Connection;
-import io.nats.client.Message;
 import io.nats.client.Nats;
 import io.nats.client.Options;
 
 import java.nio.charset.StandardCharsets;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.Message;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.component.nats.NatsComponent;
 import org.apache.camel.component.nats.NatsConsumer;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.arquillian.cube.CubeController;
@@ -76,15 +78,19 @@ public class NatsIntegrationTest {
 
     @Test
     public void testNatsRoutes() throws Exception {
+
         CamelContext camelctx = new DefaultCamelContext();
         try {
             camelctx.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
-                    from("nats://" + TestUtils.getDockerHost() + ":4222?topic=test").id("nats-route")
+                    from("nats:test").id("nats-route")
                     .to("mock:result");
                 }
             });
+
+            NatsComponent nats = camelctx.getComponent("nats", NatsComponent.class);
+            nats.setServers(TestUtils.getDockerHost() + ":4222");
 
             MockEndpoint to = camelctx.getEndpoint("mock:result", MockEndpoint.class);
             to.expectedMessageCount(1);
@@ -109,10 +115,14 @@ public class NatsIntegrationTest {
             connection.publish("test", payload);
 
             to.assertIsSatisfied(5000);
-            Message natsMessage = to.getExchanges().get(0).getIn().getBody(Message.class);
-            Assert.assertEquals("test", natsMessage.getSubject());
-            Assert.assertNull(natsMessage.getReplyTo());
-            Assert.assertArrayEquals(payload, natsMessage.getData());
+
+            Exchange exchange = to.getExchanges().get(0);
+            Assert.assertNotNull(exchange);
+
+            Message message = exchange.getMessage();
+            String body = message.getBody(String.class);
+            Assert.assertEquals("test-message", body);
+
         } finally {
             camelctx.close();
         }

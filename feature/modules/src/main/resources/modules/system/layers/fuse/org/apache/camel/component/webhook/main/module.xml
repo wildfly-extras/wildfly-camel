@@ -4,7 +4,7 @@
     <artifact name="${org.apache.camel:camel-webhook}" />
   </resources>
   <dependencies>
-    <module name="org.slf4j" />
     <module name="org.apache.camel.core" />
+    <module name="org.slf4j" />
   </dependencies>
 </module>
