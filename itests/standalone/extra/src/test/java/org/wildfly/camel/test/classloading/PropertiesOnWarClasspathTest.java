@@ -18,7 +18,7 @@
  * #L%
  */
 
-package org.wildfly.camel.test.modules;
+package org.wildfly.camel.test.classloading;
 
 import java.net.URL;
 import java.util.Properties;
@@ -28,30 +28,35 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.http.HttpRequest;
 import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
-import org.wildfly.camel.test.modules.subA.MyServlet;
+import org.wildfly.camel.test.modules.subA.CamelServlet;
 
 @RunWith(Arquillian.class)
-public class GlobalModulesTest {
+public class PropertiesOnWarClasspathTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-global-modules.war");
+        WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-warprops.war");
         archive.addAsWebInfResource("modules/jboss-camel-context.xml", "jboss-camel-context.xml");
-        archive.addClasses(HttpRequest.class, MyServlet.class);
+        archive.addAsWebInfResource("modules/psetA.properties", "psetAA.properties");
+        archive.addAsWebInfResource("modules/psetB.properties", "psetBA.properties");
+        archive.addClasses(HttpRequest.class, CamelServlet.class);
+        System.out.println(archive.toString(true));
         return archive;
     }
 
     @Test
+    @Ignore("[#2944] Cannot load properties from servlet classpath")
     public void testClassLoaderAccess() throws Exception {
 
         Properties props = new Properties();
         ClassLoader loader = getClass().getClassLoader();
-        URL propsA = loader.getResource("/psetA.properties");
-        URL propsB = loader.getResource("/psetB.properties");
+        URL propsA = loader.getResource("/WEB-INF/psetAA.properties");
+        URL propsB = loader.getResource("/WEB-INF/psetBA.properties");
         Assert.assertNotNull("propsA not null", propsA);
         Assert.assertNotNull("propsB not null", propsB);
 
@@ -67,7 +72,10 @@ public class GlobalModulesTest {
     @Test
     public void testCamelRouteAccess() throws Exception {
 
-        HttpResponse result = HttpRequest.get("http://localhost:8080/camel-global-modules").getResponse();
+        // Note, jboss-camel-context.xml does not actually load the properties from the deployment
+        // Instead it loads psetA, psetB from global modules
+
+        HttpResponse result = HttpRequest.get("http://localhost:8080/camel-warprops/camel").getResponse();
         Assert.assertEquals("Hello valA valB", result.getBody());
     }
 }

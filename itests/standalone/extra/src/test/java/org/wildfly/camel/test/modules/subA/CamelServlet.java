@@ -34,8 +34,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 
 @SuppressWarnings("serial")
-@WebServlet(name = "HttpServiceServlet", urlPatterns = { "/*" }, loadOnStartup = 1)
-public class MyServlet extends HttpServlet {
+@WebServlet(name = "HttpServiceServlet", urlPatterns = { "/camel" }, loadOnStartup = 1)
+public class CamelServlet extends HttpServlet {
 
 	@Resource(lookup = "java:jboss/camel/context/spring-context")
 	private CamelContext camelContext;

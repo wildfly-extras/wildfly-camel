@@ -36,10 +36,13 @@ import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelContextRegistry;
 
 @RunWith(Arquillian.class)
-public class WFCExtrasModuleTest {
+public class PropertiesInModuleJarTest {
 
     @ArquillianResource
     private CamelContextRegistry camelContextRegistry;
+
+    // The property files are not part of the deployment
+    // Instead, they should be loaded from modules
 
     @Deployment
     public static JavaArchive createDeployment() {
