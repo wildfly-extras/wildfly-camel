@@ -155,8 +155,6 @@ master
 metrics
 micrometer
 microprofile-metrics
-milo-client
-milo-server
 mina                                                #deprecated
 mllp
 mock
@@ -290,6 +288,8 @@ iota
 jgroups-raft
 jooq
 kudu
+milo-client
+milo-server
 nitrite
 pg-replication-slot
 platform-http

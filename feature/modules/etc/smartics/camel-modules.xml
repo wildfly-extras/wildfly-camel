@@ -1948,28 +1948,6 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.milo">
-        <include artifact="org.apache.camel:camel-milo" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="com.google.guava" slot="fuse"/>
-            <module name="org.eclipse.milo" export="true">
-                <exports>
-                    <exclude path="org/jooq**" />
-                </exports>
-            </module>
-            <module name="org.eclipse.milo.server" export="true" />
-            <module name="org.slf4j"/>
-        </dependencies>
-        <exports>
-            <exclude path="org/apache/camel/component/milo/client/internal" />
-            <exclude path="org/apache/camel/component/milo/server/internal" />
-        </exports>
-    </module>
-
     <module name="org.apache.camel.component.mina">
         <include artifact="org.apache.camel:camel-mina" />
         <apply-to-dependencies skip="true">

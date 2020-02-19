@@ -387,7 +387,6 @@
 /org/apache/camel/component/micrometer/main/camel-micrometer-3.0.1.jar
 /org/apache/camel/component/microprofile-health/main/camel-microprofile-health-3.0.1.jar
 /org/apache/camel/component/microprofile-metrics/main/camel-microprofile-metrics-3.0.1.jar
-/org/apache/camel/component/milo/main/camel-milo-3.0.1.jar
 /org/apache/camel/component/mina/main/camel-mina-3.0.1.jar
 /org/apache/camel/component/mllp/main/camel-mllp-3.0.1.jar
 /org/apache/camel/component/mongodb/gridfs/main/camel-mongodb-gridfs-3.0.1.jar
@@ -774,15 +773,6 @@
 /org/eclipse/jetty/main/jetty-util-9.4.20.v20190813.jar
 /org/eclipse/jetty/main/jetty-util-ajax-9.4.20.v20190813.jar
 /org/eclipse/jgit/fuse/org.eclipse.jgit-5.0.2.201807311906-r.jar
-/org/eclipse/milo/client/main/bsd-parser-core-0.2.5.jar
-/org/eclipse/milo/client/main/protonpack-1.8.jar
-/org/eclipse/milo/client/main/sdk-client-0.2.5.jar
-/org/eclipse/milo/client/main/stack-client-0.2.5.jar
-/org/eclipse/milo/main/jool-0.9.10.jar
-/org/eclipse/milo/main/sdk-core-0.2.5.jar
-/org/eclipse/milo/main/stack-core-0.2.5.jar
-/org/eclipse/milo/server/main/sdk-server-0.2.5.jar
-/org/eclipse/milo/server/main/stack-server-0.2.5.jar
 /org/eclipse/neoscada/protocols/main/org.eclipse.neoscada.protocol.iec60870-0.4.0.jar
 /org/eclipse/neoscada/protocols/main/org.eclipse.neoscada.protocol.iec60870.client-0.4.0.jar
 /org/eclipse/neoscada/protocols/main/org.eclipse.neoscada.protocol.iec60870.client.data-0.4.0.jar

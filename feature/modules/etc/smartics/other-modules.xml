@@ -1947,59 +1947,6 @@
         </dependencies>
     </module>
 
-    <module name="org.eclipse.milo">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.eclipse.milo:sdk-core" />
-        <include artifact="org.eclipse.milo:stack-core" />
-        <include artifact="org.jooq:jool" />
-        <apply-to-dependencies skip="true">
-            <include module="com.google.code.findbugs"/>
-            <include module="io.netty.skipped"/>
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api"/>
-            <module name="javax.xml.bind.api"/>
-            <module name="io.netty" slot="fuse"/>
-            <module name="org.slf4j"/>
-        </dependencies>
-        <exports>
-            <exclude path="org/eclipse" />
-        </exports>
-    </module>
-
-    <module name="org.eclipse.milo.client">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.eclipse.milo:bsd-parser-core" />
-        <include artifact="org.eclipse.milo:sdk-client" />
-        <include artifact="org.eclipse.milo:stack-client" />
-        <include artifact="com.codepoetics:protonpack" />
-        <dependencies>
-            <module name="com.google.guava" slot="fuse"/>
-            <module name="io.netty" slot="fuse"/>
-            <module name="org.slf4j"/>
-        </dependencies>
-    </module>
-
-    <module name="org.eclipse.milo.server">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.eclipse.milo:sdk-server" />
-        <include artifact="org.eclipse.milo:stack-server" />
-        <dependencies>
-            <module name="com.google.guava" slot="fuse"/>
-            <module name="io.netty" slot="fuse"/>
-            <module name="org.slf4j"/>
-        </dependencies>
-        <exports>
-            <exclude path="org/eclipse" />
-        </exports>
-    </module>
-
     <module name="org.eclipse.neoscada.protocols">
         <properties>
             <property name="jboss.api" value="private"/>
