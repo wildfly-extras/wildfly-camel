@@ -159,19 +159,27 @@ public final class CatalogCreator {
         // Walk the available camel catalog items
         Files.walkFileTree(srcdir, new SimpleFileVisitor<Path>() {
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-                if (path.toString().endsWith(".json")) {
+                // @Ignore(2959 - Cannot parse catalog/components/kafka.json)
+                boolean bug2959 = path.toString().endsWith("kafka.json");
+                bug2959 |= path.toString().endsWith("yammer.json");
+                if (path.toString().endsWith(".json") && !bug2959) {
                     Path relpath = srcdir.relativize(path);
-                    JsonNode treeNode = mapper.readTree(path.toFile());
-                    JsonNode valnode = treeNode.findValue("kind");
-                    if (valnode == null) return FileVisitResult.CONTINUE;
-                    String kind = valnode != null ? valnode.textValue() : null;
-                    valnode = treeNode.findValue("artifactId");
-                    String artifactId = valnode != null ? valnode.textValue() : null;
-                    valnode = treeNode.findValue("deprecated");
-                    boolean deprecated = valnode != null ? valnode.booleanValue() : false;
-                    if (validKind(kind, treeNode)) {
-                        Item item = new Item(relpath, Kind.valueOf(kind), artifactId, deprecated);
-                        ROAD_MAPS.get(item.kind).add(item);
+                    try {
+                        JsonNode treeNode = mapper.readTree(path.toFile());
+                        JsonNode valnode = treeNode.findValue("kind");
+                        if (valnode == null) return FileVisitResult.CONTINUE;
+                        String kind = valnode != null ? valnode.textValue() : null;
+                        valnode = treeNode.findValue("artifactId");
+                        String artifactId = valnode != null ? valnode.textValue() : null;
+                        valnode = treeNode.findValue("deprecated");
+                        boolean deprecated = valnode != null ? valnode.booleanValue() : false;
+                        if (validKind(kind, treeNode)) {
+                            Item item = new Item(relpath, Kind.valueOf(kind), artifactId, deprecated);
+                            ROAD_MAPS.get(item.kind).add(item);
+                        }
+                    } catch (RuntimeException | IOException ex) {
+                        System.err.println("Failed to process: " + path);
+                        throw ex;
                     }
                 }
                 return FileVisitResult.CONTINUE;
