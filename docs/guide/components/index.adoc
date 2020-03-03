@@ -218,6 +218,10 @@ include::camel-metrics.adoc[]
 
 include::camel-micrometer.adoc[]
 
+include::camel-microprofile-health.adoc[]
+
+include::camel-microprofile-metrics.adoc[]
+
 include::camel-milo.adoc[]
 
 include::camel-mina.adoc[]
