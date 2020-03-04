@@ -29,12 +29,14 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Assume;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
+@Ignore("[#2960] The geolocation service requires a mandatory geolocationAccessKey")
 public class WeatherIntegrationTest {
 
     private static final String OPENWEATHER_APP_ID = System.getenv("OPENWEATHER_APP_ID");
