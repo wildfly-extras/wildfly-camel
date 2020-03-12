@@ -947,6 +947,7 @@
             <include module="jexcelapi" />
             <include module="jdom"/>
             <include module="org.apache.camel.apt" />
+            <include module="org.projectlombok" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
@@ -2482,17 +2483,7 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="com.rometools.rome" export="true" slot="1.0">
-                <exports>
-                    <include path="com/sun/syndication/feed" />
-                    <include path="com/sun/syndication/feed/atom" />
-                    <include path="com/sun/syndication/feed/module" />
-                    <include path="com/sun/syndication/feed/rss" />
-                    <include path="com/sun/syndication/feed/synd" />
-                    <include path="com/sun/syndication/io" />
-                    <exclude path="com/sun**" />
-                </exports>
-            </module>
+            <module name="com.rometools.rome" export="true" />
             <module name="org.apache.commons.codec" slot="fuse" />
             <module name="org.slf4j"/>
         </dependencies>

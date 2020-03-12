@@ -318,6 +318,11 @@
                 <version>${version.wildfly.hibernate}</version>
             </dependency>
             <dependency>
+                <groupId>org.jdom</groupId>
+                <artifactId>jdom2</artifactId>
+                <version>${version.jdom}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.jgroups</groupId>
                 <artifactId>jgroups</artifactId>
                 <version>${version.camel.jgroups}</version>

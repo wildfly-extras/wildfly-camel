@@ -37,8 +37,8 @@
     ^com/pubnub(.*)
     ^com/orbitz/consul(.*)
     ^com/rabbitmq(.*)
+    ^com/rometools(.*)
     ^com/splunk(.*)
-	^com/sun/syndication(.*)
 	^com/surftools/BeanstalkClient
     ^com/twilio(.*)
     ^facebook4j(.*)
@@ -114,6 +114,7 @@
     ^org/jibx(.*)
     ^org/jivesoftware(.*)
     ^org/jsmpp(.*)
+    ^org/jvnet(.*)
     ^org/jxmpp(.*)
     ^org/knowm/xchange(.*)
     ^com/myjeeva/digitalocean(.*)

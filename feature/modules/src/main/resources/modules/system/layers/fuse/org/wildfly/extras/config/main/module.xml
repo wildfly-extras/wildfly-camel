@@ -8,7 +8,7 @@
     <artifact name="${org.wildfly.camel:wildfly-camel-config}" />
   </resources>
   <dependencies>
-    <module name="org.jdom" slot="fuse" />
+    <module name="org.jdom2" />
     <module name="args4j" />
     <module name="org.jboss.modules" />
   </dependencies>

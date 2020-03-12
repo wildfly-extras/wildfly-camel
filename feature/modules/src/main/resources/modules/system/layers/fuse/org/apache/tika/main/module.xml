@@ -57,7 +57,7 @@
     <module name="org.codelibs.jhighlight" />
     <module name="org.gagravarr.vorbis" />
     <module name="org.jboss.logging.jul-to-slf4j-stub" />
-    <module name="org.jdom.jdom2" />
+    <module name="org.jdom2" />
     <module name="org.jsoup" slot="fuse" />
     <module name="org.opengis.geoapi" />
     <module name="org.quartz" />

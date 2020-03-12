@@ -92,7 +92,7 @@
         <include artifact="com.thoughtworks.paranamer:paranamer" />
     </module>
 
-    <module name="com.rometools.rome" slot="1.0" skip="true">
+    <module name="com.rometools.rome" skip="true">
         <include artifact="rome:rome" />
     </module>
 

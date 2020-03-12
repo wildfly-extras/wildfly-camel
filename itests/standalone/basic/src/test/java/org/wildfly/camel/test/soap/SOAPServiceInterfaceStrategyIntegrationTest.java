@@ -53,7 +53,7 @@ public class SOAPServiceInterfaceStrategyIntegrationTest {
             .addAsResource("soap/envelope-sis.xml", "envelope.xml")
             .setManifest(() -> {
                 ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.jdom");
+                builder.addManifestHeader("Dependencies", "org.jdom2");
                 return builder.openStream();
             });
     }

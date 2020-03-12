@@ -152,9 +152,7 @@ public class SalesforceIntegrationTest {
         try {
             ProducerTemplate template = camelctx.createProducerTemplate();
             JobInfo result = template.requestBody("direct:start", jobInfo, JobInfo.class);
-
-            Assert.assertNotNull("Expected JobInfo result to not be null", result);
-            Assert.assertNotNull("Expected JobInfo result ID to not be null", result.getId());
+            Assert.assertNotNull("JobInfo result not null", result);
         } finally {
             camelctx.stop();
         }

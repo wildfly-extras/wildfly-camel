@@ -807,20 +807,6 @@
         <include artifact="com.pff:java-libpst" />
     </module>
 
-    <module name="com.rometools.rome" inherit-slot="false" slot="1.0">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="rome:rome" />
-        <apply-to-dependencies skip="true">
-            <include module="jdom"/>
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="javax.api" />
-            <module name="org.jdom" />
-        </dependencies>
-    </module>
-
     <module name="com.rometools.rome">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1570,6 +1556,9 @@
         </properties>
         <include artifact="org.apache.olingo:odata-server-api" />
         <include artifact="org.apache.olingo:odata-server-core" />
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped" />
+        </apply-to-dependencies>
     </module>
 
     <module name="org.apache.opennlp.opennlp-tools">
@@ -1932,7 +1921,15 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="org.eclipse.californium:" />
+        <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped" />
+            <include module="org.eclipse.californium.skipped" />
+        </apply-to-dependencies>
+        <include artifact="org.eclipse.californium:californium-core" />
+        <include artifact="org.eclipse.californium:element-connector" />
+        <include artifact="org.eclipse.californium:element-connector-tcp" />
+        <include artifact="org.eclipse.californium:element-connector-tcp-netty" />
+        <include artifact="org.eclipse.californium:scandium" />
     </module>
 
     <module name="org.eclipse.jetty">
@@ -2176,14 +2173,7 @@
         <include artifact="org.itadaki:bzip2" />
     </module>
 
-    <module name="org.jdom">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.jdom:jdom" />
-    </module>
-
-    <module name="org.jdom.jdom2">
+    <module name="org.jdom2">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>

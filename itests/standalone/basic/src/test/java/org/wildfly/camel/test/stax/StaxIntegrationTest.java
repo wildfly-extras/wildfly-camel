@@ -55,7 +55,7 @@ public class StaxIntegrationTest {
             .addAsResource("stax/" + RECORDS_XML, RECORDS_XML)
             .setManifest(() -> {
                 ManifestBuilder builder = new ManifestBuilder();
-                builder.addManifestHeader("Dependencies", "org.jdom");
+                builder.addManifestHeader("Dependencies", "org.jdom2");
                 return builder.openStream();
             });
     }

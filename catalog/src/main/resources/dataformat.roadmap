@@ -7,7 +7,7 @@ beanio
 bindy-csv
 bindy-fixed
 bindy-kvp
-boon
+boon                #deprecated
 crypto
 csv
 fhirJson

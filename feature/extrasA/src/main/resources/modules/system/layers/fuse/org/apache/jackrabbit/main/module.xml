@@ -5,12 +5,12 @@
   </properties>
   <resources>
     <artifact name="${concurrent:concurrent}" />
-    <artifact name="${org.apache.jackrabbit:jackrabbit-api}" />
     <artifact name="${org.apache.jackrabbit:jackrabbit-core}" />
     <artifact name="${org.apache.jackrabbit:jackrabbit-data}" />
     <artifact name="${org.apache.jackrabbit:jackrabbit-jcr-commons}" />
     <artifact name="${org.apache.jackrabbit:jackrabbit-spi}" />
     <artifact name="${org.apache.jackrabbit:jackrabbit-spi-commons}" />
+    <artifact name="${org.apache.jackrabbit:oak-jackrabbit-api}" />
   </resources>
   <dependencies>
     <module name="javax.api" />

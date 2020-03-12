@@ -20,9 +20,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.jdom.Element;
-import org.jdom.Namespace;
-import org.jdom.Text;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
+import org.jdom2.Text;
 import org.wildfly.extras.config.ConfigContext;
 import org.wildfly.extras.config.ConfigPlugin;
 import org.wildfly.extras.config.ConfigSupport;
@@ -58,7 +58,9 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
 
     @Override
     public boolean applyDomainConfigChange(ConfigContext context, boolean enable) {
-        return false;
+        applyStandaloneConfigChange(context, enable);
+        updateServergroup(enable, context);
+        return true;
     }
 
     private static void updateExtension(ConfigContext context, boolean enable) {
@@ -142,6 +144,20 @@ public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
                     domain.getParentElement().removeContent(domain);
                 }
             }
+        }
+    }
+
+    private static void updateServergroup(boolean enable, ConfigContext context) {
+        Element serverGroups = ConfigSupport.findChildElement(context.getDocument().getRootElement(), "server-groups", NS_DOMAINS);
+        Element camel = ConfigSupport.findElementWithAttributeValue(serverGroups, "server-group", "name", "camel-server-group", NS_DOMAINS);
+        if (enable && camel == null) {
+            URL resource = WildFlyCamelConfigPlugin.class.getResource("/camel-servergroup.xml");
+            serverGroups.addContent(new Text("    "));
+            serverGroups.addContent(ConfigSupport.loadElementFrom(resource));
+            serverGroups.addContent(new Text("\n    "));
+        }
+        if (!enable && camel != null) {
+            camel.getParentElement().removeContent(camel);
         }
     }
 

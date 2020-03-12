@@ -203,6 +203,8 @@
 
     <module name="com.zaxxer" skip="true">
         <include artifact="com.zaxxer:HikariCP-java6" />
+        <include artifact="com.zaxxer:HikariCP-java7" />
+        <include artifact="com.zaxxer:HikariCP-java8" />
     </module>
 
     <module name="io.javaslang" skip="true">
@@ -410,7 +412,13 @@
         <include artifact=":woodstox-core" />
     </module>
 
+    <module name="org.eclipse.californium.skipped" skip="true">
+        <include artifact="org.eclipse.californium:californium-legal" />
+    </module>
+    
     <module name="org.eclipse.jetty.skipped" skip="true">
+        <include artifact="org.eclipse.jetty:jetty-alpn-client" />
+        <include artifact="org.eclipse.jetty:jetty-alpn-java-client" />
         <include artifact="org.eclipse.jetty:jetty-continuation" />
         <include artifact="org.eclipse.jetty:jetty-jmx" />
         <include artifact="org.eclipse.jetty:jetty-server" />

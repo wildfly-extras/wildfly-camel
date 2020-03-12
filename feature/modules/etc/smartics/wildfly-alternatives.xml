@@ -319,13 +319,6 @@
         <include artifact="jaxen:jaxen" />
     </module>
 
-    <module name="org.jdom" inherit-slot="false" slot="fuse">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":jdom" />
-    </module>
-
     <module name="org.joda.time" inherit-slot="false" slot="fuse">
         <properties>
             <property name="jboss.api" value="private"/>

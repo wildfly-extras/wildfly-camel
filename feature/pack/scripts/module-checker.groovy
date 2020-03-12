@@ -183,6 +183,7 @@ def allowedDuplicateArtifacts = [
     "com.squareup.okhttp3:okhttp",
     "com.squareup.okio:okio",
     "commons-beanutils:commons-beanutils",
+    "commons-codec:commons-codec",
     "commons-collections:commons-collections",
     "commons-lang:commons-lang",
     "io.opentracing.contrib:opentracing-tracerresolver",

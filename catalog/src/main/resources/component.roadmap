@@ -47,6 +47,9 @@ class
 cm-sms
 cmis
 coap
+coap+tcp
+coaps
+coaps+tcp
 consul
 controlbus
 couchbase
@@ -68,7 +71,7 @@ docker
 dozer
 dropbox
 ehcache
-ejb
+ejb                                                 #deprecated
 elasticsearch-rest
 elsql
 etcd
@@ -166,7 +169,7 @@ mock
 mongodb                                             #deprecated
 mongodb-gridfs
 mongodb3
-mqtt
+mqtt                                                #deprecated
 msv
 mustache
 mvel
@@ -272,7 +275,7 @@ zookeeper
 zookeeper-master
 
 [planned]
-restlet                                             #2024 Blocked by camel-2.21.x
+restlet                                             #deprecated
 
 [undecided]
 as2
