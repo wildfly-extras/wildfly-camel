@@ -88,6 +88,16 @@ For details see [11.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/is
 [2917]: https://github.com/wildfly-extras/wildfly-camel/issues/2917
 [2928]: https://github.com/wildfly-extras/wildfly-camel/issues/2928
 
+#### WildFly-Camel 11.0.1
+
+**Features**
+
+* [#2962][2962] Add support for Camel-2.x on WildFly-18
+
+For details see [11.0.1 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"11.0.1"+label%3Afeature)
+
+[2962]: https://github.com/wildfly-extras/wildfly-camel/issues/2962
+
 #### WildFly-Camel 10.3.0
 
 **Tasks**
