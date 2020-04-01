@@ -1,5 +1,15 @@
 ### Changelog
 
+#### WildFly-Camel 11.0.1
+
+**Features**
+
+* [#2962][2962] Add support for Camel-2.x on WildFly-18
+
+For details see [11.0.1 features](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"11.0.1"+label%3Afeature)
+
+[2962]: https://github.com/wildfly-extras/wildfly-camel/issues/2962
+
 #### WildFly-Camel 10.3.0
 
 **Tasks**
@@ -1081,18 +1091,18 @@ For details see [4.8.0 bugs](https://github.com/wildfly-extras/wildfly-camel/iss
 **Features**
 
 * [#1402][1402] Add support for component ahc
-* [#1403][1403] Add support for component ahc-ws
 * [#1404][1404] Add support for component ahc-wss
+* [#1403][1403] Add support for component ahc-ws
 * [#1408][1408] Add support for component aws-cw
 * [#1409][1409] Add support for component aws-ddb
 * [#1410][1410] Add support for component aws-ddbstream
 * [#1411][1411] Add support for component aws-ec2
 * [#1412][1412] Add support for component aws-kinesis
-* [#1413][1413] Add support for component aws-s3
-* [#1414][1414] Add support for component aws-sdb
 * [#1415][1415] Add support for component aws-ses
-* [#1416][1416] Add support for component aws-sns
 * [#1417][1417] Add support for component aws-sqs
+* [#1416][1416] Add support for component aws-sns
+* [#1414][1414] Add support for component aws-sdb
+* [#1413][1413] Add support for component aws-s3
 * [#1418][1418] Add support for component aws-swf
 * [#1420][1420] Add support for component box
 * [#1421][1421] Add support for component coap
@@ -1176,18 +1186,18 @@ For details see [4.7.0 tasks](https://github.com/wildfly-extras/wildfly-camel/is
 For details see [4.7.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"4.7.0"+label%3Abug)
 
 [1402]: https://github.com/wildfly-extras/wildfly-camel/issues/1402
-[1403]: https://github.com/wildfly-extras/wildfly-camel/issues/1403
 [1404]: https://github.com/wildfly-extras/wildfly-camel/issues/1404
+[1403]: https://github.com/wildfly-extras/wildfly-camel/issues/1403
 [1408]: https://github.com/wildfly-extras/wildfly-camel/issues/1408
 [1409]: https://github.com/wildfly-extras/wildfly-camel/issues/1409
 [1410]: https://github.com/wildfly-extras/wildfly-camel/issues/1410
 [1411]: https://github.com/wildfly-extras/wildfly-camel/issues/1411
 [1412]: https://github.com/wildfly-extras/wildfly-camel/issues/1412
-[1413]: https://github.com/wildfly-extras/wildfly-camel/issues/1413
-[1414]: https://github.com/wildfly-extras/wildfly-camel/issues/1414
 [1415]: https://github.com/wildfly-extras/wildfly-camel/issues/1415
-[1416]: https://github.com/wildfly-extras/wildfly-camel/issues/1416
 [1417]: https://github.com/wildfly-extras/wildfly-camel/issues/1417
+[1416]: https://github.com/wildfly-extras/wildfly-camel/issues/1416
+[1414]: https://github.com/wildfly-extras/wildfly-camel/issues/1414
+[1413]: https://github.com/wildfly-extras/wildfly-camel/issues/1413
 [1418]: https://github.com/wildfly-extras/wildfly-camel/issues/1418
 [1420]: https://github.com/wildfly-extras/wildfly-camel/issues/1420
 [1421]: https://github.com/wildfly-extras/wildfly-camel/issues/1421

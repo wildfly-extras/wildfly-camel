@@ -1,17 +1,10 @@
 Release Notes
 -------------------
 
-WildFly-Camel 10.3.0 provides Camel-2.24.2 integration with WildFly-16.0.0
+WildFly-Camel 11.0.1 provides Camel-2.25.0 integration with WildFly-18.0.1
 
-This is a minor update and bugfix release.
+This is the start of camel-2.x support on WildFly-18.x.
 
-Component upgrades include
-
-* Camel-2.24.2
-* Hawtio-2.7.1
-
-In addition to that, we also resolved a number of other [tasks and bugs](https://github.com/wildfly-extras/wildfly-camel/blob/master/docs/Changelog.md).
-
-For details please see the [10.3.0 Milestone](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A10.3.0).
+For details please see the [11.0.1 Milestone](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A11.0.1).
 
 Enjoy
