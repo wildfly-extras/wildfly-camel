@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.wildfly.camel</groupId>
         <artifactId>wildfly-camel-subsystem</artifactId>
-        <version>11.0.1-SNAPSHOT</version>
+        <version>11.0.1</version>
     </parent>
 
     <name>Wildfly Camel :: Subsystem :: Core</name>
