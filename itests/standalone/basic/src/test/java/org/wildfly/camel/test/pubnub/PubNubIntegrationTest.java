@@ -120,14 +120,16 @@ public class PubNubIntegrationTest {
             }
         });
 
+        MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:resultB", MockEndpoint.class);
+        mockEndpoint.expectedHeaderReceived(CHANNEL, "subscriberChannel");
+        mockEndpoint.expectedMinimumMessageCount(1);
+        
         camelctx.start();
         try {
-            MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:resultB", MockEndpoint.class);
 
             camelctx.getRouteController().startRoute("subscriber");
-            mockEndpoint.expectedMinimumMessageCount(1);
-            mockEndpoint.expectedHeaderReceived(CHANNEL, "subscriberChannel");
-            mockEndpoint.assertIsSatisfied();
+            mockEndpoint.assertIsSatisfied(3000);
+            
         } finally {
             camelctx.close();
         }
