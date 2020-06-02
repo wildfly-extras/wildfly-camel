@@ -14,7 +14,6 @@
     <module name="javax.ws.rs.api" />
     <module name="org.apache.xerces" />
     <module name="asm.asm" slot="fuse" />
-    <module name="com.drewnoakes.metadata-extractor" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
@@ -22,7 +21,6 @@
     <module name="com.google.code.gson" slot="fuse" />
     <module name="com.google.code.json-simple" />
     <module name="com.google.code.juniversalchardet" />
-    <module name="com.google.code.mp4parser.isoparser" />
     <module name="com.google.guava" slot="fuse" />
     <module name="com.google.protobuf" />
     <module name="com.healthmarketscience.jackcess" />
@@ -62,7 +60,9 @@
     <module name="org.opengis.geoapi" />
     <module name="org.quartz" />
     <module name="org.slf4j" />
+    <module name="org.tallison.isoparser" />
     <module name="org.tallison.jmatio" />
+    <module name="org.tallison.metadata-extractor" />
     <module name="org.tukaani.xz" />
   </dependencies>
   <exports>

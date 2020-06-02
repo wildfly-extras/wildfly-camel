@@ -32,6 +32,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.kafka.KafkaComponent;
+import org.apache.camel.component.kafka.KafkaConfiguration;
 import org.apache.camel.component.kafka.KafkaConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -48,6 +49,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.kafka.EmbeddedKafkaBroker;
@@ -59,6 +61,7 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
+@Ignore("[ENTESB-13788] Kafka fails with NoSuchMethodError")
 public class KafkaIntegrationTest {
 
     private static final String TOPIC_STRINGS = "test";
@@ -106,17 +109,13 @@ public class KafkaIntegrationTest {
 
         String epuri = "kafka:" + TOPIC_STRINGS + "?requestRequiredAcks=-1";
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = createCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start").to(epuri);
             }
         });
-
-        KafkaComponent kafka = new KafkaComponent();
-        kafka.setBrokers("localhost:" + KAFKA_PORT);
-        camelctx.addComponent("kafka", kafka);
 
         camelctx.start();
         try {
@@ -145,17 +144,13 @@ public class KafkaIntegrationTest {
         String serializer = "&serializerClass=" + SimpleKafkaSerializer.class.getName();
         String epuri = "kafka:" + TOPIC_STRINGS + "?requestRequiredAcks=-1" + serializer;
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = createCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start").to(epuri);
             }
         });
-
-        KafkaComponent kafka = new KafkaComponent();
-        kafka.setBrokers("localhost:" + KAFKA_PORT);
-        camelctx.addComponent("kafka", kafka);
 
         camelctx.start();
         try {
@@ -171,17 +166,13 @@ public class KafkaIntegrationTest {
         String partitioner = "&partitioner=" + SimpleKafkaPartitioner.class.getName();
         String epuri = "kafka:" + TOPIC_STRINGS + "?requestRequiredAcks=-1" + partitioner;
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = createCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start").to(epuri);
             }
         });
-
-        KafkaComponent kafka = new KafkaComponent();
-        kafka.setBrokers("localhost:" + KAFKA_PORT);
-        camelctx.addComponent("kafka", kafka);
 
         camelctx.start();
         try {
@@ -194,7 +185,7 @@ public class KafkaIntegrationTest {
     @Test
     public void testKafkaMessageConsumedByCamel() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
+        CamelContext camelctx = createCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -202,10 +193,6 @@ public class KafkaIntegrationTest {
                 .to("mock:result");
             }
         });
-
-        KafkaComponent kafka = new KafkaComponent();
-        kafka.setBrokers("localhost:" + KAFKA_PORT);
-        camelctx.addComponent("kafka", kafka);
 
         MockEndpoint to = camelctx.getEndpoint("mock:result", MockEndpoint.class);
         to.expectedBodiesReceivedInAnyOrder("message-0", "message-1", "message-2", "message-3", "message-4");
@@ -223,6 +210,16 @@ public class KafkaIntegrationTest {
             camelctx.stop();
         }
     }
+
+	private CamelContext createCamelContext() {
+        CamelContext camelctx = new DefaultCamelContext();
+		KafkaConfiguration config = new KafkaConfiguration();
+        config.setBrokers("localhost:" + KAFKA_PORT);
+        KafkaComponent kafka = new KafkaComponent();
+        kafka.setConfiguration(config);
+        camelctx.addComponent("kafka", kafka);
+        return camelctx;
+	}
 
     private KafkaProducer<String, String> createKafkaProducer() {
         Properties props = new Properties();

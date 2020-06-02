@@ -169,6 +169,10 @@
                     <systemPropertyVariables>
                         <org.jboss.remoting-jmx.timeout>300</org.jboss.remoting-jmx.timeout>
                     </systemPropertyVariables>
+					<excludes>
+						<exclude>**/ExportedPathsTest.java</exclude>
+						<exclude>**/GRPCIntegrationTest.java</exclude>
+					</excludes>
                 </configuration>
             </plugin>
             <plugin>

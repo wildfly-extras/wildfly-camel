@@ -23,6 +23,21 @@
          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
+    <bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory"/>
+
+    <bean id="endpointMapping"
+          class="org.apache.camel.component.spring.ws.bean.CamelEndpointMapping"/>
+
+    <bean id="responseProcessor"
+          class="org.wildfly.camel.test.spring.ws.StockQuoteResponseProcessor"/>
+
+    <bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+        <property name="defaultUri" value="http://localhost"/>
+        <property name="messageSender">
+            <bean class="net.javacrumbs.springws.test.helper.InMemoryWebServiceMessageSender"/>
+        </property>
+    </bean>
+
     <camelContext xmlns="http://camel.apache.org/schema/spring" id="springwsContext">
         <!-- producer routes (web service clients) -->
         <route>
@@ -64,23 +79,8 @@
         <!-- consumer route (providing the actual web service) -->
         <route>
             <from uri="spring-ws:soapaction:http://www.stockquotes.edu/GetQuote?endpointMapping=#endpointMapping"/>
-            <to uri="responseProcessor"/>
+            <to uri="#responseProcessor"/>
         </route>
     </camelContext>
-
-    <bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory"/>
-
-    <bean id="endpointMapping"
-          class="org.apache.camel.component.spring.ws.bean.CamelEndpointMapping"/>
-
-    <bean id="responseProcessor"
-          class="org.wildfly.camel.test.spring.ws.StockQuoteResponseProcessor"/>
-
-    <bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
-        <property name="defaultUri" value="http://localhost"/>
-        <property name="messageSender">
-            <bean class="net.javacrumbs.springws.test.helper.InMemoryWebServiceMessageSender"/>
-        </property>
-    </bean>
 
 </beans>

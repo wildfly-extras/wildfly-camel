@@ -44,6 +44,14 @@
         <include artifact="org.apache.avro:avro"/>
     </module>
 
+    <module name="org.apache.commons.beanutils" slot="fuse" skip="true">
+        <include artifact=":commons-beanutils" />
+    </module>
+
+    <module name="org.apache.commons.cli" slot="fuse" skip="true">
+        <include artifact=":commons-cli" />
+    </module>
+
     <module name="org.apache.commons.codec" slot="fuse" skip="true">
         <include artifact=":commons-codec" />
     </module>
@@ -60,6 +68,10 @@
         <include artifact=":commons-lang" />
     </module>
 
+    <module name="org.apache.commons.lang3" slot="fuse" skip="true">
+        <include artifact=":commons-lang3" />
+    </module>
+
     <module name="org.apache.commons.logging" slot="fuse" skip="true">
         <include artifact=":commons-logging" />
     </module>
@@ -72,21 +84,23 @@
         <include artifact="org.apache.httpcomponents:httpmime" />
     </module>
 
-    <module name="org.codehaus.jackson.jackson-core-asl" slot="fuse" skip="true">
-        <include artifact="org.codehaus.jackson:jackson-core-asl" />
-    </module>
-
-    <module name="org.codehaus.jackson.jackson-mapper-asl" slot="fuse" skip="true">
-        <include artifact="org.codehaus.jackson:jackson-mapper-asl" />
-    </module>
-
     <module name="org.codehaus.jettison" slot="fuse" skip="true">
         <include artifact=":jettison" />
+    </module>
+
+    <module name="org.codehaus.woodstox" slot="fuse" skip="true">
+        <include artifact="org.codehaus.woodstox:woodstox-core-asl" />
+        <include artifact="org.codehaus.woodstox:woodstox-core" />
+        <include artifact="org.codehaus.woodstox:stax2-api" />
     </module>
 
 	<!-- =========================================================== -->
 	<!--          modules defined in features/modules                -->
 	<!-- =========================================================== -->
+
+	<module name="com.fasterxml.woodstox" skip="true">
+        <include artifact="com.fasterxml.woodstox:woodstox-core"/>
+	</module>
 
     <module name="com.google.guava" slot="fuse" skip="true">
         <include artifact="com.google.guava:guava" />
@@ -98,6 +112,12 @@
 
     <module name="io.netty" slot="3.10" skip="true">
         <include artifact="io.netty:netty" />
+    </module>
+
+    <module name="net.minidev.smart" skip="true">
+        <include artifact="net.minidev:accessors-smart" />
+        <include artifact="net.minidev:json-smart-action" />
+        <include artifact="net.minidev:json-smart" />
     </module>
 
     <module name="org.apache.camel.core" skip="true">

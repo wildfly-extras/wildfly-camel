@@ -4,8 +4,26 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${io.fabric8:kubernetes-model}" />
+    <artifact name="${io.fabric8:kubernetes-model-admissionregistration}" />
+    <artifact name="${io.fabric8:kubernetes-model-apiextensions}" />
+    <artifact name="${io.fabric8:kubernetes-model-apps}" />
+    <artifact name="${io.fabric8:kubernetes-model-autoscaling}" />
+    <artifact name="${io.fabric8:kubernetes-model-batch}" />
+    <artifact name="${io.fabric8:kubernetes-model-certificates}" />
     <artifact name="${io.fabric8:kubernetes-model-common}" />
+    <artifact name="${io.fabric8:kubernetes-model-coordination}" />
+    <artifact name="${io.fabric8:kubernetes-model-core}" />
+    <artifact name="${io.fabric8:kubernetes-model-discovery}" />
+    <artifact name="${io.fabric8:kubernetes-model-events}" />
+    <artifact name="${io.fabric8:kubernetes-model-extensions}" />
+    <artifact name="${io.fabric8:kubernetes-model-metrics}" />
+    <artifact name="${io.fabric8:kubernetes-model-networking}" />
+    <artifact name="${io.fabric8:kubernetes-model-policy}" />
+    <artifact name="${io.fabric8:kubernetes-model-rbac}" />
+    <artifact name="${io.fabric8:kubernetes-model-scheduling}" />
+    <artifact name="${io.fabric8:kubernetes-model-settings}" />
+    <artifact name="${io.fabric8:kubernetes-model-storageclass}" />
+    <artifact name="${io.fabric8:openshift-model}" />
   </resources>
   <dependencies>
     <module name="com.fasterxml.jackson.core.jackson-annotations" />

@@ -11,6 +11,7 @@
     <artifact name="${org.apache.camel:camel-core}" />
     <artifact name="${org.apache.camel:camel-core-catalog}" />
     <artifact name="${org.apache.camel:camel-core-engine}" />
+    <artifact name="${org.apache.camel:camel-core-languages}" />
     <artifact name="${org.apache.camel:camel-dataformat}" />
     <artifact name="${org.apache.camel:camel-dataset}" />
     <artifact name="${org.apache.camel:camel-direct}" />
@@ -46,7 +47,7 @@
     <module name="org.slf4j" />
     <module name="sun.jdk" />
     <module name="com.sun.javax.activation" />
-    <module name="org.apache.camel.component.headersmap" />
+    <module name="org.apache.camel.component.cluster" />
   </dependencies>
   <exports>
     <exclude path="org/apache/camel/impl/osgi**" />

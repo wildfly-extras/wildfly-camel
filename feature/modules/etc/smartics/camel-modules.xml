@@ -42,6 +42,7 @@
         <include artifact="org.apache.camel:camel-core" />
         <include artifact="org.apache.camel:camel-core-catalog" />
         <include artifact="org.apache.camel:camel-core-engine" />
+        <include artifact="org.apache.camel:camel-core-languages" />
         <include artifact="org.apache.camel:camel-dataformat" />
         <include artifact="org.apache.camel:camel-dataset" />
         <include artifact="org.apache.camel:camel-direct" />
@@ -480,6 +481,14 @@
         </dependencies>
     </module>
 
+    <module name="org.apache.camel.component.cluster">
+        <include artifact="org.apache.camel:camel-cluster" />
+        <apply-to-dependencies skip="true">
+            <include module="org.apache.camel.apt" />
+            <include module="org.springframework.boot" />
+        </apply-to-dependencies>
+    </module>
+
     <module name="org.apache.camel.component.cm.sms">
         <include artifact="org.apache.camel:camel-cm-sms"/>
         <apply-to-dependencies skip="true">
@@ -756,6 +765,8 @@
         <include artifact="dnsjava:dnsjava" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
+            <include module="org.projectlombok" />
+            <include module="org.robolectric.android-all" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
@@ -1167,11 +1178,11 @@
 
     <module name="org.apache.camel.component.google.pubsub">
         <include artifact="org.apache.camel:camel-google-pubsub" />
-        <include artifact="com.google.apis:google-api-services-pubsub" />
         <apply-to-dependencies skip="true">
             <include module="com.google.android" />
             <include module="com.google.guava.skipped" />
             <include module="com.google.code.findbugs" />
+            <include module="io.grpc.skipped" />
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
@@ -1181,10 +1192,6 @@
             <module name="javax.api"/>
             <module name="org.slf4j"/>
         </dependencies>
-        <exports>
-            <include path="com/google/api/services/pubsub**" />
-            <exclude path="com/google**" />
-        </exports>
     </module>
 
     <module name="org.apache.camel.component.groovy">
@@ -1900,6 +1907,7 @@
     <module name="org.apache.camel.component.metrics">
         <include artifact="org.apache.camel:camel-metrics" />
         <apply-to-dependencies skip="true">
+            <include module="io.dropwizard.metrics.jmx" />
             <include module="org.apache.camel.apt" />
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
@@ -3198,7 +3206,6 @@
             <include module="org.springframework.boot" />
         </apply-to-dependencies>
         <dependencies>
-            <module name="org.codehaus.jackson.jackson-core-asl" slot="fuse"/>
             <module name="org.slf4j"/>
         </dependencies>
     </module>

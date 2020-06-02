@@ -5,11 +5,14 @@
   </properties>
   <resources>
     <artifact name="${org.apache.zookeeper:zookeeper}" />
+    <artifact name="${org.apache.zookeeper:zookeeper-jute}" />
   </resources>
   <dependencies>
     <module name="javax.api" />
     <module name="com.google.guava" slot="fuse" />
-    <module name="io.netty" slot="3.10" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.google.code.json-simple" />
+    <module name="org.apache.commons.cli" slot="fuse" />
     <module name="org.slf4j" />
   </dependencies>
   <exports>

@@ -6,6 +6,7 @@
   <dependencies>
     <module name="io.atomix" export="true" />
     <module name="org.slf4j" />
+    <module name="org.apache.camel.component.cluster" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

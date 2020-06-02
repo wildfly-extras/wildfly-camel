@@ -2,6 +2,7 @@
 <module xmlns="urn:jboss:module:1.1" name="io.dropwizard.metrics">
   <resources>
     <artifact name="${io.dropwizard.metrics:metrics-core}" />
+    <artifact name="${io.dropwizard.metrics:metrics-jmx}" />
     <artifact name="${io.dropwizard.metrics:metrics-json}" />
   </resources>
   <dependencies>

@@ -85,7 +85,8 @@ public class EmbeddedKafkaBroker extends ExternalResource {
     }
 
     public void after() {
-        kafkaServer.shutdown();
+        if (kafkaServer != null)
+            kafkaServer.shutdown();
     }
 
     private KafkaServer startBroker(Properties props) {

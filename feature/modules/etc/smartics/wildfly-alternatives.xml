@@ -132,7 +132,7 @@
         <include artifact="io.netty:netty-all" />
         <dependencies>
             <module name="javax.api"/>
-            <module name="org.apache.log4j"/>
+            <module name="org.apache.logging.log4j"/>
             <module name="sun.jdk"/>
         </dependencies>
     </module>
@@ -170,10 +170,6 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.avro:avro"/>
-        <dependencies>
-            <module name="org.codehaus.jackson.jackson-core-asl" slot="fuse"/>
-            <module name="org.codehaus.jackson.jackson-mapper-asl" slot="fuse"/>
-        </dependencies>
     </module>
 
     <module name="org.apache.commons.beanutils" inherit-slot="false" slot="fuse">
@@ -184,6 +180,13 @@
         <dependencies>
             <module name="org.apache.commons.logging" slot="fuse"/>
         </dependencies>
+    </module>
+
+    <module name="org.apache.commons.cli" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-cli" />
     </module>
 
     <module name="org.apache.commons.codec" inherit-slot="false" slot="fuse">
@@ -306,20 +309,6 @@
         <include artifact="org.apache.velocity:velocity" />
     </module>
 
-    <module name="org.codehaus.jackson.jackson-core-asl" inherit-slot="false" slot="fuse">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.codehaus.jackson:jackson-core-asl" />
-    </module>
-
-    <module name="org.codehaus.jackson.jackson-mapper-asl" inherit-slot="false" slot="fuse">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.codehaus.jackson:jackson-mapper-asl" />
-    </module>
-
     <module name="org.codehaus.jettison" inherit-slot="false" slot="fuse">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -331,9 +320,9 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact=":woodstox-core-asl" />
-        <include artifact=":woodstox-core" />
-        <include artifact=":stax2-api" />
+        <include artifact="org.codehaus.woodstox:woodstox-core-asl" />
+        <include artifact="org.codehaus.woodstox:woodstox-core" />
+        <include artifact="org.codehaus.woodstox:stax2-api" />
     </module>
 
     <module name="org.eclipse.jgit" inherit-slot="false" slot="fuse">

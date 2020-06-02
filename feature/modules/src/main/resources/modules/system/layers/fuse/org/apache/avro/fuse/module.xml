@@ -7,8 +7,6 @@
     <artifact name="${org.apache.avro:avro}" />
   </resources>
   <dependencies>
-    <module name="org.codehaus.jackson.jackson-core-asl" slot="fuse" />
-    <module name="org.codehaus.jackson.jackson-mapper-asl" slot="fuse" />
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="org.apache.commons.compress" />

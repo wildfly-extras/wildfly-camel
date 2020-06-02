@@ -7,8 +7,8 @@
     <artifact name="${org.apache.santuario:xmlsec}" />
   </resources>
   <dependencies>
+    <module name="com.fasterxml.woodstox" />
     <module name="org.apache.commons.codec" slot="fuse" />
-    <module name="org.codehaus.woodstox" slot="fuse" />
     <module name="org.slf4j" />
   </dependencies>
 </module>

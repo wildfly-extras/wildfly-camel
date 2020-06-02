@@ -51,10 +51,17 @@ https://help.salesforce.com/articleView?id=remoteaccess_oauth_username_password_
 Note, I found that spcial chars in the password (i.e. $ @) may be cause authorization to fail.
 Other than documented above, the security code does not need to be appended to password.
 
+<<<<<<< HEAD
 export SALESFORCE_CONSUMER_KEY=3MVG9xxx
 export SALESFORCE_CONSUMER_SECRET=772FExxx
 export SALESFORCE_USER=fuse.wfc.ci@gmail.com
 export SALESFORCE_PASSWORD=xxx
+=======
+export SALESFORCE_CONSUMER_KEY=3MVG9lsAlIP.W_V9qR5pSKYX0zmzn6_DsY7lj6yMJeKjc6SeU51.erSiFwd_l1D.9qkXqvITpTmHH_yQM0xfq
+export SALESFORCE_CONSUMER_SECRET=772FEA6B11D6533D793112E936EA7A2174F77193917AD67346FE527D3333441B
+export SALESFORCE_USER=fuse.wfc.ci@gmail.com
+export SALESFORCE_PASSWORD=8Wze7nXEa2sEqy3J
+>>>>>>> [relates #2955] Upgrade to camel-3.3.0
 
 curl \
 --data "client_id=$SALESFORCE_CONSUMER_KEY" \

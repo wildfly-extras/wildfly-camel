@@ -29,8 +29,8 @@ import javax.security.auth.login.LoginException;
 import org.apache.camel.Exchange;
 import org.apache.camel.NamedNode;
 import org.apache.camel.Processor;
+import org.apache.camel.Route;
 import org.apache.camel.spi.AuthorizationPolicy;
-import org.apache.camel.spi.RouteContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 
@@ -43,11 +43,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 public abstract class AbstractAuthorizationPolicy implements AuthorizationPolicy {
 
 	@Override
-	public void beforeWrap(RouteContext routeContext, NamedNode definition) {
+	public void beforeWrap(Route route, NamedNode definition) {
 	}
 
     @Override
-    public Processor wrap(final RouteContext routeContext, final Processor processor) {
+    public Processor wrap(final Route route, final Processor processor) {
         return new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {

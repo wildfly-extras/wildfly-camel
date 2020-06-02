@@ -5,6 +5,7 @@
   </resources>
   <dependencies>
     <module name="org.slf4j" />
+    <module name="org.apache.camel.component.cluster" />
     <module name="org.apache.camel.core" />
     <module name="org.jgroups" />
   </dependencies>

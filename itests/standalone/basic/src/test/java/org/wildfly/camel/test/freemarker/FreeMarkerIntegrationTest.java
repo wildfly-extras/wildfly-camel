@@ -50,17 +50,18 @@ public class FreeMarkerIntegrationTest {
 
     @Test
     public void testFreemarkerProducer() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:start")
-                .toF("freemarker:%s", TEMPLATE_FILE);
-            }
-        });
-
-        camelctx.start();
-        try {
+    	
+        try (CamelContext camelctx = new DefaultCamelContext()) {
+        	
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    from("direct:start")
+                    .toF("freemarker:%s", TEMPLATE_FILE + "?allowTemplateFromHeader=true");
+                }
+            });
+            camelctx.start();
+            
             Map<String, String> headerMap = new HashMap<>();
             headerMap.put("greeting", "Hello");
             headerMap.put("name", "Kermit");
@@ -73,8 +74,6 @@ public class FreeMarkerIntegrationTest {
                 FreemarkerConstants.FREEMARKER_DATA_MODEL, variableMap, String.class);
 
             Assert.assertEquals("Hello Kermit", result);
-        } finally {
-            camelctx.close();
         }
     }
 }

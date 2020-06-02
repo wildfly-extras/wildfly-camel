@@ -27,6 +27,13 @@
         <include artifact="aopalliance:aopalliance" />
     </module>
 
+	<module name="commons-digester" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="commons-digester:commons-digester" />
+	</module>
+
     <module name="com.google.protobuf" inherit-slot="false" slot="2.5">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -49,6 +56,15 @@
         <dependencies>
             <module name="com.google.guava" slot="fuse"/>
         </dependencies>
+    </module>
+
+    <module name="com.squareup.okhttp" inherit-slot="false">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.squareup.okhttp:okhttp"/>
+        <apply-to-dependencies skip="true">
+        </apply-to-dependencies>
     </module>
 
     <module name="com.sun.jersey.core" >
@@ -93,12 +109,15 @@
         <include artifact="org.apache.hadoop:hadoop-auth" />
         <include artifact="org.apache.hadoop:hadoop-common" />
         <include artifact="org.apache.hadoop:hadoop-hdfs" />
+        <include artifact="org.apache.hadoop:hadoop-hdfs-client" />
         <include artifact="org.apache.hadoop:hadoop-mapreduce-client-core"/>
         <include artifact="org.apache.hadoop:hadoop-yarn-api"/>
+        <include artifact="org.apache.hadoop:hadoop-yarn-client"/>
         <include artifact="org.apache.hadoop:hadoop-yarn-common"/>
         <apply-to-dependencies skip="true">
             <include module="ant" />
             <include module="com.google.inject.skipped"/>
+            <include module="com.nimbusds"/>
             <include module="com.sun.jersey.client" />
             <include module="com.sun.jersey.server" />
             <include module="com.google.code.findbugs" />
@@ -122,13 +141,13 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.htrace">
+	<module name="org.apache.htrace">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="org.apache.htrace:htrace-core" />
-    </module>
-
+        <include artifact="org.apache.htrace:htrace-core4" />
+	</module>
+	
     <module name="org.apache.jackrabbit" >
         <properties>
             <property name="jboss.api" value="private"/>

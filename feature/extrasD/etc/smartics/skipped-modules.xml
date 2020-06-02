@@ -32,11 +32,6 @@
 	<!--          modules defined in features/modules                -->
 	<!-- =========================================================== -->
 
-    <module name="io.dropwizard.metrics" skip="true">
-        <include artifact="io.dropwizard.metrics:metrics-core" />
-        <include artifact="io.dropwizard.metrics:metrics-json" />
-    </module>
-
     <module name="org.apache.camel.core" skip="true">
         <include artifact="org.apache.camel:camel-api" />
         <include artifact="org.apache.camel:camel-core" />

@@ -74,6 +74,10 @@
         <include artifact="com.digitalpetri.netty:netty-channel-fsm" />
     </module>
 
+    <module name="com.drewnoakes.metadata-extractor" skip="true">
+        <include artifact="com.drewnoakes:metadata-extractor" />
+    </module>
+
     <module name="com.epam.parso" skip="true">
         <include artifact="com.epam:parso" />
     </module>
@@ -104,6 +108,14 @@
         <include artifact="com.google.android:annotations"/>
     </module>
 
+	<module name="com.google.api.skipped" skip="true">
+		<include artifact="com.google.api:api-common" />
+		<include artifact="com.google.api:gax" />
+		<include artifact="com.google.api:gax-grpc" />
+		<include artifact="com.google.api.grpc:proto-google-cloud-pubsub-v1" />
+		<include artifact="com.google.api.grpc:proto-google-iam-v1" />
+	</module>
+	
     <module name="com.google.auto.value" skip="true">
         <include artifact="com.google.auto.value:auto-value" />
     </module>
@@ -148,15 +160,16 @@
     </module>
 
     <module name="com.hazelcast.skipped" skip="true">
+        <include artifact="com.hazelcast:hazelcast-client"/>
         <include artifact="com.hazelcast:hazelcast-client-protocol"/>
-    </module>
-
-    <module name="com.ibm.jbatch.tck" skip="true">
-        <include artifact="com.ibm.jbatch:com.ibm.jbatch-tck-spi" />
     </module>
 
     <module name="com.headius" skip="true">
         <include artifact="com.headius:(.*)" />
+    </module>
+
+    <module name="com.ibm.jbatch.tck" skip="true">
+        <include artifact="com.ibm.jbatch:com.ibm.jbatch-tck-spi" />
     </module>
 
     <module name="com.jcraft.jzlib" skip="true">
@@ -170,6 +183,10 @@
     <module name="com.microsoft.azure.keyvault" skip="true">
         <include artifact="com.microsoft.azure:azure-keyvault-core" />
     </module>
+
+	<module name="com.nimbusds" skip="true">
+        <include artifact="com.nimbusds:nimbus-jose-jwt" />
+	</module>
 
     <module name="com.querydsl.skip" skip="true">
         <include artifact=":querydsl-apt" />
@@ -219,6 +236,12 @@
         <include artifact="com.zaxxer:HikariCP-java6" />
         <include artifact="com.zaxxer:HikariCP-java7" />
         <include artifact="com.zaxxer:HikariCP-java8" />
+    </module>
+
+    <module name="io.grpc.skipped" skip="true">
+        <include artifact="io.grpc:grpc-alts"/>
+        <include artifact="io.grpc:grpc-grpclb"/>
+        <include artifact="io.grpc:grpc-netty-shaded"/>
     </module>
 
     <module name="io.javaslang" skip="true">
@@ -304,7 +327,7 @@
     </module>
 
     <module name="net.jcip" skip="true">
-        <include artifact="net.jcip:jcip-annotations" />
+        <include artifact=":jcip-annotations" />
     </module>
 
     <module name="net.sf.skipped" skip="true">
@@ -344,6 +367,10 @@
         <include artifact="org.apache.camel:camel-blueprint" />
     </module>
 
+    <module name="org.apache.camel.spring.main" skip="true">
+        <include artifact="org.apache.camel:camel-spring-main" />
+    </module>
+
     <module name="org.apache.camel.tooling" skip="true">
         <include artifact="org.apache.camel:camel-tooling-model" />
         <include artifact="org.apache.camel:camel-tooling-util" />
@@ -373,6 +400,10 @@
 
     <module name="org.apache.httpcomponents.skipped" skip="true">
         <include artifact="org.apache.httpcomponents:httpclient-osgi" />
+    </module>
+
+    <module name="org.apache.htrace" skip="true">
+        <include artifact="org.apache.htrace:htrace-core" />
     </module>
 
     <module name="org.apache.logging.log4j" skip="true">
@@ -468,7 +499,9 @@
         <include artifact="org.eclipse.jetty:jetty-alpn-java-client" />
         <include artifact="org.eclipse.jetty:jetty-continuation" />
         <include artifact="org.eclipse.jetty:jetty-jmx" />
+        <include artifact="org.eclipse.jetty:jetty-security" />
         <include artifact="org.eclipse.jetty:jetty-server" />
+        <include artifact="org.eclipse.jetty:jetty-servlet" />
         <include artifact="org.eclipse.jetty:jetty-servlets" />
         <include artifact="org.eclipse.jetty:jetty-webapp" />
         <include artifact="org.eclipse.jetty:jetty-websocket" />
@@ -517,6 +550,10 @@
         <include artifact="org.infinispan:infinispan-remote-query-client" />
     </module>
 
+    <module name="org.jsonschema2pojo" skip="true">
+        <include artifact="org.jsonschema2pojo:jsonschema2pojo-core" />
+    </module>
+    
     <module name="org.jasypt" skip="true">
         <include artifact="org.jasypt:jasypt" />
     </module>
@@ -628,6 +665,10 @@
         <include artifact="org.quickfixj:quickfixj-messages-all" />
     </module>
 
+    <module name="org.robolectric.android-all" skip="true">
+        <include artifact="org.robolectric:android-all" />
+    </module>
+    
     <module name="org.springframework.boot" skip="true">
         <include artifact=":spring-boot" />
         <include artifact=":spring-boot-autoconfigure" />
@@ -641,6 +682,10 @@
         <include artifact=":spring-ldap-odm" />
         <include artifact=":spring-webmvc" />
     </module>
+
+	<module name="org.threeten.threetenbp" skip="true">
+		<include artifact="org.threeten:threetenbp" />
+	</module>
 
     <module name="org.uncommons.maths" skip="true">
         <include artifact="org.uncommons.maths:uncommons-maths" />

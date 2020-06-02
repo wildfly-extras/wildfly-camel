@@ -104,7 +104,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka_2.11</artifactId>
+            <artifactId>kafka_2.12</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>

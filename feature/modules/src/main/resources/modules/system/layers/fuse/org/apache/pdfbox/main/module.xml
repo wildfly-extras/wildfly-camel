@@ -9,6 +9,8 @@
     <artifact name="${org.apache.pdfbox:jempbox}" />
     <artifact name="${org.apache.pdfbox:pdfbox}" />
     <artifact name="${org.apache.pdfbox:pdfbox-tools}" />
+    <artifact name="${org.apache.pdfbox:preflight}" />
+    <artifact name="${org.apache.pdfbox:xmpbox}" />
   </resources>
   <dependencies>
     <module name="javax.api" />

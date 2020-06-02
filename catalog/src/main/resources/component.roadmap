@@ -14,7 +14,6 @@ atomix-multimap
 atomix-queue
 atomix-set
 atomix-value
-avro
 aws-cw
 aws-ddb
 aws-ddbstream
@@ -110,8 +109,6 @@ hdfs                                                #deprecated
 hipchat
 http                                                #deprecated
 https                                               #deprecated
-iec60870-client
-iec60870-server
 imap
 imaps
 infinispan
@@ -131,6 +128,7 @@ jolt
 jpa
 json-validator
 jt400
+kafka
 kubernetes-config-maps
 kubernetes-deployments
 kubernetes-hpa
@@ -258,6 +256,7 @@ xmpp
 xquery
 xslt
 xslt-saxon
+yammer
 zendesk
 zookeeper
 zookeeper-master
@@ -267,6 +266,7 @@ zookeeper-master
 [undecided]
 as2
 atmos
+avro
 aws-ecs
 aws-eks
 aws-iam
@@ -282,13 +282,19 @@ aws2-ec2
 aws2-ecs
 aws2-eks
 aws2-iam
+aws2-kinesis
+aws2-kinesis-firehose
 aws2-kms
+aws2-lambda
 aws2-mq
 aws2-msk
+aws2-s3
 aws2-ses
 aws2-sns
 aws2-sqs
 aws2-translate
+azure-storage-blob
+azure-storage-queue
 chatscript
 corda
 cron
@@ -296,7 +302,7 @@ debezium-mongodb
 debezium-mysql
 debezium-postgres
 debezium-sqlserver
-elytron
+djl
 file-watch
 google-sheets
 google-sheets-stream
@@ -316,6 +322,7 @@ rest-openapi
 robotframework
 service
 soroush
+splunk-hec
 web3j
 websocket-jsr356
 weka
@@ -327,7 +334,6 @@ bonita                                              #1820 Not another BPM engine
 cometd                                              #1990 Depends on Jetty server
 cometds                                             #1991 Depends on Jetty server
 drill                                               #1823 Competitor to JDG
-eventadmin                                          #1996 OSGi specific
 flink                                               #2370 Massive bucket of scala dependent stuff
 gora                                                #2000 Competitor to JDG
 grape                                               #2001 Requires Groovy class loading
@@ -343,8 +349,6 @@ ironmq                                              #2006 Not another messaging 
 jetty                                               #2009 No alternative HTTP engine
 jira                                                #deprecated
 netty-http                                          #deprecated
-paxlogging                                          #2020 OSGi specific
 spark                                               #1469 Scala/Jackson stack overflow
-spark-rest                                          #1470 Scala/Jackson stack overflow
 websocket                                           #1479 No alternative HTTP engine
 

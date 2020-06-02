@@ -31,6 +31,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.google.drive.GoogleDriveComponent;
+import org.apache.camel.component.google.drive.GoogleDriveConfiguration;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -48,7 +49,7 @@ import com.google.api.client.http.HttpContent;
 import com.google.api.services.drive.model.File;
 
 /**
- * Read {@code google-api-testing.adoc} in the rood directory of the current Maven module to learn how to set up the credentials used by this class.
+ * Read {@code service-access.md} in the itests directory to learn how to set up credentials used by this class.
  *
  * @author <a href="https://github.com/ppalaga">Peter Palaga</a>
  */
@@ -63,74 +64,76 @@ public class GoogleDriveIntegrationTest {
             .addClass(GoogleApiEnv.class);
     }
 
-    @Test
+	@Test
+    @SuppressWarnings("serial")
     public void testGoogleDriveComponent() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
+        try (CamelContext camelctx = new DefaultCamelContext()) {
+        	
+            GoogleDriveConfiguration configuration = new GoogleDriveConfiguration();
+			GoogleApiEnv.configure(configuration, getClass(), LOG);
 
-        GoogleDriveComponent gDriveComponent = camelctx.getComponent("google-drive", GoogleDriveComponent.class);
-        GoogleApiEnv.configure(gDriveComponent.getConfiguration(), getClass(), LOG);
+            GoogleDriveComponent component = camelctx.getComponent("google-drive", GoogleDriveComponent.class);
+            component.setConfiguration(configuration);
+            
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    final String pathPrefix = "drive-files";
+                    // test route for copy
+                    from("direct://COPY")
+                        .to("google-drive://" + pathPrefix + "/copy");
 
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                final String pathPrefix = "drive-files";
-                // test route for copy
-                from("direct://COPY")
-                    .to("google-drive://" + pathPrefix + "/copy");
+                    // test route for delete
+                    from("direct://DELETE")
+                        .to("google-drive://" + pathPrefix + "/delete?inBody=fileId");
 
-                // test route for delete
-                from("direct://DELETE")
-                    .to("google-drive://" + pathPrefix + "/delete?inBody=fileId");
+                    // test route for get
+                    from("direct://GET")
+                        .to("google-drive://" + pathPrefix + "/get?inBody=fileId");
 
-                // test route for get
-                from("direct://GET")
-                    .to("google-drive://" + pathPrefix + "/get?inBody=fileId");
+                    // test route for insert
+                    from("direct://INSERT")
+                        .to("google-drive://" + pathPrefix + "/insert?inBody=content");
 
-                // test route for insert
-                from("direct://INSERT")
-                    .to("google-drive://" + pathPrefix + "/insert?inBody=content");
+                    // test route for insert
+                    from("direct://INSERT_1")
+                        .to("google-drive://" + pathPrefix + "/insert");
 
-                // test route for insert
-                from("direct://INSERT_1")
-                    .to("google-drive://" + pathPrefix + "/insert");
+                    // test route for list
+                    from("direct://LIST")
+                        .to("google-drive://" + pathPrefix + "/list");
 
-                // test route for list
-                from("direct://LIST")
-                    .to("google-drive://" + pathPrefix + "/list");
+                    // test route for patch
+                    from("direct://PATCH")
+                        .to("google-drive://" + pathPrefix + "/patch");
 
-                // test route for patch
-                from("direct://PATCH")
-                    .to("google-drive://" + pathPrefix + "/patch");
+                    // test route for touch
+                    from("direct://TOUCH")
+                        .to("google-drive://" + pathPrefix + "/touch?inBody=fileId");
 
-                // test route for touch
-                from("direct://TOUCH")
-                    .to("google-drive://" + pathPrefix + "/touch?inBody=fileId");
+                    // test route for trash
+                    from("direct://TRASH")
+                        .to("google-drive://" + pathPrefix + "/trash?inBody=fileId");
 
-                // test route for trash
-                from("direct://TRASH")
-                    .to("google-drive://" + pathPrefix + "/trash?inBody=fileId");
+                    // test route for untrash
+                    from("direct://UNTRASH")
+                        .to("google-drive://" + pathPrefix + "/untrash?inBody=fileId");
 
-                // test route for untrash
-                from("direct://UNTRASH")
-                    .to("google-drive://" + pathPrefix + "/untrash?inBody=fileId");
+                    // test route for update
+                    from("direct://UPDATE")
+                        .to("google-drive://" + pathPrefix + "/update");
 
-                // test route for update
-                from("direct://UPDATE")
-                    .to("google-drive://" + pathPrefix + "/update");
+                    // test route for update
+                    from("direct://UPDATE_1")
+                        .to("google-drive://" + pathPrefix + "/update");
 
-                // test route for update
-                from("direct://UPDATE_1")
-                    .to("google-drive://" + pathPrefix + "/update");
+                    // test route for watch
+                    from("direct://WATCH")
+                        .to("google-drive://" + pathPrefix + "/watch");
 
-                // test route for watch
-                from("direct://WATCH")
-                    .to("google-drive://" + pathPrefix + "/watch");
-
-            }
-        });
-
-        try {
+                }
+            });
             camelctx.start();
 
             ProducerTemplate template = camelctx.createProducerTemplate();
@@ -170,12 +173,9 @@ public class GoogleDriveIntegrationTest {
                 template.requestBody("direct://GET", copyFile.getId(), File.class);
                 Assert.fail("template.requestBody(\"direct://GET\", copyFile.getId(), File.class) should have thrown an exception");
             } catch (Exception expected) {
+            	// ignore
             }
-
-        } finally {
-            camelctx.close();
         }
-
     }
 
     private static File uploadTestFile(ProducerTemplate template, String testName) {

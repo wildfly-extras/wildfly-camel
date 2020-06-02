@@ -186,6 +186,7 @@ def allowedDuplicateArtifacts = [
     "commons-beanutils:commons-beanutils",
     "commons-codec:commons-codec",
     "commons-collections:commons-collections",
+    "commons-cli:commons-cli",
     "commons-lang:commons-lang",
     "io.netty:netty-all",
     "io.opentracing.contrib:opentracing-tracerresolver",
