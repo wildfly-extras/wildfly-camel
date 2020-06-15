@@ -244,7 +244,6 @@
             <id>salesforce</id>
             <activation>
                 <property>
-                    <!-- https://mojo.redhat.com/docs/DOC-153710 -->
                     <name>env.SALESFORCE_CONSUMER_KEY</name>
                 </property>
             </activation>
@@ -269,8 +268,8 @@
                                     <password>${env.SALESFORCE_PASSWORD}</password>
                                     <includes>
                                         <include>Account</include>
+                                        <include>Opportunity</include>
                                         <include>Order</include>
-                                        <include>Oportunity</include>
                                     </includes>
                                 </configuration>
                             </execution>

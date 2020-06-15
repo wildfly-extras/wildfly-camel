@@ -68,10 +68,8 @@ public class SalesforceIntegrationTest {
 
     @Test
     public void testSalesforceQueryProducer() throws Exception {
-        Map<String, Object> salesforceOptions = createSalesforceOptions();
 
-        Assume.assumeTrue("[#1676] Enable Salesforce testing in Jenkins",
-                salesforceOptions.size() == SalesforceOption.values().length);
+        Assume.assumeTrue(hasSalesforceEnvVars());
 
         SalesforceLoginConfig loginConfig = new SalesforceLoginConfig();
         IntrospectionSupport.setProperties(loginConfig, salesforceOptions);
@@ -89,7 +87,7 @@ public class SalesforceIntegrationTest {
                 .to("salesforce:query?sObjectQuery=SELECT Id,Name from Opportunity&sObjectClass=" + QueryRecordsOpportunity.class.getName());
 
                 from("direct:account")
-                .to("salesforce:query?sObjectQuery=SELECT Id,AccountNumber,MyMultiselect__c from Account&sObjectClass=" + QueryRecordsAccount.class.getName());
+                .to("salesforce:query?sObjectQuery=SELECT Id,AccountNumber from Account&sObjectClass=" + QueryRecordsAccount.class.getName());
             }
         });
 
@@ -112,8 +110,6 @@ public class SalesforceIntegrationTest {
             Account accItem = accRecords.getRecords().get(0);
             Assert.assertNotNull("Expected Account Id", accItem.getId());
             Assert.assertNotNull("Expected Account Number", accItem.getAccountNumber());
-            Assert.assertNotNull("Expected MyMultiselect", accItem.getMyMultiselect__c());
-            Assert.assertEquals("Expected MyMultiselect to have 3 values", 3, accItem.getMyMultiselect__c().length);
         } finally {
             camelctx.close();
         }
@@ -121,10 +117,8 @@ public class SalesforceIntegrationTest {
 
     @Test
     public void testSalesforceCreateJob() throws Exception {
-        Map<String, Object> salesforceOptions = createSalesforceOptions();
 
-        Assume.assumeTrue("[#1676] Enable Salesforce testing in Jenkins",
-            salesforceOptions.size() == SalesforceOption.values().length);
+        Assume.assumeTrue(hasSalesforceEnvVars());
 
         SalesforceLoginConfig loginConfig = new SalesforceLoginConfig();
         IntrospectionSupport.setProperties(loginConfig, salesforceOptions);
@@ -160,21 +154,21 @@ public class SalesforceIntegrationTest {
         }
     }
 
-    protected Map<String, Object> createSalesforceOptions() throws Exception {
-        final Map<String, Object> options = new HashMap<>();
-
+    static Map<String, Object> salesforceOptions;
+    static {
+    	salesforceOptions = new HashMap<>();
         for (SalesforceOption option : SalesforceOption.values()) {
             String envVar = System.getenv(option.name());
-            if (envVar == null || envVar.length() == 0) {
-                options.clear();
-            } else {
-                options.put(option.configPropertyName, envVar);
+            if (envVar != null && envVar.length() >= 0) {
+            	salesforceOptions.put(option.configPropertyName, envVar);
             }
         }
-
-        return options;
     }
 
+    static boolean hasSalesforceEnvVars() {
+    	return salesforceOptions.size() == SalesforceOption.values().length;    	
+    }
+    
     // Enum values correspond to environment variable names
     private enum SalesforceOption {
         SALESFORCE_CONSUMER_KEY("clientId"),

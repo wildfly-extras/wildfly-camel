@@ -10,19 +10,19 @@ import java.util.List;
 import javax.annotation.Generated;
 
 /**
- * Salesforce QueryRecords DTO for type Opportunity
+ * Salesforce QueryRecords DTO for type Pricebook2
  */
 @Generated("org.apache.camel.maven.CamelSalesforceMojo")
-public class QueryRecordsOpportunity extends AbstractQueryRecordsBase {
+public class QueryRecordsPricebook2 extends AbstractQueryRecordsBase {
 
     @XStreamImplicit
-    private List<Opportunity> records;
+    private List<Pricebook2> records;
 
-    public List<Opportunity> getRecords() {
+    public List<Pricebook2> getRecords() {
         return records;
     }
 
-    public void setRecords(List<Opportunity> records) {
+    public void setRecords(List<Pricebook2> records) {
         this.records = records;
     }
 }

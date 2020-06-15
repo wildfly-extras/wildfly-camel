@@ -9,30 +9,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Salesforce Enumeration DTO for picklist ForecastCategory
+ * Salesforce Enumeration DTO for picklist DefaultGroupNotificationFrequency
  */
 @Generated("org.apache.camel.maven.CamelSalesforceMojo")
-public enum Opportunity_ForecastCategoryEnum {
+public enum User_DefaultGroupNotificationFrequencyEnum {
 
-    // BestCase
-    BESTCASE("BestCase"),
+    // D
+    D("D"),
 
-    // Closed
-    CLOSED("Closed"),
+    // N
+    N("N"),
 
-    // Forecast
-    FORECAST("Forecast"),
+    // P
+    P("P"),
 
-    // Omitted
-    OMITTED("Omitted"),
-
-    // Pipeline
-    PIPELINE("Pipeline");
+    // W
+    W("W");
 
 
     final String value;
 
-    private Opportunity_ForecastCategoryEnum(String value) {
+    private User_DefaultGroupNotificationFrequencyEnum(String value) {
         this.value = value;
     }
 
@@ -42,8 +39,8 @@ public enum Opportunity_ForecastCategoryEnum {
     }
 
     @JsonCreator
-    public static Opportunity_ForecastCategoryEnum fromValue(String value) {
-        for (Opportunity_ForecastCategoryEnum e : Opportunity_ForecastCategoryEnum.values()) {
+    public static User_DefaultGroupNotificationFrequencyEnum fromValue(String value) {
+        for (User_DefaultGroupNotificationFrequencyEnum e : User_DefaultGroupNotificationFrequencyEnum.values()) {
             if (e.value.equals(value)) {
                 return e;
             }

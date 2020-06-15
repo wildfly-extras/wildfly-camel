@@ -9,30 +9,24 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Salesforce Enumeration DTO for picklist ForecastCategory
+ * Salesforce Enumeration DTO for picklist Level__c
  */
 @Generated("org.apache.camel.maven.CamelSalesforceMojo")
-public enum Opportunity_ForecastCategoryEnum {
+public enum Contact_LevelEnum {
 
-    // BestCase
-    BESTCASE("BestCase"),
+    // Primary
+    PRIMARY("Primary"),
 
-    // Closed
-    CLOSED("Closed"),
+    // Secondary
+    SECONDARY("Secondary"),
 
-    // Forecast
-    FORECAST("Forecast"),
-
-    // Omitted
-    OMITTED("Omitted"),
-
-    // Pipeline
-    PIPELINE("Pipeline");
+    // Tertiary
+    TERTIARY("Tertiary");
 
 
     final String value;
 
-    private Opportunity_ForecastCategoryEnum(String value) {
+    private Contact_LevelEnum(String value) {
         this.value = value;
     }
 
@@ -42,8 +36,8 @@ public enum Opportunity_ForecastCategoryEnum {
     }
 
     @JsonCreator
-    public static Opportunity_ForecastCategoryEnum fromValue(String value) {
-        for (Opportunity_ForecastCategoryEnum e : Opportunity_ForecastCategoryEnum.values()) {
+    public static Contact_LevelEnum fromValue(String value) {
+        for (Contact_LevelEnum e : Contact_LevelEnum.values()) {
             if (e.value.equals(value)) {
                 return e;
             }

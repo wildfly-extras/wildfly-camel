@@ -45,8 +45,7 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 
 @CamelAware
 @RunWith(Arquillian.class)
-// [#2521] Add support for camel context autoStartup=false
-public class SalesforceSpringIntegrationTest_ {
+public class SalesforceSpringIntegrationTest {
 
     @ArquillianResource
     CamelContextRegistry contextRegistry;
@@ -54,7 +53,7 @@ public class SalesforceSpringIntegrationTest_ {
     @Deployment
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-salesforce-spring-tests.jar");
-        archive.addAsResource("salesforce/salesforce-camel-context.xml");
+        if (hasSalesforceEnvVars()) archive.addAsResource("salesforce/salesforce-camel-context.xml");
         archive.addPackage(Order.class.getPackage());
         return archive;
     }
@@ -62,9 +61,7 @@ public class SalesforceSpringIntegrationTest_ {
     @Test
     public void testSalesforceQueryProducer() throws Exception {
 
-        Map<String, Object> salesforceOptions = createSalesforceOptions();
-        Assume.assumeTrue("[#1676] Enable Salesforce testing in Jenkins",
-                salesforceOptions.size() == SalesforceOption.values().length);
+        Assume.assumeTrue(hasSalesforceEnvVars());
 
         CamelContext camelctx = contextRegistry.getCamelContext("salesforce-context");
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
@@ -85,25 +82,23 @@ public class SalesforceSpringIntegrationTest_ {
         Account accItem = accRecords.getRecords().get(0);
         Assert.assertNotNull("Expected Account Id", accItem.getId());
         Assert.assertNotNull("Expected Account Number", accItem.getAccountNumber());
-        Assert.assertNotNull("Expected MyMultiselect", accItem.getMyMultiselect__c());
-        Assert.assertEquals("Expected MyMultiselect to have 3 values", 3, accItem.getMyMultiselect__c().length);
     }
 
-    protected Map<String, Object> createSalesforceOptions() throws Exception {
-        final Map<String, Object> options = new HashMap<>();
-
+    static Map<String, Object> salesforceOptions;
+    static {
+    	salesforceOptions = new HashMap<>();
         for (SalesforceOption option : SalesforceOption.values()) {
             String envVar = System.getenv(option.name());
-            if (envVar == null || envVar.length() == 0) {
-                options.clear();
-            } else {
-                options.put(option.configPropertyName, envVar);
+            if (envVar != null && envVar.length() >= 0) {
+            	salesforceOptions.put(option.configPropertyName, envVar);
             }
         }
-
-        return options;
     }
 
+    static boolean hasSalesforceEnvVars() {
+    	return salesforceOptions.size() == SalesforceOption.values().length;    	
+    }
+    
     // Enum values correspond to environment variable names
     private enum SalesforceOption {
         SALESFORCE_CONSUMER_KEY("clientId"),
