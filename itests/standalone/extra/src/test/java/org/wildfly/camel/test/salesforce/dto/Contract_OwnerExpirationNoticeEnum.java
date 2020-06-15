@@ -9,30 +9,33 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Salesforce Enumeration DTO for picklist ForecastCategory
+ * Salesforce Enumeration DTO for picklist OwnerExpirationNotice
  */
 @Generated("org.apache.camel.maven.CamelSalesforceMojo")
-public enum Opportunity_ForecastCategoryEnum {
+public enum Contract_OwnerExpirationNoticeEnum {
 
-    // BestCase
-    BESTCASE("BestCase"),
+    // 120
+    _120("120"),
 
-    // Closed
-    CLOSED("Closed"),
+    // 15
+    _15("15"),
 
-    // Forecast
-    FORECAST("Forecast"),
+    // 30
+    _30("30"),
 
-    // Omitted
-    OMITTED("Omitted"),
+    // 45
+    _45("45"),
 
-    // Pipeline
-    PIPELINE("Pipeline");
+    // 60
+    _60("60"),
+
+    // 90
+    _90("90");
 
 
     final String value;
 
-    private Opportunity_ForecastCategoryEnum(String value) {
+    private Contract_OwnerExpirationNoticeEnum(String value) {
         this.value = value;
     }
 
@@ -42,8 +45,8 @@ public enum Opportunity_ForecastCategoryEnum {
     }
 
     @JsonCreator
-    public static Opportunity_ForecastCategoryEnum fromValue(String value) {
-        for (Opportunity_ForecastCategoryEnum e : Opportunity_ForecastCategoryEnum.values()) {
+    public static Contract_OwnerExpirationNoticeEnum fromValue(String value) {
+        for (Contract_OwnerExpirationNoticeEnum e : Contract_OwnerExpirationNoticeEnum.values()) {
             if (e.value.equals(value)) {
                 return e;
             }

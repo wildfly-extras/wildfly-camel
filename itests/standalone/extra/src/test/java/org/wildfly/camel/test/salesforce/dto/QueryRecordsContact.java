@@ -10,19 +10,19 @@ import java.util.List;
 import javax.annotation.Generated;
 
 /**
- * Salesforce QueryRecords DTO for type Opportunity
+ * Salesforce QueryRecords DTO for type Contact
  */
 @Generated("org.apache.camel.maven.CamelSalesforceMojo")
-public class QueryRecordsOpportunity extends AbstractQueryRecordsBase {
+public class QueryRecordsContact extends AbstractQueryRecordsBase {
 
     @XStreamImplicit
-    private List<Opportunity> records;
+    private List<Contact> records;
 
-    public List<Opportunity> getRecords() {
+    public List<Contact> getRecords() {
         return records;
     }
 
-    public void setRecords(List<Opportunity> records) {
+    public void setRecords(List<Contact> records) {
         this.records = records;
     }
 }

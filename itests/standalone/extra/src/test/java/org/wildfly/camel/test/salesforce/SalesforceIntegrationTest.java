@@ -89,7 +89,7 @@ public class SalesforceIntegrationTest {
                 .to("salesforce:query?sObjectQuery=SELECT Id,Name from Opportunity&sObjectClass=" + QueryRecordsOpportunity.class.getName());
 
                 from("direct:account")
-                .to("salesforce:query?sObjectQuery=SELECT Id,AccountNumber,MyMultiselect__c from Account&sObjectClass=" + QueryRecordsAccount.class.getName());
+                .to("salesforce:query?sObjectQuery=SELECT Id,AccountNumber from Account&sObjectClass=" + QueryRecordsAccount.class.getName());
             }
         });
 
@@ -112,8 +112,6 @@ public class SalesforceIntegrationTest {
             Account accItem = accRecords.getRecords().get(0);
             Assert.assertNotNull("Expected Account Id", accItem.getId());
             Assert.assertNotNull("Expected Account Number", accItem.getAccountNumber());
-            Assert.assertNotNull("Expected MyMultiselect", accItem.getMyMultiselect__c());
-            Assert.assertEquals("Expected MyMultiselect to have 3 values", 3, accItem.getMyMultiselect__c().length);
         } finally {
             camelctx.close();
         }

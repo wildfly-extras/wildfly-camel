@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * Salesforce Enumeration DTO for picklist CleanStatus
  */
 @Generated("org.apache.camel.maven.CamelSalesforceMojo")
-public enum Account_CleanStatusEnum {
+public enum Contact_CleanStatusEnum {
 
     // Acknowledged
     ACKNOWLEDGED("Acknowledged"),
@@ -41,7 +41,7 @@ public enum Account_CleanStatusEnum {
 
     final String value;
 
-    private Account_CleanStatusEnum(String value) {
+    private Contact_CleanStatusEnum(String value) {
         this.value = value;
     }
 
@@ -51,8 +51,8 @@ public enum Account_CleanStatusEnum {
     }
 
     @JsonCreator
-    public static Account_CleanStatusEnum fromValue(String value) {
-        for (Account_CleanStatusEnum e : Account_CleanStatusEnum.values()) {
+    public static Contact_CleanStatusEnum fromValue(String value) {
+        for (Contact_CleanStatusEnum e : Contact_CleanStatusEnum.values()) {
             if (e.value.equals(value)) {
                 return e;
             }
