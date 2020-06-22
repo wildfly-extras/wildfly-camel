@@ -4,6 +4,7 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
+    <artifact name="${com.zaxxer:SparseBitSet}" />
     <artifact name="${org.apache.poi:poi}" />
     <artifact name="${org.apache.poi:poi-ooxml}" />
     <artifact name="${org.apache.poi:poi-ooxml-schemas}" />
@@ -13,7 +14,6 @@
     <module name="javax.api" />
     <module name="com.github.virtuald.curvesapi" />
     <module name="org.apache.commons.collections4" />
-    <module name="org.apache.commons.compress" />
     <module name="org.apache.commons.math3" />
     <module name="org.apache.xmlbeans" />
   </dependencies>

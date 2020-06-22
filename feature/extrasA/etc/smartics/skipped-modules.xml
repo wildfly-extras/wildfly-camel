@@ -44,6 +44,14 @@
         <include artifact="org.apache.avro:avro"/>
     </module>
 
+    <module name="org.apache.commons.beanutils" slot="fuse" skip="true">
+        <include artifact=":commons-beanutils" />
+    </module>
+
+    <module name="org.apache.commons.cli" slot="fuse" skip="true">
+        <include artifact=":commons-cli" />
+    </module>
+
     <module name="org.apache.commons.codec" slot="fuse" skip="true">
         <include artifact=":commons-codec" />
     </module>
@@ -60,6 +68,10 @@
         <include artifact=":commons-lang" />
     </module>
 
+    <module name="org.apache.commons.lang3" slot="fuse" skip="true">
+        <include artifact=":commons-lang3" />
+    </module>
+
     <module name="org.apache.commons.logging" slot="fuse" skip="true">
         <include artifact=":commons-logging" />
     </module>
@@ -72,21 +84,23 @@
         <include artifact="org.apache.httpcomponents:httpmime" />
     </module>
 
-    <module name="org.codehaus.jackson.jackson-core-asl" slot="fuse" skip="true">
-        <include artifact="org.codehaus.jackson:jackson-core-asl" />
-    </module>
-
-    <module name="org.codehaus.jackson.jackson-mapper-asl" slot="fuse" skip="true">
-        <include artifact="org.codehaus.jackson:jackson-mapper-asl" />
-    </module>
-
     <module name="org.codehaus.jettison" slot="fuse" skip="true">
         <include artifact=":jettison" />
+    </module>
+
+    <module name="org.codehaus.woodstox" slot="fuse" skip="true">
+        <include artifact="org.codehaus.woodstox:woodstox-core-asl" />
+        <include artifact="org.codehaus.woodstox:woodstox-core" />
+        <include artifact="org.codehaus.woodstox:stax2-api" />
     </module>
 
 	<!-- =========================================================== -->
 	<!--          modules defined in features/modules                -->
 	<!-- =========================================================== -->
+
+	<module name="com.fasterxml.woodstox" skip="true">
+        <include artifact="com.fasterxml.woodstox:woodstox-core"/>
+	</module>
 
     <module name="com.google.guava" slot="fuse" skip="true">
         <include artifact="com.google.guava:guava" />
@@ -98,6 +112,12 @@
 
     <module name="io.netty" slot="3.10" skip="true">
         <include artifact="io.netty:netty" />
+    </module>
+
+    <module name="net.minidev.smart" skip="true">
+        <include artifact="net.minidev:accessors-smart" />
+        <include artifact="net.minidev:json-smart-action" />
+        <include artifact="net.minidev:json-smart" />
     </module>
 
     <module name="org.apache.camel.core" skip="true">
@@ -171,6 +191,14 @@
         <include artifact="org.apache.zookeeper:zookeeper" />
     </module>
 
+    <module name="org.eclipse.jetty" skip="true">
+        <include artifact="org.eclipse.jetty:jetty-client" />
+        <include artifact="org.eclipse.jetty:jetty-http" />
+        <include artifact="org.eclipse.jetty:jetty-io" />
+        <include artifact="org.eclipse.jetty:jetty-util" />
+        <include artifact="org.eclipse.jetty:jetty-util-ajax" />
+    </module>
+
     <module name="org.fusesource.leveldbjni.all" skip="true">
         <include artifact="org.fusesource.leveldbjni:leveldbjni-all" />
     </module>
@@ -180,4 +208,23 @@
         <include artifact="org.osgi:core" />
     </module>
 
+	<!-- =========================================================== -->
+	<!--          modules skipped here                               -->
+	<!-- =========================================================== -->
+
+    <module name="com.google.re2j" skip="true">
+        <include artifact="com.google.re2j:re2j" />
+    </module>
+    
+    <module name="dnsjava" skip="true">
+        <include artifact="dnsjava:dnsjava" />
+    </module>
+    
+    <module name="org.apache.hadoop.skipped" skip="true">
+        <include artifact="org.apache.hadoop:hadoop-mapreduce-client-core"/>
+        <include artifact="org.apache.hadoop:hadoop-yarn-api"/>
+        <include artifact="org.apache.hadoop:hadoop-yarn-client"/>
+        <include artifact="org.apache.hadoop:hadoop-yarn-common"/>
+    </module>
+    
 </modules>

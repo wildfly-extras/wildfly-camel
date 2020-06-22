@@ -22,14 +22,9 @@
       </exports>
     </module>
     <module name="org.slf4j" />
+    <module name="com.google.guava" slot="fuse" />
     <module name="org.apache.camel.core" />
-    <module name="org.apache.commons.codec" slot="fuse" />
-    <module name="org.apache.commons.collections" slot="fuse" />
-    <module name="org.apache.commons.configuration" />
     <module name="org.apache.commons.lang" slot="fuse" />
-    <module name="org.apache.commons.net" />
-    <module name="org.codehaus.jackson.jackson-core-asl" slot="fuse" />
-    <module name="org.codehaus.jackson.jackson-mapper-asl" slot="fuse" />
   </dependencies>
   <exports>
     <exclude path="org/apache/camel/component/hdfs/osgi**" />

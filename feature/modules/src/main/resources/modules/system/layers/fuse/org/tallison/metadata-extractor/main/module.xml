@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.tallison.metadata-extractor">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.tallison:metadata-extractor}" />
+    <artifact name="${org.tallison.xmp:xmpcore-shaded}" />
+  </resources>
+  <dependencies>
+    <module name="com.adobe.xmp.xmpcore" />
+  </dependencies>
+</module>

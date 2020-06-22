@@ -75,27 +75,8 @@
         </dependency>
         <dependency>
             <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-common</artifactId>
+            <artifactId>hadoop-hdfs-client</artifactId>
             <version>${version.camel.hadoop2}</version>
-            <type>test-jar</type>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-hdfs</artifactId>
-            <version>${version.camel.hadoop2}</version>
-            <type>test-jar</type>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.protobuf</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.enterprise.concurrent</groupId>
@@ -169,6 +150,10 @@
                     <systemPropertyVariables>
                         <org.jboss.remoting-jmx.timeout>300</org.jboss.remoting-jmx.timeout>
                     </systemPropertyVariables>
+					<excludes>
+						<exclude>**/ExportedPathsTest.java</exclude>
+						<exclude>**/GRPCIntegrationTest.java</exclude>
+					</excludes>
                 </configuration>
             </plugin>
             <plugin>

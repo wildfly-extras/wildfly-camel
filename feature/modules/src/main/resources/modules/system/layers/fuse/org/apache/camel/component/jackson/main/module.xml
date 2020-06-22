@@ -8,7 +8,6 @@
     <module name="com.fasterxml.jackson.core.jackson-core" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" slot="fuse" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

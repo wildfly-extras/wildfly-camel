@@ -102,10 +102,10 @@
                 <artifactId>groovy-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>process-resources</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
+                        <phase>process-resources</phase>
                     </execution>
                 </executions>
                 <configuration>

@@ -33,6 +33,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
@@ -41,6 +42,8 @@ import org.wildfly.extension.camel.CamelAware;
 @RunWith(Arquillian.class)
 public class JCacheProducerIntegrationTest {
 
+    private UUID randomUUID = UUID.randomUUID();
+
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-jcache-tests");
@@ -48,27 +51,29 @@ public class JCacheProducerIntegrationTest {
     }
 
     @Test
+    @Ignore("[CAMEL-15167] Clarify use of sysprops for HazelcastCachingProvider")
     public void testPutGetAndRemove() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            public void configure() {
-                from("direct:put")
-                .to("jcache://test-cache")
-                    .to("mock:put");
-                from("direct:get")
+        try (CamelContext camelctx = new DefaultCamelContext()) {
+        	
+            camelctx.addRoutes(new RouteBuilder() {
+                public void configure() {
+                    from("direct:put")
                     .to("jcache://test-cache")
-                        .to("mock:get");
-            }
-        });
+                        .to("mock:put");
+                    from("direct:get")
+                        .to("jcache://test-cache")
+                            .to("mock:get");
+                }
+            });
 
-        final Map<String, Object> headers = new HashMap<>();
+            final Map<String, Object> headers = new HashMap<>();
 
-        final String key = randomString();
-        final String val = randomString();
+            final String key = randomUUID.toString();
+            final String val = randomUUID.toString();
 
-        camelctx.start();
-        try {
+            camelctx.start();
+
             ProducerTemplate producer = camelctx.createProducerTemplate();
 
             headers.clear();
@@ -104,36 +109,58 @@ public class JCacheProducerIntegrationTest {
                 }
             });
             mock.assertIsSatisfied();
-        } finally {
-            camelctx.close();
         }
     }
 
     @Test
-    public void testJCacheLoadsCachingProviders() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            public void configure() {
-                from("jcache://test-cacheA?cachingProvider=com.hazelcast.cache.HazelcastCachingProvider")
-                .to("mock:resultA");
-
-                from("jcache://test-cacheB?cachingProvider=org.ehcache.jsr107.EhcacheCachingProvider")
-                .to("mock:resultB");
-
-                from("jcache://test-cacheC?cachingProvider=org.infinispan.jcache.embedded.JCachingProvider")
-                .to("mock:resultC");
-            }
-        });
-
-        try {
+    @Ignore("[CAMEL-15167] Clarify use of sysprops for HazelcastCachingProvider")
+    public void testJCacheLoadsCachingProviderHazelcast() throws Exception {
+    	
+        try (CamelContext camelctx = new DefaultCamelContext()) {
+        	
+            camelctx.addRoutes(new RouteBuilder() {
+                public void configure() {
+                    from("jcache://test-cacheA?cachingProvider=com.hazelcast.cache.HazelcastCachingProvider")
+                    .to("mock:resultA");
+                }
+            });
+            
             // Just ensure we can start up without any class loading issues
             camelctx.start();
-        } finally {
-            camelctx.close();
         }
     }
 
-    private String randomString() {
-        return UUID.randomUUID().toString();
+    @Test
+    public void testJCacheLoadsCachingProviderEhcache() throws Exception {
+    	
+        try (CamelContext camelctx = new DefaultCamelContext()) {
+        	
+            camelctx.addRoutes(new RouteBuilder() {
+                public void configure() {
+                    from("jcache://test-cacheB?cachingProvider=org.ehcache.jsr107.EhcacheCachingProvider")
+                    .to("mock:resultB");
+                }
+            });
+            
+            // Just ensure we can start up without any class loading issues
+            camelctx.start();
+        }
+    }
+
+    @Test
+    public void testJCacheLoadsCachingProviderJCaching() throws Exception {
+    	
+        try (CamelContext camelctx = new DefaultCamelContext()) {
+        	
+            camelctx.addRoutes(new RouteBuilder() {
+                public void configure() {
+                    from("jcache://test-cacheC?cachingProvider=org.infinispan.jcache.embedded.JCachingProvider")
+                    .to("mock:resultC");
+                }
+            });
+            
+            // Just ensure we can start up without any class loading issues
+            camelctx.start();
+        }
     }
 }

@@ -17,6 +17,7 @@
     <module name="org.apache.httpcomponents" slot="fuse" />
     <module name="org.jboss.xnio" />
     <module name="org.slf4j" />
+    <module name="io.undertow.servlet" />
     <module name="org.apache.camel.component.http.common" />
     <module name="org.apache.camel.core" />
   </dependencies>

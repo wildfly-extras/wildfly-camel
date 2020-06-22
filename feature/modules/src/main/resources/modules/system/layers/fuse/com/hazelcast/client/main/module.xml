@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="com.hazelcast.client">
-  <resources>
-    <artifact name="${com.hazelcast:hazelcast-client}" />
-  </resources>
-  <dependencies>
-    <module name="com.hazelcast" />
-  </dependencies>
-</module>

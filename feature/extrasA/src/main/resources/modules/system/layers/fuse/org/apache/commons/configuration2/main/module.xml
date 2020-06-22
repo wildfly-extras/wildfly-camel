@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.apache.commons.configuration2">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.apache.commons:commons-configuration2}" />
+  </resources>
+  <dependencies>
+    <module name="javax.servlet.api" />
+    <module name="org.apache.commons.logging" slot="fuse" />
+    <module name="org.apache.xerces" />
+  </dependencies>
+</module>

@@ -32,7 +32,6 @@ import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class SimpleManagementTest {
@@ -40,28 +39,29 @@ public class SimpleManagementTest {
     @Test
     public void testAllGood() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:start").transform(body().prepend("Hello "));
-            }
-        });
-
         MBeanServer server = ManagementFactory.getPlatformMBeanServer();
-        Set<ObjectName> onames = server.queryNames(new ObjectName("org.apache.camel:*"), null);
-        Assert.assertEquals(Collections.emptySet(), onames);
+        Set<ObjectName> onames;
+        
+        try (CamelContext camelctx = new DefaultCamelContext()) {
+        	
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    from("direct:start").transform(body().prepend("Hello "));
+                }
+            });
 
-        camelctx.start();
-        try {
+            onames = server.queryNames(new ObjectName("org.apache.camel:*"), null);
+            Assert.assertEquals(Collections.emptySet(), onames);
+
+            camelctx.start();
+
             onames = server.queryNames(new ObjectName("org.apache.camel:*"), null);
             Assert.assertTrue(onames.size() > 0);
 
             ProducerTemplate producer = camelctx.createProducerTemplate();
             String result = producer.requestBody("direct:start", "Kermit", String.class);
             Assert.assertEquals("Hello Kermit", result);
-        } finally {
-            camelctx.close();
         }
 
         onames = server.queryNames(new ObjectName("org.apache.camel:*"), null);
@@ -69,27 +69,30 @@ public class SimpleManagementTest {
     }
 
     @Test
-    @Ignore("[CAMEL-13094] Context MBean not unregistered on startup failure")
     public void testStartupFailure() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("invalid:start");
-            }
-        });
-
         MBeanServer server = ManagementFactory.getPlatformMBeanServer();
-        Set<ObjectName> onames = server.queryNames(new ObjectName("org.apache.camel:*"), null);
-        Assert.assertEquals(Collections.emptySet(), onames);
+        Set<ObjectName> onames;
+        
+        try (CamelContext camelctx = new DefaultCamelContext()) {
+        	
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    from("invalid:start");
+                }
+            });
 
-        try {
-            camelctx.start();
-            Assert.fail("Startup failure expected");
-        } catch (RuntimeCamelException ex) {
-            System.out.println(">>>>>>> Startup Exception: " + ex);
-            // expected
+            onames = server.queryNames(new ObjectName("org.apache.camel:*"), null);
+            Assert.assertEquals(Collections.emptySet(), onames);
+
+            try {
+                camelctx.start();
+                Assert.fail("Startup failure expected");
+            } catch (RuntimeCamelException ex) {
+                System.out.println(">>>>>>> Startup Exception: " + ex);
+                // expected
+            }
         }
 
         onames = server.queryNames(new ObjectName("org.apache.camel:*"), null);

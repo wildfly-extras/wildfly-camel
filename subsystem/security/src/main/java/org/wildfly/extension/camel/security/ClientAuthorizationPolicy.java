@@ -23,8 +23,6 @@ package org.wildfly.extension.camel.security;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 
-import org.apache.camel.NamedNode;
-import org.apache.camel.spi.RouteContext;
 import org.wildfly.extension.camel.security.LoginContextBuilder.Type;
 
 

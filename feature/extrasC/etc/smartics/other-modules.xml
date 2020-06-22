@@ -20,6 +20,13 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="aopalliance">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="aopalliance:aopalliance" />
+    </module>
+
     <module name="com.google.code.gson" inherit-slot="false" slot="2.5">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -44,6 +51,16 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.inject.api" />
+        </dependencies>
+    </module>
+
+    <module name="com.google.inject.guice" inherit-slot="false" slot="3.0">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.google.inject:guice"/>
+        <dependencies>
+            <module name="com.google.guava" slot="fuse"/>
         </dependencies>
     </module>
 

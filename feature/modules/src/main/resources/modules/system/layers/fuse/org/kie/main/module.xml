@@ -15,6 +15,7 @@
     <artifact name="${org.kie.soup:kie-soup-maven-support}" />
     <artifact name="${org.kie.soup:kie-soup-project-datamodel-api}" />
     <artifact name="${org.kie.soup:kie-soup-project-datamodel-commons}" />
+    <artifact name="${org.kie.soup:kie-soup-xstream}" />
   </resources>
   <dependencies>
     <module name="javax.api" />

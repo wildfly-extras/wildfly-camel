@@ -22,7 +22,7 @@ package org.wildfly.camel.test.classloading;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
-import org.apache.camel.ResolveEndpointFailedException;
+import org.apache.camel.NoSuchEndpointException;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -48,28 +48,29 @@ public class CustomComponentsTest {
 
     @Test
     public void testMQTTComponentDoesNotLoad() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
-        try {
+        try (CamelContext camelctx = new DefaultCamelContext()) {
             camelctx.getEndpoint("mqtt://dummy");
-            Assert.fail("Expected a ResolveEndpointFailedException");
-        } catch (ResolveEndpointFailedException e) {
+            Assert.fail("Expected a NoSuchEndpointException");
+        } catch (NoSuchEndpointException e) {
             // expected
         }
     }
 
     @Test
     public void testFtpComponentLoads() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
-        Endpoint endpoint = camelctx.getEndpoint("ftp://localhost/foo");
-        Assert.assertNotNull(endpoint);
-        Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.file.remote.FtpEndpoint");
+        try (CamelContext camelctx = new DefaultCamelContext()) {
+            Endpoint endpoint = camelctx.getEndpoint("ftp://localhost/foo");
+            Assert.assertNotNull(endpoint);
+            Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.file.remote.FtpEndpoint");
+        }
     }
 
     @Test
     public void testRssComponentLoads() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
-        Endpoint endpoint = camelctx.getEndpoint("rss://https://developer.jboss.org/blogs/feeds/posts?splitEntries=true");
-        Assert.assertNotNull(endpoint);
-        Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.rss.RssEndpoint");
+        try (CamelContext camelctx = new DefaultCamelContext()) {
+            Endpoint endpoint = camelctx.getEndpoint("rss://https://developer.jboss.org/blogs/feeds/posts?splitEntries=true");
+            Assert.assertNotNull(endpoint);
+            Assert.assertEquals(endpoint.getClass().getName(), "org.apache.camel.component.rss.RssEndpoint");
+        }
     }
 }

@@ -4,7 +4,6 @@
     <artifact name="${org.apache.camel:camel-yammer}" />
   </resources>
   <dependencies>
-    <module name="org.codehaus.jackson.jackson-core-asl" slot="fuse" />
     <module name="org.slf4j" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-core" />

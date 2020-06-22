@@ -8,8 +8,9 @@
   </resources>
   <dependencies>
     <module name="com.google.guava" slot="fuse" />
+    <module name="com.fasterxml.jackson.core.jackson-core" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="org.apache.zookeeper" />
-    <module name="org.codehaus.jackson.jackson-mapper-asl" slot="fuse" />
     <module name="org.slf4j" />
   </dependencies>
   <exports>

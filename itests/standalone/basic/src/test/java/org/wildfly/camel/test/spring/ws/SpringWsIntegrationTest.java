@@ -32,6 +32,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelContextRegistry;
@@ -39,6 +40,7 @@ import org.wildfly.extension.camel.CamelContextRegistry;
 import net.javacrumbs.springws.test.helper.InMemoryWebServiceMessageSender;
 
 @RunWith(Arquillian.class)
+@Ignore("[CAMEL-15168] Spring route cannot resolve named processor any more")
 public class SpringWsIntegrationTest {
 
     @ArquillianResource

@@ -27,6 +27,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.google.calendar.GoogleCalendarComponent;
+import org.apache.camel.component.google.calendar.GoogleCalendarConfiguration;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -44,7 +45,7 @@ import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
 
 /**
- * Read {@code google-api-testing.adoc} in the rood directory of the current Maven module to learn how to set up the credentials used by this class.
+ * Read {@code service-access.md} in the itests directory to learn how to set up credentials used by this class.
  *
  * @author <a href="https://github.com/ppalaga">Peter Palaga</a>
  */
@@ -59,65 +60,58 @@ public class GoogleCalendarIntegrationTest {
             .addClass(GoogleApiEnv.class);
     }
 
-    private static Calendar createTestCalendar(ProducerTemplate template, String testId) {
-        Calendar calendar = new Calendar();
-
-        calendar.setSummary(testId + UUID.randomUUID().toString());
-        calendar.setTimeZone("America/St_Johns");
-
-        return template.requestBody("google-calendar://calendars/insert?inBody=content", calendar, Calendar.class);
-    }
-
-    @SuppressWarnings("serial")
     @Test
+    @SuppressWarnings("serial")
     public void testGoogleCalendarComponent() throws Exception {
 
-        CamelContext camelctx = new DefaultCamelContext();
+        try(CamelContext camelctx = new DefaultCamelContext()) {
+        	
+            GoogleCalendarConfiguration configuration = new GoogleCalendarConfiguration();
+    		GoogleApiEnv.configure(configuration, getClass(), LOG);
+    		
+            GoogleCalendarComponent component = camelctx.getComponent("google-calendar", GoogleCalendarComponent.class);
+            component.setConfiguration(configuration);
 
-        GoogleCalendarComponent gCalendarComponent = camelctx.getComponent("google-calendar", GoogleCalendarComponent.class);
-        GoogleApiEnv.configure(gCalendarComponent.getConfiguration(), getClass(), LOG);
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    final String pathPrefix = "events";
 
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                final String pathPrefix = "events";
+                    // test route for calendarImport
+                    from("direct://CALENDARIMPORT").to("google-calendar://" + pathPrefix + "/calendarImport");
 
-                // test route for calendarImport
-                from("direct://CALENDARIMPORT").to("google-calendar://" + pathPrefix + "/calendarImport");
+                    // test route for delete
+                    from("direct://DELETE").to("google-calendar://" + pathPrefix + "/delete");
 
-                // test route for delete
-                from("direct://DELETE").to("google-calendar://" + pathPrefix + "/delete");
+                    // test route for get
+                    from("direct://GET").to("google-calendar://" + pathPrefix + "/get");
 
-                // test route for get
-                from("direct://GET").to("google-calendar://" + pathPrefix + "/get");
+                    // test route for insert
+                    from("direct://INSERT").to("google-calendar://" + pathPrefix + "/insert");
 
-                // test route for insert
-                from("direct://INSERT").to("google-calendar://" + pathPrefix + "/insert");
+                    // test route for instances
+                    from("direct://INSTANCES").to("google-calendar://" + pathPrefix + "/instances");
 
-                // test route for instances
-                from("direct://INSTANCES").to("google-calendar://" + pathPrefix + "/instances");
+                    // test route for list
+                    from("direct://LIST").to("google-calendar://" + pathPrefix + "/list?inBody=calendarId");
 
-                // test route for list
-                from("direct://LIST").to("google-calendar://" + pathPrefix + "/list?inBody=calendarId");
+                    // test route for move
+                    from("direct://MOVE").to("google-calendar://" + pathPrefix + "/move");
 
-                // test route for move
-                from("direct://MOVE").to("google-calendar://" + pathPrefix + "/move");
+                    // test route for patch
+                    from("direct://PATCH").to("google-calendar://" + pathPrefix + "/patch");
 
-                // test route for patch
-                from("direct://PATCH").to("google-calendar://" + pathPrefix + "/patch");
+                    // test route for quickAdd
+                    from("direct://QUICKADD").to("google-calendar://" + pathPrefix + "/quickAdd");
 
-                // test route for quickAdd
-                from("direct://QUICKADD").to("google-calendar://" + pathPrefix + "/quickAdd");
+                    // test route for update
+                    from("direct://UPDATE").to("google-calendar://" + pathPrefix + "/update");
 
-                // test route for update
-                from("direct://UPDATE").to("google-calendar://" + pathPrefix + "/update");
+                    // test route for watch
+                    from("direct://WATCH").to("google-calendar://" + pathPrefix + "/watch");
+                }
+            });
 
-                // test route for watch
-                from("direct://WATCH").to("google-calendar://" + pathPrefix + "/watch");
-            }
-        });
-
-        try {
             camelctx.start();
 
             String testId = getClass().getSimpleName() + ".events";
@@ -176,11 +170,16 @@ public class GoogleCalendarIntegrationTest {
             // Check if it is NOT in the list of events for this calendar
             Events eventsAfterDeletion = template.requestBody("direct://LIST", cal.getId(), Events.class);
             Assert.assertEquals(0, eventsAfterDeletion.getItems().size());
-
-        } finally {
-            camelctx.close();
         }
+    }
 
+    private static Calendar createTestCalendar(ProducerTemplate template, String testId) {
+        Calendar calendar = new Calendar();
+
+        calendar.setSummary(testId + UUID.randomUUID().toString());
+        calendar.setTimeZone("America/St_Johns");
+
+        return template.requestBody("google-calendar://calendars/insert?inBody=content", calendar, Calendar.class);
     }
 
 }

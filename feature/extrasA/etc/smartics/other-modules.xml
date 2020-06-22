@@ -20,13 +20,6 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="aopalliance">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="aopalliance:aopalliance" />
-    </module>
-
     <module name="com.google.protobuf" inherit-slot="false" slot="2.5">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -41,14 +34,13 @@
         </dependencies>
     </module>
 
-    <module name="com.google.inject.guice" inherit-slot="false" slot="3.0">
+    <module name="com.squareup.okhttp" inherit-slot="false">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="com.google.inject:guice"/>
-        <dependencies>
-            <module name="com.google.guava" slot="fuse"/>
-        </dependencies>
+        <include artifact="com.squareup.okhttp:okhttp"/>
+        <apply-to-dependencies skip="true">
+        </apply-to-dependencies>
     </module>
 
     <module name="com.sun.jersey.core" >
@@ -57,10 +49,20 @@
         </properties>
         <include artifact="com.sun.jersey:jersey-core"/>
         <include artifact="com.sun.jersey:jersey-json"/>
+        <apply-to-dependencies skip="true">
+            <include module="org.osgi.core" />
+        </apply-to-dependencies>
     </module>
 
     <module name="javax.jcr" >
         <include artifact="javax.jcr:jcr" />
+    </module>
+
+    <module name="org.apache.commons.configuration2">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-configuration2" />
     </module>
 
     <module name="org.apache.commons.dbcp">
@@ -72,6 +74,13 @@
             <module name="javax.sql.api" />
             <module name="org.apache.derby" />
         </dependencies>
+    </module>
+
+    <module name="org.apache.commons.text">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact=":commons-text" />
     </module>
 
     <module name="org.apache.derby">
@@ -93,15 +102,15 @@
         <include artifact="org.apache.hadoop:hadoop-auth" />
         <include artifact="org.apache.hadoop:hadoop-common" />
         <include artifact="org.apache.hadoop:hadoop-hdfs" />
-        <include artifact="org.apache.hadoop:hadoop-mapreduce-client-core"/>
-        <include artifact="org.apache.hadoop:hadoop-yarn-api"/>
-        <include artifact="org.apache.hadoop:hadoop-yarn-common"/>
+        <include artifact="org.apache.hadoop:hadoop-hdfs-client" />
         <apply-to-dependencies skip="true">
             <include module="ant" />
             <include module="com.google.inject.skipped"/>
-            <include module="com.sun.jersey.client" />
-            <include module="com.sun.jersey.server" />
+            <include module="com.nimbusds"/>
+            <include module="com.sun.jersey.skipped" />
             <include module="com.google.code.findbugs" />
+            <include module="com.google.re2j" />
+            <include module="dnsjava" />
             <include module="io.netty.skipped" />
             <include module="jdiff" />
             <include module="jdk.tools" />
@@ -109,26 +118,31 @@
             <include module="org.apache.camel.component.protobuf" />
             <include module="org.apache.commons.daemon" />
             <include module="org.apache.directory.server" />
+            <include module="org.apache.hadoop.skipped" />
+            <include module="org.apache.kerby" />
+            <include module="org.eclipse.jetty.skipped" />
             <include module="org.fusesource.leveldbjni.all" />
             <include module="org.mortbay.jetty" />
         </apply-to-dependencies>
         <dependencies>
             <module name="com.google.protobuf" slot="2.5" />
+            <module name="sun.jdk.ext" />
+            <!--  
             <module name="org.apache.commons.configuration" />
             <module name="org.apache.commons.net" />
             <module name="ibm.jdk.ext" />
             <module name="javax.api" />
-            <module name="sun.jdk.ext" />
+            -->
         </dependencies>
     </module>
 
-    <module name="org.apache.htrace">
+	<module name="org.apache.htrace">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="org.apache.htrace:htrace-core" />
-    </module>
-
+        <include artifact="org.apache.htrace:htrace-core4" />
+	</module>
+	
     <module name="org.apache.jackrabbit" >
         <properties>
             <property name="jboss.api" value="private"/>
@@ -158,13 +172,6 @@
         <dependencies>
             <module name="javax.api" />
         </dependencies>
-    </module>
-
-    <module name="xmlenc">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="xmlenc:xmlenc" />
     </module>
 
 </modules>

@@ -4,7 +4,7 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${org.apache.htrace:htrace-core}" />
+    <artifact name="${org.apache.htrace:htrace-core4}" />
   </resources>
   <dependencies />
 </module>

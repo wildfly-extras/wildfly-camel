@@ -8,47 +8,43 @@
     <artifact name="${org.apache.hadoop:hadoop-auth}" />
     <artifact name="${org.apache.hadoop:hadoop-common}" />
     <artifact name="${org.apache.hadoop:hadoop-hdfs}" />
-    <artifact name="${org.apache.hadoop:hadoop-mapreduce-client-core}" />
-    <artifact name="${org.apache.hadoop:hadoop-yarn-api}" />
-    <artifact name="${org.apache.hadoop:hadoop-yarn-common}" />
+    <artifact name="${org.apache.hadoop:hadoop-hdfs-client}" />
   </resources>
   <dependencies>
     <module name="com.google.protobuf" slot="2.5" />
-    <module name="org.apache.commons.configuration" />
-    <module name="org.apache.commons.net" />
-    <module name="ibm.jdk.ext" />
-    <module name="javax.api" />
     <module name="sun.jdk.ext" />
+    <module name="com.fasterxml.jackson.core.jackson-annotations" />
+    <module name="com.fasterxml.jackson.core.jackson-databind" />
+    <module name="com.fasterxml.woodstox" />
     <module name="com.google.code.gson" slot="fuse" />
     <module name="com.google.guava" slot="fuse" />
-    <module name="com.google.inject.guice" slot="3.0" />
     <module name="com.jcraft.jsch" slot="fuse" />
+    <module name="com.squareup.okhttp" />
     <module name="com.sun.jersey.core" />
     <module name="io.netty" slot="3.10" />
     <module name="javax.servlet.api" />
     <module name="javax.servlet.jsp.api" />
-    <module name="javax.xml.bind.api" />
+    <module name="net.minidev.smart" />
     <module name="org.apache.avro" slot="fuse" />
+    <module name="org.apache.commons.beanutils" slot="fuse" />
     <module name="org.apache.commons.cli" slot="fuse" />
     <module name="org.apache.commons.codec" slot="fuse" />
     <module name="org.apache.commons.collections" slot="fuse" />
     <module name="org.apache.commons.compress" />
-    <module name="org.apache.commons.httpclient" />
+    <module name="org.apache.commons.configuration2" />
     <module name="org.apache.commons.io" slot="fuse" />
-    <module name="org.apache.commons.lang" slot="fuse" />
+    <module name="org.apache.commons.lang3" slot="fuse" />
     <module name="org.apache.commons.logging" slot="fuse" />
     <module name="org.apache.commons.math3" />
+    <module name="org.apache.commons.net" />
+    <module name="org.apache.commons.text" />
     <module name="org.apache.curator" />
     <module name="org.apache.htrace" />
     <module name="org.apache.httpcomponents" slot="fuse" />
     <module name="org.apache.log4j" />
-    <module name="org.apache.xerces" />
     <module name="org.apache.zookeeper" />
-    <module name="org.codehaus.jackson.jackson-core-asl" slot="fuse" />
-    <module name="org.codehaus.jackson.jackson-jaxrs" slot="fuse" />
-    <module name="org.codehaus.jackson.jackson-mapper-asl" slot="fuse" />
-    <module name="org.codehaus.jackson.jackson-xc" slot="fuse" />
+    <module name="org.codehaus.woodstox" slot="fuse" />
+    <module name="org.eclipse.jetty" />
     <module name="org.slf4j" />
-    <module name="xmlenc" />
   </dependencies>
 </module>

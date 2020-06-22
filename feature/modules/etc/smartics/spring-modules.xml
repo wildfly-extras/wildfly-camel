@@ -155,6 +155,7 @@
             <module name="org.springframework.context" />
             <module name="org.springframework.core" />
             <module name="org.springframework.expression" />
+            <module name="org.springframework.core" />
         </dependencies>
     </module>
 

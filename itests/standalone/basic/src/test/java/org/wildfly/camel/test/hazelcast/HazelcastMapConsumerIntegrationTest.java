@@ -17,6 +17,7 @@
 package org.wildfly.camel.test.hazelcast;
 
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
@@ -43,7 +44,7 @@ import org.wildfly.extension.camel.CamelAware;
 import com.hazelcast.core.EntryEvent;
 import com.hazelcast.core.EntryEventType;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.IMap;
+import com.hazelcast.map.IMap;
 
 import net.bytebuddy.ByteBuddy;
 
@@ -191,9 +192,10 @@ public class HazelcastMapConsumerIntegrationTest {
     }
 
     private void trainHazelcastInstance(HazelcastInstance hazelcastInstance) {
+        UUID uuid = UUID.randomUUID();
         Mockito.when(hazelcastInstance.getMap("foo")).thenReturn(map);
         argument = ArgumentCaptor.forClass(MapEntryListener.class);
-        Mockito.when(map.addEntryListener(argument.capture(), Mockito.eq(true))).thenReturn("foo");
+		Mockito.when(map.addEntryListener(argument.capture(), Mockito.eq(true))).thenReturn(uuid);
     }
 
     private void verifyHazelcastInstance(HazelcastInstance hazelcastInstance) {

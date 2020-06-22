@@ -25,9 +25,7 @@ import static org.wildfly.extension.camel.CamelLogger.LOGGER;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,6 +33,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
 import org.apache.camel.component.undertow.HttpHandlerRegistrationInfo;
+import org.apache.camel.component.undertow.UndertowConsumer;
 import org.apache.camel.component.undertow.UndertowHost;
 import org.apache.camel.component.undertow.handlers.CamelWebSocketHandler;
 import org.jboss.as.network.NetworkUtils;
@@ -201,7 +200,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
         }
 
         @Override
-        public HttpHandler registerHandler(HttpHandlerRegistrationInfo reginfo, HttpHandler handler) {
+        public HttpHandler registerHandler(UndertowConsumer consumer, HttpHandlerRegistrationInfo reginfo, HttpHandler handler) {
             boolean matchOnUriPrefix = reginfo.isMatchOnUriPrefix();
             URI httpURI = reginfo.getUri();
 
@@ -237,7 +236,7 @@ public class CamelUndertowHostService extends AbstractService<UndertowHost> {
         }
 
         @Override
-        public void unregisterHandler(HttpHandlerRegistrationInfo reginfo) {
+        public void unregisterHandler(UndertowConsumer consumer, HttpHandlerRegistrationInfo reginfo) {
             boolean matchOnUriPrefix = reginfo.isMatchOnUriPrefix();
             URI httpURI = reginfo.getUri();
             String contextPath = getContextPath(httpURI);

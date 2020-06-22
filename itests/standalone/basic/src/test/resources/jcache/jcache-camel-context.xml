@@ -11,10 +11,10 @@
 
         <route>
             <from uri="timer:x?repeatCount=1"/>
-            <setHeader name="CamelJCacheKey">
+            <setHeader headerName="CamelJCacheKey">
                 <constant>key</constant>
             </setHeader>
-            <setHeader name="CamelJCacheAction">
+            <setHeader headerName="CamelJCacheAction">
                 <constant>PUT</constant>
             </setHeader>
             <setBody>

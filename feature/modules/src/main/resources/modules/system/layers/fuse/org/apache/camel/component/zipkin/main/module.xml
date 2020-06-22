@@ -6,6 +6,7 @@
     <artifact name="${org.apache.camel:camel-zipkin}" />
     <artifact name="${io.zipkin.zipkin2:zipkin}" />
     <artifact name="${io.zipkin.reporter2:zipkin-reporter}" />
+    <artifact name="${io.zipkin.reporter2:zipkin-reporter-brave}" />
     <artifact name="${io.zipkin.reporter2:zipkin-sender-libthrift}" />
     <artifact name="${io.zipkin.reporter2:zipkin-sender-urlconnection}" />
   </resources>

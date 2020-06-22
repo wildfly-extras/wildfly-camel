@@ -8,6 +8,7 @@
     <module name="org.apache.zookeeper" export="true" />
     <module name="com.google.guava" slot="fuse" />
     <module name="org.slf4j" />
+    <module name="org.apache.camel.component.cluster" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

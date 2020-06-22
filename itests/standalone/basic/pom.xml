@@ -52,10 +52,6 @@
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>de.flapdoodle.embed</groupId>
-            <artifactId>de.flapdoodle.embed.mongo</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.smallrye</groupId>
             <artifactId>smallrye-health</artifactId>
         </dependency>
@@ -102,6 +98,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-hazelcast</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-ipfs</artifactId>
         </dependency>
         <dependency>
@@ -111,6 +111,10 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jclouds</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-mongodb</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -314,13 +318,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <systemPropertyVariables>
-                        <project.basedir>${project.basedir}</project.basedir>
-                        <org.jboss.remoting-jmx.timeout>300</org.jboss.remoting-jmx.timeout>
-                        <org.wildfly.camel.google.api.oauth.properties.path>${org.wildfly.camel.google.api.oauth.properties.path}</org.wildfly.camel.google.api.oauth.properties.path>
-                    </systemPropertyVariables>
-                </configuration>
+				<configuration>
+					<systemPropertyVariables>
+						<project.basedir>${project.basedir}</project.basedir>
+						<org.jboss.remoting-jmx.timeout>300</org.jboss.remoting-jmx.timeout>
+						<org.wildfly.camel.google.api.oauth.properties.path>${org.wildfly.camel.google.api.oauth.properties.path}</org.wildfly.camel.google.api.oauth.properties.path>
+					</systemPropertyVariables>
+				</configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -20,5 +20,11 @@
   -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
+    <module name="io.dropwizard.metrics" inherit-slot="false" slot="3.2">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.dropwizard.metrics:metrics-core" />
+    </module>
 
 </modules>

@@ -7,7 +7,7 @@
     <module name="javax.api" />
     <module name="javax.xml.bind.api" />
     <module name="org.slf4j" />
+    <module name="com.fasterxml.woodstox" />
     <module name="org.apache.camel.core" />
-    <module name="org.codehaus.woodstox" slot="fuse" />
   </dependencies>
 </module>
