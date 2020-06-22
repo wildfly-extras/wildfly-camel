@@ -9,6 +9,5 @@
     <module name="com.fasterxml.jackson.dataformat.xml" />
     <module name="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" slot="fuse" />
     <module name="org.apache.camel.core" />
-    <module name="org.codehaus.woodstox" slot="fuse" />
   </dependencies>
 </module>

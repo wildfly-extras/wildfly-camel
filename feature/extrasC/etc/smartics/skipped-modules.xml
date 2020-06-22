@@ -42,8 +42,4 @@
 	<!--          modules defined in features/extrasA                -->
 	<!-- =========================================================== -->
 
-    <module name="com.google.inject.guice" slot="3.0" skip="true">
-        <include artifact="com.google.inject:guice"/>
-    </module>
-
 </modules>

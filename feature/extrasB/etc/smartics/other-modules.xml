@@ -66,6 +66,7 @@
         <include artifact="org.elasticsearch.client:elasticsearch-rest-high-level-client" />
         <include artifact="org.elasticsearch.plugin:aggs-matrix-stats-client" />
         <include artifact="org.elasticsearch.plugin:lang-mustache-client" />
+        <include artifact="org.elasticsearch.plugin:mapper-extras-client" />
         <include artifact="org.elasticsearch.plugin:parent-join-client" />
         <include artifact="org.elasticsearch.plugin:rank-eval-client" />
         <apply-to-dependencies skip="true">

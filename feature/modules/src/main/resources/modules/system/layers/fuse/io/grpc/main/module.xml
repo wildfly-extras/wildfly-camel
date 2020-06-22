@@ -13,6 +13,7 @@
     <artifact name="${io.grpc:grpc-protobuf-lite}" />
     <artifact name="${io.grpc:grpc-stub}" />
     <artifact name="${com.auth0:java-jwt}" />
+    <artifact name="${io.opencensus:opencensus-api}" />
   </resources>
   <dependencies>
     <module name="ibm.jdk.ext" />

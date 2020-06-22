@@ -2,18 +2,15 @@
 <module xmlns="urn:jboss:module:1.1" name="org.apache.camel.component.google.pubsub">
   <resources>
     <artifact name="${org.apache.camel:camel-google-pubsub}" />
-    <artifact name="${com.google.apis:google-api-services-pubsub}" />
   </resources>
   <dependencies>
     <module name="com.google.http-client.google-http-client" />
     <module name="org.apache.httpcomponents" slot="fuse" />
     <module name="javax.api" />
     <module name="org.slf4j" />
-    <module name="com.google.api-client.google-api-client" />
+    <module name="com.google.cloud.pubsub" />
+    <module name="com.google.guava" slot="fuse" />
+    <module name="io.grpc" />
     <module name="org.apache.camel.core" />
   </dependencies>
-  <exports>
-    <include path="com/google/api/services/pubsub**" />
-    <exclude path="com/google**" />
-  </exports>
 </module>

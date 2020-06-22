@@ -7,8 +7,10 @@
   <dependencies>
     <module name="org.slf4j" />
     <module name="com.google.code.gson" slot="fuse" />
+    <module name="com.jayway.jsonpath" />
     <module name="com.squareup.okhttp3" slot="fuse" />
     <module name="org.apache.camel.core" />
+    <module name="org.apache.httpcomponents" slot="fuse" />
   </dependencies>
   <exports>
     <include path="com/google/maps/model" />

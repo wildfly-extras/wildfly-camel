@@ -59,7 +59,7 @@ public class MicroProfileHealthIntegrationTest {
         Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
 
         String body = HttpRequest.get("http://localhost:9990/health").getResponse().getBody();
-        Assert.assertTrue(body.contains("checks\":[{\"name\":\"camel\",\"status\":\"UP\",\"data\":{\"contextStatus\":\"Started\",\"name\":\"health-context\"}}"));
+        Assert.assertTrue("Unexpected: " + body, body.contains("\"data\":{\"contextStatus\":\"Started\",\"name\":\"health-context\"}}"));
     }
 
     @Readiness

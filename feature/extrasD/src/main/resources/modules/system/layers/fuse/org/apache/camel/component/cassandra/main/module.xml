@@ -8,7 +8,7 @@
     <module name="com.google.guava" slot="19.0" />
     <module name="io.netty" slot="fuse" />
     <module name="org.slf4j" />
-    <module name="io.dropwizard.metrics" />
+    <module name="io.dropwizard.metrics" slot="3.2" />
     <module name="org.apache.camel.core" />
   </dependencies>
 </module>

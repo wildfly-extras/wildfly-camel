@@ -159,10 +159,10 @@ public final class CatalogCreator {
         // Walk the available camel catalog items
         Files.walkFileTree(srcdir, new SimpleFileVisitor<Path>() {
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-                // @Ignore(2959 - Cannot parse catalog/components/kafka.json)
-                boolean bug2959 = path.toString().endsWith("kafka.json");
-                bug2959 |= path.toString().endsWith("yammer.json");
-                if (path.toString().endsWith(".json") && !bug2959) {
+                // @Ignore(bug2965 - Cannot parse catalog/components/iec60870-server.json)
+                boolean bug2965 = path.toString().endsWith("iec60870-client.json");
+                bug2965 |= path.toString().endsWith("iec60870-server.json");
+                if (path.toString().endsWith(".json") && !bug2965) {
                     Path relpath = srcdir.relativize(path);
                     try {
                         JsonNode treeNode = mapper.readTree(path.toFile());

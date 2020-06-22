@@ -12,7 +12,6 @@
     <artifact name="${org.apache.lucene:lucene-queries}" />
     <artifact name="${org.apache.lucene:lucene-queryparser}" />
     <artifact name="${org.apache.lucene:lucene-sandbox}" />
-    <artifact name="${org.apache.lucene:lucene-spatial}" />
     <artifact name="${org.apache.lucene:lucene-spatial-extras}" />
     <artifact name="${org.apache.lucene:lucene-spatial3d}" />
     <artifact name="${org.apache.lucene:lucene-suggest}" />

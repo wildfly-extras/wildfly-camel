@@ -38,6 +38,7 @@ import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assume;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
@@ -47,6 +48,7 @@ import org.wildfly.extension.camel.CamelAware;
 @CamelAware
 @RunWith(Arquillian.class)
 @ServerSetup({ HdfsIntegrationTest.ServerSetup.class })
+@Ignore("[#2977] Restore hdfs testing for Camel-3.4.x")
 public class HdfsIntegrationTest {
 
     static class ServerSetup implements ServerSetupTask {

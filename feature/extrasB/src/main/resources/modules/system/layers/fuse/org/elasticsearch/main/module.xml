@@ -17,6 +17,7 @@
     <artifact name="${org.elasticsearch:jna}" />
     <artifact name="${net.sf.jopt-simple:jopt-simple}" />
     <artifact name="${org.elasticsearch.plugin:lang-mustache-client}" />
+    <artifact name="${org.elasticsearch.plugin:mapper-extras-client}" />
     <artifact name="${org.elasticsearch.plugin:parent-join-client}" />
     <artifact name="${org.elasticsearch.plugin:rank-eval-client}" />
     <artifact name="${com.tdunning:t-digest}" />

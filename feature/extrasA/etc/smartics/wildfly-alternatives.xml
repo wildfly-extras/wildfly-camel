@@ -30,11 +30,11 @@
 -->
 <modules xmlns="http://smartics.de/ns/jboss-modules-descriptor/2">
 
-    <module name="org.apache.commons.cli" inherit-slot="false" slot="fuse">
+    <module name="org.codehaus.jackson.jackson-core-asl" inherit-slot="false" slot="fuse">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact=":commons-cli" />
+        <include artifact="org.codehaus.jackson:jackson-core-asl" />
     </module>
 
     <module name="org.codehaus.jackson.jackson-jaxrs" inherit-slot="false" slot="fuse">
@@ -42,6 +42,13 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.codehaus.jackson:jackson-jaxrs" />
+    </module>
+
+    <module name="org.codehaus.jackson.jackson-mapper-asl" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.codehaus.jackson:jackson-mapper-asl" />
     </module>
 
     <module name="org.codehaus.jackson.jackson-xc" inherit-slot="false" slot="fuse">

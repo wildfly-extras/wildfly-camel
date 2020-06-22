@@ -6,7 +6,6 @@
   <resources>
     <artifact name="${net.minidev:accessors-smart}" />
     <artifact name="${net.minidev:json-smart}" />
-    <artifact name="${net.minidev:json-smart-action}" />
   </resources>
   <dependencies>
     <module name="asm.asm" slot="fuse" />

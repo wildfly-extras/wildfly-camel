@@ -4,7 +4,6 @@
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${org.noggit:noggit}" />
     <artifact name="${org.apache.solr:solr-solrj}" />
   </resources>
   <dependencies>

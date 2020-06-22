@@ -20,9 +20,8 @@
 
 package org.wildfly.camel.test.google;
 
-import java.util.Arrays;
-
-import org.apache.camel.support.IntrospectionSupport;
+import org.apache.camel.impl.engine.DefaultBeanIntrospection;
+import org.apache.camel.spi.BeanIntrospection;
 import org.jboss.logging.Logger;
 import org.junit.Assume;
 
@@ -31,27 +30,29 @@ import org.junit.Assume;
  * @author <a href="https://github.com/ppalaga">Peter Palaga</a>
  */
 public enum GoogleApiEnv {
+	
     GOOGLE_API_APPLICATION_NAME("applicationName"),
     GOOGLE_API_CLIENT_ID("clientId"),
     GOOGLE_API_CLIENT_SECRET("clientSecret"),
     GOOGLE_API_REFRESH_TOKEN("refreshToken");
 
-    public static void configure(Object configuration, Class<?> testClass, Logger log) {
-        final GoogleApiEnv[] vals = GoogleApiEnv.values();
+    @SuppressWarnings("resource")
+	public static void configure(Object target, Class<?> testClass, Logger log) {
+        GoogleApiEnv[] vals = GoogleApiEnv.values();
+        BeanIntrospection introspection = new DefaultBeanIntrospection();
         for (GoogleApiEnv googleApiEnv : vals) {
             final String val = System.getenv(googleApiEnv.name());
             final boolean assumption = val != null && !val.isEmpty();
             if (!assumption) {
-                final String msg = "Environment variable " + googleApiEnv.name() + " not set - skipping "+ testClass.getSimpleName() +
-                    ". You need to set all of " + Arrays.asList(vals) +
-                    " to run it. You may want read google-api-testing.adoc in the root directory of the current Maven module.";
+                final String msg = "Environment variable " + googleApiEnv.name() + " not set - skipping "+ testClass.getSimpleName();
                 log.warn(msg);
                 Assume.assumeTrue(msg, assumption);
             }
-            try {
-                IntrospectionSupport.setProperty(configuration, googleApiEnv.getConfigPropertyName(), val);
+            String propName = googleApiEnv.getConfigPropertyName();
+			try {
+	            introspection.setProperty(null, target, propName, val);
             } catch (Exception e) {
-                throw new RuntimeException("Could not set " + configuration.getClass().getSimpleName() + "." + googleApiEnv.getConfigPropertyName(), e);
+                throw new RuntimeException("Could not set " + target.getClass().getSimpleName() + "." + propName, e);
             }
         }
     }

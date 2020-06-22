@@ -25,7 +25,8 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.JndiRegistry;
+import org.apache.camel.spi.BeanRepository;
+import org.apache.camel.support.jndi.JndiBeanRepository;
 import org.apache.tika.config.TikaConfig;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.txt.UniversalEncodingDetector;
@@ -64,10 +65,11 @@ public class TikaIntegrationTest {
         return new InitialContext(new Hashtable<Object, Object>(properties));
     }
 
-    private static JndiRegistry createRegistryWithEmptyConfig() throws Exception {
-        JndiRegistry reg = new JndiRegistry(createJndiContext());
-        reg.bind("testConfig", new TikaConfig(new File("src/test/resources/tika/tika-empty.xml")));
-        return reg;
+    private static BeanRepository createRegistryWithEmptyConfig() throws Exception {
+    	Context jndiContext = createJndiContext();
+    	jndiContext.bind("testConfig", new TikaConfig(new File("src/test/resources/tika/tika-empty.xml")));
+		JndiBeanRepository repository = new JndiBeanRepository(jndiContext);
+        return repository;
     }
 
     @Test

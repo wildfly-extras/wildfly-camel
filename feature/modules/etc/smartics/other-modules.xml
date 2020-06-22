@@ -89,6 +89,7 @@
         </properties>
         <include artifact="com.alibaba:fastjson" />
         <apply-to-dependencies skip="true">
+            <include module="io.airlift" />
             <include module="io.javaslang" />
             <include module="net.sf.trove4j" />
             <include module="org.glassfish.hk2" />
@@ -322,13 +323,6 @@
         <include artifact="com.damnhandy:handy-uri-templates" />
     </module>
 
-    <module name="com.drewnoakes.metadata-extractor">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.drewnoakes:metadata-extractor" />
-    </module>
-
     <module name="com.eclipsesource.minimal.json">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -414,16 +408,28 @@
         <include artifact=":jackson-jr-objects"/>
     </module>
 
+	<module name="com.fasterxml.woodstox">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.fasterxml.woodstox:woodstox-core"/>
+	</module>
+
     <module name="com.github.docker.java">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.github.docker-java:docker-java"/>
+        <include artifact="com.github.docker-java:docker-java-api"/>
+        <include artifact="com.github.docker-java:docker-java-core"/>
+        <include artifact="com.github.docker-java:docker-java-transport-netty"/>
         <apply-to-dependencies skip="true">
+            <include module="com.github.docker.java.skipped"/>
             <include module="com.google.code.findbugs"/>
             <include module="io.netty.skipped"/>
             <include module="org.glassfish.hk2"/>
             <include module="org.glassfish.jersey"/>
+            <include module="org.projectlombok"/>
         </apply-to-dependencies>
         <dependencies>
             <module name="com.fasterxml.jackson.core.jackson-annotations"/>
@@ -510,6 +516,15 @@
         <include artifact="com.github.wnameless:json-flattener" />
     </module>
 
+    <module name="com.google.cloud.pubsub">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.google.cloud:google-cloud-pubsub" />
+        <apply-to-dependencies skip="true">
+        </apply-to-dependencies>
+    </module>
+
     <module name="com.google.code.json-simple">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -525,13 +540,6 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.googlecode.libphonenumber:libphonenumber" />
-    </module>
-
-    <module name="com.google.code.mp4parser.isoparser">
-        <include artifact="com.googlecode.mp4parser:isoparser" />
-        <apply-to-dependencies skip="true">
-            <include module="com.google.android" />
-        </apply-to-dependencies>
     </module>
 
     <module name="com.google.code.juniversalchardet">
@@ -654,14 +662,6 @@
         </exports>
     </module>
 
-    <module name="com.hazelcast.client">
-        <include artifact="com.hazelcast:hazelcast-client"/>
-        <apply-to-dependencies skip="true">
-            <include module="com.google.code.findbugs" />
-            <include module="com.hazelcast.skipped"/>
-        </apply-to-dependencies>
-    </module>
-
     <module name="com.healthmarketscience.jackcess">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -703,15 +703,6 @@
         <apply-to-dependencies skip="true">
             <include module="org.ow2.asm" />
         </apply-to-dependencies>
-    </module>
-
-    <module name="com.kohlschutter.junixsocket">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.kohlschutter.junixsocket:junixsocket-common"/>
-        <include artifact="com.kohlschutter.junixsocket:junixsocket-native-common"/>
-        <include artifact="org.scijava:native-lib-loader"/>
     </module>
 
     <module name="com.netflix.archaius.archaius-core">
@@ -810,6 +801,9 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="com.networknt:json-schema-validator" />
+        <apply-to-dependencies skip="true">
+            <include module="org.jruby" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
         </dependencies>
@@ -865,11 +859,11 @@
         <include artifact="com.squareup.okhttp3:okhttp" />
         <include artifact="com.squareup.okhttp3:logging-interceptor"/>
         <apply-to-dependencies skip="true">
-            <include module="com.google.android" />
             <include module="com.google.code.findbugs" />
             <include module="org.codehaus.animal-sniffer" />
             <include module="org.conscrypt.openjdk" />
             <include module="org.jvnet.skipped" />
+            <include module="org.robolectric.android-all" />
         </apply-to-dependencies>
     </module>
 
@@ -1041,6 +1035,7 @@
 
     <module name="io.dropwizard.metrics">
         <include artifact="io.dropwizard.metrics:metrics-core" />
+        <include artifact="io.dropwizard.metrics:metrics-jmx" />
         <include artifact="io.dropwizard.metrics:metrics-json" />
         <dependencies>
             <module name="com.fasterxml.jackson.core.jackson-core" />
@@ -1052,11 +1047,29 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
-        <include artifact="io.fabric8:kubernetes-model" />
+        <include artifact="io.fabric8:kubernetes-model-admissionregistration" />
+        <include artifact="io.fabric8:kubernetes-model-apiextensions" />
+        <include artifact="io.fabric8:kubernetes-model-apps" />
+        <include artifact="io.fabric8:kubernetes-model-autoscaling" />
+        <include artifact="io.fabric8:kubernetes-model-batch" />
+        <include artifact="io.fabric8:kubernetes-model-certificates" />
         <include artifact="io.fabric8:kubernetes-model-common" />
+        <include artifact="io.fabric8:kubernetes-model-coordination" />
+        <include artifact="io.fabric8:kubernetes-model-core" />
+        <include artifact="io.fabric8:kubernetes-model-discovery" />
+        <include artifact="io.fabric8:kubernetes-model-events" />
+        <include artifact="io.fabric8:kubernetes-model-extensions" />
+        <include artifact="io.fabric8:kubernetes-model-metrics" />
+        <include artifact="io.fabric8:kubernetes-model-networking" />
+        <include artifact="io.fabric8:kubernetes-model-policy" />
+        <include artifact="io.fabric8:kubernetes-model-rbac" />
+        <include artifact="io.fabric8:kubernetes-model-scheduling" />
+        <include artifact="io.fabric8:kubernetes-model-settings" />
+        <include artifact="io.fabric8:kubernetes-model-storageclass" />
+        <include artifact="io.fabric8:openshift-model" />
         <apply-to-dependencies skip="true">
-            <include module="io.sundr.builder" />
-            <include module="io.sundr.transform" />
+            <include module="io.sundr" />
+            <include module="org.jsonschema2pojo" />
             <include module="org.projectlombok" />
         </apply-to-dependencies>
         <dependencies>
@@ -1071,6 +1084,10 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="io.fabric8:kubernetes-client" />
+        <apply-to-dependencies skip="true">
+            <include module="io.sundr" />
+            <include module="org.projectlombok" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="com.squareup.okio"/>
@@ -1082,6 +1099,9 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="io.fabric8:openshift-client" />
+        <apply-to-dependencies skip="true">
+            <include module="io.sundr" />
+        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
         </dependencies>
@@ -1425,6 +1445,9 @@
         <exports>
             <exclude path="org/apache/curator/shaded/**" />
         </exports>
+        <dependencies>
+		    <module name="com.google.guava" slot="fuse" />
+        </dependencies>
     </module>
 
     <module name="org.apache.directory">
@@ -1577,8 +1600,10 @@
         <include artifact="org.apache.pdfbox:jbig2-imageio" />
         <include artifact="org.apache.pdfbox:jempbox" />
         <include artifact="org.apache.pdfbox:pdfbox" />
-        <include artifact="org.apache.pdfbox:pdfbox-tools" />
         <include artifact="org.apache.pdfbox:pdfbox-debugger" />
+        <include artifact="org.apache.pdfbox:pdfbox-tools" />
+        <include artifact="org.apache.pdfbox:preflight" />
+        <include artifact="org.apache.pdfbox:xmpbox" />
         <dependencies>
             <module name="javax.api" />
         </dependencies>
@@ -1588,6 +1613,7 @@
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
+        <include artifact="com.zaxxer:SparseBitSet" />
         <include artifact="org.apache.poi:poi" />
         <include artifact="org.apache.poi:poi-ooxml" />
         <include artifact="org.apache.poi:poi-ooxml-schemas" />
@@ -1658,8 +1684,8 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.solr:solr-solrj" />
-        <include artifact="org.noggit:noggit" />
         <apply-to-dependencies skip="true">
+            <include module="io.netty.skipped" />
             <include module="org.eclipse.jetty.http2" />
             <include module="org.eclipse.jetty.skipped" />
         </apply-to-dependencies>
@@ -1688,6 +1714,7 @@
         <include artifact="org.gagravarr:vorbis-java-tika"/>
         <apply-to-dependencies skip="true">
             <include module="biz.aQute" />
+            <include module="com.beust.jcommander" />
             <include module="com.epam.parso" />
             <include module="com.github.jai-imageio" />
             <include module="com.github.luben.zstd-jni" />
@@ -1787,10 +1814,13 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.apache.zookeeper:zookeeper" />
+        <include artifact="org.apache.zookeeper:zookeeper-jute" />
         <apply-to-dependencies skip="true">
             <include module="jline" />
             <include module="com.github.spotbugs" />
+            <include module="io.netty.skipped" />
             <include module="org.apache.yetus.audience.annotations" />
+            <include module="org.eclipse.jetty.skipped" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
@@ -1833,7 +1863,6 @@
             <include module="com.sun.grizzly"/>
             <include module="org.apache.shiro.skipped" />
             <include module="org.atmosphere.skipped"/>
-            <include module="org.eclipse.jetty"/>
             <include module="org.eclipse.jetty.skipped"/>
             <include module="org.mortbay.jetty"/>
             <include module="org.jboss.vfs"/>
@@ -2151,6 +2180,7 @@
         <include artifact="org.kie.soup:kie-soup-maven-support" />
         <include artifact="org.kie.soup:kie-soup-project-datamodel-api" />
         <include artifact="org.kie.soup:kie-soup-project-datamodel-commons" />
+        <include artifact="org.kie.soup:kie-soup-xstream" />
         <apply-to-dependencies skip="true">
             <include module="com.sun.xml.bind.jaxb.xjc" />
             <include module="org.drools.kie" />
@@ -2194,7 +2224,9 @@
     </module>
 
     <module name="org.mongodb">
-        <include artifact="org.mongodb:mongo-java-driver" />
+        <include artifact="org.mongodb:bson" />
+        <include artifact="org.mongodb:mongodb-driver-core" />
+        <include artifact="org.mongodb:mongodb-driver-sync" />
         <dependencies>
             <module name="javax.api"/>
         </dependencies>
@@ -2279,11 +2311,29 @@
         <include artifact="org.scribe:scribe" />
     </module>
 
+    <module name="org.tallison.isoparser">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.tallison:isoparser" />
+        <apply-to-dependencies skip="true">
+            <include module="junit" />
+        </apply-to-dependencies>
+    </module>
+
     <module name="org.tallison.jmatio">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.tallison:jmatio" />
+    </module>
+
+    <module name="org.tallison.metadata-extractor">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.tallison:metadata-extractor" />
+        <include artifact="org.tallison.xmp:xmpcore-shaded" />
     </module>
 
     <module name="org.tukaani.xz">

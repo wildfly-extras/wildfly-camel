@@ -2,8 +2,10 @@
 attachments
 cdi
 cxf-transport
-hystrix
+headersmap
+hystrix                             #deprecated
 jasypt
+jta
 leveldb
 lra
 microprofile-health
@@ -13,6 +15,7 @@ ribbon
 rxjava
 shiro
 spring-javaconfig
+spring-main
 spring-security
 swagger-java
 zipkin
@@ -21,22 +24,20 @@ zipkin
 
 [undecided]
 aws-xray
-kura
 microprofile-config
+microprofile-fault-tolerance
 openapi-java
-osgi-activator
+platform-http-vertx
 reactive-executor-vertx
 resilience4j
 testcontainers-junit5
 testcontainers-spring-junit5
+undertow-spring-security
 
 [rejected]
-blueprint
 test                                #2052 Testing utility
-test-blueprint
 test-cdi
 test-junit5
-test-karaf
 test-spring                         #2056 Testing utility
 test-spring-junit5
 testcontainers
