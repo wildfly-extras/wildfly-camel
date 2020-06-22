@@ -12,12 +12,12 @@
     <module name="javax.batch.api" />
     <module name="org.apache.commons.logging" slot="fuse" />
     <module name="org.springframework.aop" />
+    <module name="org.springframework.core" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
     <module name="io.micrometer" />
     <module name="org.codehaus.jettison" slot="fuse" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.context" />
-    <module name="org.springframework.core" />
     <module name="org.springframework.retry" />
     <module name="org.springframework.tx" />
   </dependencies>

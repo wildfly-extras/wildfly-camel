@@ -8,9 +8,9 @@
   </resources>
   <dependencies>
     <module name="org.springframework.context" />
+    <module name="org.springframework.core" />
     <module name="org.springframework.expression" />
     <module name="org.slf4j" />
     <module name="org.springframework.beans" />
-    <module name="org.springframework.core" />
   </dependencies>
 </module>

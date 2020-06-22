@@ -29,7 +29,6 @@
             <module name="javax.api" />
             <module name="javax.xml.bind.api" />
             <module name="org.apache.camel.core" />
-            <module name="org.apache.camel.core.xml" />
             <module name="org.springframework.beans" export="true" />
             <module name="org.springframework.context" />
             <module name="org.springframework.core" />
@@ -82,6 +81,7 @@
             <module name="javax.batch.api" />
             <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.springframework.aop" />
+            <module name="org.springframework.core" />
         </dependencies>
     </module>
 
@@ -107,6 +107,7 @@
         <include artifact=":camel-spring-javaconfig" />
         <apply-to-dependencies skip="true">
             <include module="org.apache.camel.apt" />
+            <include module="org.apache.camel.spring.main" />
             <include module="cglib" />
         </apply-to-dependencies>
         <dependencies>
@@ -152,6 +153,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="org.springframework.context" />
+            <module name="org.springframework.core" />
             <module name="org.springframework.expression" />
         </dependencies>
     </module>
@@ -177,6 +179,7 @@
         </properties>
         <include artifact=":spring-data-keyvalue" />
         <dependencies>
+            <module name="org.springframework.core" />
         </dependencies>
     </module>
 
@@ -188,23 +191,7 @@
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" slot="fuse" />
-        </dependencies>
-    </module>
-
-    <module name="org.springframework.integration">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact=":spring-integration-core" />
-        <dependencies>
-            <module name="javax.api" />
-            <module name="org.apache.commons.logging" slot="fuse" />
-            <module name="org.reactivestreams" slot="fuse" />
-            <module name="org.springframework.beans" />
-            <module name="org.springframework.expression" />
-        </dependencies>
-        <dependencies>
-            <module name="com.jayway.jsonpath" />
+            <module name="org.springframework.core" />
         </dependencies>
     </module>
 
@@ -218,6 +205,7 @@
             <module name="javax.api" />
             <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.springframework.context" />
+            <module name="org.springframework.core" />
         </dependencies>
     </module>
 
@@ -231,6 +219,7 @@
             <module name="javax.jms.api" />
             <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.springframework.context" />
+            <module name="org.springframework.core" />
         </dependencies>
     </module>
 
@@ -245,6 +234,7 @@
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" slot="fuse" />
+            <module name="org.springframework.core" />
             <module name="sun.jdk" />
         </dependencies>
     </module>
@@ -258,6 +248,7 @@
             <module name="javax.api" />
             <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.springframework.context" />
+            <module name="org.springframework.core" />
         </dependencies>
     </module>
 
@@ -272,6 +263,7 @@
             <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.hibernate" />
             <module name="org.springframework.context" />
+            <module name="org.springframework.core" />
         </dependencies>
     </module>
 
@@ -291,6 +283,7 @@
         </properties>
         <include artifact=":spring-retry" />
         <dependencies>
+            <module name="org.springframework.core" />
         </dependencies>
     </module>
 
@@ -300,12 +293,10 @@
         </properties>
         <include artifact=":spring-security-config" />
         <include artifact=":spring-security-core" />
-        <apply-to-dependencies skip="true">
-            <include module="aopalliance" />
-        </apply-to-dependencies>
         <dependencies>
             <module name="javax.api" />
             <module name="org.apache.commons.logging" slot="fuse" />
+            <module name="org.springframework.core" />
         </dependencies>
     </module>
 
@@ -331,7 +322,9 @@
         </properties>
         <include artifact="org.springframework:spring-web" />
         <dependencies>
+            <module name="org.apache.commons.logging" slot="fuse" />
             <module name="org.springframework.context" />
+            <module name="org.springframework.core" />
         </dependencies>
     </module>
 
@@ -349,6 +342,7 @@
             <module name="javax.xml.soap.api" />
             <module name="org.apache.commons.logging" />
             <module name="org.springframework.context" />
+            <module name="org.springframework.core" />
         </dependencies>
     </module>
 

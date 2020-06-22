@@ -318,8 +318,6 @@ include::camel-spring.adoc[]
 
 include::camel-spring-batch.adoc[]
 
-include::camel-spring-integration.adoc[]
-
 include::camel-spring-javaconfig.adoc[]
 
 include::camel-spring-ldap.adoc[]

@@ -7,8 +7,9 @@
     <artifact name="${org.springframework:spring-web}" />
   </resources>
   <dependencies>
+    <module name="org.apache.commons.logging" slot="fuse" />
     <module name="org.springframework.context" />
-    <module name="org.springframework.beans" />
     <module name="org.springframework.core" />
+    <module name="org.springframework.beans" />
   </dependencies>
 </module>

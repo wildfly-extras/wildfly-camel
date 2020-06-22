@@ -7,6 +7,7 @@
     <artifact name="${org.springframework.data:spring-data-keyvalue}" />
   </resources>
   <dependencies>
+    <module name="org.springframework.core" />
     <module name="org.slf4j" />
     <module name="org.springframework.context" />
     <module name="org.springframework.data.commons" />

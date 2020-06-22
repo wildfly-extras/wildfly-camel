@@ -2699,26 +2699,6 @@
         </dependencies>
     </module>
 
-    <module name="org.apache.camel.component.spring.integration">
-        <include artifact="org.apache.camel:camel-spring-integration" />
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.camel.apt" />
-            <include module="org.springframework.boot" />
-        </apply-to-dependencies>
-        <dependencies>
-            <module name="org.slf4j"/>
-            <module name="org.springframework.integration" export="true" services="export" >
-                <imports>
-                    <include path="META-INF" />
-                </imports>
-                <exports>
-                    <include path="META-INF" />
-                </exports>
-            </module>
-            <module name="org.springframework.messaging" />
-        </dependencies>
-    </module>
-
     <module name="org.apache.camel.component.spring.ldap">
         <include artifact="org.apache.camel:camel-spring-ldap" />
         <apply-to-dependencies skip="true">

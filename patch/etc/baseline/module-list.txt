@@ -458,7 +458,6 @@
 /org/apache/camel/component/splunk/main/camel-splunk-3.1.0.jar
 /org/apache/camel/component/splunk/main/org.apache.servicemix.bundles.splunk-1.6.5.0_1.jar
 /org/apache/camel/component/spring/batch/main/camel-spring-batch-3.1.0.jar
-/org/apache/camel/component/spring/integration/main/camel-spring-integration-3.1.0.jar
 /org/apache/camel/component/spring/ldap/main/camel-spring-ldap-3.1.0.jar
 /org/apache/camel/component/spring/redis/main/camel-spring-redis-3.1.0.jar
 /org/apache/camel/component/spring/security/main/camel-spring-security-3.1.0.jar
@@ -868,7 +867,6 @@
 /org/springframework/data/redis/main/jedis-3.1.0.jar
 /org/springframework/data/redis/main/spring-data-redis-2.2.4.RELEASE.jar
 /org/springframework/expression/main/spring-expression-5.2.3.RELEASE.jar
-/org/springframework/integration/main/spring-integration-core-5.1.8.RELEASE.jar
 /org/springframework/jdbc/main/spring-jdbc-5.2.3.RELEASE.jar
 /org/springframework/jms/main/spring-jms-5.2.3.RELEASE.jar
 /org/springframework/ldap/main/spring-ldap-core-2.3.2.RELEASE.jar

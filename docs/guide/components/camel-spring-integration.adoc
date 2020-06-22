@@ -1,3 +1,0 @@
-### camel-spring-integration
-
-The http://camel.apache.org/springintegration.html[spring-integration,window=_blank] component provides a bridge for Camel components to talk to http://projects.spring.io/spring-integration[spring integration endpoints,window=_blank].

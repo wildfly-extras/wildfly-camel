@@ -223,7 +223,6 @@ solrs
 splunk
 spring-batch
 spring-event
-spring-integration
 spring-ldap
 spring-redis
 spring-ws
@@ -316,6 +315,7 @@ rest-openapi
 robotframework
 service
 soroush
+spring-integration
 web3j
 websocket-jsr356
 weka
