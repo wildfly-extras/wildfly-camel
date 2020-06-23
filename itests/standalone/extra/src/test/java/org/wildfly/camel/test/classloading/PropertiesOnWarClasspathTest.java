@@ -28,7 +28,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.http.HttpRequest;
@@ -41,22 +40,21 @@ public class PropertiesOnWarClasspathTest {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive archive = ShrinkWrap.create(WebArchive.class, "camel-warprops.war");
-        archive.addAsWebInfResource("modules/jboss-camel-context.xml", "jboss-camel-context.xml");
-        archive.addAsWebInfResource("modules/psetA.properties", "psetAA.properties");
-        archive.addAsWebInfResource("modules/psetB.properties", "psetBA.properties");
+        archive.addAsWebInfResource("classloading/jboss-camel-context.xml", "jboss-camel-context.xml");
+        archive.addAsResource("classloading/psetA.properties", "psetAA.properties");
+        archive.addAsResource("classloading/psetB.properties", "psetBA.properties");
         archive.addClasses(HttpRequest.class, CamelServlet.class);
         System.out.println(archive.toString(true));
         return archive;
     }
 
     @Test
-    @Ignore("[#2944] Cannot load properties from servlet classpath")
     public void testClassLoaderAccess() throws Exception {
 
         Properties props = new Properties();
         ClassLoader loader = getClass().getClassLoader();
-        URL propsA = loader.getResource("/WEB-INF/psetAA.properties");
-        URL propsB = loader.getResource("/WEB-INF/psetBA.properties");
+        URL propsA = loader.getResource("/psetAA.properties");
+        URL propsB = loader.getResource("/psetBA.properties");
         Assert.assertNotNull("propsA not null", propsA);
         Assert.assertNotNull("propsB not null", propsB);
 

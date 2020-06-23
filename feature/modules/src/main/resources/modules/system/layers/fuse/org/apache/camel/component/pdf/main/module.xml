@@ -8,6 +8,6 @@
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.lang3" slot="fuse" />
     <module name="org.apache.pdfbox" />
-    <module name="org.bouncycastle" slot="1.61" />
+    <module name="org.bouncycastle" slot="fuse" />
   </dependencies>
 </module>

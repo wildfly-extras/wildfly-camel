@@ -19,7 +19,7 @@
     <module name="org.apache.commons.compress" />
     <module name="org.apache.commons.io" slot="fuse" />
     <module name="org.apache.commons.lang" slot="fuse" />
-    <module name="org.bouncycastle" slot="1.61" />
+    <module name="org.bouncycastle" slot="fuse" />
     <module name="org.slf4j" />
   </dependencies>
 </module>

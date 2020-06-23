@@ -30,9 +30,9 @@ import org.wildfly.extras.config.LayerConfig;
 
 public final class WildFlyCamelConfigPlugin implements ConfigPlugin {
 
-    public static final Namespace NS_DOMAIN_100 = Namespace.getNamespace("urn:jboss:domain:10.0");
+    public static final Namespace NS_DOMAIN_130 = Namespace.getNamespace("urn:jboss:domain:13.0");
 
-    public static final Namespace[] NS_DOMAINS = new Namespace[] { NS_DOMAIN_100 };
+    public static final Namespace[] NS_DOMAINS = new Namespace[] { NS_DOMAIN_130 };
 
     public static final Namespace NS_CAMEL = Namespace.getNamespace("urn:jboss:domain:camel:1.0");
     public static final Namespace NS_SECURITY = Namespace.getNamespace("urn:jboss:domain:security:2.0");

@@ -652,6 +652,7 @@
         </dependencies>
         <exports>
             <exclude path="com/hazelcast/com**" />
+            <exclude path="com/hazelcast/client/cp/internal**" />
             <exclude path="com/hazelcast/cp**" />
             <exclude path="com/hazelcast/internal**" />
             <exclude path="com/hazelcast/json**" />
@@ -1315,18 +1316,6 @@
         </dependencies>
     </module>
 
-    <!--
-    <module name="org.apache.avro" inherit-slot="false" slot="1.2">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="org.apache.avro:avro"/>
-        <apply-to-dependencies skip="true">
-            <include module="org.apache.avro.skipped" />
-        </apply-to-dependencies>
-    </module>
-    -->
-
     <module name="org.apache.chemistry.opencmis">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1875,14 +1864,14 @@
         </dependencies>
     </module>
 
-    <module name="org.bitbucket.jose4j">
+    <module name="org.bitbucket.jose4j" inherit-slot="false" slot="fuse">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.bitbucket.b_c:jose4j" />
     </module>
 
-    <module name="org.bouncycastle" slot="1.61">
+    <module name="org.bouncycastle" inherit-slot="false" slot="fuse">
         <properties>
             <property name="jboss.api" value="private"/>
         </properties>
@@ -2106,10 +2095,12 @@
         <apply-to-dependencies skip="true">
             <include module="org.jboss.logging.processor" />
             <include module="org.infinispan.skipped" />
+            <include module="org.kohsuke.metainf-services" />
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.api"/>
             <module name="org.jboss.logging"/>
+            <module name="org.infinispan.protostream"/>
         </dependencies>
     </module>
 
@@ -2147,6 +2138,13 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.itadaki:bzip2" />
+    </module>
+
+    <module name="org.jasypt" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.jasypt:jasypt" />
     </module>
 
     <module name="org.jdom2">

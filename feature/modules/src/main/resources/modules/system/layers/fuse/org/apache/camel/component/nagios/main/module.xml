@@ -9,7 +9,7 @@
     <module name="org.slf4j" />
     <module name="org.apache.camel.core" />
     <module name="org.apache.commons.lang" slot="fuse" />
-    <module name="org.bouncycastle" slot="1.61" />
+    <module name="org.bouncycastle" slot="fuse" />
   </dependencies>
   <exports>
     <exclude path="com/googlecode" />

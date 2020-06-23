@@ -12,6 +12,6 @@
     </module>
     <module name="org.slf4j" />
     <module name="org.apache.camel.core" />
-    <module name="org.bouncycastle" slot="1.61" />
+    <module name="org.bouncycastle" slot="fuse" />
   </dependencies>
 </module>
