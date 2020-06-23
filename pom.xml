@@ -88,6 +88,7 @@
         <version.apache.vysper>0.7</version.apache.vysper>
         <version.args4j>2.0.31</version.args4j>
         <version.arquillian.cube>1.18.2</version.arquillian.cube>
+        <version.arquillian.cube.snakeyaml>1.18.0.redhat-2</version.arquillian.cube.snakeyaml>
         <version.bytebuddy>1.9.10</version.bytebuddy>
         <version.eclipse.egit.github>2.1.5</version.eclipse.egit.github>
         <version.flapdoodle.embed.mongo>1.50.1</version.flapdoodle.embed.mongo>

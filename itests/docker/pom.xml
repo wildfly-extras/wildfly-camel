@@ -39,6 +39,17 @@
         <wildfly.mgmt.password>admin</wildfly.mgmt.password>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- [ENTESB-13570] Camel defines version of snakeyaml incompatible with arquillian-docker -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${version.arquillian.cube.snakeyaml}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
     <!-- Dependencies -->
     <dependencies>
 
@@ -72,6 +83,10 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
         </dependency>
         <dependency>
             <groupId>org.wildfly.camel</groupId>
