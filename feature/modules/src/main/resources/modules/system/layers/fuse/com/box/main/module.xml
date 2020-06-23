@@ -9,8 +9,8 @@
   </resources>
   <dependencies>
     <module name="com.eclipsesource.minimal.json" />
-    <module name="org.bitbucket.jose4j" />
-    <module name="org.bouncycastle" slot="1.61" />
+    <module name="org.bitbucket.jose4j" slot="fuse" />
+    <module name="org.bouncycastle" slot="fuse" />
   </dependencies>
   <exports>
     <exclude path="com/box/sdk/internal**" />

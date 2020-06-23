@@ -550,18 +550,16 @@
         <include artifact="org.infinispan:infinispan-cdi-common" />
         <include artifact="org.infinispan:infinispan-cdi-embedded" />
         <include artifact="org.infinispan:infinispan-component-annotations" />
+        <include artifact="org.infinispan:infinispan-component-processor" />
         <include artifact="org.infinispan:infinispan-license" />
         <include artifact="org.infinispan:infinispan-remote-query-client" />
+        <include artifact="org.infinispan.protostream:protostream-processor" />
     </module>
 
     <module name="org.jsonschema2pojo" skip="true">
         <include artifact="org.jsonschema2pojo:jsonschema2pojo-core" />
     </module>
     
-    <module name="org.jasypt" skip="true">
-        <include artifact="org.jasypt:jasypt" />
-    </module>
-
     <module name="org.javamoney.moneta" skip="true">
         <include artifact="org.javamoney.moneta:moneta-core" />
     </module>
@@ -619,6 +617,10 @@
         <include artifact="org.codehaus.mojo:animal-sniffer-annotations" />
     </module>
 
+	<module name="org.kohsuke.metainf-services" skip="true">
+        <include artifact="org.kohsuke.metainf-services:metainf-services" />
+	</module>
+	
     <module name="org.linkedin" skip="true">
         <include artifact="org.linkedin:(.*)" />
     </module>

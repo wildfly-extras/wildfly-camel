@@ -50,7 +50,7 @@
     <module name="org.apache.poi" />
     <module name="org.apache.sis.core" />
     <module name="org.apache.sis.storage" />
-    <module name="org.bouncycastle" slot="1.61" />
+    <module name="org.bouncycastle" slot="fuse" />
     <module name="org.ccil.cowan.tagsoup" />
     <module name="org.codelibs.jhighlight" />
     <module name="org.gagravarr.vorbis" />

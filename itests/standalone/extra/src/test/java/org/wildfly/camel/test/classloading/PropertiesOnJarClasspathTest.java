@@ -44,9 +44,9 @@ public class PropertiesOnJarClasspathTest {
     @Deployment
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-global-modules.jar");
-        archive.addAsResource("modules/jboss-camel-context.xml", "jboss-camel-context.xml");
-        archive.addAsResource("modules/psetA.properties", "psetAA.properties");
-        archive.addAsResource("modules/psetB.properties", "psetBA.properties");
+        archive.addAsResource("classloading/jboss-camel-context.xml", "jboss-camel-context.xml");
+        archive.addAsResource("classloading/psetA.properties", "psetAA.properties");
+        archive.addAsResource("classloading/psetB.properties", "psetBA.properties");
         return archive;
     }
 

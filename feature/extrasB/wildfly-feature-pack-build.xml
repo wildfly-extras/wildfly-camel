@@ -25,6 +25,12 @@
         <dependency group-id="org.wildfly.core" artifact-id="wildfly-core-galleon-pack">
             <name>org.wildfly.core:wildfly-core-galleon-pack</name>
         </dependency>
+        <dependency group-id="org.wildfly" artifact-id="wildfly-ee-galleon-pack">
+            <name>org.wildfly:wildfly-ee-galleon-pack</name>
+        </dependency>
+        <dependency group-id="org.wildfly" artifact-id="wildfly-servlet-galleon-pack">
+            <name>org.wildfly:wildfly-servlet-galleon-pack</name>
+        </dependency>
         <dependency group-id="org.wildfly" artifact-id="wildfly-galleon-pack">
             <name>org.wildfly:wildfly-galleon-pack</name>
         </dependency>

@@ -621,6 +621,7 @@ com/braintreegateway/test
 com/braintreegateway/util
 com/codahale
 com/codahale/metrics
+com/codahale/metrics/jmx
 com/codahale/metrics/json
 com/couchbase
 com/datastax
@@ -645,6 +646,7 @@ com/dropbox/core/v2/async
 com/dropbox/core/v2/auth
 com/dropbox/core/v2/callbacks
 com/dropbox/core/v2/check
+com/dropbox/core/v2/clouddocs
 com/dropbox/core/v2/common
 com/dropbox/core/v2/contacts
 com/dropbox/core/v2/fileproperties
@@ -684,10 +686,6 @@ com/github/dockerjava/core/dockerfile
 com/github/dockerjava/core/exception
 com/github/dockerjava/core/exec
 com/github/dockerjava/core/util
-com/github/dockerjava/jaxrs
-com/github/dockerjava/jaxrs/async
-com/github/dockerjava/jaxrs/filter
-com/github/dockerjava/jaxrs/util
 com/github/dockerjava/netty
 com/github/dockerjava/netty/handler
 com/github/dozermapper/core/util
@@ -788,15 +786,6 @@ com/hazelcast/client/config
 com/hazelcast/client/config/impl
 com/hazelcast/client/console
 com/hazelcast/client/cp
-com/hazelcast/client/cp/internal
-com/hazelcast/client/cp/internal/datastructures
-com/hazelcast/client/cp/internal/datastructures/atomiclong
-com/hazelcast/client/cp/internal/datastructures/atomicref
-com/hazelcast/client/cp/internal/datastructures/countdownlatch
-com/hazelcast/client/cp/internal/datastructures/lock
-com/hazelcast/client/cp/internal/datastructures/proxy
-com/hazelcast/client/cp/internal/datastructures/semaphore
-com/hazelcast/client/cp/internal/session
 com/hazelcast/client/impl
 com/hazelcast/client/impl/client
 com/hazelcast/client/impl/clientside
@@ -1346,6 +1335,8 @@ io/fabric8/kubernetes/api/builder
 io/fabric8/kubernetes/api/model
 io/fabric8/kubernetes/api/model/admission
 io/fabric8/kubernetes/api/model/admissionregistration
+io/fabric8/kubernetes/api/model/admissionregistration/v1
+io/fabric8/kubernetes/api/model/admissionregistration/v1beta1
 io/fabric8/kubernetes/api/model/apiextensions
 io/fabric8/kubernetes/api/model/apps
 io/fabric8/kubernetes/api/model/authentication
@@ -1380,6 +1371,7 @@ io/fabric8/kubernetes/client/extended/leaderelection
 io/fabric8/kubernetes/client/extended/leaderelection/resourcelock
 io/fabric8/kubernetes/client/handlers
 io/fabric8/kubernetes/client/handlers/admissionregistration
+io/fabric8/kubernetes/client/handlers/admissionregistration/v1
 io/fabric8/kubernetes/client/handlers/admissionregistration/v1beta1
 io/fabric8/kubernetes/client/handlers/apiextensions
 io/fabric8/kubernetes/client/handlers/apiextensions/v1beta1
@@ -1836,7 +1828,6 @@ org/apache/camel/component/consul
 org/apache/camel/component/consul/cloud
 org/apache/camel/component/consul/cluster
 org/apache/camel/component/consul/endpoint
-org/apache/camel/component/consul/health
 org/apache/camel/component/couchbase
 org/apache/camel/component/couchdb
 org/apache/camel/component/crypto
@@ -2307,6 +2298,7 @@ org/apache/camel/http/common
 org/apache/camel/jsonpath
 org/apache/camel/jsonpath/easypredicate
 org/apache/camel/jsonpath/jackson
+org/apache/camel/jta
 org/apache/camel/language
 org/apache/camel/language/groovy
 org/apache/camel/language/mvel
@@ -2664,6 +2656,7 @@ org/apache/cxf/tracing
 org/apache/cxf/transport
 org/apache/cxf/transport/common
 org/apache/cxf/transport/common/gzip
+org/apache/cxf/transport/commons_text
 org/apache/cxf/transport/http
 org/apache/cxf/transport/http/asyncclient
 org/apache/cxf/transport/http/auth
@@ -3050,13 +3043,16 @@ org/apache/hadoop/fs/ftp
 org/apache/hadoop/fs/http
 org/apache/hadoop/fs/local
 org/apache/hadoop/fs/permission
+org/apache/hadoop/fs/protocolPB
 org/apache/hadoop/fs/sftp
 org/apache/hadoop/fs/shell
 org/apache/hadoop/fs/shell/find
+org/apache/hadoop/fs/store
 org/apache/hadoop/fs/viewfs
 org/apache/hadoop/hdfs
 org/apache/hadoop/hdfs/client
 org/apache/hadoop/hdfs/client/impl
+org/apache/hadoop/hdfs/client/impl/metrics
 org/apache/hadoop/hdfs/inotify
 org/apache/hadoop/hdfs/net
 org/apache/hadoop/hdfs/protocol
@@ -3074,22 +3070,33 @@ org/apache/hadoop/hdfs/security/token
 org/apache/hadoop/hdfs/security/token/block
 org/apache/hadoop/hdfs/security/token/delegation
 org/apache/hadoop/hdfs/server
+org/apache/hadoop/hdfs/server/aliasmap
 org/apache/hadoop/hdfs/server/balancer
 org/apache/hadoop/hdfs/server/blockmanagement
 org/apache/hadoop/hdfs/server/common
+org/apache/hadoop/hdfs/server/common/blockaliasmap
+org/apache/hadoop/hdfs/server/common/blockaliasmap/impl
+org/apache/hadoop/hdfs/server/common/sps
 org/apache/hadoop/hdfs/server/datanode
 org/apache/hadoop/hdfs/server/datanode/checker
+org/apache/hadoop/hdfs/server/datanode/erasurecode
 org/apache/hadoop/hdfs/server/datanode/fsdataset
 org/apache/hadoop/hdfs/server/datanode/fsdataset/impl
 org/apache/hadoop/hdfs/server/datanode/metrics
 org/apache/hadoop/hdfs/server/datanode/web
 org/apache/hadoop/hdfs/server/datanode/web/webhdfs
+org/apache/hadoop/hdfs/server/diskbalancer
+org/apache/hadoop/hdfs/server/diskbalancer/command
+org/apache/hadoop/hdfs/server/diskbalancer/connectors
+org/apache/hadoop/hdfs/server/diskbalancer/datamodel
+org/apache/hadoop/hdfs/server/diskbalancer/planner
 org/apache/hadoop/hdfs/server/mover
 org/apache/hadoop/hdfs/server/namenode
 org/apache/hadoop/hdfs/server/namenode/ha
 org/apache/hadoop/hdfs/server/namenode/ha/proto
 org/apache/hadoop/hdfs/server/namenode/metrics
 org/apache/hadoop/hdfs/server/namenode/snapshot
+org/apache/hadoop/hdfs/server/namenode/sps
 org/apache/hadoop/hdfs/server/namenode/startupprogress
 org/apache/hadoop/hdfs/server/namenode/top
 org/apache/hadoop/hdfs/server/namenode/top/metrics
@@ -3097,6 +3104,7 @@ org/apache/hadoop/hdfs/server/namenode/top/window
 org/apache/hadoop/hdfs/server/namenode/web
 org/apache/hadoop/hdfs/server/namenode/web/resources
 org/apache/hadoop/hdfs/server/protocol
+org/apache/hadoop/hdfs/server/sps
 org/apache/hadoop/hdfs/shortcircuit
 org/apache/hadoop/hdfs/tools
 org/apache/hadoop/hdfs/tools/offlineEditsViewer
@@ -3115,6 +3123,13 @@ org/apache/hadoop/io/compress/lz4
 org/apache/hadoop/io/compress/snappy
 org/apache/hadoop/io/compress/zlib
 org/apache/hadoop/io/compress/zstd
+org/apache/hadoop/io/erasurecode
+org/apache/hadoop/io/erasurecode/codec
+org/apache/hadoop/io/erasurecode/coder
+org/apache/hadoop/io/erasurecode/coder/util
+org/apache/hadoop/io/erasurecode/grouper
+org/apache/hadoop/io/erasurecode/rawcoder
+org/apache/hadoop/io/erasurecode/rawcoder/util
 org/apache/hadoop/io/file
 org/apache/hadoop/io/file/tfile
 org/apache/hadoop/io/nativeio
@@ -3327,6 +3342,7 @@ org/apache/lucene/analysis
 org/apache/lucene/analysis/ar
 org/apache/lucene/analysis/bg
 org/apache/lucene/analysis/bn
+org/apache/lucene/analysis/boost
 org/apache/lucene/analysis/br
 org/apache/lucene/analysis/ca
 org/apache/lucene/analysis/charfilter
@@ -3343,6 +3359,7 @@ org/apache/lucene/analysis/de
 org/apache/lucene/analysis/el
 org/apache/lucene/analysis/en
 org/apache/lucene/analysis/es
+org/apache/lucene/analysis/et
 org/apache/lucene/analysis/eu
 org/apache/lucene/analysis/fa
 org/apache/lucene/analysis/fi
@@ -3391,6 +3408,7 @@ org/apache/lucene/codecs/lucene50
 org/apache/lucene/codecs/lucene60
 org/apache/lucene/codecs/lucene70
 org/apache/lucene/codecs/lucene80
+org/apache/lucene/codecs/lucene84
 org/apache/lucene/codecs/perfield
 org/apache/lucene/collation
 org/apache/lucene/collation/tokenattributes
@@ -3404,6 +3422,7 @@ org/apache/lucene/queries
 org/apache/lucene/queries/function
 org/apache/lucene/queries/function/docvalues
 org/apache/lucene/queries/function/valuesource
+org/apache/lucene/queries/intervals
 org/apache/lucene/queries/mlt
 org/apache/lucene/queries/payloads
 org/apache/lucene/queryparser
@@ -3439,7 +3458,6 @@ org/apache/lucene/sandbox/queries
 org/apache/lucene/search
 org/apache/lucene/search/grouping
 org/apache/lucene/search/highlight
-org/apache/lucene/search/intervals
 org/apache/lucene/search/join
 org/apache/lucene/search/similarities
 org/apache/lucene/search/similarity
@@ -3469,6 +3487,7 @@ org/apache/lucene/store
 org/apache/lucene/util
 org/apache/lucene/util/automaton
 org/apache/lucene/util/bkd
+org/apache/lucene/util/compress
 org/apache/lucene/util/fst
 org/apache/lucene/util/graph
 org/apache/lucene/util/mutable
@@ -3796,7 +3815,9 @@ org/apache/zookeeper/admin
 org/apache/zookeeper/cli
 org/apache/zookeeper/client
 org/apache/zookeeper/common
+org/apache/zookeeper/data
 org/apache/zookeeper/jmx
+org/apache/zookeeper/proto
 org/apache/zookeeper/server
 org/apache/zookeeper/server/admin
 org/apache/zookeeper/server/auth
@@ -3806,6 +3827,7 @@ org/apache/zookeeper/server/quorum
 org/apache/zookeeper/server/quorum/auth
 org/apache/zookeeper/server/quorum/flexible
 org/apache/zookeeper/server/util
+org/apache/zookeeper/txn
 org/apache/zookeeper/util
 org/apache/zookeeper/version
 org/apache/zookeeper/version/util
@@ -4082,6 +4104,7 @@ org/elasticsearch/action/admin/cluster/node/tasks/list
 org/elasticsearch/action/admin/cluster/node/usage
 org/elasticsearch/action/admin/cluster/remote
 org/elasticsearch/action/admin/cluster/repositories
+org/elasticsearch/action/admin/cluster/repositories/cleanup
 org/elasticsearch/action/admin/cluster/repositories/delete
 org/elasticsearch/action/admin/cluster/repositories/get
 org/elasticsearch/action/admin/cluster/repositories/put
@@ -4108,6 +4131,7 @@ org/elasticsearch/action/admin/indices/cache
 org/elasticsearch/action/admin/indices/cache/clear
 org/elasticsearch/action/admin/indices/close
 org/elasticsearch/action/admin/indices/create
+org/elasticsearch/action/admin/indices/datastream
 org/elasticsearch/action/admin/indices/delete
 org/elasticsearch/action/admin/indices/exists
 org/elasticsearch/action/admin/indices/exists/indices
@@ -4277,8 +4301,6 @@ org/hl7/fhir/r5/utils/formats
 org/infinispan
 org/infinispan/affinity
 org/infinispan/affinity/impl
-org/infinispan/atomic
-org/infinispan/atomic/impl
 org/infinispan/batch
 org/infinispan/cache
 org/infinispan/cache/impl
@@ -4306,6 +4328,7 @@ org/infinispan/client/hotrod/impl/protocol
 org/infinispan/client/hotrod/impl/query
 org/infinispan/client/hotrod/impl/transaction
 org/infinispan/client/hotrod/impl/transaction/entry
+org/infinispan/client/hotrod/impl/transaction/operations
 org/infinispan/client/hotrod/impl/transaction/recovery
 org/infinispan/client/hotrod/impl/transport
 org/infinispan/client/hotrod/impl/transport/netty
@@ -4326,7 +4349,6 @@ org/infinispan/commands/functional/functions
 org/infinispan/commands/module
 org/infinispan/commands/read
 org/infinispan/commands/remote
-org/infinispan/commands/remote/expiration
 org/infinispan/commands/remote/recovery
 org/infinispan/commands/triangle
 org/infinispan/commands/tx
@@ -4336,6 +4358,7 @@ org/infinispan/commons
 org/infinispan/commons/api
 org/infinispan/commons/configuration
 org/infinispan/commons/configuration/attributes
+org/infinispan/commons/configuration/elements
 org/infinispan/commons/dataconversion
 org/infinispan/commons/equivalence
 org/infinispan/commons/executors
@@ -4346,7 +4369,6 @@ org/infinispan/commons/jmx
 org/infinispan/commons/logging
 org/infinispan/commons/marshall
 org/infinispan/commons/marshall/exts
-org/infinispan/commons/marshall/jboss
 org/infinispan/commons/persistence
 org/infinispan/commons/stat
 org/infinispan/commons/time
@@ -4354,8 +4376,6 @@ org/infinispan/commons/tx
 org/infinispan/commons/tx/lookup
 org/infinispan/commons/util
 org/infinispan/commons/util/concurrent
-org/infinispan/commons/util/uberjar
-org/infinispan/compat
 org/infinispan/configuration
 org/infinispan/configuration/cache
 org/infinispan/configuration/format
@@ -4376,10 +4396,7 @@ org/infinispan/context/impl
 org/infinispan/counter
 org/infinispan/counter/api
 org/infinispan/counter/exception
-org/infinispan/counter/impl
 org/infinispan/counter/util
-org/infinispan/distexec
-org/infinispan/distexec/spi
 org/infinispan/distribution
 org/infinispan/distribution/ch
 org/infinispan/distribution/ch/impl
@@ -4395,10 +4412,7 @@ org/infinispan/executors
 org/infinispan/expiration
 org/infinispan/expiration/impl
 org/infinispan/factories
-org/infinispan/factories/annotations
-org/infinispan/factories/components
 org/infinispan/factories/impl
-org/infinispan/factories/scopes
 org/infinispan/factories/threads
 org/infinispan/filter
 org/infinispan/functional
@@ -4410,7 +4424,6 @@ org/infinispan/health/impl
 org/infinispan/health/impl/jmx
 org/infinispan/health/jmx
 org/infinispan/interceptors
-org/infinispan/interceptors/base
 org/infinispan/interceptors/distribution
 org/infinispan/interceptors/impl
 org/infinispan/interceptors/locking
@@ -4425,7 +4438,6 @@ org/infinispan/jcache/embedded/logging
 org/infinispan/jcache/logging
 org/infinispan/jcache/tck
 org/infinispan/jmx
-org/infinispan/jmx/annotations
 org/infinispan/lifecycle
 org/infinispan/lock
 org/infinispan/lock/api
@@ -4434,9 +4446,17 @@ org/infinispan/manager
 org/infinispan/manager/impl
 org/infinispan/marshall
 org/infinispan/marshall/core
+org/infinispan/marshall/core/impl
 org/infinispan/marshall/exts
+org/infinispan/marshall/persistence
+org/infinispan/marshall/persistence/impl
+org/infinispan/marshall/protostream
+org/infinispan/marshall/protostream/impl
+org/infinispan/marshall/protostream/impl/marshallers
 org/infinispan/metadata
 org/infinispan/metadata/impl
+org/infinispan/metrics
+org/infinispan/metrics/impl
 org/infinispan/multimap
 org/infinispan/multimap/api
 org/infinispan/notifications
@@ -4471,6 +4491,12 @@ org/infinispan/query/api/continuous
 org/infinispan/query/dsl
 org/infinispan/query/dsl/impl
 org/infinispan/query/dsl/impl/logging
+org/infinispan/reactive
+org/infinispan/reactive/publisher
+org/infinispan/reactive/publisher/impl
+org/infinispan/reactive/publisher/impl/commands
+org/infinispan/reactive/publisher/impl/commands/batch
+org/infinispan/reactive/publisher/impl/commands/reduction
 org/infinispan/registry
 org/infinispan/registry/impl
 org/infinispan/remoting
@@ -4485,7 +4511,9 @@ org/infinispan/scattered
 org/infinispan/scattered/impl
 org/infinispan/security
 org/infinispan/security/actions
+org/infinispan/security/audit
 org/infinispan/security/impl
+org/infinispan/security/mappers
 org/infinispan/statetransfer
 org/infinispan/stats
 org/infinispan/stats/impl
@@ -5323,6 +5351,7 @@ org/zendesk/client/v2/model/events
 org/zendesk/client/v2/model/hc
 org/zendesk/client/v2/model/schedules
 org/zendesk/client/v2/model/targets
+proto/generated
 quickfix/field
 quickfix/field/converter
 quickfix/fix40
@@ -5374,6 +5403,7 @@ twitter4j/management
 twitter4j/util
 twitter4j/util/function
 zipkin2/reporter
+zipkin2/reporter/brave
 zoneinfo/Africa
 zoneinfo/America
 zoneinfo/America/Argentina
