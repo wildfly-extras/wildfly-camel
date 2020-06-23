@@ -14,6 +14,7 @@
   </dependencies>
   <exports>
     <exclude path="com/hazelcast/com**" />
+    <exclude path="com/hazelcast/client/cp/internal**" />
     <exclude path="com/hazelcast/cp**" />
     <exclude path="com/hazelcast/internal**" />
     <exclude path="com/hazelcast/json**" />

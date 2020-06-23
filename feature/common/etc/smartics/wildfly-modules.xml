@@ -248,10 +248,6 @@
         <include artifact="log4j:" />
     </module>
 
-    <module name="org.apache.ws.security" skip="true">
-        <include artifact="org.apache.ws.security:jasypt" />
-    </module>
-
     <module name="org.apache.ws.xmlschema" skip="true">
         <include artifact=":xmlschema-core" />
     </module>
@@ -289,6 +285,10 @@
 
     <module name="org.infinispan.client.hotrod" skip="true" >
         <include artifact="org.infinispan:infinispan-client-hotrod" />
+    </module>
+
+    <module name="org.infinispan.protostream" skip="true" >
+        <include artifact="org.infinispan.protostream:protostream" />
     </module>
 
     <module name="org.javassist" skip="true">

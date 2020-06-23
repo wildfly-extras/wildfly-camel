@@ -1130,14 +1130,6 @@
                             <artifactId>osgi_R4_core</artifactId>
                         </exclude>
                         <exclude>
-                            <groupId>org.wildfly.core</groupId>
-                            <artifactId>wildfly-core-galleon-pack</artifactId>
-                        </exclude>
-                        <exclude>
-                            <groupId>org.wildfly</groupId>
-                            <artifactId>wildfly-servlet-galleon-pack</artifactId>
-                        </exclude>
-                        <exclude>
                             <groupId>org.wildfly</groupId>
                             <artifactId>wildfly-galleon-pack</artifactId>
                         </exclude>

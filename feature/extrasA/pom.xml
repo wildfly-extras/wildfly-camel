@@ -39,7 +39,6 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-hdfs</artifactId>
@@ -55,7 +54,6 @@
             <artifactId>hadoop-mapreduce-client-core</artifactId>
             <version>${version.camel.hadoop2}</version>
         </dependency>
-
         <dependency>
             <groupId>org.wildfly.camel</groupId>
             <artifactId>wildfly-camel-feature-modules</artifactId>
@@ -96,18 +94,6 @@
                         <exclude>
                             <groupId>org.osgi</groupId>
                             <artifactId>osgi_R4_core</artifactId>
-                        </exclude>
-                        <exclude>
-                            <groupId>org.wildfly.core</groupId>
-                            <artifactId>wildfly-core-galleon-pack</artifactId>
-                        </exclude>
-                        <exclude>
-                            <groupId>org.wildfly</groupId>
-                            <artifactId>wildfly-servlet-galleon-pack</artifactId>
-                        </exclude>
-                        <exclude>
-                            <groupId>org.wildfly</groupId>
-                            <artifactId>wildfly-galleon-pack</artifactId>
                         </exclude>
                         <exclude>
                             <groupId>org.wildfly.camel</groupId>

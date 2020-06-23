@@ -75,12 +75,12 @@
         <version.camel.sshd>2.0.0</version.camel.sshd>
 
         <!-- WildFly versions -->
-        <version.wildfly>18.0.1.Final</version.wildfly>
+        <version.wildfly>20.0.0.Final</version.wildfly>
         <version.wildfly.arquillian>2.2.0.Final</version.wildfly.arquillian>
-        <version.wildfly.cxf>3.3.3</version.wildfly.cxf>
-        <version.wildfly.fasterxml.jackson>2.9.10</version.wildfly.fasterxml.jackson>
-        <version.wildfly.hibernate>5.3.13.Final</version.wildfly.hibernate>
-        <version.wildfly.infinispan>9.4.16.Final</version.wildfly.infinispan>
+        <version.wildfly.cxf>3.3.6</version.wildfly.cxf>
+        <version.wildfly.fasterxml.jackson>2.10.4</version.wildfly.fasterxml.jackson>
+        <version.wildfly.hibernate>5.3.17.Final</version.wildfly.hibernate>
+        <version.wildfly.infinispan>10.1.8.Final</version.wildfly.infinispan>
 
         <!-- Other versions -->
         <version.apacheds.codec>2.0.0.AM1</version.apacheds.codec>
@@ -109,7 +109,7 @@
         <version-asciidoctor-maven-plugin>1.5.7.1</version-asciidoctor-maven-plugin>
         <version-docker-maven-plugin>0.20.1</version-docker-maven-plugin>
         <version-exec-maven-plugin>1.6.0</version-exec-maven-plugin>
-        <version-galleon-maven-plugin>4.0.4.Final</version-galleon-maven-plugin>
+        <version-galleon-maven-plugin>4.2.5.Final</version-galleon-maven-plugin>
         <version-groovy-maven-plugin>2.1</version-groovy-maven-plugin>
         <version-maven-antrun-plugin>1.8</version-maven-antrun-plugin>
         <version-maven-archetype-plugin>3.0.1</version-maven-archetype-plugin>
@@ -132,7 +132,7 @@
         <version-shrinkwrap-resolver-maven-plugin>3.0.0-alpha-4</version-shrinkwrap-resolver-maven-plugin>
         <version-smartics-maven-plugin>2.1.5</version-smartics-maven-plugin>
         <version-versions-maven-plugin>2.7</version-versions-maven-plugin>
-        <version-wildfly-galleon-plugin>3.0.1.Final</version-wildfly-galleon-plugin>
+        <version-wildfly-galleon-plugin>4.2.6.Final</version-wildfly-galleon-plugin>
         <version-wildfly-maven-plugin>2.0.0.Final</version-wildfly-maven-plugin>
         <version-xml-maven-plugin>1.0.2</version-xml-maven-plugin>
 
