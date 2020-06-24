@@ -3,6 +3,13 @@
 
     <defaultProtocol type="jmx-as7" />
 
+<!--
+docker run \
+	-p 8080:8080 -p 9990:9990 \
+	-e WILDFLY_MANAGEMENT_USER=admin \
+	-e WILDFLY_MANAGEMENT_PASSWORD=admin \
+	wildflyext/wildfly-camel
+-->
     <extension qualifier="docker">
         <property name="definitionFormat">CUBE</property>
         <property name="dockerContainers">
@@ -22,7 +29,7 @@
                 ]
                 await:
                     strategy: log
-                    match: 'WFLYSRV0025'
+                    match: 'WFLYSRV0060: Http management interface listening'
                     stdOut: true
                     stdErr: true
                     timeout: 30
