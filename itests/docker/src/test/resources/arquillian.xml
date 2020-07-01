@@ -3,39 +3,6 @@
 
     <defaultProtocol type="jmx-as7" />
 
-<!--
-docker run \
-	-p 8080:8080 -p 9990:9990 \
-	-e WILDFLY_MANAGEMENT_USER=admin \
-	-e WILDFLY_MANAGEMENT_PASSWORD=admin \
-	wildflyext/wildfly-camel
--->
-    <extension qualifier="docker">
-        <property name="definitionFormat">CUBE</property>
-        <property name="dockerContainers">
-            wildfly:
-                image: ${docker.image.name}
-                exposedPorts: [
-                    8080/tcp,
-                    9990/tcp
-                ]
-                env: [
-                    WILDFLY_MANAGEMENT_USER=${wildfly.mgmt.username},
-                    WILDFLY_MANAGEMENT_PASSWORD=${wildfly.mgmt.password}
-                ]
-                portBindings: [
-                    8080/tcp,
-                    9990/tcp
-                ]
-                await:
-                    strategy: log
-                    match: 'WFLYSRV0060: Http management interface listening'
-                    stdOut: true
-                    stdErr: true
-                    timeout: 30
-        </property>
-    </extension>
-
     <container qualifier="wildfly" default="true">
         <configuration>
             <property name="username">${wildfly.mgmt.username}</property>

@@ -19,11 +19,8 @@
  */
 package org.wildfly.camel.test.nats;
 
-import io.nats.client.Connection;
-import io.nats.client.Nats;
-import io.nats.client.Options;
-
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -33,30 +30,30 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.nats.NatsComponent;
 import org.apache.camel.component.nats.NatsConsumer;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.arquillian.cube.CubeController;
-import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
-import org.arquillian.cube.requirement.ArquillianConditionalRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.dockerjava.DockerManager;
 import org.wildfly.extension.camel.CamelAware;
 
+import io.nats.client.Connection;
+import io.nats.client.Nats;
+import io.nats.client.Options;
+
 @CamelAware
-@RunWith(ArquillianConditionalRunner.class)
-@RequiresDocker
+@RunWith(Arquillian.class)
+@ServerSetup({NatsIntegrationTest.ContainerSetupTask.class})
 public class NatsIntegrationTest {
 
-    private static final String CONTAINER_NATS = "nats";
-
-    @ArquillianResource
-    private CubeController cubeController;
+    private static final String CONTAINER_NAME = "nats";
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -64,16 +61,37 @@ public class NatsIntegrationTest {
             .addClasses(TestUtils.class);
     }
 
-    @Before
-    public void setUp() {
-        cubeController.create(CONTAINER_NATS);
-        cubeController.start(CONTAINER_NATS);
-    }
+    static class ContainerSetupTask implements ServerSetupTask {
 
-    @After
-    public void tearDown() {
-        cubeController.stop(CONTAINER_NATS);
-        cubeController.destroy(CONTAINER_NATS);
+    	private DockerManager dockerManager;
+
+        @Override
+        public void setup(ManagementClient managementClient, String someId) throws Exception {
+        	
+			/*
+			docker run --detach \
+				--name nats \
+				-p 4222:4222 \
+				nats:0.9.6
+			*/
+        	
+        	dockerManager = new DockerManager()
+        			.createContainer("nats:0.9.6", true)
+        			.withName(CONTAINER_NAME)
+        			.withPortBindings("4222:4222")
+        			.startContainer();
+
+			dockerManager
+					.withAwaitLogMessage("Server is ready")
+					.awaitCompletion(60, TimeUnit.SECONDS);
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String someId) throws Exception {
+        	if (dockerManager != null) {
+            	dockerManager.removeContainer();
+        	}
+        }
     }
 
     @Test

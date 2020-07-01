@@ -22,37 +22,32 @@ package org.wildfly.camel.test.etcd;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.etcd.EtcdConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.arquillian.cube.CubeController;
-import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
-import org.arquillian.cube.requirement.ArquillianConditionalRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.dockerjava.DockerManager;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
-@RunWith(ArquillianConditionalRunner.class)
-@RequiresDocker
-@Ignore("[CAMEL-14492] EtcdKeysEndpoint cannot be cast to AbstractEtcdPollingEndpoint")
+@RunWith(Arquillian.class)
+@ServerSetup({EtcdIntegrationTest.ContainerSetupTask.class})
 public class EtcdIntegrationTest {
 
-    private static final String CONTAINER_ETCD = "etcd";
-
-    @ArquillianResource
-    private CubeController cubeController;
+    private static final String CONTAINER_NAME = "etcd";
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -60,16 +55,47 @@ public class EtcdIntegrationTest {
             .addClass(TestUtils.class);
     }
 
-    @Before
-    public void setUp() throws Exception {
-        cubeController.create(CONTAINER_ETCD);
-        cubeController.start(CONTAINER_ETCD);
-    }
+    static class ContainerSetupTask implements ServerSetupTask {
 
-    @After
-    public void tearDown() throws Exception {
-        cubeController.stop(CONTAINER_ETCD);
-        cubeController.destroy(CONTAINER_ETCD);
+    	private DockerManager dockerManager;
+
+        @Override
+        public void setup(ManagementClient managementClient, String someId) throws Exception {
+        	
+            String dockerHost = TestUtils.getDockerHost();
+            
+			/*
+			docker run --detach \
+				--name etcd \
+				-p 2379:2379 \
+				-p 2380:2380 \
+				-p 4001:4001 \
+				quay.io/coreos/etcd:v2.2.5 \
+				-listen-client-urls http://0.0.0.0:2379,http://0.0.0.0:4001 \
+				-listen-peer-urls http://0.0.0.0:2380 \
+				-advertise-client-urls http://localhost:2379,http://localhost:4001
+			*/
+        	
+        	dockerManager = new DockerManager()
+        			.createContainer("quay.io/coreos/etcd:v2.2.5", true)
+        			.withName(CONTAINER_NAME)
+        			.withPortBindings("2379:2379", "2380:2380", "4001:4001")
+        			.withCmd("-listen-client-urls http://0.0.0.0:2379,http://0.0.0.0:4001 -listen-peer-urls http://0.0.0.0:2380 -advertise-client-urls http://localhost:2379,http://localhost:4001")
+        			.startContainer();
+
+			dockerManager
+				.withAwaitHttp("http://" + dockerHost + ":2379/health")
+				.withResponseCode(200)
+				.withSleepPolling(500)
+				.awaitCompletion(60, TimeUnit.SECONDS);
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String someId) throws Exception {
+        	if (dockerManager != null) {
+            	dockerManager.removeContainer();
+        	}
+        }
     }
 
     @Test
@@ -81,7 +107,7 @@ public class EtcdIntegrationTest {
                 String dockerHost = TestUtils.getDockerHost();
 
                 from("direct:start")
-                .toF("etcd:keys?uris=http://%s:23379,http://%s:40001", dockerHost, dockerHost)
+                .toF("etcd-keys:camel?uris=http://%s:2379,http://%s:40001", dockerHost, dockerHost)
                 .to("mock:result");
             }
         });

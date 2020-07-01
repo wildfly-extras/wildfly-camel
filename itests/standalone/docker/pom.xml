@@ -37,29 +37,24 @@
         <server.config>standalone-full.xml</server.config>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- [ENTESB-13570] Camel defines version of snakeyaml incompatible with arquillian-docker -->
-            <dependency>
-                <groupId>org.yaml</groupId>
-                <artifactId>snakeyaml</artifactId>
-                <version>${version.arquillian.cube.snakeyaml}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    
     <dependencies>
         <dependency>
-            <groupId>org.arquillian.cube</groupId>
-            <artifactId>arquillian-cube-docker</artifactId>
+            <groupId>com.github.docker-java</groupId>
+            <artifactId>docker-java-core</artifactId>
+            <version>${version.docker.java}</version>
         </dependency>
         <dependency>
-            <groupId>org.arquillian.cube</groupId>
-            <artifactId>arquillian-cube-requirement</artifactId>
+            <groupId>com.github.docker-java</groupId>
+            <artifactId>docker-java-transport-okhttp</artifactId>
+            <version>${version.docker.java}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-consul</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-couchbase</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -68,10 +63,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-etcd</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-google-pubsub</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -95,19 +86,19 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-solr</artifactId>
+            <artifactId>camel-smpp</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-stomp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
+            <artifactId>camel-solr</artifactId>
         </dependency>
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
         </dependency>
     </dependencies>
 
@@ -122,68 +113,8 @@
                 <artifactId>exec-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>groovy-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>process-resources</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <source>
-                        import java.net.InetAddress
-                        import java.nio.file.Files
-                        import java.nio.file.Paths
-                        import java.util.regex.Matcher
-
-                        def skip = (System.getProperty("skipTests") != null || System.getProperty("skipDockerPull") != null)
-                        if (!skip) {
-                            // Pull before tests run inside of the container due to: https://issues.jboss.org/browse/ARQ-688
-                            boolean dockerAvailable = System.getenv("DOCKER_HOST") != null || Files.exists(Paths.get("/var/run/docker.sock"))
-                            if (dockerAvailable) {
-                                def cubeSpec = new File(project.basedir.path + "/src/test/resources/arquillian.xml").text
-                                Matcher matcher = cubeSpec =~ /.*image: (.*)/
-                                while (matcher.find()) {
-                                    def image = matcher.group(1)
-
-                                    // Replace maven properties in image names
-                                    def props = (image =~ /.*\{(.*?)\}.*/)
-                                    if (props.matches()) {
-                                        def propName = props[0][1]
-                                        def propValue = properties.get(propName)
-                                        image = image.replace("\${${propName}}", propValue)
-                                    }
-
-                                    println "[DOCKER] Pulling Docker image: ${image}"
-                                    "docker pull ${image}".execute().waitForProcessOutput(System.out, System.err)
-                                }
-                            }
-                        }
-
-                        // Enables docker.host maven property to be used in arquillian.xml
-                        String dockerHost = System.getenv("DOCKER_HOST")
-                        System.out.println("DOCKER_HOST: " + dockerHost)
-                        if (dockerHost == null) {
-                            project.properties["docker.host"] = InetAddress.getLocalHost().getHostAddress()
-                        } else {
-                            URI uri = new URI(dockerHost)
-                            project.properties["docker.host"] = uri.getHost()
-                        }
-                        System.out.println("docker.host: " + project.properties["docker.host"])
-                    </source>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <systemPropertyVariables>
-                        <org.jboss.remoting-jmx.timeout>300</org.jboss.remoting-jmx.timeout>
-                    </systemPropertyVariables>
-                </configuration>
             </plugin>
         </plugins>
     </build>

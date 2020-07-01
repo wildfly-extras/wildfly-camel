@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.FluentProducerTemplate;
@@ -35,19 +36,19 @@ import org.apache.camel.component.consul.ConsulConstants;
 import org.apache.camel.component.consul.cloud.ConsulServiceDiscovery;
 import org.apache.camel.component.consul.endpoint.ConsulCatalogActions;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.arquillian.cube.CubeController;
-import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
-import org.arquillian.cube.requirement.ArquillianConditionalRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.dockerjava.DockerManager;
 import org.wildfly.extension.camel.CamelAware;
 
 import com.orbitz.consul.AgentClient;
@@ -57,18 +58,15 @@ import com.orbitz.consul.model.agent.Registration;
 import com.orbitz.consul.model.health.Node;
 
 @CamelAware
-@RunWith(ArquillianConditionalRunner.class)
-@RequiresDocker
+@RunWith(Arquillian.class)
+@ServerSetup({ConsulIntegrationTest.ContainerSetupTask.class})
 public class ConsulIntegrationTest {
 
-    private static final String CONTAINER_NAME = "consul";
+    static final String CONTAINER_NAME = "consul";
     private static final int CONSUL_PORT = 48802;
 
     private String consulUrl;
     private List<Registration> registrations;
-
-    @ArquillianResource
-    private CubeController cubeController;
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -76,22 +74,49 @@ public class ConsulIntegrationTest {
             .addClass(TestUtils.class);
     }
 
+    static class ContainerSetupTask implements ServerSetupTask {
+
+    	private DockerManager dockerManager;
+
+        @Override
+        public void setup(ManagementClient managementClient, String someId) throws Exception {
+        	
+			/*
+			docker run \
+				--name consul \
+				-p 48802:48802 \
+				consul:0.9.3 agent -dev -server -bootstrap -client 0.0.0.0 -http-port 48802 -log-level trace
+			*/
+			
+			dockerManager = new DockerManager()
+					.createContainer("consul:0.9.3", true)
+					.withName(CONTAINER_NAME)
+					.withPortBindings(CONSUL_PORT + ":" + CONSUL_PORT)
+					.withCmd("agent -dev -server -bootstrap -client 0.0.0.0 -http-port " + CONSUL_PORT + " -log-level trace")
+					.startContainer();
+			
+			dockerManager
+				.withAwaitLogMessage("agent: Synced node info")
+				.awaitCompletion(60, TimeUnit.SECONDS);
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String someId) throws Exception {
+        	if (dockerManager != null) {
+            	dockerManager.removeContainer();
+        	}
+        }
+    }
+
     @Before
     public void setUp() throws Exception {
-        cubeController.create(CONTAINER_NAME);
-        cubeController.start(CONTAINER_NAME);
         consulUrl = "http://"+ TestUtils.getDockerHost() +":"+ CONSUL_PORT;
     }
-
-    @After
-    public void tearDown() throws Exception {
-        cubeController.stop(CONTAINER_NAME);
-        cubeController.destroy(CONTAINER_NAME);
-    }
-
+    
     @Test
     public void testListDatacenters() throws Exception {
-        List<String> ref = getConsul().catalogClient().getDatacenters();
+
+    	List<String> ref = getConsul().catalogClient().getDatacenters();
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.getComponent("consul", ConsulComponent.class).getConfiguration().setUrl(consulUrl);
@@ -148,7 +173,8 @@ public class ConsulIntegrationTest {
     }
 
     @Test
-    public void testServiceDiscovery() throws Exception {
+    @SuppressWarnings("resource")
+	public void testServiceDiscovery() throws Exception {
         final AgentClient client = getConsul().agentClient();
         try {
             registrations = new ArrayList<>(3);

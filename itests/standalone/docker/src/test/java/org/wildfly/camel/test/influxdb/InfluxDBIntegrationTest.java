@@ -21,9 +21,9 @@ package org.wildfly.camel.test.influxdb;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -31,13 +31,15 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.influxdb.InfluxDbConstants;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.jndi.JndiBeanRepository;
-import org.arquillian.cube.CubeController;
-import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
-import org.arquillian.cube.requirement.ArquillianConditionalRunner;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
+import org.influxdb.dto.Query;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
@@ -46,19 +48,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.dockerjava.DockerManager;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
-@RunWith(ArquillianConditionalRunner.class)
-@RequiresDocker
+@RunWith(Arquillian.class)
+@ServerSetup({InfluxDBIntegrationTest.ContainerSetupTask.class})
 public class InfluxDBIntegrationTest {
 
-    private static final String CONTAINER_INFLUX_DB = "influxdb";
+    private static final String CONTAINER_NAME = "influxdb";
     private static final String INFLUX_DB_BIND_NAME = "wfcInfluxDB";
     private static final String INFLUX_DB_NAME = "myTestTimeSeries";
-
-    @ArquillianResource
-    private CubeController cubeController;
 
     @ArquillianResource
     private InitialContext context;
@@ -69,25 +69,55 @@ public class InfluxDBIntegrationTest {
             .addClass(TestUtils.class);
     }
 
+    static class ContainerSetupTask implements ServerSetupTask {
+
+    	private DockerManager dockerManager;
+
+        @Override
+        public void setup(ManagementClient managementClient, String someId) throws Exception {
+        	
+            String dockerHost = TestUtils.getDockerHost();
+            
+			/*
+			docker run --detach \
+				--name influxdb \
+				-p 8086:8086 \
+				-e INFLUXDB_REPORTING_DISABLED=true \
+				influxdb:1.1-alpine
+			*/
+        	
+        	dockerManager = new DockerManager()
+        			.createContainer("influxdb:1.1-alpine", true)
+        			.withName(CONTAINER_NAME)
+        			.withPortBindings("8086:8086")
+        			.withEnv("INFLUXDB_REPORTING_DISABLED=true")
+        			.startContainer();
+
+			dockerManager
+				.withAwaitHttp("http://" + dockerHost + ":8086/ping")
+				.withResponseCode(204)
+				.withSleepPolling(500)
+				.awaitCompletion(60, TimeUnit.SECONDS);
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String someId) throws Exception {
+        	if (dockerManager != null) {
+            	dockerManager.removeContainer();
+        	}
+        }
+    }
+
     @Before
     public void setUp() throws Exception {
-        cubeController.create(CONTAINER_INFLUX_DB);
-        cubeController.start(CONTAINER_INFLUX_DB);
-
         InfluxDB influxDB = InfluxDBFactory.connect("http://" + TestUtils.getDockerHost() + ":8086", "admin", "admin");
-        influxDB.createDatabase(INFLUX_DB_NAME);
+        influxDB.query(new Query("CREATE DATABASE " + INFLUX_DB_NAME));
         context.bind(INFLUX_DB_BIND_NAME, influxDB);
     }
 
     @After
     public void tearDown() throws Exception {
-        try {
-            context.unbind(INFLUX_DB_BIND_NAME);
-        } catch (NamingException e) {
-            // Ignore
-        }
-        cubeController.stop(CONTAINER_INFLUX_DB);
-        cubeController.destroy(CONTAINER_INFLUX_DB);
+        context.unbind(INFLUX_DB_BIND_NAME);
     }
 
     @Test
