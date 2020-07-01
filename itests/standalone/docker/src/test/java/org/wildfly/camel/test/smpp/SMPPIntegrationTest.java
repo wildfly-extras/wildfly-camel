@@ -20,34 +20,32 @@
 
 package org.wildfly.camel.test.smpp;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.arquillian.cube.CubeController;
-import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
-import org.arquillian.cube.requirement.ArquillianConditionalRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.dockerjava.DockerManager;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
-@RunWith(ArquillianConditionalRunner.class)
-@RequiresDocker
+@RunWith(Arquillian.class)
+@ServerSetup({SMPPIntegrationTest.ContainerSetupTask.class})
 public class SMPPIntegrationTest {
 
-    private static final String CONTAINER_SMPP = "smpp_simulator";
-
-    @ArquillianResource
-    private CubeController cubeController;
+    private static final String CONTAINER_NAME = "smpp_simulator";
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -55,16 +53,42 @@ public class SMPPIntegrationTest {
             .addClass(TestUtils.class);
     }
 
-    @Before
-    public void setUp() {
-        cubeController.create(CONTAINER_SMPP);
-        cubeController.start(CONTAINER_SMPP);
-    }
+    static class ContainerSetupTask implements ServerSetupTask {
 
-    @After
-    public void tearDown() {
-        cubeController.stop(CONTAINER_SMPP);
-        cubeController.destroy(CONTAINER_SMPP);
+    	private DockerManager dockerManager;
+
+        @Override
+        public void setup(ManagementClient managementClient, String someId) throws Exception {
+        	
+            String dockerHost = TestUtils.getDockerHost();
+            
+			/*
+			docker run --detach \
+				--name smpp_simulator \
+				-p 2775:2775 \
+				-p 88:8888 \
+				wildflyext/smppsimulator:2.6.11
+			*/
+        	
+        	dockerManager = new DockerManager()
+        			.createContainer("wildflyext/smppsimulator:2.6.11", true)
+        			.withName(CONTAINER_NAME)
+        			.withPortBindings("2775:2775", "88:8888")
+        			.startContainer();
+
+			dockerManager
+				.withAwaitHttp("http://" + dockerHost + ":8888")
+				.withResponseCode(200)
+				.withSleepPolling(500)
+				.awaitCompletion(60, TimeUnit.SECONDS);
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String someId) throws Exception {
+        	if (dockerManager != null) {
+            	dockerManager.removeContainer();
+        	}
+        }
     }
 
     @Test

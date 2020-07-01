@@ -31,16 +31,14 @@ import org.apache.camel.component.irc.IrcComponent;
 import org.apache.camel.component.irc.IrcEndpoint;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.arquillian.cube.CubeController;
-import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
-import org.arquillian.cube.requirement.ArquillianConditionalRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.schwering.irc.lib.IRCConnection;
@@ -48,17 +46,15 @@ import org.schwering.irc.lib.IRCEventListener;
 import org.schwering.irc.lib.IRCModeParser;
 import org.schwering.irc.lib.IRCUser;
 import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.dockerjava.DockerManager;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
-@RunWith(ArquillianConditionalRunner.class)
-@RequiresDocker
+@RunWith(Arquillian.class)
+@ServerSetup({IRCIntegrationTest.ContainerSetupTask.class})
 public class IRCIntegrationTest {
 
-    private static final String CONTAINER_IRCD = "ircd";
-
-    @ArquillianResource
-    private CubeController cubeController;
+    private static final String CONTAINER_NAME = "ircd";
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -66,16 +62,37 @@ public class IRCIntegrationTest {
             .addClass(TestUtils.class);
     }
 
-    @Before
-    public void setUp() {
-        cubeController.create(CONTAINER_IRCD);
-        cubeController.start(CONTAINER_IRCD);
-    }
+    static class ContainerSetupTask implements ServerSetupTask {
 
-    @After
-    public void tearDown() {
-        cubeController.stop(CONTAINER_IRCD);
-        cubeController.destroy(CONTAINER_IRCD);
+    	private DockerManager dockerManager;
+
+        @Override
+        public void setup(ManagementClient managementClient, String someId) throws Exception {
+        	
+			/*
+			docker run --detach \
+				--name ircd \
+				-p 6667:6667 \
+				wildflyext/ircd:23
+			*/
+        	
+        	dockerManager = new DockerManager()
+        			.createContainer("wildflyext/ircd:23", true)
+        			.withName(CONTAINER_NAME)
+        			.withPortBindings("6667:6667")
+        			.startContainer();
+
+			dockerManager
+					.withAwaitLogMessage("Now listening")
+					.awaitCompletion(60, TimeUnit.SECONDS);
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String someId) throws Exception {
+        	if (dockerManager != null) {
+            	dockerManager.removeContainer();
+        	}
+        }
     }
 
     @Test
