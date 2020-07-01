@@ -19,37 +19,33 @@
  */
 package org.wildfly.camel.test.couchbase;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.arquillian.cube.CubeController;
-import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
-import org.arquillian.cube.requirement.ArquillianConditionalRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.http.HttpRequest;
-import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
 import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.dockerjava.DockerManager;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
-@RunWith(ArquillianConditionalRunner.class)
-@RequiresDocker
-@Ignore("[#2173] Intermittent failure of CouchbaseIntegrationTest")
+@RunWith(Arquillian.class)
+@ServerSetup({CouchbaseIntegrationTest.ContainerSetupTask.class})
+@Ignore("[CAMEL-15259] camel-couchbase seems outdated or broken")
 public class CouchbaseIntegrationTest {
 
     private static final String CONTAINER_NAME = "couchbase";
-
-    @ArquillianResource
-    private CubeController cubeController;
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -57,116 +53,86 @@ public class CouchbaseIntegrationTest {
             .addClasses(TestUtils.class, HttpRequest.class);
     }
 
-    @Before
-    public void setUp() throws Exception {
-        cubeController.create(CONTAINER_NAME);
-        cubeController.start(CONTAINER_NAME);
-    }
+    static class ContainerSetupTask implements ServerSetupTask {
 
-    @After
-    public void tearDown() throws Exception {
-        cubeController.stop(CONTAINER_NAME);
-        cubeController.destroy(CONTAINER_NAME);
+    	private DockerManager dockerManager;
+
+        @Override
+        public void setup(ManagementClient managementClient, String someId) throws Exception {
+        	
+            String dockerHost = TestUtils.getDockerHost();
+            
+			/*
+			docker run --detach \
+				--name couchbase \
+				-p 8091:8091 \
+				-p 8092:8092 \
+				-p 8093:8093 \
+				-p 8094:8094 \
+				-p 11210:11210 \
+				couchbase:community-6.5.1
+			*/
+        	
+        	dockerManager = new DockerManager()
+        			.createContainer("couchbase:community-6.5.1", true)
+        			.withName(CONTAINER_NAME)
+        			.withPortBindings("8091:8091", "8092:8092", "8093:8093", "8094:8094", "11210:11210")
+        			.startContainer();
+
+			dockerManager
+				.withAwaitHttp("http://" + dockerHost + ":8091")
+				.withResponseCode(200)
+				.withSleepPolling(500)
+				.awaitCompletion(60, TimeUnit.SECONDS);
+			
+        	/* 
+			Setup a new cluster
+			https://docs.couchbase.com/server/current/cli/cbcli/couchbase-cli-cluster-init.html
+			
+			docker exec couchbase \
+				couchbase-cli cluster-init -c 127.0.0.1 --cluster-username Administrator --cluster-password password \
+				--cluster-name default --cluster-ramsize 1024 \
+				--services data,index,query
+				
+			Load the beer sample data
+			https://docs.couchbase.com/server/current/cli/cbdocloader-tool.html
+			
+			docker exec couchbase \
+				cbdocloader -c couchbase://127.0.0.1 -u Administrator -p password \
+				-v -m 1024 -b beer-sample -d /opt/couchbase/samples/beer-sample.zip
+        	*/
+        	
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String someId) throws Exception {
+        	if (dockerManager != null) {
+            	dockerManager.removeContainer();
+        	}
+        }
     }
 
     @Test
     public void testComponent() throws Exception {
-        initCouchbaseServer();
 
-        DefaultCamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                fromF("couchbase:http://%s/beer-sample?password=&designDocumentName=beer&viewName=brewery_beers&limit=10", TestUtils.getDockerHost())
-                .to("mock:result");
-            }
-        });
+        String dockerHost = TestUtils.getDockerHost();
+        
+        try (DefaultCamelContext camelctx = new DefaultCamelContext()) {
+        	
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+					fromF("couchbase:http://%s/beer-sample?password=password&designDocumentName=&viewName=&limit=10", dockerHost)
+                    .to("mock:result");
+                }
+            });
 
-        MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
-        mockEndpoint.expectedMessageCount(10);
+            MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+            mockEndpoint.expectedMessageCount(10);
 
-        camelctx.start();
-        try {
+            camelctx.start();
+            
             mockEndpoint.assertIsSatisfied();
-        } finally {
-            camelctx.close();
         }
-    }
-
-    private void initCouchbaseServer() throws Exception {
-        HttpResponse response = HttpRequest.post(getResource("pools/default"))
-            .header("ns_server-ui", "yes")
-            .content("memoryQuota=256")
-            .getResponse();
-
-        Assert.assertEquals(200, response.getStatusCode());
-
-        response = HttpRequest.post(getResource("pools/default/buckets"))
-            .header("ns_server-ui", "yes")
-            .content("threadsNumber=3&replicaIndex=0&replicaNumber=1&evictionPolicy=valueOnly"
-                + "&ramQuotaMB=100&bucketType=membase&name=default&authType=sasl"
-                + "&saslPassword=&otherBucketsRamQuotaMB=100")
-            .getResponse();
-
-        Assert.assertEquals(202, response.getStatusCode());
-
-        response = HttpRequest.post(getResource("settings/stats"))
-            .header("ns_server-ui", "yes")
-            .content("sendStats=false")
-            .getResponse();
-
-        Assert.assertEquals(200, response.getStatusCode());
-
-        response = HttpRequest.post(getResource("settings/web"))
-            .header("ns_server-ui", "yes")
-            .content("password=p4ssw0rd&port=SAME&username=admin")
-            .getResponse();
-
-        Assert.assertEquals(200, response.getStatusCode());
-
-        HttpResponse loginResponse = HttpRequest.post(getResource("uilogin"))
-            .header("ns_server-ui", "yes")
-            .content("password=p4ssw0rd&user=admin")
-            .getResponse();
-
-        String loginCookie = loginResponse.getHeader("Set-Cookie");
-        Assert.assertEquals(200, loginResponse.getStatusCode());
-        Assert.assertNotNull("Login cookie was null", loginCookie);
-
-        // Guard against admin credentials not immediately taking effect
-        Thread.sleep(100);
-
-        response = HttpRequest.post(getResource("sampleBuckets/install"))
-            .header("ns_server-ui", "yes")
-            .header("Cookie", loginCookie)
-            .content("[\"beer-sample\"]")
-            .getResponse();
-
-        Assert.assertEquals(202, response.getStatusCode());
-
-        // Wait for sample data to be loaded
-        int attempts = 0;
-        do {
-            response = HttpRequest.get(getResource("logs"))
-                .header("Accept", "application/json, text/plain, */*")
-                .header("ns_server-ui", "yes")
-                .header("Cookie", loginCookie)
-                .getResponse();
-
-            Assert.assertEquals(200, response.getStatusCode());
-
-            if (!response.getBody().contains("Completed loading sample bucket beer-sample")) {
-                attempts++;
-                Thread.sleep(500);
-            } else {
-                return;
-            }
-        } while(attempts < 30);
-
-        throw new IllegalStateException("Gave up waiting for Couchbase server to become ready");
-    }
-
-    private String getResource(String resourcePath) throws Exception {
-        return String.format("http://%s:8091/%s", TestUtils.getDockerHost(), resourcePath);
     }
 }

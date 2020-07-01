@@ -19,40 +19,35 @@
  */
 package org.wildfly.camel.test.nsq;
 
-import com.github.brainlag.nsq.NSQProducer;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.arquillian.cube.CubeController;
-import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
-import org.arquillian.cube.requirement.ArquillianConditionalRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
 import org.junit.Assume;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.dockerjava.DockerManager;
 import org.wildfly.extension.camel.CamelAware;
 
+import com.github.brainlag.nsq.NSQProducer;
+
 @CamelAware
-@RunWith(ArquillianConditionalRunner.class)
-@RequiresDocker
+@RunWith(Arquillian.class)
 @Ignore("[#2961] Unknown parameters=[{topic=wfc-topic}]")
 public class NsqIntegrationTest {
 
-    private static final String[] CONTAINER_NAMES = {"nsqlookupd", "nsqd"};
     private static final String TOPIC_NAME = "wfc-topic";
-
-    @ArquillianResource
-    private CubeController cubeController;
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -60,19 +55,62 @@ public class NsqIntegrationTest {
             .addClasses(TestUtils.class, EnvironmentUtils.class);
     }
 
-    @Before
-    public void setUp() throws Exception {
-        for (String container : CONTAINER_NAMES) {
-            cubeController.create(container);
-            cubeController.start(container);
-        }
-    }
+    static class ContainerSetupTask implements ServerSetupTask {
 
-    @After
-    public void tearDown() throws Exception {
-        for (String container : CONTAINER_NAMES) {
-            cubeController.stop(container);
-            cubeController.destroy(container);
+    	private DockerManager dockerManager;
+
+        @Override
+        public void setup(ManagementClient managementClient, String someId) throws Exception {
+        	
+			/*
+			docker run --detach \
+				--name nsqlookupd \
+				-p 4160:4160 \
+				-p 4161:4161 \
+				--network=host \
+				nsqio/nsq:v1.1.0 /nsqlookupd
+			*/
+        	
+        	dockerManager = new DockerManager()
+        			.createContainer("nsqio/nsq:v1.1.0", true)
+        			.withName("nsqlookupd")
+        			.withPortBindings("4160:4160")
+        			.withPortBindings("4161:4161")
+        			.withNetworkMode("host")
+        			.withCmd("/nsqlookupd")
+        			.startContainer();
+
+			dockerManager
+					.withAwaitLogMessage("TCP: listening")
+					.awaitCompletion(60, TimeUnit.SECONDS);
+        	
+			/*
+			docker run --detach \
+				--name nsq \
+				-p 4150:4150 \
+				--network=host \
+				nsqio/nsq:v1.1.0 /nsqd --broadcast-address 192.168.0.30 --lookupd-tcp-address 192.168.0.30:4160
+			*/
+        	
+        	dockerManager
+        			.createContainer("nsqio/nsq:v1.1.0", true)
+        			.withName("nsq")
+        			.withPortBindings("4150:4150")
+        			.withNetworkMode("host")
+        			.withCmd("/nsqd --broadcast-address 127.0.0.1 --lookupd-tcp-address 127.0.0.1:4160")
+        			.startContainer();
+
+			dockerManager
+					.withAwaitLogMessage("TCP: listening")
+					.awaitCompletion(60, TimeUnit.SECONDS);
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String someId) throws Exception {
+        	if (dockerManager != null) {
+            	dockerManager.removeContainer("nsqlookupd");
+            	dockerManager.removeContainer("nsq");
+        	}
         }
     }
 

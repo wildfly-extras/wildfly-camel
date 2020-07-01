@@ -303,16 +303,6 @@
                 <version>${version.camel.qpid.proton}</version>
             </dependency>
             <dependency>
-                <groupId>org.arquillian.cube</groupId>
-                <artifactId>arquillian-cube-docker</artifactId>
-                <version>${version.arquillian.cube}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.arquillian.cube</groupId>
-                <artifactId>arquillian-cube-requirement</artifactId>
-                <version>${version.arquillian.cube}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcmail-jdk15on</artifactId>
                 <version>${version.camel.bouncycastle}</version>

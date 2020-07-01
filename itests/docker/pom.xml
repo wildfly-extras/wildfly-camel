@@ -39,17 +39,6 @@
         <wildfly.mgmt.password>admin</wildfly.mgmt.password>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- [ENTESB-13570] Camel defines version of snakeyaml incompatible with arquillian-docker -->
-            <dependency>
-                <groupId>org.yaml</groupId>
-                <artifactId>snakeyaml</artifactId>
-                <version>${version.arquillian.cube.snakeyaml}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    
     <!-- Dependencies -->
     <dependencies>
 
@@ -61,8 +50,18 @@
             <scope>provided</scope>
             <type>pom</type>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_4.0_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- Test -->
+        <dependency>
+            <groupId>org.wildfly.camel</groupId>
+            <artifactId>wildfly-camel-itests-common</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
@@ -75,11 +74,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.arquillian.cube</groupId>
-            <artifactId>arquillian-cube-docker</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -87,12 +81,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.wildfly.camel</groupId>
-            <artifactId>wildfly-camel-itests-common</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -114,5 +102,65 @@
                 </excludes>
             </testResource>
         </testResources>
+		<plugins>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<configuration>
+					<!--
+					docker run - -detach \
+						 - -name wildfly \
+						 -p 8080:8080 -p 9990:9990 \
+						 -e WILDFLY_MANAGEMENT_USER=admin \
+						 -e WILDFLY_MANAGEMENT_PASSWORD=admin \
+						 wildflyext/wildfly-camel
+					-->
+					<images>
+						<image>
+							<name>${docker.image.name}</name>
+							<alias>wildfly</alias>
+							<run>
+								<namingStrategy>alias</namingStrategy>
+								<env>
+									<WILDFLY_MANAGEMENT_USER>admin</WILDFLY_MANAGEMENT_USER>
+									<WILDFLY_MANAGEMENT_PASSWORD>admin</WILDFLY_MANAGEMENT_PASSWORD>
+								</env>
+								<ports>
+									<port>8080:8080</port>
+									<port>9990:9990</port>
+								</ports>
+								<wait>
+									<http>
+										<url>http://127.0.0.1:9990/health</url>
+										<status>200</status>
+									</http>
+									<exec>
+										<postStart>sleep 10</postStart>
+									</exec>
+									<time>30000</time>
+								</wait>
+							</run>
+						</image>
+					</images>
+					<showLogs>true</showLogs>
+				</configuration>
+				<executions>
+					<execution>
+						<id>start-container</id>
+						<goals>
+							<goal>start</goal>
+						</goals>
+						<phase>process-test-classes</phase>
+					</execution>
+					<execution>
+						<id>stop-container</id>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+						<phase>post-integration-test</phase>
+					</execution>
+				</executions>
+			</plugin>
+	</plugins>
     </build>
 </project>

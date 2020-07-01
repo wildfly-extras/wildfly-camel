@@ -19,100 +19,123 @@
  */
 package org.wildfly.camel.test.solr;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.solr.SolrConstants;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.arquillian.cube.CubeController;
-import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
-import org.arquillian.cube.requirement.ArquillianConditionalRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.camel.test.common.http.HttpRequest;
 import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.dockerjava.DockerManager;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
-@RunWith(ArquillianConditionalRunner.class)
-@RequiresDocker
-@Ignore("[#2662] SolrIntegrationTest fails in CI environment")
+@RunWith(Arquillian.class)
+@ServerSetup({SolrIntegrationTest.ContainerSetupTask.class})
 public class SolrIntegrationTest {
 
     private static final String CONTAINER_NAME = "solr";
     private static final String ID = "12345";
 
-    @ArquillianResource
-    private CubeController cubeController;
-
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-solr-tests.jar")
-            .addClass(TestUtils.class);
+            .addClasses(TestUtils.class, HttpRequest.class);
     }
 
-    @Before
-    public void setUp() throws Exception {
-        cubeController.create(CONTAINER_NAME);
-        cubeController.start(CONTAINER_NAME);
-    }
+    static class ContainerSetupTask implements ServerSetupTask {
 
-    @After
-    public void tearDown() throws Exception {
-        cubeController.stop(CONTAINER_NAME);
-        cubeController.destroy(CONTAINER_NAME);
+    	private DockerManager dockerManager;
+
+        @Override
+        public void setup(ManagementClient managementClient, String someId) throws Exception {
+        	
+            String dockerHost = TestUtils.getDockerHost();
+            
+			/*
+			docker run --detach \
+				--name solr \
+				-p 8983:8983 \
+				solr:8.4.1 solr-precreate wfc
+			*/
+        	
+        	dockerManager = new DockerManager()
+        			.createContainer("solr:8.4.1", true)
+        			.withName(CONTAINER_NAME)
+        			.withPortBindings("8983:8983")
+        			.withCmd("solr-precreate wfc")
+        			.startContainer();
+
+			dockerManager
+				.withAwaitHttp("http://" + dockerHost + ":8983/solr/wfc/select")
+				.withResponseCode(200)
+				.withSleepPolling(500)
+				.awaitCompletion(60, TimeUnit.SECONDS);
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String someId) throws Exception {
+        	if (dockerManager != null) {
+            	dockerManager.removeContainer();
+        	}
+        }
     }
 
     @Test
     public void testSolrComponent() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:insert")
-                    .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_INSERT))
-                    .setHeader(SolrConstants.FIELD + "id", body())
-                    .toF("solr://%s:8983/solr/wfc", TestUtils.getDockerHost());
+        
+    	try(CamelContext camelctx = new DefaultCamelContext()) {
+    		
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    from("direct:insert")
+                        .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_INSERT))
+                        .setHeader(SolrConstants.FIELD + "id", body())
+                        .toF("solr://%s:8983/solr/wfc", TestUtils.getDockerHost());
 
-                from("direct:commit")
-                    .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_COMMIT))
-                    .toF("solr://%s:8983/solr/wfc", TestUtils.getDockerHost());
+                    from("direct:commit")
+                        .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_COMMIT))
+                        .toF("solr://%s:8983/solr/wfc", TestUtils.getDockerHost());
 
-                from("direct:delete")
-                    .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_DELETE_BY_ID))
-                    .toF("solr://%s:8983/solr/wfc", TestUtils.getDockerHost());
-            }
-        });
+                    from("direct:delete")
+                        .setHeader(SolrConstants.OPERATION, constant(SolrConstants.OPERATION_DELETE_BY_ID))
+                        .toF("solr://%s:8983/solr/wfc", TestUtils.getDockerHost());
+                }
+            });
 
-        camelctx.start();
-        try {
+            camelctx.start();
+            
             ProducerTemplate template = camelctx.createProducerTemplate();
 
             template.sendBody("direct:insert", ID);
             template.sendBody("direct:commit", null);
 
-            String result = solrQuery(template);
+            String result = querySolr();
             Assert.assertTrue("Expected Solr query result to return 1 result", result.contains("\"numFound\":1"));
 
             template.requestBody("direct:delete", ID);
             template.sendBody("direct:commit", null);
 
-            result = solrQuery(template);
+            result = querySolr();
             Assert.assertTrue("Expected Solr query result to return 0 results", result.contains("\"numFound\":0"));
-
-        } finally {
-            camelctx.close();
-        }
+    	}
     }
 
-    private String solrQuery(ProducerTemplate template) {
-        return template.requestBody("http4://localhost:8983/solr/wfc/select/?q=" + "id%3A" + ID, null, String.class);
+    private String querySolr() throws Exception {
+    	String queryUrl = String.format("http://%s:8983/solr/wfc/select/?q=id%%3A%s", TestUtils.getDockerHost(), ID);
+        return HttpRequest.get(queryUrl).getResponse().getBody();
     }
 }

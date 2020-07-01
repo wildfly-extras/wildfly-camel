@@ -21,9 +21,7 @@ package org.wildfly.camel.test.couchdb;
 
 import java.util.Map;
 import java.util.UUID;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -31,36 +29,35 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.couchdb.CouchDbConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.arquillian.cube.CubeController;
-import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
-import org.arquillian.cube.requirement.ArquillianConditionalRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.lightcouch.CouchDbClient;
 import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.dockerjava.DockerManager;
 import org.wildfly.extension.camel.CamelAware;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+
 @CamelAware
-@RunWith(ArquillianConditionalRunner.class)
-@RequiresDocker
-@Ignore("[#2462] Intermittent failure of CouchDBIntegrationTest")
+@RunWith(Arquillian.class)
+@ServerSetup({CouchDBIntegrationTest.ContainerSetupTask.class})
 public class CouchDBIntegrationTest {
 
     private static final String CONTAINER_NAME = "couchdb";
     private static final String COUCHDB_NAME = "camelcouchdb";
     private static final String COUCHDB_USERNAME = "admin";
     private static final String COUCHDB_PASSWORD = "p4ssw0rd";
-
-    @ArquillianResource
-    private CubeController cubeController;
+    private static final int COUCHDB_PORT = 5984;
 
     private CouchDbClient client;
 
@@ -70,18 +67,50 @@ public class CouchDBIntegrationTest {
             .addClass(TestUtils.class);
     }
 
-    @Before
-    public void setUp() throws Exception {
-        cubeController.create(CONTAINER_NAME);
-        cubeController.start(CONTAINER_NAME);
-        client = new CouchDbClient(COUCHDB_NAME, true,
-            "http", TestUtils.getDockerHost(), 5984, COUCHDB_USERNAME, COUCHDB_PASSWORD);
+    static class ContainerSetupTask implements ServerSetupTask {
+
+    	private DockerManager dockerManager;
+
+        @Override
+        public void setup(ManagementClient managementClient, String someId) throws Exception {
+        	
+            String dockerHost = TestUtils.getDockerHost();
+            
+			/*
+			docker run --detach \
+				--name couchdb \
+				-e COUCHDB_USER=admin \
+				-e COUCHDB_PASSWORD=p4ssw0rd \
+				-p 5984:5984 \
+				couchdb:1.6.1
+			*/
+        	
+        	dockerManager = new DockerManager()
+        			.createContainer("couchdb:1.6.1", true)
+        			.withName(CONTAINER_NAME)
+        			.withEnv("COUCHDB_USER=admin", "COUCHDB_PASSWORD=p4ssw0rd")
+        			.withPortBindings(COUCHDB_PORT + ":" + COUCHDB_PORT)
+        			.startContainer();
+
+			dockerManager
+				.withAwaitHttp("http://" + dockerHost + ":" + COUCHDB_PORT)
+				.withResponseCode(200)
+				.withSleepPolling(500)
+				.awaitCompletion(60, TimeUnit.SECONDS);
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String someId) throws Exception {
+        	if (dockerManager != null) {
+            	dockerManager.removeContainer();
+        	}
+        }
     }
 
-    @After
-    public void tearDown() throws Exception {
-        cubeController.stop(CONTAINER_NAME);
-        cubeController.destroy(CONTAINER_NAME);
+    @Before
+    public void setUp() throws Exception {
+        client = new CouchDbClient(COUCHDB_NAME, true,
+            "http", TestUtils.getDockerHost(), COUCHDB_PORT, COUCHDB_USERNAME, COUCHDB_PASSWORD);
     }
 
     @Test
@@ -90,7 +119,7 @@ public class CouchDBIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                fromF("couchdb:http://%s:5984/%s?username=%s&password=%s", TestUtils.getDockerHost(), COUCHDB_NAME, COUCHDB_USERNAME, COUCHDB_PASSWORD)
+                fromF("couchdb:http://%s:%d/%s?username=%s&password=%s", TestUtils.getDockerHost(), COUCHDB_PORT, COUCHDB_NAME, COUCHDB_USERNAME, COUCHDB_PASSWORD)
                 .to("mock:result");
             }
         });
@@ -117,7 +146,7 @@ public class CouchDBIntegrationTest {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                .toF("couchdb:http://%s:5984/%s?username=%s&password=%s", TestUtils.getDockerHost(), COUCHDB_NAME, COUCHDB_USERNAME, COUCHDB_PASSWORD)
+                .toF("couchdb:http://%s:%d/%s?username=%s&password=%s", TestUtils.getDockerHost(), COUCHDB_PORT, COUCHDB_NAME, COUCHDB_USERNAME, COUCHDB_PASSWORD)
                 .to("mock:result");
             }
         });

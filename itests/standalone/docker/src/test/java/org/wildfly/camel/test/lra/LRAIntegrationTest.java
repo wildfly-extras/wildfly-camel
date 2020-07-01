@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -38,14 +39,13 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.model.SagaPropagation;
 import org.apache.camel.service.lra.LRASagaService;
-import org.arquillian.cube.CubeController;
-import org.arquillian.cube.docker.impl.requirement.RequiresDocker;
-import org.arquillian.cube.requirement.ArquillianConditionalRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
+import org.jboss.as.arquillian.api.ServerSetupTask;
+import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
@@ -53,20 +53,21 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.ManifestBuilder;
 import org.wildfly.camel.test.common.utils.TestUtils;
+import org.wildfly.camel.test.dockerjava.DockerManager;
 import org.wildfly.extension.camel.CamelAware;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @CamelAware
-@RunWith(ArquillianConditionalRunner.class)
-@RequiresDocker
+@RunWith(Arquillian.class)
+@ServerSetup({LRAIntegrationTest.ContainerSetupTask.class})
 public class LRAIntegrationTest {
 
-    private static final String CONTAINER_NAME = "lra";
 
-    @ArquillianResource
-    private CubeController cubeController;
+	private static final String CONTAINER_NAME = "lra";
+    private static final int LRA_PORT = 46000;
+
     private OrderManagerService orderManagerService;
     private CreditService creditService;
 
@@ -82,17 +83,44 @@ public class LRAIntegrationTest {
             });
     }
 
+    static class ContainerSetupTask implements ServerSetupTask {
+
+    	private DockerManager dockerManager;
+
+        @Override
+        public void setup(ManagementClient managementClient, String someId) throws Exception {
+        	
+			/*
+			docker run --detach \
+				--name lra \
+				--network=host \
+				-p 46000:46000 \
+				wildflyext/lra-coordinator
+			*/
+        	
+        	dockerManager = new DockerManager()
+        			.createContainer("wildflyext/lra-coordinator", true)
+        			.withName(CONTAINER_NAME)
+        			.withPortBindings(LRA_PORT + ":" + LRA_PORT)
+        			.withNetworkMode("host")
+        			.startContainer();
+
+			dockerManager
+					.withAwaitLogMessage("WFSWARM99999: WildFly Swarm is Ready")
+					.awaitCompletion(60, TimeUnit.SECONDS);
+        }
+
+        @Override
+        public void tearDown(ManagementClient managementClient, String someId) throws Exception {
+        	if (dockerManager != null) {
+            	dockerManager.removeContainer();
+        	}
+        }
+    }
+
     @Before
     public void setUp() throws Exception {
         Assume.assumeTrue("LRAIntegrationTest can only run against local docker daemon", InetAddress.getByName(TestUtils.getDockerHost()).isLoopbackAddress());
-        cubeController.create(CONTAINER_NAME);
-        cubeController.start(CONTAINER_NAME);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        cubeController.stop(CONTAINER_NAME);
-        cubeController.destroy(CONTAINER_NAME);
     }
 
     @Test
@@ -254,7 +282,7 @@ public class LRAIntegrationTest {
     }
 
     private String getCoordinatorURL() throws Exception {
-        return String.format("http://%s:46000", TestUtils.getDockerHost());
+		return String.format("http://%s:%d", "localhost", LRA_PORT);
     }
 
     public static class OrderManagerService {
