@@ -1,5 +1,63 @@
 ### Changelog
 
+#### WildFly-Camel 12.0.0
+
+**Tasks**
+
+* [#2975][2975] Upgrade to camel-3.4.0
+* [#2978][2978] Remove support for spring-integration
+* [#2982][2982] Upgrade to WildFly-20.0.0.Final
+* [#2986][2986] Migrate away from arquillian-cube
+
+For details see [12.0.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"12.0.0"+label%3Atask)
+
+**Bugs**
+
+* [#2896][2896] SSLHandshakeException with XMPP
+* [#2916][2916] CNFE ...jackson.annotation.JsonFormat$Feature
+* [#2951][2951] Cannot find custom type converter with camel-3.1.x
+* [#2952][2952] Yammer integration fails with 401 on camel-3.1.x
+* [#2953][2953] Endpoint configurer fails with abstract component in camel-3.1.x
+* [#2959][2959] Cannot parse catalog/components/kafka.json
+* [#2973][2973] Salesforce uses property that is no longer generated
+
+For details see [12.0.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"12.0.0"+label%3Abug)
+
+[2975]: https://github.com/wildfly-extras/wildfly-camel/issues/2975
+[2978]: https://github.com/wildfly-extras/wildfly-camel/issues/2978
+[2982]: https://github.com/wildfly-extras/wildfly-camel/issues/2982
+[2986]: https://github.com/wildfly-extras/wildfly-camel/issues/2986
+[2896]: https://github.com/wildfly-extras/wildfly-camel/issues/2896
+[2916]: https://github.com/wildfly-extras/wildfly-camel/issues/2916
+[2951]: https://github.com/wildfly-extras/wildfly-camel/issues/2951
+[2952]: https://github.com/wildfly-extras/wildfly-camel/issues/2952
+[2953]: https://github.com/wildfly-extras/wildfly-camel/issues/2953
+[2959]: https://github.com/wildfly-extras/wildfly-camel/issues/2959
+[2973]: https://github.com/wildfly-extras/wildfly-camel/issues/2973
+
+#### WildFly-Camel 11.1.0
+
+**Tasks**
+
+* [#2923][2923] Upgrade to camel-3.1.0
+* [#2943][2943] Upgrade Hawtio to 2.9.1
+
+For details see [11.1.0 tasks](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"11.1.0"+label%3Atask)
+
+**Bugs**
+
+* [#2932][2932] Startup failure when Java Security Manager is enabled
+* [#2936][2936] Reactive stream has no active subscriptions
+* [#2946][2946] Cannot load properties from global module
+
+For details see [11.1.0 bugs](https://github.com/wildfly-extras/wildfly-camel/issues?q=milestone%3A"11.1.0"+label%3Abug)
+
+[2923]: https://github.com/wildfly-extras/wildfly-camel/issues/2923
+[2943]: https://github.com/wildfly-extras/wildfly-camel/issues/2943
+[2932]: https://github.com/wildfly-extras/wildfly-camel/issues/2932
+[2936]: https://github.com/wildfly-extras/wildfly-camel/issues/2936
+[2946]: https://github.com/wildfly-extras/wildfly-camel/issues/2946
+
 #### WildFly-Camel 11.0.0
 
 **Features**
