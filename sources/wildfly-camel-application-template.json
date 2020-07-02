@@ -5,7 +5,7 @@
         "annotations": {
             "iconClass": "icon-rh-integration",
             "tags": "wildfly,camel,javaee,java",
-            "version": "11.0.0",
+            "version": "12.0.0",
             "openshift.io/display-name": "WildFly Camel",
             "description": "An example WildFly Camel application. For more information about using this template, see http://wildfly-extras.github.io/wildfly-camel/#_cloud_integration.",
             "template.openshift.io/long-description": "This template defines resources needed to develop a WildFly Camel application, including a build configuration, application deployment configuration and insecure communication using http.",
@@ -15,7 +15,7 @@
     },
     "labels": {
         "template": "wildfly-camel-s2i",
-        "xpaas": "11.0.0"
+        "xpaas": "12.0.0"
     },
     "message": "A new WildFly Camel application has been created in your project.",
     "parameters": [
@@ -30,7 +30,7 @@
             "displayName": "Base Image",
             "description": "The name of the Docker image to use as base s2i image for the application. You should have imported the WildFly Camel image stream before using this template through \"oc apply -n openshift -f http://wildfly-extras.github.io/wildfly-camel/sources/wildfly-camel-imagestream.json\" If you are not permitted to add to openshift namespace use another one, e.g. -n myproject",
             "name": "BASE_IMAGE",
-            "value": "wildfly-camel:11.0.0",
+            "value": "wildfly-camel:12.0.0",
             "required": true
         },
         {
@@ -58,7 +58,7 @@
             "displayName": "Git Reference",
             "description": "A git branch name or tag tame. Typically \"master\"",
             "name": "SOURCE_REPOSITORY_REF",
-            "value": "11.0.0",
+            "value": "12.0.0",
             "required": false
         },
         {
