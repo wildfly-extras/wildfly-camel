@@ -56,7 +56,7 @@ import org.wildfly.extension.camel.CamelAware;
 @CamelAware
 @RunWith(Arquillian.class)
 @ServerSetup({XMPPIntegrationTest.ServerSetup.class})
-@Ignore("[#2896] SSLHandshakeException with XMPP")
+@Ignore("[#2896] SSLHandshakeException with XMPP [Blocked by CAMEL-13337]")
 public class XMPPIntegrationTest {
 
     static class ServerSetup implements ServerSetupTask {
