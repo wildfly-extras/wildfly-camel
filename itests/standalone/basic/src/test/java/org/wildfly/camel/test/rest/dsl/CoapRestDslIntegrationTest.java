@@ -34,7 +34,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.http.HttpRequest;
@@ -137,11 +136,6 @@ public class CoapRestDslIntegrationTest extends AbstractRestDslIntegrationTest {
                 }
             }
         };
-    }
-
-    @Override
-    @Ignore("[CAMEL-12401] CoAP component should support REST context path configuration")
-    public void testRestDslWithContextPath() throws Exception {
     }
 
     @Test
