@@ -159,7 +159,7 @@ public final class CatalogCreator {
         // Walk the available camel catalog items
         Files.walkFileTree(srcdir, new SimpleFileVisitor<Path>() {
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-                // @Ignore(bug2965 - Cannot parse catalog/components/iec60870-server.json)
+                // @Ignore("[CAMEL-15149] Cannot parse catalog/components/iec60870-server.json [Target 3.4.1]")
                 boolean bug2965 = path.toString().endsWith("iec60870-client.json");
                 bug2965 |= path.toString().endsWith("iec60870-server.json");
                 if (path.toString().endsWith(".json") && !bug2965) {
