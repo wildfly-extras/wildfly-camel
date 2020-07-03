@@ -34,7 +34,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -44,7 +43,6 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-@Ignore("[#2966] MasterIntegrationTest failure prevents all further testing")
 public class MasterIntegrationTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MasterIntegrationTest.class);
@@ -56,13 +54,20 @@ public class MasterIntegrationTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-mmaster-tests.jar");
+        return ShrinkWrap.create(JavaArchive.class, "camel-master-tests.jar");
     }
 
     @Test
     public void test()  throws Exception {
+    	
         for (String instance: INSTANCES) {
-            SCHEDULER.submit(() -> run(instance));
+            SCHEDULER.submit(() -> { 
+            	try {
+					run(instance);
+				} catch (Exception ex) {
+		            LOGGER.warn("", ex);
+				}
+            });
         }
 
         LATCH.await(1, TimeUnit.MINUTES);
@@ -76,46 +81,44 @@ public class MasterIntegrationTest {
     // Run a Camel node
     // ************************************
 
-    private static void run(String id) {
-        try {
-            int events = ThreadLocalRandom.current().nextInt(2, 6);
-            CountDownLatch contextLatch = new CountDownLatch(events);
+    private static void run(String id) throws Exception {
+        int events = ThreadLocalRandom.current().nextInt(2, 6);
+        CountDownLatch contextLatch = new CountDownLatch(events);
 
-            FileLockClusterService service = new FileLockClusterService();
-            service.setId(id);
-            service.setRoot("target/ha");
-            service.setAcquireLockDelay(1, TimeUnit.SECONDS);
-            service.setAcquireLockInterval(1, TimeUnit.SECONDS);
+        FileLockClusterService service = new FileLockClusterService();
+        service.setId(id);
+        service.setRoot("target/ha");
+        service.setAcquireLockDelay(1, TimeUnit.SECONDS);
+        service.setAcquireLockInterval(1, TimeUnit.SECONDS);
 
-            DefaultCamelContext context = new DefaultCamelContext();
-            context.disableJMX();
-            context.setName("context-" + id);
-            context.addService(service);
-            context.addRoutes(new RouteBuilder() {
-                @Override
-                public void configure() throws Exception {
-                    from("master:ns:timer:test?delay=1s&period=1s")
-                        .routeId("route-" + id)
-                        .log("From ${routeId}")
-                        .process(e -> contextLatch.countDown());
-                }
-            });
+        DefaultCamelContext context = new DefaultCamelContext();
+        
+        context.disableJMX();
+        context.setName("context-" + id);
+        context.addService(service);
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("master:ns:timer:test?delay=1s&period=1s")
+                    .routeId("route-" + id)
+                    .log("From ${routeId}")
+                    .process(e -> contextLatch.countDown());
+            }
+        });
 
-            // Start the context after some random time so the startup order
-            // changes for each test.
-            Thread.sleep(ThreadLocalRandom.current().nextInt(500));
-            context.start();
+        // Start the context after some random time so the startup order changes for each test.
+        Thread.sleep(ThreadLocalRandom.current().nextInt(500));
+        context.start();
 
-            contextLatch.await();
+        contextLatch.await();
 
-            LOGGER.debug("Shutting down node {}", id);
-            RESULTS.add(id);
+        LOGGER.debug("Shutting down node {}", id);
+        RESULTS.add(id);
 
-            context.stop();
+        context.stop();
+        
+        context.close();
 
-            LATCH.countDown();
-        } catch (Exception e) {
-            LOGGER.warn("", e);
-        }
+        LATCH.countDown();
     }
 }
