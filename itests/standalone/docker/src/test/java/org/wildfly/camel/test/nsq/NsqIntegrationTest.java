@@ -27,12 +27,12 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.as.arquillian.api.ServerSetupTask;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assume;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.EnvironmentUtils;
@@ -44,7 +44,7 @@ import com.github.brainlag.nsq.NSQProducer;
 
 @CamelAware
 @RunWith(Arquillian.class)
-@Ignore("[#2961] Unknown parameters=[{topic=wfc-topic}]")
+@ServerSetup({NsqIntegrationTest.ContainerSetupTask.class})
 public class NsqIntegrationTest {
 
     private static final String TOPIC_NAME = "wfc-topic";
@@ -62,6 +62,8 @@ public class NsqIntegrationTest {
         @Override
         public void setup(ManagementClient managementClient, String someId) throws Exception {
         	
+            String dockerHost = TestUtils.getDockerHost();
+            
 			/*
 			docker run --detach \
 				--name nsqlookupd \
@@ -97,7 +99,7 @@ public class NsqIntegrationTest {
         			.withName("nsq")
         			.withPortBindings("4150:4150")
         			.withNetworkMode("host")
-        			.withCmd("/nsqd --broadcast-address 127.0.0.1 --lookupd-tcp-address 127.0.0.1:4160")
+        			.withCmd(String.format("/nsqd --broadcast-address %s --lookupd-tcp-address %s:4160", dockerHost, dockerHost))
         			.startContainer();
 
 			dockerManager
@@ -117,14 +119,18 @@ public class NsqIntegrationTest {
     @Test
     public void testNsqComponent() throws Exception {
 
+        String dockerHost = TestUtils.getDockerHost();
+        System.out.println("DockerHost: " + dockerHost);
+        
+        // Cannot run on Desktop Docker for Mac
         // [#2862] NsqIntegrationTest cannot access DOCKER_HOST
-        Assume.assumeFalse(EnvironmentUtils.isMac());
+        //Assume.assumeFalse(EnvironmentUtils.isMac());
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                fromF("nsq://%s:4161?topic=%s&lookupInterval=2s&autoFinish=false&requeueInterval=1s", TestUtils.getDockerHost(), TOPIC_NAME)
+				fromF("nsq:%s?servers=%s&port=4161&lookupInterval=2s&autoFinish=false&requeueInterval=1s", TOPIC_NAME, dockerHost)
                 .to("mock:result");
             }
         });
@@ -135,7 +141,7 @@ public class NsqIntegrationTest {
             mockEndpoint.expectedBodiesReceived("Hello Kermit");
 
             NSQProducer producer = new NSQProducer();
-            producer.addAddress(TestUtils.getDockerHost(), 4150);
+            producer.addAddress(dockerHost, 4150);
             producer.start();
             producer.produce(TOPIC_NAME, "Hello Kermit".getBytes());
 
