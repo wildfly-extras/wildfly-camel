@@ -5,9 +5,9 @@
     <artifact name="${org.fusesource.stompjms:stompjms-client}" />
   </resources>
   <dependencies>
+    <module name="org.fusesource.hawtbuf" export="true" />
     <module name="org.slf4j" />
     <module name="org.apache.camel.core" />
-    <module name="org.fusesource.hawtbuf" />
     <module name="org.fusesource.hawtdispatch" />
   </dependencies>
   <exports>
