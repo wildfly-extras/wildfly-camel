@@ -22,11 +22,9 @@ import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.wildfly.camel.catalog.WildFlyRuntimeProvider;
 
-@Ignore("[#2755] Restore catalog functionality for camel-3.0.x")
 public class WildFlyRuntimeProviderTest {
 
     static CamelCatalog catalog;
@@ -62,7 +60,6 @@ public class WildFlyRuntimeProviderTest {
         Assert.assertTrue(names.contains("file"));
         Assert.assertTrue(names.contains("ftp"));
         Assert.assertTrue(names.contains("jms"));
-        Assert.assertTrue(names.contains("ejb"));
 
         // Test rejected
         Assert.assertFalse(names.contains("grape"));
@@ -76,7 +73,6 @@ public class WildFlyRuntimeProviderTest {
         Assert.assertFalse(names.isEmpty());
 
         Assert.assertTrue(names.contains("bindy-csv"));
-        Assert.assertTrue(names.contains("zip"));
         Assert.assertTrue(names.contains("zipfile"));
 
         // Test rejected
