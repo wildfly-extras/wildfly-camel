@@ -28,10 +28,8 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore("[ENTESB-10033] File consumer with charset doesn't parse XML correctly")
 public class FileCharsetTest {
 
     @Test
