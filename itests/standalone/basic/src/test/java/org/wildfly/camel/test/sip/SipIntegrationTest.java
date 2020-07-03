@@ -36,7 +36,7 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-@Ignore("[CAMEL-12048] Intermittent failure of SipIntegrationTest [Blocked]")
+@Ignore("[CAMEL-12048] Intermittent failure of SipIntegrationTest")
 public class SipIntegrationTest {
 
     private int port1;

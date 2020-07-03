@@ -32,7 +32,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.types.CustomConverter;
@@ -41,7 +40,6 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-@Ignore("[CAMEL-15165] DirectConsumer not available")
 public class CustomConverterTest {
 
     @Deployment
@@ -57,7 +55,6 @@ public class CustomConverterTest {
 
         CamelContext camelctx = new DefaultCamelContext(false);
         camelctx.setLoadTypeConverters(true);
-        camelctx.init();
         
         camelctx.addRoutes(new RouteBuilder() {
             @Override
@@ -76,7 +73,7 @@ public class CustomConverterTest {
         }
     }
 
-    //@Test
+    @Test
     public void testUnmarshal() throws Exception {
 
         CamelContext camelctx = new DefaultCamelContext();
