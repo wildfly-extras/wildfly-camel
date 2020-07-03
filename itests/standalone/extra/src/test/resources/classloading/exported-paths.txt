@@ -4228,6 +4228,8 @@ org/elasticsearch/search/suggest/completion
 org/elasticsearch/search/suggest/completion/context
 org/elasticsearch/search/suggest/phrase
 org/elasticsearch/search/suggest/term
+org/fusesource/hawtbuf
+org/fusesource/hawtbuf/codec
 org/fusesource/hawtjni
 org/fusesource/hawtjni/runtime
 org/fusesource/leveldbjni
