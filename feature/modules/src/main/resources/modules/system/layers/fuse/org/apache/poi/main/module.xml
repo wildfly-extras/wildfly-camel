@@ -12,6 +12,7 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="org.apache.commons.compress" />
     <module name="com.github.virtuald.curvesapi" />
     <module name="org.apache.commons.collections4" />
     <module name="org.apache.commons.math3" />
