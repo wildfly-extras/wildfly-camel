@@ -28,7 +28,6 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
@@ -36,7 +35,6 @@ import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-@Ignore("[#2236] Race condition in iec60870 producer")
 public class Iec60870IntegrationTest {
 
     @Deployment
@@ -47,18 +45,21 @@ public class Iec60870IntegrationTest {
 
     @Test
     public void testIec60870ClientServer() throws Exception {
-        int port = AvailablePortFinder.getNextAvailable();
 
         CamelContext camelctx = new DefaultCamelContext();
         camelctx.addRoutes(new RouteBuilder() {
-            @Override
+
+            int port = AvailablePortFinder.getNextAvailable();
+            
+        	@Override
             public void configure() throws Exception {
-                from("direct:start")
-                .toF("iec60870-client:localhost:%d/0-1-2-3-4", port);
 
                 fromF("iec60870-server:localhost:%d/0-1-2-3-4", port)
-                .setBody(simple("Received command ${body.value}"))
-                .to("mock:result");
+	                .setBody(simple("Received command ${body.value}"))
+	                .to("mock:result");
+
+                from("direct:start")
+                	.toF("iec60870-client:localhost:%d/0-1-2-3-4", port);
             }
         });
 
@@ -67,6 +68,11 @@ public class Iec60870IntegrationTest {
 
         camelctx.start();
         try {
+        	
+        	// Wait a little for the server to startup
+        	// [#2236] Race condition in iec60870 producer
+        	Thread.sleep(1000);
+        	
             ProducerTemplate template = camelctx.createProducerTemplate();
             template.sendBody("direct:start", 12345);
 
