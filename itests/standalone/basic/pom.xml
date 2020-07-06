@@ -88,6 +88,15 @@
             <artifactId>activemq-rar</artifactId>
             <type>rar</type>
         </dependency>
+        <!-- CXF before Camel because of transitive deps on woodstox -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-core</artifactId>
+        </dependency>
+		<dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-security</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cdi</artifactId>
@@ -163,10 +172,6 @@
             <artifactId>chemistry-opencmis-server-inmemory</artifactId>
             <version>${version.camel.opencmis}</version>
             <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.ftpserver</groupId>
