@@ -61,6 +61,7 @@ public class VersionsValidatorTest {
         mapping.put("version.camel.consul.client", "consul-client-version");
         mapping.put("version.camel.elasticsearch.rest", "elasticsearch-rest-version");
         mapping.put("version.camel.hadoop2", "hadoop2-version");
+        mapping.put("version.camel.hadoop3", "hadoop3-version");
         mapping.put("version.camel.httpclient", "httpclient4-version");
         mapping.put("version.camel.javacrumbs", "javacrumbs-version");
         mapping.put("version.camel.jgroups", "jgroups-version");

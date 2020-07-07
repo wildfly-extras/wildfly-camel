@@ -1,3 +1,0 @@
-
-[src/test/resources/{freemarker/*.ftl,jolt/*.json,mustache/*.mustache,mvel/*.mvel,soap/*.xml,stringtemplate/*.tm,velocity/*.vm}]
-insert_final_newline = unset

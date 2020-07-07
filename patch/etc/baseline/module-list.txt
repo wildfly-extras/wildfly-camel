@@ -96,6 +96,7 @@
 /com/google/protobuf/2.5/protobuf-java-2.5.0.jar
 /com/google/protobuf/main/protobuf-java-3.11.1.jar
 /com/google/protobuf/main/protobuf-java-util-3.11.1.jar
+/com/google/re2j/main/re2j-1.1.jar
 /com/googlecode/javaewah/fuse/JavaEWAH-1.1.6.jar
 /com/hazelcast/main/hazelcast-4.0.1.jar
 /com/healthmarketscience/jackcess/main/jackcess-3.0.1.jar
@@ -634,7 +635,7 @@
 /org/apache/directory/server/main/apacheds-core-api-2.0.0.AM25.jar
 /org/apache/directory/server/main/apacheds-core-constants-2.0.0.AM25.jar
 /org/apache/directory/server/main/apacheds-i18n-2.0.0.AM25.jar
-/org/apache/hadoop/main/hadoop-annotations-2.10.0.jar
+/org/apache/hadoop/main/hadoop-annotations-3.2.1.jar
 /org/apache/hadoop/main/hadoop-auth-3.2.1.jar
 /org/apache/hadoop/main/hadoop-common-3.2.1.jar
 /org/apache/hadoop/main/hadoop-hdfs-3.2.1.jar
@@ -775,10 +776,10 @@
 /org/codehaus/groovy/main/groovy-3.0.4.jar
 /org/codehaus/groovy/main/groovy-jsr223-3.0.4.jar
 /org/codehaus/groovy/main/groovy-xml-3.0.4.jar
-/org/codehaus/jackson/jackson-core-asl/fuse/jackson-core-asl-1.9.13.jar
-/org/codehaus/jackson/jackson-jaxrs/fuse/jackson-jaxrs-1.9.13.jar
-/org/codehaus/jackson/jackson-mapper-asl/fuse/jackson-mapper-asl-1.9.13.jar
-/org/codehaus/jackson/jackson-xc/fuse/jackson-xc-1.9.13.jar
+/org/codehaus/jackson/jackson-core-asl/fuse/jackson-core-asl-1.9.2.jar
+/org/codehaus/jackson/jackson-jaxrs/fuse/jackson-jaxrs-1.9.2.jar
+/org/codehaus/jackson/jackson-mapper-asl/fuse/jackson-mapper-asl-1.9.2.jar
+/org/codehaus/jackson/jackson-xc/fuse/jackson-xc-1.9.2.jar
 /org/codehaus/jettison/fuse/jettison-1.4.1.jar
 /org/codehaus/woodstox/fuse/stax2-api-4.2.jar
 /org/codehaus/woodstox/fuse/woodstox-core-asl-4.4.1.jar

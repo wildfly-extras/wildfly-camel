@@ -212,10 +212,6 @@
 	<!--          modules skipped here                               -->
 	<!-- =========================================================== -->
 
-    <module name="com.google.re2j" skip="true">
-        <include artifact="com.google.re2j:re2j" />
-    </module>
-    
     <module name="dnsjava" skip="true">
         <include artifact="dnsjava:dnsjava" />
     </module>
