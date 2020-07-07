@@ -89,8 +89,8 @@ public class SpringRejectedDeploymentTest {
             deployer.undeploy(SIMPLE_JAR);
         }
 
-        // @Ignore [CAMEL-13094] Context MBean not unregistered on startup failure
-        //onames = server.queryNames(new ObjectName("org.apache.camel:*"), null);
-        //Assert.assertEquals(Collections.emptySet(), onames);
+        // [CAMEL-13094] Context MBean not unregistered on startup failure
+        onames = server.queryNames(new ObjectName("org.apache.camel:*"), null);
+        Assert.assertEquals(Collections.emptySet(), onames);
     }
 }
