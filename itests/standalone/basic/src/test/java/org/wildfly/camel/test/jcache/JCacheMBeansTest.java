@@ -36,7 +36,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.ManifestBuilder;
@@ -51,7 +50,6 @@ import org.wildfly.extension.camel.CamelContextRegistry;
  */
 @CamelAware
 @RunWith(Arquillian.class)
-@Ignore("[CAMEL-15167] Clarify use of sysprops for HazelcastCachingProvider")
 public class JCacheMBeansTest {
 
     @ArquillianResource
@@ -81,7 +79,7 @@ public class JCacheMBeansTest {
         MBeanServer server = ManagementFactory.getPlatformMBeanServer();
 
         ObjectName onameAll = ObjectNameFactory.create("javax.cache:*");
-        ObjectName onameThis = ObjectNameFactory.create("javax.cache:type=CacheStatistics,CacheManager=hazelcast,Cache=test-cache");
+        ObjectName onameThis = ObjectNameFactory.create("javax.cache:type=CacheStatistics,CacheManager=*,Cache=test-cache");
 
         URL resourceUrl = getClass().getResource("/some-other-name.xml");
         ServerDeploymentHelper helper = new ServerDeploymentHelper(managementClient.getControllerClient());
@@ -91,11 +89,17 @@ public class JCacheMBeansTest {
             CamelContext camelctx = contextRegistry.getCamelContext("jcache-test");
             Assert.assertEquals(ServiceStatus.Started, camelctx.getStatus());
 
+            boolean mbfound = false;
+            
             Set<ObjectInstance> mbeans = server.queryMBeans(onameAll, null);
             System.out.println(">>>>>>>>> JCache MBeans: " + mbeans.size());
-            mbeans.forEach(mb -> System.out.println(mb.getObjectName()));
+            for (ObjectInstance mb : mbeans) {
+            	ObjectName oname = mb.getObjectName();
+				mbfound |= onameThis.apply(oname);
+				System.out.println(oname);
+            }
 
-            Assert.assertTrue(server.isRegistered(onameThis));
+            Assert.assertTrue(mbfound);
 
         } finally {
         	helper.undeploy(runtimeName);

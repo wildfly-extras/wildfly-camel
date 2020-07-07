@@ -7,14 +7,14 @@
     <camelContext id="jcache-test" xmlns="http://camel.apache.org/schema/spring" autoStartup="true">
 
 		<!--endpoint configured via uri options-->
-        <endpoint id="jcacheEndpointWithConf" uri="jcache://test-cache?cachingProvider=com.hazelcast.cache.HazelcastCachingProvider&amp;statisticsEnabled=true" />
+        <endpoint id="jcacheEndpointWithConf" uri="jcache://test-cache?statisticsEnabled=true" />
 
         <route>
             <from uri="timer:x?repeatCount=1"/>
-            <setHeader headerName="CamelJCacheKey">
+            <setHeader name="CamelJCacheKey">
                 <constant>key</constant>
             </setHeader>
-            <setHeader headerName="CamelJCacheAction">
+            <setHeader name="CamelJCacheAction">
                 <constant>PUT</constant>
             </setHeader>
             <setBody>

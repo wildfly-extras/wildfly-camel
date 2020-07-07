@@ -25,6 +25,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Predicate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jcache.JCacheComponent;
 import org.apache.camel.component.jcache.JCacheConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -33,7 +34,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
@@ -51,7 +51,6 @@ public class JCacheProducerIntegrationTest {
     }
 
     @Test
-    @Ignore("[CAMEL-15167] Clarify use of sysprops for HazelcastCachingProvider")
     public void testPutGetAndRemove() throws Exception {
 
         try (CamelContext camelctx = new DefaultCamelContext()) {
@@ -113,17 +112,21 @@ public class JCacheProducerIntegrationTest {
     }
 
     @Test
-    @Ignore("[CAMEL-15167] Clarify use of sysprops for HazelcastCachingProvider")
     public void testJCacheLoadsCachingProviderHazelcast() throws Exception {
+    	
+    	// [#3000] Clarify use of Hazelcast JCache provider
     	
         try (CamelContext camelctx = new DefaultCamelContext()) {
         	
             camelctx.addRoutes(new RouteBuilder() {
                 public void configure() {
-                    from("jcache://test-cacheA?cachingProvider=com.hazelcast.cache.HazelcastCachingProvider")
+                    from("jcache://test-cacheA")
                     .to("mock:resultA");
                 }
             });
+            
+            JCacheComponent jcache = camelctx.getComponent("jcache", JCacheComponent.class);
+            jcache.setCachingProvider("com.hazelcast.cache.impl.HazelcastServerCachingProvider");
             
             // Just ensure we can start up without any class loading issues
             camelctx.start();
