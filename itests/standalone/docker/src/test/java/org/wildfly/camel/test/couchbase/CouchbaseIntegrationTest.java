@@ -42,7 +42,7 @@ import org.wildfly.extension.camel.CamelAware;
 @CamelAware
 @RunWith(Arquillian.class)
 @ServerSetup({CouchbaseIntegrationTest.ContainerSetupTask.class})
-@Ignore("[CAMEL-15259] camel-couchbase seems outdated or broken")
+@Ignore("[CAMEL-15259] camel-couchbase seems outdated or broken  [Target 3.4.1]")
 public class CouchbaseIntegrationTest {
 
     private static final String CONTAINER_NAME = "couchbase";
