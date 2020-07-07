@@ -12,6 +12,7 @@
   </resources>
   <dependencies>
     <module name="com.google.protobuf" slot="2.5" />
+    <module name="com.google.re2j" />
     <module name="sun.jdk.ext" />
     <module name="com.fasterxml.jackson.core.jackson-annotations" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />

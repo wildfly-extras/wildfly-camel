@@ -34,7 +34,7 @@
 
     <!-- Properties -->
     <properties>
-        <jboss.home>${project.build.directory}/wildfly-${version.wildfly}</jboss.home>
+        <jboss.home>${project.build.directory}/${jboss.server.name}</jboss.home>
         <server.config>standalone-full.xml</server.config>
         <org.wildfly.camel.google.api.oauth.properties.path>${basedir}/src/test/resources/google/google-oauth.properties</org.wildfly.camel.google.api.oauth.properties.path>
     </properties>
@@ -180,30 +180,6 @@
         <dependency>
             <groupId>org.apache.ftpserver</groupId>
             <artifactId>ftplet-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-common</artifactId>
-            <version>${version.camel.hadoop2}</version>
-            <type>test-jar</type>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-hdfs</artifactId>
-            <version>${version.camel.hadoop2}</version>
-            <type>test-jar</type>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.protobuf</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.qpid</groupId>

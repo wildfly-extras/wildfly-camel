@@ -19,109 +19,81 @@
  */
 package org.wildfly.camel.test.hdfs;
 
+import java.io.File;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hdfs.MiniDFSCluster;
+import org.apache.hadoop.fs.FSDataOutputStream;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.as.arquillian.api.ServerSetup;
-import org.jboss.as.arquillian.api.ServerSetupTask;
-import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assume;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.wildfly.camel.test.common.utils.AvailablePortFinder;
-import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-@ServerSetup({ HdfsIntegrationTest.ServerSetup.class })
-@Ignore("[#2977] Restore hdfs testing for Camel-3.4.x")
 public class HdfsIntegrationTest {
-
-    static class ServerSetup implements ServerSetupTask {
-
-        private MiniDFSCluster hdfsCluster;
-
-        @Override
-        public void setup(ManagementClient managementClient, String containerId) throws Exception {
-            if (!EnvironmentUtils.isWindows()) {
-                String dataDir = Paths.get(System.getProperty("jboss.home.dir"), "standalone", "data", "hadoop").toString();
-
-                Configuration configuration = new Configuration();
-                configuration.set(MiniDFSCluster.HDFS_MINIDFS_BASEDIR, dataDir);
-
-                MiniDFSCluster.Builder builder = new MiniDFSCluster.Builder(configuration);
-                hdfsCluster = builder.build();
-
-                AvailablePortFinder.storeServerData("hdfs-port", hdfsCluster.getNameNodePort());
-            }
-        }
-
-        @Override
-        public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
-            if (!EnvironmentUtils.isWindows()) {
-                hdfsCluster.shutdown(true);
-            }
-        }
-    }
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class, "camel-hdfs-tests.jar")
-            .addClasses(AvailablePortFinder.class, EnvironmentUtils.class);
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-hdfs-tests.jar");
+		return archive;
     }
 
     @Test
-    public void testHdfsComponent() throws Exception {
+    public void testHdfsConsumer() throws Exception {
 
-        Assume.assumeFalse("[#1961] HdfsIntegrationTest fails on Windows", EnvironmentUtils.isWindows());
-
-        String dataDir = Paths.get(System.getProperty("jboss.server.data.dir"), "hadoop").toString();
-        String port = AvailablePortFinder.readServerData("hdfs-port");
-
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:start")
-                .toF("hdfs://localhost:%s%s?fileSystemType=HDFS&splitStrategy=BYTES:5,IDLE:1000", port, dataDir);
-
-                fromF("hdfs://localhost:%s%s?pattern=*&fileSystemType=HDFS&chunkSize=5", port, dataDir).id("hdfs-consumer").autoStartup(false)
-                .to("mock:result");
-            }
-        });
-
-        camelctx.start();
-        try {
-            ProducerTemplate template = camelctx.createProducerTemplate();
-
-            List<String> bodies = new ArrayList<>();
-            for (int i = 0; i < 10; ++i) {
-                String body = "CIAO" + i;
-                bodies.add(body);
-                template.sendBody("direct:start", body);
-            }
-
-            camelctx.getRouteController().startRoute("hdfs-consumer");
-
-            MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
-            mockEndpoint.expectedBodiesReceivedInAnyOrder(bodies);
-            mockEndpoint.assertIsSatisfied();
-        } finally {
-            camelctx.close();
+    	File datadir = getHadoopDataDirectory();
+		recursiveDelete(datadir);
+		
+        Path dataPath = new Path(datadir.getAbsolutePath());
+        FileSystem fs = FileSystem.get(dataPath.toUri(), new Configuration());
+        FSDataOutputStream out = fs.create(dataPath);
+        for (int i = 0; i < 1024; ++i) {
+            out.write(("PIPPO" + i).getBytes("UTF-8"));
+            out.flush();
         }
+        out.close();
+
+        try (CamelContext camelctx = new DefaultCamelContext()) {
+        	
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    from("hdfs:localhost/" + dataPath.toUri() + "?fileSystemType=LOCAL&chunkSize=4096&initialDelay=0")
+                    	.to("mock:result");
+                }
+            });
+
+            MockEndpoint resultEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+            resultEndpoint.expectedMessageCount(2);
+            
+            camelctx.start();
+
+            resultEndpoint.assertIsSatisfied();
+        }
+    }
+    
+	private File getHadoopDataDirectory() {
+		File dataDir = Paths.get(System.getProperty("jboss.server.data.dir"), "standalone", "data", "hadoop").toFile();
+		return dataDir;
+	}
+
+    private boolean recursiveDelete(File directory) {
+        File[] allContents = directory.listFiles();
+        if (allContents != null) {
+            for (File file : allContents) {
+                recursiveDelete(file);
+            }
+        }
+        return directory.delete();
     }
 }

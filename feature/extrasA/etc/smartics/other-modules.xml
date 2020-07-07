@@ -34,6 +34,13 @@
         </dependencies>
     </module>
 
+    <module name="com.google.re2j" >
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="com.google.re2j:re2j" />
+    </module>
+    
     <module name="com.squareup.okhttp" inherit-slot="false">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -126,6 +133,7 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="com.google.protobuf" slot="2.5" />
+            <module name="com.google.re2j" />
             <module name="sun.jdk.ext" />
             <!--  
             <module name="org.apache.commons.configuration" />
