@@ -325,6 +325,7 @@ service
 soroush
 splunk-hec
 spring-integration
+vertx-websocket
 web3j
 websocket-jsr356
 weka

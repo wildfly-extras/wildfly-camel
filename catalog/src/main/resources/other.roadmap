@@ -32,6 +32,7 @@ reactive-executor-vertx
 resilience4j
 testcontainers-junit5
 testcontainers-spring-junit5
+threadpoolfactory-vertx
 undertow-spring-security
 
 [rejected]

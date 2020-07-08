@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.couchbase.client">
+  <resources>
+    <artifact name="${com.couchbase.client:core-io}" />
+    <artifact name="${com.couchbase.client:java-client}" />
+  </resources>
+  <dependencies>
+    <module name="org.apache.camel.component.reactor" />
+  </dependencies>
+</module>

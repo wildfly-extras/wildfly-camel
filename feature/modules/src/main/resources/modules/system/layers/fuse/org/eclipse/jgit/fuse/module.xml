@@ -8,9 +8,6 @@
   </resources>
   <dependencies>
     <module name="com.googlecode.javaewah" slot="fuse" />
-    <module name="com.jcraft.jsch" slot="fuse" />
-    <module name="com.jcraft.jzlib" />
-    <module name="org.bouncycastle" slot="fuse" />
     <module name="org.slf4j" />
   </dependencies>
 </module>

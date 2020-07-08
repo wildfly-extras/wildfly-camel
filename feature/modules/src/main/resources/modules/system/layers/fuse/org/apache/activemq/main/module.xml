@@ -16,7 +16,6 @@
     <module name="javax.resource.api" />
     <module name="org.springframework.beans" />
     <module name="com.fasterxml.jackson.core.jackson-databind" />
-    <module name="com.google.guava" slot="fuse" />
     <module name="javax.jms.api" />
     <module name="javax.management.j2ee.api" />
     <module name="javax.transaction.api" />

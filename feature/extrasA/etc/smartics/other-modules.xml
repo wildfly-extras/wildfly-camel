@@ -61,6 +61,16 @@
         </apply-to-dependencies>
     </module>
 
+    <module name="io.netty" inherit-slot="false" slot="3.10">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="io.netty:netty" />
+        <dependencies>
+            <module name="javax.api"/>
+        </dependencies>
+    </module>
+
     <module name="javax.jcr" >
         <include artifact="javax.jcr:jcr" />
     </module>
@@ -135,12 +145,6 @@
             <module name="com.google.protobuf" slot="2.5" />
             <module name="com.google.re2j" />
             <module name="sun.jdk.ext" />
-            <!--  
-            <module name="org.apache.commons.configuration" />
-            <module name="org.apache.commons.net" />
-            <module name="ibm.jdk.ext" />
-            <module name="javax.api" />
-            -->
         </dependencies>
     </module>
 

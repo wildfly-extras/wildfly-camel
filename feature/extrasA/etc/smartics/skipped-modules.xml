@@ -110,10 +110,6 @@
         <include artifact="rome:rome" />
     </module>
 
-    <module name="io.netty" slot="3.10" skip="true">
-        <include artifact="io.netty:netty" />
-    </module>
-
     <module name="net.minidev.smart" skip="true">
         <include artifact="net.minidev:accessors-smart" />
         <include artifact="net.minidev:json-smart-action" />
