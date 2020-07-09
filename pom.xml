@@ -48,7 +48,7 @@
         <!-- product.conf -->
         <product.release.name>WildFly Camel</product.release.name>
 
-        <!-- Camel versions -->
+        <!-- Camel versions xxx -->
         <version.apache.camel>3.4.0</version.apache.camel>
         <version.camel.apacheds>2.0.0.AM25</version.camel.apacheds>
         <version.camel.apns>1.0.0.Beta6</version.camel.apns>
