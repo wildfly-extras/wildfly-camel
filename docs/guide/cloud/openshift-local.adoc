@@ -47,7 +47,7 @@ $ docker ps
 
 #### Running {wildfly-camel}
 
-With every {wildfly-camel} release we also publish the latest https://registry.hub.docker.com/u/wildflyext/wildfly-camel/[wildflyext/wildfly-camel,window=_blank] image.
+With every {wildfly-camel} release we also publish the latest https://hub.docker.com/repository/docker/wildflyext/wildfly-camel/[wildflyext/wildfly-camel,window=_blank] image.
 
 You can run the standalone container like this
 

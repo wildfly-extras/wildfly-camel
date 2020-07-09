@@ -8,7 +8,7 @@ This chapter takes you through the first steps of getting {wildfly-camel} and pr
 WildFly-Camel is distributed as
 
 1. WildFly Patch - https://github.com/wildflyext/wildfly-camel/releases[wildfly-camel-patch]
-2. Docker Image - https://registry.hub.docker.com/u/wildflyext/wildfly-camel/[wildflyext/wildfly-camel]
+2. Docker Image - https://hub.docker.com/repository/docker/wildflyext/wildfly-camel/[wildflyext/wildfly-camel]
 
 
 [discrete]
@@ -69,7 +69,7 @@ There are currently four triggers that can be used to enable Camel for a deploym
 [discrete]
 ### Docker Image
 
-The easiest and most portable way to run {wildfly-camel} is to use the https://registry.hub.docker.com/u/wildflyext/wildfly-camel[wildflyext/wildfly-camel] distribution.
+The easiest and most portable way to run {wildfly-camel} is to use the https://hub.docker.com/repository/docker/wildflyext/wildfly-camel[wildflyext/wildfly-camel] distribution.
 
 [options="nowrap"]
  $ docker run --rm -ti -p 8080:8080 -p 9990:9990 -e WILDFLY_MANAGEMENT_USER=admin -e WILDFLY_MANAGEMENT_PASSWORD=admin wildflyext/wildfly-camel
