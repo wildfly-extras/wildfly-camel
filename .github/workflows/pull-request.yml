@@ -1,0 +1,92 @@
+#
+# The PR processing workflow
+#
+
+name: PR Processor
+
+# Controls when the action will run. 
+on:
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  
+  # A job that does the build
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    # Setup Java JDK8
+    - uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    
+    # Cache maven dependencies
+    - uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: m2local
+
+    #
+    # Run the maven build
+    #
+    
+    - name: Run the maven build
+      run: mvn -B clean install -Dts.all
+
+    #
+    # Run post maven build steps on SUCCESS
+    #
+    
+    - name: Post build on SUCCESS
+      if: success()
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+        GITHUB_SHA: ${{ github.sha }}
+        GITHUB_BASE_REF: ${{ github.base_ref }}
+        GITHUB_HEAD_REF: ${{ github.head_ref }}
+      
+      run: |
+        echo "Setup Git Committer"
+        git config user.email "fuse.wfc.ci@gmail.com"
+        git config user.name "Fuse CI"
+        
+        git fetch origin $GITHUB_BASE_REF
+        git checkout -b base origin/$GITHUB_BASE_REF
+        
+        git fetch origin $GITHUB_HEAD_REF
+        git checkout -b build origin/$GITHUB_HEAD_REF
+        
+        echo "git rebase base build"
+        git branch -l
+        git rebase base build
+        
+        echo "git merge --ff-only build"
+        git checkout base; git merge --ff-only build
+        
+        echo "git push origin base:master"
+        git push origin base:master
+        
+    #
+    # Run post maven build steps on FAILURE
+    #
+    
+    - name: Post build on FAILURE
+      if: failure()
+      run:  |
+        mkdir surefire-reports
+        cp */surefire-reports/*.txt surefire-reports
+        tar czf surefire-reports.tgz surefire-reports
+      
+    - name: Upload surefire results on FAILURE
+      if: failure()
+      uses: actions/upload-artifact@v1
+      with:
+        name: surefire-reports
+        path: surefire-reports.tgz
+        
