@@ -4,11 +4,9 @@
 
 name: QA Default
 
-#
 # Triggered by a push to the master branch
 #
-# Changes to workflows themseves will 
-# not trigger this workflow   
+# Changes to workflows themseves will not trigger this workflow   
 on:
   push:
     branches: [ master ]
@@ -36,14 +34,12 @@ jobs:
         path: ~/.m2
         key: m2local
 
-    #
     # Run the maven build
     #
     
     - name: Run the maven build
       run: mvn -B clean install -Dts.all
 
-    #
     # Run post maven build steps on FAILURE
     #
     

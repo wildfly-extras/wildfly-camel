@@ -1,0 +1,77 @@
+#
+# Experimental workflow 
+#
+
+name: Workbench
+
+# Controls when the action will run. 
+on:
+  pull_request:
+    branches: [ next ]
+    paths-ignore:
+      - '.github/workflows/*'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  
+  # A job that does the build
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    # Run the maven build
+    #
+    
+    - name: Run the maven build
+      env:
+        GITHUB_EVENT: ${{ toJSON(github.event) }}
+        
+      run: echo "Do stuff"
+
+    # Run post maven build steps on SUCCESS
+    # 
+    # The GITHUB_TOKEN accosiated with a pull request from a forked repo is limited to read-only operations on the base repository.
+    # https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token#permissions-for-the-github_token
+    #
+    # The final push after rebase will therefore not work if the PR comes from a fork.
+    # Secrets defined on the base repo are currently also not available for PR events from a fork.
+    #
+    # As a result, we currently only do an automated push if the PR comes from a branch in the same repo.
+    # In this case, the PR creator has already proven to have access to the base repo and its associated secrets. 
+    
+    - name: Post build on SUCCESS
+      if: ${{ success() && github.event.pull_request.head.repo.full_name == github.event.pull_request.base.repo.full_name }}
+      env:
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+        GITHUB_SHA: ${{ github.sha }}
+        GITHUB_BASE_REF: ${{ github.base_ref }}
+        GITHUB_HEAD_REF: ${{ github.head_ref }}
+        GITHUB_HEAD_REPOSITORY_URL: ${{ github.event.pull_request.head.repo.clone_url }}
+      
+      run: |
+        echo "Setup Git Committer"
+        git config user.email "fuse.wfc.ci@gmail.com"
+        git config user.name "Fuse CI"
+
+        echo "Checkout base ref"
+        git fetch origin $GITHUB_BASE_REF
+        git checkout -b base origin/$GITHUB_BASE_REF
+
+        echo "Checkout head ref"
+        git remote add source $GITHUB_HEAD_REPOSITORY_URL
+        git fetch source $GITHUB_HEAD_REF
+        git checkout -b build source/$GITHUB_HEAD_REF
+        
+        echo "git rebase base build"
+        git branch -l
+        git rebase base build
+        
+        echo "git merge --ff-only build"
+        git checkout base; git merge --ff-only build
+        
+        echo "git push origin base:$GITHUB_BASE_REF"
+        git push origin base:$GITHUB_BASE_REF
+        
