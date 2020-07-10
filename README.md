@@ -1,6 +1,6 @@
 ## WildFly Camel
 
-[![Jenkins](https://img.shields.io/jenkins/s/https/ci.fabric8.io/wildfly-camel.svg?maxAge=600)](https://fabric8-ci.fusesource.com/view/wildfly-camel/job/wildfly-camel/)
+[![QA Default](https://github.com/wildfly-extras/wildfly-camel/workflows/QA%20Default/badge.svg)](https://github.com/wildfly-extras/wildfly-camel/actions?query=workflow%3A%22QA+Default%22)
 [![License](https://img.shields.io/:license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Maven Central](https://img.shields.io/maven-central/v/org.wildfly.camel/wildfly-camel.svg?maxAge=600)](http://search.maven.org/#search%7Cga%7C1%7Cg%3Aorg.wildfly.camel%20a%3Awildfly-camel)
 [![Join the chat at freenode:wildfly-camel](https://img.shields.io/badge/irc-freenode%3A%20%23wildfly--camel-blue.svg)](http://webchat.freenode.net/?channels=%23wildfly-camel)
