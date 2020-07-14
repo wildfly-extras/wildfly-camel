@@ -39,7 +39,7 @@ import org.apache.cxf.transport.https.CertConstraintsJaxBUtils;
 import org.apache.cxf.transport.servlet.ServletDestination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wildfly.extension.camel.service.CamelEndpointDeploymentSchedulerService.EndpointHttpHandler;
+import org.wildfly.extension.camel.service.CamelEndpointDeployerService.EndpointHttpHandler;
 
 public class UndertowHTTPDestination extends ServletDestination implements EndpointHttpHandler {
 

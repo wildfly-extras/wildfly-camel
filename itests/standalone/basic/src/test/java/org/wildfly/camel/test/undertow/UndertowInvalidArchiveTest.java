@@ -67,17 +67,15 @@ public class UndertowInvalidArchiveTest {
 
     @Test
     public void testInvalidArchive() throws Exception {
-        // Expect camel-undertow JAR deployment to be rejected as a WAR archive is mandated
-        boolean deploySuccess = true;
         try {
             deployer.deploy(UNDERTOW_DEPLOYMENT_INVALID);
+            Assert.fail("Expected deployment to be unsuccessful");
         } catch (Exception e) {
-            deploySuccess = false;
+        	// expeced
         } finally {
             deployer.undeploy(UNDERTOW_DEPLOYMENT_INVALID);
         }
 
-        Assert.assertFalse("Expected deployment to be unsuccessful", deploySuccess);
 
         // Expect a follow-up WAR deployment with the same Undertow handler paths to be accepted
         // We do this check to verify https://github.com/wildfly-extras/wildfly-camel/issues/2841

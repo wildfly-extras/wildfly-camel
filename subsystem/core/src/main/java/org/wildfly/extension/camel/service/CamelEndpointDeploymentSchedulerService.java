@@ -19,26 +19,29 @@
  */
 package org.wildfly.extension.camel.service;
 
-import java.io.IOException;
+import static org.wildfly.extension.camel.CamelLogger.LOGGER;
+import static org.wildfly.extension.camel.service.CamelEndpointDeployerService.deployerServiceName;
+
 import java.net.URI;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.jboss.as.server.CurrentServiceContainer;
+import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.modules.ModuleClassLoader;
+import org.jboss.msc.service.AbstractService;
 import org.jboss.msc.service.Service;
+import org.jboss.msc.service.ServiceBuilder;
+import org.jboss.msc.service.ServiceContainer;
 import org.jboss.msc.service.ServiceController;
+import org.jboss.msc.service.ServiceController.Mode;
 import org.jboss.msc.service.ServiceName;
 import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
-import org.wildfly.extension.camel.CamelLogger;
+import org.jboss.msc.value.InjectedValue;
+import org.wildfly.extension.camel.service.CamelEndpointDeployerService.EndpointHttpHandler;
 
 import io.undertow.server.HttpHandler;
 
@@ -52,19 +55,26 @@ import io.undertow.server.HttpHandler;
  */
 public class CamelEndpointDeploymentSchedulerService implements Service<CamelEndpointDeploymentSchedulerService> {
 
-    /** The name for the {@link CamelEndpointDeploymentSchedulerService} */
-    private static final String SERVICE_NAME = "EndpointDeploymentScheduler";
+    private static final String SERVICE_NAME = CamelEndpointDeploymentSchedulerService.class.getSimpleName();
 
-    private static final String EAR_INFIX = ".ear.";
     private static final String DEPLOYMENT_CL_NAME_PREFIX = "deployment.";
     private static final String WAR_SUFFIX = ".war";
+    private static final String EAR_INFIX = ".ear.";
 
-    public static ServiceController<CamelEndpointDeploymentSchedulerService> addService(
-            ServiceName deploymentUnitServiceName, String deploymentName, ServiceTarget serviceTarget) {
-        final CamelEndpointDeploymentSchedulerService service = new CamelEndpointDeploymentSchedulerService(
-                deploymentName);
-        return serviceTarget.addService(deploymentSchedulerServiceName(deploymentUnitServiceName), service)
-                .install();
+    private final DeploymentUnit deploymentUnit;
+    private final ServiceTarget serviceTarget;
+    private final ServiceName serviceName;
+
+    CamelEndpointDeploymentSchedulerService(DeploymentUnit deploymentUnit, ServiceName serviceName, ServiceTarget serviceTarget) {
+        this.deploymentUnit = deploymentUnit;
+        this.serviceTarget = serviceTarget;
+        this.serviceName = serviceName;
+    }
+
+    public static ServiceController<CamelEndpointDeploymentSchedulerService> addService(DeploymentUnit depUnit, ServiceTarget serviceTarget) {
+        ServiceName serviceName = deploymentSchedulerServiceName(depUnit.getServiceName());
+        CamelEndpointDeploymentSchedulerService service = new CamelEndpointDeploymentSchedulerService(depUnit, serviceName, serviceTarget);
+		return serviceTarget.addService(serviceName, service).install();
     }
 
     public static ServiceName deploymentSchedulerServiceName(ClassLoader deploymentClassLoader) {
@@ -103,108 +113,65 @@ public class CamelEndpointDeploymentSchedulerService implements Service<CamelEnd
         return deploymentUnitServiceName.append(SERVICE_NAME);
     }
 
-    private volatile CamelEndpointDeployerService deployerService;
-
-    private final String deploymentName;
-
-    /** Let's use values for both {@link HttpHandler}s and {@link EndpointHttpHandler}s */
-    private final Map<URI, Object> scheduledHandlers = new HashMap<>();
-
-    CamelEndpointDeploymentSchedulerService(String deploymentName) {
-        super();
-        this.deploymentName = deploymentName;
+    public void schedule(URI uri, EndpointHttpHandler httpHandler) {
+    	scheduleInternal(uri, httpHandler);
     }
 
-    @Override
-    public CamelEndpointDeploymentSchedulerService getValue() throws IllegalStateException {
-        return this;
+    public void schedule(URI uri, HttpHandler httpHandler) {
+    	scheduleInternal(uri, httpHandler);
     }
 
-    /**
-     * Either schedules the given HTTP endpoint for deployment once {@link #deployerService} becomes available or
-     * deploys it instantly if the {@link #deployerService} is available already.
-     *
-     * @param uri determines the path and protocol under which the HTTP endpoint should be exposed
-     * @param endpointHttpHandler an {@link EndpointHttpHandler} to use for handling HTTP requests sent to the given
-     *        {@link URI}'s path
-     */
-    public void schedule(URI uri, EndpointHttpHandler endpointHttpHandler) {
-        synchronized (scheduledHandlers) {
-            CamelLogger.LOGGER.debug("Scheduling a deployment of endpoint {} from {}", uri, deploymentName);
-            if (this.deployerService != null) {
-                this.deployerService.deploy(uri, endpointHttpHandler);
-            } else {
-                scheduledHandlers.put(uri, endpointHttpHandler);
-            }
-        }
+    @SuppressWarnings("deprecation")
+	private void scheduleInternal(URI uri, Object httpHandler) {
+		ServiceName auxServiceName = serviceName.append(uri.getPath());
+		ServiceName deployerServiceName = deployerServiceName(deploymentUnit.getServiceName());
+	    InjectedValue<CamelEndpointDeployerService> deployerServiceSupplier = new InjectedValue<>();
+		ServiceBuilder<Void> sb = serviceTarget.addService(auxServiceName, new AbstractService<Void>() {
+
+			@Override
+			public void start(StartContext context) throws StartException {
+				CamelEndpointDeployerService deployerService = deployerServiceSupplier.getValue();
+            	if (httpHandler instanceof EndpointHttpHandler)
+            		deployerService.deploy(uri, (EndpointHttpHandler) httpHandler);
+            	else if (httpHandler instanceof HttpHandler)
+            		deployerService.deploy(uri, (HttpHandler) httpHandler);
+			}
+
+			@Override
+			public void stop(StopContext context) {
+				CamelEndpointDeployerService deployerService = deployerServiceSupplier.getValue();
+                deployerService.undeploy(uri);
+			}
+		});
+		sb.addDependency(deployerServiceName, CamelEndpointDeployerService.class, deployerServiceSupplier);
+		ServiceController<Void> controller = sb.install();
+		try {
+			controller.awaitValue(4, TimeUnit.SECONDS);
+		} catch (InterruptedException ex) {
+			// ignore
+		} catch (TimeoutException ex) {				
+			LOGGER.debug("Endpoint service for {} from deployment {} faild to start up in time", uri, deploymentUnit.getName());
+		}
     }
 
-    public void schedule(URI uri, HttpHandler handler) {
-        synchronized (scheduledHandlers) {
-            CamelLogger.LOGGER.debug("Scheduling a deployment of endpoint {} from {}", uri, deploymentName);
-            if (this.deployerService != null) {
-                this.deployerService.deploy(uri, handler);
-            } else {
-                scheduledHandlers.put(uri, handler);
-            }
-        }
-    }
-
-    /**
-     * Sets the {@link CamelEndpointDeployerService} and deploys any endpoints scheduled for deployment so far.
-     *
-     * @param deploymentService the {@link CamelEndpointDeployerService}
-     */
-    public void registerDeployer(CamelEndpointDeployerService deploymentService) {
-        synchronized (scheduledHandlers) {
-            /* Deploy the endpoints scheduled so far */
-            for (Iterator<Entry<URI, Object>> it = scheduledHandlers.entrySet().iterator(); it
-                    .hasNext();) {
-                final Entry<URI, Object> en = it.next();
-                final Object handler = en.getValue();
-                if (handler instanceof EndpointHttpHandler) {
-                    deploymentService.deploy(en.getKey(), (EndpointHttpHandler) handler);
-                } else if (handler instanceof HttpHandler) {
-                    deploymentService.deploy(en.getKey(), (HttpHandler) handler);
-                } else {
-                    throw new IllegalStateException("Unexpected type "+ (handler == null ? "null" : handler.getClass().getName()));
-                }
-                it.remove();
-            }
-            this.deployerService = deploymentService;
-        }
+    public void unschedule(URI uri) {
+		ServiceName auxServiceName = serviceName.append(uri.getPath());
+        ServiceContainer serviceContainer = CurrentServiceContainer.getServiceContainer();
+		ServiceController<?> controller = serviceContainer.getRequiredService(auxServiceName);
+		controller.setMode(Mode.REMOVE);
     }
 
     @Override
     public void start(StartContext context) throws StartException {
-        CamelLogger.LOGGER.debug("{} started for deployment {}",
-                CamelEndpointDeploymentSchedulerService.class.getSimpleName(), deploymentName);
+        LOGGER.debug("{} started for deployment {}", SERVICE_NAME, deploymentUnit.getName());
     }
 
     @Override
     public void stop(StopContext context) {
     }
 
-    /**
-     * Either removes the given HTTP endpoint from the list of deployments scheduled for deployment or undeploys it
-     * instantly if the {@link #deployerService} is available.
-     *
-     * @param uri determines the path and protocol under which the HTTP endpoint should be exposed
-     */
-    public void unschedule(URI uri) {
-        synchronized (scheduledHandlers) {
-            CamelLogger.LOGGER.debug("Unscheduling a deployment of endpoint {} from {}", uri, deploymentName);
-            if (this.deployerService != null) {
-                this.deployerService.undeploy(uri);
-            } else {
-                scheduledHandlers.remove(uri);
-            }
-        }
+    @Override
+    public CamelEndpointDeploymentSchedulerService getValue() throws IllegalStateException {
+        return this;
     }
-
-    public interface EndpointHttpHandler {
-        ClassLoader getClassLoader();
-        void service(ServletContext context, HttpServletRequest req, HttpServletResponse resp) throws IOException;
-    }
-
 }

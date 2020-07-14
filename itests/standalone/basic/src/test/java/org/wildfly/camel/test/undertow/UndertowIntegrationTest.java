@@ -20,6 +20,8 @@
 
 package org.wildfly.camel.test.undertow;
 
+import static java.net.HttpURLConnection.HTTP_OK;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -30,39 +32,33 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.http.HttpRequest;
 import org.wildfly.camel.test.common.http.HttpRequest.HttpResponse;
 import org.wildfly.extension.camel.CamelAware;
-import static java.net.HttpURLConnection.HTTP_OK;
 
-@RunWith(Arquillian.class)
 @CamelAware
+@RunWith(Arquillian.class)
 public class UndertowIntegrationTest {
 
-    private static final String TEST_SERVLET_WAR = "test-servlet.war";
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    private static final String CONTEXT_NAME = "mypath";
+    private static final String DEPLOYMENT_NAME = CONTEXT_NAME + ".war";
 
     @ArquillianResource
     private Deployer deployer;
 
     @Deployment
-    public static WebArchive createDeployment() {
-        return ShrinkWrap.create(WebArchive.class, "UndertowIntegrationTest.war")
+    public static WebArchive warDeployment() {
+        return ShrinkWrap.create(WebArchive.class, "camel-undertow.war")
             .addClasses(HttpRequest.class);
     }
 
-    @Deployment(testable = false, managed = false, name = TEST_SERVLET_WAR)
+    @Deployment(name = DEPLOYMENT_NAME, managed = false, testable = false)
     public static WebArchive createTestServletDeployment() {
-        return ShrinkWrap.create(WebArchive.class, TEST_SERVLET_WAR)
+        return ShrinkWrap.create(WebArchive.class, DEPLOYMENT_NAME)
             .addClass(HttpRequest.class);
     }
 
@@ -176,19 +172,21 @@ public class UndertowIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("undertow:http://localhost/test-servlet")
+                fromF("undertow:http://localhost/%s", CONTEXT_NAME)
                 .setBody(constant("Hello Kermit"));
             }
         });
 
         camelctx.start();
         try {
-            // WAR deployment should fail as the context path is already registered by camel-undertow
-            expectedException.expect(RuntimeException.class);
-            deployer.deploy(TEST_SERVLET_WAR);
+            // Deployment should fail as the context path is already registered by camel-undertow
+            deployer.deploy(DEPLOYMENT_NAME);
+            Assert.fail("RuntimeException expected");
+        } catch (RuntimeException rte) {
+        	// expected
         } finally {
             camelctx.close();
-            deployer.undeploy(TEST_SERVLET_WAR);
+            deployer.undeploy(DEPLOYMENT_NAME);
         }
     }
 
@@ -198,19 +196,21 @@ public class UndertowIntegrationTest {
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("undertow:http://localhost/test-servlet")
+                fromF("undertow:http://localhost/%s", CONTEXT_NAME)
                 .setBody(constant("Hello Kermit"));
             }
         });
 
-        deployer.deploy(TEST_SERVLET_WAR);
+        deployer.deploy(DEPLOYMENT_NAME);
         try {
             // Context start should fail as the undertow consumer path is already registered by test-servlet.war
-            expectedException.expect(IllegalStateException.class);
             camelctx.start();
+            Assert.fail("RuntimeException expected");
+        } catch (RuntimeException rte) {
+        	// expected
         } finally {
             camelctx.close();
-            deployer.undeploy(TEST_SERVLET_WAR);
+            deployer.undeploy(DEPLOYMENT_NAME);
         }
     }
 }
