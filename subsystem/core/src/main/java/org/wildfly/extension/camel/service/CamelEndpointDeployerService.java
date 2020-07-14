@@ -20,19 +20,15 @@
 package org.wildfly.extension.camel.service;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
@@ -54,36 +50,24 @@ import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
 import org.jboss.msc.value.InjectedValue;
 import org.wildfly.extension.camel.CamelLogger;
-import org.wildfly.extension.camel.service.CamelEndpointDeploymentSchedulerService.EndpointHttpHandler;
 import org.wildfly.extension.undertow.Host;
 import org.wildfly.extension.undertow.ServletContainerService;
 import org.wildfly.extension.undertow.UndertowService;
-import org.wildfly.extension.undertow.deployment.UndertowDeploymentInfoService;
 
-import io.undertow.security.api.AuthenticationMechanismFactory;
 import io.undertow.server.HandlerWrapper;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
-import io.undertow.server.session.SessionListener;
 import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.Deployment;
 import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.DeploymentManager;
-import io.undertow.servlet.api.FilterInfo;
-import io.undertow.servlet.api.FilterMappingInfo;
-import io.undertow.servlet.api.LifecycleInterceptor;
-import io.undertow.servlet.api.ListenerInfo;
-import io.undertow.servlet.api.LoginConfig;
 import io.undertow.servlet.api.SecurityConstraint;
 import io.undertow.servlet.api.SecurityInfo.EmptyRoleSemantic;
 import io.undertow.servlet.api.ServletInfo;
-import io.undertow.servlet.api.ThreadSetupHandler;
 import io.undertow.servlet.api.TransportGuaranteeType;
 import io.undertow.servlet.api.WebResourceCollection;
 import io.undertow.servlet.core.DeploymentImpl;
 import io.undertow.servlet.core.ManagedServlet;
-import io.undertow.websockets.jsr.WebSocketDeploymentInfo;
-import io.undertow.websockets.jsr.WebSocketDeploymentInfo.ContainerReadyListener;
 
 /**
  * A service responsible for exposing and unexposing CXF endpoints via {@link #deploy(URI, EndpointHttpHandler)} and
@@ -119,200 +103,13 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
 
     };
 
-    /**
-     * This method can simplified substantially, once https://github.com/undertow-io/undertow/pull/642 reaches us.
-     * Currently, the method is just an adjusted copy of {@link DeploymentInfo#clone()}.
-     *
-     * @param src the {@link DeploymentInfo} to clone and adapt
-     * @param uri the {@link URI} of the CXF endpoint
-     * @param servletInfo of the servlet that will serve the endpoint
-     * @return a new adapted {@link DeploymentInfo}
-     */
-    static DeploymentInfo adaptDeploymentInfo(DeploymentInfo src, URI uri, ServletInfo servletInfo) {
-        final String contextPath = uri.getPath();
-        final String deploymentName = src.getDeploymentName() + ":" + uri.getPath();
-
-        final DeploymentInfo info = new DeploymentInfo()
-                .setClassLoader(src.getClassLoader())
-                .setContextPath(contextPath)
-                .setResourceManager(src.getResourceManager())
-                .setMajorVersion(src.getMajorVersion())
-                .setMinorVersion(src.getMinorVersion())
-                .setDeploymentName(deploymentName)
-                .setClassIntrospecter(src.getClassIntrospecter());
-
-        info.addServlet(servletInfo);
-
-        for (Map.Entry<String, FilterInfo> e : src.getFilters().entrySet()) {
-            info.addFilter(e.getValue().clone());
-        }
-        info.setDisplayName(src.getDisplayName());
-        for (FilterMappingInfo fmi : src.getFilterMappings()) {
-            switch (fmi.getMappingType()) {
-            case URL:
-                info.addFilterUrlMapping(fmi.getFilterName(), fmi.getMapping(), fmi.getDispatcher());
-                break;
-            case SERVLET:
-                info.addFilterServletNameMapping(fmi.getFilterName(), fmi.getMapping(), fmi.getDispatcher());
-                break;
-            default:
-                throw new IllegalStateException(
-                        "Unexpected " + io.undertow.servlet.api.FilterMappingInfo.MappingType.class.getName() + " "
-                                + fmi.getMappingType());
-            }
-        }
-        final List<ListenerInfo> listeners = src.getListeners();
-        final List<String> approvedListeners = Arrays.asList(
-                "org.wildfly.extension.undertow.deployment.JspInitializationListener",
-                "org.jboss.weld.module.web.servlet.WeldInitialListener",
-                "org.jboss.weld.module.web.servlet.WeldTerminalListener",
-                "org.wildfly.microprofile.opentracing.smallrye.TracerInitializer"
-                );
-        final String infoServiceListenerClassNamePrefix = UndertowDeploymentInfoService.class.getName() + "$";
-        for (ListenerInfo listenerInfo : listeners) {
-            CamelLogger.LOGGER.debug("Copying ListenerInfo {}", listenerInfo);
-            if (listenerInfo.getListenerClass().getName().startsWith(infoServiceListenerClassNamePrefix)) {
-                /* ignore */
-            } else {
-                assert approvedListeners.stream().anyMatch(cl -> cl.equals(listenerInfo.getListenerClass().getName())) : "Unexpected "+ ListenerInfo.class.getName() + ": "+ listenerInfo + "; expected any of ["+ approvedListeners.stream().collect(Collectors.joining(", ")) +"]";
-                info.addListener(listenerInfo);
-            }
-        }
-
-        info.addServletContainerInitalizers(src.getServletContainerInitializers());
-        for (ThreadSetupHandler a : src.getThreadSetupActions()) {
-            info.addThreadSetupAction(a);
-        }
-        for (Entry<String, String> en : src.getInitParameters().entrySet()) {
-            info.addInitParameter(en.getKey(), en.getValue());
-        }
-        for (Entry<String, Object> en : src.getServletContextAttributes().entrySet()) {
-            if (WebSocketDeploymentInfo.ATTRIBUTE_NAME.equals(en.getKey())) {
-                final WebSocketDeploymentInfo srcWsdi = (WebSocketDeploymentInfo) en.getValue();
-
-                /* Simplify start
-                 * Once https://github.com/undertow-io/undertow/pull/672 reaches us
-                 * the follwing code can be simplified using the newly added WebSocketDeploymentInfo methods clone()
-                 * and [get|add]Listeners() */
-                final WebSocketDeploymentInfo targetWsdi = new WebSocketDeploymentInfo()
-                        .setWorker(srcWsdi.getWorker())
-                        .setBuffers(srcWsdi.getBuffers())
-                        .setDispatchToWorkerThread(srcWsdi.isDispatchToWorkerThread())
-                        .setReconnectHandler(srcWsdi.getReconnectHandler())
-                        ;
-                targetWsdi.setClientBindAddress(srcWsdi.getClientBindAddress());
-                srcWsdi.getAnnotatedEndpoints().stream().forEach(e -> targetWsdi.addEndpoint(e));
-                srcWsdi.getProgramaticEndpoints().stream().forEach(e -> targetWsdi.addEndpoint(e));
-                srcWsdi.getExtensions().stream().forEach(e -> targetWsdi.addExtension(e));
-                try {
-                    final Field containerReadyListenersField = srcWsdi.getClass().getDeclaredField("containerReadyListeners");
-                    containerReadyListenersField.setAccessible(true);
-                    @SuppressWarnings("unchecked")
-                    final List<ContainerReadyListener> containerReadyListeners = (List<ContainerReadyListener>) containerReadyListenersField.get(srcWsdi);
-                    assert containerReadyListeners.stream().anyMatch(l -> l.getClass().getName().startsWith(infoServiceListenerClassNamePrefix)) : infoServiceListenerClassNamePrefix + "* not found in "+ WebSocketDeploymentInfo.class.getSimpleName() + ".containerReadyListeners";
-                    assert containerReadyListeners.size() == 1 : WebSocketDeploymentInfo.class.getSimpleName() + ".containerReadyListeners.size() expected 1, actual "+ listeners.size();
-                } catch (NoSuchFieldException | SecurityException | IllegalAccessException e1) {
-                    throw new RuntimeException(e1);
-                }
-                /* Simplify end */
-            } else {
-                info.addServletContextAttribute(en.getKey(), en.getValue());
-            }
-        }
-        info.addWelcomePages(src.getWelcomePages());
-        info.addErrorPages(src.getErrorPages());
-        info.addMimeMappings(src.getMimeMappings());
-        info.setExecutor(src.getExecutor());
-        info.setAsyncExecutor(src.getAsyncExecutor());
-        info.setTempDir(src.getTempDir());
-        info.setJspConfigDescriptor(src.getJspConfigDescriptor());
-        info.setDefaultServletConfig(src.getDefaultServletConfig());
-        for (Entry<String, String> en : src.getLocaleCharsetMapping().entrySet()) {
-            info.addLocaleCharsetMapping(en.getKey(), en.getValue());
-        }
-        info.setSessionManagerFactory(src.getSessionManagerFactory());
-        final LoginConfig loginConfig = src.getLoginConfig();
-        if (loginConfig != null) {
-            info.setLoginConfig(loginConfig.clone());
-        }
-        info.setIdentityManager(src.getIdentityManager());
-        info.setConfidentialPortManager(src.getConfidentialPortManager());
-        info.setDefaultEncoding(src.getDefaultEncoding());
-        info.setUrlEncoding(src.getUrlEncoding());
-        info.addSecurityConstraints(filterConstraints(src, uri));
-        for (HandlerWrapper w : src.getOuterHandlerChainWrappers()) {
-            info.addOuterHandlerChainWrapper(w);
-        }
-        for (HandlerWrapper w : src.getInnerHandlerChainWrappers()) {
-            info.addInnerHandlerChainWrapper(w);
-        }
-        info.setInitialSecurityWrapper(src.getInitialSecurityWrapper());
-        for (HandlerWrapper w : src.getSecurityWrappers()) {
-            info.addSecurityWrapper(w);
-        }
-        for (HandlerWrapper w : src.getInitialHandlerChainWrappers()) {
-            info.addInitialHandlerChainWrapper(w);
-        }
-        info.addSecurityRoles(src.getSecurityRoles());
-        info.addNotificationReceivers(src.getNotificationReceivers());
-        info.setAllowNonStandardWrappers(src.isAllowNonStandardWrappers());
-        info.setDefaultSessionTimeout(src.getDefaultSessionTimeout());
-        info.setServletContextAttributeBackingMap(src.getServletContextAttributeBackingMap());
-        info.setServletSessionConfig(src.getServletSessionConfig());
-        info.setHostName(src.getHostName());
-        info.setDenyUncoveredHttpMethods(src.isDenyUncoveredHttpMethods());
-        info.setServletStackTraces(src.getServletStackTraces());
-        info.setInvalidateSessionOnLogout(src.isInvalidateSessionOnLogout());
-        info.setDefaultCookieVersion(src.getDefaultCookieVersion());
-        info.setSessionPersistenceManager(src.getSessionPersistenceManager());
-        for (Map.Entry<String, Set<String>> e : src.getPrincipalVersusRolesMap().entrySet()) {
-            info.addPrincipalVsRoleMappings(e.getKey(), e.getValue());
-        }
-        info.setIgnoreFlush(src.isIgnoreFlush());
-        info.setAuthorizationManager(src.getAuthorizationManager());
-        for (Entry<String, AuthenticationMechanismFactory> e : src.getAuthenticationMechanisms().entrySet()) {
-            info.addAuthenticationMechanism(e.getKey(), e.getValue());
-        }
-        info.setJaspiAuthenticationMechanism(src.getJaspiAuthenticationMechanism());
-        info.setSecurityContextFactory(src.getSecurityContextFactory());
-        info.setServerName(src.getServerName());
-        info.setMetricsCollector(src.getMetricsCollector());
-        info.setSessionConfigWrapper(src.getSessionConfigWrapper());
-        info.setEagerFilterInit(src.isEagerFilterInit());
-        info.setDisableCachingForSecuredPages(src.isDisableCachingForSecuredPages());
-        info.setExceptionHandler(src.getExceptionHandler());
-        info.setEscapeErrorMessage(src.isEscapeErrorMessage());
-        for (SessionListener e : src.getSessionListeners()) {
-            info.addSessionListener(e);
-        }
-        for (LifecycleInterceptor e : src.getLifecycleInterceptors()) {
-            info.addLifecycleInterceptor(e);
-        }
-        info.setAuthenticationMode(src.getAuthenticationMode());
-        info.setDefaultMultipartConfig(src.getDefaultMultipartConfig());
-        info.setContentTypeCacheSize(src.getContentTypeCacheSize());
-        info.setSessionIdGenerator(src.getSessionIdGenerator());
-        info.setSendCustomReasonPhraseOnError(src.isSendCustomReasonPhraseOnError());
-        info.setChangeSessionIdOnLogin(src.isChangeSessionIdOnLogin());
-        info.setCrawlerSessionManagerConfig(src.getCrawlerSessionManagerConfig());
-        info.setSecurityDisabled(src.isSecurityDisabled());
-        info.setUseCachedAuthenticationMechanism(src.isUseCachedAuthenticationMechanism());
-        info.setCheckOtherSessionManagers(src.isCheckOtherSessionManagers());
-
-        return info;
-    }
-
     public static ServiceController<CamelEndpointDeployerService> addService(DeploymentUnit deploymentUnit,
             ServiceTarget serviceTarget, ServiceName deploymentInfoServiceName, ServiceName hostServiceName) {
 
         CamelEndpointDeployerService service = new CamelEndpointDeployerService();
-        ServiceBuilder<CamelEndpointDeployerService> sb = serviceTarget
-                .addService(deployerServiceName(deploymentUnit.getServiceName()), service);
+        ServiceBuilder<CamelEndpointDeployerService> sb = serviceTarget.addService(deployerServiceName(deploymentUnit.getServiceName()), service);
         sb.addDependency(hostServiceName, Host.class, service.hostSupplier);
         sb.addDependency(deploymentInfoServiceName, DeploymentInfo.class, service.deploymentInfoSupplier);
-        sb.addDependency(
-                CamelEndpointDeploymentSchedulerService.deploymentSchedulerServiceName(deploymentUnit.getServiceName()),
-                CamelEndpointDeploymentSchedulerService.class, service.deploymentSchedulerServiceSupplier);
         sb.addDependency(UndertowService.SERVLET_CONTAINER.append("default"), ServletContainerService.class, service.servletContainerServiceSupplier);
 
         final EEModuleConfiguration moduleConfiguration = deploymentUnit
@@ -325,11 +122,11 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
         return sb.install();
     }
 
-    public static ServiceName deployerServiceName(ServiceName deploymentUnitServiceName) {
-        return deploymentUnitServiceName.append(SERVICE_NAME);
+    public static ServiceName deployerServiceName(ServiceName depUnitServiceName) {
+        return depUnitServiceName.append(SERVICE_NAME);
     }
 
-    static List<SecurityConstraint> filterConstraints(DeploymentInfo mainDeploymentInfo, URI uri) {
+    private static List<SecurityConstraint> filterConstraints(DeploymentInfo mainDeploymentInfo, URI uri) {
         final List<SecurityConstraint> result = new ArrayList<>();
         final String uriPath = uri.getPath();
         final String endpointUriPrefix = "//" + uriPath;
@@ -385,7 +182,7 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
         return result;
     }
 
-    static io.undertow.servlet.api.TransportGuaranteeType transportGuaranteeType(URI uri,
+    private static TransportGuaranteeType transportGuaranteeType(URI uri,
             final TransportGuaranteeType transportGuaranteeType) {
         if (uri.getScheme().equals("https")) {
             return io.undertow.servlet.api.TransportGuaranteeType.CONFIDENTIAL;
@@ -399,8 +196,6 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
     private final InjectedValue<DeploymentInfo> deploymentInfoSupplier = new InjectedValue<>();
 
     private final Map<URI, DeploymentManager> deployments = new HashMap<>();
-
-    private final InjectedValue<CamelEndpointDeploymentSchedulerService> deploymentSchedulerServiceSupplier = new InjectedValue<>();
 
     private final InjectedValue<Host> hostSupplier = new InjectedValue<>();
 
@@ -454,15 +249,7 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
         }
     }
 
-    /**
-     * The stuff common for {@link #deploy(URI, EndpointHttpHandler)} and {@link #deploy(URI, HttpHandler)}.
-     *
-     * @param uri
-     * @param endpointServletConsumer customize the {@link EndpointServlet}
-     * @param deploymentInfoConsumer customize the {@link DeploymentInfo}
-     * @param deploymentConsumer customize the {@link DeploymentImpl}
-     */
-    void doDeploy(URI uri, Consumer<EndpointServlet> endpointServletConsumer, Consumer<DeploymentInfo> deploymentInfoConsumer, Consumer<DeploymentImpl> deploymentConsumer) {
+    private void doDeploy(URI uri, Consumer<EndpointServlet> endpointServletConsumer, Consumer<DeploymentInfo> deploymentInfoConsumer, Consumer<DeploymentImpl> deploymentConsumer) {
 
         final ServletInfo servletInfo = Servlets.servlet(EndpointServlet.NAME, EndpointServlet.class).addMapping("/*")
                 .setAsyncSupported(true);
@@ -500,12 +287,22 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
         }
     }
 
+    private DeploymentInfo adaptDeploymentInfo(DeploymentInfo src, URI uri, ServletInfo servletInfo) {
+
+    	String deploymentName = src.getDeploymentName() + ":" + uri.getPath();
+
+        DeploymentInfo info = src.clone()
+                .setContextPath(uri.getPath())
+                .setDeploymentName(deploymentName)
+                .addServlet(servletInfo);
+
+        info.addSecurityConstraints(filterConstraints(src, uri));
+
+        return info;
+    }
+
     @Override
     public void start(StartContext context) throws StartException {
-        /*
-         * Now that the injectedMainDeploymentInfo is ready, we can link this to CamelEndpointDeploymentSchedulerService
-         */
-        deploymentSchedulerServiceSupplier.getValue().registerDeployer(this);
     }
 
     @Override
@@ -621,6 +418,11 @@ public class CamelEndpointDeployerService implements Service<CamelEndpointDeploy
 
     }
 
+	public interface EndpointHttpHandler {
+	    ClassLoader getClassLoader();
+	    void service(ServletContext context, HttpServletRequest req, HttpServletResponse resp) throws IOException;
+	}
+	
     @SuppressWarnings("serial")
     static class EndpointServlet extends HttpServlet {
 

@@ -42,25 +42,25 @@ public class LoggingFrameworkIntegrationTest {
 
     @Test
     public void testSLF4J() throws Exception {
-        org.slf4j.LoggerFactory.getLogger("logger-slf4j").info("Message from SLF4J");
+        org.slf4j.LoggerFactory.getLogger("logger-slf4j").warn("Message from SLF4J");
         Assert.assertTrue("Verify log message", LogUtils.awaitLogMessage(".*logger-slf4j].*Message from SLF4J$", 5000));
     }
 
     @Test
     public void testJUL() throws Exception {
-        java.util.logging.Logger.getLogger("logger-jul").info("Message from JUL");
+        java.util.logging.Logger.getLogger("logger-jul").warning("Message from JUL");
         Assert.assertTrue("Verify log message", LogUtils.awaitLogMessage(".*logger-jul].*Message from JUL$", 5000));
     }
 
     @Test
     public void testCommonsLogging() throws Exception {
-        org.apache.commons.logging.LogFactory.getLog("logger-acl").info("Message from ACL");
+        org.apache.commons.logging.LogFactory.getLog("logger-acl").warn("Message from ACL");
         Assert.assertTrue("Verify log message", LogUtils.awaitLogMessage(".*logger-acl].*Message from ACL$", 5000));
     }
 
     @Test
     public void testLog4J() throws Exception {
-        org.apache.log4j.Logger.getLogger("logger-log4j").info("Message from Log4J");
+        org.apache.log4j.Logger.getLogger("logger-log4j").warn("Message from Log4J");
         Assert.assertTrue("Verify log message", LogUtils.awaitLogMessage(".*logger-log4j].*Message from Log4J$", 5000));
     }
 }
