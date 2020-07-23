@@ -62,7 +62,7 @@ public class PGEventIntegrationTest {
 			/*
 			docker run --detach \
 				--name postgres \
-				-p 5432:42654 \
+				-p 42654:5432 \
 				-e POSTGRES_PASSWORD=s3cret \
 				postgres:alpine
 			*/
@@ -70,7 +70,7 @@ public class PGEventIntegrationTest {
         	dockerManager = new DockerManager()
         			.createContainer("postgres:alpine", true)
         			.withName(CONTAINER_NAME)
-        			.withPortBindings("5432:42654")
+        			.withPortBindings("42654:5432")
         			.withEnv("POSTGRES_PASSWORD=s3cret")
         			.startContainer();
 

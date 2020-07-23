@@ -100,9 +100,10 @@ public class DockerManager {
         Ports portBindings = new Ports();
         for (String spec : bindings) {
         	String[] toks = spec.split(":");
-        	ExposedPort port = ExposedPort.tcp(Integer.valueOf(toks[0]));
-            portBindings.bind(port, Binding.bindPort(Integer.valueOf(toks[1])));
-			ports.add(port);
+        	ExposedPort exposedPort = ExposedPort.tcp(Integer.valueOf(toks[1]));
+            Binding bindPort = Binding.bindPort(Integer.valueOf(toks[0]));
+            portBindings.bind(exposedPort, bindPort);
+			ports.add(exposedPort);
         }
         getHostConfig().withPortBindings(portBindings);
         auxState.createCmd.withHostConfig(getHostConfig());

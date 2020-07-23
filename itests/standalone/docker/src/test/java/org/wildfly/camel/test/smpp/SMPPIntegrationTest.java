@@ -66,14 +66,14 @@ public class SMPPIntegrationTest {
 			docker run --detach \
 				--name smpp_simulator \
 				-p 2775:2775 \
-				-p 88:8888 \
+				-p 8888:88 \
 				wildflyext/smppsimulator:2.6.11
 			*/
         	
         	dockerManager = new DockerManager()
         			.createContainer("wildflyext/smppsimulator:2.6.11", true)
         			.withName(CONTAINER_NAME)
-        			.withPortBindings("2775:2775", "88:8888")
+        			.withPortBindings("2775:2775", "8888:88")
         			.startContainer();
 
 			dockerManager
@@ -93,29 +93,29 @@ public class SMPPIntegrationTest {
 
     @Test
     public void testSMPPComponent() throws Exception {
-        CamelContext camelctx = new DefaultCamelContext();
-        camelctx.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:start")
-                .to("smpp://smppuser@" + TestUtils.getDockerHost() + ":2775?password=password&systemType=producer");
+        
+        try (CamelContext camelctx = new DefaultCamelContext()) {
+            
+            camelctx.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    from("direct:start")
+                    .to("smpp://smppuser@" + TestUtils.getDockerHost() + ":2775?password=password&systemType=producer");
 
-                from("smpp://smppuser@" + TestUtils.getDockerHost() + ":2775?password=password&systemType=consumer")
-                .setBody(simple("Hello ${body}"))
-                .to("mock:result");
-            }
-        });
+                    from("smpp://smppuser@" + TestUtils.getDockerHost() + ":2775?password=password&systemType=consumer")
+                    .setBody(simple("Hello ${body}"))
+                    .to("mock:result");
+                }
+            });
 
-        MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
-        mockEndpoint.expectedBodiesReceived("Hello Kermit");
+            MockEndpoint mockEndpoint = camelctx.getEndpoint("mock:result", MockEndpoint.class);
+            mockEndpoint.expectedBodiesReceived("Hello Kermit");
 
-        camelctx.start();
-        try {
+            camelctx.start();
+            
             ProducerTemplate template = camelctx.createProducerTemplate();
             template.sendBody("direct:start", "Kermit");
             mockEndpoint.assertIsSatisfied();
-        } finally {
-            camelctx.close();
         }
     }
 }
