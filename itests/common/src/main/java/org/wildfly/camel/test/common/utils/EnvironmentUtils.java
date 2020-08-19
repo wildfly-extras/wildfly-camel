@@ -42,7 +42,6 @@ public final class EnvironmentUtils {
     private static final Path JAVA_HOME;
     private static final Path WILDFLY_HOME;
 
-
     static {
         final String os = getOSName();
         AIX = os.equals("aix");
@@ -65,7 +64,8 @@ public final class EnvironmentUtils {
         }
         JAVA_HOME = Paths.get(javaHome);
 
-        WILDFLY_HOME = Paths.get(System.getProperty("jboss.home.dir"));
+        String jbossHome = System.getProperty("jboss.home.dir");
+        WILDFLY_HOME = jbossHome != null ? Paths.get(jbossHome) : null;
     }
 
     public static String getOSName() {

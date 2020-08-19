@@ -19,12 +19,20 @@
  */
 package org.wildfly.camel.test.dockerjava;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wildfly.camel.test.common.http.HttpRequest;
+import org.wildfly.camel.test.common.utils.EnvironmentUtils;
 
 import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.model.Container;
 import com.github.dockerjava.api.model.Info;
 
 public class DockerJavaSanityTest {
@@ -42,6 +50,14 @@ public class DockerJavaSanityTest {
     }
 
     @Test
+    public void testListContainers() throws Exception {
+
+        List<Container> containers = new DockerManager().listContainers();
+        containers.forEach(c -> LOG.info("{} {} {} {}", 
+                Arrays.asList(c.getNames()), c.getState(), c.getId(), c.getImage()));
+    }
+
+    @Test
     public void testAutheticatedPull() throws Exception {
 
         /*
@@ -50,6 +66,69 @@ public class DockerJavaSanityTest {
         */
         
         new DockerManager().pullImage("wildflyext/wildfly-camel:12.0.0");
+    }
 
+    @Test
+    public void testPortBinding() throws Exception {
+
+        DockerManager dockerManager = new DockerManager()
+            .createContainer("wildflyext/wildfly-camel:12.0.0")
+            .withName("wfcamel")
+            .withPortBindings("8081:8080")
+            .startContainer();
+
+        try {
+            
+            dockerManager
+                .withAwaitHttp("http://localhost:8081/hawtio")
+                .withResponseCode(200)
+                .withSleepPolling(500)
+                .awaitCompletion(60, TimeUnit.SECONDS);
+
+            int status = HttpRequest.get("http://localhost:8081/hawtio")
+                    .timeout(500).getResponse().getStatusCode();
+            
+            LOG.info("HawtIO status: {}", status);
+            Assert.assertEquals(200, status);
+            
+        } finally {
+            
+            dockerManager.removeContainer();
+        }
+    }
+
+    @Test
+    public void testNetworkMode() throws Exception {
+
+        String osName = EnvironmentUtils.getOSName();
+        LOG.info("OS Name: {}", osName);
+
+        Assume.assumeTrue(EnvironmentUtils.isLinux());
+        
+        DockerManager dockerManager = new DockerManager()
+            .createContainer("wildflyext/wildfly-camel:12.0.0")
+            .withName("wfcamel")
+            .withNetworkMode("host")
+            .startContainer();
+
+        try {
+
+            
+            dockerManager
+                .withAwaitHttp("http://localhost:8080/hawtio")
+                .withResponseCode(200)
+                .withSleepPolling(500)
+                .awaitCompletion(60, TimeUnit.SECONDS);
+
+            int status = HttpRequest.get("http://localhost:8080/hawtio")
+                    .timeout(500).getResponse().getStatusCode();
+            
+            LOG.info("HawtIO status: {}", status);
+            Assert.assertEquals(200, status);
+            
+        } finally {
+            
+            dockerManager.removeContainer();
+        }
     }
 }

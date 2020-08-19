@@ -2,6 +2,7 @@ package org.wildfly.camel.test.dockerjava;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,9 @@ import com.github.dockerjava.api.async.ResultCallback;
 import com.github.dockerjava.api.command.CreateContainerCmd;
 import com.github.dockerjava.api.command.PullImageCmd;
 import com.github.dockerjava.api.command.PullImageResultCallback;
+import com.github.dockerjava.api.exception.DockerException;
 import com.github.dockerjava.api.model.AuthConfig;
+import com.github.dockerjava.api.model.Container;
 import com.github.dockerjava.api.model.ExposedPort;
 import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
@@ -203,10 +206,37 @@ public class DockerManager {
 		return this;
 	}
 
+    public Container findContainer(String name) {
+        Container cntr = listContainers().stream()
+                .filter(c -> { 
+                    return Arrays.asList(c.getNames()).stream()
+                        .map(n -> n.startsWith("/") ? n.substring(1) : n)
+                        .filter(n -> n.equals(name))
+                        .count() > 0;
+                }).findFirst().orElse(null);
+        return cntr;
+    }
+    
+    public List<Container> listContainers() {
+        return client.listContainersCmd().withShowAll(true).exec();
+    }
+    
 	public DockerManager startContainer() {
-		auxState.containerId = auxState.createCmd.exec().getId();
+        String cntName = auxState.createCmd.getName();
+	    Container cntr = findContainer(cntName);
+	    if (cntr != null) {
+	        removeContainer(cntName, cntr.getId());
+	    }
+		try {
+            auxState.containerId = auxState.createCmd.exec().getId();
+        } catch (DockerException ex) {
+            LOG.info("Now listing containers after DockerException: {}", ex.getMessage());
+            List<Container> containers = new DockerManager().listContainers();
+            containers.forEach(c -> LOG.info("{} {} {} {}", 
+                    Arrays.asList(c.getNames()), c.getState(), c.getId(), c.getImage()));
+            throw ex;
+        }
     	client.startContainerCmd(auxState.containerId).exec();
-    	String cntName = auxState.createCmd.getName();
     	mapping.put(cntName, auxState);
 		return this;
 	}
@@ -220,9 +250,14 @@ public class DockerManager {
 	public boolean removeContainer(String cntName) {
 		ContainerState state = mapping.remove(cntName);
 		if (state == null) return false;
-		client.removeContainerCmd(state.containerId).withForce(true).exec();
+		removeContainer(cntName, state.containerId);
 		return true;
 	}
+
+    private void removeContainer(String cntName, String cntId) {
+        LOG.warn("Remove container: " + cntName);
+        client.removeContainerCmd(cntId).withForce(true).exec();
+    }
 	
 	public DockerManager withAwaitLogMessage(String logMessage) {
 		auxState.awaitLogMessage = logMessage;
@@ -294,12 +329,13 @@ public class DockerManager {
 					HttpRequestBuilder builder = HttpRequest.get(auxState.awaitHttpRequest).timeout(500);
 					int code = builder.getResponse().getStatusCode();
 					if (code == auxState.awaitHttpCode) {
+				        LOG.info("Success {} {}", auxState.awaitHttpRequest, auxState.awaitHttpCode);
                         success.set(true);
 						callback.close();
 						break;
 								
 					}
-				} catch (IOException ex) {
+				} catch (IOException | TimeoutException ex) {
 					// ignore
 				}
 				
@@ -318,9 +354,11 @@ public class DockerManager {
 		
 		@Override
 		public void onNext(Frame item) {
+		    
 			String cntName = auxState.createCmd.getName();
 			LOG.info("{}: {}", cntName, item);
 			if (auxState.awaitLogMessage != null && item.toString().contains(auxState.awaitLogMessage)) { 
+                LOG.info("Success {}", auxState.awaitLogMessage);
 				try {
 					close();
 				} catch (IOException ex) {
