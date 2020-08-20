@@ -50,7 +50,4 @@
     <module name="com.sun.javax.activation" />
     <module name="org.apache.camel.component.cluster" />
   </dependencies>
-  <exports>
-    <exclude path="org/apache/camel/impl/osgi**" />
-  </exports>
 </module>

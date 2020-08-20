@@ -85,9 +85,6 @@
             <module name="org.slf4j" />
             <module name="sun.jdk" />
         </dependencies>
-        <exports>
-            <exclude path="org/apache/camel/impl/osgi**"/>
-        </exports>
     </module>
 
     <module name="org.apache.camel.core.xml">
