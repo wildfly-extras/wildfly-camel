@@ -37,6 +37,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
 import org.wildfly.extension.camel.CamelAware;
 
@@ -49,6 +51,8 @@ import io.atomix.collections.DistributedMap;
 @RunWith(Arquillian.class)
 public class AtomixMapIntegrationTest {
 
+	static final Logger LOG = LoggerFactory.getLogger(AtomixMapIntegrationTest.class);
+	
     private static final String MAP_NAME = UUID.randomUUID().toString();
 
     private Address replicaAddress;
@@ -64,7 +68,7 @@ public class AtomixMapIntegrationTest {
     }
 
     @Before
-    public void before() throws Exception {
+    public void before() {
         replicaAddress = AtomixFactory.address("127.0.0.1");
         replica = AtomixFactory.replica(replicaAddress);
         client = AtomixFactory.client(replicaAddress);
@@ -72,7 +76,7 @@ public class AtomixMapIntegrationTest {
     }
 
     @After
-    public void after() throws Exception {
+    public void after() {
         if (map != null) {
             map.close();
         }
@@ -115,6 +119,8 @@ public class AtomixMapIntegrationTest {
                     .withBody(val)
                     .request(Message.class);
 
+            LOG.info("PUT result: {}", result);
+            
             Assert.assertFalse(result.getHeader(AtomixClientConstants.RESOURCE_ACTION_HAS_RESULT, Boolean.class));
             Assert.assertEquals(val, result.getBody());
             Assert.assertEquals(val, map.get(key).join());
@@ -124,9 +130,17 @@ public class AtomixMapIntegrationTest {
                     .withHeader(AtomixClientConstants.RESOURCE_KEY, key)
                     .request(Message.class);
 
+            LOG.info("GET result: {}", result);
+            
             Assert.assertTrue(result.getHeader(AtomixClientConstants.RESOURCE_ACTION_HAS_RESULT, Boolean.class));
             Assert.assertEquals(val, result.getBody(String.class));
             Assert.assertTrue(map.containsKey(key).join());
+            
+        } catch (Exception ex) {
+        	
+            LOG.error(ex.getMessage(), ex);
+            throw ex;
+            
         } finally {
             camelctx.close();
         }

@@ -225,19 +225,17 @@ public class ReactorIntegrationTest {
         AtomicInteger value = new AtomicInteger(0);
         CountDownLatch latch = new CountDownLatch(3);
 
+        Flux.from(timer)
+            .map(exchange -> ExchangeHelper.getHeaderOrProperty(exchange, Exchange.TIMER_COUNTER, Integer.class))
+            .doOnNext(res -> Assert.assertEquals(value.incrementAndGet(), res.intValue()))
+            .doOnNext(res -> latch.countDown())
+            .subscribe();
+
         camelctx.start();
         try {
-
-            // [#2936] Reactive stream has no active subscriptions
-            Thread.sleep(500);
-
-            Flux.from(timer)
-                .map(exchange -> ExchangeHelper.getHeaderOrProperty(exchange, Exchange.TIMER_COUNTER, Integer.class))
-                .doOnNext(res -> Assert.assertEquals(value.incrementAndGet(), res.intValue()))
-                .doOnNext(res -> latch.countDown())
-                .subscribe();
-
-            Assert.assertTrue(latch.await(2, TimeUnit.SECONDS));
+        	
+            Assert.assertTrue(latch.await(10, TimeUnit.SECONDS));
+            
         } finally {
             camelctx.close();
         }
