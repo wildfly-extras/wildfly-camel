@@ -76,10 +76,10 @@ public final class HttpRequest {
         private String method;
         private String content;
         private boolean followRedirects = true;
-        private long timeout = 10;
         private boolean throwExceptionOnFailure = true;
         private Map<String, String> headers = new HashMap<>();
-        private TimeUnit timeUnit = TimeUnit.SECONDS;
+        private TimeUnit timeUnit = TimeUnit.MILLISECONDS;
+        private long timeout = 10000;
 
         public HttpRequestBuilder(String url, String method) {
             this.requestUrl = url;
@@ -107,6 +107,7 @@ public final class HttpRequest {
         }
 
         public HttpRequestBuilder timeout(long value) {
+            this.timeUnit = TimeUnit.MILLISECONDS;
             this.timeout = value;
             return this;
         }

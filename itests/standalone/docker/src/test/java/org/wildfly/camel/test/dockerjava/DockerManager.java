@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.common.http.HttpRequest;
 import org.wildfly.camel.test.common.http.HttpRequest.HttpRequestBuilder;
 
@@ -29,6 +32,8 @@ import com.github.dockerjava.core.DockerClientConfig;
 
 public class DockerManager {
 
+    final static Logger LOG = LoggerFactory.getLogger(DockerManager.class);
+    
 	private final DockerClient client;
 	
 	class ContainerState {
@@ -80,8 +85,13 @@ public class DockerManager {
 			@Override
 			public void onNext(PullResponseItem item) {
 				ProgressDetail detail = item.getProgressDetail();
-				if (detail != null)
-					System.out.println(imgName + ": " + detail);
+				if (detail != null) {
+                    Long current = detail.getCurrent();
+                    Long total = detail.getTotal();
+                    if (current != null && total != null) {
+                        LOG.info("{}: {}%", imgName, 100 * current / total);
+                    }
+				}
 				super.onNext(item);
 			}
 		};
@@ -125,7 +135,7 @@ public class DockerManager {
 	}
 	
 	public DockerManager createContainer(String imgName) {
-		return createContainer(imgName, false);
+		return createContainer(imgName, true);
 	}
 	
 	public DockerManager createContainer(String imgName, boolean pull) {
@@ -145,6 +155,10 @@ public class DockerManager {
 		return this;
 	}
 
+    public DockerManager withPortBindings(int port) {
+        return withPortBindings(port + ":" + port);
+    }
+    
 	public DockerManager withPortBindings(String... bindings) {
 		List<ExposedPort> ports = new ArrayList<>();
         Ports portBindings = new Ports();
@@ -248,6 +262,8 @@ public class DockerManager {
 
 	private boolean awaitLogCompletion(long timeout, TimeUnit timeUnit) throws Exception {
 		
+        LOG.info("Awaiting log message: {}", auxState.awaitLogMessage);
+        
 		try (ContainerLogCallback callback = new ContainerLogCallback()) {
 			
 			callback.execLogContainerCmd();
@@ -264,7 +280,9 @@ public class DockerManager {
 		long tsnow = System.currentTimeMillis();
 		long tsend = tsnow + timeUnit.toMillis(timeout);
 		
-		boolean success = false;
+		AtomicBoolean success = new AtomicBoolean(false);
+		
+		LOG.info("Awaiting {} {}", auxState.awaitHttpRequest, auxState.awaitHttpCode);
 		
 		try (ContainerLogCallback callback = new ContainerLogCallback()) {
 			
@@ -273,11 +291,11 @@ public class DockerManager {
 			while (tsnow < tsend) {
 				
 				try {
-					HttpRequestBuilder builder = HttpRequest.get(auxState.awaitHttpRequest);
+					HttpRequestBuilder builder = HttpRequest.get(auxState.awaitHttpRequest).timeout(500);
 					int code = builder.getResponse().getStatusCode();
 					if (code == auxState.awaitHttpCode) {
+                        success.set(true);
 						callback.close();
-						success = true;
 						break;
 								
 					}
@@ -290,10 +308,10 @@ public class DockerManager {
 			}
 		}
 		
-		if (!success)
+		if (!success.get())
 			throw new TimeoutException("Timeout waiting for endpoint: " + auxState.awaitHttpRequest);
 		
-		return success;
+		return success.get();
 	}
 	
 	class ContainerLogCallback extends ResultCallback.Adapter<Frame> {
@@ -301,7 +319,7 @@ public class DockerManager {
 		@Override
 		public void onNext(Frame item) {
 			String cntName = auxState.createCmd.getName();
-			System.out.println(cntName + ": " + item);
+			LOG.info("{}: {}", cntName, item);
 			if (auxState.awaitLogMessage != null && item.toString().contains(auxState.awaitLogMessage)) { 
 				try {
 					close();
