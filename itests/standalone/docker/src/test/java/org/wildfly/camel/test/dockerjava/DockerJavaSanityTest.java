@@ -21,19 +21,32 @@ package org.wildfly.camel.test.dockerjava;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.model.Info;
 
 public class DockerJavaSanityTest {
 
+    final static Logger LOG = LoggerFactory.getLogger(DockerManager.class);
+    
     @Test
     public void testDockerJava() throws Exception {
-    	
-    	DockerClient client = DockerClientBuilder.createDefaultClientBuilder().build();
-    	
-		Info info = client.infoCmd().exec();
-		Assert.assertNotNull("Null info", info);
-		Assert.assertNotNull("Null root dir in: " + info, info.getDockerRootDir());
+
+        DockerClient client = DockerClientBuilder.createClientBuilder().build();
+
+        Info info = client.infoCmd().exec();
+        Assert.assertNotNull("Null info", info);
+        Assert.assertNotNull("Null root dir in: " + info, info.getDockerRootDir());
+    }
+
+    @Test
+    public void testAutheticatedPull() throws Exception {
+
+        // export DOCKER_JAVA_REGISTRY_PASSWORD=********
+        
+        new DockerManager().pullImage("wildflyext/wildfly-camel:12.0.0");
+
     }
 }

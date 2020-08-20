@@ -8,13 +8,17 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wildfly.camel.test.common.http.HttpRequest;
 import org.wildfly.camel.test.common.http.HttpRequest.HttpRequestBuilder;
 
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.async.ResultCallback;
 import com.github.dockerjava.api.command.CreateContainerCmd;
+import com.github.dockerjava.api.command.PullImageCmd;
 import com.github.dockerjava.api.command.PullImageResultCallback;
+import com.github.dockerjava.api.model.AuthConfig;
 import com.github.dockerjava.api.model.ExposedPort;
 import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
@@ -22,9 +26,13 @@ import com.github.dockerjava.api.model.Ports;
 import com.github.dockerjava.api.model.Ports.Binding;
 import com.github.dockerjava.api.model.PullResponseItem;
 import com.github.dockerjava.api.model.ResponseItem.ProgressDetail;
+import com.github.dockerjava.core.DefaultDockerClientConfig;
+import com.github.dockerjava.core.DockerClientConfig;
 
 public class DockerManager {
 
+    final static Logger LOG = LoggerFactory.getLogger(DockerManager.class);
+    
 	private final DockerClient client;
 	
 	class ContainerState {
@@ -45,27 +53,56 @@ public class DockerManager {
 	private final Map<String, ContainerState> mapping = new LinkedHashMap<>();
 	private ContainerState auxState;
 	
-	public DockerManager() {
-		client = DockerClientBuilder.createDefaultClientBuilder().build();
-	}
-	
+    public DockerManager() {
+        
+        // Derive system properties from our env vars
+        System.getenv().entrySet().forEach(en -> {
+            String key = en.getKey();
+            String val = en.getValue();
+            if (key.startsWith("DOCKER_JAVA_")) {
+                key = key.substring(12).replace('_', '.').toLowerCase();
+                if (System.getProperty(key) == null) {
+                    System.setProperty(key, val);
+                }
+            }
+        });
+        
+        DockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder().build();
+        client = DockerClientBuilder.createClientBuilder(config).build();
+    }
+    
+    public DockerManager(DockerClientConfig config) {
+        client = DockerClientBuilder.createClientBuilder(config).build();
+    }
+    
 	public DockerClient getDockerClient() {
 		return client;
 	}
 
 	public DockerManager pullImage(String imgName) throws TimeoutException {
 		PullImageResultCallback callback = new PullImageResultCallback() {
-
 			@Override
 			public void onNext(PullResponseItem item) {
 				ProgressDetail detail = item.getProgressDetail();
-				if (detail != null)
-					System.out.println(imgName + ": " + detail);
+				if (detail != null) {
+                    Long current = detail.getCurrent();
+                    Long total = detail.getTotal();
+                    if (current != null && total != null) {
+                        LOG.info("{}: {}%", imgName, 100 * current / total);
+                    }
+				}
 				super.onNext(item);
 			}
 		};
 		try {
-			if (!client.pullImageCmd(imgName).exec(callback).awaitCompletion(10, TimeUnit.MINUTES)) {
+			PullImageCmd pullCmd = client.pullImageCmd(imgName);
+			AuthConfig authConfig = pullCmd.getAuthConfig();
+	        String username = authConfig.getUsername();
+	        String password = authConfig.getPassword();
+	        String registry = authConfig.getRegistryAddress();
+	        password = password != null ? "*******" : null;
+            LOG.info("Pull {}/{} {} {}", username, password, registry, imgName);
+            if (!pullCmd.exec(callback).awaitCompletion(10, TimeUnit.MINUTES)) {
 				throw new TimeoutException("Timeout pulling: " + imgName);
 			}
 		} catch (InterruptedException ex) {
@@ -75,7 +112,7 @@ public class DockerManager {
 	}
 	
 	public DockerManager createContainer(String imgName) {
-		return createContainer(imgName, false);
+		return createContainer(imgName, true);
 	}
 	
 	public DockerManager createContainer(String imgName, boolean pull) {
@@ -95,6 +132,10 @@ public class DockerManager {
 		return this;
 	}
 
+    public DockerManager withPortBindings(int port) {
+        return withPortBindings(port + ":" + port);
+    }
+    
 	public DockerManager withPortBindings(String... bindings) {
 		List<ExposedPort> ports = new ArrayList<>();
         Ports portBindings = new Ports();
@@ -198,6 +239,8 @@ public class DockerManager {
 
 	private boolean awaitLogCompletion(long timeout, TimeUnit timeUnit) throws Exception {
 		
+        LOG.info("Awaiting log message: {}", auxState.awaitLogMessage);
+        
 		try (ContainerLogCallback callback = new ContainerLogCallback()) {
 			
 			callback.execLogContainerCmd();
@@ -215,6 +258,8 @@ public class DockerManager {
 		long tsend = tsnow + timeUnit.toMillis(timeout);
 		
 		boolean success = false;
+		
+		LOG.info("Awaiting {} {}", auxState.awaitHttpRequest, auxState.awaitHttpCode);
 		
 		try (ContainerLogCallback callback = new ContainerLogCallback()) {
 			
@@ -251,7 +296,7 @@ public class DockerManager {
 		@Override
 		public void onNext(Frame item) {
 			String cntName = auxState.createCmd.getName();
-			System.out.println(cntName + ": " + item);
+			LOG.info("{}: {}", cntName, item);
 			if (auxState.awaitLogMessage != null && item.toString().contains(auxState.awaitLogMessage)) { 
 				try {
 					close();
