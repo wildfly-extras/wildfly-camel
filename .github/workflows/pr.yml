@@ -91,9 +91,9 @@ jobs:
     - name: Post build on FAILURE
       if: failure()
       run:  |
-        mkdir surefire-reports
-        cp */surefire-reports/*.txt surefire-reports
-        tar czf surefire-reports.tgz surefire-reports
+        mkdir sfrdir
+        for d in `find . -type d -name surefire-reports`; do cp $d/*.txt sfrdir/; done
+        tar czf surefire-reports.tgz sfrdir
       
     - name: Upload surefire results on FAILURE
       if: failure()
