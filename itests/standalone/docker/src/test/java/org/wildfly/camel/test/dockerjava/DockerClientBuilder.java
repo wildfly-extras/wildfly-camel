@@ -9,21 +9,25 @@ import com.github.dockerjava.transport.DockerHttpClient;
 
 public class DockerClientBuilder {
 
-	private DockerClientConfig config;
-	private DockerHttpClient httpClient;
+	private final DockerClientConfig config;
+	private final DockerHttpClient httpClient;
 	
 	// Hide ctor
-	private DockerClientBuilder() {
-    	config = DefaultDockerClientConfig.createDefaultConfigBuilder().build();
-    	httpClient = new OkDockerHttpClient.Builder()
+	private DockerClientBuilder(DockerClientConfig config) {
+    	this.config = config;
+    	this.httpClient = new OkDockerHttpClient.Builder()
     	        .dockerHost(config.getDockerHost())
     	        .build();
 	}
 	
-	public static DockerClientBuilder createDefaultClientBuilder() {
-		return new DockerClientBuilder();
-	}
-	
+    public static DockerClientBuilder createClientBuilder() {
+        return new DockerClientBuilder(DefaultDockerClientConfig.createDefaultConfigBuilder().build());
+    }
+    
+    public static DockerClientBuilder createClientBuilder(DockerClientConfig config) {
+        return new DockerClientBuilder(config);
+    }
+    
 	public DockerClient build() {
     	DockerClient client = DockerClientImpl.getInstance(config, httpClient);
     	return client;

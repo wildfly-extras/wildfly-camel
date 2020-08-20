@@ -14,7 +14,9 @@ import org.wildfly.camel.test.common.http.HttpRequest.HttpRequestBuilder;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.async.ResultCallback;
 import com.github.dockerjava.api.command.CreateContainerCmd;
+import com.github.dockerjava.api.command.PullImageCmd;
 import com.github.dockerjava.api.command.PullImageResultCallback;
+import com.github.dockerjava.api.model.AuthConfig;
 import com.github.dockerjava.api.model.ExposedPort;
 import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
@@ -22,6 +24,8 @@ import com.github.dockerjava.api.model.Ports;
 import com.github.dockerjava.api.model.Ports.Binding;
 import com.github.dockerjava.api.model.PullResponseItem;
 import com.github.dockerjava.api.model.ResponseItem.ProgressDetail;
+import com.github.dockerjava.core.DefaultDockerClientConfig;
+import com.github.dockerjava.core.DockerClientConfig;
 
 public class DockerManager {
 
@@ -45,17 +49,34 @@ public class DockerManager {
 	private final Map<String, ContainerState> mapping = new LinkedHashMap<>();
 	private ContainerState auxState;
 	
-	public DockerManager() {
-		client = DockerClientBuilder.createDefaultClientBuilder().build();
-	}
-	
+    public DockerManager() {
+        
+        // Derive system properties from our env vars
+        System.getenv().entrySet().forEach(en -> {
+            String key = en.getKey();
+            String val = en.getValue();
+            if (key.startsWith("DOCKER_JAVA_")) {
+                key = key.substring(12).replace('_', '.').toLowerCase();
+                if (System.getProperty(key) == null) {
+                    System.setProperty(key, val);
+                }
+            }
+        });
+        
+        DockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder().build();
+        client = DockerClientBuilder.createClientBuilder(config).build();
+    }
+    
+    public DockerManager(DockerClientConfig config) {
+        client = DockerClientBuilder.createClientBuilder(config).build();
+    }
+    
 	public DockerClient getDockerClient() {
 		return client;
 	}
 
 	public DockerManager pullImage(String imgName) throws TimeoutException {
 		PullImageResultCallback callback = new PullImageResultCallback() {
-
 			@Override
 			public void onNext(PullResponseItem item) {
 				ProgressDetail detail = item.getProgressDetail();
@@ -65,7 +86,36 @@ public class DockerManager {
 			}
 		};
 		try {
-			if (!client.pullImageCmd(imgName).exec(callback).awaitCompletion(10, TimeUnit.MINUTES)) {
+			PullImageCmd pullCmd = client.pullImageCmd(imgName);
+            AuthConfig authConfig = pullCmd.getAuthConfig();
+			
+            // export DOCKER_JAVA_REGISTRY_USERNAME=yourname
+            // export DOCKER_JAVA_REGISTRY_PASSWORD=yourpass
+            
+			if (authConfig != null) {
+			    
+			    // Optional first token is the registry
+	            String[] toks = imgName.split("/");
+	            String imgRegistry = toks.length > 2 ? toks[0] : null;
+	            
+			    // Using auth config with no credetials on registry mismatch
+	            String authRegistry = authConfig.getRegistryAddress();
+	            if (imgRegistry != null && !authRegistry.contains(imgRegistry)) {
+	                authConfig = new AuthConfig().withRegistryAddress(authRegistry);
+	                pullCmd.withAuthConfig(authConfig);
+	            }
+	            
+	            String username = authConfig.getUsername();
+	            String password = authConfig.getPassword();
+	            password = password != null ? "*******" : null;
+	            LOG.info("Pull {}/{} {} {}", username, password, authRegistry, imgName);
+	            
+			} else {
+			    
+                LOG.info("Pull unauthorized {}", imgName);
+			}
+            
+            if (!pullCmd.exec(callback).awaitCompletion(10, TimeUnit.MINUTES)) {
 				throw new TimeoutException("Timeout pulling: " + imgName);
 			}
 		} catch (InterruptedException ex) {
