@@ -46,6 +46,7 @@ import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
@@ -56,6 +57,7 @@ import org.wildfly.extension.camel.CamelAware;
 @CamelAware
 @RunWith(Arquillian.class)
 @ServerSetup({StompIntegrationTest.StompConnectorSetupTask.class})
+@Ignore("[#3039] User name [stomp-user] or password is invalid")
 public class StompIntegrationTest {
 
     private static final String QUEUE_NAME = "wfc";
