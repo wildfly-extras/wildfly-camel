@@ -149,8 +149,13 @@ public class AtomixMapIntegrationTest {
 
     static class AtomixFactory {
 
+        static final Logger LOG = LoggerFactory.getLogger(AtomixFactory.class);
+        
         static Address address(String host) {
-            return new Address(host, AvailablePortFinder.getNextAvailable());
+            int port = AvailablePortFinder.getNextAvailable();
+            Address address = new Address(host, port);
+            LOG.info("Atomix address: {}", address);
+            return address;
         }
 
         static AtomixReplica replica(Address address) {
