@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wildfly.camel.test.zookeepermaster;
+package org.wildfly.camel.test.zookeeper;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -34,6 +34,7 @@ public class CuratorFactoryBean implements FactoryBean<CuratorFramework>, Dispos
 
     private String connectString = "localhost:2181";
     private int timeout = 30000;
+    
     private CuratorFramework curator;
 
     public String getConnectString() {
