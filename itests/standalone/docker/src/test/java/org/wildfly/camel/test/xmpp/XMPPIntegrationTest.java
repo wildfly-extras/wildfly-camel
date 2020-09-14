@@ -22,6 +22,7 @@ package org.wildfly.camel.test.xmpp;
 import java.net.InetAddress;
 import java.security.KeyStore;
 import java.security.SecureRandom;
+import java.util.concurrent.TimeUnit;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -45,37 +46,47 @@ import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.jxmpp.jid.impl.JidCreate;
 import org.wildfly.camel.test.common.utils.AvailablePortFinder;
-import org.wildfly.camel.test.xmpp.subA.EmbeddedXMPPServer;
+import org.wildfly.camel.test.dockerjava.DockerManager;
+
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
-@ServerSetup({XMPPIntegrationTest.ServerSetup.class})
-@Ignore("[#2896] SSLHandshakeException with XMPP [Blocked by CAMEL-13337]")
+@ServerSetup({XMPPIntegrationTest.ContainerSetupTask.class})
 public class XMPPIntegrationTest {
+    private static final String CONTAINER_NAME = "xmpp-server";
 
-    static class ServerSetup implements ServerSetupTask {
+    static class ContainerSetupTask implements ServerSetupTask {
 
-        private EmbeddedXMPPServer server;
+        private DockerManager dockerManager;
 
         @Override
-        public void setup(ManagementClient managementClient, String containerId) throws Exception {
+        public void setup(ManagementClient managementClient, String someId) throws Exception {
             int port = AvailablePortFinder.getNextAvailable();
             AvailablePortFinder.storeServerData("xmpp-port", port);
 
-            server = new EmbeddedXMPPServer(port);
-            server.start();
+            dockerManager = new DockerManager()
+                .createContainer("5mattho/vysper-wrapper:0.4")
+                .withName(CONTAINER_NAME)
+                .withPortBindings(String.format("%d:5222", port))
+                .startContainer();
+
+            dockerManager
+                .withAwaitLogMessage("Started Application in")
+                .awaitCompletion(60, TimeUnit.SECONDS);
+
+            // Wait still a little longer
+            Thread.sleep(1000);
         }
 
         @Override
-        public void tearDown(ManagementClient managementClient, String containerId) throws Exception {
-            if (server != null) {
-                server.stop();
+        public void tearDown(ManagementClient managementClient, String someId) throws Exception {
+            if (dockerManager != null) {
+                dockerManager.removeContainer();
             }
         }
     }
@@ -86,14 +97,14 @@ public class XMPPIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-xmpp-tests.jar")
-            .addClasses(EmbeddedXMPPServer.class, AvailablePortFinder.class)
-            .addAsResource("xmpp/server.jks", "server.jks");
+            .addClasses(AvailablePortFinder.class)
+            .addAsResource("xmpp/server.cert", "server.cert");
     }
 
     @Before
     public void setUp() throws Exception {
         KeyStore keyStore = KeyStore.getInstance("JKS");
-        keyStore.load(XMPPIntegrationTest.class.getResourceAsStream("/server.jks"), "secret".toCharArray());
+        keyStore.load(XMPPIntegrationTest.class.getResourceAsStream("/server.cert"), "boguspw".toCharArray());
 
         TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
         trustManagerFactory.init(keyStore);
@@ -101,8 +112,8 @@ public class XMPPIntegrationTest {
         SSLContext sslContext = SSLContext.getInstance("TLS");
         sslContext.init(null, trustManagerFactory.getTrustManagers(), new SecureRandom());
 
-        String port = AvailablePortFinder.readServerData("xmpp-port");
 
+        final String port = AvailablePortFinder.readServerData("xmpp-port");
         ConnectionConfiguration connectionConfig = XMPPTCPConnectionConfiguration.builder()
             .setXmppDomain(JidCreate.domainBareFrom("apache.camel"))
             .setHostAddress(InetAddress.getLocalHost())
@@ -130,11 +141,12 @@ public class XMPPIntegrationTest {
         String consumerURI = "xmpp://localhost:%s/consumer@wildfly.camel?connectionConfig=#customConnectionConfig&room=camel-test-consumer@conference.apache.camel&user=consumer&password=secret&serviceName=apache.camel";
 
         CamelContext camelctx = new DefaultCamelContext();
+        camelctx.getRegistry().bind("customConnectionConfig",context.lookup("customConnectionConfig"));
         camelctx.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 fromF(consumerURI, port)
-                .to("mock:result");
+                    .to("mock:result");
             }
         });
 
