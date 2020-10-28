@@ -85,8 +85,6 @@ The Camel RouteBuilder looks like this.
 
 [source,java,options="nowrap"]
 @ApplicationScoped
-@ContextName("camel-sap-cdi-context")
-@Startup
 public class SAPRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {

@@ -38,9 +38,7 @@ Next a timer endpoint runs every 10 seconds to send an XML payload to the WildFl
 
 [source,java,options="nowrap"]
 ----
-@Startup
 @ApplicationScoped
-@ContextName("jms-camel-context")
 public class JmsRouteBuilder extends RouteBuilder {
 
   @Resource(mappedName = "java:jboss/DefaultJMSConnectionFactory")
@@ -130,9 +128,7 @@ In this example RouteBuilder, whenever any messages are consumed from queue1, th
 
 [source,java,options="nowrap"]
 ----
-@Startup
 @ApplicationScoped
-@ContextName("jms-camel-context")
 public class JMSRouteBuilder extends RouteBuilder {
 
   @Resource(mappedName = "java:/JmsXA")

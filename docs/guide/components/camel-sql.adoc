@@ -39,8 +39,6 @@ Now the datasource can be referenced through the `dataSource` parameter on the c
 
 [source,java,options="nowrap"]
 @ApplicationScoped
-@ContextName("camel-sql-cdi-context")
-@Startup
 public class CdiRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {

@@ -8,6 +8,6 @@ by all EAR sub-deployments.
 This results in the 'Auto-configured' CDI Camel Context using the EAR deployment ClassLoader to dynamically load classes and resources.
 By default, this ClassLoader does not have access to resources within EAR sub-deployments.
 
-For EAR deployments, it is recommended that usage of the 'Auto-configured' CDI Camel Context is avoided and that `RouteBuilder` classes are annotated with `@ContextName`,
-or that a `CamelContext` is created via the `@ImportResource` annotation or through CDI producer methods and fields. This helps {wildfly-camel} to determine the correct
-ClassLoader to use with Camel.
+For EAR deployments, it is recommended that usage of the 'Auto-configured' CDI Camel Context is avoided and that `RouteBuilder` classes are annotated with one of 
+the Camel subsystem link:index.html#_enable_camel_subsystem[activation annotations]. Or that a `CamelContext` is created via the `@ImportResource` annotation or through CDI producer methods and fields. 
+This helps {wildfly-camel} to determine the correct ClassLoader to use with Camel.

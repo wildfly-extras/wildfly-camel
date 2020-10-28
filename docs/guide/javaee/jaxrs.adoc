@@ -66,9 +66,7 @@ The Camel REST DSL gives the capability to write Camel routes that act as JAX-RS
 
 [source,java,options="nowrap"]
 ----
-@Startup
 @ApplicationScoped
-@ContextName("rest-camel-context")
 public class RestConsumerRouteBuilder extends RouteBuilder {
   @Override
   public void configure() throws Exception {

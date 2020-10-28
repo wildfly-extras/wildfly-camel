@@ -63,8 +63,8 @@ There are currently four triggers that can be used to enable Camel for a deploym
 
 1. a deployment that contains a *-camel-context.xml descriptor
 2. a deployment that contains a type annotated with `@CamelAware`
-3. a deployment that contains a type annotated with `@ContextName`
-4. a deployment that contains a type annotated with `@ImportResource`
+3. a deployment that contains a type annotated with `@ImportResource`
+4. a deployment that annotates a `RouteBuilder`, `CamelContext` or other Camel API with any combination of `@ApplicationScoped`, `@Inject`, `@Named` or `@Produces`
 
 [discrete]
 ### Docker Image

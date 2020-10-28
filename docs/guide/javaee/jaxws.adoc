@@ -37,9 +37,7 @@ is used to bootstrap the RouteBuilder and CamelContext.
 
 [source,java,options="nowrap"]
 ----
-@Startup
 @ApplicationScoped
-@ContextName("cxf-camel-context")
 public class CxfRouteBuilder extends RouteBuilder {
 
     @Override

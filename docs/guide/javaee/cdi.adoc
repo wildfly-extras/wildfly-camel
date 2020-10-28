@@ -5,13 +5,11 @@ It implements the standard camel bean integration so that you can use the Camel 
 
 For more information about CDI, refer to the http://camel.apache.org/cdi.html[cdi,window=_blank] documentation.
 
-The following example describes how you can consume and assosciate the Camel Context with a route.
+The following example describes how you can consume and associate the Camel Context with a route.
 
 [source,java,options="nowrap"]
 ----
-@Startup
 @ApplicationScoped
-@ContextName("cdi-context")
 public class MyRouteBuilder extends RouteBuilder {
 
     @Override
@@ -25,7 +23,6 @@ public class MyRouteBuilder extends RouteBuilder {
 [source,java,options="nowrap"]
 ----
 @Inject
-@ContextName("cdi-context")
 private CamelContext camelctx;
 
 ----

@@ -89,9 +89,7 @@ The examples use CDI in conjunction with the camel-cdi component. JMS Connection
 
 [source,java,options="nowrap"]
 ----
-@Startup
 @ApplicationScoped
-@ContextName("activemq-camel-context")
 public class ActiveMQRouteBuilder extends RouteBuilder {
 
   @Override
@@ -194,9 +192,7 @@ In this example RouteBuilder, whenever any messages are consumed from queue1, th
 
 [source,java,options="nowrap"]
 ----
-@Startup
 @ApplicationScoped
-@ContextName("activemq-camel-context")
 public class ActiveMQRouteBuilder extends RouteBuilder {
 
   @Resource(mappedName = "java:/ActiveMQConnectionFactory")
