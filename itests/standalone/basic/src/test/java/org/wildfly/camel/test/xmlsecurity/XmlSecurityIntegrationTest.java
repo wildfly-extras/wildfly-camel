@@ -56,8 +56,8 @@ import java.security.SecureRandom;
 @RunWith(Arquillian.class)
 public class XmlSecurityIntegrationTest {
 
-    private static String XML_PAYLOAD = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            + "<root xmlns=\"http://test/test\"><test>Hello Kermit</test></root>";
+    private static String XML_MESSAGE = "<root xmlns=\"http://test/test\"><test>Hello Kermit</test></root>";
+    private static String XML_PAYLOAD = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + XML_MESSAGE;
 
     private KeyPair keyPair;
 
@@ -129,7 +129,7 @@ public class XmlSecurityIntegrationTest {
             String verifiedXml = producer.requestBody("direct:start", XML_PAYLOAD, String.class);
 
             // Make sure the XML was unsigned
-            Assert.assertEquals(XML_PAYLOAD, verifiedXml);
+            Assert.assertTrue(verifiedXml.contains(XML_MESSAGE));
         } finally {
             camelctx.close();
         }

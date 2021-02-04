@@ -6,4 +6,5 @@
 *.iml
 *.log
 target
-id_file
+licenses.xml
+licenses
