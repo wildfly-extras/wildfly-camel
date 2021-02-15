@@ -9,16 +9,16 @@
 
 Provides [Apache Camel](http://camel.apache.org/) integration with the [WildFly Application Server](http://wildfly.org/).
 
-The WildFly-Camel Subsystem allows you to add Camel Routes as part of the WildFly configuration. Routes can be deployed as part of JavaEE applications. JavaEE components can access the Camel Core API and various Camel Component APIs.
+The WildFly-Camel Subsystem allows you to add Camel Routes as part of the WildFly configuration. Routes can be deployed as part of Jarkarta EE applications. Jarkarta EE components can access the Camel Core API and various Camel Component APIs.
 
-Your Enterprise Integration Solution can be architected as a combination of JavaEE and Camel functionality.
+Your Enterprise Integration Solution can be architected as a combination of Jarkarta EE and Camel functionality.
 
 ### Documentation
 
 The docs are generated using [Asciidoctor](http://asciidoctor.org/docs).
 
 * [User Guide](http://wildfly-extras.github.io/wildfly-camel)
-* [JavaEE Integration](http://wildfly-extras.github.io/wildfly-camel/#_javaee_integration)
+* [Jarkarta EE Integration](http://wildfly-extras.github.io/wildfly-camel/#_jarkartaee_integration)
 * [Camel Components](http://wildfly-extras.github.io/wildfly-camel/#_camel_components)
 
 To generate an update of the docs use:
@@ -54,7 +54,7 @@ The default build is straight forward
 $ mvn clean install
 ```
 
-The extended build includes the set of JavaEE integration examples
+The extended build includes the set of Jarkarta EE integration examples
 
 ```
 $ mvn clean install -Dts.all

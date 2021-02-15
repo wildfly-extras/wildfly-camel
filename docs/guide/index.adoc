@@ -19,9 +19,9 @@ Thomas Diesler;James Netherton
 
 Provides http://camel.apache.org[Apache Camel,window=_blank] integration with the http://wildfly.org[WildFly Application Server,window=_blank].
 
-The {wildfly-camel} subsystem allows you to add Camel Routes as part of the WildFly configuration. Routes can be deployed as part of JavaEE applications. JavaEE components can access the Camel Core API and various Camel Component APIs.
+The {wildfly-camel} subsystem allows you to add Camel Routes as part of the WildFly configuration. Routes can be deployed as part of Jarkarta EE applications. Jarkarta EE components can access the Camel Core API and various Camel Component APIs.
 
-Your Enterprise Integration Solution can be architected as a combination of JavaEE and Camel functionality.
+Your Enterprise Integration Solution can be architected as a combination of Jarkarta EE and Camel functionality.
 
 include::start/index.adoc[]
 
@@ -31,7 +31,7 @@ include::features/index.adoc[]
 
 include::config/index.adoc[]
 
-include::javaee/index.adoc[]
+include::jarkartaee/index.adoc[]
 
 include::components/index.adoc[]
 

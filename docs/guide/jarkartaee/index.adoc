@@ -1,6 +1,6 @@
-## JavaEE Integration
+## Jarkarta EE Integration
 
-This chapter provides the necessary information about the integration points with JavaEE.
+This chapter provides the necessary information about the integration points with Jarkarta EE.
 
 include::cdi.adoc[]
 

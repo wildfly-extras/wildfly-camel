@@ -18,7 +18,7 @@ camelctx.addRoutes(new RouteBuilder() {
 The JNDI datasource lookup shown above works only when configuring a `DefaultCamelContext`. See below for `CdiCamelContext` and `SpringCamelContext` examples.
 ====
 
-When used in conjunction with the link:index.html#_camel_cdi[camel-cdi] component, Java EE annotations can make a datasource available to Camel.
+When used in conjunction with the link:index.html#_camel_cdi[camel-cdi] component, Jarkarta EE annotations can make a datasource available to Camel.
 This example uses the `@Named` annotation so that Camel can discover the desired datasource.
 
 [source,java,options="nowrap"]
