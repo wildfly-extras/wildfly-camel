@@ -6,5 +6,11 @@
   <resources>
     <artifact name="${org.objenesis:objenesis}" />
   </resources>
-  <dependencies />
+  <dependencies>
+    <system export="true">
+      <paths>
+        <path name="sun/reflect" />
+      </paths>
+    </system>
+  </dependencies>
 </module>

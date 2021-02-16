@@ -133,7 +133,6 @@
 /com/squareup/retrofit2/fuse/converter-jackson-2.5.0.jar
 /com/squareup/retrofit2/fuse/converter-moshi-2.8.1.jar
 /com/squareup/retrofit2/fuse/retrofit-2.5.0.jar
-/com/sun/javax/activation/main/javax.activation-1.2.0.jar
 /com/sun/jersey/core/main/jersey-core-1.19.jar
 /com/sun/jersey/core/main/jersey-json-1.19.jar
 /com/thoughtworks/xstream/main/xstream-1.4.11.1.jar
@@ -214,6 +213,7 @@
 /javax/cache/api/main/cache-api-1.0.0.jar
 /javax/jcr/main/jcr-2.0.jar
 /javax/measure/api/main/unit-api-1.0.jar
+/net/bytebuddy/fuse/byte-buddy-1.9.10.jar
 /net/i2p/crypto/main/eddsa-0.3.0.jar
 /net/java/dev/msv/main/isorelax-20090621.jar
 /net/java/dev/msv/main/isorelax-jaxp-bridge-ILM-1.1.jar
@@ -870,6 +870,7 @@
 /org/latencyutils/main/LatencyUtils-2.0.3.jar
 /org/lz4/main/lz4-java-1.7.1.jar
 /org/minidns/minidns/main/minidns-core-0.3.4.jar
+/org/mockito/main/mockito-core-3.3.3.jar
 /org/mongodb/main/bson-4.0.4.jar
 /org/mongodb/main/mongodb-driver-core-4.0.4.jar
 /org/mongodb/main/mongodb-driver-sync-4.0.4.jar

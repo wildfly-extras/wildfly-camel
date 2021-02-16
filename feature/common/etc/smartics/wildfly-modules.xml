@@ -65,6 +65,8 @@
 
     <module name="javax.activation.api" skip="true">
         <include artifact=":activation" />
+        <include artifact=":javax.activation" />
+        <include artifact=":javax.activation-api" />
         <include artifact=":jakarta.activation" />
         <include artifact=":jakarta.activation-api" />
         <include artifact=":geronimo-activation_1.1_spec" />
@@ -139,9 +141,22 @@
         <include artifact="com.sun.mail:jakarta.mail" />
     </module>
 
+    <module name="javax.orb.api" skip="true">
+        <include artifact=":openjdk-orb" />
+        <include artifact=":jacorb-omgapi" />
+    </module>
+
     <module name="javax.persistence.api" skip="true">
         <include artifact=":persistence-api" />
         <include artifact=":geronimo-jpa_2.1_spec" />
+    </module>
+
+    <module name="javax.rmi.api" skip="true">
+        <include artifact=":jboss-rmi-api_1.0_spec" />
+    </module>
+    
+    <module name="javax.security.auth.message.api" skip="true">
+        <include artifact=":jboss-jaspi-api_1.1_spec" />
     </module>
 
     <module name="javax.security.jacc.api" skip="true">
@@ -205,6 +220,12 @@
         <include artifact=":jboss-jaxb-api_2.3_spec" />
     </module>
 
+    <module name="javax.xml.soap.api" skip="true">
+        <include artifact=":jboss-saaj-api_1.3_spec" />
+        <include artifact=":jboss-saaj-api_1.4_spec" />
+        <include artifact=":javax.xml.soap-api" />
+    </module>
+
     <module name="javax.xml.stream.api" skip="true">
         <include artifact=":geronimo-stax-api_1.0_spec" />
         <include artifact=":stax-api" />
@@ -214,12 +235,15 @@
     <module name="javax.xml.ws.api" skip="true">
         <include artifact=":org.apache.servicemix.specs.jaxws-api-2.2" />
         <include artifact=":jboss-jaxws-api_2.2_spec" />
+        <include artifact=":jaxws-api" />
+        <include artifact=":geronimo-ws-metadata_2.0_spec" />
     </module>
 
     <module name="org.apache.cxf" skip="true">
         <include artifact=":cxf-api" />
         <include artifact=":cxf-core" />
         <include artifact=":cxf-rt-features-logging"/>
+        <include artifact="com.sun.xml.messaging.saaj:saaj-impl"/>
     </module>
 
     <module name="org.apache.cxf.impl" skip="true">

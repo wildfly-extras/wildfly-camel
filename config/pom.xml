@@ -134,18 +134,18 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <tasks>
+                    <target>
                         <echo>${basedir}/../pom.xml</echo>
                         <echo>${maven.dependency.org.apache.camel.camel-parent.pom.path}</echo>
                         <echo>${maven.dependency.org.wildfly.wildfly-parent.pom.path}</echo>
                         <propertyfile file="target/pom-paths.txt">
                             <entry key="wildfly-camel" value="${basedir}/../pom.xml" />
-                            <entry key="camel-parent" value="${maven.dependency.org.apache.camel.camel-parent.pom.path}" />
-                            <entry key="wildfly-parent" value="${maven.dependency.org.wildfly.wildfly-parent.pom.path}" />
+                            <entry key="camel-parent" value="${org.apache.camel:camel-parent:pom}" />
+                            <entry key="wildfly-parent" value="${org.wildfly:wildfly-parent:pom}" />
                         </propertyfile>
                         <copy file="${project.build.directory}/${jboss.server.name}/standalone/configuration/standalone.xml" todir="${project.build.testOutputDirectory}" overwrite="true" />
                         <copy file="${project.build.directory}/${jboss.server.name}/domain/configuration/domain.xml" todir="${project.build.testOutputDirectory}" overwrite="true" />
-                    </tasks>
+                    </target>
                 </configuration>
             </plugin>
         </plugins>

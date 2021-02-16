@@ -11,7 +11,7 @@
   <dependencies>
     <module name="javax.api" />
     <module name="io.netty" slot="fuse" />
-    <module name="com.sun.javax.activation" />
+    <module name="javax.activation.api" />
     <module name="org.reactivestreams" slot="fuse" />
     <module name="org.slf4j" />
   </dependencies>

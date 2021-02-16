@@ -29,6 +29,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -62,6 +63,7 @@ import org.apache.camel.support.DefaultMessage;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Before;
@@ -109,6 +111,7 @@ import org.openstack4j.model.storage.block.builder.VolumeBuilder;
 import org.openstack4j.model.storage.object.options.CreateUpdateContainerOptions;
 import org.openstack4j.openstack.compute.domain.NovaKeypair;
 import org.openstack4j.openstack.image.domain.GlanceImage;
+import org.wildfly.camel.test.common.utils.ManifestBuilder;
 import org.wildfly.extension.camel.CamelAware;
 
 import net.bytebuddy.ByteBuddy;
@@ -170,7 +173,14 @@ public class OpenstackIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "camel-openstack-tests.jar");
-        archive.addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage(), ByteBuddy.class.getPackage());
+        archive.setManifest(new Asset() {
+            @Override
+            public InputStream openStream() {
+                ManifestBuilder builder = new ManifestBuilder();
+                builder.addManifestHeader("Dependencies", "org.mockito");
+                return builder.openStream();
+            }
+        });
         return archive;
     }
 

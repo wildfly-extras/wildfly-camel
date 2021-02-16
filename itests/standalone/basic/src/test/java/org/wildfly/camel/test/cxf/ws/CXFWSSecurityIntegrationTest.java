@@ -19,6 +19,7 @@
  */
 package org.wildfly.camel.test.cxf.ws;
 
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -34,12 +35,14 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.arquillian.api.ServerSetup;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.camel.test.common.types.Endpoint;
+import org.wildfly.camel.test.common.utils.ManifestBuilder;
 import org.wildfly.camel.test.cxf.ws.subA.POJOEndpointAuthorizationInterceptor;
 import org.wildfly.camel.test.cxf.ws.subA.UsernameTokenEndpointImpl;
 
@@ -57,16 +60,21 @@ public class CXFWSSecurityIntegrationTest {
     public static Archive<?> deployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, APP_NAME + ".war")
                 .addClasses(Endpoint.class, UsernameTokenEndpointImpl.class, POJOEndpointAuthorizationInterceptor.class)
-                .addAsWebInfResource("cxf/ws-security/EndpointService-with-username-token-policy.wsdl",
-                        "EndpointService.wsdl")
-                .addAsManifestResource(new StringAsset("Dependencies: org.apache.cxf\n"), "MANIFEST.MF")
+                .addAsWebInfResource("cxf/ws-security/EndpointService-with-username-token-policy.wsdl", "EndpointService.wsdl")
                 .addAsWebInfResource("cxf/ws-security/jaxws-endpoint-config.xml", "jaxws-endpoint-config.xml")
-                .addAsWebInfResource(
-                        new StringAsset(
-                                "<jboss-web><security-domain>cxf-security-domain</security-domain></jboss-web>"),
+                .addAsWebInfResource(new StringAsset(
+                        "<jboss-web><security-domain>cxf-security-domain</security-domain></jboss-web>"),
                         "jboss-web.xml")
                 .addAsResource("cxf/secure/cxf-roles.properties", "cxf-roles.properties")
-                .addAsResource("cxf/secure/cxf-users.properties", "cxf-users.properties");
+                .addAsResource("cxf/secure/cxf-users.properties", "cxf-users.properties")
+        		.setManifest(new Asset() {
+		            @Override
+		            public InputStream openStream() {
+		                ManifestBuilder builder = new ManifestBuilder();
+		                builder.addManifestHeader("Dependencies", "org.apache.cxf");
+		                return builder.openStream();
+		            }
+		        });
         return archive;
     }
 

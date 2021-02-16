@@ -629,10 +629,6 @@
         <include artifact="org.mnode:mnode-tools" />
     </module>
 
-    <module name="org.mockito" skip="true">
-        <include artifact="org.mockito:(.*)" />
-    </module>
-
     <module name="org.mortbay.jetty" skip="true">
         <include artifact="org.mortbay.jetty:(.*)" />
     </module>

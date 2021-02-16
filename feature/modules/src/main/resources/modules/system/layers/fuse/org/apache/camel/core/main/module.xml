@@ -47,7 +47,6 @@
     <module name="org.apache.camel.component.caffeine" services="import" />
     <module name="org.slf4j" />
     <module name="sun.jdk" />
-    <module name="com.sun.javax.activation" />
     <module name="org.apache.camel.component.cluster" />
   </dependencies>
 </module>

@@ -8,6 +8,8 @@
   </resources>
   <dependencies>
     <module name="com.fasterxml.woodstox" />
+    <module name="com.sun.xml.bind" />
+    <module name="javax.xml.bind.api" />
     <module name="org.apache.commons.codec" slot="fuse" />
     <module name="org.slf4j" />
   </dependencies>

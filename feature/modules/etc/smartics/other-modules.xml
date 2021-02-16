@@ -905,13 +905,6 @@
         </apply-to-dependencies>
     </module>
 
-    <module name="com.sun.javax.activation">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="com.sun.activation:javax.activation" />
-    </module>
-
     <module name="com.thoughtworks.xstream">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1194,6 +1187,16 @@
         <include artifact="javax.measure:unit-api" />
     </module>
 
+    <module name="net.bytebuddy" inherit-slot="false" slot="fuse">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="net.bytebuddy:byte-buddy" />
+        <apply-to-dependencies skip="true">
+            <include module="com.google.code.findbugs" />
+        </apply-to-dependencies>
+    </module>
+
     <module name="net.i2p.crypto">
         <properties>
             <property name="jboss.api" value="private"/>
@@ -1235,6 +1238,30 @@
         </apply-to-dependencies>
         <dependencies>
             <module name="javax.transaction.api" />
+        </dependencies>
+    </module>
+
+    <module name="net.sf.saxon">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="net.sf.saxon:Saxon-HE" />
+        <dependencies>
+            <module name="javax.api" />
+        </dependencies>
+        <exports>
+            <exclude path="net/sf" />
+            <exclude path="w3c**" />
+        </exports>
+    </module>
+
+    <module name="net.spy.spymemcached">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="net.spy:spymemcached"/>
+        <dependencies>
+            <module name="javax.api"/>
         </dependencies>
     </module>
 
@@ -1347,7 +1374,6 @@
         </properties>
         <include artifact=":commons-compress" />
         <apply-to-dependencies skip="true">
-            <include module="org.objenesis" />
             <include module="org.osgi.core" />
         </apply-to-dependencies>
     </module>
@@ -2223,6 +2249,16 @@
         <include artifact="org.minidns:minidns-core" />
     </module>
 
+    <module name="org.mockito">
+        <properties>
+            <property name="jboss.api" value="private"/>
+        </properties>
+        <include artifact="org.mockito:mockito-core" />
+        <dependencies>
+            <module name="net.bytebuddy" slot="fuse"/>
+        </dependencies>
+    </module>
+
     <module name="org.mongodb">
         <include artifact="org.mongodb:bson" />
         <include artifact="org.mongodb:mongodb-driver-core" />
@@ -2249,6 +2285,13 @@
             <property name="jboss.api" value="private"/>
         </properties>
         <include artifact="org.objenesis:objenesis" />
+		<dependencies>
+            <system export="true">
+                <paths>
+                    <path name="sun/reflect"/>
+                </paths>
+            </system>
+        </dependencies>        
     </module>
 
     <module name="org.opengis.geoapi">
@@ -2351,30 +2394,6 @@
         <apply-to-dependencies skip="true">
             <include module="org.osgi.core" />
         </apply-to-dependencies>
-    </module>
-
-    <module name="net.sf.saxon">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="net.sf.saxon:Saxon-HE" />
-        <dependencies>
-            <module name="javax.api" />
-        </dependencies>
-        <exports>
-            <exclude path="net/sf" />
-            <exclude path="w3c**" />
-        </exports>
-    </module>
-
-    <module name="net.spy.spymemcached">
-        <properties>
-            <property name="jboss.api" value="private"/>
-        </properties>
-        <include artifact="net.spy:spymemcached"/>
-        <dependencies>
-            <module name="javax.api"/>
-        </dependencies>
     </module>
 
     <module name="xmlpull">

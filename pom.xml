@@ -105,29 +105,33 @@
         <version.osgi>5.0.0</version.osgi>
         <version.redis.embedded>0.6</version.redis.embedded>
 
-        <!-- Plugin versions -->
+        <!-- 
+        	Plugin versions
+        	
+        	mvn versions:display-plugin-updates 
+        -->
         <version-asciidoctor-maven-plugin>1.5.7.1</version-asciidoctor-maven-plugin>
         <version-docker-maven-plugin>0.20.1</version-docker-maven-plugin>
         <version-exec-maven-plugin>1.6.0</version-exec-maven-plugin>
         <version-galleon-maven-plugin>4.2.5.Final</version-galleon-maven-plugin>
         <version-groovy-maven-plugin>2.1</version-groovy-maven-plugin>
-        <version-maven-antrun-plugin>1.8</version-maven-antrun-plugin>
+        <version-maven-antrun-plugin>3.0.0</version-maven-antrun-plugin>
         <version-maven-archetype-plugin>3.0.1</version-maven-archetype-plugin>
-        <version-maven-assembly-plugin>3.1.0</version-maven-assembly-plugin>
+        <version-maven-assembly-plugin>3.3.0</version-maven-assembly-plugin>
         <version-maven-clean-plugin>3.1.0</version-maven-clean-plugin>
-        <version-maven-compiler-plugin>3.8.0</version-maven-compiler-plugin>
-        <version-maven-dependency-plugin>3.1.1</version-maven-dependency-plugin>
+        <version-maven-compiler-plugin>3.8.1</version-maven-compiler-plugin>
+        <version-maven-dependency-plugin>3.1.2</version-maven-dependency-plugin>
         <version-maven-deploy-plugin>3.0.0-M1</version-maven-deploy-plugin>
-        <version-maven-enforcer-plugin>3.0.0-M2</version-maven-enforcer-plugin>
+        <version-maven-enforcer-plugin>3.0.0-M3</version-maven-enforcer-plugin>
         <version-maven-install-plugin>3.0.0-M1</version-maven-install-plugin>
-        <version-maven-jar-plugin>3.1.0</version-maven-jar-plugin>
-        <version-maven-javadoc-plugin>3.0.1</version-maven-javadoc-plugin>
-        <version-maven-release-plugin>2.5.3</version-maven-release-plugin>
-        <version-maven-resources-plugin>3.1.0</version-maven-resources-plugin>
-        <version-maven-site-plugin>3.7.1</version-maven-site-plugin>
-        <version-maven-source-plugin>3.0.1</version-maven-source-plugin>
-        <version-maven-surefire-plugin>3.0.0-M3</version-maven-surefire-plugin>
-        <version-maven-war-plugin>3.2.2</version-maven-war-plugin>
+        <version-maven-jar-plugin>3.2.0</version-maven-jar-plugin>
+        <version-maven-javadoc-plugin>3.2.0</version-maven-javadoc-plugin>
+        <version-maven-release-plugin>3.0.0-M1</version-maven-release-plugin>
+        <version-maven-resources-plugin>3.2.0</version-maven-resources-plugin>
+        <version-maven-site-plugin>3.9.1</version-maven-site-plugin>
+        <version-maven-source-plugin>3.2.0</version-maven-source-plugin>
+        <version-maven-surefire-plugin>3.0.0-M5</version-maven-surefire-plugin>
+        <version-maven-war-plugin>3.3.1</version-maven-war-plugin>
         <version-properties-maven-plugin>1.0.0</version-properties-maven-plugin>
         <version-shrinkwrap-resolver-maven-plugin>3.0.0-alpha-4</version-shrinkwrap-resolver-maven-plugin>
         <version-smartics-maven-plugin>2.1.5</version-smartics-maven-plugin>
@@ -208,6 +212,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${version-maven-compiler-plugin}</version>
                     <configuration>
+                    	<release>11</release>
                         <source>1.8</source>
                         <target>1.8</target>
                     </configuration>
@@ -280,6 +285,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${version-maven-surefire-plugin}</version>
                     <configuration>
+                    	<argLine>--illegal-access=permit</argLine>
                         <failIfNoTests>false</failIfNoTests>
                     </configuration>
                 </plugin>

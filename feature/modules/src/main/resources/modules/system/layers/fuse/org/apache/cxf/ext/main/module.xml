@@ -20,7 +20,12 @@
     <module name="org.codehaus.jettison" slot="fuse" />
     <module name="org.springframework.beans" />
     <module name="org.springframework.context" />
+    <module name="javax.activation.api" />
     <module name="javax.annotation.api" />
+    <module name="javax.orb.api" />
+    <module name="javax.rmi.api" />
+    <module name="javax.transaction.api" />
+    <module name="javax.xml.ws.api" />
     <module name="org.apache.cxf" />
     <module name="org.apache.cxf.impl" />
   </dependencies>

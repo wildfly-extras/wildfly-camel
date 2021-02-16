@@ -16,6 +16,7 @@
  */
 package org.wildfly.camel.test.google.bigquery;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,7 @@ import org.apache.camel.support.DefaultExchange;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Before;
@@ -41,6 +43,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.objenesis.Objenesis;
+import org.wildfly.camel.test.common.utils.ManifestBuilder;
 import org.wildfly.extension.camel.CamelAware;
 
 import com.google.api.services.bigquery.Bigquery;
@@ -65,7 +68,14 @@ public class GoogleBigQueryIntegrationTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "camel-google-bigquery-tests.jar")
-            .addPackages(true, Mockito.class.getPackage(), Objenesis.class.getPackage(), ByteBuddy.class.getPackage());
+            .setManifest(new Asset() {
+                @Override
+                public InputStream openStream() {
+                    ManifestBuilder builder = new ManifestBuilder();
+                    builder.addManifestHeader("Dependencies", "org.mockito");
+                    return builder.openStream();
+                }
+            });
     }
 
     @Before

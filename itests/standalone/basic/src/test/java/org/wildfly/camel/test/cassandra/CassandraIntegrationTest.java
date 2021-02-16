@@ -19,6 +19,7 @@
  */
 package org.wildfly.camel.test.cassandra;
 
+import java.net.URL;
 import java.util.List;
 
 import org.apache.camel.CamelContext;
@@ -37,12 +38,14 @@ import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.wildfly.extension.camel.CamelAware;
 
 @CamelAware
 @RunWith(Arquillian.class)
+@Ignore("[#3048] EmbeddedCassandraServer fails to start on Java11")
 @ServerSetup({ CassandraIntegrationTest.CassandraServerSetup.class })
 public class CassandraIntegrationTest {
 

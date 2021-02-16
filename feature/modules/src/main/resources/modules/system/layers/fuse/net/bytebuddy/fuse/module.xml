@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="urn:jboss:module:1.1" name="com.sun.javax.activation">
+<module xmlns="urn:jboss:module:1.1" name="net.bytebuddy" slot="fuse">
   <properties>
     <property name="jboss.api" value="private" />
   </properties>
   <resources>
-    <artifact name="${com.sun.activation:javax.activation}" />
+    <artifact name="${net.bytebuddy:byte-buddy}" />
   </resources>
   <dependencies />
 </module>

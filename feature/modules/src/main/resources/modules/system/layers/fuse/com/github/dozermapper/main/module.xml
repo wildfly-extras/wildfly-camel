@@ -12,6 +12,7 @@
     <module name="javax.xml.bind.api" />
     <module name="org.glassfish.javax.el" />
     <module name="org.apache.camel.component.dozer" />
+    <module name="com.sun.xml.bind" />
     <module name="org.apache.commons.beanutils" slot="fuse" />
     <module name="org.apache.commons.io" slot="fuse" />
     <module name="org.apache.commons.lang3" slot="fuse" />

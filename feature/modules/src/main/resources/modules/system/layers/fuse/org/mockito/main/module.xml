@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="org.mockito">
+  <properties>
+    <property name="jboss.api" value="private" />
+  </properties>
+  <resources>
+    <artifact name="${org.mockito:mockito-core}" />
+  </resources>
+  <dependencies>
+    <module name="net.bytebuddy" slot="fuse" />
+    <module name="org.objenesis" />
+  </dependencies>
+</module>

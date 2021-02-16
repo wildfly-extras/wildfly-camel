@@ -14,6 +14,8 @@
   </resources>
   <dependencies>
     <module name="javax.api" />
+    <module name="javax.activation.api" />
+    <module name="javax.xml.bind.api" />
     <module name="org.apache.commons.logging" slot="fuse" />
   </dependencies>
 </module>

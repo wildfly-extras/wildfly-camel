@@ -225,8 +225,10 @@ def allowedDuplicateArtifacts = [
     "org.yaml:snakeyaml"
 ] as Set
 def allowedOrphanArtifacts = [
+	"net.bytebuddy",
     "org.apache.olingo4.server",
     "org.fusesource.camel.component.sap",
+	"org.mockito",
 	"com.sap.conn.jco"
 ] as Set
 
