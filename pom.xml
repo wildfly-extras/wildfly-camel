@@ -163,6 +163,7 @@
         <module>catalog</module>
         <module>testenricher</module>
         <module>itests</module>
+        <module>patch</module>
     </modules>
 
     <!-- Build -->
@@ -490,7 +491,6 @@
             </activation>
             <modules>
                 <module>docker</module>
-                <module>patch</module>
             </modules>
         </profile>
         <profile>
@@ -533,7 +533,6 @@
             <modules>
                 <module>archetypes</module>
                 <module>docs</module>
-                <module>patch</module>
             </modules>
         </profile>
     </profiles>
