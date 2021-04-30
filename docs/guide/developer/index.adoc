@@ -11,9 +11,9 @@ https://github.com/wildfly-extras/wildfly-camel
 https://github.com/wildfly-extras/wildfly-camel/issues
 
 [discrete]
-### Jenkins
+### CI Build
 
-https://ci.fabric8.io/job/wildfly-camel
+https://github.com/wildfly-extras/wildfly-camel/actions
 
 [discrete]
 ### Downloads
